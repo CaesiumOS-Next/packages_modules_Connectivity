@@ -168,14 +168,13 @@ public class MulticastRoutingCoordinatorService {
     public void applyMulticastRoutingConfig(
             final String iifName, final String oifName, final MulticastRoutingConfig newConfig) {
         checkOnHandlerThread();
+        Objects.requireNonNull(iifName, "IifName can't be null");
+        Objects.requireNonNull(oifName, "OifName can't be null");
 
         if (newConfig.getForwardingMode() != FORWARD_NONE) {
             // Make sure iif and oif are added as multicast forwarding interfaces
-            try {
-                maybeAddAndTrackInterface(iifName);
-                maybeAddAndTrackInterface(oifName);
-            } catch (IllegalStateException e) {
-                Log.e(TAG, "Failed to apply multicast routing config, ", e);
+            if (!maybeAddAndTrackInterface(iifName) || !maybeAddAndTrackInterface(oifName)) {
+                Log.e(TAG, "Failed to apply multicast routing config.");
                 return;
             }
         }
@@ -260,7 +259,8 @@ public class MulticastRoutingCoordinatorService {
 
     private int getNextAvailableVirtualIndex() {
         if (mVirtualInterfaces.size() >= MAX_NUM_OF_MULTICAST_VIRTUAL_INTERFACES) {
-            throw new IllegalStateException("Can't allocate new multicast virtual interface");
+            Log.e(TAG, "Can't allocate new multicast virtual interface");
+            return -1;
         }
         for (int i = 0; i < mVirtualInterfaces.size(); i++) {
             if (!mVirtualInterfaces.contains(i)) {
@@ -291,12 +291,21 @@ public class MulticastRoutingCoordinatorService {
         return mVirtualInterfaces.get(virtualIndex);
     }
 
-    private void maybeAddAndTrackInterface(String ifName) {
+    /** Returns {@code true} if the interfaces is added and tracked, or {@code false} when failed
+     *  to add the interface. */
+    private boolean maybeAddAndTrackInterface(String ifName) {
         checkOnHandlerThread();
-        if (getIndexForValue(mVirtualInterfaces, ifName) >= 0) return;
+        if (getIndexForValue(mVirtualInterfaces, ifName) >= 0) return true;
 
         int nextVirtualIndex = getNextAvailableVirtualIndex();
-        int ifIndex = mDependencies.getInterfaceIndex(ifName);
+        if (nextVirtualIndex < 0) {
+            return false;
+        }
+        Integer ifIndex = mDependencies.getInterfaceIndex(ifName);
+        if (ifIndex == null) {
+            Log.e(TAG, "Can't get interface index for " + ifName);
+            return false;
+        }
         final StructMif6ctl mif6ctl =
                     new StructMif6ctl(
                             nextVirtualIndex,
@@ -309,10 +318,11 @@ public class MulticastRoutingCoordinatorService {
             Log.d(TAG, "Added mifi " + nextVirtualIndex + " to MIF");
         } catch (ErrnoException e) {
             Log.e(TAG, "failed to add multicast virtual interface", e);
-            return;
+            return false;
         }
         mVirtualInterfaces.put(nextVirtualIndex, ifName);
         mInterfaces.put(ifIndex, ifName);
+        return true;
     }
 
     @VisibleForTesting
@@ -798,11 +808,17 @@ public class MulticastRoutingCoordinatorService {
             NetworkUtils.setsockoptBytes(fd, IPPROTO_IPV6, MRT6_DEL_MFC, bytes);
         }
 
+        @Nullable
         public Integer getInterfaceIndex(String ifName) {
             try {
                 NetworkInterface ni = NetworkInterface.getByName(ifName);
+                if (ni == null) {
+                    Log.e(TAG, "Network interface not found: " + ifName);
+                    return null;
+                }
                 return ni.getIndex();
-            } catch (NullPointerException | SocketException e) {
+            } catch (SocketException e) {
+                Log.e(TAG, "Unable to get interface index for " + ifName , e);
                 return null;
             }
         }
