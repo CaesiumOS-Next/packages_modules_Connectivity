@@ -1,0 +1,68 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3c70510_dd11717c",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-20T04:28:58Z",
+      "side": 1,
+      "message": "Stupid question: What is the scenario of using this preparer with ignoreConnectivityCheck?",
+      "range": {
+        "startLine": 85,
+        "startChar": 13,
+        "endLine": 85,
+        "endChar": 36
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a2728b14_9b6dec5f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+              "range": {
+                "startLine": 84,
+                "startChar": 0,
+                "endLine": 90,
+                "endChar": 0
+              },
+              "replacement": "        if (ignoreConnectivityCheck) return\n\n        val testMethods \u003d mutableListOf(\"testCheckWifiSetup\")\n        if (requireMobileData) {\n            testMethods.add(\"testCheckTelephonySetup\")\n"
+            }
+          ]
+        }
+      ],
+      "revId": "7fac85942bc983f20b987ee3a0fad8c6838e9acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974aec31_ea38cc89",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-20T04:28:58Z",
+      "side": 1,
+      "message": "Do we allow requireMobileData \u003d true and ignoreConnectivityCheck \u003d true ?\nIf not, do we want to:\n  1. do sanity check somewhere, or\n  2. add comment, or\n  3. Make the semantic less error-prone?",
+      "range": {
+        "startLine": 87,
+        "startChar": 16,
+        "endLine": 87,
+        "endChar": 33
+      },
+      "revId": "7fac85942bc983f20b987ee3a0fad8c6838e9acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
