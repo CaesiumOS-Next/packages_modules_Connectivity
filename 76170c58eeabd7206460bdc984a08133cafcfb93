@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d89c8e6_f6b832a6",
+        "filename": "staticlibs/testutils/app/connectivitychecker/src/com/android/testutils/connectivitypreparer/ConnectivityCheckTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-20T05:39:27Z",
+      "side": 1,
+      "message": "1. Stupid question: why use hand crafting quic instead of https via urlconnection?\n\n2. Why testCheckTelephonySetup doesn\u0027t need this?",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 17
+      },
+      "revId": "76170c58eeabd7206460bdc984a08133cafcfb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
