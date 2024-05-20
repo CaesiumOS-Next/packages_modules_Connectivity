@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1630bfa2_8969b08f",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-20T05:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7bc8602_02055ae7",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 261,
+        "endChar": 52
+      },
+      "revId": "e9547832dbdb3afbc26dfc3567ba788aa4bb1efd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "caaf2fbb_685e250c",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb241787_0079794d",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-20T05:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caaf2fbb_685e250c",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 297,
+        "endChar": 32
+      },
+      "revId": "e9547832dbdb3afbc26dfc3567ba788aa4bb1efd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5ad0022_984d7fd1",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-05-20T05:08:16Z",
       "side": 1,
       "message": "`getNextAvailableVirtualIndex` returns `-1` for failure, while this method returns `null`. Can we unify the two methods?",
+      "range": {
+        "startLine": 814,
+        "startChar": 23,
+        "endLine": 814,
+        "endChar": 40
+      },
+      "revId": "e9547832dbdb3afbc26dfc3567ba788aa4bb1efd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cd52320_b3f185d1",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-20T05:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5ad0022_984d7fd1",
       "range": {
         "startLine": 814,
         "startChar": 23,
