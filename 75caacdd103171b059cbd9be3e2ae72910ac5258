@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "00028d8f_0f0f2a02",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-05-20T16:37:32Z",
+      "side": 1,
+      "message": "That\u0027s a strong assumption. Especially since the kernel is provided by the vendor, not the OEM.\nAlso, if these are already in violation of VTS, how about adding a test in V+ CTS instead? This will either force a fix or notify you of devices that are in violation.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 50
+      },
+      "revId": "75caacdd103171b059cbd9be3e2ae72910ac5258",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4022f794_6bd643c3",
