@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f9e988b_4932cfb7",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-20T04:44:53Z",
+      "side": 1,
+      "message": "This preparer also does other stuff, like setUpdaterNetworkingEnabled. But changed this option as per the other comment, so the code looks less strange too.",
+      "parentUuid": "f3c70510_dd11717c",
+      "range": {
+        "startLine": 85,
+        "startChar": 13,
+        "endLine": 85,
+        "endChar": 36
+      },
+      "revId": "7fac85942bc983f20b987ee3a0fad8c6838e9acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "974aec31_ea38cc89",
@@ -55,6 +79,30 @@
       "writtenOn": "2024-05-20T04:28:58Z",
       "side": 1,
       "message": "Do we allow requireMobileData \u003d true and ignoreConnectivityCheck \u003d true ?\nIf not, do we want to:\n  1. do sanity check somewhere, or\n  2. add comment, or\n  3. Make the semantic less error-prone?",
+      "range": {
+        "startLine": 87,
+        "startChar": 16,
+        "endLine": 87,
+        "endChar": 33
+      },
+      "revId": "7fac85942bc983f20b987ee3a0fad8c6838e9acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ad98a80_4e356e24",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-20T04:44:53Z",
+      "side": 1,
+      "message": "Went for option 3, thanks !",
+      "parentUuid": "974aec31_ea38cc89",
       "range": {
         "startLine": 87,
         "startChar": 16,
