@@ -69,6 +69,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be362473_dcf36823",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-20T09:37:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba24b3de_d9100f98",
+      "range": {
+        "startLine": 387,
+        "startChar": 2,
+        "endLine": 391,
+        "endChar": 0
+      },
+      "revId": "c005d97b4ae13aeccca1afa12e5d7ecaa8568cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07f84b49_b49cf169",
