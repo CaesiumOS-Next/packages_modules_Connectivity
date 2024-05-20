@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98d2e6eb_49db6ecc",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-20T02:06:14Z",
+      "side": 1,
+      "message": "We need to clear mNetDataPrefixes when ot-daemon crashed. The Unicast addresses are cleared in `setInterfaceUp(false)`.\n\nFurther more, can we eliminate `mNetDataPrefixes` by using the route list in `mLinkProperties` for tracking the existing routes added by the NetworkAgent.",
+      "revId": "14de932e9b21ed930c39327498fc93f3449262ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
