@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83730c30_fa24c882",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-20T01:38:25Z",
+      "side": 1,
+      "message": "Ready for review.\n\nDepending on https://android-review.git.corp.google.com/q/topic:%22dnsresolver-interface-aware%22.",
+      "revId": "9bdecd214f353232db3224da0d6d6a7b881d811c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
