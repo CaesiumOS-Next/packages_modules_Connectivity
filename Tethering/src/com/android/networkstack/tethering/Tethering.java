@@ -52,6 +52,8 @@ import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_FAILED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STOPPED;
 import static android.net.TetheringManager.toIfaces;
+import static android.net.TetheringManager.MAX_TETHERING_TYPE;
+import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.wifi.WifiManager.EXTRA_WIFI_AP_INTERFACE_NAME;
 import static android.net.wifi.WifiManager.EXTRA_WIFI_AP_MODE;
 import static android.net.wifi.WifiManager.EXTRA_WIFI_AP_STATE;
@@ -162,6 +164,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -226,12 +229,9 @@ public class Tethering {
     private final SharedLog mLog = new SharedLog(TAG);
     private final RemoteCallbackList<ITetheringEventCallback> mTetheringEventCallbacks =
             new RemoteCallbackList<>();
-    // Currently active tethering requests per tethering type. Only one of each type can be
-    // requested at a time. After a tethering type is requested, the map keeps tethering parameters
-    // to be used after the interface comes up asynchronously.
-    private final SparseArray<TetheringRequest> mActiveTetheringRequests =
-            new SparseArray<>();
-
+    // Currently active tethering requests. After a tethering type is requested, the map keeps
+    // tethering parameters to be used after the interface comes up asynchronously.
+    private final List<TetheringRequest> mActiveTetheringRequests = new ArrayList<>();    
     private final Context mContext;
     private final ArrayMap<String, TetherState> mTetherStates;
     private final BroadcastReceiver mStateReceiver;
@@ -299,6 +299,10 @@ public class Tethering {
         // This is intended to ensrure that if something calls startTethering(bluetooth) just after
         // bluetooth is enabled. Before onServiceConnected is called, store the calls into this
         // list and handle them as soon as onServiceConnected is called.
+        for (int type = 0; type < MAX_TETHERING_TYPE; type++) {
+             mActiveTetheringRequests.put(type, new ArrayList<>());
+        }
+
         mPendingPanRequests = new ArrayList<>();
 
         mTetherStates = new ArrayMap<>();
@@ -434,8 +438,8 @@ public class Tethering {
                 final boolean isUsingNcm = mConfig.isUsingNcm();
                 updateConfiguration();
                 if (isUsingNcm != mConfig.isUsingNcm()) {
-                    stopTetheringInternal(TETHERING_USB);
-                    stopTetheringInternal(TETHERING_NCM);
+                    stopTethering(TETHERING_USB);
+                    stopTethering(TETHERING_NCM);
                 }
             } else if (mTetherSupported.equals(uri)) {
                 mLog.i("OBSERVED TETHER_SUPPORTED settings change");
@@ -470,9 +474,11 @@ public class Tethering {
         filter.addAction(CONNECTIVITY_ACTION);
         filter.addAction(WifiManager.WIFI_AP_STATE_CHANGED_ACTION);
         filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
-        filter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
         filter.addAction(UserManager.ACTION_USER_RESTRICTIONS_CHANGED);
         filter.addAction(ACTION_RESTRICT_BACKGROUND_CHANGED);
+        if (!SdkLevel.isAtLeastV()) {
+            filter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
+        }
         mContext.registerReceiver(mStateReceiver, filter, null, mHandler);
 
         final IntentFilter noUpstreamFilter = new IntentFilter();
@@ -599,6 +605,8 @@ public class Tethering {
 
         if (type == TETHERING_BLUETOOTH && SdkLevel.isAtLeastT()) return;
 
+        if (type == TETHERING_WIFI_P2P && SdkLevel.isAtLeastV()) return;
+
         if (enabled) {
             ensureIpServerStarted(iface);
         } else {
@@ -657,26 +665,68 @@ public class Tethering {
         processInterfaceStateChange(iface, false /* enabled */);
     }
 
+    private boolean isTetheringRequestFuzzyMatch(
+            final TetheringRequest r1, final TetheringRequest r2) {
+        if (r1.getTetheringType() != r2.getTetheringType()) return false;
+        if (r1.getConnectivityScope() != r2.getConnectivityScope()) return false;
+        if (!Objects.equals(r1.getSoftApConfiguration(), r2.getSoftApConfiguration())) return false;
+        // TODO(b/296063280): Check if the interface name matches.
+        // TODO(b/216524590): Check uid for non-privileged callers once they're allowed to
+        //                    start/stop tethering.
+        return true;
+    }
+
+    private List<TetheringRequest> getTetheringRequestsForType(final int type) {
+        return mActiveTetheringRequests.stream()
+                .filter(request -> request.getTetheringType() == type)
+                .collect(Collectors.toList());
+    }
+
+    private List<TetheringRequest> getPendingRequestsForType(final int type) {
+        List<TetheringRequest> requests = getTetheringRequestsForType(type);
+        for (TetherState state : mTetherStates.values()) {
+            TetheringRequest servingRequest = state.ipServer.getTetheringRequest();
+            if (servingRequest != null) {
+                requests.remove(servingRequest);
+            }
+        }
+        return requests;
+    }
+
     void startTethering(final TetheringRequest request, final String callerPkg,
             final IIntResultListener listener) {
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            final TetheringRequest unfinishedRequest = mActiveTetheringRequests.get(type);
-            // If tethering is already enabled with a different request,
-            // disable before re-enabling.
-            if (unfinishedRequest != null && !unfinishedRequest.equals(request)) {
-                enableTetheringInternal(type, false /* disabled */, null);
-                mEntitlementMgr.stopProvisioningIfNeeded(type);
+            if (SdkLevel.isAtLeastV()
+                    && mDeps.isMultipleTetheringRequestsPerTypeEnabled(mContext)) {
+                List<TetheringRequest> activeRequests = getTetheringRequestsForType(type);
+                for (TetheringRequest activeRequest : activeRequests) {
+                    if (isTetheringRequestFuzzyMatch(activeRequest, request)) {
+                        try {
+                            listener.onResult(TETHER_ERROR_DUPLICATE_REQUEST);
+                        } catch (RemoteException e) {
+                        }
+                    }
+                }
+            } else {
+                // If a different request for the same type was requested but not started yet,
+                // disable it before starting the new request to preserve legacy behavior.
+                for (TetheringRequest pendingRequest : getPendingRequestsForType(type)) {
+                    if (pendingRequest.getTetheringType() == request.getTetheringType()
+                            && !pendingRequest.equals(request)) {
+                        enableTetheringInternal(pendingRequest, false /* enable */, null);
+                        mEntitlementMgr.stopProvisioningIfNeeded(pendingRequest);
+                    }
+                }
             }
-            mActiveTetheringRequests.put(type, request);
 
             if (request.isExemptFromEntitlementCheck()) {
-                mEntitlementMgr.setExemptedDownstreamType(type);
+                mEntitlementMgr.setExemptedDownstream(request);
             } else {
-                mEntitlementMgr.startProvisioningIfNeeded(type,
+                mEntitlementMgr.startProvisioningIfNeeded(request,
                         request.getShouldShowEntitlementUi());
             }
-            enableTetheringInternal(type, true /* enabled */, listener);
+            enableTetheringInternal(request, true /* enabled */, listener);
             mTetheringMetrics.createBuilder(type, callerPkg);
         });
     }
@@ -686,52 +736,82 @@ public class Tethering {
             stopTetheringInternal(type);
         });
     }
-    void stopTetheringInternal(int type) {
-        mActiveTetheringRequests.remove(type);
 
-        enableTetheringInternal(type, false /* disabled */, null);
-        mEntitlementMgr.stopProvisioningIfNeeded(type);
+    void stopTetheringInternal(int type) {
+        for (TetheringRequest request : getAllTetheringRequests(type)) {
+            stopTetheringInternal(request);
+        }
+    }
+
+    void stopTetheringInternal(TetheringRequest request) {
+        enableTetheringInternal(request, false /* enable */, null);
+        mEntitlementMgr.stopProvisioningIfNeeded(request);
+        if (mActiveTetheringRequests.get(request.getTetheringType()) != null) 
+                mActiveTetheringRequests.get(request.getTetheringType()).remove(request);
     }
 
     /**
      * Enables or disables tethering for the given type. If provisioning is required, it will
      * schedule provisioning rechecks for the specified interface.
      */
-    private void enableTetheringInternal(int type, boolean enable,
+    private void enableTetheringInternal(TetheringRequest request, boolean enable,
             final IIntResultListener listener) {
         int result = TETHER_ERROR_NO_ERROR;
+        int type = request.getTetheringType();
         switch (type) {
             case TETHERING_WIFI:
-                result = setWifiTethering(enable);
+                result = setWifiTethering(request, enable);
                 break;
             case TETHERING_USB:
-                result = setUsbTethering(enable);
+                result = setUsbTethering(request, enable);
                 break;
             case TETHERING_BLUETOOTH:
-                setBluetoothTethering(enable, listener);
+                result = setBluetoothTethering(request, enable, listener);
                 break;
             case TETHERING_NCM:
-                result = setNcmTethering(enable);
+                result = setNcmTethering(request, enable);
                 break;
             case TETHERING_ETHERNET:
-                result = setEthernetTethering(enable);
+                result = setEthernetTethering(request, enable);
                 break;
             case TETHERING_VIRTUAL:
                 result = setVirtualMachineTethering(enable);
+                break;
+            case TETHERING_WIFI_P2P:
+                result = setP2pTethering(enable, request, listener);
                 break;
             default:
                 Log.w(TAG, "Invalid tether type.");
                 result = TETHER_ERROR_UNKNOWN_TYPE;
         }
 
+        if (result == TETHER_ERROR_NO_ERROR) {
+            if (enable) {
+                if (SdkLevel.isAtLeastV()
+                        && mDeps.isMultipleTetheringRequestsPerTypeEnabled(mContext)) {
+                    // Result may be TETHER_ERROR_NO_ERROR even for duplicate requests, except for
+                    // Wi-Fi which rejects any additional request.
+                    if (!mActiveTetheringRequests.contains(request)) {
+                        mActiveTetheringRequests.add(request);
+                    }
+                } else {
+                    // Legacy single request per type
+                    mActiveTetheringRequests.removeIf(activeRequest ->
+                            activeRequest.getTetheringType() == request.getTetheringType());
+                    mActiveTetheringRequests.add(request);
+                }
+            } else {
+                mActiveTetheringRequests.remove(request);
+            }
+        }
         // The result of Bluetooth tethering will be sent by #setBluetoothTethering.
         if (type != TETHERING_BLUETOOTH) {
-            sendTetherResult(listener, result, type);
+            sendTetherResult(listener, result, request);
         }
     }
 
     private void sendTetherResult(final IIntResultListener listener, final int result,
-            final int type) {
+    final TetheringRequest request) {
         if (listener != null) {
             try {
                 listener.onResult(result);
@@ -741,13 +821,43 @@ public class Tethering {
         // If changing tethering fail, remove corresponding request
         // no matter who trigger the start/stop.
         if (result != TETHER_ERROR_NO_ERROR) {
-            mActiveTetheringRequests.remove(type);
+            int type = request.getTetheringType();
+            if (mActiveTetheringRequests.get(type) != null) mActiveTetheringRequests.get(type).remove(request);
             mTetheringMetrics.updateErrorCode(type, result);
             mTetheringMetrics.sendReport(type);
         }
     }
 
-    private int setWifiTethering(final boolean enable) {
+
+    private int setP2pTethering(boolean enable, TetheringRequest request,
+            final IIntResultListener listener) {
+        if (enable) {
+            if (request != null) {
+                // mP2pCallback.put(request.getInterfaceName(), listener);
+                enableIpServing(request.getTetheringType(),
+                        request.getInterfaceName(),
+                        request.getConnectivityScope(),
+                        false /* isNcm*/);
+            } else {
+                try {
+                    listener.onResult(TETHER_ERROR_SERVICE_UNAVAIL);
+                } catch (RemoteException e) {
+                    mLog.log("enableP2pIpServing TETHER_ERROR_SERVICE_UNAVAIL");
+                }
+            }
+        } else {
+            for (int i = 0; i < mTetherStates.size(); i++) {
+                final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
+                if (ipServer.interfaceName().equals(request.getInterfaceName())) {
+                    ensureIpServerStopped(ipServer.interfaceName());
+                }
+            }
+        }
+        return TETHER_ERROR_NO_ERROR;
+    }
+
+
+    private int setWifiTethering(TetheringRequest request, final boolean enable) {
         final long ident = Binder.clearCallingIdentity();
         try {
             final WifiManager mgr = getWifiManager();
@@ -766,13 +876,13 @@ public class Tethering {
         return TETHER_ERROR_INTERNAL_ERROR;
     }
 
-    private void setBluetoothTethering(final boolean enable, final IIntResultListener listener) {
+    private void setBluetoothTethering(TetheringRequest request, final boolean enable, final IIntResultListener listener) {
         final BluetoothAdapter adapter = mDeps.getBluetoothAdapter();
         if (adapter == null || !adapter.isEnabled()) {
             Log.w(TAG, "Tried to enable bluetooth tethering with null or disabled adapter. null: "
                     + (adapter == null));
-            sendTetherResult(listener, TETHER_ERROR_SERVICE_UNAVAIL, TETHERING_BLUETOOTH);
-            return;
+            sendTetherResult(listener, TETHER_ERROR_SERVICE_UNAVAIL, request);
+            return TETHER_ERROR_SERVICE_UNAVAIL;
         }
 
         if (mBluetoothPanListener != null && mBluetoothPanListener.isConnected()) {
@@ -780,8 +890,8 @@ public class Tethering {
             // When bluetooth tethering is enabled, any time a PAN client pairs with this
             // host, bluetooth will bring up a bt-pan interface and notify tethering to
             // enable IP serving.
-            setBluetoothTetheringSettings(mBluetoothPan, enable, listener);
-            return;
+            setBluetoothTetheringSettings(mBluetoothPan, enable, listener,  request);
+            return TETHER_ERROR_SERVICE_UNAVAIL;
         }
 
         // The reference of IIntResultListener should only exist when application want to start
@@ -799,6 +909,7 @@ public class Tethering {
             mBluetoothPanListener = new PanServiceListener();
             adapter.getProfileProxy(mContext, mBluetoothPanListener, BluetoothProfile.PAN);
         }
+        return TETHER_ERROR_SERVICE_UNAVAIL;
     }
 
     private class PanServiceListener implements ServiceListener {
@@ -816,7 +927,8 @@ public class Tethering {
                 mIsConnected = true;
 
                 for (Pair<Boolean, IIntResultListener> request : mPendingPanRequests) {
-                    setBluetoothTetheringSettings(mBluetoothPan, request.first, request.second);
+                    setBluetoothTetheringSettings(mBluetoothPan, request.first, request.second,
+                            new TetheringRequest.Builder(TETHERING_BLUETOOTH).build());
                 }
                 mPendingPanRequests.clear();
             });
@@ -831,7 +943,7 @@ public class Tethering {
 
                 for (Pair<Boolean, IIntResultListener> request : mPendingPanRequests) {
                     sendTetherResult(request.second, TETHER_ERROR_SERVICE_UNAVAIL,
-                            TETHERING_BLUETOOTH);
+                            new TetheringRequest.Builder(TETHERING_BLUETOOTH).build());
                 }
                 mPendingPanRequests.clear();
                 mBluetoothIfaceRequest = null;
@@ -846,7 +958,7 @@ public class Tethering {
     }
 
     private void setBluetoothTetheringSettings(@NonNull final BluetoothPan bluetoothPan,
-            final boolean enable, final IIntResultListener listener) {
+            final boolean enable, final IIntResultListener listener, TetheringRequest request) {
         if (SdkLevel.isAtLeastT()) {
             changeBluetoothTetheringSettings(bluetoothPan, enable);
         } else {
@@ -857,7 +969,7 @@ public class Tethering {
         // result is not expected.
         final int result = bluetoothPan.isTetheringOn() == enable
                 ? TETHER_ERROR_NO_ERROR : TETHER_ERROR_INTERNAL_ERROR;
-        sendTetherResult(listener, result, TETHERING_BLUETOOTH);
+        sendTetherResult(listener, result, request);
     }
 
     private void changeBluetoothTetheringSettingsPreT(@NonNull final BluetoothPan bluetoothPan,
@@ -922,7 +1034,7 @@ public class Tethering {
         mConfiguredBluetoothIface = null;
     }
 
-    private int setEthernetTethering(final boolean enable) {
+    private int setEthernetTethering(TetheringRequest request, final boolean enable) {
         final EthernetManager em = (EthernetManager) mContext.getSystemService(
                 Context.ETHERNET_SERVICE);
         if (enable) {
@@ -1013,12 +1125,14 @@ public class Tethering {
         //
         // This code cannot race with untether() because they both run on the handler thread.
         final int type = tetherState.ipServer.interfaceType();
-        final TetheringRequest request = mActiveTetheringRequests.get(type, null);
-        if (request != null) {
-            mActiveTetheringRequests.delete(type);
+        final List<TetheringRequest> requests = mActiveTetheringRequests.get(type);
+        TetheringRequest request = null;
+        List<TetheringRequest> pendingRequests = getPendingRequestsForType(type);
+        if (!pendingRequests.isEmpty()) {
+            // TODO: Fetch the request with the specified interface name when available.
+            request = pendingRequests.get(0);
         }
-        tetherState.ipServer.enable(requestedState, request);
-        return TETHER_ERROR_NO_ERROR;
+        tetherState.ipServer.enable(requestedState, request);    
     }
 
     void untether(String iface, final IIntResultListener listener) {
@@ -1046,11 +1160,14 @@ public class Tethering {
     }
 
     void untetherAll() {
-        stopTethering(TETHERING_WIFI);
-        stopTethering(TETHERING_WIFI_P2P);
-        stopTethering(TETHERING_USB);
-        stopTethering(TETHERING_BLUETOOTH);
-        stopTethering(TETHERING_ETHERNET);
+        for (int i = 0; i < mActiveTetheringRequests.size(); i++) {
+            int key = mActiveTetheringRequests.keyAt(i);
+            List<TetheringRequest> requests = mActiveTetheringRequests.valueAt(i);
+
+            System.out.println("Key: " + key);
+            requests.forEach(request -> stopTetheringInternal(request));
+        }
+    
     }
 
     @VisibleForTesting
@@ -1070,8 +1187,12 @@ public class Tethering {
     }
 
     private int getRequestedState(int type) {
-        final TetheringRequest request = mActiveTetheringRequests.get(type);
-
+        TetheringRequest request = null;
+        for (TetheringRequest activeRequest : mActiveTetheringRequests) {
+            if (activeRequest.getTetheringType() == type) {
+                request = activeRequest;
+            }
+        }
         // The request could have been deleted before we had a chance to complete it.
         // If so, assume that the scope is the default scope for this tethering type.
         // This likely doesn't matter - if the request has been deleted, then tethering is
@@ -1376,8 +1497,8 @@ public class Tethering {
     }
 
     @VisibleForTesting
-    SparseArray<TetheringRequest> getActiveTetheringRequests() {
-        return mActiveTetheringRequests;
+    List<TetheringRequest> getActiveTetheringRequests() {
+        return new ArrayList<>(mActiveTetheringRequests);
     }
 
     @VisibleForTesting
@@ -1597,12 +1718,12 @@ public class Tethering {
     void setUsbTethering(boolean enable, IIntResultListener listener) {
         mHandler.post(() -> {
             try {
-                listener.onResult(setUsbTethering(enable));
+                listener.onResult(setUsbTethering(null, enable));
             } catch (RemoteException e) { }
         });
     }
 
-    private int setUsbTethering(boolean enable) {
+    private int setUsbTethering(TetheringRequest request, boolean enable) {
         if (VDBG) Log.d(TAG, "setUsbTethering(" + enable + ")");
         UsbManager usbManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
         if (usbManager == null) {
@@ -1617,7 +1738,7 @@ public class Tethering {
         return TETHER_ERROR_NO_ERROR;
     }
 
-    private int setNcmTethering(boolean enable) {
+    private int setNcmTethering(TetheringRequest request, boolean enable) {
         if (VDBG) Log.d(TAG, "setNcmTethering(" + enable + ")");
 
         // If TETHERING_USB is forced to use ncm function, TETHERING_NCM would no longer be
@@ -2194,9 +2315,9 @@ public class Tethering {
                         break;
                     }
                     case EVENT_REQUEST_CHANGE_DOWNSTREAM: {
-                        final int tetheringType = message.arg1;
-                        final Boolean enabled = (Boolean) message.obj;
-                        enableTetheringInternal(tetheringType, enabled, null);
+                        final boolean enabled = message.arg1 == 1;
+                        final TetheringRequest request = (TetheringRequest) message.obj;
+                        enableTetheringInternal(request, enabled, null);                        
                         break;
                     }
                     default:
@@ -2724,7 +2845,6 @@ public class Tethering {
             } else {
                 if (DBG) Log.d(TAG, "got notification from stale iface " + iface);
             }
-
             mLog.log(String.format("OBSERVED iface=%s state=%s error=%s", iface, state, lastError));
 
             // If TetherMainSM is in ErrorState, TetherMainSM stays there.
