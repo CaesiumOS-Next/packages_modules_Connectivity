@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78b67002_98c08579",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107353
+      },
+      "writtenOn": "2024-05-20T18:30:00Z",
+      "side": 1,
+      "message": "Hey Lorenzo, Remi. Long time no talk! I have multiple approvals waiting for this, could you please help This patch got CR+2 in the master in aosp/2536890 and and was merged.",
+      "revId": "fc1bd9d19850c3234537dab884300846b52a479c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
