@@ -33,7 +33,8 @@ package android.net {
     method @RequiresPermission(anyOf={android.Manifest.permission.TETHER_PRIVILEGED, android.Manifest.permission.WRITE_SETTINGS}) public void requestLatestTetheringEntitlementResult(int, boolean, @NonNull java.util.concurrent.Executor, @NonNull android.net.TetheringManager.OnTetheringEntitlementResultListener);
     method @RequiresPermission(anyOf={android.Manifest.permission.TETHER_PRIVILEGED, android.Manifest.permission.WRITE_SETTINGS}) public void startTethering(@NonNull android.net.TetheringManager.TetheringRequest, @NonNull java.util.concurrent.Executor, @NonNull android.net.TetheringManager.StartTetheringCallback);
     method @RequiresPermission(anyOf={android.Manifest.permission.TETHER_PRIVILEGED, android.Manifest.permission.WRITE_SETTINGS}) public void stopAllTethering();
-    method @RequiresPermission(anyOf={android.Manifest.permission.TETHER_PRIVILEGED, android.Manifest.permission.WRITE_SETTINGS}) public void stopTethering(int);
+    method public void stopTethering(int);
+    method @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") @RequiresPermission(anyOf={android.Manifest.permission.TETHER_PRIVILEGED, android.Manifest.permission.WRITE_SETTINGS}) public void stopTethering(@NonNull android.net.TetheringManager.TetheringRequest, @NonNull java.util.concurrent.Executor, @NonNull android.net.TetheringManager.StopTetheringCallback);
     method @RequiresPermission(anyOf={android.Manifest.permission.TETHER_PRIVILEGED, android.Manifest.permission.ACCESS_NETWORK_STATE}) public void unregisterTetheringEventCallback(@NonNull android.net.TetheringManager.TetheringEventCallback);
     field @Deprecated public static final String ACTION_TETHER_STATE_CHANGED = "android.net.conn.TETHER_STATE_CHANGED";
     field public static final int CONNECTIVITY_SCOPE_GLOBAL = 1; // 0x1
@@ -52,6 +53,7 @@ package android.net {
     field public static final int TETHERING_WIFI_P2P = 3; // 0x3
     field public static final int TETHER_ERROR_DHCPSERVER_ERROR = 12; // 0xc
     field public static final int TETHER_ERROR_DISABLE_FORWARDING_ERROR = 9; // 0x9
+    field public static final int TETHER_ERROR_DUPLICATE_REQUEST = 17; // 0x11
     field public static final int TETHER_ERROR_ENABLE_FORWARDING_ERROR = 8; // 0x8
     field public static final int TETHER_ERROR_ENTITLEMENT_UNKNOWN = 13; // 0xd
     field public static final int TETHER_ERROR_IFACE_CFG_ERROR = 10; // 0xa
@@ -64,6 +66,7 @@ package android.net {
     field public static final int TETHER_ERROR_TETHER_IFACE_ERROR = 6; // 0x6
     field public static final int TETHER_ERROR_UNAVAIL_IFACE = 4; // 0x4
     field public static final int TETHER_ERROR_UNKNOWN_IFACE = 1; // 0x1
+    field @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") public static final int TETHER_ERROR_UNKNOWN_REQUEST = 18; // 0x12
     field public static final int TETHER_ERROR_UNKNOWN_TYPE = 16; // 0x10
     field public static final int TETHER_ERROR_UNSUPPORTED = 3; // 0x3
     field public static final int TETHER_ERROR_UNTETHER_IFACE_ERROR = 7; // 0x7
@@ -79,6 +82,11 @@ package android.net {
   public static interface TetheringManager.StartTetheringCallback {
     method public default void onTetheringFailed(int);
     method public default void onTetheringStarted();
+  }
+
+  @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") public static interface TetheringManager.StopTetheringCallback {
+    method public default void onStopTetheringFailed(int);
+    method public default void onStopTetheringSucceeded();
   }
 
   public static interface TetheringManager.TetheringEventCallback {
@@ -100,6 +108,7 @@ package android.net {
     method @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") public int describeContents();
     method @Nullable public android.net.LinkAddress getClientStaticIpv4Address();
     method public int getConnectivityScope();
+    method @Nullable public String getInterfaceName();
     method @Nullable public android.net.LinkAddress getLocalIpv4Address();
     method public boolean getShouldShowEntitlementUi();
     method @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") @Nullable public android.net.wifi.SoftApConfiguration getSoftApConfiguration();
@@ -114,6 +123,7 @@ package android.net {
     method @NonNull public android.net.TetheringManager.TetheringRequest build();
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setConnectivityScope(int);
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setExemptFromEntitlementCheck(boolean);
+    method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setInterfaceName(@Nullable String);
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setShouldShowEntitlementUi(boolean);
     method @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setSoftApConfiguration(@Nullable android.net.wifi.SoftApConfiguration);
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setStaticIpv4Addresses(@NonNull android.net.LinkAddress, @NonNull android.net.LinkAddress);
