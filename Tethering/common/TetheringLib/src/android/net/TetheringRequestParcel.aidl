@@ -31,4 +31,5 @@ parcelable TetheringRequestParcel {
     boolean showProvisioningUi;
     int connectivityScope;
     SoftApConfiguration softApConfig;
+    String interfaceName;
 }
