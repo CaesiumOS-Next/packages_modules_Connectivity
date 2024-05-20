@@ -52,6 +52,7 @@ package android.net {
     field public static final int TETHERING_WIFI_P2P = 3; // 0x3
     field public static final int TETHER_ERROR_DHCPSERVER_ERROR = 12; // 0xc
     field public static final int TETHER_ERROR_DISABLE_FORWARDING_ERROR = 9; // 0x9
+    field public static final int TETHER_ERROR_DUPLICATE_REQUEST = 17; // 0x11
     field public static final int TETHER_ERROR_ENABLE_FORWARDING_ERROR = 8; // 0x8
     field public static final int TETHER_ERROR_ENTITLEMENT_UNKNOWN = 13; // 0xd
     field public static final int TETHER_ERROR_IFACE_CFG_ERROR = 10; // 0xa
@@ -100,6 +101,7 @@ package android.net {
     method @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") public int describeContents();
     method @Nullable public android.net.LinkAddress getClientStaticIpv4Address();
     method public int getConnectivityScope();
+    method @Nullable public String getInterfaceName();
     method @Nullable public android.net.LinkAddress getLocalIpv4Address();
     method public boolean getShouldShowEntitlementUi();
     method @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") @Nullable public android.net.wifi.SoftApConfiguration getSoftApConfiguration();
@@ -114,6 +116,7 @@ package android.net {
     method @NonNull public android.net.TetheringManager.TetheringRequest build();
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setConnectivityScope(int);
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setExemptFromEntitlementCheck(boolean);
+    method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setInterfaceName(@Nullable String);
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setShouldShowEntitlementUi(boolean);
     method @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setSoftApConfiguration(@Nullable android.net.wifi.SoftApConfiguration);
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setStaticIpv4Addresses(@NonNull android.net.LinkAddress, @NonNull android.net.LinkAddress);
