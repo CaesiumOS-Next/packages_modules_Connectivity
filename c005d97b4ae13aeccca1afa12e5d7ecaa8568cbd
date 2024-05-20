@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f9691d_4cd8c072",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-20T09:37:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "222b298a_06dc9bc1",
+      "revId": "c005d97b4ae13aeccca1afa12e5d7ecaa8568cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba24b3de_d9100f98",
@@ -130,6 +148,30 @@
       "side": 1,
       "message": "It\u0027s quite non-trivial burden to require `final` on all local variables. I suggest we don\u0027t do that. See go/java-practices/final#params_locals",
       "parentUuid": "07f84b49_b49cf169",
+      "range": {
+        "startLine": 396,
+        "startChar": 7,
+        "endLine": 397,
+        "endChar": 46
+      },
+      "revId": "c005d97b4ae13aeccca1afa12e5d7ecaa8568cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f735e38_06e54a98",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-20T09:37:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b307bae2_48ceb118",
       "range": {
         "startLine": 396,
         "startChar": 7,
