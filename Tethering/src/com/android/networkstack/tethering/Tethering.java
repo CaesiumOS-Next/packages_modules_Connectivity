@@ -55,6 +55,7 @@ import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_FAILED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STOPPED;
 import static android.net.TetheringManager.TetheringRequest.REQUEST_TYPE_PLACEHOLDER;
+import static android.net.TetheringManager.MAX_TETHERING_TYPE;
 import static android.net.TetheringManager.toIfaces;
 import static android.net.wifi.WifiManager.EXTRA_WIFI_AP_INTERFACE_NAME;
 import static android.net.wifi.WifiManager.EXTRA_WIFI_AP_MODE;
@@ -502,9 +503,11 @@ public class Tethering {
         filter.addAction(CONNECTIVITY_ACTION);
         filter.addAction(WifiManager.WIFI_AP_STATE_CHANGED_ACTION);
         filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
-        filter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
         filter.addAction(UserManager.ACTION_USER_RESTRICTIONS_CHANGED);
         filter.addAction(ACTION_RESTRICT_BACKGROUND_CHANGED);
+        if (!SdkLevel.isAtLeastV()) {
+            filter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
+        }
         mContext.registerReceiver(mStateReceiver, filter, null, mHandler);
 
         final IntentFilter noUpstreamFilter = new IntentFilter();
@@ -836,6 +839,9 @@ public class Tethering {
             case TETHERING_VIRTUAL:
                 result = setVirtualMachineTethering(request, enable);
                 break;
+            case TETHERING_WIFI_P2P:
+                result = setP2pTethering(enable, request, listener);
+                break;
             default:
                 Log.w(TAG, "enableTetheringInternal called with invalid tether type: " + type);
                 result = TETHER_ERROR_UNKNOWN_TYPE;
@@ -877,6 +883,17 @@ public class Tethering {
             mTetheringMetrics.updateErrorCode(type, result);
             mTetheringMetrics.sendReport(type);
         }
+    }
+
+    private int setP2pTethering(boolean enable, TetheringRequest request,
+            final IIntResultListener listener) {
+        if (enable) {
+            enableIpServing(request, request.getInterfaceName(),
+                    false /* isNcm */);
+        } else {
+            ensureIpServerStopped(request.getInterfaceName();
+        }
+        return TETHER_ERROR_NO_ERROR;
     }
 
     private int setWifiTethering(final boolean enable) {
@@ -2960,7 +2977,6 @@ public class Tethering {
             } else {
                 if (DBG) Log.d(TAG, "got notification from stale iface " + iface);
             }
-
             mLog.log(String.format("OBSERVED iface=%s state=%s error=%s", iface, state, lastError));
 
             // If TetherMainSM is in ErrorState, TetherMainSM stays there.
