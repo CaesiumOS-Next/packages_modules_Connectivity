@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad6368e9_40ce449d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 87
+      },
+      "lineNbr": 3435,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-20T11:15:34Z",
+      "side": 1,
+      "message": "Why this is removed?\nAre you implying we run updateSocketDestroyReasonsAndMaybeDestroySockets on non-handler threads?",
+      "range": {
+        "startLine": 3435,
+        "startChar": 8,
+        "endLine": 3435,
+        "endChar": 51
+      },
+      "revId": "e51cfdcc60263b7c154609c93fa6c190cb48d981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52f45de0_8be703c3",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 87

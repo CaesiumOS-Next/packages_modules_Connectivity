@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a94846c_05483d01",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 104
+      },
+      "lineNbr": 3368,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-20T11:15:34Z",
+      "side": 1,
+      "message": "It confuses me where we check maybeDestroySockets, if true, the method is still maybe destroySockets. Not sure when this is true or false. Maybe we need to name it more specifically.",
+      "range": {
+        "startLine": 3368,
+        "startChar": 20,
+        "endLine": 3368,
+        "endChar": 39
+      },
+      "revId": "6c504dbb29a5967f213615ccd356a1ed40d50709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

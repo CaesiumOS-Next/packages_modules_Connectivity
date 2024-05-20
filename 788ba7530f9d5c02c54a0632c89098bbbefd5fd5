@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce48bb88_b55c92f4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 103
+      },
+      "lineNbr": 8219,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-20T11:15:34Z",
+      "side": 1,
+      "message": "Stupid question: why? I\u0027m not followed.",
+      "range": {
+        "startLine": 8219,
+        "startChar": 24,
+        "endLine": 8219,
+        "endChar": 40
+      },
+      "revId": "788ba7530f9d5c02c54a0632c89098bbbefd5fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bf39287_292220d9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 103
+      },
+      "lineNbr": 13855,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-20T11:15:34Z",
+      "side": 1,
+      "message": "nit: Why? Maybe also describe the reason of this design.",
+      "range": {
+        "startLine": 13855,
+        "startChar": 19,
+        "endLine": 13855,
+        "endChar": 46
+      },
+      "revId": "788ba7530f9d5c02c54a0632c89098bbbefd5fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
