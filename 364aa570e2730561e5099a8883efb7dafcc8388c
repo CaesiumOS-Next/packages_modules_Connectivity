@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1172c147_6435f728",
+        "filename": "framework-t/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-21T04:42:18Z",
+      "side": 1,
+      "message": "It would have been clearer to unindent using:\n\n    if (!hasServiceName || !hasServiceType) {\n        throw new IllegalArgumentException(...);\n    }",
+      "range": {
+        "startLine": 1785,
+        "startChar": 8,
+        "endLine": 1785,
+        "endChar": 47
+      },
+      "revId": "364aa570e2730561e5099a8883efb7dafcc8388c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
