@@ -22,6 +22,30 @@
       },
       "revId": "66f1629a5273d622935e9e84a143363994f860ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02b7011d_6cd52365",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-21T18:04:04Z",
+      "side": 1,
+      "message": "It already includes the log tag \u0027NetBpfLoad\u0027 and there\u0027s really not much more to say besides the fact that we\u0027re terminating with success.\n\nMostly I want this final log line to be able to more easily notice log truncation (in particular kernel log ratelimitting), by having *anything* that is guaranteed to be the final log line.",
+      "parentUuid": "ed4890d9_d976e451",
+      "range": {
+        "startLine": 435,
+        "startChar": 15,
+        "endLine": 435,
+        "endChar": 22
+      },
+      "revId": "66f1629a5273d622935e9e84a143363994f860ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
