@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bb00d16_272cc189",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-21T11:32:33Z",
+      "side": 1,
+      "message": "probably mention that mDNS need to send query through both IPv4 and IPv6",
+      "range": {
+        "startLine": 363,
+        "startChar": 36,
+        "endLine": 363,
+        "endChar": 40
+      },
+      "revId": "f3aa25283ed589bff97814f0de57c4fb9d7c4bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

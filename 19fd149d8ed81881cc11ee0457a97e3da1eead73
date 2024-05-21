@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46e7050b_dbd32fb5",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-21T11:32:33Z",
+      "side": 0,
+      "message": "nit: this line remove is unnecessary",
+      "revId": "19fd149d8ed81881cc11ee0457a97e3da1eead73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
