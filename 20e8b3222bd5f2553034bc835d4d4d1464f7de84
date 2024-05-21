@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86488b53_64e994ba",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1229339
+      },
+      "writtenOn": "2024-05-21T00:21:34Z",
+      "side": 1,
+      "message": "I don\u0027t know where we specify which mainline OS image the test actually runs on, but if I\u0027ve interpreted the Android Test Investigate page correctly, then the two are currently mismatched (34 vs R), and someone should fix that.",
+      "parentUuid": "8934dd3e_b9818f64",
+      "revId": "20e8b3222bd5f2553034bc835d4d4d1464f7de84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe137f0f_e2d74542",
         "filename": "tests/native/connectivity_native_test/Android.bp",
         "patchSetId": 1
@@ -96,6 +114,30 @@
       "writtenOn": "2024-05-21T00:11:43Z",
       "side": 1,
       "message": "New APIs in liblog are annotated with the availability. So, the caller (the test) must have used the `__builtin_available` guard when using them, so that they can run on older platform where the API is not available.",
+      "parentUuid": "62fe5d9a_d68f5168",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "20e8b3222bd5f2553034bc835d4d4d1464f7de84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3d5dfd3_16e9654d",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1229339
+      },
+      "writtenOn": "2024-05-21T00:21:34Z",
+      "side": 1,
+      "message": "Oh, the commit message for aosp/1262822 makes it clearer:\n\n\u003e resolv tests got symbol missing problem for R MTS on Q devices.\n\u003e because libbase needs the new R symbols of liblog,\n\u003e which means liblog can\u0027t be statically link.\n\nThe wording is confusing to me -- I think it\u0027s saying that because we must link libbase statically, we must also link liblog statically, because some logging-related parts of libbase require a newer version of liblog.\n\nIs libbase required to work with old versions of liblog?",
       "parentUuid": "62fe5d9a_d68f5168",
       "range": {
         "startLine": 31,
