@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6859ec8_5faf5baa",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-21T08:05:20Z",
+      "side": 1,
+      "message": "not have permission to access the specified network, for example, because it does not have the {@link android.Manifest.permission#INTERNET} permission.",
+      "range": {
+        "startLine": 933,
+        "startChar": 41,
+        "endLine": 934,
+        "endChar": 58
+      },
+      "revId": "0f082a6224bcc5aaaa51926e9c26b081678b808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "993954b9_aaeb8a07",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-21T08:05:20Z",
+      "side": 1,
+      "message": "Per discussion - if in the future we want to make onBlockedStatusChanged reflect other restrictions (e.g., regular apps can\u0027t access networks with NOT_RESTRICTED), we might want to give this a more generic name. BLOCKED_REASON_NETWORK_RESTRICTED BLOCKED_REASON_NO_PERMISSION?",
+      "range": {
+        "startLine": 940,
+        "startChar": 28,
+        "endLine": 940,
+        "endChar": 65
+      },
+      "revId": "0f082a6224bcc5aaaa51926e9c26b081678b808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "618c755e_b1764729",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 11197,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-21T08:05:20Z",
+      "side": 1,
+      "message": "Suggest refactoring for clarity. Maybe something like:\n\n    private int getPermissionBlockedState(int uid, int reasons) {\n        if (!mDeps.isAtLeastV()) return reasons;\n\n\t\tfinal boolean hasInternetPermission \u003d hasInternetPermission(uid);\n\t\tif (mDeps.isChangeEnabled(NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION, uid)) {\n\t\t    reasons \u003d hasInternetPermission\n\t\t            ? reasons \u0026 ~BLOCKED_REASON_NO_INTERNET_PERMISSION\n\t\t            : reasons | BLOCKED_REASON_NO_INTERNET_PERMISSION;\n\t\t} else {\n\t\t    reasons \u003d hasInternetPermission ? reasons : BLOCKED_REASON_NONE;\n\t\t}\n\n\t\treturn reasons;\n    }\n\n    private int getBlockedState(int uid, int firewallReasons, boolean metered, boolean vpnBlocked) {\n        reasons \u003d getPermissionBlockedState(uid, reasons);\n        if (!metered) reasons \u0026\u003d ~BLOCKED_METERED_REASON_MASK;\n        return vpnBlocked\n                ? reasons | BLOCKED_REASON_LOCKDOWN_VPN\n                : reasons \u0026 ~BLOCKED_REASON_LOCKDOWN_VPN;\n    }",
+      "range": {
+        "startLine": 11197,
+        "startChar": 16,
+        "endLine": 11197,
+        "endChar": 31
+      },
+      "revId": "0f082a6224bcc5aaaa51926e9c26b081678b808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4cbc7ad_ebb3d011",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBlockedReasonsTest.kt",
+        "patchSetId": 48
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-21T08:05:20Z",
+      "side": 1,
+      "message": ". The expectBlockedStatusChanged just above guarantees that the onBlockedStatusChanged method on this callback was called, but it does not guarantee that ConnectivityService has finished processing all onBlockedStatusChanged callbacks for all requests.",
+      "range": {
+        "startLine": 207,
+        "startChar": 46,
+        "endLine": 207,
+        "endChar": 55
+      },
+      "revId": "0f082a6224bcc5aaaa51926e9c26b081678b808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c608d91a_64d36167",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBlockedReasonsTest.kt",
+        "patchSetId": 48
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-21T08:05:20Z",
+      "side": 1,
+      "message": "What about the pre-V behaviour? That\u0027s different from the behaviour on V. Per discussion, I think we should test that if NPMS sends us nonzero blocked reasons, we still send the blocked reasons to the app even if the app has no internet permission.\n\nMaybe we could add some code to ConnectivityServiceTest#testNetworkBlockedStatus() that only runs before V, and removes the internet permission?",
+      "revId": "0f082a6224bcc5aaaa51926e9c26b081678b808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
