@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8934dd3e_b9818f64",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2024-05-21T00:11:43Z",
+      "side": 1,
+      "message": "Yes, this should be the oldest SDK version where this test is designed to run on.",
+      "parentUuid": "9513a16c_3823e6b2",
+      "revId": "20e8b3222bd5f2553034bc835d4d4d1464f7de84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe137f0f_e2d74542",
         "filename": "tests/native/connectivity_native_test/Android.bp",
         "patchSetId": 1
@@ -55,6 +73,30 @@
       "side": 1,
       "message": "Hmm, the comment for the DnsResolver tests seemed to differ (see aosp/3092549):\n\n```\n    // Note that, static link liblog and libbase is a hard requirement for resolv related tests\n    // because libbase is not compatible between Q and R for general platform build due\n    // to its log revelant functions changing. And most of resolv related tests must be able to run\n    // in Q.\n```\n\nI haven\u0027t dug into it yet, though.\n\nI also wondered about whether libnetutils and libprocessgroup should be statically-linked.",
       "parentUuid": "fe137f0f_e2d74542",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "20e8b3222bd5f2553034bc835d4d4d1464f7de84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1693b0dd_ee18ca9d",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2024-05-21T00:11:43Z",
+      "side": 1,
+      "message": "New APIs in liblog are annotated with the availability. So, the caller (the test) must have used the `__builtin_available` guard when using them, so that they can run on older platform where the API is not available.",
+      "parentUuid": "62fe5d9a_d68f5168",
       "range": {
         "startLine": 31,
         "startChar": 0,
