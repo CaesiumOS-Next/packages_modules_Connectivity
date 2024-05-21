@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba6bb377_c5d862dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-21T09:31:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83730c30_fa24c882",
+      "revId": "9bdecd214f353232db3224da0d6d6a7b881d811c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d31a285_9af5705d",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-05-20T08:31:38Z",
       "side": 1,
       "message": "This one seems has to be @Nullable. However, can rename it to `mPredefinedQueryTypes` to indicate it is sometime passed from upper layer?",
+      "range": {
+        "startLine": 270,
+        "startChar": 8,
+        "endLine": 271,
+        "endChar": 47
+      },
+      "revId": "9bdecd214f353232db3224da0d6d6a7b881d811c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c049fbd5_eb4f715d",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-21T09:31:27Z",
+      "side": 1,
+      "message": "This field has been removed.",
+      "parentUuid": "7d31a285_9af5705d",
       "range": {
         "startLine": 270,
         "startChar": 8,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b43517f_3d529c52",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-21T09:31:27Z",
+      "side": 1,
+      "message": "This field has been removed.",
+      "parentUuid": "73a92220_73a66137",
+      "range": {
+        "startLine": 275,
+        "startChar": 16,
+        "endLine": 275,
+        "endChar": 49
+      },
+      "revId": "9bdecd214f353232db3224da0d6d6a7b881d811c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d3c1640_e7735115",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-05-20T08:31:38Z",
       "side": 1,
       "message": "Can we try to avoid using the @Nullable? \n\nI think in general, make the variable @NonNull when possible can reduce the chance of NPE error.\n\nFor example, here we can make two constructors\n\nDnsAddressAnswer(@NonNull byte[] data)\n\nDnsAddressAnswer(@NonNull byte[] data, @NonNull Set\u003cInteger\u003e queryTypes)",
+      "range": {
+        "startLine": 564,
+        "startChar": 8,
+        "endLine": 564,
+        "endChar": 81
+      },
+      "revId": "9bdecd214f353232db3224da0d6d6a7b881d811c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6594acbe_7a839ec9",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-21T09:31:27Z",
+      "side": 1,
+      "message": "SGTM. However I recently found the change in `DnsAddressAnswer` is unnecessary so I removed it.",
+      "parentUuid": "4d3c1640_e7735115",
       "range": {
         "startLine": 564,
         "startChar": 8,
