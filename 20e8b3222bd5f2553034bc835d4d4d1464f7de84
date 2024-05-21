@@ -171,6 +171,30 @@
       },
       "revId": "20e8b3222bd5f2553034bc835d4d4d1464f7de84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b64f6b96_4e4e2ede",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1229339
+      },
+      "writtenOn": "2024-05-21T21:14:13Z",
+      "side": 1,
+      "message": "Ok, I left liblog as dynamically linked.",
+      "parentUuid": "b70b7770_4d834779",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "20e8b3222bd5f2553034bc835d4d4d1464f7de84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
