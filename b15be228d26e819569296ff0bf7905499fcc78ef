@@ -1,0 +1,75 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c508150d_9eba1e5c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-21T08:08:29Z",
+      "side": 0,
+      "message": "Maybe instead of deleting this test entirely, we could instead write some simple code that asserts that a new request has no forbidden capabilities? We can then add a comment that explains that adding such forbidden capabilities by default is dangerous and link to the bug.\n\nMaybe we can even check that no new *non-forbidden* capabilities are added as well: if we add a new capability by default, that could will break jobscheduler persistence as well.",
+      "range": {
+        "startLine": 516,
+        "startChar": 16,
+        "endLine": 516,
+        "endChar": 39
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d0159d72_ed0aac7f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+              "range": {
+                "startLine": 516,
+                "startChar": 0,
+                "endLine": 516,
+                "endChar": 0
+              },
+              "replacement": "        // Verify that the request has no forbidden capabilities.\n        verifyNoForbiddenCapabilities(baseRequest);\n"
+            },
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+              "range": {
+                "startLine": 522,
+                "startChar": 0,
+                "endLine": 522,
+                "endChar": 0
+              },
+              "replacement": "        verifyNoForbiddenCapabilities(requestCellMms);\n"
+            },
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+              "range": {
+                "startLine": 531,
+                "startChar": 0,
+                "endLine": 531,
+                "endChar": 0
+              },
+              "replacement": "        verifyNoForbiddenCapabilities(requestWifi);\n"
+            },
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+              "range": {
+                "startLine": 540,
+                "startChar": 0,
+                "endLine": 540,
+                "endChar": 0
+              },
+              "replacement": "\n    private void verifyNoForbiddenCapabilities(NetworkRequest nr) {\n        for (int capability : nr.getCapabilities()) {\n            assertFalse(nr.hasForbiddenCapability(capability));\n        }\n    }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b15be228d26e819569296ff0bf7905499fcc78ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
