@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9513a16c_3823e6b2",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1229339
+      },
+      "writtenOn": "2024-05-21T00:09:14Z",
+      "side": 1,
+      "message": "This 34 is curious to me, because the connectivity_native_test is (AFAICT) running on R, so presumably it should be 30 instead (or some tests need to be disabled?).\n\nSee: https://android-build.corp.google.com/test_investigate/?testResultId\u003dTR46829275908577308\u0026invocationId\u003dI46100010270515676\n\nThe invocation is `v2/mainline-engprod/suite/test-mapping-mainline-presubmit-cloud-R-base-image`.",
+      "revId": "20e8b3222bd5f2553034bc835d4d4d1464f7de84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe137f0f_e2d74542",
         "filename": "tests/native/connectivity_native_test/Android.bp",
         "patchSetId": 1
@@ -14,6 +31,30 @@
       "writtenOn": "2024-05-20T23:52:49Z",
       "side": 1,
       "message": "liblog is NDK, so shared_libs should be fine.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "20e8b3222bd5f2553034bc835d4d4d1464f7de84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62fe5d9a_d68f5168",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1229339
+      },
+      "writtenOn": "2024-05-21T00:09:14Z",
+      "side": 1,
+      "message": "Hmm, the comment for the DnsResolver tests seemed to differ (see aosp/3092549):\n\n```\n    // Note that, static link liblog and libbase is a hard requirement for resolv related tests\n    // because libbase is not compatible between Q and R for general platform build due\n    // to its log revelant functions changing. And most of resolv related tests must be able to run\n    // in Q.\n```\n\nI haven\u0027t dug into it yet, though.\n\nI also wondered about whether libnetutils and libprocessgroup should be statically-linked.",
+      "parentUuid": "fe137f0f_e2d74542",
       "range": {
         "startLine": 31,
         "startChar": 0,
