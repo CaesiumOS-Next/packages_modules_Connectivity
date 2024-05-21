@@ -147,6 +147,30 @@
       },
       "revId": "20e8b3222bd5f2553034bc835d4d4d1464f7de84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b70b7770_4d834779",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2024-05-21T01:10:40Z",
+      "side": 1,
+      "message": "statically linking liblog sounds a lot more risky because the protocol between liblog and logd AFAIK is not stable. i.e. liblog which is built today and gets included in the test may not work well with logd running on old device.",
+      "parentUuid": "c3d5dfd3_16e9654d",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "20e8b3222bd5f2553034bc835d4d4d1464f7de84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
