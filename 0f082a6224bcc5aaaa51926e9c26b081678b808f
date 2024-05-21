@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7091f95_3c1e8dea",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-21T09:34:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6859ec8_5faf5baa",
+      "range": {
+        "startLine": 933,
+        "startChar": 41,
+        "endLine": 934,
+        "endChar": 58
+      },
+      "revId": "0f082a6224bcc5aaaa51926e9c26b081678b808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "993954b9_aaeb8a07",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-21T08:05:20Z",
       "side": 1,
       "message": "Per discussion - if in the future we want to make onBlockedStatusChanged reflect other restrictions (e.g., regular apps can\u0027t access networks with NOT_RESTRICTED), we might want to give this a more generic name. BLOCKED_REASON_NETWORK_RESTRICTED BLOCKED_REASON_NO_PERMISSION?",
+      "range": {
+        "startLine": 940,
+        "startChar": 28,
+        "endLine": 940,
+        "endChar": 65
+      },
+      "revId": "0f082a6224bcc5aaaa51926e9c26b081678b808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db177b6b_511a09be",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-21T09:34:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "993954b9_aaeb8a07",
       "range": {
         "startLine": 940,
         "startChar": 28,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aaf6a01_bfca171e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 11197,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-21T09:34:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "618c755e_b1764729",
+      "range": {
+        "startLine": 11197,
+        "startChar": 16,
+        "endLine": 11197,
+        "endChar": 31
+      },
+      "revId": "0f082a6224bcc5aaaa51926e9c26b081678b808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4cbc7ad_ebb3d011",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e59d2842_7224a5af",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBlockedReasonsTest.kt",
+        "patchSetId": 48
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-21T09:34:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4cbc7ad_ebb3d011",
+      "range": {
+        "startLine": 207,
+        "startChar": 46,
+        "endLine": 207,
+        "endChar": 55
+      },
+      "revId": "0f082a6224bcc5aaaa51926e9c26b081678b808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c608d91a_64d36167",
@@ -106,6 +202,24 @@
       "writtenOn": "2024-05-21T08:05:20Z",
       "side": 1,
       "message": "What about the pre-V behaviour? That\u0027s different from the behaviour on V. Per discussion, I think we should test that if NPMS sends us nonzero blocked reasons, we still send the blocked reasons to the app even if the app has no internet permission.\n\nMaybe we could add some code to ConnectivityServiceTest#testNetworkBlockedStatus() that only runs before V, and removes the internet permission?",
+      "revId": "0f082a6224bcc5aaaa51926e9c26b081678b808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20b9159d_25fdeb15",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBlockedReasonsTest.kt",
+        "patchSetId": 48
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-21T09:34:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c608d91a_64d36167",
       "revId": "0f082a6224bcc5aaaa51926e9c26b081678b808f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
