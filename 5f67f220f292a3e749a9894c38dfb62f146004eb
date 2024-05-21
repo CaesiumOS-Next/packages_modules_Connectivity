@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9391ea2e_810d427a",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-21T19:01:03Z",
+      "side": 1,
+      "message": "use isAtLeastV() instead of getuid()",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 4
+      },
+      "revId": "5f67f220f292a3e749a9894c38dfb62f146004eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30a9d7a6_6f0ca9c1",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-21T19:01:03Z",
+      "side": 1,
+      "message": "isAtLeastV",
+      "range": {
+        "startLine": 235,
+        "startChar": 28,
+        "endLine": 235,
+        "endChar": 67
+      },
+      "revId": "5f67f220f292a3e749a9894c38dfb62f146004eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc6d303d_5869d4cc",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-21T19:01:03Z",
+      "side": 1,
+      "message": "const bool isAtLeastUQPR3 \u003d (getuid \u003d\u003d 0)",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 4
+      },
+      "revId": "5f67f220f292a3e749a9894c38dfb62f146004eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15abbcdf_ccb434f2",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-21T19:01:03Z",
+      "side": 1,
+      "message": "check uid\u003d0, with comment this is true on U QPR3+",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 4
+      },
+      "revId": "5f67f220f292a3e749a9894c38dfb62f146004eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f438f48d_94bbe67f",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-21T19:01:03Z",
+      "side": 1,
+      "message": "insert a U QPR3 bpfloader version\n\nif (uid\u003d\u003d0) ++ver; // [45] BPFLOADER_MAINLINE_U_QPR3_VERSION\nif (V+)     ++ver; // [46] BPFLOADER_MAINLINE_V_VERSION\n\nbool isAtLeastUQPR3 \u003d ... somewhere up above",
+      "range": {
+        "startLine": 386,
+        "startChar": 0,
+        "endLine": 386,
+        "endChar": 4
+      },
+      "revId": "5f67f220f292a3e749a9894c38dfb62f146004eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6199e94_8b34a2e2",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-21T19:01:03Z",
+      "side": 1,
+      "message": "this needs to check for uid \u003d 0 instead of V (even though it is equivalent)",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 4
+      },
+      "revId": "5f67f220f292a3e749a9894c38dfb62f146004eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a503f714_e187d273",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-21T19:01:03Z",
+      "side": 1,
+      "message": "comment that U QPR3 will not call back into us but V will.",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 8
+      },
+      "revId": "5f67f220f292a3e749a9894c38dfb62f146004eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ab7fb17_69c4d2c6",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-21T19:01:03Z",
+      "side": 1,
+      "message": "comment this is V+",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 4
+      },
+      "revId": "5f67f220f292a3e749a9894c38dfb62f146004eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
