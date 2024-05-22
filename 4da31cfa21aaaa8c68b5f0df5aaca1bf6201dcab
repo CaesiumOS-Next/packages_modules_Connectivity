@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9301d22_aabc08cb",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-22T08:13:11Z",
+      "side": 1,
+      "message": "nits: It\u0027s better to read flag value once. (technically it\u0027s possible that flag value changes between two calls, I think)\nI think we can just use mAlwaysUseTrafficStatsRateLimitCache/mTrafficStatsRateLimitCacheExpiryDuration and remove cacheExpiryDurationMs and cacheMaxEntries",
+      "range": {
+        "startLine": 675,
+        "startChar": 16,
+        "endLine": 675,
+        "endChar": 68
+      },
+      "revId": "4da31cfa21aaaa8c68b5f0df5aaca1bf6201dcab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
