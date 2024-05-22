@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcc4e5d7_a787e1ce",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-22T06:20:02Z",
+      "side": 1,
+      "message": "I don\u0027t think there are use cases where the interface names can be null, if they are null it\u0027s probably a bug in ConnectivityService when applying multicast routing configs.",
+      "parentUuid": "9efc0936_80ac6f68",
+      "range": {
+        "startLine": 172,
+        "startChar": 62,
+        "endLine": 172,
+        "endChar": 65
+      },
+      "revId": "10cd6f98c2f40d2ed79a97653f8beac45f830f06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d41fb27c_e508da9a",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-22T03:53:05Z",
       "side": 1,
       "message": "nits: adding iifName and oifName might be helpful for debugging.",
+      "range": {
+        "startLine": 177,
+        "startChar": 68,
+        "endLine": 177,
+        "endChar": 70
+      },
+      "revId": "10cd6f98c2f40d2ed79a97653f8beac45f830f06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aea46063_0a1fc888",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-22T06:20:02Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d41fb27c_e508da9a",
       "range": {
         "startLine": 177,
         "startChar": 68,
