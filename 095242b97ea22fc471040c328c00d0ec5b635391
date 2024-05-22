@@ -1,0 +1,183 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f105d2a9_35629065",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 123
+      },
+      "lineNbr": 3367,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-22T07:24:04Z",
+      "side": 1,
+      "message": "Question: Still can\u0027t follow why we have multiple calls.\nMaybe explain with example?",
+      "range": {
+        "startLine": 3366,
+        "startChar": 39,
+        "endLine": 3367,
+        "endChar": 68
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "85b21e3c_0191ec46",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 3367,
+                "startChar": 0,
+                "endLine": 3369,
+                "endChar": 0
+              },
+              "replacement": "                // does not maintain previous destroy socket reasons. CS only maintains\n                // destroy socket reasons of uids that ConnectivityService is pending to close\n                // sockets of.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "095242b97ea22fc471040c328c00d0ec5b635391",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a3bc57e_bf1f6622",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 123
+      },
+      "lineNbr": 3378,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-22T07:24:04Z",
+      "side": 1,
+      "message": "If so, is this expected to happen in some cases?\nIf yes, do we want to explain the case?\nIf not, do we want to throw or Log.wtf?",
+      "range": {
+        "startLine": 3377,
+        "startChar": 33,
+        "endLine": 3378,
+        "endChar": 56
+      },
+      "revId": "095242b97ea22fc471040c328c00d0ec5b635391",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cfcced9_92568d54",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 123
+      },
+      "lineNbr": 13769,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-22T07:24:04Z",
+      "side": 1,
+      "message": "Can this be replaced with postUidsBlockedReasons(Set.of(uid))?",
+      "range": {
+        "startLine": 13768,
+        "startChar": 16,
+        "endLine": 13769,
+        "endChar": 100
+      },
+      "revId": "095242b97ea22fc471040c328c00d0ec5b635391",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa4390f1_9e5975b4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 123
+      },
+      "lineNbr": 13877,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-22T07:24:04Z",
+      "side": 1,
+      "message": "1. If this comment is for closeSocketsForFirewallChainLocked, should we move this around that function? If not, maybe just remove the method name from comment?\ne.g.\nImmediatly closes sockets here because of the following reasons:\n...\n\n2. Since this is a long paragraph, maybe make it seasier to follow, e.g.\n\u003cAI-suggested fix\u003e\ncloseSocketsForFirewallChainLocked closes sockets immediately without delay for the following reasons:\n 1. Delaying socket closure when a firewall chain is enabled/disabled is less crucial and would make the code more complex. Changes to firewall chains occur less often than uid rule updates.\n 2. If the chain permits network access, ConnectivityService closes sockets based on uid ranges and exempt uids because it doesn\u0027t know which specific uids lose access.\n 3. Tracking reasons for closing sockets for each individual uid, uid range, and exempt uid would introduce unnecessary complexity.",
+      "range": {
+        "startLine": 13877,
+        "startChar": 19,
+        "endLine": 13877,
+        "endChar": 53
+      },
+      "revId": "095242b97ea22fc471040c328c00d0ec5b635391",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4b86971_ac296c88",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 123
+      },
+      "lineNbr": 13935,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-22T07:24:04Z",
+      "side": 1,
+      "message": "Is there any possiblility where we mistakenly blocked something or forgot to update some list?\nIf so, it seems to me we\u0027ll have a need to clarify if a particular uid is blocked and by what reason. e.g. https://buganizer.corp.google.com/issues/341594213#comment14\ndo we already have any dump of chains default enabled in the bugreport?",
+      "range": {
+        "startLine": 13935,
+        "startChar": 16,
+        "endLine": 13935,
+        "endChar": 36
+      },
+      "revId": "095242b97ea22fc471040c328c00d0ec5b635391",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d58e219_59e6006a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-22T07:24:04Z",
+      "side": 1,
+      "message": "Not for this CL, do we want to migrate to common @FeatureFlags class?",
+      "range": {
+        "startLine": 129,
+        "startChar": 5,
+        "endLine": 129,
+        "endChar": 17
+      },
+      "revId": "095242b97ea22fc471040c328c00d0ec5b635391",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a676792c_998d9031",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 123
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-22T07:24:04Z",
+      "side": 1,
+      "message": "nit: The triple layers of mock bothers me.\nWhere we override this method in the test, and we still need to create another class with a do-nothing method, and we need to make mock over the class.\nPersoanlly I don\u0027t think it is better than spy() on the Dep object.\nIs this the best way for this kind of case? Maybe ask remi for confirmation?",
+      "range": {
+        "startLine": 380,
+        "startChar": 34,
+        "endLine": 380,
+        "endChar": 66
+      },
+      "revId": "095242b97ea22fc471040c328c00d0ec5b635391",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
