@@ -16,6 +16,23 @@
       "message": "Hey Lorenzo, Remi. Long time no talk! I have multiple approvals waiting for this, could you please help This patch got CR+2 in the master in aosp/2536890 and and was merged.",
       "revId": "fc1bd9d19850c3234537dab884300846b52a479c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "801d6f63_b832f947",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107353
+      },
+      "writtenOn": "2024-05-22T23:23:07Z",
+      "side": 1,
+      "message": "A gentle ping",
+      "revId": "fc1bd9d19850c3234537dab884300846b52a479c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
