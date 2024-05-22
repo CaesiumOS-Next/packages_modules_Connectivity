@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9efc0936_80ac6f68",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-22T03:53:05Z",
+      "side": 1,
+      "message": "Do we case where iifName of oifName are null?\nIf we have, I don\u0027t think we should crash system server in this case well.",
+      "range": {
+        "startLine": 172,
+        "startChar": 62,
+        "endLine": 172,
+        "endChar": 65
+      },
+      "revId": "10cd6f98c2f40d2ed79a97653f8beac45f830f06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d41fb27c_e508da9a",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-22T03:53:05Z",
+      "side": 1,
+      "message": "nits: adding iifName and oifName might be helpful for debugging.",
+      "range": {
+        "startLine": 177,
+        "startChar": 68,
+        "endLine": 177,
+        "endChar": 70
+      },
+      "revId": "10cd6f98c2f40d2ed79a97653f8beac45f830f06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
