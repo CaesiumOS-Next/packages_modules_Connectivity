@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dba1c466_00081af0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-05-22T10:18:36Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "605e6c829e2726b93fa5d7be6ae4fe28a28a1bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5bfc45b_a074728c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2240,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-05-22T10:18:36Z",
+      "side": 1,
+      "message": "Nit: It\u0027s better to rename uid to appId to avoid confusion.",
+      "range": {
+        "startLine": 2240,
+        "startChar": 28,
+        "endLine": 2240,
+        "endChar": 44
+      },
+      "revId": "605e6c829e2726b93fa5d7be6ae4fe28a28a1bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
