@@ -1034,8 +1034,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final boolean mAllowSysUiConnectivityReports;
 
     // Uids that ConnectivityService is pending to close sockets of.
-    // Key is uid and value is reasons of socket destroy
-    private final SparseIntArray mDestroySocketPendingUids = new SparseIntArray();
+    private final Set<Integer> mDestroySocketPendingUids = new ArraySet<>();
+
+    // Uid to destroy socket reasons map. This is used to decide when to destroy sockets of uids.
+    // When the value is updated from DESTROY_SOCKET_REASON_NONE to non DESTROY_SOCKET_REASON_NONE
+    // reason, sockets of this uid are destroyed.
+    // And when the value is updated to DESTROY_SOCKET_REASON_NONE and CS is pending to destroy
+    // sockets of this uid, CS removes this uid from the pending uid list.
+    // Note that when the firewall chains get *enabled* by setFirewallChainEnabled, some uids
+    // destroy socket reasons are not updated since CS does not know all the uids on the device.
+    // This is acceptable since enabling firewall chain does not remove network restrictions and
+    // CS will not destroy sockets of uids that have network access.
+    private final SparseIntArray mUidDestroySocketReasons = new SparseIntArray();
 
     private static final int DESTROY_SOCKET_REASON_NONE = 0;
     private static final int DESTROY_SOCKET_REASON_FROZEN = 1 << 0;
@@ -3364,15 +3374,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             final int uid = uidBlockedReasons.first;
             final int blockedReasons = uidBlockedReasons.second;
             if (mDeps.isAtLeastV()) {
-                // This could attempt to destroy sockets for the same uid multiple times
-                // unnecessarily since CS only maintains destroy socket reasons of uids that CS
-                // is pending to close sockets of.
-                // For example, if the network access of the uid is first denied by background
-                // firewall chain and then also denied by doze firewall chain, CS attempts to
-                // destroy socket of this uid twice.
-                // TODO: Reduce unnecessary socket destruction by destroying sockets only when the
-                //       destroy socket reasons change from DESTROY_SOCKET_REASON_NONE to
-                //       non DESTROY_SOCKET_REASON_NONE reasons
                 updateDestroySocketReasonsAndMaybeDestroySockets(uid, blockedReasons);
                 synchronized (mBlockedStatusTrackingUids) {
                     if (mBlockedStatusTrackingUids.get(uid) == 0) {
@@ -3421,15 +3422,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void updateDestroySocketReasons(final int uid, final int reason,
             final boolean addReason) {
-        final int destroyReasons = mDestroySocketPendingUids.get(uid, DESTROY_SOCKET_REASON_NONE);
+        final int destroyReasons = mUidDestroySocketReasons.get(uid, DESTROY_SOCKET_REASON_NONE);
         if (addReason) {
-            mDestroySocketPendingUids.put(uid, destroyReasons | reason);
+            mUidDestroySocketReasons.put(uid, destroyReasons | reason);
+            if (destroyReasons == DESTROY_SOCKET_REASON_NONE
+                    && reason != DESTROY_SOCKET_REASON_NONE) {
+                mDestroySocketPendingUids.add(uid);
+            }
         } else {
             final int newDestroyReasons = destroyReasons & ~reason;
             if (newDestroyReasons == DESTROY_SOCKET_REASON_NONE) {
-                mDestroySocketPendingUids.delete(uid);
+                mUidDestroySocketReasons.delete(uid);
+                mDestroySocketPendingUids.remove(uid);
             } else {
-                mDestroySocketPendingUids.put(uid, newDestroyReasons);
+                mUidDestroySocketReasons.put(uid, newDestroyReasons);
             }
         }
     }
@@ -3471,8 +3477,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         // Unset DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND from all pending uids since background
         // firewall restriction is disabled for all uids.
-        for (int i = mDestroySocketPendingUids.size() - 1; i >= 0; i--) {
-            final int uid = mDestroySocketPendingUids.keyAt(i);
+        for (int i = mUidDestroySocketReasons.size() - 1; i >= 0; i--) {
+            final int uid = mUidDestroySocketReasons.keyAt(i);
             updateDestroySocketReasons(uid, DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND,
                     false /* addReason */);
         }
@@ -3484,13 +3490,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return;
         }
 
-        Set<Integer> uids = new ArraySet<>();
-        for (int i = 0; i < mDestroySocketPendingUids.size(); i++) {
-            uids.add(mDestroySocketPendingUids.keyAt(i));
-        }
-
         try {
-            mDeps.destroyLiveTcpSocketsByOwnerUids(uids);
+            mDeps.destroyLiveTcpSocketsByOwnerUids(mDestroySocketPendingUids);
         } catch (SocketException | InterruptedIOException | ErrnoException e) {
             loge("Failed to destroy sockets: " + e);
         }
@@ -3539,14 +3540,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.increaseIndent();
         pw.print("mDestroyFrozenSockets="); pw.println(mDestroyFrozenSockets);
         pw.print("mDelayDestroySockets="); pw.println(mDelayDestroySockets);
-        pw.print("mDestroySocketPendingUids:");
+        pw.print("mUidDestroySocketReasons:");
         pw.increaseIndent();
-        for (int i = 0; i < mDestroySocketPendingUids.size(); i++) {
-            final int uid = mDestroySocketPendingUids.keyAt(i);
-            final int reasons = mDestroySocketPendingUids.valueAt(i);
+        for (int i = 0; i < mUidDestroySocketReasons.size(); i++) {
+            final int uid = mUidDestroySocketReasons.keyAt(i);
+            final int reasons = mUidDestroySocketReasons.valueAt(i);
             pw.print(uid + ": reasons=" + reasons);
         }
         pw.decreaseIndent();
+        pw.print("mDestroySocketPendingUids: "); pw.println(mDestroySocketPendingUids);
         pw.decreaseIndent();
     }
 
