@@ -377,7 +377,9 @@ open class CSTest {
 
         override fun destroyLiveTcpSocketsByOwnerUids(ownerUids: Set<Int>) {
             // Call mocked destroyLiveTcpSocketsByOwnerUids so that test can verify this method call
-            destroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(ownerUids)
+            // Create copy of ownerUids so that tests can verify the correct value even if the
+            // ConnectivityService update the ownerUids after this method call.
+            destroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(ownerUids.toSet())
         }
     }
 
