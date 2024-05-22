@@ -2237,7 +2237,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private boolean hasInternetPermission(final int uid) {
-        return (mBpfNetMaps.getNetPermForUid(uid) & PERMISSION_INTERNET) != 0;
+        return (mBpfNetMaps.getNetPermForUid(UserHandle.getAppId(uid)) & PERMISSION_INTERNET) != 0;
     }
 
     /**
