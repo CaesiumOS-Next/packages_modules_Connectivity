@@ -66,6 +66,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5738f33_e1799b39",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 123
+      },
+      "lineNbr": 3367,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-22T11:08:36Z",
+      "side": 1,
+      "message": "aosp/3094979 fixes this unnecessarily socket destruction.",
+      "parentUuid": "46239c34_033b2106",
+      "range": {
+        "startLine": 3366,
+        "startChar": 39,
+        "endLine": 3367,
+        "endChar": 68
+      },
+      "revId": "095242b97ea22fc471040c328c00d0ec5b635391",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a3bc57e_bf1f6622",
