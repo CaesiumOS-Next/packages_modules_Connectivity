@@ -20,8 +20,10 @@ import android.app.ActivityManager.UidFrozenStateChangedCallback
 import android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_FROZEN
 import android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_UNFROZEN
 import android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND
+import android.net.ConnectivityManager.BLOCKED_REASON_DOZE
 import android.net.ConnectivityManager.BLOCKED_REASON_NONE
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
+import android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE
 import android.net.ConnectivityManager.FIREWALL_RULE_ALLOW
 import android.net.ConnectivityManager.FIREWALL_RULE_DENY
 import android.net.LinkProperties
@@ -334,5 +336,45 @@ class CSDestroySocketTest : CSTest() {
                 enableBackgroundChain = false,
                 expectDestroySockets = false
         )
+    }
+
+    @Test
+    fun testDestroySocketsOnce() {
+        val frozenStateCallback = getUidFrozenStateChangedCallback()
+        val inOrder = inOrder(destroySocketsWrapper)
+
+        // Set deny rule on background chain for TEST_UID
+        doReturn(BLOCKED_REASON_APP_BACKGROUND)
+                .`when`(bpfNetMaps).getUidNetworkingBlockedReasons(TEST_UID)
+        cm.setUidFirewallRule(
+                FIREWALL_CHAIN_BACKGROUND,
+                TEST_UID,
+                FIREWALL_RULE_DENY
+        )
+
+        // Sockets are destroyed since the destroy socket reasons changed from
+        // SOCKET_DESTROY_REASON_NONE to DESTROY_SOCKET_REASON_FIREWALL_BACKGROUND
+        waitForIdle()
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByOwnerUids(setOf(TEST_UID))
+
+        // Set deny rule on background chain for TEST_UID
+        doReturn(BLOCKED_REASON_APP_BACKGROUND or BLOCKED_REASON_DOZE)
+                .`when`(bpfNetMaps).getUidNetworkingBlockedReasons(TEST_UID)
+        cm.setUidFirewallRule(
+                FIREWALL_CHAIN_DOZABLE,
+                TEST_UID,
+                FIREWALL_RULE_DENY
+        )
+        // Freeze TEST_UID
+        frozenStateCallback.onUidFrozenStateChanged(
+                intArrayOf(TEST_UID),
+                intArrayOf(UID_FROZEN_STATE_FROZEN)
+        )
+        waitForIdle()
+
+        // Sockets are not destroyed again since sockets are already destroyed when the deny rule
+        // is set on background chain.
+        inOrder.verify(destroySocketsWrapper, never())
+                .destroyLiveTcpSocketsByOwnerUids(setOf(TEST_UID))
     }
 }
