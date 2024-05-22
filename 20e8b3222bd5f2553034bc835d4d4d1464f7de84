@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d668654_46da8d09",
+        "filename": "tests/native/connectivity_native_test/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2024-05-22T09:49:24Z",
+      "side": 1,
+      "message": "I think this is a question to the owner of this module. Rorenzo?",
+      "parentUuid": "86488b53_64e994ba",
+      "revId": "20e8b3222bd5f2553034bc835d4d4d1464f7de84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe137f0f_e2d74542",
         "filename": "tests/native/connectivity_native_test/Android.bp",
         "patchSetId": 1
