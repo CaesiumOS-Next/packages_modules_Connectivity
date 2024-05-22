@@ -16,20 +16,38 @@
 
 #pragma once
 
+#include <errno.h>
 #include <linux/bpf.h>
 #include <linux/unistd.h>
-
-#ifdef BPF_FD_JUST_USE_INT
-  #define BPF_FD_TYPE int
-  #define BPF_FD_TO_U32(x) static_cast<__u32>(x)
-#else
-  #include <android-base/unique_fd.h>
-  #define BPF_FD_TYPE base::unique_fd&
-  #define BPF_FD_TO_U32(x) static_cast<__u32>((x).get())
-#endif
+#include <stdint.h>
+#include <type_traits>
+#include <unistd.h>
 
 namespace android {
+namespace base {
+
+// Forward declarations used for BPF_FD_TO_U32 template specialization.
+template<typename T>
+class unique_fd_impl;
+struct DefaultCloser;
+using unique_fd = unique_fd_impl<DefaultCloser>;
+
+} // namespace base
 namespace bpf {
+
+template<typename T, typename Enable = void>
+inline __u32 BPF_FD_TO_U32(const T& fd) {
+    return static_cast<__u32>(fd);
+}
+
+// In order to support BPF_FD_TO_U32 in places where libbase is not available, a template
+// specialization for unique_fd cannot be used directly. Instead, use std::enable_if_t
+// metaprogramming to conditionally enable this template.
+template<typename T, std::enable_if_t<std::is_same<T, base::unique_fd>::value>>
+inline __u32 BPF_FD_TO_U32(const T& fd) {
+    return static_cast<__u32>(fd.get());
+}
+
 
 inline uint64_t ptr_to_u64(const void * const x) {
     return (uint64_t)(uintptr_t)x;
@@ -65,59 +83,66 @@ inline int createMap(bpf_map_type map_type, uint32_t key_size, uint32_t value_si
 //   'value_size' must be sizeof(u32), ie. 4
 //   'inner_map_fd' is basically a template specifying {map_type, key_size, value_size, max_entries, map_flags}
 //   of the inner map type (and possibly only key_size/value_size actually matter?).
+template<typename BPF_FD_TYPE>
 inline int createOuterMap(bpf_map_type map_type, uint32_t key_size, uint32_t value_size,
-                          uint32_t max_entries, uint32_t map_flags, const BPF_FD_TYPE inner_map_fd) {
+                          uint32_t max_entries, uint32_t map_flags, const BPF_FD_TYPE& inner_map_fd) {
     return bpf(BPF_MAP_CREATE, {
                                        .map_type = map_type,
                                        .key_size = key_size,
                                        .value_size = value_size,
                                        .max_entries = max_entries,
                                        .map_flags = map_flags,
-                                       .inner_map_fd = BPF_FD_TO_U32(inner_map_fd),
+                                       .inner_map_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(inner_map_fd),
                                });
 }
 
-inline int writeToMapEntry(const BPF_FD_TYPE map_fd, const void* key, const void* value,
+template<typename BPF_FD_TYPE>
+inline int writeToMapEntry(const BPF_FD_TYPE& map_fd, const void* key, const void* value,
                            uint64_t flags) {
     return bpf(BPF_MAP_UPDATE_ELEM, {
-                                            .map_fd = BPF_FD_TO_U32(map_fd),
+                                            .map_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(map_fd),
                                             .key = ptr_to_u64(key),
                                             .value = ptr_to_u64(value),
                                             .flags = flags,
                                     });
 }
 
-inline int findMapEntry(const BPF_FD_TYPE map_fd, const void* key, void* value) {
+template<typename BPF_FD_TYPE>
+inline int findMapEntry(const BPF_FD_TYPE& map_fd, const void* key, void* value) {
     return bpf(BPF_MAP_LOOKUP_ELEM, {
-                                            .map_fd = BPF_FD_TO_U32(map_fd),
+                                            .map_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(map_fd),
                                             .key = ptr_to_u64(key),
                                             .value = ptr_to_u64(value),
                                     });
 }
 
-inline int deleteMapEntry(const BPF_FD_TYPE map_fd, const void* key) {
+template<typename BPF_FD_TYPE>
+inline int deleteMapEntry(const BPF_FD_TYPE& map_fd, const void* key) {
     return bpf(BPF_MAP_DELETE_ELEM, {
-                                            .map_fd = BPF_FD_TO_U32(map_fd),
+                                            .map_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(map_fd),
                                             .key = ptr_to_u64(key),
                                     });
 }
 
-inline int getNextMapKey(const BPF_FD_TYPE map_fd, const void* key, void* next_key) {
+template<typename BPF_FD_TYPE>
+inline int getNextMapKey(const BPF_FD_TYPE& map_fd, const void* key, void* next_key) {
     return bpf(BPF_MAP_GET_NEXT_KEY, {
-                                             .map_fd = BPF_FD_TO_U32(map_fd),
+                                             .map_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(map_fd),
                                              .key = ptr_to_u64(key),
                                              .next_key = ptr_to_u64(next_key),
                                      });
 }
 
-inline int getFirstMapKey(const BPF_FD_TYPE map_fd, void* firstKey) {
+template<typename BPF_FD_TYPE>
+inline int getFirstMapKey(const BPF_FD_TYPE& map_fd, void* firstKey) {
     return getNextMapKey(map_fd, NULL, firstKey);
 }
 
-inline int bpfFdPin(const BPF_FD_TYPE map_fd, const char* pathname) {
+template<typename BPF_FD_TYPE>
+inline int bpfFdPin(const BPF_FD_TYPE& map_fd, const char* pathname) {
     return bpf(BPF_OBJ_PIN, {
                                     .pathname = ptr_to_u64(pathname),
-                                    .bpf_fd = BPF_FD_TO_U32(map_fd),
+                                    .bpf_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(map_fd),
                             });
 }
 
@@ -155,31 +180,34 @@ inline bool usableProgram(const char* pathname) {
     return ok;
 }
 
-inline int attachProgram(bpf_attach_type type, const BPF_FD_TYPE prog_fd,
-                         const BPF_FD_TYPE cg_fd, uint32_t flags = 0) {
+template<typename BPF_FD_TYPE>
+inline int attachProgram(bpf_attach_type type, const BPF_FD_TYPE& prog_fd,
+                         const BPF_FD_TYPE& cg_fd, uint32_t flags = 0) {
     return bpf(BPF_PROG_ATTACH, {
-                                        .target_fd = BPF_FD_TO_U32(cg_fd),
-                                        .attach_bpf_fd = BPF_FD_TO_U32(prog_fd),
+                                        .target_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(cg_fd),
+                                        .attach_bpf_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(prog_fd),
                                         .attach_type = type,
                                         .attach_flags = flags,
                                 });
 }
 
-inline int detachProgram(bpf_attach_type type, const BPF_FD_TYPE cg_fd) {
+template<typename BPF_FD_TYPE>
+inline int detachProgram(bpf_attach_type type, const BPF_FD_TYPE& cg_fd) {
     return bpf(BPF_PROG_DETACH, {
-                                        .target_fd = BPF_FD_TO_U32(cg_fd),
+                                        .target_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(cg_fd),
                                         .attach_type = type,
                                 });
 }
 
-inline int queryProgram(const BPF_FD_TYPE cg_fd,
+template<typename BPF_FD_TYPE>
+inline int queryProgram(const BPF_FD_TYPE& cg_fd,
                         enum bpf_attach_type attach_type,
                         __u32 query_flags = 0,
                         __u32 attach_flags = 0) {
     int prog_id = -1;  // equivalent to an array of one integer.
     bpf_attr arg = {
             .query = {
-                    .target_fd = BPF_FD_TO_U32(cg_fd),
+                    .target_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(cg_fd),
                     .attach_type = attach_type,
                     .query_flags = query_flags,
                     .attach_flags = attach_flags,
@@ -193,21 +221,23 @@ inline int queryProgram(const BPF_FD_TYPE cg_fd,
     return prog_id;  // return actual id
 }
 
-inline int detachSingleProgram(bpf_attach_type type, const BPF_FD_TYPE prog_fd,
-                               const BPF_FD_TYPE cg_fd) {
+template<typename BPF_FD_TYPE>
+inline int detachSingleProgram(bpf_attach_type type, const BPF_FD_TYPE& prog_fd,
+                               const BPF_FD_TYPE& cg_fd) {
     return bpf(BPF_PROG_DETACH, {
-                                        .target_fd = BPF_FD_TO_U32(cg_fd),
-                                        .attach_bpf_fd = BPF_FD_TO_U32(prog_fd),
+                                        .target_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(cg_fd),
+                                        .attach_bpf_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(prog_fd),
                                         .attach_type = type,
                                 });
 }
 
 // Available in 4.12 and later kernels.
-inline int runProgram(const BPF_FD_TYPE prog_fd, const void* data,
+template<typename BPF_FD_TYPE>
+inline int runProgram(const BPF_FD_TYPE& prog_fd, const void* data,
                       const uint32_t data_size) {
     return bpf(BPF_PROG_RUN, {
                                      .test = {
-                                             .prog_fd = BPF_FD_TO_U32(prog_fd),
+                                             .prog_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(prog_fd),
                                              .data_size_in = data_size,
                                              .data_in = ptr_to_u64(data),
                                      },
@@ -221,10 +251,11 @@ inline int runProgram(const BPF_FD_TYPE prog_fd, const void* data,
 // supported/returned by the running kernel.  We do this by checking it is fully
 // within the bounds of the struct size as reported by the kernel.
 #define DEFINE_BPF_GET_FD(TYPE, NAME, FIELD) \
-inline int bpfGetFd ## NAME(const BPF_FD_TYPE fd) { \
+template<typename BPF_FD_TYPE> \
+inline int bpfGetFd ## NAME(const BPF_FD_TYPE& fd) { \
     struct bpf_ ## TYPE ## _info info = {}; \
     union bpf_attr attr = { .info = { \
-        .bpf_fd = BPF_FD_TO_U32(fd), \
+        .bpf_fd = BPF_FD_TO_U32<BPF_FD_TYPE>(fd), \
         .info_len = sizeof(info), \
         .info = ptr_to_u64(&info), \
     }}; \
@@ -252,6 +283,3 @@ DEFINE_BPF_GET_FD(prog, ProgId, id)              // int bpfGetFdProgId(const BPF
 }  // namespace bpf
 }  // namespace android
 
-#undef BPF_FD_TO_U32
-#undef BPF_FD_TYPE
-#undef BPF_FD_JUST_USE_INT
