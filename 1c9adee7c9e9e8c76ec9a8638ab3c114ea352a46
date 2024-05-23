@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e9fe4b8_29082154",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 126
+      },
+      "lineNbr": 3462,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T15:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaa3c559_aaf147d9",
+      "range": {
+        "startLine": 3460,
+        "startChar": 8,
+        "endLine": 3462,
+        "endChar": 9
+      },
+      "revId": "1c9adee7c9e9e8c76ec9a8638ab3c114ea352a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2612f3a6_1d96e59d",
@@ -106,6 +130,30 @@
       "writtenOn": "2024-05-23T08:25:32Z",
       "side": 1,
       "message": "nit: This is more like postBlockedReasonsForTrackingUids ?\nIf so maybe rename it.\nNo strong opinion.",
+      "range": {
+        "startLine": 13917,
+        "startChar": 17,
+        "endLine": 13917,
+        "endChar": 49
+      },
+      "revId": "1c9adee7c9e9e8c76ec9a8638ab3c114ea352a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62685a4f_71e56bab",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 126
+      },
+      "lineNbr": 13917,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T15:59:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1200a45f_4397c401",
       "range": {
         "startLine": 13917,
         "startChar": 17,
