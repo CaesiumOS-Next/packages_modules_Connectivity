@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6244465d_cc162b68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1229339
+      },
+      "writtenOn": "2024-05-23T08:49:19Z",
+      "side": 1,
+      "message": "My aosp/3092676 change missed two tests, libnetworkstats_test and netd_updatable_unit_test. Link them with a static STL to fix these two test failures:\n\nhttps://android-build.corp.google.com/test_investigate/?testResultId\u003dTR25029313642449382\u0026invocationId\u003dI59300010279797401\n\nhttps://android-build.corp.google.com/test_investigate/?testResultId\u003dTR94829313642449399\u0026invocationId\u003dI59300010279797401",
+      "revId": "096081f2670a4bd664dc84743d14ccbfb9e59608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
