@@ -47,6 +47,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 
 /**
@@ -61,6 +62,7 @@ public final class DnsResolver {
     private static final int FD_EVENTS = EVENT_INPUT | EVENT_ERROR;
     private static final int MAXPACKET = 8 * 1024;
     private static final int SLEEP_TIME_MS = 2;
+    private static final String LOCAL_DOMAIN_SUFFIX = ".local";
 
     @IntDef(prefix = { "CLASS_" }, value = {
             CLASS_IN
@@ -357,8 +359,11 @@ public final class DnsResolver {
             executor.execute(() -> callback.onError(new DnsException(ERROR_SYSTEM, e)));
             return;
         }
-        final boolean queryIpv6 = haveIpv6(queryNetwork);
-        final boolean queryIpv4 = haveIpv4(queryNetwork);
+        // If the domain is a local domain, it should be queried via mDNS over both IPv4 and IPv6
+        // so it doesn't need connectivity to the Internet.
+        final boolean isMdns = isLocalDomain(domain);
+        final boolean queryIpv6 = isMdns || haveIpv6(queryNetwork);
+        final boolean queryIpv4 = isMdns || haveIpv4(queryNetwork);
 
         // This can only happen if queryIpv4 and queryIpv6 are both false.
         // This almost certainly means that queryNetwork does not exist or no longer exists.
@@ -583,4 +588,11 @@ public final class DnsResolver {
         }
     }
 
+    private static boolean isLocalDomain(@NonNull String domain) {
+        String normalizedDomain = domain;
+        if (domain.endsWith(".")) {
+            normalizedDomain = domain.substring(0, domain.length() - 1);
+        }
+        return normalizedDomain.toLowerCase(Locale.ROOT).endsWith(LOCAL_DOMAIN_SUFFIX);
+    }
 }
