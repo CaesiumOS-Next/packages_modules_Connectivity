@@ -1,0 +1,138 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8b4fc2d_283d24d2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-23T10:13:35Z",
+      "side": 1,
+      "message": "duplicated",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 48
+      },
+      "revId": "472c3c2b42d06049aa3901e82e2dfc0f497ded55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8508d568_398e1ffb",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-23T10:13:35Z",
+      "side": 1,
+      "message": "force start/stop?",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 55
+      },
+      "revId": "472c3c2b42d06049aa3901e82e2dfc0f497ded55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b37a7165_dcb9ccd3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-23T10:13:35Z",
+      "side": 1,
+      "message": "```suggestion\n                        \"Invalid argument: Country code must be a 2-letter\"\n```",
+      "range": {
+        "startLine": 236,
+        "startChar": 68,
+        "endLine": 236,
+        "endChar": 77
+      },
+      "revId": "472c3c2b42d06049aa3901e82e2dfc0f497ded55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92a1fc96_c9f37b2a",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-23T10:13:35Z",
+      "side": 1,
+      "message": "This test case and below should use camel case",
+      "fixSuggestions": [
+        {
+          "fixId": "d05cda65_7f900c66",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 221,
+                "startChar": 0,
+                "endLine": 222,
+                "endChar": 0
+              },
+              "replacement": "    public void join_controllerServiceJoinIsCalled() {\n"
+            },
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 239,
+                "startChar": 0,
+                "endLine": 240,
+                "endChar": 0
+              },
+              "replacement": "    public void join_invalidDataset_controllerServiceJoinIsNotCalled() {\n"
+            },
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 254,
+                "startChar": 0,
+                "endLine": 255,
+                "endChar": 0
+              },
+              "replacement": "    public void migrate_controllerServiceMigrateIsCalled() {\n"
+            },
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 276,
+                "startChar": 0,
+                "endLine": 277,
+                "endChar": 0
+              },
+              "replacement": "    public void migrate_invalidDataset_controllerServiceMigrateIsNotCalled() {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "472c3c2b42d06049aa3901e82e2dfc0f497ded55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
