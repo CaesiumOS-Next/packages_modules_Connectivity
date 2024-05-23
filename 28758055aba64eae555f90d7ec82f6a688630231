@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5491872_c915e436",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 11210,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T08:07:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80e74362_7205e138",
+      "range": {
+        "startLine": 11210,
+        "startChar": 19,
+        "endLine": 11210,
+        "endChar": 29
+      },
+      "revId": "28758055aba64eae555f90d7ec82f6a688630231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c82e4f2_b3c04029",
@@ -60,6 +84,30 @@
       "writtenOn": "2024-05-23T04:02:50Z",
       "side": 1,
       "message": "Nit: this can\u0027t happen that this flag is set, right? If so, might want to just say:\n\n    return hasInternetPermission ? reasons  : reasons | BLOCKED_REASON_NETWORK_RESTRICTED;\n\nAlso, per discussion, looks like we can simplify this further?\n\n    if (hasInternetPermission) return reasons;\n\n    return mDeps.isChangeEnabled(NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION, uid)\n            ? reasons | BLOCKED_REASON_NETWORK_RESTRICTED\n            : BLOCKED_REASON_NONE;",
+      "range": {
+        "startLine": 11215,
+        "startChar": 20,
+        "endLine": 11215,
+        "endChar": 66
+      },
+      "revId": "28758055aba64eae555f90d7ec82f6a688630231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ff03dfb_c99beb65",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 11215,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T08:07:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c82e4f2_b3c04029",
       "range": {
         "startLine": 11215,
         "startChar": 20,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca7f0313_0904472f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 11231,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T08:07:39Z",
+      "side": 1,
+      "message": "Many places just say blockedReasons for firewallBlockedReasons.\nI will rename everything in the followup CL.",
+      "parentUuid": "67a2cd85_5e6fd0cf",
+      "range": {
+        "startLine": 11231,
+        "startChar": 12,
+        "endLine": 11231,
+        "endChar": 30
+      },
+      "revId": "28758055aba64eae555f90d7ec82f6a688630231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59d9fab4_fad996c4",
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea4b3816_d7eb5cdf",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 9891,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T08:07:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59d9fab4_fad996c4",
+      "range": {
+        "startLine": 9891,
+        "startChar": 73,
+        "endLine": 9891,
+        "endChar": 84
+      },
+      "revId": "28758055aba64eae555f90d7ec82f6a688630231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e70e62b7_ad04c9ef",
@@ -129,6 +225,30 @@
       "writtenOn": "2024-05-23T04:02:50Z",
       "side": 1,
       "message": "Note that this cannot actually happen because on U-, NPMS will never notify any blocked reasons for apps that don\u0027t have the INTERNET permission.",
+      "range": {
+        "startLine": 9898,
+        "startChar": 66,
+        "endLine": 9898,
+        "endChar": 67
+      },
+      "revId": "28758055aba64eae555f90d7ec82f6a688630231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8649bdf_1aa75bfb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 9898,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T08:07:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e70e62b7_ad04c9ef",
       "range": {
         "startLine": 9898,
         "startChar": 66,
