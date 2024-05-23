@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d859965a_8d64c3bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-23T01:54:45Z",
+      "side": 1,
+      "message": "Is there a bug number?",
+      "revId": "89bb2ac8d84084ada23fb5b0bceb97f9d8b84773",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "445839c7_ffeaad0d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-23T01:54:45Z",
+      "side": 1,
+      "message": "Do we need this logging line?",
+      "revId": "89bb2ac8d84084ada23fb5b0bceb97f9d8b84773",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
