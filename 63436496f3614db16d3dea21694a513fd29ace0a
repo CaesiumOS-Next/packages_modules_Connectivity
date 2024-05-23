@@ -16,6 +16,52 @@
       "message": "Does the:\n  enum class domain : int {\nnot prevent this from being required?",
       "revId": "63436496f3614db16d3dea21694a513fd29ace0a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8421e4f8_ca9af83d",
+        "filename": "netbpfload/loader.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1996085
+      },
+      "writtenOn": "2024-05-23T12:10:19Z",
+      "side": 1,
+      "message": "Here\u0027s another one I overlooked.",
+      "range": {
+        "startLine": 739,
+        "startChar": 41,
+        "endLine": 739,
+        "endChar": 56
+      },
+      "revId": "63436496f3614db16d3dea21694a513fd29ace0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "092da6f7_d5a61559",
+        "filename": "netbpfload/loader.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1996085
+      },
+      "writtenOn": "2024-05-23T12:10:19Z",
+      "side": 1,
+      "message": "And another one.",
+      "range": {
+        "startLine": 747,
+        "startChar": 18,
+        "endLine": 747,
+        "endChar": 28
+      },
+      "revId": "63436496f3614db16d3dea21694a513fd29ace0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
