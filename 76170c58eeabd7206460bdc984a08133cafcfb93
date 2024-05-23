@@ -22,6 +22,93 @@
       },
       "revId": "76170c58eeabd7206460bdc984a08133cafcfb93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a2179c4_95a7e24f",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T01:45:47Z",
+      "side": 1,
+      "message": "nits: Indent is not aligned.",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 16
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "6e994104_20235e9e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+              "range": {
+                "startLine": 74,
+                "startChar": 0,
+                "endLine": 75,
+                "endChar": 0
+              },
+              "replacement": "            enablePkgs \u003d UPDATER_PKGS.associateWith { false }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "76170c58eeabd7206460bdc984a08133cafcfb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8eac58c_ee001108",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T01:45:47Z",
+      "side": 1,
+      "message": "don\u0027t we need to pick up the testResult that has FAILURE status?",
+      "range": {
+        "startLine": 124,
+        "startChar": 82,
+        "endLine": 124,
+        "endChar": 83
+      },
+      "revId": "76170c58eeabd7206460bdc984a08133cafcfb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bd73972_8b783f34",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T01:45:47Z",
+      "side": 1,
+      "message": "nits: Indent is not aligned.",
+      "range": {
+        "startLine": 179,
+        "startChar": 15,
+        "endLine": 180,
+        "endChar": 18
+      },
+      "revId": "76170c58eeabd7206460bdc984a08133cafcfb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
