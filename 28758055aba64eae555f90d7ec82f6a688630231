@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aa99ffb_b346735a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-23T04:02:50Z",
+      "side": 1,
+      "message": "Per discussion, now that udc-mainline-prod-is gone, can we move to proper aconfig generated code? Not for this CL.",
+      "range": {
+        "startLine": 135,
+        "startChar": 28,
+        "endLine": 135,
+        "endChar": 61
+      },
+      "revId": "28758055aba64eae555f90d7ec82f6a688630231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e74362_7205e138",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 11210,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-23T04:02:50Z",
+      "side": 1,
+      "message": "Can we add a comment to explain why this doesn\u0027t matter in V?\n\n    // Before V, the blocked reasons come from NPMS, and that code already\n    // behaves as if the change was disabled: apps without the internet permission\n    // will never be told they are blocked.",
+      "range": {
+        "startLine": 11210,
+        "startChar": 19,
+        "endLine": 11210,
+        "endChar": 29
+      },
+      "revId": "28758055aba64eae555f90d7ec82f6a688630231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c82e4f2_b3c04029",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 11215,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-23T04:02:50Z",
+      "side": 1,
+      "message": "Nit: this can\u0027t happen that this flag is set, right? If so, might want to just say:\n\n    return hasInternetPermission ? reasons  : reasons | BLOCKED_REASON_NETWORK_RESTRICTED;\n\nAlso, per discussion, looks like we can simplify this further?\n\n    if (hasInternetPermission) return reasons;\n\n    return mDeps.isChangeEnabled(NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION, uid)\n            ? reasons | BLOCKED_REASON_NETWORK_RESTRICTED\n            : BLOCKED_REASON_NONE;",
+      "range": {
+        "startLine": 11215,
+        "startChar": 20,
+        "endLine": 11215,
+        "endChar": 66
+      },
+      "revId": "28758055aba64eae555f90d7ec82f6a688630231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67a2cd85_5e6fd0cf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 11231,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-23T04:02:50Z",
+      "side": 1,
+      "message": "Per discussion, can we rename this to something else, such as mFirewallBlockedReasons?",
+      "range": {
+        "startLine": 11231,
+        "startChar": 12,
+        "endLine": 11231,
+        "endChar": 30
+      },
+      "revId": "28758055aba64eae555f90d7ec82f6a688630231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59d9fab4_fad996c4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 9891,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-23T04:02:50Z",
+      "side": 1,
+      "message": "INTERNET_PERMISSION -\u003e INTERNET permission",
+      "range": {
+        "startLine": 9891,
+        "startChar": 73,
+        "endLine": 9891,
+        "endChar": 84
+      },
+      "revId": "28758055aba64eae555f90d7ec82f6a688630231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e70e62b7_ad04c9ef",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 9898,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-23T04:02:50Z",
+      "side": 1,
+      "message": "Note that this cannot actually happen because on U-, NPMS will never notify any blocked reasons for apps that don\u0027t have the INTERNET permission.",
+      "range": {
+        "startLine": 9898,
+        "startChar": 66,
+        "endLine": 9898,
+        "endChar": 67
+      },
+      "revId": "28758055aba64eae555f90d7ec82f6a688630231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
