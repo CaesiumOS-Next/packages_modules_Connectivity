@@ -980,7 +980,8 @@ static int loadCodeSections(const char* elfPath, vector<codeSection>& cs, const 
 
         if (specified(pin_subdir)) {
             ALOGI("prog %s pin_subdir [%-32s] -> %d -> '%s'", name.c_str(),
-                  cs[i].prog_def->pin_subdir, pin_subdir, lookupPinSubdir(pin_subdir));
+                  cs[i].prog_def->pin_subdir, static_cast<int>(pin_subdir),
+                  lookupPinSubdir(pin_subdir));
         }
 
         // strip any potential $foo suffix
