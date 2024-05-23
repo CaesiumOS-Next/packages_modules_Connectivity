@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaa3c559_aaf147d9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 126
+      },
+      "lineNbr": 3462,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-23T08:25:32Z",
+      "side": 1,
+      "message": "It seems we call this function \u003cuid\u003e times.\nIs it better if we move this to the caller, outside of the look?\nAlternatively, can we collect uids that blocked by app_background, and call this method at once, just like handleFrozenUids above?",
+      "range": {
+        "startLine": 3460,
+        "startChar": 8,
+        "endLine": 3462,
+        "endChar": 9
+      },
+      "revId": "1c9adee7c9e9e8c76ec9a8638ab3c114ea352a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2612f3a6_1d96e59d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 126
+      },
+      "lineNbr": 13833,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-23T08:25:32Z",
+      "side": 1,
+      "message": "nit: I think if the method do what it should do (close the socket).\nThere is no need to have comment for it since it is straight forward.\n\nIt is the caller who decide to delay and not calling this method, needs\ncomments to clarify, right?\n\nIf so I think part of these comment should go to the caller.\nNo strong opinion.",
+      "range": {
+        "startLine": 13832,
+        "startChar": 7,
+        "endLine": 13833,
+        "endChar": 34
+      },
+      "revId": "1c9adee7c9e9e8c76ec9a8638ab3c114ea352a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4581ce0_a3c5e6ce",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 126
+      },
+      "lineNbr": 13836,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-23T08:25:32Z",
+      "side": 1,
+      "message": "nit: this is renamed so maybe we want to update this.\nNo strong opinion.",
+      "range": {
+        "startLine": 13836,
+        "startChar": 78,
+        "endLine": 13836,
+        "endChar": 88
+      },
+      "revId": "1c9adee7c9e9e8c76ec9a8638ab3c114ea352a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6be58a34_68fb9451",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 126
+      },
+      "lineNbr": 13884,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-23T08:25:32Z",
+      "side": 1,
+      "message": "nit: I think this doesn\u0027t explain why we are pending destroy sockets, instead of closing them immediately?",
+      "range": {
+        "startLine": 13882,
+        "startChar": 16,
+        "endLine": 13884,
+        "endChar": 68
+      },
+      "revId": "1c9adee7c9e9e8c76ec9a8638ab3c114ea352a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1200a45f_4397c401",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 126
+      },
+      "lineNbr": 13917,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-23T08:25:32Z",
+      "side": 1,
+      "message": "nit: This is more like postBlockedReasonsForTrackingUids ?\nIf so maybe rename it.\nNo strong opinion.",
+      "range": {
+        "startLine": 13917,
+        "startChar": 17,
+        "endLine": 13917,
+        "endChar": 49
+      },
+      "revId": "1c9adee7c9e9e8c76ec9a8638ab3c114ea352a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
