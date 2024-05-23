@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5a3f529_49866537",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 81
+      },
+      "lineNbr": 7416,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-23T09:39:49Z",
+      "side": 0,
+      "message": "Per discussion, can we move these to their own CL? That will be a small change that can be tested independently.",
+      "range": {
+        "startLine": 7416,
+        "startChar": 27,
+        "endLine": 7416,
+        "endChar": 48
+      },
+      "revId": "34255e7d015bae539826814fa184c2864cae3d3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
