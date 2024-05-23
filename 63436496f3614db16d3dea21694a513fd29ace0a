@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb7ae1da_0cb58749",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-23T11:01:16Z",
+      "side": 1,
+      "message": "Does the:\n  enum class domain : int {\nnot prevent this from being required?",
+      "revId": "63436496f3614db16d3dea21694a513fd29ace0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
