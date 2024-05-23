@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32052cf5_975ab598",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-23T03:12:20Z",
+      "side": 1,
+      "message": "This fields get added back again, is it expected?",
+      "range": {
+        "startLine": 271,
+        "startChar": 8,
+        "endLine": 271,
+        "endChar": 47
+      },
+      "revId": "3afe955e01fd24c63e82929dc0d13386f2fae49d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
