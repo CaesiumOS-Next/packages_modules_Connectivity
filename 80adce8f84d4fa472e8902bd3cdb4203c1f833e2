@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1daf13f_2c9aa4ae",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-23T01:59:07Z",
+      "side": 1,
+      "message": "Did you run make-pretty?",
+      "revId": "80adce8f84d4fa472e8902bd3cdb4203c1f833e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
