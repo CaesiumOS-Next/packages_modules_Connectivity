@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5658fe7_f339f9c5",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-23T02:40:20Z",
+      "side": 1,
+      "message": "If we cannot enable the test now. I feel we should have s separate CL for CTS code and enable the test in that CL. \n\nOtherwise, we are check-in some cts test case that is never run.",
+      "range": {
+        "startLine": 795,
+        "startChar": 4,
+        "endLine": 795,
+        "endChar": 98
+      },
+      "revId": "e1489f7500429f229ad08897c7c0d2e544f052fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
