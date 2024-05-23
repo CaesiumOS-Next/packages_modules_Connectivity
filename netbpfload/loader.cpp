@@ -974,13 +974,14 @@ static int loadCodeSections(const char* elfPath, vector<codeSection>& cs, const 
 
         if (specified(selinux_context)) {
             ALOGI("prog %s selinux_context [%-32s] -> %d -> '%s' (%s)", name.c_str(),
-                  cs[i].prog_def->selinux_context, selinux_context,
+                  cs[i].prog_def->selinux_context, static_cast<int>(selinux_context),
                   lookupSelinuxContext(selinux_context), lookupPinSubdir(selinux_context));
         }
 
         if (specified(pin_subdir)) {
             ALOGI("prog %s pin_subdir [%-32s] -> %d -> '%s'", name.c_str(),
-                  cs[i].prog_def->pin_subdir, pin_subdir, lookupPinSubdir(pin_subdir));
+                  cs[i].prog_def->pin_subdir, static_cast<int>(pin_subdir),
+                  lookupPinSubdir(pin_subdir));
         }
 
         // strip any potential $foo suffix
