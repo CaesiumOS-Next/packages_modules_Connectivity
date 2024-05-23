@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d81ef71_3e996121",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-23T02:09:57Z",
+      "side": 1,
+      "message": "```suggestion\n// checking that all its methods are running in the thread of the handler it\u0027s using. This is due\n```",
+      "range": {
+        "startLine": 103,
+        "startChar": 21,
+        "endLine": 103,
+        "endChar": 25
+      },
+      "revId": "a82a36b9dee2d12e37f598fa4f9c660b1d71fbb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
