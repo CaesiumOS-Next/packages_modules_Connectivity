@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13c862e0_f1304c28",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 124
+      },
+      "lineNbr": 3390,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T07:17:35Z",
+      "side": 1,
+      "message": "On U-, mUidBlockedReasons maintains what NPMS tells us regardless of that uids register network callback or not.\nOn V+, mUidBlockedReasons maintains only blocked reasons of uids that register network callback.\n\nI have updated the comment of mUidBlockedReasons in aosp/3027488",
+      "parentUuid": "c99098c5_922e80a0",
+      "range": {
+        "startLine": 3390,
+        "startChar": 12,
+        "endLine": 3390,
+        "endChar": 32
+      },
+      "revId": "d079005d87c571f29b3113d4cf6d0f746c1353a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de24ceeb_fc620b3b",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-23T06:46:45Z",
       "side": 1,
       "message": "Style: If this is a javadoc, 1-line title which separated with body is needed.\n\nAI-human-suggested fix for reference if that is better for you:\n/**\n * Immediately Closes Sockets of UIDs Losing Network Access\n * \n * This method promptly closes sockets associated with UIDs that lose\n * network access due to a specified chain. It avoids delaying the\n * closure, as delays offer minimal benefits and complicate implementation.\n * In particular:\n * - Triggered when firewall chains are enabled (infrequent occurrence).\n * - Primarily called in response to updating UID rules via `setUidFirewallRule`.\n * - Destroys sockets based on UID ranges and `exemptUids` (previously blocked\n *        uids are kept in Bpf but not currently known to CS).\n * - Avoids complex tracking of socket closure reasons for UIDs, ranges, and exemptions.\n */",
+      "range": {
+        "startLine": 13827,
+        "startChar": 6,
+        "endLine": 13827,
+        "endChar": 7
+      },
+      "revId": "d079005d87c571f29b3113d4cf6d0f746c1353a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9e7b2b7_125deb31",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 124
+      },
+      "lineNbr": 13827,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-23T07:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de24ceeb_fc620b3b",
       "range": {
         "startLine": 13827,
         "startChar": 6,
