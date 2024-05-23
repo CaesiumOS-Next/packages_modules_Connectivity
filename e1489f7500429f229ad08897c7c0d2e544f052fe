@@ -22,6 +22,30 @@
       },
       "revId": "e1489f7500429f229ad08897c7c0d2e544f052fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "975ac984_2337ecda",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-23T03:10:16Z",
+      "side": 1,
+      "message": "Done. Put the test into another CL.",
+      "parentUuid": "a5658fe7_f339f9c5",
+      "range": {
+        "startLine": 795,
+        "startChar": 4,
+        "endLine": 795,
+        "endChar": 98
+      },
+      "revId": "e1489f7500429f229ad08897c7c0d2e544f052fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
