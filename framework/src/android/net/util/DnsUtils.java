@@ -347,12 +347,13 @@ public class DnsUtils {
     }
 
     /**
-     * Check if given network has Ipv6 capability
-     * This function matches the behaviour of have_ipv6 in the native resolver.
+     * Check if given network has Ipv6 capability This function matches the behaviour of have_ipv6
+     * in the native resolver.
      */
-    public static boolean haveIpv6(@Nullable Network network) {
+    public static boolean haveIpv6(@Nullable Network network, boolean isMdns) {
+        final String destAddr = isMdns ? "fe80::" : "2000::";
         final SocketAddress addrIpv6 =
-                new InetSocketAddress(InetAddresses.parseNumericAddress("2000::"), 0);
+                new InetSocketAddress(InetAddresses.parseNumericAddress(destAddr), 0);
         return checkConnectivity(network, AF_INET6, addrIpv6);
     }
 
