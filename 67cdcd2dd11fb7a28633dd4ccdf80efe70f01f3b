@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb7e7906_c27e5d57",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5762,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T04:49:50Z",
+      "side": 1,
+      "message": "I will do in b/342508466",
+      "parentUuid": "0e3eef3f_82575be5",
+      "range": {
+        "startLine": 5762,
+        "startChar": 17,
+        "endLine": 5762,
+        "endChar": 44
+      },
+      "revId": "67cdcd2dd11fb7a28633dd4ccdf80efe70f01f3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e3e640b_1701b733",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-24T03:53:18Z",
       "side": 1,
       "message": "Since negatives are often harder to follow than positives, we might want to change the semantics and instead be the signature be:\n\n    void handleRemoveNetworkRequests(@NonNull final Set\u003cNetworkRequestInfo\u003e nris,\n            final boolean untrackUids) {",
+      "range": {
+        "startLine": 5766,
+        "startChar": 0,
+        "endLine": 5767,
+        "endChar": 44
+      },
+      "revId": "67cdcd2dd11fb7a28633dd4ccdf80efe70f01f3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02365107_392c2f53",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5767,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T04:49:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e3e640b_1701b733",
       "range": {
         "startLine": 5766,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f755ee4c_9cbc1d7f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5770,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T04:49:50Z",
+      "side": 1,
+      "message": "I will check in b/342508466",
+      "parentUuid": "716caee3_00dd9994",
+      "range": {
+        "startLine": 5770,
+        "startChar": 16,
+        "endLine": 5770,
+        "endChar": 65
+      },
+      "revId": "67cdcd2dd11fb7a28633dd4ccdf80efe70f01f3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7ea1f2d_787faace",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91c9a85a_86772052",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8071,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T04:49:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7ea1f2d_787faace",
+      "range": {
+        "startLine": 8071,
+        "startChar": 26,
+        "endLine": 8071,
+        "endChar": 66
+      },
+      "revId": "67cdcd2dd11fb7a28633dd4ccdf80efe70f01f3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "103f975b_6eca4102",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-05-24T03:53:18Z",
       "side": 1,
       "message": "Can this happen? Is it OK for the caller to pass in a non-app request?\n\nIf it\u0027s OK for the caller to pass in a non-app request, then this is OK, but maybe it should be called maybeUntrackUid?\n\nOtherwise... maybe this should have a Log.wtf?",
+      "range": {
+        "startLine": 8089,
+        "startChar": 12,
+        "endLine": 8089,
+        "endChar": 19
+      },
+      "revId": "67cdcd2dd11fb7a28633dd4ccdf80efe70f01f3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "985ce0f1_560e134b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8089,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T04:49:50Z",
+      "side": 1,
+      "message": "This is called from handleRemoveNetworkRequest. \nSo it\u0027s possible that this method is called for internal network request.\nI have updated to maybeUntrackUid",
+      "parentUuid": "103f975b_6eca4102",
       "range": {
         "startLine": 8089,
         "startChar": 12,
