@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50d96c42_d4752154",
+        "filename": "tests/cts/multidevices/snippet/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-24T07:27:13Z",
+      "side": 1,
+      "message": "Thanks for the idea. Will look into it.",
+      "parentUuid": "a2a50e0a_9a27be51",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "a8bc93d1b772810a2fd1477521009ddf248ca26e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22144d97_1e800fab",
         "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
         "patchSetId": 3
