@@ -22,6 +22,30 @@
       },
       "revId": "34255e7d015bae539826814fa184c2864cae3d3a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad74a090_c9bbb0dd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 81
+      },
+      "lineNbr": 7416,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T01:23:11Z",
+      "side": 0,
+      "message": "Moved to aosp/3099617",
+      "parentUuid": "f5a3f529_49866537",
+      "range": {
+        "startLine": 7416,
+        "startChar": 27,
+        "endLine": 7416,
+        "endChar": 48
+      },
+      "revId": "34255e7d015bae539826814fa184c2864cae3d3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

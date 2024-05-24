@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c762516_56831c56",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 82
+      },
+      "lineNbr": 3772,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T01:23:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c75944e_356ab95b",
+      "range": {
+        "startLine": 3772,
+        "startChar": 41,
+        "endLine": 3772,
+        "endChar": 47
+      },
+      "revId": "86fc34a35212c5209fbda1bdea934e672ee7d10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91ce7941_6bf32778",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-23T09:39:49Z",
       "side": 1,
       "message": "Can you also test what happens when a chain is enabled, and when a chain is disabled? All the UIDs on the chain (or all UIDS *not* on the chain) should get onBlockedStatusChanged.\n\nMaybe we need to check 4 combinations?\n- UID not on allowlist chain and chain enabled\n- UID on denylist chain and chain enabled\n- UID not on allowlist chain and chain disabled\n- UID on denylist chain and chain disabled",
+      "range": {
+        "startLine": 3828,
+        "startChar": 8,
+        "endLine": 3828,
+        "endChar": 9
+      },
+      "revId": "86fc34a35212c5209fbda1bdea934e672ee7d10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6d61b8d_6ea26c2d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 82
+      },
+      "lineNbr": 3828,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T01:23:11Z",
+      "side": 1,
+      "message": "I added testBlockedReasons_setFirewallChainEnabled for these cases.",
+      "parentUuid": "91ce7941_6bf32778",
       "range": {
         "startLine": 3828,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c654a7bb_bfcbc34b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 82
+      },
+      "lineNbr": 3855,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T01:23:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0377255_c1fbab4b",
+      "range": {
+        "startLine": 3855,
+        "startChar": 42,
+        "endLine": 3855,
+        "endChar": 64
+      },
+      "revId": "86fc34a35212c5209fbda1bdea934e672ee7d10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b7fbb62_56254d1c",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-05-23T09:39:49Z",
       "side": 1,
       "message": "Nit: the background chain is never enabled/disabled in practice. Maybe use a different chain like DOZABLE or STANDBY?",
+      "range": {
+        "startLine": 188,
+        "startChar": 17,
+        "endLine": 188,
+        "endChar": 46
+      },
+      "revId": "86fc34a35212c5209fbda1bdea934e672ee7d10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4991283_bf58dfb3",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBlockedReasonsTest.kt",
+        "patchSetId": 82
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T01:23:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b7fbb62_56254d1c",
       "range": {
         "startLine": 188,
         "startChar": 17,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e570821e_654e5a6c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBlockedReasonsTest.kt",
+        "patchSetId": 82
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T01:23:11Z",
+      "side": 1,
+      "message": "Added case for setting RULE_DENY",
+      "parentUuid": "0920baa1_fd2d3b6f",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 9
+      },
+      "revId": "86fc34a35212c5209fbda1bdea934e672ee7d10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89275da0_25b051d5",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-05-23T09:39:49Z",
       "side": 1,
       "message": "Maybe also test what happens when the per-app default policy is removed?",
+      "range": {
+        "startLine": 260,
+        "startChar": 8,
+        "endLine": 260,
+        "endChar": 9
+      },
+      "revId": "86fc34a35212c5209fbda1bdea934e672ee7d10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1342512_636a51de",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBlockedReasonsTest.kt",
+        "patchSetId": 82
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T01:23:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89275da0_25b051d5",
       "range": {
         "startLine": 260,
         "startChar": 8,
