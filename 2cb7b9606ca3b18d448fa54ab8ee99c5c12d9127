@@ -75,6 +75,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10662a3d_ab8005a6",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-05-24T09:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0b7485e_35f08aca",
+      "range": {
+        "startLine": 544,
+        "startChar": 0,
+        "endLine": 544,
+        "endChar": 106
+      },
+      "revId": "2cb7b9606ca3b18d448fa54ab8ee99c5c12d9127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f5c5c0b_6a655aa4",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-05-24T09:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13ded61c_aec6dffb",
+      "range": {
+        "startLine": 544,
+        "startChar": 12,
+        "endLine": 544,
+        "endChar": 104
+      },
+      "revId": "2cb7b9606ca3b18d448fa54ab8ee99c5c12d9127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "564c7347_e1b12b95",
@@ -88,6 +136,30 @@
       "writtenOn": "2024-05-24T06:47:28Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 568,
+        "startChar": 12,
+        "endLine": 568,
+        "endChar": 100
+      },
+      "revId": "2cb7b9606ca3b18d448fa54ab8ee99c5c12d9127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac49e2a3_38898661",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-05-24T09:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "564c7347_e1b12b95",
       "range": {
         "startLine": 568,
         "startChar": 12,
