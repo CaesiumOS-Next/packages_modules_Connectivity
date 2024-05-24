@@ -143,6 +143,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83ac62ca_5484344d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-24T07:00:25Z",
+      "side": 1,
+      "message": "It means stopping ot-daemon in whatever condition. As long as this command returns success, you are guaranteed that ot-daemon is stopped",
+      "parentUuid": "3ab88627_297ce671",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 55
+      },
+      "revId": "472c3c2b42d06049aa3901e82e2dfc0f497ded55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b37a7165_dcb9ccd3",
