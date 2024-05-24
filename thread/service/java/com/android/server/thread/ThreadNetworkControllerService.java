@@ -711,6 +711,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 if (mNetworkToInterface.containsKey(mUpstreamNetwork)) {
                     enableBorderRouting(mNetworkToInterface.get(mUpstreamNetwork));
                 }
+                mNsdPublisher.setNetwork(mUpstreamNetwork);
             }
         }
     }
