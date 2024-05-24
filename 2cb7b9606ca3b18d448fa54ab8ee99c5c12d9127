@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0b7485e_35f08aca",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-24T06:47:28Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 544,
+        "startChar": 0,
+        "endLine": 544,
+        "endChar": 106
+      },
+      "revId": "2cb7b9606ca3b18d448fa54ab8ee99c5c12d9127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13ded61c_aec6dffb",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-24T06:47:28Z",
+      "side": 1,
+      "message": "Try to make the method name in a single line. Maybe a name like\n\n```\ncreateRandomizedDataset_noNetworkTimeClock_activeTimestampIsNotAuthoritative\n```",
+      "range": {
+        "startLine": 544,
+        "startChar": 12,
+        "endLine": 544,
+        "endChar": 104
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "81e3c872_5a9b4ef8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+              "range": {
+                "startLine": 543,
+                "startChar": 0,
+                "endLine": 546,
+                "endChar": 0
+              },
+              "replacement": "    public void createRandomizedDataset_noNetworkTimeClock_activeTimestampIsNotAuthoritative()\n            throws Exception {\n"
+            },
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+              "range": {
+                "startLine": 567,
+                "startChar": 0,
+                "endLine": 570,
+                "endChar": 0
+              },
+              "replacement": "    public void createRandomizedDataset_hasNetworkTimeClock_activeTimestampIsAuthoritative()\n            throws Exception {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2cb7b9606ca3b18d448fa54ab8ee99c5c12d9127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "564c7347_e1b12b95",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-24T06:47:28Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 568,
+        "startChar": 12,
+        "endLine": 568,
+        "endChar": 100
+      },
+      "revId": "2cb7b9606ca3b18d448fa54ab8ee99c5c12d9127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
