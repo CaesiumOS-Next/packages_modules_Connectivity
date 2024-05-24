@@ -228,6 +228,34 @@ static bool isGSI() {
     return !access("/metadata/gsi/dsu/booted", F_OK);
 }
 
+static bool hasGSM() {
+    static std::string ph = android::base::GetProperty("gsm.current.phone-type", "");
+    static bool gsm = (ph != "");
+    static bool logged = false;
+    if (!logged) {
+        logged = true;
+        ALOGI("hasGSM(gsm.current.phone-type=='%s'): %s", ph.c_str(), gsm ? "true" : "false");
+    }
+    return gsm;
+}
+
+static bool isTV() {
+    static std::string ph = android::base::GetProperty("gsm.current.phone-type", "");
+    if (hasGSM()) return false;  // TVs don't do GSM
+
+    static bool tvnso = exists("/product/overlay/TvNetworkStackOverlay.apk");
+    static bool tvnsog = exists("/product/overlay/TvNetworkStackOverlayGoogle.apk");
+    static bool tvp = exists("/product/etc/permissions/com.android.tv.xml");
+    static bool tv = tvnso || tvnsog || tvp;
+    static bool logged = false;
+    if (!logged) {
+        logged = true;
+        ALOGI("Android TV detection (tvnso:%d tvnsog:%d tvp:%d): %s.",
+              tvnso, tvnsog, tvp, tv ? "true" : "false");
+    }
+    return tv;
+}
+
 static int doLoad(char** argv, char * const envp[]) {
     const int device_api_level = android_get_device_api_level();
     const bool isAtLeastT = (device_api_level >= __ANDROID_API_T__);
@@ -278,7 +306,7 @@ static int doLoad(char** argv, char * const envp[]) {
 
     if (isAtLeastV && isX86() && !isKernel64Bit()) {
         ALOGE("Android V requires X86 kernel to be 64-bit.");
-        return 1;
+        if (!isTV()) return 1;
     }
 
     if (isAtLeastV) {
@@ -330,7 +358,7 @@ static int doLoad(char** argv, char * const envp[]) {
          * and 32-bit userspace on 64-bit kernel bpf ringbuffer compatibility is broken.
          */
         ALOGE("64-bit userspace required on 6.2+ kernels.");
-        return 1;
+        if (!isTV()) return 1;
     }
 
     // Ensure we can determine the Android build type.
