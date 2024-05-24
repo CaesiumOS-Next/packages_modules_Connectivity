@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30419223_62d98ce5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 95
+      },
+      "lineNbr": 5553,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T04:51:59Z",
+      "side": 1,
+      "message": "Previous code was wrong.\nAdded isAppRequest",
+      "parentUuid": "151a8759_9c616564",
+      "range": {
+        "startLine": 5553,
+        "startChar": 47,
+        "endLine": 5553,
+        "endChar": 76
+      },
+      "revId": "8c1b8a2484af0a341426336144385e5dd8468d2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f070e65_6fae58f8",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-05-24T04:19:13Z",
       "side": 1,
       "message": "Be careful with not adopting the shell permission without specifying which permissions to adopt.\n\nIIRC the behaviour of the adoptShellPermissionIdentity overload that specifies permissions and the overload that does not specify permissions is very different - the one that does not specify permissions changes your UID as well, which tends to break things pretty badly if any other thread is running in the background.\n\nBasically, I think we should basically always use runAsShell and always specify permissions. But for this CL you can just add NETWORK_SETTINGS explicitly, and add a TODO to use runAsShell, and file a bug to move this test to runAsShell?",
+      "range": {
+        "startLine": 3866,
+        "startChar": 41,
+        "endLine": 3866,
+        "endChar": 71
+      },
+      "revId": "8c1b8a2484af0a341426336144385e5dd8468d2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ad6358d_e82b2e69",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 95
+      },
+      "lineNbr": 3866,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T04:51:59Z",
+      "side": 1,
+      "message": "I missed to specify but I did not know this behavior.\nThank you the explanation, I have added NETWORK_SETTINGS\nFiled b/342508466 for followup.",
+      "parentUuid": "7f070e65_6fae58f8",
       "range": {
         "startLine": 3866,
         "startChar": 41,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d3b62bf_bfa998f0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 95
+      },
+      "lineNbr": 3917,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T04:51:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b36a589_3edd7918",
+      "range": {
+        "startLine": 3917,
+        "startChar": 58,
+        "endLine": 3917,
+        "endChar": 59
+      },
+      "revId": "8c1b8a2484af0a341426336144385e5dd8468d2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d343b06_fa8406fe",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-05-24T04:19:13Z",
       "side": 1,
       "message": "This removes *all* UIDs from the chain, not just the one that is being tested, right? And we can\u0027t restore the chain to its previous contents?\n\nIf so: this might be OK for OEM chain 2, since it\u0027s unused in AOSP. Not sure if it\u0027s OK for the background chain though. This code might make subsequent tests flaky. We may need a hidden method in CM that we can call to find all the UIDs in the chain so we can then restore them.\n\nIf you want to merge this CL as is, that might be OK but please add a comment that explains that this completely clears the chain. Something like:\n\n    // Note that this removes *all* UIDs from the chain, not just the UID that is\n    // being tested. This is probably OK since FIREWALL_CHAIN_OEM_DENY_2 is unused\n    // in AOSP and FIREWALL_CHAIN_BACKGROUND is probably empty when running this\n    // test (since nothing is in the foreground).\n    //\n    // TODO: add a getFirewallUidChainContents or similar method to fetch chain\n    // contents, and update this test to use it.",
+      "range": {
+        "startLine": 3927,
+        "startChar": 16,
+        "endLine": 3927,
+        "endChar": 60
+      },
+      "revId": "8c1b8a2484af0a341426336144385e5dd8468d2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1654ff6c_47153ea8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 95
+      },
+      "lineNbr": 3927,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T04:51:59Z",
+      "side": 1,
+      "message": "\u003e This removes all UIDs from the chain, not just the one that is being tested, right? And we can\u0027t restore the chain to its previous contents?\n\nYes, this is true. I did not realize this.\n\n\u003e  We may need a hidden method in CM that we can call to find all the UIDs in the chain so we can then restore them.\n\nFor this CL, I added comments.\nWill do this in b/342508466",
+      "parentUuid": "3d343b06_fa8406fe",
       "range": {
         "startLine": 3927,
         "startChar": 16,
