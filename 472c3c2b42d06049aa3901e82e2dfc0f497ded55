@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07480b62_130c0600",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-24T06:08:32Z",
+      "side": 1,
+      "message": "It should be \"enable\". Updated!",
+      "parentUuid": "b8b4fc2d_283d24d2",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 48
+      },
+      "revId": "472c3c2b42d06049aa3901e82e2dfc0f497ded55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8508d568_398e1ffb",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78f52514_71ed17e3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-24T06:08:32Z",
+      "side": 1,
+      "message": "No. `thread_network force-stop-ot-daemon disabled` means \"do not force stop ot-daemon\", but not \"force start ot-daemon\". ot-ddaemon may not start if Thread is disabled in this case.",
+      "parentUuid": "8508d568_398e1ffb",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 55
+      },
+      "revId": "472c3c2b42d06049aa3901e82e2dfc0f497ded55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b37a7165_dcb9ccd3",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
         "patchSetId": 8
@@ -60,6 +108,30 @@
       "writtenOn": "2024-05-23T10:13:35Z",
       "side": 1,
       "message": "```suggestion\n                        \"Invalid argument: Country code must be a 2-letter\"\n```",
+      "range": {
+        "startLine": 236,
+        "startChar": 68,
+        "endLine": 236,
+        "endChar": 77
+      },
+      "revId": "472c3c2b42d06049aa3901e82e2dfc0f497ded55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "750329ff_e882ec7d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-24T06:08:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b37a7165_dcb9ccd3",
       "range": {
         "startLine": 236,
         "startChar": 68,
@@ -131,6 +203,24 @@
           ]
         }
       ],
+      "revId": "472c3c2b42d06049aa3901e82e2dfc0f497ded55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e196628_7e3fc103",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-24T06:08:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92a1fc96_c9f37b2a",
       "revId": "472c3c2b42d06049aa3901e82e2dfc0f497ded55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
