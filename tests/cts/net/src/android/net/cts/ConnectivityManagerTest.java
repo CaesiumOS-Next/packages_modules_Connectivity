@@ -101,6 +101,7 @@ import static android.provider.Settings.Global.NETWORK_METERED_MULTIPATH_PREFERE
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
 import static android.system.OsConstants.AF_UNSPEC;
+import static android.system.OsConstants.ECONNABORTED;
 
 import static com.android.compatibility.common.util.SystemUtil.callWithShellPermissionIdentity;
 import static com.android.compatibility.common.util.SystemUtil.runShellCommand;
@@ -185,6 +186,8 @@ import android.os.VintfRuntimeInfo;
 import android.platform.test.annotations.AppModeFull;
 import android.provider.DeviceConfig;
 import android.provider.Settings;
+import android.system.ErrnoException;
+import android.system.Os;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -3986,5 +3989,86 @@ public class ConnectivityManagerTest {
         // Cannot use @IgnoreUpTo(Build.VERSION_CODES.R) because this test also requires API 31
         // shims, and @IgnoreUpTo does not check that.
         assumeTrue(TestUtils.shouldTestSApis());
+    }
+
+    public static String TEST_HOST = "connectivitycheck.gstatic.com";
+    public static int TIMEOUT_MS = 3 * 1000;
+
+    private void sendRequest(FileDescriptor fd, String host) throws Exception {
+        String request = "GET /generate_204 HTTP/1.1\r\n" +
+                "Host: " + host + "\r\n" +
+                "Connection: keep-alive\r\n\r\n";
+        byte[] requestBytes = request.getBytes(StandardCharsets.UTF_8);
+        int ret = Os.write(fd, requestBytes, 0, requestBytes.length);
+        Log.d(TAG, "Wrote " + ret + "bytes");
+
+        String expected = "HTTP/1.1 204 No Content\r\n";
+        byte[] response = new byte[expected.length()];
+        Os.read(fd, response, 0, response.length);
+
+        String actual = new String(response, StandardCharsets.UTF_8);
+        assertEquals(expected, actual);
+        Log.d(TAG, "Got response: " + actual);
+    }
+
+    private void assertSocketStillOpen(FileDescriptor fd, String host) throws Exception {
+        assertTrue(fd.valid());
+        sendRequest(fd, host);
+        assertTrue(fd.valid());
+    }
+    private void assertSocketClosed(FileDescriptor fd, String host) throws Exception {
+        try {
+            assertTrue(fd.valid());
+            sendRequest(fd, host);
+            fail("Socket opened before VPN connects should be closed when VPN connects");
+        } catch (ErrnoException expected) {
+            assertEquals(ECONNABORTED, expected.errno);
+            assertTrue(fd.valid());
+        } finally {
+            Os.close(fd);
+        }
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE) @ConnectivityModuleTest
+    public void testFirewallChainDestroySocket() {
+        final int chain = FIREWALL_CHAIN_BACKGROUND;
+        // Store current firewall chains status.
+        final int myUid = Process.myUid();
+        // TODO(b/342508466): Use runAsShell
+        final boolean wasChainEnabled = runWithShellPermissionIdentity(
+                () -> mCm.getFirewallChainEnabled(chain), NETWORK_SETTINGS);
+        final int previousFirewallRule = runWithShellPermissionIdentity(
+                () -> mCm.getUidFirewallRule(chain, myUid), NETWORK_SETTINGS);
+
+        testAndCleanup(() -> {
+            // Enable chain and set RULE_ALLOW on target chain
+            runWithShellPermissionIdentity(() -> {
+                mCm.setFirewallChainEnabled(chain, true /* enable */);
+                mCm.setUidFirewallRule(chain, myUid, FIREWALL_RULE_ALLOW);
+            }, NETWORK_SETTINGS);
+
+            Socket s = new Socket(TEST_HOST, 80);
+
+            assertSocketStillOpen(s.getFileDescriptor$(), TEST_HOST);
+
+            // Set RULE_DENY on target chain
+            runWithShellPermissionIdentity(() -> {
+                mCm.setUidFirewallRule(chain, myUid, FIREWALL_RULE_DENY);
+            }, NETWORK_SETTINGS);
+
+            Thread.sleep(100);
+            assertSocketClosed(s.getFileDescriptor$(), TEST_HOST);
+
+        }, /* cleanup */ () -> {
+            runWithShellPermissionIdentity(() -> {
+                mCm.setFirewallChainEnabled(chain, wasChainEnabled);
+                try {
+                    mCm.setUidFirewallRule(chain, myUid, previousFirewallRule);
+                } catch (IllegalStateException ignored) {
+                    // Removing match causes an exception when the rule entry for the uid does
+                    // not exist. But this is fine and can be ignored.
+                }
+            }, NETWORK_SETTINGS);
+        });
     }
 }
