@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be03d014_d11ded9e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 126
+      },
+      "lineNbr": 13833,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T03:22:33Z",
+      "side": 1,
+      "message": "Removed comments, I don\u0027t think this comment is particularly useful now.",
+      "parentUuid": "2612f3a6_1d96e59d",
+      "range": {
+        "startLine": 13832,
+        "startChar": 7,
+        "endLine": 13833,
+        "endChar": 34
+      },
+      "revId": "1c9adee7c9e9e8c76ec9a8638ab3c114ea352a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4581ce0_a3c5e6ce",
@@ -94,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2f5928f_5a3c9182",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 126
+      },
+      "lineNbr": 13836,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T03:22:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4581ce0_a3c5e6ce",
+      "range": {
+        "startLine": 13836,
+        "startChar": 78,
+        "endLine": 13836,
+        "endChar": 88
+      },
+      "revId": "1c9adee7c9e9e8c76ec9a8638ab3c114ea352a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6be58a34_68fb9451",
@@ -107,6 +155,30 @@
       "writtenOn": "2024-05-23T08:25:32Z",
       "side": 1,
       "message": "nit: I think this doesn\u0027t explain why we are pending destroy sockets, instead of closing them immediately?",
+      "range": {
+        "startLine": 13882,
+        "startChar": 16,
+        "endLine": 13884,
+        "endChar": 68
+      },
+      "revId": "1c9adee7c9e9e8c76ec9a8638ab3c114ea352a46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e483980_0bc526a0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 126
+      },
+      "lineNbr": 13884,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T03:22:33Z",
+      "side": 1,
+      "message": "I have renamed methods and events, I think this is now not confusing.",
+      "parentUuid": "6be58a34_68fb9451",
       "range": {
         "startLine": 13882,
         "startChar": 16,
