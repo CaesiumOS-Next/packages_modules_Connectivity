@@ -22,6 +22,30 @@
       },
       "revId": "1623bbf80b65a9939923c32f00d0fac798907dbe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f12aa8e5_0d240ca4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 143
+      },
+      "lineNbr": 13900,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-24T03:26:06Z",
+      "side": 1,
+      "message": "Enabling will not update destroy socket reasons but this will not be a issue since Re-enable will destroy sockets immediately.\n\nWhat we must avoid is destroying sockets when the apps have network access.\nThat\u0027s why we clear destroy socket reasons here.",
+      "parentUuid": "fd647d58_0878bc9c",
+      "range": {
+        "startLine": 13900,
+        "startChar": 62,
+        "endLine": 13900,
+        "endChar": 68
+      },
+      "revId": "1623bbf80b65a9939923c32f00d0fac798907dbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
