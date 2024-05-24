@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ab88627_297ce671",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-05-24T06:56:48Z",
+      "side": 1,
+      "message": "What does `force stop ot-daemon service` mean? could you elaborate a bit in the helper?",
+      "parentUuid": "8508d568_398e1ffb",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 55
+      },
+      "revId": "472c3c2b42d06049aa3901e82e2dfc0f497ded55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b37a7165_dcb9ccd3",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
         "patchSetId": 8
