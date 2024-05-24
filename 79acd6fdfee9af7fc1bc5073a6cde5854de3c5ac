@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d07c53b_c3cd0037",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 142
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-24T03:16:26Z",
+      "side": 1,
+      "message": "The naming should be matched with the description.\ne.g. EVENT_UPDATE_DESTROY_SOCKET_REASONS\nFor now it looks like something changed, so the event fires.\nThe method name handles the event also confuses since nothing was \"changed\".",
+      "range": {
+        "startLine": 885,
+        "startChar": 29,
+        "endLine": 885,
+        "endChar": 44
+      },
+      "revId": "79acd6fdfee9af7fc1bc5073a6cde5854de3c5ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d17f064_65943980",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 142
+      },
+      "lineNbr": 3453,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-24T03:16:26Z",
+      "side": 1,
+      "message": "This is more like\nhandleUpdateFirewallSocketDestoryReasons?",
+      "range": {
+        "startLine": 3453,
+        "startChar": 17,
+        "endLine": 3453,
+        "endChar": 58
+      },
+      "revId": "79acd6fdfee9af7fc1bc5073a6cde5854de3c5ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19f8f08d_bafdb93f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 142
+      },
+      "lineNbr": 13970,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-24T03:16:26Z",
+      "side": 1,
+      "message": "In long term.\nI think it might be better to have \nBpfNetMapsManager to manage all bpf operation and blocked reason changed callbacks.\nDestroySocketTracker to track destory socket reasons and the pending list.\nSo:\n 1. The manager fires onReplaceFirewallChain with List of (uid, oldReason, newReason)\n 2. CS listen to this callback and decide what uid it should fire callback.\n 3. DestroySocketTracker decide what and when it should destroy sockets.\n \nIn this way we can move all these logic out of CS.\nWDYT?",
+      "range": {
+        "startLine": 13970,
+        "startChar": 16,
+        "endLine": 13970,
+        "endChar": 36
+      },
+      "revId": "79acd6fdfee9af7fc1bc5073a6cde5854de3c5ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
