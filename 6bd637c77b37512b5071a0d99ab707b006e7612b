@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf203e51_62be8d14",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-27T07:09:14Z",
+      "side": 1,
+      "message": "nits: indent is not aligned.",
+      "range": {
+        "startLine": 368,
+        "startChar": 21,
+        "endLine": 368,
+        "endChar": 24
+      },
+      "revId": "6bd637c77b37512b5071a0d99ab707b006e7612b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65fa2851_d9bdcd26",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-27T07:09:14Z",
+      "side": 1,
+      "message": "Are we returning Nothing so that we can chain `.also` after this method?",
+      "range": {
+        "startLine": 381,
+        "startChar": 69,
+        "endLine": 381,
+        "endChar": 76
+      },
+      "revId": "6bd637c77b37512b5071a0d99ab707b006e7612b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
