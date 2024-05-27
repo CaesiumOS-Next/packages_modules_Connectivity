@@ -16,6 +16,24 @@
       "message": "I thought it\u0027s useful to have reason of failure for debugging.\nHow about fail with errorMsg + \": errorReason\"?",
       "revId": "918896834f62e6a86675df1f3daf9a2e48d9db32",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36e7c221_7b249d9f",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-27T06:09:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2b7e827_760c2939",
+      "revId": "918896834f62e6a86675df1f3daf9a2e48d9db32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
