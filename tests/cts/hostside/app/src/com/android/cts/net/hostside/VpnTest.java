@@ -79,6 +79,7 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.net.Proxy;
 import android.net.ProxyInfo;
@@ -977,11 +978,19 @@ public class VpnTest {
                 registerDefaultNetworkCallbackForUid(otherUid, otherUidCallback, h);
                 registerDefaultNetworkCallbackForUid(Process.myUid(), myUidCallback, h);
             }, NETWORK_SETTINGS);
-            for (TestableNetworkCallback callback :
-                    List.of(systemDefaultCallback, otherUidCallback, myUidCallback)) {
+            for (TestableNetworkCallback callback : List.of(systemDefaultCallback, myUidCallback)) {
                 callback.expectAvailableCallbacks(defaultNetwork, false /* suspended */,
                         true /* validated */, false /* blocked */, TIMEOUT_MS);
             }
+            // On V+, ConnectivityService generates blockedReasons based on bpf map contents even if
+            // the otherUid does not exist on device. So if allowlist chain (e.g. background chain)
+            // is enabled, otherUid is blocked.
+            final NetworkInfo otherUidNetworkInfo =
+                    mCM.getNetworkInfoForUid(defaultNetwork, otherUid, false /* ignoreBlocked */);
+            final boolean isOtherUidBlocked =
+                    otherUidNetworkInfo.getDetailedState() == NetworkInfo.DetailedState.BLOCKED;
+            otherUidCallback.expectAvailableCallbacks(defaultNetwork, false /* suspended */,
+                    true /* validated */, isOtherUidBlocked, TIMEOUT_MS);
         }
 
         FileDescriptor fd = openSocketFdInOtherApp(TEST_HOST, 80, TIMEOUT_MS);
