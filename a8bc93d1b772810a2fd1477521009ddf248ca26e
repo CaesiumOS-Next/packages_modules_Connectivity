@@ -189,6 +189,30 @@
       },
       "revId": "a8bc93d1b772810a2fd1477521009ddf248ca26e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14d2ecff_70ef8e72",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-27T02:42:31Z",
+      "side": 1,
+      "message": "It seems it can\u0027t pass networkSettings check even if we runAsShell(NETWORK_SETTINGS).\nStill checking.\n\nThis is blocked by:\n\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d2848?ss\u003dandroid\u0026q\u003dConnectivityService\n\n  if (!hasSettingsPermission(callerPid, callerUid)) {\n            newNc.setUids(null);\n            newNc.setSSID(null);\n        }\n        \nLog:\n05-24 17:52:14.050  1366  2328 D JUNYU   : networkCapabilitiesRestrictedForCallerPermissions tag1 callerPid\u003d2632 callerUid\u003d10117 e\u003d[\nandroid.net.connectivity.com.android.server.ConnectivityService.networkCapabilitiesRestrictedForCallerPermissions(ConnectivityService.java:2797), \nandroid.net.connectivity.com.android.server.ConnectivityService.getNetworkCapabilitiesInternal(ConnectivityService.java:2741), \nandroid.net.connectivity.com.android.server.ConnectivityService.getNetworkCapabilitiesInternal(ConnectivityService.java:2735), \nandroid.net.connectivity.com.android.server.ConnectivityService.getNetworkCapabilities(ConnectivityService.java:2752), \nandroid.net.IConnectivityManager$Stub.onTransact(IConnectivityManager.java:915), \nandroid.os.Binder.execTransactInternal(Binder.java:1500), \nandroid.os.Binder.execTransact(Binder.java:1444)]",
+      "parentUuid": "eedcf421_1073a563",
+      "range": {
+        "startLine": 120,
+        "startChar": 38,
+        "endLine": 120,
+        "endChar": 47
+      },
+      "revId": "a8bc93d1b772810a2fd1477521009ddf248ca26e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
