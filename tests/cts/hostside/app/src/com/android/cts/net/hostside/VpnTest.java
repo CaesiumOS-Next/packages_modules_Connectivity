@@ -963,6 +963,11 @@ public class VpnTest {
                 mTargetContext, MyVpnService.ACTION_ESTABLISHED);
         receiver.register();
 
+        // On V+, ConnectivityService generates blockedReasons based on bpf map contents even
+        // if the otherUid does not exist on device. So if allowlist chain (e.g. background
+        // chain) is enabled, otherUid is blocked.
+        final boolean verifyOtherUid = !SdkLevel.isAtLeastV();
+
         // Test the behaviour of a variety of types of network callbacks.
         final Network defaultNetwork = mCM.getActiveNetwork();
         final TestableNetworkCallback systemDefaultCallback = new TestableNetworkCallback();
@@ -977,9 +982,12 @@ public class VpnTest {
                 registerDefaultNetworkCallbackForUid(otherUid, otherUidCallback, h);
                 registerDefaultNetworkCallbackForUid(Process.myUid(), myUidCallback, h);
             }, NETWORK_SETTINGS);
-            for (TestableNetworkCallback callback :
-                    List.of(systemDefaultCallback, otherUidCallback, myUidCallback)) {
+            for (TestableNetworkCallback callback : List.of(systemDefaultCallback, myUidCallback)) {
                 callback.expectAvailableCallbacks(defaultNetwork, false /* suspended */,
+                        true /* validated */, false /* blocked */, TIMEOUT_MS);
+            }
+            if (verifyOtherUid) {
+                otherUidCallback.expectAvailableCallbacks(defaultNetwork, false /* suspended */,
                         true /* validated */, false /* blocked */, TIMEOUT_MS);
             }
         }
@@ -1025,7 +1033,9 @@ public class VpnTest {
             // will set the private DNS server to a nonexistent name, which will cause validation to
             // fail and could cause the default network to switch (e.g., from wifi to cellular).
             assertNoCallbackExceptCapOrLpChange(systemDefaultCallback);
-            assertNoCallbackExceptCapOrLpChange(otherUidCallback);
+            if (verifyOtherUid) {
+                assertNoCallbackExceptCapOrLpChange(otherUidCallback);
+            }
         }
 
         checkStrictModePrivateDns();
