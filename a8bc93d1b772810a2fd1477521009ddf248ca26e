@@ -213,6 +213,30 @@
       },
       "revId": "a8bc93d1b772810a2fd1477521009ddf248ca26e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33b0416a_333103a3",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-27T03:09:45Z",
+      "side": 1,
+      "message": "*Attach correct callstack:\n05-27 11:07:58.993  1366  1901 D JUNYU   : networkCapabilitiesRestrictedForCallerPermissions tag1 callerPid\u003d9784 callerUid\u003d10134 e\u003d[android.net.connectivity.com.android.server.ConnectivityService.networkCapabilitiesRestrictedForCallerPermissions(ConnectivityService.java:2797), android.net.connectivity.com.android.server.ConnectivityService.callCallbackForRequest(ConnectivityService.java:9934), android.net.connectivity.com.android.server.ConnectivityService.notifyNetworkCallbacks(ConnectivityService.java:11210), android.net.connectivity.com.android.server.ConnectivityService.notifyNetworkCallbacks(ConnectivityService.java:11218), android.net.connectivity.com.android.server.ConnectivityService.updateCapabilities(ConnectivityService.java:9367), android.net.connectivity.com.android.server.ConnectivityService.-$$Nest$mupdateCapabilities(ConnectivityService.java:0), android.net.connectivity.com.android.server.ConnectivityService$NetworkStateTrackerHandler.handleNetworkTested(ConnectivityService.java:4673), android.net.connectivity.com.android.server.ConnectivityService$NetworkStateTrackerHandler.maybeHandleNetworkMonitorMessage(ConnectivityService.java:4589), android.net.connectivity.com.android.server.ConnectivityService$NetworkStateTrackerHandler.handleMessage(ConnectivityService.java:4768), android.os.Handler.dispatchMessage(Handler.java:107), android.os.Looper.loopOnce(Looper.java:232), android.os.Looper.loop(Looper.java:317), android.os.HandlerThread.run(HandlerThread.java:68)",
+      "parentUuid": "14d2ecff_70ef8e72",
+      "range": {
+        "startLine": 120,
+        "startChar": 38,
+        "endLine": 120,
+        "endChar": 47
+      },
+      "revId": "a8bc93d1b772810a2fd1477521009ddf248ca26e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
