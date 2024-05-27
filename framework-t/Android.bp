@@ -42,6 +42,7 @@ java_defaults {
     srcs: [
         ":framework-connectivity-tiramisu-updatable-sources",
         ":framework-nearby-java-sources",
+        ":framework-thread-sources",
     ],
     libs: [
         "unsupportedappusage",
@@ -61,6 +62,7 @@ java_defaults {
         // This compiles against the pre-jarjar target so that this code can use
         // non-jarjard names of widely-used packages such as com.android.net.module.util.
         "framework-connectivity-pre-jarjar",
+        "net-utils-device-common",
     ],
     aidl: {
         generate_get_transaction_name: true,
@@ -89,6 +91,7 @@ java_library {
         "framework-bluetooth",
         "framework-wifi",
         "framework-connectivity-pre-jarjar",
+        "net-utils-device-common",
     ],
     visibility: ["//packages/modules/Connectivity:__subpackages__"],
 }
@@ -158,6 +161,7 @@ java_sdk_library {
         "//packages/modules/CaptivePortalLogin/tests",
         "//packages/modules/Connectivity/Tethering/tests:__subpackages__",
         "//packages/modules/Connectivity/tests:__subpackages__",
+        "//packages/modules/Connectivity/thread/tests:__subpackages__",
         "//packages/modules/IPsec/tests/iketests",
         "//packages/modules/NetworkStack/tests:__subpackages__",
         "//packages/modules/Wifi/service/tests/wifitests",
