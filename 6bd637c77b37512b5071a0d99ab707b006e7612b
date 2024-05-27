@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e62bf617_b8f6d8b5",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-27T11:10:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf203e51_62be8d14",
+      "range": {
+        "startLine": 368,
+        "startChar": 21,
+        "endLine": 368,
+        "endChar": 24
+      },
+      "revId": "6bd637c77b37512b5071a0d99ab707b006e7612b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65fa2851_d9bdcd26",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-27T07:09:14Z",
       "side": 1,
       "message": "Are we returning Nothing so that we can chain `.also` after this method?",
+      "range": {
+        "startLine": 381,
+        "startChar": 69,
+        "endLine": 381,
+        "endChar": 76
+      },
+      "revId": "6bd637c77b37512b5071a0d99ab707b006e7612b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ec9b013_f358e2d5",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-27T11:10:28Z",
+      "side": 1,
+      "message": "No.\nif (ANY_NETWORK !\u003d\u003d network \u0026\u0026 it.network !\u003d network) {\n\nit.network will get compile error because the type cannot be determined, if (it !is T) cannot guarantee a throw.",
+      "parentUuid": "65fa2851_d9bdcd26",
       "range": {
         "startLine": 381,
         "startChar": 69,
