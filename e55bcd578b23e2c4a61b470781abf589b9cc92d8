@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23eb1c9a_2867915b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7960,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-28T09:38:59Z",
+      "side": 1,
+      "message": "Generally early returns are helpful, but in this case I think it\u0027s less clear. How about:\n\n    final boolean isRestrictedOnMeteredNetworks \u003d mDeps.isAtLeastV()\n            ? mBpfNetMaps.isUidRestrictedOnMeteredNetworks(uid)\n            : BinderUtils.withCleanCallingIdentity(() -\u003e\n                    mPolicyManager.isUidRestrictedOnMeteredNetworks(uid));",
+      "range": {
+        "startLine": 7960,
+        "startChar": 8,
+        "endLine": 7960,
+        "endChar": 9
+      },
+      "revId": "e55bcd578b23e2c4a61b470781abf589b9cc92d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
