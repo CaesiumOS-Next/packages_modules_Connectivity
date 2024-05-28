@@ -261,4 +261,16 @@ interface IConnectivityManager
     IBinder getRoutingCoordinatorService();
 
     long getEnabledConnectivityManagerFeatures();
+
+    // TODO: after verifying that no Log.wtf gets logged when the filtering feature is enabled
+    // (which would indicate bad callers using raw binder calls), delete these methods and use
+    // requestNetwork / listenForNetwork with an extra argument instead
+    NetworkRequest requestNetworkFiltered(int uid, in NetworkCapabilities networkCapabilities,
+            int reqType, in Messenger messenger, int timeoutSec, in IBinder binder, int legacy,
+            int callbackFlags, String callingPackageName, String callingAttributionTag,
+            int declaredMethodsFlag);
+
+    NetworkRequest listenForNetworkFiltered(in NetworkCapabilities networkCapabilities,
+            in Messenger messenger, in IBinder binder, int callbackFlags,
+            String callingPackageName, String callingAttributionTag, int declaredMethodsFlag);
 }

@@ -52,6 +52,7 @@ import static org.mockito.Mockito.after;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
@@ -72,6 +73,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.Process;
 
+import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
 
 import com.android.internal.util.test.BroadcastInterceptingContext;
@@ -83,6 +85,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -516,16 +519,84 @@ public class ConnectivityManagerTest {
                     + " attempts", ref.get());
     }
 
-    private <T> void mockService(Class<T> clazz, String name, T service) {
-        doReturn(service).when(mCtx).getSystemService(name);
-        doReturn(name).when(mCtx).getSystemServiceName(clazz);
+    @Test
+    public void testDeclaredMethodsFlag() throws Exception {
+        final NetworkCallback callback1 = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onPreCheck(@NonNull Network network) {}
+            @Override
+            public void onAvailable(@NonNull Network network) {}
+            @Override
+            public void onLost(@NonNull Network network) {}
+            @Override
+            public void onCapabilitiesChanged(@NonNull Network network,
+                    @NonNull NetworkCapabilities networkCapabilities) {}
+            @Override
+            public void onLocalNetworkInfoChanged(@NonNull Network network,
+                    @NonNull LocalNetworkInfo localNetworkInfo) {}
+            @Override
+            public void onNetworkResumed(@NonNull Network network) {}
+            @Override
+            public void onBlockedStatusChanged(@NonNull Network network, int blocked) {}
+        };
+        final int cb1Flags = 1 << ConnectivityManager.CALLBACK_PRECHECK
+                | 1 << ConnectivityManager.CALLBACK_AVAILABLE
+                | 1 << ConnectivityManager.CALLBACK_LOST
+                | 1 << ConnectivityManager.CALLBACK_CAP_CHANGED
+                | 1 << ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED
+                | 1 << ConnectivityManager.CALLBACK_RESUMED
+                | 1 << ConnectivityManager.CALLBACK_BLK_CHANGED;
+        final NetworkCallback callback2 = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onLosing(@NonNull Network network, int maxMsToLive) {}
+            @Override
+            public void onUnavailable() {}
+            @Override
+            public void onLinkPropertiesChanged(@NonNull Network network,
+                    @NonNull LinkProperties linkProperties) {}
+            @Override
+            public void onNetworkSuspended(@NonNull Network network) {}
+        };
+        final int cb2Flags = 1 << ConnectivityManager.CALLBACK_LOSING
+                // AVAILABLE calls IP_CHANGED and SUSPENDED so it gets added
+                | 1 << ConnectivityManager.CALLBACK_AVAILABLE
+                | 1 << ConnectivityManager.CALLBACK_UNAVAIL
+                | 1 << ConnectivityManager.CALLBACK_IP_CHANGED
+                | 1 << ConnectivityManager.CALLBACK_SUSPENDED;
+        final NetworkCallback hiddenOnAvailableCb = new ConnectivityManager.NetworkCallback() {
+            // This overload is @hide but might still be used by (bad) apps
+            @Override
+            public void onAvailable(@NonNull Network network,
+                    @NonNull NetworkCapabilities networkCapabilities,
+                    @NonNull LinkProperties linkProperties, boolean blocked) {}
+        };
+        final NetworkCallback noOnAvailableCb = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onLost(@NonNull Network network) {}
+        };
+        doReturn(ConnectivityManager.FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS)
+                .when(mService).getEnabledConnectivityManagerFeatures();
+        final ConnectivityManager manager = new ConnectivityManager(mCtx, mService);
+        manager.requestNetwork(new NetworkRequest.Builder().build(), callback1);
+        manager.registerNetworkCallback(new NetworkRequest.Builder().build(), callback2);
+        // Call a second time with the same callback to exercise caching
+        manager.registerNetworkCallback(new NetworkRequest.Builder().build(), callback2);
+        manager.registerDefaultNetworkCallback(hiddenOnAvailableCb);
+        manager.registerSystemDefaultNetworkCallback(
+                noOnAvailableCb, new Handler(Looper.getMainLooper()));
 
-        // If the test suite uses the inline mock maker library, such as for coverage tests,
-        // then the final version of getSystemService must also be mocked, as the real
-        // method will not be called by the test and null object is returned since no mock.
-        // Otherwise, mocking a final method will fail the test.
-        if (mCtx.getSystemService(clazz) == null) {
-            doReturn(service).when(mCtx).getSystemService(clazz);
-        }
+        final InOrder inOrder = inOrder(mService);
+        inOrder.verify(mService).requestNetworkFiltered(
+                anyInt(), any(), anyInt(), any(), anyInt(), any(), anyInt(), anyInt(), any(), any(),
+                eq(cb1Flags));
+        inOrder.verify(mService, times(2)).listenForNetworkFiltered(
+                any(), any(), any(), anyInt(), any(), any(),
+                eq(cb2Flags));
+        inOrder.verify(mService).requestNetworkFiltered(
+                anyInt(), any(), anyInt(), any(), anyInt(), any(), anyInt(), anyInt(), any(), any(),
+                eq(1 << ConnectivityManager.CALLBACK_AVAILABLE));
+        inOrder.verify(mService).requestNetworkFiltered(
+                anyInt(), any(), anyInt(), any(), anyInt(), any(), anyInt(), anyInt(), any(), any(),
+                eq(1 << ConnectivityManager.CALLBACK_LOST));
     }
 }
