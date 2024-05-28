@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "846ab0c9_eb5b40ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-05-28T17:30:11Z",
+      "side": 1,
+      "message": "I think the problem with VTS is that those tests are released alongside Android and can never be updated (so obviously, it couldn\u0027t check for a current LTS version). However, it seems that the kernel team has other enforcement mechanisms for this (https://docs.partner.android.com/security/bulletins/kernel-lts-faq). Alternatively, this might be able to go into MCTS.\n\nIn any case, I agree that silently \"failing\" is not a great way to enforce this.",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 11,
+        "endChar": 115
+      },
+      "revId": "9cfccad9b768d5c96884eee53b7707b554e94781",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
