@@ -263,4 +263,15 @@ interface IConnectivityManager
     void setTestLowTcpPollingTimerForKeepalive(long timeMs);
 
     IBinder getRoutingCoordinatorService();
+
+    long getEnabledConnectivityManagerFeatures();
+
+    NetworkRequest requestNetworkFiltered(int uid, in NetworkCapabilities networkCapabilities,
+            int reqType, in Messenger messenger, int timeoutSec, in IBinder binder, int legacy,
+            int callbackFlags, String callingPackageName, String callingAttributionTag,
+            int declaredMethodsFlag);
+
+    NetworkRequest listenForNetworkFiltered(in NetworkCapabilities networkCapabilities,
+            in Messenger messenger, in IBinder binder, int callbackFlags,
+            String callingPackageName, String callingAttributionTag, int declaredMethodsFlag);
 }
