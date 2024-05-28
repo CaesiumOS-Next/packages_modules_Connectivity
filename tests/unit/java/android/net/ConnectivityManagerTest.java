@@ -52,6 +52,7 @@ import static org.mockito.Mockito.after;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
@@ -72,6 +73,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.Process;
 
+import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
 
 import com.android.internal.util.test.BroadcastInterceptingContext;
@@ -83,6 +85,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -240,7 +243,7 @@ public class ConnectivityManagerTest {
 
         // register callback
         when(mService.requestNetwork(anyInt(), any(), anyInt(), captor.capture(), anyInt(), any(),
-                anyInt(), anyInt(), any(), nullable(String.class))).thenReturn(request);
+                anyInt(), anyInt(), any(), nullable(String.class), anyInt())).thenReturn(request);
         manager.requestNetwork(request, callback, handler);
 
         // callback triggers
@@ -269,7 +272,7 @@ public class ConnectivityManagerTest {
 
         // register callback
         when(mService.requestNetwork(anyInt(), any(), anyInt(), captor.capture(), anyInt(), any(),
-                anyInt(), anyInt(), any(), nullable(String.class))).thenReturn(req1);
+                anyInt(), anyInt(), any(), nullable(String.class), anyInt())).thenReturn(req1);
         manager.requestNetwork(req1, callback, handler);
 
         // callback triggers
@@ -287,7 +290,7 @@ public class ConnectivityManagerTest {
 
         // callback can be registered again
         when(mService.requestNetwork(anyInt(), any(), anyInt(), captor.capture(), anyInt(), any(),
-                anyInt(), anyInt(), any(), nullable(String.class))).thenReturn(req2);
+                anyInt(), anyInt(), any(), nullable(String.class), anyInt())).thenReturn(req2);
         manager.requestNetwork(req2, callback, handler);
 
         // callback triggers
@@ -311,7 +314,7 @@ public class ConnectivityManagerTest {
 
         when(mCtx.getApplicationInfo()).thenReturn(info);
         when(mService.requestNetwork(anyInt(), any(), anyInt(), any(), anyInt(), any(), anyInt(),
-                anyInt(), any(), nullable(String.class))).thenReturn(request);
+                anyInt(), any(), nullable(String.class), anyInt())).thenReturn(request);
 
         Handler handler = new Handler(Looper.getMainLooper());
         manager.requestNetwork(request, callback, handler);
@@ -403,15 +406,15 @@ public class ConnectivityManagerTest {
         manager.requestNetwork(request, callback);
         verify(mService).requestNetwork(eq(Process.INVALID_UID), eq(request.networkCapabilities),
                 eq(REQUEST.ordinal()), any(), anyInt(), any(), eq(TYPE_NONE), anyInt(),
-                eq(testPkgName), eq(testAttributionTag));
+                eq(testPkgName), eq(testAttributionTag), anyInt());
         reset(mService);
 
         // Verify that register network callback does not calls requestNetwork at all.
         manager.registerNetworkCallback(request, callback);
         verify(mService, never()).requestNetwork(anyInt(), any(), anyInt(), any(), anyInt(), any(),
-                anyInt(), anyInt(), any(), any());
+                anyInt(), anyInt(), any(), any(), anyInt());
         verify(mService).listenForNetwork(eq(request.networkCapabilities), any(), any(), anyInt(),
-                eq(testPkgName), eq(testAttributionTag));
+                eq(testPkgName), eq(testAttributionTag), anyInt());
         reset(mService);
 
         Handler handler = new Handler(ConnectivityThread.getInstanceLooper());
@@ -419,24 +422,24 @@ public class ConnectivityManagerTest {
         manager.registerDefaultNetworkCallback(callback);
         verify(mService).requestNetwork(eq(Process.INVALID_UID), eq(null),
                 eq(TRACK_DEFAULT.ordinal()), any(), anyInt(), any(), eq(TYPE_NONE), anyInt(),
-                eq(testPkgName), eq(testAttributionTag));
+                eq(testPkgName), eq(testAttributionTag), anyInt());
         reset(mService);
 
         manager.registerDefaultNetworkCallbackForUid(42, callback, handler);
         verify(mService).requestNetwork(eq(42), eq(null),
                 eq(TRACK_DEFAULT.ordinal()), any(), anyInt(), any(), eq(TYPE_NONE), anyInt(),
-                eq(testPkgName), eq(testAttributionTag));
+                eq(testPkgName), eq(testAttributionTag), anyInt());
 
         manager.requestBackgroundNetwork(request, callback, handler);
         verify(mService).requestNetwork(eq(Process.INVALID_UID), eq(request.networkCapabilities),
                 eq(BACKGROUND_REQUEST.ordinal()), any(), anyInt(), any(), eq(TYPE_NONE), anyInt(),
-                eq(testPkgName), eq(testAttributionTag));
+                eq(testPkgName), eq(testAttributionTag), anyInt());
         reset(mService);
 
         manager.registerSystemDefaultNetworkCallback(callback, handler);
         verify(mService).requestNetwork(eq(Process.INVALID_UID), eq(null),
                 eq(TRACK_SYSTEM_DEFAULT.ordinal()), any(), anyInt(), any(), eq(TYPE_NONE), anyInt(),
-                eq(testPkgName), eq(testAttributionTag));
+                eq(testPkgName), eq(testAttributionTag), anyInt());
         reset(mService);
     }
 
@@ -516,16 +519,99 @@ public class ConnectivityManagerTest {
                     + " attempts", ref.get());
     }
 
-    private <T> void mockService(Class<T> clazz, String name, T service) {
-        doReturn(service).when(mCtx).getSystemService(name);
-        doReturn(name).when(mCtx).getSystemServiceName(clazz);
+    public static class NetworkCallbackWithOnLost extends NetworkCallback {
+        @Override
+        public void onLost(@NonNull Network network) {}
+    }
 
-        // If the test suite uses the inline mock maker library, such as for coverage tests,
-        // then the final version of getSystemService must also be mocked, as the real
-        // method will not be called by the test and null object is returned since no mock.
-        // Otherwise, mocking a final method will fail the test.
-        if (mCtx.getSystemService(clazz) == null) {
-            doReturn(service).when(mCtx).getSystemService(clazz);
-        }
+    @Test
+    public void testDeclaredMethodsFlag() throws Exception {
+        final NetworkCallback callback1 = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onPreCheck(@NonNull Network network) {}
+            @Override
+            public void onAvailable(@NonNull Network network) {}
+            @Override
+            public void onLost(@NonNull Network network) {}
+            @Override
+            public void onCapabilitiesChanged(@NonNull Network network,
+                    @NonNull NetworkCapabilities networkCapabilities) {}
+            @Override
+            public void onLocalNetworkInfoChanged(@NonNull Network network,
+                    @NonNull LocalNetworkInfo localNetworkInfo) {}
+            @Override
+            public void onNetworkResumed(@NonNull Network network) {}
+            @Override
+            public void onBlockedStatusChanged(@NonNull Network network, int blocked) {}
+        };
+        final int cb1Flags = 1 << ConnectivityManager.CALLBACK_PRECHECK
+                | 1 << ConnectivityManager.CALLBACK_AVAILABLE
+                | 1 << ConnectivityManager.CALLBACK_LOST
+                | 1 << ConnectivityManager.CALLBACK_CAP_CHANGED
+                | 1 << ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED
+                | 1 << ConnectivityManager.CALLBACK_RESUMED
+                | 1 << ConnectivityManager.CALLBACK_BLK_CHANGED;
+        final NetworkCallback callback2 = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onLosing(@NonNull Network network, int maxMsToLive) {}
+            @Override
+            public void onUnavailable() {}
+            @Override
+            public void onLinkPropertiesChanged(@NonNull Network network,
+                    @NonNull LinkProperties linkProperties) {}
+            @Override
+            public void onNetworkSuspended(@NonNull Network network) {}
+        };
+        final int cb2Flags = 1 << ConnectivityManager.CALLBACK_LOSING
+                // AVAILABLE calls IP_CHANGED and SUSPENDED so it gets added
+                | 1 << ConnectivityManager.CALLBACK_AVAILABLE
+                | 1 << ConnectivityManager.CALLBACK_UNAVAIL
+                | 1 << ConnectivityManager.CALLBACK_IP_CHANGED
+                | 1 << ConnectivityManager.CALLBACK_SUSPENDED;
+        final NetworkCallback hiddenOnAvailableCb = new ConnectivityManager.NetworkCallback() {
+            // This overload is @hide but might still be used by (bad) apps
+            @Override
+            public void onAvailable(@NonNull Network network,
+                    @NonNull NetworkCapabilities networkCapabilities,
+                    @NonNull LinkProperties linkProperties, boolean blocked) {}
+        };
+        final NetworkCallback noOnAvailableCb = new NetworkCallbackWithOnLost();
+        final NetworkCallback noCallbackAtAll = new ConnectivityManager.NetworkCallback() {};
+        final Handler handler = new Handler(Looper.getMainLooper());
+
+        final NetworkRequest request = new NetworkRequest.Builder().build();
+        doReturn(ConnectivityManager.FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS)
+                .when(mService).getEnabledConnectivityManagerFeatures();
+        final ConnectivityManager manager = new ConnectivityManager(mCtx, mService);
+        manager.requestNetwork(request, callback1);
+        manager.registerNetworkCallback(request, callback2);
+        // Call a second time with the same callback to exercise caching
+        manager.registerNetworkCallback(request, callback2);
+        manager.registerDefaultNetworkCallback(hiddenOnAvailableCb);
+        manager.registerSystemDefaultNetworkCallback(noOnAvailableCb, handler);
+        manager.requestBackgroundNetwork(request, noCallbackAtAll, handler);
+        manager.registerNetworkCallback(request, mock(NetworkCallbackWithOnLost.class), handler);
+
+        final InOrder inOrder = inOrder(mService);
+        inOrder.verify(mService).requestNetwork(
+                anyInt(), any(), anyInt(), any(), anyInt(), any(), anyInt(), anyInt(), any(), any(),
+                eq(cb1Flags));
+        inOrder.verify(mService, times(2)).listenForNetwork(
+                any(), any(), any(), anyInt(), any(), any(),
+                eq(cb2Flags));
+        inOrder.verify(mService).requestNetwork(
+                anyInt(), any(), anyInt(), any(), anyInt(), any(), anyInt(), anyInt(), any(), any(),
+                eq(1 << ConnectivityManager.CALLBACK_AVAILABLE));
+        inOrder.verify(mService).requestNetwork(
+                anyInt(), any(), anyInt(), any(), anyInt(), any(), anyInt(), anyInt(), any(), any(),
+                eq(1 << ConnectivityManager.CALLBACK_LOST));
+        inOrder.verify(mService).requestNetwork(
+                anyInt(), any(), anyInt(), any(), anyInt(), any(), anyInt(), anyInt(), any(), any(),
+                // No callbacks overridden -> do not use the optimization
+                eq(~0));
+        inOrder.verify(mService).listenForNetwork(
+                any(), any(), any(), anyInt(), any(), any(),
+                // Mock that does not call the constructor -> do not use the optimization
+                eq(~0));
     }
 }
