@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d1d11ef_29d4f50a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-28T00:08:04Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "9c508d0f1ca36b2fd38a5526a0c71492143105c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bb5c14f_de603e99",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-28T00:08:04Z",
+      "side": 1,
+      "message": "Instead of calling getNetworkInfo (which is a deprecated API) and then checking that the new API returns the same value as the deprecated API, can we just test for the correct behaviour? It seems like we could just write:\n\n            // On V+, ConnectivityService generates blockedReasons based on the\n            // firewall rules, and also, V+ the background chain is enabled by\n            // default. Because otherUid does not actually exist on device, it will\n            // always be blocked.\n            final boolean isOtherUidBlocked \u003d SdkLevel.isAtLeastV();\n            otherUidCallback.expectAvailableCallbacks(defaultNetwork, false /* suspended */,\n                    true /* validated */, isOtherUidBlocked, TIMEOUT_MS);",
+      "range": {
+        "startLine": 987,
+        "startChar": 46,
+        "endLine": 987,
+        "endChar": 47
+      },
+      "revId": "9c508d0f1ca36b2fd38a5526a0c71492143105c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
