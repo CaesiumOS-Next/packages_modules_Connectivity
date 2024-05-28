@@ -22,6 +22,121 @@
       },
       "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5f4a54c_c8a70c09",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-05-28T05:30:47Z",
+      "side": 1,
+      "message": "Nit: Move these definitions closer to where they are used.",
+      "range": {
+        "startLine": 104,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f2f80832_017a88dc",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 104,
+                "startChar": 0,
+                "endLine": 110,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 121,
+                "startChar": 0,
+                "endLine": 121,
+                "endChar": 0
+              },
+              "replacement": "            val networkCallback \u003d TestableNetworkCallback()\n            val wifiRequest \u003d NetworkRequest.Builder().addTransportType(TRANSPORT_WIFI)\n                .setNetworkSpecifier(specifier)\n                .build()\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6030133f_ebdeea50",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-05-28T05:30:47Z",
+      "side": 1,
+      "message": "This is redundant.",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 46
+      },
+      "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "080b2af9_0380daf2",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-05-28T05:30:47Z",
+      "side": 1,
+      "message": "As discussed offline, please add comments to explain why putting the `registerNetworkCallback` in the `runAsShell` is required.",
+      "range": {
+        "startLine": 122,
+        "startChar": 16,
+        "endLine": 122,
+        "endChar": 72
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "aa6675da_f78053b7",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 122,
+                "startChar": 0,
+                "endLine": 122,
+                "endChar": 0
+              },
+              "replacement": "                // Register the network callback before connecting to the wifi.\n                // This is to avoid the race condition that the network callback is registered\n                // after the network is connected.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
