@@ -71,23 +71,29 @@ import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.ArrayMap;
 import android.util.Log;
+import android.util.LruCache;
 import android.util.Range;
 import android.util.SparseIntArray;
 
 import com.android.internal.annotations.GuardedBy;
+import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
 
 import libcore.net.event.NetworkEventDispatcher;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Method;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -1230,6 +1236,14 @@ public class ConnectivityManager {
 
     @GuardedBy("mTetheringEventCallbacks")
     private TetheringManager mTetheringManager;
+
+    // Cache of the most recently used NetworkCallback classes (not instances) -> method flags.
+    // 100 is chosen kind arbitrarily as an unlikely number of different types of NetworkCallback
+    // overrides that a process may have, and should generally not be reached (for example, the
+    // system server services.jar has been observed with dexdump to have only 16 when this was
+    // added, and a very large system services app only had 18).
+    private static final LruCache<Class<? extends NetworkCallback>, Integer> sMethodFlagsCache =
+            new LruCache<>(100);
 
     private static final Object sEnabledConnectivityManagerFeaturesLock = new Object();
     @GuardedBy("sEnabledConnectivityManagerFeaturesLock")
@@ -3995,6 +4009,28 @@ public class ConnectivityManager {
      */
     public static class NetworkCallback {
         /**
+         * Annotation for NetworkCallback methods to verify filtering is configured properly.
+         *
+         * This is only used in tests to verify that
+         * {@link NetworkCallbackMethodsHolder#NETWORK_CB_METHODS} was updated properly.
+         * @hide
+         */
+        @Retention(RetentionPolicy.RUNTIME)
+        @Target(ElementType.METHOD)
+        @VisibleForTesting
+        public @interface FilteredCallback {
+            /**
+             * Bitmask of ConnectivityManager.CALLBACK_* IDs this method is called for.
+             */
+            int value();
+
+            /**
+             * If this method may call other callbacks, indicates their IDs as a bitmask.
+             */
+            int mayCall() default 0;
+        }
+
+        /**
          * No flags associated with this callback.
          * @hide
          */
@@ -4074,6 +4110,7 @@ public class ConnectivityManager {
          *
          * @hide
          */
+        @FilteredCallback(1 << CALLBACK_PRECHECK)
         public void onPreCheck(@NonNull Network network) {}
 
         /**
@@ -4089,6 +4126,10 @@ public class ConnectivityManager {
          * @param blocked Whether access to the {@link Network} is blocked due to system policy.
          * @hide
          */
+        @FilteredCallback(value = 1 << CALLBACK_AVAILABLE,
+                mayCall = 1 << CALLBACK_AVAILABLE
+                        | 1 << CALLBACK_LOCAL_NETWORK_INFO_CHANGED
+                        | 1 << CALLBACK_BLK_CHANGED)
         public final void onAvailable(@NonNull Network network,
                 @NonNull NetworkCapabilities networkCapabilities,
                 @NonNull LinkProperties linkProperties,
@@ -4113,6 +4154,9 @@ public class ConnectivityManager {
          *
          * @hide
          */
+        @FilteredCallback(value = 1 << CALLBACK_AVAILABLE,
+                mayCall = 1 << CALLBACK_AVAILABLE | 1 << CALLBACK_SUSPENDED
+                        | 1 << CALLBACK_CAP_CHANGED | 1 << CALLBACK_IP_CHANGED)
         public void onAvailable(@NonNull Network network,
                 @NonNull NetworkCapabilities networkCapabilities,
                 @NonNull LinkProperties linkProperties,
@@ -4156,6 +4200,7 @@ public class ConnectivityManager {
          *
          * @param network The {@link Network} of the satisfying network.
          */
+        @FilteredCallback(value = 1 << CALLBACK_AVAILABLE)
         public void onAvailable(@NonNull Network network) {}
 
         /**
@@ -4175,6 +4220,7 @@ public class ConnectivityManager {
          *                    connected for graceful handover; note that the network may still
          *                    suffer a hard loss at any time.
          */
+        @FilteredCallback(value = 1 << CALLBACK_LOSING)
         public void onLosing(@NonNull Network network, int maxMsToLive) {}
 
         /**
@@ -4196,6 +4242,7 @@ public class ConnectivityManager {
          *
          * @param network The {@link Network} lost.
          */
+        @FilteredCallback(value = 1 << CALLBACK_LOST)
         public void onLost(@NonNull Network network) {}
 
         /**
@@ -4206,6 +4253,7 @@ public class ConnectivityManager {
          * {@link NetworkRequest} will have already been removed and released, as if
          * {@link #unregisterNetworkCallback(NetworkCallback)} had been called.
          */
+        @FilteredCallback(value = 1 << CALLBACK_UNAVAIL)
         public void onUnavailable() {}
 
         /**
@@ -4223,6 +4271,7 @@ public class ConnectivityManager {
          * @param networkCapabilities The new {@link NetworkCapabilities} for this
          *                            network.
          */
+        @FilteredCallback(value = 1 << CALLBACK_CAP_CHANGED)
         public void onCapabilitiesChanged(@NonNull Network network,
                 @NonNull NetworkCapabilities networkCapabilities) {}
 
@@ -4239,6 +4288,7 @@ public class ConnectivityManager {
          * @param network The {@link Network} whose link properties have changed.
          * @param linkProperties The new {@link LinkProperties} for this network.
          */
+        @FilteredCallback(value = 1 << CALLBACK_IP_CHANGED)
         public void onLinkPropertiesChanged(@NonNull Network network,
                 @NonNull LinkProperties linkProperties) {}
 
@@ -4252,6 +4302,7 @@ public class ConnectivityManager {
          * @param localNetworkInfo the new {@link LocalNetworkInfo} for this network.
          * @hide
          */
+        @FilteredCallback(value = 1 << CALLBACK_LOCAL_NETWORK_INFO_CHANGED)
         public void onLocalNetworkInfoChanged(@NonNull Network network,
                 @NonNull LocalNetworkInfo localNetworkInfo) {}
 
@@ -4272,6 +4323,7 @@ public class ConnectivityManager {
          *
          * @hide
          */
+        @FilteredCallback(value = 1 << CALLBACK_SUSPENDED)
         public void onNetworkSuspended(@NonNull Network network) {}
 
         /**
@@ -4286,6 +4338,7 @@ public class ConnectivityManager {
          *
          * @hide
          */
+        @FilteredCallback(value = 1 << CALLBACK_RESUMED)
         public void onNetworkResumed(@NonNull Network network) {}
 
         /**
@@ -4299,6 +4352,7 @@ public class ConnectivityManager {
          * @param network The {@link Network} whose blocked status has changed.
          * @param blocked The blocked status of this {@link Network}.
          */
+        @FilteredCallback(value = 1 << CALLBACK_BLK_CHANGED)
         public void onBlockedStatusChanged(@NonNull Network network, boolean blocked) {}
 
         /**
@@ -4317,6 +4371,7 @@ public class ConnectivityManager {
          * @param blocked The blocked status of this {@link Network}.
          * @hide
          */
+        @FilteredCallback(value = 1 << CALLBACK_BLK_CHANGED, mayCall = 1 << CALLBACK_BLK_CHANGED)
         @SystemApi(client = MODULE_LIBRARIES)
         public void onBlockedStatusChanged(@NonNull Network network, @BlockedReason int blocked) {
             onBlockedStatusChanged(network, blocked != 0);
@@ -4373,6 +4428,7 @@ public class ConnectivityManager {
     /** @hide */
     public static final int CALLBACK_LOCAL_NETWORK_INFO_CHANGED = 12;
 
+
     /** @hide */
     public static String getCallbackName(int whichCallback) {
         switch (whichCallback) {
@@ -4391,6 +4447,74 @@ public class ConnectivityManager {
             default:
                 return Integer.toString(whichCallback);
         }
+    }
+
+    /** @hide */
+    @VisibleForTesting
+    public static class NetworkCallbackMethod {
+        @NonNull
+        public final String mName;
+        @NonNull
+        public final Class<?>[] mParameterTypes;
+        // Bitmask of CALLBACK_* that may cause calls this method.
+        public final int mCallbacksCallingThisMethod;
+
+        public NetworkCallbackMethod(@NonNull String name, @NonNull Class<?>[] parameterTypes,
+                int callbacksCallingThisMethod) {
+            mName = name;
+            mParameterTypes = parameterTypes;
+            mCallbacksCallingThisMethod = callbacksCallingThisMethod;
+        }
+    }
+
+    // Holder class for the list of NetworkCallbackMethod. This ensures the list is only created
+    // once on first usage, and not just on ConnectivityManager class initialization.
+    /** @hide */
+    @VisibleForTesting
+    public static class NetworkCallbackMethodsHolder {
+        public static final NetworkCallbackMethod[] NETWORK_CB_METHODS =
+                new NetworkCallbackMethod[] {
+                        new NetworkCallbackMethod("onPreCheck",
+                                new Class[]{ Network.class },
+                                1 << CALLBACK_PRECHECK /* callbacksCallingThisMethod */),
+                        new NetworkCallbackMethod("onAvailable",
+                                new Class[]{ Network.class },
+                                1 << CALLBACK_AVAILABLE),
+                        new NetworkCallbackMethod("onAvailable",
+                                new Class[]{ Network.class, NetworkCapabilities.class,
+                                        LinkProperties.class, boolean.class },
+                                1 << CALLBACK_AVAILABLE),
+                        new NetworkCallbackMethod("onLosing",
+                                new Class[]{ Network.class, int.class },
+                                1 << CALLBACK_LOSING),
+                        new NetworkCallbackMethod("onLost",
+                                new Class[]{ Network.class },
+                                1 << CALLBACK_LOST),
+                        new NetworkCallbackMethod("onUnavailable",
+                                new Class[]{ },
+                                1 << CALLBACK_UNAVAIL),
+                        new NetworkCallbackMethod("onCapabilitiesChanged",
+                                new Class[]{ Network.class, NetworkCapabilities.class },
+                                1 << CALLBACK_CAP_CHANGED | 1 << CALLBACK_AVAILABLE),
+                        new NetworkCallbackMethod("onLinkPropertiesChanged",
+                                new Class[]{ Network.class, LinkProperties.class },
+                                1 << CALLBACK_IP_CHANGED | 1 << CALLBACK_AVAILABLE),
+                        new NetworkCallbackMethod("onLocalNetworkInfoChanged",
+                                new Class[]{ Network.class, LocalNetworkInfo.class },
+                                1 << CALLBACK_LOCAL_NETWORK_INFO_CHANGED | 1 << CALLBACK_AVAILABLE),
+                        new NetworkCallbackMethod("onNetworkSuspended",
+                                new Class[]{ Network.class },
+                                1 << CALLBACK_SUSPENDED | 1 << CALLBACK_AVAILABLE),
+                        new NetworkCallbackMethod("onNetworkResumed",
+                                new Class[]{ Network.class },
+                                1 << CALLBACK_RESUMED),
+                        new NetworkCallbackMethod("onBlockedStatusChanged",
+                                new Class[]{ Network.class, boolean.class },
+                                1 << CALLBACK_BLK_CHANGED | 1 << CALLBACK_AVAILABLE),
+                        new NetworkCallbackMethod("onBlockedStatusChanged",
+                                new Class[]{ Network.class, int.class },
+                                1 << CALLBACK_BLK_CHANGED | 1 << CALLBACK_AVAILABLE),
+                };
     }
 
     private static class CallbackHandler extends Handler {
@@ -4512,6 +4636,12 @@ public class ConnectivityManager {
         if (reqType != TRACK_DEFAULT && reqType != TRACK_SYSTEM_DEFAULT && need == null) {
             throw new IllegalArgumentException("null NetworkCapabilities");
         }
+
+
+        final boolean useDeclaredMethods = isFeatureEnabled(
+                FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS);
+        // Set all bits if the feature is disabled
+        int declaredMethodsFlag = useDeclaredMethods ? tryGetDeclaredMethodsFlag(callback) : ~0;
         final NetworkRequest request;
         final String callingPackageName = mContext.getOpPackageName();
         try {
@@ -4528,11 +4658,12 @@ public class ConnectivityManager {
                 if (reqType == LISTEN) {
                     request = mService.listenForNetwork(
                             need, messenger, binder, callbackFlags, callingPackageName,
-                            getAttributionTag());
+                            getAttributionTag(), declaredMethodsFlag);
                 } else {
                     request = mService.requestNetwork(
                             asUid, need, reqType.ordinal(), messenger, timeoutMs, binder,
-                            legacyType, callbackFlags, callingPackageName, getAttributionTag());
+                            legacyType, callbackFlags, callingPackageName, getAttributionTag(),
+                            declaredMethodsFlag);
                 }
                 if (request != null) {
                     sCallbacks.put(request, callback);
@@ -4545,6 +4676,71 @@ public class ConnectivityManager {
             throw convertServiceException(e);
         }
         return request;
+    }
+
+    private int tryGetDeclaredMethodsFlag(@NonNull NetworkCallback cb) {
+        try {
+            return getDeclaredMethodsFlag(cb.getClass());
+        } catch (LinkageError e) {
+            // This may happen if some methods reference inaccessible classes in their arguments
+            // (for example b/261807130).
+            Log.w(TAG, "Could not get methods from NetworkCallback class", e);
+            // Fall through
+        } catch (Throwable e) {
+            Log.e(TAG, "Unexpected error while getting methods from NetworkCallback class", e);
+            // Fall through
+        }
+        return ~0;
+    }
+
+    private static int getDeclaredMethodsFlag(@NonNull Class<? extends NetworkCallback> clazz) {
+        final Integer cachedFlags = sMethodFlagsCache.get(clazz);
+        // As this is not synchronized, it is possible that this method will calculate the
+        // flags for a given class multiple times, but that is fine. LruCache itself is thread-safe.
+        if (cachedFlags != null) {
+            return cachedFlags;
+        }
+
+        int flag = 0;
+        for (Method classMethod : clazz.getMethods()) {
+            if (classMethod.getDeclaringClass() == NetworkCallback.class) {
+                continue;
+            }
+            flag |= getFlagsCallingMethod(classMethod);
+        }
+
+        if (flag == 0) {
+            // dexmaker-mockito-inline (InlineDexmakerMockMaker), for example for mockito-extended,
+            // modifies bytecode of classes in-place to add hooks instead of creating subclasses,
+            // which would not be detected. When no method is found, fall back to enabling callbacks
+            // for all methods.
+            // This will not catch the case where both NetworkCallback bytecode is modified and a
+            // subclass of NetworkCallback that has some overridden methods are used. But this kind
+            // of bytecode injection is only possible in debuggable processes, with a JVMTI debug
+            // agent attached, so it should not cause real issues.
+            flag = ~0;
+        }
+        sMethodFlagsCache.put(clazz, flag);
+        return flag;
+    }
+
+    /**
+     * Find out which of the base methods in NetworkCallback will call this method.
+     *
+     * For example, in the case of onLinkPropertiesChanged, this will be
+     * (1 << CALLBACK_IP_CHANGED) | (1 << CALLBACK_AVAILABLE).
+     */
+    private static int getFlagsCallingMethod(@NonNull Method method) {
+        for (NetworkCallbackMethod baseMethod : NetworkCallbackMethodsHolder.NETWORK_CB_METHODS) {
+            if (!baseMethod.mName.equals(method.getName())) {
+                continue;
+            }
+            Class<?>[] methodParams = method.getParameterTypes();
+            if (Arrays.equals(baseMethod.mParameterTypes, methodParams)) {
+                return baseMethod.mCallbacksCallingThisMethod;
+            }
+        }
+        return 0;
     }
 
     private boolean isFeatureEnabled(@ConnectivityManagerFeature long connectivityManagerFeature) {
