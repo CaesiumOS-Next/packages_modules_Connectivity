@@ -28,6 +28,7 @@ import static android.net.QosCallback.QosCallbackRegistrationException;
 import android.annotation.CallbackExecutor;
 import android.annotation.FlaggedApi;
 import android.annotation.IntDef;
+import android.annotation.LongDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresApi;
@@ -70,6 +71,7 @@ import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.ArrayMap;
 import android.util.Log;
+import android.util.LruCache;
 import android.util.Range;
 import android.util.SparseIntArray;
 
@@ -82,6 +84,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Method;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -1207,6 +1210,16 @@ public class ConnectivityManager {
     })
     public @interface FirewallRule {}
 
+    /** @hide */
+    public static final long FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS = 1L;
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @LongDef(flag = true, prefix = "FEATURE_", value = {
+            FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS
+    })
+    public @interface ConnectivityManagerFeature {}
+
     /**
      * A kludge to facilitate static access where a Context pointer isn't available, like in the
      * case of the static set/getProcessDefaultNetwork methods and from the Network class.
@@ -1219,6 +1232,33 @@ public class ConnectivityManager {
 
     @GuardedBy("mTetheringEventCallbacks")
     private TetheringManager mTetheringManager;
+
+    private static final LruCache<Class<? extends NetworkCallback>, Integer> sMethodFlagsCache =
+            new LruCache<>(20);
+    private static final Object sNetworkCallbackMethodsCacheLock = new Object();
+    @GuardedBy("sNetworkCallbackMethodsCacheLock")
+    private static NetworkCallbackMethod[] sNetworkCallbackMethodsCache;
+
+    private static final Object sEnabledConnectivityManagerFeaturesLock = new Object();
+    @GuardedBy("sEnabledConnectivityManagerFeaturesLock")
+    private boolean mConnectivityFeaturesInitialized;
+    @GuardedBy("sEnabledConnectivityManagerFeaturesLock")
+    private long mEnabledConnectivityManagerFeatures;
+
+    private static class NetworkCallbackMethod {
+        @NonNull
+        final String mName;
+        @NonNull
+        final Class<?>[] mParameterTypes;
+        final int mCallbackType;
+
+        NetworkCallbackMethod(@NonNull String name, @NonNull Class<?>[] parameterTypes,
+                int callbackType) {
+            this.mName = name;
+            this.mParameterTypes = parameterTypes;
+            this.mCallbackType = callbackType;
+        }
+    }
 
     private TetheringManager getTetheringManager() {
         synchronized (mTetheringEventCallbacks) {
@@ -4494,6 +4534,25 @@ public class ConnectivityManager {
         if (reqType != TRACK_DEFAULT && reqType != TRACK_SYSTEM_DEFAULT && need == null) {
             throw new IllegalArgumentException("null NetworkCapabilities");
         }
+
+        int declaredMethodsFlag = -1; // All bits set
+        final boolean useDeclaredMethods = isFeatureEnabled(
+                FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS);
+        if (useDeclaredMethods) {
+            try {
+                declaredMethodsFlag = getDeclaredMethodsFlag(callback.getClass());
+            } catch (LinkageError e) {
+                // This may happen if some methods reference inaccessible classes in their arguments
+                // (for example b/261807130).
+                Log.e(TAG, "Could not get methods from NetworkCallback class", e);
+                // Fall through
+            } catch (Throwable e) {
+                Log.wtf(TAG, "Unexpected error while getting methods from NetworkCallback class",
+                        e);
+                // Fall through
+            }
+        }
+
         final NetworkRequest request;
         final String callingPackageName = mContext.getOpPackageName();
         try {
@@ -4507,14 +4566,27 @@ public class ConnectivityManager {
                 Messenger messenger = new Messenger(handler);
                 Binder binder = new Binder();
                 final int callbackFlags = callback.mFlags;
-                if (reqType == LISTEN) {
-                    request = mService.listenForNetwork(
-                            need, messenger, binder, callbackFlags, callingPackageName,
-                            getAttributionTag());
+                if (useDeclaredMethods) {
+                    if (reqType == LISTEN) {
+                        request = mService.listenForNetworkFiltered(
+                                need, messenger, binder, callbackFlags, callingPackageName,
+                                getAttributionTag(), declaredMethodsFlag);
+                    } else {
+                        request = mService.requestNetworkFiltered(
+                                asUid, need, reqType.ordinal(), messenger, timeoutMs, binder,
+                                legacyType, callbackFlags, callingPackageName, getAttributionTag(),
+                                declaredMethodsFlag);
+                    }
                 } else {
-                    request = mService.requestNetwork(
-                            asUid, need, reqType.ordinal(), messenger, timeoutMs, binder,
-                            legacyType, callbackFlags, callingPackageName, getAttributionTag());
+                    if (reqType == LISTEN) {
+                        request = mService.listenForNetwork(
+                                need, messenger, binder, callbackFlags, callingPackageName,
+                                getAttributionTag());
+                    } else {
+                        request = mService.requestNetwork(
+                                asUid, need, reqType.ordinal(), messenger, timeoutMs, binder,
+                                legacyType, callbackFlags, callingPackageName, getAttributionTag());
+                    }
                 }
                 if (request != null) {
                     sCallbacks.put(request, callback);
@@ -4527,6 +4599,128 @@ public class ConnectivityManager {
             throw convertServiceException(e);
         }
         return request;
+    }
+
+    private static int getCallbackFlagForMethod(@NonNull String method) {
+        switch (method) {
+            case "onPreCheck" -> {
+                return CALLBACK_PRECHECK;
+            }
+            case "onAvailable" -> {
+                return CALLBACK_AVAILABLE;
+            }
+            case "onLosing" -> {
+                return CALLBACK_LOSING;
+            }
+            case "onLost" -> {
+                return CALLBACK_LOST;
+            }
+            case "onUnavailable" -> {
+                return CALLBACK_UNAVAIL;
+            }
+            case "onCapabilitiesChanged" -> {
+                return CALLBACK_CAP_CHANGED;
+            }
+            case "onLinkPropertiesChanged" -> {
+                return CALLBACK_IP_CHANGED;
+            }
+            case "onLocalNetworkInfoChanged" -> {
+                return CALLBACK_LOCAL_NETWORK_INFO_CHANGED;
+            }
+            case "onNetworkSuspended" -> {
+                return CALLBACK_SUSPENDED;
+            }
+            case "onNetworkResumed" -> {
+                return CALLBACK_RESUMED;
+            }
+            case "onBlockedStatusChanged" -> {
+                return CALLBACK_BLK_CHANGED;
+            }
+        }
+        throw new IllegalArgumentException("Unknown method: " + method);
+    }
+
+    private static NetworkCallbackMethod[] getNetworkCallbackMethods() {
+        synchronized (sNetworkCallbackMethodsCacheLock) {
+            if (sNetworkCallbackMethodsCache == null) {
+                final Method[] cbDeclaredMethods = NetworkCallback.class.getDeclaredMethods();
+                sNetworkCallbackMethodsCache = new NetworkCallbackMethod[cbDeclaredMethods.length];
+                for (int i = 0; i < cbDeclaredMethods.length; i++) {
+                    final Method m = cbDeclaredMethods[i];
+                    sNetworkCallbackMethodsCache[i] = new NetworkCallbackMethod(
+                            m.getName(), m.getParameterTypes(),
+                            getCallbackFlagForMethod(m.getName()));
+                }
+            }
+
+            return sNetworkCallbackMethodsCache;
+        }
+    }
+
+    private static int getDeclaredMethodsFlag(@NonNull Class<? extends NetworkCallback> clazz) {
+        final Integer cachedFlags = sMethodFlagsCache.get(clazz);
+        // As this is not synchronized, it is possible that this method will calculate the
+        // flags for a given multiple times, but that is fine. LruCache itself is thread-safe.
+        if (cachedFlags != null) {
+            return cachedFlags;
+        }
+
+        final NetworkCallbackMethod[] baseMethods = getNetworkCallbackMethods();
+        int flag = 0;
+        for (Method classMethod : clazz.getMethods()) {
+            if (classMethod.getDeclaringClass() == NetworkCallback.class) {
+                continue;
+            }
+            for (NetworkCallbackMethod baseMethod : baseMethods) {
+                if (!baseMethod.mName.equals(classMethod.getName())) {
+                    continue;
+                }
+                Class<?>[] classMethodParams = classMethod.getParameterTypes();
+                if (baseMethod.mParameterTypes.length != classMethodParams.length) {
+                    continue;
+                }
+                boolean argsMatch = true;
+                for (int i = 0; i < classMethodParams.length; i++) {
+                    if (!baseMethod.mParameterTypes[i].isAssignableFrom(classMethodParams[i])) {
+                        argsMatch = false;
+                        break;
+                    }
+                }
+
+                if (argsMatch) {
+                    flag |= 1 << baseMethod.mCallbackType;
+                }
+            }
+        }
+
+        // The onAvailable override with multiple arguments can call the below methods, so make sure
+        // onAvailable is called if any of them is overridden.
+        if ((flag & (
+                1 << CALLBACK_SUSPENDED
+                        | 1 << CALLBACK_CAP_CHANGED
+                        | 1 << CALLBACK_IP_CHANGED
+                        | 1 << CALLBACK_LOCAL_NETWORK_INFO_CHANGED
+                        | 1 << CALLBACK_BLK_CHANGED)) != 0) {
+            flag |= 1 << CALLBACK_AVAILABLE;
+        }
+        sMethodFlagsCache.put(clazz, flag);
+        return flag;
+    }
+
+    /** @hide */
+    private boolean isFeatureEnabled(long connectivityManagerFeature) {
+        synchronized (sEnabledConnectivityManagerFeaturesLock) {
+            if (!mConnectivityFeaturesInitialized) {
+                try {
+                    mEnabledConnectivityManagerFeatures =
+                            mService.getEnabledConnectivityManagerFeatures();
+                    mConnectivityFeaturesInitialized = true;
+                } catch (RemoteException e) {
+                    e.rethrowFromSystemServer();
+                }
+            }
+            return (mEnabledConnectivityManagerFeatures & connectivityManagerFeature) != 0;
+        }
     }
 
     private NetworkRequest sendRequestForNetwork(NetworkCapabilities need, NetworkCallback callback,
