@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ee0b4cc_374e74d9",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-28T11:22:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8d9c1c93_1d87bf77",
+      "revId": "2c543d99a850270ab31489db81006197fb09ccb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccd27a9b_0855574a",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-05-28T08:48:38Z",
       "side": 1,
       "message": "3\n\nAPFv2 \u003d no counters\nAPFv3 \u003d counters exist, but cleared by any program installation thus unreliable\nAPFv4 \u003d counters exist and work\n\nLosing even the somewhat broken counters on S/T launched Pixel 6/7 seems undesirable...",
+      "range": {
+        "startLine": 381,
+        "startChar": 60,
+        "endLine": 381,
+        "endChar": 61
+      },
+      "revId": "2c543d99a850270ab31489db81006197fb09ccb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "881184ae_1959ba01",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-28T11:22:46Z",
+      "side": 1,
+      "message": "I think we can go ahead to advice them to declare APFv3 support.",
+      "parentUuid": "ccd27a9b_0855574a",
       "range": {
         "startLine": 381,
         "startChar": 60,
