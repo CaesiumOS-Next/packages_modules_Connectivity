@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dcf2a4e_dfcdf35e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-28T08:53:05Z",
+      "side": 1,
+      "message": "(can also split in twain)",
+      "revId": "9339113dea803102baf9c7c1c6562ca01fc954b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e62f1e6_aeddf5b5",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-28T08:53:05Z",
+      "side": 1,
+      "message": "does this work?\nAFAIK google servers truncate ping replies to some thing...\n\n$ ping -c 1 2001:4860:4860::8888\nPING 2001:4860:4860::8888 (2001:4860:4860::8888) 56 data bytes\n64 bytes from 2001:4860:4860::8888: icmp_seq\u003d1 ttl\u003d119 time\u003d1.18 ms\n\n$ ping -c 1 2001:4860:4860::8888 -s 69\nPING 2001:4860:4860::8888 (2001:4860:4860::8888) 69 data bytes\n76 bytes from 2001:4860:4860::8888: icmp_seq\u003d1 ttl\u003d119 (truncated)\n\n$ ping -c 1 2001:4860:4860::8888 -s 68\nPING 2001:4860:4860::8888 (2001:4860:4860::8888) 68 data bytes\n76 bytes from 2001:4860:4860::8888: icmp_seq\u003d1 ttl\u003d119 time\u003d1.18 ms",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 15
+      },
+      "revId": "9339113dea803102baf9c7c1c6562ca01fc954b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
