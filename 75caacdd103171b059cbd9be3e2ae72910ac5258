@@ -39,6 +39,23 @@
       "message": "commit message diff only",
       "revId": "75caacdd103171b059cbd9be3e2ae72910ac5258",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bce39b9_a57832d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2013070
+      },
+      "writtenOn": "2024-05-28T02:52:24Z",
+      "side": 1,
+      "message": "This was a bit hard to diagnose issues on why our boot delayed from logs alone. It would have been nice to have an explicit log here that you\u0027ve decided that boot needs to be delayed by 60 seconds.",
+      "revId": "75caacdd103171b059cbd9be3e2ae72910ac5258",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
