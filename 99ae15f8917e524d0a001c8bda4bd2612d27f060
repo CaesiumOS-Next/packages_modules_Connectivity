@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "109fa853_49d3dccf",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-05-28T06:30:24Z",
+      "side": 1,
+      "message": "```suggestion\n        public void expectCallbackNotCalled() {\n```",
+      "range": {
+        "startLine": 1032,
+        "startChar": 20,
+        "endLine": 1032,
+        "endChar": 54
+      },
+      "revId": "99ae15f8917e524d0a001c8bda4bd2612d27f060",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
