@@ -1923,15 +1923,15 @@ public class NsdService extends INsdManager.Stub {
                         mContext, MdnsFeatureFlags.NSD_FORCE_DISABLE_MDNS_OFFLOAD))
                 .setIncludeInetAddressRecordsInProbing(mDeps.isFeatureEnabled(
                         mContext, MdnsFeatureFlags.INCLUDE_INET_ADDRESS_RECORDS_IN_PROBING))
-                .setIsExpiredServicesRemovalEnabled(mDeps.isFeatureEnabled(
+                .setIsExpiredServicesRemovalEnabled(mDeps.isTetheringFeatureNotChickenedOut(
                         mContext, MdnsFeatureFlags.NSD_EXPIRED_SERVICES_REMOVAL))
                 .setIsLabelCountLimitEnabled(mDeps.isTetheringFeatureNotChickenedOut(
                         mContext, MdnsFeatureFlags.NSD_LIMIT_LABEL_COUNT))
-                .setIsKnownAnswerSuppressionEnabled(mDeps.isFeatureEnabled(
+                .setIsKnownAnswerSuppressionEnabled(mDeps.isTetheringFeatureNotChickenedOut(
                         mContext, MdnsFeatureFlags.NSD_KNOWN_ANSWER_SUPPRESSION))
-                .setIsUnicastReplyEnabled(mDeps.isFeatureEnabled(
+                .setIsUnicastReplyEnabled(mDeps.isTetheringFeatureNotChickenedOut(
                         mContext, MdnsFeatureFlags.NSD_UNICAST_REPLY_ENABLED))
-                .setIsAggressiveQueryModeEnabled(mDeps.isFeatureEnabled(
+                .setIsAggressiveQueryModeEnabled(mDeps.isTetheringFeatureNotChickenedOut(
                         mContext, MdnsFeatureFlags.NSD_AGGRESSIVE_QUERY_MODE))
                 .setIsQueryWithKnownAnswerEnabled(mDeps.isFeatureEnabled(
                         mContext, MdnsFeatureFlags.NSD_QUERY_WITH_KNOWN_ANSWER))

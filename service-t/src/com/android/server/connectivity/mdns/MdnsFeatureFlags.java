@@ -189,11 +189,11 @@ public class MdnsFeatureFlags {
         public Builder() {
             mIsMdnsOffloadFeatureEnabled = false;
             mIncludeInetAddressRecordsInProbing = false;
-            mIsExpiredServicesRemovalEnabled = false;
+            mIsExpiredServicesRemovalEnabled = true; // Default enabled.
             mIsLabelCountLimitEnabled = true; // Default enabled.
-            mIsKnownAnswerSuppressionEnabled = false;
-            mIsUnicastReplyEnabled = true;
-            mIsAggressiveQueryModeEnabled = false;
+            mIsKnownAnswerSuppressionEnabled = true; // Default enabled.
+            mIsUnicastReplyEnabled = true; // Default enabled.
+            mIsAggressiveQueryModeEnabled = true; // Default enabled.
             mIsQueryWithKnownAnswerEnabled = false;
             mOverrideProvider = null;
         }
