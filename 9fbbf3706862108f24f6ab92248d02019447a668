@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f1f91d2_80d5bab2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-29T10:22:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e49d4ffe_0c773eeb",
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6576485_0161679c",
@@ -48,6 +66,30 @@
       "writtenOn": "2024-05-29T04:07:26Z",
       "side": 1,
       "message": "Can you factor this out to a function?",
+      "range": {
+        "startLine": 4538,
+        "startChar": 12,
+        "endLine": 4538,
+        "endChar": 31
+      },
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31ace9f6_ebf2d2f7",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4538,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-29T10:22:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6576485_0161679c",
       "range": {
         "startLine": 4538,
         "startChar": 12,
@@ -83,6 +125,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3cfba12_16f7bbf2",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4571,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-29T10:22:04Z",
+      "side": 1,
+      "message": "I\u0027m a bit afraid of raw binder calls possibly depending on it; I looked at the git history and we didn\u0027t actually modify IConnectivityManager methods before stopKeepalive since maybe S.\nThat\u0027s why I added another method, and added a Log.wtf in the old one if it gets called when the feature is enabled. If we don\u0027t get wtf reports, I think we can consolidate afterwards ?\n\nAdded some comments in IConnectivityManager.",
+      "parentUuid": "2e1506c5_af1c7a6e",
+      "range": {
+        "startLine": 4571,
+        "startChar": 43,
+        "endLine": 4571,
+        "endChar": 67
+      },
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6458a29_906291b5",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 2
@@ -94,6 +160,30 @@
       "writtenOn": "2024-05-29T04:07:26Z",
       "side": 1,
       "message": "Is it possible that we add a new public method to NetworkCallback and forget to update this class? If so, what will happen?",
+      "range": {
+        "startLine": 4640,
+        "startChar": 18,
+        "endLine": 4640,
+        "endChar": 42
+      },
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00735035_b6b0b96f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4640,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-29T10:22:04Z",
+      "side": 1,
+      "message": "Refactored to using annotations which makes it clearer.",
+      "parentUuid": "d6458a29_906291b5",
       "range": {
         "startLine": 4640,
         "startChar": 18,
@@ -127,6 +217,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "227db9ff_270757c7",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4646,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-29T10:22:04Z",
+      "side": 1,
+      "message": "Yes but the overloads use the same ID (CALLBACK_AVAILABLE, CALLBACK_BLK_CHANGED), so overriding any of them causes all of them to be called, and there shouldn\u0027t be missing callbacks.\n\nThe \"method calls another\" thing is made more explicit with the new annotations-based implementation",
+      "parentUuid": "f81245a3_4bbb85df",
+      "range": {
+        "startLine": 4646,
+        "startChar": 73,
+        "endLine": 4646,
+        "endChar": 91
+      },
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d358bd2_367412d4",
@@ -144,6 +258,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e93ce8b0_57530930",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4691,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-29T10:22:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d358bd2_367412d4",
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c98fe42_17847f1d",
@@ -157,6 +289,30 @@
       "writtenOn": "2024-05-29T04:07:26Z",
       "side": 1,
       "message": "There are also two variants of onBlockedStatusChanged. Do you need to do something similar for onBlockedStatusChanged as well? If so, how will we remember to update this code if in the future we add another override that is similar to these two?",
+      "range": {
+        "startLine": 4696,
+        "startChar": 27,
+        "endLine": 4696,
+        "endChar": 59
+      },
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf0185e0_d861dfc1",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4696,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-29T10:22:04Z",
+      "side": 1,
+      "message": "Added to be explicit in the annotation, but this doesn\u0027t actually do anything (with the current code it ends up being \"if BLK_STATUS_CHANGED is set, also set BLK_STATUS_CHANGED\"). It could still be useful if the logic is changed to implement the thing differently later.",
+      "parentUuid": "1c98fe42_17847f1d",
       "range": {
         "startLine": 4696,
         "startChar": 27,
