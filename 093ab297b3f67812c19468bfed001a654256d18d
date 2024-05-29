@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21ed8919_1d10b974",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-29T05:22:45Z",
+      "side": 1,
+      "message": "We need to skip this test for VSR-T- as well. For similar reason that we don\u0027t have enforce when the APF need to be turned on. These test can fail on the Lynx as well....",
+      "revId": "093ab297b3f67812c19468bfed001a654256d18d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
