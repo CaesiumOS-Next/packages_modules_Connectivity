@@ -84,6 +84,23 @@
       "message": "Hi Samip, please help with DR No",
       "revId": "fc1bd9d19850c3234537dab884300846b52a479c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "552e8d13_74eab1e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107353
+      },
+      "writtenOn": "2024-05-29T02:59:35Z",
+      "side": 1,
+      "message": "Thank you Yeabkal",
+      "revId": "fc1bd9d19850c3234537dab884300846b52a479c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
