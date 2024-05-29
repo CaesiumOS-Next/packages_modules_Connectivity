@@ -29,6 +29,9 @@ java_library {
         "net-utils-device-common-bpf",
         "net-utils-device-common-struct-base",
     ],
+    libs: [
+        "framework-connectivity-module-api-stubs-including-flagged",
+    ],
     srcs: [
         "src/**/*.java",
     ],
