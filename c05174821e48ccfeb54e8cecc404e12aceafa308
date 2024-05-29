@@ -50,6 +50,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f4ecfc62_55844703",
+        "filename": "tests/cts/multidevices/snippet/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-29T08:43:55Z",
+      "side": 1,
+      "message": "I don\u0027t understand how min_sdk_version affects that, can you add a reference to docs for example ?",
+      "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5f4a54c_c8a70c09",
         "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
         "patchSetId": 4
@@ -231,6 +248,23 @@
         "endLine": 122,
         "endChar": 72
       },
+      "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9720a0f7_a8838c12",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-29T08:43:55Z",
+      "side": 1,
+      "message": "AutoReleaseNetworkCallbackRule can be used instead of try/finally, better use that in general",
       "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

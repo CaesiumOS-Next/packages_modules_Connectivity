@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3baf3d6_a8125d32",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-29T08:43:55Z",
+      "side": 1,
+      "message": "Pre-existing, but does this still call deprecated methods ? Since the connection is actually happening inside ConnectUtil",
+      "revId": "0f7b41048c96f2e2c4af47a23938893b7779f23f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "447bca3b_3837e95e",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-29T08:43:55Z",
+      "side": 1,
+      "message": "WifiInfo.sanitizeSsid would be more correct I think (and is system API)",
+      "revId": "0f7b41048c96f2e2c4af47a23938893b7779f23f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
