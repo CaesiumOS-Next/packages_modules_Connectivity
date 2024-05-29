@@ -22,6 +22,7 @@ python_test_host {
     main: "connectivity_multi_devices_test.py",
     srcs: [
         "connectivity_multi_devices_test.py",
+        "mdns_utils.py",
         "tether_utils.py",
     ],
     libs: [

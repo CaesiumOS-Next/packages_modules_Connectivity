@@ -34,6 +34,7 @@ from mobly.controllers import android_device
 class UpstreamType:
   CELLULAR = 1
   WIFI = 2
+  LOCAL = 3
 
 
 def generate_uuid32_base64() -> str:
@@ -76,7 +77,7 @@ def setup_hotspot_and_client_for_upstream_type(
         "Server requires Wifi AP + STA concurrency",
     )
     server.ensureWifiIsDefault()
-  else:
+  elif upstream_type > UpstreamType.LOCAL or upstream_type < UpstreamType.CELLULAR:
     raise ValueError(f"Invalid upstream type: {upstream_type}")
 
   # Generate ssid/passphrase with random characters to make sure nearby devices won't

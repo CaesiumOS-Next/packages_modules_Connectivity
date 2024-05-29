@@ -7,6 +7,7 @@ from mobly import utils
 from mobly.controllers import android_device
 import tether_utils
 from tether_utils import UpstreamType
+import mdns_utils
 
 CONNECTIVITY_MULTI_DEVICES_SNIPPET_PACKAGE = "com.google.snippet.connectivity"
 
@@ -55,6 +56,22 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
           self.serverDevice, UpstreamType.CELLULAR
       )
 
+  def test_mdns_via_hotspot(self):
+    try:
+      # Connectivity of the client verified by asserting the validated capability.
+      tether_utils.setup_hotspot_and_client_for_upstream_type(
+        self.serverDevice, self.clientDevice, UpstreamType.LOCAL
+      )
+      mdns_utils.register_mdns_service_and_discover_resolve(
+        self.clientDevice, self.serverDevice
+      )
+    finally:
+      mdns_utils.cleanup_mdns_service(
+        self.clientDevice, self.serverDevice
+      )
+      tether_utils.cleanup_tethering_for_upstream_type(
+        self.serverDevice, UpstreamType.LOCAL
+      )
 
 if __name__ == "__main__":
   # Take test args
