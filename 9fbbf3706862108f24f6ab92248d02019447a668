@@ -18,6 +18,115 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5ae7dde_557d5b5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-29T04:07:26Z",
+      "side": 1,
+      "message": "Early feedback. Haven\u0027t looked at connectivityservice yet.",
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6576485_0161679c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4538,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-29T04:07:26Z",
+      "side": 1,
+      "message": "Can you factor this out to a function?",
+      "range": {
+        "startLine": 4538,
+        "startChar": 12,
+        "endLine": 4538,
+        "endChar": 31
+      },
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e1506c5_af1c7a6e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4571,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-29T04:07:26Z",
+      "side": 1,
+      "message": "Instead of creating new listenForNetworkFiltered (etc.) IPCs for this, can you simply change the signature of the existing IPCs (e.g., listenForNetwork) that have the new parameter? The old codepath can pass in a guard value such as 0 or -1.",
+      "range": {
+        "startLine": 4571,
+        "startChar": 43,
+        "endLine": 4571,
+        "endChar": 67
+      },
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6458a29_906291b5",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4640,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-29T04:07:26Z",
+      "side": 1,
+      "message": "Is it possible that we add a new public method to NetworkCallback and forget to update this class? If so, what will happen?",
+      "range": {
+        "startLine": 4640,
+        "startChar": 18,
+        "endLine": 4640,
+        "endChar": 42
+      },
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f81245a3_4bbb85df",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4646,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-29T04:07:26Z",
+      "side": 1,
+      "message": "Note that some of the NetworkCallback methods call each other. IIRC there are onAvailable methods that take different numbers of arguments, and there are two variants of onBlockedStatusChanged. It looks like this treats them them all individually.",
+      "range": {
+        "startLine": 4646,
+        "startChar": 73,
+        "endLine": 4646,
+        "endChar": 91
+      },
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d358bd2_367412d4",
@@ -31,6 +140,29 @@
       "writtenOn": "2024-05-28T11:07:07Z",
       "side": 1,
       "message": "also break here would be better",
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c98fe42_17847f1d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4696,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-29T04:07:26Z",
+      "side": 1,
+      "message": "There are also two variants of onBlockedStatusChanged. Do you need to do something similar for onBlockedStatusChanged as well? If so, how will we remember to update this code if in the future we add another override that is similar to these two?",
+      "range": {
+        "startLine": 4696,
+        "startChar": 27,
+        "endLine": 4696,
+        "endChar": 59
+      },
       "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
