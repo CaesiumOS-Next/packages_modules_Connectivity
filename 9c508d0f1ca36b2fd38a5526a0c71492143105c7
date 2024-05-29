@@ -39,6 +39,30 @@
       },
       "revId": "9c508d0f1ca36b2fd38a5526a0c71492143105c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35c67b00_5a6f0fa9",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-05-29T02:02:28Z",
+      "side": 1,
+      "message": "Based on the discussion, I have updated to\n``` \nisOtherUidBlocked \u003d SdkLevel.isAtLeastV()\n                    \u0026\u0026 runAsShell(NETWORK_SETTINGS, () -\u003e \n                    mCM.getFirewallChainEnabled(FIREWALL_CHAIN_BACKGROUND));\n```",
+      "parentUuid": "0bb5c14f_de603e99",
+      "range": {
+        "startLine": 987,
+        "startChar": 46,
+        "endLine": 987,
+        "endChar": 47
+      },
+      "revId": "9c508d0f1ca36b2fd38a5526a0c71492143105c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
