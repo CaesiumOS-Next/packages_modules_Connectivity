@@ -142,6 +142,58 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
       # Stop discovery
       server.stopMDnsServiceDiscovery()
 
+  def _do_test_mdns_advertising_discovery_resolution_via_wifip2p(self):
+    """Test mdns advertising, discovery and resolution via wifip2p.
+
+    This test creates a wifp2p, make the client connect to it, and verifies mDns advertising,
+    discovery, and resolution functionality.
+    """
+    server = self.serverDevice.connectivity_multi_devices_snippet
+    client = self.clientDevice.connectivity_multi_devices_snippet
+
+    # Assert pre-conditions specific to each upstream type.
+    asserts.skip_if(not server.hasWifiFeature(), "Server requires Wifi feature")
+    asserts.skip_if(not client.hasWifiFeature(), "Client requires Wifi feature")
+    asserts.skip_if(not server.isP2pSupported(), "Server requires Wi-fi Direct feature")
+    asserts.skip_if(not client.isP2pSupported(), "Client requires Wi-fi Direct feature")
+
+    try:
+      # Start Wi-Fi P2P on both server and client.
+      serverName = server.startWifiP2p()
+      clientName = client.startWifiP2p()
+
+      # Discover Wi-Fi P2p peers
+      server.discoverWifiP2pPeers(clientName)
+      client.discoverWifiP2pPeers(serverName)
+
+      # Create a Wi-Fi P2P group
+      server.creteWifiP2pGroup()
+      server.discoverWifiP2pPeers(clientName)
+
+      # Connect to a Wi-Fi P2P device
+      server.connectToWifiP2pDevice(clientName)
+
+      client.acceptGroupInvitation()
+      server.acceptGroupInvitation()
+
+      client.ensureDeviceConnected()
+      server.ensureDeviceConnected()
+
+      # Register a mDns service
+      client.registerMDnsService()
+
+      # Discover a mDns service and resolve retrieved mDns service
+      server.discoverAndResloveMDnsService()
+
+    finally:
+      # Unregister the mDns service
+      client.unregisterMDnsService()
+      # Stop discovery
+      server.stopMDnsServiceDiscovery()
+      # Stop Wi-Fi P2P
+      server.stopWifiP2p()
+      client.stopWifiP2p()
+
   def test_hotspot_upstream_wifi(self):
     self._do_test_hotspot_for_upstream_type(UpstreamType.WIFI)
 
@@ -150,6 +202,9 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
 
   def test_mdns_advertising_discovery_resolution_via_hotspot(self):
     self._do_test_mdns_advertising_discovery_resolution_via_hotspot()
+
+  def test_mdns_advertising_discovery_resolution_via_wifip2p(self):
+    self._do_test_mdns_advertising_discovery_resolution_via_wifip2p()
 
 if __name__ == "__main__":
   # Take test args
