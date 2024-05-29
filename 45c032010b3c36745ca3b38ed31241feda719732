@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "096f7fab_5e06e9d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-29T08:55:11Z",
+      "side": 1,
+      "message": "This is trying to fix:\nhttps://b.corp.google.com/issues/260823177#comment15\nbut in #19, wifi team suggest we should\n1. Make device screen on\n2. After turn on the Wifi, trigger a wifi scan\n3. Wait for the connection\n\nI\u0027m not really sure what we want to do next.",
+      "parentUuid": "970884c0_78228a30",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "45c032010b3c36745ca3b38ed31241feda719732",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8c07b57d_495b447f",
         "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectUtil.kt",
         "patchSetId": 2
