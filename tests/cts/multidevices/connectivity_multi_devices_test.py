@@ -95,12 +95,61 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
       # Teardown the hotspot.
       server.stopAllTethering()
 
+  def _do_test_mdns_advertising_discovery_resolution_via_hotspot(self):
+    """Test mdns advertising, discovery and resolution via hotspot.
+
+    This test creates a hotspot, make the client connect to it, and verifies mDns advertising,
+    discovery, and resolution functionality.
+    """
+
+    server = self.serverDevice.connectivity_multi_devices_snippet
+    client = self.clientDevice.connectivity_multi_devices_snippet
+
+    # Assert pre-conditions specific to each upstream type.
+    asserts.skip_if(not client.hasWifiFeature(), "Client requires Wifi feature")
+    asserts.skip_if(
+        not server.hasHotspotFeature(), "Server requires hotspot feature"
+    )
+    asserts.skip_if(
+        not server.isStaApConcurrencySupported(),
+      "Server requires Wifi AP + STA concurrency",
+    )
+    server.ensureWifiIsDefault()
+
+    # Generate ssid/passphrase with random characters to make sure nearby devices won't
+    # connect unexpectedly. Note that total length of ssid cannot go over 32.
+    testSsid = "HOTSPOT-" + self.generate_uuid32_base64()
+    testPassphrase = self.generate_uuid32_base64()
+
+    try:
+        # Create a hotspot with fixed SSID and password.
+      server.startHotspot(testSsid, testPassphrase)
+
+      # Make the client connects to the hotspot.
+      client.connectToWifi(testSsid, testPassphrase, True)
+
+      # Register a mDns service
+      client.registerMDnsService()
+
+      # Discover a mDns service and resolve retrieved mDns service
+      server.discoverAndResolveMDnsService()
+
+    finally:
+      # Teardown the hotspot.
+      server.stopAllTethering()
+      # Unregister the mDns service
+      client.unregisterMDnsService()
+      # Stop discovery
+      server.stopMDnsServiceDiscovery()
+
   def test_hotspot_upstream_wifi(self):
     self._do_test_hotspot_for_upstream_type(UpstreamType.WIFI)
 
   def test_hotspot_upstream_cellular(self):
     self._do_test_hotspot_for_upstream_type(UpstreamType.CELLULAR)
 
+  def test_mdns_advertising_discovery_resolution_via_hotspot(self):
+    self._do_test_mdns_advertising_discovery_resolution_via_hotspot()
 
 if __name__ == "__main__":
   # Take test args
