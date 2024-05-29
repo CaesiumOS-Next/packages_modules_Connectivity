@@ -26,6 +26,8 @@ import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
 import android.net.cts.util.CtsNetUtils
 import android.net.cts.util.CtsTetheringUtils
+import android.net.nsd.NsdManager
+import android.net.nsd.NsdServiceInfo
 import android.net.wifi.ScanResult
 import android.net.wifi.SoftApConfiguration
 import android.net.wifi.SoftApConfiguration.SECURITY_TYPE_WPA2_PSK
@@ -42,16 +44,26 @@ import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.runAsShell
 import com.google.android.mobly.snippet.Snippet
 import com.google.android.mobly.snippet.rpc.Rpc
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.TimeUnit
+
+private const val SERVICE_NAME = "MultiDevicesTest"
+private const val SERVICE_TYPE = "_multi_devices._tcp"
+private const val TIMEOUT_MS = 60000L
 
 class ConnectivityMultiDevicesSnippet : Snippet {
     private val context = InstrumentationRegistry.getInstrumentation().getTargetContext()
     private val wifiManager = context.getSystemService(WifiManager::class.java)!!
     private val cm = context.getSystemService(ConnectivityManager::class.java)!!
     private val pm = context.packageManager
+    private val nsdManager = context.getSystemService(NsdManager::class.java)!!
     private val ctsNetUtils = CtsNetUtils(context)
     private val cbHelper = NetworkCallbackHelper()
     private val ctsTetheringUtils = CtsTetheringUtils(context)
     private var oldSoftApConfig: SoftApConfiguration? = null
+    private val regListener = TestRegistrationListener()
+    private val discListener = TestDiscoveryListener()
+    private val resolveListener = TestResolveListener()
 
     override fun shutdown() {
         cbHelper.unregisterAll()
@@ -170,5 +182,88 @@ class ConnectivityMultiDevicesSnippet : Snippet {
                 wifiManager.setSoftApConfiguration(it)
             }
         }
+    }
+
+    internal class TestRegistrationListener : NsdManager.RegistrationListener {
+        val regFuture = CompletableFuture<Boolean>()
+        val unregFuture = CompletableFuture<Boolean>()
+
+        override fun onRegistrationFailed(info: NsdServiceInfo, i: Int) {}
+        override fun onUnregistrationFailed(info: NsdServiceInfo, i: Int) {}
+        override fun onServiceRegistered(info: NsdServiceInfo) {
+            regFuture.complete(true)
+        }
+        override fun onServiceUnregistered(info: NsdServiceInfo) {
+            unregFuture.complete(true)
+        }
+
+        fun ensureServiceRegistered() = regFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+        fun ensureServiceUnregistered() = unregFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+    }
+
+    internal class TestDiscoveryListener : NsdManager.DiscoveryListener {
+        val discFuture = CompletableFuture<NsdServiceInfo>()
+        val undiscFuture = CompletableFuture<Boolean>()
+
+        override fun onStartDiscoveryFailed(s: String, i: Int) {}
+        override fun onStopDiscoveryFailed(s: String, i: Int) {}
+        override fun onDiscoveryStarted(s: String) {}
+        override fun onServiceLost(info: NsdServiceInfo) {}
+        override fun onDiscoveryStopped(s: String) {
+            undiscFuture.complete(true)
+        }
+        override fun onServiceFound(info: NsdServiceInfo) {
+            if (SERVICE_NAME.equals(info.serviceName)) {
+                discFuture.complete(info)
+            }
+        }
+
+        fun ensureServiceDiscovered() = discFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+        fun ensureStopDisocvery() = undiscFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+    }
+
+    internal class TestResolveListener : NsdManager.ResolveListener {
+        val resolveFuture = CompletableFuture<Boolean>()
+
+        override fun onResolveFailed(info: NsdServiceInfo, i: Int) {}
+        override fun onResolutionStopped(info: NsdServiceInfo) {}
+        override fun onStopResolutionFailed(info: NsdServiceInfo, i: Int) {}
+        override fun onServiceResolved(info: NsdServiceInfo) {
+            if (SERVICE_NAME.equals(info.serviceName)) {
+                resolveFuture.complete(true)
+            }
+        }
+
+        fun ensureServiceResolved() = resolveFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+    }
+
+    @Rpc(description = "Register a mDns service")
+    fun registerMDnsService() {
+        val info = NsdServiceInfo()
+        info.setServiceName(SERVICE_NAME)
+        info.setServiceType(SERVICE_TYPE)
+        info.setPort(12345)
+        nsdManager.registerService(info, NsdManager.PROTOCOL_DNS_SD, regListener)
+        regListener.ensureServiceRegistered()
+    }
+
+    @Rpc(description = "Unregister a mDns service")
+    fun unregisterMDnsService() {
+        nsdManager.unregisterService(regListener)
+        regListener.ensureServiceUnregistered()
+    }
+
+    @Rpc(description = "Discover a mDns service and resolve retrieved mDns service")
+    fun discoverAndResloveMDnsService() {
+        nsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discListener)
+        val info = discListener.ensureServiceDiscovered()
+        nsdManager.resolveService(info, resolveListener)
+        resolveListener.ensureServiceResolved()
+    }
+
+    @Rpc(description = "Stop disocvery")
+    fun stopMDnsServiceDiscovery() {
+        nsdManager.stopServiceDiscovery(discListener)
+        discListener.ensureStopDisocvery()
     }
 }
