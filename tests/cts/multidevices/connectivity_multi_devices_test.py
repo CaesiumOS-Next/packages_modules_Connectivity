@@ -55,6 +55,27 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
           self.serverDevice, UpstreamType.CELLULAR
       )
 
+  def test_mdns_advertising_discovery_resolution_via_hotspot(self):
+    server = self.serverDevice.connectivity_multi_devices_snippet
+    client = self.clientDevice.connectivity_multi_devices_snippet
+
+    try:
+      # Connectivity of the client verified by asserting the validated capability.
+      tether_utils.setup_hotspot_and_client_for_upstream_type(
+        self.serverDevice, self.clientDevice, UpstreamType.WIFI
+      )
+      # Register a mDns service
+      client.registerMDnsService()
+      # Discover a mDns service and resolve retrieved mDns service
+      server.discoverAndResolveMDnsService()
+    finally:
+      tether_utils.cleanup_tethering_for_upstream_type(
+        self.serverDevice, UpstreamType.WIFI
+      )
+      # Unregister the mDns service
+      client.unregisterMDnsService()
+      # Stop discovery
+      server.stopMDnsServiceDiscovery()
 
 if __name__ == "__main__":
   # Take test args
