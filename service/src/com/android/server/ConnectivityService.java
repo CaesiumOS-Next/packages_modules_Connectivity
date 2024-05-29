@@ -487,6 +487,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final boolean mRequestRestrictedWifiEnabled;
     private final boolean mBackgroundFirewallChainEnabled;
 
+    private final boolean mUseDeclaredMethodsForCallbacksEnabled;
+
     /**
      * Uids ConnectivityService tracks blocked status of to send blocked status callbacks.
      * Key is uid based on mAsUid of registered networkRequestInfo
@@ -1848,6 +1850,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 && mDeps.isFeatureEnabled(context, REQUEST_RESTRICTED_WIFI);
         mBackgroundFirewallChainEnabled = mDeps.isAtLeastV() && mDeps.isFeatureNotChickenedOut(
                 context, ConnectivityFlags.BACKGROUND_FIREWALL_CHAIN);
+        mUseDeclaredMethodsForCallbacksEnabled = mDeps.isFeatureEnabled(context,
+                ConnectivityFlags.USE_DECLARED_METHODS_FOR_CALLBACKS);
         mCarrierPrivilegeAuthenticator = mDeps.makeCarrierPrivilegeAuthenticator(
                 mContext, mTelephonyManager, mRequestRestrictedWifiEnabled,
                 this::handleUidCarrierPrivilegesLost, mHandler);
@@ -14019,5 +14023,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public IBinder getRoutingCoordinatorService() {
         enforceNetworkStackPermission(mContext);
         return mRoutingCoordinatorService;
+    }
+
+    @Override
+    public long getEnabledConnectivityManagerFeatures() {
+        long features = 0;
+        if (mUseDeclaredMethodsForCallbacksEnabled) {
+            features |= ConnectivityManager.FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS;
+        }
+        return features;
     }
 }

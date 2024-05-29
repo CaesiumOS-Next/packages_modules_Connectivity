@@ -28,6 +28,7 @@ import static android.net.QosCallback.QosCallbackRegistrationException;
 import android.annotation.CallbackExecutor;
 import android.annotation.FlaggedApi;
 import android.annotation.IntDef;
+import android.annotation.LongDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresApi;
@@ -1207,6 +1208,16 @@ public class ConnectivityManager {
     })
     public @interface FirewallRule {}
 
+    /** @hide */
+    public static final long FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS = 1L;
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @LongDef(flag = true, prefix = "FEATURE_", value = {
+            FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS
+    })
+    public @interface ConnectivityManagerFeature {}
+
     /**
      * A kludge to facilitate static access where a Context pointer isn't available, like in the
      * case of the static set/getProcessDefaultNetwork methods and from the Network class.
@@ -1219,6 +1230,13 @@ public class ConnectivityManager {
 
     @GuardedBy("mTetheringEventCallbacks")
     private TetheringManager mTetheringManager;
+
+    private static final Object sEnabledConnectivityManagerFeaturesLock = new Object();
+    @GuardedBy("sEnabledConnectivityManagerFeaturesLock")
+    private boolean mConnectivityFeaturesInitialized;
+    @GuardedBy("sEnabledConnectivityManagerFeaturesLock")
+    @ConnectivityManagerFeature
+    private long mEnabledConnectivityManagerFeatures;
 
     private TetheringManager getTetheringManager() {
         synchronized (mTetheringEventCallbacks) {
@@ -4527,6 +4545,21 @@ public class ConnectivityManager {
             throw convertServiceException(e);
         }
         return request;
+    }
+
+    private boolean isFeatureEnabled(@ConnectivityManagerFeature long connectivityManagerFeature) {
+        synchronized (sEnabledConnectivityManagerFeaturesLock) {
+            if (!mConnectivityFeaturesInitialized) {
+                try {
+                    mEnabledConnectivityManagerFeatures =
+                            mService.getEnabledConnectivityManagerFeatures();
+                    mConnectivityFeaturesInitialized = true;
+                } catch (RemoteException e) {
+                    e.rethrowFromSystemServer();
+                }
+            }
+            return (mEnabledConnectivityManagerFeatures & connectivityManagerFeature) != 0;
+        }
     }
 
     private NetworkRequest sendRequestForNetwork(NetworkCapabilities need, NetworkCallback callback,
