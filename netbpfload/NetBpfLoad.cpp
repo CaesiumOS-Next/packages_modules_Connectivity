@@ -298,7 +298,7 @@ static int doLoad(char** argv, char * const envp[]) {
         REQUIRE(4, 19, 236)
         REQUIRE(5, 4, 186)
         REQUIRE(5, 10, 199)
-        REQUIRE(5, 15, 136)
+        REQUIRE(5, 15, 93)
         REQUIRE(6, 1, 57)
         REQUIRE(6, 6, 0)
 
@@ -306,6 +306,7 @@ static int doLoad(char** argv, char * const envp[]) {
 
         if (bad && !isGSI()) {
             ALOGE("Unsupported kernel version (%07x).", kernelVersion());
+	    sleep(60);
         }
     }
 
