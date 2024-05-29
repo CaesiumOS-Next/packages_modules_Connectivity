@@ -75,6 +75,7 @@ import java.io.FileDescriptor
 import java.lang.Thread
 import java.net.InetSocketAddress
 import java.nio.ByteBuffer
+import java.nio.ByteOrder
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -95,6 +96,7 @@ private const val APF_NEW_RA_FILTER_VERSION = "apf_new_ra_filter_version"
 private const val POLLING_INTERVAL_MS: Int = 100
 private const val RCV_BUFFER_SIZE = 1480
 private const val PING_HEADER_LENGTH = 8
+private const val ENDIANNESS_MARKER = 0x12345678
 
 @AppModeFull(reason = "CHANGE_NETWORK_STATE permission can't be granted to instant apps")
 @RunWith(DevSdkIgnoreRunner::class)
@@ -453,16 +455,18 @@ class ApfIntegrationTest {
         // Store all prefilled memory slots in counter region [500, 520)
         val counterRegion = 500
         gen.addLoadImmediate(R1, counterRegion)
-        gen.addLoadFromMemory(R0, MemorySlot.PROGRAM_SIZE)
+        gen.addLoadImmediate(R0, ENDIANNESS_MARKER)
         gen.addStoreData(R0, 0)
-        gen.addLoadFromMemory(R0, MemorySlot.RAM_LEN)
+        gen.addLoadFromMemory(R0, MemorySlot.PROGRAM_SIZE)
         gen.addStoreData(R0, 4)
-        gen.addLoadFromMemory(R0, MemorySlot.IPV4_HEADER_SIZE)
+        gen.addLoadFromMemory(R0, MemorySlot.RAM_LEN)
         gen.addStoreData(R0, 8)
-        gen.addLoadFromMemory(R0, MemorySlot.PACKET_SIZE)
+        gen.addLoadFromMemory(R0, MemorySlot.IPV4_HEADER_SIZE)
         gen.addStoreData(R0, 12)
-        gen.addLoadFromMemory(R0, MemorySlot.FILTER_AGE_SECONDS)
+        gen.addLoadFromMemory(R0, MemorySlot.PACKET_SIZE)
         gen.addStoreData(R0, 16)
+        gen.addLoadFromMemory(R0, MemorySlot.FILTER_AGE_SECONDS)
+        gen.addStoreData(R0, 20)
 
         val program = gen.generate()
         assertThat(program.size).isLessThan(counterRegion)
@@ -475,7 +479,11 @@ class ApfIntegrationTest {
         packetReader.expectPingReply()
 
         val readResult = readProgram()
-        val buffer = ByteBuffer.wrap(readResult, counterRegion, 20 /* length */)
+        val buffer = ByteBuffer.wrap(readResult, counterRegion, 24 /* length */)
+        val endiannessMarker = buffer.getInt()
+        if (endiannessMarker != ENDIANNESS_MARKER) {
+            buffer.order(ByteOrder.LITTLE_ENDIAN)
+        }
         expect.withMessage("PROGRAM_SIZE").that(buffer.getInt()).isEqualTo(program.size)
         expect.withMessage("RAM_LEN").that(buffer.getInt()).isEqualTo(caps.maximumApfProgramSize)
         expect.withMessage("IPV4_HEADER_SIZE").that(buffer.getInt()).isEqualTo(0)
@@ -498,8 +506,10 @@ class ApfIntegrationTest {
         // Store all prefilled memory slots in counter region [500, 520)
         val counterRegion = 500
         gen.addLoadImmediate(R1, counterRegion)
-        gen.addLoadFromMemory(R0, MemorySlot.FILTER_AGE_SECONDS)
+        gen.addLoadImmediate(R0, ENDIANNESS_MARKER)
         gen.addStoreData(R0, 0)
+        gen.addLoadFromMemory(R0, MemorySlot.FILTER_AGE_SECONDS)
+        gen.addStoreData(R0, 4)
 
         installProgram(gen.generate())
         readProgram() // wait for install completion
@@ -508,7 +518,11 @@ class ApfIntegrationTest {
         packetReader.sendPing(data)
         packetReader.expectPingReply()
 
-        var buffer = ByteBuffer.wrap(readProgram(), counterRegion, 4 /* length */)
+        var buffer = ByteBuffer.wrap(readProgram(), counterRegion, 8 /* length */)
+        var endiannessMarker = buffer.getInt()
+        if (endiannessMarker != ENDIANNESS_MARKER) {
+            buffer.order(ByteOrder.LITTLE_ENDIAN)
+        }
         val filterAgeSecondsOrig = buffer.getInt()
 
         Thread.sleep(5100)
@@ -516,7 +530,11 @@ class ApfIntegrationTest {
         packetReader.sendPing(data)
         packetReader.expectPingReply()
 
-        buffer = ByteBuffer.wrap(readProgram(), counterRegion, 4 /* length */)
+        buffer = ByteBuffer.wrap(readProgram(), counterRegion, 8 /* length */)
+        endiannessMarker = buffer.getInt()
+        if (endiannessMarker != ENDIANNESS_MARKER) {
+            buffer.order(ByteOrder.LITTLE_ENDIAN)
+        }
         val filterAgeSeconds = buffer.getInt()
         // Assert that filter age has increased, but not too much.
         assertThat(filterAgeSeconds - filterAgeSecondsOrig).isEqualTo(5)
