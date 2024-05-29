@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de2f9e9a_6427fa2a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-05-29T08:53:09Z",
+      "side": 1,
+      "message": "- This is not expected to occur, but I don\u0027t think we need a metric to track it. The WTF log should be sufficient, as there is a system that tracks this kind of log and notifies the owner if the logs are found.\n- If the packets do have different addresses, they should be dropped, so the code returns here.",
+      "parentUuid": "3e63f495_bcdaf3c6",
+      "range": {
+        "startLine": 231,
+        "startChar": 12,
+        "endLine": 231,
+        "endChar": 72
+      },
+      "revId": "a0967d40b317f60966da8e89bcf3ac7a39ffc335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58487ae6_60d5e329",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-22T11:31:01Z",
       "side": 1,
       "message": "should be `checkAllPacketsWithSameAddress`?",
+      "range": {
+        "startLine": 369,
+        "startChar": 26,
+        "endLine": 369,
+        "endChar": 55
+      },
+      "revId": "a0967d40b317f60966da8e89bcf3ac7a39ffc335",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "124bc653_01d5a29a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-05-29T08:53:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58487ae6_60d5e329",
       "range": {
         "startLine": 369,
         "startChar": 26,
