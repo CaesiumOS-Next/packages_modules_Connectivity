@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf0500ea_885830c9",
+        "filename": "tests/cts/multidevices/snippet/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-29T07:06:15Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "1d33d307_353df2a5",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 45
+      },
+      "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5f4a54c_c8a70c09",
@@ -75,6 +99,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d6364bc_f9c14b0d",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-29T07:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5f4a54c_c8a70c09",
+      "range": {
+        "startLine": 104,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 20
+      },
+      "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6030133f_ebdeea50",
@@ -88,6 +136,30 @@
       "writtenOn": "2024-05-28T05:30:47Z",
       "side": 1,
       "message": "This is redundant.",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 46
+      },
+      "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "137ded01_0a8aeaf5",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-29T07:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6030133f_ebdeea50",
       "range": {
         "startLine": 111,
         "startChar": 8,
@@ -135,6 +207,30 @@
           ]
         }
       ],
+      "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68b276f8_a0020144",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-29T07:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "080b2af9_0380daf2",
+      "range": {
+        "startLine": 122,
+        "startChar": 16,
+        "endLine": 122,
+        "endChar": 72
+      },
       "revId": "c05174821e48ccfeb54e8cecc404e12aceafa308",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
