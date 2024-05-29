@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29873387_05421107",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1933755
+      },
+      "writtenOn": "2024-05-29T23:32:23Z",
+      "side": 1,
+      "message": "Workaround while @fzakrzewski@google.com is updating the kernel",
+      "revId": "c6e0294d0eafecb08217e2303284aaa486330495",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
