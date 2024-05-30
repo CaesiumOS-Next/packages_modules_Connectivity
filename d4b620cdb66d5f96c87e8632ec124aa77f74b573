@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ce5d886_29f40eeb",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T10:07:48Z",
+      "side": 1,
+      "message": "probably put the undeleted comment here, maybe with clarification they\u0027ll be closed by finally clause below",
+      "revId": "d4b620cdb66d5f96c87e8632ec124aa77f74b573",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5174e754_82f0f7d6",
         "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
         "patchSetId": 5
