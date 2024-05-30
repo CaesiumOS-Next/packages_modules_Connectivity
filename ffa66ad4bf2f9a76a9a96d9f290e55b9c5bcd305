@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "480b65eb_27786ec6",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-30T02:13:20Z",
+      "side": 1,
+      "message": "I am not sure whether it is the right way to detech TV device. Will it be possible to call /system/bin/pm in this code path. If it is possible, then I think we can check whether the device is TV device like follows:\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:hardware/interfaces/wifi/aidl/vts/functional/wifi_sta_iface_aidl_test.cpp;l\u003d83?q\u003dCheckApf\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
