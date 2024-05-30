@@ -151,6 +151,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7df6d3e1_2cdca63f",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-30T07:30:01Z",
+      "side": 1,
+      "message": "\u003eUnfortunately there doesn\u0027t seem to be any good system property we can check to differentiate phone/tablet vs watch/wear vs auto vs tv... so the best we appear to be able to do is something like this.\n\nTechnically for TV devices, they have to configure `ro.oem.key1`: https://docs.partner.android.com/tv/requirements/gtvs/android-14#a14-rooemkey1-usage",
+      "parentUuid": "231cd20e_dc555e57",
+      "range": {
+        "startLine": 247,
+        "startChar": 50,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4785f2f_f46f05b1",
         "filename": "netbpfload/NetBpfLoad.cpp",
         "patchSetId": 2
