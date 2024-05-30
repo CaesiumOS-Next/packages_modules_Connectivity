@@ -199,6 +199,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c896390_1ab6417a",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T08:12:33Z",
+      "side": 1,
+      "message": "I guess we could check for ro.oem.key1 \u003d ATV00... and just claim CF GTV is broken (ie. not a valid Android TV implementation)?",
+      "parentUuid": "f031f371_86ca2067",
+      "range": {
+        "startLine": 247,
+        "startChar": 50,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4785f2f_f46f05b1",
         "filename": "netbpfload/NetBpfLoad.cpp",
         "patchSetId": 2
