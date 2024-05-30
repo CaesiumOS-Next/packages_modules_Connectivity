@@ -117,7 +117,7 @@ public final class ApfCapabilities implements Parcelable {
      * @return {@code true} if the IWifiStaIface#readApfPacketFilterData is supported.
      */
     public boolean hasDataAccess() {
-        return apfVersionSupported >= 4;
+        return apfVersionSupported > 2;
     }
 
     /**
