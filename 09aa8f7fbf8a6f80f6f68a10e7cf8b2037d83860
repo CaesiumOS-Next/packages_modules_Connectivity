@@ -83,6 +83,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ce0182a_fdf75a3c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4275,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T13:15:01Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "71c96a41_4bbbb13a",
+      "range": {
+        "startLine": 4275,
+        "startChar": 0,
+        "endLine": 4275,
+        "endChar": 50
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a30ca4ba_bebd3ce7",
@@ -402,6 +426,30 @@
       "side": 1,
       "message": "It seems that ```mClatCoordinator``` is null before T, it will crash when we run the dump command on R- if we didn\u0027t check, no?\n```\n    public Nat464Xlat(NetworkAgentInfo nai, INetd netd, IDnsResolver dnsResolver,\n            ConnectivityService.Dependencies deps) {\n        mDnsResolver \u003d dnsResolver;\n        mNetd \u003d netd;\n        mNetwork \u003d nai;\n        mEnableClatOnCellular \u003d deps.getCellular464XlatEnabled();\n        if (SdkLevel.isAtLeastT()) {\n            mClatCoordinator \u003d deps.getClatCoordinator(mNetd);\n        } else {\n            mClatCoordinator \u003d null;\n        }\n    }\n```",
       "parentUuid": "047c4881_9c0b3bb0",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 632,
+        "endChar": 36
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c813980d_b85624ae",
+        "filename": "service/src/com/android/server/connectivity/Nat464Xlat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T13:15:01Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "87587281_efd8c89d",
       "range": {
         "startLine": 632,
         "startChar": 0,
