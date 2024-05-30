@@ -269,6 +269,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74667dfa_90a24a51",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T11:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "476fe26b_bff8270f",
+      "range": {
+        "startLine": 247,
+        "startChar": 50,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4785f2f_f46f05b1",
