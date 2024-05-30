@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "033fb25a_91b07b75",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:07:16Z",
+      "side": 1,
+      "message": "FWIW, you could avoid this extra boolean by making mEnabledConnectivityManagerFeatures a Long and using null for uninitialized. Up to you.",
+      "range": {
+        "startLine": 1236,
+        "startChar": 12,
+        "endLine": 1236,
+        "endChar": 19
+      },
+      "revId": "ca5cf46eec37ff682b761e4f5125de11b917d6f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "708c2908_e91577b1",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:07:16Z",
+      "side": 1,
+      "message": "Can you add a comment here explaining the lifecycle? For example, say that the flags are lazy loaded in this instance, but are fetched from CS and should be initialized in CS startup.",
+      "range": {
+        "startLine": 1236,
+        "startChar": 20,
+        "endLine": 1236,
+        "endChar": 52
+      },
+      "revId": "ca5cf46eec37ff682b761e4f5125de11b917d6f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
