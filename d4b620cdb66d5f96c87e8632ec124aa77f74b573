@@ -1,5 +1,75 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5174e754_82f0f7d6",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T09:59:46Z",
+      "side": 1,
+      "message": "} finally {",
+      "range": {
+        "startLine": 680,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 12
+      },
+      "revId": "d4b620cdb66d5f96c87e8632ec124aa77f74b573",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3589e2b6_4c9f3f01",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T09:59:46Z",
+      "side": 1,
+      "message": "this try catch around close() is probably not useful",
+      "range": {
+        "startLine": 690,
+        "startChar": 0,
+        "endLine": 690,
+        "endChar": 38
+      },
+      "revId": "d4b620cdb66d5f96c87e8632ec124aa77f74b573",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47146253_1d80ae0b",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T09:59:46Z",
+      "side": 1,
+      "message": "move before finally",
+      "range": {
+        "startLine": 693,
+        "startChar": 0,
+        "endLine": 693,
+        "endChar": 62
+      },
+      "revId": "d4b620cdb66d5f96c87e8632ec124aa77f74b573",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
