@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7666193_96b9e5d3",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-30T09:18:39Z",
+      "side": 1,
+      "message": "Made a helper method to check if it\u0027s a local domain.",
+      "parentUuid": "563fc58c_abce0dbc",
+      "range": {
+        "startLine": 65,
+        "startChar": 55,
+        "endLine": 65,
+        "endChar": 56
+      },
+      "revId": "87b1c7eefbb2a6fb61426554df7fbb5709efdd51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f78fa459_b6bed9e8",
@@ -54,6 +78,24 @@
       "writtenOn": "2024-05-27T06:24:59Z",
       "side": 1,
       "message": "This may send queries on IPv6-only networks like 464xlat networks, which may not be appropriate.\n\nBut actually haveIpv4 would return true on such networks, so we\u0027re already sending them there. Ideally for mDNS a different haveIpv4 check would be used, which checks that you can send packets to IPv4 multicast, but this is not making it worse",
+      "revId": "87b1c7eefbb2a6fb61426554df7fbb5709efdd51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d745262_8bd442c5",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-05-30T09:18:39Z",
+      "side": 1,
+      "message": "I added the check for IPv6 to be consistent with the [native implementation](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/DnsResolver/getaddrinfo.cpp;l\u003d224;drc\u003db06d45edddcf58fac60275c1b4d2c972fa7a8767). \n\nFor IPv4 it may be too complicated to check if an IPv4 address is available on a network so I left IPv4 part unchanged.",
+      "parentUuid": "f78fa459_b6bed9e8",
       "revId": "87b1c7eefbb2a6fb61426554df7fbb5709efdd51",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
