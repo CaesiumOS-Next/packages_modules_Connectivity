@@ -149,6 +149,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b6b796f_59fd7d15",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4571,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:50:54Z",
+      "side": 1,
+      "message": "If an app is calling the raw AIDL method, would they have to manually parcel the classes they are passing in? If so, doesn\u0027t that make it unlikely that apps would call the AIDL method directly? Any change in the parcelable representation of those objects would result in the raw AIDL call breaking...",
+      "parentUuid": "a3cfba12_16f7bbf2",
+      "range": {
+        "startLine": 4571,
+        "startChar": 43,
+        "endLine": 4571,
+        "endChar": 67
+      },
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6458a29_906291b5",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 2

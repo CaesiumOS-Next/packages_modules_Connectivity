@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a20e25b9_3c8e9293",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:50:54Z",
+      "side": 1,
+      "message": "Can you explain how you chose this? I\u0027d imagine that you evaluated the likely number of subclasses of NetworkCallback that the app (more specifically, the app code that uses this particular ConnectivityManager instance) is likely to use.\n\nAlso explain what happens when the app uses more than that - presumably there\u0027s some cache thrashing, but that only implements the performance of registerDefaultNetworkCallback and related methods, which is not latency-sensitive?\n\nDo you have any idea how long it takes to scan a particular NC subclass and populate an entry.",
+      "range": {
+        "startLine": 1239,
+        "startChar": 27,
+        "endLine": 1239,
+        "endChar": 29
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcf910af_73c3f26f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:50:54Z",
+      "side": 1,
+      "message": "mDirectCallbacks?",
+      "range": {
+        "startLine": 1256,
+        "startChar": 18,
+        "endLine": 1256,
+        "endChar": 31
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebb93df6_3374ca45",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:50:54Z",
+      "side": 1,
+      "message": "mIndirectCallbacks?",
+      "range": {
+        "startLine": 1258,
+        "startChar": 18,
+        "endLine": 1258,
+        "endChar": 31
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23d65336_80c20c05",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4438,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:50:54Z",
+      "side": 1,
+      "message": "Should you have an flag \u003d true @IntDef for these and annotate mCallbackFlag and mCalleesFlags with that @IntDef? You could also use an enum but those are a bit more expensive.",
+      "range": {
+        "startLine": 4438,
+        "startChar": 29,
+        "endLine": 4438,
+        "endChar": 45
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79ef444a_e52e6fcf",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4440,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:50:54Z",
+      "side": 1,
+      "message": "... actually, do you even need these constants? I guess in theory you could annotate the methods with, say, CALLBACK_xxx and have the FilteredCallback annotation class do the \"1 \u003c\u003c callback index\" operation? Or can annotation classes not contain code?",
+      "range": {
+        "startLine": 4440,
+        "startChar": 29,
+        "endLine": 4440,
+        "endChar": 46
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d97f1563_7d84fdbe",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4606,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:50:54Z",
+      "side": 1,
+      "message": "If \"~0\" works, that might be clearer.",
+      "range": {
+        "startLine": 4606,
+        "startChar": 93,
+        "endLine": 4606,
+        "endChar": 95
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5253e232_abadfe0e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4702,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:50:54Z",
+      "side": 1,
+      "message": "Please add a comment. Something like:\n\n    // Find out which of the base methods in NetworkCallback will call this method.\n    // For example, in the case of onLinkPropertiesChanged, this will be\n    // CB_FLAG_IP_CHANGED.\n\n(assuming that\u0027s actually what it does)",
+      "range": {
+        "startLine": 4702,
+        "startChar": 12,
+        "endLine": 4702,
+        "endChar": 15
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1f48716_147fd936",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4714,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:50:54Z",
+      "side": 1,
+      "message": "I find this hard to read. Why \"break\" and not \"continue\"? Is it because you are in a nested loop and need to terminate the inner loop and use the argsMatch boolean? Could you simplify this by factoring this code out to a function that can use early returns?",
+      "range": {
+        "startLine": 4714,
+        "startChar": 24,
+        "endLine": 4714,
+        "endChar": 29
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
