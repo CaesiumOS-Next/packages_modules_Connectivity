@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "737f165b_1c56f775",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-30T08:41:42Z",
+      "side": 1,
+      "message": "I got another idea to have a hardcoded array of methods in the code, and have a test that actually calls the callbacks and sees which ones get called to verify that it\u0027s up-to-date; I\u0027ll update the implementation a bit to do that.\n\nThis should only change the building of the sNetworkCallbackMethodsCache though.",
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a20e25b9_3c8e9293",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 5
