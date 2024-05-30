@@ -16,6 +16,24 @@
       "message": "Workaround while @fzakrzewski@google.com is updating the kernel",
       "revId": "c6e0294d0eafecb08217e2303284aaa486330495",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c41558fb_ecd319c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1885298
+      },
+      "writtenOn": "2024-05-30T00:32:55Z",
+      "side": 1,
+      "message": "@alainv@google.com mentioned they are in progress with migration to the more recent kernel for Seahawk\nI\u0027m not sure about the timelines - we can discuss them offline 👍",
+      "parentUuid": "29873387_05421107",
+      "revId": "c6e0294d0eafecb08217e2303284aaa486330495",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
