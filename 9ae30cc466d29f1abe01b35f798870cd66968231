@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbc01b01_e1ff311c",
+        "filename": "tests/cts/multidevices/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T05:44:42Z",
+      "side": 1,
+      "message": "Per Martin\u0027s comments on the other internal CL, I think this should be trendy_team_fwk_core_networking .",
+      "range": {
+        "startLine": 17,
+        "startChar": 19,
+        "endLine": 17,
+        "endChar": 60
+      },
+      "revId": "9ae30cc466d29f1abe01b35f798870cd66968231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
