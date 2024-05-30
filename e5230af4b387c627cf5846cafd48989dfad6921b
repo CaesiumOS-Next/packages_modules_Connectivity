@@ -16,6 +16,24 @@
       "message": "Do you know if NetworkStack (see https://source.corp.google.com/search?q\u003d%5B.%5DhasDataAccess%5B(%5D%5B)%5D\u0026sq\u003drepo:android%2Fplatform%2Fsuperproject%2Fmain%20b:main ) will use this from Connectivity? or from platform? or build it into the jar?\n\nie. will this change take effect for mainline networkstack on older platform? or do we need to also remove hasDataAccess() callers if ApfFilter.java...\n\nI\u0027d remove this function entirely, but I think we can\u0027t cause it\u0027s API...",
       "revId": "e5230af4b387c627cf5846cafd48989dfad6921b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26c4de52_34b51cda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T22:17:50Z",
+      "side": 1,
+      "message": "maybe we should change\n\nif (mApfCapabilities.hasDataAccess()) {\n            if (gen instanceof ApfV4Generator) {\n            \nto\n\nif (gen.hasDataAccess()) {\n            if (gen instanceof ApfV4Generator) {\n\nanyway?",
+      "parentUuid": "42b38cce_3e10cb81",
+      "revId": "e5230af4b387c627cf5846cafd48989dfad6921b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
