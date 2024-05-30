@@ -16,6 +16,24 @@
       "message": "Generally test methods to connect like in ConnectUtil return the Network, since it can be used to obtain the interface name (and other stuff as well). You could return the Network.getNetworkHandle() maybe ?\n\nIt\u0027s not clear what the use-case is for returning the interface name, I think it isn\u0027t used in this change ?",
       "revId": "e87badca19e1e4fd7ec1e620bf4d3ee5fe0dfc3f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d82a8238_e1f5ecaa",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-30T08:15:19Z",
+      "side": 1,
+      "message": "Done.\nYes it is will be used in next change to get index or mac address.\nBut yes NetworkHandle seems more useful.",
+      "parentUuid": "efa30944_8f693d6a",
+      "revId": "e87badca19e1e4fd7ec1e620bf4d3ee5fe0dfc3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
