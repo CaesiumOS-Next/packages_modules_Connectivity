@@ -175,6 +175,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f031f371_86ca2067",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T08:08:41Z",
+      "side": 1,
+      "message": "Heh, cf gtv:\n\n$ infoz\nshell\ngoogle/cf_x86_tv_gtv/vsoc_x86:15/MAIN.6a69b9c8/eng.maze.20240524.023614:userdebug/dev-keys\n6.6.29-android15-4-g22012ff71665-ab11815980\nro.boot.hardware.sku: \nro.boot.product.hardware.sku: \nro.oem.key1: \n 08:06:37 up 13:45,  0 users,  load average: 0.84, 1.24, 1.16\n\n$ adbz shell getprop | egrep ro.oem.key1\n\u003cnothing, ie. property missing\u003e\n\nbut pixel 6:\n\n$ infoz\nshell\ngoogle/oriole/oriole:14/UP1A.231005.007/10754064:userdebug/dev-keys\n5.10.157-android13-4-00001-g5c7ff5dc7aac-ab10381520\nro.boot.hardware.sku: GB7N6\nro.boot.product.hardware.sku: GB7N6\nro.oem.key1: GB7N6\n 01:08:22 up 78 days,  2:25,  0 users,  load average: 0.04, 0.02, 0.00\n\nproperty set to model number.  (and it\u0027s present on most other pixels ifirc too)",
+      "parentUuid": "7df6d3e1_2cdca63f",
+      "range": {
+        "startLine": 247,
+        "startChar": 50,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4785f2f_f46f05b1",
         "filename": "netbpfload/NetBpfLoad.cpp",
         "patchSetId": 2
