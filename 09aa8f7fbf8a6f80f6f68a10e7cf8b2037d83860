@@ -201,6 +201,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0959e264_21e19a1c",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T13:15:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bea9c6ca_7a336737",
+      "range": {
+        "startLine": 893,
+        "startChar": 7,
+        "endLine": 893,
+        "endChar": 43
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7775ccc_a74a01f2",
@@ -285,6 +309,30 @@
       "side": 1,
       "message": "I think we need to rule out some invalid commands like:\n```dumpsys connectivity clatBpfRawMap some_other_args --egress4```\nChecking only the last argument may not sufficient.\nI modified the code to make sure ```--egress4``` and ```--ingress6``` are follow after ```clatBpfRawMap```.",
       "parentUuid": "b2ddf727_ad7938de",
+      "range": {
+        "startLine": 904,
+        "startChar": 8,
+        "endLine": 906,
+        "endChar": 35
+      },
+      "revId": "09aa8f7fbf8a6f80f6f68a10e7cf8b2037d83860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "171ce33c_6edc0a33",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T13:15:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "66200aff_eadadf29",
       "range": {
         "startLine": 904,
         "startChar": 8,
