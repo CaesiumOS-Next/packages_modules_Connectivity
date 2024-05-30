@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc561568_0499a5d4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4013,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T17:31:15Z",
+      "side": 1,
+      "message": "Yeah this works, but I think I\u0027d have split this into 2 cases and passed in a bool or an enum or something...",
+      "range": {
+        "startLine": 4011,
+        "startChar": 9,
+        "endLine": 4013,
+        "endChar": 10
+      },
+      "revId": "e9ded7eb6077675f772eea80b28fb4b33694abbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
