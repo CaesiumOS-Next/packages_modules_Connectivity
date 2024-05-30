@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fa8ff50_f3c75089",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-05-30T14:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf43d008_fb157910",
+      "range": {
+        "startLine": 401,
+        "startChar": 0,
+        "endLine": 401,
+        "endChar": 48
+      },
+      "revId": "44a336c8f06cf4609768fdf07822581355bdf47f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d529b766_99fa7d96",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-30T13:20:38Z",
       "side": 1,
       "message": "I\u0027d suggest putting this catch() block inside of BpfDump.dumpRawMap(), it seems to serve no purpose here.",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 922,
+        "endChar": 36
+      },
+      "revId": "44a336c8f06cf4609768fdf07822581355bdf47f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a948d5d_6552ee1d",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-05-30T14:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d529b766_99fa7d96",
       "range": {
         "startLine": 922,
         "startChar": 0,
