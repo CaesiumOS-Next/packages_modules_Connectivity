@@ -21,6 +21,7 @@ import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.NetworkStackConstants.IPV4_HEADER_MIN_LEN;
 import static com.android.net.module.util.NetworkStackConstants.IPV6_HEADER_LEN;
+import static com.android.net.module.util.NetworkStackConstants.UDP_HEADER_LEN;
 import static com.android.testutils.DeviceInfoUtils.KVersion;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
@@ -64,6 +65,7 @@ import org.junit.runner.RunWith;
 
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -374,12 +376,26 @@ public class MtsEthernetTetheringTest extends EthernetTetheringTestBase {
             sendDownloadPacketUdp(REMOTE_NAT64_ADDR, clatIp6, tester, true /* is6To4 */);
         }
 
+        // Send fragmented IPv6 UDP packets in the reply direction.
+        // IPv6 frament packet -- CLAT translation --> IPv4 fragment packet
+        final int payloadLen = 1500;
+        final int l2mtu = 1000;
+        final int fragPktCnt = 2; // 1500 bytes of UDP payload were fragmented into two packets.
+        final long fragRxBytes = payloadLen + UDP_HEADER_LEN + fragPktCnt * IPV4_HEADER_MIN_LEN;
+        final byte[] payload = new byte[payloadLen];
+        // Initialize the payload with repeated values from 0x00 to 0xff
+        for (int i = 0; i < payload.length; i++) {
+            payload[i] = (byte) (i & 0xff);
+        }
+        sendDownloadFragmentedUdpPackets(REMOTE_NAT64_ADDR, clatIp6, tester,
+                ByteBuffer.wrap(payload), l2mtu);
+
         // After sending test packets, get stats again to verify their differences.
         final ClatEgress4Value newEgress4 = getClatEgress4Value();
         final ClatIngress6Value newIngress6 = getClatIngress6Value();
 
-        assertEquals(RX_UDP_PACKET_COUNT, newIngress6.packets - oldIngress6.packets);
-        assertEquals(RX_UDP_PACKET_COUNT * RX_UDP_PACKET_SIZE,
+        assertEquals(RX_UDP_PACKET_COUNT + fragPktCnt, newIngress6.packets - oldIngress6.packets);
+        assertEquals(RX_UDP_PACKET_COUNT * RX_UDP_PACKET_SIZE + fragRxBytes,
                 newIngress6.bytes - oldIngress6.bytes);
         assertEquals(TX_UDP_PACKET_COUNT, newEgress4.packets - oldEgress4.packets);
         assertEquals(
