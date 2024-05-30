@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb884fec_118fc743",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T06:23:34Z",
+      "side": 1,
+      "message": "It\u0027s also undesirable from a security perspective (fork-exec from a very privileged context) and boot time (fork-exec would take significant time and slow down boot).",
+      "parentUuid": "5515f7bd_83acac1c",
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7184ecaf_2727d9f8",
@@ -61,6 +79,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b4cdcf04_22b4be38",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T06:23:34Z",
+      "side": 1,
+      "message": "The NetworkStack overlay seems to be purpose built for doing TV-specific network initialization -- what\u0027s in there is:\n\ndevice/google/atv/overlay/TvNetworkStackOverlay/res/values/config.xml\n\u003c!-- Increase the tolerance towards unresponsive neighbors on a Wi-Fi network. --\u003e\n\u003cinteger name\u003d\"config_nud_steadystate_solicit_num\"\u003e15\u003c/integer\u003e\n\u003cinteger name\u003d\"config_nud_steadystate_solicit_interval\"\u003e1000\u003c/integer\u003e\n\u003cinteger name\u003d\"config_nud_postroaming_solicit_num\"\u003e15\u003c/integer\u003e\n\u003cinteger name\u003d\"config_nud_postroaming_solicit_interval\"\u003e1000\u003c/integer\u003e\n\nHowever, the name of the file depends on the certificate used to sign it (I don\u0027t believe there\u0027s any other difference based on my reading of the setup).\n\nAnyone (besides us) building from AOSP source can modify this (ie. NetBpfLoad) to their hearts content, so the logic doesn\u0027t actually really matter for them.\nFurthermore, it probably will work, because either TVNSO or TVNSOG will be present in practice, as I doubt anyone else bothers with custom sigs... indeed I\u0027m not even sure *why* we have TVNSOG in the first place).  And even if both TVNSO or TVNSOG are missing, then most likely the tv permissions file is possibly there.\n\nUnfortunately there doesn\u0027t seem to be any good system property we can check to differentiate phone/tablet vs watch/wear vs auto vs tv... so the best we appear to be able to do is something like this.",
+      "parentUuid": "7184ecaf_2727d9f8",
+      "range": {
+        "startLine": 247,
+        "startChar": 50,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4785f2f_f46f05b1",
         "filename": "netbpfload/NetBpfLoad.cpp",
         "patchSetId": 2
@@ -72,6 +114,30 @@
       "writtenOn": "2024-05-30T06:00:07Z",
       "side": 1,
       "message": "Nit: spaces instead of tabs.",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 1
+      },
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71eb4074_6dfc5d25",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T06:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4785f2f_f46f05b1",
       "range": {
         "startLine": 361,
         "startChar": 0,
