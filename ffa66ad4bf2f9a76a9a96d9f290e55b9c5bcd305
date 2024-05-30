@@ -103,6 +103,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38fb4b5a_015b7a8b",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:54:05Z",
+      "side": 1,
+      "message": "We have both tvnso and tvnsog because a device using Google-signed mainline modules (or prebuilts) needs to overlay com.google.android.networkstack and not com.google.android.networkstack.\n\nMy question was: why bother with tvnso or tvnsog at all? Is just checking for /product/etc/permissions/com.android.tv.xml not enough?",
+      "parentUuid": "b4cdcf04_22b4be38",
+      "range": {
+        "startLine": 247,
+        "startChar": 50,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4785f2f_f46f05b1",
         "filename": "netbpfload/NetBpfLoad.cpp",
         "patchSetId": 2
