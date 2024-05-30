@@ -127,6 +127,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "231cd20e_dc555e57",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-05-30T07:14:44Z",
+      "side": 1,
+      "message": "I imagine the network stack settings overlay should always be present.\nI\u0027m a little worried that com.android.tv.xml is part of some \u0027demo\u0027 android tv app that may be replaced with some sort of vendor/oem specific app instead.",
+      "parentUuid": "38fb4b5a_015b7a8b",
+      "range": {
+        "startLine": 247,
+        "startChar": 50,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4785f2f_f46f05b1",
         "filename": "netbpfload/NetBpfLoad.cpp",
         "patchSetId": 2
