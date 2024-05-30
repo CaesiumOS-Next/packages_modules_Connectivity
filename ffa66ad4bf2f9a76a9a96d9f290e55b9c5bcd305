@@ -16,6 +16,70 @@
       "message": "I am not sure whether it is the right way to detech TV device. Will it be possible to call /system/bin/pm in this code path. If it is possible, then I think we can check whether the device is TV device like follows:\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:hardware/interfaces/wifi/aidl/vts/functional/wifi_sta_iface_aidl_test.cpp;l\u003d83?q\u003dCheckApf\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
       "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5515f7bd_83acac1c",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:00:07Z",
+      "side": 1,
+      "message": "I don\u0027t think we can call pm. It probably just sends an IPC to the system server, and this code runs way before system server starts.",
+      "parentUuid": "480b65eb_27786ec6",
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7184ecaf_2727d9f8",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:00:07Z",
+      "side": 1,
+      "message": "This is Google-specific code which probably doesn\u0027t belong in AOSP. Any reason we can\u0027t just ignore the networkstack overlays and only use the com.android.tv.xml file?",
+      "range": {
+        "startLine": 247,
+        "startChar": 50,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4785f2f_f46f05b1",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-05-30T06:00:07Z",
+      "side": 1,
+      "message": "Nit: spaces instead of tabs.",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 1
+      },
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
