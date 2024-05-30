@@ -247,6 +247,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "476fe26b_bff8270f",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-30T08:30:22Z",
+      "side": 1,
+      "message": "I just talk with @garakaki@google.com. It seems it is safe to use \"ro.oem.key1 \u003d ATV00....\" to check whether the device is TV device or not.\n\nCF GTV is broken in the sense they don\u0027t follow the GTVS requirement.\n\nOne edge case might be some random non TV OEM might also use \"ATV00\" as prefix for this key. But Gary mention it is very unlikely, the reason TV team pick ATV00 is by intention to avoid conflict.\n\nIf we are OK with the above edge case.\n\nI do feel using ro.oem.key1 here could improve the readability here.",
+      "parentUuid": "336cb1f6_3c1a0dad",
+      "range": {
+        "startLine": 247,
+        "startChar": 50,
+        "endLine": 247,
+        "endChar": 77
+      },
+      "revId": "ffa66ad4bf2f9a76a9a96d9f290e55b9c5bcd305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4785f2f_f46f05b1",
         "filename": "netbpfload/NetBpfLoad.cpp",
         "patchSetId": 2
