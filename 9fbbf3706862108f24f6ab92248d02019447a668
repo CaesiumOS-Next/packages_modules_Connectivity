@@ -171,6 +171,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c22aedd_13ca697f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4571,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-31T11:58:11Z",
+      "side": 1,
+      "message": "As per discussion, removed the extra methods and just added a check for the argument being 0 in ConnectivityService, since that\u0027s what would happen actually",
+      "parentUuid": "6b6b796f_59fd7d15",
+      "range": {
+        "startLine": 4571,
+        "startChar": 43,
+        "endLine": 4571,
+        "endChar": 67
+      },
+      "revId": "9fbbf3706862108f24f6ab92248d02019447a668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6458a29_906291b5",

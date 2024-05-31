@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dbc2fe3_7960e3ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-31T11:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "737f165b_1c56f775",
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a20e25b9_3c8e9293",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-05-30T06:50:54Z",
       "side": 1,
       "message": "Can you explain how you chose this? I\u0027d imagine that you evaluated the likely number of subclasses of NetworkCallback that the app (more specifically, the app code that uses this particular ConnectivityManager instance) is likely to use.\n\nAlso explain what happens when the app uses more than that - presumably there\u0027s some cache thrashing, but that only implements the performance of registerDefaultNetworkCallback and related methods, which is not latency-sensitive?\n\nDo you have any idea how long it takes to scan a particular NC subclass and populate an entry.",
+      "range": {
+        "startLine": 1239,
+        "startChar": 27,
+        "endLine": 1239,
+        "endChar": 29
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31ffc6eb_f1531e70",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-31T11:58:11Z",
+      "side": 1,
+      "message": "Increased to 100 and added a comment.\n\nI\u0027ve seen that on a CF it takes ~10~15ms to go through 100 classes, so that\u0027s 0.1~0.15ms per class. With the cache it\u0027s about 2ms for the 100 classes.\n\nSo it\u0027s too slow, but the cache seems useful.",
+      "parentUuid": "a20e25b9_3c8e9293",
       "range": {
         "startLine": 1239,
         "startChar": 27,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "075e3557_19617eea",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-31T11:58:11Z",
+      "side": 1,
+      "message": "Removed callees, renamed to mCallbacksCallingThisMethod for clarity",
+      "parentUuid": "fcf910af_73c3f26f",
+      "range": {
+        "startLine": 1256,
+        "startChar": 18,
+        "endLine": 1256,
+        "endChar": 31
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebb93df6_3374ca45",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-05-30T06:50:54Z",
       "side": 1,
       "message": "mIndirectCallbacks?",
+      "range": {
+        "startLine": 1258,
+        "startChar": 18,
+        "endLine": 1258,
+        "endChar": 31
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c7a1803_120e26bc",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-31T11:58:11Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "ebb93df6_3374ca45",
       "range": {
         "startLine": 1258,
         "startChar": 18,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a52f88e_b97d4a81",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4438,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-31T11:58:11Z",
+      "side": 1,
+      "message": "(removed)",
+      "parentUuid": "23d65336_80c20c05",
+      "range": {
+        "startLine": 4438,
+        "startChar": 29,
+        "endLine": 4438,
+        "endChar": 45
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79ef444a_e52e6fcf",
@@ -123,6 +237,30 @@
       "writtenOn": "2024-05-30T06:50:54Z",
       "side": 1,
       "message": "... actually, do you even need these constants? I guess in theory you could annotate the methods with, say, CALLBACK_xxx and have the FilteredCallback annotation class do the \"1 \u003c\u003c callback index\" operation? Or can annotation classes not contain code?",
+      "range": {
+        "startLine": 4440,
+        "startChar": 29,
+        "endLine": 4440,
+        "endChar": 46
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fe7e609_ebe9303e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4440,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-31T11:58:11Z",
+      "side": 1,
+      "message": "Replaced with 1 \u003c\u003c CALLBACK inline.\n\nI\u0027d rather not pass arrays of CALLBACK_ and have the code do \"1 \u003c\u003c ...\", since in https://r.android.com/2976331 (b/326744138) this was found to be quite inefficient in BCP classes.",
+      "parentUuid": "79ef444a_e52e6fcf",
       "range": {
         "startLine": 4440,
         "startChar": 29,
@@ -156,6 +294,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a3e4178_548051b2",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4606,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-31T11:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d97f1563_7d84fdbe",
+      "range": {
+        "startLine": 4606,
+        "startChar": 93,
+        "endLine": 4606,
+        "endChar": 95
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5253e232_abadfe0e",
@@ -179,6 +341,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09eb0858_6d55889b",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4702,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-31T11:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5253e232_abadfe0e",
+      "range": {
+        "startLine": 4702,
+        "startChar": 12,
+        "endLine": 4702,
+        "endChar": 15
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1f48716_147fd936",
@@ -192,6 +378,30 @@
       "writtenOn": "2024-05-30T06:50:54Z",
       "side": 1,
       "message": "I find this hard to read. Why \"break\" and not \"continue\"? Is it because you are in a nested loop and need to terminate the inner loop and use the argsMatch boolean? Could you simplify this by factoring this code out to a function that can use early returns?",
+      "range": {
+        "startLine": 4714,
+        "startChar": 24,
+        "endLine": 4714,
+        "endChar": 29
+      },
+      "revId": "02a5c70fa308d0b87dbfc151a136e6a2fd95af40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "befc20f4_f1d5842f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4714,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-31T11:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1f48716_147fd936",
       "range": {
         "startLine": 4714,
         "startChar": 24,
