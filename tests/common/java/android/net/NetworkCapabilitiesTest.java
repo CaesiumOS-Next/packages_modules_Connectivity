@@ -1465,4 +1465,26 @@ public class NetworkCapabilitiesTest {
         assertEquals("-SUPL-VALIDATED-CAPTIVE_PORTAL+MMS+OEM_PAID",
                 nc1.describeCapsDifferencesFrom(nc2));
     }
+
+    @Test
+    public void testInvalidCapability() {
+        final int invalidCapability = Integer.MIN_VALUE;
+        // Passing invalid capabilities does not throw
+        final NetworkCapabilities nc1 = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addForbiddenCapability(NET_CAPABILITY_NOT_ROAMING)
+                .removeCapability(invalidCapability)
+                .removeForbiddenCapability(invalidCapability)
+                .addCapability(invalidCapability)
+                .addForbiddenCapability(invalidCapability)
+                .build();
+
+        final NetworkCapabilities nc2 = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addForbiddenCapability(NET_CAPABILITY_NOT_ROAMING)
+                .build();
+
+        // nc1 and nc2 are the same since invalid capabilities are ignored
+        assertEquals(nc1, nc2);
+    }
 }
