@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a47b2bb1_05277401",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-05-31T08:38:22Z",
+      "side": 1,
+      "message": "That\u0027s a bit weird syntax, could this not be `WifiInfo.sanitizeSsid(it.caps.ssid)` ?\n\nNo need to respin though",
+      "revId": "b99caadfab9a2f0e9587601c1b9440b2cd3c5a86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
