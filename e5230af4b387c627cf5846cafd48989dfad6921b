@@ -34,6 +34,47 @@
       "parentUuid": "42b38cce_3e10cb81",
       "revId": "e5230af4b387c627cf5846cafd48989dfad6921b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f014799e_00ffc3a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-31T01:13:54Z",
+      "side": 1,
+      "message": "I don\u0027t think this ApfCapabilities is used anywhere else than IpClient/ApfFilter.\n\nI think changing the version here looks fine.\n\nI remember we actually previously only check if the APF version is \u003e\u003d 3 in ApfGenreator.\n\n\n\u003eif (gen.hasDataAccess()) {\n\u003eif (gen instanceof ApfV4Generator) {\n\nThis change also good. But I think we should do that in ApfFilter but for LegacyApfFilter, I prefer to not touch it if necessary.",
+      "parentUuid": "26c4de52_34b51cda",
+      "revId": "e5230af4b387c627cf5846cafd48989dfad6921b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf340e5a_a42d6126",
+        "filename": "framework/src/android/net/apf/ApfCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-31T01:13:54Z",
+      "side": 1,
+      "message": "APFv3",
+      "range": {
+        "startLine": 115,
+        "startChar": 54,
+        "endLine": 115,
+        "endChar": 59
+      },
+      "revId": "e5230af4b387c627cf5846cafd48989dfad6921b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
