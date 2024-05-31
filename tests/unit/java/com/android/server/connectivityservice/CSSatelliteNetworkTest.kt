@@ -85,16 +85,16 @@ class CSSatelliteNetworkTest : CSTest() {
      * Test that SATELLITE_NETWORK_PREFERENCE_UIDS changes will send correct net id and uid ranges
      * to netd.
      */
-    @Test
-    fun testSatelliteNetworkPreferredUidsChanged() {
+    private fun doTestSatelliteNetworkFallbackUidsChanged(restricted: Boolean) {
         val netdInOrder = inOrder(netd)
 
-        val satelliteAgent = createSatelliteAgent("satellite0")
+        val satelliteAgent = createSatelliteAgent("satellite0", restricted)
         satelliteAgent.connect()
 
         val satelliteNetId = satelliteAgent.network.netId
+        val permission = if (restricted) {INetd.PERMISSION_SYSTEM} else {INetd.PERMISSION_NONE}
         netdInOrder.verify(netd).networkCreate(
-            nativeNetworkConfigPhysical(satelliteNetId, INetd.PERMISSION_SYSTEM))
+            nativeNetworkConfigPhysical(satelliteNetId, permission))
 
         val uid1 = PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID)
         val uid2 = PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID2)
@@ -130,7 +130,19 @@ class CSSatelliteNetworkTest : CSTest() {
         netdInOrder.verify(netd).networkAddUidRangesParcel(config2)
     }
 
-    private fun doTestSatelliteNeverBecomeDefaultNetwork(restricted: Boolean) {
+    @Test
+    fun testSatelliteNetworkFallbackUidsChanged_restrictedSatellite() {
+        doTestSatelliteNetworkFallbackUidsChanged(restricted = true)
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    fun testSatelliteNetworkFallbackUidsChanged_constrainedSatellite() {
+        // Satellite fallback per-app default network reqest is satisfied by constrained satellite
+        // network
+        doTestSatelliteNetworkFallbackUidsChanged(restricted = false)
+    }
+
+    private fun doTestSatelliteNetwork_neverBecomeDefaultNetwork(restricted: Boolean) {
         val agent = createSatelliteAgent("satellite0", restricted)
         agent.connect()
         val defaultCb = TestableNetworkCallback()
