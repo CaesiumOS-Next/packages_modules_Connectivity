@@ -24,6 +24,7 @@ import android.net.NativeNetworkConfig
 import android.net.NativeNetworkType
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
+import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED
@@ -41,10 +42,13 @@ import android.os.UserHandle
 import android.util.ArraySet
 import com.android.net.module.util.CollectionUtils
 import com.android.server.ConnectivityService.PREFERENCE_ORDER_SATELLITE_FALLBACK
+import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
+import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.visibleOnHandlerThread
 import org.junit.Assert
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
@@ -62,6 +66,9 @@ private const val TEST_PACKAGE_UID2 = 321
 @RunWith(DevSdkIgnoreRunner::class)
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSSatelliteNetworkTest : CSTest() {
+    @get:Rule
+    val ignoreRule = DevSdkIgnoreRule()
+
     /**
      * Test createMultiLayerNrisFromSatelliteNetworkPreferredUids returns correct
      * NetworkRequestInfo.
@@ -128,6 +135,25 @@ class CSSatelliteNetworkTest : CSTest() {
         netdInOrder.verify(netd).networkAddUidRangesParcel(config2)
     }
 
+    private fun doTestSatelliteNeverBecomeDefaultNetwork(restricted: Boolean) {
+        val agent = createSatelliteAgent("satellite0", restricted)
+        agent.connect()
+        val defaultCb = TestableNetworkCallback()
+        cm.registerDefaultNetworkCallback(defaultCb)
+        // Satellite network must not become the default network
+        defaultCb.assertNoCallback()
+    }
+
+    @Test
+    fun testSatelliteNeverBecomeDefaultNetwork_restricted() {
+        doTestSatelliteNeverBecomeDefaultNetwork(restricted = true)
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    fun testSatelliteNeverBecomeDefaultNetwork_constrained() {
+        doTestSatelliteNeverBecomeDefaultNetwork(restricted = false)
+    }
+
     private fun assertCreateMultiLayerNrisFromSatelliteNetworkPreferredUids(uids: Set<Int>) {
         val nris: Set<ConnectivityService.NetworkRequestInfo> =
             service.createMultiLayerNrisFromSatelliteNetworkFallbackUids(uids)
@@ -150,9 +176,9 @@ class CSSatelliteNetworkTest : CSTest() {
         NativeNetworkConfig(netId, NativeNetworkType.PHYSICAL, permission,
             false /* secure */, VpnManager.TYPE_VPN_NONE, false /* excludeLocalRoutes */)
 
-    private fun createSatelliteAgent(name: String): CSAgentWrapper {
+    private fun createSatelliteAgent(name: String, restricted: Boolean = true): CSAgentWrapper {
         return Agent(score = keepScore(), lp = lp(name),
-            nc = satelliteNc()
+            nc = satelliteNc(restricted)
         )
     }
 
@@ -176,7 +202,7 @@ class CSSatelliteNetworkTest : CSTest() {
         return uidRangesForUids(*CollectionUtils.toIntArray(uids))
     }
 
-    private fun satelliteNc() =
+    private fun satelliteNc(restricted: Boolean) =
             NetworkCapabilities.Builder().apply {
                 addTransportType(TRANSPORT_SATELLITE)
 
@@ -184,7 +210,11 @@ class CSSatelliteNetworkTest : CSTest() {
                 addCapability(NET_CAPABILITY_NOT_SUSPENDED)
                 addCapability(NET_CAPABILITY_NOT_ROAMING)
                 addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
-                removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                if (restricted) {
+                    removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                } else {
+                    removeCapability(NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED)
+                }
             }.build()
 
     private fun lp(iface: String) = LinkProperties().apply {
