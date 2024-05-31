@@ -25,6 +25,8 @@ import android.net.IpPrefix;
 import android.net.nsd.NsdServiceInfo;
 import android.net.thread.ActiveOperationalDataset;
 
+import android.os.Handler;
+import android.os.HandlerThread;
 import com.google.errorprone.annotations.FormatMethod;
 
 import java.io.BufferedReader;
@@ -39,6 +41,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,10 +63,12 @@ public final class FullThreadDevice {
     private static final float PING_TIMEOUT_0_1_SECOND = 0.1f;
     // 1 second timeout should be used when response is expected.
     private static final float PING_TIMEOUT_1_SECOND = 1f;
+    private static final int READ_LINE_TIMEOUT_SECONDS = 5;
 
     private final Process mProcess;
     private final BufferedReader mReader;
     private final BufferedWriter mWriter;
+    private final Handler mReaderHandler;
 
     private ActiveOperationalDataset mActiveOperationalDataset;
 
@@ -87,6 +92,7 @@ public final class FullThreadDevice {
         }
         mReader = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
         mWriter = new BufferedWriter(new OutputStreamWriter(mProcess.getOutputStream()));
+        mReaderHandler = new Handler(new HandlerThread("FullThreadDeviceReader"));
         mActiveOperationalDataset = null;
     }
 
@@ -213,7 +219,7 @@ public final class FullThreadDevice {
     public String udpReceive() throws IOException {
         Pattern pattern =
                 Pattern.compile("> (\\d+) bytes from ([\\da-f:]+) (\\d+) ([\\x00-\\x7F]+)");
-        Matcher matcher = pattern.matcher(mReader.readLine());
+        Matcher matcher = pattern.matcher(readLine());
         matcher.matches();
 
         return matcher.group(4);
@@ -500,10 +506,23 @@ public final class FullThreadDevice {
         }
     }
 
+    private String readLine() throws IOException {
+        final CompletableFuture<String> future = new CompletableFuture<>();
+        mReaderHandler.post(
+                () -> {
+                    try {
+                        future.complete(mReader.readLine());
+                    } catch (IOException e) {
+                        future.completeExceptionally(e);
+                    }
+                });
+        return future.get(READ_LINE_TIMEOUT_SECONDS, SECONDS);
+    }
+
     private List<String> readUntilDone() throws IOException {
         ArrayList<String> result = new ArrayList<>();
         String line;
-        while ((line = mReader.readLine()) != null) {
+        while ((line = readLine()) != null) {
             if (line.equals("Done")) {
                 break;
             }
