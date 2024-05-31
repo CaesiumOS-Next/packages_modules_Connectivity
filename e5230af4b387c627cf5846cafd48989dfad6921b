@@ -54,6 +54,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7052d0d6_03575f52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-05-31T03:43:10Z",
+      "side": 1,
+      "message": "Looked into LegacyApfFilter, I think it just work after we change the ApfCapabilities.java",
+      "parentUuid": "f014799e_00ffc3a1",
+      "revId": "e5230af4b387c627cf5846cafd48989dfad6921b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf340e5a_a42d6126",
