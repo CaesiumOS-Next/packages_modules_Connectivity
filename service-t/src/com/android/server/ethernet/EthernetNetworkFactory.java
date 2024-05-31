@@ -48,6 +48,7 @@ import android.util.SparseArray;
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.InterfaceParams;
 import com.android.server.connectivity.ConnectivityResources;
 
@@ -72,6 +73,7 @@ public class EthernetNetworkFactory {
     private final Handler mHandler;
     private final Context mContext;
     private final NetworkProvider mProvider;
+    private final boolean mInterfaceStateMachineEnabled;
     final Dependencies mDeps;
 
     public static class Dependencies {
@@ -117,6 +119,9 @@ public class EthernetNetworkFactory {
         mContext = context;
         mProvider = provider;
         mDeps = deps;
+
+        mInterfaceStateMachineEnabled = DeviceConfigUtils.isTetheringFeatureEnabled(mContext,
+                EthernetFlags.INTERFACE_STATE_MACHINE);
     }
 
     /**
