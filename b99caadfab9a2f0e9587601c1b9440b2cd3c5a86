@@ -16,6 +16,24 @@
       "message": "That\u0027s a bit weird syntax, could this not be `WifiInfo.sanitizeSsid(it.caps.ssid)` ?\n\nNo need to respin though",
       "revId": "b99caadfab9a2f0e9587601c1b9440b2cd3c5a86",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec048000_f8666309",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-05-31T08:40:11Z",
+      "side": 1,
+      "message": "Ack. will fix in the follow-ups if any.",
+      "parentUuid": "a47b2bb1_05277401",
+      "revId": "b99caadfab9a2f0e9587601c1b9440b2cd3c5a86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
