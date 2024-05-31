@@ -40,6 +40,7 @@ import android.util.Log;
 import android.util.Range;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BitUtils;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.NetworkCapabilitiesUtils;
@@ -135,6 +136,8 @@ public final class NetworkCapabilities implements Parcelable {
                 "com.android.net.flags.request_restricted_wifi";
         static final String SUPPORT_TRANSPORT_SATELLITE =
                 "com.android.net.flags.support_transport_satellite";
+        static final String NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED =
+                "com.android.net.flags.net_capability_not_bandwidth_constrained";
     }
 
     /**
@@ -459,6 +462,7 @@ public final class NetworkCapabilities implements Parcelable {
             NET_CAPABILITY_PRIORITIZE_LATENCY,
             NET_CAPABILITY_PRIORITIZE_BANDWIDTH,
             NET_CAPABILITY_LOCAL_NETWORK,
+            NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED,
     })
     public @interface NetCapability { }
 
@@ -741,7 +745,27 @@ public final class NetworkCapabilities implements Parcelable {
     @FlaggedApi(Flags.FLAG_NET_CAPABILITY_LOCAL_NETWORK)
     public static final int NET_CAPABILITY_LOCAL_NETWORK = 36;
 
-    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_LOCAL_NETWORK;
+    /**
+     * Indicates that this network's bandwidth is not constrained.
+     * <p>
+     * To avoid applications from unexpectedly using networks that have limited bandwidth,
+     * by default, {@link NetworkRequest} is not satisfied by these networks.
+     * On {@link Build.VERSION_CODES.VANILLA_ICE_CREAM} or later, this capability is set by default.
+     * On {@link Build.VERSION_CODES.UPSIDE_DOWN_CAKE} or earlier, in some cases the system could
+     * set this capability when applications file {@link NetworkRequest}.
+     * <p>
+     * Applications that want to use bandwidth constrained networks should remove this capability
+     * from their {@link NetworkRequest} by {@link NetworkRequest.Builder#removeCapability} or
+     * {@link NetworkRequest.Builder#clearCapabilities}. The system will not add capability back
+     * once removed.
+     * <p>
+     * The system could block application traffic on bandwidth constrained networks anytime based on
+     * the amount of application traffic. So applications should save traffic on these networks.
+     */
+    @FlaggedApi(Flags.NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED)
+    public static final int NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED = 37;
+
+    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED;
 
     // Set all bits up to the MAX_NET_CAPABILITY-th bit
     private static final long ALL_VALID_CAPABILITIES = (2L << MAX_NET_CAPABILITY) - 1;
@@ -785,10 +809,17 @@ public final class NetworkCapabilities implements Parcelable {
     /**
      * Capabilities that are set by default when the object is constructed.
      */
-    private static final long DEFAULT_CAPABILITIES =
-            (1L << NET_CAPABILITY_NOT_RESTRICTED) |
-            (1L << NET_CAPABILITY_TRUSTED) |
-            (1L << NET_CAPABILITY_NOT_VPN);
+    private static final long DEFAULT_CAPABILITIES;
+    static {
+        long defaultCapabilities =
+                (1L << NET_CAPABILITY_NOT_RESTRICTED)
+                | (1L << NET_CAPABILITY_TRUSTED)
+                | (1L << NET_CAPABILITY_NOT_VPN);
+        if (SdkLevel.isAtLeastV()) {
+            defaultCapabilities |= (1L << NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED);
+        }
+        DEFAULT_CAPABILITIES = defaultCapabilities;
+    }
 
     /**
      * Capabilities that are managed by ConnectivityService.
@@ -815,7 +846,9 @@ public final class NetworkCapabilities implements Parcelable {
             (1L << NET_CAPABILITY_NOT_ROAMING) |
             (1L << NET_CAPABILITY_NOT_CONGESTED) |
             (1L << NET_CAPABILITY_NOT_SUSPENDED) |
-            (1L << NET_CAPABILITY_NOT_VCN_MANAGED);
+            (1L << NET_CAPABILITY_NOT_VCN_MANAGED) |
+            (1L << NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED);
+
 
     /**
      * Extra allowed capabilities for test networks that do not have TRANSPORT_CELLULAR. Test
@@ -2603,6 +2636,7 @@ public final class NetworkCapabilities implements Parcelable {
             case NET_CAPABILITY_PRIORITIZE_LATENCY:          return "PRIORITIZE_LATENCY";
             case NET_CAPABILITY_PRIORITIZE_BANDWIDTH:        return "PRIORITIZE_BANDWIDTH";
             case NET_CAPABILITY_LOCAL_NETWORK:        return "LOCAL_NETWORK";
+            case NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED:    return "NOT_BANDWIDTH_CONSTRAINED";
             default:                                  return Integer.toString(capability);
         }
     }
