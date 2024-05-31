@@ -338,6 +338,7 @@ package android.net {
     field public static final int NET_CAPABILITY_MMS = 0; // 0x0
     field public static final int NET_CAPABILITY_MMTEL = 33; // 0x21
     field public static final int NET_CAPABILITY_NOT_CONGESTED = 20; // 0x14
+    field @FlaggedApi("com.android.net.flags.net_capability_not_constrained") public static final int NET_CAPABILITY_NOT_CONSTRAINED = 37; // 0x25
     field public static final int NET_CAPABILITY_NOT_METERED = 11; // 0xb
     field public static final int NET_CAPABILITY_NOT_RESTRICTED = 13; // 0xd
     field public static final int NET_CAPABILITY_NOT_ROAMING = 18; // 0x12
