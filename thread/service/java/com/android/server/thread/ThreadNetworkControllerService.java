@@ -1387,6 +1387,14 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             }
         }
 
+        private void notifyThreadEnabledUpdated(IStateCallback callback, int enabledState) {
+            try {
+                callback.onThreadEnableStateChanged(enabledState);
+            } catch (RemoteException ignored) {
+                // do nothing if the client is dead
+            }
+        }
+
         public void unregisterStateCallback(IStateCallback callback) {
             checkOnHandlerThread();
             if (!mStateCallbacks.containsKey(callback)) {
@@ -1453,19 +1461,15 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             }
         }
 
-        private void onThreadEnabledChanged(int state, long listenerId) {
-            checkOnHandlerThread();
-            boolean stateChanged = (mState == null || mState.threadEnabled != state);
+        @Override
+        public void onThreadEnabledChanged(int state) {
+            mHandler.post(() -> onThreadEnabledChangedInternal(state));
+        }
 
-            for (var callbackEntry : mStateCallbacks.entrySet()) {
-                if (!stateChanged && callbackEntry.getValue().id != listenerId) {
-                    continue;
-                }
-                try {
-                    callbackEntry.getKey().onThreadEnableStateChanged(otStateToAndroidState(state));
-                } catch (RemoteException ignored) {
-                    // do nothing if the client is dead
-                }
+        private void onThreadEnabledChangedInternal(int state) {
+            checkOnHandlerThread();
+            for (IStateCallback callback : mStateCallbacks.keySet()) {
+                notifyThreadEnabledUpdated(callback, otStateToAndroidState(state));
             }
         }
 
@@ -1492,7 +1496,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             onInterfaceStateChanged(newState.isInterfaceUp);
             onDeviceRoleChanged(newState.deviceRole, listenerId);
             onPartitionIdChanged(newState.partitionId, listenerId);
-            onThreadEnabledChanged(newState.threadEnabled, listenerId);
             mState = newState;
 
             ActiveOperationalDataset newActiveDataset;
