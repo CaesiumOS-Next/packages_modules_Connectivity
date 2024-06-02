@@ -21,14 +21,15 @@ import static android.net.nsd.NsdManager.PROTOCOL_DNS_SD;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
 import android.net.InetAddresses;
 import android.net.nsd.DiscoveryRequest;
@@ -45,21 +46,23 @@ import com.android.server.thread.openthread.INsdStatusReceiver;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.ArgumentMatcher;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Executor;
 
 /** Unit tests for {@link NsdPublisher}. */
 public final class NsdPublisherTest {
+    private static final DnsTxtAttribute TEST_TXT_ENTRY_1 =
+            new DnsTxtAttribute("key1", new byte[] {0x01, 0x02});
+    private static final DnsTxtAttribute TEST_TXT_ENTRY_2 =
+            new DnsTxtAttribute("key2", new byte[] {0x03});
+
     @Mock private NsdManager mMockNsdManager;
 
     @Mock private INsdStatusReceiver mRegistrationReceiver;
@@ -79,19 +82,15 @@ public final class NsdPublisherTest {
     public void registerService_nsdManagerSucceeds_serviceRegistrationSucceeds() throws Exception {
         prepareTest();
 
-        DnsTxtAttribute txt1 = makeTxtAttribute("key1", List.of(0x01, 0x02));
-        DnsTxtAttribute txt2 = makeTxtAttribute("key2", List.of(0x03));
-
         mNsdPublisher.registerService(
                 null,
                 "MyService",
                 "_test._tcp",
                 List.of("_subtype1", "_subtype2"),
                 12345,
-                List.of(txt1, txt2),
+                List.of(TEST_TXT_ENTRY_1, TEST_TXT_ENTRY_2),
                 mRegistrationReceiver,
                 16 /* listenerId */);
-
         mTestLooper.dispatchAll();
 
         ArgumentCaptor<NsdServiceInfo> actualServiceInfoCaptor =
@@ -118,11 +117,10 @@ public final class NsdPublisherTest {
         assertThat(actualServiceInfo.getSubtypes()).isEqualTo(Set.of("_subtype1", "_subtype2"));
         assertThat(actualServiceInfo.getPort()).isEqualTo(12345);
         assertThat(actualServiceInfo.getAttributes().size()).isEqualTo(2);
-        assertThat(actualServiceInfo.getAttributes().get("key1"))
-                .isEqualTo(new byte[] {(byte) 0x01, (byte) 0x02});
-        assertThat(actualServiceInfo.getAttributes().get("key2"))
-                .isEqualTo(new byte[] {(byte) 0x03});
-
+        assertThat(actualServiceInfo.getAttributes().get(TEST_TXT_ENTRY_1.name))
+                .isEqualTo(TEST_TXT_ENTRY_1.value);
+        assertThat(actualServiceInfo.getAttributes().get(TEST_TXT_ENTRY_2.name))
+                .isEqualTo(TEST_TXT_ENTRY_2.value);
         verify(mRegistrationReceiver, times(1)).onSuccess();
     }
 
@@ -130,19 +128,15 @@ public final class NsdPublisherTest {
     public void registerService_nsdManagerFails_serviceRegistrationFails() throws Exception {
         prepareTest();
 
-        DnsTxtAttribute txt1 = makeTxtAttribute("key1", List.of(0x01, 0x02));
-        DnsTxtAttribute txt2 = makeTxtAttribute("key2", List.of(0x03));
-
         mNsdPublisher.registerService(
                 null,
                 "MyService",
                 "_test._tcp",
                 List.of("_subtype1", "_subtype2"),
                 12345,
-                List.of(txt1, txt2),
+                List.of(TEST_TXT_ENTRY_1, TEST_TXT_ENTRY_2),
                 mRegistrationReceiver,
                 16 /* listenerId */);
-
         mTestLooper.dispatchAll();
 
         ArgumentCaptor<NsdServiceInfo> actualServiceInfoCaptor =
@@ -169,21 +163,16 @@ public final class NsdPublisherTest {
         assertThat(actualServiceInfo.getSubtypes()).isEqualTo(Set.of("_subtype1", "_subtype2"));
         assertThat(actualServiceInfo.getPort()).isEqualTo(12345);
         assertThat(actualServiceInfo.getAttributes().size()).isEqualTo(2);
-        assertThat(actualServiceInfo.getAttributes().get("key1"))
-                .isEqualTo(new byte[] {(byte) 0x01, (byte) 0x02});
-        assertThat(actualServiceInfo.getAttributes().get("key2"))
-                .isEqualTo(new byte[] {(byte) 0x03});
-
+        assertThat(actualServiceInfo.getAttributes().get(TEST_TXT_ENTRY_1.name))
+                .isEqualTo(TEST_TXT_ENTRY_1.value);
+        assertThat(actualServiceInfo.getAttributes().get(TEST_TXT_ENTRY_2.name))
+                .isEqualTo(TEST_TXT_ENTRY_2.value);
         verify(mRegistrationReceiver, times(1)).onError(FAILURE_INTERNAL_ERROR);
     }
 
     @Test
     public void registerService_nsdManagerThrows_serviceRegistrationFails() throws Exception {
         prepareTest();
-
-        DnsTxtAttribute txt1 = makeTxtAttribute("key1", List.of(0x01, 0x02));
-        DnsTxtAttribute txt2 = makeTxtAttribute("key2", List.of(0x03));
-
         doThrow(new IllegalArgumentException("NsdManager fails"))
                 .when(mMockNsdManager)
                 .registerService(any(), anyInt(), any(Executor.class), any());
@@ -194,7 +183,7 @@ public final class NsdPublisherTest {
                 "_test._tcp",
                 List.of("_subtype1", "_subtype2"),
                 12345,
-                List.of(txt1, txt2),
+                List.of(TEST_TXT_ENTRY_1, TEST_TXT_ENTRY_2),
                 mRegistrationReceiver,
                 16 /* listenerId */);
         mTestLooper.dispatchAll();
@@ -207,16 +196,13 @@ public final class NsdPublisherTest {
             throws Exception {
         prepareTest();
 
-        DnsTxtAttribute txt1 = makeTxtAttribute("key1", List.of(0x01, 0x02));
-        DnsTxtAttribute txt2 = makeTxtAttribute("key2", List.of(0x03));
-
         mNsdPublisher.registerService(
                 null,
                 "MyService",
                 "_test._tcp",
                 List.of("_subtype1", "_subtype2"),
                 12345,
-                List.of(txt1, txt2),
+                List.of(TEST_TXT_ENTRY_1, TEST_TXT_ENTRY_2),
                 mRegistrationReceiver,
                 16 /* listenerId */);
 
@@ -252,16 +238,13 @@ public final class NsdPublisherTest {
     public void unregisterService_nsdManagerFails_serviceUnregistrationFails() throws Exception {
         prepareTest();
 
-        DnsTxtAttribute txt1 = makeTxtAttribute("key1", List.of(0x01, 0x02));
-        DnsTxtAttribute txt2 = makeTxtAttribute("key2", List.of(0x03));
-
         mNsdPublisher.registerService(
                 null,
                 "MyService",
                 "_test._tcp",
                 List.of("_subtype1", "_subtype2"),
                 12345,
-                List.of(txt1, txt2),
+                List.of(TEST_TXT_ENTRY_1, TEST_TXT_ENTRY_2),
                 mRegistrationReceiver,
                 16 /* listenerId */);
 
@@ -579,8 +562,8 @@ public final class NsdPublisherTest {
                 List.of(
                         InetAddress.parseNumericAddress("2001::1"),
                         InetAddress.parseNumericAddress("2001::2")));
-        serviceInfo.setAttribute("key1", new byte[] {(byte) 0x01, (byte) 0x02});
-        serviceInfo.setAttribute("key2", new byte[] {(byte) 0x03});
+        serviceInfo.setAttribute(TEST_TXT_ENTRY_1.name, TEST_TXT_ENTRY_1.value);
+        serviceInfo.setAttribute(TEST_TXT_ENTRY_2.name, TEST_TXT_ENTRY_2.value);
         serviceInfoCallbackArgumentCaptor.getValue().onServiceUpdated(serviceInfo);
         mTestLooper.dispatchAll();
 
@@ -591,11 +574,8 @@ public final class NsdPublisherTest {
                         eq("_test._tcp"),
                         eq(12345),
                         eq(List.of("2001::1", "2001::2")),
-                        argThat(
-                                new TxtMatcher(
-                                        List.of(
-                                                makeTxtAttribute("key1", List.of(0x01, 0x02)),
-                                                makeTxtAttribute("key2", List.of(0x03))))),
+                        (List<DnsTxtAttribute>)
+                                argThat(containsInAnyOrder(TEST_TXT_ENTRY_1, TEST_TXT_ENTRY_2)),
                         anyInt());
     }
 
@@ -639,10 +619,6 @@ public final class NsdPublisherTest {
     @Test
     public void reset_unregisterAll() {
         prepareTest();
-
-        DnsTxtAttribute txt1 = makeTxtAttribute("key1", List.of(0x01, 0x02));
-        DnsTxtAttribute txt2 = makeTxtAttribute("key2", List.of(0x03));
-
         ArgumentCaptor<NsdServiceInfo> actualServiceInfoCaptor =
                 ArgumentCaptor.forClass(NsdServiceInfo.class);
         ArgumentCaptor<NsdManager.RegistrationListener> actualRegistrationListenerCaptor =
@@ -654,7 +630,7 @@ public final class NsdPublisherTest {
                 "_test._tcp",
                 List.of("_subtype1", "_subtype2"),
                 12345,
-                List.of(txt1, txt2),
+                List.of(TEST_TXT_ENTRY_1, TEST_TXT_ENTRY_2),
                 mRegistrationReceiver,
                 16 /* listenerId */);
         mTestLooper.dispatchAll();
@@ -728,19 +704,6 @@ public final class NsdPublisherTest {
         verify(spyNsdPublisher, times(1)).reset();
     }
 
-    private static DnsTxtAttribute makeTxtAttribute(String name, List<Integer> value) {
-        DnsTxtAttribute txtAttribute = new DnsTxtAttribute();
-
-        txtAttribute.name = name;
-        txtAttribute.value = new byte[value.size()];
-
-        for (int i = 0; i < value.size(); ++i) {
-            txtAttribute.value[i] = value.get(i).byteValue();
-        }
-
-        return txtAttribute;
-    }
-
     private static List<InetAddress> makeAddresses(String... addressStrings) {
         List<InetAddress> addresses = new ArrayList<>();
 
@@ -748,30 +711,6 @@ public final class NsdPublisherTest {
             addresses.add(InetAddresses.parseNumericAddress(addressString));
         }
         return addresses;
-    }
-
-    private static class TxtMatcher implements ArgumentMatcher<List<DnsTxtAttribute>> {
-        private final List<DnsTxtAttribute> mAttributes;
-
-        TxtMatcher(List<DnsTxtAttribute> attributes) {
-            mAttributes = attributes;
-        }
-
-        @Override
-        public boolean matches(List<DnsTxtAttribute> argument) {
-            if (argument.size() != mAttributes.size()) {
-                return false;
-            }
-            for (int i = 0; i < argument.size(); ++i) {
-                if (!Objects.equals(argument.get(i).name, mAttributes.get(i).name)) {
-                    return false;
-                }
-                if (!Arrays.equals(argument.get(i).value, mAttributes.get(i).value)) {
-                    return false;
-                }
-            }
-            return true;
-        }
     }
 
     // @Before and @Test run in different threads. NsdPublisher requires the jobs are run on the
