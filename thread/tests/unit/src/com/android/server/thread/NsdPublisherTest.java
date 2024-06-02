@@ -79,8 +79,8 @@ public final class NsdPublisherTest {
     public void registerService_nsdManagerSucceeds_serviceRegistrationSucceeds() throws Exception {
         prepareTest();
 
-        DnsTxtAttribute txt1 = makeTxtAttribute("key1", List.of(0x01, 0x02));
-        DnsTxtAttribute txt2 = makeTxtAttribute("key2", List.of(0x03));
+        DnsTxtAttribute txt1 = new DnsTxtAttribute("key1", new byte[] {0x01, 0x02});
+        DnsTxtAttribute txt2 = new DnsTxtAttribute("key2", new byte[] {0x03});
 
         mNsdPublisher.registerService(
                 null,
@@ -130,8 +130,8 @@ public final class NsdPublisherTest {
     public void registerService_nsdManagerFails_serviceRegistrationFails() throws Exception {
         prepareTest();
 
-        DnsTxtAttribute txt1 = makeTxtAttribute("key1", List.of(0x01, 0x02));
-        DnsTxtAttribute txt2 = makeTxtAttribute("key2", List.of(0x03));
+        DnsTxtAttribute txt1 = new DnsTxtAttribute("key1", new byte[] {0x01, 0x02});
+        DnsTxtAttribute txt2 = new DnsTxtAttribute("key2", new byte[] {0x03});
 
         mNsdPublisher.registerService(
                 null,
@@ -181,8 +181,8 @@ public final class NsdPublisherTest {
     public void registerService_nsdManagerThrows_serviceRegistrationFails() throws Exception {
         prepareTest();
 
-        DnsTxtAttribute txt1 = makeTxtAttribute("key1", List.of(0x01, 0x02));
-        DnsTxtAttribute txt2 = makeTxtAttribute("key2", List.of(0x03));
+        DnsTxtAttribute txt1 = new DnsTxtAttribute("key1", new byte[] {0x01, 0x02});
+        DnsTxtAttribute txt2 = new DnsTxtAttribute("key2", new byte[] {0x03});
 
         doThrow(new IllegalArgumentException("NsdManager fails"))
                 .when(mMockNsdManager)
@@ -579,8 +579,8 @@ public final class NsdPublisherTest {
                 List.of(
                         InetAddress.parseNumericAddress("2001::1"),
                         InetAddress.parseNumericAddress("2001::2")));
-        serviceInfo.setAttribute("key1", new byte[] {(byte) 0x01, (byte) 0x02});
-        serviceInfo.setAttribute("key2", new byte[] {(byte) 0x03});
+        serviceInfo.setAttribute("key1", new byte[] {0x01, 0x02});
+        serviceInfo.setAttribute("key2", new byte[] {0x03});
         serviceInfoCallbackArgumentCaptor.getValue().onServiceUpdated(serviceInfo);
         mTestLooper.dispatchAll();
 
@@ -594,8 +594,9 @@ public final class NsdPublisherTest {
                         argThat(
                                 new TxtMatcher(
                                         List.of(
-                                                makeTxtAttribute("key1", List.of(0x01, 0x02)),
-                                                makeTxtAttribute("key2", List.of(0x03))))),
+                                                new DnsTxtAttribute(
+                                                        "key1", new byte[] {0x01, 0x02}),
+                                                new DnsTxtAttribute("key2", new byte[] {0x03})))),
                         anyInt());
     }
 
@@ -729,16 +730,12 @@ public final class NsdPublisherTest {
     }
 
     private static DnsTxtAttribute makeTxtAttribute(String name, List<Integer> value) {
-        DnsTxtAttribute txtAttribute = new DnsTxtAttribute();
-
-        txtAttribute.name = name;
-        txtAttribute.value = new byte[value.size()];
-
+        byte[] txtValue = new byte[value.size()];
         for (int i = 0; i < value.size(); ++i) {
-            txtAttribute.value[i] = value.get(i).byteValue();
+            txtValue[i] = value.get(i).byteValue();
         }
 
-        return txtAttribute;
+        return new DnsTxtAttribute(name, txtValue);
     }
 
     private static List<InetAddress> makeAddresses(String... addressStrings) {
