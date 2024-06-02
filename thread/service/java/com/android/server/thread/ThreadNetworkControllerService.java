@@ -117,6 +117,7 @@ import com.android.server.ServiceManagerWrapper;
 import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.thread.openthread.BackboneRouterState;
 import com.android.server.thread.openthread.BorderRouterConfigurationParcel;
+import com.android.server.thread.openthread.DnsTxtAttribute;
 import com.android.server.thread.openthread.IChannelMasksReceiver;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
@@ -338,6 +339,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         final String modelName = resources.getString(R.string.config_thread_model_name);
         final String vendorName = resources.getString(R.string.config_thread_vendor_name);
         final String vendorOui = resources.getString(R.string.config_thread_vendor_oui);
+        final boolean managedByGoogle =
+                resources.getBoolean(R.bool.config_thread_managed_by_google_home);
 
         if (!modelName.isEmpty()) {
             if (modelName.getBytes(StandardCharsets.UTF_8).length > MAX_MODEL_NAME_UTF8_BYTES) {
@@ -367,7 +370,19 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         meshcopTxts.modelName = modelName;
         meshcopTxts.vendorName = vendorName;
         meshcopTxts.vendorOui = HexEncoding.decode(vendorOui.replace("-", "").replace(":", ""));
+        meshcopTxts.nonStandardTxtEntries = List.of(makeManagedByGoogleTxtAttr(managedByGoogle));
+
         return meshcopTxts;
+    }
+
+    /**
+     * Creates a DNS-SD TXT entry for indicating whether Thread on this device is managed by Google.
+     *
+     * @return TXT entry "vgh=1" if {@code managedByGoogle} is {@code true}; otherwise, "vgh=0"
+     */
+    private static DnsTxtAttribute makeManagedByGoogleTxtAttr(boolean managedByGoogle) {
+        final byte[] value = (managedByGoogle ? "1" : "0").getBytes(StandardCharsets.UTF_8);
+        return new DnsTxtAttribute("vgh", value);
     }
 
     private void onOtDaemonDied() {
