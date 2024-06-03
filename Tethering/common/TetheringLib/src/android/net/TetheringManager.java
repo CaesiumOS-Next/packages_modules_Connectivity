@@ -256,6 +256,7 @@ public class TetheringManager {
             TETHER_ERROR_INTERNAL_ERROR,
             TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION,
             TETHER_ERROR_UNKNOWN_TYPE,
+            TETHER_ERROR_DUPLICATE_REQUEST,
     })
     public @interface StartTetheringError {
     }
@@ -277,6 +278,8 @@ public class TetheringManager {
     public static final int TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION = 14;
     public static final int TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION = 15;
     public static final int TETHER_ERROR_UNKNOWN_TYPE = 16;
+    @FlaggedApi(Flags.FLAG_MULTIPLE_TETHERING_REQUESTS_PER_TYPE)
+    public static final int TETHER_ERROR_DUPLICATE_REQUEST = 17;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
@@ -681,6 +684,11 @@ public class TetheringManager {
             }
         }, this);
     }
+    /**
+     * Unknown connectivity scope.
+     * @hide
+     */
+    public static final int CONNECTIVITY_SCOPE_UNKNOWN = 0;
 
     /**
      * Indicates that this tethering connection will provide connectivity beyond this device (e.g.,
@@ -699,6 +707,7 @@ public class TetheringManager {
      */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(prefix = "CONNECTIVITY_SCOPE_", value = {
+            CONNECTIVITY_SCOPE_UNKNOWN,
             CONNECTIVITY_SCOPE_GLOBAL,
             CONNECTIVITY_SCOPE_LOCAL,
     })
@@ -935,7 +944,8 @@ public class TetheringManager {
          */
         private static boolean checkConnectivityScope(int type, int scope) {
             if (scope == CONNECTIVITY_SCOPE_GLOBAL) return true;
-            return type == TETHERING_USB || type == TETHERING_ETHERNET || type == TETHERING_NCM;
+            return type == TETHERING_USB || type == TETHERING_ETHERNET || type == TETHERING_NCM
+                    || type == TETHERING_WIFI || type == TETHERING_WIFI_P2P;
         }
 
         /**
@@ -1025,12 +1035,30 @@ public class TetheringManager {
             return sj.toString();
         }
 
+        /**
+         * Returns true if the other TetheringRequest "fuzzy" matches this one. This is used
+         * internally to match tracked requests with external requests from API calls.
+         * @hide
+         */
+        public boolean fuzzyMatches(final TetheringRequest other) {
+            if (other == null) return false;
+            if (getTetheringType() != other.getTetheringType()) return false;
+            if (getConnectivityScope() != other.getConnectivityScope()) return false;
+            if (!Objects.equals(getSoftApConfiguration(), other.getSoftApConfiguration())) {
+                return false;
+            }
+            // TODO(b/296063280): Check if the interface name matches.
+            return true;
+        }
+
         @Override
         public boolean equals(Object obj) {
             if (this == obj) return true;
             if (!(obj instanceof TetheringRequest otherRequest)) return false;
             TetheringRequestParcel parcel = getParcel();
             TetheringRequestParcel otherParcel = otherRequest.getParcel();
+            // Note: Changes here should also be reflected in fuzzyMatches(TetheringRequest) when
+            //       appropriate.
             return parcel.tetheringType == otherParcel.tetheringType
                     && Objects.equals(parcel.localIPv4Address, otherParcel.localIPv4Address)
                     && Objects.equals(parcel.staticClientAddress, otherParcel.staticClientAddress)
