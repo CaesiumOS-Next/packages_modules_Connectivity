@@ -35,6 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.net.module.util.RoutingCoordinatorService;
 import com.android.net.module.util.SharedLog;
@@ -203,5 +204,13 @@ public abstract class TetheringDependencies {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public WearableConnectionManager makeWearableConnectionManager(Context ctx) {
         return new WearableConnectionManager(ctx);
+    }
+
+    /**
+     * Returns whether the multiple_tethering_requests_per_type feature flag is enabled.
+     */
+    public boolean isMultipleTetheringRequestsPerTypeEnabled(Context ctx) {
+        return DeviceConfigUtils.isTetheringFeatureEnabled(ctx,
+                "multiple_tethering_requests_per_type");
     }
 }

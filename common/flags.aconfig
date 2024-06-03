@@ -131,3 +131,11 @@ flag {
   description: "Flag for NetworkStats#addEntries API"
   bug: "335680025"
 }
+
+flag {
+  name: "multiple_tethering_requests_per_type"
+  is_exported: true
+  namespace: "android_core_networking"
+  description: "Flag for allowing multiple tethering requests per type"
+  bug: "291151197"
+}
