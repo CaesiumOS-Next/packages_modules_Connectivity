@@ -44,6 +44,7 @@ import static android.net.TetheringManager.TETHERING_VIRTUAL;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHERING_WIGIG;
+import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
@@ -234,6 +235,13 @@ public class Tethering {
     // All tethering requests specified via startTethering(), including both requests that are being
     // served by an IpServer and requests that have been accepted but have not resulted in an
     // IpServer being brought up yet.
+    // Note: Requests will remain in this list even after the requesting app dies.
+    // Note: This list contains no duplicates, since duplicates are rejected with
+    //       TETHER_ERROR_DUPLICATE_REQUEST.
+    // Note: There may be IpServers started without calling startTethering(), such as for Wifi
+    //       local-only hotspot, Wifi P2P, and the legacy tether() API. For these cases, a
+    //       TetheringRequest is internally constructed and used to start IpServer, and are returned
+    //       along with the specified requests in getAllTetheringRequests() for internal tracking.
     private final List<TetheringRequest> mSpecifiedTetheringRequests = new ArrayList<>();
 
     private final Context mContext;
@@ -708,17 +716,31 @@ public class Tethering {
             final IIntResultListener listener) {
         mHandler.post(() -> {
             final int type = request.getTetheringType();
+            if (isTetheringWithSoftApConfigEnabled()) {
+                for (TetheringRequest currentRequest : getAllTetheringRequests()) {
+                    if (currentRequest.fuzzyMatches(request)) {
+                        if (listener != null) {
+                            try {
+                                listener.onResult(TETHER_ERROR_DUPLICATE_REQUEST);
+                            } catch (RemoteException e) {
+                            }
+                        }
+                        return;
+                    }
+                }
+            } else {
+                // LEGACY BEHAVIOR
+                for (TetheringRequest pendingRequest : getPendingRequests()) {
+                    // Only allow one pending request per type.
+                    if (pendingRequest.getTetheringType() != type) continue;
+                    mSpecifiedTetheringRequests.remove(pendingRequest);
 
-            for (TetheringRequest pendingRequest : getPendingRequests()) {
-                // Only allow one pending request per type.
-                if (pendingRequest.getTetheringType() != type) continue;
-                mSpecifiedTetheringRequests.remove(pendingRequest);
-
-                // If tethering is already enabled with a different request,
-                // disable before re-enabling.
-                if (pendingRequest.equals(request)) continue;
-                enableTetheringInternal(pendingRequest, false /* disabled */, null);
-                mEntitlementMgr.stopProvisioningIfNeeded(pendingRequest);
+                    // If tethering is already enabled with a different request,
+                    // disable before re-enabling.
+                    if (pendingRequest.equals(request)) continue;
+                    enableTetheringInternal(pendingRequest, false /* disabled */, null);
+                    mEntitlementMgr.stopProvisioningIfNeeded(pendingRequest);
+                }
             }
             mSpecifiedTetheringRequests.add(request);
 
@@ -743,9 +765,17 @@ public class Tethering {
         for (TetheringRequest request : getAllTetheringRequests()) {
             if (request.getTetheringType() != type) continue;
 
-            enableTetheringInternal(request, false /* disabled */, null);
-            mSpecifiedTetheringRequests.remove(request);
+            stopTetheringInternal(request);
         }
+    }
+
+    void stopTetheringInternal(TetheringRequest request) {
+        enableTetheringInternal(request, false /* enable */, null);
+        mEntitlementMgr.stopProvisioningIfNeeded(request);
+    }
+
+    private boolean isTetheringWithSoftApConfigEnabled() {
+        return mDeps.isTetheringWithSoftApConfigEnabled(mContext);
     }
 
     /**
@@ -1070,6 +1100,13 @@ public class Tethering {
             return pendingRequest;
         }
 
+        if (isTetheringWithSoftApConfigEnabled()) {
+            // If TETHERING_WITH_SOFT_AP_CONFIG is enabled, then we should expect all tethering
+            // to go through startTethering() and thus have a TetheringRequest either pending or
+            // serving. If not, then this must be a legacy flow, so return null to ignore.
+            return null;
+        }
+
         // No pending request found, synthesize a TetheringRequest. This only happens for legacy
         // tethering flows that don't go through startTethering().
         TetheringRequest.Builder builder = new TetheringRequest.Builder(type);
@@ -1124,6 +1161,10 @@ public class Tethering {
     void untether(String iface, final IIntResultListener listener) {
         mHandler.post(() -> {
             try {
+                if (isTetheringWithSoftApConfigEnabled()) {
+                    listener.onResult(TETHER_ERROR_INTERNAL_ERROR);
+                    return;
+                }
                 listener.onResult(untether(iface));
             } catch (RemoteException e) {
             }
