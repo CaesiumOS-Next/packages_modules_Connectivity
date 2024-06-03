@@ -115,6 +115,7 @@ public final class ApfCapabilities implements Parcelable {
      * STDW (STore Data Word) support is present from APFv3 on.
      *
      * @return {@code true} if the IWifiStaIface#readApfPacketFilterData is supported.
+     * @deprecated this is moved into NetworkStack
      */
     public boolean hasDataAccess() {
         return apfVersionSupported > 2;
@@ -122,19 +123,17 @@ public final class ApfCapabilities implements Parcelable {
 
     /**
      * @return Whether the APF Filter in the device should filter out IEEE 802.3 Frames.
+     * @deprecated this is moved into NetworkStack
      */
     public static boolean getApfDrop8023Frames() {
-        // TODO: deprecate/remove this method (now unused in the platform), as the resource was
-        // moved to NetworkStack.
         return true;
     }
 
     /**
      * @return An array of denylisted EtherType, packets with EtherTypes within it will be dropped.
+     * @deprecated this is moved into NetworkStack
      */
     public static @NonNull int[] getApfEtherTypeBlackList() {
-        // TODO: deprecate/remove this method (now unused in the platform), as the resource was
-        // moved to NetworkStack.
         return new int[] { 0x88a2, 0x88a4, 0x88b8, 0x88cd, 0x88e3 };
     }
 }
