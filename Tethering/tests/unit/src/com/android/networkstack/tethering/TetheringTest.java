@@ -922,8 +922,9 @@ public class TetheringTest {
         mTethering.startTethering(request, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
 
-        assertEquals(1, mTethering.getActiveTetheringRequests().size());
-        assertEquals(request, mTethering.getActiveTetheringRequests().get(TETHERING_USB));
+        assertEquals(1, mTethering.getActiveTetheringRequests().get(TETHERING_USB).size());
+        assertEquals(request, mTethering.getActiveTetheringRequests().get(TETHERING_USB)
+                .getFirst());
 
         if (mTethering.getTetheringConfiguration().isUsingNcm()) {
             verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NCM);
@@ -1936,7 +1937,7 @@ public class TetheringTest {
     @Test
     public void workingWifiTetheringEnrichedApBroadcast() throws Exception {
         initTetheringOnTestThread();
-        when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
+        when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
 
         // Emulate pressing the WiFi tethering button.
         mTethering.startTethering(createTetheringRequest(TETHERING_WIFI), TEST_CALLER_PKG,
@@ -2139,7 +2140,7 @@ public class TetheringTest {
         runUsbTethering(upstreamState);
         assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_RNDIS_IFNAME);
         assertTrue(mTethering.isTetheringActive());
-        assertEquals(1, mTethering.getActiveTetheringRequests().size());
+        assertEquals(1, mTethering.getActiveTetheringRequests().get(TETHERING_USB).size());
 
         final Tethering.UserRestrictionActionListener ural = makeUserRestrictionActionListener(
                 mTethering, false /* currentDisallow */, true /* nextDisallow */);
@@ -3468,7 +3469,7 @@ public class TetheringTest {
     }
 
     private void verifyUsbTetheringStopDueToSettingChange(final String iface) {
-        verify(mUsbManager, times(2)).setCurrentFunctions(UsbManager.FUNCTION_NONE);
+        verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NONE);
         mTethering.interfaceRemoved(iface);
         sendUsbBroadcast(true, true, -1 /* no functions enabled */);
         reset(mUsbManager, mNetd, mDhcpServer, mRouterAdvertisementDaemon,
