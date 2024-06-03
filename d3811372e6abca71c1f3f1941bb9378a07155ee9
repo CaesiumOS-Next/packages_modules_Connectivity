@@ -262,6 +262,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee620cd4_41e87de1",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T02:10:53Z",
+      "side": 1,
+      "message": "Added comments for the arguments and return.\n\nI kept the ```l2mtu``` naming, because I found that if I use ```packetSize``` I\u0027ll end up writing some confusing comments like \"if the packet size exceeds packetSize, it will be fragemented into smaller packets.```",
+      "parentUuid": "a99f820c_1b13baa4",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 57
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a12ee1e_c905879e",
         "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
         "patchSetId": 4
@@ -297,6 +321,30 @@
       "side": 1,
       "message": "renamed to l2mtu, but I just found that the PacketBuilder can build packet with or without Ethernet header, i.e. either Ethernet packet or raw IP packet. Discuss in the other comment\u0027s context.",
       "parentUuid": "1a12ee1e_c905879e",
+      "range": {
+        "startLine": 257,
+        "startChar": 47,
+        "endLine": 257,
+        "endChar": 50
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7508950a_3ea4fe4c",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T02:10:53Z",
+      "side": 1,
+      "message": "close this comment, discuss in other comment\u0027s context.",
+      "parentUuid": "5e2663d3_e11f9b92",
       "range": {
         "startLine": 257,
         "startChar": 47,
