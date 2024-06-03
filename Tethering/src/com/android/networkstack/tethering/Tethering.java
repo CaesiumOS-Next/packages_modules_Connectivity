@@ -44,6 +44,7 @@ import static android.net.TetheringManager.TETHERING_VIRTUAL;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHERING_WIGIG;
+import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
@@ -699,14 +700,28 @@ public class Tethering {
             final IIntResultListener listener) {
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            // Only allow one pending request per type.
-            for (TetheringRequest pendingRequest : new ArrayList<>(mPendingTetheringRequests)) {
-                if (pendingRequest.getTetheringType() != type) continue;
-                mPendingTetheringRequests.remove(pendingRequest);
+            if (isTetheringWithSoftApConfigEnabled()) {
+                for (TetheringRequest currentRequest : getAllTetheringRequests()) {
+                    if (currentRequest.fuzzyMatches(request)) {
+                        if (listener != null) {
+                            try {
+                                listener.onResult(TETHER_ERROR_DUPLICATE_REQUEST);
+                            } catch (RemoteException e) { }
+                        }
+                        return;
+                    }
+                }
+            } else {
+                // LEGACY BEHAVIOR
+                // Only allow one pending request per type.
+                for (TetheringRequest pendingRequest : new ArrayList<>(mPendingTetheringRequests)) {
+                    if (pendingRequest.getTetheringType() != type) continue;
+                    mPendingTetheringRequests.remove(pendingRequest);
 
-                // If the contents of the pending request differ, disable before re-enabling.
-                if (!pendingRequest.equalsIgnoreUidPackage(request)) {
-                    stopTetheringInternal(pendingRequest);
+                    // If the contents of the pending request differ, disable before re-enabling.
+                    if (!pendingRequest.equalsIgnoreUidPackage(request)) {
+                        stopTetheringInternal(pendingRequest);
+                    }
                 }
             }
             mPendingTetheringRequests.add(request);

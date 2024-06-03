@@ -162,7 +162,7 @@ public abstract class TetheringDependencies {
     public abstract Looper makeTetheringLooper();
 
     /**
-     *  Get Context of TetheringService.
+     * Get Context of TetheringService.
      */
     public abstract Context getContext();
 
