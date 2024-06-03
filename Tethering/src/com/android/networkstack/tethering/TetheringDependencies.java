@@ -37,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.flags.Flags;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.net.module.util.RoutingCoordinatorService;
 import com.android.net.module.util.SharedLog;
@@ -161,7 +162,7 @@ public abstract class TetheringDependencies {
     public abstract Looper makeTetheringLooper();
 
     /**
-     *  Get Context of TetheringService.
+     * Get Context of TetheringService.
      */
     public abstract Context getContext();
 

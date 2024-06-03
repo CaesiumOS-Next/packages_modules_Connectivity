@@ -84,7 +84,7 @@ public class TetheringService extends Service {
         mConnector = new TetheringConnector(makeTethering(mDeps), TetheringService.this);
 
         mSettingsShim = SettingsShimImpl.newInstance();
-        mTetheringPermissionsUtils = new TetheringPermissionUtils(deps.getContext());
+        mTetheringPermissionsUtils = new TetheringPermissionUtils(mDeps.getContext());
     }
 
     /**
