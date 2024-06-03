@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b9328d5_36c7a587",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-03T03:08:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d594d5a0_dd2cc528",
+      "revId": "8d32e1d6db912e8dfdadc9c5ec9375fc716f666e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93e6b9ed_9b2b78c4",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-06-03T02:51:50Z",
       "side": 1,
       "message": "If the mReader gets stuck, will the handler get stuck in this message handling too and won\u0027t handle any further messages?",
+      "range": {
+        "startLine": 513,
+        "startChar": 8,
+        "endLine": 513,
+        "endChar": 27
+      },
+      "revId": "8d32e1d6db912e8dfdadc9c5ec9375fc716f666e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ebe1c05_a5838604",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-03T03:08:27Z",
+      "side": 1,
+      "message": "Every `mReader.readLine()` comes with a timed-out `future.get()` in the main thread. If `mReader.readLine()` is stuck, the `future.get()` will throw when it times out.",
+      "parentUuid": "93e6b9ed_9b2b78c4",
       "range": {
         "startLine": 513,
         "startChar": 8,
