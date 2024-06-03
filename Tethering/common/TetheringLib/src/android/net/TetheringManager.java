@@ -688,7 +688,11 @@ public class TetheringManager {
         /** A configuration set for TetheringRequest. */
         private final TetheringRequestParcel mRequestParcel;
 
-        private TetheringRequest(@NonNull final TetheringRequestParcel request) {
+        /**
+         * @hide
+         */
+        @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        public TetheringRequest(@NonNull final TetheringRequestParcel request) {
             mRequestParcel = request;
         }
 
@@ -890,6 +894,26 @@ public class TetheringManager {
                     + ", exemptFromEntitlementCheck= "
                     + mRequestParcel.exemptFromEntitlementCheck + ", showProvisioningUi= "
                     + mRequestParcel.showProvisioningUi + " ]";
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof TetheringRequest otherRequest)) return false;
+            return getTetheringType() == otherRequest.getTetheringType()
+                    && getConnectivityScope() == otherRequest.getConnectivityScope()
+                    && Objects.equals(getLocalIpv4Address(), otherRequest.getLocalIpv4Address())
+                    && Objects.equals(
+                            getClientStaticIpv4Address(), otherRequest.getClientStaticIpv4Address())
+                    && isExemptFromEntitlementCheck() == otherRequest.isExemptFromEntitlementCheck()
+                    && getShouldShowEntitlementUi() == otherRequest.getShouldShowEntitlementUi();
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getTetheringType(), getConnectivityScope(),
+                    getLocalIpv4Address(), getClientStaticIpv4Address(),
+                    isExemptFromEntitlementCheck(), getShouldShowEntitlementUi());
         }
     }
 
