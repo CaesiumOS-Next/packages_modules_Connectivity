@@ -37,6 +37,7 @@ import android.os.Parcelable;
 import android.os.Process;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
+import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
@@ -1248,6 +1249,22 @@ public class TetheringManager {
         }
 
         /**
+         * Returns true if the other TetheringRequest "fuzzy" matches this one. This is used
+         * internally to match tracked requests with external requests from API calls.
+         * @hide
+         */
+        public boolean fuzzyMatches(final TetheringRequest other) {
+            if (other == null) return false;
+            if (getTetheringType() != other.getTetheringType()) return false;
+            if (getConnectivityScope() != other.getConnectivityScope()) return false;
+            if (!TextUtils.equals(getInterfaceName(), other.getInterfaceName())) return false;
+            if (!Objects.equals(getSoftApConfiguration(), other.getSoftApConfiguration())) {
+                return false;
+            }
+            return true;
+        }
+
+        /**
          * @hide
          */
         @SystemApi
@@ -1268,6 +1285,8 @@ public class TetheringManager {
         public boolean equalsIgnoreUidPackage(TetheringRequest otherRequest) {
             TetheringRequestParcel parcel = getParcel();
             TetheringRequestParcel otherParcel = otherRequest.getParcel();
+            // Note: Changes here should also be reflected in fuzzyMatches(TetheringRequest) when
+            //       appropriate.
             return parcel.type == otherParcel.type
                     && parcel.tetheringType == otherParcel.tetheringType
                     && Objects.equals(parcel.localIPv4Address, otherParcel.localIPv4Address)
