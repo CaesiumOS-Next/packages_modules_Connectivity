@@ -37,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.flags.Flags;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.net.module.util.RoutingCoordinatorService;
 import com.android.net.module.util.SharedLog;
@@ -161,7 +162,7 @@ public abstract class TetheringDependencies {
     public abstract Looper makeTetheringLooper();
 
     /**
-     *  Get Context of TetheringService.
+     * Get Context of TetheringService.
      */
     public abstract Context getContext();
 
@@ -207,5 +208,14 @@ public abstract class TetheringDependencies {
      */
     public int getBinderCallingUid() {
         return Binder.getCallingUid();
+    }
+
+
+    /**
+     * Returns whether the tethering_request_with_soft_ap_config feature flag is enabled.
+     */
+    public boolean isTetheringWithSoftApConfigEnabled(Context ctx) {
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM
+                && Flags.tetheringWithSoftApConfig();
     }
 }
