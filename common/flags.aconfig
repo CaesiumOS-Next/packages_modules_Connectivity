@@ -123,3 +123,11 @@ flag {
   description: "Flag for introducing TETHERING_VIRTUAL type"
   bug: "340376953"
 }
+
+flag {
+  name: "multiple_tethering_requests_per_type"
+  is_exported: true
+  namespace: "android_core_networking"
+  description: "Flag for allowing multiple tethering requests per type"
+  bug: "291151197"
+}
