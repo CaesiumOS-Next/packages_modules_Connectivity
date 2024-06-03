@@ -2137,7 +2137,8 @@ public class TetheringTest {
         runUsbTethering(upstreamState);
         assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_RNDIS_IFNAME);
         assertTrue(mTethering.isTetheringActive());
-        assertEquals(0, mTethering.getActiveTetheringRequests().size());
+        assertEquals(1, mTethering.getActiveTetheringRequests().size());
+        assertTrue(mTethering.getActiveTetheringRequests().get(TETHERING_USB).isServing());
 
         final Tethering.UserRestrictionActionListener ural = makeUserRestrictionActionListener(
                 mTethering, false /* currentDisallow */, true /* nextDisallow */);

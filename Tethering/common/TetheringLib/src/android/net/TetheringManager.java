@@ -687,6 +687,7 @@ public class TetheringManager {
     public static final class TetheringRequest implements Parcelable {
         /** A configuration set for TetheringRequest. */
         private final TetheringRequestParcel mRequestParcel;
+        private boolean mIsServing;
 
         /**
          * @hide
@@ -876,6 +877,25 @@ public class TetheringManager {
         private static boolean checkConnectivityScope(int type, int scope) {
             if (scope == CONNECTIVITY_SCOPE_GLOBAL) return true;
             return type == TETHERING_USB || type == TETHERING_ETHERNET || type == TETHERING_NCM;
+        }
+
+        /**
+         * Whether the request is currently being served.
+         * @hide
+         */
+        @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        public boolean isServing() {
+            return mIsServing;
+        }
+
+        /**
+         * Sets the serving state.
+         * @see #isServing()
+         * @hide
+         */
+        @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        public boolean setIsServing(boolean isServing) {
+            return mIsServing = isServing;
         }
 
         /**
