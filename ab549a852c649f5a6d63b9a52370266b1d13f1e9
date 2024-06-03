@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cff08d84_57681e68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-03T09:02:56Z",
+      "side": 1,
+      "message": "nits: Do we have a test flake by this? If so, having bug number would be helpful.",
+      "range": {
+        "startLine": 10,
+        "startChar": 61,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "ab549a852c649f5a6d63b9a52370266b1d13f1e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
