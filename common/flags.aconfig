@@ -156,3 +156,11 @@ flag {
   bug: "354619988"
   is_fixed_read_only: true
 }
+
+flag {
+  name: "multiple_tethering_requests_per_type"
+  is_exported: true
+  namespace: "android_core_networking"
+  description: "Flag for allowing multiple tethering requests per type"
+  bug: "291151197"
+}
