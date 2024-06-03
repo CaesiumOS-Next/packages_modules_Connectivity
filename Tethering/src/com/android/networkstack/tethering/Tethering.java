@@ -659,19 +659,29 @@ public class Tethering {
         processInterfaceStateChange(iface, false /* enabled */);
     }
 
+    private boolean isTetheringRequestBeingServed(TetheringRequest request) {
+        for (TetherState state : mTetherStates.values()) {
+            if (request.equals(state.ipServer.getTetheringRequest())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     void startTethering(final TetheringRequest request, final String callerPkg,
             final IIntResultListener listener) {
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            final TetheringRequest unfinishedRequest = mActiveTetheringRequests.get(type);
+            final TetheringRequest activeRequest = mActiveTetheringRequests.get(type);
             // If tethering is already enabled with a different request,
             // disable before re-enabling.
-            if (unfinishedRequest != null && !unfinishedRequest.equals(request)) {
+            if (activeRequest != null && !activeRequest.equals(request)
+                    && !isTetheringRequestBeingServed(activeRequest)) {
                 enableTetheringInternal(type, false /* disabled */, null);
                 mEntitlementMgr.stopProvisioningIfNeeded(type);
             }
-            mActiveTetheringRequests.put(type, request);
 
+            mActiveTetheringRequests.put(type, request);
             if (request.isExemptFromEntitlementCheck()) {
                 mEntitlementMgr.setExemptedDownstreamType(type);
             } else {
@@ -696,8 +706,7 @@ public class Tethering {
     }
 
     /**
-     * Enables or disables tethering for the given type. If provisioning is required, it will
-     * schedule provisioning rechecks for the specified interface.
+     * Enables or disables tethering for the given type.
      */
     private void enableTetheringInternal(int type, boolean enable,
             final IIntResultListener listener) {
@@ -1016,9 +1025,6 @@ public class Tethering {
         // This code cannot race with untether() because they both run on the handler thread.
         final int type = tetherState.ipServer.interfaceType();
         final TetheringRequest request = mActiveTetheringRequests.get(type, null);
-        if (request != null) {
-            mActiveTetheringRequests.delete(type);
-        }
         tetherState.ipServer.enable(requestedState, request);
         return TETHER_ERROR_NO_ERROR;
     }
