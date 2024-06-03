@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3418353a_940a5792",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-03T16:48:51Z",
+      "side": 1,
+      "message": "This feels mis-phrased.\n\nThe key point here is that *all* writes must go through *this* single map class instance.\n\nIt\u0027s legal for other (non cached) readers to exist, but this must be the only writer (and thus it can cache).\n\nBasically we should have locking on the map.\n\nA readonly non-caching map does not need locking.\nA readwrite non-caching map user should flock(map_fd, LOCK_SH).\nA readwrite caching map user should flock(map_fd, LOCK_EX).\n\nman 2 flock\n\nWe should thus change the existing C/java BpfMap class implementations to take the appropriate locks on the bpf map fd (though the java fd caching might make it hard to do right...).",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 92
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4a193f1_9865710c",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-03T16:48:51Z",
+      "side": 1,
+      "message": "why not? can\u0027t we either clear or read-in the map during init() ?",
+      "range": {
+        "startLine": 31,
+        "startChar": 10,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3319bc6c_b133a80f",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-03T16:48:51Z",
+      "side": 1,
+      "message": "not clear what \u0027BPF code\u0027 means",
+      "range": {
+        "startLine": 33,
+        "startChar": 44,
+        "endLine": 33,
+        "endChar": 52
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c912bd41_7e6292b8",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-03T16:48:51Z",
+      "side": 1,
+      "message": "is this \u0027flag\u0027 arg useful? you\u0027ll always want to pass in BPF_F_RDWR, no?",
+      "range": {
+        "startLine": 53,
+        "startChar": 1,
+        "endLine": 56,
+        "endChar": 5
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d483b7cd_9940c527",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-03T16:48:51Z",
+      "side": 1,
+      "message": "I don\u0027t really see what synchronized gets you... couldn\u0027t we just use a concurrent access safe hash map instead?",
+      "range": {
+        "startLine": 64,
+        "startChar": 11,
+        "endLine": 64,
+        "endChar": 23
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5a38925_50ab5917",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-03T16:48:51Z",
+      "side": 1,
+      "message": "isn\u0027t this buggy? map wasn\u0027t necessarily empty on init",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 39
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e8960c4_0259310d",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-03T16:48:51Z",
+      "side": 1,
+      "message": "fails if map wasn\u0027t empty on init",
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00061b0a_13056cf2",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-03T16:48:51Z",
+      "side": 1,
+      "message": "why override this? won\u0027t the normal iteration via deleteEntry() achieve the right result already?",
+      "range": {
+        "startLine": 107,
+        "startChar": 1,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
