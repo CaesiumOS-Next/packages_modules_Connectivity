@@ -241,6 +241,7 @@ public class TetheringManager {
             TETHER_ERROR_INTERNAL_ERROR,
             TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION,
             TETHER_ERROR_UNKNOWN_TYPE,
+            TETHER_ERROR_DUPLICATE_REQUEST,
     })
     public @interface StartTetheringError {
     }
@@ -262,6 +263,8 @@ public class TetheringManager {
     public static final int TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION = 14;
     public static final int TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION = 15;
     public static final int TETHER_ERROR_UNKNOWN_TYPE = 16;
+    @FlaggedApi(Flags.FLAG_MULTIPLE_TETHERING_REQUESTS_PER_TYPE)
+    public static final int TETHER_ERROR_DUPLICATE_REQUEST = 17;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)

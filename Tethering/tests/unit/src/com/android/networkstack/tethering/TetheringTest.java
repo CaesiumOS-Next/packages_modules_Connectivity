@@ -235,6 +235,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -335,6 +336,7 @@ public class TetheringTest {
     private TestConnectivityManager mCm;
     private boolean mForceEthernetServiceUnavailable = false;
     private int mBinderCallingUid = TEST_CALLER_UID;
+    private boolean mIsMultipleTetheringRequestsPerTypeEnabled = false;
 
     private class TestContext extends BroadcastInterceptingContext {
         TestContext(Context base) {
@@ -566,6 +568,11 @@ public class TetheringTest {
         @Override
         public int getBinderCallingUid() {
             return mBinderCallingUid;
+        }
+
+        @Override
+        public boolean isMultipleTetheringRequestsPerTypeEnabled(Context ctx) {
+            return mIsMultipleTetheringRequestsPerTypeEnabled;
         }
     }
 
@@ -946,8 +953,12 @@ public class TetheringTest {
         mTethering.startTethering(request, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
 
-        assertEquals(1, mTethering.getActiveTetheringRequests().size());
-        assertEquals(request, mTethering.getActiveTetheringRequests().get(TETHERING_USB));
+        List<TetheringRequest> usbTetheringRequests = mTethering.getActiveTetheringRequests()
+                .stream()
+                .filter(activeRequest -> activeRequest.getTetheringType() == TETHERING_USB)
+                .collect(Collectors.toList());
+        assertEquals(1, usbTetheringRequests.size());
+        assertEquals(request, usbTetheringRequests.get(0));
 
         if (mTethering.getTetheringConfiguration().isUsingNcm()) {
             verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NCM);
@@ -1956,7 +1967,7 @@ public class TetheringTest {
     @Test
     public void workingWifiTetheringEnrichedApBroadcast() throws Exception {
         initTetheringOnTestThread();
-        when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
+        when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
 
         // Emulate pressing the WiFi tethering button.
         mTethering.startTethering(createTetheringRequest(TETHERING_WIFI), TEST_CALLER_PKG,
@@ -2159,7 +2170,6 @@ public class TetheringTest {
         runUsbTethering(upstreamState);
         assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_RNDIS_IFNAME);
         assertTrue(mTethering.isTetheringActive());
-        assertEquals(0, mTethering.getActiveTetheringRequests().size());
 
         final Tethering.UserRestrictionActionListener ural = makeUserRestrictionActionListener(
                 mTethering, false /* currentDisallow */, true /* nextDisallow */);
@@ -2484,6 +2494,67 @@ public class TetheringTest {
         callback.expectUpstreamChanged(NULL_NETWORK);
         callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STOPPED);
         callback.assertNoCallback();
+    }
+
+    @Test
+    public void testSecondWifiRequestDoesNotRemoveExisting() throws Exception {
+        assumeTrue(SdkLevel.isAtLeastV());
+        mIsMultipleTetheringRequestsPerTypeEnabled = true;
+        initTetheringOnTestThread();
+        TestTetheringEventCallback callback = new TestTetheringEventCallback();
+        SoftApConfiguration softApConfig = new SoftApConfiguration.Builder().setWifiSsid(
+                WifiSsid.fromBytes("SoftApConfig".getBytes(StandardCharsets.UTF_8))).build();
+        SoftApConfiguration otherConfig = new SoftApConfiguration.Builder().setWifiSsid(
+                WifiSsid.fromBytes("OtherConfig".getBytes(StandardCharsets.UTF_8))).build();
+        final TetheringRequest tetheringRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(softApConfig).build();
+        final TetheringRequest differentConfig = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(otherConfig).build();
+        final TetheringRequest differentUid = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(softApConfig).build();
+        tetheringRequest.setUid(TEST_CALLER_UID);
+        differentConfig.setUid(TEST_CALLER_UID);
+        differentUid.setUid(TEST_CALLER_UID + 1);
+        final TetheringInterface wifiIfaceWithoutConfig = new TetheringInterface(
+                TETHERING_WIFI, TEST_WLAN_IFNAME, null);
+        final TetheringInterface wifiIfaceWithConfig = new TetheringInterface(
+                TETHERING_WIFI, TEST_WLAN_IFNAME, softApConfig);
+
+        // Register callback before running any tethering.
+        mTethering.registerTetheringEventCallback(callback);
+        mLooper.dispatchAll();
+        callback.expectTetheredClientChanged(Collections.emptyList());
+        callback.expectUpstreamChanged(NULL_NETWORK);
+        callback.expectConfigurationChanged(
+                mTethering.getTetheringConfiguration().toStableParcelable());
+
+        assertTetherStatesNotNullButEmpty(callback.pollTetherStatesChanged());
+        callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STOPPED);
+        UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
+        initTetheringUpstream(upstreamState);
+        when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
+        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+        mLooper.dispatchAll();
+        assertArrayEquals(new TetheringInterface[] {wifiIfaceWithoutConfig},
+                callback.pollTetherStatesChanged().availableList);
+
+        // Enable wifi tethering
+        mBinderCallingUid = TEST_CALLER_UID;
+        mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, null);
+        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        assertArrayEquals(new TetheringInterface[] {wifiIfaceWithConfig},
+                callback.pollTetherStatesChanged().tetheredList);
+        callback.expectUpstreamChanged(upstreamState.network);
+        callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STARTED);
+
+        // Enable wifi tethering with the other configs and verify we don't remove the first
+        // request. Currently no downstream type supports multiple tethering interfaces, so there's
+        // no way to get a meaningful callback to determine which request should apply to which
+        // interface.
+        mTethering.startTethering(differentConfig, TEST_CALLER_PKG, null);
+        mTethering.startTethering(differentUid, TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
+        verify(mWifiManager, never()).stopSoftAp();
     }
 
     @Test
@@ -3575,7 +3646,7 @@ public class TetheringTest {
     }
 
     private void verifyUsbTetheringStopDueToSettingChange(final String iface) {
-        verify(mUsbManager, times(2)).setCurrentFunctions(UsbManager.FUNCTION_NONE);
+        verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NONE);
         mTethering.interfaceRemoved(iface);
         sendUsbBroadcast(true, true, -1 /* no functions enabled */);
         reset(mUsbManager, mNetd, mDhcpServer, mRouterAdvertisementDaemon,
