@@ -314,6 +314,8 @@ public class IpServer extends StateMachineShim {
     private final IpNeighborMonitor mIpNeighborMonitor;
 
     private LinkAddress mIpv4Address;
+    private TetheringRequest mTetheringRequest;
+
 
     private final TetheringMetrics mTetheringMetrics;
     private final Handler mHandler;
@@ -408,6 +410,11 @@ public class IpServer extends StateMachineShim {
     /** The address which IpServer is using. */
     public LinkAddress getAddress() {
         return mIpv4Address;
+    }
+
+    /** The TetheringRequest the IpServer started with. */
+    public TetheringRequest getTetheringRequest() {
+        return mTetheringRequest;
     }
 
     /**
@@ -1118,6 +1125,7 @@ public class IpServer extends StateMachineShim {
             switch (message.what) {
                 case CMD_TETHER_REQUESTED:
                     mLastError = TETHER_ERROR_NO_ERROR;
+                    mTetheringRequest = (TetheringRequest) message.obj;
                     switch (message.arg1) {
                         case STATE_LOCAL_ONLY:
                             maybeConfigureStaticIp((TetheringRequest) message.obj);
