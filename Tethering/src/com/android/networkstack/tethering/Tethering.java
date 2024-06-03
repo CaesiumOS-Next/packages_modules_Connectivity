@@ -44,6 +44,7 @@ import static android.net.TetheringManager.TETHERING_VIRTUAL;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHERING_WIGIG;
+import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
@@ -716,16 +717,30 @@ public class Tethering {
             final IIntResultListener listener) {
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            for (TetheringRequest pendingRequest : getPendingRequests()) {
-                // Only allow one pending request per type.
-                if (pendingRequest.getTetheringType() != type) continue;
-                mSpecifiedTetheringRequests.remove(pendingRequest);
+            if (isTetheringWithSoftApConfigEnabled()) {
+                for (TetheringRequest currentRequest : getAllTetheringRequests()) {
+                    if (currentRequest.fuzzyMatches(request)) {
+                        if (listener != null) {
+                            try {
+                                listener.onResult(TETHER_ERROR_DUPLICATE_REQUEST);
+                            } catch (RemoteException e) { }
+                        }
+                        return;
+                    }
+                }
+            } else {
+                // LEGACY BEHAVIOR
+                for (TetheringRequest pendingRequest : getPendingRequests()) {
+                    // Only allow one pending request per type.
+                    if (pendingRequest.getTetheringType() != type) continue;
+                    mSpecifiedTetheringRequests.remove(pendingRequest);
 
-                // If tethering is already enabled with a different request,
-                // disable before re-enabling.
-                if (pendingRequest.equals(request)) continue;
-                enableTetheringInternal(pendingRequest, false /* disabled */, null);
-                mEntitlementMgr.stopProvisioningIfNeeded(pendingRequest);
+                    // If tethering is already enabled with a different request,
+                    // disable before re-enabling.
+                    if (pendingRequest.equals(request)) continue;
+                    enableTetheringInternal(pendingRequest, false /* disabled */, null);
+                    mEntitlementMgr.stopProvisioningIfNeeded(pendingRequest);
+                }
             }
             mSpecifiedTetheringRequests.add(request);
 
@@ -754,6 +769,10 @@ public class Tethering {
         enableTetheringInternal(request, false /* enable */, null);
         mEntitlementMgr.stopProvisioningIfNeeded(request);
         mSpecifiedTetheringRequests.remove(request);
+    }
+
+    private boolean isTetheringWithSoftApConfigEnabled() {
+        return mDeps.isTetheringWithSoftApConfigEnabled();
     }
 
     /**
