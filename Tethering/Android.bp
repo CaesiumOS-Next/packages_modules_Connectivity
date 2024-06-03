@@ -77,6 +77,7 @@ java_defaults {
         "net-utils-connectivity-apks",
         "netd-client",
         "tetheringstatsprotos",
+        "com.android.net.flags-aconfig-java",
     ],
     defaults: ["TetheringExternalLibs"],
     libs: [
