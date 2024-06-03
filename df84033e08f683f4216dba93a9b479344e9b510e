@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98716c41_c876395e",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T12:11:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2504e1e_037d9755",
+      "range": {
+        "startLine": 1087,
+        "startChar": 12,
+        "endLine": 1087,
+        "endChar": 55
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca3e4002_78c8152e",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3126c404_8a4f4b30",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T12:11:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca3e4002_78c8152e",
+      "range": {
+        "startLine": 312,
+        "startChar": 59,
+        "endLine": 312,
+        "endChar": 66
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d15f4e74_7811dabd",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-03-10T12:22:38Z",
       "side": 1,
       "message": "Also better to rename the maybeStartPolling() to more specific name like maybeStartStatsAndConntrackTimeoutPolling(). The name is a little bit long but very much self explained what is done inside the function. Personally, I feel it is better for readability.\n\nSame for stopPolling()",
+      "range": {
+        "startLine": 527,
+        "startChar": 17,
+        "endLine": 527,
+        "endChar": 34
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de5abf31_6d55c5dd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T12:11:36Z",
+      "side": 1,
+      "message": "Done, but renaming to ```startStatsAndConntrackTimeoutPolling()``` as we removed ```mPollingStarted```",
+      "parentUuid": "d15f4e74_7811dabd",
       "range": {
         "startLine": 527,
         "startChar": 17,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "470a1704_35f8beae",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T12:11:36Z",
+      "side": 1,
+      "message": "I removed ```mPollingStarted``` and removed \u0027maybe\u0027 from the name of all ```maybeXXX``` methods accordingly. ```schedulePollingStats``` and ```scheduleConntrackTimeoutUpdate``` are the only two methods that check on ```mPollingStarted``` value to determine whether to schedule the next timer. In ```stopStatsAndConntrackTimeoutPolling```, these two delayed messages should be removed from the Handler\u0027s queue and won\u0027t be executed. I think it is no harm to remove this variable.",
+      "parentUuid": "9e430a80_618cc9d0",
+      "range": {
+        "startLine": 528,
+        "startChar": 12,
+        "endLine": 528,
+        "endChar": 27
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd2b01b5_064b7540",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 13
@@ -106,6 +202,24 @@
       "writtenOn": "2024-03-10T12:22:38Z",
       "side": 1,
       "message": "nit: extra blank",
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e9eb3bb_e6d9059b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T12:11:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd2b01b5_064b7540",
       "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -133,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e87f7d1_3984735d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T12:11:36Z",
+      "side": 1,
+      "message": "Done. Originally, I have concern that whether we\u0027ll receive conntrack event immediate after startConntrackMonitoring, but after asking Mark, it is confirmed that tethering/ipserver/bpfcoordinator are all using the same Handler, it should be okay.",
+      "parentUuid": "7b2b573e_304695fc",
+      "range": {
+        "startLine": 877,
+        "startChar": 8,
+        "endLine": 877,
+        "endChar": 39
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8821ee2c_15f6598a",
@@ -146,6 +284,30 @@
       "writtenOn": "2024-03-10T12:22:38Z",
       "side": 1,
       "message": "Do we really need to calculate here and pass it down to `updateIpv6ForwardingRules`? Can we calculate directly inside `updateIpv6ForwardingRules`? Also `upstreamSupportsBpf` is used for both variable name and the method name, it is very confusing. Can we update the function name to `checkUpstreamSupportsBpf` and variable name to `isUpstreamSupportBpf`?",
+      "range": {
+        "startLine": 915,
+        "startChar": 8,
+        "endLine": 915,
+        "endChar": 80
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd22418d_9a28f2c4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T12:11:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8821ee2c_15f6598a",
       "range": {
         "startLine": 915,
         "startChar": 8,
@@ -181,6 +343,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be0e2a5d_0a800fb1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T12:11:36Z",
+      "side": 1,
+      "message": "It was previously suggested by Lorenzo in\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2711576/10..19/Tethering/src/android/net/ip/IpServer.java#b923",
+      "parentUuid": "9a1af12e_ea951e78",
+      "range": {
+        "startLine": 926,
+        "startChar": 2,
+        "endLine": 928,
+        "endChar": 5
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0edf51fe_2431202c",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 13
@@ -192,6 +378,30 @@
       "writtenOn": "2024-03-10T12:22:38Z",
       "side": 1,
       "message": "Could be move two line up?",
+      "range": {
+        "startLine": 960,
+        "startChar": 8,
+        "endLine": 960,
+        "endChar": 79
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca56ef76_085f319d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T12:11:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0edf51fe_2431202c",
       "range": {
         "startLine": 960,
         "startChar": 8,
@@ -215,6 +425,30 @@
       "writtenOn": "2024-03-10T12:22:38Z",
       "side": 1,
       "message": "private class?",
+      "range": {
+        "startLine": 2188,
+        "startChar": 4,
+        "endLine": 2188,
+        "endChar": 9
+      },
+      "revId": "df84033e08f683f4216dba93a9b479344e9b510e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64a2d379_32814819",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2188,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-03T12:11:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae94b933_b6dfbfe3",
       "range": {
         "startLine": 2188,
         "startChar": 4,
