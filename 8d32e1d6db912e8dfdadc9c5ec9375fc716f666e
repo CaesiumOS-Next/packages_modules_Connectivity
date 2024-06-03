@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d594d5a0_dd2cc528",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-06-03T02:51:50Z",
+      "side": 1,
+      "message": "shall we quit the mReaderHandlerThread on destroy()?",
+      "revId": "8d32e1d6db912e8dfdadc9c5ec9375fc716f666e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93e6b9ed_9b2b78c4",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-06-03T02:51:50Z",
+      "side": 1,
+      "message": "If the mReader gets stuck, will the handler get stuck in this message handling too and won\u0027t handle any further messages?",
+      "range": {
+        "startLine": 513,
+        "startChar": 8,
+        "endLine": 513,
+        "endChar": 27
+      },
+      "revId": "8d32e1d6db912e8dfdadc9c5ec9375fc716f666e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfdc1de7_74047442",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-06-03T02:51:50Z",
+      "side": 1,
+      "message": "Not sure if 5s is always enough, for example running iperf test would take longer than 5s. It\u0027s ok for me to add another version of readLine with configurable timeout when there is a need.",
+      "range": {
+        "startLine": 522,
+        "startChar": 30,
+        "endLine": 522,
+        "endChar": 55
+      },
+      "revId": "8d32e1d6db912e8dfdadc9c5ec9375fc716f666e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
