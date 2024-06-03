@@ -44,6 +44,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.TetheringManager.TetheringRequest;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcel;
@@ -59,6 +60,7 @@ import com.android.net.module.util.SharedLog;
 
 import java.io.PrintWriter;
 import java.util.BitSet;
+import java.util.Map;
 
 /**
  * Re-check tethering provisioning for enabled downstream tether types.
@@ -93,11 +95,11 @@ public class EntitlementManager {
     // {@link TetheringManager.TETHERING_WIFI}
     // {@link TetheringManager.TETHERING_USB}
     // {@link TetheringManager.TETHERING_BLUETOOTH}
-    private final BitSet mCurrentDownstreams;
-    private final BitSet mExemptedDownstreams;
+    private final Set<TetheringRequest> mCurrentDownstreams;
+    private final Set<TetheringRequest> mExemptedDownstreams;
     private final Context mContext;
     private final SharedLog mLog;
-    private final SparseIntArray mEntitlementCacheValue;
+    private final Map<TetheringRequest, Integer> mEntitlementCacheValue;
     private final Handler mHandler;
     // Key: TetheringManager.TETHERING_*(downstream).
     // Value: TetheringManager.TETHER_ERROR_{NO_ERROR or PROVISION_FAILED}(provisioning result).
@@ -139,12 +141,12 @@ public class EntitlementManager {
     /** Callback fired when UI entitlement failed. */
     public interface OnTetherProvisioningFailedListener {
         /**
-         * Ui entitlement check fails in |downstream|.
+         * Ui entitlement check fails for |request|.
          *
-         * @param downstream tethering type from TetheringManager.TETHERING_{@code *}.
+         * @param request Request the entitlement check failed for.
          * @param reason Failed reason.
          */
-        void onTetherProvisioningFailed(int downstream, String reason);
+        void onTetherProvisioningFailed(TetheringRequest request, String reason);
     }
 
     public void setTetheringConfigurationFetcher(final TetheringConfigurationFetcher fetcher) {
@@ -517,18 +519,18 @@ public class EntitlementManager {
     }
 
     /**
-     * Add the mapping between provisioning result and tethering type.
+     * Add the mapping between provisioning result and tethering request.
      * Notify UpstreamNetworkMonitor if Cellular permission changes.
      *
-     * @param type tethering type from TetheringManager.TETHERING_{@code *}
+     * @param request    TetheringRequest specifying the downstream.
      * @param resultCode Provisioning result
      */
-    protected void addDownstreamMapping(int type, int resultCode) {
-        mLog.i("addDownstreamMapping: " + type + ", result: " + resultCode
-                + " ,TetherTypeRequested: " + mCurrentDownstreams.get(type));
-        if (!mCurrentDownstreams.get(type)) return;
+    protected void addDownstreamMapping(TetheringRequest request, int resultCode) {
+        mLog.i("addDownstreamMapping: " + request + ", result: " + resultCode
+                + " ,TetheringRequest: " + mCurrentDownstreams.contains(request));
+        if (!mCurrentDownstreams.get(request)) return;
 
-        mCurrentEntitlementResults.put(type, resultCode);
+        mCurrentEntitlementResults.put(request, resultCode);
         final TetheringConfiguration config = mFetcher.fetchTetheringConfiguration();
         evaluateCellularPermission(config);
     }
@@ -616,16 +618,16 @@ public class EntitlementManager {
         }
     }
 
-    private ResultReceiver buildProxyReceiver(int type, boolean notifyFail,
+    private ResultReceiver buildProxyReceiver(TetheringRequest request, boolean notifyFail,
             final ResultReceiver receiver) {
         ResultReceiver rr = new ResultReceiver(mHandler) {
             @Override
             protected void onReceiveResult(int resultCode, Bundle resultData) {
-                int updatedCacheValue = updateEntitlementCacheValue(type, resultCode);
-                addDownstreamMapping(type, updatedCacheValue);
+                int updatedCacheValue = updateEntitlementCacheValue(request, resultCode);
+                addDownstreamMapping(request, updatedCacheValue);
                 if (updatedCacheValue == TETHER_ERROR_PROVISIONING_FAILED && notifyFail) {
                     mListener.onTetherProvisioningFailed(
-                            type, "Tethering provisioning failed.");
+                            request, "Tethering provisioning failed.");
                 }
                 if (receiver != null) receiver.send(updatedCacheValue, null);
             }
@@ -655,19 +657,19 @@ public class EntitlementManager {
     /**
      * Update the last entitlement value to internal cache
      *
-     * @param type tethering type from TetheringManager.TETHERING_{@code *}
+     * @param request    tethering type from TetheringManager.TETHERING_{@code *}
      * @param resultCode last entitlement value
      * @return the last updated entitlement value
      */
-    private int updateEntitlementCacheValue(int type, int resultCode) {
+    private int updateEntitlementCacheValue(TetheringRequest request, int resultCode) {
         if (DBG) {
-            mLog.i("updateEntitlementCacheValue: " + type + ", result: " + resultCode);
+            mLog.i("updateEntitlementCacheValue: " + request + ", result: " + resultCode);
         }
         if (resultCode == TETHER_ERROR_NO_ERROR) {
-            mEntitlementCacheValue.put(type, resultCode);
+            mEntitlementCacheValue.put(request, resultCode);
             return resultCode;
         } else {
-            mEntitlementCacheValue.put(type, TETHER_ERROR_PROVISIONING_FAILED);
+            mEntitlementCacheValue.put(request, TETHER_ERROR_PROVISIONING_FAILED);
             return TETHER_ERROR_PROVISIONING_FAILED;
         }
     }
@@ -691,12 +693,16 @@ public class EntitlementManager {
                 return;
         }
 
-        final int cacheValue = mEntitlementCacheValue.get(
-                downstream, TETHER_ERROR_ENTITLEMENT_UNKNOWN);
+        int cacheValue = TETHER_ERROR_ENTITLEMENT_UNKNOWN;
+        for (TetheringRequest request : mEntitlementCacheValue.keySet()) {
+            if (request.getTetheringType() == downstream) {
+                cacheValue = mEntitlementCacheValue.get(request);
+            }
+        }
         if (cacheValue == TETHER_ERROR_NO_ERROR || !showEntitlementUi) {
             receiver.send(cacheValue, null);
         } else {
-            ResultReceiver proxy = buildProxyReceiver(downstream, false/* notifyFail */, receiver);
+            ResultReceiver proxy = buildProxyReceiver(request, false/* notifyFail */, receiver);
             runUiTetherProvisioning(downstream, config, proxy);
         }
     }
