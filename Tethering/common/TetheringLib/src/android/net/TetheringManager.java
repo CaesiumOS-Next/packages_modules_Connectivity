@@ -72,6 +72,8 @@ public class TetheringManager {
                 "com.android.net.flags.tethering_request_with_soft_ap_config";
         static final String TETHERING_REQUEST_VIRTUAL =
                 "com.android.net.flags.tethering_request_virtual";
+        static final String MULTIPLE_TETHERING_REQUESTS_PER_TYPE =
+                "com.android.net.flags.multiple_tethering_requests_per_type";
     }
 
     private static final String TAG = TetheringManager.class.getSimpleName();
@@ -245,6 +247,7 @@ public class TetheringManager {
             TETHER_ERROR_INTERNAL_ERROR,
             TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION,
             TETHER_ERROR_UNKNOWN_TYPE,
+            TETHER_ERROR_DUPLICATE_REQUEST,
     })
     public @interface StartTetheringError {
     }
@@ -266,6 +269,8 @@ public class TetheringManager {
     public static final int TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION = 14;
     public static final int TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION = 15;
     public static final int TETHER_ERROR_UNKNOWN_TYPE = 16;
+    @FlaggedApi(Flags.MULTIPLE_TETHERING_REQUESTS_PER_TYPE)
+    public static final int TETHER_ERROR_DUPLICATE_REQUEST = 17;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
