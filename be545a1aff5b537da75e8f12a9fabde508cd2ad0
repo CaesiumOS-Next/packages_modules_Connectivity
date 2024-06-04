@@ -22,6 +22,30 @@
       },
       "revId": "be545a1aff5b537da75e8f12a9fabde508cd2ad0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d210c74_0d7ca8d3",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkStackConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-04T06:50:28Z",
+      "side": 1,
+      "message": "Ah, i see it is different project....",
+      "parentUuid": "ff2503ed_b8e6065d",
+      "range": {
+        "startLine": 183,
+        "startChar": 28,
+        "endLine": 183,
+        "endChar": 53
+      },
+      "revId": "be545a1aff5b537da75e8f12a9fabde508cd2ad0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
