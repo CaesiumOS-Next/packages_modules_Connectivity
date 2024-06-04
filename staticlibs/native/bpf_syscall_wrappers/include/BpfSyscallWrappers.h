@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include <sys/file.h>
 #include <linux/bpf.h>
 #include <linux/unistd.h>
 
@@ -128,8 +129,19 @@ inline int bpfFdGet(const char* pathname, uint32_t flag) {
                             });
 }
 
+inline int bpfLock(int fd, int op) {
+    if (fd < 0) return fd;
+    int ret = flock(fd, op);
+    if (!ret) return fd;
+    close(fd);
+    return ret;
+}
+
+inline int mapRetrieveExclusiveRW(const char* pathname) {
+    return bpfLock(bpfFdGet(pathname, 0), LOCK_EX|LOCK_NB);
+}
 inline int mapRetrieveRW(const char* pathname) {
-    return bpfFdGet(pathname, 0);
+    return bpfLock(bpfFdGet(pathname, 0), LOCK_SH|LOCK_NB);
 }
 
 inline int mapRetrieveRO(const char* pathname) {
@@ -137,7 +149,7 @@ inline int mapRetrieveRO(const char* pathname) {
 }
 
 inline int mapRetrieveWO(const char* pathname) {
-    return bpfFdGet(pathname, BPF_F_WRONLY);
+    return bpfLock(bpfFdGet(pathname, BPF_F_WRONLY), LOCK_SH|LOCK_NB);
 }
 
 inline int retrieveProgram(const char* pathname) {
