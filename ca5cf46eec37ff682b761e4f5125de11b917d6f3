@@ -45,6 +45,54 @@
       },
       "revId": "ca5cf46eec37ff682b761e4f5125de11b917d6f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f12740c7_ff9471bc",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-04T02:09:29Z",
+      "side": 1,
+      "message": "Done (and also added a comment in CS)",
+      "parentUuid": "708c2908_e91577b1",
+      "range": {
+        "startLine": 1236,
+        "startChar": 20,
+        "endLine": 1236,
+        "endChar": 52
+      },
+      "revId": "ca5cf46eec37ff682b761e4f5125de11b917d6f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bc70b97_5fa9e28e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-04T02:09:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "033fb25a_91b07b75",
+      "range": {
+        "startLine": 1236,
+        "startChar": 12,
+        "endLine": 1236,
+        "endChar": 19
+      },
+      "revId": "ca5cf46eec37ff682b761e4f5125de11b917d6f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
