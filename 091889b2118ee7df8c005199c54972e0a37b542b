@@ -141,6 +141,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e0f3d18_a8259cb6",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-04T08:45:06Z",
+      "side": 1,
+      "message": "Without synchronized, I think map could be inconsistent when the two threads try to write different value at the same time.\n\nFor example, thread1 calls updateEntry with val1 and thread2 calls updateEntry with val2.\nIt\u0027s possible that map update is done in the following order.\n\nthread1 update bpfMap to val1.\nthread2 update bpfMap to val2.\nthread2 update user space map to val2.\nthread1 update user space map to val1.\n\nAfter this, bpfMap has val2 and user space map has val1.",
+      "parentUuid": "d483b7cd_9940c527",
+      "range": {
+        "startLine": 64,
+        "startChar": 11,
+        "endLine": 64,
+        "endChar": 23
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d5a38925_50ab5917",
         "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
         "patchSetId": 5
