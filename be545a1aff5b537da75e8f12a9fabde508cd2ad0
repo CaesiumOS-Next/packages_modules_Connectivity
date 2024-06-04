@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff2503ed_b8e6065d",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkStackConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-04T06:49:01Z",
+      "side": 1,
+      "message": "Why this is a independent CL? I guess it should be merged with previous one.",
+      "range": {
+        "startLine": 183,
+        "startChar": 28,
+        "endLine": 183,
+        "endChar": 53
+      },
+      "revId": "be545a1aff5b537da75e8f12a9fabde508cd2ad0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
