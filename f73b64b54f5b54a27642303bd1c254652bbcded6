@@ -1,0 +1,65 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "823485eb_ddb17313",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-04T02:12:34Z",
+      "side": 1,
+      "message": "nit: Is this because satellite network is always restricted?\nMaybe add comment.\nNo strong opinion.",
+      "range": {
+        "startLine": 95,
+        "startChar": 62,
+        "endLine": 95,
+        "endChar": 79
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "49265291_197a3d65",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkTest.kt",
+              "range": {
+                "startLine": 95,
+                "startChar": 0,
+                "endLine": 96,
+                "endChar": 0
+              },
+              "replacement": "            nativeNetworkConfigPhysical(satelliteNetId, INetd.PERMISSION_SYSTEM,\n                true /* secure */))\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkTest.kt",
+              "range": {
+                "startLine": 149,
+                "startChar": 0,
+                "endLine": 150,
+                "endChar": 0
+              },
+              "replacement": "    private fun nativeNetworkConfigPhysical(netId: Int, permission: Int, secure: Boolean) \u003d\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkTest.kt",
+              "range": {
+                "startLine": 151,
+                "startChar": 0,
+                "endLine": 152,
+                "endChar": 0
+              },
+              "replacement": "            secure, VpnManager.TYPE_VPN_NONE, false /* excludeLocalRoutes */)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "f73b64b54f5b54a27642303bd1c254652bbcded6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
