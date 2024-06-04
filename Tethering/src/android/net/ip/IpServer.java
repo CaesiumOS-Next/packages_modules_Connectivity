@@ -1141,14 +1141,6 @@ public class IpServer extends StateMachineShim {
         }
     }
 
-    private void startConntrackMonitoring() {
-        mBpfCoordinator.startMonitoring(this);
-    }
-
-    private void stopConntrackMonitoring() {
-        mBpfCoordinator.stopMonitoring(this);
-    }
-
     abstract class BaseServingState extends State {
         private final int mDesiredInterfaceState;
 
@@ -1158,7 +1150,7 @@ public class IpServer extends StateMachineShim {
 
         @Override
         public void enter() {
-            startConntrackMonitoring();
+            mBpfCoordinator.addIpServer(IpServer.this);
 
             startServingInterface();
 
@@ -1226,9 +1218,9 @@ public class IpServer extends StateMachineShim {
             }
 
             stopIPv4();
-            stopConntrackMonitoring();
 
             resetLinkProperties();
+            mBpfCoordinator.removeIpServer(IpServer.this);
 
             mTetheringMetrics.updateErrorCode(mInterfaceType, mLastError);
             mTetheringMetrics.sendReport(mInterfaceType);
