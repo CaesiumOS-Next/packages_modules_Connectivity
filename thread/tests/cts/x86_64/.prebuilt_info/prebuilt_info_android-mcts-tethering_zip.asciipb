@@ -1,0 +1,15 @@
+drops {
+  android_build_drop {
+    build_id: "11918372"
+    target: "test_suites_x86_64"
+    source_file: "android-mcts-tethering.zip"
+  }
+  dest_file: "android-mcts-tethering.zip"
+  version: "version"
+  version_group: ""
+  git_project: "platform/packages/modules/Connectivity"
+  git_branch: "android14-tests-dev"
+  transform: TRANSFORM_NONE
+  transform_options {
+  }
+}
