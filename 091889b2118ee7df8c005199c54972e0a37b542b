@@ -49,6 +49,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67f723ff_51b3d144",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-04T04:41:04Z",
+      "side": 1,
+      "message": "nits: Based on the pprof in b/343166906, converting Struct to/from byteBuffer takes longer than systemcall. So skipping this conversion is a larger reason for speed up.",
+      "range": {
+        "startLine": 31,
+        "startChar": 42,
+        "endLine": 31,
+        "endChar": 84
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3319bc6c_b133a80f",
         "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
         "patchSetId": 5
