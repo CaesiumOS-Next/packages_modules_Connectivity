@@ -616,10 +616,6 @@ public class BpfCoordinatorTest {
         when(mAddressCoordinator.requestDownstreamAddress(any(), anyInt(),
                 anyBoolean())).thenReturn(testAddress);
         when(mRaDaemon.start()).thenReturn(true);
-        ArgumentCaptor<NeighborEventConsumer> neighborEventCaptor =
-                ArgumentCaptor.forClass(NeighborEventConsumer.class);
-        doReturn(mIpNeighborMonitor).when(mIpServerDeps).getIpNeighborMonitor(any(), any(),
-                neighborEventCaptor.capture());
         final IpServer ipServer = new IpServer(
                 interfaceName, mHandler, TETHERING_WIFI, new SharedLog("test"), mNetd,
                 bpfCoordinator, mRoutingCoordinatorManager, mIpServerCallback, mTetherConfig,
@@ -633,7 +629,6 @@ public class BpfCoordinatorTest {
         lp.setLinkAddresses(UPSTREAM_ADDRESSES);
         dispatchTetherConnectionChanged(ipServer, UPSTREAM_IFACE, lp, 0);
 
-        mNeighborEventConsumer = neighborEventCaptor.getValue();
         return ipServer;
     }
 
@@ -671,7 +666,12 @@ public class BpfCoordinatorTest {
     private BpfCoordinator makeBpfCoordinator(boolean addDefaultIpServer) throws Exception {
         // mStatsManager will be invoked twice if BpfCoordinator is created the second time.
         clearInvocations(mStatsManager);
+        ArgumentCaptor<NeighborEventConsumer> neighborCaptor =
+                ArgumentCaptor.forClass(NeighborEventConsumer.class);
+        doReturn(mIpNeighborMonitor).when(mDeps).getIpNeighborMonitor(neighborCaptor.capture());
         final BpfCoordinator coordinator = new BpfCoordinator(mDeps);
+        mNeighborEventConsumer = neighborCaptor.getValue();
+        assertNotNull(mNeighborEventConsumer);
 
         mConsumer = coordinator.getBpfConntrackEventConsumerForTesting();
         mTetherClients = coordinator.getTetherClientsForTesting();
@@ -2853,7 +2853,7 @@ public class BpfCoordinatorTest {
     public void addRemoveIpv6ForwardingRules() throws Exception {
         final int myIfindex = DOWNSTREAM_IFINDEX;
         final int notMyIfindex = myIfindex - 1;
-        final BpfCoordinator coordinator = makeBpfCoordinator();
+        final BpfCoordinator coordinator = makeBpfCoordinator(false /* addDefaultIpServer */);
         final IpServer ipServer = makeAndStartIpServer(DOWNSTREAM_IFACE, coordinator);
 
         resetNetdAndBpfMaps();
