@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4f57712_1b9f3131",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T12:04:45Z",
+      "side": 1,
+      "message": "LGTM. Remi, is it OK to remove MainlineTestModuleController? Does that apply only to MTS? ...?",
+      "revId": "f78f43a64867c7583aa3c528a11d030f60900e4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
