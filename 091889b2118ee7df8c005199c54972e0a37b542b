@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7980605b_1ab2d1a7",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T06:43:23Z",
+      "side": 1,
+      "message": "The doc says this already, right?\n\n     * Users of this class must ensure that the BPF code never writes to the map, and that all\n     * userspace writes to the map occur through this object.\n\nClarified a bit.",
+      "parentUuid": "3418353a_940a5792",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 92
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4a193f1_9865710c",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b338a61a_5c435201",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T06:43:23Z",
+      "side": 1,
+      "message": "Changed the code to read the map in init(), thanks for the suggestion.\n\nI think iteration is a bit more complicated though. Added some text in the comment explaining why it currently isn\u0027t supported and how we might support it in the future.",
+      "parentUuid": "d4a193f1_9865710c",
+      "range": {
+        "startLine": 31,
+        "startChar": 10,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9a4790a_26fbe9a3",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T06:43:23Z",
+      "side": 1,
+      "message": "Thanks for pointing that out. Added to the comment.",
+      "parentUuid": "67f723ff_51b3d144",
+      "range": {
+        "startLine": 31,
+        "startChar": 42,
+        "endLine": 31,
+        "endChar": 84
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3319bc6c_b133a80f",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63dd3940_0d00664a",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T06:43:23Z",
+      "side": 1,
+      "message": "Changed to \"no BPF program\". Better?",
+      "parentUuid": "3319bc6c_b133a80f",
+      "range": {
+        "startLine": 33,
+        "startChar": 44,
+        "endLine": 33,
+        "endChar": 52
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c912bd41_7e6292b8",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-06-03T16:48:51Z",
       "side": 1,
       "message": "is this \u0027flag\u0027 arg useful? you\u0027ll always want to pass in BPF_F_RDWR, no?",
+      "range": {
+        "startLine": 53,
+        "startChar": 1,
+        "endLine": 56,
+        "endChar": 5
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5022982_788f96ec",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T06:43:23Z",
+      "side": 1,
+      "message": "Changed the code to throw if flag !\u003d BPF_F_RDWR.",
+      "parentUuid": "c912bd41_7e6292b8",
       "range": {
         "startLine": 53,
         "startChar": 1,
@@ -163,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b78d5ff_8c92ee82",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T06:43:23Z",
+      "side": 1,
+      "message": "Motomu, thanks for the example. Added comments to explain why this is synchronized.",
+      "parentUuid": "d483b7cd_9940c527",
+      "range": {
+        "startLine": 64,
+        "startChar": 11,
+        "endLine": 64,
+        "endChar": 23
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5a38925_50ab5917",
@@ -176,6 +320,30 @@
       "writtenOn": "2024-06-03T16:48:51Z",
       "side": 1,
       "message": "isn\u0027t this buggy? map wasn\u0027t necessarily empty on init",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 39
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b8a2a3e_172d00a4",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T06:43:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5a38925_50ab5917",
       "range": {
         "startLine": 99,
         "startChar": 0,
@@ -203,6 +371,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af144bcc_ea659f3d",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T06:43:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e8960c4_0259310d",
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00061b0a_13056cf2",
@@ -216,6 +402,30 @@
       "writtenOn": "2024-06-03T16:48:51Z",
       "side": 1,
       "message": "why override this? won\u0027t the normal iteration via deleteEntry() achieve the right result already?",
+      "range": {
+        "startLine": 107,
+        "startChar": 1,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "091889b2118ee7df8c005199c54972e0a37b542b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3aadf03_b4ac97eb",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T06:43:23Z",
+      "side": 1,
+      "message": "Yes. Removed.",
+      "parentUuid": "00061b0a_13056cf2",
       "range": {
         "startLine": 107,
         "startChar": 1,
