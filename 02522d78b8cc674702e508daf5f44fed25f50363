@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40b7e0fa_2c62bbd1",
+        "filename": "framework/src/android/net/apf/ApfCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-05T19:52:22Z",
+      "side": 1,
+      "message": "I don\u0027t think I\u0027d revert this...",
+      "range": {
+        "startLine": 115,
+        "startChar": 54,
+        "endLine": 115,
+        "endChar": 59
+      },
+      "revId": "02522d78b8cc674702e508daf5f44fed25f50363",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
