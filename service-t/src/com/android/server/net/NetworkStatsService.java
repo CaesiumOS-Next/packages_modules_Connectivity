@@ -255,6 +255,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      */
     private static final int DEFAULT_PERFORM_POLL_DELAY_MS = 1000;
 
+    /**
+     * The delay time between to network stats update intents.
+     * Added to fix intent spams (b/3115462)
+     */
+    private static final int BROADCAST_NETWORK_STATS_UPDATED_DELAY_MS = 1000;
+
     private static final String TAG_NETSTATS_ERROR = "netstats_error";
 
     /**
@@ -475,6 +481,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private long mLastStatsSessionPoll;
 
     /**
+<<<<<<< HEAD
      * The timestamp of the most recent network stats broadcast.
      *
      * Note that this time could be in the past for completed broadcasts,
@@ -487,7 +494,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      */
     @GuardedBy("mStatsLock")
     private long mLatestNetworkStatsUpdatedBroadcastScheduledTime = Long.MIN_VALUE;
-
 
     private final TrafficStatsRateLimitCache mTrafficStatsTotalCache;
     private final TrafficStatsRateLimitCache mTrafficStatsIfaceCache;
