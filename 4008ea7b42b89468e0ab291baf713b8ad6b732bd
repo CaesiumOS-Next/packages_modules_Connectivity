@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a3ff1af_e1feca62",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T06:43:14Z",
+      "side": 1,
+      "message": "Good point. I didn\u0027t notice that mTestMap is empty. Fixed by populating the map.",
+      "parentUuid": "32d4efbc_b18b4838",
+      "range": {
+        "startLine": 466,
+        "startChar": 74,
+        "endLine": 466,
+        "endChar": 75
+      },
+      "revId": "4008ea7b42b89468e0ab291baf713b8ad6b732bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdd0184d_81ddb42e",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-04T04:37:22Z",
       "side": 1,
       "message": "nits: should we return after `completeExceptionally`?\nCalling `complete` after `completeExceptionally` does not override the result but I think it\u0027s easier to understand if we return here.",
+      "range": {
+        "startLine": 470,
+        "startChar": 12,
+        "endLine": 470,
+        "endChar": 13
+      },
+      "revId": "4008ea7b42b89468e0ab291baf713b8ad6b732bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09889069_4ea01381",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-05T06:43:14Z",
+      "side": 1,
+      "message": "Ah, thanks. Done.",
+      "parentUuid": "cdd0184d_81ddb42e",
       "range": {
         "startLine": 470,
         "startChar": 12,
