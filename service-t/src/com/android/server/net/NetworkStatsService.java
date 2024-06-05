@@ -255,6 +255,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      */
     private static final int DEFAULT_PERFORM_POLL_DELAY_MS = 1000;
 
+    /**
+     * The delay time between to network stats update intents.
+     * Added to fix intent spams (b/343844995)
+     */
+    private static final int BROADCAST_NETWORK_STATS_UPDATED_DELAY_MS = 1000;
+
     private static final String TAG_NETSTATS_ERROR = "netstats_error";
 
     /**
@@ -313,7 +319,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     static final int DEFAULT_TRAFFIC_STATS_CACHE_MAX_ENTRIES = 400;
     /**
      * The delay time between to network stats update intents.
-     * Added to fix intent spams (b/3115462)
+     * Added to fix intent spams (b/343844995)
      */
     @VisibleForTesting(visibility = PRIVATE)
     static final int BROADCAST_NETWORK_STATS_UPDATED_DELAY_MS = 1000;
@@ -488,7 +494,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @GuardedBy("mStatsLock")
     private long mLatestNetworkStatsUpdatedBroadcastScheduledTime = Long.MIN_VALUE;
 
-
     private final TrafficStatsRateLimitCache mTrafficStatsTotalCache;
     private final TrafficStatsRateLimitCache mTrafficStatsIfaceCache;
     private final TrafficStatsRateLimitCache mTrafficStatsUidCache;
@@ -499,7 +504,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final boolean mAlwaysUseTrafficStatsRateLimitCache;
     private final int mTrafficStatsRateLimitCacheExpiryDuration;
     private final int mTrafficStatsRateLimitCacheMaxEntries;
-
     private final boolean mBroadcastNetworkStatsUpdatedRateLimitEnabled;
 
 
@@ -723,15 +727,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     // TODO: Move more stuff into dependencies object.
     @VisibleForTesting
     public static class Dependencies {
-        /**
-         * Get broadcast network stats updated delay time in ms
-         * @return
-         */
-        @NonNull
-        public long getBroadcastNetworkStatsUpdateDelayMs() {
-            return BROADCAST_NETWORK_STATS_UPDATED_DELAY_MS;
-        }
-
         /**
          * Get legacy platform stats directory.
          */
