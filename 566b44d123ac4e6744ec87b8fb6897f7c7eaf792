@@ -22,6 +22,30 @@
       },
       "revId": "566b44d123ac4e6744ec87b8fb6897f7c7eaf792",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e9e1aaa_5747626a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1240,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-05T06:56:01Z",
+      "side": 1,
+      "message": "No, actually I think it wouldn\u0027t really be a problem but that\u0027s not intentional ^^\u0027 fixed",
+      "parentUuid": "caad3335_ded463e3",
+      "range": {
+        "startLine": 1240,
+        "startChar": 59,
+        "endLine": 1240,
+        "endChar": 60
+      },
+      "revId": "566b44d123ac4e6744ec87b8fb6897f7c7eaf792",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
