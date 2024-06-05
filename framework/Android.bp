@@ -93,6 +93,7 @@ java_defaults {
         "modules-utils-build",
         "modules-utils-preconditions",
         "framework-connectivity-javastream-protos",
+        "com.android.net.flags-aconfig-java",
     ],
     impl_only_static_libs: [
         "net-utils-device-common-bpf",
