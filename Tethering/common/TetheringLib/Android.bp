@@ -96,6 +96,9 @@ java_defaults {
     srcs: [
         ":framework-tethering-srcs",
     ],
+    static_libs: [
+         "com.android.net.flags-aconfig-java",
+    ],
     libs: ["framework-connectivity.stubs.module_lib"],
     aidl: {
         include_dirs: [
