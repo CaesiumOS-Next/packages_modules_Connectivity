@@ -2645,8 +2645,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             performSampleLocked();
         }
 
-        // finally, dispatch updated event to any listeners
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_BROADCAST_NETWORK_STATS_UPDATED));
+        // Finally, dispatch updated event to any listeners.
+        // Prevent from spamming intent (b/343844995). Skip if pending message exists.
+        if (!mHandler.hasMessages(MSG_BROADCAST_NETWORK_STATS_UPDATED)) {
+            mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_BROADCAST_NETWORK_STATS_UPDATED),
+                    mSettings.getPollDelay());
+        }
 
         Trace.traceEnd(TRACE_TAG_NETWORK);
     }
