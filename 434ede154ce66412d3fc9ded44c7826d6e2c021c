@@ -16,6 +16,24 @@
       "message": "Log.wtf in bootclasspath (app process) code may crash the app, see `android.util.Log.TerribleFailureHandler`, `RuntimeInit.wtf` and `ActivityManagerService#handleApplicationWtf`. It has different behavior for system server and system apps where it doesn\u0027t crash.\n\nSo if you want to avoid crashing in this case I think it can at most be Log.e. For a Log.wtf you\u0027d need to send the information to system_server (ConnectivityService ?) and do it from there.",
       "revId": "434ede154ce66412d3fc9ded44c7826d6e2c021c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f84dde_35749a52",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-05T02:58:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cdb8ff3_a309dc6f",
+      "revId": "434ede154ce66412d3fc9ded44c7826d6e2c021c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
