@@ -276,7 +276,9 @@ import android.util.Log;
 import android.util.Pair;
 import android.util.Range;
 import android.util.SparseArray;
+import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
+import android.util.SparseLongArray;
 import android.util.StatsEvent;
 
 import androidx.annotation.RequiresApi;
@@ -1046,6 +1048,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // Uids that ConnectivityService is pending to close sockets of.
     // Key is uid and value is reasons of socket destroy
     private final SparseIntArray mDestroySocketPendingUids = new SparseIntArray();
+    private final SparseBooleanArray mFrozenUids = new SparseBooleanArray();
 
     private static final int DESTROY_SOCKET_REASON_NONE = 0;
     private static final int DESTROY_SOCKET_REASON_FROZEN = 1 << 0;
@@ -2008,7 +2011,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mDelayDestroySockets = mDeps.isFeatureNotChickenedOut(context, DELAY_DESTROY_SOCKETS);
         mAllowSysUiConnectivityReports = mDeps.isFeatureNotChickenedOut(
                 mContext, ALLOW_SYSUI_CONNECTIVITY_REPORTS);
-        if (mDestroyFrozenSockets) {
+        // TODO: ADD FLAG
+        if (mDestroyFrozenSockets || true) {
             final UidFrozenStateChangedCallback frozenStateChangedCallback =
                     new UidFrozenStateChangedCallback() {
                 @Override
@@ -3447,10 +3451,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (int i = 0; i < uids.length; i++) {
             final int uid = uids[i];
             final boolean addReason = frozenStates[i] == UID_FROZEN_STATE_FROZEN;
-            updateDestroySocketReasons(uid, DESTROY_SOCKET_REASON_FROZEN, addReason);
+
+            if (mDestroyFrozenSockets) {
+                updateDestroySocketReasons(uid, DESTROY_SOCKET_REASON_FROZEN, addReason);
+            }
+
+            // TODO: ADD FLAG
+            if (addReason) {
+                mFrozenUids.put(uid, true);
+            } else if (mFrozenUids.get(uid, false)) {
+                mFrozenUids.delete(uid);
+                for (NetworkRequestInfo nri : mNetworkRequests.values()) {
+                    if (nri.mUid != uid) continue;
+                    nri.sendQueuedCallbacks();
+                }
+            }
         }
 
-        if (!mDelayDestroySockets || !isCellNetworkIdle()) {
+        // TODO: separate the 2 features in 2 handle methods
+        if (mDestroyFrozenSockets && (!mDelayDestroySockets || !isCellNetworkIdle())) {
             destroyPendingSockets();
         }
     }
@@ -7474,6 +7493,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // single NetworkRequest in mRequests.
         final List<NetworkRequest> mRequests;
 
+        private final SparseIntArray mQueuedCallbacksPerNetId = new SparseIntArray();
+        private final SparseLongArray mQueuedOnLosingTimeoutsPerNetId = new SparseLongArray();
+        private final SparseIntArray mQueuedBlockedStatePerNetId = new SparseIntArray();
+
         // mSatisfier and mActiveRequest rely on one another therefore set them together.
         void setSatisfier(
                 @Nullable final NetworkAgentInfo satisfier,
@@ -7707,6 +7730,154 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     Log.wtf(TAG, "unlinkToDeath for already unlinked NRI " + this);
                 }
             }
+        }
+
+        boolean maybeQueueCallback(@NonNull Network network, int callbackId, int callbackArg) {
+            if (!mFrozenUids.get(mUid, false)) {
+                return false;
+            }
+
+            int pendingCbs = mQueuedCallbacksPerNetId.get(network.netId, 0);
+
+            // Based on the new callback, clear previous callbacks that are no longer necessary.
+            // For example, if the network is lost, there is no need to send intermediary callbacks.
+            boolean skipCallback = false;
+            switch (callbackId) {
+                case ConnectivityManager.CALLBACK_LOST:
+                    // Skip onLost if onAvailable was also queued.
+                    skipCallback =
+                            (pendingCbs & (1 << ConnectivityManager.CALLBACK_AVAILABLE)) != 0;
+                    // All callbacks before onLost are unnecessary.
+                    pendingCbs = 0;
+                    mQueuedBlockedStatePerNetId.delete(network.netId);
+                    mQueuedOnLosingTimeoutsPerNetId.delete(network.netId);
+                    break;
+                case ConnectivityManager.CALLBACK_SUSPENDED:
+                case ConnectivityManager.CALLBACK_RESUMED:
+                    // If SUSPENDED was queued, just remove it from the queue instead of sending
+                    // RESUMED; and vice-versa.
+                    final int otherFlag = callbackId == ConnectivityManager.CALLBACK_SUSPENDED
+                            ? 1 << ConnectivityManager.CALLBACK_RESUMED
+                            : 1 << ConnectivityManager.CALLBACK_SUSPENDED;
+                    if ((pendingCbs & otherFlag) != 0) {
+                        pendingCbs &= ~otherFlag;
+                        skipCallback = true;
+                    }
+                    break;
+                case ConnectivityManager.CALLBACK_BLK_CHANGED:
+                    // onAvailable will send blocked status, so no need to send another BLK_CHANGED
+                    // if it is queued.
+                    skipCallback = hasCallback(pendingCbs, ConnectivityManager.CALLBACK_AVAILABLE);
+                    mQueuedBlockedStatePerNetId.put(network.netId, callbackArg);
+                    break;
+                case ConnectivityManager.CALLBACK_AVAILABLE:
+                    mQueuedBlockedStatePerNetId.put(network.netId, callbackArg);
+                    break;
+                case ConnectivityManager.CALLBACK_LOSING:
+                    mQueuedOnLosingTimeoutsPerNetId.put(network.netId,
+                            SystemClock.elapsedRealtime() + callbackArg);
+            }
+
+            if (!skipCallback) {
+                pendingCbs |= (1 << callbackId);
+            }
+
+            if (pendingCbs == 0) {
+                mQueuedCallbacksPerNetId.delete(network.netId);
+            } else {
+                mQueuedCallbacksPerNetId.put(network.netId, pendingCbs);
+            }
+            return true;
+        }
+
+        void sendQueuedCallbacks() {
+            // Send callbacks for lost networks first. For example requestNetwork expects to get
+            // onLost for a network, before onAvailable for another one.
+            for (int i = 0; i < mQueuedCallbacksPerNetId.size(); i++) {
+                final int cbToSend = mQueuedCallbacksPerNetId.valueAt(i) & mDeclaredMethodsFlag;
+                if (!hasCallback(cbToSend, ConnectivityManager.CALLBACK_LOST)) {
+                    continue;
+                }
+                final Bundle cbBundle = makeCommonBundleForCallback(
+                        this, new Network(mQueuedCallbacksPerNetId.keyAt(i)));
+                callCallbackForRequest(this, ConnectivityManager.CALLBACK_LOST, cbBundle,
+                        0 /* arg1 */);
+            }
+
+            // CALLBACK_AVAILABLE will trigger all the first callbacks (onAvailable,
+            // onNetworkSuspended, onCapabilitiesChanged, onLinkPropertiesChanged,
+            // onLocalNetworkInfoChanged, onBlockedStatusChanged). Other callbacks after
+            // that may be sent in different order.
+            maybeCallCallbacks(ConnectivityManager.CALLBACK_AVAILABLE);
+
+            // Call LOSING and LOCAL_NETWORK_INFO_CHANGED after onLost/onAvailable have been called
+            // for other networks, to follow the callback order used in applyNetworkReassignment
+            // during rematching.
+            maybeCallCallbacks(
+                    ConnectivityManager.CALLBACK_LOSING,
+                    ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED);
+
+            // Other callbacks happen after rematching and have no particular order respective to
+            // callbacks for other networks.
+            maybeCallCallbacks(
+                    // CALLBACK_PRECHECK is called immediately after rematching on network connected
+                    ConnectivityManager.CALLBACK_PRECHECK,
+                    ConnectivityManager.CALLBACK_CAP_CHANGED,
+                    // CALLBACK_SUSPENDED is sent right after capabilities changes. Only one of
+                    // suspended/resumed can be queued, so their respective order does not matter.
+                    ConnectivityManager.CALLBACK_SUSPENDED,
+                    ConnectivityManager.CALLBACK_RESUMED,
+                    // CALLBACK_BLK_CHANGED can be sent immediately after CALLBACK_SUSPENDED when
+                    // the metered capability changes.
+                    ConnectivityManager.CALLBACK_BLK_CHANGED,
+                    ConnectivityManager.CALLBACK_IP_CHANGED);
+
+            mQueuedCallbacksPerNetId.clear();
+            mQueuedBlockedStatePerNetId.clear();
+            mQueuedOnLosingTimeoutsPerNetId.clear();
+        }
+
+        private void maybeCallCallbacks(int... cbIds) {
+            for (int i = 0; i < mQueuedCallbacksPerNetId.size(); i++) {
+                final int cbToSend = mQueuedCallbacksPerNetId.valueAt(i) & mDeclaredMethodsFlag;
+                final int netId = mQueuedBlockedStatePerNetId.keyAt(i);
+                final NetworkAgentInfo nai = getNetworkAgentInfoForNetId(netId);
+                if (nai == null) {
+                    Log.wtf(TAG, "Missing NetworkAgentInfo for net " + netId
+                            + " in callbacks " + Integer.toHexString(cbToSend));
+                    continue;
+                }
+                for (int cbId : cbIds) {
+                    maybeCallCallback(cbToSend, cbId, nai);
+                }
+            }
+        }
+
+        private void maybeCallCallback(int cbToSend, int cbId, NetworkAgentInfo nai) {
+            if (hasCallback(cbToSend, cbId)) {
+                int arg1 = 0;
+                switch (cbId) {
+                    case ConnectivityManager.CALLBACK_AVAILABLE:
+                    case ConnectivityManager.CALLBACK_BLK_CHANGED:
+                        arg1 = mQueuedBlockedStatePerNetId.get(nai.network.netId, 0);
+                        break;
+                    case ConnectivityManager.CALLBACK_LOSING:
+                        final long remainingTime = mQueuedOnLosingTimeoutsPerNetId.get(
+                                nai.network.netId, 0L) - SystemClock.elapsedRealtime();
+                        if (remainingTime <= 0) {
+                            // Skip callback if remainingTime expired, onLost will likely be sent
+                            return;
+                        }
+                        arg1 = (int) remainingTime;
+                        break;
+                }
+
+                callCallbackForRequest(this, nai, cbId, arg1);
+            }
+        }
+
+        private static boolean hasCallback(int bitmask, int callbackId) {
+            return (bitmask & (1 << callbackId)) != 0;
         }
 
         boolean hasHigherOrderThan(@NonNull final NetworkRequestInfo target) {
@@ -10141,6 +10312,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return new LocalNetworkInfo.Builder().setUpstreamNetwork(upstream).build();
     }
 
+    private Bundle makeCommonBundleForCallback(@NonNull final NetworkRequestInfo nri,
+            @Nullable Network network) {
+        final Bundle bundle = new Bundle();
+        // TODO b/177608132: make sure callbacks are indexed by NRIs and not NetworkRequest objects.
+        // TODO: check if defensive copies of data is needed.
+        putParcelable(bundle, nri.getNetworkRequestForCallback());
+        if (network != null) {
+            putParcelable(bundle, network);
+        }
+        return bundle;
+    }
+
     // networkAgent is only allowed to be null if notificationType is
     // CALLBACK_UNAVAIL. This is because UNAVAIL is about no network being
     // available, while all other cases are about some particular network.
@@ -10153,22 +10336,24 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // are Type.LISTEN, but should not have NetworkCallbacks invoked.
             return;
         }
+        // Even if a callback ends up not being sent, it may affect other callbacks in the queue.
+        if (networkAgent != null && nri.maybeQueueCallback(
+                networkAgent.network, notificationType, arg1)) {
+            return;
+        }
         if (mUseDeclaredMethodsForCallbacksEnabled
                 && (nri.mDeclaredMethodsFlag & (1 << notificationType)) == 0) {
             // No need to send the notification as the recipient method is not overridden
             return;
         }
-        final Bundle bundle = new Bundle();
-        // TODO b/177608132: make sure callbacks are indexed by NRIs and not NetworkRequest objects.
-        // TODO: check if defensive copies of data is needed.
-        final NetworkRequest nrForCallback = nri.getNetworkRequestForCallback();
-        putParcelable(bundle, nrForCallback);
-        Message msg = Message.obtain();
-        if (notificationType != ConnectivityManager.CALLBACK_UNAVAIL) {
-            putParcelable(bundle, networkAgent.network);
-        }
+        final Network bundleNetwork = notificationType == ConnectivityManager.CALLBACK_UNAVAIL
+                ? null
+                : networkAgent.network;
+        final Bundle bundle = makeCommonBundleForCallback(nri, bundleNetwork);
         final boolean includeLocationSensitiveInfo =
                 (nri.mCallbackFlags & NetworkCallback.FLAG_INCLUDE_LOCATION_INFO) != 0;
+        final NetworkRequest nrForCallback = nri.getNetworkRequestForCallback();
+        int cbArg1 = 0;
         switch (notificationType) {
             case ConnectivityManager.CALLBACK_AVAILABLE: {
                 final NetworkCapabilities nc =
@@ -10186,11 +10371,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 bundle.putParcelable(LocalNetworkInfo.class.getSimpleName(),
                         localNetworkInfoForNai(networkAgent));
                 // For this notification, arg1 contains the blocked status.
-                msg.arg1 = arg1;
+                cbArg1 = arg1;
                 break;
             }
             case ConnectivityManager.CALLBACK_LOSING: {
-                msg.arg1 = arg1;
+                cbArg1 = arg1;
                 break;
             }
             case ConnectivityManager.CALLBACK_CAP_CHANGED: {
@@ -10213,7 +10398,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             case ConnectivityManager.CALLBACK_BLK_CHANGED: {
                 maybeLogBlockedStatusChanged(nri, networkAgent.network, arg1);
-                msg.arg1 = arg1;
+                cbArg1 = arg1;
                 break;
             }
             case ConnectivityManager.CALLBACK_LOCAL_NETWORK_INFO_CHANGED: {
@@ -10225,17 +10410,26 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 break;
             }
         }
+        callCallbackForRequest(nri, notificationType, bundle, cbArg1);
+    }
+
+    private void callCallbackForRequest(@NonNull final NetworkRequestInfo nri, int notificationType,
+            Bundle bundle, int arg1) {
+        Message msg = Message.obtain();
+        msg.arg1 = arg1;
         msg.what = notificationType;
         msg.setData(bundle);
         try {
             if (VDBG) {
                 String notification = ConnectivityManager.getCallbackName(notificationType);
-                log("sending notification " + notification + " for " + nrForCallback);
+                log("sending notification " + notification + " for "
+                        + nri.getNetworkRequestForCallback());
             }
             nri.mMessenger.send(msg);
         } catch (RemoteException e) {
             // may occur naturally in the race of binder death.
-            loge("RemoteException caught trying to send a callback msg for " + nrForCallback);
+            loge("RemoteException caught trying to send a callback msg for "
+                    + nri.getNetworkRequestForCallback());
         }
     }
 
