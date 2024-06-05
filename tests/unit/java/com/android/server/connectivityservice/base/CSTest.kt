@@ -538,8 +538,11 @@ open class CSTest {
             provider: NetworkProvider? = null
     ) = CSAgentWrapper(context, deps, csHandlerThread, networkStack,
             nac, nc, lp, lnc, score, provider)
-    fun Agent(vararg transports: Int, lp: LinkProperties = defaultLp()): CSAgentWrapper {
-        val nc = NetworkCapabilities.Builder().apply {
+    fun Agent(
+        vararg transports: Int,
+        lp: LinkProperties = defaultLp()
+    ): CSAgentWrapper {
+        val nc = NetworkCapabilities.Builder(defaultNc()).apply {
             transports.forEach {
                 addTransportType(it)
             }
