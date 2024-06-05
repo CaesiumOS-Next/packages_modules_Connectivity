@@ -257,6 +257,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      */
     private static final int DEFAULT_PERFORM_POLL_DELAY_MS = 1000;
 
+    /**
+     * The delay time between to network stats update intents.
+     * Added to fix intent spams (b/3115462)
+     */
+    private static final int BROADCAST_NETWORK_STATS_UPDATED_DELAY_MS = 1000;
+
     private static final String TAG_NETSTATS_ERROR = "netstats_error";
 
     /**
@@ -469,14 +475,30 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     private long mLastStatsSessionPoll;
 
+    /**
+     * The latest time of broadcasting network stats updated message.
+     * Note that this time could be in the past for already done broadcasts,
+     * or in the future for scheduled broadcasts. This record is needed for
+     * rate limiting intents to prevent intent spams (b/3115462)
+     */
+    @GuardedBy("mStatsLock")
+    private long mLatestBroadcastNetworkStatsUpdatedTime = -1;
+
+
     private final TrafficStatsRateLimitCache mTrafficStatsTotalCache;
     private final TrafficStatsRateLimitCache mTrafficStatsIfaceCache;
     private final TrafficStatsRateLimitCache mTrafficStatsUidCache;
     static final String TRAFFICSTATS_RATE_LIMIT_CACHE_ENABLED_FLAG =
             "trafficstats_rate_limit_cache_enabled_flag";
+    static final String BROADCAST_NETWORK_STATS_UPDATED_RATE_LIMIT_ENABLED_FLAG =
+            "broadcast_network_stats_updated_rate_limit_enabled_flag";
     private final boolean mAlwaysUseTrafficStatsRateLimitCache;
     private final int mTrafficStatsRateLimitCacheExpiryDuration;
     private final int mTrafficStatsRateLimitCacheMaxEntries;
+
+    private final boolean mEnabledBroadcastNetworkStatsUpdatedRateLimit;
+
+
 
     private final Object mOpenSessionCallsLock = new Object();
 
@@ -669,6 +691,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
         mAlwaysUseTrafficStatsRateLimitCache =
                 mDeps.alwaysUseTrafficStatsRateLimitCache(mContext);
+        mEnabledBroadcastNetworkStatsUpdatedRateLimit =
+                mDeps.enabledBroadcastNetworkStatsUpdatedRateLimiting(mContext);
         mTrafficStatsRateLimitCacheExpiryDuration =
                 mDeps.getTrafficStatsRateLimitCacheExpiryDuration();
         mTrafficStatsRateLimitCacheMaxEntries =
@@ -924,6 +948,17 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         public boolean supportEventLogger(Context ctx) {
             return DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
                     ctx, CONFIG_ENABLE_NETWORK_STATS_EVENT_LOGGER);
+        }
+
+        /**
+         * Get whether broadcast network stats update rate limiting is enabled.
+         *
+         * This method should only be called once in the constructor,
+         * to ensure that the code does not need to deal with flag values changing at runtime.
+         */
+        public boolean enabledBroadcastNetworkStatsUpdatedRateLimiting(Context ctx) {
+            return DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
+                    ctx, BROADCAST_NETWORK_STATS_UPDATED_RATE_LIMIT_ENABLED_FLAG);
         }
 
         /**
@@ -2645,8 +2680,23 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             performSampleLocked();
         }
 
-        // finally, dispatch updated event to any listeners
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_BROADCAST_NETWORK_STATS_UPDATED));
+        /**
+         * Finally, dispatch updated event to any listeners.
+         * Prevent intent spamming (b/343844995).
+         * Send messages as early as possible if no pending broadcasts are scheduled.
+         * Check if the request will be updated by a scheduled broadcast.
+         * If no broadcasts are scheduled, use the time of the last broadcast to schedule the
+         * next one ASAP.
+         */
+        if (!mEnabledBroadcastNetworkStatsUpdatedRateLimit) {
+            mHandler.sendMessage(mHandler.obtainMessage(MSG_BROADCAST_NETWORK_STATS_UPDATED));
+        } else if (mLatestBroadcastNetworkStatsUpdatedTime < SystemClock.uptimeMillis()) {
+            mLatestBroadcastNetworkStatsUpdatedTime = Math.max(SystemClock.uptimeMillis(),
+                    mLatestBroadcastNetworkStatsUpdatedTime
+                    + BROADCAST_NETWORK_STATS_UPDATED_DELAY_MS);
+            mHandler.sendMessageAtTime(mHandler.obtainMessage(MSG_BROADCAST_NETWORK_STATS_UPDATED),
+                    mLatestBroadcastNetworkStatsUpdatedTime);
+        }
 
         Trace.traceEnd(TRACE_TAG_NETWORK);
     }
