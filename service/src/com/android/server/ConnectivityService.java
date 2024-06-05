@@ -56,6 +56,7 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
+import static android.net.ConnectivityManager.NETID_UNSET;
 import static android.net.ConnectivityManager.NetworkCallback.DECLARED_METHODS_NONE;
 import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
 import static android.net.ConnectivityManager.TYPE_ETHERNET;
@@ -1061,6 +1062,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // Uids that ConnectivityService is pending to close sockets of.
     // Key is uid and value is reasons of socket destroy
     private final SparseIntArray mDestroySocketPendingUids = new SparseIntArray();
+
+    // Currently frozen network requests per uid.
+    // Requests are only frozen if they were already registered when the UID freezing notification
+    // is received.
+    // This means there is a potential race where if a request is registered shortly before an app
+    // is frozen, the freezing notification may be received before the request registration, and the
+    // registration may not get freezing behavior.
+    // There is no good way to fix this as onUidFrozenStateChanged does not get called when apps
+    // are killed, so ConnectivityService cannot maintain a set of frozen UIDs without races. To
+    // avoid inconsistent callbacks being sent to the app when the race happens, all requests of the
+    // uid are unfrozen when newer ones are registered.
+    private final SparseArray<ArraySet<NetworkRequestInfo>> mFrozenRequests = new SparseArray<>();
 
     private static final int DESTROY_SOCKET_REASON_NONE = 0;
     private static final int DESTROY_SOCKET_REASON_FROZEN = 1 << 0;
@@ -3463,7 +3476,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void handleFrozenUids(int[] uids, int[] frozenStates) {
         ensureRunningOnConnectivityServiceThread();
         handleDestroyFrozenSockets(uids, frozenStates);
-        // TODO: handle freezing NetworkCallbacks
+        handleFreezeNetworkCallbacks(uids, frozenStates);
     }
 
     private void handleDestroyFrozenSockets(int[] uids, int[] frozenStates) {
@@ -3478,6 +3491,61 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (!mDelayDestroySockets || !isCellNetworkIdle()) {
             destroyPendingSockets();
+        }
+    }
+
+    private void handleFreezeNetworkCallbacks(int[] uids, int[] frozenStates) {
+        if (!mQueueCallbacksForFrozenApps) {
+            return;
+        }
+        for (int i = 0; i < uids.length; i++) {
+            final int uid = uids[i];
+            if (mSystemNetworkRequestCounter.get(uid) == 0
+                    && mNetworkRequestCounter.get(uid) == 0) {
+                // Avoid iterating requests if there isn't any
+                continue;
+            }
+
+            if (frozenStates[i] == UID_FROZEN_STATE_FROZEN) {
+                freezeNetworkCallbacksForUid(uid);
+            } else {
+                unfreezeNetworkCallbacksForUid(uid);
+            }
+        }
+    }
+
+    private void freezeNetworkCallbacksForUid(int uid) {
+        if (DDBG) Log.d(TAG, "Freezing callbacks for UID " + uid);
+        final ArraySet<NetworkRequestInfo> frozenRequests =
+                mFrozenRequests.get(uid, new ArraySet<>());
+        mFrozenRequests.put(uid, frozenRequests);
+        for (NetworkRequestInfo nri : mNetworkRequests.values()) {
+            if (nri.mUid != uid) continue;
+            // mNetworkRequests can have duplicate values for multilayer requests
+            if (frozenRequests.add(nri)) {
+                nri.onFrozen();
+            }
+        }
+    }
+
+    private void unfreezeNetworkCallbacksForUid(int uid) {
+        final int index = mFrozenRequests.indexOfKey(uid);
+        if (index < 0) {
+            return;
+        }
+        if (DDBG) Log.d(TAG, "Unfreezing callbacks for UID " + uid);
+        final ArraySet<NetworkRequestInfo> frozenRequests = mFrozenRequests.valueAt(index);
+        mFrozenRequests.removeAt(index);
+        // This sends all callbacks for one NetworkRequest at a time, which may not be the
+        // same order they were queued in, but different network requests use different
+        // binder objects, so the relative order of their callbacks is not guaranteed.
+        // If callbacks are not queued, callbacks from different binder objects may be
+        // posted on different threads when the process is unfrozen, so even if they were
+        // called a long time apart while the process was frozen, they may still appear in
+        // different order when unfreezing it.
+        // ArraySet documentation recommends not using the iterator.
+        for (int i = 0; i < frozenRequests.size(); i++) {
+            frozenRequests.valueAt(i).sendQueuedCallbacks();
         }
     }
 
@@ -5663,6 +5731,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     && !nri.mUidTrackedForBlockedStatus) {
                 Log.wtf(TAG, "Registered nri is not tracked for sending blocked status: " + nri);
             }
+
+            // If a UID is supposed to be frozen and a new request is received after
+            // onUidFrozenStateChanged, either the app was restarted, or there was a race where a
+            // callback registration is getting processed after onUidFrozenStateChanged. To avoid
+            // problems where the app would see inconsistent callbacks between frozen and not frozen
+            // registrations in the second case (some state changes may only be seen by the
+            // non-frozen callback), unfreeze all callbacks when a new callback is registered.
+            unfreezeNetworkCallbacksForUid(nri.mUid);
         }
 
         if (mFlags.noRematchAllRequestsOnRegister()) {
@@ -5902,6 +5978,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (untrackUids) {
             maybeUntrackUidAndClearBlockedReasons(nri);
+        }
+        final Set<NetworkRequestInfo> frozenNris = mFrozenRequests.get(nri.mUid);
+        if (frozenNris != null) {
+            frozenNris.remove(nri);
+            if (frozenNris.size() == 0) {
+                mFrozenRequests.remove(nri.mUid);
+            }
         }
         mNetworkRequestInfoLogs.log("RELEASE " + nri);
         checkNrisConsistency(nri);
@@ -7498,6 +7581,28 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // single NetworkRequest in mRequests.
         final List<NetworkRequest> mRequests;
 
+        /**
+         * List of callbacks that are queued for sending later when the requesting app is unfrozen.
+         *
+         * <p>There may typically be hundreds of NetworkRequestInfo, so a memory-efficient structure
+         * (just an int[]) is used to keep queued callbacks. This reduces the number of object
+         * references.
+         *
+         * <p>This is intended to be used with {@link CallbackQueue} which defines the internal
+         * format.
+         */
+        @NonNull
+        private int[] mQueuedCallbacks = new int[0];
+
+        private static final int MATCHED_NETID_NOT_FROZEN = -1;
+
+        /**
+         * If this request already matched a network when the requesting UID was frozen, the netId
+         * that was matched at that time. Otherwise, NETID_UNSET if no network was matched when
+         * frozen, and MATCHED_NETID_NOT_FROZEN if not frozen.
+         */
+        private int mMatchedNetIdWhenFrozen = MATCHED_NETID_NOT_FROZEN;
+
         // mSatisfier and mActiveRequest rely on one another therefore set them together.
         void setSatisfier(
                 @Nullable final NetworkAgentInfo satisfier,
@@ -7733,9 +7838,166 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
+        /**
+         * Called when this NRI is being frozen.
+         */
+        void onFrozen() {
+            if (mSatisfier != null) {
+                mMatchedNetIdWhenFrozen = mSatisfier.network.netId;
+            } else {
+                mMatchedNetIdWhenFrozen = NETID_UNSET;
+            }
+        }
+
+        boolean maybeQueueCallback(@NonNull NetworkAgentInfo nai, int callbackId) {
+            if (mMatchedNetIdWhenFrozen == MATCHED_NETID_NOT_FROZEN) {
+                return false;
+            }
+
+            // Based on the new callback, clear previous callbacks that are no longer necessary.
+            // For example, if the network is lost, there is no need to send intermediary callbacks.
+            boolean skipCallback = false;
+            final int netId = nai.network.netId;
+            final CallbackQueue queue = new CallbackQueue(mQueuedCallbacks);
+            switch (callbackId) {
+                // PRECHECK is not an API and not very meaningful, do not deliver it for frozen apps
+                // Networks are likely to already be lost when the app is unfrozen, also skip LOSING
+                case CALLBACK_PRECHECK:
+                case CALLBACK_LOSING:
+                    skipCallback = true;
+                    break;
+                case CALLBACK_LOST:
+                    // All callbacks before onLost are unnecessary. And onLost itself is also
+                    // unnecessary if onAvailable was also queued: the Network just appeared and
+                    // disappeared while the app was frozen.
+                    skipCallback = queue.hasCallback(netId, CALLBACK_AVAILABLE);
+                    queue.removeCallbacksForNetId(netId);
+                    break;
+                case CALLBACK_AVAILABLE:
+                    if (mSatisfier != null) {
+                        // For requests that are satisfied by individual networks (not LISTEN), when
+                        // AVAILABLE is received, the request is matching a new Network, so previous
+                        // callbacks (for other Networks) are unnecessary.
+                        queue.clear();
+                    }
+                    break;
+                case CALLBACK_SUSPENDED:
+                case CALLBACK_RESUMED:
+                    if (queue.hasCallback(netId, CALLBACK_AVAILABLE)) {
+                        // AVAILABLE will already send the latest suspended status
+                        skipCallback = true;
+                        break;
+                    }
+                    // If SUSPENDED was queued, just remove it from the queue instead of sending
+                    // RESUMED; and vice-versa.
+                    final int otherCb = callbackId == CALLBACK_SUSPENDED
+                            ? CALLBACK_RESUMED
+                            : CALLBACK_SUSPENDED;
+                    skipCallback = queue.removeCallbacks(netId, otherCb);
+                    break;
+                case CALLBACK_CAP_CHANGED:
+                case CALLBACK_IP_CHANGED:
+                case CALLBACK_LOCAL_NETWORK_INFO_CHANGED:
+                case CALLBACK_BLK_CHANGED:
+                    skipCallback = queue.hasCallback(netId, CALLBACK_AVAILABLE);
+                    break;
+                default:
+                    Log.wtf(TAG, "Unexpected callback type: "
+                            + ConnectivityManager.getCallbackName(callbackId));
+                    return false;
+            }
+
+            if (!skipCallback) {
+                // For non-listen (matching) callbacks, AVAILABLE could be called twice in a row for
+                // the same network if in-between AVAILABLE for other networks have been suppressed:
+                // A is matched, app is frozen, B is matched, A is matched again (removes callbacks
+                // for B), app is unfrozen.
+                // In that case call AVAILABLE sub-callbacks to update state, but not AVAILABLE
+                // itself.
+                if (callbackId == CALLBACK_AVAILABLE && netId == mMatchedNetIdWhenFrozen) {
+                    // The queue should have been cleared here, since this is AVAILABLE on a
+                    // non-listen callback (mMatchedNetIdWhenFrozen is set).
+                    addAvailableStateUpdateCallbacks(nai, queue);
+                } else {
+                    // When unfreezing, no need to send a callback multiple times for the same netId
+                    queue.removeCallbacks(netId, callbackId);
+                    // This could only add to the queue callbacks where isCallbackOverridden=true,
+                    // or that need to be in the queue because they affect other callbacks that are
+                    // overridden, but this adds everything for simplicity.
+                    queue.addCallback(netId, callbackId);
+                }
+            }
+            queue.shrinkToLength();
+            mQueuedCallbacks = queue.getBackingArray();
+            return true;
+        }
+
+        void sendQueuedCallbacks() {
+            mMatchedNetIdWhenFrozen = MATCHED_NETID_NOT_FROZEN;
+            if (mQueuedCallbacks.length == 0) {
+                return;
+            }
+            new CallbackQueue(mQueuedCallbacks).forEach((netId, callbackId) -> {
+                // For CALLBACK_LOST only, there will not be a NAI for the netId. Build and send the
+                // callback directly.
+                if (callbackId == CALLBACK_LOST) {
+                    if (isCallbackOverridden(CALLBACK_LOST)) {
+                        final Bundle cbBundle = makeCommonBundleForCallback(this,
+                                new Network(netId));
+                        callCallbackForRequest(this, CALLBACK_LOST, cbBundle, 0 /* arg1 */);
+                    }
+                    return; // Next item in forEach
+                }
+
+                // Other callbacks should always have a NAI, because if the Network disconnected
+                // LOST or AVAILABLE (if the request matches a new Network) would have been called,
+                // and they clear previous callbacks.
+                final NetworkAgentInfo nai = getNetworkAgentInfoForNetId(netId);
+                if (nai == null) {
+                    Log.wtf(TAG, "Missing NetworkAgentInfo for net " + netId
+                            + " for callback " + callbackId);
+                    return; // Next item in forEach
+                }
+
+                final int arg1 =
+                        callbackId == CALLBACK_AVAILABLE || callbackId == CALLBACK_BLK_CHANGED
+                                ? getBlockedState(nai, mAsUid)
+                                : 0;
+                callCallbackForRequest(this, nai, callbackId, arg1);
+            });
+            mQueuedCallbacks = new int[0];
+        }
+
         boolean isCallbackOverridden(int callbackId) {
             return !mUseDeclaredMethodsForCallbacksEnabled
                     || (mDeclaredMethodsFlags & (1 << callbackId)) != 0;
+        }
+
+        /**
+         * Queue all callbacks that are called by AVAILABLE, except onAvailable.
+         *
+         * AVAILABLE may call SUSPENDED, CAP_CHANGED, IP_CHANGED, LOCAL_NETWORK_INFO_CHANGED,
+         * and BLK_CHANGED, in this order.
+         */
+        private void addAvailableStateUpdateCallbacks(
+                @NonNull NetworkAgentInfo nai, @NonNull CallbackQueue queue) {
+            final boolean callSuspended =
+                    !nai.networkCapabilities.hasCapability(NET_CAPABILITY_NOT_SUSPENDED);
+            final boolean callLocalInfoChanged = nai.isLocalNetwork();
+
+            final int cbCount = 3 + (callSuspended ? 1 : 0) + (callLocalInfoChanged ? 1 : 0);
+            // Avoid unnecessary re-allocations by reserving enough space for all callbacks to add.
+            queue.ensureHasCapacity(cbCount);
+            final int netId = nai.network.netId;
+            if (callSuspended) {
+                queue.addCallback(netId, CALLBACK_SUSPENDED);
+            }
+            queue.addCallback(netId, CALLBACK_CAP_CHANGED);
+            queue.addCallback(netId, CALLBACK_IP_CHANGED);
+            if (callLocalInfoChanged) {
+                queue.addCallback(netId, CALLBACK_LOCAL_NETWORK_INFO_CHANGED);
+            }
+            queue.addCallback(netId, CALLBACK_BLK_CHANGED);
         }
 
         boolean hasHigherOrderThan(@NonNull final NetworkRequestInfo target) {
@@ -10237,6 +10499,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Default request has no msgr. Also prevents callbacks from being invoked for
             // NetworkRequestInfos registered with ConnectivityDiagnostics requests. Those callbacks
             // are Type.LISTEN, but should not have NetworkCallbacks invoked.
+            return;
+        }
+        // Even if a callback ends up not being sent, it may affect other callbacks in the queue, so
+        // queue callbacks before checking the declared methods flags.
+        if (networkAgent != null && nri.maybeQueueCallback(networkAgent, notificationType)) {
             return;
         }
         if (!nri.isCallbackOverridden(notificationType)) {
