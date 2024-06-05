@@ -257,13 +257,15 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
      */
     private static final int DEFAULT_PERFORM_POLL_DELAY_MS = 1000;
 
+    private static final int BROADCAST_NETWORK_STATS_UPDATED_DELAY_MS = 1000;
+
     private static final String TAG_NETSTATS_ERROR = "netstats_error";
 
     /**
      * EventLog tags used when logging into the event log. Note the values must be sync with
      * frameworks/base/services/core/java/com/android/server/EventLogTags.logtags to get correct
      * name translation.
-      */
+     */
     private static final int LOG_TAG_NETSTATS_MOBILE_SAMPLE = 51100;
     private static final int LOG_TAG_NETSTATS_WIFI_SAMPLE = 51101;
 
@@ -474,12 +476,16 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final TrafficStatsRateLimitCache mTrafficStatsUidCache;
     static final String TRAFFICSTATS_RATE_LIMIT_CACHE_ENABLED_FLAG =
             "trafficstats_rate_limit_cache_enabled_flag";
+
+    static final String BROADCAST_NETWORK_STATS_UPDATED_RATE_LIMIT_ENABLED_FLAG =
+            "broadcast_network_stats_updated_rate_limit_enabled_flag";
     private final boolean mAlwaysUseTrafficStatsRateLimitCache;
     private final int mTrafficStatsRateLimitCacheExpiryDuration;
     private final int mTrafficStatsRateLimitCacheMaxEntries;
 
     private final Object mOpenSessionCallsLock = new Object();
 
+    private final boolean mEnabledBroadcastNetworkStatsUpdatedRateLimit;
     /**
      * Map from key {@code OpenSessionKey} to count of opened sessions. This is for recording
      * the caller of open session and it is only for debugging.
@@ -587,7 +593,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                             // This allows us to discard older broadcasts still waiting to
                             // be delivered.
                             opts = BroadcastOptionsShimImpl.newInstance(
-                                    BroadcastOptions.makeBasic())
+                                            BroadcastOptions.makeBasic())
                                     .setDeliveryGroupPolicy(
                                             ConstantsShim.DELIVERY_GROUP_POLICY_MOST_RECENT)
                                     .setDeferralPolicy(
@@ -599,6 +605,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                     }
                     mContext.sendBroadcastAsUser(updatedIntent, UserHandle.ALL,
                             READ_NETWORK_USAGE_HISTORY, opts);
+
                     break;
                 }
             }
@@ -669,6 +676,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
         mAlwaysUseTrafficStatsRateLimitCache =
                 mDeps.alwaysUseTrafficStatsRateLimitCache(mContext);
+        mEnabledBroadcastNetworkStatsUpdatedRateLimit =
+                mDeps.enabledBroadcastNetworkStatsUpdatedRateLimiting(mContext);
         mTrafficStatsRateLimitCacheExpiryDuration =
                 mDeps.getTrafficStatsRateLimitCacheExpiryDuration();
         mTrafficStatsRateLimitCacheMaxEntries =
@@ -753,7 +762,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
          * string description of difference for debugging purpose.
          */
         public String compareStats(@NonNull NetworkStatsCollection a,
-                                   @NonNull NetworkStatsCollection b, boolean allowKeyChange) {
+                @NonNull NetworkStatsCollection b, boolean allowKeyChange) {
             return NetworkStatsCollection.compareStats(a, b, allowKeyChange);
         }
 
@@ -927,6 +936,17 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         /**
+         * Get whether broadcast network stats update rate limiting is enabled.
+         *
+         * This method should only be called once in the constructor,
+         * to ensure that the code does not need to deal with flag values changing at runtime.
+         */
+        public boolean enabledBroadcastNetworkStatsUpdatedRateLimiting(Context ctx) {
+            return DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
+                    ctx, BROADCAST_NETWORK_STATS_UPDATED_RATE_LIMIT_ENABLED_FLAG);
+        }
+
+        /**
          * Get whether TrafficStats rate-limit cache is always applied.
          *
          * This method should only be called once in the constructor,
@@ -1080,8 +1100,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 mSettings.getPollInterval(), pollIntent);
 
         mContentResolver.registerContentObserver(Settings.Global
-                .getUriFor(NETSTATS_COMBINE_SUBTYPE_ENABLED),
-                        false /* notifyForDescendants */, mContentObserver);
+                        .getUriFor(NETSTATS_COMBINE_SUBTYPE_ENABLED),
+                false /* notifyForDescendants */, mContentObserver);
 
         // Post a runnable on handler thread to call onChange(). It's for getting current value of
         // NETSTATS_COMBINE_SUBTYPE_ENABLED to decide start or stop monitoring RAT type changes.
@@ -1289,7 +1309,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         // import process.
         final NetworkStatsSettings.Config devConfig =
                 new NetworkStatsSettings.Config(HOUR_IN_MILLIS,
-                15 * DAY_IN_MILLIS, 90 * DAY_IN_MILLIS);
+                        15 * DAY_IN_MILLIS, 90 * DAY_IN_MILLIS);
         final NetworkStatsRecorder devRecorder = buildRecorder(PREFIX_DEV, devConfig,
                 false, mStatsDir, true /* wipeOnError */, false /* useFastDataInput */);
         final MigrationInfo[] migrations = new MigrationInfo[]{
@@ -1306,13 +1326,13 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             // Set DEV legacy recorder as null since the DEV recorder has been removed.
             // Thus it doesn't need to build DEV legacy recorder for comparing with imported data.
             legacyRecorders = new NetworkStatsRecorder[]{
-                null /* dev Recorder */,
-                buildRecorder(PREFIX_XT, mSettings.getXtConfig(), false, legacyBaseDir,
-                        false /* wipeOnError */, false /* useFastDataInput */),
-                buildRecorder(PREFIX_UID, mSettings.getUidConfig(), false, legacyBaseDir,
-                        false /* wipeOnError */, false /* useFastDataInput */),
-                buildRecorder(PREFIX_UID_TAG, mSettings.getUidTagConfig(), true, legacyBaseDir,
-                        false /* wipeOnError */, false /* useFastDataInput */)};
+                    null /* dev Recorder */,
+                    buildRecorder(PREFIX_XT, mSettings.getXtConfig(), false, legacyBaseDir,
+                            false /* wipeOnError */, false /* useFastDataInput */),
+                    buildRecorder(PREFIX_UID, mSettings.getUidConfig(), false, legacyBaseDir,
+                            false /* wipeOnError */, false /* useFastDataInput */),
+                    buildRecorder(PREFIX_UID_TAG, mSettings.getUidTagConfig(), true, legacyBaseDir,
+                            false /* wipeOnError */, false /* useFastDataInput */)};
         } else {
             legacyRecorders = null;
         }
@@ -1760,7 +1780,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         if (!template.getWifiNetworkKeys().isEmpty() && template.getMatchRule() != MATCH_TEST) {
             final boolean canAccessFineLocation = mLocationPermissionChecker
                     .checkCallersLocationPermission(callingPackage,
-                    null /* featureId */,
+                            null /* featureId */,
                             Binder.getCallingUid(),
                             false /* coarseForTargetSdkLessThanQ */,
                             null /* message */);
@@ -2057,7 +2077,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     @Override
     public DataUsageRequest registerUsageCallback(@NonNull String callingPackage,
-                @NonNull DataUsageRequest request, @NonNull IUsageCallback callback) {
+            @NonNull DataUsageRequest request, @NonNull IUsageCallback callback) {
         Objects.requireNonNull(callingPackage, "calling package is null");
         Objects.requireNonNull(request, "DataUsageRequest is null");
         Objects.requireNonNull(request.template, "NetworkTemplate is null");
@@ -2081,7 +2101,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 POLL_REASON_REG_CALLBACK));
 
         return normalizedRequest;
-   }
+    }
 
     @Override
     public void unregisterUsageRequest(DataUsageRequest request) {
@@ -2135,7 +2155,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
         if (mAlwaysUseTrafficStatsRateLimitCache
                 || mDeps.isChangeEnabled(
-                        ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
+                ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
             final NetworkStats.Entry entry = mTrafficStatsIfaceCache.getOrCompute(iface, UID_ALL,
                     () -> getIfaceStatsInternal(iface));
             return getEntryValueForType(entry, type);
@@ -2189,7 +2209,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
         if (mAlwaysUseTrafficStatsRateLimitCache
                 || mDeps.isChangeEnabled(
-                        ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
+                ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
             final NetworkStats.Entry entry = mTrafficStatsTotalCache.getOrCompute(
                     IFACE_ALL, UID_ALL, () -> getTotalStatsInternal());
             return getEntryValueForType(entry, type);
@@ -2313,7 +2333,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         // Protect service from frequently updating. Remove pending messages if any.
         mHandler.removeMessages(MSG_NOTIFY_NETWORK_STATUS);
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_NOTIFY_NETWORK_STATUS,
-                        POLL_REASON_RAT_CHANGED), mSettings.getPollDelay());
+                POLL_REASON_RAT_CHANGED), mSettings.getPollDelay());
     }
 
     private void handleNotifyNetworkStatus(
@@ -2491,7 +2511,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
         final NetworkSpecifier spec = state.getNetworkCapabilities().getNetworkSpecifier();
         if (spec instanceof TelephonyNetworkSpecifier) {
-             return ((TelephonyNetworkSpecifier) spec).getSubscriptionId();
+            return ((TelephonyNetworkSpecifier) spec).getSubscriptionId();
         } else {
             Log.wtf(TAG, "getSubIdForState invalid NetworkSpecifier");
             return INVALID_SUBSCRIPTION_ID;
@@ -2645,8 +2665,14 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             performSampleLocked();
         }
 
-        // finally, dispatch updated event to any listeners
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_BROADCAST_NETWORK_STATS_UPDATED));
+        // Finally, dispatch updated event to any listeners.
+        // Prevent from spamming intent (b/343844995). Skip if pending message exists.
+        if (!mEnabledBroadcastNetworkStatsUpdatedRateLimit) {
+            mHandler.sendMessage(mHandler.obtainMessage(MSG_BROADCAST_NETWORK_STATS_UPDATED));
+        } else if (!mHandler.hasMessages(MSG_BROADCAST_NETWORK_STATS_UPDATED)) {
+            mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_BROADCAST_NETWORK_STATS_UPDATED),
+                    BROADCAST_NETWORK_STATS_UPDATED_DELAY_MS);
+        }
 
         Trace.traceEnd(TRACE_TAG_NETWORK);
     }
@@ -2827,7 +2853,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         final ArrayList<Integer> uids = new ArrayList<>();
         final List<ApplicationInfo> apps = mContext.getPackageManager().getInstalledApplications(
                 PackageManager.MATCH_ANY_USER
-                | PackageManager.MATCH_DISABLED_COMPONENTS);
+                        | PackageManager.MATCH_DISABLED_COMPONENTS);
         for (ApplicationInfo app : apps) {
             final int uid = userHandle.getUid(app.uid);
             uids.add(uid);
@@ -3312,7 +3338,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     // TODO: Remove this by implementing {@link NetworkStatsProvider} for non-offloaded
     //  tethering stats.
     private @NonNull NetworkStats getNetworkStatsTethering(int how) throws RemoteException {
-         // We only need to return per-UID stats. Per-device stats are already counted by
+        // We only need to return per-UID stats. Per-device stats are already counted by
         // interface counters.
         if (how != STATS_PER_UID) {
             return new NetworkStats(SystemClock.elapsedRealtime(), 0);
