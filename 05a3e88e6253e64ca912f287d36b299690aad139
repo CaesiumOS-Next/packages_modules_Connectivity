@@ -39,6 +39,30 @@
       },
       "revId": "05a3e88e6253e64ca912f287d36b299690aad139",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e3a9bd2_4a1109e1",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T05:53:32Z",
+      "side": 1,
+      "message": "Done in aosp/3116025 .",
+      "parentUuid": "5b9b87cd_a67214c3",
+      "range": {
+        "startLine": 404,
+        "startChar": 47,
+        "endLine": 404,
+        "endChar": 59
+      },
+      "revId": "05a3e88e6253e64ca912f287d36b299690aad139",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
