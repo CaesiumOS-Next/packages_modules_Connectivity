@@ -88,7 +88,9 @@ import android.net.TestNetworkSpecifier;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.ActiveOperationalDataset.SecurityPolicy;
 import android.net.thread.ChannelMaxPower;
+import android.net.thread.Configuration;
 import android.net.thread.IActiveOperationalDatasetReceiver;
+import android.net.thread.IConfigurationReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOperationalDatasetCallback;
 import android.net.thread.IStateCallback;
@@ -187,6 +189,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
     private final ConnectivityResources mResources;
     private final Supplier<String> mCountryCodeSupplier;
+    private final Map<IConfigurationReceiver, IBinder.DeathRecipient> mConfigurationReceivers =
+            new HashMap<>();
+    private Configuration mConfiguration;
 
     // This should not be directly used for calling IOtDaemon APIs because ot-daemon may die and
     // {@code mOtDaemon} will be set to {@code null}. Instead, use {@code getOtDaemon()}
@@ -238,6 +243,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mUserManager = userManager;
         mResources = resources;
         mCountryCodeSupplier = countryCodeSupplier;
+        mConfiguration = mPersistentSettings.getConfiguration();
     }
 
     public static ThreadNetworkControllerService newInstance(
@@ -500,6 +506,79 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             Log.e(TAG, "otDaemon.setThreadEnabled failed", e);
             receiver.onError(e);
         }
+    }
+
+    @Override
+    public void setConfiguration(
+            @NonNull Configuration configuration, @NonNull IOperationReceiver receiver) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+        mHandler.post(() -> setConfigurationInternal(configuration, receiver));
+    }
+
+    private void setConfigurationInternal(
+            @NonNull Configuration configuration, @NonNull IOperationReceiver operationReceiver) {
+        checkOnHandlerThread();
+
+        Log.i(TAG, "Set Thread configuration: " + configuration);
+
+        final boolean isChanged = !configuration.equals(mConfiguration);
+        mConfiguration = configuration;
+        try {
+            operationReceiver.onSuccess();
+        } catch (RemoteException e) {
+            // do nothing if the client is dead
+        }
+        if (isChanged) {
+            mPersistentSettings.putConfiguration(mConfiguration);
+            for (IConfigurationReceiver configReceiver : mConfigurationReceivers.keySet()) {
+                try {
+                    configReceiver.onConfigurationChanged(mConfiguration);
+                } catch (RemoteException e) {
+                    // do nothing if the client is dead
+                }
+            }
+        }
+        // TODO: configure border router
+    }
+
+    @Override
+    public void registerConfigurationCallback(@NonNull IConfigurationReceiver callback) {
+        enforceAllPermissionsGranted(permission.ACCESS_NETWORK_STATE);
+        mHandler.post(() -> registerConfigurationCallbackInternal(callback));
+    }
+
+    private void registerConfigurationCallbackInternal(@NonNull IConfigurationReceiver callback) {
+        checkOnHandlerThread();
+        if (mConfigurationReceivers.containsKey(callback)) {
+            throw new IllegalStateException("Registering the same IConfigurationReceiver twice");
+        }
+        IBinder.DeathRecipient deathRecipient =
+                () -> mHandler.post(() -> unregisterConfigurationCallbackInternal(callback));
+        try {
+            callback.asBinder().linkToDeath(deathRecipient, 0);
+        } catch (RemoteException e) {
+            return;
+        }
+        mConfigurationReceivers.put(callback, deathRecipient);
+        try {
+            callback.onConfigurationChanged(mConfiguration);
+        } catch (RemoteException e) {
+            // do nothing if the client is dead
+        }
+    }
+
+    @Override
+    public void unregisterConfigurationCallback(@NonNull IConfigurationReceiver callback) {
+        enforceAllPermissionsGranted(permission.ACCESS_NETWORK_STATE);
+        mHandler.post(() -> unregisterConfigurationCallbackInternal(callback));
+    }
+
+    private void unregisterConfigurationCallbackInternal(@NonNull IConfigurationReceiver callback) {
+        checkOnHandlerThread();
+        if (!mConfigurationReceivers.containsKey(callback)) {
+            return;
+        }
+        callback.asBinder().unlinkToDeath(mConfigurationReceivers.remove(callback), 0);
     }
 
     private void registerUserRestrictionsReceiver() {
