@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3284ed0_f481396d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-06T19:41:02Z",
+      "side": 1,
+      "message": "nit: can you reorder these in the order they are defined in the parcelable (that makes it a bit easier to tell that nothing is missing). I think the only thing that is out of order is connectivityScope which should come last.\n\n---\n\nanother nit: it might be slightly better / more readable to use the mRequestParcel fields directly, rather than going through the getters.\n\nSame applies to equals() above.",
+      "range": {
+        "startLine": 914,
+        "startChar": 0,
+        "endLine": 917,
+        "endChar": 9
+      },
+      "revId": "2ef1d8aa15ba05bc751619f63e2cbc80040f78af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd7ffef7_ee20c52c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-06T19:41:02Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 663,
+        "startChar": 12,
+        "endLine": 663,
+        "endChar": 15
+      },
+      "revId": "2ef1d8aa15ba05bc751619f63e2cbc80040f78af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e23bad2_ea55ea8b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1536,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-06T19:41:02Z",
+      "side": 1,
+      "message": "spurious",
+      "range": {
+        "startLine": 1536,
+        "startChar": 31,
+        "endLine": 1536,
+        "endChar": 32
+      },
+      "revId": "2ef1d8aa15ba05bc751619f63e2cbc80040f78af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
