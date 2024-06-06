@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a21164a_360e7659",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-06T22:48:14Z",
+      "side": 1,
+      "message": "Wait, you are not parceling / unparceling this. Is this something you want to use only on the service side? If so, you are going to have to wrap the tethering request on the service side instead of adding it to the API surface. I don\u0027t really know where you are going with this tbh.",
+      "range": {
+        "startLine": 690,
+        "startChar": 8,
+        "endLine": 690,
+        "endChar": 35
+      },
+      "revId": "e1a2762e4159f5f80e245d1d6c891bcd6991d552",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
