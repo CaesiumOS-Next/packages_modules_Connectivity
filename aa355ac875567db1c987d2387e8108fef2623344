@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f08cafc_d88897c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-06T02:42:44Z",
+      "side": 1,
+      "message": "Not sure why Lint-1ed; I can\u0027t find anything in the checks tab or comments.",
+      "revId": "aa355ac875567db1c987d2387e8108fef2623344",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
