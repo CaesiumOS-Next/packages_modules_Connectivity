@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9a141ef_45432b8a",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-06T08:11:32Z",
+      "side": 1,
+      "message": "Question: do you need a working upstream?",
+      "range": {
+        "startLine": 63,
+        "startChar": 7,
+        "endLine": 63,
+        "endChar": 82
+      },
+      "revId": "d81ac977d975ac6dbbd3e733c7bbed1bac99c144",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d896de7f_722b2e25",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-06T08:11:32Z",
+      "side": 1,
+      "message": "1. While this discover a server, I\u0027m confused this is a server instead of client.\nMaybe we should rename to make it less confusing?\n\n2. Do we verify anything by calling this?\nIf so, maybe describe in the comment as well?",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 44
+      },
+      "revId": "d81ac977d975ac6dbbd3e733c7bbed1bac99c144",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed2f1f6d_4eb537a5",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-06T08:11:32Z",
+      "side": 1,
+      "message": "Question: Do we need to do this first than disconnect tethering connection?",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 39
+      },
+      "revId": "d81ac977d975ac6dbbd3e733c7bbed1bac99c144",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a41e1fc5_37a04d4a",
         "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
         "patchSetId": 3
