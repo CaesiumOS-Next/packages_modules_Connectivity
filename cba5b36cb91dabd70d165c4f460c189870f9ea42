@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94b3e912_c76b7ef5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002609
+      },
+      "writtenOn": "2024-06-06T01:34:52Z",
+      "side": 1,
+      "message": "let\u0027s not call it bandwidth constrained.  It isn\u0027t bandwidth so much as duty cycle",
+      "revId": "cba5b36cb91dabd70d165c4f460c189870f9ea42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

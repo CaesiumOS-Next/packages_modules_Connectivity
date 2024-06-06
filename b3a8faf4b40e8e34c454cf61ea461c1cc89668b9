@@ -43,6 +43,139 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "94141f8f_2d392e7e",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1002609
+      },
+      "writtenOn": "2024-06-06T01:34:52Z",
+      "side": 1,
+      "message": "this reads awkwardly.\n\n\"the system will not use constrained networks by default.\" ?",
+      "range": {
+        "startLine": 752,
+        "startChar": 7,
+        "endLine": 752,
+        "endChar": 77
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e48e967a_6a0ed43c",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1002609
+      },
+      "writtenOn": "2024-06-06T01:34:52Z",
+      "side": 1,
+      "message": "this capability is set by default making most/all networks not constrained.",
+      "range": {
+        "startLine": 753,
+        "startChar": 66,
+        "endLine": 753,
+        "endChar": 100
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1f4b43b_5b2c76bb",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1002609
+      },
+      "writtenOn": "2024-06-06T01:34:52Z",
+      "side": 1,
+      "message": "?  Why split this by V vs pre V?  If this isn\u0027t used pre V it shouldn\u0027t matter to apps right?",
+      "range": {
+        "startLine": 754,
+        "startChar": 5,
+        "endLine": 755,
+        "endChar": 73
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b03d4dd_0dd29700",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1002609
+      },
+      "writtenOn": "2024-06-06T01:34:52Z",
+      "side": 1,
+      "message": "amount or shape of application traffic.",
+      "range": {
+        "startLine": 763,
+        "startChar": 11,
+        "endLine": 763,
+        "endChar": 40
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe2b1caf_75533f5f",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1002609
+      },
+      "writtenOn": "2024-06-06T01:34:52Z",
+      "side": 1,
+      "message": "focus on sparse, minimal data use",
+      "range": {
+        "startLine": 763,
+        "startChar": 65,
+        "endLine": 763,
+        "endChar": 78
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ec60b14a_6f58a7a9",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/NetworkCapabilities.java",
+              "range": {
+                "startLine": 764,
+                "startChar": 0,
+                "endLine": 764,
+                "endChar": 0
+              },
+              "replacement": "     * \u003cp\u003e\n     * The system could block application traffic on bandwidth constrained networks anytime based on\n     * the amount of application traffic. So applications should save traffic on these networks.\n     * Applications should minimize their data use and minimize their constancy of data use.\n     * Sparse periodic data use.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5cc60be1_e392ff26",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkTest.kt",
         "patchSetId": 28
