@@ -41,6 +41,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
+import java.util.function.Consumer;
 
 /**
  * Provides the primary APIs for controlling all aspects of a Thread network.
@@ -100,6 +101,9 @@ public final class ThreadNetworkController {
     /** Thread standard version 1.3. */
     public static final int THREAD_VERSION_1_3 = 4;
 
+    /** Thread standard version 1.4. */
+    public static final int THREAD_VERSION_1_4 = 5;
+
     /** Minimum value of max power in unit of 0.01dBm. @hide */
     private static final int POWER_LIMITATION_MIN = -32768;
 
@@ -123,6 +127,12 @@ public final class ThreadNetworkController {
     @GuardedBy("mOpDatasetCallbackMapLock")
     private final Map<OperationalDatasetCallback, OperationalDatasetCallbackProxy>
             mOpDatasetCallbackMap = new HashMap<>();
+
+    private final Object mConfigurationCallbackMapLock = new Object();
+
+    @GuardedBy("mConfigurationCallbackMapLock")
+    private final Map<Consumer<Configuration>, ConfigurationCallbackProxy>
+            mConfigurationCallbackMap = new HashMap<>();
 
     /** @hide */
     public ThreadNetworkController(@NonNull IThreadNetworkController controllerService) {
@@ -762,6 +772,115 @@ public final class ThreadNetworkController {
         @Override
         public void onError(int errorCode, String errorMessage) {
             propagateError(mExecutor, mResultReceiver, errorCode, errorMessage);
+        }
+    }
+
+    /** Configures the Thread features. */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.THREAD_NETWORK_PRIVILEGED)
+    public void setConfiguration(
+            @NonNull Configuration Configuration,
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
+        requireNonNull(Configuration, "Configuration cannot be null");
+        requireNonNull(executor, "executor cannot be null");
+        requireNonNull(receiver, "receiver cannot be null");
+        try {
+            mControllerService.setConfiguration(
+                    Configuration, new OperationReceiverProxy(executor, receiver));
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /** Returns the Thread configuration */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.ACCESS_NETWORK_STATE)
+    @NonNull
+    public Configuration getConfiguration() {
+        return new Configuration.Builder().build();
+    }
+
+    /**
+     * Registers a callback to be called when the Thread configuration is changed.
+     *
+     * <p>Upon return of this method, {@code callback} will be invoked immediately with the new
+     * Border Router configuration.
+     *
+     * @param executor the executor to execute the {@code callback}
+     * @param callback the callback to receive Thread configuration changes
+     * @throws IllegalArgumentException if {@code callback} has already been registered
+     * @throws UnsupportedOperationException if the Border Router feature is not supported
+     */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.ACCESS_NETWORK_STATE)
+    public void registerConfigurationCallback(
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull Consumer<Configuration> callback) {
+        requireNonNull(executor, "executor cannot be null");
+        requireNonNull(callback, "callback cannot be null");
+        synchronized (mConfigurationCallbackMapLock) {
+            if (mConfigurationCallbackMap.containsKey(callback)) {
+                throw new IllegalArgumentException("callback has already been registered");
+            }
+            ConfigurationCallbackProxy callbackProxy =
+                    new ConfigurationCallbackProxy(executor, callback);
+            mConfigurationCallbackMap.put(callback, callbackProxy);
+            try {
+                mControllerService.registerConfigurationCallback(callbackProxy);
+            } catch (RemoteException e) {
+                mConfigurationCallbackMap.remove(callback);
+                e.rethrowFromSystemServer();
+            }
+        }
+    }
+
+    /**
+     * Unregisters the Border Router configuration callback.
+     *
+     * @param callback the callback which has been registered with {@link
+     *     #registerConfigurationCallback}
+     * @throws IllegalArgumentException if {@code callback} hasn't been registered
+     * @throws UnsupportedOperationException if the Border Router feature is not supported
+     */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.ACCESS_NETWORK_STATE)
+    public void unregisterConfigurationCallback(@NonNull Consumer<Configuration> callback) {
+        requireNonNull(callback, "callback cannot be null");
+
+        synchronized (mConfigurationCallbackMapLock) {
+            ConfigurationCallbackProxy callbackProxy = mConfigurationCallbackMap.remove(callback);
+            if (callbackProxy == null) {
+                throw new IllegalArgumentException("callback hasn't been registered");
+            }
+            try {
+                mControllerService.unregisterConfigurationCallback(callbackProxy);
+                mConfigurationCallbackMap.remove(callbackProxy);
+            } catch (RemoteException e) {
+                e.rethrowFromSystemServer();
+            }
+        }
+    }
+
+    private static final class ConfigurationCallbackProxy extends IConfigurationReceiver.Stub {
+        final Executor mExecutor;
+        final Consumer<Configuration> mConfigurationConsumer;
+
+        ConfigurationCallbackProxy(
+                @CallbackExecutor Executor executor,
+                Consumer<Configuration> ConfigurationConsumer) {
+            this.mExecutor = executor;
+            this.mConfigurationConsumer = ConfigurationConsumer;
+        }
+
+        @Override
+        public void onConfigurationChanged(Configuration Configuration) {
+            final long identity = Binder.clearCallingIdentity();
+            try {
+                mExecutor.execute(() -> mConfigurationConsumer.accept(Configuration));
+            } finally {
+                Binder.restoreCallingIdentity(identity);
+            }
         }
     }
 }
