@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf6d9e58_00c1064a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T06:18:51Z",
+      "side": 1,
+      "message": "LGTM but I\u0027m not sure if we can submit this without making it difficult to add APIs to 25Q1 or to future SDK extensions. I\u0027ve asked in the mainline SDK chat, let\u0027s see what they say before we merge the CL.",
+      "revId": "68969d35f871c35aa79c02285959391237b2a154",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
