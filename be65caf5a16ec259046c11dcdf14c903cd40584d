@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d3db1f1_cafc05e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T07:28:29Z",
+      "side": 1,
+      "message": "Bug: 327038794\nBug: 279392981",
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a69d55d2_6ed5e1b8",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T07:28:29Z",
+      "side": 1,
+      "message": "// If this number is exceeded, the code will still function correctly, but registering\n// network callbacks will be a bit slower because getDeclaredMethodsFlag must examine\n// the callback class to determine what methods it overrides.",
+      "range": {
+        "startLine": 1244,
+        "startChar": 63,
+        "endLine": 1244,
+        "endChar": 64
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abe755a7_94540f98",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 4025,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T07:28:29Z",
+      "side": 1,
+      "message": "Maybe might want to say \"to ensure that tests fail when a new callback method is added without updating NETWORK_CB_METHODS\"?",
+      "range": {
+        "startLine": 4024,
+        "startChar": 38,
+        "endLine": 4025,
+        "endChar": 87
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9693e8de_e553b682",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 4033,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T07:28:29Z",
+      "side": 1,
+      "message": "Per discussion, the comment could be:\n\n  * The ConnectivityManager.CALLBACK_xxx message that this method corresponds to.\n  * Multiple callback methods may correspond to the CALLBACK_xxx message. For exmample,\n  * two methods correspond to CALLBACK_AVAILABLE: the one-argument version of\n  * onAvailable and the three-argument version.\n\n... which suggests, maybe call this callbackId?",
+      "range": {
+        "startLine": 4033,
+        "startChar": 86,
+        "endLine": 4033,
+        "endChar": 87
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d4725c5_2e63c4f8",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 4035,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T07:28:29Z",
+      "side": 1,
+      "message": "calledBy?",
+      "range": {
+        "startLine": 4035,
+        "startChar": 16,
+        "endLine": 4035,
+        "endChar": 21
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e240d76f_f6237bae",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 4038,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T07:28:29Z",
+      "side": 1,
+      "message": "If this method may call other callbacks, a bitmask of the callbacks that it calls.\n\n\nAlso, per discussion: maybe have another set of constants here? It looks like this scheme happens to work only because the one-arg version of onAvailable (which doesn\u0027t have a corresponding CALLBACK_xxx) has the same name as the three-arg version that calls it.\n\nMaybe CALLBACK_ONAVAILABLE_3, CALLBACK_ONAVAILABLE_1, CALLBACK_ONBLOCKEDSTATUSCHANGED_INT, CALLBACK_ONBLOCKEDSTATUSCHANGED_BOOL",
+      "range": {
+        "startLine": 4038,
+        "startChar": 15,
+        "endLine": 4038,
+        "endChar": 89
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "496b3eb0_f8e29717",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T07:28:29Z",
+      "side": 1,
+      "message": "are not",
+      "range": {
+        "startLine": 46,
+        "startChar": 56,
+        "endLine": 46,
+        "endChar": 59
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f506473_c8491a8b",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T07:28:29Z",
+      "side": 1,
+      "message": "mayCallTransitively",
+      "range": {
+        "startLine": 66,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 19
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7692fee_7326a2d6",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T07:28:29Z",
+      "side": 1,
+      "message": "Can you put these two params in the same order as they are in the FilteredCallback acnnotation? i.e., calledBy first, and mayCall second?",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 67,
+        "endChar": 38
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
