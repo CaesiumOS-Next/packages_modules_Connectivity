@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0fad4c1_6584f5cb",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-06T03:16:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf77fb50_098c8ca9",
+      "range": {
+        "startLine": 749,
+        "startChar": 7,
+        "endLine": 749,
+        "endChar": 66
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94141f8f_2d392e7e",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-06-06T01:34:52Z",
       "side": 1,
       "message": "this reads awkwardly.\n\n\"the system will not use constrained networks by default.\" ?",
+      "range": {
+        "startLine": 752,
+        "startChar": 7,
+        "endLine": 752,
+        "endChar": 77
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1e9d95b_1d819fca",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-06T03:16:02Z",
+      "side": 1,
+      "message": "Updated comment following Lorenzo\u0027s suggestion",
+      "parentUuid": "94141f8f_2d392e7e",
       "range": {
         "startLine": 752,
         "startChar": 7,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94d131b7_09e66b37",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-06T03:16:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e48e967a_6a0ed43c",
+      "range": {
+        "startLine": 753,
+        "startChar": 66,
+        "endLine": 753,
+        "endChar": 100
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1f4b43b_5b2c76bb",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-06-06T01:34:52Z",
       "side": 1,
       "message": "?  Why split this by V vs pre V?  If this isn\u0027t used pre V it shouldn\u0027t matter to apps right?",
+      "range": {
+        "startLine": 754,
+        "startChar": 5,
+        "endLine": 755,
+        "endChar": 73
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e43619c2_e627ce66",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-06T03:16:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d1f4b43b_5b2c76bb",
       "range": {
         "startLine": 754,
         "startChar": 5,
@@ -174,6 +270,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ed0528_b735eaab",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-06T03:16:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fe2b1caf_75533f5f",
+      "range": {
+        "startLine": 763,
+        "startChar": 65,
+        "endLine": 763,
+        "endChar": 78
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a25112c2_e15d0bd6",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-06T03:16:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9b03d4dd_0dd29700",
+      "range": {
+        "startLine": 763,
+        "startChar": 11,
+        "endLine": 763,
+        "endChar": 40
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5cc60be1_e392ff26",
@@ -187,6 +331,30 @@
       "writtenOn": "2024-06-06T01:26:31Z",
       "side": 1,
       "message": "Why the \"else\" here? All satellite networks will always be bandwidth constrained, right? Even ones that are restricted?",
+      "range": {
+        "startLine": 215,
+        "startChar": 16,
+        "endLine": 215,
+        "endChar": 24
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddbbd3a5_9b1ee977",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkTest.kt",
+        "patchSetId": 28
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-06T03:16:02Z",
+      "side": 1,
+      "message": "Right, I have misinterpreted the discussion document",
+      "parentUuid": "5cc60be1_e392ff26",
       "range": {
         "startLine": 215,
         "startChar": 16,
