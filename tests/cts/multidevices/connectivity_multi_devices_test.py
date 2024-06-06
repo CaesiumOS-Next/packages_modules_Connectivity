@@ -8,6 +8,7 @@ from mobly.controllers import android_device
 import tether_utils
 from tether_utils import UpstreamType
 import mdns_utils
+import wifip2p_utils
 
 CONNECTIVITY_MULTI_DEVICES_SNIPPET_PACKAGE = "com.google.snippet.connectivity"
 
@@ -80,6 +81,25 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
       )
       tether_utils.cleanup_tethering_for_upstream_type(
         self.serverDevice, UpstreamType.NONE
+      )
+
+  def test_mdns_via_wifip2p(self):
+    wifip2p_utils.assume_wifi_p2p_test_preconditions(
+      self.serverDevice, self.clientDevice
+    )
+    try:
+      wifip2p_utils.setup_wifi_p2p_server_and_client(
+        self.serverDevice, self.clientDevice
+      )
+      mdns_utils.register_mdns_service_and_discover_resolve(
+        self.clientDevice, self.serverDevice
+      )
+    finally:
+      mdns_utils.cleanup_mdns_service(
+        self.clientDevice, self.serverDevice
+      )
+      wifip2p_utils.cleanup_wifi_p2p(
+        self.serverDevice, self.clientDevice
       )
 
 if __name__ == "__main__":
