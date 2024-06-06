@@ -41,6 +41,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
+import java.util.function.Consumer;
 
 /**
  * Provides the primary APIs for controlling all aspects of a Thread network.
@@ -99,6 +100,9 @@ public final class ThreadNetworkController {
 
     /** Thread standard version 1.3. */
     public static final int THREAD_VERSION_1_3 = 4;
+
+    /** Thread standard version 1.4. */
+    public static final int THREAD_VERSION_1_4 = 5;
 
     /** Minimum value of max power in unit of 0.01dBm. @hide */
     private static final int POWER_LIMITATION_MIN = -32768;
@@ -764,4 +768,47 @@ public final class ThreadNetworkController {
             propagateError(mExecutor, mResultReceiver, errorCode, errorMessage);
         }
     }
+
+    /** Configures the Thread features. */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.THREAD_NETWORK_PRIVILEGED)
+    public void setThreadConfiguration(@NonNull ThreadConfiguration threadConfiguration) {}
+
+    /** Returns the Thread configuration */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.ACCESS_NETWORK_STATE)
+    @NonNull
+    public ThreadConfiguration getThreadConfiguration() {
+        return new ThreadConfiguration.Builder().build();
+    }
+
+    /**
+     * Registers a callback to be called when the Thread configuration is changed.
+     *
+     * <p>Upon return of this method, {@code callback} will be invoked immediately with the new
+     * Border Router configuration.
+     *
+     * @param executor the executor to execute the {@code callback}
+     * @param callback the callback to receive Thread configuration changes
+     * @throws IllegalArgumentException if {@code callback} has already been registered
+     * @throws UnsupportedOperationException if the Border Router feature is not supported
+     */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.ACCESS_NETWORK_STATE)
+    public void registerThreadConfigurationCallback(
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull Consumer<ThreadConfiguration> callback) {}
+
+    /**
+     * Unregisters the Border Router configuration callback.
+     *
+     * @param callback the callback which has been registered with {@link
+     *     #registerThreadConfigurationCallback}
+     * @throws IllegalArgumentException if {@code callback} hasn't been registered
+     * @throws UnsupportedOperationException if the Border Router feature is not supported
+     */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.ACCESS_NETWORK_STATE)
+    public void unregisterThreadConfigurationCallback(
+            @NonNull Consumer<ThreadConfiguration> callback) {}
 }
