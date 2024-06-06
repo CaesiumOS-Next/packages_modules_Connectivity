@@ -24,6 +24,7 @@ python_test_host {
         "connectivity_multi_devices_test.py",
         "mdns_utils.py",
         "tether_utils.py",
+        "wifip2p_utils.py",
     ],
     libs: [
         "mobly",
