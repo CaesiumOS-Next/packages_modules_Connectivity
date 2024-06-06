@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e197358_ea00868b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-06T08:56:35Z",
+      "side": 1,
+      "message": "Split into 4 CLs: aosp/3113122, aosp/3113123, aosp/2716773(this CL) and aosp/3115440 to ease the review.",
+      "revId": "7ddcb609dc646159c09a1e4ed044e93a29fa068d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
