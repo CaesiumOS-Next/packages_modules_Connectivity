@@ -16,6 +16,24 @@
       "message": "LGTM. Remi, is it OK to remove MainlineTestModuleController? Does that apply only to MTS? ...?",
       "revId": "f78f43a64867c7583aa3c528a11d030f60900e4c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e1733cb_df3c962e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-06T02:43:26Z",
+      "side": 1,
+      "message": "Confirm with Remi offline that this controller applies only to MTS which is run in mts-tradefed. The doc is go/mainline-test-suite#for-optional-mainline-modules-in-android-q-and-all-other-mainline-modules-introduced-in-android-r.\n\nI updated this commit to keep MainlineTestModuleController given it doesn\u0027t affect CTS enabling.",
+      "parentUuid": "b4f57712_1b9f3131",
+      "revId": "f78f43a64867c7583aa3c528a11d030f60900e4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
