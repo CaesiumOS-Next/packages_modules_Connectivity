@@ -34,6 +34,24 @@
       "parentUuid": "cf6d9e58_00c1064a",
       "revId": "68969d35f871c35aa79c02285959391237b2a154",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaa22157_0a1f9624",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2024-06-06T07:53:03Z",
+      "side": 1,
+      "message": "The reason for the flag is it allows us to control whether the deprecation is included in the next SDK extension or QPR.",
+      "parentUuid": "65dcc59d_78aace0f",
+      "revId": "68969d35f871c35aa79c02285959391237b2a154",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
