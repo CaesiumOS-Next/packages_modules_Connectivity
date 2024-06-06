@@ -92,9 +92,11 @@ import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOperationalDatasetCallback;
 import android.net.thread.IStateCallback;
+import android.net.thread.IThreadConfigurationReceiver;
 import android.net.thread.IThreadNetworkController;
 import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
+import android.net.thread.ThreadConfiguration;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkController.DeviceRole;
 import android.net.thread.ThreadNetworkException;
@@ -136,10 +138,12 @@ import java.time.Clock;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -187,6 +191,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
     private final ConnectivityResources mResources;
     private final Supplier<String> mCountryCodeSupplier;
+    private final Set<IThreadConfigurationReceiver> mThreadConfigurationReceivers = new HashSet<>();
+    private ThreadConfiguration mConfiguration;
 
     // This should not be directly used for calling IOtDaemon APIs because ot-daemon may die and
     // {@code mOtDaemon} will be set to {@code null}. Instead, use {@code getOtDaemon()}
@@ -500,6 +506,68 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             Log.e(TAG, "otDaemon.setThreadEnabled failed", e);
             receiver.onError(e);
         }
+    }
+
+    @Override
+    public void setThreadConfiguration(@NonNull ThreadConfiguration configuration) {
+        mHandler.post(() -> setThreadConfigurationInternal(configuration));
+    }
+
+    private void setThreadConfigurationInternal(@NonNull ThreadConfiguration configuration) {
+        checkOnHandlerThread();
+
+        Log.i(TAG, "Set Thread configuration: " + configuration);
+
+        if (mConfiguration.equals(configuration)) {
+            return;
+        }
+        mConfiguration = configuration;
+        for (IThreadConfigurationReceiver receiver : mThreadConfigurationReceivers) {
+            try {
+                receiver.onThreadConfigurationChanged(mConfiguration);
+            } catch (RemoteException e) {
+                // do nothing if the client is dead
+            }
+        }
+        // TODO: configure border router
+    }
+
+    @Override
+    public void registerThreadConfigurationCallback(
+            @NonNull IThreadConfigurationReceiver callback) {
+        enforceAllPermissionsGranted(permission.ACCESS_NETWORK_STATE);
+        mHandler.post(() -> registerThreadConfigurationCallbackInternal(callback));
+    }
+
+    private void registerThreadConfigurationCallbackInternal(
+            @NonNull IThreadConfigurationReceiver callback) {
+        checkOnHandlerThread();
+        if (mThreadConfigurationReceivers.contains(callback)) {
+            throw new IllegalStateException(
+                    "Registering the same IThreadConfigurationReceiver twice");
+        }
+        mThreadConfigurationReceivers.add(callback);
+        try {
+            callback.onThreadConfigurationChanged(mConfiguration);
+        } catch (RemoteException e) {
+            // do nothing if the client is dead
+        }
+    }
+
+    @Override
+    public void unregisterThreadConfigurationCallback(
+            @NonNull IThreadConfigurationReceiver callback) {
+        enforceAllPermissionsGranted(permission.ACCESS_NETWORK_STATE);
+        mHandler.post(() -> unregisterThreadConfigurationCallbackInternal(callback));
+    }
+
+    private void unregisterThreadConfigurationCallbackInternal(
+            @NonNull IThreadConfigurationReceiver callback) {
+        checkOnHandlerThread();
+        if (!mThreadConfigurationReceivers.contains(callback)) {
+            return;
+        }
+        mThreadConfigurationReceivers.remove(callback);
     }
 
     private void registerUserRestrictionsReceiver() {

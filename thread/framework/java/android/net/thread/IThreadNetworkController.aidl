@@ -24,6 +24,8 @@ import android.net.thread.IOperationReceiver;
 import android.net.thread.IScheduleMigrationReceiver;
 import android.net.thread.IStateCallback;
 import android.net.thread.PendingOperationalDataset;
+import android.net.thread.ThreadConfiguration;
+import android.net.thread.IThreadConfigurationReceiver;
 
 /**
 * Interface for communicating with ThreadNetworkControllerService.
@@ -46,4 +48,7 @@ interface IThreadNetworkController {
     void createRandomizedDataset(String networkName, IActiveOperationalDatasetReceiver receiver);
 
     void setEnabled(boolean enabled, in IOperationReceiver receiver);
+    void setThreadConfiguration(in ThreadConfiguration config);
+    void registerThreadConfigurationCallback(in IThreadConfigurationReceiver receiver);
+    void unregisterThreadConfigurationCallback(in IThreadConfigurationReceiver receiver);
 }

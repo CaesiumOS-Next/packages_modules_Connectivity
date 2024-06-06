@@ -832,6 +832,11 @@ public class ThreadNetworkControllerTest {
                         NET_CAPABILITY_TRUSTED);
     }
 
+    @Test
+    public void setThreadConfiguration_configurationIsUpdated() throws Exception {
+        mController.setThreadConfiguration();
+    }
+
     private void grantPermissions(String... permissions) {
         for (String permission : permissions) {
             mGrantedPermissions.add(permission);
