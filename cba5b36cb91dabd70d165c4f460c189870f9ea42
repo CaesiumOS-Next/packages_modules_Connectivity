@@ -34,6 +34,24 @@
       "parentUuid": "94b3e912_c76b7ef5",
       "revId": "cba5b36cb91dabd70d165c4f460c189870f9ea42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed8970df_5f3407c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-06T05:47:23Z",
+      "side": 1,
+      "message": "@rgreenwalt@google.com\nI named NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED since NET_CAPABILITY_NOT_CONSTRAINED was not clear what is constrained.  \nDo you have any suggestion for the naming?",
+      "parentUuid": "d9e77db7_6931713c",
+      "revId": "cba5b36cb91dabd70d165c4f460c189870f9ea42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
