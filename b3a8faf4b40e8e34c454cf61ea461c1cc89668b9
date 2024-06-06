@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ba3104b_1c4baa22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T01:26:31Z",
+      "side": 1,
+      "message": "LGTM assuming comments addresed.",
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf77fb50_098c8ca9",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T01:26:31Z",
+      "side": 1,
+      "message": "Indicates that this is not a bandwidth-constrained network.\n\nStarting from {@link Build.VERSION_CODES.VANILLA_ICE_CREAM}, this capability is by default set in {@link NetworkRequest}s and true for most networks.\n\nIf a network lacks this capability, it is bandwidth-constrained. Bandwidth constrained networks cannot support high-bandwidth data transfers and applications that request and use them must ensure that they limit bandwidth usage to below the values returned by {@link #getLinkDownstreamBandwidthKbps()} and {@link #getLinkUpstreamBandwidthKbps()} and limit the frequency of their network usage. If applications perform high-bandwidth data transfers on constrained networks or perform network access too frequently, the system may block the app\u0027s access to the network. The system may take other measures to reduce network usage on constrained networks, such as disabling network access to apps that are not in the foreground.",
+      "range": {
+        "startLine": 749,
+        "startChar": 7,
+        "endLine": 749,
+        "endChar": 66
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cc60be1_e392ff26",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkTest.kt",
+        "patchSetId": 28
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-06T01:26:31Z",
+      "side": 1,
+      "message": "Why the \"else\" here? All satellite networks will always be bandwidth constrained, right? Even ones that are restricted?",
+      "range": {
+        "startLine": 215,
+        "startChar": 16,
+        "endLine": 215,
+        "endChar": 24
+      },
+      "revId": "b3a8faf4b40e8e34c454cf61ea461c1cc89668b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
