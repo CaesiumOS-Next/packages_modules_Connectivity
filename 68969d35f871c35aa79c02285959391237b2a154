@@ -52,6 +52,63 @@
       "parentUuid": "65dcc59d_78aace0f",
       "revId": "68969d35f871c35aa79c02285959391237b2a154",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6719a532_6990f145",
+        "filename": "framework/src/android/net/apf/ApfCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-06T09:44:11Z",
+      "side": 1,
+      "message": "On R it is check for 4+ for historically reason. It is a platform code. Might be called by OEM vendor.\n\nOn S+ throw exception here",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 39
+      },
+      "revId": "68969d35f871c35aa79c02285959391237b2a154",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bda697f_c573f9db",
+        "filename": "framework/src/android/net/apf/ApfCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-06T09:44:11Z",
+      "side": 1,
+      "message": "throw",
+      "revId": "68969d35f871c35aa79c02285959391237b2a154",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6158958d_91a79c6a",
+        "filename": "framework/src/android/net/apf/ApfCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-06T09:44:11Z",
+      "side": 1,
+      "message": "throw",
+      "revId": "68969d35f871c35aa79c02285959391237b2a154",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
