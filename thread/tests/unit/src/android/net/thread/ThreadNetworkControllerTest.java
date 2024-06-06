@@ -134,6 +134,14 @@ public final class ThreadNetworkControllerTest {
         return (IOperationalDatasetCallback) invocation.getArguments()[0];
     }
 
+    private static IOperationReceiver getSetConfigurationReceiver(InvocationOnMock invocation) {
+        return (IOperationReceiver) invocation.getArguments()[1];
+    }
+
+    private static IConfigurationReceiver getConfigurationCallback(InvocationOnMock invocation) {
+        return (IConfigurationReceiver) invocation.getArguments()[0];
+    }
+
     @Test
     public void registerStateCallback_callbackIsInvokedWithCallingAppIdentity() throws Exception {
         setBinderUid(SYSTEM_UID);
@@ -436,6 +444,48 @@ public final class ThreadNetworkControllerTest {
                 null, Runnable::run, v -> callbackUid.set(Binder.getCallingUid()));
         mController.setTestNetworkAsUpstream(
                 new String("test0"), Runnable::run, v -> callbackUid.set(Binder.getCallingUid()));
+
+        assertThat(callbackUid.get()).isNotEqualTo(SYSTEM_UID);
+        assertThat(callbackUid.get()).isEqualTo(Process.myUid());
+    }
+
+    @Test
+    public void setConfiguration_callbackIsInvokedWithCallingAppIdentity() throws Exception {
+        setBinderUid(SYSTEM_UID);
+        AtomicInteger callbackUid = new AtomicInteger(0);
+
+        doAnswer(
+                        invoke -> {
+                            getSetConfigurationReceiver(invoke).onSuccess();
+                            return null;
+                        })
+                .when(mMockService)
+                .setConfiguration(any(Configuration.class), any(IOperationReceiver.class));
+        mController.setConfiguration(
+                new Configuration.Builder().build(),
+                Runnable::run,
+                v -> callbackUid.set(Binder.getCallingUid()));
+
+        assertThat(callbackUid.get()).isNotEqualTo(SYSTEM_UID);
+        assertThat(callbackUid.get()).isEqualTo(Process.myUid());
+    }
+
+    @Test
+    public void registerConfigurationCallback_callbackIsInvokedWithCallingAppIdentity()
+            throws Exception {
+        setBinderUid(SYSTEM_UID);
+        AtomicInteger callbackUid = new AtomicInteger(0);
+
+        doAnswer(
+                        invoke -> {
+                            getConfigurationCallback(invoke)
+                                    .onConfigurationChanged(new Configuration.Builder().build());
+                            return null;
+                        })
+                .when(mMockService)
+                .registerConfigurationCallback(any(IConfigurationReceiver.class));
+        mController.registerConfigurationCallback(
+                Runnable::run, v -> callbackUid.set(Binder.getCallingUid()));
 
         assertThat(callbackUid.get()).isNotEqualTo(SYSTEM_UID);
         assertThat(callbackUid.get()).isEqualTo(Process.myUid());
