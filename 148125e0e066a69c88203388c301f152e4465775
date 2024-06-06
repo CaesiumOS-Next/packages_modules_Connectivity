@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2de585a4_f7019900",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSatelliteNetworkTest.kt",
+        "patchSetId": 25
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-06-06T18:04:56Z",
+      "side": 1,
+      "message": "nit: typo ed",
+      "range": {
+        "startLine": 137,
+        "startChar": 49,
+        "endLine": 137,
+        "endChar": 50
+      },
+      "revId": "148125e0e066a69c88203388c301f152e4465775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
