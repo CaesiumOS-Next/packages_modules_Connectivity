@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a41e1fc5_37a04d4a",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-06T08:07:36Z",
+      "side": 1,
+      "message": "Maybe refactor to a standalone file for all mdns things?\nIf so, you don\u0027t even need connectivity_multi_devices_snippet, e.g:\n```\n server \u003d self.serverDevice.nsd_snippet\n client \u003d self.clientDevice.nsd_snippet\n```",
+      "range": {
+        "startLine": 190,
+        "startChar": 46,
+        "endLine": 190,
+        "endChar": 56
+      },
+      "revId": "d81ac977d975ac6dbbd3e733c7bbed1bac99c144",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b5550b_29ceb604",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-06T08:07:36Z",
+      "side": 1,
+      "message": "define constant or make it random?",
+      "range": {
+        "startLine": 248,
+        "startChar": 21,
+        "endLine": 248,
+        "endChar": 26
+      },
+      "revId": "d81ac977d975ac6dbbd3e733c7bbed1bac99c144",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
