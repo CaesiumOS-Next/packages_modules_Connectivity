@@ -18,9 +18,11 @@ package com.android.server.thread;
 
 import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
 
+import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.ApexEnvironment;
 import android.content.Context;
+import android.net.thread.Configuration;
 import android.os.PersistableBundle;
 import android.util.AtomicFile;
 import android.util.Log;
@@ -73,6 +75,19 @@ public class ThreadPersistentSettings {
 
     /** Stores the Thread country code, null if no country code is stored. */
     public static final Key<String> THREAD_COUNTRY_CODE = new Key<>("thread_country_code", null);
+
+    /** Stores the Thread NAT64 feature toggle state, true for enabled and false for disabled. */
+    public static final Key<Boolean> THREAD_NAT64_ENABLED =
+            new Key<>("thread_nat64_enabled", false);
+
+    /**
+     * Stores the Thread DHCPv6-PD feature toggle state, true for enabled and false for disabled.
+     */
+    public static final Key<Boolean> THREAD_DHCP6_PD_ENABLED =
+            new Key<>("thread_dhcp6_pd_enabled", false);
+
+    /** Stores the Thread TREL feature toggle state, true for enabled and false for disabled. */
+    public static final Key<Boolean> THREAD_TREL_ENABLED = new Key<>("thread_trel_enabled", false);
 
     /******** Thread persistent setting keys ***************/
 
@@ -172,6 +187,27 @@ public class ThreadPersistentSettings {
      */
     public <T> T get(Key<T> key) {
         return getObject(key.key, key.defaultValue);
+    }
+
+    /**
+     * Store a {@link Configuration} to the stored settings.
+     *
+     * @param configuration Configuration to be stored.
+     */
+    public void putConfiguration(@NonNull Configuration configuration) {
+        putObject(THREAD_NAT64_ENABLED.key, configuration.isNat64Enabled());
+        putObject(THREAD_DHCP6_PD_ENABLED.key, configuration.isDhcp6PdEnabled());
+        putObject(THREAD_TREL_ENABLED.key, configuration.isTrelEnabled());
+        writeToStoreFile();
+    }
+
+    /** Retrieve the {@link Configuration} from the stored settings. */
+    public Configuration getConfiguration() {
+        return new Configuration.Builder()
+                .setNat64Enabled(get(THREAD_NAT64_ENABLED))
+                .setDhcp6PdEnabled(get(THREAD_DHCP6_PD_ENABLED))
+                .setTrelEnabled(get(THREAD_TREL_ENABLED))
+                .build();
     }
 
     /**
