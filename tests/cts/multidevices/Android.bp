@@ -23,6 +23,7 @@ python_test_host {
     srcs: [
         "connectivity_multi_devices_test.py",
         "tether_utils.py",
+        "wifip2p_utils.py",
     ],
     libs: [
         "mobly",

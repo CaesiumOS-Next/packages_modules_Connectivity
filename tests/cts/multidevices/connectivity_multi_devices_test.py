@@ -7,6 +7,7 @@ from mobly import utils
 from mobly.controllers import android_device
 import tether_utils
 from tether_utils import UpstreamType
+import wifip2p_utils
 
 CONNECTIVITY_MULTI_DEVICES_SNIPPET_PACKAGE = "com.google.snippet.connectivity"
 
@@ -70,6 +71,28 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
       server.discoverAndResolveMDnsService()
     finally:
       tether_utils.cleanup_tethering_for_upstream_type(
+        self.serverDevice, UpstreamType.WIFI
+      )
+      # Unregister the mDns service
+      client.unregisterMDnsService()
+      # Stop discovery
+      server.stopMDnsServiceDiscovery()
+
+  def test_mdns_advertising_discovery_resolution_via_wifip2p(self):
+    server = self.serverDevice.connectivity_multi_devices_snippet
+    client = self.clientDevice.connectivity_multi_devices_snippet
+
+    try:
+      # Connectivity of the client verified by asserting the validated capability.
+      wifip2p_utils.setup_wifi_p2p_server_and_client(
+        self.serverDevice, self.clientDevice
+      )
+      # Register a mDns service
+      client.registerMDnsService()
+      # Discover a mDns service and resolve retrieved mDns service
+      server.discoverAndResolveMDnsService()
+    finally:
+      wifip2p_utils.cleanup_wifi_p2p(
         self.serverDevice, UpstreamType.WIFI
       )
       # Unregister the mDns service
