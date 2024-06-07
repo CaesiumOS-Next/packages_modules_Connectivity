@@ -22,6 +22,8 @@ import android.annotation.SystemApi;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.android.modules.utils.build.SdkLevel;
+
 import java.util.Objects;
 
 /**
@@ -126,6 +128,9 @@ public final class ApfCapabilities implements Parcelable {
     public static boolean getApfDrop8023Frames() {
         // TODO: deprecate/remove this method (now unused in the platform), as the resource was
         // moved to NetworkStack.
+        if (!SdkLevel.isAtLeastS()) {
+            throw new IllegalStateException("This API shouldn't be used in S+");
+        }
         return true;
     }
 
@@ -135,6 +140,9 @@ public final class ApfCapabilities implements Parcelable {
     public static @NonNull int[] getApfEtherTypeBlackList() {
         // TODO: deprecate/remove this method (now unused in the platform), as the resource was
         // moved to NetworkStack.
+        if (!SdkLevel.isAtLeastS()) {
+            throw new IllegalStateException("This API shouldn't be used in S+");
+        }
         return new int[] { 0x88a2, 0x88a4, 0x88b8, 0x88cd, 0x88e3 };
     }
 }
