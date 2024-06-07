@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41e90ab6_e08a8e98",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-07T20:53:51Z",
+      "side": 0,
+      "message": "I apologize, there are lots of spurious changes in this CL, such as renaming this to something shorter... I can split it if you would prefer. I figured since it\u0027s a test change it wasn\u0027t worth the extra effort.",
+      "range": {
+        "startLine": 108,
+        "startChar": 29,
+        "endLine": 108,
+        "endChar": 58
+      },
+      "revId": "e4cbb9c7f64b8a95da918b162b3a1a42b8bca634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
