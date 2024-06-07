@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be5a1358_3e1dbb1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-07T22:19:00Z",
+      "side": 1,
+      "message": "test failures are really odd (TetheredInterfaceCallback for unexpected interface expected:\u003c[testtap]1\u003e but was:\u003c[eth]1\u003e). eth1 should not be available for tethering as it contains a configuration in the config.xml. Needs some more investigation next week.",
+      "revId": "8bfae81b5254724838875a7010860290049bf63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
