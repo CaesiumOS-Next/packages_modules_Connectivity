@@ -101,6 +101,23 @@
       "message": "Thank you Yeabkal",
       "revId": "fc1bd9d19850c3234537dab884300846b52a479c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ccdc093_dba9810b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-07T01:29:09Z",
+      "side": 1,
+      "message": "LGTM as clean cherry-pick from aosp/main (was master)\n\nNote aosp/2623371 refactored that logic to use afterwards.",
+      "revId": "fc1bd9d19850c3234537dab884300846b52a479c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
