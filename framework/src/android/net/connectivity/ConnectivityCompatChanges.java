@@ -101,7 +101,8 @@ public final class ConnectivityCompatChanges {
 
     /**
      * On Android {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} or higher releases,
-     * network access from apps targeting Android 36 or higher that do not have the
+     * network access from apps targeting SDKs strictly higher than
+     * {@link android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM} that do not have the
      * {@link android.Manifest.permission#INTERNET} permission is considered blocked.
      * This results in API behaviors change for apps without
      * {@link android.Manifest.permission#INTERNET} permission.
