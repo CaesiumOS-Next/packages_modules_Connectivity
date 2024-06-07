@@ -677,9 +677,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             mNetworkToInterface.put(network, newIfName);
 
             // TODO: disable border routing if netIfName is null
-            if (network.equals(mUpstreamNetwork)) {
-                enableBorderRouting(mNetworkToInterface.get(mUpstreamNetwork));
-            }
+            // if (network.equals(mUpstreamNetwork)) {
+                enableBorderRouting(newIfName);
+            // }
         }
     }
 
