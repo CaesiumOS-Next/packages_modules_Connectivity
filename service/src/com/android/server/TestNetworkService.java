@@ -267,7 +267,6 @@ class TestNetworkService extends ITestNetworkManager.Stub {
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED);
         nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN);
-        nc.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED);
         nc.setNetworkSpecifier(new TestNetworkSpecifier(iface));
         nc.setAdministratorUids(administratorUids);
         if (!isMetered) {
