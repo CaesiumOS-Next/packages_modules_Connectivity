@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55f7d34e_5fab415c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1881060
+      },
+      "writtenOn": "2024-06-07T07:50:39Z",
+      "side": 1,
+      "message": "Please, help reviewing this change to address the Cts P0 failure",
+      "revId": "d44bd8bc80691274d787f3385ba984af0e937419",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
