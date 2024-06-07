@@ -16,10 +16,6 @@
 
 package android.net.cts.networkpermission.updatestatspermission;
 
-import static android.Manifest.permission.NETWORK_SETTINGS;
-
-import static com.android.testutils.TestPermissionUtil.runAsShell;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -28,8 +24,6 @@ import android.os.Process;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
-
-import com.android.modules.utils.build.SdkLevel;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,11 +67,6 @@ public class UpdateStatsPermissionTest {
         out.write(buf);
         out.close();
         socket.close();
-        // Clear TrafficStats cache is needed to avoid rate-limit caching for
-        // TrafficStats API results on V+ devices.
-        if (SdkLevel.isAtLeastV()) {
-            runAsShell(NETWORK_SETTINGS, () -> TrafficStats.clearRateLimitCaches());
-        }
         long uidTxBytesAfter = TrafficStats.getUidTxBytes(Process.myUid());
         long uidTxDeltaBytes = uidTxBytesAfter - uidTxBytesBefore;
         assertTrue("uidtxb: " + uidTxBytesBefore + " -> " + uidTxBytesAfter + " delta="

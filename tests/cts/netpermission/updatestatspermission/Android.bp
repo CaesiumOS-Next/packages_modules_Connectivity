@@ -19,17 +19,11 @@ package {
 
 android_test {
     name: "CtsNetTestCasesUpdateStatsPermission",
-    defaults: [
-        "cts_defaults",
-        "framework-connectivity-test-defaults",
-    ],
+    defaults: ["cts_defaults"],
 
     srcs: ["src/**/*.java"],
-    platform_apis: true,
-    static_libs: [
-        "ctstestrunner-axt",
-        "net-tests-utils",
-    ],
+
+    static_libs: ["ctstestrunner-axt"],
 
     // Tag this module as a cts test artifact
     test_suites: [
