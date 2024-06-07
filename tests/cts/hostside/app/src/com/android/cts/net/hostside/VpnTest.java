@@ -971,8 +971,10 @@ public class VpnTest {
         final TestableNetworkCallback otherUidCallback = new TestableNetworkCallback();
         final TestableNetworkCallback myUidCallback = new TestableNetworkCallback();
         if (SdkLevel.isAtLeastS()) {
-            final int otherUid =
-                    UserHandle.of(5 /* userId */).getUid(Process.FIRST_APPLICATION_UID);
+            // Using the same appId with the test to make sure otherUid has the internet permission.
+            // If the otherUid does not have the internet permission, network access from otherUid
+            // is always considered blocked on V+.
+            final int otherUid = UserHandle.of(5 /* userId */).getUid(Process.myUid());
             final Handler h = new Handler(Looper.getMainLooper());
             runWithShellPermissionIdentity(() -> {
                 registerSystemDefaultNetworkCallback(systemDefaultCallback, h);
