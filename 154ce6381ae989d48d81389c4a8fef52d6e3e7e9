@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "799f0aa7_530f7ee3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-07T08:46:14Z",
+      "side": 1,
+      "message": "```\nField \u0027NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED\u0027 documentation mentions constants without declaring an @IntDef (ErrorWhenNew) [IntDef]\n```\nNET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED is added to @NetCapability IntDef",
+      "revId": "154ce6381ae989d48d81389c4a8fef52d6e3e7e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
