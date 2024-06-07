@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ddddd66_41413cfd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-07T08:55:23Z",
+      "side": 1,
+      "message": "LGTM, feel free to address comment in a follow-up.",
+      "revId": "1a974950654aea6d9576c6057de58d92ce7b9167",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd29e4d8_1d958ab9",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-07T08:55:23Z",
+      "side": 1,
+      "message": "This works because the UID permission map only stores the app ID and not the whole UID.",
+      "range": {
+        "startLine": 974,
+        "startChar": 99,
+        "endLine": 974,
+        "endChar": 100
+      },
+      "revId": "1a974950654aea6d9576c6057de58d92ce7b9167",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
