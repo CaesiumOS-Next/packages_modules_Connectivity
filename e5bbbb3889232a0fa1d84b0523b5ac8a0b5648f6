@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5acbc3dd_ab9a6914",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-08T07:50:43Z",
+      "side": 1,
+      "message": "Generally LGTM with one comment.",
+      "revId": "e5bbbb3889232a0fa1d84b0523b5ac8a0b5648f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5383dcf_2559531b",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-08T07:50:43Z",
+      "side": 1,
+      "message": "Is there any reason why we put this line after resetLinkProperties()? If yes, please add comments.",
+      "range": {
+        "startLine": 1223,
+        "startChar": 11,
+        "endLine": 1223,
+        "endChar": 58
+      },
+      "revId": "e5bbbb3889232a0fa1d84b0523b5ac8a0b5648f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
