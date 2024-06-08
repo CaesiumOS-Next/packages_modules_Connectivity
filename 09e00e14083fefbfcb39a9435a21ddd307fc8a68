@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a867521_93610435",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-08T09:11:42Z",
+      "side": 1,
+      "message": "LGTM assume the comment is adjusted.\n\n\nTo other reviewers:\n\nI think this CL seems to be safe due to the following analysis:\n\nBefore: start mIpNeighborMonitor when the IpServer is created and stop when it enter unavailable state.\n\nAfter: start mIpNeighborMonitor when IpServer entered BaseServingState and stop when IpClient exit BaseServingState.\n\nBecuase we only start serving IpV6 after `mBpfCoordinator.addIpServer(IpServer.this);` so we will start  mIpNeighborMonitor before the starting IpV6, therefore we won\u0027t lose any ND event update. We will stop ND monitoring a little bit earlier than before but when we stop, we know there is no IpServer that is serving any downstream. So we are safe to stop the ND monitoring.",
+      "revId": "09e00e14083fefbfcb39a9435a21ddd307fc8a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b9a1235_93a837f9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-08T09:11:42Z",
+      "side": 1,
+      "message": "Looks like we don\u0027t need this to be a separate function as it only do one thing.",
+      "range": {
+        "startLine": 605,
+        "startChar": 17,
+        "endLine": 605,
+        "endChar": 40
+      },
+      "revId": "09e00e14083fefbfcb39a9435a21ddd307fc8a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbc61351_400c7072",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-08T09:11:42Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 613,
+        "startChar": 17,
+        "endLine": 613,
+        "endChar": 39
+      },
+      "revId": "09e00e14083fefbfcb39a9435a21ddd307fc8a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4e5e3ec_b0874dfc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-08T09:11:42Z",
+      "side": 1,
+      "message": "Same here, I feel those two methods can be inline, it is only one line....",
+      "range": {
+        "startLine": 915,
+        "startChar": 1,
+        "endLine": 922,
+        "endChar": 5
+      },
+      "revId": "09e00e14083fefbfcb39a9435a21ddd307fc8a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
