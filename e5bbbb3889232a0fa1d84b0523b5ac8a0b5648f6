@@ -20,6 +20,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b34e16d8_a51631bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-08T08:19:40Z",
+      "side": 1,
+      "message": "To other reviewers: I think this CL seems to be safe due to the following reasoning:\n\nBefore:",
+      "revId": "e5bbbb3889232a0fa1d84b0523b5ac8a0b5648f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f181219e_96977a19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-08T08:19:40Z",
+      "side": 1,
+      "message": "General the change is LGTM. +2 assume the other comment is adjusted. Left a note to other reviewer here. But it shouldn\u0027t be a blocker for merge this change.\n\n\nTo other reviewers:\n\nI think this CL seems to be safe due to the following analysis:\n\nConntrackMonitoring:\n\nBefore and after change: 1) started when IpServer.BaseServingState is entered.\n 2) stopped when IpServer.BaseServingState is exited.\n\n\nThe timming is not changed.\n\n\nschedulePollingStats/scheduleConntrackTimeoutUpdate\n\nBefore the change: 1) started when Tethering.TetherModeAliveState is entered 2) stopped when Tethering.TetherModeAliveState is existed.\n\nAfter change: 1) started when IpServer.BaseServingState is entered.\n 2) stopped when IpServer.BaseServingState is exited.\n\n\n Once IpServer enter the TetheredState/LocalHotspotState, it will call `sendInterfaceState(mDesiredInterfaceState)`, then after one handler loop, Tethering.InitialState will change to Tethering.TetherModeAliveState.\n\n So after the change the schedulePollingStats/scheduleConntrackTimeoutUpdate is started a little bit early than before. But it start right after IpServer enter the TetheredState/LocalHotspotState so IpServer shouldn\u0027t miss any event.\n\n Same for stop, when TetheredState/LocalHotspotState, it will call `sendInterfaceState(mDesiredInterfaceState)`, hen after one handler loop, Tethering.TetherModeAliveState will transit to Tethering.InitialState. So aftaer the change, the schedulePollingStats/scheduleConntrackTimeoutUpdate is stopped a little bit early than  before. But as it only stop when all IpServer exit TetheredState/LocalHotspotState so it is safe.",
+      "revId": "e5bbbb3889232a0fa1d84b0523b5ac8a0b5648f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5383dcf_2559531b",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 2
