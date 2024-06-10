@@ -135,6 +135,259 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98024896_a773f2c0",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 4736,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T10:55:10Z",
+      "side": 1,
+      "message": "Isn\u0027t flag \u003d\u003d 0 possible in legitimate cases as well? For example, if I do:\n\n    mCm.registerDefaultNetworkCallback(new NetworkCallback());\n\nwouldn\u0027t flag be 0? Also I think you previously mentioned a case where an app just wants a particular network to be brought up, but doesn\u0027t care about the callbacks. You\u0027d get flags \u003d 0 in that case too.\n\nI guess the code you have in this CL prefers to use 0 as an indication that the caller did something strange (direct binder call bytecode injection, etc.) instead of indicating that the caller passed in an empty callback. I think that\u0027s fine, but if so, then you should probably mention in the comment that if an app really passes in an empty callback, then this code will register the callback with DECLARED_METHODS_ALL and turn off the optimization. We don\u0027t expect apps to do this anyway since it\u0027s not very useful.",
+      "range": {
+        "startLine": 4736,
+        "startChar": 12,
+        "endLine": 4736,
+        "endChar": 21
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c762d2a_cce6b49b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T10:55:10Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Build Warnings: extraneous semicolon\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    extraneous semicolon\n    import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;;\n                                                                      ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P75793794/targets/cf_x86_64_phone-trunk_staging-userdebug, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 67
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2227eaff_82a63d17",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T10:55:10Z",
+      "side": 1,
+      "message": "Nit: technically none of the flags need to be set on this one, since it doesn\u0027t actually send any callbacks. Maybe define a DECLARED_METHODS_NONE \u003d 0?",
+      "range": {
+        "startLine": 1781,
+        "startChar": 44,
+        "endLine": 1781,
+        "endChar": 64
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "109b2062_2cc530ab",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2168,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T10:55:10Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 2168,
+        "startChar": 48,
+        "endLine": 2168,
+        "endChar": 68
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "427062f0_e1e02f31",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 7588,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T10:55:10Z",
+      "side": 1,
+      "message": "Since there is no callback object here, I guess this would be another case for DECLARED_METHODS_NONE?",
+      "range": {
+        "startLine": 7588,
+        "startChar": 35,
+        "endLine": 7588,
+        "endChar": 55
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4a7363c_49ad8a6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 7618,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T10:55:10Z",
+      "side": 1,
+      "message": "Nit: why mDeclaredMethodsFlag singular and declaredMethodsFlags plural?",
+      "range": {
+        "startLine": 7618,
+        "startChar": 12,
+        "endLine": 7618,
+        "endChar": 55
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aa96936_61be825e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 7748,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T10:55:10Z",
+      "side": 1,
+      "message": "The hex string is not going to be easy to read. Consider having a method that translates the flags to a string such as \"AVAIL|LP|NC|BLK\"",
+      "range": {
+        "startLine": 7748,
+        "startChar": 55,
+        "endLine": 7748,
+        "endChar": 66
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72f307ba_527260db",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T10:55:10Z",
+      "side": 1,
+      "message": "WithOnLostOnly?",
+      "range": {
+        "startLine": 522,
+        "startChar": 24,
+        "endLine": 522,
+        "endChar": 49
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ee47a32_a3c033d6",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T10:55:10Z",
+      "side": 1,
+      "message": "Blank line before here?",
+      "range": {
+        "startLine": 554,
+        "startChar": 30,
+        "endLine": 554,
+        "endChar": 39
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5e0010c_e8392f84",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T10:55:10Z",
+      "side": 1,
+      "message": "Ditto, blank line?",
+      "range": {
+        "startLine": 571,
+        "startChar": 30,
+        "endLine": 571,
+        "endChar": 49
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f724a8c0_40f42a59",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T10:55:10Z",
+      "side": 1,
+      "message": "Can these be put right after the operations that call them? Something like:\n\n    ....\n    manager.requestNetwork(request, callback1);\n    inOrder.verify(mService).requestNetwork(\n            anyInt(), any(), anyInt(), any(), anyInt(), any(), anyInt(), anyInt(), any(), any(),\n            eq(cb1Flags));\n\n    manager.registerNetworkCallback(request, callback2);\n    // Call a second time with the same callback to exercise caching\n    manager.registerNetworkCallback(request, callback2);\n    inOrder.verify(mService, times(2)).listenForNetwork(\n            any(), any(), any(), anyInt(), any(), any(),\n            eq(cb2Flags));\n\n    ...",
+      "range": {
+        "startLine": 596,
+        "startChar": 16,
+        "endLine": 596,
+        "endChar": 22
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "496b3eb0_f8e29717",
         "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
         "patchSetId": 12
