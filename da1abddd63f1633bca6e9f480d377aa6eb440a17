@@ -89,6 +89,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4369a715_5eca8ff4",
+        "filename": "thread/tests/cts/METADATA",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T08:06:00Z",
+      "side": 1,
+      "message": "Actually since this was built internally, I think you might use the tag instead and just make the version inside this URL block be frc_350712000 .",
+      "parentUuid": "26aa963b_49a862a2",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 11,
+        "endChar": 3
+      },
+      "revId": "da1abddd63f1633bca6e9f480d377aa6eb440a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf32dbe9_c1953c2e",
         "filename": "thread/tests/cts/METADATA",
         "patchSetId": 7
