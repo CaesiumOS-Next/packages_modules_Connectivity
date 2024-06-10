@@ -18,6 +18,7 @@ package android.net.cts
 import android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
+import android.Manifest.permission.QUERY_ALL_PACKAGES
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.EthernetManager
@@ -62,6 +63,7 @@ import android.os.SystemProperties
 import android.platform.test.annotations.AppModeFull
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.DeviceConfigUtils
 import com.android.net.module.util.TrackRecord
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
@@ -92,10 +94,12 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import kotlin.text.Regex
 import org.junit.After
 import org.junit.Assume.assumeFalse
 import org.junit.Assume.assumeTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -132,6 +136,7 @@ private val STATIC_IP_CONFIGURATION = IpConfiguration.Builder()
 @ConnectivityModuleTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class EthernetManagerTest {
+    @get:Rule val ignoreRule = DevSdkIgnoreRule()
 
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val em by lazy { context.getSystemService(EthernetManager::class.java)!! }
@@ -1025,5 +1030,36 @@ class EthernetManagerTest {
         iface.setCarrierEnabled(true)
         cb.eventuallyExpectCapabilities(TEST_CAPS)
         cb.eventuallyExpectLpForStaticConfig(STATIC_IP_CONFIGURATION.staticIpConfiguration)
+    }
+
+    private fun getResourcesContext(): Context {
+        val packageName = runAsShell(QUERY_ALL_PACKAGES) {
+            DeviceConfigUtils.getConnectivityResourcesPackageName(context)
+        }
+        val packageContext = context.createPackageContext(packageName, 0 /* flags */)
+        return packageContext
+    }
+
+    private fun getStringResource(name: String): String {
+        val resourcesContext = getResourcesContext()
+        val res = resourcesContext.resources
+        val resId = res.getIdentifier(name, "string", resourcesContext.packageName)
+        return res.getString(resId)
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @Test
+    fun testUsbnetConfig() {
+        // The kernel is inconsistent with naming USB ethernet interfaces. They can be named either
+        // usb%d or eth%d, see https://elixir.bootlin.com/linux/v6.9/source/drivers/net/usb/usbnet.c#L1749.
+        // In particular, usbnet interface naming mostly depends on the presence of the locally
+        // administered bit in the devices MAC address.
+        // Including usb%d devices in config_ethernet_iface_regex enables device-to-device tethering
+        // via USB-C connection.
+        val ifaceRegex = getStringResource("config_ethernet_iface_regex")
+
+        // If the regex is "*", EthernetTracker uses the default configuration for the release.
+        assumeFalse(ifaceRegex.equals("*"))
+        assertTrue("usb0".matches(Regex(ifaceRegex)), "config_ethernet_iface_regex does not match usb0")
     }
 }
