@@ -16,6 +16,29 @@
       "message": "test failures are really odd (TetheredInterfaceCallback for unexpected interface expected:\u003c[testtap]1\u003e but was:\u003c[eth]1\u003e). eth1 should not be available for tethering as it contains a configuration in the config.xml. Needs some more investigation next week.",
       "revId": "8bfae81b5254724838875a7010860290049bf63f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34989e6a_fd46a326",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-10T21:58:12Z",
+      "side": 1,
+      "message": "So this breaks before T. On R and S, EthernetManager#isAvailable() completely ignored interfaces that are in server mode. Since this change moves the tethered interface request to early in the setup path, the interface is put in server mode before isInterfaceForTetheringAvailable() is called.\n\nThe way to solve this is to just use isPhysicalInterfaceAvailable on all releases. The side effect of this change is that eth1\u0027s IpClient will briefly be torn down.F\n\nIf this is not acceptable, we could go back to requesting the tethered interface after the assumption check and draining both tun / tap in EthernetTester\u0027s constructor (this should probably be done anyways). However, I don\u0027t think there is any significant downside of stopping the physical interface\u0027s (or in this case, the cuttlefish virtual interface\u0027s) IpClient for a brief moment in time (this happens on T+ anyways). Note that these tests have never run on R / S cuttlefish and will continue to not run (I think there is no way around that, unless we were to rename eth1 on cuttlefish to something that isn\u0027t captured by the ethernet interface regex).",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 93
+      },
+      "revId": "8bfae81b5254724838875a7010860290049bf63f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
