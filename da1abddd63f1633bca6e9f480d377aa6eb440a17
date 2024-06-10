@@ -16,6 +16,98 @@
       "message": "Looks like the BCID is still failing",
       "revId": "da1abddd63f1633bca6e9f480d377aa6eb440a17",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff892929_5d14c51f",
+        "filename": "thread/tests/cts/METADATA",
+        "patchSetId": 7
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T07:59:21Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be a URL? Something like https://www.android.com/",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 9
+      },
+      "revId": "da1abddd63f1633bca6e9f480d377aa6eb440a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0268888_cb94e9ef",
+        "filename": "thread/tests/cts/METADATA",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T07:59:21Z",
+      "side": 1,
+      "message": "https://android.googlesource.com/platform/packages/modules/Connectivity",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "da1abddd63f1633bca6e9f480d377aa6eb440a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26aa963b_49a862a2",
+        "filename": "thread/tests/cts/METADATA",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T07:59:21Z",
+      "side": 1,
+      "message": "AFAICT you should put the git hash that you used to build the package in a \"version\" tag inside this url block. See docs at https://cs.android.com/android/platform/superproject/main/+/main:build/soong/compliance/project_metadata_proto/project_metadata.proto .",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 11,
+        "endChar": 3
+      },
+      "revId": "da1abddd63f1633bca6e9f480d377aa6eb440a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf32dbe9_c1953c2e",
+        "filename": "thread/tests/cts/METADATA",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-10T07:59:21Z",
+      "side": 1,
+      "message": "I think the linter is complaining that the version here must match the version in the APK. As far as I can tell using \"aapt dump badging \u003capk\u003e\", the version is \"15\".",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 12,
+        "endChar": 20
+      },
+      "revId": "da1abddd63f1633bca6e9f480d377aa6eb440a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
