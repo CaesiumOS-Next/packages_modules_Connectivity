@@ -50,6 +50,24 @@
       "message": "Generally LGTM, but I would like Maciej to be able to take a look before this CL is submitted. Leaving an unresolved comment so it won\u0027t autosubmit.",
       "revId": "82bf7bbe8b229a587901260354b5acda231aa837",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58f1af87_7200b755",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-10T16:40:27Z",
+      "side": 1,
+      "message": "Don\u0027t claim to be an expert... but it seems reasonable enough.",
+      "parentUuid": "274ebd67_dc16fb26",
+      "revId": "82bf7bbe8b229a587901260354b5acda231aa837",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
