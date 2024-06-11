@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb0d77b3_34073cfb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-11T07:12:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b9a1235_93a837f9",
+      "range": {
+        "startLine": 605,
+        "startChar": 17,
+        "endLine": 605,
+        "endChar": 40
+      },
+      "revId": "09e00e14083fefbfcb39a9435a21ddd307fc8a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbc61351_400c7072",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e831960_1b111d3b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-11T07:12:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbc61351_400c7072",
+      "range": {
+        "startLine": 613,
+        "startChar": 17,
+        "endLine": 613,
+        "endChar": 39
+      },
+      "revId": "09e00e14083fefbfcb39a9435a21ddd307fc8a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4e5e3ec_b0874dfc",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-06-08T09:11:42Z",
       "side": 1,
       "message": "Same here, I feel those two methods can be inline, it is only one line....",
+      "range": {
+        "startLine": 915,
+        "startChar": 1,
+        "endLine": 922,
+        "endChar": 5
+      },
+      "revId": "09e00e14083fefbfcb39a9435a21ddd307fc8a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67f8166b_cc56d1c9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-11T07:12:39Z",
+      "side": 1,
+      "message": "```getInterfaceIndexForRule``` was actually suggested by Lorenzo in the previous CL:\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2711576/10..19/Tethering/src/android/net/ip/IpServer.java#b923\n\nFor these two small functions, I think they\u0027re not completely useless to declared as a function because they\u0027re both called at more than one places (after next CL aosp/2716773), we can make sure that the logic (although it is small) are the same.",
+      "parentUuid": "a4e5e3ec_b0874dfc",
       "range": {
         "startLine": 915,
         "startChar": 1,
