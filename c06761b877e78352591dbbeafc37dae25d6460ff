@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c64d5733_b425b4d6",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-11T15:11:23Z",
+      "side": 1,
+      "message": "this could technically happen inside cleanUp(), but I just want to get rid of cleanUp() and inline the code in tearDown.",
+      "range": {
+        "startLine": 252,
+        "startChar": 8,
+        "endLine": 254,
+        "endChar": 9
+      },
+      "revId": "c06761b877e78352591dbbeafc37dae25d6460ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
