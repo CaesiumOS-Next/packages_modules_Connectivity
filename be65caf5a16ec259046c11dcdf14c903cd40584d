@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "739e1bf8_412baa3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d3db1f1_cafc05e6",
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a69d55d2_6ed5e1b8",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-06-06T07:28:29Z",
       "side": 1,
       "message": "// If this number is exceeded, the code will still function correctly, but registering\n// network callbacks will be a bit slower because getDeclaredMethodsFlag must examine\n// the callback class to determine what methods it overrides.",
+      "range": {
+        "startLine": 1244,
+        "startChar": 63,
+        "endLine": 1244,
+        "endChar": 64
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed57f6c7_bb24eda9",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done (modified a bit to be more specific)",
+      "parentUuid": "a69d55d2_6ed5e1b8",
       "range": {
         "startLine": 1244,
         "startChar": 63,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7ca3820_83f2c2a3",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 4025,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abe755a7_94540f98",
+      "range": {
+        "startLine": 4024,
+        "startChar": 38,
+        "endLine": 4025,
+        "endChar": 87
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9693e8de_e553b682",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-06-06T07:28:29Z",
       "side": 1,
       "message": "Per discussion, the comment could be:\n\n  * The ConnectivityManager.CALLBACK_xxx message that this method corresponds to.\n  * Multiple callback methods may correspond to the CALLBACK_xxx message. For exmample,\n  * two methods correspond to CALLBACK_AVAILABLE: the one-argument version of\n  * onAvailable and the three-argument version.\n\n... which suggests, maybe call this callbackId?",
+      "range": {
+        "startLine": 4033,
+        "startChar": 86,
+        "endLine": 4033,
+        "endChar": 87
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce327dbd_6a06494e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 4033,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Renamed, but with the new code only the method directly called by the callback has the ID, so right now there\u0027s only one callback per callback ID.",
+      "parentUuid": "9693e8de_e553b682",
       "range": {
         "startLine": 4033,
         "startChar": 86,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94561043_9c624c7c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 4035,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Considering the other comment suggesting callbackId, renamed to calledByCallbackId",
+      "parentUuid": "9d4725c5_2e63c4f8",
+      "range": {
+        "startLine": 4035,
+        "startChar": 16,
+        "endLine": 4035,
+        "endChar": 21
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e240d76f_f6237bae",
@@ -123,6 +237,30 @@
       "writtenOn": "2024-06-06T07:28:29Z",
       "side": 1,
       "message": "If this method may call other callbacks, a bitmask of the callbacks that it calls.\n\n\nAlso, per discussion: maybe have another set of constants here? It looks like this scheme happens to work only because the one-arg version of onAvailable (which doesn\u0027t have a corresponding CALLBACK_xxx) has the same name as the three-arg version that calls it.\n\nMaybe CALLBACK_ONAVAILABLE_3, CALLBACK_ONAVAILABLE_1, CALLBACK_ONBLOCKEDSTATUSCHANGED_INT, CALLBACK_ONBLOCKEDSTATUSCHANGED_BOOL",
+      "range": {
+        "startLine": 4038,
+        "startChar": 15,
+        "endLine": 4038,
+        "endChar": 89
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e3ad45a_62e127d7",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 4038,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e240d76f_f6237bae",
       "range": {
         "startLine": 4038,
         "startChar": 15,
@@ -156,6 +294,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55d4f36c_bb7a5863",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 4736,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Right, added a comment",
+      "parentUuid": "98024896_a773f2c0",
+      "range": {
+        "startLine": 4736,
+        "startChar": 12,
+        "endLine": 4736,
+        "endChar": 21
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c762d2a_cce6b49b",
@@ -169,6 +331,30 @@
       "writtenOn": "2024-06-10T10:55:10Z",
       "side": 1,
       "message": "Please fix this WARNING reported by Build Warnings: extraneous semicolon\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    extraneous semicolon\n    import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;;\n                                                                      ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P75793794/targets/cf_x86_64_phone-trunk_staging-userdebug, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 67
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2eae6c_21721268",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c762d2a_cce6b49b",
       "range": {
         "startLine": 44,
         "startChar": 0,
@@ -202,6 +388,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be95dba6_f7adda24",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2227eaff_82a63d17",
+      "range": {
+        "startLine": 1781,
+        "startChar": 44,
+        "endLine": 1781,
+        "endChar": 64
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "109b2062_2cc530ab",
@@ -215,6 +425,30 @@
       "writtenOn": "2024-06-10T10:55:10Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 2168,
+        "startChar": 48,
+        "endLine": 2168,
+        "endChar": 68
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a05b03f_3a9e5bc5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2168,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "109b2062_2cc530ab",
       "range": {
         "startLine": 2168,
         "startChar": 48,
@@ -248,6 +482,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af121e8b_40b55f87",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 7588,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "427062f0_e1e02f31",
+      "range": {
+        "startLine": 7588,
+        "startChar": 35,
+        "endLine": 7588,
+        "endChar": 55
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4a7363c_49ad8a6e",
@@ -261,6 +519,30 @@
       "writtenOn": "2024-06-10T10:55:10Z",
       "side": 1,
       "message": "Nit: why mDeclaredMethodsFlag singular and declaredMethodsFlags plural?",
+      "range": {
+        "startLine": 7618,
+        "startChar": 12,
+        "endLine": 7618,
+        "endChar": 55
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86c13144_7e7194a6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 7618,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4a7363c_49ad8a6e",
       "range": {
         "startLine": 7618,
         "startChar": 12,
@@ -294,6 +576,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bab34e3c_ca1cfa92",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 7748,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done in aosp/3125533 to keep this change a bit smaller",
+      "parentUuid": "6aa96936_61be825e",
+      "range": {
+        "startLine": 7748,
+        "startChar": 55,
+        "endLine": 7748,
+        "endChar": 66
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72f307ba_527260db",
@@ -307,6 +613,30 @@
       "writtenOn": "2024-06-10T10:55:10Z",
       "side": 1,
       "message": "WithOnLostOnly?",
+      "range": {
+        "startLine": 522,
+        "startChar": 24,
+        "endLine": 522,
+        "endChar": 49
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8f0d921_0f0aca53",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72f307ba_527260db",
       "range": {
         "startLine": 522,
         "startChar": 24,
@@ -340,6 +670,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a32e6d7_370a999d",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ee47a32_a3c033d6",
+      "range": {
+        "startLine": 554,
+        "startChar": 30,
+        "endLine": 554,
+        "endChar": 39
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5e0010c_e8392f84",
@@ -353,6 +707,30 @@
       "writtenOn": "2024-06-10T10:55:10Z",
       "side": 1,
       "message": "Ditto, blank line?",
+      "range": {
+        "startLine": 571,
+        "startChar": 30,
+        "endLine": 571,
+        "endChar": 49
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6220a99f_7e0ba026",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5e0010c_e8392f84",
       "range": {
         "startLine": 571,
         "startChar": 30,
@@ -386,6 +764,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3de542b8_5b10286b",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Although we do that often I think that\u0027s generally discouraged (go/unit-testing-practices#structure); but I guess the problem is this test case is too many independent things. Split into different methods.",
+      "parentUuid": "f724a8c0_40f42a59",
+      "range": {
+        "startLine": 596,
+        "startChar": 16,
+        "endLine": 596,
+        "endChar": 22
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "496b3eb0_f8e29717",
@@ -399,6 +801,30 @@
       "writtenOn": "2024-06-06T07:28:29Z",
       "side": 1,
       "message": "are not",
+      "range": {
+        "startLine": 46,
+        "startChar": 56,
+        "endLine": 46,
+        "endChar": 59
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37cf8b0b_02ee6ccd",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "496b3eb0_f8e29717",
       "range": {
         "startLine": 46,
         "startChar": 56,
@@ -432,6 +858,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85517ffe_453cbd22",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Actually this won\u0027t include transitive calls, renamed to mayCall",
+      "parentUuid": "1f506473_c8491a8b",
+      "range": {
+        "startLine": 66,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 19
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7692fee_7326a2d6",
@@ -445,6 +895,30 @@
       "writtenOn": "2024-06-06T07:28:29Z",
       "side": 1,
       "message": "Can you put these two params in the same order as they are in the FilteredCallback acnnotation? i.e., calledBy first, and mayCall second?",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 67,
+        "endChar": 38
+      },
+      "revId": "be65caf5a16ec259046c11dcdf14c903cd40584d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "527eddf8_bc911d8c",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-11T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7692fee_7326a2d6",
       "range": {
         "startLine": 67,
         "startChar": 12,
