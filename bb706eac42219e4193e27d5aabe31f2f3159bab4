@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "593bd6f9_f7ca0d5a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-11T22:28:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "96d0e47e_092fbb75",
+      "range": {
+        "startLine": 1113,
+        "startChar": 20,
+        "endLine": 1113,
+        "endChar": 51
+      },
+      "revId": "bb706eac42219e4193e27d5aabe31f2f3159bab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edec1311_7fc29876",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-30T23:08:16Z",
       "side": 1,
       "message": "Tangentially related to this CL: If I understand this code correctly, then there is always a 1:1 relationship between an IpServer and a TetheringRequest. In that case, you can set mTetheringRequest in the constructor and make it NonNull. Alternatively, maybe TetheringRequest should just be made part of TetherState instead?",
+      "range": {
+        "startLine": 1133,
+        "startChar": 20,
+        "endLine": 1133,
+        "endChar": 37
+      },
+      "revId": "bb706eac42219e4193e27d5aabe31f2f3159bab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e1d1180_78dde1bf",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1133,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-11T22:28:14Z",
+      "side": 1,
+      "message": "\u003e  you can set mTetheringRequest in the constructor and make it NonNull\n\nthis I think we should do.",
+      "parentUuid": "edec1311_7fc29876",
       "range": {
         "startLine": 1133,
         "startChar": 20,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1938a40a_8cb79c82",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-11T22:28:14Z",
+      "side": 1,
+      "message": "So I looked at this code in detail again today. I think that maybe storing the request inside IpServer is actually the best way forward here.",
+      "parentUuid": "b62d49a5_f788588d",
+      "range": {
+        "startLine": 1091,
+        "startChar": 39,
+        "endLine": 1091,
+        "endChar": 79
+      },
+      "revId": "bb706eac42219e4193e27d5aabe31f2f3159bab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "055cff69_b3a7fa70",
@@ -106,6 +178,30 @@
       "writtenOn": "2024-05-30T23:08:16Z",
       "side": 1,
       "message": "I don\u0027t know who can receive these callbacks, so I am assuming TetheringInterface couldn\u0027t just include the entire TetheringRequest?",
+      "range": {
+        "startLine": 1092,
+        "startChar": 58,
+        "endLine": 1092,
+        "endChar": 76
+      },
+      "revId": "bb706eac42219e4193e27d5aabe31f2f3159bab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adbfb7db_210a68f7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-11T22:28:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "055cff69_b3a7fa70",
       "range": {
         "startLine": 1092,
         "startChar": 58,
