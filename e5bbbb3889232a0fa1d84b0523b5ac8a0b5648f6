@@ -109,6 +109,30 @@
       },
       "revId": "e5bbbb3889232a0fa1d84b0523b5ac8a0b5648f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "141defd3_986fa6b6",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-11T07:03:53Z",
+      "side": 1,
+      "message": "Moved to the same place as the old ```stopConntrackMonitoring```. Originally, I was thinking that it is better to complete all the tasks in the exit function before removing itself from BpfCoordinator, but ```resetLinkProperties``` seems unrelated to ```removeIpServer``` operation, there is no requirement in their execution order.",
+      "parentUuid": "f5383dcf_2559531b",
+      "range": {
+        "startLine": 1223,
+        "startChar": 11,
+        "endLine": 1223,
+        "endChar": 58
+      },
+      "revId": "e5bbbb3889232a0fa1d84b0523b5ac8a0b5648f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
