@@ -22,6 +22,30 @@
       },
       "revId": "e1a2762e4159f5f80e245d1d6c891bcd6991d552",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cb87443_198439bd",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-11T08:24:48Z",
+      "side": 1,
+      "message": "This is only used in the service side as an @hide API. The only reason we need this is to mimic the legacy behavior; if a different tethering request is requested while a request is already active (but not yet IP serving), then the original request will be stopped and the new one will be started.\n\nIs there a reason this must be wrapped in the service side instead of just accessing it as an @hide field?",
+      "parentUuid": "7a21164a_360e7659",
+      "range": {
+        "startLine": 690,
+        "startChar": 8,
+        "endLine": 690,
+        "endChar": 35
+      },
+      "revId": "e1a2762e4159f5f80e245d1d6c891bcd6991d552",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
