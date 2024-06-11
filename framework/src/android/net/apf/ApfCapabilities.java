@@ -106,6 +106,8 @@ public final class ApfCapabilities implements Parcelable {
 
     @Override
     public int hashCode() {
+        // hashCode that it is not implemented in R. Therefore It would be dangerous for
+        // NetworkStack to depend on it.
         return Objects.hash(apfVersionSupported, maximumApfProgramSize, apfPacketFormat);
     }
 
