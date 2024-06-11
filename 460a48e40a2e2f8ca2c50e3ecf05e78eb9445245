@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2749ab9_2274039a",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-11T07:48:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42e10555_f2183730",
+      "range": {
+        "startLine": 715,
+        "startChar": 8,
+        "endLine": 719,
+        "endChar": 9
+      },
+      "revId": "460a48e40a2e2f8ca2c50e3ecf05e78eb9445245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad7ee112_f8447ef1",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-08T08:39:31Z",
       "side": 1,
       "message": "Please add the inline comment to mention what is this value.",
+      "range": {
+        "startLine": 720,
+        "startChar": 61,
+        "endLine": 720,
+        "endChar": 71
+      },
+      "revId": "460a48e40a2e2f8ca2c50e3ecf05e78eb9445245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2203753e_d06c2d03",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-11T07:48:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad7ee112_f8447ef1",
       "range": {
         "startLine": 720,
         "startChar": 61,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8df42e16_4c123987",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-11T07:48:46Z",
+      "side": 1,
+      "message": "It can\u0027t be final because it\u0027ll be assigned value multiple times in below loop.",
+      "parentUuid": "d1e0d467_fa79e2ef",
+      "range": {
+        "startLine": 724,
+        "startChar": 8,
+        "endLine": 724,
+        "endChar": 13
+      },
+      "revId": "460a48e40a2e2f8ca2c50e3ecf05e78eb9445245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b26ae1fb_51928546",
@@ -83,6 +155,24 @@
       "writtenOn": "2024-06-08T08:39:31Z",
       "side": 1,
       "message": "extra line",
+      "revId": "460a48e40a2e2f8ca2c50e3ecf05e78eb9445245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c701fd2b_400e925f",
+        "filename": "Tethering/tests/integration/base/android/net/TetheringTester.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-11T07:48:46Z",
+      "side": 1,
+      "message": "Added this blank line because of the checkstyle error, maybe the coding convention changed recently...\n```\n[FAILED] checkstyle_hook hook\n    Checkstyle ends with 1 errors.\n    Running Checkstyle on fa260434eb6ed157eb1fb645e157ab86dadd03a2 commit\n    ERRORS:\n      [platform/packages/modules/Connectivity] Tethering/tests/integration/base/android/net/TetheringTester.java:30:1: \u0027com.android.net.module.util.DnsPacket.ANSECTION\u0027 should be separated from previous imports.\n```",
+      "parentUuid": "b26ae1fb_51928546",
       "revId": "460a48e40a2e2f8ca2c50e3ecf05e78eb9445245",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83a5d367_f17f56a9",
+        "filename": "Tethering/tests/integration/base/android/net/TetheringTester.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-11T07:48:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9674ae44_bc41eee3",
+      "range": {
+        "startLine": 529,
+        "startChar": 16,
+        "endLine": 529,
+        "endChar": 25
+      },
+      "revId": "460a48e40a2e2f8ca2c50e3ecf05e78eb9445245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2a255eb_16e86523",
@@ -123,6 +237,30 @@
       "writtenOn": "2024-06-08T08:39:31Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 530,
+        "startChar": 16,
+        "endLine": 530,
+        "endChar": 25
+      },
+      "revId": "460a48e40a2e2f8ca2c50e3ecf05e78eb9445245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0573a98c_0140d016",
+        "filename": "Tethering/tests/integration/base/android/net/TetheringTester.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-11T07:48:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2a255eb_16e86523",
       "range": {
         "startLine": 530,
         "startChar": 16,
