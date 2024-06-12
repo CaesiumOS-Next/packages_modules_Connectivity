@@ -98,6 +98,6 @@ def cleanup_tethering_for_upstream_type(
 ) -> None:
   server = server_device.connectivity_multi_devices_snippet
   if upstream_type == UpstreamType.CELLULAR:
-    server.unrequestCellular()
+    server.unregisterAll()
   # Teardown the hotspot.
   server.stopAllTethering()
