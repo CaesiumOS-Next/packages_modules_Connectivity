@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d28a0d4a_eff137c4",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDeclaredMethodsForCallbacksTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-12T06:29:22Z",
+      "side": 1,
+      "message": "nits: Can we move to just above `assertEquals(12, constants.size)` if the constants is not used for `0x7fff_ffff` case?",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 9
+      },
+      "revId": "182253316ff0cc566b5844189a557db4b4f361e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
