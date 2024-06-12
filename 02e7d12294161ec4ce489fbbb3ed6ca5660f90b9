@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03ffa6f5_f3762c1e",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-06-12T10:58:01Z",
+      "side": 1,
+      "message": "Looks like there is no test for setConfiguration success case.",
+      "revId": "02e7d12294161ec4ce489fbbb3ed6ca5660f90b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d09ca9a_e848c69a",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-06-12T10:58:01Z",
+      "side": 1,
+      "message": "The callback needs to be unregistered.",
+      "revId": "02e7d12294161ec4ce489fbbb3ed6ca5660f90b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
