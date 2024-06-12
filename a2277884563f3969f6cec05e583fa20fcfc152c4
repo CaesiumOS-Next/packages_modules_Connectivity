@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2ce238e_2f01d0da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-12T03:29:59Z",
+      "side": 1,
+      "message": "Change LGTM.\nBut I prefer to check the device feature and skip test in `test_hotspot_upstream_cellular` before calling `tether_utils.setup_hotspot_and_client_for_upstream_type`.",
+      "revId": "a2277884563f3969f6cec05e583fa20fcfc152c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
