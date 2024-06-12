@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f9fc809_446c8462",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-12T07:42:55Z",
+      "side": 1,
+      "message": "Could I work on this gradually, or should I implement all things around TETHERING_VIRTUAL_MACHINE in once? For example, implementing stopping TETHERING_VIRTUAL_MACHINE is out of scope of this change currently.",
+      "revId": "e572f1b15e9a5f3ccff23ea0e39b5b080fa65a91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
