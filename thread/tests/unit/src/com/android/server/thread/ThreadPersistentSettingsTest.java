@@ -17,7 +17,10 @@
 package com.android.server.thread;
 
 import static com.android.server.thread.ThreadPersistentSettings.THREAD_COUNTRY_CODE;
+import static com.android.server.thread.ThreadPersistentSettings.THREAD_DHCP6_PD_ENABLED;
 import static com.android.server.thread.ThreadPersistentSettings.THREAD_ENABLED;
+import static com.android.server.thread.ThreadPersistentSettings.THREAD_NAT64_ENABLED;
+import static com.android.server.thread.ThreadPersistentSettings.THREAD_TREL_ENABLED;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -31,6 +34,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.content.res.Resources;
+import android.net.thread.Configuration;
 import android.os.PersistableBundle;
 import android.util.AtomicFile;
 
@@ -48,6 +52,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
@@ -154,6 +159,117 @@ public class ThreadPersistentSettingsTest {
         // Confirm that file writes have been triggered.
         verify(mAtomicFile).startWrite();
         verify(mAtomicFile).finishWrite(any());
+    }
+
+    @Test
+    public void put_ThreadNat64EnabledTrue_returnsTrue() throws Exception {
+        mThreadPersistentSettings.put(THREAD_NAT64_ENABLED.key, true);
+
+        assertThat(mThreadPersistentSettings.get(THREAD_NAT64_ENABLED)).isTrue();
+
+        // Confirm that file writes have been triggered.
+        verify(mAtomicFile).startWrite();
+        verify(mAtomicFile).finishWrite(any());
+    }
+
+    @Test
+    public void put_ThreadNat64EnabledFalse_returnsFalse() throws Exception {
+        mThreadPersistentSettings.put(THREAD_NAT64_ENABLED.key, false);
+
+        assertThat(mThreadPersistentSettings.get(THREAD_NAT64_ENABLED)).isFalse();
+
+        // Confirm that file writes have been triggered.
+        verify(mAtomicFile).startWrite();
+        verify(mAtomicFile).finishWrite(any());
+    }
+
+    @Test
+    public void put_ThreadDhcp6PdEnabledTrue_returnsTrue() throws Exception {
+        mThreadPersistentSettings.put(THREAD_DHCP6_PD_ENABLED.key, true);
+
+        assertThat(mThreadPersistentSettings.get(THREAD_DHCP6_PD_ENABLED)).isTrue();
+
+        // Confirm that file writes have been triggered.
+        verify(mAtomicFile).startWrite();
+        verify(mAtomicFile).finishWrite(any());
+    }
+
+    @Test
+    public void put_ThreadDhcp6PdEnabledFalse_returnsFalse() throws Exception {
+        mThreadPersistentSettings.put(THREAD_DHCP6_PD_ENABLED.key, false);
+
+        assertThat(mThreadPersistentSettings.get(THREAD_DHCP6_PD_ENABLED)).isFalse();
+
+        // Confirm that file writes have been triggered.
+        verify(mAtomicFile).startWrite();
+        verify(mAtomicFile).finishWrite(any());
+    }
+
+    @Test
+    public void put_ThreadTrelEnabledTrue_returnsTrue() throws Exception {
+        mThreadPersistentSettings.put(THREAD_TREL_ENABLED.key, true);
+
+        assertThat(mThreadPersistentSettings.get(THREAD_TREL_ENABLED)).isTrue();
+
+        // Confirm that file writes have been triggered.
+        verify(mAtomicFile).startWrite();
+        verify(mAtomicFile).finishWrite(any());
+    }
+
+    @Test
+    public void put_ThreadTrelEnabledFalse_returnsFalse() throws Exception {
+        mThreadPersistentSettings.put(THREAD_TREL_ENABLED.key, false);
+
+        assertThat(mThreadPersistentSettings.get(THREAD_TREL_ENABLED)).isFalse();
+
+        // Confirm that file writes have been triggered.
+        verify(mAtomicFile).startWrite();
+        verify(mAtomicFile).finishWrite(any());
+    }
+
+    @Test
+    public void put_ThreadConfiguration_valuesUpdated() throws Exception {
+        Configuration configuration =
+                new Configuration.Builder()
+                        .setNat64Enabled(true)
+                        .setDhcp6PdEnabled(true)
+                        .setTrelEnabled(true)
+                        .build();
+        mThreadPersistentSettings.putConfiguration(configuration);
+
+        assertThat(mThreadPersistentSettings.get(THREAD_NAT64_ENABLED)).isTrue();
+        assertThat(mThreadPersistentSettings.get(THREAD_DHCP6_PD_ENABLED)).isTrue();
+        assertThat(mThreadPersistentSettings.get(THREAD_TREL_ENABLED)).isTrue();
+        assertThat(mThreadPersistentSettings.getConfiguration()).isEqualTo(configuration);
+
+        // Confirm that file writes have been triggered.
+        verify(mAtomicFile).startWrite();
+        verify(mAtomicFile).finishWrite(any());
+    }
+
+    @Test
+    public void put_ThreadConfiguration_valuesPersisted() throws Exception {
+        Configuration configuration =
+                new Configuration.Builder()
+                        .setNat64Enabled(true)
+                        .setDhcp6PdEnabled(true)
+                        .setTrelEnabled(true)
+                        .build();
+        AtomicFile atomicFile =
+                new AtomicFile(File.createTempFile("ThreadPersistentSettingsTest", "xml"));
+        ThreadPersistentSettings settings1 =
+                new ThreadPersistentSettings(atomicFile, mConnectivityResources);
+        settings1.initialize();
+
+        settings1.putConfiguration(configuration);
+
+        ThreadPersistentSettings settings2 =
+                new ThreadPersistentSettings(atomicFile, mConnectivityResources);
+        settings2.initialize();
+        assertThat(settings2.get(THREAD_NAT64_ENABLED)).isTrue();
+        assertThat(settings2.get(THREAD_DHCP6_PD_ENABLED)).isTrue();
+        assertThat(settings2.get(THREAD_TREL_ENABLED)).isTrue();
+        assertThat(settings2.getConfiguration()).isEqualTo(configuration);
     }
 
     private byte[] createXmlForParsing(String key, Boolean value) throws Exception {
