@@ -22,6 +22,30 @@
       },
       "revId": "26c81bd9a3ec3bb716b430f8db96198b2d595fc8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dca87366_a5c018d3",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-12T05:39:35Z",
+      "side": 1,
+      "message": "I think it would be more robust to prevent from other failures when clean-up.\nE.g. fail when ctsNetUtils.disableWifi() in requestCellularAndEnsureDefault.\nThus prefer to keep it as is.",
+      "parentUuid": "1717b5b2_7f3a10a1",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 25
+      },
+      "revId": "26c81bd9a3ec3bb716b430f8db96198b2d595fc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
