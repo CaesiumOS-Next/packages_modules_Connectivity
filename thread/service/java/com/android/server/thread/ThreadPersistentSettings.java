@@ -22,7 +22,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.ApexEnvironment;
 import android.content.Context;
-import android.net.thread.Configuration;
+import android.net.thread.ThreadConfiguration;
 import android.os.PersistableBundle;
 import android.util.AtomicFile;
 import android.util.Log;
@@ -190,12 +190,12 @@ public class ThreadPersistentSettings {
     }
 
     /**
-     * Store a {@link Configuration} to the stored settings.
+     * Store a {@link ThreadConfiguration} to the stored settings.
      *
-     * @param configuration Configuration to be stored.
+     * @param configuration {@link ThreadConfiguration} to be stored.
      * @return {@code true} if the configuration was changed, false otherwise.
      */
-    public boolean putConfiguration(@NonNull Configuration configuration) {
+    public boolean putConfiguration(@NonNull ThreadConfiguration configuration) {
         if (getConfiguration().equals(configuration)) {
             return false;
         }
@@ -206,9 +206,9 @@ public class ThreadPersistentSettings {
         return true;
     }
 
-    /** Retrieve the {@link Configuration} from the stored settings. */
-    public Configuration getConfiguration() {
-        return new Configuration.Builder()
+    /** Retrieve the {@link ThreadConfiguration} from the stored settings. */
+    public ThreadConfiguration getConfiguration() {
+        return new ThreadConfiguration.Builder()
                 .setNat64Enabled(get(CONFIG_NAT64_ENABLED))
                 .setDhcp6PdEnabled(get(CONFIG_DHCP6_PD_ENABLED))
                 .setTrelEnabled(get(CONFIG_TREL_ENABLED))
