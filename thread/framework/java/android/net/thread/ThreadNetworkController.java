@@ -41,6 +41,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
+import java.util.function.Consumer;
 
 /**
  * Provides the primary APIs for controlling all aspects of a Thread network.
@@ -48,6 +49,9 @@ import java.util.concurrent.Executor;
  * <p>For example, join this device to a Thread network with given Thread Operational Dataset, or
  * migrate an existing network.
  *
+ * @see ThreadNetworkController#setConfiguration
+ * @see ThreadNetworkController#registerConfigurationCallback
+ * @see ThreadNetworkController#unregisterConfigurationCallback
  * @hide
  */
 @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_ENABLED)
@@ -100,6 +104,9 @@ public final class ThreadNetworkController {
     /** Thread standard version 1.3. */
     public static final int THREAD_VERSION_1_3 = 4;
 
+    /** Thread standard version 1.4. */
+    public static final int THREAD_VERSION_1_4 = 5;
+
     /** Minimum value of max power in unit of 0.01dBm. @hide */
     private static final int POWER_LIMITATION_MIN = -32768;
 
@@ -123,6 +130,12 @@ public final class ThreadNetworkController {
     @GuardedBy("mOpDatasetCallbackMapLock")
     private final Map<OperationalDatasetCallback, OperationalDatasetCallbackProxy>
             mOpDatasetCallbackMap = new HashMap<>();
+
+    private final Object mConfigurationCallbackMapLock = new Object();
+
+    @GuardedBy("mConfigurationCallbackMapLock")
+    private final Map<Consumer<Configuration>, ConfigurationCallbackProxy>
+            mConfigurationCallbackMap = new HashMap<>();
 
     /** @hide */
     public ThreadNetworkController(@NonNull IThreadNetworkController controllerService) {
@@ -579,6 +592,94 @@ public final class ThreadNetworkController {
     }
 
     /**
+     * Configures the Thread features for this device.
+     *
+     * <p>This method sets the {@link Configuration} for this device. On success, the {@link
+     * OutcomeReceiver#onResult} will be called, and the {@code configuration} will be applied and
+     * persisted to the device; the configuration changes can be observed by {@link
+     * #registerConfigurationCallback}. On failure, {@link OutcomeReceiver#onError} of {@code
+     * receiver} will be invoked with a specific error.
+     *
+     * @param configuration the configuration to set
+     * @param executor the executor to execute {@code receiver}
+     * @param receiver the receiver to receive result of this operation
+     */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.THREAD_NETWORK_PRIVILEGED)
+    public void setConfiguration(
+            @NonNull Configuration configuration,
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
+        requireNonNull(configuration, "Configuration cannot be null");
+        requireNonNull(executor, "executor cannot be null");
+        requireNonNull(receiver, "receiver cannot be null");
+        try {
+            mControllerService.setConfiguration(
+                    configuration, new OperationReceiverProxy(executor, receiver));
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Registers a callback to be called when the configuration is changed.
+     *
+     * <p>Upon return of this method, {@code callback} will be invoked immediately with the new
+     * {@link Configuration}.
+     *
+     * @param executor the executor to execute the {@code callback}
+     * @param callback the callback to receive Thread configuration changes
+     * @throws IllegalArgumentException if {@code callback} has already been registered
+     */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.ACCESS_NETWORK_STATE)
+    public void registerConfigurationCallback(
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull Consumer<Configuration> callback) {
+        requireNonNull(executor, "executor cannot be null");
+        requireNonNull(callback, "callback cannot be null");
+        synchronized (mConfigurationCallbackMapLock) {
+            if (mConfigurationCallbackMap.containsKey(callback)) {
+                throw new IllegalArgumentException("callback has already been registered");
+            }
+            ConfigurationCallbackProxy callbackProxy =
+                    new ConfigurationCallbackProxy(executor, callback);
+            mConfigurationCallbackMap.put(callback, callbackProxy);
+            try {
+                mControllerService.registerConfigurationCallback(callbackProxy);
+            } catch (RemoteException e) {
+                mConfigurationCallbackMap.remove(callback);
+                e.rethrowFromSystemServer();
+            }
+        }
+    }
+
+    /**
+     * Unregisters the configuration callback.
+     *
+     * @param callback the callback which has been registered with {@link
+     *     #registerConfigurationCallback}
+     * @throws IllegalArgumentException if {@code callback} hasn't been registered
+     */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_THREAD_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.ACCESS_NETWORK_STATE)
+    public void unregisterConfigurationCallback(@NonNull Consumer<Configuration> callback) {
+        requireNonNull(callback, "callback cannot be null");
+        synchronized (mConfigurationCallbackMapLock) {
+            ConfigurationCallbackProxy callbackProxy = mConfigurationCallbackMap.remove(callback);
+            if (callbackProxy == null) {
+                throw new IllegalArgumentException("callback hasn't been registered");
+            }
+            try {
+                mControllerService.unregisterConfigurationCallback(callbackProxy);
+                mConfigurationCallbackMap.remove(callbackProxy.mConfigurationConsumer);
+            } catch (RemoteException e) {
+                e.rethrowFromSystemServer();
+            }
+        }
+    }
+
+    /**
      * Sets to use a specified test network as the upstream.
      *
      * @param testNetworkInterfaceName The name of the test network interface. When it's null,
@@ -762,6 +863,28 @@ public final class ThreadNetworkController {
         @Override
         public void onError(int errorCode, String errorMessage) {
             propagateError(mExecutor, mResultReceiver, errorCode, errorMessage);
+        }
+    }
+
+    private static final class ConfigurationCallbackProxy extends IConfigurationReceiver.Stub {
+        final Executor mExecutor;
+        final Consumer<Configuration> mConfigurationConsumer;
+
+        ConfigurationCallbackProxy(
+                @CallbackExecutor Executor executor,
+                Consumer<Configuration> ConfigurationConsumer) {
+            this.mExecutor = executor;
+            this.mConfigurationConsumer = ConfigurationConsumer;
+        }
+
+        @Override
+        public void onConfigurationChanged(Configuration configuration) {
+            final long identity = Binder.clearCallingIdentity();
+            try {
+                mExecutor.execute(() -> mConfigurationConsumer.accept(configuration));
+            } finally {
+                Binder.restoreCallingIdentity(identity);
+            }
         }
     }
 }
