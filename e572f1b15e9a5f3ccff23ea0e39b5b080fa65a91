@@ -16,6 +16,52 @@
       "message": "Could I work on this gradually, or should I implement all things around TETHERING_VIRTUAL_MACHINE in once? For example, implementing stopping TETHERING_VIRTUAL_MACHINE is out of scope of this change currently.",
       "revId": "e572f1b15e9a5f3ccff23ea0e39b5b080fa65a91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e288994_3045494a",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-12T16:08:03Z",
+      "side": 1,
+      "message": "s/TETHERING_VIRTUAL_MACHINE/TETHERING_VIRTUAL/? It\u0027s technically just tethering to a virtual interface which doesn\u0027t necessarily have to be used in a VM.",
+      "range": {
+        "startLine": 205,
+        "startChar": 28,
+        "endLine": 205,
+        "endChar": 53
+      },
+      "revId": "e572f1b15e9a5f3ccff23ea0e39b5b080fa65a91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1b60176_f8575ced",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-12T16:08:03Z",
+      "side": 1,
+      "message": "I am wondering whether we should start adopting the ethernet service to handle ethernet, usb, as well as virtual interfaces. It already does some of this today (and it doesn\u0027t really have anything to do with actual ethernet, it\u0027s just a service that allows you to register things that look like ethernet interfaces with our system; tap devices are no different). Yesterday, I happened to discuss handling of usb network interfaces in ethernet with Lorenzo (on V, we handle usb server interfaces, but the gadget side is currently only used by tethering directly), so we could support tethering off of a laptop. Let me think about / write up what I discussed with Lorenzo last night, and then we can go from there.",
+      "range": {
+        "startLine": 979,
+        "startChar": 16,
+        "endLine": 979,
+        "endChar": 42
+      },
+      "revId": "e572f1b15e9a5f3ccff23ea0e39b5b080fa65a91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
