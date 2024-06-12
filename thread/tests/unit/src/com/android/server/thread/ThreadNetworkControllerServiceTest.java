@@ -57,6 +57,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkAgent;
 import android.net.NetworkProvider;
 import android.net.thread.ActiveOperationalDataset;
+import android.net.thread.Configuration;
 import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.ThreadNetworkException;
@@ -686,5 +687,37 @@ public final class ThreadNetworkControllerServiceTest {
         InOrder inOrder = Mockito.inOrder(mMockTunIfController);
         inOrder.verify(mMockTunIfController, times(1)).setInterfaceUp(false);
         inOrder.verify(mMockTunIfController, times(1)).setInterfaceUp(true);
+    }
+
+    @Test
+    public void setConfiguration_configurationUpdated() throws Exception {
+        mService.initialize();
+        final IOperationReceiver mockReceiver1 = mock(IOperationReceiver.class);
+        final IOperationReceiver mockReceiver2 = mock(IOperationReceiver.class);
+        final IOperationReceiver mockReceiver3 = mock(IOperationReceiver.class);
+        Configuration config1 =
+                new Configuration.Builder()
+                        .setNat64Enabled(false)
+                        .setDhcp6PdEnabled(false)
+                        .setTrelEnabled(false)
+                        .build();
+        Configuration config2 =
+                new Configuration.Builder()
+                        .setNat64Enabled(true)
+                        .setDhcp6PdEnabled(true)
+                        .setTrelEnabled(true)
+                        .build();
+        Configuration config3 = new Configuration.Builder(config2).build(); // Same as config2
+
+        mService.setConfiguration(config1, mockReceiver1);
+        mService.setConfiguration(config2, mockReceiver2);
+        mService.setConfiguration(config3, mockReceiver3);
+        mTestLooper.dispatchAll();
+
+        assertThat(mPersistentSettings.getConfiguration()).isEqualTo(config3);
+        InOrder inOrder = Mockito.inOrder(mockReceiver1, mockReceiver2, mockReceiver3);
+        inOrder.verify(mockReceiver1).onSuccess();
+        inOrder.verify(mockReceiver2).onSuccess();
+        inOrder.verify(mockReceiver3).onSuccess();
     }
 }
