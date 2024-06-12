@@ -183,6 +183,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "851defb7_911ec7b3",
+        "filename": "thread/tests/cts/METADATA",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-12T01:20:23Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to make much sense? frc_350712000 is not a valid URL. What I meant was:\n\nurl {\n    type: GIT\n    value: \"https://android.googlesource.com/platform/packages/modules/Connectivity\"\n    version: \"frc_350712000\"\n}",
+      "parentUuid": "3dba30ee_f735e1d9",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 11,
+        "endChar": 3
+      },
+      "revId": "da1abddd63f1633bca6e9f480d377aa6eb440a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf32dbe9_c1953c2e",
