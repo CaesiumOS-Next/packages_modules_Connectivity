@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e1de628_5923a076",
+        "filename": "thread/framework/java/android/net/thread/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-12T09:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5e8f875_f3b56494",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 40
+      },
+      "revId": "730d6f93d52f750240ce65b9a2497585cab4c686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1840c92_8769cf00",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-12T06:20:51Z",
       "side": 1,
       "message": "```suggestion\n    @Override\n    public boolean equals(Object other) {\n```",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 41
+      },
+      "revId": "730d6f93d52f750240ce65b9a2497585cab4c686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bd1e1d4_26ec4beb",
+        "filename": "thread/framework/java/android/net/thread/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-12T09:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1840c92_8769cf00",
       "range": {
         "startLine": 61,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "790c6ffb_6619aeea",
+        "filename": "thread/framework/java/android/net/thread/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-12T09:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9eb36d10_9c4f5d50",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 74,
+        "endChar": 27
+      },
+      "revId": "730d6f93d52f750240ce65b9a2497585cab4c686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dfa34de_73ed94f3",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc7fb244_a283e772",
+        "filename": "thread/framework/java/android/net/thread/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-12T09:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dfa34de_73ed94f3",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 30
+      },
+      "revId": "730d6f93d52f750240ce65b9a2497585cab4c686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "774cab1c_83a70aec",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-06-12T06:20:51Z",
       "side": 1,
       "message": "Move constructors to the beginning",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 5
+      },
+      "revId": "730d6f93d52f750240ce65b9a2497585cab4c686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c58ddd03_0937b8c8",
+        "filename": "thread/framework/java/android/net/thread/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-12T09:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "774cab1c_83a70aec",
       "range": {
         "startLine": 89,
         "startChar": 0,
@@ -162,6 +282,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d54e820c_6710d7ea",
+        "filename": "thread/framework/java/android/net/thread/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-12T09:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76a75902_fa6426d5",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 39
+      },
+      "revId": "730d6f93d52f750240ce65b9a2497585cab4c686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "605c26c8_4941ebd1",
+        "filename": "thread/framework/java/android/net/thread/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-12T09:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d26ebd9_b962b8d4",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 39
+      },
+      "revId": "730d6f93d52f750240ce65b9a2497585cab4c686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc3ae09e_59b16c79",
@@ -175,6 +343,30 @@
       "writtenOn": "2024-06-12T06:20:51Z",
       "side": 1,
       "message": "Doesn\u0027t seem useful? There is no context that the reader of this class probably should look at those APIs as well.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 63
+      },
+      "revId": "730d6f93d52f750240ce65b9a2497585cab4c686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b21038e_fbee38d3",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-12T09:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc3ae09e_59b16c79",
       "range": {
         "startLine": 52,
         "startChar": 0,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8af8570_9056d552",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-12T09:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6adf4b5c_781a9e47",
+      "range": {
+        "startLine": 635,
+        "startChar": 35,
+        "endLine": 635,
+        "endChar": 55
+      },
+      "revId": "730d6f93d52f750240ce65b9a2497585cab4c686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "848facdf_5cc8a8a5",
@@ -231,6 +447,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08ac5eba_ab4f8812",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkFlags.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-12T09:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "848facdf_5cc8a8a5",
+      "range": {
+        "startLine": 31,
+        "startChar": 31,
+        "endLine": 31,
+        "endChar": 64
+      },
+      "revId": "730d6f93d52f750240ce65b9a2497585cab4c686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1097f35d_f5135463",
@@ -244,6 +484,30 @@
       "writtenOn": "2024-06-12T06:20:51Z",
       "side": 1,
       "message": "I don\u0027t really feel this is necessary. What happens if there are 20 parameters in the builder?\n\nI think we need to only several typical combinations which can still cover nearly 100% of the code.",
+      "range": {
+        "startLine": 108,
+        "startChar": 17,
+        "endLine": 108,
+        "endChar": 35
+      },
+      "revId": "730d6f93d52f750240ce65b9a2497585cab4c686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80b9a1e8_82b74e3f",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-12T09:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1097f35d_f5135463",
       "range": {
         "startLine": 108,
         "startChar": 17,
