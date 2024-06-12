@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7fc3f26_b76df21a",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-12T15:04:58Z",
+      "side": 1,
+      "message": "I wonder if we are going to have to use @Timeout\n\n     * \u003cb\u003eTHREAD SAFETY WARNING:\u003c/b\u003e Test methods with a timeout parameter are run in a thread other than the\n     * thread which runs the fixture\u0027s @Before and @After methods. This may yield different behavior for\n     * code that is not thread safe when compared to the same test method without a timeout parameter.\n     * \u003cb\u003eConsider using the {@link org.junit.rules.Timeout} rule instead\u003c/b\u003e, which ensures a test method is run on the\n     * same thread as the fixture\u0027s @Before and @After methods.",
+      "range": {
+        "startLine": 365,
+        "startChar": 5,
+        "endLine": 365,
+        "endChar": 9
+      },
+      "revId": "7627f7e9c1ec09e34bd818774c9940d482a3e55c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
