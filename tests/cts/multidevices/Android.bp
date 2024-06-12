@@ -44,3 +44,22 @@ python_test_host {
         },
     },
 }
+
+python_test_host {
+    name: "ConnectivityMultiDevicesTestsUtilsUnitTests",
+    srcs: [
+        "utils/*.py",
+        "unittests/*.py",
+    ],
+    main: "unittests/adb_utils_test.py",
+    libs: [
+        "mobly",
+    ],
+    test_config: "unittests/test_config.xml",
+    test_suites: [
+        "general-tests",
+    ],
+    test_options: {
+        unit_test: true,
+    },
+}
