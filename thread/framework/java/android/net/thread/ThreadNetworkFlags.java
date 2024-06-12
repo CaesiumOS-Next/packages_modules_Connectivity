@@ -27,5 +27,9 @@ public final class ThreadNetworkFlags {
     /** @hide */
     public static final String FLAG_THREAD_ENABLED = "com.android.net.thread.flags.thread_enabled";
 
+    /** @hide */
+    public static final String FLAG_THREAD_CONFIGURATION_ENABLED =
+            "com.android.net.thread.flags.thread_configuration_enabled";
+
     private ThreadNetworkFlags() {}
 }
