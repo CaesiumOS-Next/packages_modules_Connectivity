@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b50c79a_c69d0e18",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadPersistentSettingsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-12T06:38:18Z",
+      "side": 1,
+      "message": "Change all test cases to use real file instead of mock file?",
+      "revId": "74ddae6fe9898362788f337b9155eeb50e42e543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
