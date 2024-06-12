@@ -22,8 +22,6 @@ import static com.android.server.thread.ThreadPersistentSettings.THREAD_ENABLED;
 import static com.google.common.truth.Truth.assertThat;
 
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.validateMockitoUsage;
@@ -31,6 +29,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.content.res.Resources;
+import android.net.thread.ThreadConfiguration;
 import android.os.PersistableBundle;
 import android.util.AtomicFile;
 
@@ -42,13 +41,14 @@ import com.android.server.connectivity.ConnectivityResources;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 /** Unit tests for {@link ThreadPersistentSettings}. */
@@ -57,11 +57,14 @@ import java.io.FileOutputStream;
 public class ThreadPersistentSettingsTest {
     private static final String TEST_COUNTRY_CODE = "CN";
 
-    @Mock private AtomicFile mAtomicFile;
     @Mock Resources mResources;
     @Mock ConnectivityResources mConnectivityResources;
 
+    private AtomicFile mAtomicFile;
     private ThreadPersistentSettings mThreadPersistentSettings;
+
+    @Rule(order = 0)
+    public final TemporaryFolder mTemporaryFolder = new TemporaryFolder();
 
     @Before
     public void setUp() throws Exception {
@@ -70,8 +73,7 @@ public class ThreadPersistentSettingsTest {
         when(mConnectivityResources.get()).thenReturn(mResources);
         when(mResources.getBoolean(eq(R.bool.config_thread_default_enabled))).thenReturn(true);
 
-        FileOutputStream fos = mock(FileOutputStream.class);
-        when(mAtomicFile.startWrite()).thenReturn(fos);
+        mAtomicFile = createAtomicFile();
         mThreadPersistentSettings =
                 new ThreadPersistentSettings(mAtomicFile, mConnectivityResources);
     }
@@ -85,7 +87,7 @@ public class ThreadPersistentSettingsTest {
     @Test
     public void initialize_readsFromFile() throws Exception {
         byte[] data = createXmlForParsing(THREAD_ENABLED.key, false);
-        setupAtomicFileMockForRead(data);
+        setupAtomicFileForRead(data);
 
         mThreadPersistentSettings.initialize();
 
@@ -95,7 +97,7 @@ public class ThreadPersistentSettingsTest {
     @Test
     public void initialize_ThreadDisabledInResources_returnsThreadDisabled() throws Exception {
         when(mResources.getBoolean(eq(R.bool.config_thread_default_enabled))).thenReturn(false);
-        setupAtomicFileMockForRead(new byte[0]);
+        setupAtomicFileForRead(new byte[0]);
 
         mThreadPersistentSettings.initialize();
 
@@ -107,7 +109,7 @@ public class ThreadPersistentSettingsTest {
             throws Exception {
         when(mResources.getBoolean(eq(R.bool.config_thread_default_enabled))).thenReturn(false);
         byte[] data = createXmlForParsing(THREAD_ENABLED.key, true);
-        setupAtomicFileMockForRead(data);
+        setupAtomicFileForRead(data);
 
         mThreadPersistentSettings.initialize();
 
@@ -119,9 +121,6 @@ public class ThreadPersistentSettingsTest {
         mThreadPersistentSettings.put(THREAD_ENABLED.key, true);
 
         assertThat(mThreadPersistentSettings.get(THREAD_ENABLED)).isTrue();
-        // Confirm that file writes have been triggered.
-        verify(mAtomicFile).startWrite();
-        verify(mAtomicFile).finishWrite(any());
     }
 
     @Test
@@ -129,9 +128,8 @@ public class ThreadPersistentSettingsTest {
         mThreadPersistentSettings.put(THREAD_ENABLED.key, false);
 
         assertThat(mThreadPersistentSettings.get(THREAD_ENABLED)).isFalse();
-        // Confirm that file writes have been triggered.
-        verify(mAtomicFile).startWrite();
-        verify(mAtomicFile).finishWrite(any());
+        mThreadPersistentSettings.initialize();
+        assertThat(mThreadPersistentSettings.get(THREAD_ENABLED)).isFalse();
     }
 
     @Test
@@ -139,10 +137,8 @@ public class ThreadPersistentSettingsTest {
         mThreadPersistentSettings.put(THREAD_COUNTRY_CODE.key, TEST_COUNTRY_CODE);
 
         assertThat(mThreadPersistentSettings.get(THREAD_COUNTRY_CODE)).isEqualTo(TEST_COUNTRY_CODE);
-
-        // Confirm that file writes have been triggered.
-        verify(mAtomicFile).startWrite();
-        verify(mAtomicFile).finishWrite(any());
+        mThreadPersistentSettings.initialize();
+        assertThat(mThreadPersistentSettings.get(THREAD_COUNTRY_CODE)).isEqualTo(TEST_COUNTRY_CODE);
     }
 
     @Test
@@ -150,10 +146,80 @@ public class ThreadPersistentSettingsTest {
         mThreadPersistentSettings.put(THREAD_COUNTRY_CODE.key, null);
 
         assertThat(mThreadPersistentSettings.get(THREAD_COUNTRY_CODE)).isNull();
+        mThreadPersistentSettings.initialize();
+        assertThat(mThreadPersistentSettings.get(THREAD_COUNTRY_CODE)).isNull();
+    }
 
-        // Confirm that file writes have been triggered.
-        verify(mAtomicFile).startWrite();
-        verify(mAtomicFile).finishWrite(any());
+    @Test
+    public void putConfiguration_sameValues_returnsFalse() {
+        ThreadConfiguration configuration =
+                new ThreadConfiguration.Builder()
+                        .setNat64Enabled(true)
+                        .setDhcp6PdEnabled(true)
+                        .setTrelEnabled(false)
+                        .build();
+        mThreadPersistentSettings.putConfiguration(configuration);
+
+        assertThat(mThreadPersistentSettings.putConfiguration(configuration)).isFalse();
+    }
+
+    @Test
+    public void putConfiguration_differentValues_returnsTrue() {
+        ThreadConfiguration configuration1 =
+                new ThreadConfiguration.Builder()
+                        .setNat64Enabled(false)
+                        .setDhcp6PdEnabled(false)
+                        .setTrelEnabled(false)
+                        .build();
+        mThreadPersistentSettings.putConfiguration(configuration1);
+        ThreadConfiguration configuration2 =
+                new ThreadConfiguration.Builder()
+                        .setNat64Enabled(true)
+                        .setDhcp6PdEnabled(true)
+                        .setTrelEnabled(false)
+                        .build();
+
+        assertThat(mThreadPersistentSettings.putConfiguration(configuration2)).isTrue();
+    }
+
+    @Test
+    public void putConfiguration_valuesUpdated() throws Exception {
+        runConfigurationTests(this::runPutConfiguration_valuesUpdated);
+    }
+
+    private void runPutConfiguration_valuesUpdated(ThreadConfiguration configuration)
+            throws Exception {
+        mThreadPersistentSettings.putConfiguration(configuration);
+
+        assertThat(mThreadPersistentSettings.getConfiguration()).isEqualTo(configuration);
+        mThreadPersistentSettings.initialize();
+        assertThat(mThreadPersistentSettings.getConfiguration()).isEqualTo(configuration);
+    }
+
+    private static ThreadConfiguration makeConfig(
+            boolean isNat64Enabled, boolean isDhcp6PdEnabled, boolean isTrelEnabled) {
+        return new ThreadConfiguration.Builder()
+                .setNat64Enabled(isNat64Enabled)
+                .setDhcp6PdEnabled(isDhcp6PdEnabled)
+                .setTrelEnabled(isTrelEnabled)
+                .build();
+    }
+
+    private void runConfigurationTests(ConfigurationConsumer consumer) throws Exception {
+        consumer.accept(makeConfig(false /* NAT64 */, false /* DHCP6-PD */, false /* TREL */));
+        consumer.accept(makeConfig(true /* NAT64 */, true /* DHCP6-PD */, true /* TREL */));
+        consumer.accept(makeConfig(true /* NAT64 */, true /* DHCP6-PD */, false /* TREL */));
+        consumer.accept(makeConfig(false /* NAT64 */, false /* DHCP6-PD */, true /* TREL */));
+        consumer.accept(makeConfig(true /* NAT64 */, false /* DHCP6-PD */, true /* TREL */));
+        consumer.accept(makeConfig(false /* NAT64 */, true /* DHCP6-PD */, true /* TREL */));
+    }
+
+    private interface ConfigurationConsumer {
+        void accept(ThreadConfiguration configuration) throws Exception;
+    }
+
+    private AtomicFile createAtomicFile() throws Exception {
+        return new AtomicFile(mTemporaryFolder.newFile());
     }
 
     private byte[] createXmlForParsing(String key, Boolean value) throws Exception {
@@ -164,19 +230,9 @@ public class ThreadPersistentSettingsTest {
         return outputStream.toByteArray();
     }
 
-    private void setupAtomicFileMockForRead(byte[] dataToRead) throws Exception {
-        FileInputStream is = mock(FileInputStream.class);
-        when(mAtomicFile.openRead()).thenReturn(is);
-        when(is.available()).thenReturn(dataToRead.length).thenReturn(0);
-        doAnswer(
-                        invocation -> {
-                            byte[] data = invocation.getArgument(0);
-                            int pos = invocation.getArgument(1);
-                            if (pos == dataToRead.length) return 0; // read complete.
-                            System.arraycopy(dataToRead, 0, data, 0, dataToRead.length);
-                            return dataToRead.length;
-                        })
-                .when(is)
-                .read(any(), anyInt(), anyInt());
+    private void setupAtomicFileForRead(byte[] dataToRead) throws Exception {
+        try (FileOutputStream outputStream = new FileOutputStream(mAtomicFile.getBaseFile())) {
+            outputStream.write(dataToRead);
+        }
     }
 }

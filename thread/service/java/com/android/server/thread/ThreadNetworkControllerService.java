@@ -90,7 +90,6 @@ import android.net.TestNetworkSpecifier;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.ActiveOperationalDataset.SecurityPolicy;
 import android.net.thread.ChannelMaxPower;
-import android.net.thread.Configuration;
 import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IConfigurationReceiver;
 import android.net.thread.IOperationReceiver;
@@ -99,6 +98,7 @@ import android.net.thread.IStateCallback;
 import android.net.thread.IThreadNetworkController;
 import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
+import android.net.thread.ThreadConfiguration;
 import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkController.DeviceRole;
 import android.net.thread.ThreadNetworkException;
@@ -524,13 +524,14 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     @Override
     public void setConfiguration(
-            @NonNull Configuration configuration, @NonNull IOperationReceiver receiver) {
+            @NonNull ThreadConfiguration configuration, @NonNull IOperationReceiver receiver) {
         enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
         mHandler.post(() -> setConfigurationInternal(configuration, receiver));
     }
 
     private void setConfigurationInternal(
-            @NonNull Configuration configuration, @NonNull IOperationReceiver operationReceiver) {
+            @NonNull ThreadConfiguration configuration,
+            @NonNull IOperationReceiver operationReceiver) {
         checkOnHandlerThread();
 
         Log.i(TAG, "Set Thread configuration: " + configuration);
