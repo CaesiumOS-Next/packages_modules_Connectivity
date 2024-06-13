@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a7e0cac_45db192f",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-13T02:13:08Z",
+      "side": 1,
+      "message": "It\u0027s superseded by `registerConfigurationCallback_returnsUpdatedConfigurations`.",
+      "parentUuid": "03ffa6f5_f3762c1e",
+      "revId": "02e7d12294161ec4ce489fbbb3ed6ca5660f90b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d09ca9a_e848c69a",
         "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2024-06-12T10:58:01Z",
       "side": 1,
       "message": "The callback needs to be unregistered.",
+      "revId": "02e7d12294161ec4ce489fbbb3ed6ca5660f90b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4a3b7f6_f0392e71",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-13T02:13:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d09ca9a_e848c69a",
       "revId": "02e7d12294161ec4ce489fbbb3ed6ca5660f90b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
