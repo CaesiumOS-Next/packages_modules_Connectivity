@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43211b3a_32376426",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1133,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-13T20:54:06Z",
+      "side": 1,
+      "message": "You are right. I believe the problem are the NetdCallbacks which don\u0027t consider whether an interface is currently being used for tethering or was requested. They are purely filtered by looking at the configuration and comparing the regexes. If any regex matches the interface name, an IpServer is started on it.",
+      "parentUuid": "2311aef6_7313cb50",
+      "range": {
+        "startLine": 1133,
+        "startChar": 20,
+        "endLine": 1133,
+        "endChar": 37
+      },
+      "revId": "bb706eac42219e4193e27d5aabe31f2f3159bab4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "391c546a_00aad3c3",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 18
