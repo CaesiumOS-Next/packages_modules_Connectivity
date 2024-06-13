@@ -16,6 +16,24 @@
       "message": "Before you merge this CL, can you check that the tests run as part of the default CTS plan?",
       "revId": "c2dbd1adb8ce15c371945dfbe90ea162427fbfb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "286b265f_bdaf01d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2035634
+      },
+      "writtenOn": "2024-06-13T09:18:07Z",
+      "side": 1,
+      "message": "I have run `./android-cts/tools/cts-tradefed run cts` and CtsThreadNetworkTestCases is part of the modules we are testing. Please check go/paste/5967068289826816.",
+      "parentUuid": "05023252_5fd51d19",
+      "revId": "c2dbd1adb8ce15c371945dfbe90ea162427fbfb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
