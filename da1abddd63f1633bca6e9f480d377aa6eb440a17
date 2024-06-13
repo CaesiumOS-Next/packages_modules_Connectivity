@@ -252,6 +252,30 @@
       },
       "revId": "da1abddd63f1633bca6e9f480d377aa6eb440a17",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ebfb75e_425d2837",
+        "filename": "thread/tests/cts/METADATA",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2035634
+      },
+      "writtenOn": "2024-06-13T01:44:59Z",
+      "side": 1,
+      "message": "Resolved.",
+      "parentUuid": "aa62fcaa_7e7b31f6",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 12,
+        "endChar": 20
+      },
+      "revId": "da1abddd63f1633bca6e9f480d377aa6eb440a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
