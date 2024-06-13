@@ -22,6 +22,30 @@
       },
       "revId": "7627f7e9c1ec09e34bd818774c9940d482a3e55c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62891dac_9bc83cf6",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-13T01:43:15Z",
+      "side": 1,
+      "message": "Yeah, it seems the @Timeout is suggested by documentation. But looks like almost all CTS is using @Test(timeout). I feel it is safer to follow the common practice....\n\nSearch for \"@Test(timeout\" across CTS utilization:\n\nhttps://cs.android.com/search?q\u003d%22@Test(timeout%22%20f:cts\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain\n\n\nSearch for @Timeout across CTS utilization(almost zero hit):\n\nhttps://cs.android.com/search?q\u003d%22@Timeout%22%20f:cts\u0026sq\u003d\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
+      "parentUuid": "c7fc3f26_b76df21a",
+      "range": {
+        "startLine": 365,
+        "startChar": 5,
+        "endLine": 365,
+        "endChar": 9
+      },
+      "revId": "7627f7e9c1ec09e34bd818774c9940d482a3e55c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
