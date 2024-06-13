@@ -28,6 +28,8 @@ import static com.android.net.module.util.SocketUtils.makeNetlinkSocketAddress;
 import static com.android.net.module.util.netlink.NetlinkConstants.hexify;
 
 import android.annotation.NonNull;
+import android.annotation.RequiresApi;
+import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.system.ErrnoException;
@@ -55,6 +57,7 @@ import java.nio.ByteOrder;
  * arrives. Currently ignores all netlink errors.
  * @hide
  */
+@RequiresApi(Build.VERSION_CODES.S)
 public class NetlinkMonitor extends PacketReader {
     protected final SharedLog mLog;
     protected final String mTag;
