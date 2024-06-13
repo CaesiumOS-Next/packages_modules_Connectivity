@@ -62,6 +62,30 @@
       },
       "revId": "e572f1b15e9a5f3ccff23ea0e39b5b080fa65a91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2f0309d_d35cba97",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-13T07:24:49Z",
+      "side": 1,
+      "message": "Thanks for sharing the information. I understood the key point here as we may able to use ethernet type of tethering for providing internet to VMs.\n\nHowever I wonder about the tethering policy that only one iface could have tethering for a given tethering type. In case of merging VM tethering into ethernet one, how could we keep both?",
+      "parentUuid": "c1b60176_f8575ced",
+      "range": {
+        "startLine": 979,
+        "startChar": 16,
+        "endLine": 979,
+        "endChar": 42
+      },
+      "revId": "e572f1b15e9a5f3ccff23ea0e39b5b080fa65a91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
