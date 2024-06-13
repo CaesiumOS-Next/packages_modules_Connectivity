@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a688c51_6bd39f40",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadPersistentSettingsTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-13T05:36:30Z",
+      "side": 1,
+      "message": "Will this file be automatically deleted when exiting each test cases?\n\nUse `org.junit.rules.TemporaryFolder` instead?",
+      "range": {
+        "startLine": 218,
+        "startChar": 30,
+        "endLine": 218,
+        "endChar": 88
+      },
+      "revId": "433382aced6543927826bff7d9ce3ecb1b6c42d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
