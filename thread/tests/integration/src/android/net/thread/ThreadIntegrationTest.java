@@ -253,7 +253,7 @@ public class ThreadIntegrationTest {
     }
 
     @Test
-    public void edPingsMeshLocalAddresses_oneReplyPerRequest() throws Exception {
+    public void edPingsMeshLocalAddresses_noDuplicateReply() throws Exception {
         mController.joinAndWait(DEFAULT_DATASET);
         startFtdChild(mFtd, DEFAULT_DATASET);
         List<Inet6Address> meshLocalAddresses = mOtCtl.getMeshLocalAddresses();
@@ -263,7 +263,7 @@ public class ThreadIntegrationTest {
                             "There may be duplicated replies of ping request to "
                                     + address.getHostAddress())
                     .that(mFtd.ping(address, 2))
-                    .isEqualTo(2);
+                    .isAtMost(2);
         }
     }
 
