@@ -24,6 +24,7 @@ import static com.android.internal.annotations.VisibleForTesting.Visibility.PACK
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.EthernetManager;
 import android.net.IEthernetServiceListener;
@@ -36,6 +37,7 @@ import android.net.IpConfiguration.ProxySettings;
 import android.net.LinkAddress;
 import android.net.NetworkCapabilities;
 import android.net.StaticIpConfiguration;
+import android.os.Build;
 import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.RemoteCallbackList;
@@ -83,6 +85,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * <p>All public or package private methods must be thread-safe unless stated otherwise.
  */
 @VisibleForTesting(visibility = PACKAGE)
+@TargetApi(Build.VERSION_CODES.TIRAMISU)
 public class EthernetTracker {
     private static final int INTERFACE_MODE_CLIENT = 1;
     private static final int INTERFACE_MODE_SERVER = 2;

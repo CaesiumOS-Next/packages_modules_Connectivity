@@ -23,7 +23,9 @@ import static com.android.net.module.util.netlink.NetlinkConstants.hexify;
 import static com.android.net.module.util.netlink.NetlinkConstants.stringForNlMsgType;
 
 import android.annotation.NonNull;
+import android.annotation.RequiresApi;
 import android.net.MacAddress;
+import android.os.Build;
 import android.os.Handler;
 import android.system.ErrnoException;
 import android.system.OsConstants;
@@ -48,6 +50,7 @@ import java.util.StringJoiner;
  *
  * @hide
  */
+@RequiresApi(Build.VERSION_CODES.S)
 public class IpNeighborMonitor extends NetlinkMonitor {
     private static final String TAG = IpNeighborMonitor.class.getSimpleName();
     private static final boolean DBG = false;

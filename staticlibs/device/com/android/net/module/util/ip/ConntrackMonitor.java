@@ -20,6 +20,8 @@ import static com.android.net.module.util.netlink.ConntrackMessage.DYING_MASK;
 import static com.android.net.module.util.netlink.ConntrackMessage.ESTABLISHED_MASK;
 
 import android.annotation.NonNull;
+import android.annotation.RequiresApi;
+import android.os.Build;
 import android.os.Handler;
 import android.system.OsConstants;
 
@@ -40,6 +42,7 @@ import java.util.Objects;
  *
  * @hide
  */
+@RequiresApi(Build.VERSION_CODES.S)
 public class ConntrackMonitor extends NetlinkMonitor {
     private static final String TAG = ConntrackMonitor.class.getSimpleName();
     private static final boolean DBG = false;

@@ -17,7 +17,9 @@
 package com.android.server.connectivity.mdns.internal;
 
 import android.annotation.NonNull;
+import android.annotation.TargetApi;
 import android.net.LinkAddress;
+import android.os.Build;
 import android.os.Handler;
 import android.system.OsConstants;
 
@@ -33,6 +35,7 @@ import com.android.server.connectivity.mdns.MdnsSocketProvider;
 /**
  * The netlink monitor for MdnsSocketProvider.
  */
+@TargetApi(Build.VERSION_CODES.TIRAMISU)
 public class SocketNetlinkMonitor extends NetlinkMonitor implements AbstractSocketNetlinkMonitor {
 
     public static final String TAG = SocketNetlinkMonitor.class.getSimpleName();

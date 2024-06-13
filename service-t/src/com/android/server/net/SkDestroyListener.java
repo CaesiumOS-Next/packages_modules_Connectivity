@@ -18,6 +18,8 @@ package com.android.server.net;
 
 import static android.system.OsConstants.NETLINK_INET_DIAG;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Handler;
 import android.system.ErrnoException;
 
@@ -35,6 +37,7 @@ import java.io.PrintWriter;
 /**
  * Monitor socket destroy and delete entry from cookie tag bpf map.
  */
+@TargetApi(Build.VERSION_CODES.TIRAMISU)
 public class SkDestroyListener extends NetlinkMonitor {
     private static final int SKNLGRP_INET_TCP_DESTROY = 1;
     private static final int SKNLGRP_INET_UDP_DESTROY = 2;
