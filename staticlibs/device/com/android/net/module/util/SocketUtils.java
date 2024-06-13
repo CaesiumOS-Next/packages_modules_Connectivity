@@ -19,8 +19,7 @@ package com.android.net.module.util;
 import static android.net.util.SocketUtils.closeSocket;
 
 import android.annotation.NonNull;
-import android.annotation.RequiresApi;
-import android.os.Build;
+import android.annotation.SuppressLint;
 import android.system.NetlinkSocketAddress;
 
 import java.io.FileDescriptor;
@@ -41,7 +40,10 @@ public class SocketUtils {
     /**
      * Make a socket address to communicate with netlink.
      */
-    @NonNull @RequiresApi(Build.VERSION_CODES.S)
+    // NetlinkSocketAddress was CorePlatformAp on R and became module API on S but linter does not
+    // understand this is available on R.
+    @SuppressLint("NewApi")
+    @NonNull
     public static SocketAddress makeNetlinkSocketAddress(int portId, int groupsMask) {
         return new NetlinkSocketAddress(portId, groupsMask);
     }
