@@ -45,6 +45,54 @@
       },
       "revId": "882dc5ca0cf105232e606d67648209af6be3100b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f03f461_8eb4f839",
+        "filename": "framework/src/android/net/apf/ApfCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-13T11:45:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bce880c_eeb27542",
+      "range": {
+        "startLine": 109,
+        "startChar": 11,
+        "endLine": 109,
+        "endChar": 31
+      },
+      "revId": "882dc5ca0cf105232e606d67648209af6be3100b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b0d10e9_421df86b",
+        "filename": "framework/src/android/net/apf/ApfCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-13T11:45:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c68cd6b_efbb9ac2",
+      "range": {
+        "startLine": 109,
+        "startChar": 63,
+        "endLine": 109,
+        "endChar": 65
+      },
+      "revId": "882dc5ca0cf105232e606d67648209af6be3100b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
