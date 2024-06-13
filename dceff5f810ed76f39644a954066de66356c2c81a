@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e9098b3_2881224d",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-13T08:26:05Z",
+      "side": 1,
+      "message": "try parameterized test",
+      "revId": "dceff5f810ed76f39644a954066de66356c2c81a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c5a476f_0adc818a",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-13T08:26:05Z",
+      "side": 1,
+      "message": "use EquilityTester",
+      "revId": "dceff5f810ed76f39644a954066de66356c2c81a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
