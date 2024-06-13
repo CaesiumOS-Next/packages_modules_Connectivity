@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05023252_5fd51d19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-13T08:26:13Z",
+      "side": 1,
+      "message": "Before you merge this CL, can you check that the tests run as part of the default CTS plan?",
+      "revId": "c2dbd1adb8ce15c371945dfbe90ea162427fbfb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
