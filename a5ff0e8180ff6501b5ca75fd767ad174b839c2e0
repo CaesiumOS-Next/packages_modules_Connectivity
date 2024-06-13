@@ -33,6 +33,24 @@
       "message": "This shouldn\u0027t be tagged as mcts or mts I think",
       "revId": "a5ff0e8180ff6501b5ca75fd767ad174b839c2e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01d43411_9a65f885",
+        "filename": "thread/tests/cts/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2035634
+      },
+      "writtenOn": "2024-06-13T05:43:26Z",
+      "side": 1,
+      "message": "I guess it doesn\u0027t really matter since we are not building both from this branch. But let me remove it real quick. Thanks.",
+      "parentUuid": "66e36134_84d4da51",
+      "revId": "a5ff0e8180ff6501b5ca75fd767ad174b839c2e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
