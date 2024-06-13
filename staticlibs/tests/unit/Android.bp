@@ -38,6 +38,7 @@ android_library {
         "//packages/modules/NetworkStack/tests/integration",
     ],
     lint: {
+        strict_updatability_linting: true,
         test: true,
     },
 }
@@ -55,4 +56,7 @@ android_test {
     ],
     jarjar_rules: "jarjar-rules.txt",
     test_suites: ["device-tests"],
+    lint: {
+        strict_updatability_linting: true,
+    },
 }
