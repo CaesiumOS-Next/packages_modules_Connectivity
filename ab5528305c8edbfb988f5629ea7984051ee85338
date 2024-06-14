@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce5cdd55_cd9d1187",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T17:54:57Z",
+      "side": 1,
+      "message": "sp",
+      "range": {
+        "startLine": 1055,
+        "startChar": 21,
+        "endLine": 1055,
+        "endChar": 31
+      },
+      "revId": "ab5528305c8edbfb988f5629ea7984051ee85338",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
