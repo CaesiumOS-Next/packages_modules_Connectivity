@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebada6b5_458c426c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T18:06:43Z",
+      "side": 1,
+      "message": "Hmm, I\u0027m unconvinced that this is a good idea.\nWasn\u0027t replacing the \u0027*\u0027 with something without \u0027usb0\u0027 on V+ exactly the solution people using usb0 for usb tethering were supposed to do?",
+      "revId": "ab5528305c8edbfb988f5629ea7984051ee85338",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce5cdd55_cd9d1187",
