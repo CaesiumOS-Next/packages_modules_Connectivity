@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eecdfd8_8f6b6eb2",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T15:48:12Z",
+      "side": 1,
+      "message": "nit: can you leave a comment for our future selves on why this is required.",
+      "range": {
+        "startLine": 257,
+        "startChar": 67,
+        "endLine": 258,
+        "endChar": 90
+      },
+      "revId": "7b95d99077562dd2f367fd89bfe8132e4f8e4659",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6547c61c_e64bbfeb",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T15:48:12Z",
+      "side": 1,
+      "message": "nit: s/device_api_level/effective_api_level/ or similar",
+      "range": {
+        "startLine": 260,
+        "startChar": 14,
+        "endLine": 260,
+        "endChar": 30
+      },
+      "revId": "7b95d99077562dd2f367fd89bfe8132e4f8e4659",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
