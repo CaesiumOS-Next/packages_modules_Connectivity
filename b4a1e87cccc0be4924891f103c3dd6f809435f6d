@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2f97478_4a673db1",
+        "filename": "netbpfload/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T02:29:02Z",
+      "side": 1,
+      "message": "FWIW, this being named \"netbpfload.rc\" is confusing, because it looks like an apex versioned .rf file, but it is the platform base. If it were the apex version, it would not be loaded at all, because netpfload.rc would be equivalent to netbpfload.0rc",
+      "range": {
+        "startLine": 29,
+        "startChar": 15,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "b4a1e87cccc0be4924891f103c3dd6f809435f6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
