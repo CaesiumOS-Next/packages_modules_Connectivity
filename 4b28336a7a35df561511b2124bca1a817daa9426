@@ -39,6 +39,30 @@
       },
       "revId": "4b28336a7a35df561511b2124bca1a817daa9426",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "368d7fea_a3a1ebcf",
+        "filename": "bpf_progs/test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T16:55:18Z",
+      "side": 1,
+      "message": "-DMAINLINE is set from Android.bp when building the @mainline.o version of this file (there is a symlink to this .c file with a different name)",
+      "parentUuid": "2786c3e7_56967d69",
+      "range": {
+        "startLine": 21,
+        "startChar": 1,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "4b28336a7a35df561511b2124bca1a817daa9426",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
