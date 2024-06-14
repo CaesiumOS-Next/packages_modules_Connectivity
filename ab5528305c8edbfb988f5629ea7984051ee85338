@@ -22,6 +22,29 @@
       },
       "revId": "ab5528305c8edbfb988f5629ea7984051ee85338",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4db849b_ace9f0b2",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T17:56:17Z",
+      "side": 1,
+      "message": "should this perhaps mention NCM? or \u0027direct cable\u0027\nI don\u0027t think (due to lack of rndis host driver) that this works with rndis.",
+      "range": {
+        "startLine": 1056,
+        "startChar": 0,
+        "endLine": 1056,
+        "endChar": 4
+      },
+      "revId": "ab5528305c8edbfb988f5629ea7984051ee85338",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
