@@ -178,7 +178,7 @@ inline int mapRetrieveRO(const char* pathname) {
 // so only use this if you don't care about locking, ie. never use
 // mapRetrieveExclusiveRW() on the same map (ie. pathname).
 inline int mapRetrieveWO(const char* pathname) {
-    return bpfFdGet(pathname, BPF_F_WRONLY);
+    return bpfLock(bpfFdGet(pathname, BPF_F_WRONLY), F_WRLCK);
 }
 
 inline int retrieveProgram(const char* pathname) {
