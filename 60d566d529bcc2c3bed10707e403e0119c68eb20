@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6148fe12_71a178a2",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-14T02:42:30Z",
+      "side": 1,
+      "message": "Addressed in followup",
+      "parentUuid": "3287e48c_18d479a4",
+      "range": {
+        "startLine": 550,
+        "startChar": 49,
+        "endLine": 550,
+        "endChar": 50
+      },
+      "revId": "60d566d529bcc2c3bed10707e403e0119c68eb20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bef349b0_032ddeb8",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-12T10:09:23Z",
       "side": 1,
       "message": "nits: this can be `callback`",
+      "range": {
+        "startLine": 570,
+        "startChar": 30,
+        "endLine": 570,
+        "endChar": 39
+      },
+      "revId": "60d566d529bcc2c3bed10707e403e0119c68eb20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff72ccf4_d6da429a",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-14T02:42:30Z",
+      "side": 1,
+      "message": "Addressed in followup",
+      "parentUuid": "bef349b0_032ddeb8",
       "range": {
         "startLine": 570,
         "startChar": 30,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b2f6df9_215d68e7",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-14T02:42:30Z",
+      "side": 1,
+      "message": "Addressed in followup",
+      "parentUuid": "828c825f_ebb89b99",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 9
+      },
+      "revId": "60d566d529bcc2c3bed10707e403e0119c68eb20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9771fc97_e7158b4c",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-06-12T10:09:23Z",
       "side": 1,
       "message": "nits: Does test fail if the |method| calls private methods that are not callback methods? Should we check the visibility of inv.method?",
+      "range": {
+        "startLine": 191,
+        "startChar": 23,
+        "endLine": 191,
+        "endChar": 24
+      },
+      "revId": "60d566d529bcc2c3bed10707e403e0119c68eb20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "393de196_249503fb",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-14T02:42:30Z",
+      "side": 1,
+      "message": "Addressed in followup",
+      "parentUuid": "9771fc97_e7158b4c",
       "range": {
         "startLine": 191,
         "startChar": 23,
