@@ -1,0 +1,114 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "441e465f_f31eafda",
+        "filename": "tests/cts/multidevices/mdns_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-14T03:14:48Z",
+      "side": 1,
+      "message": "IIUC you might want to wait for aosp/3130873",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "e1167f6f51b15e343fb0a6c5a0e8d59e6571b34a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60674326_8571dea6",
+        "filename": "tests/cts/multidevices/mdns_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-14T03:14:48Z",
+      "side": 1,
+      "message": "Style: no new line at the end.\nMaybe run formatter first:\n pyformat -i mdns_utils.py",
+      "range": {
+        "startLine": 41,
+        "startChar": 80,
+        "endLine": 41,
+        "endChar": 82
+      },
+      "revId": "e1167f6f51b15e343fb0a6c5a0e8d59e6571b34a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c672a2f_bab8bb40",
+        "filename": "tests/cts/multidevices/tether_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-14T03:14:48Z",
+      "side": 1,
+      "message": "It seems to me NONE would be more appropriate for an upstrem type since there is no upstream needed.\nIf so, maybe define NONE and make it 0?",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 4
+      },
+      "revId": "e1167f6f51b15e343fb0a6c5a0e8d59e6571b34a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a87f0003_ac8964d6",
+        "filename": "tests/cts/multidevices/tether_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-14T03:14:48Z",
+      "side": 1,
+      "message": "1. Is it simpler to say:\nelif upstream_type \u003d\u003d Upstream.LOCAL:\n  pass\nelse:\n....\n\n2. You might need to rebase given aosp/3127453 is merged.",
+      "range": {
+        "startLine": 80,
+        "startChar": 7,
+        "endLine": 80,
+        "endChar": 83
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "8cdadc07_f84c89ff",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/tether_utils.py",
+              "range": {
+                "startLine": 80,
+                "startChar": 0,
+                "endLine": 81,
+                "endChar": 0
+              },
+              "replacement": "  elif upstream_type \u003d\u003d UpstreamType.LOCAL:\n    pass\n  else:\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e1167f6f51b15e343fb0a6c5a0e8d59e6571b34a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

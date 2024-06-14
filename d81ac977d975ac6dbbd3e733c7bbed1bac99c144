@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd1cc6a9_aba35d00",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-14T03:14:48Z",
+      "side": 1,
+      "message": "From documentation it seems doable to have multiple snippets in an app.\nif so i think it is worth doing?\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:external/mobly-snippet-lib/examples/ex1_standalone_app/README.md;l\u003d45?ss\u003dandroid\u0026q\u003dmobly-snippets\n\nAlternatively, at least create a Nsd class and hide imeplementation there and call it from this class is needed to prevent this file from being bigger and bigger.",
+      "parentUuid": "c0e52208_18101145",
+      "range": {
+        "startLine": 190,
+        "startChar": 46,
+        "endLine": 190,
+        "endChar": 56
+      },
+      "revId": "d81ac977d975ac6dbbd3e733c7bbed1bac99c144",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61b5550b_29ceb604",
         "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
         "patchSetId": 3
