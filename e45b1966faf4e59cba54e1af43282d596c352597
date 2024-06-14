@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b37f95aa_f3fb412b",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-14T03:24:46Z",
+      "side": 1,
+      "message": "I don\u0027t get this why it needs 3 mock return values here?\nCould you explain more for this?\nIs that because set_screen_state() will try to get the values multiple times?",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 78
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1991f23f_547479b6",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-14T03:24:46Z",
+      "side": 1,
+      "message": "I think it can be parameterized, refer to go/python-tips/011#parameterize.  \nThen test cases with different parameters can be added easily.",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 5
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be497947_74149417",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-14T03:24:46Z",
+      "side": 1,
+      "message": "same here for parameterize.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 0
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32358d85_d1727e95",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-14T03:24:46Z",
+      "side": 1,
+      "message": "Could you give some example format in the comment? \nThat will be easier to understand the original format.",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "809ccb34_5ed6e1cb",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-14T03:24:46Z",
+      "side": 1,
+      "message": "This only match the first pattern, right?  \nI\u0027m wondering if multiple matches, maybe add some comment for this to just return the first match.",
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fcdcf3b_e2ad01af",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-14T03:24:46Z",
+      "side": 1,
+      "message": "The error will be not correct for the first time retries, the attempt will start from 0.  \n\nIt can be rewritten to \n```\nfor attempt in range(1, max_retries + 1): \n  if predicate():\n    return\n  if attempt \u003c\u003d max_retries:\n    time.sleep(retry_interval_sec)\n    else:\n      raise UnexpectedBehaviorError(\n          \"Predicate didn\u0027t become true after \" + str(max_retries) + \" retries.\"\n      )\n```\nThen the attempt will go through 1-10",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
