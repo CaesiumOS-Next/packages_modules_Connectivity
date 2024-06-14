@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66655739_8bdfc062",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-14T02:51:40Z",
+      "side": 1,
+      "message": "nit: Maybe name it more specific, e.g. firstFailure?",
+      "range": {
+        "startLine": 94,
+        "startChar": 16,
+        "endLine": 94,
+        "endChar": 23
+      },
+      "revId": "f56b3156c6f0c5d264dbf3f91abc678a2909c434",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "465c7639_0ed51e27",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-14T02:51:40Z",
+      "side": 1,
+      "message": "Is this necessary given that we register callback at l.104?",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 13
+      },
+      "revId": "f56b3156c6f0c5d264dbf3f91abc678a2909c434",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "262d78fb_f4f9fc07",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-14T02:51:40Z",
+      "side": 1,
+      "message": "1. It seems run() will become longer every time we put new functionality.\n  It might be eventually hard to read.\n  Is it possible to refactor impelemtation detail to separate methods?\n  Btw I want to add memory leak monitor so it would possibly make it longer again.\n\n2. Is it possible to make unit test for this method?\nI feel the logic now is a little complex and we might want to test it.",
+      "range": {
+        "startLine": 146,
+        "startChar": 17,
+        "endLine": 146,
+        "endChar": 20
+      },
+      "revId": "f56b3156c6f0c5d264dbf3f91abc678a2909c434",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44d8b16f_58184f47",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-14T02:51:40Z",
+      "side": 1,
+      "message": "IIUC we don\u0027t need to wait for them becomes default is based on 2 assumptions, right?\n  1. the rematch happens prior to add VALIDATED capability, and\n  2. if it is VALIDATED, it also has INTERNET, which satisfies default request.\n\nIs this always true? If so, maybe add comment for it?\nIf not, maybe wait for them becomes default network?",
+      "range": {
+        "startLine": 167,
+        "startChar": 12,
+        "endLine": 167,
+        "endChar": 15
+      },
+      "revId": "f56b3156c6f0c5d264dbf3f91abc678a2909c434",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c635dd16_0e3b84f1",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-14T02:51:40Z",
+      "side": 1,
+      "message": "maybe networkRestoreMonitor to prevent confuse it with the well known NetworkMonitor?",
+      "range": {
+        "startLine": 169,
+        "startChar": 16,
+        "endLine": 169,
+        "endChar": 30
+      },
+      "revId": "f56b3156c6f0c5d264dbf3f91abc678a2909c434",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81343831_c1335098",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-14T02:51:40Z",
+      "side": 1,
+      "message": "Style: maybe sort them with alphabet order?\nhttps://source.android.com/docs/setup/contribute/code-style#use-standard-java-annotations",
+      "range": {
+        "startLine": 197,
+        "startChar": 1,
+        "endLine": 197,
+        "endChar": 19
+      },
+      "revId": "f56b3156c6f0c5d264dbf3f91abc678a2909c434",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
