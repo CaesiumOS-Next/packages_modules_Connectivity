@@ -63,6 +63,30 @@
       },
       "revId": "4b28336a7a35df561511b2124bca1a817daa9426",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a216ac5_ac43cf41",
+        "filename": "bpf_progs/test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T21:59:54Z",
+      "side": 1,
+      "message": "min_ver is inclusive, max_ver is exclusive\n\nie. min\u003dS,max\u003dU means [S,U) ie. S \u0026 T\nand min\u003dU,max\u003dinf means [U,inf) ie. U \u0026 V+\nso this covers everything S+.",
+      "parentUuid": "368d7fea_a3a1ebcf",
+      "range": {
+        "startLine": 21,
+        "startChar": 1,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "4b28336a7a35df561511b2124bca1a817daa9426",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
