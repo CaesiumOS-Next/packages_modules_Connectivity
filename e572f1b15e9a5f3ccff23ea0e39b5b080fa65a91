@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc0e7fbc_56191ba3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-14T02:20:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f9fc809_446c8462",
+      "revId": "e572f1b15e9a5f3ccff23ea0e39b5b080fa65a91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e288994_3045494a",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-06-12T16:08:03Z",
       "side": 1,
       "message": "s/TETHERING_VIRTUAL_MACHINE/TETHERING_VIRTUAL/? It\u0027s technically just tethering to a virtual interface which doesn\u0027t necessarily have to be used in a VM.",
+      "range": {
+        "startLine": 205,
+        "startChar": 28,
+        "endLine": 205,
+        "endChar": 53
+      },
+      "revId": "e572f1b15e9a5f3ccff23ea0e39b5b080fa65a91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74d66031_c50c5819",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-14T02:20:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e288994_3045494a",
       "range": {
         "startLine": 205,
         "startChar": 28,
@@ -102,6 +144,30 @@
       "side": 1,
       "message": "No, we do need a tethering TYPE_VIRTUAL. And we do need to exclude it from entitlement checks.",
       "parentUuid": "d2f0309d_d35cba97",
+      "range": {
+        "startLine": 979,
+        "startChar": 16,
+        "endLine": 979,
+        "endChar": 42
+      },
+      "revId": "e572f1b15e9a5f3ccff23ea0e39b5b080fa65a91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20230018_6df42fe6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-14T02:20:41Z",
+      "side": 1,
+      "message": "\u003e No, we do need a tethering TYPE_VIRTUAL.\n\nOkay, seems I misunderstood. So we keep introducing TETHERING_VIRTUAL, but may reuse ethernet service? I skimmed the code, but suspect ethernet service is highly coupled with netd for enabling tethering with specified interface name. \n\nWould you want adopting ethernet service as long-term solution, or doing it from now? I prefer not to be blocked for a long time for landing this feature.\n\n\u003e And we do need to exclude it from entitlement checks.\n\nCould you clarify more? Should I do `setExemptFromEntitlementCheck(true)` with `TetheringRequest.Builder`, or having some assertion under `startTethering` or similar function?",
+      "parentUuid": "c8c385d2_6ea5eb1c",
       "range": {
         "startLine": 979,
         "startChar": 16,

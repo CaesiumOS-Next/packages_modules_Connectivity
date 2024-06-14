@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76c0ecd6_38928b45",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-14T02:20:41Z",
+      "side": 1,
+      "message": "This is the hard-coded interface name, and the interface name will be changed in the near future, as writing more codes for changing virt APEX.(packages/modules/Virtualization)\n\nOn the other hand, I\u0027m considering adding a new configuration around interface name when building TetheringRequest. Would it be okay to leaving like current, or should I work on it?",
+      "range": {
+        "startLine": 983,
+        "startChar": 38,
+        "endLine": 983,
+        "endChar": 53
+      },
+      "revId": "7455e10a99334e8ac800b62f3456f0a637d2620d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
