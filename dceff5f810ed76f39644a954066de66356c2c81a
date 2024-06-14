@@ -33,6 +33,42 @@
       "message": "use EquilityTester",
       "revId": "dceff5f810ed76f39644a954066de66356c2c81a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba04e955_5c38626b",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-14T04:20:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e9098b3_2881224d",
+      "revId": "dceff5f810ed76f39644a954066de66356c2c81a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa1e96b_7f6852e0",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-14T04:20:34Z",
+      "side": 1,
+      "message": "This doesn\u0027t fit the scenario when using a parameterized test.",
+      "parentUuid": "5c5a476f_0adc818a",
+      "revId": "dceff5f810ed76f39644a954066de66356c2c81a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
