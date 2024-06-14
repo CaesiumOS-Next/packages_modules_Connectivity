@@ -16,17 +16,42 @@
 
 package com.android.server.thread;
 
-import android.os.ParcelFileDescriptor;
+import static android.system.OsConstants.AF_INET6;
+import static android.system.OsConstants.IPPROTO_ICMPV6;
+import static android.system.OsConstants.IPPROTO_IPV6;
+import static android.system.OsConstants.IPPROTO_RAW;
+import static android.system.OsConstants.IPV6_CHECKSUM;
+import static android.system.OsConstants.IPV6_MULTICAST_HOPS;
+import static android.system.OsConstants.IPV6_RECVHOPLIMIT;
+import static android.system.OsConstants.IPV6_RECVPKTINFO;
+import static android.system.OsConstants.IPV6_UNICAST_HOPS;
+import static android.system.OsConstants.SOCK_CLOEXEC;
+import static android.system.OsConstants.SOCK_RAW;
+import static android.system.OsConstants.SOL_SOCKET;
+import static android.system.OsConstants.SO_BINDTODEVICE;
 
+import android.net.NetworkUtils;
+import android.os.ParcelFileDescriptor;
+import android.system.ErrnoException;
+import android.system.Os;
+
+import com.android.testutils.Icmpv6Filter;
+
+import java.io.FileDescriptor;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /** Controller for the infrastructure network interface. */
 public class InfraInterfaceController {
     private static final String TAG = "InfraIfController";
 
-    static {
-        System.loadLibrary("service-thread-jni");
-    }
+    private static final int ENABLE = 1;
+    private static final int IPV6_CHECKSUM_OFFSET = 2;
+    private static final int HOP_LIMIT = 255;
+
+    //    static {
+    //        System.loadLibrary("service-thread-jni");
+    //    }
 
     /**
      * Creates a socket on the infrastructure network interface for sending/receiving ICMPv6
@@ -36,8 +61,21 @@ public class InfraInterfaceController {
      * @return an ICMPv6 socket file descriptor on the Infrastructure network interface.
      * @throws IOException when fails to create the socket.
      */
-    public ParcelFileDescriptor createIcmp6Socket(String infraInterfaceName) throws IOException {
-        return ParcelFileDescriptor.adoptFd(nativeCreateIcmp6Socket(infraInterfaceName));
+    public ParcelFileDescriptor createIcmp6Socket(String infraInterfaceName) throws ErrnoException {
+        //        return ParcelFileDescriptor.adoptFd(nativeCreateIcmp6Socket(infraInterfaceName));
+        // How to elegantly deal with ICMP6_FILTER?
+
+        FileDescriptor fd = Os.socket(AF_INET6, SOCK_RAW, IPPROTO_ICMPV6);
+        Os.setsockoptInt(fd, IPPROTO_IPV6, IPV6_RECVPKTINFO, ENABLE);
+        Os.setsockoptInt(fd, IPPROTO_RAW, IPV6_CHECKSUM, IPV6_CHECKSUM_OFFSET);
+        Os.setsockoptInt(fd, IPPROTO_RAW, IPV6_RECVHOPLIMIT, ENABLE);
+        Os.setsockoptInt(fd, IPPROTO_IPV6, IPV6_UNICAST_HOPS, HOP_LIMIT);
+        Os.setsockoptInt(fd, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, HOP_LIMIT);
+        NetworkUtils.setsockoptBytes(
+                fd,
+                SOL_SOCKET,
+                SO_BINDTODEVICE,
+                infraInterfaceName.getBytes(StandardCharsets.US_ASCII));
     }
 
     private static native int nativeCreateIcmp6Socket(String interfaceName) throws IOException;
