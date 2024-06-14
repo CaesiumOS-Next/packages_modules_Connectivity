@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7920ecd_625d571e",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-14T05:32:35Z",
+      "side": 1,
+      "message": "```suggestion\n    public final boolean mIsNat64Enabled;\n    public final boolean mIsDhcp6PdEnabled;\n    public final boolean mIsTrelEnabled;\n```",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "9b1e09f514cd269e1e7b36e3d1f3482f55f2c2d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
