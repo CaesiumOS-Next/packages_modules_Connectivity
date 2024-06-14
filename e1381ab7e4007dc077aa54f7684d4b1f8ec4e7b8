@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b80bdd6_ad173c06",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T11:25:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5929cdce_87258251",
+      "range": {
+        "startLine": 464,
+        "startChar": 26,
+        "endLine": 464,
+        "endChar": 28
+      },
+      "revId": "e1381ab7e4007dc077aa54f7684d4b1f8ec4e7b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "105f64bc_b57338ba",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-14T11:07:16Z",
       "side": 1,
       "message": "We don\u0027t need a special case here any more since root uid:\n- platform bpfloader% (on \u003cU QPR2)\n- platform bpfloader + platform netbpfload% (on U QPR2)\n- platform bpfloader + platform netbpfload shim + apex netbpfload% (on U QPR3)\n- apex netbpfload% + platform bpfloader + apex netbpfload \u0027done\u0027 (on V+)\n\nalways runs *before* the system uid mdnsd_netbpfload,\nand the % marked process creates /sys/fs/bpf/net_shared.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 4
+      },
+      "revId": "e1381ab7e4007dc077aa54f7684d4b1f8ec4e7b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7bc52a7_093a111a",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T11:25:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "105f64bc_b57338ba",
       "range": {
         "startLine": 117,
         "startChar": 0,
