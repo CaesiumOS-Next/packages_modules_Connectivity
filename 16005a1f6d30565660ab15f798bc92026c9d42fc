@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24c34561_f042f500",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T18:14:40Z",
+      "side": 1,
+      "message": "fails due to\n\npackages/modules/Connectivity/tests/mts/bpf_existence_test.cpp:198: Failure\nExpected equality of these values:\n  -1\n  ret\n    Which is: 0\n/sys/fs/bpf/netd_shared/map_netd_packet_trace_enabled_map unexpectedly exists\npackages/modules/Connectivity/tests/mts/bpf_existence_test.cpp:198: Failure\nExpected equality of these values:\n  -1\n  ret\n    Which is: 0\n/sys/fs/bpf/netd_shared/map_netd_packet_trace_ringbuf unexpectedly exists",
+      "revId": "16005a1f6d30565660ab15f798bc92026c9d42fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9277fe7_34ceadaa",
