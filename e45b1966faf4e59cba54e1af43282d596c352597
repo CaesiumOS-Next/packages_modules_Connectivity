@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff5b6519_c2691b07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-14T03:56:46Z",
+      "side": 1,
+      "message": "335368434?",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 14
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebe650f6_740c954b",
+        "filename": "tests/cts/multidevices/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-14T03:56:46Z",
+      "side": 1,
+      "message": "Do we run this test in presubmit?",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b37f95aa_f3fb412b",
         "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
         "patchSetId": 2
@@ -72,6 +118,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b1a14ec5_cce29bfc",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-14T03:56:46Z",
+      "side": 1,
+      "message": "Should we have return type? (since set_doze_mode has return type)",
+      "range": {
+        "startLine": 40,
+        "startChar": 74,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecb5133b_20d49e1c",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-14T03:56:46Z",
+      "side": 1,
+      "message": "can we return here?",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f10aeea_67ea70ae",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-14T03:56:46Z",
+      "side": 1,
+      "message": "why this one can not use expect_with_retry?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 17
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9480b449_7f745143",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-14T03:56:46Z",
+      "side": 1,
+      "message": "can we write `return screen_state_str \u003d\u003d \"Awake\"`?",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 18
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32358d85_d1727e95",
         "filename": "tests/cts/multidevices/utils/adb_utils.py",
         "patchSetId": 2
@@ -112,6 +250,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36cfb46b_7bfb315b",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-14T03:56:46Z",
+      "side": 1,
+      "message": "Not sure about the style but should this be `-\u003e str:` for return type?",
+      "range": {
+        "startLine": 95,
+        "startChar": 75,
+        "endLine": 95,
+        "endChar": 76
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2fcdcf3b_e2ad01af",
         "filename": "tests/cts/multidevices/utils/assert_utils.py",
         "patchSetId": 2
@@ -123,6 +284,30 @@
       "writtenOn": "2024-06-14T03:24:46Z",
       "side": 1,
       "message": "The error will be not correct for the first time retries, the attempt will start from 0.  \n\nIt can be rewritten to \n```\nfor attempt in range(1, max_retries + 1): \n  if predicate():\n    return\n  if attempt \u003c\u003d max_retries:\n    time.sleep(retry_interval_sec)\n    else:\n      raise UnexpectedBehaviorError(\n          \"Predicate didn\u0027t become true after \" + str(max_retries) + \" retries.\"\n      )\n```\nThen the attempt will go through 1-10",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89fc53da_b920b82c",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-14T03:56:46Z",
+      "side": 1,
+      "message": "+1.\nI think `if attempt \u003c\u003d max_retries:` should be `if attempt \u003c max_retries:`",
+      "parentUuid": "2fcdcf3b_e2ad01af",
       "range": {
         "startLine": 30,
         "startChar": 2,
