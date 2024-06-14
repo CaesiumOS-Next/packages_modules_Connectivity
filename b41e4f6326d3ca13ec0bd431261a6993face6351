@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be01b90e_f9726f6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T12:37:12Z",
+      "side": 1,
+      "message": "FYI: this isn\u0027t actually really required, because even if you don\u0027t close manually, the PFD finalizer will *still* close it - it\u0027ll just log a nastygram as well.",
+      "revId": "b41e4f6326d3ca13ec0bd431261a6993face6351",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
