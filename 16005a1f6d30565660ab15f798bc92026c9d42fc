@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dd8cc07_5ec84747",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T17:01:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9277fe7_34ceadaa",
+      "range": {
+        "startLine": 178,
+        "startChar": 12,
+        "endLine": 178,
+        "endChar": 17
+      },
+      "revId": "16005a1f6d30565660ab15f798bc92026c9d42fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77571844_1b0d7738",
@@ -84,6 +108,30 @@
       "writtenOn": "2024-06-14T16:56:47Z",
       "side": 1,
       "message": "I think we learn due to GTS test failures that depend on these maps.\nAlso we should presumably still add some java code somewhere to WTF on this.",
+      "parentUuid": "77571844_1b0d7738",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 62
+      },
+      "revId": "16005a1f6d30565660ab15f798bc92026c9d42fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b556b4a6_fa8109ff",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T17:01:54Z",
+      "side": 1,
+      "message": "I guess there is no way to do this here.. Java code will log wtf somewhere.",
       "parentUuid": "77571844_1b0d7738",
       "range": {
         "startLine": 187,
