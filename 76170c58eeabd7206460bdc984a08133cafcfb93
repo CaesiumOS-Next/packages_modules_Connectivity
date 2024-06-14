@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f8b6bb2_ddfb1963",
+        "filename": "staticlibs/testutils/app/connectivitychecker/src/com/android/testutils/connectivitypreparer/ConnectivityCheckTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-14T07:47:10Z",
+      "side": 1,
+      "message": "That\u0027s because we\u0027ve seen problems on QUIC that we haven\u0027t seen on HTTP (TCP), due to firewall configurations in labs. Generally mobile data doesn\u0027t have firewalls (or if it does, there\u0027s nothing the lab can do since it\u0027s up to the carrier).\n\nRebased so this is not in this CL anymore though. Will add a comment in the other change.",
+      "parentUuid": "9d89c8e6_f6b832a6",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 17
+      },
+      "revId": "76170c58eeabd7206460bdc984a08133cafcfb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a2179c4_95a7e24f",
@@ -65,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69eaf4b5_e0088c34",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-14T07:47:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a2179c4_95a7e24f",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 16
+      },
+      "revId": "76170c58eeabd7206460bdc984a08133cafcfb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8eac58c_ee001108",
@@ -88,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ac580ee_de1e51d2",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-14T07:47:10Z",
+      "side": 1,
+      "message": "Oops, yes thanks",
+      "parentUuid": "e8eac58c_ee001108",
+      "range": {
+        "startLine": 124,
+        "startChar": 82,
+        "endLine": 124,
+        "endChar": 83
+      },
+      "revId": "76170c58eeabd7206460bdc984a08133cafcfb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bd73972_8b783f34",
@@ -101,6 +173,30 @@
       "writtenOn": "2024-05-23T01:45:47Z",
       "side": 1,
       "message": "nits: Indent is not aligned.",
+      "range": {
+        "startLine": 179,
+        "startChar": 15,
+        "endLine": 180,
+        "endChar": 18
+      },
+      "revId": "76170c58eeabd7206460bdc984a08133cafcfb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba90b62_19b1511c",
+        "filename": "staticlibs/testutils/host/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-14T07:47:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bd73972_8b783f34",
       "range": {
         "startLine": 179,
         "startChar": 15,
