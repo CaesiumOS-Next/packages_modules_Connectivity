@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff951340_f75e539c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T18:19:16Z",
+      "side": 1,
+      "message": "I guess this is only an issue with netd.o which we could split in half, a netd.o for platform (with BPFLOADER_MAX_VER UQPR3) and a netd@mainline.o for U QPR3+\n\nor another \u0027bpfloader_exclude_ver\u003dt\u0027",
+      "parentUuid": "24c34561_f042f500",
+      "revId": "16005a1f6d30565660ab15f798bc92026c9d42fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9277fe7_34ceadaa",
