@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37ed0895_60c0d594",
+        "filename": "thread/framework/java/android/net/thread/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-14T05:45:30Z",
+      "side": 1,
+      "message": "Is this name too generic that it\u0027s easy to got name conflict when it\u0027s imported by clients? e.g.:\n\n```\nimport android.net.thread.Configuration;\n// import android.xxxxxx.Configuration;\n\npublic final class Foo {\n\n    // There is no direct name association between \"threadConfig\" and\n    // \"Configuration\".\n    Configuration threadConfig;\n    \n    // the clients need to use the full package name\n    android.xxxxxx.Configuration xxxxxxConfig;\n}\n```\n\nProbably we should change the name to \"ThreadConfiguration\" to make this cleaer and easier to use. We don\u0027t need to name it \"ThreadNetworkConfiguration\" to avoid the confusion that this is not for configuring the network but only device level customization. For example, Wifi has \"WifiConfiguration\" and Bluetooth almost has all it\u0027s public class prefixed by \"Bluetooth\" (e.g. BluetoothCodecConfig.java, BluetoothAudioConfig.java)\n\n@lorenzo@google.com thoughts?",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 43,
+        "endChar": 32
+      },
+      "revId": "9b1e09f514cd269e1e7b36e3d1f3482f55f2c2d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7920ecd_625d571e",
         "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
         "patchSetId": 10
