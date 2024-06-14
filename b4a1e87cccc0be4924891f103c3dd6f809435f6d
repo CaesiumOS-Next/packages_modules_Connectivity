@@ -22,6 +22,30 @@
       },
       "revId": "b4a1e87cccc0be4924891f103c3dd6f809435f6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ac27e2_bff03283",
+        "filename": "netbpfload/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T07:59:21Z",
+      "side": 1,
+      "message": "Yes, that\u0027s what \u0027..._platform_components\u0027 in line 22 is implying: these are the pieces needed for the mainline tethering apex that go into the platform and not the apex.\n\nFurthermore IFIRC \u0027init_rc\u0027 stanzas simply don\u0027t apply to apex (though there\u0027s various weird build system limitations/bugs, so I\u0027m not 100% certain if I recall things quite right...).\n\nAlso: if this *was* (only) in the apex, then nothing would work, because there would be nothing \u0027updatable\u0027 to override in the V platform.  And it would furthermore most likely break bpfloader on R and S, where it *would* take effect (or cause parse errors due to being \u0027updatable\u0027 instead of \u0027override\u0027).\n\n\u0027bpfloader.rc\u0027 would also be misnamed, because it doesn\u0027t launch bpfloader... it launches netbpfload (which then launches bpfloader)...",
+      "parentUuid": "f2f97478_4a673db1",
+      "range": {
+        "startLine": 29,
+        "startChar": 15,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "b4a1e87cccc0be4924891f103c3dd6f809435f6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
