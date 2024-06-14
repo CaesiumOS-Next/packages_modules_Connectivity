@@ -19,6 +19,7 @@ import unittest
 # Import all unittest classes here, so it can be discovered by unittest module.
 # TODO: make the tests can be executed without manually import classes.
 from unittests.adb_utils_test import TestAdbUtils
+from unittests.apf_utils_test import TestApfUtils
 from unittests.assert_utils_test import TestAssertUtils
 
 
