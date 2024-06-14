@@ -16,6 +16,29 @@
       "message": "partial rollback of aosp/3005050",
       "revId": "4b28336a7a35df561511b2124bca1a817daa9426",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2786c3e7_56967d69",
+        "filename": "bpf_progs/test.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T16:21:37Z",
+      "side": 1,
+      "message": "how does this work again, who defines this? Also, is BPFLOADER_MAX_VER exclusive or inclusive?",
+      "range": {
+        "startLine": 21,
+        "startChar": 1,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "4b28336a7a35df561511b2124bca1a817daa9426",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
