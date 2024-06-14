@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62dd48b6_38460ec3",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T18:05:37Z",
+      "side": 1,
+      "message": "inclusion",
+      "range": {
+        "startLine": 1055,
+        "startChar": 21,
+        "endLine": 1055,
+        "endChar": 31
+      },
+      "revId": "ab5528305c8edbfb988f5629ea7984051ee85338",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4db849b_ace9f0b2",
         "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
         "patchSetId": 5
@@ -66,6 +89,52 @@
         "startChar": 0,
         "endLine": 1056,
         "endChar": 4
+      },
+      "revId": "ab5528305c8edbfb988f5629ea7984051ee85338",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f5960a0_4829864a",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T18:05:37Z",
+      "side": 1,
+      "message": "NCM over a direct USB-C cable connection",
+      "range": {
+        "startLine": 1056,
+        "startChar": 38,
+        "endLine": 1056,
+        "endChar": 43
+      },
+      "revId": "ab5528305c8edbfb988f5629ea7984051ee85338",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974438e8_d8d41ed7",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T18:05:37Z",
+      "side": 1,
+      "message": "and enables the use of some CDC ethernet dongles",
+      "range": {
+        "startLine": 1056,
+        "startChar": 54,
+        "endLine": 1056,
+        "endChar": 55
       },
       "revId": "ab5528305c8edbfb988f5629ea7984051ee85338",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
