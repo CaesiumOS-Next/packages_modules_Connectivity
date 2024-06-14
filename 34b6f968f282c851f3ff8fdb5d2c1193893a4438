@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9d8a823_432c724a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-14T07:50:14Z",
+      "side": 1,
+      "message": "LGTM but technically my owners grant doesn\u0027t mention no-op refactors so Lorenzo should have a look\n(maybe it should ?)",
+      "revId": "34b6f968f282c851f3ff8fdb5d2c1193893a4438",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
