@@ -193,7 +193,7 @@ public class MdnsFeatureFlags {
             mIsLabelCountLimitEnabled = true; // Default enabled.
             mIsKnownAnswerSuppressionEnabled = true; // Default enabled.
             mIsUnicastReplyEnabled = true; // Default enabled.
-            mIsAggressiveQueryModeEnabled = false;
+            mIsAggressiveQueryModeEnabled = true; // Default enabled.
             mIsQueryWithKnownAnswerEnabled = false;
             mOverrideProvider = null;
         }

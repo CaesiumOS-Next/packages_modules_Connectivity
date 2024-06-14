@@ -1931,7 +1931,7 @@ public class NsdService extends INsdManager.Stub {
                         mContext, MdnsFeatureFlags.NSD_KNOWN_ANSWER_SUPPRESSION))
                 .setIsUnicastReplyEnabled(mDeps.isTetheringFeatureNotChickenedOut(
                         mContext, MdnsFeatureFlags.NSD_UNICAST_REPLY_ENABLED))
-                .setIsAggressiveQueryModeEnabled(mDeps.isFeatureEnabled(
+                .setIsAggressiveQueryModeEnabled(mDeps.isTetheringFeatureNotChickenedOut(
                         mContext, MdnsFeatureFlags.NSD_AGGRESSIVE_QUERY_MODE))
                 .setIsQueryWithKnownAnswerEnabled(mDeps.isFeatureEnabled(
                         mContext, MdnsFeatureFlags.NSD_QUERY_WITH_KNOWN_ANSWER))
