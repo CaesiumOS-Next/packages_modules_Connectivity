@@ -45,6 +45,30 @@
       },
       "revId": "ab5528305c8edbfb988f5629ea7984051ee85338",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a15a206b_f2bd23a9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T17:57:37Z",
+      "side": 1,
+      "message": "... enables device-to-device tethering via NCM over a direct USB-C cable connection ...",
+      "parentUuid": "d4db849b_ace9f0b2",
+      "range": {
+        "startLine": 1056,
+        "startChar": 0,
+        "endLine": 1056,
+        "endChar": 4
+      },
+      "revId": "ab5528305c8edbfb988f5629ea7984051ee85338",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
