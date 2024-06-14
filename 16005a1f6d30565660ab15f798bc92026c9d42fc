@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9277fe7_34ceadaa",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T16:29:32Z",
+      "side": 1,
+      "message": "Should it log wtf so we have a chance of catching failures before flipping enforce_mainline?",
+      "range": {
+        "startLine": 178,
+        "startChar": 12,
+        "endLine": 178,
+        "endChar": 17
+      },
+      "revId": "16005a1f6d30565660ab15f798bc92026c9d42fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77571844_1b0d7738",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T16:29:32Z",
+      "side": 1,
+      "message": "should this wait 5 (10,30?) seconds and log wtf if it times out? Worst case we cause a boot time regression, but again, how do we find out whether this works or not?",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 62
+      },
+      "revId": "16005a1f6d30565660ab15f798bc92026c9d42fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
