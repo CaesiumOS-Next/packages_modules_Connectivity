@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce1e9f96_40d52060",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T15:40:15Z",
+      "side": 0,
+      "message": "I am confused why / how this works before U QPR3.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 62
+      },
+      "revId": "c390083c0cec02f09a208ff0cd63da5dd1824322",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,5 +1,46 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c66e017_0ce1cf5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T15:40:15Z",
+      "side": 1,
+      "message": "Subtle indeed... Can you leave a comment along these lines in the .33rc?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 67
+      },
+      "revId": "15f9731efc59deb271eb8086d05f532209c8561e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cfa76ab_e0063926",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T15:40:15Z",
+      "side": 1,
+      "message": "Maybe add note here too: On U QPR3+ netbpfload is guaranteed to run before the platform bpfloader, so waitForProgsLoaded() implies mainlineNetBpfLoadDone().",
+      "revId": "15f9731efc59deb271eb8086d05f532209c8561e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
