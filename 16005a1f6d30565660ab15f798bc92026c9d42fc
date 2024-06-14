@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9efa149f_2fa225ab",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T16:56:47Z",
+      "side": 1,
+      "message": "How does one WTF from C++?",
+      "parentUuid": "b9277fe7_34ceadaa",
+      "range": {
+        "startLine": 178,
+        "startChar": 12,
+        "endLine": 178,
+        "endChar": 17
+      },
+      "revId": "16005a1f6d30565660ab15f798bc92026c9d42fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77571844_1b0d7738",
         "filename": "netd/BpfHandler.cpp",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-14T16:29:32Z",
       "side": 1,
       "message": "should this wait 5 (10,30?) seconds and log wtf if it times out? Worst case we cause a boot time regression, but again, how do we find out whether this works or not?",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 62
+      },
+      "revId": "16005a1f6d30565660ab15f798bc92026c9d42fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "174a0c00_f14ee0a3",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-14T16:56:47Z",
+      "side": 1,
+      "message": "I think we learn due to GTS test failures that depend on these maps.\nAlso we should presumably still add some java code somewhere to WTF on this.",
+      "parentUuid": "77571844_1b0d7738",
       "range": {
         "startLine": 187,
         "startChar": 0,
