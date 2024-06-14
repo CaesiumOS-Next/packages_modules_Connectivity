@@ -51,7 +51,7 @@ python_test_host {
         "utils/*.py",
         "unittests/*.py",
     ],
-    main: "unittests/adb_utils_test.py",
+    main: "unittests/run_tests.py",
     libs: [
         "mobly",
     ],
