@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3346172a_10d728eb",
+        "filename": "staticlibs/native/bpf_syscall_wrappers/include/BpfSyscallWrappers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T20:46:13Z",
+      "side": 1,
+      "message": "Because of the circular dependency... Can KernelUtils.h live in bpf syscall wrappers? Do we actually need too separate libraries for bpf_headers and bpf_syscall_wrappers. Why not just merge everything into bpf_headers? (I am genuinely curious whether there is some sdk / min_sdk_version issue that might prevent us from doing so).",
+      "range": {
+        "startLine": 25,
+        "startChar": 27,
+        "endLine": 25,
+        "endChar": 54
+      },
+      "revId": "52018c821ccc7d097449442eea25b1249d706caf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6de84e0_ff42d1a1",
+        "filename": "staticlibs/native/bpf_syscall_wrappers/include/BpfSyscallWrappers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T20:46:13Z",
+      "side": 1,
+      "message": "I really need to finish cleaning this stuff up...",
+      "range": {
+        "startLine": 141,
+        "startChar": 1,
+        "endLine": 141,
+        "endChar": 26
+      },
+      "revId": "52018c821ccc7d097449442eea25b1249d706caf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae0cdf57_0452aa87",
+        "filename": "staticlibs/native/bpf_syscall_wrappers/include/BpfSyscallWrappers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-14T20:46:13Z",
+      "side": 1,
+      "message": "Could you possibly force an exclusive lock here? It\u0027s not great either, but might be safer?",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 0
+      },
+      "revId": "52018c821ccc7d097449442eea25b1249d706caf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
