@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02b2b347_a0d61a22",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1846,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-15T06:29:46Z",
+      "side": 1,
+      "message": "nit: better to mention the delay time(30 seconds time) in the error message.",
+      "range": {
+        "startLine": 1846,
+        "startChar": 56,
+        "endLine": 1846,
+        "endChar": 66
+      },
+      "revId": "a5c6c0ee1f2cbec92b7af188913ad426a259ec04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
