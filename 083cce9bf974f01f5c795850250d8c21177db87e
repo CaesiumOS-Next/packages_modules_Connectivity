@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d6d351f_1cc5c18e",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-15T11:48:30Z",
+      "side": 1,
+      "message": "I feel like we might have a better name here? maybe map_load_test.o or sth.?",
+      "range": {
+        "startLine": 104,
+        "startChar": 9,
+        "endLine": 104,
+        "endChar": 15
+      },
+      "revId": "083cce9bf974f01f5c795850250d8c21177db87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "117124ca_415190f0",
+        "filename": "bpf_progs/gentle.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-15T11:48:30Z",
+      "side": 1,
+      "message": "I feel we need documentation here, to mention the purpose of this BPF program. Otherwise, it might be a little bit confusing.",
+      "revId": "083cce9bf974f01f5c795850250d8c21177db87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
