@@ -22,6 +22,29 @@
       },
       "revId": "52d6c5587fa8ec432ca8f6256b037f0ca5ee326c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91dda4cf_d25121fd",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-15T21:31:16Z",
+      "side": 1,
+      "message": "you could use ConcurrentHashMap and remove loking on getInstance / getSingleton. You could also use computeIfAbsent and perform containsKey / put / get atomically.",
+      "range": {
+        "startLine": 94,
+        "startChar": 1,
+        "endLine": 98,
+        "endChar": 5
+      },
+      "revId": "52d6c5587fa8ec432ca8f6256b037f0ca5ee326c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
