@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4aa97e5_87b15e2a",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-15T13:01:36Z",
+      "side": 1,
+      "message": "(a) we can\u0027t use _ in .o names [not legal due to using _ as a separator for other purposes]\n\n(b) we\u0027ll delete this in September (ie. in practice on Monday I think, after the branch), so the name isn\u0027t terribly important...\n\n(c) we could call this something like loadTest.o or gentleLoadTest.o or gentle@mainline.o or gentle@mainlineLoadTest.o if you think that\u0027s better...\n\n(stuff after @ is ignored in pinned prog/map names)",
+      "parentUuid": "5d6d351f_1cc5c18e",
+      "range": {
+        "startLine": 104,
+        "startChar": 9,
+        "endLine": 104,
+        "endChar": 15
+      },
+      "revId": "083cce9bf974f01f5c795850250d8c21177db87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "117124ca_415190f0",
         "filename": "bpf_progs/gentle.c",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2024-06-15T11:51:22Z",
       "side": 1,
       "message": "map_load_test?",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 27
+      },
+      "revId": "083cce9bf974f01f5c795850250d8c21177db87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a7ad73d_00d28977",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-15T13:01:36Z",
+      "side": 1,
+      "message": "it would have to be map_load_test_test, and due to the _ it would actually need to be map_loadTest_test",
+      "parentUuid": "54f3e408_64a4740d",
       "range": {
         "startLine": 94,
         "startChar": 12,
