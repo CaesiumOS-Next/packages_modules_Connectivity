@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1459e9b_17bdc307",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-15T00:52:23Z",
+      "side": 1,
+      "message": "WARNING:\nThe resolve_*_test require https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3134333 in order to fully pass.",
+      "revId": "9eca02a8fa20aa14920f0dd3bf88c06ce04a2575",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
