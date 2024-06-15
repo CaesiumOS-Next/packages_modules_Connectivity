@@ -69,6 +69,30 @@
       },
       "revId": "52d6c5587fa8ec432ca8f6256b037f0ca5ee326c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab17cc2d_ab0e41b5",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-15T22:00:26Z",
+      "side": 1,
+      "message": "I tried, both here and BpfMap fd cache itself.\n\non BpfMap computeIfAbsent doesn\u0027t work as it breaks the \"exclusive mode doesn\u0027t allow reuse\" protection logic, this doesn\u0027t look fixable.\n\non SingleWriterBpfMap, with the following code:\n        final var id \u003d new Pair\u003c\u003e(path, new Pair\u003cClass,Class\u003e(key, value));\n        return singletonCache.computeIfAbsent(id, k -\u003e new SingleWriterBpfMap(path, key, value));\n\nI get a compile error:\n\npackages/modules/Connectivity/staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java:96: error: unreported exception ErrnoException; must be caught or declared to be thrown\n        return singletonCache.computeIfAbsent(id, k -\u003e new SingleWriterBpfMap(path, key, value));\n\nLooking this up on the internet I find among other things:\nhttps://community.sonarsource.com/t/s3824-suggestion-to-use-map-computeifabsent-should-consider-checked-exceptions/20534",
+      "parentUuid": "eb5d6ebf_ac21bc30",
+      "range": {
+        "startLine": 94,
+        "startChar": 1,
+        "endLine": 98,
+        "endChar": 5
+      },
+      "revId": "52d6c5587fa8ec432ca8f6256b037f0ca5ee326c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
