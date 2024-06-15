@@ -82,6 +82,30 @@
       },
       "revId": "a5c6c0ee1f2cbec92b7af188913ad426a259ec04",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "452ea894_b0a286c0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1846,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-15T07:13:44Z",
+      "side": 1,
+      "message": "also I think Lorenzo/Remi were saying to WTF something different with some low probability (0.1%?) even on success so we would know the logging/collection is working.",
+      "parentUuid": "2fbc5f44_561ecad6",
+      "range": {
+        "startLine": 1846,
+        "startChar": 56,
+        "endLine": 1846,
+        "endChar": 66
+      },
+      "revId": "a5c6c0ee1f2cbec92b7af188913ad426a259ec04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
