@@ -45,6 +45,30 @@
       },
       "revId": "52d6c5587fa8ec432ca8f6256b037f0ca5ee326c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb5d6ebf_ac21bc30",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-15T21:31:30Z",
+      "side": 1,
+      "message": "*locking.",
+      "parentUuid": "91dda4cf_d25121fd",
+      "range": {
+        "startLine": 94,
+        "startChar": 1,
+        "endLine": 98,
+        "endChar": 5
+      },
+      "revId": "52d6c5587fa8ec432ca8f6256b037f0ca5ee326c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
