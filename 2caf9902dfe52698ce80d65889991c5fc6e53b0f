@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84490ff0_d9a71d95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-15T13:22:12Z",
+      "side": 1,
+      "message": "Let\u0027s hold off on this: I\u0027m not 100% sure what happens if we need to run clat on 2 interfaces - I think we may end up with 2 instances.\n\nThe performance of this also shouldn\u0027t matter.",
+      "revId": "2caf9902dfe52698ce80d65889991c5fc6e53b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
