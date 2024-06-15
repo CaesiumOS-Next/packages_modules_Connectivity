@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d91485c_c2abc883",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-15T15:32:55Z",
+      "side": 1,
+      "message": "Thanks for the suggestion. let\u0027s take b) as it is short term anyway. Its nit.",
+      "parentUuid": "557d060f_89c91664",
+      "range": {
+        "startLine": 104,
+        "startChar": 9,
+        "endLine": 104,
+        "endChar": 15
+      },
+      "revId": "083cce9bf974f01f5c795850250d8c21177db87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "117124ca_415190f0",
