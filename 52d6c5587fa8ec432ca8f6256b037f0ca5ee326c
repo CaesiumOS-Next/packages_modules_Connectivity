@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef552132_78b109d0",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-15T21:27:11Z",
+      "side": 1,
+      "message": "getInstance() might be a better name? I don\u0027t know. No strong preference.",
+      "range": {
+        "startLine": 192,
+        "startChar": 38,
+        "endLine": 192,
+        "endChar": 50
+      },
+      "revId": "52d6c5587fa8ec432ca8f6256b037f0ca5ee326c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
