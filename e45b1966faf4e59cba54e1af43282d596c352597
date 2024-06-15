@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c708da74_c85111f3",
+        "filename": "tests/cts/multidevices/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-15T03:09:05Z",
+      "side": 1,
+      "message": "I think presubmit only support CF, and I guess the multidevice the CTS won\u0027t able to be run on presubmit?",
+      "parentUuid": "ebe650f6_740c954b",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b37f95aa_f3fb412b",
         "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
         "patchSetId": 2
