@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c81845a_18d1c614",
+        "filename": "staticlibs/native/bpf_syscall_wrappers/include/BpfSyscallWrappers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-15T02:49:28Z",
+      "side": 1,
+      "message": "nit: Are we better off to return some specific value instead of return fd directly? Return fd seems confusing. Not sure if we really care.....",
+      "range": {
+        "startLine": 139,
+        "startChar": 11,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "04fb3862a9054c07418476100fdb427506babf30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
