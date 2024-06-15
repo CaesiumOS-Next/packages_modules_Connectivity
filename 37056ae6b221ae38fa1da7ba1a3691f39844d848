@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71560958_4d86a5c2",
+        "filename": "tests/cts/multidevices/unittests/apf_utils_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-15T03:33:09Z",
+      "side": 1,
+      "message": "Looks like we can try to make better indentation?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a32bc356_3fbc910b",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-15T03:33:09Z",
+      "side": 1,
+      "message": "I feel like using regex here is over complicate the problem. \n\nCan we use string.split(\":\") and string.find()?",
+      "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
