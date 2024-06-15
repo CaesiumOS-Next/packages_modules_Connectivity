@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "557d060f_89c91664",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-15T13:31:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a4aa97e5_87b15e2a",
+      "range": {
+        "startLine": 104,
+        "startChar": 9,
+        "endLine": 104,
+        "endChar": 15
+      },
+      "revId": "083cce9bf974f01f5c795850250d8c21177db87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "117124ca_415190f0",
@@ -61,6 +85,24 @@
       "writtenOn": "2024-06-15T11:48:30Z",
       "side": 1,
       "message": "I feel we need documentation here, to mention the purpose of this BPF program. Otherwise, it might be a little bit confusing.",
+      "revId": "083cce9bf974f01f5c795850250d8c21177db87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46247320_6e28963f",
+        "filename": "bpf_progs/gentle.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-15T13:31:14Z",
+      "side": 1,
+      "message": "(we\u0027ll revert this very soon - possibly on Monday...)",
+      "parentUuid": "117124ca_415190f0",
       "revId": "083cce9bf974f01f5c795850250d8c21177db87e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -112,6 +154,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00d06607_a0d497b2",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-15T13:31:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0a7ad73d_00d28977",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 27
+      },
+      "revId": "083cce9bf974f01f5c795850250d8c21177db87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3ca1711_aa2a30b0",
@@ -125,6 +191,30 @@
       "writtenOn": "2024-06-15T11:52:46Z",
       "side": 1,
       "message": "prog_load_test_skfilter_accept?",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 95,
+        "endChar": 39
+      },
+      "revId": "083cce9bf974f01f5c795850250d8c21177db87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "347a7c7e_2fa4f548",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-15T13:31:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a3ca1711_aa2a30b0",
       "range": {
         "startLine": 95,
         "startChar": 12,
