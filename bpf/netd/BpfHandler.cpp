@@ -360,15 +360,17 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
         return -EAFNOSUPPORT;
     }
 
-    int socketProto;
-    socklen_t protoLen = sizeof(socketProto);
-    if (getsockopt(sockFd, SOL_SOCKET, SO_PROTOCOL, &socketProto, &protoLen)) {
-        ALOGE("Failed to getsockopt SO_PROTOCOL: %s, fd: %d", strerror(errno), sockFd);
-        return -errno;
-    }
-    if (socketProto != IPPROTO_UDP && socketProto != IPPROTO_TCP) {
-        ALOGV("Unsupported protocol: %d", socketProto);
-        return -EPROTONOSUPPORT;
+    if (!isAtLeastKernelVersion(5, 10, 0)) {
+        int socketProto;
+        socklen_t protoLen = sizeof(socketProto);
+        if (getsockopt(sockFd, SOL_SOCKET, SO_PROTOCOL, &socketProto, &protoLen)) {
+            ALOGE("Failed to getsockopt SO_PROTOCOL: %s, fd: %d", strerror(errno), sockFd);
+            return -errno;
+        }
+        if (socketProto != IPPROTO_UDP && socketProto != IPPROTO_TCP) {
+            ALOGV("Unsupported protocol: %d", socketProto);
+            return -EPROTONOSUPPORT;
+        }
     }
 
     uint64_t sock_cookie = getSocketCookie(sockFd);
