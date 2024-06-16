@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "217aa453_edac19f2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-16T07:38:55Z",
+      "side": 1,
+      "message": "Is those two has to be in separate methods? Looks like they can be in the same methods?",
+      "range": {
+        "startLine": 896,
+        "startChar": 4,
+        "endLine": 920,
+        "endChar": 0
+      },
+      "revId": "0195510bb255e0d6bbb74ce8ff62a0bf5fbfdf7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

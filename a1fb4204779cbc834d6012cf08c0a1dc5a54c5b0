@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c498b32_6dc9bf33",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-16T07:38:55Z",
+      "side": 0,
+      "message": "Looks like removing `mUpstreamSupportsBpf` can also be a separate CL?",
+      "range": {
+        "startLine": 804,
+        "startChar": 8,
+        "endLine": 804,
+        "endChar": 28
+      },
+      "revId": "a1fb4204779cbc834d6012cf08c0a1dc5a54c5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84c0afe6_b5e0e8b3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-16T07:38:55Z",
+      "side": 0,
+      "message": "Can remove `!isUsingBpf()` and `isVcnInterface(upstreamIface)` check move to a separate CLs and in the CL commit message, we should document why removing those checks are safe",
+      "range": {
+        "startLine": 739,
+        "startChar": 8,
+        "endLine": 739,
+        "endChar": 34
+      },
+      "revId": "a1fb4204779cbc834d6012cf08c0a1dc5a54c5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
