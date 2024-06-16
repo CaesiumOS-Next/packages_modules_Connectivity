@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0875d543_1010a0aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-16T11:08:52Z",
+      "side": 1,
+      "message": "+2ed as change itself LGTM. please make sure TH passed",
+      "revId": "6219cb66e332ac14e89c7c7fda71abe57996056e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "624c500f_7979246f",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-16T11:08:52Z",
+      "side": 1,
+      "message": "nit: more than 100 characters.",
+      "range": {
+        "startLine": 684,
+        "startChar": 82,
+        "endLine": 684,
+        "endChar": 102
+      },
+      "revId": "6219cb66e332ac14e89c7c7fda71abe57996056e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
