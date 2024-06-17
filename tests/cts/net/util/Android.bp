@@ -22,6 +22,9 @@ package {
 
 java_library {
     name: "cts-net-utils",
+    defaults: [
+        "framework-connectivity-test-defaults",
+    ],
     srcs: [
         "java/**/*.java",
         "java/**/*.kt",

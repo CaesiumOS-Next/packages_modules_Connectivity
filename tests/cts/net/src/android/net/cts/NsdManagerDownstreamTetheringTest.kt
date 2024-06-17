@@ -21,6 +21,8 @@ import android.net.TestNetworkInterface
 import android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL
 import android.net.TetheringManager.TETHERING_ETHERNET
 import android.net.TetheringManager.TetheringRequest
+import android.net.cts.util.NsdDiscoveryRecord
+import android.net.cts.util.pollForQuery
 import android.net.nsd.NsdManager
 import android.os.Build
 import android.platform.test.annotations.AppModeFull

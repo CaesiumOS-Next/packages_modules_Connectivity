@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package android.net.cts
+package android.net.cts.util
 
 import android.net.DnsResolver
 import android.net.Network
