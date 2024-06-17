@@ -70,6 +70,30 @@
       },
       "revId": "e1a2762e4159f5f80e245d1d6c891bcd6991d552",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d373db8_d2f71b99",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-17T22:31:35Z",
+      "side": 1,
+      "message": "Per offline discussion, changing this to iterate through IpServer\u0027s TetheringRequests instead.",
+      "parentUuid": "54a2bdb9_4c6fd983",
+      "range": {
+        "startLine": 690,
+        "startChar": 8,
+        "endLine": 690,
+        "endChar": 35
+      },
+      "revId": "e1a2762e4159f5f80e245d1d6c891bcd6991d552",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
