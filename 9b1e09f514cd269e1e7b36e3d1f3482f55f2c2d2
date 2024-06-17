@@ -45,6 +45,30 @@
       },
       "revId": "9b1e09f514cd269e1e7b36e3d1f3482f55f2c2d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c13fb992_8c2a24d7",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-17T04:02:04Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "a7920ecd_625d571e",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "9b1e09f514cd269e1e7b36e3d1f3482f55f2c2d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
