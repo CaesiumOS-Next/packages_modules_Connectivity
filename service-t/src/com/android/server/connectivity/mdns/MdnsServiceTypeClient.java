@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSearchOptions.AGGRESSIVE_QUERY_MODE;
 import static com.android.server.connectivity.mdns.MdnsServiceCache.ServiceExpiredCallback;
 import static com.android.server.connectivity.mdns.MdnsServiceCache.findMatchedResponse;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
@@ -390,9 +391,13 @@ public class MdnsServiceTypeClient {
                 }
             }
         }
+
         // Remove the next scheduled periodical task.
         removeScheduledTask();
-        mdnsQueryScheduler.cancelScheduledRun();
+        // Keep the latest scheduled run if there is a service in the cache.
+        if (searchOptions.getQueryMode() != AGGRESSIVE_QUERY_MODE || !hadReply) {
+            mdnsQueryScheduler.cancelScheduledRun();
+        }
         // Keep tracking the ScheduledFuture for the task so we can cancel it if caller is not
         // interested anymore.
         final QueryTaskConfig taskConfig = new QueryTaskConfig(
@@ -406,14 +411,14 @@ public class MdnsServiceTypeClient {
         }
         final long minRemainingTtl = getMinRemainingTtl(now);
         if (hadReply) {
-            MdnsQueryScheduler.ScheduledQueryTaskArgs args =
-                    mdnsQueryScheduler.scheduleNextRun(
-                            taskConfig,
-                            minRemainingTtl,
-                            now,
-                            lastSentTime,
-                            currentSessionId
-                    );
+            final MdnsQueryScheduler.ScheduledQueryTaskArgs args;
+            if (searchOptions.getQueryMode() == AGGRESSIVE_QUERY_MODE) {
+                args = mdnsQueryScheduler.maybeScheduleWithCurrentRun(
+                        taskConfig, now, minRemainingTtl, lastSentTime, currentSessionId);
+            } else {
+                args = mdnsQueryScheduler.scheduleNextRun(
+                        taskConfig, minRemainingTtl, now, lastSentTime, currentSessionId);
+            }
             dependencies.sendMessageDelayed(
                     handler,
                     handler.obtainMessage(EVENT_START_QUERYTASK, args),

@@ -87,6 +87,37 @@ public class MdnsQueryScheduler {
     }
 
     /**
+     * Calculates ScheduledQueryTaskArgs with last scheduled task. Returns null if the scheduling is
+     * not possible.
+     */
+    @Nullable
+    public ScheduledQueryTaskArgs maybeScheduleWithCurrentRun(
+            @NonNull QueryTaskConfig currentConfig,
+            long now,
+            long minRemainingTtl,
+            long lastSentTime,
+            long sessionId) {
+        final QueryTaskConfig nextRunConfig = currentConfig.getConfigForNextRun();
+        long timeToRun;
+        if (mLastScheduledQueryTaskArgs == null) {
+            timeToRun = lastSentTime + nextRunConfig.delayUntilNextTaskWithoutBackoffMs;
+            if (minRemainingTtl > 0) {
+                timeToRun = Math.max(now + (long) (0.8 * minRemainingTtl), timeToRun);
+            }
+        } else {
+            timeToRun = calculateTimeToRun(mLastScheduledQueryTaskArgs,
+                    mLastScheduledQueryTaskArgs.config, now, minRemainingTtl, lastSentTime);
+        }
+        mLastScheduledQueryTaskArgs = new ScheduledQueryTaskArgs(
+                mLastScheduledQueryTaskArgs == null
+                        ? nextRunConfig : mLastScheduledQueryTaskArgs.config,
+                timeToRun,
+                minRemainingTtl + now,
+                sessionId);
+        return mLastScheduledQueryTaskArgs;
+    }
+
+    /**
      *  Calculates the ScheduledQueryTaskArgs for the next run.
      */
     @NonNull
