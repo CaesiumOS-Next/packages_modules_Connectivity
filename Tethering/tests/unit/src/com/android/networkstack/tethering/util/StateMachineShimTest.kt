@@ -64,7 +64,7 @@ class StateMachineShimTest {
 
         val what = 10
         shimUsingSyncSM.sendMessage(what)
-        inOrder.verify(mSyncSM).processMessage(what, 0, 0, null)
+        inOrder.verify(mSyncSM).processMessage(what)
         val obj = Object()
         shimUsingSyncSM.sendMessage(what, obj)
         inOrder.verify(mSyncSM).processMessage(what, 0, 0, obj)
@@ -110,7 +110,7 @@ class StateMachineShimTest {
 
         val what = 10
         shimUsingAsyncSM.sendMessage(what)
-        inOrder.verify(mAsyncSM).sendMessage(what, 0, 0, null)
+        inOrder.verify(mAsyncSM).sendMessage(what)
         val obj = Object()
         shimUsingAsyncSM.sendMessage(what, obj)
         inOrder.verify(mAsyncSM).sendMessage(what, 0, 0, obj)
