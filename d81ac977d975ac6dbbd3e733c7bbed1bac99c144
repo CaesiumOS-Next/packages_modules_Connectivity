@@ -213,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2922836e_22e8ad0c",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-06-17T06:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd1cc6a9_aba35d00",
+      "range": {
+        "startLine": 190,
+        "startChar": 46,
+        "endLine": 190,
+        "endChar": 56
+      },
+      "revId": "d81ac977d975ac6dbbd3e733c7bbed1bac99c144",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61b5550b_29ceb604",
