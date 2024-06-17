@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aaf19b1_72ee7ed7",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-17T21:05:05Z",
+      "side": 1,
+      "message": "I have a CL to merge MtsEthernetTetheringTest with EthernetTetheringTest. Can you add your changes there? With MCTS there is no longer any need to keep them separate. (I really want to get rid of the inheritance in the tethering tests. It makes it much harder to read / work with.)",
+      "range": {
+        "startLine": 351,
+        "startChar": 17,
+        "endLine": 351,
+        "endChar": 31
+      },
+      "revId": "adb134d136e23f479195d324dfb379ee92fe01be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa6c6f5e_181348e1",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-17T21:05:05Z",
+      "side": 1,
+      "message": "inline",
+      "range": {
+        "startLine": 393,
+        "startChar": 8,
+        "endLine": 393,
+        "endChar": 25
+      },
+      "revId": "adb134d136e23f479195d324dfb379ee92fe01be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
