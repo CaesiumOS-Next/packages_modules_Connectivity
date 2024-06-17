@@ -80,8 +80,7 @@ static void verifyPerms(const char * const path,
       case VERIFY_BIN: return;
       case VERIFY_PROG:   fd = bpf::retrieveProgram(path); break;
       case VERIFY_MAP_RO: fd = bpf::mapRetrieveRO(path); break;
-      // lockless: we're just checking access rights and will immediately close the fd
-      case VERIFY_MAP_RW: fd = bpf::mapRetrieveLocklessRW(path); break;
+      case VERIFY_MAP_RW: fd = bpf::mapRetrieveRW(path); break;
     }
 
     if (fd < 0) ALOGF("bpf_obj_get '%s' failed, errno=%d", path, errno);
