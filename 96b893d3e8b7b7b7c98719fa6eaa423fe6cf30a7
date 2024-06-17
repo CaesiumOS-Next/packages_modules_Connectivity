@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e6eb978_39cab21b",
+        "filename": "thread/service/java/com/android/server/thread/InfraInterfaceController.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-17T05:49:13Z",
+      "side": 1,
+      "message": "Is it possible to unit test those options? E.g. with `Os.getsockoptInt()`?",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 99
+      },
+      "revId": "96b893d3e8b7b7b7c98719fa6eaa423fe6cf30a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
