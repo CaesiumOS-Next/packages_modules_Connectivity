@@ -854,7 +854,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         return new ActiveOperationalDataset.Builder()
                 .setActiveTimestamp(
                         new OperationalDatasetTimestamp(
-                                now.getEpochSecond() & 0xffffffffffffL, 0, false))
+                                now.getEpochSecond() & 0xffffffffffffL,
+                                (now.getNano() * 32768 / 1000000000) & 0x7fff,
+                                authoritative))
                 .setExtendedPanId(newRandomBytes(random, LENGTH_EXTENDED_PAN_ID))
                 .setPanId(panId)
                 .setNetworkName(networkName)
