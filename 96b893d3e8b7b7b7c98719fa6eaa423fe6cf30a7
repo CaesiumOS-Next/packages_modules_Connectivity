@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f65d80d_fb51f16b",
+        "filename": "thread/service/java/com/android/server/thread/InfraInterfaceController.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-18T02:56:33Z",
+      "side": 1,
+      "message": "It\u0027s hard/infeasible to do so because we cannot create a SOCK_RAW socket per the SELinux restrictions.",
+      "parentUuid": "3e6eb978_39cab21b",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 99
+      },
+      "revId": "96b893d3e8b7b7b7c98719fa6eaa423fe6cf30a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0452dd7_adafdac5",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-17T11:00:30Z",
       "side": 1,
       "message": "nit:\n```suggestion\n        ParcelFileDescriptor pfd \u003d ParcelFileDescriptor.adoptFd(nativeCreateFilteredIcmp6Socket());\n        FileDescriptor fd \u003d pfd.getFileDescriptor();\n        try {\n            Os.setsockoptInt(fd, IPPROTO_IPV6, IPV6_RECVPKTINFO, ENABLE);\n            Os.setsockoptInt(\n                    fd, IPPROTO_RAW, IPV6_CHECKSUM, IPV6_CHECKSUM_OFFSET);\n            Os.setsockoptInt(fd, IPPROTO_IPV6, IPV6_RECVHOPLIMIT, ENABLE);\n            Os.setsockoptInt(fd, IPPROTO_IPV6, IPV6_UNICAST_HOPS, HOP_LIMIT);\n            Os.setsockoptInt(fd, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, HOP_LIMIT);\n            SocketUtils.bindSocketToInterface(fd, infraInterfaceName);\n```",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 90
+      },
+      "revId": "96b893d3e8b7b7b7c98719fa6eaa423fe6cf30a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c18169ce_388b2007",
+        "filename": "thread/service/java/com/android/server/thread/InfraInterfaceController.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-18T02:56:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0452dd7_adafdac5",
       "range": {
         "startLine": 55,
         "startChar": 8,
