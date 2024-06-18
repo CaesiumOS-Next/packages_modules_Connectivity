@@ -16,6 +16,23 @@
       "message": "LGTM but remi should have a look.",
       "revId": "c0c981bfeb28825eecd628503dda7b72429a0cff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f967438e_a341acd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-18T13:25:54Z",
+      "side": 1,
+      "message": "LGTM but need @reminv@google.com to take a look as it is CTS change.",
+      "revId": "c0c981bfeb28825eecd628503dda7b72429a0cff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
