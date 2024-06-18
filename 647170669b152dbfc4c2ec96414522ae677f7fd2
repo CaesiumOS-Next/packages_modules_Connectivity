@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db7a6559_66d18ab6",
+        "filename": "tests/cts/multidevices/unittests/apf_utils_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-18T02:20:49Z",
+      "side": 1,
+      "message": "iface_name only uses here, maybe directly use \"wlan0\" here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 53,
+        "endLine": 93,
+        "endChar": 63
+      },
+      "revId": "647170669b152dbfc4c2ec96414522ae677f7fd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b47d8de_244a2045",
+        "filename": "tests/cts/multidevices/unittests/apf_utils_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-18T02:20:49Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 113,
+        "startChar": 55,
+        "endLine": 113,
+        "endChar": 65
+      },
+      "revId": "647170669b152dbfc4c2ec96414522ae677f7fd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29dcebf3_b49f1262",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-18T02:20:49Z",
+      "side": 1,
+      "message": "I think it can use \"ip link dev xxx\" to directly filter for specific interface",
+      "range": {
+        "startLine": 103,
+        "startChar": 42,
+        "endLine": 103,
+        "endChar": 52
+      },
+      "revId": "647170669b152dbfc4c2ec96414522ae677f7fd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5365098_b2ad93b9",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-18T02:20:49Z",
+      "side": 1,
+      "message": "Is this packet in hex starting after EtherType?  \nIt will be better to add some more comment to it.\n\nAnother question is, could you send different source mac via send_raw_packet()?",
+      "range": {
+        "startLine": 149,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 17
+      },
+      "revId": "647170669b152dbfc4c2ec96414522ae677f7fd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
