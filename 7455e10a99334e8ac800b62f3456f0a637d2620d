@@ -22,6 +22,30 @@
       },
       "revId": "7455e10a99334e8ac800b62f3456f0a637d2620d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ad43228_d4ea4f99",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-18T10:34:04Z",
+      "side": 1,
+      "message": "I don\u0027t think we should hardcode an interface name here.\n\nBut I think this is a common need - other use cases will need support for callers saying, \"please start tethering on this interface which is already set up and ready\". One such example is the dual wifi p2p feature - https://docs.google.com/document/d/1G0Q5e4_L1UlzKBwHhbGCTvmKkalgmp6Aq2K9ofYrOJ4/edit .\n\nSo I\u0027d say yes, go ahead and write a CL that adds something like setInterfaceName to TetheringRequest.Builder. For now I think it\u0027s OK to restrict that API only to TETHERING_VIRTUAL and have it fail on any other tethering type.\n\nIdeally we\u0027d have have tethering set up a bridge interface, and have every TETHERING_VIRTUAL user bridged into the same bridge, but that can be done as a follow-up.",
+      "parentUuid": "76c0ecd6_38928b45",
+      "range": {
+        "startLine": 983,
+        "startChar": 38,
+        "endLine": 983,
+        "endChar": 53
+      },
+      "revId": "7455e10a99334e8ac800b62f3456f0a637d2620d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
