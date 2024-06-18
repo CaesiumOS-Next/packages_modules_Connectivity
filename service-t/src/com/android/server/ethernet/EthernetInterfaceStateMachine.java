@@ -163,8 +163,7 @@ class EthernetInterfaceStateMachine extends SyncStateMachine {
     private final RunningState mRunningState = new RunningState();
 
     public EthernetInterfaceStateMachine(String iface, Handler handler, NetworkCapabilities capabilities, NetworkProvider provider) {
-        super(EthernetInterfaceStateMachine.class.getSimpleName() + "." + iface,
-                handler.getLooper().getThread());
+        super(TAG + "." + iface, handler.getLooper().getThread());
 
         mHandler = handler;
         mCapabilities = capabilities;
