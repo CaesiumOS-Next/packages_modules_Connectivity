@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eca1412_8c90712b",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-18T08:40:08Z",
+      "side": 0,
+      "message": "done, moved the change to aosp/3133557.",
+      "parentUuid": "3c498b32_6dc9bf33",
+      "range": {
+        "startLine": 804,
+        "startChar": 8,
+        "endLine": 804,
+        "endChar": 28
+      },
+      "revId": "a1fb4204779cbc834d6012cf08c0a1dc5a54c5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84c0afe6_b5e0e8b3",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-16T07:38:55Z",
       "side": 0,
       "message": "Can remove `!isUsingBpf()` and `isVcnInterface(upstreamIface)` check move to a separate CLs and in the CL commit message, we should document why removing those checks are safe",
+      "range": {
+        "startLine": 739,
+        "startChar": 8,
+        "endLine": 739,
+        "endChar": 34
+      },
+      "revId": "a1fb4204779cbc834d6012cf08c0a1dc5a54c5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c541ca85_eba5a636",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-18T08:40:08Z",
+      "side": 0,
+      "message": "Revert to the original code.\nFiled a new bug (b/347862192) for removing of ```!isUsingBpf()```. I thought this check should only be placed in the public functions and is not needed in the private functions, but there\u0027re other places in ```BpfCoordinator``` also need this cleanup and there are some places where private function calling the public function, so it needs further check to make sure the removal at those places are safe.\nFor ```isVcnInterface(upstreamIface)```, just keep the original code, since the function name is ```maybeAddUpstreamToLookupTable```, the validation of the upstream interface seems reasonable.",
+      "parentUuid": "84c0afe6_b5e0e8b3",
       "range": {
         "startLine": 739,
         "startChar": 8,
