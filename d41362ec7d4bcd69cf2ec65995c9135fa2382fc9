@@ -34,6 +34,24 @@
       "parentUuid": "8ad8d32b_cde3b52f",
       "revId": "d41362ec7d4bcd69cf2ec65995c9135fa2382fc9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59165d36_3b2e8e85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-18T11:11:00Z",
+      "side": 1,
+      "message": "b/347641209, its flaky report by MTK.\n\nI will update the test description to include the bug",
+      "parentUuid": "628c5dbb_bf657192",
+      "revId": "d41362ec7d4bcd69cf2ec65995c9135fa2382fc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
