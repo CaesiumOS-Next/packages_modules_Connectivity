@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ad8d32b_cde3b52f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-18T10:27:03Z",
+      "side": 1,
+      "message": "(but only if you\u0027ve actually seen such flakes... as IMHO this seems to only be triggerable if latency is *insane*, like RTT + device latency \u003e0.9s)",
+      "revId": "d41362ec7d4bcd69cf2ec65995c9135fa2382fc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
