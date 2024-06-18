@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01b73ae3_123d585e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-18T02:54:10Z",
+      "side": 1,
+      "message": "LGTM but reminv@ might want to take a look.",
+      "revId": "996a9f335127e59a65a3dcc4876d13c9d362aa47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

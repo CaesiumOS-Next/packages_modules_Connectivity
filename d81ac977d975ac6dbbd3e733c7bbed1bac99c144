@@ -50,6 +50,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6942689b_21dc3b95",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-18T02:54:10Z",
+      "side": 1,
+      "message": "Do we assert anything in this method?\nIf so, where is the assertion happening? maybe describe in the comment?",
+      "range": {
+        "startLine": 69,
+        "startChar": 65,
+        "endLine": 69,
+        "endChar": 66
+      },
+      "revId": "d81ac977d975ac6dbbd3e733c7bbed1bac99c144",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d896de7f_722b2e25",
         "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
         "patchSetId": 3
