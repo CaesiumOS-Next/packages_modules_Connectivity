@@ -98,6 +98,8 @@ import org.mockito.MockitoSession;
 import java.nio.charset.StandardCharsets;
 import java.time.Clock;
 import java.time.DateTimeException;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
@@ -582,6 +584,52 @@ public final class ThreadNetworkControllerServiceTest {
         verify(mockReceiver, times(1)).onSuccess(mActiveDatasetCaptor.capture());
         ActiveOperationalDataset activeDataset = mActiveDatasetCaptor.getValue();
         assertThat(activeDataset.getActiveTimestamp().isAuthoritativeSource()).isFalse();
+    }
+
+    @Test
+    public void createRandomizedDataset_zeroTicks_succeed() throws Exception {
+        Instant now = Instant.ofEpochSecond(0, 999999999);
+        Clock clock = Clock.fixed(now, ZoneId.systemDefault());
+        MockitoSession session =
+                ExtendedMockito.mockitoSession().mockStatic(SystemClock.class).startMocking();
+        final IActiveOperationalDatasetReceiver mockReceiver =
+                ExtendedMockito.mock(IActiveOperationalDatasetReceiver.class);
+
+        try {
+            ExtendedMockito.when(SystemClock.currentNetworkTimeClock()).thenReturn(clock);
+            mService.createRandomizedDataset(DEFAULT_NETWORK_NAME, mockReceiver);
+            mTestLooper.dispatchAll();
+        } finally {
+            session.finishMocking();
+        }
+
+        verify(mockReceiver, never()).onError(anyInt(), anyString());
+        verify(mockReceiver, times(1)).onSuccess(mActiveDatasetCaptor.capture());
+        ActiveOperationalDataset activeDataset = mActiveDatasetCaptor.getValue();
+        assertThat(activeDataset.getActiveTimestamp().getTicks()).equals(32767);
+    }
+
+    @Test
+    public void createRandomizedDataset_maxTicks_succeed() throws Exception {
+        Instant now = Instant.ofEpochSecond(0, 0);
+        Clock clock = Clock.fixed(now, ZoneId.systemDefault());
+        MockitoSession session =
+                ExtendedMockito.mockitoSession().mockStatic(SystemClock.class).startMocking();
+        final IActiveOperationalDatasetReceiver mockReceiver =
+                ExtendedMockito.mock(IActiveOperationalDatasetReceiver.class);
+
+        try {
+            ExtendedMockito.when(SystemClock.currentNetworkTimeClock()).thenReturn(clock);
+            mService.createRandomizedDataset(DEFAULT_NETWORK_NAME, mockReceiver);
+            mTestLooper.dispatchAll();
+        } finally {
+            session.finishMocking();
+        }
+
+        verify(mockReceiver, never()).onError(anyInt(), anyString());
+        verify(mockReceiver, times(1)).onSuccess(mActiveDatasetCaptor.capture());
+        ActiveOperationalDataset activeDataset = mActiveDatasetCaptor.getValue();
+        assertThat(activeDataset.getActiveTimestamp().getTicks()).equals(0);
     }
 
     @Test
