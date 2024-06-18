@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e6cfd84_5cbef2da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-18T11:58:49Z",
+      "side": 1,
+      "message": "Can you explain in the commit message why these tests need to be removed from STS? A lot of other CTS tests seem to be included in STS as well, such as wifi. A quick search found 131 occurrences of \"sts\" in the Android.bp files under cts/.\n\nI would assume it is desirable to run these tests in CTS because presumably OEMs will run them on security update OTAs. But perhaps I am missing something? Is there a general drive to remove all of these tests from STS? ...?",
+      "revId": "e959d1baa90b230d2c66dc4e3155ad77da86a0a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
