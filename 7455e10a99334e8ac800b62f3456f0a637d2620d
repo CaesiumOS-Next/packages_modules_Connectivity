@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab8aa61f_ada89a36",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-19T05:39:39Z",
+      "side": 1,
+      "message": "given this is presubmit verified, that\u0027s probably not worth fixing.",
+      "parentUuid": "f03ebd5d_8d13fed3",
+      "range": {
+        "startLine": 200,
+        "startChar": 7,
+        "endLine": 200,
+        "endChar": 22
+      },
+      "revId": "7455e10a99334e8ac800b62f3456f0a637d2620d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76c0ecd6_38928b45",
