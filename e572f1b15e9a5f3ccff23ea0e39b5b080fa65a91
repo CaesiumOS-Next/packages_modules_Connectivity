@@ -176,6 +176,30 @@
       },
       "revId": "e572f1b15e9a5f3ccff23ea0e39b5b080fa65a91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c96e0a80_bf093742",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-19T01:15:22Z",
+      "side": 1,
+      "message": "About adopting the ethernet service into `TETHERING_VIRTUAL`, I haven\u0027t fully understood in 100% but it sounds quite large amount of task. Is it a direct blocker of introdcuing `TETHERING_VIRTUAL`? If it\u0027s for making a better code in long-term solution, could I merge this change with current patchset in advance?",
+      "parentUuid": "20230018_6df42fe6",
+      "range": {
+        "startLine": 979,
+        "startChar": 16,
+        "endLine": 979,
+        "endChar": 42
+      },
+      "revId": "e572f1b15e9a5f3ccff23ea0e39b5b080fa65a91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
