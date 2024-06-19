@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d28dab3_e7e28e2e",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-19T03:46:25Z",
+      "side": 1,
+      "message": "This is where this timeout is used. For tests without interfaces available for tethering (i.e. cuttlefish on Android T+) this will always have to wait the full amount.",
+      "range": {
+        "startLine": 603,
+        "startChar": 16,
+        "endLine": 603,
+        "endChar": 81
+      },
+      "revId": "88be5a3a3ad09d7f91508379d9b142c226698376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
