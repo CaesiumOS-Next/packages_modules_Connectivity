@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7271f13_8aa545dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff5b6519_c2691b07",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 14
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebe650f6_740c954b",
@@ -73,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "944acf88_4b29cb28",
+        "filename": "tests/cts/multidevices/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "This is unit test of utilities, so it should be able to run in presubmit.\nAlso named it more specifically.",
+      "parentUuid": "c708da74_c85111f3",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b37f95aa_f3fb412b",
         "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
         "patchSetId": 2
@@ -84,6 +132,30 @@
       "writtenOn": "2024-06-14T03:24:46Z",
       "side": 1,
       "message": "I don\u0027t get this why it needs 3 mock return values here?\nCould you explain more for this?\nIs that because set_screen_state() will try to get the values multiple times?",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 78
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8e590af_3d43e620",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b37f95aa_f3fb412b",
       "range": {
         "startLine": 42,
         "startChar": 4,
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d040bcc_baff9dd1",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "Cannot to import pytest or absl with ModuleNotFoundError.\nTODO added, see if it works for you.",
+      "parentUuid": "1991f23f_547479b6",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 5
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be497947_74149417",
@@ -130,6 +226,30 @@
       "writtenOn": "2024-06-14T03:24:46Z",
       "side": 1,
       "message": "same here for parameterize.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 0
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2604f45_5ebe7d5f",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "Cannot to import pytest or absl with ModuleNotFoundError.\nTODO added, see if it works for you.",
+      "parentUuid": "be497947_74149417",
       "range": {
         "startLine": 78,
         "startChar": 4,
@@ -163,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3cb87d2_356d74cb",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1a14ec5_cce29bfc",
+      "range": {
+        "startLine": 40,
+        "startChar": 74,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecb5133b_20d49e1c",
@@ -176,6 +320,30 @@
       "writtenOn": "2024-06-14T03:56:46Z",
       "side": 1,
       "message": "can we return here?",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aa59e0f_296fb4e3",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "refactored.",
+      "parentUuid": "ecb5133b_20d49e1c",
       "range": {
         "startLine": 44,
         "startChar": 6,
@@ -209,6 +377,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e76beb68_12c71aa5",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "refactored.\nThis one needs a retry action when doing retry.",
+      "parentUuid": "7f10aeea_67ea70ae",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 17
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9480b449_7f745143",
@@ -222,6 +414,30 @@
       "writtenOn": "2024-06-14T03:56:46Z",
       "side": 1,
       "message": "can we write `return screen_state_str \u003d\u003d \"Awake\"`?",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 18
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "645c9e9c_79440fd6",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9480b449_7f745143",
       "range": {
         "startLine": 59,
         "startChar": 2,
@@ -255,6 +471,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44976eb0_588dd399",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32358d85_d1727e95",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "809ccb34_5ed6e1cb",
@@ -272,6 +512,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d440738_ac62717c",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "809ccb34_5ed6e1cb",
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36cfb46b_7bfb315b",
@@ -285,6 +543,30 @@
       "writtenOn": "2024-06-14T03:56:46Z",
       "side": 1,
       "message": "Not sure about the style but should this be `-\u003e str:` for return type?",
+      "range": {
+        "startLine": 95,
+        "startChar": 75,
+        "endLine": 95,
+        "endChar": 76
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eee7472b_6a6a28a0",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36cfb46b_7bfb315b",
       "range": {
         "startLine": 95,
         "startChar": 75,
@@ -332,6 +614,30 @@
       "side": 1,
       "message": "+1.\nI think `if attempt \u003c\u003d max_retries:` should be `if attempt \u003c max_retries:`",
       "parentUuid": "2fcdcf3b_e2ad01af",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bca1cda9_6de53c4a",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:34:19Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "89fc53da_b920b82c",
       "range": {
         "startLine": 30,
         "startChar": 2,
