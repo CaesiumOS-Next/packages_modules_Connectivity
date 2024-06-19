@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82c7b908_7145f728",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-19T09:12:00Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ab8aa61f_ada89a36",
+      "range": {
+        "startLine": 200,
+        "startChar": 7,
+        "endLine": 200,
+        "endChar": 22
+      },
+      "revId": "7455e10a99334e8ac800b62f3456f0a637d2620d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76c0ecd6_38928b45",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "will be done in a follow-up",
       "parentUuid": "f2bb039a_d0bdd89a",
+      "range": {
+        "startLine": 983,
+        "startChar": 38,
+        "endLine": 983,
+        "endChar": 53
+      },
+      "revId": "7455e10a99334e8ac800b62f3456f0a637d2620d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbca6f98_a1ad9166",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-19T09:12:00Z",
+      "side": 1,
+      "message": "Unresolving this comment again after submission, will close when I upload the following change.",
+      "parentUuid": "38aa9667_d67a2dcc",
       "range": {
         "startLine": 983,
         "startChar": 38,
