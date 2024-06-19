@@ -46,6 +46,30 @@
       },
       "revId": "7455e10a99334e8ac800b62f3456f0a637d2620d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2bb039a_d0bdd89a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-19T01:04:04Z",
+      "side": 1,
+      "message": "Sounds good, I was worried about having a new configuration is too specific to `TETHERING_VIRTUAL`, but it seems not. I\u0027ll add that into `TetheringRequest` and restrict it to `TETHERING_VIRTUAL` only.\n\nHowever it\u0027s in hurry, I\u0027ll do that in the following change.",
+      "parentUuid": "8ad43228_d4ea4f99",
+      "range": {
+        "startLine": 983,
+        "startChar": 38,
+        "endLine": 983,
+        "endChar": 53
+      },
+      "revId": "7455e10a99334e8ac800b62f3456f0a637d2620d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
