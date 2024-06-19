@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54f62b69_ba9c705e",
+        "filename": "tests/cts/multidevices/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T06:39:26Z",
+      "side": 1,
+      "message": "Can\u0027t put into presubmit due to go/test-mapping-slo-guide.\nPut into postsubmit instead.",
+      "parentUuid": "944acf88_4b29cb28",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "e45b1966faf4e59cba54e1af43282d596c352597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b37f95aa_f3fb412b",
