@@ -39,6 +39,30 @@
       },
       "revId": "996a9f335127e59a65a3dcc4876d13c9d362aa47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dd42b50_0033118d",
+        "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-06-19T07:36:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b1788f2_985ef430",
+      "range": {
+        "startLine": 64,
+        "startChar": 19,
+        "endLine": 64,
+        "endChar": 54
+      },
+      "revId": "996a9f335127e59a65a3dcc4876d13c9d362aa47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
