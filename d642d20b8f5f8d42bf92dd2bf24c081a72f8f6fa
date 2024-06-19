@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e6d60f8_ee10b51c",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-19T08:08:34Z",
+      "side": 1,
+      "message": "includes",
+      "range": {
+        "startLine": 186,
+        "startChar": 67,
+        "endLine": 186,
+        "endChar": 74
+      },
+      "revId": "d642d20b8f5f8d42bf92dd2bf24c081a72f8f6fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4064de42_9ca916be",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-19T08:08:34Z",
+      "side": 1,
+      "message": "record",
+      "range": {
+        "startLine": 187,
+        "startChar": 91,
+        "endLine": 187,
+        "endChar": 98
+      },
+      "revId": "d642d20b8f5f8d42bf92dd2bf24c081a72f8f6fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25b086ed_812f3ba1",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-19T08:08:34Z",
+      "side": 1,
+      "message": "sorry, I have some trouble to understand the documents..... would you mind try to be more specific about what should be included and what shouldn\u0027t maybe with an example is better.",
+      "range": {
+        "startLine": 188,
+        "startChar": 7,
+        "endLine": 189,
+        "endChar": 7
+      },
+      "revId": "d642d20b8f5f8d42bf92dd2bf24c081a72f8f6fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
