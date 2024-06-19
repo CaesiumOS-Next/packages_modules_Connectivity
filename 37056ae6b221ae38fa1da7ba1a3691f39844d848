@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01ee195d_e186197b",
+        "filename": "tests/cts/multidevices/unittests/apf_utils_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T08:18:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71560958_4d86a5c2",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a32bc356_3fbc910b",
@@ -55,6 +79,24 @@
       "side": 1,
       "message": "+1, regex is hard to read, use string.split() and string.find() will be simple and clear",
       "parentUuid": "a32bc356_3fbc910b",
+      "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf8e72a0_abfe8aad",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-19T08:18:08Z",
+      "side": 1,
+      "message": "Hmmm, it seems to me a stateful parsing for complex cases like below would likely make it less robust and harder to maintain.\nA regex approach might be hard to follow at the beginning but it should be more flexibilible and maintainabile if it changes.\nTried to make this more clear by adding comments and examples, see if it works for you.\nOr is there any concreate idea of how to make it simpler?\n\n```\nIpClient.wlan0\n  IpClient.wlan0 APF dump:\n   xyz counters:\n     KEY1\u003dVALUE1\n     KEY2\u003dVALUE2\n   APF packet counters:\n     KEY1\u003dVALUE1\n     KEY2\u003dVALUE2\nIpClient.wlan1\n IpClient.wlan1 APF dump:\n   xyz counters:\n     KEY1\u003dVALUE1\n     KEY2\u003dVALUE2\n   APF packet counters:\n     KEY1\u003dVALUE1\n     KEY2\u003dVALUE2\n```",
+      "parentUuid": "1999f548_efe705f5",
       "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
