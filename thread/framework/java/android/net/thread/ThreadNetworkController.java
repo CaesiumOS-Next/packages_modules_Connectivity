@@ -16,6 +16,8 @@
 
 package android.net.thread;
 
+import static android.annotation.SystemApi.Client.PRIVILEGED_APPS;
+
 import static java.util.Objects.requireNonNull;
 
 import android.Manifest.permission;
@@ -629,7 +631,6 @@ public final class ThreadNetworkController {
      * @param receiver the receiver to receive the result of this operation.
      * @throws IllegalArgumentException if the size of {@code channelMaxPowers} is smaller than 1,
      *     or invalid channel or max power is configured.
-     * @hide
      */
     @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
     public final void setChannelMaxPowers(
