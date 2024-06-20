@@ -143,7 +143,6 @@ public class ThreadNetworkException extends Exception {
      * may not support setting the target power of each channel. The caller should not retry and may
      * return an error to the user.
      *
-     * @hide
      */
     public static final int ERROR_UNSUPPORTED_OPERATION = 13;
 
