@@ -15,7 +15,9 @@
  */
 package android.net.thread;
 
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
+import android.annotation.SystemApi;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -37,8 +39,8 @@ import java.util.Objects;
  * @see ThreadNetworkController#unregisterConfigurationCallback
  * @hide
  */
-// @FlaggedApi(ThreadNetworkFlags.FLAG_CONFIGURATION_ENABLED)
-// @SystemApi
+@FlaggedApi(ThreadNetworkFlags.FLAG_CONFIGURATION_ENABLED)
+@SystemApi
 public final class ThreadConfiguration implements Parcelable {
     private final boolean mNat64Enabled;
     private final boolean mDhcp6PdEnabled;
