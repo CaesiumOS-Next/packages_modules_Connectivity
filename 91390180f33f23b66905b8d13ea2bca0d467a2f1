@@ -69,6 +69,30 @@
       },
       "revId": "91390180f33f23b66905b8d13ea2bca0d467a2f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7f11029_41d32683",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-20T12:13:00Z",
+      "side": 1,
+      "message": "There will be a conflict and the latter registrations of the host addresses will be renamed. Caller should be able to notice the rename.\n\nUpdated the comment to clarify this.",
+      "parentUuid": "d4ce158c_105bf41d",
+      "range": {
+        "startLine": 186,
+        "startChar": 10,
+        "endLine": 191,
+        "endChar": 35
+      },
+      "revId": "91390180f33f23b66905b8d13ea2bca0d467a2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
