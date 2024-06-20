@@ -16,6 +16,47 @@
       "message": "do we need this API?",
       "revId": "5cabdd804df8694f26ab65741a265266af613284",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97742ef3_abcf6dd6",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 3387541
+      },
+      "writtenOn": "2024-06-20T06:36:26Z",
+      "side": 1,
+      "message": "is there NAT64 and PD both enabled state?",
+      "range": {
+        "startLine": 53,
+        "startChar": 14,
+        "endLine": 57,
+        "endChar": 54
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c6854983_bcc9c821",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
+              "range": {
+                "startLine": 57,
+                "startChar": 0,
+                "endLine": 57,
+                "endChar": 0
+              },
+              "replacement": "                    {true, true, false}, // NAT64 and DHCP6-PD enabled\n"
+            }
+          ]
+        }
+      ],
+      "revId": "5cabdd804df8694f26ab65741a265266af613284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
