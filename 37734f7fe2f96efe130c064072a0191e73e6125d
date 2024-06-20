@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c866eae5_68b73f03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T15:52:31Z",
+      "side": 1,
+      "message": "You can take a look at EthernetTetheringTest and add something there. Currently, EthernetTetheringTest uses a tap interface it gets through EthernetManager, but obviously you don\u0027t want that here. What you can do instead is:\nCreate a tap interface through TestNetworkManager and use an interface name that doesn\u0027t match the test interface regex in EthernetTracker (so it cannot start with \"testtap\"). TestNetworkManager happens to allow an interface name that starts with \"v4-testtap\" which doesn\u0027t match the regex (it\u0027s a bit hacky, but should work).\n\nAlternatively, you could toggle setEnableTestInterfaces() at the beginning of your test, but it is very hard to write that code race free / without influencing other tests.",
+      "parentUuid": "3863f30f_6916b95e",
+      "revId": "37734f7fe2f96efe130c064072a0191e73e6125d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc19b8a3_6ac1ed04",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 1
