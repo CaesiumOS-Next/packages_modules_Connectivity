@@ -476,6 +476,20 @@ package android.net.thread {
     field public static final int LENGTH_MIN_SECURITY_POLICY_FLAGS = 1; // 0x1
   }
 
+  @FlaggedApi("com.android.net.thread.flags.epskc_enabled") public final class EphemeralKey implements android.os.Parcelable {
+    method public int describeContents();
+    method @NonNull public java.time.Duration getLifetime();
+    method @NonNull public String getPasscode();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.thread.EphemeralKey> CREATOR;
+  }
+
+  public static final class EphemeralKey.Builder {
+    ctor public EphemeralKey.Builder(@NonNull String, @NonNull java.time.Duration);
+    ctor public EphemeralKey.Builder(@NonNull String, long);
+    method @NonNull public android.net.thread.EphemeralKey build();
+  }
+
   @FlaggedApi("com.android.net.thread.flags.thread_enabled") public final class OperationalDatasetTimestamp {
     ctor public OperationalDatasetTimestamp(@IntRange(from=0, to=281474976710655L) long, @IntRange(from=0, to=32767) int, boolean);
     method @NonNull public static android.net.thread.OperationalDatasetTimestamp fromInstant(@NonNull java.time.Instant);
@@ -507,6 +521,8 @@ package android.net.thread {
     method @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public void registerStateCallback(@NonNull java.util.concurrent.Executor, @NonNull android.net.thread.ThreadNetworkController.StateCallback);
     method @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED") public void scheduleMigration(@NonNull android.net.thread.PendingOperationalDataset, @NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<java.lang.Void,android.net.thread.ThreadNetworkException>);
     method @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED") public void setEnabled(boolean, @NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<java.lang.Void,android.net.thread.ThreadNetworkException>);
+    method @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED") public void startEphemeralKeyMode(@Nullable java.time.Duration, @NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<android.net.thread.EphemeralKey,android.net.thread.ThreadNetworkException>);
+    method public void stopEphemeralKeyMode(@NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<java.lang.Void,android.net.thread.ThreadNetworkException>);
     method @RequiresPermission(allOf={android.Manifest.permission.ACCESS_NETWORK_STATE, "android.permission.THREAD_NETWORK_PRIVILEGED"}) public void unregisterOperationalDatasetCallback(@NonNull android.net.thread.ThreadNetworkController.OperationalDatasetCallback);
     method @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public void unregisterStateCallback(@NonNull android.net.thread.ThreadNetworkController.StateCallback);
     field public static final int DEVICE_ROLE_CHILD = 2; // 0x2
@@ -527,6 +543,7 @@ package android.net.thread {
 
   public static interface ThreadNetworkController.StateCallback {
     method public void onDeviceRoleChanged(int);
+    method @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED") public default void onEphemeralKeyStateChanged(boolean, @Nullable android.net.thread.EphemeralKey);
     method public default void onPartitionIdChanged(long);
     method public default void onThreadEnableStateChanged(int);
   }
