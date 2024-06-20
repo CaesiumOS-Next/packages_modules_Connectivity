@@ -16,6 +16,9 @@
 
 package android.net.thread;
 
+import android.net.thread.EphemeralKey;
+
+
 /**
  * @hide
  */
@@ -23,4 +26,5 @@ oneway interface IStateCallback {
     void onDeviceRoleChanged(int deviceRole);
     void onPartitionIdChanged(long partitionId);
     void onThreadEnableStateChanged(int enabledState);
+    void onEphemeralKeyStateChanged(boolean enabled, in EphemeralKey epskc);
 }
