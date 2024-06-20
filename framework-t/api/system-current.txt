@@ -497,6 +497,14 @@ package android.net.thread {
     field @NonNull public static final android.os.Parcelable.Creator<android.net.thread.PendingOperationalDataset> CREATOR;
   }
 
+  @FlaggedApi("com.android.net.thread.flags.configuration_enabled") public final class ThreadConfiguration implements android.os.Parcelable {
+    method public int describeContents();
+    method public boolean isDhcp6PdEnabled();
+    method public boolean isNat64Enabled();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.thread.ThreadConfiguration> CREATOR;
+  }
+
   @FlaggedApi("com.android.net.thread.flags.thread_enabled") public final class ThreadNetworkController {
     method public void createRandomizedDataset(@NonNull String, @NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<android.net.thread.ActiveOperationalDataset,android.net.thread.ThreadNetworkException>);
     method public int getThreadVersion();
