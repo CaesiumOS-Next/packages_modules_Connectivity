@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "808e22b9_bf79b5b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:02:22Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "80f2b9f07095a69713af4eea01e3fa7e6d4ccba7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79fd6fd4_b51419f6",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:02:22Z",
+      "side": 1,
+      "message": "softApConfig needs to be added to equals() and hashCode()",
+      "range": {
+        "startLine": 921,
+        "startChar": 0,
+        "endLine": 941,
+        "endChar": 9
+      },
+      "revId": "80f2b9f07095a69713af4eea01e3fa7e6d4ccba7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
