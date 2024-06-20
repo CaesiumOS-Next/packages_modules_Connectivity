@@ -180,7 +180,16 @@ public final class NsdServiceInfo implements Parcelable {
         return new ArrayList<>(mHostAddresses);
     }
 
-    /** Set the host addresses */
+    /**
+     * Set the host addresses.
+     *
+     * <p>When registering hosts/services, there can only be one registration including address
+     * records for a given hostname.
+     *
+     * <p>For example, if a client registers a service with the hostname "MyHost" and the address
+     * records of 192.168.1.1 and 192.168.1.2, then other registrations for the hostname "MyHost"
+     * must not have any address record, otherwise there will be a conflict.
+     */
     public void setHostAddresses(@NonNull List<InetAddress> addresses) {
         mHostAddresses.clear();
         mHostAddresses.addAll(addresses);
@@ -330,7 +339,8 @@ public final class NsdServiceInfo implements Parcelable {
 
                 if (getAttributes().containsKey(key)) {
                     // When we have a duplicate record, the later ones are ignored (RFC6763 6.4)
-                    throw new IllegalArgumentException("Invalid txt record (duplicate key \"" + key + "\")");
+                    throw new IllegalArgumentException(
+                            "Invalid txt record (duplicate key \"" + key + "\")");
                 }
 
                 setAttribute(key, value);
