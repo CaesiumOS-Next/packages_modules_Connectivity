@@ -75,6 +75,30 @@
       ],
       "revId": "5cabdd804df8694f26ab65741a265266af613284",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5500f57_35a8c7a3",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-20T06:49:11Z",
+      "side": 1,
+      "message": "This is a unit test instead of integration test. So we don\u0027t want to consider what the most popular scenario is in real world.",
+      "parentUuid": "97742ef3_abcf6dd6",
+      "range": {
+        "startLine": 53,
+        "startChar": 14,
+        "endLine": 57,
+        "endChar": 54
+      },
+      "revId": "5cabdd804df8694f26ab65741a265266af613284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
