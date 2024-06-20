@@ -107,6 +107,9 @@ public final class ThreadNetworkController {
     /** Maximum value of max power in unit of 0.01dBm. @hide */
     private static final int POWER_LIMITATION_MAX = 32767;
 
+    /** The value of max power to disable the Thread channel.  */
+    public static final int MAX_POWER_CHANNEL_DISABLED = 32767;
+
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({THREAD_VERSION_1_3})
@@ -703,6 +706,10 @@ public final class ThreadNetworkController {
     /**
      * Sets max power of each channel.
      *
+     * <p>This method sets the max power for the given channel. The platform sets the actual
+     * output power to be less than or equal to the {@code channelMaxPowers} and as close as
+     * possible to the {@code channelMaxPowers}.
+     *
      * <p>If not set, the default max power is set by the Thread HAL service or the Thread radio
      * chip firmware.
      *
@@ -711,22 +718,26 @@ public final class ThreadNetworkController {
      * OutcomeReceiver#onError} will be called with a specific error:
      *
      * <ul>
-     *   <li>{@link ThreadNetworkException#ERROR_UNSUPPORTED_OPERATION} the operation is no
-     *       supported by the platform.
+     *   <li>{@link ThreadNetworkException#ERROR_UNSUPPORTED_FEATURE} the feature is not supported
+     *       by the platform.
      * </ul>
      *
      * @param channelMaxPowers SparseIntArray (key: channel, value: max power) consists of channel
      *     and corresponding max power. Valid channel values should be between {@link
      *     ActiveOperationalDataset#CHANNEL_MIN_24_GHZ} and {@link
-     *     ActiveOperationalDataset#CHANNEL_MAX_24_GHZ}. The unit of the max power is 0.01dBm. Max
-     *     power values should be between INT16_MIN (-32768) and INT16_MAX (32767). If the max power
-     *     is set to INT16_MAX, the corresponding channel is not supported.
+     *     ActiveOperationalDataset#CHANNEL_MAX_24_GHZ}. The unit of the max power is 0.01dBm. For
+     *     example, 1000 means 0.01W and 2000 means 0.1W. Max power values should be between
+     *     INT16_MIN (-32768) and INT16_MAX (32767). If the power value of {@code channelMaxPowers}
+     *     is smaller than the minimum output power supported by the platform, the output power
+     *     should be set to the minimum output power supported by the platform. If the power value
+     *     of {@code channelMaxPowers} is set to
+     *     {@link #MAX_POWER_CHANNEL_DISABLED}, the corresponding channel is disabled.
      * @param executor the executor to execute {@code receiver}.
      * @param receiver the receiver to receive the result of this operation.
      * @throws IllegalArgumentException if the size of {@code channelMaxPowers} is smaller than 1,
      *     or invalid channel or max power is configured.
-     * @hide
      */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_SET_CHANNEL_MAX_POWERS)
     @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
     public final void setChannelMaxPowers(
             @NonNull @Size(min = 1) SparseIntArray channelMaxPowers,
