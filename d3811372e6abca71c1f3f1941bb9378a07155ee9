@@ -308,6 +308,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4a70d65_3cf7138c",
+        "filename": "staticlibs/device/com/android/net/module/util/PacketBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-20T15:30:31Z",
+      "side": 1,
+      "message": "Not really, no. :-(\nI pretty much find this entire java class unreadable due to the use of ByteBuffer-s.",
+      "parentUuid": "a1678961_5717dabb",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 57
+      },
+      "revId": "d3811372e6abca71c1f3f1941bb9378a07155ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a12ee1e_c905879e",
