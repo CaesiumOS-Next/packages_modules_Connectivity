@@ -47,6 +47,7 @@ android_test {
         "net-tests-utils",
         "ThreadNetworkTestUtils",
         "truth",
+        "com.android.net.thread.flags-aconfig-java",
     ],
     libs: [
         "android.test.base",
