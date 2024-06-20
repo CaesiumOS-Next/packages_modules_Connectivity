@@ -31,5 +31,8 @@ public final class ThreadNetworkFlags {
     public static final String FLAG_CONFIGURATION_ENABLED =
             "com.android.net.thread.flags.configuration_enabled";
 
+    /** @hide */
+    public static final String FLAG_EPSKC_ENABLED = "com.android.net.thread.flags.epskc_enabled";
+
     private ThreadNetworkFlags() {}
 }
