@@ -1,0 +1,366 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3435c664_c4b2ccfb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "The tests seem a bit random changes all over the place. It is hard to follow what you are actually testing, if anything at all. Can you split them out of this CL and try to make them more focused, i.e. smaller self-contained changes?",
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "986eb416_ad84f9fb",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "nit: how about importing TetheringManager.TetheringRequest",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 49
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddddbd53_da169ad4",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "can\u0027t this use null to use the default classloader? Also, should use the non deprecated version:\n```\nin.readParcelable(null, TetheringRequest.class);\n```",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 72
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ba5ab1f_d96749e7",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "mSoftApConfig",
+      "range": {
+        "startLine": 122,
+        "startChar": 21,
+        "endLine": 122,
+        "endChar": 38
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45970d45_597a9a80",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 318,
+        "startChar": 12,
+        "endLine": 318,
+        "endChar": 28
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0d0e92d_ffbe361a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 416,
+        "startChar": 4,
+        "endLine": 416,
+        "endChar": 10
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14e8edb9_ca69e2e0",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "Is this actually used anywhere outside of enableEthernetTethering()? If not, why not inline?",
+      "range": {
+        "startLine": 112,
+        "startChar": 44,
+        "endLine": 112,
+        "endChar": 66
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8177e2e0_bd65fc91",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "it\u0027s a bit odd that ethernet tethering tests would want to provide a soft ap config. Should this even be allowed by the API? Maybe we should throw an IllegalArgumentException if a soft AP config is passed in for any type other than wifi tethering?",
+      "range": {
+        "startLine": 362,
+        "startChar": 20,
+        "endLine": 362,
+        "endChar": 52
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "689a5274_b99c69c0",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/TetheringModuleTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "wait, is it overloaded? this one isn\u0027t passing null",
+      "range": {
+        "startLine": 87,
+        "startChar": 77,
+        "endLine": 87,
+        "endChar": 79
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e2036a_cbdc60cc",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "spurious?",
+      "range": {
+        "startLine": 935,
+        "startChar": 0,
+        "endLine": 937,
+        "endChar": 90
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e8c42b8_8dfed198",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 2335,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "I don\u0027t understand this change. Did this test do nothing before? I see startTetheredHotspot is always called with null.",
+      "range": {
+        "startLine": 2335,
+        "startChar": 9,
+        "endLine": 2335,
+        "endChar": 71
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f206ac0f_4fb2262c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 2342,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be tetheringRequest?",
+      "range": {
+        "startLine": 2342,
+        "startChar": 34,
+        "endLine": 2342,
+        "endChar": 72
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7822c610_f3abbd44",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "nit: should this just be overloaded? otherwise, can you annotate these null values inline:\n\n```\nctsTetheringUtils.startWifiTethering(tetheringCallback, null /*softApConfig*/)\n```",
+      "range": {
+        "startLine": 157,
+        "startChar": 66,
+        "endLine": 157,
+        "endChar": 72
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c65b82b_6dbadab0",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "I am not sure it\u0027s worth having a helper method here? Isn\u0027t this just going to be used in a single test class that can just create a static TetheringRequest that includes a SoftApConfig?",
+      "range": {
+        "startLine": 498,
+        "startChar": 4,
+        "endLine": 498,
+        "endChar": 48
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8756d9ff_66e45e99",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "nit: spurious line break",
+      "range": {
+        "startLine": 499,
+        "startChar": 50,
+        "endLine": 500,
+        "endChar": 13
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5ac9e4b_0c9b9164",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T22:55:45Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 501,
+        "startChar": 8,
+        "endLine": 501,
+        "endChar": 9
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
