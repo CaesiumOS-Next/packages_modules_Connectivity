@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "723eff27_feaf650b",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-20T10:18:29Z",
+      "side": 1,
+      "message": "unused?",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "a347d9c250d8c3cafbcb3150f93c72d6c81e6d6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

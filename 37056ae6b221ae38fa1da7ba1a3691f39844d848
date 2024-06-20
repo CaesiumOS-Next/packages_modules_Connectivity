@@ -99,6 +99,24 @@
       "parentUuid": "1999f548_efe705f5",
       "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a92ed551_091d16cc",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-20T10:18:29Z",
+      "side": 1,
+      "message": "I think the current regex looks much better.\n\nHowever, I am not fully follow why a stateful parsing is more complicated.\n\nIn one dumpsys, it is guaranteed that we only see one full APF dump.\n\nWhat we can do is:\n1. we find prefix \"IpClient.wlan\" if we don\u0027t find it, throw\n2. we find the \"${counter name} : \", if we don\u0027t find, throw.\n3. if we find the counter name, we parse the counter value.\n\n\nThoughts?",
+      "parentUuid": "bf8e72a0_abfe8aad",
+      "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
