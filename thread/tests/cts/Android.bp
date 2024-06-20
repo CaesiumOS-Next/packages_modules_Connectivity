@@ -22,9 +22,9 @@ package {
 android_test {
     name: "CtsThreadNetworkTestCases",
     min_sdk_version: "33",
-    sdk_version: "test_current",
     manifest: "AndroidManifest.xml",
     test_config: "AndroidTest.xml",
+    defaults: ["framework-connectivity-test-defaults"],
     srcs: [
         "src/**/*.java",
     ],
