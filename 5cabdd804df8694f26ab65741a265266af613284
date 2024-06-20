@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d041b50_168ce31c",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-20T06:44:24Z",
+      "side": 1,
+      "message": "Thinking about this again, it\u0027s probably better to have this  API. It could be hard to test with BRs which doesn\u0027t support TREL if we can\u0027t disable TREL on Android",
+      "parentUuid": "a1521483_be7dc286",
+      "revId": "5cabdd804df8694f26ab65741a265266af613284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97742ef3_abcf6dd6",
         "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
         "patchSetId": 13
