@@ -507,6 +507,8 @@ package android.net.thread {
     method @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public void registerStateCallback(@NonNull java.util.concurrent.Executor, @NonNull android.net.thread.ThreadNetworkController.StateCallback);
     method @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED") public void scheduleMigration(@NonNull android.net.thread.PendingOperationalDataset, @NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<java.lang.Void,android.net.thread.ThreadNetworkException>);
     method @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED") public void setEnabled(boolean, @NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<java.lang.Void,android.net.thread.ThreadNetworkException>);
+    method @FlaggedApi("com.android.net.thread.flags.epskc_enabled") @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED") public void startEphemeralKeyMode(@NonNull java.time.Duration, @NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<java.lang.String,android.net.thread.ThreadNetworkException>);
+    method @FlaggedApi("com.android.net.thread.flags.epskc_enabled") @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED") public void stopEphemeralKeyMode(@NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<java.lang.Void,android.net.thread.ThreadNetworkException>);
     method @RequiresPermission(allOf={android.Manifest.permission.ACCESS_NETWORK_STATE, "android.permission.THREAD_NETWORK_PRIVILEGED"}) public void unregisterOperationalDatasetCallback(@NonNull android.net.thread.ThreadNetworkController.OperationalDatasetCallback);
     method @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public void unregisterStateCallback(@NonNull android.net.thread.ThreadNetworkController.StateCallback);
     field public static final int DEVICE_ROLE_CHILD = 2; // 0x2
@@ -527,6 +529,7 @@ package android.net.thread {
 
   public static interface ThreadNetworkController.StateCallback {
     method public void onDeviceRoleChanged(int);
+    method @FlaggedApi("com.android.net.thread.flags.epskc_enabled") @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED") public default void onEphemeralKeyChanged(@Nullable String, @NonNull java.time.Duration);
     method public default void onPartitionIdChanged(long);
     method public default void onThreadEnableStateChanged(int);
   }
