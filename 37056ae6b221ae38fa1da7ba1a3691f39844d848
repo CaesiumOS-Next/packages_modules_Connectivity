@@ -117,6 +117,24 @@
       "parentUuid": "bf8e72a0_abfe8aad",
       "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e52b0d80_c1308431",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-20T12:16:01Z",
+      "side": 1,
+      "message": "@junyulai@google.com\nI think it can be written as something like\n\n```\ndef parse_counter_data(text, interface, key):\n    \"\"\"Parses the input text to extract counter value for a given interface and key.\"\"\"\n\n    lines \u003d text.splitlines()\n    current_interface \u003d None\n    current_counter_section \u003d False\n\n    for line in lines:\n        if line.startswith(\"IpClient.\"):\n            current_interface \u003d line.split(\".\")[1]\n            current_counter_section \u003d False\n        elif line.strip() \u003d\u003d \"APF packet counters:\":\n            current_counter_section \u003d True\n        elif current_interface \u003d\u003d interface and current_counter_section and line.strip().startswith(key):\n            return line.split(\"\u003d\")[1]\n\n    return None  # Return None if not found\n```",
+      "parentUuid": "a92ed551_091d16cc",
+      "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
