@@ -26,6 +26,7 @@ package android.net.thread;
 public final class ThreadNetworkFlags {
     /** @hide */
     public static final String FLAG_THREAD_ENABLED = "com.android.net.thread.flags.thread_enabled";
+    public static final String FLAG_SET_CHANNEL_MAX_POWERS = "com.android.net.thread.flags.set_channel_max_powers";
 
     private ThreadNetworkFlags() {}
 }
