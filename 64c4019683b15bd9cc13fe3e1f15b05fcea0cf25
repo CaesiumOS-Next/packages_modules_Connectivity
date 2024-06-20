@@ -66,6 +66,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a803d8b1_99a23ded",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetInterfaceStateMachine.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T17:17:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78fa8852_c7bf935a",
+      "revId": "64c4019683b15bd9cc13fe3e1f15b05fcea0cf25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a190bf8_1cc00f8f",
@@ -79,6 +97,30 @@
       "writtenOn": "2024-06-19T11:11:37Z",
       "side": 1,
       "message": "as above",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 20
+      },
+      "revId": "64c4019683b15bd9cc13fe3e1f15b05fcea0cf25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bac5caa_a0d6591b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetInterfaceStateMachine.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T17:17:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a190bf8_1cc00f8f",
       "range": {
         "startLine": 145,
         "startChar": 0,
