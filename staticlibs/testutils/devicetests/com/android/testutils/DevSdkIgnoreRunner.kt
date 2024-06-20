@@ -16,10 +16,20 @@
 
 package com.android.testutils
 
+import android.content.Context
+import android.content.pm.PackageManager.FEATURE_TELEPHONY
+import android.content.pm.PackageManager.FEATURE_WIFI
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.android.internal.annotations.VisibleForTesting
+import com.android.internal.annotations.VisibleForTesting.Visibility.PRIVATE
+import com.android.net.module.util.BitUtils.packBits
 import com.android.net.module.util.LinkPropertiesUtils.CompareOrUpdateResult
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
+import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import java.lang.reflect.Modifier
 import org.junit.runner.Description
 import org.junit.runner.Runner
@@ -29,6 +39,7 @@ import org.junit.runner.manipulation.NoTestsRemainException
 import org.junit.runner.manipulation.Sortable
 import org.junit.runner.manipulation.Sorter
 import org.junit.runner.notification.Failure
+import org.junit.runner.notification.RunListener
 import org.junit.runner.notification.RunNotifier
 import org.junit.runners.Parameterized
 import org.mockito.Mockito
@@ -57,6 +68,10 @@ import org.mockito.Mockito
 class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, Sortable {
     private val leakMonitorDesc = Description.createTestDescription(klass, "ThreadLeakMonitor")
     private val shouldThreadLeakFailTest = klass.isAnnotationPresent(MonitorThreadLeak::class.java)
+    private val restoreDefaultNetworkDesc =
+            Description.createTestDescription(klass, "RestoreDefaultNetwork")
+    private val restoreDefaultNetwork = klass.isAnnotationPresent(RestoreDefaultNetwork::class.java)
+    val ctx = ApplicationProvider.getApplicationContext<Context>()
 
     // Inference correctly infers Runner & Filterable & Sortable for |baseRunner|, but the
     // Java bytecode doesn't have a way to express this. Give this type a name by wrapping it.
@@ -67,9 +82,78 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
         override fun run(notifier: RunNotifier?) = wrapped.run(notifier)
     }
 
+    @VisibleForTesting(visibility = PRIVATE)
+    class DefaultNetworkRestoreMonitor(
+            ctx: Context,
+            private val notifier: RunNotifier
+    ) {
+        var firstFailure: Exception? = null
+        var transports = 0L
+        val cm = ctx.getSystemService(ConnectivityManager::class.java)!!
+        val pm = ctx.packageManager
+        val listener = object : RunListener() {
+            override fun testFinished(description: Description) {
+                // Only the first method that does not restore the default network should be blamed.
+                if (firstFailure != null) {
+                    return
+                }
+                val cb = TestableNetworkCallback()
+                cm.registerDefaultNetworkCallback(cb)
+                try {
+                    cb.eventuallyExpect<CapabilitiesChanged>(timeoutMs = 3000) {
+                        packBits(it.caps.transportTypes) == transports &&
+                                it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
+                    }
+                } catch (e: AssertionError) {
+                    firstFailure = IllegalStateException(description.methodName +
+                            " does not restore the default network")
+                } finally {
+                    cm.unregisterNetworkCallback(cb)
+                }
+            }
+        }
+
+        fun init(connectUtil: ConnectUtil) {
+            // Ensure Wi-Fi and cellular connection before running test to avoid starting test
+            // with unexpected default network
+            if (pm.hasSystemFeature(FEATURE_WIFI)) {
+                connectUtil.ensureWifiValidated()
+            }
+            if (pm.hasSystemFeature(FEATURE_TELEPHONY)) {
+                connectUtil.ensureCellularValidated()
+            }
+            // No need to wait here since the default network is already updated when
+            // onCapabilitiesChanged is called with NET_CAPABILITY_VALIDATED
+            val cap = cm.getNetworkCapabilities(cm.activeNetwork)
+            if (cap == null) {
+                firstFailure = IllegalStateException(
+                        "Failed to get default network status before starting tests"
+                )
+            } else {
+                transports = packBits(cap.transportTypes)
+            }
+            notifier.addListener(listener)
+        }
+
+        fun reportResultAndCleanUp(desc: Description) {
+            notifier.fireTestStarted(desc)
+            if (firstFailure != null) {
+                notifier.fireTestFailure(
+                        Failure(desc, firstFailure)
+                )
+            }
+            notifier.fireTestFinished(desc)
+            notifier.removeListener(listener)
+        }
+    }
+
     // Annotation for test classes to indicate the test runner should monitor thread leak.
     // TODO(b/307693729): Remove this annotation and monitor thread leak by default.
     annotation class MonitorThreadLeak
+
+    // Annotation for test classes to indicate the test runner should verify the default network is
+    // restored after each test.
+    annotation class RestoreDefaultNetwork
 
     private val baseRunner: RunnerWrapper<*>? = klass.let {
         val ignoreAfter = it.getAnnotation(IgnoreAfter::class.java)
@@ -128,6 +212,14 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
             )
             return
         }
+
+        val networkRestoreMonitor = if (restoreDefaultNetwork) {
+            DefaultNetworkRestoreMonitor(ctx, notifier).apply{
+                init(ConnectUtil(ctx))
+            }
+        } else {
+            null
+        }
         val threadCountsBeforeTest = if (shouldThreadLeakFailTest) {
             // Dump threads as a baseline to monitor thread leaks.
             getAllThreadNameCounts()
@@ -140,6 +232,7 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
         if (threadCountsBeforeTest != null) {
             checkThreadLeak(notifier, threadCountsBeforeTest)
         }
+        networkRestoreMonitor?.reportResultAndCleanUp(restoreDefaultNetworkDesc)
     }
 
     private fun getAllThreadNameCounts(): Map<String, Int> {
@@ -163,6 +256,9 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
             if (shouldThreadLeakFailTest) {
                 it.addChild(leakMonitorDesc)
             }
+            if (restoreDefaultNetwork) {
+                it.addChild(restoreDefaultNetworkDesc)
+            }
         }
     }
 
@@ -173,7 +269,14 @@ class DevSdkIgnoreRunner(private val klass: Class<*>) : Runner(), Filterable, So
         // When ignoring the tests, a skipped placeholder test is reported, so test count is 1.
         if (baseRunner == null) return 1
 
-        return baseRunner.testCount() + if (shouldThreadLeakFailTest) 1 else 0
+        var testCount = baseRunner.testCount()
+        if (shouldThreadLeakFailTest) {
+            testCount += 1
+        }
+        if (restoreDefaultNetwork) {
+            testCount += 1
+        }
+        return testCount
     }
 
     @Throws(NoTestsRemainException::class)
