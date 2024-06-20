@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc19b8a3_6ac1ed04",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-20T06:03:24Z",
+      "side": 1,
+      "message": "If this is set and the caller is trying to use something other than TETHERING_VIRTUAL, then the code will not use the passed-in interface.\n\nWe should notify the developer that what they are trying to do will not work. Either we throw an exception (UnsupportedOperationException?) when the developer calls TetheringRequest.Builder#build, or we define a new TETHER_ERROR_xxx value and add that value to the StartTetheringError @IntDef.\n\nHaving build() throw is probably easiest. It\u0027s also appropriate because it\u0027s a programming error, rather than an exceptional condition - it will never succeed. We should document that in the javadoc of setInterfaceName.",
+      "range": {
+        "startLine": 706,
+        "startChar": 67,
+        "endLine": 706,
+        "endChar": 79
+      },
+      "revId": "37734f7fe2f96efe130c064072a0191e73e6125d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b96acc0_c9059d1f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-20T06:03:24Z",
+      "side": 1,
+      "message": "Whatever we do with the comment above, we should probably be consistent here. The failure mode for \"app specifies an interface and the system can\u0027t support it\" should be similar to the one for \"app didn\u0027t specify an interface and the system requires it\".",
+      "range": {
+        "startLine": 984,
+        "startChar": 23,
+        "endLine": 984,
+        "endChar": 49
+      },
+      "revId": "37734f7fe2f96efe130c064072a0191e73e6125d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
