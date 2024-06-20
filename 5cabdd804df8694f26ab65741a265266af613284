@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b1651e32_f3834673",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-20T08:03:03Z",
+      "side": 1,
+      "message": "\"test\" I mean interop. I thought it would cause interopebility issues but seems not? SG to enable TREL by default with an experimental flag",
+      "parentUuid": "5fd77410_a5a3cc4a",
+      "revId": "5cabdd804df8694f26ab65741a265266af613284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97742ef3_abcf6dd6",
         "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
         "patchSetId": 13
