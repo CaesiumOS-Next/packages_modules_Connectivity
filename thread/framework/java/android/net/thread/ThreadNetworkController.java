@@ -16,6 +16,7 @@
 
 package android.net.thread;
 
+
 import static java.util.Objects.requireNonNull;
 
 import android.Manifest.permission;
@@ -615,8 +616,8 @@ public final class ThreadNetworkController {
      * OutcomeReceiver#onError} will be called with a specific error:
      *
      * <ul>
-     *   <li>{@link ThreadNetworkException#ERROR_UNSUPPORTED_OPERATION} the operation is no
-     *       supported by the platform.
+     *   <li>{@link ThreadNetworkException#ERROR_UNSUPPORTED_FEATURE} the feature is not supported
+     *       by the platform.
      * </ul>
      *
      * @param channelMaxPowers SparseIntArray (key: channel, value: max power) consists of channel
@@ -629,7 +630,6 @@ public final class ThreadNetworkController {
      * @param receiver the receiver to receive the result of this operation.
      * @throws IllegalArgumentException if the size of {@code channelMaxPowers} is smaller than 1,
      *     or invalid channel or max power is configured.
-     * @hide
      */
     @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
     public final void setChannelMaxPowers(
