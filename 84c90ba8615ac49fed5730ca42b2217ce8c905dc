@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c31e6405_7026ddf5",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-20T10:36:40Z",
+      "side": 1,
+      "message": "The code is `(True, [\"false\", \"true\"])` but the comment is  `# Expect True, get False`. It is a little bit confusing. We need some explanation on why [\"false\", \"true\"] means False.",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 60
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5843a1ab_5d654005",
         "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
         "patchSetId": 4
@@ -122,6 +145,29 @@
         "startChar": 4,
         "endLine": 25,
         "endChar": 16
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb2300b0_86e7c676",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-20T10:36:40Z",
+      "side": 1,
+      "message": "supernit: why start from 1 instead of 0?",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 42
       },
       "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
