@@ -171,6 +171,30 @@
       },
       "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af35f7c2_7495e2db",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-20T12:11:58Z",
+      "side": 1,
+      "message": "my bad, I think it will throw exception with retry count (attempt).  \nI just realized that it\u0027s max_retries.  \n\nThen I think it can be just range(max_retries). \n\nit should be \n\n```\nresult \u003d False\nfor attempt in range(max_retries):\n  result \u003d predicate()\n  return None if result else time.sleep(retry_interval_sec)\n\nif not result:\n  raise UnexpectedBehaviorError(...)  \n```\n\nAnother thought is using while loop to check the retry times.",
+      "parentUuid": "cb2300b0_86e7c676",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
