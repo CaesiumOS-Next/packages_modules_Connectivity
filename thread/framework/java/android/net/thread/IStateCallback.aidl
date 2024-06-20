@@ -23,4 +23,5 @@ oneway interface IStateCallback {
     void onDeviceRoleChanged(int deviceRole);
     void onPartitionIdChanged(long partitionId);
     void onThreadEnableStateChanged(int enabledState);
+    void onEphemeralKeyChanged(in String ephemeralKey, in long lifetimeMillis);
 }
