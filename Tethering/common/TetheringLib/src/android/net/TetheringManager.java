@@ -745,6 +745,7 @@ public class TetheringManager {
                 mBuilderParcel.exemptFromEntitlementCheck = false;
                 mBuilderParcel.showProvisioningUi = true;
                 mBuilderParcel.connectivityScope = getDefaultConnectivityScope(type);
+                mBuilderParcel.interfaceName = null;
             }
 
             /**
@@ -787,6 +788,17 @@ public class TetheringManager {
             @NonNull
             public Builder setShouldShowEntitlementUi(boolean showUi) {
                 mBuilderParcel.showProvisioningUi = showUi;
+                return this;
+            }
+
+            /**
+             * Sets the name of the interface.
+             */
+            @FlaggedApi(Flags.TETHERING_REQUEST_VIRTUAL)
+            @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+            @NonNull
+            public Builder setInterfaceName(@NonNull final String interfaceName) {
+                mBuilderParcel.interfaceName = interfaceName;
                 return this;
             }
 
@@ -851,6 +863,13 @@ public class TetheringManager {
             return mRequestParcel.showProvisioningUi;
         }
 
+        /** Get interface name.  */
+        @FlaggedApi(Flags.TETHERING_REQUEST_VIRTUAL)
+        @Nullable
+        public String getInterfaceName() {
+            return mRequestParcel.interfaceName;
+        }
+
         /**
          * Check whether the two addresses are ipv4 and in the same prefix.
          * @hide
@@ -899,7 +918,8 @@ public class TetheringManager {
                     + ", staticClientAddress= " + mRequestParcel.staticClientAddress
                     + ", exemptFromEntitlementCheck= "
                     + mRequestParcel.exemptFromEntitlementCheck + ", showProvisioningUi= "
-                    + mRequestParcel.showProvisioningUi + " ]";
+                    + mRequestParcel.showProvisioningUi + ", interfaceName= "
+                    + mRequestParcel.interfaceName + " ]";
         }
     }
 
