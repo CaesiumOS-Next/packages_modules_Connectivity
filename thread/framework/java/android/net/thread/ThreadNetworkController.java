@@ -82,6 +82,15 @@ public final class ThreadNetworkController {
     /** The Thread radio is being disabled. */
     public static final int STATE_DISABLING = 2;
 
+    /** The ephemeral key is disabled. */
+    public static final int EPHEMERAL_KEY_DISABLED = 0;
+
+    /** The ephemeral key is enabled. */
+    public static final int EPHEMERAL_KEY_ENABLED = 1;
+
+    /** The ephemeral key is in use. */
+    public static final int EPHEMERAL_KEY_IN_USE = 2;
+
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({
@@ -100,6 +109,13 @@ public final class ThreadNetworkController {
             value = {STATE_DISABLED, STATE_ENABLED, STATE_DISABLING})
     public @interface EnabledState {}
 
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(
+            prefix = {"EPHEMERAL_KEY_"},
+            value = {EPHEMERAL_KEY_DISABLED, EPHEMERAL_KEY_ENABLED, EPHEMERAL_KEY_IN_USE})
+    public @interface EphemeralKeyState {}
+
     /** Thread standard version 1.3. */
     public static final int THREAD_VERSION_1_3 = 4;
 
@@ -109,6 +125,9 @@ public final class ThreadNetworkController {
     // disabled the Thread channel.
     @SuppressLint("MinMaxConstant")
     public static final int MAX_POWER_CHANNEL_DISABLED = Integer.MIN_VALUE;
+
+    /** The maximum lifetime of an ephemeral key. @hide */
+    @NonNull private static final Duration EPHEMERAL_KEY_LIFETIME_MAX = Duration.ofMinutes(10);
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
@@ -169,6 +188,95 @@ public final class ThreadNetworkController {
             @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
         try {
             mControllerService.setEnabled(enabled, new OperationReceiverProxy(executor, receiver));
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /** Returns the maximum lifetime allowed when activating ephemeral key mode. */
+    @FlaggedApi(Flags.FLAG_EPSKC_ENABLED)
+    @NonNull
+    public Duration getMaxEphemeralKeyLifetime() {
+        return EPHEMERAL_KEY_LIFETIME_MAX;
+    }
+
+    /**
+     * Activates ephemeral key mode with a lifetime of {@code lifetime}. The ephemeral key is a
+     * temporary, single-use numeric code that is used for Thread Administration Sharing. After
+     * activation, the mode may expire or get deactivated, caller to this method should subscribe to
+     * the ephemeral key state updates with {@link #registerStateCallback} to get notified when the
+     * ephemeral key state changes.
+     *
+     * <p>On success, {@link OutcomeReceiver#onResult} of {@code receiver} is called. The ephemeral
+     * key string contains a sequence of numeric digits 0-9 of user-input friendly length (typically
+     * 9). Subscribers to ephemeral key state updates with {@link #registerStateCallback} will be
+     * notified with a call to {@link #onEphemeralKeyStateChanged}.
+     *
+     * <p>On failure, {@link OutcomeReceiver#onError} of {@code receiver} will be invoked with a
+     * specific error:
+     *
+     * <ul>
+     *   <li>{@link ThreadNetworkException#ERROR_FAILED_PRECONDITION} when this device is not
+     *       attached to Thread network and its adjacent infrastructure network
+     *   <li>{@link ThreadNetworkException#ERROR_BUSY} when ephemeral key mode is already activated
+     *       on the device, caller can recover from this error when the ephemeral key mode gets
+     *       deactivated
+     * </ul>
+     *
+     * @param lifetime lifetime of the generated ephemeral key, should be larger than {@link
+     *     Duration#ZERO} and at most the duration returned by {@link #getMaxEphemeralKeyLifetime}.
+     * @param executor the executor on which to execute {@code receiver}
+     * @param receiver the receiver to receive the result of this operation
+     * @throws IllegalArgumentException when lifetime is invalid
+     */
+    @FlaggedApi(Flags.FLAG_EPSKC_ENABLED)
+    @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+    public void activateEphemeralKeyMode(
+            @NonNull Duration lifetime,
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
+        if (lifetime.compareTo(Duration.ZERO) <= 0
+                || lifetime.compareTo(EPHEMERAL_KEY_LIFETIME_MAX) > 0) {
+            throw new IllegalArgumentException(
+                    "Invalid ephemeral key lifetime: the value must be in range of (0, "
+                            + EPHEMERAL_KEY_LIFETIME_MAX
+                            + "]");
+        }
+        long lifetimeMillis = lifetime.toMillis();
+        try {
+            mControllerService.activateEphemeralKeyMode(
+                    lifetimeMillis, new OperationReceiverProxy(executor, receiver));
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Deactivates ephemeral key mode.
+     *
+     * <p>On success, {@link OutcomeReceiver#onResult} of {@code receiver} is called. The call will
+     * always succeed if the device is not in ephemeral key mode.
+     *
+     * <p>On failure, {@link OutcomeReceiver#onError} of {@code receiver} will be invoked with a
+     * specific error in {@link ThreadNetworkException#ERROR_}:
+     *
+     * <ul>
+     *   <li>{@link ThreadNetworkException#ERROR_BUSY} when border agent has active secure session
+     *       in the ephemeral key mode, caller can recover from this error when the ephemeral key
+     *       mode gets deactivated
+     * </ul>
+     *
+     * @param executor the executor to execute {@code receiver}
+     * @param receiver the receiver to receive the result of this operation
+     */
+    @FlaggedApi(Flags.FLAG_EPSKC_ENABLED)
+    @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+    public void deactivateEphemeralKeyMode(
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
+        try {
+            mControllerService.deactivateEphemeralKeyMode(
+                    new OperationReceiverProxy(executor, receiver));
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -248,6 +356,25 @@ public final class ThreadNetworkController {
          * @param enabledState the new Thread enabled state
          */
         default void onThreadEnableStateChanged(@EnabledState int enabledState) {}
+
+        /**
+         * The ephemeral key state has changed.
+         *
+         * @param ephemeralKeyState the ephemeral key state
+         * @param ephemeralKey the ephemeral key string, which contains a sequence of numeric digits
+         *     0-9 of user-input friendly length (typically 9). It's valid when {@code
+         *     ephemeralKeyState} isn't {@code EPHEMERAL_KEY_DISABLED}. It's redacted to an empty
+         *     string if caller doesn't have the permission {@link
+         *     android.permission.THREAD_NETWORK_PRIVILEGED}
+         * @param lifetime the lifetime of the ephemeral key, valid when {@code ephemeralKeyState}
+         *     is {@code EPHEMERAL_KEY_ENABLED}.
+         */
+        @FlaggedApi(Flags.FLAG_EPSKC_ENABLED)
+        @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+        default void onEphemeralKeyStateChanged(
+                @EphemeralKeyState int ephemeralKeyState,
+                @Nullable String ephemeralKey,
+                @Nullable Duration lifetime) {}
     }
 
     private static final class StateCallbackProxy extends IStateCallback.Stub {
@@ -288,13 +415,37 @@ public final class ThreadNetworkController {
                 Binder.restoreCallingIdentity(identity);
             }
         }
+
+        @Override
+        public void onEphemeralKeyStateChanged(
+                @EphemeralKeyState int ephemeralKeyState,
+                String ephemeralKey,
+                long lifetimeMillis) {
+            if (!Flags.epskcEnabled()) {
+                throw new IllegalStateException(
+                        "This should not be called when Ephemeral key API is disabled");
+            }
+
+            final long identity = Binder.clearCallingIdentity();
+
+            try {
+                mExecutor.execute(
+                        () ->
+                                mCallback.onEphemeralKeyStateChanged(
+                                        ephemeralKeyState,
+                                        ephemeralKey,
+                                        Duration.ofMillis(lifetimeMillis)));
+            } finally {
+                Binder.restoreCallingIdentity(identity);
+            }
+        }
     }
 
     /**
      * Registers a callback to be called when Thread network states are changed.
      *
-     * <p>Upon return of this method, methods of {@code callback} will be invoked immediately with
-     * existing states.
+     * <p>Upon return of this method, all methods of {@code callback} will be invoked immediately
+     * with existing states. The order of the invoked callbacks is not guaranteed.
      *
      * @param executor the executor to execute the {@code callback}
      * @param callback the callback to receive Thread network state changes
