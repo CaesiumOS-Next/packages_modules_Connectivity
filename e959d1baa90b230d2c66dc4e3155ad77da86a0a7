@@ -34,6 +34,24 @@
       "parentUuid": "6e6cfd84_5cbef2da",
       "revId": "e959d1baa90b230d2c66dc4e3155ad77da86a0a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d60fe2ae_2b55d8e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-20T03:34:05Z",
+      "side": 1,
+      "message": "That doesn\u0027t answer the other questions though. Is there a general drive to remove all of these tests from STS? As far as I can tell, there are 131 of them. Was there an announcement to teams about this?\n\nIf there\u0027s a general drive to remove all these tests from STS, we\u0027re happy to participate in that. But if not, I\u0027m not sure why we should remove these tests specifically and leave the other 130 tests in STS?",
+      "parentUuid": "2b6ed9a7_96de516b",
+      "revId": "e959d1baa90b230d2c66dc4e3155ad77da86a0a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
