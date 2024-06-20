@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53bb8d8a_8fc123e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-20T13:51:26Z",
+      "side": 1,
+      "message": "TetheringIntegrationTests",
+      "range": {
+        "startLine": 13,
+        "startChar": 12,
+        "endLine": 13,
+        "endChar": 36
+      },
+      "revId": "2d5bbe3c169ac066c4666cf206afb3c26b641154",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
