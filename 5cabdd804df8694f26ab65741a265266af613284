@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1521483_be7dc286",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-06-20T06:16:52Z",
+      "side": 1,
+      "message": "do we need this API?",
+      "revId": "5cabdd804df8694f26ab65741a265266af613284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
