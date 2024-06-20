@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3863f30f_6916b95e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-20T08:15:54Z",
+      "side": 1,
+      "message": "Exactly, and currently I\u0027m trying to seek which tests I should add with presubmit check in advance. Please let me know which tests I should write from now on to make API changes stable.\n\nAlso, would we need some tests around the new type `TETHERING_VIRTUAL`? I think there would be E2E test for Ferrochrome in the far future, but I don\u0027t think it represents testing for `TETHERING_VIRTUAL`.",
+      "parentUuid": "199f81df_d043cfd5",
+      "revId": "37734f7fe2f96efe130c064072a0191e73e6125d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc19b8a3_6ac1ed04",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 1
@@ -31,6 +49,30 @@
       "writtenOn": "2024-06-20T06:03:24Z",
       "side": 1,
       "message": "If this is set and the caller is trying to use something other than TETHERING_VIRTUAL, then the code will not use the passed-in interface.\n\nWe should notify the developer that what they are trying to do will not work. Either we throw an exception (UnsupportedOperationException?) when the developer calls TetheringRequest.Builder#build, or we define a new TETHER_ERROR_xxx value and add that value to the StartTetheringError @IntDef.\n\nHaving build() throw is probably easiest. It\u0027s also appropriate because it\u0027s a programming error, rather than an exceptional condition - it will never succeed. We should document that in the javadoc of setInterfaceName.",
+      "range": {
+        "startLine": 706,
+        "startChar": 67,
+        "endLine": 706,
+        "endChar": 79
+      },
+      "revId": "37734f7fe2f96efe130c064072a0191e73e6125d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92814455_92a7bdf8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-20T08:15:54Z",
+      "side": 1,
+      "message": "I prefer to handle exception in `StartTetheringError` with new exception type. The main reason for doing that is current `TetheringRequest.Builder#build()` doesn\u0027t throw any exceptions and `StartTethering` took all responsibility for handling it.\n\nAlso I was thinking about this topic, and you gave me more clear description for deciding. I\u0027ll modify the code to handle it inside `StartTethering` :)",
+      "parentUuid": "fc19b8a3_6ac1ed04",
       "range": {
         "startLine": 706,
         "startChar": 67,
