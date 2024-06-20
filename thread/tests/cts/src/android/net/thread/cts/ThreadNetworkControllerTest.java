@@ -32,6 +32,7 @@ import static android.net.thread.ThreadNetworkController.STATE_DISABLING;
 import static android.net.thread.ThreadNetworkController.STATE_ENABLED;
 import static android.net.thread.ThreadNetworkController.THREAD_VERSION_1_3;
 import static android.net.thread.ThreadNetworkException.ERROR_ABORTED;
+import static android.net.thread.ThreadNetworkException.ERROR_BUSY;
 import static android.net.thread.ThreadNetworkException.ERROR_FAILED_PRECONDITION;
 import static android.net.thread.ThreadNetworkException.ERROR_REJECTED_BY_PEER;
 import static android.net.thread.ThreadNetworkException.ERROR_THREAD_DISABLED;
@@ -72,6 +73,9 @@ import android.os.Build;
 import android.os.HandlerThread;
 import android.os.OutcomeReceiver;
 import android.platform.test.annotations.RequiresFlagsEnabled;
+import android.platform.test.flag.junit.CheckFlagsRule;
+import android.platform.test.flag.junit.DeviceFlagsValueProvider;
+import android.util.Pair;
 import android.util.SparseIntArray;
 
 import androidx.annotation.NonNull;
@@ -96,6 +100,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -134,8 +139,12 @@ public class ThreadNetworkControllerTest {
                     put(VALID_CHANNEL, VALID_POWER);
                 }
             };
+    private static final Duration EPHEMERAL_KEY_LIFETIME = Duration.ofSeconds(1);
 
     @Rule public final ThreadFeatureCheckerRule mThreadRule = new ThreadFeatureCheckerRule();
+
+    @Rule
+    public final CheckFlagsRule mCheckFlagsRule = DeviceFlagsValueProvider.createCheckFlagsRule();
 
     private final Context mContext = ApplicationProvider.getApplicationContext();
     private ExecutorService mExecutor;
@@ -164,6 +173,7 @@ public class ThreadNetworkControllerTest {
 
         setEnabledAndWait(mController, true);
         setConfigurationAndWait(mController, DEFAULT_CONFIG);
+        deactivateEphemeralKeyModeAndWait(mController);
     }
 
     @After
@@ -183,6 +193,7 @@ public class ThreadNetworkControllerTest {
             }
         }
         mConfigurationCallbacksToCleanUp.clear();
+        deactivateEphemeralKeyModeAndWait(mController);
     }
 
     @Test
@@ -819,6 +830,161 @@ public class ThreadNetworkControllerTest {
         listener.unregisterStateCallback();
     }
 
+    @Test
+    public void getMaxEphemeralKeyLifetime_isLargerThanZero() {
+        assertThat(mController.getMaxEphemeralKeyLifetime()).isGreaterThan(Duration.ZERO);
+    }
+
+    @Test
+    public void activateEphemeralKeyMode_withPrivilegedPermission_succeeds() throws Exception {
+        joinRandomizedDatasetAndWait(mController);
+        CompletableFuture<String> startFuture = new CompletableFuture<>();
+
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () ->
+                        mController.activateEphemeralKeyMode(
+                                EPHEMERAL_KEY_LIFETIME,
+                                mExecutor,
+                                newOutcomeReceiver(startFuture)));
+
+        assertThat(startFuture.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS)).isNotNull();
+    }
+
+    @Test
+    public void activateEphemeralKeyMode_withoutPrivilegedPermission_throwsSecurityException()
+            throws Exception {
+        dropAllPermissions();
+
+        assertThrows(
+                SecurityException.class,
+                () ->
+                        mController.activateEphemeralKeyMode(
+                                EPHEMERAL_KEY_LIFETIME, mExecutor, v -> {}));
+    }
+
+    @Test
+    public void activateEphemeralKeyMode_withZeroLifetime_throwsIllegalArgumentException()
+            throws Exception {
+        grantPermissions(THREAD_NETWORK_PRIVILEGED);
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> mController.activateEphemeralKeyMode(Duration.ZERO, mExecutor, v -> {}));
+    }
+
+    @Test
+    @RequiresFlagsEnabled({Flags.FLAG_EPSKC_ENABLED})
+    public void activateEphemeralKeyMode_concurrentRequests_secondOnefailsWithBusyError()
+            throws Exception {
+        joinRandomizedDatasetAndWait(mController);
+        CompletableFuture<String> future1 = new CompletableFuture<>();
+        CompletableFuture<String> future2 = new CompletableFuture<>();
+
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () -> {
+                    mController.activateEphemeralKeyMode(
+                            EPHEMERAL_KEY_LIFETIME, mExecutor, newOutcomeReceiver(future1));
+                    mController.activateEphemeralKeyMode(
+                            EPHEMERAL_KEY_LIFETIME, mExecutor, newOutcomeReceiver(future2));
+                });
+
+        var thrown =
+                assertThrows(
+                        ExecutionException.class,
+                        () -> {
+                            future2.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS);
+                        });
+        var threadException = (ThreadNetworkException) thrown.getCause();
+        assertThat(threadException.getErrorCode()).isEqualTo(ERROR_BUSY);
+    }
+
+    @Test
+    public void deactivateEphemeralKeyMode_withoutPrivilegedPermission_throwsSecurityException()
+            throws Exception {
+        dropAllPermissions();
+
+        assertThrows(
+                SecurityException.class,
+                () -> mController.deactivateEphemeralKeyMode(mExecutor, v -> {}));
+    }
+
+    @Test
+    @RequiresFlagsEnabled({Flags.FLAG_EPSKC_ENABLED})
+    public void subscribeEpskcState_permissionsGranted_returnsCurrentState() throws Exception {
+        CompletableFuture<String> ephemeralKeyFuture = new CompletableFuture<>();
+        CompletableFuture<Duration> lifetimeFuture = new CompletableFuture<>();
+        StateCallback callback =
+                new ThreadNetworkController.StateCallback() {
+                    @Override
+                    public void onDeviceRoleChanged(int r) {}
+
+                    @Override
+                    public void onEphemeralKeyChanged(String ephemeralKey, Duration lifetime) {
+                        ephemeralKeyFuture.complete(ephemeralKey);
+                        lifetimeFuture.complete(lifetime);
+                    }
+                };
+
+        runAsShell(
+                ACCESS_NETWORK_STATE,
+                THREAD_NETWORK_PRIVILEGED,
+                () -> mController.registerStateCallback(mExecutor, callback));
+
+        assertThat(ephemeralKeyFuture.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS)).isNull();
+        assertThat(lifetimeFuture.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS))
+                .isEqualTo(Duration.ZERO);
+
+        runAsShell(ACCESS_NETWORK_STATE, () -> mController.unregisterStateCallback(callback));
+    }
+
+    @Test
+    @RequiresFlagsEnabled({Flags.FLAG_EPSKC_ENABLED})
+    public void subscribeEpskcState_withoutThreadPriviledgedPermission_returnsRedactedPasscode()
+            throws Exception {
+        CompletableFuture<String> ephemeralKeyFuture = new CompletableFuture<>();
+        CompletableFuture<Duration> lifetimeFuture = new CompletableFuture<>();
+        StateCallback callback =
+                new ThreadNetworkController.StateCallback() {
+                    @Override
+                    public void onDeviceRoleChanged(int r) {}
+
+                    @Override
+                    public void onEphemeralKeyChanged(String ephemeralKey, Duration lifetime) {
+                        ephemeralKeyFuture.complete(ephemeralKey);
+                        lifetimeFuture.complete(lifetime);
+                    }
+                };
+        joinRandomizedDatasetAndWait(mController);
+        activateEphemeralKeyModeAndWait(mController);
+
+        runAsShell(
+                ACCESS_NETWORK_STATE, () -> mController.registerStateCallback(mExecutor, callback));
+
+        assertThat(ephemeralKeyFuture.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS)).isEmpty();
+        assertThat(lifetimeFuture.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS))
+                .isEqualTo(EPHEMERAL_KEY_LIFETIME);
+
+        runAsShell(ACCESS_NETWORK_STATE, () -> mController.unregisterStateCallback(callback));
+    }
+
+    @Test
+    @RequiresFlagsEnabled({Flags.FLAG_EPSKC_ENABLED})
+    public void subscribeEpskcState_permissionsGranted_returnsUpdatedState() throws Exception {
+        EphemeralKeyStateListener listener = new EphemeralKeyStateListener(mController);
+        joinRandomizedDatasetAndWait(mController);
+
+        String ephemeralKey = activateEphemeralKeyModeAndWait(mController);
+        deactivateEphemeralKeyModeAndWait(mController);
+
+        listener.expectThreadEphemeralKeyMode(Duration.ZERO);
+        listener.expectThreadEphemeralKeyMode(ephemeralKey, EPHEMERAL_KEY_LIFETIME);
+        listener.expectThreadEphemeralKeyMode(Duration.ZERO);
+
+        listener.unregisterStateCallback();
+    }
+
     // TODO (b/322437869): add test case to verify when Thread is in DISABLING state, any commands
     // (join/leave/scheduleMigration/setEnabled) fail with ERROR_BUSY. This is not currently tested
     // because DISABLING has very short lifecycle, it's not possible to guarantee the command can be
@@ -1272,6 +1438,80 @@ public class ThreadNetworkControllerTest {
                         controller.setConfiguration(
                                 configuration, mExecutor, newOutcomeReceiver(setFuture)));
         setFuture.get(SET_CONFIGURATION_TIMEOUT_MILLIS, MILLISECONDS);
+    }
+
+    private void deactivateEphemeralKeyModeAndWait(ThreadNetworkController controller)
+            throws Exception {
+        CompletableFuture<Void> clearFuture = new CompletableFuture<>();
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () ->
+                        controller.deactivateEphemeralKeyMode(
+                                mExecutor, newOutcomeReceiver(clearFuture)));
+        clearFuture.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS);
+    }
+
+    private String activateEphemeralKeyModeAndWait(ThreadNetworkController controller)
+            throws Exception {
+        CompletableFuture<String> startFuture = new CompletableFuture<>();
+        runAsShell(
+                THREAD_NETWORK_PRIVILEGED,
+                () ->
+                        controller.activateEphemeralKeyMode(
+                                EPHEMERAL_KEY_LIFETIME,
+                                mExecutor,
+                                newOutcomeReceiver(startFuture)));
+        return startFuture.get(CALLBACK_TIMEOUT_MILLIS, MILLISECONDS);
+    }
+
+    private class EphemeralKeyStateListener {
+        private ArrayTrackRecord<Pair<String, Duration>> mEphemeralKeyStates =
+                new ArrayTrackRecord<>();
+        private final ArrayTrackRecord<Pair<String, Duration>>.ReadHead mReadHead =
+                mEphemeralKeyStates.newReadHead();
+        ThreadNetworkController mController;
+        StateCallback mCallback =
+                new ThreadNetworkController.StateCallback() {
+                    @Override
+                    public void onDeviceRoleChanged(int r) {}
+
+                    @Override
+                    public void onEphemeralKeyChanged(String ephemeralKey, Duration lifetime) {
+                        mEphemeralKeyStates.add(new Pair<>(ephemeralKey, lifetime));
+                    }
+                };
+
+        EphemeralKeyStateListener(ThreadNetworkController controller) {
+            this.mController = controller;
+            runAsShell(
+                    ACCESS_NETWORK_STATE,
+                    THREAD_NETWORK_PRIVILEGED,
+                    () -> controller.registerStateCallback(mExecutor, mCallback));
+        }
+
+        // Expect that EphemeralKey has the expected lifetime.
+        public void expectThreadEphemeralKeyMode(Duration lifetime) {
+            assertThat(
+                            mReadHead.poll(
+                                    ENABLED_TIMEOUT_MILLIS,
+                                    e -> Objects.equals(e.second, lifetime)))
+                    .isNotNull();
+        }
+
+        // Expect that EphemeralKey has the expected passcode and lifetime.
+        public void expectThreadEphemeralKeyMode(String ephemeralKey, Duration lifetime) {
+            assertThat(
+                            mReadHead.poll(
+                                    ENABLED_TIMEOUT_MILLIS,
+                                    e ->
+                                            (Objects.equals(e.first, ephemeralKey)
+                                                    && Objects.equals(e.second, lifetime))))
+                    .isNotNull();
+        }
+
+        public void unregisterStateCallback() {
+            runAsShell(ACCESS_NETWORK_STATE, () -> mController.unregisterStateCallback(mCallback));
+        }
     }
 
     private CompletableFuture joinRandomizedDataset(
