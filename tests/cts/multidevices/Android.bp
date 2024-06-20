@@ -62,4 +62,10 @@ python_test_host {
     test_options: {
         unit_test: true,
     },
+    // Needed for applying VirtualEnv.
+    version: {
+        py3: {
+            embedded_launcher: false,
+        },
+    },
 }

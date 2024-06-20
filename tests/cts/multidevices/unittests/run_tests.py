@@ -14,13 +14,19 @@
 
 """Main entrypoint for all of unittest."""
 
-import unittest
-
-# Import all unittest classes here, so it can be discovered by unittest module.
-# TODO: make the tests can be executed without manually import classes.
+import sys
+from mobly import suite_runner
 from unittests.adb_utils_test import TestAdbUtils
 from unittests.apf_utils_test import TestApfUtils
 
 
 if __name__ == "__main__":
-  unittest.main()
+  # For MoblyBinaryHostTest, this entry point will be called twice:
+  # 1. List tests.
+  #   <mobly-par-file-name> -- --list_tests
+  # 2. Run tests.
+  #   <mobly-par-file-name> -- --config=<yaml-path> --device_serial=<device-serial> --log_path=<log-path>
+  # Strip the "--" since suite runner doesn't recognize it.
+  sys.argv.pop(1)
+  # TODO: make the tests can be executed without manually list classes.
+  suite_runner.run_suite([TestAdbUtils, TestApfUtils], sys.argv)
