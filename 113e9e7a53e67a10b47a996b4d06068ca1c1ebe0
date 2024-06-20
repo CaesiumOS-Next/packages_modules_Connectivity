@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bac698f8_38a2dfb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-20T17:23:51Z",
+      "side": 1,
+      "message": "(I know you hate this, but for static function calls and wrapper classes there doesn\u0027t seem to be a better option. But open for suggestions if you have any.)",
+      "revId": "113e9e7a53e67a10b47a996b4d06068ca1c1ebe0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
