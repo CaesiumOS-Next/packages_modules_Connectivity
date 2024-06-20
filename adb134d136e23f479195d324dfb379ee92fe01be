@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7f668ef_c4601a19",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-20T13:51:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6aaf19b1_72ee7ed7",
+      "range": {
+        "startLine": 351,
+        "startChar": 17,
+        "endLine": 351,
+        "endChar": 31
+      },
+      "revId": "adb134d136e23f479195d324dfb379ee92fe01be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa6c6f5e_181348e1",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-17T21:05:05Z",
       "side": 1,
       "message": "inline",
+      "range": {
+        "startLine": 393,
+        "startChar": 8,
+        "endLine": 393,
+        "endChar": 25
+      },
+      "revId": "adb134d136e23f479195d324dfb379ee92fe01be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c09704_fe57ec09",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/MtsEthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-20T13:51:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa6c6f5e_181348e1",
       "range": {
         "startLine": 393,
         "startChar": 8,
