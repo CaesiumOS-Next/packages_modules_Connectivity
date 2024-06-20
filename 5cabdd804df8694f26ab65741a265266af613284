@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5fd77410_a5a3cc4a",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-06-20T07:44:32Z",
+      "side": 1,
+      "message": "If just for testing purpose, is shell command sufficient? I\u0027m afraid we are adding an API but no plan to use it in production. And we have to maintain it. Probably, we can add it when we do have plan to use it?",
+      "parentUuid": "7d041b50_168ce31c",
+      "revId": "5cabdd804df8694f26ab65741a265266af613284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97742ef3_abcf6dd6",
         "filename": "thread/tests/cts/src/android/net/thread/cts/ConfigurationTest.java",
         "patchSetId": 13
