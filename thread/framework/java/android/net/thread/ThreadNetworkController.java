@@ -625,10 +625,9 @@ public final class ThreadNetworkController {
      * @param executor the executor to execute the {@code callback}
      * @param callback the callback to receive Thread configuration changes
      * @throws IllegalArgumentException if {@code callback} has already been registered
-     * @hide
      */
-    // @FlaggedApi(ThreadNetworkFlags.FLAG_CONFIGURATION_ENABLED)
-    // @RequiresPermission(permission.THREAD_NETWORK_PRIVILEGED)
+    @FlaggedApi(ThreadNetworkFlags.FLAG_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.THREAD_NETWORK_PRIVILEGED)
     public void registerConfigurationCallback(
             @NonNull @CallbackExecutor Executor executor,
             @NonNull Consumer<ThreadConfiguration> callback) {
@@ -656,10 +655,9 @@ public final class ThreadNetworkController {
      * @param callback the callback which has been registered with {@link
      *     #registerConfigurationCallback}
      * @throws IllegalArgumentException if {@code callback} hasn't been registered
-     * @hide
      */
-    // @FlaggedApi(ThreadNetworkFlags.FLAG_CONFIGURATION_ENABLED)
-    // @RequiresPermission(permission.THREAD_NETWORK_PRIVILEGED)
+    @FlaggedApi(ThreadNetworkFlags.FLAG_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.THREAD_NETWORK_PRIVILEGED)
     public void unregisterConfigurationCallback(@NonNull Consumer<ThreadConfiguration> callback) {
         requireNonNull(callback, "callback cannot be null");
         synchronized (mConfigurationCallbackMapLock) {
