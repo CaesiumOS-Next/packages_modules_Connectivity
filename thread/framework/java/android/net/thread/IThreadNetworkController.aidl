@@ -20,6 +20,7 @@ import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.ChannelMaxPower;
 import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IConfigurationReceiver;
+import android.net.thread.IEphemeralKeyReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOperationalDatasetCallback;
 import android.net.thread.IScheduleMigrationReceiver;
@@ -51,4 +52,7 @@ interface IThreadNetworkController {
     void setConfiguration(in ThreadConfiguration config, in IOperationReceiver receiver);
     void registerConfigurationCallback(in IConfigurationReceiver receiver);
     void unregisterConfigurationCallback(in IConfigurationReceiver receiver);
+
+    void startEphemeralKeyMode(long lifetimeMillis, in IEphemeralKeyReceiver receiver);
+    void stopEphemeralKeyMode(in IOperationReceiver receiver);
 }
