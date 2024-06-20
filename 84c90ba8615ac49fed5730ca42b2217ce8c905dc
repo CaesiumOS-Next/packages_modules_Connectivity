@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a74f31ac_94ba90af",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-20T08:11:47Z",
+      "side": 1,
+      "message": "If you don\u0027t observe the flakes in local run, I think it\u0027s better to run in presubmit.",
+      "range": {
+        "startLine": 273,
+        "startChar": 15,
+        "endLine": 273,
+        "endChar": 58
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5843a1ab_5d654005",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-20T08:11:47Z",
+      "side": 1,
+      "message": "nits: why the expected value is false in this case?\nI thought this is true since `get_value_of_key_from_dumpsys` returns true in the first try.",
+      "range": {
+        "startLine": 85,
+        "startChar": 31,
+        "endLine": 85,
+        "endChar": 33
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dfab885_6b509089",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-20T08:11:47Z",
+      "side": 1,
+      "message": "If only `set_doze_mode` is public, I\u0027m not sure if it\u0027s useful to test all internal methods with other internal method patched.\n\nI feel testing set_doze_mode with mocked ad would be more useful.\nBut I\u0027m not familiar with python so not sure.",
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1f7875e_ea7df922",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-20T08:11:47Z",
+      "side": 1,
+      "message": "nits: Which method is public?\nShould we add `_` prefix to internal methods?",
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f0aa3fa_aa3ab3a5",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-20T08:11:47Z",
+      "side": 1,
+      "message": "nits: specifying `key\u003d\"mCharging\", expected_state\u003dFlase` makes it easier to follow.",
+      "range": {
+        "startLine": 26,
+        "startChar": 72,
+        "endLine": 26,
+        "endChar": 73
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b678c78c_6ff0f271",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-20T08:11:47Z",
+      "side": 1,
+      "message": "It seems this is not used.",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
