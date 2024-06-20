@@ -56,4 +56,9 @@
         <!-- Ignores tests introduced by guava-android-testlib -->
         <option name="exclude-annotation" value="org.junit.Ignore"/>
     </test>
+
+    <target_preparer class="com.android.tradefed.targetprep.FeatureFlagTargetPreparer">
+        <option name="flag-value"
+                value="thread_network/com.android.net.thread.flags.epskc_enabled=true"/>
+    </target_preparer>
 </configuration>
