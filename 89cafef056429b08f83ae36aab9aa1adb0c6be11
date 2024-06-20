@@ -16,6 +16,24 @@
       "message": "Ok, I think this is the correct thing to do for APFv4.\n\nHere\u0027s why.\n\nImagine the first ICMP reply packet gets received when the device clock is [case 1] x.00 \u0026 [case 2] x.99, both of these cases will *still* be stored as \u0027x\u0027.\n\nThis is assuming round down, but rounding doesn\u0027t really truly matter, whatever rounding method is used you can find values to show this issue.\n\nThen we sleep 5.1 s, and even with absolutely no latency, that will arrive at [case 1] x.00+5.1 [case 2] x.99+5.1, ie. [case 1] (x+5).1 [case 2] (x+6).09 which will be stored as [case 1] \u0027x+5\u0027 and [case 2] \u0027x+6\u0027.\n\nThis means even with no extra latency, you\u0027ll have \u00275\u0027 90% of the time and \u00276\u0027 10% of the time.\n\nAdditional network/device/hal latency moves things more and more away from \u00275\u0027 and towards \u00276\u0027.  With this latency at 0.9s we get 100% \u00276\u0027.\n\nIt sounds like their observed latency is somewhere in the 0.3-0.5s.\n0.3s latency would make it \u00276\u0027 ~40%, and 0.5s latency would make it \u00276\u0027 ~60% of the time.\n\n--\n\nThis test should be further extended for APFv6 to look at the more precise 1/16384th clock, where this AnyOf[5,6] shouldn\u0027t be needed, as you should be able to do a more reasonable 5.1s + 0 .. 0.5s (max latency) check.",
       "revId": "89cafef056429b08f83ae36aab9aa1adb0c6be11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "465e960b_21c4baa7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-20T10:35:48Z",
+      "side": 1,
+      "message": "I see, thanks for the detailed reasoning.\n\n\nAcked on we need to extend the test for APFv6 and for APFv6, the time check could be more accurate.",
+      "parentUuid": "2e7152f9_38d137ba",
+      "revId": "89cafef056429b08f83ae36aab9aa1adb0c6be11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
