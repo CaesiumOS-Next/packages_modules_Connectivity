@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "199f81df_d043cfd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-20T06:06:16Z",
+      "side": 1,
+      "message": "Merging APIs without CTS tests will block mainline releases, so please add CTS tests for this new API. It\u0027s probably easy to write a test that creates a TestNetworKInterface and starts tethering on it. Patrick can help you find the right place to add such a test.",
+      "revId": "37734f7fe2f96efe130c064072a0191e73e6125d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc19b8a3_6ac1ed04",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 1
