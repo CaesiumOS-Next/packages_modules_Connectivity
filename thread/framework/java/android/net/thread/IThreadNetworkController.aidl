@@ -19,6 +19,7 @@ package android.net.thread;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.ChannelMaxPower;
 import android.net.thread.IActiveOperationalDatasetReceiver;
+import android.net.thread.IEphemeralKeyReceiver;
 import android.net.thread.IOperationalDatasetCallback;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IScheduleMigrationReceiver;
@@ -46,4 +47,7 @@ interface IThreadNetworkController {
     void createRandomizedDataset(String networkName, IActiveOperationalDatasetReceiver receiver);
 
     void setEnabled(boolean enabled, in IOperationReceiver receiver);
+
+    void startEphemeralKeyMode(in long lifetimeMillis, in IEphemeralKeyReceiver receiver);
+    void stopEphemeralKeyMode(in IOperationReceiver receiver);
 }
