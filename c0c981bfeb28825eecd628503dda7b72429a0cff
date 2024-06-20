@@ -33,6 +33,23 @@
       "message": "LGTM but need @reminv@google.com to take a look as it is CTS change.",
       "revId": "c0c981bfeb28825eecd628503dda7b72429a0cff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89c288c8_f3fcc9b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-20T09:00:30Z",
+      "side": 1,
+      "message": "Can you put this in net-test-utils \n (https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/testutils/Android.bp;drc\u003d65ce1f2aa2971d837d9a5bef28d2da7a863d0f76;l\u003d21) instead ? This doesn\u0027t need to be limited to CTS",
+      "revId": "c0c981bfeb28825eecd628503dda7b72429a0cff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
