@@ -713,22 +713,23 @@ public final class ThreadNetworkController {
      * OutcomeReceiver#onError} will be called with a specific error:
      *
      * <ul>
-     *   <li>{@link ThreadNetworkException#ERROR_UNSUPPORTED_OPERATION} the operation is no
-     *       supported by the platform.
+     *   <li>{@link ThreadNetworkException#ERROR_UNSUPPORTED_FEATURE} the feature is not supported
+     *       by the platform.
      * </ul>
      *
      * @param channelMaxPowers SparseIntArray (key: channel, value: max power) consists of channel
      *     and corresponding max power. Valid channel values should be between {@link
      *     ActiveOperationalDataset#CHANNEL_MIN_24_GHZ} and {@link
-     *     ActiveOperationalDataset#CHANNEL_MAX_24_GHZ}. The unit of the max power is 0.01dBm. Max
-     *     power values should be between INT16_MIN (-32768) and INT16_MAX (32767). If the max power
-     *     is set to INT16_MAX, the corresponding channel is not supported.
+     *     ActiveOperationalDataset#CHANNEL_MAX_24_GHZ}. The unit of the max power is 0.01dBm. For
+     *     example, 1000 means 0.01W and 2000 means 0.1W. Max power values should be between
+     *     INT16_MIN (-32768) and INT16_MAX (32767). If the max power is set to INT16_MAX, the
+     *     corresponding channel is not supported.
      * @param executor the executor to execute {@code receiver}.
      * @param receiver the receiver to receive the result of this operation.
      * @throws IllegalArgumentException if the size of {@code channelMaxPowers} is smaller than 1,
      *     or invalid channel or max power is configured.
-     * @hide
      */
+    @FlaggedApi(ThreadNetworkFlags.FLAG_SET_CHANNEL_MAX_POWERS)
     @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
     public final void setChannelMaxPowers(
             @NonNull @Size(min = 1) SparseIntArray channelMaxPowers,

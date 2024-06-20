@@ -31,5 +31,9 @@ public final class ThreadNetworkFlags {
     public static final String FLAG_CONFIGURATION_ENABLED =
             "com.android.net.thread.flags.configuration_enabled";
 
+    /** @hide */
+    public static final String FLAG_SET_CHANNEL_MAX_POWERS =
+            "com.android.net.thread.flags.set_channel_max_powers";
+
     private ThreadNetworkFlags() {}
 }
