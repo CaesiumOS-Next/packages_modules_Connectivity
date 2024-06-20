@@ -52,6 +52,24 @@
       "parentUuid": "2b6ed9a7_96de516b",
       "revId": "e959d1baa90b230d2c66dc4e3155ad77da86a0a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a905e476_f0408f4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1666678
+      },
+      "writtenOn": "2024-06-20T17:05:27Z",
+      "side": 1,
+      "message": "Answering questions in chat as this is a public facing cl",
+      "parentUuid": "d60fe2ae_2b55d8e9",
+      "revId": "e959d1baa90b230d2c66dc4e3155ad77da86a0a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
