@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30806f34_15186efa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-20T12:11:33Z",
+      "side": 1,
+      "message": "Sent aosp/3140417 for the MdnsAdvertiser fix.",
+      "parentUuid": "a64196a4_7040b840",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 71
+      },
+      "revId": "91390180f33f23b66905b8d13ea2bca0d467a2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4ce158c_105bf41d",
