@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d77a07b_56c4fee7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-06-21T05:36:31Z",
+      "side": 1,
+      "message": "typo: unsubscribing",
+      "revId": "d28171622bfd8e908559d88b0b1deac10f2a6804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
