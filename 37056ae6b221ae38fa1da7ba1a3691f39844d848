@@ -153,6 +153,24 @@
       "parentUuid": "e52b0d80_c1308431",
       "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f195fc57_25b68684",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T11:42:14Z",
+      "side": 1,
+      "message": "Thanks for explain the concern.\n\nI can see two approaches both have pros and cons.\n\nPersonally, in general I prefer to use not regex unless we really need to as it can contain tones of corner case and cannot get enough test coverage for different patterns.\n\nHowever, in this particular case, there is only one pattern, so it\u0027s hard to get it wrong.\n\nFrom a readability perspective, it seems the clear documentation helps. \n\nThis item shouldn\u0027t be a blocker for this CL. We can discuss more in long term.",
+      "parentUuid": "36d497d6_9709a00b",
+      "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
