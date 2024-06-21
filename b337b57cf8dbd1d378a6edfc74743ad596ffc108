@@ -33,6 +33,24 @@
       "message": "Just confirmed @reminv@google.com, for mts we don\u0027t subject to \n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/OWNERS_core_networking_xts?q\u003dOWNERS_core_networking_xts\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain\n\nadded back +2.",
       "revId": "b337b57cf8dbd1d378a6edfc74743ad596ffc108",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b87b33b5_24aba296",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T07:33:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "93363cd9_ed48b5ea",
+      "revId": "b337b57cf8dbd1d378a6edfc74743ad596ffc108",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
