@@ -22,6 +22,30 @@
       },
       "revId": "251a74d52913aca3ffd170fd377cb55a26055e2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7c55d67_7b686a53",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-21T11:00:54Z",
+      "side": 1,
+      "message": "```Set.of()``` was suggested by Lorenzo in other CL to represent an empty set:\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2600306/24..25/Tethering/tests/unit/src/android/net/ip/IpServerTest.java#b284",
+      "parentUuid": "37ea5f57_a9eca137",
+      "range": {
+        "startLine": 1305,
+        "startChar": 84,
+        "endLine": 1305,
+        "endChar": 92
+      },
+      "revId": "251a74d52913aca3ffd170fd377cb55a26055e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
