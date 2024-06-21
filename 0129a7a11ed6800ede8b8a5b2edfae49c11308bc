@@ -22,6 +22,30 @@
       },
       "revId": "0129a7a11ed6800ede8b8a5b2edfae49c11308bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9428fc18_506c5f0b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetInterfaceStateMachine.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-21T17:35:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4d79e59_d7910492",
+      "range": {
+        "startLine": 159,
+        "startChar": 41,
+        "endLine": 159,
+        "endChar": 47
+      },
+      "revId": "0129a7a11ed6800ede8b8a5b2edfae49c11308bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
