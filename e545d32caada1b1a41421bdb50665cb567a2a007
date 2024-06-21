@@ -22,6 +22,30 @@
       },
       "revId": "e545d32caada1b1a41421bdb50665cb567a2a007",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aa74db1_ed68f334",
+        "filename": "tests/cts/multidevices/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T10:30:35Z",
+      "side": 1,
+      "message": "It is tests for utils of ConnectivityMultiDevicesTest.\nWhile it needs to be globally unique, I think it should be reasonable.",
+      "parentUuid": "465dc5b0_fa1ce94c",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 54
+      },
+      "revId": "e545d32caada1b1a41421bdb50665cb567a2a007",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
