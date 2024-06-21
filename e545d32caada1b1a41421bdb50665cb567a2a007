@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "465dc5b0_fa1ce94c",
+        "filename": "tests/cts/multidevices/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-21T09:52:27Z",
+      "side": 1,
+      "message": "Would it be better to just `ConnectivityMultiDevicesUtilsUnitTests`?  \n2 Test in the name seems little strange to me.  \nAnyway, up to you.",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 54
+      },
+      "revId": "e545d32caada1b1a41421bdb50665cb567a2a007",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
