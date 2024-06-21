@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58d90bb9_bd0598c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-21T17:39:29Z",
+      "side": 1,
+      "message": "trying to clear the outdated PV-2....",
+      "revId": "49cea0f80ddae9932c6e9c1bcdd8328e94fe2953",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
