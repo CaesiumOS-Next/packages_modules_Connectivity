@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96f7f11b_43b098db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T07:33:10Z",
+      "side": 1,
+      "message": "LGTM assume the comment is adjusted.",
+      "revId": "611a2ec0de1005241b66e9a8e53392bbc93ee013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b65c9bbe_2abc0b28",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T07:33:10Z",
+      "side": 1,
+      "message": "nit: extra blank",
+      "revId": "611a2ec0de1005241b66e9a8e53392bbc93ee013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "329fe88a_35e62c7b",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T07:33:10Z",
+      "side": 1,
+      "message": "nit: looks like format issue.\n\n\nIt should be \n\n```\n/**\n *  Test network topology:\n ....\n```",
+      "range": {
+        "startLine": 1090,
+        "startChar": 5,
+        "endLine": 1090,
+        "endChar": 30
+      },
+      "revId": "611a2ec0de1005241b66e9a8e53392bbc93ee013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf3c5673_fa84c633",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T07:33:10Z",
+      "side": 1,
+      "message": "I feel we should have a comment to explain this calculation.",
+      "range": {
+        "startLine": 1141,
+        "startChar": 16,
+        "endLine": 1141,
+        "endChar": 99
+      },
+      "revId": "611a2ec0de1005241b66e9a8e53392bbc93ee013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
