@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db5d0730_e9228573",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-21T11:40:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2744688_40758e05",
+      "range": {
+        "startLine": 390,
+        "startChar": 4,
+        "endLine": 390,
+        "endChar": 50
+      },
+      "revId": "5a58b5db00a3703734c102ecb97228e33ed0e88d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "339b8d5c_001045fa",
@@ -166,6 +190,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ef2af43_c04085b7",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-21T11:40:23Z",
+      "side": 1,
+      "message": "Changed to ```Collections.emptySet()```, immutable is a good reason to use it here.",
+      "parentUuid": "99c6abdb_f6c0aaa9",
+      "range": {
+        "startLine": 1310,
+        "startChar": 84,
+        "endLine": 1310,
+        "endChar": 92
+      },
+      "revId": "5a58b5db00a3703734c102ecb97228e33ed0e88d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40a5b90c_ab4ac0d1",
@@ -227,6 +275,30 @@
       "side": 1,
       "message": "Hmm,I think the correct way to do this is to add @NonNull annotation to getIpv6UpstreamPrefixes()",
       "parentUuid": "e0bd4ea6_2b0e722f",
+      "range": {
+        "startLine": 912,
+        "startChar": 9,
+        "endLine": 912,
+        "endChar": 16
+      },
+      "revId": "5a58b5db00a3703734c102ecb97228e33ed0e88d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe662c53_77c5fa31",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-21T11:40:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff36b5e5_81bbc37a",
       "range": {
         "startLine": 912,
         "startChar": 9,
