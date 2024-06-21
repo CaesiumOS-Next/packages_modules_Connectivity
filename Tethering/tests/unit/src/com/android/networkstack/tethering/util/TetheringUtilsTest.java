@@ -109,7 +109,11 @@ public class TetheringUtilsTest {
         request.connectivityScope = CONNECTIVITY_SCOPE_LOCAL;
         assertFalse(TetheringUtils.isTetheringRequestEquals(mTetheringRequest, request));
 
-        MiscAsserts.assertFieldCountEquals(6, TetheringRequestParcel.class);
+        request = makeTetheringRequestParcel();
+        request.interfaceName = "test_iface";
+        assertFalse(TetheringUtils.isTetheringRequestEquals(mTetheringRequest, request));
+
+        MiscAsserts.assertFieldCountEquals(7, TetheringRequestParcel.class);
     }
 
     // Writes the specified packet to a filedescriptor, skipping the Ethernet header.

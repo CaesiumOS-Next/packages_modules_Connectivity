@@ -42,12 +42,14 @@ import static android.net.TetheringManager.TETHERING_VIRTUAL;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHERING_WIGIG;
+import static android.net.TetheringManager.TETHER_ERROR_EMPTY_IFACE_NAME_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
 import static android.net.TetheringManager.TETHER_ERROR_UNAVAIL_IFACE;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_IFACE;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
+import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_FAILED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STOPPED;
@@ -681,7 +683,8 @@ public class Tethering {
                 mEntitlementMgr.startProvisioningIfNeeded(request.tetheringType,
                         request.showProvisioningUi);
             }
-            enableTetheringInternal(request.tetheringType, true /* enabled */, listener);
+            enableTetheringInternal(request.tetheringType, true /* enabled */,
+                    request.interfaceName, listener);
             mTetheringMetrics.createBuilder(request.tetheringType, callerPkg);
         });
     }
@@ -702,37 +705,46 @@ public class Tethering {
      * Enables or disables tethering for the given type. If provisioning is required, it will
      * schedule provisioning rechecks for the specified interface.
      */
-    private void enableTetheringInternal(int type, boolean enable,
+    private void enableTetheringInternal(int type, boolean enable, String iface,
             final IIntResultListener listener) {
         int result = TETHER_ERROR_NO_ERROR;
-        switch (type) {
-            case TETHERING_WIFI:
-                result = setWifiTethering(enable);
-                break;
-            case TETHERING_USB:
-                result = setUsbTethering(enable);
-                break;
-            case TETHERING_BLUETOOTH:
-                setBluetoothTethering(enable, listener);
-                break;
-            case TETHERING_NCM:
-                result = setNcmTethering(enable);
-                break;
-            case TETHERING_ETHERNET:
-                result = setEthernetTethering(enable);
-                break;
-            case TETHERING_VIRTUAL:
-                result = setVirtualMachineTethering(enable);
-                break;
-            default:
-                Log.w(TAG, "Invalid tether type.");
-                result = TETHER_ERROR_UNKNOWN_TYPE;
+        if (!TextUtils.isEmpty(iface) && type != TETHERING_VIRTUAL) {
+            result = TETHER_ERROR_UNSUPPORTED;
+        } else {
+            switch (type) {
+                case TETHERING_WIFI:
+                    result = setWifiTethering(enable);
+                    break;
+                case TETHERING_USB:
+                    result = setUsbTethering(enable);
+                    break;
+                case TETHERING_BLUETOOTH:
+                    setBluetoothTethering(enable, listener);
+                    break;
+                case TETHERING_NCM:
+                    result = setNcmTethering(enable);
+                    break;
+                case TETHERING_ETHERNET:
+                    result = setEthernetTethering(enable);
+                    break;
+                case TETHERING_VIRTUAL:
+                    result = setVirtualTethering(enable, iface);
+                    break;
+                default:
+                    Log.w(TAG, "Invalid tether type.");
+                    result = TETHER_ERROR_UNKNOWN_TYPE;
+            }
         }
 
         // The result of Bluetooth tethering will be sent by #setBluetoothTethering.
         if (type != TETHERING_BLUETOOTH) {
             sendTetherResult(listener, result, type);
         }
+    }
+
+    private void enableTetheringInternal(int type, boolean enable,
+            final IIntResultListener listener) {
+        enableTetheringInternal(type, enable, null /* iface */, listener);
     }
 
     private void sendTetherResult(final IIntResultListener listener, final int result,
@@ -977,10 +989,12 @@ public class Tethering {
         }
     }
 
-    private int setVirtualMachineTethering(final boolean enable) {
-        // TODO(340377643): Use bridge ifname when it's introduced, not fixed TAP ifname.
+    private int setVirtualTethering(final boolean enable, final String iface) {
         if (enable) {
-            mConfiguredVirtualIface = "avf_tap_fixed";
+            if (TextUtils.isEmpty(iface)) {
+                return TETHER_ERROR_EMPTY_IFACE_NAME_ERROR;
+            }
+            mConfiguredVirtualIface = iface;
             enableIpServing(
                     TETHERING_VIRTUAL,
                     mConfiguredVirtualIface,

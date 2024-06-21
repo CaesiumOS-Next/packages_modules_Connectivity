@@ -29,4 +29,5 @@ parcelable TetheringRequestParcel {
     boolean exemptFromEntitlementCheck;
     boolean showProvisioningUi;
     int connectivityScope;
+    String interfaceName;
 }

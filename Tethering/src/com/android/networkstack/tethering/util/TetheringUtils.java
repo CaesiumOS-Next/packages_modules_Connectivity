@@ -169,7 +169,8 @@ public class TetheringUtils {
                 && Objects.equals(request.staticClientAddress, otherRequest.staticClientAddress)
                 && request.exemptFromEntitlementCheck == otherRequest.exemptFromEntitlementCheck
                 && request.showProvisioningUi == otherRequest.showProvisioningUi
-                && request.connectivityScope == otherRequest.connectivityScope;
+                && request.connectivityScope == otherRequest.connectivityScope
+                && request.interfaceName == otherRequest.interfaceName;
     }
 
     /** Get inet6 address for all nodes given scope ID. */
