@@ -46,6 +46,30 @@
       },
       "revId": "a347d9c250d8c3cafbcb3150f93c72d6c81e6d6e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "576e1cfb_07c4ed3d",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T10:21:44Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "b3dfa362_961b4270",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "a347d9c250d8c3cafbcb3150f93c72d6c81e6d6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
