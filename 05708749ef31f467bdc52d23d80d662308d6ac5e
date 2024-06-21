@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd73ba61_0915592a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T02:32:47Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed",
+      "revId": "05708749ef31f467bdc52d23d80d662308d6ac5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4197817_f2d41061",
+        "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T02:32:47Z",
+      "side": 1,
+      "message": "This will use a 2s timeout by default, which may be a bit short considering that probing needs to happen. NsdManagerTest generally uses REGISTRATION_TIMEOUT_MS which is 10s",
+      "range": {
+        "startLine": 51,
+        "startChar": 27,
+        "endLine": 51,
+        "endChar": 41
+      },
+      "revId": "05708749ef31f467bdc52d23d80d662308d6ac5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8de9b054_792afc9a",
+        "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T02:32:47Z",
+      "side": 1,
+      "message": "Should that be \"eventually\" ? In case some other service found callbacks are seen in the meantime.\n\nAlso, could you verify that the contents match service name/type/port/attributes ?",
+      "range": {
+        "startLine": 69,
+        "startChar": 22,
+        "endLine": 69,
+        "endChar": 36
+      },
+      "revId": "05708749ef31f467bdc52d23d80d662308d6ac5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
