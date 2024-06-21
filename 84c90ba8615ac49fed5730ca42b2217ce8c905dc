@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd3cd339_e8bcf17f",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T09:02:30Z",
+      "side": 1,
+      "message": "The CL fails TH if we put it into presubmit directly.\nI think it is a necessary process.\nReopen if any idea.\n\nFail:\n```\nTestMappingSloChecker\nTest module \"ConnectivityMultiDevicesTestsUtilsUnitTests\" is being added to presubmit. It needs to meet SLO in postsubmit on all configured targets. \nAyeAye\n Presubmit Lint\n File Bug Documentation\n TEST_MAPPING\nAnalyzer Description: Validates test modules added to presubmit in TEST_MAPPING.\nOwner: android-testing-at-scale@google.com\n\nTest module \"ConnectivityMultiDevicesTestsUtilsUnitTests\" is being added to presubmit. It needs to meet SLO in postsubmit on all configured targets.\n\nBranch: aosp-main, Target: aosp_cf_x86_64_phone-trunk_staging-userdebug, Config: v2/android-virtual-infra/test_mapping/presubmit-avd, Path:\nERROR: No data found for this config.\nDoes not meet SLO. Please consult go/test-mapping-slo-guide\nFAIL: This test module does not meet SLO and is not ready to be in presubmit.\n```",
+      "parentUuid": "a74f31ac_94ba90af",
+      "range": {
+        "startLine": 273,
+        "startChar": 15,
+        "endLine": 273,
+        "endChar": 58
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c31e6405_7026ddf5",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-20T10:36:40Z",
       "side": 1,
       "message": "The code is `(True, [\"false\", \"true\"])` but the comment is  `# Expect True, get False`. It is a little bit confusing. We need some explanation on why [\"false\", \"true\"] means False.",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 60
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b6ed934_a59f7a85",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T09:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c31e6405_7026ddf5",
       "range": {
         "startLine": 84,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2654f18e_1cdbb6fb",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T09:02:30Z",
+      "side": 1,
+      "message": "Yeah but our expectation is False,\n so if true is returned, we need to retry.",
+      "parentUuid": "5843a1ab_5d654005",
+      "range": {
+        "startLine": 85,
+        "startChar": 31,
+        "endLine": 85,
+        "endChar": 33
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0dfab885_6b509089",
@@ -87,6 +159,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "233f4e65_94c1212c",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T09:02:30Z",
+      "side": 1,
+      "message": "Yes and no.\nYes they are not very useful since the logic here is not very complex except retry.\nAnd no most of these are not inetnal methods, they are being used externally in later patches.\nThus prefer to keep it as is for now. But it seems to me we should enrich set_doze_mode test as follow-up if that is ok for you.",
+      "parentUuid": "0dfab885_6b509089",
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1f7875e_ea7df922",
@@ -100,6 +190,24 @@
       "writtenOn": "2024-06-20T08:11:47Z",
       "side": 1,
       "message": "nits: Which method is public?\nShould we add `_` prefix to internal methods?",
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "736195a1_119b0cdd",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T09:02:30Z",
+      "side": 1,
+      "message": "It seems to me only get/set_screen_sate are not used in the follow-up CLs.\nAdd prefix accordingly.",
+      "parentUuid": "f1f7875e_ea7df922",
       "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -127,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "568b6b52_e0550a6b",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T09:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f0aa3fa_aa3ab3a5",
+      "range": {
+        "startLine": 26,
+        "startChar": 72,
+        "endLine": 26,
+        "endChar": 73
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b678c78c_6ff0f271",
@@ -140,6 +272,30 @@
       "writtenOn": "2024-06-20T08:11:47Z",
       "side": 1,
       "message": "It seems this is not used.",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b3d83e4_8e7f7333",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T09:02:30Z",
+      "side": 1,
+      "message": "Done in aosp/3142576.\nThanks. I think it warrants a unit test.",
+      "parentUuid": "b678c78c_6ff0f271",
       "range": {
         "startLine": 25,
         "startChar": 4,
@@ -187,6 +343,30 @@
       "side": 1,
       "message": "my bad, I think it will throw exception with retry count (attempt).  \nI just realized that it\u0027s max_retries.  \n\nThen I think it can be just range(max_retries). \n\nit should be \n\n```\nresult \u003d False\nfor attempt in range(max_retries):\n  result \u003d predicate()\n  return None if result else time.sleep(retry_interval_sec)\n\nif not result:\n  raise UnexpectedBehaviorError(...)  \n```\n\nAnother thought is using while loop to check the retry times.",
       "parentUuid": "cb2300b0_86e7c676",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "84c90ba8615ac49fed5730ca42b2217ce8c905dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "945449ca_323942a3",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T09:02:30Z",
+      "side": 1,
+      "message": "Done in aosp/3142576",
+      "parentUuid": "af35f7c2_7495e2db",
       "range": {
         "startLine": 31,
         "startChar": 17,
