@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7104df29_04bb6ef7",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-21T09:13:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b65c9bbe_2abc0b28",
+      "revId": "611a2ec0de1005241b66e9a8e53392bbc93ee013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "329fe88a_35e62c7b",
@@ -58,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dff28b0a_8c918022",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-21T09:13:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "329fe88a_35e62c7b",
+      "range": {
+        "startLine": 1090,
+        "startChar": 5,
+        "endLine": 1090,
+        "endChar": 30
+      },
+      "revId": "611a2ec0de1005241b66e9a8e53392bbc93ee013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf3c5673_fa84c633",
@@ -71,6 +113,30 @@
       "writtenOn": "2024-06-21T07:33:10Z",
       "side": 1,
       "message": "I feel we should have a comment to explain this calculation.",
+      "range": {
+        "startLine": 1141,
+        "startChar": 16,
+        "endLine": 1141,
+        "endChar": 99
+      },
+      "revId": "611a2ec0de1005241b66e9a8e53392bbc93ee013",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a3efda0_2481df88",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-21T09:13:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf3c5673_fa84c633",
       "range": {
         "startLine": 1141,
         "startChar": 16,
