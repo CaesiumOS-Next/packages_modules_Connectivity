@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "143d1c5a_d27e50cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-21T15:27:23Z",
+      "side": 1,
+      "message": "DeviceConfigUtils needs to be mocked out in tests as they don\u0027t have READ_DEVICE_CONFIG. I\u0027ll hold off on submitting this. It\u0027s not needed for another second.",
+      "revId": "ed8301fdcd6d09858dec1e80eaf83c59b4205c89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
