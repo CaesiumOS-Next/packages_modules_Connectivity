@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7780a514_a436c4e4",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T02:59:45Z",
+      "side": 1,
+      "message": "This could be added separately, but we should have a test for registerServiceInfoCallback as well",
+      "range": {
+        "startLine": 94,
+        "startChar": 52,
+        "endLine": 94,
+        "endChar": 59
+      },
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3368038c_46d84c81",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T02:59:45Z",
+      "side": 1,
+      "message": "Could this be null if P2P is not supported ?\n\nA safer way to initialize it could be:\n\n```\nprivate lateinit val wifiP2pManager by lazy {\n    context.getSystemService(...) ?: fail(\"WifiP2pManager was null\")\n}\n```",
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d1694fc_4332d4f0",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T02:59:45Z",
+      "side": 1,
+      "message": "Instead of keeping the receiver at toplevel state, would it be possible to register/unregister it in each @Rpc method ? If it gets the latest state when registered I think that would be possible ?\n\nThat would make the lifetime easier to track, as here some methods depend on other methods to have been called before so that the receiver is already registered.",
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4b0636b_f78e60c3",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T02:59:45Z",
+      "side": 1,
+      "message": "This feels a bit ad-hoc and potentially racy (what if onReceive is received before the target device name was set ?).\n\nInstead, could you split this into 2 receivers: one for `WIFI_P2P_CONNECTION_CHANGED_ACTION`, and one for `WIFI_P2P_PEERS_CHANGED_ACTION` which would take the targetDeviceName in the constructor ? It would make the goal/lifetime of each receiver clearer. Here it\u0027s not very clear when the target name is supposed to be set, and when the receiver is supposed to be registered as it has 2 kind of different usages.",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 90,
+        "endChar": 34
+      },
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6ffcd3f_9768295f",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T02:59:45Z",
+      "side": 1,
+      "message": "Typo: filter",
+      "range": {
+        "startLine": 99,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 17
+      },
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6719adc2_29927c40",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T02:59:45Z",
+      "side": 1,
+      "message": "Nit: WiFiDirectBroadcastReceiver always needs these 2 actions to work properly. So instead of repeating the actions in 2 different classes that need to be kept in-sync, you could define a `WiFiDirectBroadcastReceiver#register(context)` method so the caller doesn\u0027t need to know which actions are required by WiFiDirectBroadcastReceiver.",
+      "range": {
+        "startLine": 100,
+        "startChar": 39,
+        "endLine": 100,
+        "endChar": 68
+      },
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b67780e6_131f2ff9",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T02:59:45Z",
+      "side": 1,
+      "message": "Typo: create",
+      "range": {
+        "startLine": 132,
+        "startChar": 9,
+        "endLine": 132,
+        "endChar": 13
+      },
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f93315f2_d7abb9ca",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T02:59:45Z",
+      "side": 1,
+      "message": "Is that the only way to do that ? What does wifi CTS do ?\n\nThis will be tricky to get working reliably since you also need to make sure the lock screen is cleared, the screen is on, the device isn\u0027t stuck on some SIM pin screen or error dialog etc. Is there some shell command that could help for example ?\n\nCaptivePortalLogin tests make sure they start an activity to clear the keyguard before trying to use UiAutomation: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/CaptivePortalLogin/tests/src/com/android/captiveportallogin/RequestDismissKeyguardActivity.kt\n\nAlso OEM devices may have different UI so not relying on this would be best.",
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
