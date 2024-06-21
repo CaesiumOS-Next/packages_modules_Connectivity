@@ -46,6 +46,30 @@
       },
       "revId": "251a74d52913aca3ffd170fd377cb55a26055e2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6d42b66_3f407984",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T11:12:53Z",
+      "side": 1,
+      "message": "I think his suggestion is don\u0027t use null to represent emptySet.\n\nFor Set.of() v.s. Collections.emptySet(), if I understand correctly, Collections.emptySet() is favorable because it has better efficiency and it is immutable.\n\nYou can also search around the diff between them.\n\nThe comment is a nit. So its up to you to decide which one you prefer to use 😊",
+      "parentUuid": "d7c55d67_7b686a53",
+      "range": {
+        "startLine": 1305,
+        "startChar": 84,
+        "endLine": 1305,
+        "endChar": 92
+      },
+      "revId": "251a74d52913aca3ffd170fd377cb55a26055e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
