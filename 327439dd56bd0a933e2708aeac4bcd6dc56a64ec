@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e39d6c3d_37a57181",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T10:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55fc906c_eb087507",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "327439dd56bd0a933e2708aeac4bcd6dc56a64ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0181bbf_455dd372",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-21T10:24:19Z",
       "side": 1,
       "message": "nit: it can use f string together \n```\nrf\"{key}\u003d(.*)\"\n```",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 34
+      },
+      "revId": "327439dd56bd0a933e2708aeac4bcd6dc56a64ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "976cb876_e570564f",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T10:34:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0181bbf_455dd372",
       "range": {
         "startLine": 70,
         "startChar": 12,
