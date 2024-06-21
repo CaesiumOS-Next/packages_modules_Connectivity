@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49b2da59_73fff39d",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T12:51:00Z",
+      "side": 1,
+      "message": "I still feel the current way to do the parameterized test is very confusing... Could we try to use NamedTuple here. It will have better documentations to each parameter.",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 5
+      },
+      "revId": "b59f551c5719732e7b3de97f4fe6a620ca401b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "debbb682_a77a2056",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T12:51:00Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 81,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 18
+      },
+      "revId": "b59f551c5719732e7b3de97f4fe6a620ca401b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e50e1a3_f9ae9209",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T12:51:00Z",
+      "side": 1,
+      "message": "This check is also a little bit confusing. Could we refactor it to do the check like follows:\n\n```\npredicate\u003dlambda: \n          get_value_of_key_from_dumpsys(ad, service, key).lower() \u003d\u003d expected_str\n```",
+      "range": {
+        "startLine": 89,
+        "startChar": 24,
+        "endLine": 92,
+        "endChar": 24
+      },
+      "revId": "b59f551c5719732e7b3de97f4fe6a620ca401b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b748135_6e11ec17",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T12:51:00Z",
+      "side": 1,
+      "message": "nit: could we change `ad` to `dut`? DUT: device under test.\n\nI think that abbreviation is more commonly used.\n\nI keep wondering what `ad` means during the code review.",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 6
+      },
+      "revId": "b59f551c5719732e7b3de97f4fe6a620ca401b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
