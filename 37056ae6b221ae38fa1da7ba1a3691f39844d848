@@ -135,6 +135,24 @@
       "parentUuid": "a92ed551_091d16cc",
       "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36d497d6_9709a00b",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-21T09:38:49Z",
+      "side": 1,
+      "message": "With current patchset.\nI think we are doing exactly what yuyang said,\nbut it finds all counters instead of just 1.\nFor each step, we find pattern and extract contents by only 1 regex match for each section.\n\nWith stateful parsing it seems we\u0027ll have a big loop with multiple if-else to mark the start and end of a state, and multiple state variables like demostrated by jimi above. However, I think it will have more corner cases to deal and cannot be devided into multiple step as we currently did.\n\nThus I still prefer to keep it as is, given that each step have clear documentation now. I think that would not be hard to follow?\n\nReopen if still prefer stateful parsing.\nI\u0027ll make chanege to it.\nAlso +reminv@ to input.",
+      "parentUuid": "e52b0d80_c1308431",
+      "revId": "37056ae6b221ae38fa1da7ba1a3691f39844d848",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
