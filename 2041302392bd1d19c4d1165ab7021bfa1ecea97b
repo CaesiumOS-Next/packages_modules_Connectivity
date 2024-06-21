@@ -1,0 +1,111 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1f72c98_d5190ce9",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-21T06:47:31Z",
+      "side": 1,
+      "message": "```suggestion\n     */\n```",
+      "range": {
+        "startLine": 634,
+        "startChar": 0,
+        "endLine": 636,
+        "endChar": 40
+      },
+      "revId": "2041302392bd1d19c4d1165ab7021bfa1ecea97b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bc83abc_eb7e6f65",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkException.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-21T06:47:31Z",
+      "side": 1,
+      "message": "All of the error codes don\u0027t have the \"OPERATION\" suffix\n\n```suggestion\n    public static final int ERROR_UNSUPPORTED \u003d 13;\n```",
+      "range": {
+        "startLine": 147,
+        "startChar": 28,
+        "endLine": 147,
+        "endChar": 55
+      },
+      "revId": "2041302392bd1d19c4d1165ab7021bfa1ecea97b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16b3c7b8_ffb5e3ec",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-21T06:47:31Z",
+      "side": 1,
+      "message": "Do we need the nested `{}`?\n```suggestion\n                \n                    put(VALID_CHANNEL, VALID_POWER);\n                \n```",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 127,
+        "endChar": 17
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b34bb0d9_c01af4e1",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+              "range": {
+                "startLine": 124,
+                "startChar": 0,
+                "endLine": 129,
+                "endChar": 0
+              },
+              "replacement": "            new SparseIntArray() {{ put(VALID_CHANNEL, VALID_POWER); }};\n"
+            },
+            {
+              "path": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+              "range": {
+                "startLine": 1291,
+                "startChar": 0,
+                "endLine": 1296,
+                "endChar": 0
+              },
+              "replacement": "                new SparseIntArray() {{ put(INVALID_CHANNEL, VALID_POWER); }};\n"
+            },
+            {
+              "path": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+              "range": {
+                "startLine": 1297,
+                "startChar": 0,
+                "endLine": 1302,
+                "endChar": 0
+              },
+              "replacement": "                new SparseIntArray() {{ put(VALID_CHANNEL, INVALID_POWER); }};\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2041302392bd1d19c4d1165ab7021bfa1ecea97b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
