@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f7088e3_f7ed01c5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T03:08:46Z",
+      "side": 1,
+      "message": "Nit: Since the packets won\u0027t be logged \"these\" sounds a bit weird. You could just say \"Some mDNS packets have a different target address\".\n\nOr alternatively use `CollectionUtils.map(packets, DatagramPacket::getSocketAddress)` to log the list of addresses",
+      "range": {
+        "startLine": 255,
+        "startChar": 51,
+        "endLine": 255,
+        "endChar": 56
+      },
+      "revId": "75c983b291682946c71351e3661344b43e6ec539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b116083_39ad3a7e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/util/MdnsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-21T03:08:46Z",
+      "side": 1,
+      "message": "Nit: the non-empty check is done in the caller, but this is an easy to break assumption; better also check for an empty list (in which case it would just return true)",
+      "range": {
+        "startLine": 371,
+        "startChar": 45,
+        "endLine": 371,
+        "endChar": 48
+      },
+      "revId": "75c983b291682946c71351e3661344b43e6ec539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
