@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6183eab8_1c621362",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-21T11:19:03Z",
+      "side": 1,
+      "message": "```getIpv6UpstreamPrefixes``` can be passed as argument to ```updateIpv6UpstreamInterface```, but ```getIpv6UpstreamIfindex``` can not, because it is also used in ```addOrRemoveIpv6Downstream``` (when receive neighbor event). Not sure only remove ```getIpv6UpstreamPrefixes``` will make it look inconsistent between upstream ifindex and prefixes ...",
+      "parentUuid": "339b8d5c_001045fa",
+      "range": {
+        "startLine": 390,
+        "startChar": 3,
+        "endLine": 392,
+        "endChar": 5
+      },
+      "revId": "5a58b5db00a3703734c102ecb97228e33ed0e88d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "69336e09_81d780bd",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 17
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2769c740_f228e6e8",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-21T11:19:03Z",
+      "side": 1,
+      "message": "```Set.of()``` was suggested by Lorenzo in other CL to represent an empty set:\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2600306/24..25/Tethering/tests/unit/src/android/net/ip/IpServerTest.java#b284",
+      "parentUuid": "69336e09_81d780bd",
+      "range": {
+        "startLine": 1310,
+        "startChar": 84,
+        "endLine": 1310,
+        "endChar": 92
+      },
+      "revId": "5a58b5db00a3703734c102ecb97228e33ed0e88d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40a5b90c_ab4ac0d1",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 17
@@ -60,6 +108,30 @@
       "writtenOn": "2024-06-21T10:50:32Z",
       "side": 1,
       "message": "why we need @NonNull annotation?",
+      "range": {
+        "startLine": 912,
+        "startChar": 9,
+        "endLine": 912,
+        "endChar": 16
+      },
+      "revId": "5a58b5db00a3703734c102ecb97228e33ed0e88d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0bd4ea6_2b0e722f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-21T11:19:03Z",
+      "side": 1,
+      "message": "Just want to indicate that the code ```!prevUpstreamPrefixes.equals(upstreamPrefixes)``` at below is safe and also I expect compiler will issue a warning if ```getIpv6UpstreamPrefixes()``` has a change of returning ```null```.",
+      "parentUuid": "40a5b90c_ab4ac0d1",
       "range": {
         "startLine": 912,
         "startChar": 9,
