@@ -267,8 +267,12 @@ static inline bool isBlockedByUidRules(BpfConfig enabledRules, uint32_t uidRules
     return enabledRules & (DROP_IF_SET | DROP_IF_UNSET) & (uidRules ^ DROP_IF_UNSET);
 }
 
+#ifndef PER_USER_RANGE
+#define PER_USER_RANGE 100000
+#endif
+
 static inline bool is_system_uid(uint32_t uid) {
     // MIN_SYSTEM_UID is AID_ROOT == 0, so uint32_t is *always* >= 0
     // MAX_SYSTEM_UID is AID_NOBODY == 9999, while AID_APP_START == 10000
-    return (uid < AID_APP_START);
+    return ((uid % PER_USER_RANGE) < AID_APP_START);
 }

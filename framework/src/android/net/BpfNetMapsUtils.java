@@ -94,6 +94,8 @@ import java.util.StringJoiner;
 // Note that NetworkStack can not use this before U due to b/326143935
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class BpfNetMapsUtils {
+    // TODO: b/348513058 - Use UserHandle.PER_USER_RANGE when it is visible.
+    private static final int PER_USER_RANGE = 100_000;
     // Bitmaps for calculating whether a given uid is blocked by firewall chains.
     private static final long sMaskDropIfSet;
     private static final long sMaskDropIfUnset;
@@ -330,9 +332,9 @@ public class BpfNetMapsUtils {
     ) {
         throwIfPreT("isUidBlockedByFirewallChains is not available on pre-T devices");
 
-        // System uid is not blocked by firewall chains, see bpf_progs/netd.c
-        // TODO: use UserHandle.isCore() once it is accessible
-        if (uid < Process.FIRST_APPLICATION_UID) {
+        // System uids are not blocked by firewall chains, see bpf_progs/netd.c
+        // TODO: b/348513058 - use UserHandle.isCore() once it is accessible
+        if ((uid % PER_USER_RANGE) < Process.FIRST_APPLICATION_UID) {
             return false;
         }
 
