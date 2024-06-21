@@ -15,6 +15,7 @@
 package com.android.server.thread;
 
 import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.MulticastRoutingConfig.CONFIG_FORWARD_NONE;
 import static android.net.MulticastRoutingConfig.FORWARD_SELECTED;
 import static android.net.MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE;
@@ -92,6 +93,7 @@ import android.net.thread.ActiveOperationalDataset.SecurityPolicy;
 import android.net.thread.ChannelMaxPower;
 import android.net.thread.IActiveOperationalDatasetReceiver;
 import android.net.thread.IConfigurationReceiver;
+import android.net.thread.IEphemeralKeyReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOperationalDatasetCallback;
 import android.net.thread.IStateCallback;
@@ -124,6 +126,7 @@ import com.android.server.thread.openthread.DnsTxtAttribute;
 import com.android.server.thread.openthread.IChannelMasksReceiver;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
+import com.android.server.thread.openthread.IOtEphemeralKeyReceiver;
 import com.android.server.thread.openthread.IOtStatusReceiver;
 import com.android.server.thread.openthread.InfraLinkState;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
@@ -849,6 +852,48 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     @Override
+    public void activateEphemeralKeyMode(long lifetimeMillis, IEphemeralKeyReceiver receiver) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        mHandler.post(
+                () ->
+                        activateEphemeralKeyModeInternal(
+                                lifetimeMillis, new EphemeralKeyReceiverWrapper(receiver)));
+    }
+
+    private void activateEphemeralKeyModeInternal(
+            long lifetimeMillis, EphemeralKeyReceiverWrapper receiver) {
+        checkOnHandlerThread();
+
+        try {
+            getOtDaemon()
+                    .activateEphemeralKeyMode(lifetimeMillis, newOtEphemeralKeyReceiver(receiver));
+        } catch (RemoteException | ThreadNetworkException e) {
+            Log.e(TAG, "otDaemon.activateEphemeralKeyMode failed", e);
+            receiver.onError(e);
+        }
+    }
+
+    @Override
+    public void deactivateEphemeralKeyMode(IOperationReceiver receiver) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        mHandler.post(
+                () -> deactivateEphemeralKeyModeInternal(new OperationReceiverWrapper(receiver)));
+    }
+
+    private void deactivateEphemeralKeyModeInternal(OperationReceiverWrapper receiver) {
+        checkOnHandlerThread();
+
+        try {
+            getOtDaemon().deactivateEphemeralKeyMode(newOtStatusReceiver(receiver));
+        } catch (RemoteException | ThreadNetworkException e) {
+            Log.e(TAG, "otDaemon.deactivateEphemeralKeyMode failed", e);
+            receiver.onError(e);
+        }
+    }
+
+    @Override
     public void createRandomizedDataset(
             String networkName, IActiveOperationalDatasetReceiver receiver) {
         ActiveOperationalDatasetReceiverWrapper receiverWrapper =
@@ -997,7 +1042,14 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     @Override
     public void registerStateCallback(IStateCallback stateCallback) throws RemoteException {
         enforceAllPermissionsGranted(permission.ACCESS_NETWORK_STATE);
-        mHandler.post(() -> mOtDaemonCallbackProxy.registerStateCallback(stateCallback));
+        boolean hasThreadPermission =
+                (mContext.checkCallingOrSelfPermission(PERMISSION_THREAD_NETWORK_PRIVILEGED)
+                        == PERMISSION_GRANTED);
+
+        mHandler.post(
+                () ->
+                        mOtDaemonCallbackProxy.registerStateCallback(
+                                stateCallback, hasThreadPermission));
     }
 
     @Override
@@ -1037,6 +1089,21 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             @Override
             public void onSuccess() {
                 receiver.onSuccess();
+            }
+
+            @Override
+            public void onError(int otError, String message) {
+                receiver.onError(otErrorToAndroidError(otError), message);
+            }
+        };
+    }
+
+    private IOtEphemeralKeyReceiver newOtEphemeralKeyReceiver(
+            EphemeralKeyReceiverWrapper receiver) {
+        return new IOtEphemeralKeyReceiver.Stub() {
+            @Override
+            public void onSuccess(String ephemeralKey) {
+                receiver.onSuccess(ephemeralKey);
             }
 
             @Override
@@ -1388,9 +1455,12 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         final IBinder.DeathRecipient deathRecipient;
 
-        CallbackMetadata(IBinder.DeathRecipient deathRecipient) {
+        final boolean hasThreadPermission;
+
+        CallbackMetadata(IBinder.DeathRecipient deathRecipient, boolean hasThreadPermission) {
             this.id = allocId();
             this.deathRecipient = deathRecipient;
+            this.hasThreadPermission = hasThreadPermission;
         }
 
         private static long allocId() {
@@ -1443,7 +1513,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         private ActiveOperationalDataset mActiveDataset;
         private PendingOperationalDataset mPendingDataset;
 
-        public void registerStateCallback(IStateCallback callback) {
+        public void registerStateCallback(IStateCallback callback, boolean hasThreadPermission) {
             checkOnHandlerThread();
             if (mStateCallbacks.containsKey(callback)) {
                 throw new IllegalStateException("Registering the same IStateCallback twice");
@@ -1451,7 +1521,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
             IBinder.DeathRecipient deathRecipient =
                     () -> mHandler.post(() -> unregisterStateCallback(callback));
-            CallbackMetadata callbackMetadata = new CallbackMetadata(deathRecipient);
+            CallbackMetadata callbackMetadata =
+                    new CallbackMetadata(deathRecipient, hasThreadPermission);
             mStateCallbacks.put(callback, callbackMetadata);
             try {
                 callback.asBinder().linkToDeath(deathRecipient, 0);
@@ -1484,7 +1555,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
             IBinder.DeathRecipient deathRecipient =
                     () -> mHandler.post(() -> unregisterDatasetCallback(callback));
-            CallbackMetadata callbackMetadata = new CallbackMetadata(deathRecipient);
+            CallbackMetadata callbackMetadata = new CallbackMetadata(deathRecipient, false);
             mOpDatasetCallbacks.put(callback, callbackMetadata);
             try {
                 callback.asBinder().linkToDeath(deathRecipient, 0);
@@ -1569,10 +1640,16 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         private void onStateChangedInternal(OtDaemonState newState, long listenerId) {
             checkOnHandlerThread();
+
             onInterfaceStateChanged(newState.isInterfaceUp);
             onDeviceRoleChanged(newState.deviceRole, listenerId);
             onPartitionIdChanged(newState.partitionId, listenerId);
             onThreadEnabledChanged(newState.threadEnabled, listenerId);
+            onEphemeralKeyModeChanged(
+                    newState.isEphemeralKeyModeActive,
+                    newState.ephemeralKeyPasscode,
+                    newState.ephemeralKeyLifetimeMillis,
+                    listenerId);
             mState = newState;
 
             ActiveOperationalDataset newActiveDataset;
@@ -1642,6 +1719,42 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 }
                 try {
                     callbackEntry.getKey().onPartitionIdChanged(partitionId);
+                } catch (RemoteException ignored) {
+                    // do nothing if the client is dead
+                }
+            }
+        }
+
+        private void onEphemeralKeyModeChanged(
+                boolean isEphemeralKeyModeActive,
+                String ephemeralPasscode,
+                long ephemeralKeyLifetimeMillis,
+                long listenerId) {
+            checkOnHandlerThread();
+            boolean hasChange =
+                    (mState == null
+                            || mState.isEphemeralKeyModeActive != isEphemeralKeyModeActive
+                            || (mState.isEphemeralKeyModeActive
+                                    && (!Objects.equals(
+                                                    mState.ephemeralKeyPasscode, ephemeralPasscode)
+                                            || mState.ephemeralKeyLifetimeMillis
+                                                    != ephemeralKeyLifetimeMillis)));
+
+            for (var callbackEntry : mStateCallbacks.entrySet()) {
+                if (!hasChange && callbackEntry.getValue().id != listenerId) {
+                    continue;
+                }
+                String passcode =
+                        callbackEntry.getValue().hasThreadPermission ? ephemeralPasscode : "";
+                if (!isEphemeralKeyModeActive) {
+                    passcode = null;
+                }
+                try {
+                    callbackEntry
+                            .getKey()
+                            .onEphemeralKeyChanged(
+                                    passcode,
+                                    isEphemeralKeyModeActive ? ephemeralKeyLifetimeMillis : 0);
                 } catch (RemoteException ignored) {
                     // do nothing if the client is dead
                 }
