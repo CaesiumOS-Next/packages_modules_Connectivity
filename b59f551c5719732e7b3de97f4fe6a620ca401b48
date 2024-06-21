@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45f4f997_6e6d07a8",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T12:56:33Z",
+      "side": 1,
+      "message": "Acked. It will be refactored to parameterized test in later CL anyway..",
+      "parentUuid": "49b2da59_73fff39d",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 5
+      },
+      "revId": "b59f551c5719732e7b3de97f4fe6a620ca401b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "debbb682_a77a2056",
