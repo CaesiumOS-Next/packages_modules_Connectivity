@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37ea5f57_a9eca137",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-21T10:53:12Z",
+      "side": 1,
+      "message": "Collections.emptySet()?",
+      "range": {
+        "startLine": 1305,
+        "startChar": 84,
+        "endLine": 1305,
+        "endChar": 92
+      },
+      "revId": "251a74d52913aca3ffd170fd377cb55a26055e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
