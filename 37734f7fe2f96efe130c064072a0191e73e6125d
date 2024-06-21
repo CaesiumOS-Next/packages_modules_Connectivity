@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c8dcc20_d7d933a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-21T07:45:31Z",
+      "side": 1,
+      "message": "I got a wonder for starting writing codes for `TETHERING_VIRTUAL`, the reason for suggesting adding test of TETHERING_VIRTUAL into `EthernetTetheringTest` is due to the future project that using `EthernetService` by TETHERING_VIRTUAL?\n\nAsked since naming strategy of `EthernetTetheringTest` directly points TETHERING_ETHERNET, not TETHERING_VIRTUAL.",
+      "parentUuid": "c866eae5_68b73f03",
+      "revId": "37734f7fe2f96efe130c064072a0191e73e6125d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc19b8a3_6ac1ed04",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 1
