@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "844ee741_e2725ef7",
+        "filename": "bpf_progs/test.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-21T15:43:19Z",
+      "side": 1,
+      "message": "these changes are a bit suspect",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 54
+      },
+      "revId": "d60260ec3a74fe1f3a34f5a5c6cdf57475b5e6c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "044b05ab_c340b3a6",
+        "filename": "netbpfload/netbpfload.33rc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-21T15:43:19Z",
+      "side": 1,
+      "message": "this should probably say \u0027netbpfload\u0027",
+      "range": {
+        "startLine": 20,
+        "startChar": 29,
+        "endLine": 20,
+        "endChar": 38
+      },
+      "revId": "d60260ec3a74fe1f3a34f5a5c6cdf57475b5e6c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61440ce4_47d56920",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-21T15:43:19Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 218,
+        "endChar": 17
+      },
+      "revId": "d60260ec3a74fe1f3a34f5a5c6cdf57475b5e6c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
