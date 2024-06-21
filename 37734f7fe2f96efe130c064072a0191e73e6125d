@@ -101,6 +101,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeddd623_2e795a5b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-21T05:42:30Z",
+      "side": 1,
+      "message": "Done with handling exception in `StartTethering`.",
+      "parentUuid": "92814455_92a7bdf8",
+      "range": {
+        "startLine": 706,
+        "startChar": 67,
+        "endLine": 706,
+        "endChar": 79
+      },
+      "revId": "37734f7fe2f96efe130c064072a0191e73e6125d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b96acc0_c9059d1f",
@@ -114,6 +138,30 @@
       "writtenOn": "2024-06-20T06:03:24Z",
       "side": 1,
       "message": "Whatever we do with the comment above, we should probably be consistent here. The failure mode for \"app specifies an interface and the system can\u0027t support it\" should be similar to the one for \"app didn\u0027t specify an interface and the system requires it\".",
+      "range": {
+        "startLine": 984,
+        "startChar": 23,
+        "endLine": 984,
+        "endChar": 49
+      },
+      "revId": "37734f7fe2f96efe130c064072a0191e73e6125d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a491942_355837c6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-06-21T05:42:30Z",
+      "side": 1,
+      "message": "I understood intention of this comment as having more representative error type. Please let me know if I did wrong.",
+      "parentUuid": "5b96acc0_c9059d1f",
       "range": {
         "startLine": 984,
         "startChar": 23,
