@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b43757b3_01fc4461",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-21T15:13:00Z",
+      "side": 1,
+      "message": "It works in goog/main, and we fixed/worked around it in an alternative fashion on aosp/main: if (codename!\u003dREL) api_level++;\n\nIt doesn\u0027t hurt us on any branches we actually care about.",
+      "parentUuid": "52badec0_6224f6e5",
+      "range": {
+        "startLine": 187,
+        "startChar": 29,
+        "endLine": 187,
+        "endChar": 66
+      },
+      "revId": "041be52b0831a9bacf3d8ba23b4fcdb7495a5497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a71a4dfa_28a137eb",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-04T08:45:29Z",
       "side": 1,
       "message": "Nit: %b",
+      "range": {
+        "startLine": 189,
+        "startChar": 51,
+        "endLine": 189,
+        "endChar": 53
+      },
+      "revId": "041be52b0831a9bacf3d8ba23b4fcdb7495a5497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "416eb5ec_78d224fb",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-21T15:13:00Z",
+      "side": 1,
+      "message": "%b doesn\u0027t exist afaik... %s with ?\"true\":\"false\" would work, but it\u0027s a bit needlessly verbose",
+      "parentUuid": "a71a4dfa_28a137eb",
       "range": {
         "startLine": 189,
         "startChar": 51,
