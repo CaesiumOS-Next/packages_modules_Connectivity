@@ -73,7 +73,6 @@ import com.google.common.truth.Truth.assertThat
 import com.google.common.truth.Truth.assertWithMessage
 import com.google.common.truth.TruthJUnit.assume
 import java.io.FileDescriptor
-import java.lang.Thread
 import java.net.InetSocketAddress
 import java.nio.ByteBuffer
 import java.util.concurrent.CompletableFuture
@@ -572,5 +571,57 @@ class ApfIntegrationTest {
         // Assert that filter age has increased, but not too much.
         val timeDiff = filterAgeSeconds - filterAgeSecondsOrig
         assertThat(timeDiff).isAnyOf(5, 6)
+    }
+
+    @VsrTest(requirements = ["VSR-5.3.12-002", "VSR-5.3.12-005"])
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @Test
+    fun testFilterAge16384thsIncreasesBetweenPackets() {
+        // VSR-14 mandates APF to be turned on when the screen is off and the Wi-Fi link
+        // is idle or traffic is less than 10 Mbps. Before that, we don't mandate when the APF
+        // should be turned on.
+        assume().that(getVsrApiLevel()).isAtLeast(34)
+        assumeApfVersionSupportAtLeast(6000)
+        clearApfMemory()
+        val gen = ApfV4Generator(
+                caps.apfVersionSupported,
+                caps.maximumApfProgramSize,
+                caps.maximumApfProgramSize
+        )
+
+        // If not ICMPv6 Echo Reply -> PASS
+        gen.addPassIfNotIcmpv6EchoReply()
+
+        // Store all prefilled memory slots in counter region [500, 520)
+        val counterRegion = 500
+        gen.addLoadImmediate(R1, counterRegion)
+        gen.addLoadFromMemory(R0, MemorySlot.FILTER_AGE_16384THS)
+        gen.addStoreData(R0, 0)
+
+        installProgram(gen.generate())
+        readProgram() // wait for install completion
+
+        val payloadSize = 4
+        val data = ByteArray(payloadSize).also { Random.nextBytes(it) }
+        packetReader.sendPing(data, payloadSize)
+        packetReader.expectPingReply()
+
+        var buffer = ByteBuffer.wrap(readProgram(), counterRegion, 4 /* length */)
+        val filterAge16384thSecondsOrig = buffer.getInt()
+
+        Thread.sleep(5100)
+
+        packetReader.sendPing(data, payloadSize)
+        packetReader.expectPingReply()
+
+        buffer = ByteBuffer.wrap(readProgram(), counterRegion, 4 /* length */)
+        val filter16384thAgeSeconds = buffer.getInt()
+        val timeDiff = (filter16384thAgeSeconds - filterAge16384thSecondsOrig)
+        // Expect the HAL plus ping latency to be less than 800ms.
+        val timeDiffLowerBound = (5.1 * 16384).toInt()
+        val timeDiffUpperBound = (5.9 * 16384).toInt()
+        // Assert that filter age has increased, but not too much.
+        assertThat(timeDiff).isGreaterThan(timeDiffLowerBound)
+        assertThat(timeDiff).isLessThan(timeDiffUpperBound)
     }
 }
