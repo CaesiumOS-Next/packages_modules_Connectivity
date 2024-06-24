@@ -22,7 +22,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
 import android.content.Context;
 import android.net.INetd;
-import android.net.RoutingCoordinatorManager;
+import com.android.net.module.util.RoutingCoordinatorManager;
 import android.net.connectivity.ConnectivityInternalApiUtil;
 import android.net.ip.IpServer;
 import android.os.Build;
@@ -132,7 +132,8 @@ public abstract class TetheringDependencies {
     public LateSdk<RoutingCoordinatorManager> getRoutingCoordinator(Context context) {
         if (!SdkLevel.isAtLeastS()) return new LateSdk<>(null);
         return new LateSdk<>(
-                ConnectivityInternalApiUtil.getRoutingCoordinatorManager(context));
+                new RoutingCoordinatorManager(
+                        context, ConnectivityInternalApiUtil.getRoutingCoordinator(context)));
     }
 
     /**
