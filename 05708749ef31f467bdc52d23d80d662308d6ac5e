@@ -110,6 +110,30 @@
       },
       "revId": "05708749ef31f467bdc52d23d80d662308d6ac5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b74af393_11f61c61",
+        "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-24T09:51:22Z",
+      "side": 1,
+      "message": "Actually since this is resolveService only one callback should happen. But meh",
+      "parentUuid": "1261e15a_87a97d63",
+      "range": {
+        "startLine": 69,
+        "startChar": 22,
+        "endLine": 69,
+        "endChar": 36
+      },
+      "revId": "05708749ef31f467bdc52d23d80d662308d6ac5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
