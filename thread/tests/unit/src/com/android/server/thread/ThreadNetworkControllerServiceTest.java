@@ -49,6 +49,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -98,6 +100,7 @@ import org.mockito.MockitoSession;
 import java.nio.charset.StandardCharsets;
 import java.time.Clock;
 import java.time.DateTimeException;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
@@ -148,6 +151,7 @@ public final class ThreadNetworkControllerServiceTest {
     private static final String TEST_VENDOR_NAME = "test vendor";
     private static final String TEST_MODEL_NAME = "test model";
     private static final boolean TEST_VGH_VALUE = false;
+    private static final String[] TEST_VENDOR_SPECIFIC_TXTS = new String[] {"vt=test"};
 
     @Mock private ConnectivityManager mMockConnectivityManager;
     @Mock private NetworkAgent mMockNetworkAgent;
@@ -202,6 +206,8 @@ public final class ThreadNetworkControllerServiceTest {
                 .thenReturn(TEST_MODEL_NAME);
         when(mResources.getBoolean(eq(R.bool.config_thread_managed_by_google_home)))
                 .thenReturn(TEST_VGH_VALUE);
+        when(mResources.getStringArray(eq(R.array.config_thread_mdns_vendor_specific_txts)))
+                .thenReturn(new String[] {});
 
         final AtomicFile storageFile = new AtomicFile(tempFolder.newFile("thread_settings.xml"));
         mPersistentSettings = new ThreadPersistentSettings(storageFile, mConnectivityResources);
@@ -246,6 +252,8 @@ public final class ThreadNetworkControllerServiceTest {
                 .thenReturn(TEST_MODEL_NAME);
         when(mResources.getBoolean(eq(R.bool.config_thread_managed_by_google_home)))
                 .thenReturn(true);
+        when(mResources.getStringArray(eq(R.array.config_thread_mdns_vendor_specific_txts)))
+                .thenReturn(new String[] {"vt=test"});
 
         mService.initialize();
         mTestLooper.dispatchAll();
@@ -255,7 +263,9 @@ public final class ThreadNetworkControllerServiceTest {
         assertThat(meshcopTxts.vendorOui).isEqualTo(TEST_VENDOR_OUI_BYTES);
         assertThat(meshcopTxts.modelName).isEqualTo(TEST_MODEL_NAME);
         assertThat(meshcopTxts.nonStandardTxtEntries)
-                .containsExactly(new DnsTxtAttribute("vgh", "1".getBytes(StandardCharsets.UTF_8)));
+                .containsExactly(
+                        new DnsTxtAttribute("vgh", "1".getBytes(UTF_8)),
+                        new DnsTxtAttribute("vt", "test".getBytes(UTF_8)));
     }
 
     @Test
@@ -267,7 +277,7 @@ public final class ThreadNetworkControllerServiceTest {
                 ThreadNetworkControllerService.getMeshcopTxtAttributes(mResources);
 
         assertThat(meshcopTxts.nonStandardTxtEntries)
-                .containsExactly(new DnsTxtAttribute("vgh", "0".getBytes(StandardCharsets.UTF_8)));
+                .containsExactly(new DnsTxtAttribute("vgh", "0".getBytes(UTF_8)));
     }
 
     @Test
@@ -337,6 +347,52 @@ public final class ThreadNetworkControllerServiceTest {
     private byte[] getMeshcopTxtAttributesWithVendorOui(String vendorOui) {
         when(mResources.getString(eq(R.string.config_thread_vendor_oui))).thenReturn(vendorOui);
         return ThreadNetworkControllerService.getMeshcopTxtAttributes(mResources).vendorOui;
+    }
+
+    @Test
+    public void makeVendorSpecificTxtAttrs_validTxts_returnsParsedTxtAttrs() {
+        String[] txts = new String[] {"va=123", "vb=", "vc"};
+
+        List<DnsTxtAttribute> attrs = mService.makeVendorSpecificTxtAttrs(txts);
+
+        assertThat(attrs)
+                .containsExactly(
+                        new DnsTxtAttribute("va", "123".getBytes(UTF_8)),
+                        new DnsTxtAttribute("vb", new byte[] {}),
+                        new DnsTxtAttribute("vc", new byte[] {}));
+    }
+
+    @Test
+    public void makeVendorSpecificTxtAttrs_txtKeyNotStartWithV_throwsIllegalArgument() {
+        String[] txts = new String[] {"abc=123"};
+
+        assertThrows(
+                IllegalArgumentException.class, () -> mService.makeVendorSpecificTxtAttrs(txts));
+    }
+
+    @Test
+    public void makeVendorSpecificTxtAttrs_txtIsTowShort_throwsIllegalArgument() {
+        String[] txtEmptyKey = new String[] {"=123"};
+        String[] txtSingleCharKey = new String[] {"v=456"};
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> mService.makeVendorSpecificTxtAttrs(txtEmptyKey));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> mService.makeVendorSpecificTxtAttrs(txtSingleCharKey));
+    }
+
+    @Test
+    public void makeVendorSpecificTxtAttrs_txtValueIsEmpty_parseSuccess() {
+        String[] txts = new String[] {"va=", "vb"};
+
+        List<DnsTxtAttribute> attrs = mService.makeVendorSpecificTxtAttrs(txts);
+
+        assertThat(attrs)
+                .containsExactly(
+                        new DnsTxtAttribute("va", new byte[] {}),
+                        new DnsTxtAttribute("vb", new byte[] {}));
     }
 
     @Test
