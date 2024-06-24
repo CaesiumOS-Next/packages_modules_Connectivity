@@ -286,6 +286,7 @@ java_genrule {
         "//packages/modules/Connectivity/framework:__subpackages__",
         "//packages/modules/Connectivity/framework-t:__subpackages__",
         "//packages/modules/Connectivity/service",
+        "//packages/modules/Connectivity/thread:__subpackages__",
     ],
 }
 

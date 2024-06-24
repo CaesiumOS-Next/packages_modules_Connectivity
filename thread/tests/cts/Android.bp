@@ -25,6 +25,7 @@ android_test {
     manifest: "AndroidManifest.xml",
     test_config: "AndroidTest.xml",
     defaults: ["framework-connectivity-test-defaults"],
+    jarjar_rules: "//packages/modules/Connectivity/framework:framework-connectivity-jarjar-rules",
     srcs: [
         "src/**/*.java",
     ],
