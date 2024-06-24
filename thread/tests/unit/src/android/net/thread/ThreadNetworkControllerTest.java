@@ -26,6 +26,7 @@ import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 
@@ -132,6 +133,15 @@ public final class ThreadNetworkControllerTest {
     private static IOperationalDatasetCallback getOperationalDatasetCallback(
             InvocationOnMock invocation) {
         return (IOperationalDatasetCallback) invocation.getArguments()[0];
+    }
+
+    private static IEphemeralKeyReceiver getStartEphemeralKeyModeReceiver(
+            InvocationOnMock invocation) {
+        return (IEphemeralKeyReceiver) invocation.getArguments()[1];
+    }
+
+    private static IOperationReceiver getStopEphemeralKeyModeReceiver(InvocationOnMock invocation) {
+        return (IOperationReceiver) invocation.getArguments()[0];
     }
 
     @Test
@@ -436,6 +446,48 @@ public final class ThreadNetworkControllerTest {
                 null, Runnable::run, v -> callbackUid.set(Binder.getCallingUid()));
         mController.setTestNetworkAsUpstream(
                 new String("test0"), Runnable::run, v -> callbackUid.set(Binder.getCallingUid()));
+
+        assertThat(callbackUid.get()).isNotEqualTo(SYSTEM_UID);
+        assertThat(callbackUid.get()).isEqualTo(Process.myUid());
+    }
+
+    @Test
+    public void startEphemeralKeyMode_callbackIsInvokedWithCallingAppIdentity() throws Exception {
+        setBinderUid(SYSTEM_UID);
+
+        AtomicInteger callbackUid = new AtomicInteger(0);
+        Duration lifetime = Duration.ofSeconds(100);
+        String ephemeralKey = "123456789";
+
+        doAnswer(
+                        invoke -> {
+                            getStartEphemeralKeyModeReceiver(invoke).onSuccess(ephemeralKey);
+                            return null;
+                        })
+                .when(mMockService)
+                .startEphemeralKeyMode(anyLong(), any(IEphemeralKeyReceiver.class));
+        mController.startEphemeralKeyMode(
+                lifetime, Runnable::run, v -> callbackUid.set(Binder.getCallingUid()));
+
+        assertThat(callbackUid.get()).isNotEqualTo(SYSTEM_UID);
+        assertThat(callbackUid.get()).isEqualTo(Process.myUid());
+    }
+
+    @Test
+    public void stopEphemeralKeyMode_callbackIsInvokedWithCallingAppIdentity() throws Exception {
+        setBinderUid(SYSTEM_UID);
+
+        AtomicInteger callbackUid = new AtomicInteger(0);
+
+        doAnswer(
+                        invoke -> {
+                            getStopEphemeralKeyModeReceiver(invoke).onSuccess();
+                            return null;
+                        })
+                .when(mMockService)
+                .stopEphemeralKeyMode(any(IOperationReceiver.class));
+        mController.stopEphemeralKeyMode(
+                Runnable::run, v -> callbackUid.set(Binder.getCallingUid()));
 
         assertThat(callbackUid.get()).isNotEqualTo(SYSTEM_UID);
         assertThat(callbackUid.get()).isEqualTo(Process.myUid());
