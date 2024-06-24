@@ -126,6 +126,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 import android.annotation.NonNull;
@@ -869,6 +870,22 @@ public class ConnectivityManagerTest {
     public void testOpenConnection() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
+        // Carrier list reference:
+        //   packages/providers/TelephonyProvider/assets/latest_carrier_id/carrier_list.textpb
+        final CharSequence carrierIdName = mTm.getSimCarrierIdName();
+        boolean isATTSim = false;
+        if (carrierIdName != null) {
+            isATTSim = String.valueOf(carrierIdName).contains("AT&T");
+        }
+        // Skips this test case for userdebug builds to allow flexibility during continuous lab
+        // testing with various SIM cards.
+        // CTS testing still requires verification that no NAT6-6 translation is implemented on
+        // the device itself. Therefore, for running CTS on production devices, it is necessary
+        // to use a SIM card from a carrier that does not perform NAT6-6 on their network.
+        // Note: This test specifically verifies the absence of on-device NAT6-6 implementation.
+        // However, carriers like AT&T perform NAT6-6 translation on the network side, making
+        // their network unsuitable for this test.
+        assumeFalse(Build.isDebuggable() && isATTSim);
 
         Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
         Network cellNetwork = networkCallbackRule.requestCell();
