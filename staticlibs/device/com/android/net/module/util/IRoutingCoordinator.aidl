@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package android.net;
+package com.android.net.module.util;
 
 import android.net.RouteInfo;
 
 /** @hide */
+@Descriptor("value=no.jarjar.com.android.net.module.util.IRoutingCoordinator")
 interface IRoutingCoordinator {
    /**
     * Add a route for specific network
