@@ -38,9 +38,10 @@ python_test_host {
         // Package the snippet with the mobly test
         ":connectivity_multi_devices_snippet",
     ],
+    // Needed for applying VirtualEnv.
     version: {
         py3: {
-            embedded_launcher: true,
+            embedded_launcher: false,
         },
     },
 }
