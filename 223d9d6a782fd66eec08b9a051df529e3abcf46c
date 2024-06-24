@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "668c4cba_1b1719b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-24T09:48:20Z",
+      "side": 1,
+      "message": "LGTM as a flake fix but I think Lorenzo should still have a look for this one, as this affects coverage on userdebug builds.",
+      "revId": "223d9d6a782fd66eec08b9a051df529e3abcf46c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca38df9f_904ad39a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-24T09:48:20Z",
+      "side": 1,
+      "message": "Nit: maybe explain the logic a bit more, in particular:\n - Only user debug is skipped to allow continuous lab testing with any sim card. But CTS still needs to test that there is no on-device NAT6-6, so a sim card that does not do NAT6-6 is still necessary for production devices.\n - This test verifies that there is no NAT6-6 implemented on device, however AT\u0026T has it implemented on the network side, so that network is not usable for testing.",
+      "revId": "223d9d6a782fd66eec08b9a051df529e3abcf46c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81ccfb42_2d1251a0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-24T09:48:20Z",
+      "side": 1,
+      "message": "Nit: long line, also I\u0027d avoid code search URLs in the code as they may change over time (for example the platform/superproject config parameter changed this year), and this is just one mirror of the git repo. Ideally one should be able to follow code references with just a local checkout. You could just say \"carrier_list.textpb in TelephonyProvider\"",
+      "revId": "223d9d6a782fd66eec08b9a051df529e3abcf46c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
