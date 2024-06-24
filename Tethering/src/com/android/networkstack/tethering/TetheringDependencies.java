@@ -125,21 +125,18 @@ public abstract class TetheringDependencies {
                 (IBinder) context.getSystemService(Context.NETD_SERVICE));
     }
 
-    /**
-     * Get the routing coordinator, or null if below S.
-     */
+    /** Get the routing coordinator, or null if below S. */
     @Nullable
     public LateSdk<RoutingCoordinatorManager> getRoutingCoordinator(Context context) {
         if (!SdkLevel.isAtLeastS()) return new LateSdk<>(null);
         return new LateSdk<>(
-                ConnectivityInternalApiUtil.getRoutingCoordinatorManager(context));
+                new RoutingCoordinatorManager(
+                        context, ConnectivityInternalApiUtil.getRoutingCoordinator(context)));
     }
 
-    /**
-     * Make the TetheringNotificationUpdater to be used by tethering.
-     */
-    public TetheringNotificationUpdater makeNotificationUpdater(@NonNull final Context ctx,
-            @NonNull final Looper looper) {
+    /** Make the TetheringNotificationUpdater to be used by tethering. */
+    public TetheringNotificationUpdater makeNotificationUpdater(
+            @NonNull final Context ctx, @NonNull final Looper looper) {
         return new TetheringNotificationUpdater(ctx, looper);
     }
 

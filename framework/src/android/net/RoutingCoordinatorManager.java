@@ -18,6 +18,7 @@ package android.net;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.IBinder;
 import android.os.RemoteException;
 
 import androidx.annotation.NonNull;
@@ -35,10 +36,20 @@ public class RoutingCoordinatorManager {
     @NonNull final Context mContext;
     @NonNull final IRoutingCoordinator mService;
 
+//    public RoutingCoordinatorManager(@NonNull final Context context,
+//            @NonNull final IRoutingCoordinator service) {
+//        mContext = context;
+//        mService = service;
+//    }
+
     public RoutingCoordinatorManager(@NonNull final Context context,
-            @NonNull final IRoutingCoordinator service) {
+            @NonNull final IBinder binder) {
         mContext = context;
-        mService = service;
+        mService = IRoutingCoordinator.Stub.asInterface(binder);
+    }
+
+    public IBinder getBinder() {
+        return mService.asBinder();
     }
 
     /**

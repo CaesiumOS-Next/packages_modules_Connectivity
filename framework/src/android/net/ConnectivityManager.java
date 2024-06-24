@@ -6455,9 +6455,9 @@ public class ConnectivityManager {
         try {
             synchronized (sRoutingCoordinatorManagerLock) {
                 if (null == sRoutingCoordinatorManager) {
-                    sRoutingCoordinatorManager = new RoutingCoordinatorManager(mContext,
-                            IRoutingCoordinator.Stub.asInterface(
-                                    mService.getRoutingCoordinatorService()));
+                    sRoutingCoordinatorManager =
+                            new RoutingCoordinatorManager(
+                                    mContext, mService.getRoutingCoordinatorService());
                 }
                 return sRoutingCoordinatorManager;
             }
