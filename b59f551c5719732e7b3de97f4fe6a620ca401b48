@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3df4c620_33302663",
+        "filename": "tests/cts/multidevices/unittests/adb_utils_test.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-24T04:28:46Z",
+      "side": 1,
+      "message": "The same above.",
+      "parentUuid": "debbb682_a77a2056",
+      "range": {
+        "startLine": 81,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 18
+      },
+      "revId": "b59f551c5719732e7b3de97f4fe6a620ca401b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e50e1a3_f9ae9209",
@@ -94,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a7d7b97_83789c96",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-24T04:28:46Z",
+      "side": 1,
+      "message": "Done.\nAllow user to input expected_str would be more errorprone.\nSo make them both lower() for string comparision.",
+      "parentUuid": "3e50e1a3_f9ae9209",
+      "range": {
+        "startLine": 89,
+        "startChar": 24,
+        "endLine": 92,
+        "endChar": 24
+      },
+      "revId": "b59f551c5719732e7b3de97f4fe6a620ca401b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b748135_6e11ec17",
@@ -107,6 +155,30 @@
       "writtenOn": "2024-06-21T12:51:00Z",
       "side": 1,
       "message": "nit: could we change `ad` to `dut`? DUT: device under test.\n\nI think that abbreviation is more commonly used.\n\nI keep wondering what `ad` means during the code review.",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 6
+      },
+      "revId": "b59f551c5719732e7b3de97f4fe6a620ca401b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99a28126_5d7f2a50",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-24T04:28:46Z",
+      "side": 1,
+      "message": "Prefer to keep it as is because:\n 1. Ad is specifically stand for the AndroidDevice class. If we pass dut, and we have another class that also stand for device under test (e.g. Controller), it will be confusing.\n 2. It could be understand via type hint, thus I think it is not that hard to follow.\n 3. It is widely used in these tests, the effort to rename all of them is somehow not worthy from my personal view.\nFeel free to reopen if feel strongly.",
+      "parentUuid": "2b748135_6e11ec17",
       "range": {
         "startLine": 107,
         "startChar": 4,
