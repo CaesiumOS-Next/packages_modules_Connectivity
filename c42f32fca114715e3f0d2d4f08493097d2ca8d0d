@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0395d989_e513fc53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-24T10:13:48Z",
+      "side": 1,
+      "message": "As we discussed there\u0027s a number of server configs using this, for example the coverage config, so they should be updated first",
+      "revId": "c42f32fca114715e3f0d2d4f08493097d2ca8d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
