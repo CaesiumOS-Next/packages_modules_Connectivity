@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0523ed7c_47e0bcf9",
+        "filename": "tests/cts/multidevices/unittests/assert_utils_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-24T07:57:33Z",
+      "side": 1,
+      "message": "nits: I guess you mean \"if the predicate returns true in the first try\"?",
+      "range": {
+        "startLine": 42,
+        "startChar": 48,
+        "endLine": 42,
+        "endChar": 92
+      },
+      "revId": "c0b6884c7ef1ff5935d90b513baa76a4b0a0bcf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d5666a_73616c55",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-24T07:57:33Z",
+      "side": 1,
+      "message": "nits: In the last loop iteration, this code will not retry `predicate` but still calling `retry_action` and sleep.\nThis is wasteful but maybe it\u0027s ok.",
+      "range": {
+        "startLine": 39,
+        "startChar": 35,
+        "endLine": 39,
+        "endChar": 36
+      },
+      "revId": "c0b6884c7ef1ff5935d90b513baa76a4b0a0bcf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0d4bec3_9026eb02",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-24T07:57:33Z",
+      "side": 1,
+      "message": "nits: this code does not need to keep `result` since if the result is `True`, this method return.\nI think you can write as the following.\n\n```\n  for _ in range(max_retries):\n    if predicate():\n      return None\n    else:\n      if retry_action:\n        retry_action()\n      time.sleep(retry_interval_sec)\n\n  raise UnexpectedBehaviorError(\n        \"Predicate didn\u0027t become true after \" + str(max_retries) + \" retries.\"\n  )\n```",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 15
+      },
+      "revId": "c0b6884c7ef1ff5935d90b513baa76a4b0a0bcf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
