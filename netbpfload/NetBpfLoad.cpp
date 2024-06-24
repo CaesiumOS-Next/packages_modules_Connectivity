@@ -248,6 +248,17 @@ static bool isTV() {
     return tv;
 }
 
+static bool isWear() {
+    static string key = base::GetProperty("ro.oem.key1", "");
+    static bool wear = StartsWith(key, "WEAR");
+    static bool logged = false;
+    if (!logged) {
+        logged = true;
+        ALOGI("isWear(ro.oem.key1='%s'): %s.", key.c_str(), wear ? "true" : "false");
+    }
+    return tv;
+}
+
 static int doLoad(char** argv, char * const envp[]) {
     const bool runningAsRoot = !getuid();  // true iff U QPR3 or V+
 
@@ -402,7 +413,7 @@ static int doLoad(char** argv, char * const envp[]) {
          * and 32-bit userspace on 64-bit kernel bpf ringbuffer compatibility is broken.
          */
         ALOGE("64-bit userspace required on 6.2+ kernels.");
-        if (!isTV()) return 1;
+        if (!isTV() && !(isWear() && isArm())) return 1;
     }
 
     // Ensure we can determine the Android build type.
