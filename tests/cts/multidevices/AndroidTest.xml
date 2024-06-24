@@ -17,8 +17,11 @@
     <option name="config-descriptor:metadata" key="parameter" value="not_instant_app" />
     <option name="config-descriptor:metadata" key="parameter" value="not_multi_abi" />
     <option name="config-descriptor:metadata" key="parameter" value="secondary_user" />
-
     <device name="device1">
+        <!-- TODO(b/349016817): Import scapy from codebase. -->
+        <target_preparer class="com.android.tradefed.targetprep.PythonVirtualenvPreparer">
+            <option name="dep-module" value="scapy" />
+        </target_preparer>
         <target_preparer class="com.android.tradefed.targetprep.suite.SuiteApkInstaller">
             <option name="test-file-name" value="connectivity_multi_devices_snippet.apk" />
         </target_preparer>

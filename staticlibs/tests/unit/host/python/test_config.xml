@@ -16,6 +16,7 @@
 <configuration description="Config for NetworkStaticLibHostPythonTests">
     <target_preparer class="com.android.tradefed.targetprep.PythonVirtualenvPreparer">
         <option name="dep-module" value="absl-py" />
+        <option name="dep-module" value="scapy" />
     </target_preparer>
     <test class="com.android.tradefed.testtype.mobly.MoblyBinaryHostTest" >
         <option name="mobly-par-file-name" value="NetworkStaticLibHostPythonTests" />
