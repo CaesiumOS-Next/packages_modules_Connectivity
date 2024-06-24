@@ -68,6 +68,7 @@ import android.net.NetworkProvider;
 import android.net.NetworkRequest;
 import android.net.thread.ActiveOperationalDataset;
 import android.net.thread.IActiveOperationalDatasetReceiver;
+import android.net.thread.IEphemeralKeyReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.ThreadConfiguration;
 import android.net.thread.ThreadNetworkException;
@@ -177,6 +178,7 @@ public final class ThreadNetworkControllerServiceTest {
     private ThreadPersistentSettings mPersistentSettings;
     private ThreadNetworkControllerService mService;
     @Captor private ArgumentCaptor<ActiveOperationalDataset> mActiveDatasetCaptor;
+    @Captor private ArgumentCaptor<String> mEphemeralKeyCaptor;
 
     @Rule(order = 1)
     public final TemporaryFolder tempFolder = new TemporaryFolder();
@@ -800,5 +802,27 @@ public final class ThreadNetworkControllerServiceTest {
         assertThat(networkRequest1.hasCapability(NET_CAPABILITY_NOT_VPN)).isTrue();
         assertThat(networkRequest2.getNetworkSpecifier()).isNull();
         assertThat(networkRequest2.hasCapability(NET_CAPABILITY_NOT_VPN)).isTrue();
+    }
+
+    @Test
+    public void activateEphemeralKeyMode_ephemeralKeyCreated() throws Exception {
+        mService.initialize();
+        final IEphemeralKeyReceiver mockReceiver = mock(IEphemeralKeyReceiver.class);
+
+        mService.activateEphemeralKeyMode(1_000L, mockReceiver);
+        mTestLooper.dispatchAll();
+
+        verify(mockReceiver, times(1)).onSuccess(mEphemeralKeyCaptor.capture());
+    }
+
+    @Test
+    public void deactivateEphemeralKeyMode_succeed() throws Exception {
+        mService.initialize();
+        final IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
+
+        mService.deactivateEphemeralKeyMode(mockReceiver);
+        mTestLooper.dispatchAll();
+
+        verify(mockReceiver, times(1)).onSuccess();
     }
 }
