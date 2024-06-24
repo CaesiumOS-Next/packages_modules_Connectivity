@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c76e070_bafb6932",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-24T05:10:14Z",
+      "side": 1,
+      "message": "What if the dumpsys value is not True either False? \nWould if be better to use str instead of bool to compare?",
+      "parentUuid": "4a7d7b97_83789c96",
+      "range": {
+        "startLine": 89,
+        "startChar": 24,
+        "endLine": 92,
+        "endChar": 24
+      },
+      "revId": "b59f551c5719732e7b3de97f4fe6a620ca401b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b748135_6e11ec17",
         "filename": "tests/cts/multidevices/utils/adb_utils.py",
         "patchSetId": 8
