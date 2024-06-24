@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea692ece_e61600f9",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-24T05:21:19Z",
+      "side": 1,
+      "message": "If so the method would throw since the input can only be True or False.",
+      "parentUuid": "4c76e070_bafb6932",
+      "range": {
+        "startLine": 89,
+        "startChar": 24,
+        "endLine": 92,
+        "endChar": 24
+      },
+      "revId": "b59f551c5719732e7b3de97f4fe6a620ca401b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b748135_6e11ec17",
