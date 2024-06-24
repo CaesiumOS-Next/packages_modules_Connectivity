@@ -76,6 +76,7 @@ import android.util.SparseIntArray;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.RoutingCoordinatorManager;
 
 import libcore.net.event.NetworkEventDispatcher;
 
@@ -6446,21 +6447,11 @@ public class ConnectivityManager {
         }
     }
 
-    private static final Object sRoutingCoordinatorManagerLock = new Object();
-    @GuardedBy("sRoutingCoordinatorManagerLock")
-    private static RoutingCoordinatorManager sRoutingCoordinatorManager = null;
     /** @hide */
     @RequiresApi(Build.VERSION_CODES.S)
-    public RoutingCoordinatorManager getRoutingCoordinatorManager() {
+    public IBinder getRoutingCoordinator() {
         try {
-            synchronized (sRoutingCoordinatorManagerLock) {
-                if (null == sRoutingCoordinatorManager) {
-                    sRoutingCoordinatorManager = new RoutingCoordinatorManager(mContext,
-                            IRoutingCoordinator.Stub.asInterface(
-                                    mService.getRoutingCoordinatorService()));
-                }
-                return sRoutingCoordinatorManager;
-            }
+            return mService.getRoutingCoordinatorService();
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }

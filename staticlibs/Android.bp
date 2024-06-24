@@ -456,6 +456,159 @@ java_library {
     visibility: ["//packages/modules/Connectivity/service-t"],
 }
 
+java_library {
+    name: "net-utils-framework-connectivity",
+    srcs: [
+        ":net-utils-framework-connectivity-srcs"
+    ],
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    apex_available: [
+        "com.android.tethering",
+        "//apex_available:platform",
+    ],
+    visibility: [
+        "//packages/modules/Connectivity:__subpackages__",
+    ],
+    static_libs: [
+        "net-utils-framework-common",
+    ],
+    libs: [
+        "androidx.annotation_annotation",
+        "framework-annotations-lib",
+        "framework-configinfrastructure",
+        "framework-connectivity.stubs.module_lib",
+    ],
+    lint: {
+        strict_updatability_linting: true,
+        error_checks: ["NewApi"],
+    },
+}
+
+java_library {
+    name: "net-utils-service-connectivity",
+    srcs: [
+        ":net-utils-tethering-srcs",
+    ],
+    exclude_srcs: [
+        ":net-utils-framework-connectivity-srcs",
+    ],
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    target_sdk_version: "30",
+    jarjar_rules: "jarjar-rules-shared.txt",
+    libs: [
+        "androidx.annotation_annotation",
+        "framework-annotations-lib",
+        "framework-configinfrastructure",
+        "framework-connectivity",
+        "framework-connectivity.stubs.module_lib",
+        "framework-connectivity-t.stubs.module_lib",
+        "framework-location.stubs.module_lib",
+        "framework-tethering",
+        "net-utils-framework-connectivity",
+        "unsupportedappusage",
+    ],
+    static_libs: [
+        "modules-utils-build_system",
+        "modules-utils-statemachine",
+        "netd-client",
+    ],
+    apex_available: [
+        "com.android.tethering",
+        "//apex_available:platform",
+    ],
+    aidl: {
+        include_dirs: [
+            "packages/modules/Connectivity/framework/aidl-export",
+        ],
+    },
+    visibility: [
+        "//packages/modules/Connectivity:__subpackages__",
+    ],
+    lint: {
+        strict_updatability_linting: true,
+        error_checks: ["NewApi"],
+    },
+}
+
+java_library {
+    name: "net-utils-tethering",
+    srcs: [
+        ":net-utils-tethering-srcs",
+        ":framework-connectivity-shared-srcs",
+    ],
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    target_sdk_version: "30",
+    jarjar_rules: "jarjar-rules-shared.txt",
+    libs: [
+        "androidx.annotation_annotation",
+        "framework-annotations-lib",
+        "framework-configinfrastructure",
+        "framework-connectivity",
+        "framework-connectivity.stubs.module_lib",
+        "framework-connectivity-t.stubs.module_lib",
+        "framework-location.stubs.module_lib",
+        "framework-tethering",
+        "unsupportedappusage",
+    ],
+    static_libs: [
+        "modules-utils-build_system",
+        "modules-utils-statemachine",
+        "netd-client",
+    ],
+    apex_available: [
+        "com.android.tethering",
+        "//apex_available:platform",
+    ],
+    aidl: {
+        include_dirs: [
+            "packages/modules/Connectivity/framework/aidl-export",
+        ],
+    },
+    visibility: [
+        "//packages/modules/Connectivity:__subpackages__",
+    ],
+    lint: {
+        strict_updatability_linting: true,
+        error_checks: ["NewApi"],
+    },
+}
+
+java_library {
+    name: "net-utils-device-routing-coordinator",
+    srcs: [
+        ":net-utils-device-routing-coordinator-srcs"
+    ],
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    static_libs: [
+        "net-utils-framework-common",
+    ],
+    libs: [
+        "androidx.annotation_annotation",
+        "framework-annotations-lib", // Required by IpUtils.java
+        "framework-connectivity.stubs.module_lib",
+    ],
+    aidl: {
+        include_dirs: [
+            "packages/modules/Connectivity/framework/aidl-export",
+        ],
+    },
+    visibility: [
+        "//packages/modules/Connectivity:__subpackages__",
+    ],
+    apex_available: [
+        "com.android.tethering",
+        "//apex_available:platform",
+    ],
+    lint: {
+        strict_updatability_linting: true,
+        error_checks: ["NewApi"],
+    },
+}
+
 // Use a filegroup and not a library for telephony sources, as framework-annotations cannot be
 // included either (some annotations would be duplicated on the bootclasspath).
 filegroup {
@@ -505,5 +658,37 @@ filegroup {
     visibility: [
         "//frameworks/opt/net/wifi/service",
         "//packages/modules/Wifi/service",
+    ],
+}
+
+filegroup {
+    name: "net-utils-framework-connectivity-srcs",
+    srcs: [
+         "device/com/android/net/module/util/BpfBitmap.java",
+         "device/com/android/net/module/util/BpfDump.java",
+         "device/com/android/net/module/util/BpfMap.java",
+         "device/com/android/net/module/util/BpfUtils.java",
+         "device/com/android/net/module/util/IBpfMap.java",
+         "device/com/android/net/module/util/JniUtil.java",
+         "device/com/android/net/module/util/SingleWriterBpfMap.java",
+         "device/com/android/net/module/util/Struct.java",
+         "device/com/android/net/module/util/TcUtils.java",
+    ],
+}
+
+filegroup {
+    name: "net-utils-device-routing-coordinator-srcs",
+    srcs: [
+         "device/com/android/net/module/util/RoutingCoordinatorManager.java",
+         "device/com/android/net/module/util/IRoutingCoordinator.aidl",
+    ],
+}
+
+filegroup {
+    name: "net-utils-tethering-srcs",
+    srcs: [
+         "device/**/*.java",
+         "device/**/*.aidl",
+         ":net-utils-framework-common-srcs",
     ],
 }
