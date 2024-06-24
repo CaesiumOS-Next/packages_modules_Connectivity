@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2dfdd3b_ba8599e8",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-24T06:22:15Z",
+      "side": 1,
+      "message": "This should be in the public document",
+      "range": {
+        "startLine": 193,
+        "startChar": 7,
+        "endLine": 193,
+        "endChar": 70
+      },
+      "revId": "6c00e567d227bdd7bfe3b17afe2077241571eba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d0a7cd7_4fcfbe1a",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-24T06:22:15Z",
+      "side": 1,
+      "message": "add todo above line 196:\n\n//TODO: b/284905335 - Notify the client when there is a conflict.",
+      "range": {
+        "startLine": 196,
+        "startChar": 8,
+        "endLine": 196,
+        "endChar": 31
+      },
+      "revId": "6c00e567d227bdd7bfe3b17afe2077241571eba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
