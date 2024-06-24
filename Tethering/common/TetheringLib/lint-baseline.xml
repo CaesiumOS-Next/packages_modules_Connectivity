@@ -12,4 +12,15 @@
             column="50"/>
     </issue>
 
+    <issue
+        id="FlaggedApi"
+        message="Field `TETHERING_VIRTUAL` is a flagged API and should be inside an `if (Flags.tetheringRequestVirtual())` check (or annotate the surrounding method `?` with `@FlaggedApi(Flags.TETHERING_REQUEST_VIRTUAL) to transfer requirement to caller`)"
+        errorLine1="    public static final int MAX_TETHERING_TYPE = TETHERING_VIRTUAL;"
+        errorLine2="                                                 ~~~~~~~~~~~~~~~~~">
+        <location
+            file="packages/modules/Connectivity/Tethering/common/TetheringLib/src/android/net/TetheringManager.java"
+            line="211"
+            column="50"/>
+    </issue>
+
 </issues>
