@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d82523aa_923588ad",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-24T07:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b22c185_363f88bb",
+      "range": {
+        "startLine": 545,
+        "startChar": 8,
+        "endLine": 546,
+        "endChar": 64
+      },
+      "revId": "db7a947bc33d1ccdf548d6b6bd39f229167ac85e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72a59e43_c7bd76c8",
@@ -55,6 +79,30 @@
       "writtenOn": "2024-06-24T05:16:27Z",
       "side": 1,
       "message": "What about removing the callback from the map if the client is already dead? Otherwise, it would cause another RemoteException the next time the callbacks are invoked for configuration changes.",
+      "range": {
+        "startLine": 579,
+        "startChar": 12,
+        "endLine": 579,
+        "endChar": 47
+      },
+      "revId": "db7a947bc33d1ccdf548d6b6bd39f229167ac85e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd49a19d_a9d9f477",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-24T07:51:32Z",
+      "side": 1,
+      "message": "I agree about this suggestion but it seems this is the current convention of handling callbacks within this file.\n\nFiled b/349032890 to track the effort to remove the callback receivers when the client is dead.",
+      "parentUuid": "72a59e43_c7bd76c8",
       "range": {
         "startLine": 579,
         "startChar": 12,
@@ -88,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86efddf1_80cfa990",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-24T07:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f836086_7f81d6db",
+      "range": {
+        "startLine": 190,
+        "startChar": 7,
+        "endLine": 190,
+        "endChar": 12
+      },
+      "revId": "db7a947bc33d1ccdf548d6b6bd39f229167ac85e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28f40ecd_d9d49612",
@@ -111,6 +183,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7f9528a_ff22b3a2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-24T07:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28f40ecd_d9d49612",
+      "range": {
+        "startLine": 193,
+        "startChar": 62,
+        "endLine": 193,
+        "endChar": 67
+      },
+      "revId": "db7a947bc33d1ccdf548d6b6bd39f229167ac85e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5127afeb_05e004ea",
@@ -124,6 +220,30 @@
       "writtenOn": "2024-06-24T05:16:27Z",
       "side": 1,
       "message": "I don\u0027t agree we should reuse helper method like this. Generally, you should not write your checks in a helper method.\n\nI think it\u0027s okay that you use test one or two config. E.g. \n\n```\nThreadConfiguration config \u003d new ThreadConfiguration.Builder().setNat64Enabled(true).setDhcpPdEnabled(false).build();\n```",
+      "range": {
+        "startLine": 184,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 5
+      },
+      "revId": "db7a947bc33d1ccdf548d6b6bd39f229167ac85e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ee45475_fa51a090",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadPersistentSettingsTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-24T07:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5127afeb_05e004ea",
       "range": {
         "startLine": 184,
         "startChar": 4,
