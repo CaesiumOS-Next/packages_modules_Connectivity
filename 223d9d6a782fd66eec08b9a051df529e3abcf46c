@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee4391c0_ceb69dfc",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-24T11:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca38df9f_904ad39a",
+      "revId": "223d9d6a782fd66eec08b9a051df529e3abcf46c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81ccfb42_2d1251a0",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-06-24T09:48:20Z",
       "side": 1,
       "message": "Nit: long line, also I\u0027d avoid code search URLs in the code as they may change over time (for example the platform/superproject config parameter changed this year), and this is just one mirror of the git repo. Ideally one should be able to follow code references with just a local checkout. You could just say \"carrier_list.textpb in TelephonyProvider\"",
+      "revId": "223d9d6a782fd66eec08b9a051df529e3abcf46c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9193e0e_2afca937",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-24T11:50:07Z",
+      "side": 1,
+      "message": "Update to use packages/providers/TelephonyProvider/assets/latest_carrier_id/carrier_list.textpb",
+      "parentUuid": "81ccfb42_2d1251a0",
       "revId": "223d9d6a782fd66eec08b9a051df529e3abcf46c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
