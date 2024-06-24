@@ -57,7 +57,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkAgent;
 import android.net.NetworkProvider;
 import android.net.thread.ActiveOperationalDataset;
+import android.net.thread.EphemeralKey;
 import android.net.thread.IActiveOperationalDatasetReceiver;
+import android.net.thread.IEphemeralKeyReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.ThreadNetworkException;
 import android.os.Handler;
@@ -166,6 +168,7 @@ public final class ThreadNetworkControllerServiceTest {
     private ThreadPersistentSettings mPersistentSettings;
     private ThreadNetworkControllerService mService;
     @Captor private ArgumentCaptor<ActiveOperationalDataset> mActiveDatasetCaptor;
+    @Captor private ArgumentCaptor<EphemeralKey> mEphemeralKeyCaptor;
 
     @Rule(order = 1)
     public final TemporaryFolder tempFolder = new TemporaryFolder();
@@ -707,5 +710,27 @@ public final class ThreadNetworkControllerServiceTest {
         InOrder inOrder = Mockito.inOrder(mMockTunIfController);
         inOrder.verify(mMockTunIfController, times(1)).setInterfaceUp(false);
         inOrder.verify(mMockTunIfController, times(1)).setInterfaceUp(true);
+    }
+
+    @Test
+    public void startEphemeralKeyMode_ephemeralKeyCreated() throws Exception {
+        mService.initialize();
+        final IEphemeralKeyReceiver mockReceiver = mock(IEphemeralKeyReceiver.class);
+
+        mService.startEphemeralKeyMode(1_000L, mockReceiver);
+        mTestLooper.dispatchAll();
+
+        verify(mockReceiver, times(1)).onSuccess(mEphemeralKeyCaptor.capture());
+    }
+
+    @Test
+    public void stopEphemeralKeyMode_ephemeralKeyCreated() throws Exception {
+        mService.initialize();
+        final IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
+
+        mService.stopEphemeralKeyMode(mockReceiver);
+        mTestLooper.dispatchAll();
+
+        verify(mockReceiver, times(1)).onSuccess();
     }
 }
