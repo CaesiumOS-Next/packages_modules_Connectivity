@@ -31,6 +31,7 @@ java_defaults {
         "cts-net-utils",
         "ctstestrunner-axt",
         "modules-utils-build",
+        "android.systemserver.flags-aconfig-java",
     ],
     libs: [
         "android.test.runner",

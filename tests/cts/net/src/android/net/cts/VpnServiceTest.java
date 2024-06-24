@@ -20,12 +20,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.VpnService;
+import android.net.cts.util.CtsNetUtils;
 import android.os.ParcelFileDescriptor;
 import android.platform.test.annotations.AppModeFull;
 import android.test.AndroidTestCase;
@@ -52,12 +52,14 @@ public class VpnServiceTest {
     private static final String TAG = VpnServiceTest.class.getSimpleName();
 
     private final Context mContext = InstrumentationRegistry.getContext();
+    private final CtsNetUtils mCtsNetUtils = new CtsNetUtils(mContext);
     private VpnService mVpnService = new VpnService();
 
     @Before
     public void setUp() {
-        assumeFalse("Skipping test because watches don't support VPN",
-            mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WATCH));
+        assumeTrue(
+                "Skipping test because device doesn't support VPN",
+                mCtsNetUtils.deviceSupportsVpn());
     }
 
     @Test

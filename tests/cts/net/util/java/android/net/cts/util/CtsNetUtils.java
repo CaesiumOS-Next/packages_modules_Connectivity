@@ -21,6 +21,7 @@ import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
+import static android.server.Flags.allowRemovingVpnService;
 
 import static com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
@@ -47,6 +48,7 @@ import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.NetworkRequest;
 import android.net.TestNetworkManager;
+import android.net.VpnManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
@@ -596,6 +598,21 @@ public final class CtsNetUtils {
         } finally {
             mCm.unregisterNetworkCallback(callback);
         }
+    }
+
+    /** Returns {@code true} if the device supports VPN. Returns {@code false} otherwise. */
+    public boolean deviceSupportsVpn() {
+        if (!mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WATCH)) {
+            return false;
+        }
+        // Always assume no VPN support on watches when the target SDK <= V.
+        if (mContext.getApplicationInfo().targetSdkVersion
+                <= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            return false;
+        }
+        // For watches and target SDK > V, consider VPN supported if a VpnManager is available.
+        return allowRemovingVpnService()
+                && mContext.getSystemService(VpnManager.class) != null;
     }
 
     /**

@@ -245,11 +245,6 @@ public class VpnTest {
     public final AutoReleaseNetworkCallbackRule
             mNetworkCallbackRule = new AutoReleaseNetworkCallbackRule();
 
-    private boolean supportedHardware() {
-        final PackageManager pm = getInstrumentation().getContext().getPackageManager();
-        return !pm.hasSystemFeature("android.hardware.type.watch");
-    }
-
     public final <T extends Activity> T launchActivity(String packageName, Class<T> activityClass) {
         final Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setClassName(packageName, activityClass.getName());
@@ -276,7 +271,7 @@ public class VpnTest {
         mCtsNetUtils = new CtsNetUtils(mTestContext);
         mConnectUtil = new ConnectUtil(mTestContext);
         mPackageManager = mTestContext.getPackageManager();
-        assumeTrue(supportedHardware());
+        assumeTrue(mCtsNetUtils.deviceSupportsVpn());
     }
 
     @After

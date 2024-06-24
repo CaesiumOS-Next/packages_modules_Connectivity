@@ -60,6 +60,7 @@ java_defaults {
         "net-utils-framework-common",
         "truth",
         "TetheringIntegrationTestsBaseLib",
+        "android.systemserver.flags-aconfig-java",
     ],
 
     min_sdk_version: "30",
