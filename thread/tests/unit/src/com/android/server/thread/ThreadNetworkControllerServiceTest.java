@@ -801,4 +801,26 @@ public final class ThreadNetworkControllerServiceTest {
         assertThat(networkRequest2.getNetworkSpecifier()).isNull();
         assertThat(networkRequest2.hasCapability(NET_CAPABILITY_NOT_VPN)).isTrue();
     }
+
+    @Test
+    public void activateEphemeralKeyMode_ephemeralKeyCreated() throws Exception {
+        mService.initialize();
+        final IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
+
+        mService.activateEphemeralKeyMode(1_000L, mockReceiver);
+        mTestLooper.dispatchAll();
+
+        verify(mockReceiver, times(1)).onSuccess();
+    }
+
+    @Test
+    public void deactivateEphemeralKeyMode_succeed() throws Exception {
+        mService.initialize();
+        final IOperationReceiver mockReceiver = mock(IOperationReceiver.class);
+
+        mService.deactivateEphemeralKeyMode(mockReceiver);
+        mTestLooper.dispatchAll();
+
+        verify(mockReceiver, times(1)).onSuccess();
+    }
 }
