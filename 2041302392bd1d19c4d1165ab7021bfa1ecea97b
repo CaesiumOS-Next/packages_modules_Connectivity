@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22f29e09_06009a36",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkException.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-24T05:38:41Z",
+      "side": 1,
+      "message": "You could name it `ERROR_UNSUPPORTED_FEATURE` if that\u0027s the concern. It\u0027s okay for ERROR_UNSUPPORTED_CHANNEL to be a subdomain of ERROR_UNSUPPORTED_FEATURE",
+      "parentUuid": "2689142a_63da62dd",
+      "range": {
+        "startLine": 147,
+        "startChar": 28,
+        "endLine": 147,
+        "endChar": 55
+      },
+      "revId": "2041302392bd1d19c4d1165ab7021bfa1ecea97b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16b3c7b8_ffb5e3ec",
         "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
         "patchSetId": 1
@@ -170,6 +194,30 @@
       "side": 1,
       "message": "Yes, we need it. Otherwise, the code reports the following errors:\n\n```\npackages/modules/Connectivity/thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java:125: error: invalid method declaration; return type required\n                    put(VALID_CHANNEL, VALID_POWER);\n                    ^\npackages/modules/Connectivity/thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java:125: error: \u003cidentifier\u003e expected\n                    put(VALID_CHANNEL, VALID_POWER);\n```",
       "parentUuid": "16b3c7b8_ffb5e3ec",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 127,
+        "endChar": 17
+      },
+      "revId": "2041302392bd1d19c4d1165ab7021bfa1ecea97b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dc33b64_bd933b18",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-24T05:38:41Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0eb8a8f6_2c6852f5",
       "range": {
         "startLine": 125,
         "startChar": 16,
