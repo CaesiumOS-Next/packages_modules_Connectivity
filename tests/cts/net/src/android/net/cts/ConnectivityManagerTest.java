@@ -126,6 +126,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 import android.annotation.NonNull;
@@ -868,6 +869,14 @@ public class ConnectivityManagerTest {
     public void testOpenConnection() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
+        // Skip the test for user debug build with AT&T SIM. As we know AT&T SIM is doing NAT6-6.
+        // Carrier list reference: https://cs.android.com/android/platform/superproject/main/+/main:packages/providers/TelephonyProvider/assets/latest_carrier_id/carrier_list.textpb?q=carrier_list.textpb&ss=android%2Fplatform%2Fsuperproject%2Fmain
+        final CharSequence carrierIdName = mTm.getSimCarrierIdName();
+        boolean isATTSim = false;
+        if (carrierIdName != null) {
+            isATTSim = String.valueOf(carrierIdName).contains("AT&T");
+        }
+        assumeFalse(Build.isDebuggable() && isATTSim);
 
         Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
         Network cellNetwork = networkCallbackRule.requestCell();
