@@ -1,0 +1,223 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b63f4873_ae55d131",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-24T12:25:07Z",
+      "side": 1,
+      "message": "Remember that while the time is in 1/16384ths of a second, we didn\u0027t specify the actual precision it must have.  There could be just a 1ms resolution or even 0.01s resolution clock powering it.  Probably not much worse than that though, as it would lose meaning.",
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a93b648e_1abfeaf7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-24T12:25:07Z",
+      "side": 1,
+      "message": "can this be dropped?",
+      "range": {
+        "startLine": 578,
+        "startChar": 0,
+        "endLine": 578,
+        "endChar": 53
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e4d40e8_c694678e",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-24T12:25:07Z",
+      "side": 1,
+      "message": "can this be dropped?",
+      "range": {
+        "startLine": 584,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 53
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "666ed9df_bc5154ab",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-24T12:25:07Z",
+      "side": 1,
+      "message": "shouldn\u0027t this assumption be enough?",
+      "range": {
+        "startLine": 585,
+        "startChar": 0,
+        "endLine": 585,
+        "endChar": 44
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "950d29c7_e8c4948c",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-24T12:25:07Z",
+      "side": 1,
+      "message": "could/should this use v6? we already have the above test using v4...",
+      "range": {
+        "startLine": 587,
+        "startChar": 18,
+        "endLine": 587,
+        "endChar": 32
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08d9a7a5_8e78f656",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-24T12:25:07Z",
+      "side": 1,
+      "message": "should we test with larger payload?",
+      "range": {
+        "startLine": 605,
+        "startChar": 26,
+        "endLine": 605,
+        "endChar": 27
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a527e70_c980c08a",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-24T12:25:07Z",
+      "side": 1,
+      "message": "I think this sleep being 5.1s is pointless now with it using fractions anyway.  You could reduce to 5000",
+      "range": {
+        "startLine": 613,
+        "startChar": 21,
+        "endLine": 613,
+        "endChar": 25
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8df85d4_a1bb34d6",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-24T12:25:07Z",
+      "side": 1,
+      "message": "This should be more like 5.09 [4.99] rather than 5.1 [5.0] precisely.\nThere could be a little bit of clock skew, etc.",
+      "range": {
+        "startLine": 622,
+        "startChar": 0,
+        "endLine": 622,
+        "endChar": 54
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f2412699_9d473870",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+              "range": {
+                "startLine": 622,
+                "startChar": 0,
+                "endLine": 623,
+                "endChar": 0
+              },
+              "replacement": "        val timeDiffLowerBound \u003d (4.99 * 16384).toInt()\n"
+            }
+          ]
+        }
+      ],
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb6118a4_4a2fd144",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-24T12:25:07Z",
+      "side": 1,
+      "message": "note that this is (lower,upper) region, not the [lower,upper] you\u0027d kind of expect... one more reason to do 4.99..5.81",
+      "range": {
+        "startLine": 625,
+        "startChar": 7,
+        "endLine": 626,
+        "endChar": 59
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
