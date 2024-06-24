@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6779ac14_1de7be49",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-24T02:46:56Z",
+      "side": 1,
+      "message": "add a TODO: to throw exceptioin if the API is mis-used.",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 31
+      },
+      "revId": "09c5bf884649133ae1d3fc44d4a019bb1a75a1a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
