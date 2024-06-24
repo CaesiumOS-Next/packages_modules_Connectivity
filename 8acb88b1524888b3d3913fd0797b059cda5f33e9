@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8895561d_9a8d6b11",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-24T08:17:48Z",
+      "side": 1,
+      "message": "nits: Having `predicate\u003d`, `retry_action\u003d` would be helpful.",
+      "revId": "8acb88b1524888b3d3913fd0797b059cda5f33e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4606781_3ebf2a09",
+        "filename": "tests/cts/multidevices/utils/adb_utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-24T08:17:48Z",
+      "side": 1,
+      "message": "nits: If the key is not found in the dumpsys, I think this raises.  \nIf it\u0027s possible the key appears in the dumpsys at certain condition, this might be the issue.",
+      "range": {
+        "startLine": 89,
+        "startChar": 78,
+        "endLine": 89,
+        "endChar": 79
+      },
+      "revId": "8acb88b1524888b3d3913fd0797b059cda5f33e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
