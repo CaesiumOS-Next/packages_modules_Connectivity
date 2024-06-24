@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6412f24f_94419bac",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-24T06:52:47Z",
+      "side": 1,
+      "message": "Remove blank line",
+      "revId": "c988f6ceb9b824af32bb69d29c2a05190b9ba67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91e60687_ff21e378",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-24T06:52:47Z",
+      "side": 1,
+      "message": "I think this test condition might be an issue if the environment has the same packets.  \nThen it might be hard to identify it\u0027s matched by our packets or not.  \nConsider to send multiple (e.g. \u003e 10) and then check the counter increases at least 10.  \nBesides, should we also add some time limit to check?  \nSomething like expect to receive within xx sec, otherwise assert fail.",
+      "range": {
+        "startLine": 97,
+        "startChar": 6,
+        "endLine": 103,
+        "endChar": 29
+      },
+      "revId": "c988f6ceb9b824af32bb69d29c2a05190b9ba67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eac55ed_ba1f2c82",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-24T06:52:47Z",
+      "side": 1,
+      "message": "Does this means that if doesn\u0027t need any validation if the upstream type is UpstreamType.NONE (reuireValidation is True) ?",
+      "range": {
+        "startLine": 123,
+        "startChar": 16,
+        "endLine": 124,
+        "endChar": 72
+      },
+      "revId": "c988f6ceb9b824af32bb69d29c2a05190b9ba67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13a6e479_f548aa37",
+        "filename": "tests/cts/multidevices/utils/tether_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-24T06:52:47Z",
+      "side": 1,
+      "message": "nit: maybe use the form below to improve some readability\n```\nclient.connectToWifi(ssid\u003dtest_ssid, passphrase\u003dtest_passphrase, requireValidation\u003d(upstream_type!\u003dUpstreamType.NONE))\n```",
+      "range": {
+        "startLine": 99,
+        "startChar": 6,
+        "endLine": 99,
+        "endChar": 68
+      },
+      "revId": "c988f6ceb9b824af32bb69d29c2a05190b9ba67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
