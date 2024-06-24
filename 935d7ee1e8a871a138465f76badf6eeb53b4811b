@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c8f9a5b_bf6a7f68",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-24T06:57:01Z",
+      "side": 1,
+      "message": "It will be better to explicitly specific the Ether.dst \u003d \u0027ff:ff:ff:ff:ff:ff\u0027 for better documentation.",
+      "range": {
+        "startLine": 127,
+        "startChar": 11,
+        "endLine": 127,
+        "endChar": 16
+      },
+      "revId": "935d7ee1e8a871a138465f76badf6eeb53b4811b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
