@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53e00324_9f9f77ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-24T05:42:16Z",
+      "side": 1,
+      "message": "For future reference, can you add more info on what the problem was, how this fixes it, and why this fix is the right way to fix it ?",
+      "revId": "ce0e40da689c3bd1f2b3cd80662f1502c4b3df21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43fade28_b9e67d11",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-24T05:42:16Z",
+      "side": 1,
+      "message": "This looks weird, it says `wanted: $numPackets, uidTxPackets $uidTxDelta, uidRxPackets $uidRxDelta, ifaceTxPackets $ifaceTxDelta`\n\nMaybe it should be something like `wanted numPackets: $numPackets, got uidTxDelta $uidTxDelta, uidRxDelta $uidRxDelta, ifaceTxDelta $ifaceTxDelta`",
+      "revId": "ce0e40da689c3bd1f2b3cd80662f1502c4b3df21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffa88e4e_b5e92b87",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-24T05:42:16Z",
+      "side": 1,
+      "message": "Typo: Packets\n\n(but also Delta ?)",
+      "range": {
+        "startLine": 476,
+        "startChar": 38,
+        "endLine": 476,
+        "endChar": 45
+      },
+      "revId": "ce0e40da689c3bd1f2b3cd80662f1502c4b3df21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
