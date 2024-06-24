@@ -38,3 +38,6 @@ android\.nearby\..+
 # This is required since android.net.http contains api classes and hidden classes.
 # TODO: Remove this after hidden classes are moved to different package
 android\.net\.http\..+
+
+# TODO: Remove this after ThreadConfiguration class is marked as @SystemApi
+android\.net\.thread\.ThreadConfiguration(\$.+)?
