@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "874dd2d8_2f07f02a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-25T02:30:47Z",
+      "side": 1,
+      "message": "No this is not the right way to fix.\nWill abandon this change.\nhttps://b.corp.google.com/issues/346806319#comment5",
+      "parentUuid": "53e00324_9f9f77ae",
+      "revId": "ce0e40da689c3bd1f2b3cd80662f1502c4b3df21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43fade28_b9e67d11",
