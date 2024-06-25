@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00b2a156_2d16d680",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T06:29:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a93b648e_1abfeaf7",
+      "range": {
+        "startLine": 578,
+        "startChar": 0,
+        "endLine": 578,
+        "endChar": 53
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e4d40e8_c694678e",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-06-24T12:25:07Z",
       "side": 1,
       "message": "can this be dropped?",
+      "range": {
+        "startLine": 584,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 53
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f593cf1a_492385e9",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T06:29:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e4d40e8_c694678e",
       "range": {
         "startLine": 584,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07b73dec_49a6f322",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T06:29:08Z",
+      "side": 1,
+      "message": "Yeah, I think it is enough. Removed the other two checks.",
+      "parentUuid": "666ed9df_bc5154ab",
+      "range": {
+        "startLine": 585,
+        "startChar": 0,
+        "endLine": 585,
+        "endChar": 44
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "950d29c7_e8c4948c",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-06-24T12:25:07Z",
       "side": 1,
       "message": "could/should this use v6? we already have the above test using v4...",
+      "range": {
+        "startLine": 587,
+        "startChar": 18,
+        "endLine": 587,
+        "endChar": 32
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "018c28a5_166bb1e1",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T06:29:08Z",
+      "side": 1,
+      "message": "updated to use APFv6. For this test case specifically, I actually feel V4 and V6 don\u0027t matter for testing the filter_age_16384th value.",
+      "parentUuid": "950d29c7_e8c4948c",
       "range": {
         "startLine": 587,
         "startChar": 18,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c47ffb_b6736baa",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T06:29:08Z",
+      "side": 1,
+      "message": "Update to 56 to make it consistent with previous test cases.",
+      "parentUuid": "08d9a7a5_8e78f656",
+      "range": {
+        "startLine": 605,
+        "startChar": 26,
+        "endLine": 605,
+        "endChar": 27
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a527e70_c980c08a",
@@ -146,6 +266,30 @@
       "writtenOn": "2024-06-24T12:25:07Z",
       "side": 1,
       "message": "I think this sleep being 5.1s is pointless now with it using fractions anyway.  You could reduce to 5000",
+      "range": {
+        "startLine": 613,
+        "startChar": 21,
+        "endLine": 613,
+        "endChar": 25
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4d8bb14_4aa51f0f",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T06:29:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a527e70_c980c08a",
       "range": {
         "startLine": 613,
         "startChar": 21,
@@ -197,6 +341,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f163faf7_061c35d7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T06:29:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8df85d4_a1bb34d6",
+      "range": {
+        "startLine": 622,
+        "startChar": 0,
+        "endLine": 622,
+        "endChar": 54
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb6118a4_4a2fd144",
@@ -210,6 +378,30 @@
       "writtenOn": "2024-06-24T12:25:07Z",
       "side": 1,
       "message": "note that this is (lower,upper) region, not the [lower,upper] you\u0027d kind of expect... one more reason to do 4.99..5.81",
+      "range": {
+        "startLine": 625,
+        "startChar": 7,
+        "endLine": 626,
+        "endChar": 59
+      },
+      "revId": "552d40f50495eb2ebdc13cf3cb7641790c7cb4a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8a486c9_12b3c0bb",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T06:29:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb6118a4_4a2fd144",
       "range": {
         "startLine": 625,
         "startChar": 7,
