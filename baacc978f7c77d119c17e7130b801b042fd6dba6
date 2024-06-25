@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fe05ab5_5a0ad8ab",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-25T05:46:28Z",
+      "side": 1,
+      "message": "There is a `OperationalDatasetTimestamp#fromInstant(Instant instant)` method which converts an Instant to the timestamp. You can create a overload of that method so that you can specify the Authoritative bit:\n\n```\n/**\n * @hide\n */\npublic static OperationalDatasetTimestamp fromInstant(Instant instant, boolean isAuthoritative) {\n  // ...\n}\n```\n\nSo that we can hide the complexity of calculating ticks here.",
+      "range": {
+        "startLine": 889,
+        "startChar": 32,
+        "endLine": 891,
+        "endChar": 46
+      },
+      "revId": "baacc978f7c77d119c17e7130b801b042fd6dba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70334476_3ab788d3",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-25T05:46:28Z",
+      "side": 1,
+      "message": "```suggestion\n    public void createRandomizedDataset_zeroNanoseconds_returnsZeroTicks() throws Exception {\n```",
+      "range": {
+        "startLine": 590,
+        "startChar": 40,
+        "endLine": 590,
+        "endChar": 57
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "8a589524_caa3c658",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+              "range": {
+                "startLine": 590,
+                "startChar": 0,
+                "endLine": 591,
+                "endChar": 0
+              },
+              "replacement": "    public void createRandomizedDataset_zeroNanoseconds_returnsZeroTicks() throws Exception {\n"
+            },
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+              "range": {
+                "startLine": 613,
+                "startChar": 0,
+                "endLine": 614,
+                "endChar": 0
+              },
+              "replacement": "    public void createRandomizedDataset_maxNanoseconds_returnsMaxTicks() throws Exception {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "baacc978f7c77d119c17e7130b801b042fd6dba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43c37ec0_b4993899",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-25T05:46:28Z",
+      "side": 1,
+      "message": "```suggestion\n    public void createRandomizedDataset_maxNanoseconds_returnsMaxTicks() throws Exception {\n```",
+      "range": {
+        "startLine": 613,
+        "startChar": 16,
+        "endLine": 613,
+        "endChar": 56
+      },
+      "revId": "baacc978f7c77d119c17e7130b801b042fd6dba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
