@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2942a16c_d5a2c8a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-25T09:51:19Z",
+      "side": 1,
+      "message": "$ adbz shell getprop | egrep \u0027wear|watch\u0027 | egrep -v cf_gwear\n[bluetooth.profile.map_client.sms_receiver_package]: [\"com.google.wear.services\"]\n[persist.a11y_vibration_watch_feature_enabled]: [true]\n[ro.build.characteristics]: [nosdcard,watch]\n[ro.com.google.ime.system_lm_dir]: [/product/usr/share/ime/google/wear_lms]\n[ro.config.ringtone]: [wearOS3_default_ringtone.ogg]\n[ro.cw.home_package_names]: [com.google.wear.services;com.google.android.wearable.media.sessions;com.google.android.wearable.setupwizard;com.google.android.apps.safetyhub]\n[ro.cw_build.wear_sdk.version]: [6]\n[ro.oem.companion_package]: [com.google.android.apps.wear.companion]\n[ro.sys.debug_companion_package]: [com.google.android.apps.wear.engcompanion]\n\nof which the most relevant seem to be:\n  ro.build.characteristics including \u0027watch\u0027\n  ro.cw_build.wear_sdk.version \u003e 0",
+      "revId": "d8ce7c52b8c5b4a9550c8c5f83d12115d3396404",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
