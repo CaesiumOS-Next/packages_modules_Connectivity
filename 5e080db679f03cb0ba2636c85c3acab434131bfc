@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48ac13fd_23408619",
+        "filename": "bpf_progs/netd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-06-25T07:12:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a2845a8_9178bd30",
+      "range": {
+        "startLine": 277,
+        "startChar": 19,
+        "endLine": 277,
+        "endChar": 33
+      },
+      "revId": "5e080db679f03cb0ba2636c85c3acab434131bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81e7eeb1_2320f94d",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1d99947_a582295d",
+        "filename": "framework/src/android/net/BpfNetMapsUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-06-25T07:12:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81e7eeb1_2320f94d",
+      "range": {
+        "startLine": 337,
+        "startChar": 13,
+        "endLine": 337,
+        "endChar": 33
+      },
+      "revId": "5e080db679f03cb0ba2636c85c3acab434131bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66e6671c_69d4e5a1",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-06-25T04:28:58Z",
       "side": 1,
       "message": "This test does not enable allowlist chain but does this test fail without your fix in BpfNetMapsUtils?",
+      "range": {
+        "startLine": 1268,
+        "startChar": 12,
+        "endLine": 1268,
+        "endChar": 13
+      },
+      "revId": "5e080db679f03cb0ba2636c85c3acab434131bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2661ccc8_f40fb727",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-06-25T07:12:34Z",
+      "side": 1,
+      "message": "Fixed it",
+      "parentUuid": "66e6671c_69d4e5a1",
       "range": {
         "startLine": 1268,
         "startChar": 12,
