@@ -55,19 +55,6 @@ public class ConnectivityInternalApiUtil {
     @RequiresApi(Build.VERSION_CODES.S)
     public static IBinder getRoutingCoordinator(Context ctx) {
         final ConnectivityManager cm = ctx.getSystemService(ConnectivityManager.class);
-        return cm.getRoutingCoordinatorManager().getBinder();
+        return cm.getRoutingCoordinator();
     }
-
-// backup
-//
-//    /**
-//     * Obtain a routing coordinator manager from a context, possibly cross-module.
-//     * @param ctx the context
-//     * @return an instance of the coordinator manager
-//     */
-//    @RequiresApi(Build.VERSION_CODES.S)
-//    public static IBinder getRoutingCoordinatorManager(Context ctx) {
-//        final ConnectivityManager cm = ctx.getSystemService(ConnectivityManager.class);
-//        return cm.getRoutingCoordinatorManager().getBinder();
-//    }
 }
