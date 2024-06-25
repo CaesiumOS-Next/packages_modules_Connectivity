@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21d7fb1f_9876d893",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-25T06:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6412f24f_94419bac",
+      "revId": "c988f6ceb9b824af32bb69d29c2a05190b9ba67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91e60687_ff21e378",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-06-24T06:52:47Z",
       "side": 1,
       "message": "I think this test condition might be an issue if the environment has the same packets.  \nThen it might be hard to identify it\u0027s matched by our packets or not.  \nConsider to send multiple (e.g. \u003e 10) and then check the counter increases at least 10.  \nBesides, should we also add some time limit to check?  \nSomething like expect to receive within xx sec, otherwise assert fail.",
+      "range": {
+        "startLine": 97,
+        "startChar": 6,
+        "endLine": 103,
+        "endChar": 29
+      },
+      "revId": "c988f6ceb9b824af32bb69d29c2a05190b9ba67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82d5b3dc_d5ed7aed",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-25T06:36:40Z",
+      "side": 1,
+      "message": "1. Since there are only 2 devices (hotspot and client), it seems to me this might not be a problem.\n2. The expect_with_retry has default 10 retries with 1sec interval. So it is already time limited.\n3. In the first version. I\u0027ll prefer that the counter must be increased to pass this test, unless there is any legit known cases it is not working as expected.\n  But we can observe how it runs in the post-submit and add some tolerance in the future if it is flaky.\nReopen if your concerns are not addressed.",
+      "parentUuid": "91e60687_ff21e378",
       "range": {
         "startLine": 97,
         "startChar": 6,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "305449c7_ec7cd761",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-25T06:36:40Z",
+      "side": 1,
+      "message": "Yes, if there is no upstream, we can not expect there is way to validate the network.",
+      "parentUuid": "6eac55ed_ba1f2c82",
+      "range": {
+        "startLine": 123,
+        "startChar": 16,
+        "endLine": 124,
+        "endChar": 72
+      },
+      "revId": "c988f6ceb9b824af32bb69d29c2a05190b9ba67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13a6e479_f548aa37",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-06-24T06:52:47Z",
       "side": 1,
       "message": "nit: maybe use the form below to improve some readability\n```\nclient.connectToWifi(ssid\u003dtest_ssid, passphrase\u003dtest_passphrase, requireValidation\u003d(upstream_type!\u003dUpstreamType.NONE))\n```",
+      "range": {
+        "startLine": 99,
+        "startChar": 6,
+        "endLine": 99,
+        "endChar": 68
+      },
+      "revId": "c988f6ceb9b824af32bb69d29c2a05190b9ba67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a3be7d0_6c966121",
+        "filename": "tests/cts/multidevices/utils/tether_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-25T06:36:40Z",
+      "side": 1,
+      "message": "Cannot add named parameter, reopen if any idea:\n\nSTACKTRACE:\nTraceback (most recent call last):\n  File \"/tmp/Soong.python_aarmd4p3/mobly/base_test.py\", line 818, in exec_one_test\n    test_method()\n  File \"/tmp/Soong.python_aarmd4p3/connectivity_multi_devices_test.py\", line 93, in test_apf_drop_ethercat\n    tether_utils.setup_hotspot_and_client_for_upstream_type(\n  File \"/tmp/Soong.python_aarmd4p3/utils/tether_utils.py\", line 98, in setup_hotspot_and_client_for_upstream_type\n    client_network \u003d client.connectToWifi(\n                     ^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/Soong.python_aarmd4p3/mobly/snippet/client_base.py\", line 213, in rpc_call\n    return self._rpc(name, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/Soong.python_aarmd4p3/mobly/snippet/client_base.py\", line 306, in _rpc\n    return self._handle_rpc_response(rpc_func_name, response_decoded)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/Soong.python_aarmd4p3/mobly/snippet/client_base.py\", line 415, in _handle_rpc_response\n    raise errors.ApiError(self._device, response[\u0027error\u0027])\nmobly.snippet.errors.ApiError: \u003cAndroidDevice|localhost:34973\u003e \n-------------- Java Stacktrace ---------------\ncom.google.android.mobly.snippet.rpc.RpcError: Argument 1 is not present\n\tat com.google.android.mobly.snippet.rpc.MethodDescriptor.invoke(MethodDescriptor.java:100)\n\tat com.google.android.mobly.snippet.util.RpcUtil.invokeRpc(RpcUtil.java:131)\n\tat com.google.android.mobly.snippet.util.RpcUtil.invokeRpc(RpcUtil.java:103)\n\tat com.google.android.mobly.snippet.rpc.JsonRpcServer.handleRPCConnection(JsonRpcServer.java:83)\n\tat com.google.android.mobly.snippet.rpc.SimpleServer$ConnectionThread.run(SimpleServer.java:109)\n----------------------------------------------",
+      "parentUuid": "13a6e479_f548aa37",
       "range": {
         "startLine": 99,
         "startChar": 6,
