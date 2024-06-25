@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6676c6ba_b98ea651",
+        "filename": "tools/pycheck.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T15:47:46Z",
+      "side": 1,
+      "message": "Do we have common style guide for python in Android?\n\nAre we sure pyformat is the recommended tool to check the python style?\n\nFor example, python have both pyfmt and pyformat.\n\nhttps://pypi.org/project/pyfmt/\nhttps://pypi.org/project/pyformat/\n\nNot sure which one we should use.\n\nI feel like if sometime later, we have a official repo upload hook for python.... Then all the work we have done here need to be redo..",
+      "range": {
+        "startLine": 26,
+        "startChar": 30,
+        "endLine": 26,
+        "endChar": 38
+      },
+      "revId": "aff15682391f13821f3ae3b707c3bbfb37148bd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
