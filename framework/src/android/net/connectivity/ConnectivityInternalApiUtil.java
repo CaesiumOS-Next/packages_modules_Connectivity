@@ -55,7 +55,7 @@ public class ConnectivityInternalApiUtil {
     @RequiresApi(Build.VERSION_CODES.S)
     public static IBinder getRoutingCoordinator(Context ctx) {
         final ConnectivityManager cm = ctx.getSystemService(ConnectivityManager.class);
-        return cm.getRoutingCoordinatorManager().getBinder();
+        return cm.getRoutingCoordinator();
     }
 
 // backup
