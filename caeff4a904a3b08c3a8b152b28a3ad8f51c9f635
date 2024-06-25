@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40b1d4ec_09fd49df",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-25T13:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f2ab7ad_11c2f766",
+      "range": {
+        "startLine": 690,
+        "startChar": 8,
+        "endLine": 691,
+        "endChar": 80
+      },
+      "revId": "caeff4a904a3b08c3a8b152b28a3ad8f51c9f635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25fa7cf1_307dcc4a",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-21T13:05:56Z",
       "side": 1,
       "message": "Could you paste the format in ASCII graph for the fragementHeader here? It will make better documentation.",
+      "range": {
+        "startLine": 703,
+        "startChar": 13,
+        "endLine": 706,
+        "endChar": 97
+      },
+      "revId": "caeff4a904a3b08c3a8b152b28a3ad8f51c9f635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5273c89b_bd5c6aa5",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-25T13:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25fa7cf1_307dcc4a",
       "range": {
         "startLine": 703,
         "startChar": 13,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fe75810_73aeb1f0",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-25T13:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7f0a609_dacb9978",
+      "range": {
+        "startLine": 712,
+        "startChar": 12,
+        "endLine": 712,
+        "endChar": 16
+      },
+      "revId": "caeff4a904a3b08c3a8b152b28a3ad8f51c9f635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b0d2ae8_26b0e97f",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-06-21T13:05:56Z",
       "side": 1,
       "message": "please add inline comment for this argument",
+      "range": {
+        "startLine": 518,
+        "startChar": 55,
+        "endLine": 518,
+        "endChar": 59
+      },
+      "revId": "caeff4a904a3b08c3a8b152b28a3ad8f51c9f635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8682d477_5e74723a",
+        "filename": "Tethering/tests/integration/base/android/net/TetheringTester.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-25T13:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b0d2ae8_26b0e97f",
       "range": {
         "startLine": 518,
         "startChar": 55,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "939c33b4_f05202b8",
+        "filename": "Tethering/tests/integration/base/android/net/TetheringTester.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-25T13:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e423302_1fba3e5a",
+      "range": {
+        "startLine": 519,
+        "startChar": 12,
+        "endLine": 519,
+        "endChar": 22
+      },
+      "revId": "caeff4a904a3b08c3a8b152b28a3ad8f51c9f635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "690fd893_08be9e7e",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-06-21T13:05:56Z",
       "side": 1,
       "message": "any reason why we initialize the payload linearly? Can we use Ramdom?",
+      "range": {
+        "startLine": 1142,
+        "startChar": 12,
+        "endLine": 1142,
+        "endChar": 43
+      },
+      "revId": "caeff4a904a3b08c3a8b152b28a3ad8f51c9f635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53da6f4d_9b4e685d",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-25T13:20:09Z",
+      "side": 1,
+      "message": "Previously, I thought using deterministic numbers might be preferable to avoid the unpredictability of randomly generated values. However, just found that there are many other tests use randomly generated values to do test, so I modified it.",
+      "parentUuid": "690fd893_08be9e7e",
       "range": {
         "startLine": 1142,
         "startChar": 12,
