@@ -2180,9 +2180,14 @@ public class ConnectivityManagerTest {
 
             // Verify that turning airplane mode off takes effect as expected.
             // connectToCell only registers a request, it cannot / does not need to be called twice
-            mCtsNetUtils.ensureWifiConnected();
-            if (verifyWifi) waitForAvailable(wifiCb);
-            if (supportTelephony) waitForAvailable(telephonyCb);
+            if (verifyWifi) {
+                mCtsNetUtils.ensureWifiConnected();
+                waitForAvailable(wifiCb);
+            }
+            if (supportTelephony) {
+                telephonyCb.eventuallyExpect(
+                        CallbackEntry.AVAILABLE, CELL_DATA_AVAILABLE_TIMEOUT_MS);
+            }
         } finally {
             // Restore the previous state of airplane mode and permissions:
             runShellCommand("cmd connectivity airplane-mode "
