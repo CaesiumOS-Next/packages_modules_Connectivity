@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b12b3e31_03e585e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-25T19:45:20Z",
+      "side": 1,
+      "message": "Sort of, but the main reason is that all the test infra that you require is already there. The EthernetTetheringTests essentially do the exact same thing that you want to do, except that they get their tap interface through ethernet using a TETHERING_ETHERNET request. (When you call setIncludeTestInterfaces on EthernetManager, it starts tracking testtap%d interfaces and offers them up to tethering just as if they were physical ethernet interfaces). I agree that naming isn\u0027t great (I like to think of ethernet service as something that deals with \"ethernet-like\" interfaces, not just physical ethernet interfaces).\n\nSo for your test, the only difference is how tethering gets a hold of the tap interface, everything else is exactly the same.",
+      "parentUuid": "3c8dcc20_d7d933a1",
+      "revId": "37734f7fe2f96efe130c064072a0191e73e6125d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc19b8a3_6ac1ed04",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 1
