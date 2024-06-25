@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c98f36d2_580cbc4b",
+        "filename": "tests/cts/multidevices/unittests/assert_utils_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-25T03:29:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0523ed7c_47e0bcf9",
+      "range": {
+        "startLine": 42,
+        "startChar": 48,
+        "endLine": 42,
+        "endChar": 92
+      },
+      "revId": "c0b6884c7ef1ff5935d90b513baa76a4b0a0bcf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1d5666a_73616c55",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a65263b_55f12b1e",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-25T03:29:21Z",
+      "side": 1,
+      "message": "Done and unit test added.",
+      "parentUuid": "d1d5666a_73616c55",
+      "range": {
+        "startLine": 39,
+        "startChar": 35,
+        "endLine": 39,
+        "endChar": 36
+      },
+      "revId": "c0b6884c7ef1ff5935d90b513baa76a4b0a0bcf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0d4bec3_9026eb02",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-06-24T07:57:33Z",
       "side": 1,
       "message": "nits: this code does not need to keep `result` since if the result is `True`, this method return.\nI think you can write as the following.\n\n```\n  for _ in range(max_retries):\n    if predicate():\n      return None\n    else:\n      if retry_action:\n        retry_action()\n      time.sleep(retry_interval_sec)\n\n  raise UnexpectedBehaviorError(\n        \"Predicate didn\u0027t become true after \" + str(max_retries) + \" retries.\"\n  )\n```",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 15
+      },
+      "revId": "c0b6884c7ef1ff5935d90b513baa76a4b0a0bcf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da75cad9_1cfe2471",
+        "filename": "tests/cts/multidevices/utils/assert_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-25T03:29:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0d4bec3_9026eb02",
       "range": {
         "startLine": 41,
         "startChar": 9,
