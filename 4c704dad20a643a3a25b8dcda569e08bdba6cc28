@@ -22,6 +22,30 @@
       },
       "revId": "4c704dad20a643a3a25b8dcda569e08bdba6cc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6828e9aa_43ee7719",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-25T05:52:56Z",
+      "side": 1,
+      "message": "Done to return uppercase and updated unit test.\nLet\u0027s make dedicate class once it is needed.",
+      "parentUuid": "81147eae_d3831e40",
+      "range": {
+        "startLine": 110,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 60
+      },
+      "revId": "4c704dad20a643a3a25b8dcda569e08bdba6cc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
