@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "213908fa_047c8f6e",
+        "filename": "thread/framework/java/android/net/thread/EphemeralKey.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-25T03:30:09Z",
+      "side": 1,
+      "message": "nit: StringBuilder",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20ad242f_11c57010",
+        "filename": "thread/framework/java/android/net/thread/EphemeralKey.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-25T03:30:09Z",
+      "side": 1,
+      "message": "Documentation.\n\nAlso maybe call the other constructor.",
+      "fixSuggestions": [
+        {
+          "fixId": "9c324563_2bb87741",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/framework/java/android/net/thread/EphemeralKey.java",
+              "range": {
+                "startLine": 135,
+                "startChar": 0,
+                "endLine": 135,
+                "endChar": 0
+              },
+              "replacement": "        /**\n         * Creates a new {@link Builder} object with a passcode and lifetime.\n         *\n         * @param passcode the ephemeral key passcode\n         * @param lifetimeMillis lifetime of the ephemeral key in milliseconds\n         */\n"
+            }
+          ]
+        }
+      ],
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7153ccd8_a1082182",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-25T03:30:09Z",
+      "side": 1,
+      "message": "Probably rename it to `onEphemeralKeyChanged`.\n\nAlso I\u0027m thinking would it be more clear if:\n\n1. There are two callbacks.\nor\n2. Use the nullity of epskc to indicate enabled or not.",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b326d0ee_64fe3dcf",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-25T03:30:09Z",
+      "side": 1,
+      "message": "Would it be kind of lack of context to use the term \u0027epskc\u0027?",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b07b39c4_3bbf3455",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-25T03:30:09Z",
+      "side": 1,
+      "message": "I think you\u0027d better directly call the API instead of this wrapper otherwise we don\u0027t know whether it has the privileged permission.",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44da1876_63c9e615",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-06-25T03:30:09Z",
+      "side": 1,
+      "message": "I think you\u0027d better directly call the API instead of this wrapper otherwise we don\u0027t know whether it has the privileged permission.",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
