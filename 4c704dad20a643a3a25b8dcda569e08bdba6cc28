@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0de77fbc_6ddf5e8b",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T15:42:31Z",
+      "side": 1,
+      "message": "nit: extra blank?",
+      "revId": "4c704dad20a643a3a25b8dcda569e08bdba6cc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81147eae_d3831e40",
         "filename": "tests/cts/multidevices/utils/apf_utils.py",
         "patchSetId": 8
@@ -43,6 +60,52 @@
         "startChar": 2,
         "endLine": 114,
         "endChar": 60
+      },
+      "revId": "4c704dad20a643a3a25b8dcda569e08bdba6cc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b89ba825_c258bd06",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T15:42:31Z",
+      "side": 1,
+      "message": "As I mentioned in other CL, I think we need shell command to print some str to indicate the execution succeed. We can check the str here.",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 191,
+        "endChar": 12
+      },
+      "revId": "4c704dad20a643a3a25b8dcda569e08bdba6cc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88406b8f_4e2db783",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-25T15:42:31Z",
+      "side": 1,
+      "message": "I feel we should check the command execution succeed message as well.",
+      "range": {
+        "startLine": 192,
+        "startChar": 4,
+        "endLine": 192,
+        "endChar": 35
       },
       "revId": "4c704dad20a643a3a25b8dcda569e08bdba6cc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
