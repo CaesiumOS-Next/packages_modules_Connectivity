@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c5d46c8_147749f1",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4050,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "is directly called by",
+      "range": {
+        "startLine": 4050,
+        "startChar": 75,
+        "endLine": 4050,
+        "endChar": 89
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9cad0c1_3535364e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4302,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "ONUNAVAILABLE",
+      "range": {
+        "startLine": 4302,
+        "startChar": 44,
+        "endLine": 4302,
+        "endChar": 55
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "120befef_dbd78213",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4541,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "Nit: the other methods don\u0027t have this comment. Not sure if it\u0027s intentional or whether you want to remove it.",
+      "range": {
+        "startLine": 4541,
+        "startChar": 55,
+        "endLine": 4541,
+        "endChar": 87
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee473767_7e8ed560",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4758,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "Nit: any reason not to make this wtf?",
+      "range": {
+        "startLine": 4758,
+        "startChar": 27,
+        "endLine": 4758,
+        "endChar": 28
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7083437_b3f2a320",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4775,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "What about methods declared by Object, such as toString or hashCode? Or from Parcelable, such as writeToParcel? I guess we call getCallbackIdsCallingThisMethod, loop through the array, and return early when it finds no match? Would something like:\n\n    // Ignore methods declared by NetworkCallback itself, Parcelable, etc.\n    if (classMethod.getDeclaringClass().isAssignableFrom(NetworkCallback.class)) {\n\nbe better due to skipping the iteration?\n\nAnd actually - could/should this code use clazz.getDeclaredMethods to list only the methods defined by this class? Or does that not work, because the methods are not defined by this class, but defined by NetworkCallback and overridden by this class?",
+      "range": {
+        "startLine": 4775,
+        "startChar": 51,
+        "endLine": 4775,
+        "endChar": 72
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9abaa5d5_1fef9db2",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4821,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "\"the equal\" -\u003e \"equal\"",
+      "range": {
+        "startLine": 4821,
+        "startChar": 23,
+        "endLine": 4821,
+        "endChar": 32
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b82664a3_c78a06f3",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4824,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "This long comment is very useful in explaining the rationale, but it doesn\u0027t explain what it\u0027s explaining the rationale for. Maybe add something like:\n\n    // Therefore, this is an override only if methodParams is exactly equal to\n    // the base method\u0027s parameter types.",
+      "range": {
+        "startLine": 4824,
+        "startChar": 99,
+        "endLine": 4824,
+        "endChar": 100
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c02533_10357dab",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7893,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "If/when we remove this, can we also turn on the optimization for when apps pass in \"new NetworkCallback()\" to requestNetwork? (In that case we currently disable the optimization.)",
+      "range": {
+        "startLine": 7893,
+        "startChar": 64,
+        "endLine": 7893,
+        "endChar": 65
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27ad25ab_2ecae0d4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 10160,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "I\u0027m not sure the linter is actually correct about this, but can you look at the warning?\n\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\n\nPlease fix this WARNING reported by AndroidLint: [Wakelock] The `release()` call is not always reached (can exit the method via path acquire() → try → if → then log() → + → makeBasic() → if → isAtLeastT() → then → setPendingIntentBackgroundActivityLaunchAllowed() → sen...\n\nAnalyzer Description: Reports AndroidLint warnings.\nOwner: colefaust@google.com\n\n[Wakelock] The `release()` call is not always reached (can exit the method via path acquire() → try → if → then log() → + → makeBasic() → if → isAtLeastT() → then → setPendingIntentBackgroundActivityLaunchAllowed() → send() → if → isAtLeastT() → then → toBundle() → exit; use try/finally to ensure `release` is always called)\n\n                mPendingIntentWakeLock.release();\n                                       ~~~~~~~\n\nFailing to release a wakelock properly can keep the Android device in a high power mode, which reduces battery life. There are several causes of this, such as releasing the wake lock in `onDestroy()` instead of in `onPause()`, failing to call `release()` in all possible code paths after an `acquire()`, and so on.\n\nNOTE: If you are using the lock just to keep the screen on, you should strongly consider using `FLAG_KEEP_SCREEN_ON` instead. This window flag will be correctly managed by the platform as the user moves between applications and doesn\u0027t require a special permission. See https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#FLAG_KEEP_SCREEN_ON.\n\nSuppression and local reproduction steps: go/ayeaye-android-lint\n\nThis warning was found on the git_main branch",
+      "range": {
+        "startLine": 10160,
+        "startChar": 36,
+        "endLine": 10160,
+        "endChar": 19
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed1c6ccd_adc09bdf",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "specified NetworkCallback method with mock arguments",
+      "range": {
+        "startLine": 161,
+        "startChar": 18,
+        "endLine": 161,
+        "endChar": 35
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14907965_d4a41952",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "This provides an idea of which methods are transitively called by the specified method. It\u0027s not perfect as...",
+      "range": {
+        "startLine": 163,
+        "startChar": 7,
+        "endLine": 163,
+        "endChar": 11
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab45d39a_5a98b4a6",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "or not depending on the exact values of the mock arguments that are passed in (for example, onAvailable calls onNetworkSuspended only if the capabilities lack the NOT_SUSPENDED capability)",
+      "range": {
+        "startLine": 163,
+        "startChar": 73,
+        "endLine": 163,
+        "endChar": 97
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "717b9d85_d69d50bb",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "that mocks all methods except the one specified by the caller",
+      "range": {
+        "startLine": 167,
+        "startChar": 25,
+        "endLine": 167,
+        "endChar": 66
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "069e9dff_df7c3e3f",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-25T18:28:41Z",
+      "side": 1,
+      "message": "mock NetworkCallback",
+      "range": {
+        "startLine": 167,
+        "startChar": 20,
+        "endLine": 167,
+        "endChar": 24
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
