@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3c072c8_d75cbc69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-06-25T13:25:57Z",
+      "side": 1,
+      "message": "This change appears to break the tests in aosp/2632313 because it prevents clat\u0027s BPF program from updating the counters.",
+      "revId": "59a2b902de168dd7675d2618c2149e8cec700306",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
