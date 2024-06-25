@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package android.net;
+package com.android.net.module.util;
 
 import android.content.Context;
+import android.net.RouteInfo;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;

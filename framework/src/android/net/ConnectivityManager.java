@@ -76,6 +76,7 @@ import android.util.SparseIntArray;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.RoutingCoordinatorManager;
 
 import libcore.net.event.NetworkEventDispatcher;
 
