@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e03ed14a_4d4bc0b8",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-26T01:45:48Z",
+      "side": 1,
+      "message": "Do we really need to pass packet_type_in_hex in send_raw_packet_downstream()?  \nAny specific reason for this argument? \nThe same question for dst MAC.\nIt seems to me that the whole packet is in the packet.build().hex()  \nIf it needs to be changed in the related adb command, may be it can be separate CL to change it.",
+      "range": {
+        "startLine": 137,
+        "startChar": 6,
+        "endLine": 140,
+        "endChar": 27
+      },
+      "revId": "3ce4e99a9c38fb68ca8b2a8dc731a161c185bb14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
