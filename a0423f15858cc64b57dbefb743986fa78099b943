@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c92e7dd1_5f2e33d7",
+        "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-26T06:19:06Z",
+      "side": 1,
+      "message": "Document the arguments are non-straightforward constants. See go/java-practices/methods#document-ambiguous-arguments (the inline comment style is a bit different in Android)\n```suggestion\n        return OperationalDatasetTimestamp.fromInstant(instant, true /* authoritative */);\n```",
+      "range": {
+        "startLine": 68,
+        "startChar": 64,
+        "endLine": 68,
+        "endChar": 68
+      },
+      "revId": "a0423f15858cc64b57dbefb743986fa78099b943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "69d6c191_143c78c6",
         "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
         "patchSetId": 9
@@ -19,6 +42,29 @@
         "startChar": 0,
         "endLine": 74,
         "endChar": 12
+      },
+      "revId": "a0423f15858cc64b57dbefb743986fa78099b943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19e390c4_953501be",
+        "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-26T06:19:06Z",
+      "side": 1,
+      "message": "nit: while it\u0027s a bit verbose, but better use the same name as the getters so reader can get a direct mapping between the arguments and the member fields.\n```suggestion\n            @NonNull Instant instant, boolean isAuthoritativeSource) {\n```",
+      "range": {
+        "startLine": 89,
+        "startChar": 46,
+        "endLine": 89,
+        "endChar": 59
       },
       "revId": "a0423f15858cc64b57dbefb743986fa78099b943",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
