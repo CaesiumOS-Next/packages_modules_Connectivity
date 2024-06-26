@@ -93,6 +93,30 @@
       },
       "revId": "b2f8689c4bc876f4a90e5700ba29b52c5c563233",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4f6a8eb_42657949",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-26T09:55:46Z",
+      "side": 1,
+      "message": "SGTM I think it works if we want a 3rd monitor for memory usage.\nThe only problem I can imagine is they don\u0027t finish in backward order.\nNot sure if they will interference each other, e.g.\n```\nmonitorMemoryUsageBefore\nmonitorThreadLeakBefore\nrun\nmonitorMemoryUsageAfter\nmonitorThreadLeakAfter\n```\nIn this way, the monitorMemoryUsageAfter might see the usage done by monitorThreadLeakBefore.\nAnd monitorThreadLeakAfter might see the additional thread created by monitorMemoryUsageAfter (if any).\nThis can be fixed by iterate in reverse order.\n```\nval numbers \u003d listOf(1, 2, 3, 4, 5)\nfor (num in numbers.reversed()) {\n    println(num) // Output: 5, 4, 3, 2, 1\n}\n```\nBut in any case, you might want remi\u0027s opinion before investing time to it.",
+      "parentUuid": "b2e6eb99_e5a86fe9",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 32
+      },
+      "revId": "b2f8689c4bc876f4a90e5700ba29b52c5c563233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
