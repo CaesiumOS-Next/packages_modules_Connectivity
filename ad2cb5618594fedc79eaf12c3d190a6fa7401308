@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73e758f4_a9275183",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsMultinetworkSocketClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T09:25:42Z",
+      "side": 1,
+      "message": "This test will probably crash on eng builds due to the Log.wtf (by default they crash on eng).\n\nYou should be able to fix it with something like:\n\n```\nval mockHandler \u003d mock(TerribleFailureHandler.class)\nval originalHandler \u003d Log.setWtfHandler(mockHandler)\ntryTest {\n    ...\n    // While you\u0027re at it\n    verify(mockHandler).onTerribleFailure(...)\n} cleanup {\n    Log.setWtfHandler(originalHandler)\n}\n```",
+      "revId": "ad2cb5618594fedc79eaf12c3d190a6fa7401308",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
