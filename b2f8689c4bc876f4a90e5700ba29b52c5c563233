@@ -45,6 +45,30 @@
       },
       "revId": "b2f8689c4bc876f4a90e5700ba29b52c5c563233",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2e6eb99_e5a86fe9",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-26T09:36:35Z",
+      "side": 1,
+      "message": "I originally thought that create the baseMonitorClass and make ThreadLeakMonitor and DefaultNetworkRestoreMonitor to extend baseMonitorClass.\nSomething like the following.\n```\nfun createMonitors() {\n   ....\n}\n\noverride fun run(notifier: RunNotifier) {\n  val monitors \u003d createMonitors()\n  \n  for (monitor: monitors) {\n      monitor.init();\n  }\n  run()\n  for (monitor: monitors) {\n      monitor.reportResult();\n  }  \n}\n\n```\nBut we only have two monitors currently and I\u0027m not sure if this abstraction works for monitors we might add in the future.\nSo I haven\u0027t done this in this CL.\nI\u0027m not sure if I want to do this in this CL, but I can do if you prefer.",
+      "parentUuid": "c6467735_dc66bb26",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 32
+      },
+      "revId": "b2f8689c4bc876f4a90e5700ba29b52c5c563233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
