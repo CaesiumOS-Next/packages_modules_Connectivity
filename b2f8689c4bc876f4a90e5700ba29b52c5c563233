@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5088e55e_368e710c",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-26T09:12:34Z",
+      "side": 1,
+      "message": "I think this doesn\u0027t belong here though.",
+      "range": {
+        "startLine": 115,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 50
+      },
+      "revId": "b2f8689c4bc876f4a90e5700ba29b52c5c563233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6467735_dc66bb26",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-26T09:12:34Z",
+      "side": 1,
+      "message": "I\u0027m wondering if there is a better way to refactor it.\nE.g.\n```\npreBaseRunner()\nbaseRunner.run(notifier)\npostBaseRunner()\n\nor \n\nmonitorThreadLeakForTask(notifier: RunNotifier, task: Runnable) {\n  if (!shouldThreadLeakFailTest) {\n            task()\n            return\n  }\n  // Dump threads as a baseline to monitor thread leaks.\n   val threadCountsBeforeTest \u003d getAllThreadNameCounts()\n   task()\n   checkThreadLeak(notifier, threadCountsBeforeTest)\n}\n\nif so maybe we can \nmonitorThreadLeakForTask(notifier, () -\u003e baseRunner.run())\n\nand maybe also chain your function into:\nmonitorDefaultNetworkForTask(notifier, () -\u003e \n    monitorThreadLeakForTask(notifier, () -\u003e \n        baseRunner.run()))\n```\n\nI think the nesting is ugly but not that bad. WDYT?",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 32
+      },
+      "revId": "b2f8689c4bc876f4a90e5700ba29b52c5c563233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
