@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69d6c191_143c78c6",
+        "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-26T06:01:58Z",
+      "side": 1,
+      "message": "nit: this is usually set at the end of the API doc.\n\nE.g. \n```\n     * @see toInstant\n     *\n     *@hide\n     */\n```",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 12
+      },
+      "revId": "a0423f15858cc64b57dbefb743986fa78099b943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
