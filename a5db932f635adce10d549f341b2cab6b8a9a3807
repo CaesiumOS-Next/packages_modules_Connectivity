@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f485bdaf_e58a826b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-26T10:57:35Z",
+      "side": 1,
+      "message": "Document reason for not using SingleWriterBpfMap in ClatCoordinator",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "a5db932f635adce10d549f341b2cab6b8a9a3807",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
