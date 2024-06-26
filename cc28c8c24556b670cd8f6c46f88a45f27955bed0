@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1280971_4c084ffa",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4050,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c5d46c8_147749f1",
+      "range": {
+        "startLine": 4050,
+        "startChar": 75,
+        "endLine": 4050,
+        "endChar": 89
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9cad0c1_3535364e",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-25T18:28:41Z",
       "side": 1,
       "message": "ONUNAVAILABLE",
+      "range": {
+        "startLine": 4302,
+        "startChar": 44,
+        "endLine": 4302,
+        "endChar": 55
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aceaa1c_fb777b5e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4302,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9cad0c1_3535364e",
       "range": {
         "startLine": 4302,
         "startChar": 44,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "462a5269_3732a7b9",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4541,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "That was intentional as I thought just specifying it once would be enough, but removed since I guess it looks inconsistent, and someone editing this list would have a good look at the arguments anyway.",
+      "parentUuid": "120befef_dbd78213",
+      "range": {
+        "startLine": 4541,
+        "startChar": 55,
+        "endLine": 4541,
+        "endChar": 87
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee473767_7e8ed560",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-06-25T18:28:41Z",
       "side": 1,
       "message": "Nit: any reason not to make this wtf?",
+      "range": {
+        "startLine": 4758,
+        "startChar": 27,
+        "endLine": 4758,
+        "endChar": 28
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0b2e28e_f93c6dca",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4758,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "Yes this is in app process so WTF can cause crashes; by default on eng builds or if settings.global.wtf_is_fatal is set. (Also TerribleFailureHandler might be set to something not default, although unlikely).\n\nAdded a comment.",
+      "parentUuid": "ee473767_7e8ed560",
       "range": {
         "startLine": 4758,
         "startChar": 27,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c7a2a05_b43b44c6",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4775,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "Just added an equality check for Object.class to avoid iterating the array for such methods. This should be a bit less expensive than isAssignableFrom, which needs to walk through the whole linked list of parent classes before it can return false. This code may be called many times for app-defined objects that have many methods.\nParcelable is an interface so getDeclaringClass should return the class that implements the interface in that case.\n\nRegarding using getDeclaredMethods: we can\u0027t because if A overrides B that overrides NetworkCallback, A.getDeclaredMethods would miss methods overridden by B. Added a comment.",
+      "parentUuid": "f7083437_b3f2a320",
+      "range": {
+        "startLine": 4775,
+        "startChar": 51,
+        "endLine": 4775,
+        "endChar": 72
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9abaa5d5_1fef9db2",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-06-25T18:28:41Z",
       "side": 1,
       "message": "\"the equal\" -\u003e \"equal\"",
+      "range": {
+        "startLine": 4821,
+        "startChar": 23,
+        "endLine": 4821,
+        "endChar": 32
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75f7a8f1_6c16e77c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4821,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "the Done",
+      "parentUuid": "9abaa5d5_1fef9db2",
       "range": {
         "startLine": 4821,
         "startChar": 23,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0516192a_55118530",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 4824,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b82664a3_c78a06f3",
+      "range": {
+        "startLine": 4824,
+        "startChar": 99,
+        "endLine": 4824,
+        "endChar": 100
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26c02533_10357dab",
@@ -175,6 +343,30 @@
       "writtenOn": "2024-06-25T18:28:41Z",
       "side": 1,
       "message": "If/when we remove this, can we also turn on the optimization for when apps pass in \"new NetworkCallback()\" to requestNetwork? (In that case we currently disable the optimization.)",
+      "range": {
+        "startLine": 7893,
+        "startChar": 64,
+        "endLine": 7893,
+        "endChar": 65
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baf4121a_2db27dfa",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7893,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "We could if we are OK with breaking dexmaker-mockito-inline usage when spies or MockSettings.useConstructor are used (added comment)",
+      "parentUuid": "26c02533_10357dab",
       "range": {
         "startLine": 7893,
         "startChar": 64,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0f16548_7b542d7b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 10160,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "I think the linter isn\u0027t able to identify what the comment says in sendIntent:\n\n```\n// ...otherwise, mPendingIntentWakeLock.release() gets called by onSendFinished()\n```\n\nFiled b/349491177 to ask if we should just suppress it.\n\nAlso the lint analyzer isn\u0027t on the right line at all",
+      "parentUuid": "27ad25ab_2ecae0d4",
+      "range": {
+        "startLine": 10160,
+        "startChar": 36,
+        "endLine": 10160,
+        "endChar": 19
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed1c6ccd_adc09bdf",
@@ -221,6 +437,30 @@
       "writtenOn": "2024-06-25T18:28:41Z",
       "side": 1,
       "message": "specified NetworkCallback method with mock arguments",
+      "range": {
+        "startLine": 161,
+        "startChar": 18,
+        "endLine": 161,
+        "endChar": 35
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "569a0f47_d640e169",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed1c6ccd_adc09bdf",
       "range": {
         "startLine": 161,
         "startChar": 18,
@@ -277,6 +517,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef10082b_93fe200e",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14907965_d4a41952",
+      "range": {
+        "startLine": 163,
+        "startChar": 7,
+        "endLine": 163,
+        "endChar": 11
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "090099b7_ac100f50",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab45d39a_5a98b4a6",
+      "range": {
+        "startLine": 163,
+        "startChar": 73,
+        "endLine": 163,
+        "endChar": 97
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "717b9d85_d69d50bb",
@@ -313,6 +601,54 @@
       "writtenOn": "2024-06-25T18:28:41Z",
       "side": 1,
       "message": "mock NetworkCallback",
+      "range": {
+        "startLine": 167,
+        "startChar": 20,
+        "endLine": 167,
+        "endChar": 24
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9e95b85_7dd87440",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "717b9d85_d69d50bb",
+      "range": {
+        "startLine": 167,
+        "startChar": 25,
+        "endLine": 167,
+        "endChar": 66
+      },
+      "revId": "cc28c8c24556b670cd8f6c46f88a45f27955bed0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a73aee0_9a52b489",
+        "filename": "tests/unit/java/android/net/NetworkCallbackFlagsTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-06-26T03:40:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "069e9dff_df7c3e3f",
       "range": {
         "startLine": 167,
         "startChar": 20,
