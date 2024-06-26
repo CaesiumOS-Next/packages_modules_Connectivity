@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33f951d6_26fdc338",
+        "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-06-26T08:34:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5632315f_68ce3ee9",
+      "revId": "cb329b5b9b69487e9782e873362aeaf612c7df00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eab3cd00_c05b0035",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-06-26T06:58:57Z",
       "side": 1,
       "message": "nit: The comment is unnecessary",
+      "revId": "cb329b5b9b69487e9782e873362aeaf612c7df00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca2297c9_6d856d88",
+        "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-06-26T08:34:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eab3cd00_c05b0035",
       "revId": "cb329b5b9b69487e9782e873362aeaf612c7df00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
