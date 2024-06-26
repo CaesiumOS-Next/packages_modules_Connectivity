@@ -22,6 +22,30 @@
       },
       "revId": "fbc7a8c5bc21248a482105e5f7335b1961f531f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5de0336_33843a85",
+        "filename": "staticlibs/device/com/android/net/module/util/SocketUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-26T10:16:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6dc7f4b_3548a85b",
+      "range": {
+        "startLine": 43,
+        "startChar": 28,
+        "endLine": 43,
+        "endChar": 47
+      },
+      "revId": "fbc7a8c5bc21248a482105e5f7335b1961f531f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
