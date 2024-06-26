@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ff5ad26_e4f3ca1d",
+        "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-06-26T06:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c92e7dd1_5f2e33d7",
+      "range": {
+        "startLine": 68,
+        "startChar": 64,
+        "endLine": 68,
+        "endChar": 68
+      },
+      "revId": "a0423f15858cc64b57dbefb743986fa78099b943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69d6c191_143c78c6",
@@ -60,6 +84,30 @@
       "writtenOn": "2024-06-26T06:19:06Z",
       "side": 1,
       "message": "nit: while it\u0027s a bit verbose, but better use the same name as the getters so reader can get a direct mapping between the arguments and the member fields.\n```suggestion\n            @NonNull Instant instant, boolean isAuthoritativeSource) {\n```",
+      "range": {
+        "startLine": 89,
+        "startChar": 46,
+        "endLine": 89,
+        "endChar": 59
+      },
+      "revId": "a0423f15858cc64b57dbefb743986fa78099b943",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fb6d4cd_aa37dee6",
+        "filename": "thread/framework/java/android/net/thread/OperationalDatasetTimestamp.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-06-26T06:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19e390c4_953501be",
       "range": {
         "startLine": 89,
         "startChar": 46,
