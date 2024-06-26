@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19c2bb99_bd7e7538",
+        "filename": "tests/cts/multidevices/unittests/run_tests.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-26T01:33:44Z",
+      "side": 1,
+      "message": "nit: it can use argparse https://docs.python.org/3/library/argparse.html for better command line argument parsing.  \nI think it\u0027s ok for now, consider to use that if more arguments will be added in the future.",
+      "revId": "39d38ed410364e2f6b2b865139a63dbd8cb95fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
