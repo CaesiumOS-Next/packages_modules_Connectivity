@@ -22,6 +22,30 @@
       },
       "revId": "b2d3140de2be9d40fc2a3fe817a6d96b9a8ee116",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5366a30_a98e0ac9",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-27T09:01:57Z",
+      "side": 1,
+      "message": "testFinished is called after every test method.  \nSo, I think it\u0027s better to unregister everytime, otherwise the number of request could exceed the limit(100).",
+      "parentUuid": "79299655_a61eeca6",
+      "range": {
+        "startLine": 102,
+        "startChar": 19,
+        "endLine": 102,
+        "endChar": 49
+      },
+      "revId": "b2d3140de2be9d40fc2a3fe817a6d96b9a8ee116",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
