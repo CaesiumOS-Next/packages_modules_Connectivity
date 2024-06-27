@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d293332_6e1f2341",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-27T03:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5963d423_65e28d9e",
+      "range": {
+        "startLine": 85,
+        "startChar": 45,
+        "endLine": 85,
+        "endChar": 47
+      },
+      "revId": "df8e3fd3c1e1dd07659718252801792168a70fb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b85271b_50b35fea",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-26T21:07:14Z",
       "side": 1,
       "message": "nit: final",
+      "range": {
+        "startLine": 1112,
+        "startChar": 12,
+        "endLine": 1112,
+        "endChar": 13
+      },
+      "revId": "df8e3fd3c1e1dd07659718252801792168a70fb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cee7c30e_c4550ef1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-27T03:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b85271b_50b35fea",
       "range": {
         "startLine": 1112,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdda782e_a95aca5c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 2377,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-27T03:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51d80e97_c5e4304c",
+      "range": {
+        "startLine": 2377,
+        "startChar": 58,
+        "endLine": 2377,
+        "endChar": 59
+      },
+      "revId": "df8e3fd3c1e1dd07659718252801792168a70fb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33d37f91_c0bbb5dc",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-06-26T21:07:14Z",
       "side": 1,
       "message": "you can drop the null here",
+      "range": {
+        "startLine": 209,
+        "startChar": 69,
+        "endLine": 209,
+        "endChar": 75
+      },
+      "revId": "df8e3fd3c1e1dd07659718252801792168a70fb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60ee84fe_9fd3e531",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-27T03:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33d37f91_c0bbb5dc",
       "range": {
         "startLine": 209,
         "startChar": 69,
