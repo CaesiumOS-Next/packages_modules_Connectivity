@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f78f5a8_b886e166",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-27T08:05:11Z",
+      "side": 1,
+      "message": "I think it is already covered by existing test case?\nIf so maybe give more detail for future reference?",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "60293b754569cd743c63dbc851a436851c25ebb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
