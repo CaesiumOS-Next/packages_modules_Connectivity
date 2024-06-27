@@ -46,7 +46,6 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
-import static android.net.ConnectivityManager.NetworkCallback.DECLARED_METHODS_NONE;
 import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
 import static android.net.ConnectivityManager.TYPE_ETHERNET;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
@@ -66,7 +65,6 @@ import static android.net.ConnectivityManager.TYPE_WIFI;
 import static android.net.ConnectivityManager.TYPE_WIFI_P2P;
 import static android.net.ConnectivityManager.getNetworkTypeName;
 import static android.net.ConnectivityManager.isNetworkTypeValid;
-import static android.net.ConnectivityManager.NetworkCallback.DECLARED_METHODS_ALL;
 import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE_OPPORTUNISTIC;
 import static android.net.INetd.PERMISSION_INTERNET;
 import static android.net.INetworkMonitor.NETWORK_VALIDATION_PROBE_PRIVDNS;
@@ -127,6 +125,8 @@ import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
 import static com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS;
 import static com.android.server.connectivity.ConnectivityFlags.REQUEST_RESTRICTED_WIFI;
 import static com.android.server.connectivity.ConnectivityFlags.INGRESS_TO_VPN_ADDRESS_FILTERING;
+
+import static java.util.Map.Entry;
 
 import android.Manifest;
 import android.annotation.CheckResult;
@@ -1779,7 +1779,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mDefaultRequest = new NetworkRequestInfo(
                 Process.myUid(), defaultInternetRequest, null,
                 null /* binder */, NetworkCallback.FLAG_INCLUDE_LOCATION_INFO,
-                null /* attributionTags */, DECLARED_METHODS_NONE);
+                null /* attributionTags */);
         mNetworkRequests.put(defaultInternetRequest, mDefaultRequest);
         mDefaultNetworkRequests.add(mDefaultRequest);
         mNetworkRequestInfoLogs.log("REGISTER " + mDefaultRequest);
@@ -2166,7 +2166,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             handleRegisterNetworkRequest(new NetworkRequestInfo(
                     Process.myUid(), networkRequest, null /* messenger */, null /* binder */,
                     NetworkCallback.FLAG_INCLUDE_LOCATION_INFO,
-                    null /* attributionTags */, DECLARED_METHODS_NONE));
+                    null /* attributionTags */));
         } else {
             handleReleaseNetworkRequest(networkRequest, Process.SYSTEM_UID,
                     /* callOnUnavailable */ false);
@@ -7531,8 +7531,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // Preference order of this request.
         final int mPreferenceOrder;
 
-        final int mDeclaredMethodsFlags;
-
         // In order to preserve the mapping of NetworkRequest-to-callback when apps register
         // callbacks using a returned NetworkRequest, the original NetworkRequest needs to be
         // maintained for keying off of. This is only a concern when the original nri
@@ -7586,22 +7584,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mCallbackFlags = NetworkCallback.FLAG_NONE;
             mCallingAttributionTag = callingAttributionTag;
             mPreferenceOrder = preferenceOrder;
-            mDeclaredMethodsFlags = DECLARED_METHODS_NONE;
         }
 
         NetworkRequestInfo(int asUid, @NonNull final NetworkRequest r, @Nullable final Messenger m,
                 @Nullable final IBinder binder,
                 @NetworkCallback.Flag int callbackFlags,
-                @Nullable String callingAttributionTag, int declaredMethodsFlags) {
+                @Nullable String callingAttributionTag) {
             this(asUid, Collections.singletonList(r), r, m, binder, callbackFlags,
-                    callingAttributionTag, declaredMethodsFlags);
+                    callingAttributionTag);
         }
 
         NetworkRequestInfo(int asUid, @NonNull final List<NetworkRequest> r,
                 @NonNull final NetworkRequest requestForCallback, @Nullable final Messenger m,
                 @Nullable final IBinder binder,
                 @NetworkCallback.Flag int callbackFlags,
-                @Nullable String callingAttributionTag, int declaredMethodsFlags) {
+                @Nullable String callingAttributionTag) {
             super();
             ensureAllNetworkRequestsHaveType(r);
             mRequests = initializeRequests(r);
@@ -7616,7 +7613,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mCallbackFlags = callbackFlags;
             mCallingAttributionTag = callingAttributionTag;
             mPreferenceOrder = PREFERENCE_ORDER_INVALID;
-            mDeclaredMethodsFlags = declaredMethodsFlags;
             linkDeathRecipient();
         }
 
@@ -7657,7 +7653,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mCallingAttributionTag = nri.mCallingAttributionTag;
             mUidTrackedForBlockedStatus = nri.mUidTrackedForBlockedStatus;
             mPreferenceOrder = PREFERENCE_ORDER_INVALID;
-            mDeclaredMethodsFlags = nri.mDeclaredMethodsFlags;
             linkDeathRecipient();
         }
 
@@ -7745,8 +7740,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + (mPendingIntent == null ? "" : " to trigger " + mPendingIntent)
                     + " callback flags: " + mCallbackFlags
                     + " order: " + mPreferenceOrder
-                    + " isUidTracked: " + mUidTrackedForBlockedStatus
-                    + " declaredMethods: 0x" + Integer.toHexString(mDeclaredMethodsFlags);
+                    + " isUidTracked: " + mUidTrackedForBlockedStatus;
         }
     }
 
@@ -7884,21 +7878,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public NetworkRequest requestNetwork(int asUid, NetworkCapabilities networkCapabilities,
             int reqTypeInt, Messenger messenger, int timeoutMs, final IBinder binder,
             int legacyType, int callbackFlags, @NonNull String callingPackageName,
-            @Nullable String callingAttributionTag, int declaredMethodsFlag) {
-        if (declaredMethodsFlag == 0) {
-            // This could happen if raw binder calls are used to call the previous overload of
-            // requestNetwork, as missing int arguments in a binder call end up as 0
-            // (Parcel.readInt returns 0 at the end of a parcel). Such raw calls this would be
-            // really unexpected bad behavior from the caller though.
-            // TODO: remove after verifying this does not happen. This could allow enabling the
-            // optimization for callbacks that do not override any method (right now they use
-            // DECLARED_METHODS_ALL), if it is OK to break NetworkCallbacks created using
-            // dexmaker-mockito-inline and either spy() or MockSettings.useConstructor (see
-            // comment in ConnectivityManager which sets the flag to DECLARED_METHODS_ALL).
-            Log.wtf(TAG, "requestNetwork called without declaredMethodsFlag from "
-                    + callingPackageName);
-            declaredMethodsFlag = DECLARED_METHODS_ALL;
-        }
+            @Nullable String callingAttributionTag) {
         if (legacyType != TYPE_NONE && !hasNetworkStackPermission()) {
             if (isTargetSdkAtleast(Build.VERSION_CODES.M, mDeps.getCallingUid(),
                     callingPackageName)) {
@@ -7990,7 +7970,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 nextNetworkRequestId(), reqType);
         final NetworkRequestInfo nri = getNriToRegister(
                 asUid, networkRequest, messenger, binder, callbackFlags,
-                callingAttributionTag, declaredMethodsFlag);
+                callingAttributionTag);
         if (DBG) log("requestNetwork for " + nri);
         trackUidAndRegisterNetworkRequest(EVENT_REGISTER_NETWORK_REQUEST, nri);
         if (timeoutMs > 0) {
@@ -8016,7 +7996,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private NetworkRequestInfo getNriToRegister(final int asUid, @NonNull final NetworkRequest nr,
             @Nullable final Messenger msgr, @Nullable final IBinder binder,
             @NetworkCallback.Flag int callbackFlags,
-            @Nullable String callingAttributionTag, int declaredMethodsFlags) {
+            @Nullable String callingAttributionTag) {
         final List<NetworkRequest> requests;
         if (NetworkRequest.Type.TRACK_DEFAULT == nr.type) {
             requests = copyDefaultNetworkRequestsForUid(
@@ -8025,8 +8005,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             requests = Collections.singletonList(nr);
         }
         return new NetworkRequestInfo(
-                asUid, requests, nr, msgr, binder, callbackFlags, callingAttributionTag,
-                declaredMethodsFlags);
+                asUid, requests, nr, msgr, binder, callbackFlags, callingAttributionTag);
     }
 
     private boolean shouldCheckCapabilitiesDeclaration(
@@ -8316,13 +8295,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public NetworkRequest listenForNetwork(NetworkCapabilities networkCapabilities,
             Messenger messenger, IBinder binder,
             @NetworkCallback.Flag int callbackFlags,
-            @NonNull String callingPackageName, @NonNull String callingAttributionTag,
-            int declaredMethodsFlag) {
-        if (declaredMethodsFlag == 0) {
-            Log.wtf(TAG, "listenForNetwork called without declaredMethodsFlag from "
-                    + callingPackageName);
-            declaredMethodsFlag = DECLARED_METHODS_ALL;
-        }
+            @NonNull String callingPackageName, @NonNull String callingAttributionTag) {
         final int callingUid = mDeps.getCallingUid();
         if (!hasWifiNetworkListenPermission(networkCapabilities)) {
             enforceAccessPermission();
@@ -8344,7 +8317,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 NetworkRequest.Type.LISTEN);
         NetworkRequestInfo nri =
                 new NetworkRequestInfo(callingUid, networkRequest, messenger, binder, callbackFlags,
-                        callingAttributionTag, declaredMethodsFlag);
+                        callingAttributionTag);
         if (VDBG) log("listenForNetwork for " + nri);
 
         trackUidAndRegisterNetworkRequest(EVENT_REGISTER_NETWORK_LISTENER, nri);
@@ -9786,8 +9759,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             configBuilder.setUpstreamSelector(nr);
             final NetworkRequestInfo nri = new NetworkRequestInfo(
                     nai.creatorUid, nr, null /* messenger */, null /* binder */,
-                    0 /* callbackFlags */, null /* attributionTag */,
-                    DECLARED_METHODS_NONE);
+                    0 /* callbackFlags */, null /* attributionTag */);
             if (null != oldSatisfier) {
                 // Set the old satisfier in the new NRI so that the rematch will see any changes
                 nri.setSatisfier(oldSatisfier, nr);
@@ -10156,11 +10128,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Default request has no msgr. Also prevents callbacks from being invoked for
             // NetworkRequestInfos registered with ConnectivityDiagnostics requests. Those callbacks
             // are Type.LISTEN, but should not have NetworkCallbacks invoked.
-            return;
-        }
-        if (mUseDeclaredMethodsForCallbacksEnabled
-                && (nri.mDeclaredMethodsFlags & (1 << notificationType)) == 0) {
-            // No need to send the notification as the recipient method is not overridden
             return;
         }
         final Bundle bundle = new Bundle();
