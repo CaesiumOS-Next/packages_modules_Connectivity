@@ -16,6 +16,24 @@
       "message": "To Lorenzo for code owners",
       "revId": "7f03204745db668c693f0e984611d04873db0e37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8cabbef_541e3b06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-27T23:00:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "100a0c02_2c04b0bf",
+      "revId": "7f03204745db668c693f0e984611d04873db0e37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
