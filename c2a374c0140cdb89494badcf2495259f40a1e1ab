@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04a020bf_63ece9d1",
+        "filename": "Tethering/common/TetheringLib/api/system-current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-27T13:37:12Z",
+      "side": 1,
+      "message": "Would prefer @Nullable here. See go/android-api-guidelines#builders-optional-nullable-setters .",
+      "range": {
+        "startLine": 118,
+        "startChar": 86,
+        "endLine": 118,
+        "endChar": 94
+      },
+      "revId": "c2a374c0140cdb89494badcf2495259f40a1e1ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5209d9dc_2e776c92",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-27T13:37:12Z",
+      "side": 1,
+      "message": "Can you also explain what an unspecified or null config means? Presumably it will use the default configuration?\n\nAlso would be good to document what might happen if wifi tethering is enabled and a request with a different SoftApConfiguration is sent.",
+      "range": {
+        "startLine": 814,
+        "startChar": 67,
+        "endLine": 814,
+        "endChar": 87
+      },
+      "revId": "c2a374c0140cdb89494badcf2495259f40a1e1ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6f5bdd7_14f8fe01",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
         "patchSetId": 20
