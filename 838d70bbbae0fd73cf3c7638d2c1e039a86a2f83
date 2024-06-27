@@ -62,6 +62,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56f4261e_f9bf74de",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-27T08:37:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcd98923_dbd76667",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 24
+      },
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4bbc389_aa07d66c",
@@ -125,6 +149,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f86db84_36674953",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-27T08:37:26Z",
+      "side": 1,
+      "message": "I\u0027m not sure if I understand your suggestion.\nlistener.testFinished calls registerDefaultNetworkCallback and waits onCapabilitiesChanged.  \nSo I think we need to use doAnswer to send callback to registered callback immediately.",
+      "parentUuid": "f4bbc389_aa07d66c",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 58
+      },
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce942867_5c25f623",
         "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
         "patchSetId": 19
@@ -136,6 +184,30 @@
       "writtenOn": "2024-06-27T07:57:12Z",
       "side": 1,
       "message": "Can this be refactored?",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 91
+      },
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef2dd482_664d4a2f",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-27T08:37:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce942867_5c25f623",
       "range": {
         "startLine": 77,
         "startChar": 8,
@@ -217,6 +289,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "714de964_102bdeb2",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-27T08:37:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d31a5895_ac137e86",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 78
+      },
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7a90197_b74d5cb0",
@@ -258,6 +354,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f21ddb4_a4f39cc7",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-27T08:37:26Z",
+      "side": 1,
+      "message": "This is a different failure case since there was no default network even before starting tests.\nUpdated to verify failure message",
+      "parentUuid": "b7a90197_b74d5cb0",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 47
+      },
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccb039ff_2c31ce9c",
@@ -271,6 +391,30 @@
       "writtenOn": "2024-06-27T07:57:12Z",
       "side": 1,
       "message": "Is it better if we move it to a standalone file?",
+      "range": {
+        "startLine": 86,
+        "startChar": 10,
+        "endLine": 86,
+        "endChar": 38
+      },
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad9a5343_7955d556",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-27T08:37:26Z",
+      "side": 1,
+      "message": "I don\u0027t think this can be used for other purposes so I kept in DevSdkIgnoreRunner.\nBut I don\u0027t have strong opinion. Please re-open if it\u0027s better to have separate file.",
+      "parentUuid": "ccb039ff_2c31ce9c",
       "range": {
         "startLine": 86,
         "startChar": 10,
