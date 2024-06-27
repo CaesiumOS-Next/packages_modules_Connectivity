@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9591c189_3e0e005f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-06-27T22:53:15Z",
+      "side": 1,
+      "message": "I am also wondering whether the mapLockTest() call should be removed too. Map locking is a tool to protect us from ourselves. If it doesn\u0027t work on a certain device, it shouldn\u0027t *actually* matter...",
+      "revId": "f3e96356229d977118f2e65128e21fa846021ed5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
