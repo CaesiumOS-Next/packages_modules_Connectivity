@@ -68,6 +68,52 @@
       },
       "revId": "c2a374c0140cdb89494badcf2495259f40a1e1ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05fd6a90_e4f53e66",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-27T13:46:52Z",
+      "side": 1,
+      "message": "Nit: this could be final.",
+      "range": {
+        "startLine": 266,
+        "startChar": 8,
+        "endLine": 266,
+        "endChar": 27
+      },
+      "revId": "c2a374c0140cdb89494badcf2495259f40a1e1ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e112db88_e4254a5a",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-27T13:46:52Z",
+      "side": 1,
+      "message": "Nit: this does not test that equals() checks the SoftApConfig as well. In fact I believe that this new test code would pass even if you didn\u0027t change equals() at all. Perhaps you can add a testcase that checks that if the SoftApConfigurations are different (e.g., one null and one non-null) equals returns false?",
+      "range": {
+        "startLine": 276,
+        "startChar": 8,
+        "endLine": 276,
+        "endChar": 9
+      },
+      "revId": "c2a374c0140cdb89494badcf2495259f40a1e1ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
