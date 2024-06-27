@@ -74,6 +74,13 @@ public class InetDiagSocketTest {
             (byte) 0x00, (byte) 0x00, (byte) 0xff, (byte) 0xff,
             (byte) 0xc0, (byte) 0x00, (byte) 0x02, (byte) 0x02,
     };
+    // FE80::1234:5678:9ABC:DEF0
+    private static final byte[] LINK_LOCAL_V6_ADDRESS_BYTES = {
+            (byte) 0xFE, (byte) 0x80, (byte) 0x00, (byte) 0x00,
+            (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+            (byte) 0x12, (byte) 0x34, (byte) 0x56, (byte) 0x78,
+            (byte) 0x9A, (byte) 0xBC, (byte) 0xDE, (byte) 0xF0,
+    };
 
     // Hexadecimal representation of InetDiagReqV2 request.
     private static final String INET_DIAG_REQ_V2_UDP_INET4_HEX =
@@ -799,5 +806,37 @@ public class InetDiagSocketTest {
         doTestIsAdbSocket(SHELL_UID,  true /* expected */);
         doTestIsAdbSocket(ROOT_UID, false /* expected */);
         doTestIsAdbSocket(appUid, false /* expected */);
+    }
+
+    private void doTestIsAddressMatched(
+            InetAddress address, InetAddress addressDiag, int ifIndexDiag, boolean expected) {
+        StructInetDiagSockId sockId = new StructInetDiagSockId(
+                new InetSocketAddress(addressDiag, 43035),
+                new InetSocketAddress(53420), ifIndexDiag, 0);
+        assertEquals(expected, InetDiagMessage.doesAddressMatch(address, sockId));
+    }
+
+    @Test
+    public void testIsAddressMatched() throws Exception {
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("192.0.2.11"),
+                InetAddress.getByName("192.0.2.11"), 0, true);
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("192.0.2.11"),
+                InetAddress.getByName("192.0.2.22"), 0, false);
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("192.0.2.1"),
+                Inet6Address.getByAddress(
+                        null, SRC_V4_MAPPED_V6_ADDRESS_BYTES, -1 /* scope_id */), 0, true);
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("192.0.2.1"),
+                Inet6Address.getByAddress(
+                        null, DST_V4_MAPPED_V6_ADDRESS_BYTES, -1 /* scope_id */), 0, false);
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("2100:D:5::11AB"),
+                InetAddress.getByName("2100:D:5::11AB"), 0, true);
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("2100:D:5::11AB"),
+                InetAddress.getByName("FE80:D:5::11AB"), 0, false);
+        doTestIsAddressMatched(Inet6Address.getByAddress(
+                        null, LINK_LOCAL_V6_ADDRESS_BYTES, 3 /* scope_id */),
+                InetAddress.getByName("FE80::1234:5678:9ABC:DEF0"), 3, true);
+        doTestIsAddressMatched(Inet6Address.getByAddress(
+                        null, LINK_LOCAL_V6_ADDRESS_BYTES, 2 /* scope_id */),
+                InetAddress.getByName("FE80::1234:5678:9ABC:DEF0"), 3, false);
     }
 }

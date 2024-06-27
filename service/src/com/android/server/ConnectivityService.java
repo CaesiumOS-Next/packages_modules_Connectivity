@@ -255,6 +255,7 @@ import android.net.netd.aidl.NativeUidRangeConfig;
 import android.net.networkstack.ModuleNetworkStackClient;
 import android.net.networkstack.NetworkStackClientBase;
 import android.net.networkstack.aidl.NetworkMonitorParameters;
+import android.net.platform.flags.Flags;
 import android.net.resolv.aidl.DnsHealthEventParcel;
 import android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener;
 import android.net.resolv.aidl.Nat64PrefixEventParcel;
@@ -290,6 +291,8 @@ import android.stats.connectivity.RequestType;
 import android.stats.connectivity.ValidatedState;
 import android.sysprop.NetworkProperties;
 import android.system.ErrnoException;
+import android.system.Os;
+import android.system.OsConstants;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -334,8 +337,14 @@ import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.PerUidCounter;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.RoutingCoordinatorService;
+import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.TcUtils;
+import com.android.net.module.util.ip.NetlinkMonitor;
 import com.android.net.module.util.netlink.InetDiagMessage;
+import com.android.net.module.util.netlink.NetlinkConstants;
+import com.android.net.module.util.netlink.NetlinkMessage;
+import com.android.net.module.util.netlink.RtNetlinkAddressMessage;
+import com.android.net.module.util.netlink.StructIfaddrMsg;
 import com.android.networkstack.apishim.BroadcastOptionsShimImpl;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.common.BroadcastOptionsShim;
@@ -1036,6 +1045,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     @Nullable private final NetworkRequestStateStatsMetrics mNetworkRequestStateStatsMetrics;
 
+    // NetlinkMonitor for ConnectivityService
+    @Nullable private AddressUpdateMonitor mAddressUpdateMonitor;
+
     @GuardedBy("mBandwidthRequests")
     private final SparseArray<Integer> mBandwidthRequests = new SparseArray<>(10);
 
@@ -1425,6 +1437,27 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     /**
+     * Simple NetlinkMonitor. Listen for address changed events from kernel.
+     * All methods except the constructor must be called on the handler thread.
+     */
+    public static class AddressUpdateMonitor extends NetlinkMonitor {
+        private final Consumer<NetlinkMessage> mNetlinkMessageConsumer;
+
+        AddressUpdateMonitor(Handler h, SharedLog log, String tag,
+                Consumer<NetlinkMessage> netlinkMessageConsumer) {
+            super(h, log, tag, OsConstants.NETLINK_ROUTE,
+                    (NetlinkConstants.RTMGRP_IPV4_IFADDR
+                            | NetlinkConstants.RTMGRP_IPV6_IFADDR));
+            mNetlinkMessageConsumer = netlinkMessageConsumer;
+        }
+
+        @Override
+        protected void processNetlinkMessage(@NonNull NetlinkMessage nlMsg, long whenMs) {
+            mNetlinkMessageConsumer.accept(nlMsg);
+        }
+    }
+
+    /**
      * Dependencies of ConnectivityService, for injection in tests.
      */
     @VisibleForTesting
@@ -1770,6 +1803,36 @@ public class ConnectivityService extends IConnectivityManager.Stub
             handler.sendMessageDelayed(
                     handler.obtainMessage(EVENT_INITIAL_EVALUATION_TIMEOUT, network), delayMs);
         }
+
+        /**
+         * Create a AddressUpdateMonitor instance.
+         */
+        public AddressUpdateMonitor makeAddressUpdateMonitor(
+                @NonNull Handler h, @NonNull SharedLog log, @NonNull String tag,
+                @NonNull Consumer<NetlinkMessage> consumer) {
+            if (Flags.connectivityServiceDestroySocket()) {
+                Log.d(TAG, "create AddressUpdateMonitor.");
+                return new AddressUpdateMonitor(h, log, tag, consumer);
+            } else {
+                return null;
+            }
+
+        }
+
+        /**
+         * Call {@link InetDiagMessage#destroyLiveTcpSocketsByLocalAddress(InetAddress)}
+         *
+         * @param localAddress a set of local addresses to close live TCP sockets
+         */
+        public void destroyLiveTcpSocketsByLocalAddress(@NonNull final InetAddress localAddress)
+                throws SocketException, InterruptedIOException, ErrnoException {
+            InetDiagMessage.destroyLiveTcpSocketsByLocalAddress(localAddress);
+        }
+
+        /** Wraps the system call for easier testing. */
+        public int getIndexFromInterfaceName(@NonNull String interfaceName) {
+            return Os.if_nametoindex(interfaceName);
+        }
     }
 
     public ConnectivityService(Context context) {
@@ -2062,6 +2125,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         mIngressToVpnAddressFiltering = mDeps.isAtLeastT()
                 && mDeps.isFeatureNotChickenedOut(mContext, INGRESS_TO_VPN_ADDRESS_FILTERING);
+        mAddressUpdateMonitor = mDeps.makeAddressUpdateMonitor(
+                mHandler, new SharedLog(500, TAG), TAG, this::processNetlinkMessage);
     }
 
     /**
@@ -4067,6 +4132,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mPermissionMonitor.startMonitoring();
             startMonitoringDone.open();
         });
+        if (mAddressUpdateMonitor != null) {
+            mHandler.post(() -> mAddressUpdateMonitor.start());
+        }
         mProxyTracker.loadGlobalProxy();
         registerDnsResolverUnsolicitedEventListener();
 
@@ -14505,5 +14573,53 @@ public class ConnectivityService extends IConnectivityManager.Stub
             features |= ConnectivityManager.FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS;
         }
         return features;
+    }
+
+    private void processNetlinkMessage(NetlinkMessage nlMsg) {
+        if (!(nlMsg instanceof RtNetlinkAddressMessage msg)) {
+            return;
+        }
+        if (msg.getHeader().nlmsg_type != NetlinkConstants.RTM_DELADDR) {
+            return;
+        }
+
+        final StructIfaddrMsg ifaddrMsg = msg.getIfaddrHeader();
+        InetAddress removedAddress = msg.getIpAddress();
+        if (needSocketDestroyOnRemovedAddress(removedAddress, ifaddrMsg.index)) {
+            try {
+                mDeps.destroyLiveTcpSocketsByLocalAddress(removedAddress);
+            } catch (Exception e) {
+                loge("Exception destroy TCP sockets on local address: " + e);
+            }
+        }
+    }
+
+    private boolean needSocketDestroyOnRemovedAddress(
+            @NonNull InetAddress address, int interfaceIndex) {
+        ensureRunningOnConnectivityServiceThread();
+        for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+            if (!nai.linkProperties.getAddresses().contains(address)) {
+                continue;
+            }
+            int naiIfaceIndex = mDeps.getIndexFromInterfaceName(
+                    nai.linkProperties.getInterfaceName());
+            boolean keepConnectedForHandover =
+                    nai.getScore() != null
+                            && nai.getScore().getKeepConnectedReason()
+                            == NetworkScore.KEEP_CONNECTED_FOR_HANDOVER;
+            boolean supportUpdateNetworkInterface =
+                    !nai.networkCapabilities.hasCapability(NET_CAPABILITY_NOT_VPN)
+                            || nai.networkCapabilities.hasTransport(TRANSPORT_CELLULAR);
+            // Sockets on removed address will not be destroyed at following cases.
+            // 1. The removed address is assigned to another interface for the network which
+            //   allows switching network interface. (e.g. VPN or MOBILE network).
+            // 2. The network has reason NetworkScore.KEEP_CONNECTED_FOR_HANDOVER.
+            if (keepConnectedForHandover) return false;
+            if (supportUpdateNetworkInterface
+                    && naiIfaceIndex > 0 && naiIfaceIndex != interfaceIndex) {
+                return false;
+            }
+        }
+        return true;
     }
 }
