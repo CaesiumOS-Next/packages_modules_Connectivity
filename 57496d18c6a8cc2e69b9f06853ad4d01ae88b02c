@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e5f1058_2be68c0c",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-27T07:34:59Z",
+      "side": 1,
+      "message": "The indent seems not consistent in the file, should it be 2 or 4?  \nI think it should be 4 for the python format.  \nPlease help to confirm and make it consistent.",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 10
+      },
+      "revId": "57496d18c6a8cc2e69b9f06853ad4d01ae88b02c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

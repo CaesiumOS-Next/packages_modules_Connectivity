@@ -175,6 +175,30 @@
       },
       "revId": "c988f6ceb9b824af32bb69d29c2a05190b9ba67a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d972748_128dadd5",
+        "filename": "tests/cts/multidevices/utils/tether_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-06-27T07:34:59Z",
+      "side": 1,
+      "message": "Seems like calls to the kotlin snippets.  \nNo idea for now, it\u0027s OK to keep the current form.",
+      "parentUuid": "5a3be7d0_6c966121",
+      "range": {
+        "startLine": 99,
+        "startChar": 6,
+        "endLine": 99,
+        "endChar": 68
+      },
+      "revId": "c988f6ceb9b824af32bb69d29c2a05190b9ba67a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
