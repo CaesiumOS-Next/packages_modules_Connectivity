@@ -37,3 +37,19 @@ aconfig_declarations {
     srcs: ["nearby_flags.aconfig"],
     visibility: ["//packages/modules/Connectivity:__subpackages__"],
 }
+
+java_aconfig_library {
+    name: "com.android.net.flags-aconfig-java",
+    aconfig_declarations: "com.android.net.flags-aconfig",
+    apex_available: [
+        "com.android.tethering",
+    ],
+    sdk_version: "core_platform",
+    min_sdk_version: "30",
+    libs: ["fake_device_config"],
+}
+
+cc_aconfig_library {
+    name: "com.android.net.flags-aconfig-cpp",
+    aconfig_declarations: "com.android.net.flags-aconfig",
+}
