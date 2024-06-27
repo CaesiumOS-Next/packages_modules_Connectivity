@@ -800,4 +800,27 @@ public class InetDiagSocketTest {
         doTestIsAdbSocket(ROOT_UID, false /* expected */);
         doTestIsAdbSocket(appUid, false /* expected */);
     }
+
+    private void doTestIsAddressMatched(
+            InetAddress address, InetAddress addressDiag, boolean expected) {
+        assertEquals(expected, InetDiagMessage.isAddressMatched(address, addressDiag));
+    }
+
+    @Test
+    public void testIsAddressMatched() throws Exception {
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("192.0.2.11"),
+                InetAddress.getByName("192.0.2.11"), true);
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("192.0.2.11"),
+                InetAddress.getByName("192.0.2.22"), false);
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("192.0.2.1"),
+                Inet6Address.getByAddress(
+                        null /* host */, SRC_V4_MAPPED_V6_ADDRESS_BYTES, -1 /* scope_id */), true);
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("192.0.2.1"),
+                Inet6Address.getByAddress(
+                        null /* host */, DST_V4_MAPPED_V6_ADDRESS_BYTES, -1 /* scope_id */), false);
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("2100:D:5::11AB"),
+                InetAddress.getByName("2100:D:5::11AB"), true);
+        doTestIsAddressMatched(InetAddresses.parseNumericAddress("2100:D:5::11AB"),
+                InetAddress.getByName("FE80:D:5::11AB"), false);
+    }
 }

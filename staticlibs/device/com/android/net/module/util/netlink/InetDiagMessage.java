@@ -48,6 +48,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
+import com.android.net.module.util.InetAddressUtils;
+
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InterruptedIOException;
@@ -482,6 +484,48 @@ public class InetDiagMessage extends NetlinkMessage {
                         && !isAdbSocket(diagMsg));
         final long durationMs = SystemClock.elapsedRealtime() - startTimeMs;
         Log.d(TAG, "Destroyed live tcp sockets for uids=" + ownerUids + " in " + durationMs + "ms");
+    }
+
+    /**
+     * Close tcp sockets that match the following condition
+     *  1. TCP status is one of TCP_ESTABLISHED, TCP_SYN_SENT, and TCP_SYN_RECV
+     *  2. Local address of socket is equal to the given address
+     *  3. Socket is not loopback
+     *  4. Socket is not adb socket
+     *
+     * @param localAddress a local address to close live TCP sockets
+     */
+    public static void destroyLiveTcpSocketsByLocalAddress(InetAddress localAddress)
+            throws SocketException, InterruptedIOException, ErrnoException {
+        final long startTimeMs = SystemClock.elapsedRealtime();
+
+        destroySockets(IPPROTO_TCP, TCP_ALIVE_STATE_FILTER,
+                (diagMsg) -> doesAddressMatch(localAddress, diagMsg.inetDiagMsg.id)
+                        && !isLoopback(diagMsg)
+                        && !isAdbSocket(diagMsg));
+        final long durationMs = SystemClock.elapsedRealtime() - startTimeMs;
+        Log.d(TAG, "Destroyed live tcp sockets for local address=" + localAddress
+                + " in " + durationMs + "ms");
+    }
+
+    /**
+     * Returns whether the address of InetDiagMessage matches the given address.
+     */
+    @VisibleForTesting
+    public static boolean doesAddressMatch(InetAddress address, StructInetDiagSockId id) {
+        InetAddress addressDiag = id.locSocketAddress.getAddress();
+        if (address.equals(addressDiag)) {
+            if (address instanceof Inet6Address && address.isLinkLocalAddress()
+                    && ((Inet6Address) address).getScopeId() != id.ifIndex) {
+                return false;
+            }
+            return true;
+        }
+        if (address instanceof Inet4Address && addressDiag instanceof Inet6Address
+                && addressDiag.equals(InetAddressUtils.v4MappedV6Address((Inet4Address) address))) {
+            return true;
+        }
+        return false;
     }
 
     @Override
