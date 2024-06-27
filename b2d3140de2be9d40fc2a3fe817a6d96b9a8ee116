@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00fd1e6a_c1594ac2",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-27T09:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb603d23_33a813d1",
+      "range": {
+        "startLine": 109,
+        "startChar": 16,
+        "endLine": 109,
+        "endChar": 76
+      },
+      "revId": "b2d3140de2be9d40fc2a3fe817a6d96b9a8ee116",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1fd6440_36c24dc7",
@@ -119,6 +143,30 @@
           ]
         }
       ],
+      "revId": "b2d3140de2be9d40fc2a3fe817a6d96b9a8ee116",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13e6019f_2702da19",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-06-27T09:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1fd6440_36c24dc7",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 49
+      },
       "revId": "b2d3140de2be9d40fc2a3fe817a6d96b9a8ee116",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
