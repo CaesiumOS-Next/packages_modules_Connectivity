@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af970206_f5ff8418",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-27T08:19:47Z",
+      "side": 1,
+      "message": "I only find this function get called in one place, is `hasEther` argument really needed?",
+      "range": {
+        "startLine": 732,
+        "startChar": 19,
+        "endLine": 732,
+        "endChar": 45
+      },
+      "revId": "619d40be01649113fbc2318f286f433cf410756f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
