@@ -171,6 +171,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83df5525_118d7c36",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-27T08:55:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4f86db84_36674953",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 58
+      },
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce942867_5c25f623",
