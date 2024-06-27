@@ -24,13 +24,20 @@ import android.net.ConnectivityManager.BLOCKED_REASON_NONE
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
 import android.net.ConnectivityManager.FIREWALL_RULE_ALLOW
 import android.net.ConnectivityManager.FIREWALL_RULE_DENY
+import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.NetworkCapabilities
 import android.os.Build
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener
+import com.android.net.module.util.netlink.NetlinkConstants
+import com.android.net.module.util.netlink.RtNetlinkAddressMessage
+import com.android.net.module.util.netlink.StructIfaddrMsg
+import com.android.net.module.util.netlink.StructNlMsgHdr
 import com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import java.net.InetAddress
+
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
@@ -43,7 +50,8 @@ import org.mockito.Mockito.verify
 private const val TIMESTAMP = 1234L
 private const val TEST_UID = 1234
 private const val TEST_UID2 = 5678
-private const val TEST_CELL_IFACE = "test_rmnet"
+private const val TEST_IPV6_ADDRESS = "2100::1234"
+private const val TEST_IPV4_ADDRESS = "10.20.30.40"
 
 private fun cellNc() = NetworkCapabilities.Builder()
         .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
@@ -52,8 +60,8 @@ private fun cellNc() = NetworkCapabilities.Builder()
         .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
         .build()
 
-private fun cellLp() = LinkProperties().also{
-    it.interfaceName = TEST_CELL_IFACE
+private fun cellLp(interfaceName: String) = LinkProperties().also{
+    it.interfaceName = interfaceName
 }
 
 @RunWith(DevSdkIgnoreRunner::class)
@@ -78,7 +86,7 @@ class CSDestroySocketTest : CSTest() {
         val netdEventListener = getRegisteredNetdUnsolicitedEventListener()
         val inOrder = inOrder(destroySocketsWrapper)
 
-        val cellAgent = Agent(nc = cellNc(), lp = cellLp())
+        val cellAgent = Agent(nc = cellNc(), lp = cellLp(TEST_CELL_IFACE))
         cellAgent.connect()
         if (restrictionWithIdleNetwork) {
             // Make cell default network idle
@@ -157,7 +165,7 @@ class CSDestroySocketTest : CSTest() {
         val netdEventListener = getRegisteredNetdUnsolicitedEventListener()
         val inOrder = inOrder(destroySocketsWrapper)
 
-        val cellAgent = Agent(nc = cellNc(), lp = cellLp())
+        val cellAgent = Agent(nc = cellNc(), lp = cellLp(TEST_CELL_IFACE))
         cellAgent.connect()
         // Make cell default network idle
         netdEventListener.onInterfaceClassActivityChanged(
@@ -219,7 +227,7 @@ class CSDestroySocketTest : CSTest() {
         val frozenStateCallback = getUidFrozenStateChangedCallback()
 
         // Make cell default network idle
-        val cellAgent = Agent(nc = cellNc(), lp = cellLp())
+        val cellAgent = Agent(nc = cellNc(), lp = cellLp(TEST_CELL_IFACE))
         cellAgent.connect()
         netdEventListener.onInterfaceClassActivityChanged(
                 false, // isActive
@@ -282,6 +290,32 @@ class CSDestroySocketTest : CSTest() {
         }
     }
 
+    private fun doTestDestroySocketsOnRemovedAddress(
+        interfaceNameForAgent: String,
+        interfaceIndexNetlinkMessage: Int,
+        expectDestroySockets: Boolean
+    ) {
+        val linkProperties = cellLp(interfaceNameForAgent)
+        val address = InetAddress.getByName(TEST_IPV6_ADDRESS)
+        linkProperties.addLinkAddress(LinkAddress("$TEST_IPV6_ADDRESS/64"))
+        linkProperties.addLinkAddress(LinkAddress("$TEST_IPV4_ADDRESS/24"))
+        val cellAgent = Agent(nc = cellNc(), lp = linkProperties)
+        cellAgent.connect()
+
+        val netlinkMessage = RtNetlinkAddressMessage(
+            StructNlMsgHdr(30, NetlinkConstants.RTM_DELADDR, 0, 0),
+            StructIfaddrMsg(10, 64, 0, 0, interfaceIndexNetlinkMessage),
+            address, null, 0)
+
+        deps.netlinkMessageUpdate?.accept(netlinkMessage)
+
+        if (expectDestroySockets) {
+            verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(address)
+        } else {
+            verify(destroySocketsWrapper, never()).destroyLiveTcpSocketsByLocalAddress(address)
+        }
+    }
+
     @Test
     fun testDestroySockets_backgroundDeny_frozen() {
         doTestDestroySockets(
@@ -334,5 +368,17 @@ class CSDestroySocketTest : CSTest() {
                 enableBackgroundChain = false,
                 expectDestroySockets = false
         )
+    }
+
+    @Test
+    fun testDestroySockets_on_removed_address() {
+        doTestDestroySocketsOnRemovedAddress(
+            TEST_CELL_IFACE, TEST_CELL_INTERFACE_INDEX, true)
+    }
+
+    @Test
+    fun testNotDestroySockets_on_removed_address() {
+        doTestDestroySocketsOnRemovedAddress(
+            TEST_IPSEC_IFACE, TEST_CELL_INTERFACE_INDEX, false)
     }
 }
