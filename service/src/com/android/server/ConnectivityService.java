@@ -110,6 +110,7 @@ import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_SELF_CER
 import static android.net.connectivity.ConnectivityCompatChanges.NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION;
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.VPN_UID;
+import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
@@ -192,6 +193,7 @@ import android.net.ISocketKeepaliveCallback;
 import android.net.InetAddresses;
 import android.net.IpMemoryStore;
 import android.net.IpPrefix;
+import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
 import android.net.LocalNetworkInfo;
@@ -278,6 +280,7 @@ import android.stats.connectivity.RequestType;
 import android.stats.connectivity.ValidatedState;
 import android.sysprop.NetworkProperties;
 import android.system.ErrnoException;
+import android.system.OsConstants;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -308,6 +311,7 @@ import com.android.metrics.NetworkRequestCount;
 import com.android.metrics.RequestCountForType;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.flags.Flags;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.BinderUtils;
 import com.android.net.module.util.BitUtils;
@@ -321,8 +325,14 @@ import com.android.net.module.util.LinkPropertiesUtils.CompareResult;
 import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.PerUidCounter;
 import com.android.net.module.util.PermissionUtils;
+import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.TcUtils;
+import com.android.net.module.util.ip.NetlinkMonitor;
 import com.android.net.module.util.netlink.InetDiagMessage;
+import com.android.net.module.util.netlink.NetlinkConstants;
+import com.android.net.module.util.netlink.NetlinkMessage;
+import com.android.net.module.util.netlink.RtNetlinkAddressMessage;
+import com.android.net.module.util.netlink.StructIfaddrMsg;
 import com.android.networkstack.apishim.BroadcastOptionsShimImpl;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.common.BroadcastOptionsShim;
@@ -376,6 +386,7 @@ import java.io.Writer;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -384,6 +395,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -471,6 +483,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // The maximum number of network request allowed for system UIDs before an exception is thrown.
     @VisibleForTesting
     static final int MAX_NETWORK_REQUESTS_PER_SYSTEM_UID = 250;
+
+    @VisibleForTesting
+    static final String CONFIG_SOCKET_RECV_BUFFER_SIZE = "ipclient_netlink_sock_recv_buf_size";
+    @VisibleForTesting
+    static final int SOCKET_RECV_BUFFER_SIZE = 4 * 1024 * 1024;
 
     @VisibleForTesting
     protected int mLingerDelayMs;  // Can't be final, or test subclass constructors can't change it.
@@ -1410,6 +1427,42 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     /**
+     * Simple NetlinkMonitor. Listen for address changed events from kernel.
+     * All methods except the constructor must be called on the handler thread.
+     */
+    static class ConnectivityServiceNetlinkMonitor extends NetlinkMonitor {
+        /**
+         * An interface used to process the received netlink messages, which is easiler to inject
+         * the function in unit test.
+         */
+        public interface INetlinkMessageProcessor {
+            void processNetlinkMessage(@NonNull NetlinkMessage nlMsg, long whenMs);
+        }
+
+        private final Handler mHandler;
+        private final INetlinkMessageProcessor mNetlinkMessageProcessor;
+
+        ConnectivityServiceNetlinkMonitor(Handler h, SharedLog log, String tag,
+                int sockRcvbufSize, INetlinkMessageProcessor p) {
+            super(h, log, tag, OsConstants.NETLINK_ROUTE,
+                    (NetlinkConstants.RTMGRP_IPV4_IFADDR
+                            | NetlinkConstants.RTMGRP_IPV6_IFADDR),
+                    sockRcvbufSize);
+            mHandler = h;
+            mNetlinkMessageProcessor = p;
+        }
+
+        @Override
+        protected void processNetlinkMessage(NetlinkMessage nlMsg, long whenMs) {
+            mNetlinkMessageProcessor.processNetlinkMessage(nlMsg, whenMs);
+        }
+
+        protected boolean isRunning() {
+            return super.isRunning();
+        }
+    }
+
+    /**
      * Dependencies of ConnectivityService, for injection in tests.
      */
     @VisibleForTesting
@@ -1755,6 +1808,34 @@ public class ConnectivityService extends IConnectivityManager.Stub
             handler.sendMessageDelayed(
                     handler.obtainMessage(EVENT_INITIAL_EVALUATION_TIMEOUT, network), delayMs);
         }
+
+
+        /**
+         * Create a ConnectivityServiceNetlinkMonitor instance.
+         */
+        ConnectivityServiceNetlinkMonitor makeConnectivityServiceNetlinkMonitor(
+                Handler h, SharedLog log, String tag, int sockRcvbufSize,
+                ConnectivityServiceNetlinkMonitor.INetlinkMessageProcessor p) {
+            return new ConnectivityServiceNetlinkMonitor(h, log, tag, sockRcvbufSize, p);
+        }
+
+        /**
+         * Call {@link InetDiagMessage#destroyLiveTcpSocketsByLocalAddress(InetAddress)}
+         *
+         * @param localAddress a set of local addresses to close live TCP sockets
+         */
+        public void destroyLiveTcpSocketsByLocalAddress(@NonNull final InetAddress localAddress)
+                throws SocketException, InterruptedIOException, ErrnoException {
+            InetDiagMessage.destroyLiveTcpSocketsByLocalAddress(localAddress);
+        }
+
+        /**
+         * Read an integer DeviceConfig property.
+         */
+        public int getDeviceConfigPropertyInt(String name, int defaultValue) {
+            return DeviceConfigUtils.getDeviceConfigPropertyInt(NAMESPACE_CONNECTIVITY, name,
+                    defaultValue);
+        }
     }
 
     public ConnectivityService(Context context) {
@@ -2044,6 +2125,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         mIngressToVpnAddressFiltering = mDeps.isAtLeastT()
                 && mDeps.isFeatureNotChickenedOut(mContext, INGRESS_TO_VPN_ADDRESS_FILTERING);
+        if (Flags.refactorSocketDestroyOnRemovedAddress()) {
+            mConnectivityNetlinkMonitor = mDeps.makeConnectivityServiceNetlinkMonitor(
+                    mHandler, new SharedLog(500, TAG), TAG, getSocketReceiveBufferSize(),
+                    (nlMsg, whenMs) -> processNetlinkMessage(nlMsg, whenMs));
+        }
+        mConnectivityNetlinkMonitor = mDeps.makeConnectivityServiceNetlinkMonitor(
+                mHandler, new SharedLog(500, TAG), TAG, getSocketReceiveBufferSize(),
+                (nlMsg, whenMs) -> processNetlinkMessage(nlMsg, whenMs));
     }
 
     /**
@@ -3974,6 +4063,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mPermissionMonitor.startMonitoring();
             startMonitoringDone.open();
         });
+        if (mConnectivityNetlinkMonitor != null) {
+            mHandler.post(() -> {
+                if (!mConnectivityNetlinkMonitor.start()) {
+                    Log.wtf(TAG, "Fail to start ConnectivityNetlinkMonitor.");
+                }
+            });
+        }
         mProxyTracker.loadGlobalProxy();
         registerDnsResolverUnsolicitedEventListener();
 
@@ -8598,6 +8694,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private boolean isPerAppDefaultRequest(@NonNull final NetworkRequestInfo nri) {
         return (mDefaultNetworkRequests.contains(nri) && mDefaultRequest != nri);
     }
+    // NetlinkMonitor for ConnectivityService
+    @NonNull
+    private ConnectivityServiceNetlinkMonitor mConnectivityNetlinkMonitor;
 
     /**
      * Return the default network request currently tracking the given uid.
@@ -14142,5 +14241,80 @@ public class ConnectivityService extends IConnectivityManager.Stub
             features |= ConnectivityManager.FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS;
         }
         return features;
+    }
+
+    private void processNetlinkMessage(NetlinkMessage nlMsg, long whenMs) {
+        if (nlMsg instanceof RtNetlinkAddressMessage msg) {
+            final StructIfaddrMsg ifaddrMsg = msg.getIfaddrHeader();
+            if (msg.getHeader().nlmsg_type == NetlinkConstants.RTM_DELADDR) {
+                final LinkAddress la = new LinkAddress(msg.getIpAddress(), ifaddrMsg.prefixLen,
+                        msg.getFlags(), ifaddrMsg.scope, LinkAddress.LIFETIME_UNKNOWN,
+                        LinkAddress.LIFETIME_UNKNOWN);
+                if (needSocketDestroyOnRemovedAddress(la, ifaddrMsg.index)) {
+                    try {
+                        mDeps.destroyLiveTcpSocketsByLocalAddress(la.getAddress());
+                    } catch (Exception e) {
+                        loge("Exception destroy TCP sockets on local address: " + e);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean needSocketDestroyOnRemovedAddress(@NonNull LinkAddress la, int interfaceIndex) {
+        boolean shouldDestroy = true;
+        for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+            if (nai.linkProperties.getAllLinkAddresses().stream().anyMatch(
+                    linkAddress -> la.getAddress().equals(linkAddress.getAddress()))) {
+                int naiIfaceIndex = findInterfaceIndexFromName(
+                        nai.linkProperties.getInterfaceName());
+                boolean keepConnectedForHandover =
+                        nai.getScore() != null
+                                && nai.getScore().getKeepConnectedReason()
+                                        == NetworkScore.KEEP_CONNECTED_FOR_HANDOVER;
+                boolean supportUpdateNetworkInterface =
+                        !nai.networkCapabilities.hasCapability(NET_CAPABILITY_NOT_VPN)
+                                || nai.networkCapabilities.hasTransport(TRANSPORT_CELLULAR);
+                // Sockets on removed address will not be destroyed at following cases.
+                // 1. The removed address is assigned to another interface for the network which
+                //   allows switching network interface. (e.g. VPN or MOBILE network).
+                // 2. The network has reason NetworkScore.KEEP_CONNECTED_FOR_HANDOVER.
+                if ((naiIfaceIndex > 0
+                        && naiIfaceIndex != interfaceIndex && supportUpdateNetworkInterface)
+                        || keepConnectedForHandover) {
+                    shouldDestroy = false;
+                }
+                break;
+            }
+        }
+        return shouldDestroy;
+    }
+
+    private int findInterfaceIndexFromName(String interfaceName) {
+        try {
+            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+            while (interfaces.hasMoreElements()) {
+                NetworkInterface networkInterface = interfaces.nextElement();
+
+                if (networkInterface.getName() != null
+                        && networkInterface.getName().equals(interfaceName)) {
+                    return networkInterface.getIndex();
+                }
+            }
+        } catch (SocketException e) {
+            Log.e(TAG, "Error getInterfaceNameFromIndex", e);
+        } catch (NullPointerException e) {
+            Log.e(TAG, "Failed to call getInterfaceNameFromIndex", e);
+        }
+        return 0;
+    }
+
+    private int getSocketReceiveBufferSize() {
+        final int size = mDeps.getDeviceConfigPropertyInt(CONFIG_SOCKET_RECV_BUFFER_SIZE,
+                SOCKET_RECV_BUFFER_SIZE /* default value */);
+        if (size < 0) {
+            throw new IllegalArgumentException("Invalid SO_RCVBUF " + size);
+        }
+        return size;
     }
 }

@@ -202,6 +202,7 @@ java_library {
         // The required dependency net-utils-device-common-struct-base is in the classpath via
         // framework-connectivity
         "net-utils-device-common-struct",
+        "com.android.net.flags-aconfig-java",
     ],
     apex_available: [
         "com.android.tethering",
