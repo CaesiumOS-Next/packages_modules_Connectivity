@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6f5bdd7_14f8fe01",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-27T13:29:36Z",
+      "side": 1,
+      "message": "Can we prevent callers from building objects that have a SoftApConfiguration but are not of type TETHERING_WIFI? Maybe make this method throw IllegalArgumentException if the type is not TETHERING_WIFI?",
+      "range": {
+        "startLine": 815,
+        "startChar": 53,
+        "endLine": 815,
+        "endChar": 54
+      },
+      "revId": "c2a374c0140cdb89494badcf2495259f40a1e1ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
