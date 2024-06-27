@@ -3,6 +3,128 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb603d23_33a813d1",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-27T09:03:03Z",
+      "side": 1,
+      "message": "nit: I think this would be a change detector.\nMaybe just verify the failure is raised?\nNo strong opinion.",
+      "range": {
+        "startLine": 109,
+        "startChar": 16,
+        "endLine": 109,
+        "endChar": 76
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1728aec0_55b1370a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 105,
+                "startChar": 0,
+                "endLine": 112,
+                "endChar": 0
+              },
+              "replacement": "        verify(notifier).fireTestFailure(any())\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b2d3140de2be9d40fc2a3fe817a6d96b9a8ee116",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1fd6440_36c24dc7",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-27T09:03:03Z",
+      "side": 1,
+      "message": "nit: IIUC these assertion will pass even if the order is wrong.\nUnlikely we\u0027ll run them out of order.\nBut if you want to verify the order you might want to use inOrder.",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 49
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d66d2e95_d3487212",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 39,
+                "startChar": 0,
+                "endLine": 39,
+                "endChar": 0
+              },
+              "replacement": "import org.mockito.Mockito.inOrder\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 103,
+                "startChar": 0,
+                "endLine": 111,
+                "endChar": 0
+              },
+              "replacement": "        val inOrder \u003d inOrder(notifier)\n        inOrder.verify(notifier).fireTestStarted(restoreDefaultNetworkDesc)\n        // fireTestFailure is called with method name\n        inOrder.verify(notifier).fireTestFailure(argThat{failure -\u003e\n            failure.exception.message!!.contains(\n                \"Failed to get default network status before starting tests\")\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 112,
+                "startChar": 0,
+                "endLine": 113,
+                "endChar": 0
+              },
+              "replacement": "        inOrder.verify(notifier).fireTestFinished(restoreDefaultNetworkDesc)\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 130,
+                "startChar": 0,
+                "endLine": 131,
+                "endChar": 0
+              },
+              "replacement": "        val inOrder \u003d inOrder(notifier)\n        inOrder.verify(notifier).fireTestStarted(restoreDefaultNetworkDesc)\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 132,
+                "startChar": 0,
+                "endLine": 136,
+                "endChar": 0
+              },
+              "replacement": "        inOrder.verify(notifier).fireTestFailure(argThat{failure -\u003e\n            failure.exception.message!!.contains(\"testMethod\")\n        })\n        inOrder.verify(notifier).fireTestFinished(restoreDefaultNetworkDesc)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b2d3140de2be9d40fc2a3fe817a6d96b9a8ee116",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79299655_a61eeca6",
         "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
         "patchSetId": 21
