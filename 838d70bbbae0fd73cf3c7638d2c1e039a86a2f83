@@ -1,0 +1,284 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcd98923_dbd76667",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-27T07:57:12Z",
+      "side": 1,
+      "message": "nit: Maybe we can make these caps global and reuse them?\nNo strong opinion.",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 24
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a5f3cd4a_4f9c06d2",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 65,
+                "startChar": 0,
+                "endLine": 66,
+                "endChar": 0
+              },
+              "replacement": "        val wifiCap \u003d NetworkCapabilities.Builder()\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 69,
+                "startChar": 0,
+                "endLine": 70,
+                "endChar": 0
+              },
+              "replacement": "        doReturn(wifiCap).`when`(cm).getNetworkCapabilities(any())\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 74,
+                "startChar": 0,
+                "endLine": 75,
+                "endChar": 0
+              },
+              "replacement": "            callback.onCapabilitiesChanged(Network(100), wifiCap)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4bbc389_aa07d66c",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-27T07:57:12Z",
+      "side": 1,
+      "message": "Not sure if it is better to\n 1. in setup, capture the callback if someone calls registerDefaultNetworkCallback.\n 2. In the test, just used to captured callback to onCapabilitiesChanged(Network(100), cap)\n \nIf so we don\u0027t need to doAnswer everytime we want to send capabilities changed.",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 58
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f28f8337_612bcebd",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 27,
+                "startChar": 0,
+                "endLine": 27,
+                "endChar": 0
+              },
+              "replacement": "import org.junit.Before\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 56,
+                "startChar": 0,
+                "endLine": 56,
+                "endChar": 0
+              },
+              "replacement": "\n    @Before\n    fun setup() {\n        doAnswer {\n            val callback \u003d it.getArgument(0) as NetworkCallback\n            callback.onCapabilitiesChanged(Network(100), cap)\n        }.`when`(cm).registerDefaultNetworkCallback(any())\n    }\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 72,
+                "startChar": 0,
+                "endLine": 76,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce942867_5c25f623",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-27T07:57:12Z",
+      "side": 1,
+      "message": "Can this be refactored?",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 91
+      },
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d31a5895_ac137e86",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-27T07:57:12Z",
+      "side": 1,
+      "message": "I think this is can be global?",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 78
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4f92c808_d2431e05",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 56,
+                "startChar": 0,
+                "endLine": 56,
+                "endChar": 0
+              },
+              "replacement": "    private val desc \u003d Description.createSuiteDescription(\"RestoreDefaultNetwork\")\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 79,
+                "startChar": 0,
+                "endLine": 80,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 96,
+                "startChar": 0,
+                "endLine": 97,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 126,
+                "startChar": 0,
+                "endLine": 127,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7a90197_b74d5cb0",
+        "filename": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-27T07:57:12Z",
+      "side": 1,
+      "message": "Does this needs testMethod in the failure as well?\nIf so, is it better if we refactor the assertions since there are only two cases?",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 47
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b1efca0f_1ba2e89b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/testutils/DevSdkIgnoreRunnerTest.kt",
+              "range": {
+                "startLine": 99,
+                "startChar": 0,
+                "endLine": 101,
+                "endChar": 0
+              },
+              "replacement": "        // fireTestFailure is called with method name\n        verify(\n            notifier\n        ).fireTestFailure(argThat{failure -\u003e failure.exception.message!!.contains(\"testMethod\")})\n"
+            }
+          ]
+        }
+      ],
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccb039ff_2c31ce9c",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-06-27T07:57:12Z",
+      "side": 1,
+      "message": "Is it better if we move it to a standalone file?",
+      "range": {
+        "startLine": 86,
+        "startChar": 10,
+        "endLine": 86,
+        "endChar": 38
+      },
+      "revId": "838d70bbbae0fd73cf3c7638d2c1e039a86a2f83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
