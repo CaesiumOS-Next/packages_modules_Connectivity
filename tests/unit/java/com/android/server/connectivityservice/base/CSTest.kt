@@ -62,6 +62,8 @@ import com.android.internal.app.IBatteryStats
 import com.android.internal.util.test.BroadcastInterceptingContext
 import com.android.modules.utils.build.SdkLevel
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.SharedLog
+import com.android.net.module.util.netlink.NetlinkMessage
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException
 import com.android.server.connectivity.AutomaticOnOffKeepaliveTracker
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator
@@ -75,6 +77,7 @@ import com.android.server.connectivity.ProxyTracker
 import com.android.server.connectivity.SatelliteAccessController
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
+import java.net.InetAddress
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
@@ -99,6 +102,10 @@ internal const val HANDLER_TIMEOUT_MS = 2_000L
 internal const val BROADCAST_TIMEOUT_MS = 3_000L
 internal const val TEST_PACKAGE_NAME = "com.android.test.package"
 internal const val WIFI_WOL_IFNAME = "test_wlan_wol"
+internal const val TEST_CELL_IFACE = "test_rmnet"
+internal const val TEST_IPSEC_IFACE = "test_ipsec"
+internal const val TEST_CELL_INTERFACE_INDEX = 10
+internal const val TEST_IPSEC_INTERFACE_INDEX = 32
 internal val LOCAL_IPV4_ADDRESS = InetAddresses.parseNumericAddress("192.0.2.1")
 
 open class FromS<Type>(val value: Type)
@@ -269,6 +276,7 @@ open class CSTest {
     // Class to be mocked and used to verify destroy sockets methods call
     open inner class DestroySocketsWrapper {
         open fun destroyLiveTcpSocketsByOwnerUids(ownerUids: Set<Int>) {}
+        open fun destroyLiveTcpSocketsByLocalAddress(address: InetAddress) {}
     }
 
     inner class CSDeps : ConnectivityService.Dependencies() {
@@ -380,6 +388,41 @@ open class CSTest {
         override fun destroyLiveTcpSocketsByOwnerUids(ownerUids: Set<Int>) {
             // Call mocked destroyLiveTcpSocketsByOwnerUids so that test can verify this method call
             destroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(ownerUids)
+        }
+
+        override fun destroyLiveTcpSocketsByLocalAddress(address: InetAddress) {
+            // Call mocked destroyLiveTcpSocketsByLocalAddress so that test can verify this method
+            // call
+            destroySocketsWrapper.destroyLiveTcpSocketsByLocalAddress(address)
+        }
+
+        var netlinkMessageUpdate: Consumer<NetlinkMessage>? = null
+        override fun makeConnectivityServiceNetlinkMonitor(
+            h: Handler?,
+            log: SharedLog?,
+            tag: String?,
+            sockRcvbufSize: Int,
+            consumer: Consumer<NetlinkMessage>?
+        ): ConnectivityService.ConnectivityServiceNetlinkMonitor {
+            netlinkMessageUpdate = consumer
+            return ConnectivityService.ConnectivityServiceNetlinkMonitor(
+                h,
+                log,
+                tag,
+                sockRcvbufSize,
+                consumer
+            )
+        }
+
+        override fun getIndexFromInterfaceName(interfaceName: String): Int {
+            var index = 0
+            if (interfaceName == TEST_CELL_IFACE) {
+                index = TEST_CELL_INTERFACE_INDEX
+            }
+            if (interfaceName == TEST_IPSEC_IFACE) {
+                index = TEST_IPSEC_INTERFACE_INDEX
+            }
+            return index
         }
     }
 
