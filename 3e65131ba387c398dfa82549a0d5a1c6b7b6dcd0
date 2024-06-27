@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "875f172b_224a1175",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-27T13:21:06Z",
+      "side": 1,
+      "message": "LGTM for OWNERS review of cts/.",
+      "revId": "3e65131ba387c398dfa82549a0d5a1c6b7b6dcd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
