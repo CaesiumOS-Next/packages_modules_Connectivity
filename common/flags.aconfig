@@ -123,3 +123,12 @@ flag {
   description: "Flag for introducing TETHERING_VIRTUAL type"
   bug: "340376953"
 }
+
+flag {
+  name: "refactor_socket_destroy_on_removed_address"
+  is_exported: true
+  namespace: "android_core_networking"
+  description: "Flag for refactoring socket destroy logic on removed address"
+  bug: "314961091"
+  is_fixed_read_only: true
+}
