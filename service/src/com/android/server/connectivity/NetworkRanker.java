@@ -20,6 +20,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_SATELLITE;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkScore.POLICY_EXITING;
 import static android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY;
@@ -42,10 +43,10 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -220,6 +221,34 @@ public class NetworkRanker {
                 accepted, rejected);
     }
 
+    private boolean hasOnlyCellAndSatelliteTransport(final NetworkCapabilities nc) {
+        return nc.getTransportTypes().length == 2
+                && nc.hasTransport(TRANSPORT_CELLULAR)
+                && nc.hasTransport(TRANSPORT_SATELLITE);
+    }
+
+    private boolean canApplyPrimaryTransportPolicy(
+            final NetworkCapabilities nc1, final NetworkCapabilities nc2) {
+        if (nc1.equalsTransportTypes(nc2)) {
+            return true;
+        }
+
+        // On U-, below workaround is not required
+        if (!SdkLevel.isAtLeastV()) {
+            return false;
+        }
+
+        // TODO(b/xxxx): Disables workaround for b/343370895 on releases after telephony migrates
+        //               to NetworkProvider and register separate offer for cellular and satellite
+        // NetworkOffer from TelephonyNetworkFactory can contain TRANSPORT_CELLULAR and
+        // TRANSPORT_SATELLITE.
+        // Workaround to apply POLICY_TRANSPORT_PRIMARY between the cellular network and the offer
+        return (nc1.hasSingleTransport(TRANSPORT_CELLULAR)
+                && hasOnlyCellAndSatelliteTransport(nc2))
+                || (nc2.hasSingleTransport(TRANSPORT_CELLULAR)
+                    && hasOnlyCellAndSatelliteTransport(nc1));
+    }
+
     /**
      * Get the best network among a list of candidates according to policy.
      * @param candidates the candidates
@@ -310,9 +339,8 @@ public class NetworkRanker {
             // So for each primary network, remove from |rejected| all networks with the same
             // transports as one of the primary networks. The remaining networks should be accepted.
             for (final T defaultSubNai : accepted) {
-                final int[] transports = defaultSubNai.getCapsNoCopy().getTransportTypes();
-                rejected.removeIf(
-                        nai -> Arrays.equals(transports, nai.getCapsNoCopy().getTransportTypes()));
+                final NetworkCapabilities nc = defaultSubNai.getCapsNoCopy();
+                rejected.removeIf(nai -> canApplyPrimaryTransportPolicy(nc, nai.getCapsNoCopy()));
             }
             // Now the |rejected| list contains networks with transports for which there isn't
             // a primary network. Add them back to the candidates.
