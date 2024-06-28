@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42d89812_7f049d0d",
+        "filename": "thread/framework/java/android/net/thread/EphemeralKey.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-28T08:14:32Z",
+      "side": 1,
+      "message": "Do we really need this class if the passcode can be passed back in the callback of startEphemeralKeyMode() API?",
+      "range": {
+        "startLine": 42,
+        "startChar": 19,
+        "endLine": 42,
+        "endChar": 31
+      },
+      "revId": "a09c1fa818f7c8992316e9c25a67b968beb6166d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7f7fbcb_c7525a6d",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 7
