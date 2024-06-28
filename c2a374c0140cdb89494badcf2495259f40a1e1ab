@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6dc33d4_93a7a0ea",
+        "filename": "Tethering/common/TetheringLib/api/system-current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-28T07:53:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04a020bf_63ece9d1",
+      "range": {
+        "startLine": 118,
+        "startChar": 86,
+        "endLine": 118,
+        "endChar": 94
+      },
+      "revId": "c2a374c0140cdb89494badcf2495259f40a1e1ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5209d9dc_2e776c92",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-27T13:37:12Z",
       "side": 1,
       "message": "Can you also explain what an unspecified or null config means? Presumably it will use the default configuration?\n\nAlso would be good to document what might happen if wifi tethering is enabled and a request with a different SoftApConfiguration is sent.",
+      "range": {
+        "startLine": 814,
+        "startChar": 67,
+        "endLine": 814,
+        "endChar": 87
+      },
+      "revId": "c2a374c0140cdb89494badcf2495259f40a1e1ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c3a37fb_726a05e8",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-28T07:53:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5209d9dc_2e776c92",
       "range": {
         "startLine": 814,
         "startChar": 67,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26318f76_427f3c89",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-28T07:53:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6f5bdd7_14f8fe01",
+      "range": {
+        "startLine": 815,
+        "startChar": 53,
+        "endLine": 815,
+        "endChar": 54
+      },
+      "revId": "c2a374c0140cdb89494badcf2495259f40a1e1ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05fd6a90_e4f53e66",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "148fd62c_a537ed77",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-28T07:53:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05fd6a90_e4f53e66",
+      "range": {
+        "startLine": 266,
+        "startChar": 8,
+        "endLine": 266,
+        "endChar": 27
+      },
+      "revId": "c2a374c0140cdb89494badcf2495259f40a1e1ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e112db88_e4254a5a",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-06-27T13:46:52Z",
       "side": 1,
       "message": "Nit: this does not test that equals() checks the SoftApConfig as well. In fact I believe that this new test code would pass even if you didn\u0027t change equals() at all. Perhaps you can add a testcase that checks that if the SoftApConfigurations are different (e.g., one null and one non-null) equals returns false?",
+      "range": {
+        "startLine": 276,
+        "startChar": 8,
+        "endLine": 276,
+        "endChar": 9
+      },
+      "revId": "c2a374c0140cdb89494badcf2495259f40a1e1ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79ada4b9_97a5e8af",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-06-28T07:53:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e112db88_e4254a5a",
       "range": {
         "startLine": 276,
         "startChar": 8,
