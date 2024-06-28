@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a620da0_b0ede8d0",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-28T12:01:02Z",
+      "side": 1,
+      "message": "Sorry for the typo. Fix problem -\u003e program.",
+      "parentUuid": "9b2884cc_6e1e7607",
+      "range": {
+        "startLine": 714,
+        "startChar": 32,
+        "endLine": 714,
+        "endChar": 39
+      },
+      "revId": "2187cfff1094e950b6a6c3a3bd63e0674ccd3433",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42de8801_265edec6",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-28T11:16:25Z",
       "side": 1,
       "message": "spurious comment, suggest moving the rest 1 line lower (before the read)",
+      "range": {
+        "startLine": 720,
+        "startChar": 11,
+        "endLine": 720,
+        "endChar": 34
+      },
+      "revId": "2187cfff1094e950b6a6c3a3bd63e0674ccd3433",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39664727_f4c12e0d",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-06-28T12:01:02Z",
+      "side": 1,
+      "message": "Updated. Removed `Program Installation` as its obvious. Move the `ensure installation is complete` belows",
+      "parentUuid": "42de8801_265edec6",
       "range": {
         "startLine": 720,
         "startChar": 11,
