@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b2884cc_6e1e7607",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-28T11:16:25Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 714,
+        "startChar": 32,
+        "endLine": 714,
+        "endChar": 39
+      },
+      "revId": "2187cfff1094e950b6a6c3a3bd63e0674ccd3433",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42de8801_265edec6",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-06-28T11:16:25Z",
+      "side": 1,
+      "message": "spurious comment, suggest moving the rest 1 line lower (before the read)",
+      "range": {
+        "startLine": 720,
+        "startChar": 11,
+        "endLine": 720,
+        "endChar": 34
+      },
+      "revId": "2187cfff1094e950b6a6c3a3bd63e0674ccd3433",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
