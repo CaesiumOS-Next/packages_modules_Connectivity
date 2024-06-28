@@ -276,6 +276,8 @@ public abstract class EthernetTetheringTestBase {
     }
 
     protected static void setIncludeTestInterfaces(boolean include) {
+        if (sEm == null) return;
+
         runAsShell(NETWORK_SETTINGS, () -> {
             sEm.setIncludeTestInterfaces(include);
         });
