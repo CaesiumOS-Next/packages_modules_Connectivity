@@ -19,10 +19,13 @@ package com.android.server.connectivity
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL as NET_CAP_PORTAL
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
+import android.net.NetworkCapabilities.TRANSPORT_SATELLITE
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
+import android.net.NetworkRequest
 import android.net.NetworkScore.KEEP_CONNECTED_NONE
 import android.net.NetworkScore.POLICY_EXITING as EXITING
 import android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY as PRIMARY
+import android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY as TRANSPORT_PRIMARY
 import android.net.NetworkScore.POLICY_YIELD_TO_BAD_WIFI as YIELD_TO_BAD_WIFI
 import android.os.Build
 import androidx.test.filters.SmallTest
@@ -32,22 +35,30 @@ import com.android.server.connectivity.FullScore.POLICY_EVER_EVALUATED as EVER_E
 import com.android.server.connectivity.FullScore.POLICY_EVER_VALIDATED as EVER_VALIDATED
 import com.android.server.connectivity.FullScore.POLICY_IS_VALIDATED as IS_VALIDATED
 import com.android.testutils.DevSdkIgnoreRule
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import kotlin.test.assertEquals
+import org.mockito.Mockito.doReturn
+import org.mockito.Mockito.mock
 
 private fun score(vararg policies: Int) = FullScore(
         policies.fold(0L) { acc, e -> acc or (1L shl e) }, KEEP_CONNECTED_NONE)
-private fun caps(transport: Int, vararg capabilities: Int) =
-        NetworkCapabilities.Builder().addTransportType(transport).apply {
+private fun caps(transports: List<Int>, vararg capabilities: Int) =
+        NetworkCapabilities.Builder().apply {
+            transports.forEach { addTransportType(it) }
             capabilities.forEach { addCapability(it) }
         }.build()
 
 @SmallTest
 @RunWith(Parameterized::class)
 class NetworkRankerTest(private val activelyPreferBadWifi: Boolean) {
+    @get:Rule
+    val ignoreRule = DevSdkIgnoreRule()
+
     private val mRanker = NetworkRanker(NetworkRanker.Configuration(activelyPreferBadWifi))
 
     private class TestScore(private val sc: FullScore, private val nc: NetworkCapabilities)
@@ -68,9 +79,9 @@ class NetworkRankerTest(private val activelyPreferBadWifi: Boolean) {
     // Helpers to shorten syntax
     private fun rank(vararg scores: TestScore) =
             mRanker.getBestNetworkByPolicy(scores.toList(), null /* currentSatisfier */)
-    val CAPS_CELL = caps(TRANSPORT_CELLULAR)
-    val CAPS_WIFI = caps(TRANSPORT_WIFI)
-    val CAPS_WIFI_PORTAL = caps(TRANSPORT_WIFI, NET_CAP_PORTAL)
+    val CAPS_CELL = caps(listOf(TRANSPORT_CELLULAR))
+    val CAPS_WIFI = caps(listOf(TRANSPORT_WIFI))
+    val CAPS_WIFI_PORTAL = caps(listOf(TRANSPORT_WIFI), NET_CAP_PORTAL)
 
     @Test
     fun testYieldToBadWiFi_oneCell() {
@@ -81,7 +92,7 @@ class NetworkRankerTest(private val activelyPreferBadWifi: Boolean) {
 
     @Test
     fun testPreferBadWifi_oneCellOneEvaluatingWifi() {
-        val wifi = TestScore(score(), caps(TRANSPORT_WIFI))
+        val wifi = TestScore(score(), CAPS_WIFI)
         val cell = TestScore(score(YIELD_TO_BAD_WIFI, IS_VALIDATED, EVER_EVALUATED), CAPS_CELL)
         assertEquals(cell, rank(wifi, cell))
     }
@@ -195,5 +206,32 @@ class NetworkRankerTest(private val activelyPreferBadWifi: Boolean) {
         val cell = TestScore(score(EVER_EVALUATED, YIELD_TO_BAD_WIFI, IS_VALIDATED), CAPS_CELL)
         val badExitingWifi = TestScore(score(EVER_EVALUATED, EVER_VALIDATED, EXITING), CAPS_WIFI)
         assertEquals(cell, rank(cell, badExitingWifi))
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @Test
+    fun testMightBeat_TransportPrimaryTelephonyOffer() {
+        val cellRequest = NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .clearCapabilities()
+                .build()
+
+        val cellNai = mock(NetworkAgentInfo::class.java)
+        doReturn(score(EVER_EVALUATED, IS_VALIDATED)).`when`(cellNai).getScore()
+        doReturn(CAPS_CELL).`when`(cellNai).getCapsNoCopy()
+
+        val telephonyOffer = TestScore(
+                score(EVER_EVALUATED, IS_VALIDATED, TRANSPORT_PRIMARY),
+                caps(listOf(TRANSPORT_CELLULAR, TRANSPORT_SATELLITE))
+        )
+
+        // Telephony offer beats cell network since offer has TRANSPORT_PRIMARY, and its
+        // transports(TRANSPORT_CELLULAR|TRANSPORT_SATELLITE) are the superset of cell network's
+        // transports(TRANSPORT_CELLULAR)
+        assertTrue(mRanker.mightBeat(
+                cellRequest, // request
+                cellNai, // champion
+                telephonyOffer // contestant
+        ))
     }
 }
