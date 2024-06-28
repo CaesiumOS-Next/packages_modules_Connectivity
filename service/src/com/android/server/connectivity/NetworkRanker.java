@@ -42,10 +42,10 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -220,6 +220,20 @@ public class NetworkRanker {
                 accepted, rejected);
     }
 
+    private boolean canApplyPrimaryTransportPolicy(final NetworkCapabilities ncWithTransportPrimary,
+            final NetworkCapabilities nc) {
+        // On U-, network with TRANSPORT_PRIMARY is prioritized if its transports is the same with
+        // other network's transports
+        if (!SdkLevel.isAtLeastV()) {
+            return ncWithTransportPrimary.equalsTransportTypes(nc);
+        }
+
+        // On V+, network with TRANSPORT_PRIMARY is prioritized if its transports is a superset
+        // of other network's transports
+        return (nc.getTransportTypesInternal()
+                & ~ncWithTransportPrimary.getTransportTypesInternal()) == 0;
+    }
+
     /**
      * Get the best network among a list of candidates according to policy.
      * @param candidates the candidates
@@ -307,12 +321,13 @@ public class NetworkRanker {
             // Some networks are primary for their transport. For each transport, keep only the
             // primary, but also keep all networks for which there isn't a primary (which are now
             // in the |rejected| array).
-            // So for each primary network, remove from |rejected| all networks with the same
-            // transports as one of the primary networks. The remaining networks should be accepted.
+            // So for each primary network, remove from |rejected| all networks with transports
+            // that POLICY_TRANSPORT_PRIMARY can be applied to.
+            // The remaining networks should be accepted.
             for (final T defaultSubNai : accepted) {
-                final int[] transports = defaultSubNai.getCapsNoCopy().getTransportTypes();
-                rejected.removeIf(
-                        nai -> Arrays.equals(transports, nai.getCapsNoCopy().getTransportTypes()));
+                final NetworkCapabilities ncWithTransportPrimary = defaultSubNai.getCapsNoCopy();
+                rejected.removeIf(nai -> canApplyPrimaryTransportPolicy(
+                        ncWithTransportPrimary, nai.getCapsNoCopy()));
             }
             // Now the |rejected| list contains networks with transports for which there isn't
             // a primary network. Add them back to the candidates.
