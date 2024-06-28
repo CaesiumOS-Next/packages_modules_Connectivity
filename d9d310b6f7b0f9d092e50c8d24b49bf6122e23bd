@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f9146b_a2a4c27d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-06-28T08:18:39Z",
+      "side": 1,
+      "message": "I don\u0027t think we should be putting transport-specific policy (or any special-casing in general) into the generic ranking code. Any change we make to this code must be supported for 5-7 years, and if we allow special-casing here, over time, our code will become difficult to understand, difficult to support, and buggy.",
+      "revId": "d9d310b6f7b0f9d092e50c8d24b49bf6122e23bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
