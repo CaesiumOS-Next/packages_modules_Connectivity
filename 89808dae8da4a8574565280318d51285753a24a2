@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e0c53e4_ba86541c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-28T08:13:14Z",
+      "side": 1,
+      "message": "option 2 lgtm. We added the `enabled` when there is also an `enabled` parameter in the `ThreadNetworkController#setEpskcEnabled()` API. Since that one is removed, we don\u0027t need to keep it here.",
+      "parentUuid": "7153ccd8_a1082182",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b07b39c4_3bbf3455",
         "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
         "patchSetId": 6
@@ -100,6 +118,24 @@
       "writtenOn": "2024-06-25T03:30:09Z",
       "side": 1,
       "message": "I think you\u0027d better directly call the API instead of this wrapper otherwise we don\u0027t know whether it has the privileged permission.",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "202fafae_42d596e9",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-28T08:13:14Z",
+      "side": 1,
+      "message": "+1, you should directly call the API which is under test. This is for readability - readers of the test case should be able to find out what\u0027s being tested without jump into other helper methods. Otherwise, you will be testing the helper method, rather than the actual API.",
+      "parentUuid": "b07b39c4_3bbf3455",
       "revId": "89808dae8da4a8574565280318d51285753a24a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },

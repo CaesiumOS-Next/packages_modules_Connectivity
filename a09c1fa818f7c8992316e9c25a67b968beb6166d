@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7f7fbcb_c7525a6d",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-28T08:13:14Z",
+      "side": 1,
+      "message": "Are there limitations of the Duration value? I don\u0027t think the users should be allowed to set the lifetime to 1 hour or 1 month...\n\nPlease document the maximum lifetime",
+      "range": {
+        "startLine": 177,
+        "startChar": 7,
+        "endLine": 178,
+        "endChar": 38
+      },
+      "revId": "a09c1fa818f7c8992316e9c25a67b968beb6166d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9bc3f66_2096ac5e",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-28T08:13:14Z",
+      "side": 1,
+      "message": "Can we make this `@NonNull`. I think applications should always know how long it wants this device to stay in ePSKc mode if it wants the device to start ePSKc mode. This makes the Android API much simpler.",
+      "range": {
+        "startLine": 192,
+        "startChar": 12,
+        "endLine": 192,
+        "endChar": 21
+      },
+      "revId": "a09c1fa818f7c8992316e9c25a67b968beb6166d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "728dac64_427e82af",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-28T08:13:14Z",
+      "side": 1,
+      "message": "Given the Ephemeral key is returned in the callback of startEphemeralKeyMode(), do we still need this callback here?",
+      "range": {
+        "startLine": 312,
+        "startChar": 21,
+        "endLine": 312,
+        "endChar": 47
+      },
+      "revId": "a09c1fa818f7c8992316e9c25a67b968beb6166d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45c64fec_f7e75075",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-06-28T08:13:14Z",
+      "side": 1,
+      "message": "Remove this because it\u0027s not an API :)",
+      "range": {
+        "startLine": 354,
+        "startChar": 8,
+        "endLine": 354,
+        "endChar": 58
+      },
+      "revId": "a09c1fa818f7c8992316e9c25a67b968beb6166d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
