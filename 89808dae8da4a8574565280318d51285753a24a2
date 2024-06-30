@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca282f42_06500beb",
+        "filename": "thread/framework/java/android/net/thread/EphemeralKey.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-06-30T14:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20ad242f_11c57010",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7153ccd8_a1082182",
@@ -107,6 +125,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55a9dd91_07c3b0fd",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-06-30T14:18:59Z",
+      "side": 1,
+      "message": "removing `enabled`, since we are also removing the `EphemeralKey` class, I\u0027ll use lifetime \u003d Duration#ZERO to indicate the ephemeral key is disabled.",
+      "parentUuid": "5e0c53e4_ba86541c",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2e39d17_4b668ad8",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-06-30T14:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b326d0ee_64fe3dcf",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b07b39c4_3bbf3455",
         "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
         "patchSetId": 6
@@ -140,6 +194,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b7bb4aa_c444f054",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-06-30T14:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "202fafae_42d596e9",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44da1876_63c9e615",
@@ -153,6 +225,24 @@
       "writtenOn": "2024-06-25T03:30:09Z",
       "side": 1,
       "message": "I think you\u0027d better directly call the API instead of this wrapper otherwise we don\u0027t know whether it has the privileged permission.",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ccaad9c_8af213c3",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-06-30T14:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44da1876_63c9e615",
       "revId": "89808dae8da4a8574565280318d51285753a24a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
