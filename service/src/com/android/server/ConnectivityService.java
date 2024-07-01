@@ -366,6 +366,7 @@ import com.android.server.connectivity.NetworkPreferenceList;
 import com.android.server.connectivity.NetworkRanker;
 import com.android.server.connectivity.NetworkRequestStateStatsMetrics;
 import com.android.server.connectivity.PermissionMonitor;
+import com.android.net.module.util.PrivateAddressCoordinator;
 import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
@@ -2019,7 +2020,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mCdmps = null;
         }
 
-        mRoutingCoordinatorService = new RoutingCoordinatorService(netd);
+        mRoutingCoordinatorService =
+                new RoutingCoordinatorService(
+                        netd, mContext.getSystemService(ConnectivityManager.class));
         mMulticastRoutingCoordinatorService =
                 mDeps.makeMulticastRoutingCoordinatorService(mHandler);
 

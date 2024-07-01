@@ -19,8 +19,14 @@ package com.android.net.module.util;
 import static com.android.net.module.util.NetdUtils.toRouteInfoParcel;
 
 import android.annotation.NonNull;
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.INetd;
 
+import android.net.LinkAddress;
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.RouteInfo;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
@@ -45,8 +51,14 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
     private static final String TAG = RoutingCoordinatorService.class.getSimpleName();
     private final INetd mNetd;
 
-    public RoutingCoordinatorService(@NonNull INetd netd) {
+    private final Object mPrivateAddressCoordinatorLock = new Object();
+    @GuardedBy("mPrivateAddressCoordinatorLock")
+    private final PrivateAddressCoordinator mPrivateAddressCoordinator;
+
+    public RoutingCoordinatorService(
+            @NonNull INetd netd, @NonNull ConnectivityManager cm) {
         mNetd = netd;
+        mPrivateAddressCoordinator = new PrivateAddressCoordinator(cm);
     }
 
     /**
@@ -223,6 +235,39 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
             if (mForwardedInterfaces.size() == 0) {
                 mNetd.ipfwdDisableForwarding("RoutingCoordinator");
             }
+        }
+    }
+
+    @Override
+    public void updateUpstreamPrefix(LinkProperties lp, NetworkCapabilities nc, Network network) {
+        synchronized (mPrivateAddressCoordinatorLock) {
+            mPrivateAddressCoordinator.updateUpstreamPrefix(lp, nc, network);
+        }
+    }
+
+    @Override
+    public void removeUpstreamPrefix(Network network) {
+        synchronized (mPrivateAddressCoordinatorLock) {
+            mPrivateAddressCoordinator.removeUpstreamPrefix(network);
+        }
+    }
+
+    @Override
+    public void maybeRemoveDeprecatedUpstreams() {
+        synchronized (mPrivateAddressCoordinatorLock) {
+            mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams();
+        }
+    }
+
+    @Override
+    public LinkAddress requestDownstreamAddress(
+            int interfaceType,
+            int scope,
+            boolean useLastAddress,
+            IRoutingCoordinatorCallback callback) {
+        synchronized (mPrivateAddressCoordinatorLock) {
+            return mPrivateAddressCoordinator.requestDownstreamAddress(
+                    interfaceType, scope, useLastAddress, callback);
         }
     }
 }
