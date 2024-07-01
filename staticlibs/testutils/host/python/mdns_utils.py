@@ -38,8 +38,8 @@ def register_mdns_service_and_discover_resolve(
   # Register a mDns service
   advertising.registerMDnsService()
 
-  # Ensure the discovery and resolution of the mDNS service
-  discovery.ensureMDnsServiceDiscoveryAndResolution()
+  # Ensure the discovery, resolution and callback of the mDNS service
+  discovery.ensureMDnsServiceDiscovery_Resolution_ServiceInfoCallback()
 
 
 def cleanup_mdns_service(
@@ -48,4 +48,4 @@ def cleanup_mdns_service(
   # Unregister the mDns service
   advertising_device.connectivity_multi_devices_snippet.unregisterMDnsService()
   # Stop discovery
-  discovery_device.connectivity_multi_devices_snippet.stopMDnsServiceDiscovery()
+  discovery_device.connectivity_multi_devices_snippet.stopMDnsServiceDiscoveryAndUnregisterCallback()

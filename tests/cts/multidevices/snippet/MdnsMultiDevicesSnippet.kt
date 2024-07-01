@@ -27,6 +27,9 @@ import com.android.testutils.NsdRegistrationRecord.RegistrationEvent.ServiceRegi
 import com.android.testutils.NsdRegistrationRecord.RegistrationEvent.ServiceUnregistered
 import com.android.testutils.NsdResolveRecord
 import com.android.testutils.NsdResolveRecord.ResolveEvent.ServiceResolved
+import com.android.testutils.NsdServiceInfoCallbackRecord
+import com.android.testutils.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdated
+import com.android.testutils.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.UnregisterCallbackSucceeded
 import com.google.android.mobly.snippet.Snippet
 import com.google.android.mobly.snippet.rpc.Rpc
 import kotlin.test.assertEquals
@@ -45,6 +48,7 @@ class MdnsMultiDevicesSnippet : Snippet {
     private val registrationRecord = NsdRegistrationRecord()
     private val discoveryRecord = NsdDiscoveryRecord()
     private val resolveRecord = NsdResolveRecord()
+    private val serviceInfoCallbackRecord = NsdServiceInfoCallbackRecord()
 
     @Rpc(description = "Check whether the device SDK is as leat T")
     fun isAtLeastT() = SdkLevel.isAtLeastT()
@@ -66,10 +70,10 @@ class MdnsMultiDevicesSnippet : Snippet {
         registrationRecord.expectCallback<ServiceUnregistered>()
     }
 
-    @Rpc(description = "Ensure the discovery and resolution of the mDNS service")
+    @Rpc(description = "Ensure the discovery, resolution and callback of the mDNS service")
     // Suppress the warning, as the NsdManager#resolveService() method is deprecated.
     @Suppress("DEPRECATION")
-    fun ensureMDnsServiceDiscoveryAndResolution() {
+    fun ensureMDnsServiceDiscovery_Resolution_ServiceInfoCallback() {
         // Discover a mDns service that matches the test service
         nsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discoveryRecord)
         val info = discoveryRecord.waitForServiceDiscovered(SERVICE_NAME, SERVICE_TYPE)
@@ -86,11 +90,27 @@ class MdnsMultiDevicesSnippet : Snippet {
                     it.attributes[SERVICE_ATTRIBUTES_KEY]
             )
         }
+
+        // Register service info callback for retrieved mDns service.
+        nsdManager.registerServiceInfoCallback(info, { it.run() }, serviceInfoCallbackRecord)
+        val serviceInfoCb = serviceInfoCallbackRecord.expectCallback<ServiceUpdated>()
+        serviceInfoCb.serviceInfo.let {
+            assertEquals(SERVICE_NAME, it.serviceName)
+            assertEquals(SERVICE_TYPE, it.serviceType)
+            assertEquals(SERVICE_PORT, it.port)
+            assertEquals(1, it.attributes.size)
+            assertArrayEquals(
+                    SERVICE_ATTRIBUTES_VALUE.encodeToByteArray(),
+                    it.attributes[SERVICE_ATTRIBUTES_KEY]
+            )
+        }
     }
 
-    @Rpc(description = "Stop discovery")
-    fun stopMDnsServiceDiscovery() {
+    @Rpc(description = "Stop discovery andr unregister callback")
+    fun stopMDnsServiceDiscoveryAndUnregisterCallback() {
         nsdManager.stopServiceDiscovery(discoveryRecord)
         discoveryRecord.expectCallbackEventually<DiscoveryStopped>()
+        nsdManager.unregisterServiceInfoCallback(serviceInfoCallbackRecord)
+        serviceInfoCallbackRecord.expectCallbackEventually<UnregisterCallbackSucceeded>()
     }
 }
