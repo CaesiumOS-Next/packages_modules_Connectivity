@@ -136,8 +136,6 @@ import static com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SO
 import static com.android.server.connectivity.ConnectivityFlags.REQUEST_RESTRICTED_WIFI;
 import static com.android.server.connectivity.ConnectivityFlags.INGRESS_TO_VPN_ADDRESS_FILTERING;
 
-import static java.util.Map.Entry;
-
 import android.Manifest;
 import android.annotation.CheckResult;
 import android.annotation.NonNull;
@@ -355,10 +353,11 @@ import com.android.server.connectivity.NetworkPreferenceList;
 import com.android.server.connectivity.NetworkRanker;
 import com.android.server.connectivity.NetworkRequestStateStatsMetrics;
 import com.android.server.connectivity.PermissionMonitor;
+import com.android.net.module.util.PrivateAddressCoordinator;
 import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
-import com.android.server.connectivity.RoutingCoordinatorService;
+import com.android.net.module.util.RoutingCoordinatorService;
 import com.android.server.connectivity.SatelliteAccessController;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.VpnNetworkPreferenceInfo;
@@ -2009,7 +2008,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mCdmps = null;
         }
 
-        mRoutingCoordinatorService = new RoutingCoordinatorService(netd);
+        mRoutingCoordinatorService =
+                new RoutingCoordinatorService(netd, new PrivateAddressCoordinator(mContext));
         mMulticastRoutingCoordinatorService =
                 mDeps.makeMulticastRoutingCoordinatorService(mHandler);
 
