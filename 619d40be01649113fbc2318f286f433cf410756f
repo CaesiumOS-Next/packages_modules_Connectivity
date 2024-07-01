@@ -46,6 +46,30 @@
       },
       "revId": "619d40be01649113fbc2318f286f433cf410756f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45a37df1_5dd30562",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-01T04:02:36Z",
+      "side": 1,
+      "message": "I think if we know we will have a upcoming test that we will set hasEther\u003dfalse, then it is fine to add the parameter here. Otherwise, we are adding some code that is never planed to be used, which is not a ideal design.",
+      "parentUuid": "e0a011ec_ed5cde15",
+      "range": {
+        "startLine": 732,
+        "startChar": 19,
+        "endLine": 732,
+        "endChar": 45
+      },
+      "revId": "619d40be01649113fbc2318f286f433cf410756f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
