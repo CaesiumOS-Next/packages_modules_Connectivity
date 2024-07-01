@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02817c5e_1d942e11",
+        "filename": "service/ServiceConnectivityResources/res/values/config_thread.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-07-01T01:53:11Z",
+      "side": 1,
+      "message": "document that \u0027\u003d\u0027 is not allowed in the key and value?",
+      "revId": "947481b88c8d968546ae24cb745c9314ec4be32d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fce0e49_cf46c2af",
+        "filename": "service/ServiceConnectivityResources/res/values/config_thread.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-07-01T01:53:11Z",
+      "side": 1,
+      "message": "Is there a limit on the key and value length?",
+      "revId": "947481b88c8d968546ae24cb745c9314ec4be32d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
