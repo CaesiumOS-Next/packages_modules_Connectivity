@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57b9b178_6cb4e2b0",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-01T03:28:04Z",
+      "side": 1,
+      "message": "I prefer not supporting a default lifetime because the caller should always know the lifetime it needs. Secondly, this default value is not sent back in receiver.\n\nAlso, the use of Duration.ZERO is not okay because it is used to indicate that Ephemeral key mode is disabled in onEphemeralKeyChanged(). It\u0027s better to making the meanings match each other rather than diverging",
+      "range": {
+        "startLine": 183,
+        "startChar": 7,
+        "endLine": 184,
+        "endChar": 29
+      },
+      "revId": "b83425df274b0dc2f796c6a4c0d7247b7822c368",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
