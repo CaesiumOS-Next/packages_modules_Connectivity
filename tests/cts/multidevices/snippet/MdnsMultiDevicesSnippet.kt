@@ -19,6 +19,7 @@ package com.google.snippet.connectivity
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import androidx.test.platform.app.InstrumentationRegistry
+import com.android.modules.utils.build.SdkLevel
 import com.android.testutils.NsdDiscoveryRecord
 import com.android.testutils.NsdDiscoveryRecord.DiscoveryEvent.DiscoveryStopped
 import com.android.testutils.NsdRegistrationRecord
@@ -44,6 +45,9 @@ class MdnsMultiDevicesSnippet : Snippet {
     private val registrationRecord = NsdRegistrationRecord()
     private val discoveryRecord = NsdDiscoveryRecord()
     private val resolveRecord = NsdResolveRecord()
+
+    @Rpc(description = "Check whether the device SDK is as leat T")
+    fun isAtLeastT() = SdkLevel.isAtLeastT()
 
     @Rpc(description = "Register a mDns service")
     fun registerMDnsService() {
