@@ -2000,9 +2000,14 @@ public class Tethering {
             switch (arg1) {
                 case UpstreamNetworkMonitor.EVENT_ON_LINKPROPERTIES:
                     mPrivateAddressCoordinator.updateUpstreamPrefix(ns);
+                    // 11111111 Use RoutingCoordinator
+                    mRoutingCoordinator.updateUpstreamPrefix(
+                            ns.linkProperties, ns.networkCapabilities, ns.network);
                     break;
                 case UpstreamNetworkMonitor.EVENT_ON_LOST:
                     mPrivateAddressCoordinator.removeUpstreamPrefix(ns.network);
+                    // 11111111 Use RoutingCoordinator
+                    mRoutingCoordinator.removeUpstreamPrefix(ns.network);
                     break;
             }
 
