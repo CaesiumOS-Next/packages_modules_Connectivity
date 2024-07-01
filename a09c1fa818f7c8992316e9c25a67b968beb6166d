@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a22a8143_c2a6cc8e",
+        "filename": "thread/framework/java/android/net/thread/EphemeralKey.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-01T09:55:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f6f47bb0_5c120241",
+      "range": {
+        "startLine": 42,
+        "startChar": 19,
+        "endLine": 42,
+        "endChar": 31
+      },
+      "revId": "a09c1fa818f7c8992316e9c25a67b968beb6166d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7f7fbcb_c7525a6d",
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "I think we still need it, when there are multiple clients of the API, they can get the correct ephemeral key from this callback.",
       "parentUuid": "728dac64_427e82af",
+      "range": {
+        "startLine": 312,
+        "startChar": 21,
+        "endLine": 312,
+        "endChar": 47
+      },
+      "revId": "a09c1fa818f7c8992316e9c25a67b968beb6166d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d46113d_f9cd1076",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-01T09:55:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7ea85820_7c08064a",
       "range": {
         "startLine": 312,
         "startChar": 21,

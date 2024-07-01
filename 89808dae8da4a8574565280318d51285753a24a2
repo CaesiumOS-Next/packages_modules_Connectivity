@@ -159,6 +159,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "753b2227_25a5a72f",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-01T09:55:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "55a9dd91_07c3b0fd",
+      "revId": "89808dae8da4a8574565280318d51285753a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b07b39c4_3bbf3455",
