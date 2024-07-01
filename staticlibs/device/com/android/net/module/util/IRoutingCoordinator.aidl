@@ -16,7 +16,13 @@
 
 package com.android.net.module.util;
 
+import android.net.LinkAddress;
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.RouteInfo;
+
+import com.android.net.module.util.IRoutingCoordinatorCallback;
 
 /** @hide */
 // TODO: b/350630377 - This @Descriptor annotation workaround is to prevent the DESCRIPTOR from
@@ -96,4 +102,18 @@ interface IRoutingCoordinator {
     *         cause of the failure.
     */
     void removeInterfaceForward(in String fromIface, in String toIface);
+
+    void updateUpstreamPrefix(in LinkProperties lp,
+                              in NetworkCapabilities nc,
+                              in Network network);
+
+    void removeUpstreamPrefix(in Network network);
+
+    void maybeRemoveDeprecatedUpstreams();
+
+    LinkAddress requestDownstreamAddress(
+            in int interfaceType,
+            in int scope,
+            in boolean useLastAddress,
+            in IRoutingCoordinatorCallback callback);
 }

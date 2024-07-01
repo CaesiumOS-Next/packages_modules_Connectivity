@@ -21,6 +21,7 @@ import android.app.usage.NetworkStatsManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.INetd;
 import android.net.connectivity.ConnectivityInternalApiUtil;
 import android.net.ip.IpServer;
