@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3caa587_871f0446",
+        "filename": "service/ServiceConnectivityResources/res/values/config_thread.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-01T13:49:34Z",
+      "side": 1,
+      "message": "This is not necessary because we don\u0027t anyway to enforce it. But it can be useful I think. I updated the doc.",
+      "parentUuid": "6b52f9e5_2f8561b3",
+      "revId": "e202c4a705d860a8e4eafe0358f8c726be3db72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7e634c1_0748b682",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2b55152_572ff515",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-01T13:49:34Z",
+      "side": 1,
+      "message": "Updated to split by the first `\u003d`. Also added unit test for this case.",
+      "parentUuid": "d7e634c1_0748b682",
+      "revId": "e202c4a705d860a8e4eafe0358f8c726be3db72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "365a13fa_66e97ef9",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-07-01T08:30:18Z",
       "side": 1,
       "message": "```suggestion\n    public void makeVendorSpecificTxtAttrs_txtIsTooShort_throwsIllegalArgument() {\n```",
+      "revId": "e202c4a705d860a8e4eafe0358f8c726be3db72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b1c43d8_bfc37403",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-01T13:49:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "365a13fa_66e97ef9",
       "revId": "e202c4a705d860a8e4eafe0358f8c726be3db72c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
