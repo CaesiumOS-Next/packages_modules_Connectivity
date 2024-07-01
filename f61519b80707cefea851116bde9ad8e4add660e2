@@ -118,6 +118,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b14eeca_ff236dd6",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-01T06:39:11Z",
+      "side": 1,
+      "message": "By \u0027redacted\u0027, is it an empty string?",
+      "revId": "f61519b80707cefea851116bde9ad8e4add660e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b1a082d2_31e05968",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 10
