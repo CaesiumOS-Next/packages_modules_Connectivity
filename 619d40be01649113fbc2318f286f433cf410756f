@@ -22,6 +22,30 @@
       },
       "revId": "619d40be01649113fbc2318f286f433cf410756f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0a011ec_ed5cde15",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-07-01T03:16:18Z",
+      "side": 1,
+      "message": "It is a util method in ```TetheringTester``` and all isExpectedXXXPacket methods in this class have a ```hasEth``` parameter. Don\u0027t we need to keep them consistent?",
+      "parentUuid": "af970206_f5ff8418",
+      "range": {
+        "startLine": 732,
+        "startChar": 19,
+        "endLine": 732,
+        "endChar": 45
+      },
+      "revId": "619d40be01649113fbc2318f286f433cf410756f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
