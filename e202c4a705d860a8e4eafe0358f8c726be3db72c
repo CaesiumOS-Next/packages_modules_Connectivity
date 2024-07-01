@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b52f9e5_2f8561b3",
+        "filename": "service/ServiceConnectivityResources/res/values/config_thread.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-01T08:30:18Z",
+      "side": 1,
+      "message": "Shall we also include this requirement from spec:\n\n```\nThese fields MUST NOT expose\nprivileged shared Thread Network\ninformation such as security material or\nnetwork credentials.\n```",
+      "revId": "e202c4a705d860a8e4eafe0358f8c726be3db72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7e634c1_0748b682",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-01T08:30:18Z",
+      "side": 1,
+      "message": "https://datatracker.ietf.org/doc/html/rfc6763#section-6.5\n\nRFC says it\u0027s valid for the value to contain \u0027\u003d\u0027.",
+      "revId": "e202c4a705d860a8e4eafe0358f8c726be3db72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "365a13fa_66e97ef9",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-01T08:30:18Z",
+      "side": 1,
+      "message": "```suggestion\n    public void makeVendorSpecificTxtAttrs_txtIsTooShort_throwsIllegalArgument() {\n```",
+      "revId": "e202c4a705d860a8e4eafe0358f8c726be3db72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
