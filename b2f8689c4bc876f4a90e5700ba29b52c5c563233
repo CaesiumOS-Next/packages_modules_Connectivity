@@ -117,6 +117,30 @@
       },
       "revId": "b2f8689c4bc876f4a90e5700ba29b52c5c563233",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2380398_866f3e14",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-01T02:16:15Z",
+      "side": 1,
+      "message": "Splitting into separate \"Monitor\" classes sounds useful, actually it\u0027s not great that we\u0027re putting all of these into the TestRunner. These checks should arguably be in something else like an InstrumentationRunListener instead, we\u0027re just putting them in the runner because it\u0027s easier to make sure most of our tests use it.\n\nSo having them in standalone classes would clean up the runner help move them to different containers in the future if needed. That said, agreed that this could be in a separate change.",
+      "parentUuid": "e4f6a8eb_42657949",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 32
+      },
+      "revId": "b2f8689c4bc876f4a90e5700ba29b52c5c563233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
