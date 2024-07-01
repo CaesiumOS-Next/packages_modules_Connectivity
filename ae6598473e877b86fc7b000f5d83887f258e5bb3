@@ -16,6 +16,24 @@
       "message": "I can see the NPE stack trace in the bug. However, I am not fully fully how it can happened. So the emulator doesn\u0027t have EthernetManager at all?\n\n```\n    protected static final EthernetManager sEm \u003d sContext.getSystemService(EthernetManager.class);\n```\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java;l\u003d143?q\u003dEthernetTetheringTestBase.java%20\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
       "revId": "ae6598473e877b86fc7b000f5d83887f258e5bb3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f560bfc5_23adbd66",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1046320
+      },
+      "writtenOn": "2024-07-01T15:10:34Z",
+      "side": 1,
+      "message": "Yuyang,\n   emulator only supports wifi and radio, it does not declare\nandroid.hardware.ethernet.xml. that is why it does not have EthernetManager",
+      "parentUuid": "be6f5051_fdcbdfe2",
+      "revId": "ae6598473e877b86fc7b000f5d83887f258e5bb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
