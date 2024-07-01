@@ -70,6 +70,7 @@ import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.InterfaceParams;
+import com.android.net.module.util.IRoutingCoordinatorCallback;
 import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.net.module.util.SharedLog;
@@ -703,7 +704,22 @@ public class IpServer extends StateMachineShim {
 
         if (shouldNotConfigureBluetoothInterface()) return new LinkAddress(BLUETOOTH_IFACE_ADDR);
 
-        return mPrivateAddressCoordinator.requestDownstreamAddress(this, scope, useLastAddress);
+//        return mPrivateAddressCoordinator.requestDownstreamAddress(this, scope, useLastAddress);
+//        // 111111111
+        LinkAddress addr = mRoutingCoordinator.requestDownstreamAddress(
+                mInterfaceType,
+                scope,
+                useLastAddress,
+                new RoutingCoordinatorCallbackProxy());
+        Log.i(TAG, " 1111111111111 requestIpv4Address: " + addr);
+        return addr;
+    }
+
+    private final class RoutingCoordinatorCallbackProxy extends IRoutingCoordinatorCallback.Stub {
+        public void onIpv4PrefixConflict(IpPrefix ipPrefix) {
+            Log.i(TAG, "11111111111 onIpv4PrefixConflict: " + ipPrefix);
+            sendMessage(CMD_NOTIFY_PREFIX_CONFLICT);
+        }
     }
 
     private boolean startIPv6() {
