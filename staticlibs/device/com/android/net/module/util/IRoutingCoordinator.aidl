@@ -16,6 +16,9 @@
 
 package com.android.net.module.util;
 
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.RouteInfo;
 
 /** @hide */
@@ -96,4 +99,10 @@ interface IRoutingCoordinator {
     *         cause of the failure.
     */
     void removeInterfaceForward(in String fromIface, in String toIface);
+
+    void updateUpstreamPrefix(in LinkProperties lp,
+                              in NetworkCapabilities nc,
+                              in Network network);
+
+    void removeUpstreamPrefix(in Network network);
 }
