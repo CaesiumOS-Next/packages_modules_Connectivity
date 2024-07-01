@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46110118_9f8ad622",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-01T16:00:01Z",
+      "side": 1,
+      "message": "I think we should never call this method in the first place if tests are skipped. I can see a null check hidden inside this helper lead to misleading test failures. Here\u0027s is an alternative approach: aosp/3155077",
+      "revId": "ae6598473e877b86fc7b000f5d83887f258e5bb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be6f5051_fdcbdfe2",
