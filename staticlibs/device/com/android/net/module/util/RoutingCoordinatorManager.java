@@ -17,6 +17,9 @@
 package com.android.net.module.util;
 
 import android.content.Context;
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.RouteInfo;
 import android.os.Build;
 import android.os.IBinder;
@@ -152,6 +155,22 @@ public class RoutingCoordinatorManager {
     public void removeInterfaceForward(final String fromIface, final String toIface) {
         try {
             mService.removeInterfaceForward(fromIface, toIface);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    public void updateUpstreamPrefix(LinkProperties lp, NetworkCapabilities nc, Network network) {
+        try {
+            mService.updateUpstreamPrefix(lp, nc, network);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    public void removeUpstreamPrefix(Network network) {
+        try {
+            mService.removeUpstreamPrefix(network);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
