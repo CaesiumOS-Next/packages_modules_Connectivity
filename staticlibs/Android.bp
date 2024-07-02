@@ -617,15 +617,31 @@ filegroup {
 filegroup {
     name: "net-utils-wifi-service-common-srcs",
     srcs: [
-        "device/android/net/NetworkFactory.java",
-        "device/android/net/NetworkFactoryImpl.java",
-        "device/android/net/NetworkFactoryLegacyImpl.java",
-        "device/android/net/NetworkFactoryShim.java",
+        "device/android/net/*.java",
+        "device/com/android/net/module/util/**/*.java",
+        "framework/com/android/net/module/util/*.java",
+        ":net-utils-aidl-srcs",
     ],
+    exclude_srcs: [":net-utils-framework-wifi-common-srcs"],
     visibility: [
-        "//frameworks/opt/net/wifi/service",
         "//packages/modules/Wifi/service",
     ],
+}
+
+java_library {
+    name: "net-utils-framework-wifi-lib",
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    srcs: [":net-utils-framework-wifi-common-srcs"],
+    libs: [
+        "framework-annotations-lib",
+        "framework-connectivity.stubs.module_lib",
+        "unsupportedappusage",
+    ],
+    visibility: [
+        "//packages/modules/Wifi/framework",
+    ],
+    apex_available: ["com.android.wifi"],
 }
 
 // Use a file group containing classes necessary for framework-connectivity. The file group should
