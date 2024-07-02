@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99f17af7_eb3694ec",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-07-02T07:42:06Z",
+      "side": 1,
+      "message": "Is this function change related this CL?  \nIt\u0027ll be better to change if it\u0027s for another CL.",
+      "revId": "c557a6a36266683babb8932fa3869de5e53c2749",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
