@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0da84e8d_ecdaea0b",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-02T06:28:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c7ca9f3_4bea1dc7",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 42
+      },
+      "revId": "57496d18c6a8cc2e69b9f06853ad4d01ae88b02c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e5f1058_2be68c0c",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4546a87_1c4971c1",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-02T06:28:45Z",
+      "side": 1,
+      "message": "indent with 2 spaces with continuation indention with 4 spaces.\nThis is formatted by pyformat and also on go/pystyle#indentation",
+      "parentUuid": "8f12fa00_9fbce43d",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 10
+      },
+      "revId": "57496d18c6a8cc2e69b9f06853ad4d01ae88b02c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e79c92d0_3186f5e2",
@@ -84,6 +132,30 @@
       "writtenOn": "2024-06-28T13:08:57Z",
       "side": 1,
       "message": "It seems this change should be in a separate CL? It\u0027s not related it seems it does not related to APF.",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 83
+      },
+      "revId": "57496d18c6a8cc2e69b9f06853ad4d01ae88b02c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70354508_43ba322e",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 25
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-02T06:28:45Z",
+      "side": 1,
+      "message": "Moved to aosp/3156517",
+      "parentUuid": "e79c92d0_3186f5e2",
       "range": {
         "startLine": 94,
         "startChar": 8,
