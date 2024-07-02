@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61f43d35_a1e470cc",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-02T08:22:14Z",
+      "side": 1,
+      "message": "I\u0027m not a big fan of splitting CLs just because of minor formatting changes.\nDocumented on the commit message, see if it works for you.\nReopen if feel strongly, I\u0027ll do the splitting.",
+      "parentUuid": "d9f09af8_d195a240",
+      "range": {
+        "startLine": 73,
+        "startChar": 5,
+        "endLine": 78,
+        "endChar": 7
+      },
+      "revId": "c557a6a36266683babb8932fa3869de5e53c2749",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99f17af7_eb3694ec",
@@ -55,6 +79,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "99f17af7_eb3694ec",
+      "revId": "c557a6a36266683babb8932fa3869de5e53c2749",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8eff2ce_2b9767d8",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-02T08:22:14Z",
+      "side": 1,
+      "message": "Yes, the interface name is only needed by this test.\nThis modification is specifically for this apf test case only.\nThus I think split to another CL is not necessary.\nPrefer to keep it as is.\nReopen if feel strongly.",
+      "parentUuid": "79f9ce8e_0660d280",
       "revId": "c557a6a36266683babb8932fa3869de5e53c2749",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
