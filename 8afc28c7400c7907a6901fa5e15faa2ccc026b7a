@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a56a72d0_c1accfd7",
+        "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-02T08:12:47Z",
+      "side": 1,
+      "message": "Those rename and the small refactoring should be in a seaparte CL.",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 69
+      },
+      "revId": "8afc28c7400c7907a6901fa5e15faa2ccc026b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
