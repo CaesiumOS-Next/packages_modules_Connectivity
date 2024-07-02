@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63e3b92b_787690cc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-02T20:14:40Z",
+      "side": 1,
+      "message": "note that there is also no other option than to silently ignore, since the implementation is behind a oneway binder interface.",
+      "range": {
+        "startLine": 166,
+        "startChar": 12,
+        "endLine": 166,
+        "endChar": 97
+      },
+      "revId": "0692aff5c5aba22060f35c8204dbb6707fdb25dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
