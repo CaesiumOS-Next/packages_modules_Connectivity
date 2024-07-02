@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "527ba66d_3e314198",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T10:40:24Z",
+      "side": 1,
+      "message": "Given that this CL *does* have tests, this API-Coverage-Bug shouldn\u0027t be necessary. If it is necessary, then perhaps there\u0027s a bug in the linter. Can you fix that?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87de9f2a_bacd4444",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T10:40:24Z",
+      "side": 1,
+      "message": "This can never change once you add it. If we think that this value might need to be shorter or longer in the future, you could instead define an INVALID_EPHEMERAL_KEY_LIFETIME error constant. That might be a bit harder for developers, since they can\u0027t just use a compile-time constant, but at least they will get a clear error.",
+      "range": {
+        "startLine": 519,
+        "startChar": 116,
+        "endLine": 519,
+        "endChar": 142
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e26593cb_8e0db97f",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T10:40:24Z",
+      "side": 1,
+      "message": "Is it guaranteed that when this happens, it will be followed by a call to startEphemeralKeyMode? And presumably that call will always happen after the OutcomeReceiver is called?",
+      "range": {
+        "startLine": 183,
+        "startChar": 84,
+        "endLine": 183,
+        "endChar": 85
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19e24626_3326623f",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T10:40:24Z",
+      "side": 1,
+      "message": "Which errors can happen here? Presumably this can fail if the device is already in ephemeral key mode, or if there is no current thread network, etc. We should specify here which ERROR_xxx codes can happen, and we may need to add new ones. For example, we might have ERROR_EPHEMERAL_KEY_ALREADY_ENABLED/DISABLED, ERROR_EPHEMERAL_KEY_STATE_INVALID, etc.",
+      "range": {
+        "startLine": 186,
+        "startChar": 55,
+        "endLine": 186,
+        "endChar": 61
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae2befe9_ee75c30e",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T10:40:24Z",
+      "side": 1,
+      "message": "on which to",
+      "range": {
+        "startLine": 189,
+        "startChar": 36,
+        "endLine": 189,
+        "endChar": 38
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85a0cd99_d9955125",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T10:40:24Z",
+      "side": 1,
+      "message": "Nit: if you\u0027re documenting unchecked exceptions, you might want to mention SecurityException as well.",
+      "range": {
+        "startLine": 191,
+        "startChar": 15,
+        "endLine": 191,
+        "endChar": 39
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7295f37a_c00b585d",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T10:40:24Z",
+      "side": 1,
+      "message": "We should clarify somewhere in the doc that when a callback is registered, which of these methods are called (presumably in all of them?) and in which order.",
+      "range": {
+        "startLine": 286,
+        "startChar": 83,
+        "endLine": 286,
+        "endChar": 84
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "825a0576_edd1d5ba",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T10:40:24Z",
+      "side": 1,
+      "message": "Is this callback called immediately at registration time?",
+      "range": {
+        "startLine": 314,
+        "startChar": 29,
+        "endLine": 314,
+        "endChar": 40
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51546d2a_6b3468e5",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T10:40:24Z",
+      "side": 1,
+      "message": "When it is disabled, what is ephemeralKey set to?",
+      "range": {
+        "startLine": 320,
+        "startChar": 34,
+        "endLine": 320,
+        "endChar": 45
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
