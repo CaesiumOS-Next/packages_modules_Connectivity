@@ -20,7 +20,7 @@ import static com.android.net.module.util.NetdUtils.toRouteInfoParcel;
 
 import android.annotation.NonNull;
 import android.net.INetd;
-import android.net.IRoutingCoordinator;
+import com.android.net.module.util.IRoutingCoordinator;
 import android.net.RouteInfo;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
