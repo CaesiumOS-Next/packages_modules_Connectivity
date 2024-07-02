@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package com.android.server.connectivity;
+package com.android.net.module.util;
 
 import static com.android.net.module.util.NetdUtils.toRouteInfoParcel;
 
 import android.annotation.NonNull;
 import android.net.INetd;
-import android.net.IRoutingCoordinator;
+
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.RouteInfo;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
@@ -44,9 +47,12 @@ import java.util.Objects;
 public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
     private static final String TAG = RoutingCoordinatorService.class.getSimpleName();
     private final INetd mNetd;
+    private final PrivateAddressCoordinator mPrivateAddressCoordinator;
 
-    public RoutingCoordinatorService(@NonNull INetd netd) {
+    public RoutingCoordinatorService(
+            @NonNull INetd netd, @NonNull PrivateAddressCoordinator privateAddressCoordinator) {
         mNetd = netd;
+        mPrivateAddressCoordinator = privateAddressCoordinator;
     }
 
     /**
@@ -224,5 +230,16 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
                 mNetd.ipfwdDisableForwarding("RoutingCoordinator");
             }
         }
+    }
+
+    @Override
+    public void updateUpstreamPrefix(
+            final LinkProperties lp, final NetworkCapabilities nc, final Network network) {
+        mPrivateAddressCoordinator.updateUpstreamPrefix(lp, nc, network);
+    }
+
+    @Override
+    public void removeUpstreamPrefix(final Network network) {
+        mPrivateAddressCoordinator.removeUpstreamPrefix(network);
     }
 }
