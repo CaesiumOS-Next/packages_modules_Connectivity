@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "385a0362_2e371e9a",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T08:52:33Z",
+      "side": 1,
+      "message": "Can you add the relevant test suites to the linter configuration so it does not complain about this type of change in the future?\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\nPlease fix this ERROR reported by Flagged API: com.android.net.thread.flags.thread_enabled is already in next. APIs in next should not change.\n\nAnalyzer Description: Validates flagging of APIs.\nOwner: android-api-council+tools@google.com\n\ncom.android.net.thread.flags.thread_enabled is already in next. APIs in next should not change.",
+      "range": {
+        "startLine": 509,
+        "startChar": 0,
+        "endLine": 0,
+        "endChar": 0
+      },
+      "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f65fe2d9_41adaa60",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T08:52:33Z",
+      "side": 1,
+      "message": "I think we need to use a new flag here, because the flag you are using is already enabled. Flags for new APIs must remain disabled until all phases of API review are complete.\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\nPlease fix this ERROR reported by API Test Coverage: This CL adds new API(s), but it doesn\u0027t include any CTS/GTS test to test them. Please add CTS/GTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating...\n\nAnalyzer Description: Validates new APIs are tested by CTS/GTS.\nOwner: android-tooltopia@google.com\n\nThis CL adds new API(s), but it doesn\u0027t include any CTS/GTS test to test them. Please add CTS/GTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating commit message to rerun this presubmit test. If you are unable to add CTS/GTS test(s) now, please file a tracking bug via go/new-api-coverage-bug and add \"API-Coverage-Bug: \u003cbug id\u003e\" in this CL\u0027s commit message to pass this presubmit. Refer to b/269059598 for bug  examples. For more information, please refer to go/api-test-coverage.",
+      "range": {
+        "startLine": 0,
+        "startChar": 0,
+        "endLine": 0,
+        "endChar": 0
+      },
+      "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73611cfd_3e2b8010",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T08:52:33Z",
+      "side": 1,
+      "message": "Why is the \"unsupported\" value indicated by MAX and not MIN? Does MIN have a special meaning?",
+      "range": {
+        "startLine": 628,
+        "startChar": 21,
+        "endLine": 628,
+        "endChar": 30
+      },
+      "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

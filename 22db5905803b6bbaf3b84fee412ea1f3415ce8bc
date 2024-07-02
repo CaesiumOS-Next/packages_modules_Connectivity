@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07f8c1ee_0833b473",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T08:52:33Z",
+      "side": 0,
+      "message": "Can you provide one or two examples of actual values that might happen in practice? For example, 2000 means 0.1W.",
+      "range": {
+        "startLine": 625,
+        "startChar": 57,
+        "endLine": 625,
+        "endChar": 94
+      },
+      "revId": "22db5905803b6bbaf3b84fee412ea1f3415ce8bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
