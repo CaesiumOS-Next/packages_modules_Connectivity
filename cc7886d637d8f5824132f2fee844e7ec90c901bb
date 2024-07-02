@@ -16,6 +16,57 @@
       "message": "@reminv@google.com needs to take a look for the CTS change.",
       "revId": "cc7886d637d8f5824132f2fee844e7ec90c901bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24712de2_7756c31d",
+        "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-02T08:50:29Z",
+      "side": 1,
+      "message": "Maybe put in ConnectivityMultiDevicesSnippet given that this would be a common util?",
+      "range": {
+        "startLine": 50,
+        "startChar": 32,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4303d42c_0be4acec",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 22,
+                "startChar": 0,
+                "endLine": 23,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 49,
+                "startChar": 0,
+                "endLine": 52,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "cc7886d637d8f5824132f2fee844e7ec90c901bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
