@@ -51,6 +51,24 @@
       "parentUuid": "be6f5051_fdcbdfe2",
       "revId": "ae6598473e877b86fc7b000f5d83887f258e5bb3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a40185db_bdecabaa",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-02T02:37:18Z",
+      "side": 1,
+      "message": "https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java;l\u003d169?q\u003dEthernetTetheringTestBase.java\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain\n\nIf it is expected the ethernet manager is not there, I think we need to add \n\n`\nassumeTrue(mEm !\u003d null) to the setup.\n`\n https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java;l\u003d168?q\u003dEthernetTetheringTestBase.java\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
+      "parentUuid": "f560bfc5_23adbd66",
+      "revId": "ae6598473e877b86fc7b000f5d83887f258e5bb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
