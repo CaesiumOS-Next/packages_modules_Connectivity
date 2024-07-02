@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84ace066_8b2ed09a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-02T15:11:15Z",
+      "side": 1,
+      "message": "Hey KH, could you take a look at this CL as well? It should be a pretty straight-forward code move.",
+      "revId": "50ca550625ea0d9d9fff615c183b21c155c9e63a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
