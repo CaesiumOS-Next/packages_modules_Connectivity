@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b759588_8993b131",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2390,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-02T20:11:20Z",
+      "side": 1,
+      "message": "FWIW, this is already checked here. Since this is called on a binder thread behind a oneway binder interface, the resulting exception will be ignored.",
+      "range": {
+        "startLine": 2388,
+        "startChar": 0,
+        "endLine": 2390,
+        "endChar": 9
+      },
+      "revId": "8714b3e1a63b46b12ef39762cf3574392c3ab3c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
