@@ -27,13 +27,11 @@ import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
 import android.net.cts.util.CtsNetUtils
 import android.net.cts.util.CtsTetheringUtils
-import android.net.wifi.ScanResult
 import android.net.wifi.SoftApConfiguration
 import android.net.wifi.SoftApConfiguration.SECURITY_TYPE_WPA2_PSK
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
-import android.net.wifi.WifiNetworkSpecifier
 import android.net.wifi.WifiSsid
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.testutils.AutoReleaseNetworkCallbackRule
@@ -93,10 +91,7 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     // Suppress warning because WifiManager methods to connect to a config are
     // documented not to be deprecated for privileged users.
     @Suppress("DEPRECATION")
-    fun connectToWifi(ssid: String, passphrase: String): Long {
-        val specifier = WifiNetworkSpecifier.Builder()
-            .setBand(ScanResult.WIFI_BAND_24_GHZ)
-            .build()
+    fun connectToWifi(ssid: String, passphrase: String, requireValidation: Boolean): Long {
         val wifiConfig = WifiConfiguration()
         wifiConfig.SSID = "\"" + ssid + "\""
         wifiConfig.preSharedKey = "\"" + passphrase + "\""
@@ -125,7 +120,8 @@ class ConnectivityMultiDevicesSnippet : Snippet {
             return@runAsShell networkCallback.eventuallyExpect<CapabilitiesChanged> {
                 // Remove double quotes.
                 val ssidFromCaps = (WifiInfo::sanitizeSsid)(it.caps.ssid)
-                ssidFromCaps == ssid && it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
+                ssidFromCaps == ssid && (!requireValidation ||
+                        it.caps.hasCapability(NET_CAPABILITY_VALIDATED))
             }.network.networkHandle
         }
     }
