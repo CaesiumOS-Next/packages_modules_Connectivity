@@ -16,6 +16,23 @@
       "message": "Thanks a lot, Patrick!",
       "revId": "405fcea5eefc9f1a062210f75c1113a6c65eea35",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aa1a78f_40711363",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-02T15:05:29Z",
+      "side": 1,
+      "message": "LGTM, but it\u0027s confusing that tearDown calls setIncludeTestInterfaces even though setUp doesn\u0027t. It also seems difficult to keep this code correct.\n\nMaybe we can use CtsNetUtils to make this easier? We could store in setUp whether test interfaces were enabled or not, then in teardown we could ensure that they are disabled (and that we wait for the callbacks).",
+      "revId": "405fcea5eefc9f1a062210f75c1113a6c65eea35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
