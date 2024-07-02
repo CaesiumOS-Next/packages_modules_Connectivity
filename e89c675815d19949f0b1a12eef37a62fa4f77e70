@@ -49,6 +49,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8f519ae_eaefd555",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-02T11:07:21Z",
+      "side": 1,
+      "message": "Remove this empty line",
+      "fixSuggestions": [
+        {
+          "fixId": "218628ae_bc10186a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 19,
+                "startChar": 0,
+                "endLine": 20,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73611cfd_3e2b8010",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 3
