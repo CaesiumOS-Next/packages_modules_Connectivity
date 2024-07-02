@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9f09af8_d195a240",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-02T08:10:07Z",
+      "side": 1,
+      "message": "also the formatting should be in different CL",
+      "range": {
+        "startLine": 73,
+        "startChar": 5,
+        "endLine": 78,
+        "endChar": 7
+      },
+      "revId": "c557a6a36266683babb8932fa3869de5e53c2749",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99f17af7_eb3694ec",
         "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
         "patchSetId": 26
@@ -14,6 +37,24 @@
       "writtenOn": "2024-07-02T07:42:06Z",
       "side": 1,
       "message": "Is this function change related this CL?  \nIt\u0027ll be better to change if it\u0027s for another CL.",
+      "revId": "c557a6a36266683babb8932fa3869de5e53c2749",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79f9ce8e_0660d280",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-02T08:10:07Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "99f17af7_eb3694ec",
       "revId": "c557a6a36266683babb8932fa3869de5e53c2749",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
