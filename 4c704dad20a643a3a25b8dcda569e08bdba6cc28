@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fd1707c_10358b10",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-02T05:44:53Z",
+      "side": 1,
+      "message": "Oops.\nIt is now always 2 blank lines between methods.\nHowever it is always 1 blank lines in test code.\nFor now it is consistent in all util files.\nWill have another CL to unify them.",
+      "parentUuid": "0de77fbc_6ddf5e8b",
+      "revId": "4c704dad20a643a3a25b8dcda569e08bdba6cc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81147eae_d3831e40",
@@ -88,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "810d8f1a_c369a2ee",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-02T05:44:53Z",
+      "side": 1,
+      "message": "Prefer to keep it as is.\nReplied with more context at https://android-review.git.corp.google.com/c/platform/packages/modules/NetworkStack/+/3106143/comment/0e20d805_b48e36c9/",
+      "parentUuid": "b89ba825_c258bd06",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 191,
+        "endChar": 12
+      },
+      "revId": "4c704dad20a643a3a25b8dcda569e08bdba6cc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88406b8f_4e2db783",
@@ -101,6 +143,30 @@
       "writtenOn": "2024-06-25T15:42:31Z",
       "side": 1,
       "message": "I feel we should check the command execution succeed message as well.",
+      "range": {
+        "startLine": 192,
+        "startChar": 4,
+        "endLine": 192,
+        "endChar": 35
+      },
+      "revId": "4c704dad20a643a3a25b8dcda569e08bdba6cc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c62e81c_27cbfd5d",
+        "filename": "tests/cts/multidevices/utils/apf_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-02T05:44:53Z",
+      "side": 1,
+      "message": "Prefer to keep it as is.\nReplied with more context at https://android-review.git.corp.google.com/c/platform/packages/modules/NetworkStack/+/3106143/comment/0e20d805_b48e36c9/",
+      "parentUuid": "88406b8f_4e2db783",
       "range": {
         "startLine": 192,
         "startChar": 4,
