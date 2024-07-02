@@ -15,9 +15,9 @@
 import re
 from mobly.controllers import android_device
 from mobly.controllers.android_device_lib.adb import AdbError
+from net_tests_utils.host.python import adb_utils, assert_utils
 from scapy.all import Ether, Raw
 from scapy.contrib.ethercat import EtherCat
-from net_tests_utils.host.python import adb_utils, assert_utils
 
 # Constants.
 ETHER_BROADCAST = "FF:FF:FF:FF:FF:FF"
@@ -129,23 +129,18 @@ def send_broadcast_empty_ethercat_packet(
 
   # Construct empty broadcast EtherCat packet.
   packet = Ether(src=mac_address, dst=ETHER_BROADCAST) / EtherCat()
-  packet_type_in_hex = f"{packet.type:x}"
 
   # Send the packet using a raw socket.
   send_raw_packet_downstream(
       ad,
-      packet_type_in_hex,
       iface_name,
-      packet.dst.replace(":", ""),
       packet.build().hex(),
   )
 
 
 def send_raw_packet_downstream(
     ad: android_device.AndroidDevice,
-    packetType: str,
     iface_name: str,
-    dst_mac: str,
     packet_in_hex: str,
 ) -> None:
   """Sends a raw packet over the specified downstream interface.
@@ -157,11 +152,8 @@ def send_raw_packet_downstream(
 
   Args:
       ad: The AndroidDevice object representing the connected device.
-      packetType: The type of packet to send (e.g., "88A4" for EtherCAT).
       iface_name: The name of the network interface to use (e.g., "wlan0",
         "eth0").
-      dst_mac: The destination MAC address of the packet (e.g., "FFFFFFFFFFFF"
-        for broadcast).
       packet_in_hex: The raw packet data starting from L2 header encoded in
         hexadecimal string format.
 
@@ -180,7 +172,7 @@ def send_raw_packet_downstream(
 
   cmd = (
       "cmd network_stack send-raw-packet-downstream"
-      f" {packetType} {iface_name} {dst_mac} {packet_in_hex}"
+      f" {iface_name} {packet_in_hex}"
   )
 
   # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
