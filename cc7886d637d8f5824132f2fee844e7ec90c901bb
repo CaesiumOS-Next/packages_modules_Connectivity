@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "847fd92f_391550c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-02T08:11:37Z",
+      "side": 1,
+      "message": "@reminv@google.com needs to take a look for the CTS change.",
+      "revId": "cc7886d637d8f5824132f2fee844e7ec90c901bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
