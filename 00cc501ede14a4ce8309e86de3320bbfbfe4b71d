@@ -16,6 +16,23 @@
       "message": "It\u0027s generally not a good idea to use RESTRICT AUTOMERGE, because it\u0027s difficult to know where it will take effect. Also, other branches contain aosp/2880548 which adds these two lines in a different order. We should keep the lines in the same order otherwise we will see merge conflicts in the future.\n\nI\u0027ve changed the CL to specify a Merged-In of aosp/2880548 instead (and made it identical to aosp/2880548 .",
       "revId": "00cc501ede14a4ce8309e86de3320bbfbfe4b71d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84ed46a7_714d2ee9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1209463
+      },
+      "writtenOn": "2024-07-02T19:53:16Z",
+      "side": 1,
+      "message": "Hi, CL needs code-review +2 from test owner. Thanks",
+      "revId": "00cc501ede14a4ce8309e86de3320bbfbfe4b71d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
