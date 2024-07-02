@@ -26,8 +26,7 @@ java_library {
         "compatibility-device-util-axt",
         "net-tests-utils",
         "net-utils-device-common",
-        "net-utils-device-common-bpf",
-        "net-utils-device-common-struct-base",
+        "net-utils-framework-connectivity",
     ],
     srcs: [
         "src/**/*.java",

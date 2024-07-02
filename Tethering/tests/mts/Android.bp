@@ -44,8 +44,7 @@ android_test {
         "junit",
         "junit-params",
         "connectivity-net-module-utils-bpf",
-        "net-utils-device-common-bpf",
-        "net-utils-device-common-struct-base",
+        "net-utils-framework-connectivity",
     ],
 
     jni_libs: [

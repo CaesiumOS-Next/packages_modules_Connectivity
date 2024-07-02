@@ -126,72 +126,8 @@ filegroup {
     ],
 }
 
-// The net-utils-device-common-bpf library requires the callers to contain
-// net-utils-device-common-struct-base.
-java_library {
-    name: "net-utils-device-common-bpf",
-    srcs: [
-        "device/com/android/net/module/util/BpfBitmap.java",
-        "device/com/android/net/module/util/BpfDump.java",
-        "device/com/android/net/module/util/BpfMap.java",
-        "device/com/android/net/module/util/BpfUtils.java",
-        "device/com/android/net/module/util/IBpfMap.java",
-        "device/com/android/net/module/util/JniUtil.java",
-        "device/com/android/net/module/util/SingleWriterBpfMap.java",
-        "device/com/android/net/module/util/TcUtils.java",
-    ],
-    sdk_version: "module_current",
-    min_sdk_version: "30",
-    visibility: [
-        "//packages/modules/Connectivity:__subpackages__",
-        "//packages/modules/NetworkStack:__subpackages__",
-    ],
-    libs: [
-        "androidx.annotation_annotation",
-        "framework-connectivity.stubs.module_lib",
-        "net-utils-device-common-struct-base",
-    ],
-    apex_available: [
-        "com.android.tethering",
-        "//apex_available:platform",
-    ],
-    lint: {
-        strict_updatability_linting: true,
-        error_checks: ["NewApi"],
-    },
-}
-
-java_library {
-    name: "net-utils-device-common-struct-base",
-    srcs: [
-        "device/com/android/net/module/util/Struct.java",
-    ],
-    sdk_version: "module_current",
-    min_sdk_version: "30",
-    visibility: [
-        "//packages/modules/Connectivity:__subpackages__",
-        "//packages/modules/NetworkStack:__subpackages__",
-    ],
-    static_libs: [
-        "net-utils-framework-common",
-    ],
-    libs: [
-        "androidx.annotation_annotation",
-        "framework-annotations-lib", // Required by InetAddressUtils.java
-        "framework-connectivity.stubs.module_lib",
-    ],
-    apex_available: [
-        "com.android.tethering",
-        "//apex_available:platform",
-    ],
-    lint: {
-        strict_updatability_linting: true,
-        error_checks: ["NewApi"],
-    },
-}
-
 // The net-utils-device-common-struct library requires the callers to contain
-// net-utils-device-common-struct-base.
+// net-utils-framework-connectivity.
 java_library {
     name: "net-utils-device-common-struct",
     srcs: [
@@ -209,7 +145,7 @@ java_library {
         "androidx.annotation_annotation",
         "framework-annotations-lib", // Required by IpUtils.java
         "framework-connectivity.stubs.module_lib",
-        "net-utils-device-common-struct-base",
+        "net-utils-framework-connectivity",
     ],
     apex_available: [
         "com.android.tethering",
@@ -222,7 +158,7 @@ java_library {
 }
 
 // The net-utils-device-common-netlink library requires the callers to contain
-// net-utils-device-common-struct and net-utils-device-common-struct-base.
+// net-utils-device-common-struct and net-utils-framework-connectivity.
 java_library {
     name: "net-utils-device-common-netlink",
     srcs: [
@@ -241,7 +177,7 @@ java_library {
         // statically link here because callers of this library might already have a static
         // version linked.
         "net-utils-device-common-struct",
-        "net-utils-device-common-struct-base",
+        "net-utils-framework-connectivity",
     ],
     apex_available: [
         "com.android.tethering",
@@ -254,7 +190,7 @@ java_library {
 }
 
 // The net-utils-device-common-ip library requires the callers to contain
-// net-utils-device-common-struct and net-utils-device-common-struct-base.
+// net-utils-device-common-struct and net-utils-framework-connectivity.
 java_library {
     // TODO : this target should probably be folded into net-utils-device-common
     name: "net-utils-device-common-ip",
@@ -456,6 +392,126 @@ java_library {
     visibility: ["//packages/modules/Connectivity/service-t"],
 }
 
+java_library {
+    name: "net-utils-framework-connectivity",
+    srcs: [
+        ":net-utils-framework-connectivity-srcs",
+    ],
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    apex_available: [
+        "com.android.tethering",
+        "//apex_available:platform",
+    ],
+    visibility: [
+        "//packages/modules/Connectivity:__subpackages__",
+        "//packages/modules/NetworkStack:__subpackages__",
+    ],
+    static_libs: [
+        "net-utils-framework-common",
+    ],
+    libs: [
+        "androidx.annotation_annotation",
+        "framework-annotations-lib",
+        "framework-configinfrastructure",
+        "framework-connectivity.stubs.module_lib",
+    ],
+    lint: {
+        strict_updatability_linting: true,
+        error_checks: ["NewApi"],
+    },
+}
+
+java_defaults {
+    name: "net-utils-service-defaults",
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    target_sdk_version: "30",
+    jarjar_rules: "jarjar-rules-shared.txt",
+    libs: [
+        "androidx.annotation_annotation",
+        "framework-annotations-lib",
+        "framework-configinfrastructure",
+        "framework-connectivity",
+        "framework-connectivity.stubs.module_lib",
+        "framework-connectivity-t.stubs.module_lib",
+        "framework-location.stubs.module_lib",
+        "framework-tethering",
+        "net-utils-framework-connectivity",
+        "unsupportedappusage",
+    ],
+    static_libs: [
+        "modules-utils-build_system",
+        "modules-utils-statemachine",
+        "netd-client",
+        "net-utils-aidl-java",
+    ],
+    apex_available: [
+        "com.android.tethering",
+        "//apex_available:platform",
+    ],
+    visibility: [
+        "//packages/modules/Connectivity:__subpackages__",
+    ],
+    lint: {
+        strict_updatability_linting: true,
+        error_checks: ["NewApi"],
+    },
+}
+
+java_library {
+    name: "net-utils-service-connectivity",
+    srcs: [
+        ":net-utils-tethering-srcs",
+    ],
+    exclude_srcs: [
+        ":net-utils-framework-connectivity-srcs",
+    ],
+    defaults: ["net-utils-service-defaults"],
+}
+
+java_library {
+    name: "net-utils-tethering",
+    srcs: [
+        ":net-utils-tethering-srcs",
+        ":framework-connectivity-shared-srcs",
+    ],
+    defaults: ["net-utils-service-defaults"],
+}
+
+aidl_interface {
+    name: "net-utils-aidl",
+    srcs: [
+        ":net-utils-aidl-srcs",
+    ],
+    unstable: true,
+    backend: {
+        java: {
+            enabled: true,
+            min_sdk_version: "30",
+            apex_available: [
+                "com.android.tethering",
+            ],
+        },
+        cpp: {
+            enabled: false,
+        },
+        ndk: {
+            enabled: false,
+        },
+        rust: {
+            enabled: false,
+        },
+    },
+    include_dirs: [
+        "packages/modules/Connectivity/framework/aidl-export",
+    ],
+    visibility: [
+        "//project",
+        "//system/tools/aidl:__subpackages__",
+    ],
+}
+
 // Use a filegroup and not a library for telephony sources, as framework-annotations cannot be
 // included either (some annotations would be duplicated on the bootclasspath).
 filegroup {
@@ -506,4 +562,35 @@ filegroup {
         "//frameworks/opt/net/wifi/service",
         "//packages/modules/Wifi/service",
     ],
+}
+
+filegroup {
+    name: "net-utils-framework-connectivity-srcs",
+    srcs: [
+        "device/com/android/net/module/util/BpfBitmap.java",
+        "device/com/android/net/module/util/BpfDump.java",
+        "device/com/android/net/module/util/BpfMap.java",
+        "device/com/android/net/module/util/BpfUtils.java",
+        "device/com/android/net/module/util/IBpfMap.java",
+        "device/com/android/net/module/util/JniUtil.java",
+        "device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "device/com/android/net/module/util/Struct.java",
+        "device/com/android/net/module/util/TcUtils.java",
+    ],
+}
+
+filegroup {
+    name: "net-utils-tethering-srcs",
+    srcs: [
+        "device/**/*.java",
+        ":net-utils-framework-common-srcs",
+    ],
+}
+
+filegroup {
+    name: "net-utils-aidl-srcs",
+    srcs: [
+        "device/**/*.aidl",
+    ],
+    path: "device",
 }
