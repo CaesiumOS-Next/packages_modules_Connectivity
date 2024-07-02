@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e639be0_777f0299",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-02T08:02:27Z",
+      "side": 1,
+      "message": "LGTM. Thanks for adding this to avoid test flake if there is really no upstream on the server side..",
+      "revId": "f81df6a4260495e003618a6b7609c5c1eed8e4af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
