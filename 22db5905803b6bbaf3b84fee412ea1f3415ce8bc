@@ -16,6 +16,29 @@
       "message": "https://android-build.corp.google.com/abtd/run/L39200030004600621/",
       "revId": "22db5905803b6bbaf3b84fee412ea1f3415ce8bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a9c1f7f_32480fbc",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-03T17:40:29Z",
+      "side": 1,
+      "message": "why 5.15, this is available much earlier? Same for progs below.\n\nWill this abort here? https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/netd/BpfHandler.cpp;l\u003d162",
+      "range": {
+        "startLine": 711,
+        "startChar": 89,
+        "endLine": 711,
+        "endChar": 98
+      },
+      "revId": "22db5905803b6bbaf3b84fee412ea1f3415ce8bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
