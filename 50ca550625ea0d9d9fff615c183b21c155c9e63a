@@ -16,6 +16,24 @@
       "message": "Hey KH, could you take a look at this CL as well? It should be a pretty straight-forward code move.",
       "revId": "50ca550625ea0d9d9fff615c183b21c155c9e63a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "074b1fd9_ddd1bbe7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-07-03T03:33:59Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "84ace066_8b2ed09a",
+      "revId": "50ca550625ea0d9d9fff615c183b21c155c9e63a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
