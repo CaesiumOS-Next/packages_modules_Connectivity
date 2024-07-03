@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48424fc3_966cfee6",
+        "filename": "common/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-03T07:52:16Z",
+      "side": 1,
+      "message": "Could you leave this one as-is ? net-utils-framework-connectivity will have various classes that are not necessary for this lib.\n\nUsers of this lib should instead migrate to another lib specifically built for them; so net-utils-framework-connectivity, or net-utils-service-connectivity, or net-utils-tethering, or net-utils-networkstack...",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc490d2e_fa828a4c",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-03T07:52:16Z",
+      "side": 1,
+      "message": "Similarly I\u0027d rather avoid changing the dependency requirement here, as net-utils-framework-connectivity contents will change over time depending on framework-connectivity needs.\n\nnet-utils-device-common-struct-base can be deleted when everyone is migrated out of this lib and net-utils-device-common-struct-base, into their own lib (like a new net-utils-networkstack).\n\nSame for the other targets below",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "632c12c5_f4e6dc26",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-03T07:52:16Z",
+      "side": 1,
+      "message": "Add a comment to explain it\u0027s the list of classes that are necessary in framework-connectivity, and should be as small as possible as it they end up in the bootclasspath and R8 is not used to remove unused classes.\n\nAlso private visibility",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e705000_65974ed8",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-03T07:52:16Z",
+      "side": 1,
+      "message": "Nit: net-utils-all-srcs ?",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d0c8f07_6628c25c",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-03T07:52:16Z",
+      "side": 1,
+      "message": "Add `visibility: [\"//visibility:private\"]`",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "180e7d29_7511f8ee",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-03T07:52:16Z",
+      "side": 1,
+      "message": "Private visibility here too",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7f44d95_734b515d",
+        "filename": "staticlibs/tests/unit/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-03T07:52:16Z",
+      "side": 1,
+      "message": "I\u0027d avoid changing this for now, but I guess we could have a net-utils-tests that just includes everything\n\n(same for other dependencies changes)",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39c15ea1_de2a3cd9",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-03T07:52:16Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary if service-connectivity has net-utils-service-connectivity, since all the libs will be in service-connectivity-pre-jarjar included in \"libs\" above",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
