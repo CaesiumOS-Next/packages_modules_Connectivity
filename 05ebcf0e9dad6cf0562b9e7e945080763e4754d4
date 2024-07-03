@@ -63,6 +63,30 @@
       },
       "revId": "05ebcf0e9dad6cf0562b9e7e945080763e4754d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ec26ed2_b24457a6",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-03T18:12:13Z",
+      "side": 1,
+      "message": "Doesn\u0027t this return -EINVAL?\n\nI guess I am confused:\nhttps://elixir.bootlin.com/linux/v4.14.336/source/kernel/bpf/syscall.c#L1053\n\n```\nmokey_go32:/sys/fs/bpf/netd_readonly # ls -l\ntotal 0\n-r--r----- 1 root root 0 2024-07-03 18:04 prog_block_bind4_block_port\n-r--r----- 1 root root 0 2024-07-03 18:04 prog_block_bind6_block_port\nmokey_go32:/sys/fs/bpf/netd_readonly # uname -r\n4.19.191-gc4209e6f7f25\nmokey_go32:/sys/fs/bpf/netd_readonly # getprop ro.build.version.sdk\n35\n```",
+      "parentUuid": "6ef40e38_512870b1",
+      "range": {
+        "startLine": 711,
+        "startChar": 89,
+        "endLine": 711,
+        "endChar": 98
+      },
+      "revId": "05ebcf0e9dad6cf0562b9e7e945080763e4754d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
