@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59ff63de_e0c1712a",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-07-03T19:29:50Z",
+      "side": 1,
+      "message": "FYI: we already have wait()",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 50
+      },
+      "revId": "b9f4f044bae7793f25d57239a5da43f7d6ffc3af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
