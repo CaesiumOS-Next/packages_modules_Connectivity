@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dcb1267_80977ed9",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-03T10:52:31Z",
+      "side": 1,
+      "message": "This will introduce 1 second delay.\nI\u0027m not familiar with this code but I guess this means, NETWORK_STATS_UPDATED broadcast will be delivered 1 second after the stats are updated.\nDo we have any concern for this behavior change?\n\nBTW, is it expected that performPollLocked is called this frequently? what triggers performPollLocked?",
+      "range": {
+        "startLine": 2653,
+        "startChar": 8,
+        "endLine": 2653,
+        "endChar": 9
+      },
+      "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
