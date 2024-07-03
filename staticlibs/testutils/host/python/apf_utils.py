@@ -15,9 +15,9 @@
 import re
 from mobly.controllers import android_device
 from mobly.controllers.android_device_lib.adb import AdbError
+from net_tests_utils.host.python import adb_utils, assert_utils
 from scapy.all import Ether, Raw
 from scapy.contrib.ethercat import EtherCat
-from net_tests_utils.host.python import adb_utils, assert_utils
 
 # Constants.
 ETHER_BROADCAST = "FF:FF:FF:FF:FF:FF"
