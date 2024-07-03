@@ -39,6 +39,30 @@
       },
       "revId": "22db5905803b6bbaf3b84fee412ea1f3415ce8bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdda52e9_807cf714",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-03T17:41:12Z",
+      "side": 1,
+      "message": "Oh, I see, you fixed it here: aosp/3137638",
+      "parentUuid": "3a9c1f7f_32480fbc",
+      "range": {
+        "startLine": 711,
+        "startChar": 89,
+        "endLine": 711,
+        "endChar": 98
+      },
+      "revId": "22db5905803b6bbaf3b84fee412ea1f3415ce8bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
