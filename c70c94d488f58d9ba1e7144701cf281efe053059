@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c85a9ba4_fed0d788",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-03T10:12:07Z",
+      "side": 1,
+      "message": "Hi Tongbo, could you get Motomu or Remi to look at all these MCTS tag CLs? Once they have done so I can +1 them for OWNERS review.",
+      "revId": "c70c94d488f58d9ba1e7144701cf281efe053059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
