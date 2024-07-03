@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94273774_ed11390e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-03T03:22:31Z",
+      "side": 1,
+      "message": "We reproduced this issue by repeatedly calling `adb shell dumpsys netstats` every 200 milliseconds and logging a message within `handleMessage`\u0027s `MSG_BROADCAST_NETWORK_STATS_UPDATED` case. After the fix, the logs appear with at least a one-second interval between entries.",
+      "parentUuid": "ab3733dc_4cebd718",
+      "range": {
+        "startLine": 9,
+        "startChar": 42,
+        "endLine": 9,
+        "endChar": 64
+      },
+      "revId": "2aa93fc5b8e174864e968968c4ecbe793204e902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7effb8cc_abb3bc6b",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-06T03:43:09Z",
       "side": 1,
       "message": "If we keep calling `performPollLocked` with short interval (\u003c pollDelay), broadcast will never be sent?\nIs it better to rate limit in handling of MSG_BROADCAST_NETWORK_STATS_UPDATED?",
+      "range": {
+        "startLine": 2630,
+        "startChar": 41,
+        "endLine": 2630,
+        "endChar": 42
+      },
+      "revId": "2aa93fc5b8e174864e968968c4ecbe793204e902",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c61bf18b_7d933568",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2630,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-03T03:22:31Z",
+      "side": 1,
+      "message": "The issue you mentioned does exist, thanks for pointing it out. We\u0027ve revised our approach by sending messages to `mHandler` only when there are no existing messages of the same type. While rate limiting within `handleMessage` could be an option, it would require additional data structures and would also result in storing redundant messages in the message queue, in both proposed solutions (`tokenBucket` and maintaining `lastTime`). This might not be a better solution than our current approach. Please reopen if there are any further issues.",
+      "parentUuid": "7effb8cc_abb3bc6b",
       "range": {
         "startLine": 2630,
         "startChar": 41,
