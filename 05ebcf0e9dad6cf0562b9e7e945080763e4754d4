@@ -16,6 +16,29 @@
       "message": "(we\u0027ll see what TH thinks)",
       "revId": "05ebcf0e9dad6cf0562b9e7e945080763e4754d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8c01041_5438cd9c",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-03T17:46:27Z",
+      "side": 1,
+      "message": "are you certain these are correct?\n\nd74bad4e74ee3 (Andrey Ignatov          2018-03-30 15:08:05 -0700 1072)  BPF_CGROUP_INET4_CONNECT,\nd74bad4e74ee3 (Andrey Ignatov          2018-03-30 15:08:05 -0700 1073)  BPF_CGROUP_INET6_CONNECT,\n\n$ git describe d74bad4e74ee3\nv4.16-rc6-1553-gd74bad4e74ee\n\n1cedee13d25ab (Andrey Ignatov          2018-05-25 08:55:23 -0700 1076)  BPF_CGROUP_UDP4_SENDMSG,\n1cedee13d25ab (Andrey Ignatov          2018-05-25 08:55:23 -0700 1077)  BPF_CGROUP_UDP6_SENDMSG,\n\ngit describe 1cedee13d25ab\nv4.17-rc6-1953-g1cedee13d25a\n\n983695fa67656 (Daniel Borkmann         2019-06-07 01:48:57 +0200 1081)  BPF_CGROUP_UDP4_RECVMSG,\n983695fa67656 (Daniel Borkmann         2019-06-07 01:48:57 +0200 1082)  BPF_CGROUP_UDP6_RECVMSG,\n\ngit describe 983695fa67656\nv5.2-rc1-132-g983695fa6765",
+      "range": {
+        "startLine": 711,
+        "startChar": 89,
+        "endLine": 711,
+        "endChar": 98
+      },
+      "revId": "05ebcf0e9dad6cf0562b9e7e945080763e4754d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
