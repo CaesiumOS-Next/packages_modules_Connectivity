@@ -39,6 +39,30 @@
       },
       "revId": "05ebcf0e9dad6cf0562b9e7e945080763e4754d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ef40e38_512870b1",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-03T17:48:44Z",
+      "side": 1,
+      "message": "I see that you enforce these only to be present on V, which technically should be 4.19+ (but we only have an abort if it is U+ and \u003c 4.14, so I guess V is not guaranteed to be 4.19+). So the only one that might be problematic is {udp4,udp6}_recvmsg",
+      "parentUuid": "f8c01041_5438cd9c",
+      "range": {
+        "startLine": 711,
+        "startChar": 89,
+        "endLine": 711,
+        "endChar": 98
+      },
+      "revId": "05ebcf0e9dad6cf0562b9e7e945080763e4754d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
