@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "777b524f_8c8ccd77",
+        "filename": "common/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-03T09:02:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48424fc3_966cfee6",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc490d2e_fa828a4c",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-07-03T07:52:16Z",
       "side": 1,
       "message": "Similarly I\u0027d rather avoid changing the dependency requirement here, as net-utils-framework-connectivity contents will change over time depending on framework-connectivity needs.\n\nnet-utils-device-common-struct-base can be deleted when everyone is migrated out of this lib and net-utils-device-common-struct-base, into their own lib (like a new net-utils-networkstack).\n\nSame for the other targets below",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da065403_b5db972e",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-03T09:02:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc490d2e_fa828a4c",
       "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "844dcbdf_c220de66",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-03T09:02:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "632c12c5_f4e6dc26",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e705000_65974ed8",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-07-03T07:52:16Z",
       "side": 1,
       "message": "Nit: net-utils-all-srcs ?",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bedfcfb_dfc96af3",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-03T09:02:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e705000_65974ed8",
       "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +158,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43ec23d8_ae1b0732",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-03T09:02:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d0c8f07_6628c25c",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "180e7d29_7511f8ee",
@@ -99,6 +189,24 @@
       "writtenOn": "2024-07-03T07:52:16Z",
       "side": 1,
       "message": "Private visibility here too",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52c296ab_60ed8a1b",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-03T09:02:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "180e7d29_7511f8ee",
       "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -120,6 +228,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61bc28b7_2d70637c",
+        "filename": "staticlibs/tests/unit/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-03T09:02:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7f44d95_734b515d",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39c15ea1_de2a3cd9",
@@ -133,6 +259,24 @@
       "writtenOn": "2024-07-03T07:52:16Z",
       "side": 1,
       "message": "This shouldn\u0027t be necessary if service-connectivity has net-utils-service-connectivity, since all the libs will be in service-connectivity-pre-jarjar included in \"libs\" above",
+      "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "382d38f5_1c238820",
+        "filename": "thread/service/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-03T09:02:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39c15ea1_de2a3cd9",
       "revId": "b2ff912fdd2ff22c0a41f60066f848471442342c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
