@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c01e1bbc_4b991857",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-07-03T19:14:12Z",
+      "side": 1,
+      "message": "Hey",
+      "revId": "05ebcf0e9dad6cf0562b9e7e945080763e4754d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8c01041_5438cd9c",
@@ -79,6 +96,30 @@
       "side": 1,
       "message": "Doesn\u0027t this return -EINVAL?\n\nI guess I am confused:\nhttps://elixir.bootlin.com/linux/v4.14.336/source/kernel/bpf/syscall.c#L1053\n\n```\nmokey_go32:/sys/fs/bpf/netd_readonly # ls -l\ntotal 0\n-r--r----- 1 root root 0 2024-07-03 18:04 prog_block_bind4_block_port\n-r--r----- 1 root root 0 2024-07-03 18:04 prog_block_bind6_block_port\nmokey_go32:/sys/fs/bpf/netd_readonly # uname -r\n4.19.191-gc4209e6f7f25\nmokey_go32:/sys/fs/bpf/netd_readonly # getprop ro.build.version.sdk\n35\n```",
       "parentUuid": "6ef40e38_512870b1",
+      "range": {
+        "startLine": 711,
+        "startChar": 89,
+        "endLine": 711,
+        "endChar": 98
+      },
+      "revId": "05ebcf0e9dad6cf0562b9e7e945080763e4754d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "667378b2_a8fe766c",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-07-03T19:14:12Z",
+      "side": 1,
+      "message": "Note: I left the 4.14 instead of using NONE or 4.19 because I expected we\u0027d eventually change V+ to U+ or T+ post netbpfload mainline rollout.\n\nV does *definitely* require 4.19 and there should be VTS tests to that effect somewhere (likely kernel_tests.cpp but possibly also elsewhere in kernel net/tests dir - possibly in the form of a bunch of removed \u003e4.19 tests so it may be \u0027hidden\u0027 and not easily visible) also:\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/netbpfload/NetBpfLoad.cpp;drc\u003d6e6b2096e18888a6ba84416caf03304ccccf61fe;l\u003d349\n\n    // V bumps the kernel requirement up to 4.19\n    // see also: //system/netd/tests/kernel_test.cpp TestKernel419\n    if (isAtLeastV \u0026\u0026 !isAtLeastKernelVersion(4, 19, 0)) {\n        ALOGE(\"Android V requires kernel 4.19.\");\n        return 1;\n    }\n\nI believe we do have test coverage for V-4.19 at least on mokey, and I thought there was also some 4.19 cuttlefish coverage (but maybe that wasn\u0027t V?).\n\nIFIRC the way I picked these values was based on looking at what is present in the various ACK trees (via grep).  Remember that stuff *might* have been backported to ACK... in particular 4.9 ACK has a bunch of later stuff in it, and so does 4.14.  (Those backports predate me)  I\u0027m not sure if there\u0027s many bpf backports in 4.19.\n\nI also tested locally on cuttlefish with various kernel versions, but had issues getting the oldest kernels to actually build, so it is likely the tests were only V+CF+{5.10,5.15,6.1,6.6}\n\nI think 4.19 cf kernel prebuilts were missing, and 5.4 kernel prebuilts had some version mismatch?\n\nAlso *initial* versions of this patch (might be either a previous patchset of the precursor patch, or even something abandoned) were *not* V+ and would have thus triggered on T+ and those didn\u0027t fail TH IFIRC.\n\nBUT:  I assume you\u0027re asking for a reason, so you\u0027ve presumably found something that fails?  So you may well be right ;-)",
+      "parentUuid": "5ec26ed2_b24457a6",
       "range": {
         "startLine": 711,
         "startChar": 89,
