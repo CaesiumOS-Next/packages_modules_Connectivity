@@ -33,6 +33,24 @@
       "message": "nit: extra blank line",
       "revId": "31fbe9964dd2da1016e857faee6ef4dfa654dc05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ca9f83e_ed865284",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-03T14:31:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3b8ebd9_598a54c8",
+      "revId": "31fbe9964dd2da1016e857faee6ef4dfa654dc05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
