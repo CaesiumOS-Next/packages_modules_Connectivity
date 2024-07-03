@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e027a239_9d9dae25",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-03T11:40:15Z",
+      "side": 1,
+      "message": "Would name this Dhcpv6PrefixDelegation or Dhcpv6Pd. \"DHCP6\" isn\u0027t an acronym used by the standards, they all use \"DHCPv6\".",
+      "range": {
+        "startLine": 502,
+        "startChar": 26,
+        "endLine": 502,
+        "endChar": 42
+      },
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db57b309_e33b3cf6",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-03T11:40:15Z",
+      "side": 1,
+      "message": "current",
+      "range": {
+        "startLine": 622,
+        "startChar": 92,
+        "endLine": 622,
+        "endChar": 95
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "914e7a1b_b4fc1d72",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 622,
+                "startChar": 0,
+                "endLine": 623,
+                "endChar": 0
+              },
+              "replacement": "     * \u003cp\u003eUpon return of this method, {@code callback} will be invoked immediately with the current\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e5ee17_acb7dde1",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-03T11:40:15Z",
+      "side": 1,
+      "message": "ISE seems better than IAE here.",
+      "range": {
+        "startLine": 657,
+        "startChar": 15,
+        "endLine": 657,
+        "endChar": 39
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "db6b7caf_d866bf31",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 657,
+                "startChar": 0,
+                "endLine": 658,
+                "endChar": 0
+              },
+              "replacement": "     * @throws IllegalStateException if {@code callback} hasn\u0027t been registered\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 666,
+                "startChar": 0,
+                "endLine": 667,
+                "endChar": 0
+              },
+              "replacement": "                throw new IllegalStateException(\"callback hasn\u0027t been registered\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2466c209_9af1b648",
+        "filename": "thread/tests/cts/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-03T11:40:15Z",
+      "side": 1,
+      "message": "Do we still need this?",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 47
+      },
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a01a9aeb_ac5b6a05",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-03T11:40:15Z",
+      "side": 1,
+      "message": "Past experience manually maintaining these finally clauses and debugging/fixing flaky tests has taught us that it\u0027s better to unregister callbacks in tearDown.\n\nA simple way to do this is to define a method on the test class that registers the callback and puts the callback in a list of callbacks to unregister. Then teardown just unregisters all of them. See for example NetworkAgentTest#callbacksToCleanUp . That method will make the code easier to read since it can also encapsulate the runAsShell.\n\nOr you can do something like NetworkCallbackRule - more elegant but may be overkill for just one test.",
+      "range": {
+        "startLine": 876,
+        "startChar": 10,
+        "endLine": 876,
+        "endChar": 17
+      },
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a911bf98_fdcf8d1e",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-03T11:40:15Z",
+      "side": 1,
+      "message": "You should put this after the second runAsShell. If the code is correct, it will work just as well, but if the code is incorrect, it\u0027s more likely to find races because the two configuration changes will be requested back-to-back.",
+      "range": {
+        "startLine": 915,
+        "startChar": 12,
+        "endLine": 915,
+        "endChar": 26
+      },
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
