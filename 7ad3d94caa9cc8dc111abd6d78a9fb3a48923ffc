@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19ee1960_0d222a9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-03T10:03:00Z",
+      "side": 1,
+      "message": "@wgtdkp@google.com can you have a look ? I think Thread is the only user of this at the moment, and you added this code",
+      "revId": "7ad3d94caa9cc8dc111abd6d78a9fb3a48923ffc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
