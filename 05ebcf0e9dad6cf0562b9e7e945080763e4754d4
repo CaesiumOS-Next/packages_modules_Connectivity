@@ -128,6 +128,30 @@
       },
       "revId": "05ebcf0e9dad6cf0562b9e7e945080763e4754d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d8eca5e_8ee4da2e",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-07-03T19:17:34Z",
+      "side": 1,
+      "message": "I think it\u0027s possible that mokey\u0027s kernel version (ie. 4.19 vs 6.1) might depend on the build target.  But in general if you build mokey @ head, does it boot up?  What kernel version is it?  What about the mokey_go32 target?  Or does that use ancient prebuilts or something?",
+      "parentUuid": "667378b2_a8fe766c",
+      "range": {
+        "startLine": 711,
+        "startChar": 89,
+        "endLine": 711,
+        "endChar": 98
+      },
+      "revId": "05ebcf0e9dad6cf0562b9e7e945080763e4754d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
