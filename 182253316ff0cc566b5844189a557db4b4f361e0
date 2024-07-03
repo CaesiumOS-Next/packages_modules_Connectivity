@@ -22,6 +22,30 @@
       },
       "revId": "182253316ff0cc566b5844189a557db4b4f361e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8318598c_264f5886",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDeclaredMethodsForCallbacksTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-03T10:21:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d28a0d4a_eff137c4",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 9
+      },
+      "revId": "182253316ff0cc566b5844189a557db4b4f361e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
