@@ -1,0 +1,184 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25450428_6006bb8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-04T06:15:35Z",
+      "side": 1,
+      "message": "LGTM assuming the nits would be addressed.",
+      "revId": "017e9172f0356ed2b6ea03e1646fdee16280d595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37a830f0_f7a62bd2",
+        "filename": "staticlibs/testutils/host/python/mdns_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-04T06:15:35Z",
+      "side": 1,
+      "message": "Maybe run pyformat -i *.py?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 8
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "771419e8_1dbd2378",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/testutils/host/python/mdns_utils.py",
+              "range": {
+                "startLine": 18,
+                "startChar": 0,
+                "endLine": 18,
+                "endChar": 0
+              },
+              "replacement": "\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/mdns_utils.py",
+              "range": {
+                "startLine": 19,
+                "startChar": 0,
+                "endLine": 20,
+                "endChar": 0
+              },
+              "replacement": "    advertising_device: android_device, discovery_device: android_device\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/mdns_utils.py",
+              "range": {
+                "startLine": 24,
+                "startChar": 0,
+                "endLine": 26,
+                "endChar": 0
+              },
+              "replacement": "  asserts.skip_if(\n      not advertising.isAtLeastT(), \"Advertising device SDK is lower than T.\"\n  )\n  asserts.skip_if(\n      not discovery.isAtLeastT(), \"Discovery device SDK is lower than T.\"\n  )\n\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/mdns_utils.py",
+              "range": {
+                "startLine": 30,
+                "startChar": 0,
+                "endLine": 31,
+                "endChar": 0
+              },
+              "replacement": "  \"\"\"Test mdns advertising, discovery and resolution.\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/mdns_utils.py",
+              "range": {
+                "startLine": 51,
+                "startChar": 0,
+                "endLine": 52,
+                "endChar": 0
+              },
+              "replacement": "  discovery_device.connectivity_multi_devices_snippet.stopMDnsServiceDiscovery()  # pylint: disable\u003dline-too-long\n"
+            }
+          ]
+        }
+      ],
+      "revId": "017e9172f0356ed2b6ea03e1646fdee16280d595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dccd83c4_7b4fb34a",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-04T06:15:35Z",
+      "side": 1,
+      "message": "Maybe follow the above order for consistency?",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "8ff41073_8aafa6a7",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+              "range": {
+                "startLine": 72,
+                "startChar": 0,
+                "endLine": 73,
+                "endChar": 0
+              },
+              "replacement": "        self.serverDevice, self.clientDevice\n"
+            }
+          ]
+        }
+      ],
+      "revId": "017e9172f0356ed2b6ea03e1646fdee16280d595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9ede10b_b24dbf1e",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-04T06:15:35Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 75,
+        "startChar": 59,
+        "endLine": 75,
+        "endChar": 63
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c43dfe27_56946a43",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 75,
+                "startChar": 0,
+                "endLine": 76,
+                "endChar": 0
+              },
+              "replacement": "    @Rpc(description \u003d \"Check whether the device SDK is at least T\")\n"
+            }
+          ]
+        }
+      ],
+      "revId": "017e9172f0356ed2b6ea03e1646fdee16280d595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
