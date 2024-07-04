@@ -99,6 +99,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3806dc4_d8539055",
+        "filename": "staticlibs/testutils/host/python/mdns_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-04T06:22:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37a830f0_f7a62bd2",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 8
+      },
+      "revId": "017e9172f0356ed2b6ea03e1646fdee16280d595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dccd83c4_7b4fb34a",
@@ -140,6 +164,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "014bba5e_c9b33c0c",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-04T06:22:49Z",
+      "side": 1,
+      "message": "The mDns test uses different order for the advertising/discovery device. I\u0027d prefer to keep current order.",
+      "parentUuid": "dccd83c4_7b4fb34a",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "revId": "017e9172f0356ed2b6ea03e1646fdee16280d595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9ede10b_b24dbf1e",
@@ -177,6 +225,30 @@
           ]
         }
       ],
+      "revId": "017e9172f0356ed2b6ea03e1646fdee16280d595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a32473f2_ef0f974f",
+        "filename": "tests/cts/multidevices/snippet/ConnectivityMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-04T06:22:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9ede10b_b24dbf1e",
+      "range": {
+        "startLine": 75,
+        "startChar": 59,
+        "endLine": 75,
+        "endChar": 63
+      },
       "revId": "017e9172f0356ed2b6ea03e1646fdee16280d595",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
