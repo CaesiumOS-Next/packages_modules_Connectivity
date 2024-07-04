@@ -66,12 +66,14 @@ class MdnsMultiDevicesSnippet : Snippet {
         registrationRecord.expectCallback<ServiceUnregistered>()
     }
 
-    @Rpc(description = "Ensure the discovery and resolution of the mDNS service")
-    fun ensureMDnsServiceDiscoveryAndResolution() {
+    @Rpc(description = "Ensure the discovery, resolution and callback of the mDNS service")
+    fun ensureMDnsServiceDiscovery_Resolution_ServiceInfoCallback() {
         // Discover a mDns service that matches the test service
         val info = discoverMDnsService()
         // Resolve the retrieved mDns service.
         resolveMDnsService(info)
+        // Register service info callback for retrieved mDns service.
+        registerMDnsServiceInfoCallback(info)
     }
 
     private fun discoverMDnsService(): NsdServiceInfo {
@@ -123,10 +125,12 @@ class MdnsMultiDevicesSnippet : Snippet {
         }
     }
 
-    @Rpc(description = "Stop discovery")
-    fun stopMDnsServiceDiscovery() {
+    @Rpc(description = "Stop discovery andr unregister service info callback")
+    fun stopMDnsServiceDiscoveryAndUnregisterCallback() {
         // Stop service discovery
         stopDiscovery()
+        // Unregister service info callback
+        unregisterServiceInfoCallback()
     }
 
     private fun stopDiscovery() {
