@@ -1,5 +1,75 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d93fed95_6cf2cfa9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1843,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-04T08:58:11Z",
+      "side": 1,
+      "message": "Maybe just say \"Log.wtf pipeline\", Pitot isn\u0027t understandable from AOSP",
+      "range": {
+        "startLine": 1843,
+        "startChar": 20,
+        "endLine": 1843,
+        "endChar": 25
+      },
+      "revId": "9161b153b47013577499d1348cc57e1716cb2c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9c487b5_3fa55881",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-04T08:58:11Z",
+      "side": 1,
+      "message": "Can this be removed ? It\u0027s generally unadvised to have user build-only code as it will not be tested before release; if people copy-paste it, it may be risky.",
+      "range": {
+        "startLine": 1845,
+        "startChar": 16,
+        "endLine": 1845,
+        "endChar": 41
+      },
+      "revId": "9161b153b47013577499d1348cc57e1716cb2c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "169b7591_068b9ce9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-04T08:58:11Z",
+      "side": 1,
+      "message": "Probably this should check !isLowRam, otherwise there may be millions of reports/day from non-updatable Go devices",
+      "range": {
+        "startLine": 1845,
+        "startChar": 41,
+        "endLine": 1845,
+        "endChar": 42
+      },
+      "revId": "9161b153b47013577499d1348cc57e1716cb2c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
