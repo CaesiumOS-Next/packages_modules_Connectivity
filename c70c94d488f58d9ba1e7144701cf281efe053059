@@ -72,6 +72,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b451fc1f_f98a3daf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-04T03:48:45Z",
+      "side": 1,
+      "message": "Yes, I understand why we need this CP.\nCan we add \"This is cherry-pick of aosp/2882146 aosp/2880548\" to the commit message?\nThis will help to review and also it\u0027s helpful for people who see this CL in the future.",
+      "parentUuid": "774935c1_17474485",
+      "revId": "c70c94d488f58d9ba1e7144701cf281efe053059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c85a9ba4_fed0d788",
