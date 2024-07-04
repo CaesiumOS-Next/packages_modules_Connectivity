@@ -63,13 +63,22 @@ class MdnsMultiDevicesSnippet : Snippet {
     }
 
     @Rpc(description = "Ensure the discovery and resolution of the mDNS service")
-    // Suppress the warning, as the NsdManager#resolveService() method is deprecated.
-    @Suppress("DEPRECATION")
     fun ensureMDnsServiceDiscoveryAndResolution() {
         // Discover a mDns service that matches the test service
-        nsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discoveryRecord)
-        val info = discoveryRecord.waitForServiceDiscovered(SERVICE_NAME, SERVICE_TYPE)
+        val info = discoverMDnsService()
         // Resolve the retrieved mDns service.
+        resolveMDnsService(info)
+    }
+
+    private fun discoverMDnsService(): NsdServiceInfo {
+        // Discover a mDns service that matches the test service
+        nsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discoveryRecord)
+        return discoveryRecord.waitForServiceDiscovered(SERVICE_NAME, SERVICE_TYPE)
+    }
+
+    // Suppress the warning, as the NsdManager#resolveService() method is deprecated.
+    @Suppress("DEPRECATION")
+    private fun resolveMDnsService(info: NsdServiceInfo) {
         nsdManager.resolveService(info, resolveRecord)
         val serviceResolved = resolveRecord.expectCallbackEventually<ServiceResolved>()
         serviceResolved.serviceInfo.let {
