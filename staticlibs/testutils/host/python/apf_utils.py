@@ -16,11 +16,6 @@ import re
 from mobly.controllers import android_device
 from mobly.controllers.android_device_lib.adb import AdbError
 from net_tests_utils.host.python import adb_utils, assert_utils
-from scapy.all import Ether, Raw
-from scapy.contrib.ethercat import EtherCat
-
-# Constants.
-ETHER_BROADCAST = "FF:FF:FF:FF:FF:FF"
 
 
 class PatternNotFoundException(Exception):
@@ -117,21 +112,6 @@ def get_hardware_address(
     raise PatternNotFoundException(
         "Cannot get hardware address for " + iface_name
     )
-
-
-def send_broadcast_empty_ethercat_packet(
-    ad: android_device.AndroidDevice, iface_name: str
-) -> None:
-  """Transmits a broadcast empty EtherCat packet on the specified interface."""
-
-  # Get the interface's MAC address.
-  mac_address = get_hardware_address(ad, iface_name)
-
-  # Construct empty broadcast EtherCat packet.
-  packet = Ether(src=mac_address, dst=ETHER_BROADCAST) / EtherCat()
-
-  # Send the packet using a raw socket.
-  send_raw_packet_downstream(ad, iface_name, packet.build().hex())
 
 
 def is_send_raw_packet_downstream_supported(
