@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cda6798_bea1ed8a",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-04T09:31:21Z",
+      "side": 1,
+      "message": "Can there be a little bit more documentation on what kind of tethering this would be and how it can be used in general ? It\u0027s not easy to understand just looking at the code.",
+      "revId": "07b8fe1f92529f1b7bb8bf613955586cfd21a0e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
