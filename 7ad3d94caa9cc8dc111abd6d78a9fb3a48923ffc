@@ -16,6 +16,46 @@
       "message": "@wgtdkp@google.com can you have a look ? I think Thread is the only user of this at the moment, and you added this code",
       "revId": "7ad3d94caa9cc8dc111abd6d78a9fb3a48923ffc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38f92581_6ff8eed6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-04T03:36:50Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "7ad3d94caa9cc8dc111abd6d78a9fb3a48923ffc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "096a0ea5_45aa3e45",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-04T03:36:50Z",
+      "side": 1,
+      "message": "It\u0027s a bit hard to tell the difference between the words \"now\" and \"current\". Consider use \"elapsedRealtimeMillis\"\n\n```suggestion\nnow.plusMillis(response.getMinRemainingTtl(elapsedRealtimeMillis)));\n```",
+      "range": {
+        "startLine": 354,
+        "startChar": 16,
+        "endLine": 354,
+        "endChar": 69
+      },
+      "revId": "7ad3d94caa9cc8dc111abd6d78a9fb3a48923ffc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
