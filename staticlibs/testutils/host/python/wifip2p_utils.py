@@ -37,9 +37,45 @@ def setup_wifi_p2p_server_and_client(
     server_device: android_device, client_device: android_device
 ) -> None:
   """Set up the Wi-Fi P2P server and client, then connect them to establish a Wi-Fi P2P connection."""
+  server = server_device.connectivity_multi_devices_snippet
+  client = client_device.connectivity_multi_devices_snippet
+
   # Start Wi-Fi P2P on both server and client.
-  server_device.connectivity_multi_devices_snippet.startWifiP2p()
-  client_device.connectivity_multi_devices_snippet.startWifiP2p()
+  server.startWifiP2p()
+  client.startWifiP2p()
+
+  # Get the current device name
+  serverName = server.getDeviceName()
+  clientName = client.getDeviceName()
+
+  # Server creates a Wi-Fi P2P group
+  server.createGroup()
+
+  # Discover Wi-Fi P2p peers on both devices
+  server.discoverPeers()
+  client.discoverPeers()
+
+  # Ensure the target device has been discovered
+  client.ensureDeviceDiscovered(serverName)
+  server.ensureDeviceDiscovered(clientName)
+
+  # Sever invites the device to the group
+  server.inviteDeviceToGroup()
+
+  # Wait for a p2p connection changed intent to ensure the invitation has been received
+  client.waitForP2pConnectionChanged(True)
+  # Accept the group invitation
+  client.acceptGroupInvitation()
+
+  # Sever waits for connection request from client and accept joining
+  server.waitForPeerConnectionRequestAndAcceptJoining()
+
+  # Wait for a p2p connection changed intent to ensure joining the group
+  client.waitForP2pConnectionChanged(False)
+
+  # Ensure Wi-Fi P2P connected on both devices
+  client.ensureDeviceConnected(serverName)
+  server.ensureDeviceConnected(clientName)
 
 
 def cleanup_wifi_p2p(
