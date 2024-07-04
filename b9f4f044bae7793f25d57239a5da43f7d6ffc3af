@@ -22,6 +22,30 @@
       },
       "revId": "b9f4f044bae7793f25d57239a5da43f7d6ffc3af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75b516a4_c6129650",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2068221
+      },
+      "writtenOn": "2024-07-04T05:55:35Z",
+      "side": 1,
+      "message": "Yeah, unfortunately wait() doesn\u0027t work that well in our use case. We want to have a single thread monitoring multiple fd:s (our usecase combines both bpf and kernel tracing), then we need access to the fd so we can use IO multiplexing.",
+      "parentUuid": "59ff63de_e0c1712a",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 50
+      },
+      "revId": "b9f4f044bae7793f25d57239a5da43f7d6ffc3af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
