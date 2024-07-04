@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71daf156_0e6489a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-07-04T07:21:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "527ba66d_3e314198",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87de9f2a_bacd4444",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65227075_11eaa67c",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-07-04T07:21:22Z",
+      "side": 1,
+      "message": "Removed the `EPHEMERAL_KEY_LIFETIME_MAX` from system api, instead it\u0027ll be included in the IllegalArgumentException message.",
+      "parentUuid": "87de9f2a_bacd4444",
+      "range": {
+        "startLine": 519,
+        "startChar": 116,
+        "endLine": 519,
+        "endChar": 142
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e26593cb_8e0db97f",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-07-02T10:40:24Z",
       "side": 1,
       "message": "Is it guaranteed that when this happens, it will be followed by a call to startEphemeralKeyMode? And presumably that call will always happen after the OutcomeReceiver is called?",
+      "range": {
+        "startLine": 183,
+        "startChar": 84,
+        "endLine": 183,
+        "endChar": 85
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e80506d_bca6ebf5",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-07-04T07:21:22Z",
+      "side": 1,
+      "message": "Updated the doc.",
+      "parentUuid": "e26593cb_8e0db97f",
       "range": {
         "startLine": 183,
         "startChar": 84,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38ab39d7_c191d75f",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-07-04T07:21:22Z",
+      "side": 1,
+      "message": "Looked at the implementation again, this only fails when the device is not attached to Thread network. I added to the doc using ERROR_FAILED_PRECONDITION to indicate this.\n\nWhen this is called and there is already an active ephemeral key, we simply generate a new key with the new lifetime and call onResult.",
+      "parentUuid": "19e24626_3326623f",
+      "range": {
+        "startLine": 186,
+        "startChar": 55,
+        "endLine": 186,
+        "endChar": 61
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae2befe9_ee75c30e",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 11
@@ -106,6 +202,30 @@
       "writtenOn": "2024-07-02T10:40:24Z",
       "side": 1,
       "message": "on which to",
+      "range": {
+        "startLine": 189,
+        "startChar": 36,
+        "endLine": 189,
+        "endChar": 38
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c165574_43df0539",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-07-04T07:21:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae2befe9_ee75c30e",
       "range": {
         "startLine": 189,
         "startChar": 36,
@@ -188,6 +308,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b48abd1a_bbc34f80",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-07-04T07:21:22Z",
+      "side": 1,
+      "message": "Currently there is no dependency between the callbacks in StateCallback, added text to say the order is not guaranteed.",
+      "parentUuid": "7295f37a_c00b585d",
+      "range": {
+        "startLine": 286,
+        "startChar": 83,
+        "endLine": 286,
+        "endChar": 84
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "825a0576_edd1d5ba",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 11
@@ -199,6 +343,30 @@
       "writtenOn": "2024-07-02T10:40:24Z",
       "side": 1,
       "message": "Is this callback called immediately at registration time?",
+      "range": {
+        "startLine": 314,
+        "startChar": 29,
+        "endLine": 314,
+        "endChar": 40
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2030f4cc_9492bea4",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-07-04T07:21:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "825a0576_edd1d5ba",
       "range": {
         "startLine": 314,
         "startChar": 29,
@@ -222,6 +390,30 @@
       "writtenOn": "2024-07-02T10:40:24Z",
       "side": 1,
       "message": "When it is disabled, what is ephemeralKey set to?",
+      "range": {
+        "startLine": 320,
+        "startChar": 34,
+        "endLine": 320,
+        "endChar": 45
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba70fceb_75c4bc7d",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-07-04T07:21:22Z",
+      "side": 1,
+      "message": "set to null, updated the doc.",
+      "parentUuid": "51546d2a_6b3468e5",
       "range": {
         "startLine": 320,
         "startChar": 34,
