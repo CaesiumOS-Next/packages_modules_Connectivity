@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1ca958d_ca8ae669",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-04T07:34:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d3474b1_d3030b01",
+      "range": {
+        "startLine": 10,
+        "startChar": 38,
+        "endLine": 10,
+        "endChar": 39
+      },
+      "revId": "92d46b3b8afdfca30f750d1c1950c754282b593e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e61924f4_5d448460",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-07-03T17:10:47Z",
       "side": 1,
       "message": "Wait, this doesn\u0027t prevent the *class* from being jarjar\u0027ed, it just prevents the descriptor string literal from being jarjar\u0027ed, right? And this works because the jarjar rule generator doesn\u0027t generate a rule for it, since it is only referenced inside the Descriptor annotation, right?",
+      "range": {
+        "startLine": 22,
+        "startChar": 68,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "92d46b3b8afdfca30f750d1c1950c754282b593e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6fb7e51_0e364a6d",
+        "filename": "staticlibs/device/com/android/net/module/util/IRoutingCoordinator.aidl",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-04T07:34:34Z",
+      "side": 1,
+      "message": "You\u0027re right that this is to prevent the DESCRIPTOR from being jarjared. I accidentally wrote the wrong comment.",
+      "parentUuid": "e61924f4_5d448460",
       "range": {
         "startLine": 22,
         "startChar": 68,
