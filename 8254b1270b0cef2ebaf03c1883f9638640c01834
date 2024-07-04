@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18c893b2_ae7b7f55",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-07-04T02:08:57Z",
+      "side": 1,
+      "message": "I think the test may need to also verify if packets are not actually received, and dropped by APF.  \nIt can add TODO item here and implement after the CL that implement receive packet check",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 7
+      },
+      "revId": "8254b1270b0cef2ebaf03c1883f9638640c01834",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
