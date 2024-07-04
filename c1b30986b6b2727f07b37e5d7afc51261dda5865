@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f810838_8a020ce8",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-04T07:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e027a239_9d9dae25",
+      "range": {
+        "startLine": 502,
+        "startChar": 26,
+        "endLine": 502,
+        "endChar": 42
+      },
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db57b309_e33b3cf6",
@@ -61,6 +85,30 @@
           ]
         }
       ],
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c216ce97_92cb602c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-04T07:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db57b309_e33b3cf6",
+      "range": {
+        "startLine": 622,
+        "startChar": 92,
+        "endLine": 622,
+        "endChar": 95
+      },
       "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -118,6 +166,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36d55417_bb3fd6c5",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-04T07:06:19Z",
+      "side": 1,
+      "message": "Could you elaborate why ISE is preferred over IAE? I saw `#unregisterStateCallback` and `ConnectivityManager#unregisterNetworkCallback` throw IAE in this case.\n\nIf we\u0027re going to use ISE, shall we also change let `#registerConfigurationCalblack` throw ISE when it\u0027s already registered?",
+      "parentUuid": "74e5ee17_acb7dde1",
+      "range": {
+        "startLine": 657,
+        "startChar": 15,
+        "endLine": 657,
+        "endChar": 39
+      },
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2466c209_9af1b648",
         "filename": "thread/tests/cts/Android.bp",
         "patchSetId": 13
@@ -129,6 +201,30 @@
       "writtenOn": "2024-07-03T11:40:15Z",
       "side": 1,
       "message": "Do we still need this?",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 47
+      },
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc78aaab_6d993094",
+        "filename": "thread/tests/cts/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-04T07:06:19Z",
+      "side": 1,
+      "message": "I think it\u0027s needed. Otherwise we cannot call `#setConfiguration` in CTS.",
+      "parentUuid": "2466c209_9af1b648",
       "range": {
         "startLine": 26,
         "startChar": 8,
@@ -162,6 +258,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d86180a1_371abf19",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-04T07:06:19Z",
+      "side": 1,
+      "message": "Thanks for the suggestion. This is a more robust way to handle it. Added `mConfigurationCallbacksToCleanUp`",
+      "parentUuid": "a01a9aeb_ac5b6a05",
+      "range": {
+        "startLine": 876,
+        "startChar": 10,
+        "endLine": 876,
+        "endChar": 17
+      },
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a911bf98_fdcf8d1e",
@@ -175,6 +295,30 @@
       "writtenOn": "2024-07-03T11:40:15Z",
       "side": 1,
       "message": "You should put this after the second runAsShell. If the code is correct, it will work just as well, but if the code is incorrect, it\u0027s more likely to find races because the two configuration changes will be requested back-to-back.",
+      "range": {
+        "startLine": 915,
+        "startChar": 12,
+        "endLine": 915,
+        "endChar": 26
+      },
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab896e9d_515efd72",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-04T07:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a911bf98_fdcf8d1e",
       "range": {
         "startLine": 915,
         "startChar": 12,
