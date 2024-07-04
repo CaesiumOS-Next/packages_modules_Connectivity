@@ -22,6 +22,30 @@
       },
       "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "882ccc75_7dc9ade5",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-04T02:05:32Z",
+      "side": 1,
+      "message": "1. I think no, if I understand correctly, NETWORK_STATS_UPDATED is not that time-sensitive:\n\na. Originally, it was used to signal NPMS to update data warnings and limits. A 1-second delay is acceptable, in my opinion. Additionally, we have refactored all signature callers to use callbacks. Currently, there are no legitimate callers in our codebase that need to listen to the intent.\nb. Regarding broadcasting, it is possible that the intent is delayed far more than 1 second.\nc. Third-party apps might be able to use it as a trigger to fetch data usage changes, which is also not time-sensitive, in my opinion, since there are no documented time constraints guaranteed anywhere.\n\nHowever, I could still be wrong. Feel free to reopen this if you still feel this is not safe. We will use the alternative solution instead.\n\n2. There are various possible reasons for this, such as:\n```\nstatic final int POLL_REASON_DUMPSYS \u003d 0;\nstatic final int POLL_REASON_FORCE_UPDATE \u003d 1;\nstatic final int POLL_REASON_GLOBAL_ALERT \u003d 2;\nstatic final int POLL_REASON_NETWORK_STATUS_CHANGED \u003d 3;\nstatic final int POLL_REASON_OPEN_SESSION \u003d 4;\nstatic final int POLL_REASON_PERIODIC \u003d 5;\nstatic final int POLL_REASON_RAT_CHANGED \u003d 6;\nstatic final int POLL_REASON_REG_CALLBACK \u003d 7;\nstatic final int POLL_REASON_REMOVE_UIDS \u003d 8;\nstatic final int POLL_REASON_UPSTREAM_CHANGED \u003d 9;\n```\nWithout a bugreport, we cannot determine the source of this issue. The most likely causes are abnormal modem RAT changed events or misbehaving app calls to force updates.\n\nWhile the source is unknown, we have added an event logger in the dumpsys, which will help us identify the source once a valid bug report is provided.\n\nWDYT?",
+      "parentUuid": "4dcb1267_80977ed9",
+      "range": {
+        "startLine": 2653,
+        "startChar": 8,
+        "endLine": 2653,
+        "endChar": 9
+      },
+      "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
