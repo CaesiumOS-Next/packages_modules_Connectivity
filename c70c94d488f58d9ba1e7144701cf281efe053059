@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "dce9aefb_fb43bbf9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-04T03:18:03Z",
+      "side": 1,
+      "message": "Could you mention the original CL that is already merged in aosp/main?\nI want to make sure the identical change is already merged in aosp/main.\nFor other CLs as well.",
+      "revId": "c70c94d488f58d9ba1e7144701cf281efe053059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c85a9ba4_fed0d788",
