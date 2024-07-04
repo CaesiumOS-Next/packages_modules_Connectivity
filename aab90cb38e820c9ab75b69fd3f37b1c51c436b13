@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e892cfec_02ab40fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-04T05:55:50Z",
+      "side": 1,
+      "message": "Could you add comment about cherry-pick to other CLs as well?",
+      "revId": "aab90cb38e820c9ab75b69fd3f37b1c51c436b13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
