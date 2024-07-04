@@ -141,6 +141,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d801fad_2fc54dbc",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-04T06:54:00Z",
+      "side": 1,
+      "message": "I think the `@RequiresPermission` annotation at line 194 already documented this behavior.",
+      "parentUuid": "85a0cd99_d9955125",
+      "range": {
+        "startLine": 191,
+        "startChar": 15,
+        "endLine": 191,
+        "endChar": 39
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7295f37a_c00b585d",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 11
