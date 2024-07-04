@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9459ff48_717db163",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-04T05:45:00Z",
+      "side": 1,
+      "message": "\u003e This could be added separately\n\nI tried to separate them into two methods and passed the discovered service to the resolution function. However, it would have the following exception, so I can\u0027t separate them.\n\n```\norg.json.JSONException: Value name: MultiDevicesTest, type: _multi_devices._tcp., subtypes: , hostAddresses: , hostname: null, port: 0, network: null, expirationTime: 2024-07-01T02:31:47Z, txtRecord: {} at 0 of type java.lang.String cannot be converted to JSONObject\n```\n\n\u003e but we should have a test for registerServiceInfoCallback as well\n\nDone in aosp/3153957",
+      "parentUuid": "7780a514_a436c4e4",
+      "range": {
+        "startLine": 94,
+        "startChar": 52,
+        "endLine": 94,
+        "endChar": 59
+      },
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3368038c_46d84c81",
         "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
         "patchSetId": 6
@@ -37,6 +61,24 @@
       "writtenOn": "2024-06-21T02:59:45Z",
       "side": 1,
       "message": "Could this be null if P2P is not supported ?\n\nA safer way to initialize it could be:\n\n```\nprivate lateinit val wifiP2pManager by lazy {\n    context.getSystemService(...) ?: fail(\"WifiP2pManager was null\")\n}\n```",
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7182cf2_f263735f",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-04T05:45:00Z",
+      "side": 1,
+      "message": "I tried to use the lazy initialization but it can\u0027t not build.",
+      "parentUuid": "3368038c_46d84c81",
       "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "672d93d6_f902460a",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-04T05:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d1694fc_4332d4f0",
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4b0636b_f78e60c3",
@@ -71,6 +131,30 @@
       "writtenOn": "2024-06-21T02:59:45Z",
       "side": 1,
       "message": "This feels a bit ad-hoc and potentially racy (what if onReceive is received before the target device name was set ?).\n\nInstead, could you split this into 2 receivers: one for `WIFI_P2P_CONNECTION_CHANGED_ACTION`, and one for `WIFI_P2P_PEERS_CHANGED_ACTION` which would take the targetDeviceName in the constructor ? It would make the goal/lifetime of each receiver clearer. Here it\u0027s not very clear when the target name is supposed to be set, and when the receiver is supposed to be registered as it has 2 kind of different usages.",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 90,
+        "endChar": 34
+      },
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "755f615c_c6bbbfbf",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-04T05:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4b0636b_f78e60c3",
       "range": {
         "startLine": 90,
         "startChar": 12,
@@ -104,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8ee2ff0_5a9eabe8",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-04T05:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6ffcd3f_9768295f",
+      "range": {
+        "startLine": 99,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 17
+      },
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6719adc2_29927c40",
@@ -117,6 +225,30 @@
       "writtenOn": "2024-06-21T02:59:45Z",
       "side": 1,
       "message": "Nit: WiFiDirectBroadcastReceiver always needs these 2 actions to work properly. So instead of repeating the actions in 2 different classes that need to be kept in-sync, you could define a `WiFiDirectBroadcastReceiver#register(context)` method so the caller doesn\u0027t need to know which actions are required by WiFiDirectBroadcastReceiver.",
+      "range": {
+        "startLine": 100,
+        "startChar": 39,
+        "endLine": 100,
+        "endChar": 68
+      },
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02840e60_c974a055",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-04T05:45:00Z",
+      "side": 1,
+      "message": "I register/unregister the receiver when it requires to check status. So",
+      "parentUuid": "6719adc2_29927c40",
       "range": {
         "startLine": 100,
         "startChar": 39,
@@ -150,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6448d842_8a884397",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-04T05:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b67780e6_131f2ff9",
+      "range": {
+        "startLine": 132,
+        "startChar": 9,
+        "endLine": 132,
+        "endChar": 13
+      },
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f93315f2_d7abb9ca",
@@ -163,6 +319,24 @@
       "writtenOn": "2024-06-21T02:59:45Z",
       "side": 1,
       "message": "Is that the only way to do that ? What does wifi CTS do ?\n\nThis will be tricky to get working reliably since you also need to make sure the lock screen is cleared, the screen is on, the device isn\u0027t stuck on some SIM pin screen or error dialog etc. Is there some shell command that could help for example ?\n\nCaptivePortalLogin tests make sure they start an activity to clear the keyguard before trying to use UiAutomation: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/CaptivePortalLogin/tests/src/com/android/captiveportallogin/RequestDismissKeyguardActivity.kt\n\nAlso OEM devices may have different UI so not relying on this would be best.",
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6efd5e47_751fc857",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-04T05:45:00Z",
+      "side": 1,
+      "message": "The Wi-Fi p2p CTS test does not verify group invitations. I looked into the WifiP2pService code and found that using the `WifiP2pManager#setConnectionRequestResult` method can accept invitations. Update the design accordingly.",
+      "parentUuid": "f93315f2_d7abb9ca",
       "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
