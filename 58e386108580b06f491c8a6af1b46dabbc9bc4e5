@@ -50,6 +50,30 @@
       ],
       "revId": "58e386108580b06f491c8a6af1b46dabbc9bc4e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ccff714_93197a9b",
+        "filename": "staticlibs/tests/unit/host/python/apf_utils_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-07-05T03:25:28Z",
+      "side": 1,
+      "message": "Good point, import specific when it needs seems to be a better decision to prevent some name collision.  \nSome python style guide can refer to go/pystyle#imports-decision.",
+      "parentUuid": "2642c616_b96fefdb",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 51
+      },
+      "revId": "58e386108580b06f491c8a6af1b46dabbc9bc4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
