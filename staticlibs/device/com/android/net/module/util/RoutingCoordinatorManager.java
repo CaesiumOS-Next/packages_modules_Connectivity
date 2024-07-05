@@ -32,7 +32,6 @@ import androidx.annotation.RequiresApi;
  * by the build rules. Do not change build rules to gain access to this class from elsewhere.
  * @hide
  */
-@RequiresApi(Build.VERSION_CODES.S)
 public class RoutingCoordinatorManager {
     @NonNull final Context mContext;
     @NonNull final IRoutingCoordinator mService;
@@ -103,6 +102,8 @@ public class RoutingCoordinatorManager {
      */
     public void addInterfaceToNetwork(final int netId, final String iface) {
         try {
+            // TODO : remove this call in favor of using the LocalNetworkConfiguration
+            // correctly, which will let ConnectivityService do it automatically.
             mService.addInterfaceToNetwork(netId, iface);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
