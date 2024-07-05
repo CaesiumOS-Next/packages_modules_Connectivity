@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df5fd295_3264eae4",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-05T03:43:53Z",
+      "side": 1,
+      "message": "Question: Is it possible that nearby devices running the same test at the same time would cause conflict or connect to unexpected devices and failure?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3216f427_cf730c05",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-05T03:43:53Z",
+      "side": 1,
+      "message": "Is there always 1 device?\nIf so maybe just store it in a variable without list to make it less errorprone?\nThe same question also apply to wifip2pChannels",
+      "range": {
+        "startLine": 176,
+        "startChar": 20,
+        "endLine": 176,
+        "endChar": 27
+      },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "655ad642_1c578ccb",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-05T03:43:53Z",
+      "side": 1,
+      "message": "How do you know which device to invite?\nMaybe describe in comment?",
+      "range": {
+        "startLine": 187,
+        "startChar": 38,
+        "endLine": 187,
+        "endChar": 52
+      },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
