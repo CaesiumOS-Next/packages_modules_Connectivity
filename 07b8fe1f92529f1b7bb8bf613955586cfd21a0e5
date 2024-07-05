@@ -16,6 +16,24 @@
       "message": "Can there be a little bit more documentation on what kind of tethering this would be and how it can be used in general ? It\u0027s not easy to understand just looking at the code.",
       "revId": "07b8fe1f92529f1b7bb8bf613955586cfd21a0e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6da3c5ee_5c04b616",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-07-05T00:59:46Z",
+      "side": 1,
+      "message": "Though detailed idea is already described in the design doc(go/avf-internet-connection), but I agree with you we need more description on here. I filed a bug about this, so we can track it there. (b/351222635)",
+      "parentUuid": "8cda6798_bea1ed8a",
+      "revId": "07b8fe1f92529f1b7bb8bf613955586cfd21a0e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
