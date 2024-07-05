@@ -36,6 +36,7 @@ import androidx.annotation.RequiresApi;
 
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.RoutingCoordinatorManager;
+import com.android.net.module.util.RoutingCoordinatorService;
 import com.android.net.module.util.SdkUtil.LateSdk;
 import com.android.net.module.util.SharedLog;
 import com.android.networkstack.apishim.BluetoothPanShimImpl;
@@ -129,11 +130,14 @@ public abstract class TetheringDependencies {
      * Get the routing coordinator, or null if below S.
      */
     @Nullable
-    public LateSdk<RoutingCoordinatorManager> getRoutingCoordinator(Context context) {
-        if (!SdkLevel.isAtLeastS()) return new LateSdk<>(null);
-        return new LateSdk<>(
-                new RoutingCoordinatorManager(
-                        context, ConnectivityInternalApiUtil.getRoutingCoordinator(context)));
+    public RoutingCoordinatorManager getRoutingCoordinator(Context context) {
+        IBinder binder;
+        if (!SdkLevel.isAtLeastS()) {
+            binder = new RoutingCoordinatorService(getINetd(context));
+        } else {
+            binder = ConnectivityInternalApiUtil.getRoutingCoordinator(context);
+        }
+        return new RoutingCoordinatorManager(context, binder);
     }
 
     /**

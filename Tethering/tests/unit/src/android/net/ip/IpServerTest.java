@@ -174,8 +174,8 @@ public class IpServerTest {
     @Mock private RouterAdvertisementDaemon mRaDaemon;
     @Mock private IpServer.Dependencies mDependencies;
     @Mock private PrivateAddressCoordinator mAddressCoordinator;
-    private final LateSdk<RoutingCoordinatorManager> mRoutingCoordinatorManager =
-            new LateSdk<>(SdkLevel.isAtLeastS() ? mock(RoutingCoordinatorManager.class) : null);
+    private final RoutingCoordinatorManager mRoutingCoordinatorManager =
+            mock(RoutingCoordinatorManager.class);
     @Mock private NetworkStatsManager mStatsManager;
     @Mock private TetheringConfiguration mTetherConfig;
     @Mock private TetheringMetrics mTetheringMetrics;
@@ -281,22 +281,28 @@ public class IpServerTest {
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(false /* default value */);
 
         // Simulate the behavior of RoutingCoordinator
-        if (null != mRoutingCoordinatorManager.value) {
-            doAnswer(it -> {
-                final String fromIface = (String) it.getArguments()[0];
-                final String toIface = (String) it.getArguments()[1];
+        doAnswer(it -> {
+            final String fromIface = (String) it.getArguments()[0];
+            final String toIface = (String) it.getArguments()[1];
+            try {
                 mNetd.tetherAddForward(fromIface, toIface);
                 mNetd.ipfwdAddInterfaceForward(fromIface, toIface);
-                return null;
-            }).when(mRoutingCoordinatorManager.value).addInterfaceForward(any(), any());
-            doAnswer(it -> {
-                final String fromIface = (String) it.getArguments()[0];
-                final String toIface = (String) it.getArguments()[1];
+            } catch (RemoteException e) {
+                throw e.rethrowFromSystemServer();
+            }
+            return null;
+        }).when(mRoutingCoordinatorManager).addInterfaceForward(any(), any());
+        doAnswer(it -> {
+            final String fromIface = (String) it.getArguments()[0];
+            final String toIface = (String) it.getArguments()[1];
+            try {
                 mNetd.ipfwdRemoveInterfaceForward(fromIface, toIface);
                 mNetd.tetherRemoveForward(fromIface, toIface);
-                return null;
-            }).when(mRoutingCoordinatorManager.value).removeInterfaceForward(any(), any());
-        }
+            } catch (RemoteException e) {
+                throw e.rethrowFromSystemServer();
+            }
+            return null;
+        }).when(mRoutingCoordinatorManager).removeInterfaceForward(any(), any());
 
         setUpDhcpServer();
     }

@@ -96,6 +96,7 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.inOrder;
@@ -188,9 +189,11 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.RoutingCoordinatorManager;
+import com.android.net.module.util.RoutingCoordinatorService;
 import com.android.net.module.util.SdkUtil.LateSdk;
 import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.ip.IpNeighborMonitor;
@@ -321,6 +324,7 @@ public class TetheringTest {
     private UpstreamNetworkMonitor mUpstreamNetworkMonitor;
     private UpstreamNetworkMonitor.EventListener mEventListener;
     private TetheredInterfaceCallbackShim mTetheredInterfaceCallbackShim;
+    private RoutingCoordinatorManager mRoutingCoordinatorManager;
 
     private TestConnectivityManager mCm;
     private boolean mForceEthernetServiceUnavailable = false;
@@ -484,10 +488,13 @@ public class TetheringTest {
             return mEntitleMgr;
         }
 
-        @Nullable
         @Override
-        public LateSdk<RoutingCoordinatorManager> getRoutingCoordinator(final Context context) {
-            return new LateSdk<>(null);
+        public RoutingCoordinatorManager getRoutingCoordinator(final Context context) {
+            RoutingCoordinatorService routingCoordinatorService =
+                    new RoutingCoordinatorService(mNetd, mCm);
+            mRoutingCoordinatorManager =
+                    new RoutingCoordinatorManager(context, routingCoordinatorService);
+            return mRoutingCoordinatorManager;
         }
 
         @Override
