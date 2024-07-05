@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2642c616_b96fefdb",
+        "filename": "staticlibs/tests/unit/host/python/apf_utils_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-05T02:21:28Z",
+      "side": 1,
+      "message": "Is it okay to `import *`? Looks kind of dangerous",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 51
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "46440f73_cbf049c4",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/host/python/apf_utils_test.py",
+              "range": {
+                "startLine": 20,
+                "startChar": 0,
+                "endLine": 21,
+                "endChar": 0
+              },
+              "replacement": "from net_tests_utils.host.python.apf_utils import get_apf_counter\nfrom net_tests_utils.host.python.apf_utils import get_apf_counters_from_dumpsys\nfrom net_tests_utils.host.python.apf_utils import get_hardware_address\nfrom net_tests_utils.host.python.apf_utils import is_send_raw_packet_downstream_supported\nfrom net_tests_utils.host.python.apf_utils import send_raw_packet_downstream\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/host/python/apf_utils_test.py",
+              "range": {
+                "startLine": 22,
+                "startChar": 0,
+                "endLine": 22,
+                "endChar": 0
+              },
+              "replacement": "from net_tests_utils.host.python.assert_utils import PatternNotFoundException\nfrom net_tests_utils.host.python.assert_utils import UnsupportedOperationException\n"
+            }
+          ]
+        }
+      ],
+      "revId": "58e386108580b06f491c8a6af1b46dabbc9bc4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
