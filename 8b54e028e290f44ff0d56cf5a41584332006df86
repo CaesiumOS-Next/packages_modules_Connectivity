@@ -1,0 +1,116 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "949ce32a_99b32586",
+        "filename": "staticlibs/testutils/host/python/wifip2p_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-05T03:49:37Z",
+      "side": 1,
+      "message": "nit: IIUC this is in the next CL?",
+      "range": {
+        "startLine": 39,
+        "startChar": 45,
+        "endLine": 39,
+        "endChar": 62
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "098d6108_c84e1762",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/testutils/host/python/wifip2p_utils.py",
+              "range": {
+                "startLine": 39,
+                "startChar": 0,
+                "endLine": 40,
+                "endChar": 0
+              },
+              "replacement": "  \"\"\"Set up the Wi-Fi P2P server and client.\"\"\"\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8b54e028e290f44ff0d56cf5a41584332006df86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a82f6ea_da41f5e5",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-05T03:49:37Z",
+      "side": 1,
+      "message": "Question: is this possible to have multiple channels?\nFrom l.42 it seems to me there will be always 1?",
+      "range": {
+        "startLine": 58,
+        "startChar": 13,
+        "endLine": 58,
+        "endChar": 42
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "7731b8d9_e8d453fb",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 33,
+                "startChar": 0,
+                "endLine": 34,
+                "endChar": 0
+              },
+              "replacement": "    private var wifip2pChannel: WifiP2pManager.Channel? \u003d null\n"
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 42,
+                "startChar": 0,
+                "endLine": 43,
+                "endChar": 0
+              },
+              "replacement": "        wifip2pChannel \u003d channel\n"
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 58,
+                "startChar": 0,
+                "endLine": 61,
+                "endChar": 0
+              },
+              "replacement": "        wifip2pChannel?.let {\n            wifip2pManager.cancelConnect(it, null)\n            wifip2pManager.removeGroup(it, null)\n"
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 62,
+                "startChar": 0,
+                "endLine": 63,
+                "endChar": 0
+              },
+              "replacement": "        wifip2pChannel \u003d null\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8b54e028e290f44ff0d56cf5a41584332006df86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
