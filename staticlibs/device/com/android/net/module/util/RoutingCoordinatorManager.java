@@ -32,7 +32,6 @@ import androidx.annotation.RequiresApi;
  * by the build rules. Do not change build rules to gain access to this class from elsewhere.
  * @hide
  */
-@RequiresApi(Build.VERSION_CODES.S)
 public class RoutingCoordinatorManager {
     @NonNull final Context mContext;
     @NonNull final IRoutingCoordinator mService;
