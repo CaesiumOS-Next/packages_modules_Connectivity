@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "918dd3e4_9cd0ab50",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-05T04:21:08Z",
+      "side": 1,
+      "message": "Could you avoid having this, and put the required classes in net-utils-framework-connectivity-srcs instead ? Otherwise net-utils-service-connectivity could miss some classes in its exclude_srcs",
+      "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4e4c852_30328aa8",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-05T04:21:08Z",
+      "side": 1,
+      "message": "Nit: since this is used for Tethering (which is not really \"service\") maybe something more generic, like `net-utils-non-bootclasspath-defaults` or something else ?",
+      "range": {
+        "startLine": 490,
+        "startChar": 21,
+        "endLine": 490,
+        "endChar": 28
+      },
+      "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5320905a_9144f888",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-05T04:21:08Z",
+      "side": 1,
+      "message": "Is this necessary ? A static lib shouldn\u0027t really have a target SDK since it doesn\u0027t have a manifest",
+      "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1826bb7_95a84777",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-05T04:21:08Z",
+      "side": 1,
+      "message": "This could be in net-utils-service-connectivity, but should not be in the defaults. Tethering won\u0027t have these classes available for example.",
+      "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "457da22a_a3cbc60c",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-05T04:21:08Z",
+      "side": 1,
+      "message": "Also add `defaults_visibility` private",
+      "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3ea13a9_181989cb",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-05T04:21:08Z",
+      "side": 1,
+      "message": "Can you have net-utils-all-srcs also include everything in `framework/` and remove this ?",
+      "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "373142dd_fd1afb8f",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-05T04:21:08Z",
+      "side": 1,
+      "message": "Nit: maybe `net-utils-non-bootclasspath-aidl` to be clearer about where it can be used",
+      "range": {
+        "startLine": 547,
+        "startChar": 11,
+        "endLine": 547,
+        "endChar": 25
+      },
+      "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d26e9abd_2242b31e",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-05T04:21:08Z",
+      "side": 1,
+      "message": "Could this just be private visibility ? Nothing should depend on it outside of this file",
+      "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "035b8d27_875fd564",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-05T04:21:08Z",
+      "side": 1,
+      "message": "Is this necessary ? I\u0027m wondering why",
+      "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
