@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27dd84da_aee847c6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T04:00:34Z",
+      "side": 1,
+      "message": "I think we need to call onFrozen when the ConnectivityService receives callback from uid that is already frozen but onFrozen is not called yet to support this case.",
+      "range": {
+        "startLine": 1068,
+        "startChar": 44,
+        "endLine": 1070,
+        "endChar": 16
+      },
+      "revId": "e93a81b34ca91141bc0191e579fb152efbf60c87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f843679_e6cdc8b0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T04:00:34Z",
+      "side": 1,
+      "message": "Do we need to cleanup uid when frozen app is uninstalled or user is removed?",
+      "range": {
+        "startLine": 1073,
+        "startChar": 75,
+        "endLine": 1073,
+        "endChar": 76
+      },
+      "revId": "e93a81b34ca91141bc0191e579fb152efbf60c87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d84b550_72fcd9ea",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T04:00:34Z",
+      "side": 1,
+      "message": "This code uses mFrozenUids as Set (value is always true).\nIs it better to use ArraySet? Or is SparseBooleanArray more memory efficeint?",
+      "range": {
+        "startLine": 1073,
+        "startChar": 55,
+        "endLine": 1073,
+        "endChar": 73
+      },
+      "revId": "e93a81b34ca91141bc0191e579fb152efbf60c87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "591e61a7_72ca1f13",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7562,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T04:00:34Z",
+      "side": 1,
+      "message": "nits: I think 0 is not a valid netid since min_net_id is 100. Having comment 0 is not a valid netid would be helpful.",
+      "range": {
+        "startLine": 7562,
+        "startChar": 38,
+        "endLine": 7562,
+        "endChar": 39
+      },
+      "revId": "e93a81b34ca91141bc0191e579fb152efbf60c87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5029e107_2d427951",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7807,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T04:00:34Z",
+      "side": 1,
+      "message": "nits:there is a `isMultilayerRequest()`",
+      "range": {
+        "startLine": 7807,
+        "startChar": 16,
+        "endLine": 7807,
+        "endChar": 37
+      },
+      "revId": "e93a81b34ca91141bc0191e579fb152efbf60c87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0469d953_6b18c88d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7809,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T04:00:34Z",
+      "side": 1,
+      "message": "This might be not correct. \nIf the app registerDefaultNetworkCallback (TRACK_DEFAULT) and there is an app default network for this uid.\nI think createPerAppCallbackRequestsToRegister replace request by multilayer requests.\nIn this case, multilayer request has non null mMessenger.\n\nAlso, it seems createNriFromOemNetworkPreferences creates multilayer requests that has LISTEN request in the first layer.\nThis might break some assumption",
+      "range": {
+        "startLine": 7809,
+        "startChar": 70,
+        "endLine": 7809,
+        "endChar": 71
+      },
+      "revId": "e93a81b34ca91141bc0191e579fb152efbf60c87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b6f28d9_6bc99e70",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7821,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T04:00:34Z",
+      "side": 1,
+      "message": "This does not have the case for `CALLBACK_UNAVAIL`.\nI think this should be fine since callCallbackForRequest checks \"networkAgent !\u003d null\" before calling `maybeQueueCallback`.\nCan we have comment or check somewhere?\nmaybe default case with wtf log would be helpful.",
+      "revId": "e93a81b34ca91141bc0191e579fb152efbf60c87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b12b757d_afb30f88",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7867,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T04:00:34Z",
+      "side": 1,
+      "message": "nits: Can be written\n```\nskipCallback \u003d queue.hasCallback(netId, CALLBACK_AVAILABLE)\nbreak;\n```",
+      "range": {
+        "startLine": 7867,
+        "startChar": 20,
+        "endLine": 7867,
+        "endChar": 21
+      },
+      "revId": "e93a81b34ca91141bc0191e579fb152efbf60c87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a26bacaf_b9ac9e2d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7899,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T04:00:34Z",
+      "side": 1,
+      "message": "nits:\nIs the LOST special because nai does not exist?\nIt\u0027s harmless but I think this send callback even if the app does not override LOST callback.",
+      "range": {
+        "startLine": 7899,
+        "startChar": 50,
+        "endLine": 7899,
+        "endChar": 51
+      },
+      "revId": "e93a81b34ca91141bc0191e579fb152efbf60c87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c21edb0_253185dc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7911,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T04:00:34Z",
+      "side": 1,
+      "message": "need to use `getBlockedState` to generate completeBlockedState.",
+      "range": {
+        "startLine": 7911,
+        "startChar": 83,
+        "endLine": 7911,
+        "endChar": 85
+      },
+      "revId": "e93a81b34ca91141bc0191e579fb152efbf60c87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b0215dd_7caf01a4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 7932,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T04:00:34Z",
+      "side": 1,
+      "message": "nits: This will be done by addCallback. Is this to reduce the number of re-allocation?",
+      "range": {
+        "startLine": 7932,
+        "startChar": 12,
+        "endLine": 7932,
+        "endChar": 45
+      },
+      "revId": "e93a81b34ca91141bc0191e579fb152efbf60c87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
