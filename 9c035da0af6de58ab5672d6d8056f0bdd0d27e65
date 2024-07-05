@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0ff0319_0fd90806",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-07-05T07:25:20Z",
+      "side": 1,
+      "message": "Can we use the @FlaggedApi annotation in the implementation here? Otherwise lint gives an error:\n```\nError: Method onEphemeralKeyChanged() is a flagged API and should be inside an if (ThreadNetworkFlags.epskcEnabled()) check (or annotate the surrounding method onEphemeralKeyChanged with @FlaggedApi(ThreadNetworkFlags.FLAG_EPSKC_ENABLED) to transfer requirement to caller) [FlaggedApi]\n```\nOr is there a better way to check for api flag at runtime? @lorenzo@google.com",
+      "revId": "9c035da0af6de58ab5672d6d8056f0bdd0d27e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
