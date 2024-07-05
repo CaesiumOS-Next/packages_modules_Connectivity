@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30db430_917e6dc3",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-05T02:29:03Z",
+      "side": 1,
+      "message": "Not sure about the actual behavior, but is printing help page and exception acceptable when it is supported? Or okay since it is just for testing",
+      "revId": "5b7940aab5ad6dc74de197ac2ebd088cde6fd05c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
