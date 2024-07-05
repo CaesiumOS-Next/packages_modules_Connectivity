@@ -59,6 +59,7 @@ class NsdManagerDownstreamTetheringTest : EthernetTetheringTestBase() {
     @After
     override fun tearDown() {
         super.tearDown()
+        setIncludeTestInterfaces(false)
     }
 
     @Test
@@ -106,6 +107,7 @@ class NsdManagerDownstreamTetheringTest : EthernetTetheringTestBase() {
     @Test
     fun testMdnsDiscoveryWorkOnTetheringInterface() {
         assumeFalse(isInterfaceForTetheringAvailable())
+        setIncludeTestInterfaces(true)
 
         var downstreamIface: TestNetworkInterface? = null
         var tetheringEventCallback: MyTetheringEventCallback? = null
