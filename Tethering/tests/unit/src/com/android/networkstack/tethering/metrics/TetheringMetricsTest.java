@@ -16,12 +16,15 @@
 
 package com.android.networkstack.tethering.metrics;
 
+import static android.app.usage.NetworkStats.Bucket.STATE_ALL;
+import static android.app.usage.NetworkStats.Bucket.TAG_NONE;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_LOWPAN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
+import static android.net.NetworkStats.UID_TETHERING;
 import static android.net.NetworkTemplate.MATCH_BLUETOOTH;
 import static android.net.NetworkTemplate.MATCH_ETHERNET;
 import static android.net.NetworkTemplate.MATCH_MOBILE;
@@ -52,14 +55,23 @@ import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import android.app.usage.NetworkStats;
+import android.app.usage.NetworkStatsManager;
 import android.content.Context;
 import android.net.NetworkCapabilities;
 import android.net.NetworkTemplate;
 import android.os.Build;
+import android.os.SystemConfigManager;
 import android.stats.connectivity.DownstreamType;
 import android.stats.connectivity.ErrorCode;
 import android.stats.connectivity.UpstreamType;
@@ -93,6 +105,7 @@ public final class TetheringMetricsTest {
     private static final int MATCH_NONE = -1;
 
     @Mock private Context mContext;
+    @Mock private NetworkStatsManager mNetworkStatsManager;
 
     private TetheringMetrics mTetheringMetrics;
     private final NetworkTetheringReported.Builder mStatsBuilder =
@@ -133,6 +146,10 @@ public final class TetheringMetricsTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        when(mContext.getSystemServiceName(SystemConfigManager.class))
+                .thenReturn(Context.NETWORK_STATS_SERVICE);
+        when(mContext.getSystemService(Context.NETWORK_STATS_SERVICE))
+                .thenReturn(mNetworkStatsManager);
         mTetheringMetrics = spy(new MockTetheringMetrics(mContext));
         mElapsedRealtime = 0L;
     }
@@ -441,5 +458,30 @@ public final class TetheringMetricsTest {
         runBuildNetworkTemplateForUpstreamType(UpstreamType.UT_WIFI_AWARE, MATCH_NONE);
         runBuildNetworkTemplateForUpstreamType(UpstreamType.UT_LOWPAN, MATCH_NONE);
         runBuildNetworkTemplateForUpstreamType(UpstreamType.UT_UNKNOWN, MATCH_NONE);
+    }
+
+    private static boolean isUpstreamMatchRule(int matchRule) {
+        switch (matchRule) {
+            case MATCH_MOBILE:
+            case MATCH_WIFI:
+            case MATCH_BLUETOOTH:
+            case MATCH_ETHERNET:
+                return true;
+        }
+        return false;
+    }
+
+    @Test
+    public void testInitializeUpstreamDataUsageAfterT() {
+        final NetworkStats mockStats = mock(NetworkStats.class);
+        doAnswer(inv -> {
+            final NetworkTemplate template = (NetworkTemplate) inv.getArguments()[0];
+            if (isUpstreamMatchRule(template.getMatchRule())) {
+                return mockStats;
+            } else {
+                return null;
+            }
+        }).when(mNetworkStatsManager).queryDetailsForUidTagState(
+                any(), anyLong(), anyLong(), eq(UID_TETHERING), eq(TAG_NONE), eq(STATE_ALL));
     }
 }

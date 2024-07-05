@@ -16,12 +16,15 @@
 
 package com.android.networkstack.tethering.metrics;
 
+import static android.app.usage.NetworkStats.Bucket.STATE_ALL;
+import static android.app.usage.NetworkStats.Bucket.TAG_NONE;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_LOWPAN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
+import static android.net.NetworkStats.UID_TETHERING;
 import static android.net.NetworkTemplate.MATCH_BLUETOOTH;
 import static android.net.NetworkTemplate.MATCH_ETHERNET;
 import static android.net.NetworkTemplate.MATCH_MOBILE;
@@ -50,6 +53,8 @@ import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
 
 import android.annotation.Nullable;
+import android.app.usage.NetworkStats;
+import android.app.usage.NetworkStatsManager;
 import android.content.Context;
 import android.net.NetworkCapabilities;
 import android.net.NetworkTemplate;
@@ -57,6 +62,7 @@ import android.stats.connectivity.DownstreamType;
 import android.stats.connectivity.ErrorCode;
 import android.stats.connectivity.UpstreamType;
 import android.stats.connectivity.UserType;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
@@ -89,7 +95,9 @@ public class TetheringMetrics {
     private final SparseArray<NetworkTetheringReported.Builder> mBuilderMap = new SparseArray<>();
     private final SparseArray<Long> mDownstreamStartTime = new SparseArray<Long>();
     private final ArrayList<RecordUpstreamEvent> mUpstreamEventList = new ArrayList<>();
+    private final ArrayMap<UpstreamType, Pair<Long, Long>> mUpstreamDataUsage = new ArrayMap<>();
     private final Context mContext;
+    private final NetworkStatsManager mNetworkStatsManager;
     private UpstreamType mCurrentUpstream = null;
     private Long mCurrentUpStreamStartTime = 0L;
 
@@ -100,6 +108,7 @@ public class TetheringMetrics {
      */
     public TetheringMetrics(Context context) {
         mContext = context;
+        mNetworkStatsManager = mContext.getSystemService(NetworkStatsManager.class);
     }
 
     /**
@@ -307,6 +316,36 @@ public class TetheringMetrics {
         }
     }
 
+    private Pair<Long, Long> getCurrentDataUsageForUpstreamType(UpstreamType type) {
+        final NetworkStats stats = mNetworkStatsManager.queryDetailsForUidTagState(
+                buildNetworkTemplateForUpstreamType(type), Long.MIN_VALUE, Long.MAX_VALUE,
+                UID_TETHERING, TAG_NONE, STATE_ALL);
+
+        // No data usage for the given upstream type
+        if (stats == null) return new Pair<>(0L, 0L);
+
+        final NetworkStats.Bucket bucket = new NetworkStats.Bucket();
+        Long totalTxBytes = 0L;
+        Long totalRxBytes = 0L;
+        while (stats.getNextBucket(bucket)) {
+            totalTxBytes += bucket.getTxBytes();
+            totalRxBytes += bucket.getRxBytes();
+        }
+        return new Pair<>(totalTxBytes, totalRxBytes);
+    }
+
+    /**
+     * Initialize the upstream data usage when tethering is turned on.
+     */
+    public void initializeUpstreamDataUsageAfterT() {
+        if (!(SdkLevel.isAtLeastT() && mUpstreamDataUsage.isEmpty())) return;
+
+        for (UpstreamType type : UpstreamType.values()) {
+            if (!isUsageSupportedForUpstreamType(type)) continue;
+            mUpstreamDataUsage.put(type, getCurrentDataUsageForUpstreamType(type));
+        }
+    }
+
     /**
      * Cleans up the variables related to upstream events when tethering is turned off.
      */
@@ -314,6 +353,7 @@ public class TetheringMetrics {
         mUpstreamEventList.clear();
         mCurrentUpstream = null;
         mCurrentUpStreamStartTime = 0L;
+        mUpstreamDataUsage.clear();
     }
 
     private DownstreamType downstreamTypeToEnum(final int ifaceType) {
