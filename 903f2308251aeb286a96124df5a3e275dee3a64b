@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1fe7d6f_b2661aa3",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetInterfaceStateMachine.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-05T08:46:14Z",
+      "side": 1,
+      "message": "FWIW, blocking StateMachines like this is discouraged. It\u0027s usually better to introduce a new state that defers all messages (except potentially messages that should stop the class).\n\nNot sure if this also applies to SyncStateMachine, but I\u0027d assume it\u0027s even more important not to block than in a general StateMachine? Given that SyncStateMachine generally reuses a passed-in handler thread, then any blocking operations in it will block the passed-in thread.",
+      "range": {
+        "startLine": 105,
+        "startChar": 17,
+        "endLine": 105,
+        "endChar": 32
+      },
+      "revId": "903f2308251aeb286a96124df5a3e275dee3a64b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
