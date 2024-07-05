@@ -486,8 +486,8 @@ public class TetheringTest {
 
         @Nullable
         @Override
-        public LateSdk<RoutingCoordinatorManager> getRoutingCoordinator(final Context context) {
-            return new LateSdk<>(null);
+        public RoutingCoordinatorManager getRoutingCoordinator(final Context context) {
+            return null;
         }
 
         @Override
