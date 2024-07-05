@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d57aad_c55530c8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-05T10:07:42Z",
+      "side": 1,
+      "message": "Renamed to `isUsageSupportedForUpstreamType`",
+      "parentUuid": "b92bdbf6_5f54f293",
+      "range": {
+        "startLine": 378,
+        "startChar": 22,
+        "endLine": 378,
+        "endChar": 42
+      },
+      "revId": "e307b7ca1468a74c58304f7bab86d5b94e3eb5ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a5486b1_31c06821",
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "Maybe also move isAtLeastT into this function:\n\n\n    protected boolean isUsageSupported(@Nullable UpstreamType type) {\n        if (isAtLeastT() || type \u003d\u003d null) return false;\n\n        switch(type) {\n            case UT_CELLULAR:\n            case UT_WIFI:\n            case UT_BLUETOOTH:\n            case UT_ETHERNET:\n                return true;\n        }\n        return false;\n     }",
       "parentUuid": "5a5486b1_31c06821",
+      "range": {
+        "startLine": 377,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 5
+      },
+      "revId": "e307b7ca1468a74c58304f7bab86d5b94e3eb5ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6b2446a_2bd2ae98",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-05T10:07:42Z",
+      "side": 1,
+      "message": "Took your above suggestion and make it as a static method. I think `isAtLeastT()` should not put into the check because it\u0027s a liite hard to mock it in the tests.",
+      "parentUuid": "6f43d8ea_53ca8c69",
       "range": {
         "startLine": 377,
         "startChar": 0,
