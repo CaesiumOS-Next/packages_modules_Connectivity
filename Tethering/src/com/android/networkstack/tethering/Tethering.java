@@ -2086,6 +2086,7 @@ public class Tethering {
                     chooseUpstreamType(true);
                     mTryCell = false;
                 }
+                mTetheringMetrics.initializeUpstreamDataUsageAfterT();
             }
 
             @Override
