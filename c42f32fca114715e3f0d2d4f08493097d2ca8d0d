@@ -16,6 +16,24 @@
       "message": "As we discussed there\u0027s a number of server configs using this, for example the coverage config, so they should be updated first",
       "revId": "c42f32fca114715e3f0d2d4f08493097d2ca8d0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cb27a84_8bd19dfb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-05T06:14:58Z",
+      "side": 1,
+      "message": "cl/649541843 is merged.",
+      "parentUuid": "0395d989_e513fc53",
+      "revId": "c42f32fca114715e3f0d2d4f08493097d2ca8d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
