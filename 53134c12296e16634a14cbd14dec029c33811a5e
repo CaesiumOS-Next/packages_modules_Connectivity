@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea7b2519_6b4706fc",
+        "filename": "tests/cts/multidevices/AndroidTest.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-08T07:33:27Z",
+      "side": 1,
+      "message": "It looks like this kind of TODO was enforced for b/225958696, but that bug is now marked as fixed, so I\u0027m not sure it\u0027s still relevant. Possibly newer dependencies should be imported immediately ? How should this TODO be addressed ?",
+      "revId": "53134c12296e16634a14cbd14dec029c33811a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
