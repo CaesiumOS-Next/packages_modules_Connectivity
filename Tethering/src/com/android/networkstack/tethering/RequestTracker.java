@@ -18,6 +18,7 @@ package com.android.networkstack.tethering;
 
 import static android.net.TetheringManager.TETHER_ERROR_BLUETOOTH_SERVICE_PENDING;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
+import static android.net.TetheringManager.TetheringRequest.REQUEST_TYPE_EXPLICIT;
 
 import static com.android.networkstack.tethering.util.TetheringUtils.createPlaceholderRequest;
 
@@ -347,5 +348,18 @@ public class RequestTracker {
             return request;
         }
         return null;
+    }
+
+    public boolean hasActiveExplicitRequest(final int type) {
+        List<TetheringRequest> allRequests = new ArrayList<>();
+        allRequests.addAll(getPendingTetheringRequests());
+        allRequests.addAll(getServingTetheringRequests());
+        for (TetheringRequest request : allRequests) {
+            if (request.getTetheringType() == type
+                    && request.getRequestType() == REQUEST_TYPE_EXPLICIT) {
+                return true;
+            }
+        }
+        return false;
     }
 }
