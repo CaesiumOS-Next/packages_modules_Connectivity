@@ -46,6 +46,30 @@
       },
       "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfb27714_d9684a28",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-08T06:00:30Z",
+      "side": 1,
+      "message": "If the apps are not time-sensitive and don\u0027t rely on the number of broadcast, I agree this should be fine.\nIf we are not sure about out assumption, it\u0027s better to guard by kill switch flag at least.\n\nAlso, I think it\u0027s better to have another parameter for this delay (or update the comment).\nI think the usage in this CL is different from this comment.\n```\n    /**\n     * When global alert quota is high, wait for this delay before processing each polling,\n     * and do not schedule further polls once there is already one queued.\n     * This avoids firing the global alert too often on devices with high transfer speeds and\n     * high quota.\n     */\n    private static final int DEFAULT_PERFORM_POLL_DELAY_MS \u003d 1000;\n```\n\nOther than that, LGTM but since I\u0027m not familiar with network stats code, I want to get opinion from @reminv@google.com.",
+      "parentUuid": "882ccc75_7dc9ade5",
+      "range": {
+        "startLine": 2653,
+        "startChar": 8,
+        "endLine": 2653,
+        "endChar": 9
+      },
+      "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
