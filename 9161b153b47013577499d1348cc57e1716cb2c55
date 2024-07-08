@@ -116,6 +116,30 @@
       },
       "revId": "9161b153b47013577499d1348cc57e1716cb2c55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8b5b5a1_ce4d7381",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-08T21:29:20Z",
+      "side": 1,
+      "message": "Hm, I guess an additional problem with is that these Go devices fall under the GMS requirements to ship a recent mainline prebuilt. So any go devices releasing this fall might ship 2024-08 on an older OS version. An easier solution would be to not release a 2024-08 for Go devices...",
+      "parentUuid": "bf3befc0_34a145a1",
+      "range": {
+        "startLine": 1845,
+        "startChar": 41,
+        "endLine": 1845,
+        "endChar": 42
+      },
+      "revId": "9161b153b47013577499d1348cc57e1716cb2c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
