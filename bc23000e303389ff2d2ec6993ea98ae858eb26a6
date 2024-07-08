@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e00935d_93715a0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-08T08:10:29Z",
+      "side": 1,
+      "message": "Typo: lock",
+      "range": {
+        "startLine": 9,
+        "startChar": 8,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "bc23000e303389ff2d2ec6993ea98ae858eb26a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3932ffb8_c80dd5b9",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-08T08:10:29Z",
+      "side": 1,
+      "message": "While this probably works, it would be best to have the lock outside of the while loop I think, instead of grabbing it for each value",
+      "revId": "bc23000e303389ff2d2ec6993ea98ae858eb26a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
