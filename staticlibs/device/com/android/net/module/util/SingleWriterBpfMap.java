@@ -19,6 +19,7 @@ import android.os.Build;
 import android.system.ErrnoException;
 import android.util.Pair;
 
+import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
@@ -60,6 +61,7 @@ import java.util.NoSuchElementException;
 public class SingleWriterBpfMap<K extends Struct, V extends Struct> extends BpfMap<K, V> {
     // HashMap instead of ArrayMap because it performs better on larger maps, and many maps used in
     // our code can contain hundreds of items.
+    @GuardedBy("this")
     private final HashMap<K, V> mCache = new HashMap<>();
 
     // This should only ever be called (hence private) once for a given 'path'.
@@ -74,7 +76,9 @@ public class SingleWriterBpfMap<K extends Struct, V extends Struct> extends BpfM
         // Populate cache with the current map contents.
         K currentKey = super.getFirstKey();
         while (currentKey != null) {
-            mCache.put(currentKey, super.getValue(currentKey));
+            synchronized (this) {
+                mCache.put(currentKey, super.getValue(currentKey));
+            }
             currentKey = super.getNextKey(currentKey);
         }
     }
