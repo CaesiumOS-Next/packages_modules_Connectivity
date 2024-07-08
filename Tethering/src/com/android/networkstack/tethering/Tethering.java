@@ -54,6 +54,7 @@ import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_FAILED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STOPPED;
+import static android.net.TetheringManager.TetheringRequest.REQUEST_TYPE_EXPLICIT;
 import static android.net.TetheringManager.TetheringRequest.REQUEST_TYPE_IMPLICIT;
 import static android.net.TetheringManager.TetheringRequest.REQUEST_TYPE_PLACEHOLDER;
 import static android.net.TetheringManager.toIfaces;
@@ -113,6 +114,7 @@ import android.net.TetheringInterface;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.Uri;
 import android.net.ip.IpServer;
+import android.net.wifi.SoftApState;
 import android.net.wifi.WifiClient;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pGroup;
@@ -722,6 +724,19 @@ public class Tethering {
             }
             return null;
         }
+
+        private boolean hasActiveExplicitRequest(final int type) {
+            List<TetheringRequest> allRequests = new ArrayList<>();
+            allRequests.addAll(getPendingTetheringRequests());
+            allRequests.addAll(getServingTetheringRequests());
+            for (TetheringRequest request : allRequests) {
+                if (request.getTetheringType() == type
+                        && request.getRequestType() == REQUEST_TYPE_EXPLICIT) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
 >>>>>>> 2ae689309a (Stop tethering request only if fuzzy-matched to existing request)
@@ -946,7 +961,7 @@ public class Tethering {
         // TODO: fix the teardown path to stop depending on interface state notifications.
         // These are not necessary since most/all link layers have their own teardown
         // notifications, and can race with those notifications.
-        if (enabled && Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (enabled && SdkLevel.isAtLeastB()) {
             return;
         }
 
@@ -1014,15 +1029,8 @@ public class Tethering {
             final int type = request.getTetheringType();
             int addResult = mRequestTracker.addPendingRequest(request, listener);
             if (addResult == RequestTracker.ADD_RESULT_FAILURE_CONFLICTING_PENDING_REQUEST) {
-<<<<<<< HEAD
-<<<<<<< HEAD
                 stopTetheringInternal(type); // Also removes the request from the tracker.
-                mRequestTracker.addPendingRequest(request);
-=======
-                stopTetheringInternal(type);
                 mRequestTracker.addPendingRequest(request, listener);
->>>>>>> 75dedf2763 (no-op: Add pending listeners to RequestTracker)
-=======
                 // If tethering is already pending with a conflicting pending request, stop
                 // tethering before starting.
                 stopTetheringInternal(type);
@@ -1038,7 +1046,6 @@ public class Tethering {
                     }
                 }
                 return;
->>>>>>> fe0229c9de (Reject new TetheringRequests that fuzzy-match existing ones)
             }
 
             if (request.isExemptFromEntitlementCheck()) {
@@ -1105,7 +1112,7 @@ public class Tethering {
         final int result;
         switch (type) {
             case TETHERING_WIFI:
-                result = setWifiTethering(enable);
+                result = setWifiTethering(request, enable);
                 break;
             case TETHERING_USB:
                 result = setUsbTethering(enable);
@@ -1129,6 +1136,7 @@ public class Tethering {
 
         mRequestTracker.sendLinkLayerResult(enable, request, result);
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <<<<<<< HEAD
@@ -1155,9 +1163,15 @@ public class Tethering {
 =======
 >>>>>>> f8dfced1c9 (no-op: Use RequestTracker to track pending pan requests)
 =======
+=======
+>>>>>>> 61ea604b17 (Start tethered hotspot with TetheringRequest)
 git st
 >>>>>>> 6ebebfe95f (Send tether result after link layer goes up)
     private int setWifiTethering(final boolean enable) {
+=======
+
+    private int setWifiTethering(TetheringRequest request, final boolean enable) {
+>>>>>>> b2193679c5 (Start tethered hotspot with TetheringRequest)
         final long ident = Binder.clearCallingIdentity();
         try {
             final WifiManager mgr = getWifiManager();
@@ -1165,8 +1179,21 @@ git st
                 mLog.e("setWifiTethering: failed to get WifiManager!");
                 return TETHER_ERROR_SERVICE_UNAVAIL;
             }
-            if ((enable && mgr.startTetheredHotspot(null /* use existing softap config */))
-                    || (!enable && mgr.stopSoftAp())) {
+            final boolean success;
+            if (enable) {
+                if (isTetheringWithSoftApConfigEnabled()) {
+                    mgr.startTetheredHotspot(request, mExecutor,
+                            new StartTetheringSoftApCallback());
+                    // Result isn't used since we get the real result via
+                    // StartTetheringSoftApCallback.
+                    return TETHER_ERROR_NO_ERROR;
+                }
+                success = mgr.startTetheredHotspot(null);
+            } else {
+                success = mgr.stopSoftAp();
+            }
+
+            if (success) {
                 return TETHER_ERROR_NO_ERROR;
             }
         } finally {
@@ -1797,6 +1824,19 @@ git st
             final int curState = intent.getIntExtra(EXTRA_WIFI_AP_STATE, WIFI_AP_STATE_DISABLED);
             final String ifname = intent.getStringExtra(EXTRA_WIFI_AP_INTERFACE_NAME);
             final int ipmode = intent.getIntExtra(EXTRA_WIFI_AP_MODE, IFACE_IP_MODE_UNSPECIFIED);
+            Log.i(TAG, "handleWifiApAction " + curState + " " + ifname + " " + ipmode);
+
+            // We should enable/disable tethered serving via StartTetheringSoftApCallback, but
+            // sometimes we need to handle WIFI_AP_STATE_CHANGED action in case SoftAP starts
+            // without somebody calling startTethering (i.e. adb shell cmd wifi start-softap). We
+            // can determine if this broadcast is the result of startTethering or the shell command
+            // based on whether we have an explicit (i.e. from startTethering) request for wifi.
+            if (isTetheringWithSoftApConfigEnabled()
+                    && ipmode == IFACE_IP_MODE_TETHERED) {
+                if (mRequestTracker.hasActiveExplicitRequest(TETHERING_WIFI)) return;
+                Log.i(TAG, "Handling WIFI_AP_STATE_CHANGED for tethered mode since there was no"
+                        + " explicit request.");
+            }
 
             switch (curState) {
                 case WifiManager.WIFI_AP_STATE_ENABLING:
@@ -1811,12 +1851,6 @@ git st
                 case WifiManager.WIFI_AP_STATE_DISABLED:
                 case WifiManager.WIFI_AP_STATE_FAILED:
                 default:
-                    // Fail any pending tethered SoftAP requests since we might have failed before
-                    // we sent the start result.
-                    if (isTetheringWithSoftApConfigEnabled() && ipmode == IFACE_IP_MODE_TETHERED) {
-                        mRequestTracker.removePendingRequests(
-                                TETHERING_WIFI, TETHER_ERROR_NO_ERROR);
-                    }
                     disableWifiIpServing(ifname, curState);
                     break;
             }
@@ -1880,6 +1914,29 @@ git st
             mDataSaverEnabled = isDataSaverEnabled;
             if (mDataSaverEnabled) {
                 stopAllTethering();
+            }
+        }
+    }
+
+    class StartTetheringSoftApCallback implements SoftApCallback {
+        @Override
+        public void onStateChanged(SoftApState softApState) {
+            final int state = softApState.getState();
+            final String iface = softApState.getIface();
+            final TetheringRequest request = softApState.getTetheringRequest();
+            switch (softApState.getState()) {
+                case WifiManager.WIFI_AP_STATE_ENABLED:
+                    enableIpServing(request, iface);
+                    break;
+                case WifiManager.WIFI_AP_STATE_DISABLED:
+                case WifiManager.WIFI_AP_STATE_FAILED:
+                    disableWifiIpServing(iface, state);
+                    // Remove the pending request in case we got the failure while trying to start
+                    // SoftAP.
+                    mRequestTracker.removePendingRequest(request, TETHER_ERROR_SERVICE_UNAVAIL);
+                    break;
+                default:
+                    break;
             }
         }
     }
