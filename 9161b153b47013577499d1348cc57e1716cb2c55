@@ -68,6 +68,54 @@
       },
       "revId": "9161b153b47013577499d1348cc57e1716cb2c55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d635a14_911ebcb6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-08T19:43:01Z",
+      "side": 1,
+      "message": "Log.wtf() crashes userdebug builds, so testing this code before release means crashing droidfood devices on purpose (which I did not deem acceptable). I don\u0027t think there is a way around checking the build type here.",
+      "parentUuid": "d9c487b5_3fa55881",
+      "range": {
+        "startLine": 1845,
+        "startChar": 16,
+        "endLine": 1845,
+        "endChar": 41
+      },
+      "revId": "9161b153b47013577499d1348cc57e1716cb2c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf3befc0_34a145a1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-08T19:43:01Z",
+      "side": 1,
+      "message": "\u003e may be millions of reports/day\n\nThis is only logged on boot, and there is a 1/1000 chance, so the actual number is likely much lower.\n\n\n\u003e non-updatable Go devices\n\nSince they are not updatable, I wonder whether the right approach is to add a `\u0026\u0026 !isAtLeastV()` instead.\n\nWhat this doesn\u0027t solve though are devices which take 2024-08 as their last module. But neither does the !isLowRam check, so maybe that\u0027s okay? Alternatively, we could compare System#currentTimeMillis() against Date(2025, 1, 1) or similar.",
+      "parentUuid": "169b7591_068b9ce9",
+      "range": {
+        "startLine": 1845,
+        "startChar": 41,
+        "endLine": 1845,
+        "endChar": 42
+      },
+      "revId": "9161b153b47013577499d1348cc57e1716cb2c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
