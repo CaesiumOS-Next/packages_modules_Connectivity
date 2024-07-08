@@ -67,8 +67,10 @@ import static android.net.wifi.WifiManager.EXTRA_WIFI_AP_MODE;
 import static android.net.wifi.WifiManager.EXTRA_WIFI_AP_STATE;
 import static android.net.wifi.WifiManager.IFACE_IP_MODE_LOCAL_ONLY;
 import static android.net.wifi.WifiManager.IFACE_IP_MODE_TETHERED;
+import static android.net.wifi.WifiManager.SAP_START_FAILURE_GENERAL;
 import static android.net.wifi.WifiManager.WIFI_AP_STATE_DISABLED;
 import static android.net.wifi.WifiManager.WIFI_AP_STATE_ENABLED;
+import static android.net.wifi.WifiManager.WIFI_AP_STATE_FAILED;
 import static android.system.OsConstants.RT_SCOPE_UNIVERSE;
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
@@ -170,6 +172,7 @@ import android.net.ip.DadProxy;
 import android.net.ip.IpServer;
 import android.net.ip.RouterAdvertisementDaemon;
 import android.net.wifi.SoftApConfiguration;
+import android.net.wifi.SoftApState;
 import android.net.wifi.WifiClient;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.SoftApCallback;
@@ -243,6 +246,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
+import java.util.concurrent.Executor;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -833,6 +837,20 @@ public class TetheringTest {
         intent.putExtra(EXTRA_WIFI_AP_INTERFACE_NAME, ifname);
         intent.putExtra(EXTRA_WIFI_AP_MODE, ipmode);
         mServiceContext.sendStickyBroadcastAsUser(intent, UserHandle.ALL);
+        mLooper.dispatchAll();
+    }
+
+    private void sendStartTetheringSoftApCallback(int state, TetheringRequest request,
+            String ifname) {
+        ArgumentCaptor<SoftApCallback> callbackCaptor =
+                ArgumentCaptor.forClass(SoftApCallback.class);
+        verify(mWifiManager, atLeastOnce()).startTetheredHotspot(any(TetheringRequest.class),
+                any(Executor.class), callbackCaptor.capture());
+        SoftApState softApState = mock(SoftApState.class);
+        when(softApState.getState()).thenReturn(state);
+        when(softApState.getTetheringRequest()).thenReturn(request);
+        when(softApState.getIface()).thenReturn(ifname);
+        callbackCaptor.getValue().onStateChanged(softApState);
         mLooper.dispatchAll();
     }
 
@@ -1955,6 +1973,7 @@ public class TetheringTest {
 
     @Test
     public void failingWifiTetheringLegacyApBroadcast() throws Exception {
+        assumeFalse(isTetheringWithSoftApConfigEnabled());
         initTetheringOnTestThread();
         when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
 
@@ -1992,6 +2011,7 @@ public class TetheringTest {
     // TODO: Test with and without interfaceStatusChanged().
     @Test
     public void workingWifiTetheringEnrichedApBroadcast() throws Exception {
+        assumeFalse(isTetheringWithSoftApConfigEnabled());
         initTetheringOnTestThread();
         when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
 
@@ -2038,18 +2058,163 @@ public class TetheringTest {
         verifyStopHotpot();
     }
 
+    @Test
+    public void startWifiTetheringWithSoftApConfigurationSuccess() throws Exception {
+        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        initTetheringOnTestThread();
+
+        // Emulate pressing the WiFi tethering button.
+        TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(new SoftApConfiguration.Builder()
+                        .setWifiSsid(WifiSsid.fromBytes("SSID".getBytes(StandardCharsets.UTF_8)))
+                        .build())
+                .build();
+        IIntResultListener startResultListener = mock(IIntResultListener.class);
+        mTethering.startTethering(request, TEST_CALLER_PKG, startResultListener);
+        mLooper.dispatchAll();
+        ArgumentCaptor<SoftApCallback> callbackCaptor =
+                ArgumentCaptor.forClass(SoftApCallback.class);
+        verify(mWifiManager, times(1)).startTetheredHotspot(eq(request), any(Executor.class),
+                callbackCaptor.capture());
+        verifyNoMoreInteractions(mWifiManager);
+        verifyNoMoreInteractions(mNetd);
+        verify(startResultListener, never()).onResult(anyInt());
+        // Emulate Wifi iface enabled
+        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+        SoftApState state = mock(SoftApState.class);
+        when(state.getState()).thenReturn(WIFI_AP_STATE_ENABLED);
+        when(state.getTetheringRequest()).thenReturn(request);
+        when(state.getIface()).thenReturn(TEST_WLAN_IFNAME);
+        callbackCaptor.getValue().onStateChanged(state);
+        mLooper.dispatchAll();
+
+        verifyStartHotspot();
+        verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_ACTIVE_TETHER);
+        verify(startResultListener).onResult(TETHER_ERROR_NO_ERROR);
+    }
+
+    @Test
+    public void startWifiTetheringWithSoftApConfigurationFailure() throws Exception {
+        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        initTetheringOnTestThread();
+
+        // Emulate pressing the WiFi tethering button.
+        TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(new SoftApConfiguration.Builder()
+                        .setWifiSsid(WifiSsid.fromBytes("SSID".getBytes(StandardCharsets.UTF_8)))
+                        .build())
+                .build();
+        IIntResultListener startResultListener = mock(IIntResultListener.class);
+        mTethering.startTethering(request, TEST_CALLER_PKG, startResultListener);
+        mLooper.dispatchAll();
+        ArgumentCaptor<SoftApCallback> callbackCaptor =
+                ArgumentCaptor.forClass(SoftApCallback.class);
+        verify(mWifiManager, times(1)).startTetheredHotspot(eq(request), any(Executor.class),
+                callbackCaptor.capture());
+        verifyNoMoreInteractions(mWifiManager);
+        verifyNoMoreInteractions(mNetd);
+        verify(startResultListener, never()).onResult(anyInt());
+        // Emulate Wifi iface failure
+        SoftApState state = mock(SoftApState.class);
+        when(state.getState()).thenReturn(WIFI_AP_STATE_FAILED);
+        when(state.getFailureReason()).thenReturn(SAP_START_FAILURE_GENERAL);
+        when(state.getTetheringRequest()).thenReturn(request);
+        when(state.getIface()).thenReturn(TEST_WLAN_IFNAME);
+        callbackCaptor.getValue().onStateChanged(state);
+        mLooper.dispatchAll();
+
+        verify(startResultListener).onResult(TETHER_ERROR_SERVICE_UNAVAIL);
+    }
+
+    @Test
+    public void startWifiTetheringWithSoftApConfigurationFailureAfterStarting() throws Exception {
+        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        initTetheringOnTestThread();
+        when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
+
+        // Emulate pressing the WiFi tethering button.
+        TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(new SoftApConfiguration.Builder()
+                        .setWifiSsid(WifiSsid.fromBytes("SSID".getBytes(StandardCharsets.UTF_8)))
+                        .build())
+                .build();
+        IIntResultListener startResultListener = mock(IIntResultListener.class);
+        mTethering.startTethering(request, TEST_CALLER_PKG, startResultListener);
+        mLooper.dispatchAll();
+        ArgumentCaptor<SoftApCallback> callbackCaptor =
+                ArgumentCaptor.forClass(SoftApCallback.class);
+        verify(mWifiManager, times(1)).startTetheredHotspot(eq(request), any(Executor.class),
+                callbackCaptor.capture());
+        verifyNoMoreInteractions(mWifiManager);
+        verifyNoMoreInteractions(mNetd);
+        verify(startResultListener, never()).onResult(anyInt());
+
+        // Wifi success
+        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+        SoftApState state = mock(SoftApState.class);
+        when(state.getState()).thenReturn(WIFI_AP_STATE_ENABLED);
+        when(state.getTetheringRequest()).thenReturn(request);
+        when(state.getIface()).thenReturn(TEST_WLAN_IFNAME);
+        callbackCaptor.getValue().onStateChanged(state);
+        mLooper.dispatchAll();
+        verifyStartHotspot();
+        verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_ACTIVE_TETHER);
+        verify(startResultListener).onResult(TETHER_ERROR_NO_ERROR);
+
+        // Wifi failure
+        when(state.getState()).thenReturn(WIFI_AP_STATE_FAILED);
+        when(state.getFailureReason()).thenReturn(SAP_START_FAILURE_GENERAL);
+        when(state.getTetheringRequest()).thenReturn(request);
+        when(state.getIface()).thenReturn(TEST_WLAN_IFNAME);
+        callbackCaptor.getValue().onStateChanged(state);
+        mLooper.dispatchAll();
+
+        verifyNoMoreInteractions(startResultListener);
+        verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
+    }
+
+    @Test
+    public void startWifiApBroadcastDoesNotStartIpServing() throws Exception {
+        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        initTetheringOnTestThread();
+
+        // Call startTethering for wifi
+        TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(new SoftApConfiguration.Builder()
+                        .setWifiSsid(WifiSsid.fromBytes("SSID".getBytes(StandardCharsets.UTF_8)))
+                        .build())
+                .build();
+        IIntResultListener startResultListener = mock(IIntResultListener.class);
+        mTethering.startTethering(request, TEST_CALLER_PKG, startResultListener);
+        mLooper.dispatchAll();
+
+        // WIFI_AP_STATE_CHANGED broadcast should be ignored since we should only be using
+        // SoftApCallback for tethered AP.
+        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        sendWifiApStateChanged(WIFI_AP_STATE_DISABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        verify(mNetd, never()).tetherStartWithConfiguration(any());
+        verify(mNotificationUpdater, never()).onDownstreamChanged(DOWNSTREAM_NONE);
+        verify(mWifiManager, never()).updateInterfaceIpState(
+                TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
+        assertTrue(mTethering.getServingTetheringRequests().isEmpty());
+    }
+
     // TODO: Test with and without interfaceStatusChanged().
     @Test
     public void failureEnablingIpForwarding() throws Exception {
         initTetheringOnTestThread();
-        when(mWifiManager.startTetheredHotspot(any(SoftApConfiguration.class))).thenReturn(true);
+        when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
         doThrow(new RemoteException()).when(mNetd).ipfwdEnableForwarding(TETHERING_NAME);
 
         // Emulate pressing the WiFi tethering button.
-        mTethering.startTethering(createTetheringRequest(TETHERING_WIFI), TEST_CALLER_PKG,
-                null);
+        TetheringRequest request = createTetheringRequest(TETHERING_WIFI);
+        mTethering.startTethering(request, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
-        verify(mWifiManager, times(1)).startTetheredHotspot(null);
+        if (isTetheringWithSoftApConfigEnabled()) {
+            verify(mWifiManager, times(1)).startTetheredHotspot(any(), any(), any());
+        } else {
+            verify(mWifiManager, times(1)).startTetheredHotspot(null);
+        }
         verifyNoMoreInteractions(mWifiManager);
         verifyNoMoreInteractions(mNetd);
         verify(mTetheringMetrics).createBuilder(eq(TETHERING_WIFI), anyString());
@@ -2058,7 +2223,11 @@ public class TetheringTest {
         // per-interface state machine to start up, and telling us that
         // tethering mode is to be started.
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        if (isTetheringWithSoftApConfigEnabled()) {
+            sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, request, TEST_WLAN_IFNAME);
+        } else {
+            sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        }
 
         // We verify get/set called three times here: twice for setup and once during
         // teardown because all events happen over the course of the single
@@ -2092,9 +2261,9 @@ public class TetheringTest {
                 TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_CONFIGURATION_ERROR);
 
         verify(mTetheringMetrics, times(0)).maybeUpdateUpstreamType(any());
-        verify(mTetheringMetrics, times(2)).updateErrorCode(eq(TETHERING_WIFI),
+        verify(mTetheringMetrics, times(1)).updateErrorCode(eq(TETHERING_WIFI),
                 eq(TETHER_ERROR_INTERNAL_ERROR));
-        verify(mTetheringMetrics, times(2)).sendReport(eq(TETHERING_WIFI));
+        verify(mTetheringMetrics, times(1)).sendReport(eq(TETHERING_WIFI));
 
         verifyNoMoreInteractions(mWifiManager);
         verifyNoMoreInteractions(mNetd);
@@ -2388,7 +2557,8 @@ public class TetheringTest {
         initTetheringUpstream(upstreamState);
         when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
 
-        mTethering.startTethering(createTetheringRequest(TETHERING_WIFI), TEST_CALLER_PKG,
+        TetheringRequest request = createTetheringRequest(TETHERING_WIFI);
+        mTethering.startTethering(request, TEST_CALLER_PKG,
                 null);
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
         mLooper.dispatchAll();
@@ -2396,7 +2566,12 @@ public class TetheringTest {
             // Starting in B, ignore the interfaceStatusChanged
             callback.assertNoStateChangeCallback();
         }
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+
+        if (isTetheringWithSoftApConfigEnabled()) {
+            sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, request, TEST_WLAN_IFNAME);
+        } else {
+            sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        }
         mLooper.dispatchAll();
         tetherState = callback.pollTetherStatesChanged();
         assertArrayEquals(tetherState.availableList, new TetheringInterface[] {wifiIface});
@@ -2420,12 +2595,18 @@ public class TetheringTest {
         mTethering.unregisterTetheringEventCallback(callback);
         mLooper.dispatchAll();
         mTethering.stopTethering(TETHERING_WIFI);
-        sendWifiApStateChanged(WIFI_AP_STATE_DISABLED);
-        if (isAtLeastT()) {
-            // After T, tethering doesn't support WIFI_AP_STATE_DISABLED with null interface name.
-            callback2.assertNoStateChangeCallback();
-            sendWifiApStateChanged(WIFI_AP_STATE_DISABLED, TEST_WLAN_IFNAME,
-                    IFACE_IP_MODE_TETHERED);
+
+        if (isTetheringWithSoftApConfigEnabled()) {
+            sendStartTetheringSoftApCallback(WIFI_AP_STATE_DISABLED, request, TEST_WLAN_IFNAME);
+        } else {
+            sendWifiApStateChanged(WIFI_AP_STATE_DISABLED);
+            if (isAtLeastT()) {
+                // After T, tethering doesn't support WIFI_AP_STATE_DISABLED with null interface
+                // name.
+                callback2.assertNoStateChangeCallback();
+                sendWifiApStateChanged(WIFI_AP_STATE_DISABLED, TEST_WLAN_IFNAME,
+                        IFACE_IP_MODE_TETHERED);
+            }
         }
         tetherState = callback2.pollTetherStatesChanged();
         assertArrayEquals(tetherState.availableList, new TetheringInterface[] {wifiIface});
@@ -2489,7 +2670,6 @@ public class TetheringTest {
         callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STOPPED);
         UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
         initTetheringUpstream(upstreamState);
-        when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
 
         // Enable wifi tethering
         mBinderCallingUid = TEST_CALLER_UID;
@@ -2499,7 +2679,8 @@ public class TetheringTest {
         mLooper.dispatchAll();
         // Netd "up" event should not trigger a state change callback in B+.
         callback.assertNoStateChangeCallback();
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, tetheringRequest,
+                TEST_WLAN_IFNAME);
         // Verify we see  Available -> Tethered states
         assertArrayEquals(new TetheringInterface[] {wifiIfaceWithoutConfig},
                 callback.pollTetherStatesChanged().availableList);
@@ -2519,8 +2700,8 @@ public class TetheringTest {
         // Disable wifi tethering
         mTethering.stopTethering(TETHERING_WIFI);
         mLooper.dispatchAll();
-        sendWifiApStateChanged(WIFI_AP_STATE_DISABLED, TEST_WLAN_IFNAME,
-                    IFACE_IP_MODE_TETHERED);
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_DISABLED, tetheringRequest,
+                TEST_WLAN_IFNAME);
         assertArrayEquals(new TetheringInterface[] {wifiIfaceWithoutConfig},
                 callback.pollTetherStatesChanged().availableList);
         assertArrayEquals(new TetheringInterface[] {wifiIfaceWithoutConfig},
@@ -2567,10 +2748,9 @@ public class TetheringTest {
                 .setSoftApConfiguration(softApConfig).build();
         tetheringRequest.setUid(TEST_CALLER_UID);
         ResultListener successListener = new ResultListener(TETHER_ERROR_NO_ERROR);
-        when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener);
         mLooper.dispatchAll();
-        successListener.assertHasResult();
+        successListener.assertDoesNotHaveResult();
 
         // Try starting wifi tethering with various fuzzy-matching requests and verify we get
         // TETHER_ERROR_DUPLICATE_REQUEST.
@@ -2585,7 +2765,7 @@ public class TetheringTest {
         ResultListener differentIpAddrListener = new ResultListener(TETHER_ERROR_DUPLICATE_REQUEST);
         mTethering.startTethering(differentIpAddr, TEST_CALLER_PKG, differentIpAddrListener);
         mLooper.dispatchAll();
-        verify(mWifiManager, times(1)).startTetheredHotspot(any());
+        verify(mWifiManager, times(1)).startTetheredHotspot(any(), any(), any());
         verify(mWifiManager, never()).stopSoftAp();
         differentIpAddrListener.assertHasResult();
 
@@ -2597,13 +2777,14 @@ public class TetheringTest {
         mTethering.startTethering(differentUid, TEST_CALLER_PKG, differentUidListener);
         mLooper.dispatchAll();
         differentUidListener.assertHasResult();
-        verify(mWifiManager, times(1)).startTetheredHotspot(any());
+        verify(mWifiManager, times(1)).startTetheredHotspot(any(), any(), any());
         verify(mWifiManager, never()).stopSoftAp();
 
-        // Mock the link layer event to start IP serving and verify we still get
-        // TETHER_ERROR_DUPLICATE_REQUEST even though the request is no longer pending and is
-        // already serving.
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        // Mock the link layer event to start IP serving and verify
+        // 1) The original request's result listener is called.
+        // 2) We still get TETHER_ERROR_DUPLICATE_REQUEST for new requests.
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, tetheringRequest, TEST_WLAN_IFNAME);
+        successListener.assertHasResult();
         assertArrayEquals(new TetheringInterface[] {wifiIfaceWithoutConfig},
                 callback.pollTetherStatesChanged().availableList);
         assertArrayEquals(new TetheringInterface[] {wifiIfaceWithConfig},
@@ -2617,7 +2798,7 @@ public class TetheringTest {
         mLooper.dispatchAll();
         differentIpAddrListener.assertHasResult();
         differentUidListener.assertHasResult();
-        verify(mWifiManager, times(1)).startTetheredHotspot(any());
+        verify(mWifiManager, times(1)).startTetheredHotspot(any(), any(), any());
         verify(mWifiManager, never()).stopSoftAp();
     }
 
@@ -2635,8 +2816,8 @@ public class TetheringTest {
         ResultListener successListener = new ResultListener(TETHER_ERROR_NO_ERROR);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener);
         mLooper.dispatchAll();
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, tetheringRequest, TEST_WLAN_IFNAME);
         successListener.assertHasResult();
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
 
         // Starting wifi again will cause TETHER_ERROR_DUPLICATE_REQUEST
         ResultListener failureListener = new ResultListener(TETHER_ERROR_DUPLICATE_REQUEST);
@@ -2668,9 +2849,8 @@ public class TetheringTest {
         ResultListener successListener = new ResultListener(TETHER_ERROR_NO_ERROR);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener);
         mLooper.dispatchAll();
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, tetheringRequest, TEST_WLAN_IFNAME);
         successListener.assertHasResult();
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
-
         // Starting wifi again will cause TETHER_ERROR_DUPLICATE_REQUEST
         ResultListener failureListener = new ResultListener(TETHER_ERROR_DUPLICATE_REQUEST);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, failureListener);
@@ -2678,12 +2858,14 @@ public class TetheringTest {
         failureListener.assertHasResult();
 
         // Trigger wifi ap state change to tell IpServer it's unwanted.
-        sendWifiApStateChanged(WIFI_AP_STATE_DISABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
-
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_DISABLED, tetheringRequest,
+                TEST_WLAN_IFNAME);
         // We should be able to request the same Wifi again
         ResultListener successListener2 = new ResultListener(TETHER_ERROR_NO_ERROR);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener2);
         mLooper.dispatchAll();
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, tetheringRequest,
+                TEST_WLAN_IFNAME);
         successListener2.assertHasResult();
     }
 
@@ -2704,14 +2886,15 @@ public class TetheringTest {
         ResultListener successListener = new ResultListener(TETHER_ERROR_NO_ERROR);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener);
         mLooper.dispatchAll();
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, tetheringRequest, TEST_WLAN_IFNAME);
         successListener.assertHasResult();
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
 
         // We should be able to request the same Wifi again since the DHCP server transitioned the
         // IpServer back to InitialState.
         ResultListener successListener2 = new ResultListener(TETHER_ERROR_NO_ERROR);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener2);
         mLooper.dispatchAll();
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, tetheringRequest, TEST_WLAN_IFNAME);
         successListener2.assertHasResult();
     }
 
@@ -2729,7 +2912,6 @@ public class TetheringTest {
         ResultListener successListener = new ResultListener(TETHER_ERROR_NO_ERROR);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener);
         mLooper.dispatchAll();
-        successListener.assertHasResult();
 
         // Starting wifi again will cause TETHER_ERROR_DUPLICATE_REQUEST
         ResultListener failureListener = new ResultListener(TETHER_ERROR_DUPLICATE_REQUEST);
@@ -2744,6 +2926,7 @@ public class TetheringTest {
         ResultListener successListener2 = new ResultListener(TETHER_ERROR_NO_ERROR);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener2);
         mLooper.dispatchAll();
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, tetheringRequest, TEST_WLAN_IFNAME);
         successListener2.assertHasResult();
     }
 
@@ -2761,8 +2944,8 @@ public class TetheringTest {
         ResultListener successListener = new ResultListener(TETHER_ERROR_NO_ERROR);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener);
         mLooper.dispatchAll();
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, tetheringRequest, TEST_WLAN_IFNAME);
         successListener.assertHasResult();
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
 
         // Starting wifi again will cause TETHER_ERROR_DUPLICATE_REQUEST
         ResultListener failureListener = new ResultListener(TETHER_ERROR_DUPLICATE_REQUEST);
@@ -2777,6 +2960,7 @@ public class TetheringTest {
         ResultListener successListener2 = new ResultListener(TETHER_ERROR_NO_ERROR);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener2);
         mLooper.dispatchAll();
+        sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, tetheringRequest, TEST_WLAN_IFNAME);
         successListener2.assertHasResult();
     }
 
@@ -3359,11 +3543,16 @@ public class TetheringTest {
 
     @Test
     public void testExemptFromEntitlementCheck() throws Exception {
+        assumeFalse(isTetheringWithSoftApConfigEnabled());
         initTetheringOnTestThread();
         setupForRequiredProvisioning();
-        final TetheringRequest wifiNotExemptRequest =
-                createTetheringRequest(TETHERING_WIFI, null, null, false,
-                        CONNECTIVITY_SCOPE_GLOBAL, null);
+        TetheringRequest wifiNotExemptRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setExemptFromEntitlementCheck(false)
+                .setShouldShowEntitlementUi(false)
+                .setSoftApConfiguration(new SoftApConfiguration.Builder()
+                        .setWifiSsid(WifiSsid.fromBytes("SSID".getBytes(StandardCharsets.UTF_8)))
+                        .build())
+                .build();
         mTethering.startTethering(wifiNotExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr).startProvisioningIfNeeded(TETHERING_WIFI, false);
@@ -3375,9 +3564,13 @@ public class TetheringTest {
         reset(mEntitleMgr);
 
         setupForRequiredProvisioning();
-        final TetheringRequest wifiExemptRequest =
-                createTetheringRequest(TETHERING_WIFI, null, null, true,
-                        CONNECTIVITY_SCOPE_GLOBAL, null);
+        TetheringRequest wifiExemptRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setExemptFromEntitlementCheck(true)
+                .setShouldShowEntitlementUi(false)
+                .setSoftApConfiguration(new SoftApConfiguration.Builder()
+                        .setWifiSsid(WifiSsid.fromBytes("SSID2".getBytes(StandardCharsets.UTF_8)))
+                        .build())
+                .build();
         mTethering.startTethering(wifiExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr, never()).startProvisioningIfNeeded(TETHERING_WIFI, false);
@@ -3588,8 +3781,15 @@ public class TetheringTest {
         reset(mDhcpServer);
 
         // Run wifi tethering.
-        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        if (isTetheringWithSoftApConfigEnabled()) {
+            TetheringRequest request = createTetheringRequest(TETHERING_WIFI);
+            mTethering.startTethering(request, TEST_CALLER_PKG, null);
+            mLooper.dispatchAll();
+            sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, request, TEST_WLAN_IFNAME);
+        } else {
+            mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+            sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        }
         verify(mDhcpServer, timeout(DHCPSERVER_START_TIMEOUT_MS)).startWithCallbacks(
                 any(), dhcpEventCbsCaptor.capture());
         eventCallbacks = dhcpEventCbsCaptor.getValue();
@@ -3652,8 +3852,15 @@ public class TetheringTest {
         });
         callback.expectTetheredClientChanged(Collections.emptyList());
 
-        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        if (isTetheringWithSoftApConfigEnabled()) {
+            TetheringRequest request = createTetheringRequest(TETHERING_WIFI);
+            mTethering.startTethering(request, TEST_CALLER_PKG, null);
+            mLooper.dispatchAll();
+            sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, request, TEST_WLAN_IFNAME);
+        } else {
+            mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+            sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        }
         final ArgumentCaptor<IDhcpEventCallbacks> dhcpEventCbsCaptor =
                  ArgumentCaptor.forClass(IDhcpEventCallbacks.class);
         verify(mDhcpServer, timeout(DHCPSERVER_START_TIMEOUT_MS)).startWithCallbacks(
@@ -4184,8 +4391,15 @@ public class TetheringTest {
     @Test
     public void testIpv4AddressForSapAndLohsConcurrency() throws Exception {
         initTetheringOnTestThread();
+        TetheringRequest request = createTetheringRequest(TETHERING_WIFI);
+        mTethering.startTethering(request, TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        if (isTetheringWithSoftApConfigEnabled()) {
+            sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, request, TEST_WLAN_IFNAME);
+        } else {
+            sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        }
 
         ArgumentCaptor<InterfaceConfigurationParcel> ifaceConfigCaptor =
                 ArgumentCaptor.forClass(InterfaceConfigurationParcel.class);
@@ -4220,14 +4434,22 @@ public class TetheringTest {
 
         when(mWifiManager.startTetheredHotspot(any())).thenReturn(true);
         // Emulate pressing the WiFi tethering button.
-        mTethering.startTethering(createTetheringRequest(TETHERING_WIFI), TEST_CALLER_PKG,
-                null);
+        TetheringRequest request = createTetheringRequest(TETHERING_WIFI);
+        mTethering.startTethering(request, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
-        verify(mWifiManager).startTetheredHotspot(null);
+        if (isTetheringWithSoftApConfigEnabled()) {
+            verify(mWifiManager).startTetheredHotspot(any(), any(), any());
+        } else {
+            verify(mWifiManager).startTetheredHotspot(null);
+        }
         verifyNoMoreInteractions(mWifiManager);
 
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
-        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        if (isTetheringWithSoftApConfigEnabled()) {
+            sendStartTetheringSoftApCallback(WIFI_AP_STATE_ENABLED, request, TEST_WLAN_IFNAME);
+        } else {
+            sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        }
 
         verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
         verify(mWifiManager).updateInterfaceIpState(
