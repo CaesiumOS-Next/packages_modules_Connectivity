@@ -16,6 +16,24 @@
       "message": "Nit: This shouldn\u0027t actually be necessary since there\u0027s framework-connectivity.stubs.module_lib right below.\n\nNo need to respin for that though.",
       "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "824a445b_4121a9d0",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-08T08:17:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fed32b00_b748c6c9",
+      "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

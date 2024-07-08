@@ -223,6 +223,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41fdac5a_a4ffcb74",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-08T08:17:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0e93e91d_6a5166e0",
+      "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "373142dd_fd1afb8f",
@@ -336,6 +354,24 @@
       "side": 1,
       "message": "The AIDL tool will complain:\n\n```\nerror: system/tools/aidl/build/Android.bp:56:1: module \"aidl_metadata_json\": depends on //packages/modules/Connectivity/staticlibs:net-utils-non-bootclasspath-aidl-java-source which is not visible to this module\nYou may need to add \"//system/tools/aidl/build\" to its visibility\n```\n\nI don\u0027t know the exact reason. Probably because it\u0027s unstable?",
       "parentUuid": "035b8d27_875fd564",
+      "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b360b2e_3c008cdc",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-08T08:17:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "76179b04_53ab8626",
       "revId": "de6d0768ced1376b3705bf507e974fb0cb7f5c4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
