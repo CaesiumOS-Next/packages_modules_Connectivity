@@ -47,6 +47,7 @@ import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
+import static android.net.TetheringManager.TETHER_ERROR_SOFT_AP_CALLBACK_PENDING;
 import static android.net.TetheringManager.TETHER_ERROR_UNAVAIL_IFACE;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_IFACE;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_REQUEST;
@@ -114,6 +115,7 @@ import android.net.TetheringInterface;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.Uri;
 import android.net.ip.IpServer;
+import android.net.wifi.SoftApState;
 import android.net.wifi.WifiClient;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pGroup;
@@ -784,7 +786,7 @@ public class Tethering {
         final int result;
         switch (type) {
             case TETHERING_WIFI:
-                result = setWifiTethering(enable);
+                result = setWifiTethering(enable, request, listener);
                 break;
             case TETHERING_USB:
                 result = setUsbTethering(enable);
@@ -808,6 +810,9 @@ public class Tethering {
 
         // The result of Bluetooth tethering will be sent after the pan service connects.
         if (result == TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) return;
+
+        // The result of Wifi tethering will be sent after the SoftApCallback result.
+        if (result == TETHER_ERROR_SOFT_AP_CALLBACK_PENDING) return;
 
         sendTetherResultAndRemoveOnError(request, listener, result);
     }
@@ -833,7 +838,8 @@ public class Tethering {
         }
     }
 
-    private int setWifiTethering(final boolean enable) {
+    private int setWifiTethering(final boolean enable, TetheringRequest request,
+            IIntResultListener listener) {
         final long ident = Binder.clearCallingIdentity();
         try {
             final WifiManager mgr = getWifiManager();
@@ -841,8 +847,21 @@ public class Tethering {
                 mLog.e("setWifiTethering: failed to get WifiManager!");
                 return TETHER_ERROR_SERVICE_UNAVAIL;
             }
-            if ((enable && mgr.startTetheredHotspot(null /* use existing softap config */))
-                    || (!enable && mgr.stopSoftAp())) {
+            final boolean success;
+            if (enable) {
+                if (isTetheringWithSoftApConfigEnabled()) {
+                    mgr.startTetheredHotspot(request, mExecutor,
+                            new StartTetheringSoftApCallback(listener));
+                    // Result isn't used since we get the real result via
+                    // StartTetheringSoftApCallback.
+                    return TETHER_ERROR_SOFT_AP_CALLBACK_PENDING;
+                }
+                success = mgr.startTetheredHotspot(null);
+            } else {
+                success = mgr.stopSoftAp();
+            }
+
+            if (success) {
                 return TETHER_ERROR_NO_ERROR;
             }
         } finally {
@@ -1469,6 +1488,9 @@ public class Tethering {
             final String ifname = intent.getStringExtra(EXTRA_WIFI_AP_INTERFACE_NAME);
             final int ipmode = intent.getIntExtra(EXTRA_WIFI_AP_MODE, IFACE_IP_MODE_UNSPECIFIED);
 
+            // In B+, Tethered AP is handled by StartTetheringSoftApCallback.
+            if (isTetheringWithSoftApConfigEnabled() && ipmode == IFACE_IP_MODE_TETHERED) return;
+
             switch (curState) {
                 case WifiManager.WIFI_AP_STATE_ENABLING:
                     // We can see this state on the way to both enabled and failure states.
@@ -1549,9 +1571,50 @@ public class Tethering {
         }
     }
 
+    class StartTetheringSoftApCallback implements SoftApCallback {
+
+        @Nullable
+        IIntResultListener mPendingListener;
+
+        StartTetheringSoftApCallback(IIntResultListener pendingListener) {
+            mPendingListener = pendingListener;
+        }
+
+        @Override
+        public void onStateChanged(SoftApState softApState) {
+            final int state = softApState.getState();
+            final String iface = softApState.getIface();
+            final TetheringRequest request = softApState.getTetheringRequest();
+            switch (softApState.getState()) {
+                case WifiManager.WIFI_AP_STATE_ENABLED:
+                    enableIpServing(request, iface);
+                    sendTetherResultAndRemoveOnError(request, mPendingListener,
+                            TETHER_ERROR_NO_ERROR);
+                    mPendingListener = null;
+                    break;
+                case WifiManager.WIFI_AP_STATE_FAILED:
+                    sendTetherResultAndRemoveOnError(request, mPendingListener,
+                            TETHER_ERROR_SERVICE_UNAVAIL);
+                    mPendingListener = null;
+                    disableWifiIpServing(iface, state);
+                    break;
+                case WifiManager.WIFI_AP_STATE_DISABLED:
+                    disableWifiIpServing(iface, state);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     @VisibleForTesting
     List<TetheringRequest> getPendingTetheringRequests() {
         return mRequestTracker.getPendingTetheringRequests();
+    }
+
+    @VisibleForTesting
+    List<TetheringRequest> getServingTetheringRequests() {
+        return mRequestTracker.getServingTetheringRequests();
     }
 
     @VisibleForTesting
