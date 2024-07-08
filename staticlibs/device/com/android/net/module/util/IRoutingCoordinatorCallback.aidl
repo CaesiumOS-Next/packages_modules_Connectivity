@@ -16,7 +16,7 @@
 
 package com.android.net.module.util;
 
-import android.net.RouteInfo;
+import android.net.IpPrefix;
 
 /** @hide */
 // TODO: b/350630377 - This @Descriptor annotation workaround is to prevent the class from being
@@ -24,5 +24,5 @@ import android.net.RouteInfo;
 // to an incorrect interface" when calling the IPC.
 @Descriptor("value=no.jarjar.com.android.net.module.util.IRoutingCoordinatorCallback")
 oneway interface IRoutingCoordinatorCallback {
-    void onIpv4PrefixConflict();
+    void onIpv4PrefixConflict(in IpPrefix ipPrefix);
 }

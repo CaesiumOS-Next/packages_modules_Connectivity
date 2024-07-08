@@ -703,6 +703,12 @@ public class IpServer extends StateMachineShim {
         if (shouldNotConfigureBluetoothInterface()) return new LinkAddress(BLUETOOTH_IFACE_ADDR);
 
         return mPrivateAddressCoordinator.requestDownstreamAddress(this, scope, useLastAddress);
+//        // 111111111
+//        return mRoutingCoordinator.requestDownstreamAddress(
+//                mInterfaceType,
+//                scope,
+//                useLastAddress,
+//                () -> this.sendMessage(CMD_NOTIFY_PREFIX_CONFLICT));
     }
 
     private boolean startIPv6() {
