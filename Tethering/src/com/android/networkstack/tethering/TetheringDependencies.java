@@ -151,7 +151,7 @@ public abstract class TetheringDependencies {
     public abstract Looper makeTetheringLooper();
 
     /**
-     *  Get Context of TetheringService.
+     * Get Context of TetheringService.
      */
     public abstract Context getContext();
 
@@ -206,5 +206,13 @@ public abstract class TetheringDependencies {
     public boolean isMultipleTetheringRequestsPerTypeEnabled(Context ctx) {
         return DeviceConfigUtils.isTetheringFeatureEnabled(ctx,
                 "multiple_tethering_requests_per_type");
+    }
+
+    /**
+     * Returns whether the tethering_request_with_soft_ap_config feature flag is enabled.
+     */
+    public boolean isTetheringRequestWithSoftApConfigEnabled(Context ctx) {
+        return DeviceConfigUtils.isTetheringFeatureEnabled(ctx,
+                "tethering_request_with_soft_ap_config");
     }
 }
