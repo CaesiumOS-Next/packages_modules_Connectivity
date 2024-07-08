@@ -36,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.SdkUtil.LateSdk;
 import com.android.net.module.util.SharedLog;
 import com.android.networkstack.apishim.BluetoothPanShimImpl;
@@ -196,5 +197,13 @@ public abstract class TetheringDependencies {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public WearableConnectionManager makeWearableConnectionManager(Context ctx) {
         return new WearableConnectionManager(ctx);
+    }
+
+    /**
+     * Returns whether the tethering_request_with_soft_ap_config feature flag is enabled.
+     */
+    public boolean isTetheringRequestWithSoftApConfigEnabled(Context ctx) {
+        return DeviceConfigUtils.isTetheringFeatureEnabled(ctx,
+                "tethering_request_with_soft_ap_config");
     }
 }
