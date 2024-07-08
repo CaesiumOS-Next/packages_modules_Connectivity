@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6ee9a3c_6d5f4b74",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-07-08T05:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "385a0362_2e371e9a",
+      "range": {
+        "startLine": 509,
+        "startChar": 0,
+        "endLine": 0,
+        "endChar": 0
+      },
+      "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45ac8d24_e3aa43dd",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-07-08T05:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f65fe2d9_41adaa60",
+      "range": {
+        "startLine": 0,
+        "startChar": 0,
+        "endLine": 0,
+        "endChar": 0
+      },
+      "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8f519ae_eaefd555",
@@ -82,6 +130,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "530ccbd9_47fc54d7",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-07-08T05:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8f519ae_eaefd555",
+      "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73611cfd_3e2b8010",
@@ -95,6 +161,30 @@
       "writtenOn": "2024-07-02T08:52:33Z",
       "side": 1,
       "message": "Why is the \"unsupported\" value indicated by MAX and not MIN? Does MIN have a special meaning?",
+      "range": {
+        "startLine": 628,
+        "startChar": 21,
+        "endLine": 628,
+        "endChar": 30
+      },
+      "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "690a347d_7865b713",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-07-08T05:04:57Z",
+      "side": 1,
+      "message": "The maximum output power cannot reach the MAX value (5E+29 W)in real situations. So we just choice the MAX value as the `unsupported` value. The MIN doesn\u0027t have a special meaning.",
+      "parentUuid": "73611cfd_3e2b8010",
       "range": {
         "startLine": 628,
         "startChar": 21,
