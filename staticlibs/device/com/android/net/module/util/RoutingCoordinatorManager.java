@@ -17,6 +17,7 @@
 package com.android.net.module.util;
 
 import android.content.Context;
+import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -173,6 +174,27 @@ public class RoutingCoordinatorManager {
     public void removeUpstreamPrefix(Network network) {
         try {
             mService.removeUpstreamPrefix(network);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    public void maybeRemoveDeprecatedUpstreams() {
+        try {
+            mService.maybeRemoveDeprecatedUpstreams();
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    public LinkAddress requestDownstreamAddress(
+            int interfaceType,
+            int scope,
+            boolean useLastAddress,
+            IRoutingCoordinatorCallback callback) {
+        try {
+            return mService.requestDownstreamAddress(
+                    interfaceType, scope, useLastAddress, callback);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }

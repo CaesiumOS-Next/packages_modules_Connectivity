@@ -2078,6 +2078,8 @@ public class Tethering {
                 }
 
                 mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams();
+                // 1111111 RoutingCoordinator
+                mRoutingCoordinator.maybeRemoveDeprecatedUpstreams();
                 mUpstreamNetworkMonitor.startObserveAllNetworks();
 
                 // TODO: De-duplicate with updateUpstreamWanted() below.

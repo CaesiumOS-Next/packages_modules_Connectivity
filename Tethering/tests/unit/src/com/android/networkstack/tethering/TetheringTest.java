@@ -491,7 +491,7 @@ public class TetheringTest {
         @Override
         public RoutingCoordinatorManager getRoutingCoordinator(final Context context) {
             RoutingCoordinatorService routingCoordinatorService =
-                    new RoutingCoordinatorService(mNetd);
+                    new RoutingCoordinatorService(mNetd, mCm);
             mRoutingCoordinatorManager =
                     new RoutingCoordinatorManager(context, routingCoordinatorService);
             return mRoutingCoordinatorManager;

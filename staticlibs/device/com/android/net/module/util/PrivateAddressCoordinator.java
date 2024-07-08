@@ -36,6 +36,7 @@ import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 //import android.net.ip.IpServer;
+import android.os.RemoteException;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
@@ -53,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -76,7 +78,7 @@ public class PrivateAddressCoordinator {
     // mUpstreamPrefixMap when tethering is starting. See #maybeRemoveDeprecatedUpstreams().
     private final ArrayMap<Network, List<IpPrefix>> mUpstreamPrefixMap;
 //    private final ArraySet<IpServer> mDownstreams;
-    private final ArraySet<Integer> mDownstreams;
+    private final ArrayMap<IRoutingCoordinatorCallback, IpPrefix> mDownstreams;
     private static final String LEGACY_WIFI_P2P_IFACE_ADDRESS = "192.168.49.1/24";
     private static final String LEGACY_BLUETOOTH_IFACE_ADDRESS = "192.168.44.1/24";
     private final List<IpPrefix> mTetheringPrefixes;
@@ -91,7 +93,7 @@ public class PrivateAddressCoordinator {
     private int mNextClientId = 1;
 
     public PrivateAddressCoordinator(@NonNull ConnectivityManager cm) {
-        mDownstreams = new ArraySet<>();
+        mDownstreams = new ArrayMap<>();
         mUpstreamPrefixMap = new ArrayMap<>();
         mConnectivityMgr = cm;
 
@@ -158,6 +160,24 @@ public class PrivateAddressCoordinator {
 //                }
 //            }
 //        }
+        for (Map.Entry downstream : mDownstreams.entrySet()) {
+//            final IpPrefix target = getDownstreamPrefix(downstream);
+            final IpPrefix target = (IpPrefix) downstream.getValue();
+
+            for (IpPrefix source : prefixes) {
+                if (isConflictPrefix(source, target)) {
+                    try {
+                        ((IRoutingCoordinatorCallback) downstream.getKey())
+                                .onIpv4PrefixConflict(target);
+                    } catch (RemoteException e) {
+                        // ignore
+                    }
+                    mDownstreams.remove(downstream);
+//                    downstream.sendMessage(IpServer.CMD_NOTIFY_PREFIX_CONFLICT);
+                    break;
+                }
+            }
+        }
     }
 
     /** Remove IpPrefix records corresponding to input network. */
@@ -191,11 +211,19 @@ public class PrivateAddressCoordinator {
      */
     @Nullable
     public LinkAddress requestDownstreamAddress(
-            int clientId, int interfaceType, final int scope, boolean useLastAddress) {
+            int interfaceType,
+            final int scope,
+            boolean useLastAddress,
+            IRoutingCoordinatorCallback callback) {
 //        if (mConfig.shouldEnableWifiP2pDedicatedIp()
 //                && interfaceType == TETHERING_WIFI_P2P) {
 //            return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
 //        }
+        try {
+            callback.asBinder().linkToDeath(() -> { /* TODO: remove the downstream */ }, 0);
+        } catch (RemoteException e) {
+            // ignore
+        }
         if (mShouldEnableWifiP2pDedicatedIp
                 && interfaceType == TETHERING_WIFI_P2P) {
             return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
@@ -209,7 +237,7 @@ public class PrivateAddressCoordinator {
         if (useLastAddress && cachedAddress != null
                 && !isConflictWithUpstream(asIpPrefix(cachedAddress))) {
 //            mDownstreams.add(ipServer);
-            mDownstreams.add(clientId);
+//            mDownstreams.add(clientId);
             return cachedAddress;
         }
 
@@ -220,7 +248,7 @@ public class PrivateAddressCoordinator {
             final LinkAddress newAddress = chooseDownstreamAddress(prefixRange);
             if (newAddress != null) {
 //                mDownstreams.add(ipServer);
-                mDownstreams.add(clientId);
+//                mDownstreams.add(clientId);
                 mCachedAddresses.put(addrKey, newAddress);
                 return newAddress;
             }
@@ -388,7 +416,7 @@ public class PrivateAddressCoordinator {
     /** Release downstream record for IpServer. */
     public void releaseDownstream(int clientId) {
 //        mDownstreams.remove(ipServer);
-        mDownstreams.remove(clientId);
+//        mDownstreams.remove(clientId);
     }
 
     /** Clear current upstream prefixes records. */

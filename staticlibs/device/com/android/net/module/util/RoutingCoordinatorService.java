@@ -23,6 +23,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.INetd;
 
+import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -49,6 +50,9 @@ import java.util.Objects;
 public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
     private static final String TAG = RoutingCoordinatorService.class.getSimpleName();
     private final INetd mNetd;
+
+    private final Object mPrivateAddressCoordinatorLock = new Object();
+    @GuardedBy("mPrivateAddressCoordinatorLock")
     private final PrivateAddressCoordinator mPrivateAddressCoordinator;
 
     public RoutingCoordinatorService(
@@ -236,11 +240,34 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
 
     @Override
     public void updateUpstreamPrefix(LinkProperties lp, NetworkCapabilities nc, Network network) {
-        mPrivateAddressCoordinator.updateUpstreamPrefix(lp, nc, network);
+        synchronized (mPrivateAddressCoordinatorLock) {
+            mPrivateAddressCoordinator.updateUpstreamPrefix(lp, nc, network);
+        }
     }
 
     @Override
     public void removeUpstreamPrefix(Network network) {
-        mPrivateAddressCoordinator.removeUpstreamPrefix(network);
+        synchronized (mPrivateAddressCoordinatorLock) {
+            mPrivateAddressCoordinator.removeUpstreamPrefix(network);
+        }
+    }
+
+    @Override
+    public void maybeRemoveDeprecatedUpstreams() {
+        synchronized (mPrivateAddressCoordinatorLock) {
+            mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams();
+        }
+    }
+
+    @Override
+    public LinkAddress requestDownstreamAddress(
+            int interfaceType,
+            int scope,
+            boolean useLastAddress,
+            IRoutingCoordinatorCallback callback) {
+        synchronized (mPrivateAddressCoordinatorLock) {
+            return mPrivateAddressCoordinator.requestDownstreamAddress(
+                    interfaceType, scope, useLastAddress, callback);
+        }
     }
 }
