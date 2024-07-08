@@ -217,4 +217,12 @@ public abstract class TetheringDependencies {
     public boolean isTetheringWithSoftApConfigEnabled(Context ctx) {
         return Flags.tetheringWithSoftApConfig();
     }
+
+    /**
+     * Returns whether the tethering_request_with_soft_ap_config feature flag is enabled.
+     */
+    public boolean isTetheringRequestWithSoftApConfigEnabled(Context ctx) {
+        return DeviceConfigUtils.isTetheringFeatureEnabled(ctx,
+                "tethering_request_with_soft_ap_config");
+    }
 }
