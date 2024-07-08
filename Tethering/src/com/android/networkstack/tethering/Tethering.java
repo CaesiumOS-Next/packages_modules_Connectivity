@@ -103,6 +103,7 @@ import android.net.TetheringInterface;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.Uri;
 import android.net.ip.IpServer;
+import android.net.wifi.SoftApState;
 import android.net.wifi.WifiClient;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pGroup;
@@ -816,7 +817,7 @@ public class Tethering {
         int result;
         switch (type) {
             case TETHERING_WIFI:
-                result = setWifiTethering(enable);
+                result = setWifiTethering(request, enable, listener);
                 break;
             case TETHERING_USB:
                 result = setUsbTethering(enable);
@@ -845,6 +846,11 @@ public class Tethering {
             return;
         }
 
+        // The result of Wifi tethering will be sent by SoftApCallback.
+        if (type == TETHERING_WIFI && mDeps.isTetheringRequestWithSoftApConfigEnabled(mContext)) {
+            return;
+        }
+
         handleEnableTetheringResult(enable, listener, result, request);
     }
 
@@ -870,7 +876,8 @@ public class Tethering {
         }
     }
 
-    private int setWifiTethering(final boolean enable) {
+    private int setWifiTethering(TetheringRequest request, final boolean enable,
+            IIntResultListener startResultCallback) {
         final long ident = Binder.clearCallingIdentity();
         try {
             final WifiManager mgr = getWifiManager();
@@ -878,8 +885,20 @@ public class Tethering {
                 mLog.e("setWifiTethering: failed to get WifiManager!");
                 return TETHER_ERROR_SERVICE_UNAVAIL;
             }
-            if ((enable && mgr.startTetheredHotspot(null /* use existing softap config */))
-                    || (!enable && mgr.stopSoftAp())) {
+            boolean success;
+            if (enable) {
+                if (SdkLevel.isAtLeastV()
+                        && mDeps.isTetheringRequestWithSoftApConfigEnabled(mContext)) {
+                    mgr.startTetheredHotspot(request, mExecutor,
+                            new StartTetheringSoftApCallback(startResultCallback));
+                } else {
+                    success = mgr.startTetheredHotspot(null);
+                }
+            } else {
+                success = mgr.stopSoftAp();
+            }
+
+            if (success) {
                 return TETHER_ERROR_NO_ERROR;
             }
         } finally {
@@ -1494,6 +1513,13 @@ public class Tethering {
             final int curState = intent.getIntExtra(EXTRA_WIFI_AP_STATE, WIFI_AP_STATE_DISABLED);
             final String ifname = intent.getStringExtra(EXTRA_WIFI_AP_INTERFACE_NAME);
             final int ipmode = intent.getIntExtra(EXTRA_WIFI_AP_MODE, IFACE_IP_MODE_UNSPECIFIED);
+            Log.i(TAG, "handleWifiApAction " + curState + " " + ifname + " " + ipmode);
+
+            if (SdkLevel.isAtLeastV() && mDeps.isTetheringRequestWithSoftApConfigEnabled(mContext)
+                    && ipmode == IFACE_IP_MODE_TETHERED) {
+                // Using startTetheredHotspot with TetheringRequest and SoftApCallback.
+                return;
+            }
 
             switch (curState) {
                 case WifiManager.WIFI_AP_STATE_ENABLING:
@@ -1571,6 +1597,44 @@ public class Tethering {
             mDataSaverEnabled = isDataSaverEnabled;
             if (mDataSaverEnabled) {
                 untetherAll();
+            }
+        }
+    }
+
+    class StartTetheringSoftApCallback implements SoftApCallback {
+        final IIntResultListener mStartResultCallback;
+        boolean mIsStartResultCallbackCalled;
+
+        StartTetheringSoftApCallback(IIntResultListener startResultCallback) {
+            mStartResultCallback = startResultCallback;
+        }
+
+        @Override
+        public void onStateChanged(SoftApState softApState) {
+            switch (softApState.getState()) {
+                case WifiManager.WIFI_AP_STATE_ENABLED:
+                    enableWifiIpServing(softApState.getIface(), IFACE_IP_MODE_TETHERED);
+                    if (!mIsStartResultCallbackCalled) {
+                        handleEnableTetheringResult(true /* enable */, mStartResultCallback,
+                                TETHER_ERROR_NO_ERROR,
+                                softApState.getTetheringRequest());
+                    }
+                    mIsStartResultCallbackCalled = true;
+                    break;
+                case WifiManager.WIFI_AP_STATE_DISABLED:
+                    disableWifiIpServing(softApState.getIface(), softApState.getState());
+                    break;
+                case WifiManager.WIFI_AP_STATE_FAILED:
+                    disableWifiIpServing(softApState.getIface(), softApState.getState());
+                    if (!mIsStartResultCallbackCalled) {
+                        handleEnableTetheringResult(true /* enable */, mStartResultCallback,
+                                TETHER_ERROR_INTERNAL_ERROR,
+                                softApState.getTetheringRequest());
+                    }
+                    mIsStartResultCallbackCalled = true;
+                    break;
+                default:
+                    break;
             }
         }
     }
