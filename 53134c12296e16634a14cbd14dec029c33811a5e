@@ -16,6 +16,24 @@
       "message": "It looks like this kind of TODO was enforced for b/225958696, but that bug is now marked as fixed, so I\u0027m not sure it\u0027s still relevant. Possibly newer dependencies should be imported immediately ? How should this TODO be addressed ?",
       "revId": "53134c12296e16634a14cbd14dec029c33811a5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0a71bd1_dabbf3bc",
+        "filename": "tests/cts/multidevices/AndroidTest.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-08T10:11:53Z",
+      "side": 1,
+      "message": "1. IIUC it is not relevant.\nThe TODO was added because TH was failed:\nhttps://android-build.corp.google.com/test_investigate/invocation/I44300010290104999/test/TR31729352611847298/?blocking\u003dblocking\u0026status\u003dnone\n```\ncom.android.tradefed.config.ConfigurationException: CtsConnectivityMultiDevicesTestCases.config: Contains some virtualenv python lib usage but no tracking bug to import them as source.\n\tat com.android.compatibility.common.tradefed.loading.CommonConfigLoadingTest.checkPythonModules(CommonConfigLoadingTest.java:308)\n\tat com.android.compatibility.common.tradefed.loading.CommonConfigLoadingTest.testConfigurationLoad(CommonConfigLoadingTest.java:191)\n```\n\n2. The TODO can be addressed once we declare scapy in our libs section of Android.bp, and fixes the related dependency errors.\nWe have sample tests (kernel/tests/net/test/Android.bp) which includes scapy but need some time to investigate the differences.\n\nThus I would like to address this in follow-ups.\nSee if this addressed your concern.",
+      "parentUuid": "ea7b2519_6b4706fc",
+      "revId": "53134c12296e16634a14cbd14dec029c33811a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
