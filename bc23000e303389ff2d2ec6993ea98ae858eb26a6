@@ -63,6 +63,24 @@
       "message": "While this probably works, it would be best to have the lock outside of the while loop I think, instead of grabbing it for each value",
       "revId": "bc23000e303389ff2d2ec6993ea98ae858eb26a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26b3b7bf_6dd9d5ea",
+        "filename": "staticlibs/device/com/android/net/module/util/SingleWriterBpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-08T10:26:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3932ffb8_c80dd5b9",
+      "revId": "bc23000e303389ff2d2ec6993ea98ae858eb26a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
