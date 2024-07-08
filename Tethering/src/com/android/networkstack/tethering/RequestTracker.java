@@ -16,6 +16,8 @@
 
 package com.android.networkstack.tethering;
 
+import static android.net.TetheringManager.TetheringRequest.REQUEST_TYPE_EXPLICIT;
+
 import static com.android.networkstack.tethering.util.TetheringUtils.createPlaceholderRequest;
 
 import android.net.TetheringManager.TetheringRequest;
@@ -242,6 +244,11 @@ public class RequestTracker {
         mServingRequests.entrySet().removeIf(e -> e.getValue().getTetheringType() == type);
     }
 
+    @VisibleForTesting
+    List<TetheringRequest> getServingTetheringRequests() {
+        return new ArrayList<>(mServingRequests.values());
+    }
+
     /**
      * Returns an existing (pending or serving) request that fuzzy matches the given request.
      * Optionally specify matchUid to only return requests with the same uid.
@@ -257,5 +264,23 @@ public class RequestTracker {
             return request;
         }
         return null;
+    }
+
+    /**
+     * Returns true if there is a pending or serving request of the given type with
+     * REQUEST_TYPE_EXPLICIT (i.e. it was passed in through startTethering instead of being
+     * synthesized).
+     */
+    public boolean hasActiveExplicitRequest(final int type) {
+        List<TetheringRequest> allRequests = new ArrayList<>();
+        allRequests.addAll(getPendingTetheringRequests());
+        allRequests.addAll(mServingRequests.values());
+        for (TetheringRequest request : allRequests) {
+            if (request.getTetheringType() == type
+                    && request.getRequestType() == REQUEST_TYPE_EXPLICIT) {
+                return true;
+            }
+        }
+        return false;
     }
 }
