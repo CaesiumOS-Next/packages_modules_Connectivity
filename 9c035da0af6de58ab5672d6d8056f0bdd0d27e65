@@ -3,6 +3,97 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ddd86ac9_29e173a6",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-09T03:18:03Z",
+      "side": 1,
+      "message": "The Thread spec uses the word \"activate\" and \"deactivate\" for ephemeral key mode. We should align with the spec when there are no obvious downsides / conflicts.",
+      "range": {
+        "startLine": 200,
+        "startChar": 16,
+        "endLine": 200,
+        "endChar": 37
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "acefe067_16eb7723",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 178,
+                "startChar": 0,
+                "endLine": 179,
+                "endChar": 0
+              },
+              "replacement": "     * Activates ephemeral key mode with a lifetime of {@code lifetime}.\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 200,
+                "startChar": 0,
+                "endLine": 201,
+                "endChar": 0
+              },
+              "replacement": "    public void activateEphemeralKeyMode(\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 213,
+                "startChar": 0,
+                "endLine": 214,
+                "endChar": 0
+              },
+              "replacement": "            mControllerService.activateEphemeralKeyMode(\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 221,
+                "startChar": 0,
+                "endLine": 222,
+                "endChar": 0
+              },
+              "replacement": "     * Deactivates ephemeral key mode.\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 233,
+                "startChar": 0,
+                "endLine": 234,
+                "endChar": 0
+              },
+              "replacement": "    public void deactivateEphemeralKeyMode(\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 237,
+                "startChar": 0,
+                "endLine": 238,
+                "endChar": 0
+              },
+              "replacement": "            mControllerService.deactivateEphemeralKeyMode(\n                    new OperationReceiverProxy(executor, receiver));\n"
+            }
+          ]
+        }
+      ],
+      "revId": "9c035da0af6de58ab5672d6d8056f0bdd0d27e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0ff0319_0fd90806",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 17
