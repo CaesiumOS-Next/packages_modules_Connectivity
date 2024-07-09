@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fc10cc5_5b40df07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-09T19:50:39Z",
+      "side": 1,
+      "message": "@Motomu: Looking through ConnectivityService, there may be more places that need to be fixed. At a quick glance, callers to ConnectivityService#isSystem() suffer from the same problem.",
+      "revId": "1879bc303304f260543ff7d261100be30e17400e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
