@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4180215d_bf27ee99",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-07-09T03:34:37Z",
+      "side": 1,
+      "message": "If you just want to let two P2P IpServer, one keep use static address, another use dynamic random address. How about just having a boolean filed in key instead of changing the value to a List of address? Then we don\u0027t need the nested loop to iterate the mCachedAddressed.\n\nThe IpServer would provide a public function for PrivateAddressCoordinator to know whether it want to use dedicated IP or dynamic random.\n\n    final AddressKey addrKey \u003d new AddressKey(ipServer.interfaceType(), scope, ipServer.usingDedicatedIp());\n\n    private static class AddressKey {\n        private final int mTetheringType;\n        private final int mScope;\n        private final boolean mDedicatedIp;\n\n        private AddressKey(int type, int scope) {        \n            AddressKey(type, scope, false);\n        }        \n\n        private AddressKey(int type, int scope, boolean dedicated) {\n            mTetheringType \u003d type;\n            mScope \u003d scope;\n            mDedicatedIp \u003d dedicated;\n        }\n    ...\n    }",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 83
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3d68acfa_05da2106",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 37,
+                "startChar": 0,
+                "endLine": 37,
+                "endChar": 0
+              },
+              "replacement": "import android.net.ip.IpServer.Builder;\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 82,
+                "startChar": 0,
+                "endLine": 83,
+                "endChar": 0
+              },
+              "replacement": "    private final ArrayMap\u003cAddressKey, LinkAddress\u003e mCachedAddresses;\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 91,
+                "startChar": 0,
+                "endLine": 92,
+                "endChar": 0
+              },
+              "replacement": "        mCachedAddresses \u003d new ArrayMap\u003cAddressKey, LinkAddress\u003e();\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 94,
+                "startChar": 0,
+                "endLine": 95,
+                "endChar": 0
+              },
+              "replacement": "                new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 96,
+                "startChar": 0,
+                "endLine": 97,
+                "endChar": 0
+              },
+              "replacement": "                new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 176,
+                "startChar": 0,
+                "endLine": 177,
+                "endChar": 0
+              },
+              "replacement": "            boolean useCachedAddress) {\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 182,
+                "startChar": 0,
+                "endLine": 195,
+                "endChar": 0
+              },
+              "replacement": "        final LinkAddress cachedAddress \u003d mCachedAddresses.get(addrKey);\n        if (cachedAddress !\u003d null \u0026\u0026 useCachedAddress) {\n            if (isConflictWithUpstream(asIpPrefix(cachedAddress))) {\n                mCachedAddresses.remove(addrKey);\n            } else if (!IsDownstreamInUse(asIpPrefix(cachedAddress))) {\n                mDownstreams.add(ipServer);\n                return cachedAddress;\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 205,
+                "startChar": 0,
+                "endLine": 206,
+                "endChar": 0
+              },
+              "replacement": "                mCachedAddresses.put(addrKey, newAddress);\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 407,
+                "startChar": 0,
+                "endLine": 409,
+                "endChar": 0
+              },
+              "replacement": "    // InUse Prefixes are prefixes of mCachedAddresses which are active downstream addresses and\n    // static addresses(e.g. bluetooth, wifi p2p).\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 411,
+                "startChar": 0,
+                "endLine": 416,
+                "endChar": 0
+              },
+              "replacement": "            final LinkAddress cachedAddress \u003d mCachedAddresses.valueAt(i);\n            final IpPrefix downstream \u003d asIpPrefix(cachedAddress);\n            if (isConflictPrefix(prefix, downstream))\n                return downstream;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "203668568fe5a97a186f5177977560be3534bdec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

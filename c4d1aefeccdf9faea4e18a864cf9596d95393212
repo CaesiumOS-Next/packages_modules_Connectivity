@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9325343c_dce36a37",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-07-09T03:34:37Z",
+      "side": 0,
+      "message": "Why this can be removed? I assume you need to move these to the caller (IpServer.java)?",
+      "range": {
+        "startLine": 176,
+        "startChar": 11,
+        "endLine": 176,
+        "endChar": 52
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "caa87fa8_0951cb6c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 176,
+                "startChar": 0,
+                "endLine": 177,
+                "endChar": 0
+              },
+              "replacement": "            boolean useLastAddress, boolean isRestart) {\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+              "range": {
+                "startLine": 187,
+                "startChar": 0,
+                "endLine": 188,
+                "endChar": 0
+              },
+              "replacement": "                if (useLastAddress \u0026\u0026 cachedAddress !\u003d null \u0026\u0026 !isRestart) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c4d1aefeccdf9faea4e18a864cf9596d95393212",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
