@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a67b69e4_5de00754",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-09T08:24:53Z",
+      "side": 1,
+      "message": "Looks like the changes need to be reverted so the next change for the logging on QPR3 can be cherry-picked (it needs to be merged). This is re-reverted immediately after that change.",
+      "revId": "4bf2d4e8cd077d012d01ede5e5dfba222f4ee939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
