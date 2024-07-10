@@ -69,6 +69,24 @@
       "parentUuid": "02817c5e_1d942e11",
       "revId": "947481b88c8d968546ae24cb745c9314ec4be32d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bb95157_18702026",
+        "filename": "service/ServiceConnectivityResources/res/values/config_thread.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-10T09:37:38Z",
+      "side": 1,
+      "message": "Making this comment as resolved. Please take a look at the updated documentation.",
+      "parentUuid": "2012f1d2_8455a302",
+      "revId": "947481b88c8d968546ae24cb745c9314ec4be32d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
