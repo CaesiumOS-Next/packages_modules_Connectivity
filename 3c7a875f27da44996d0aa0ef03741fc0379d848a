@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "89adc907_1e4dbc93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2051900
+      },
+      "writtenOn": "2024-07-10T07:39:31Z",
+      "side": 1,
+      "message": "@motomuman@google.com Please check below commit message is fine.\n\nTest case testSetAirplaneMode is using the wifi service inside mCtsNetUtils.ensureWifiConnected(); API even wifi feature is disabled. This cause crash for the test case.\n\nThis change add as safe check before calling the API mCtsNetUtils.ensureWifiConnected();\n\n\n\u003e\u003e Can you explain why we need mCtsNetUtils.ensureWifiConnected();?\n\n@motomuman@google.com as per the comment in code \"Enable WiFi and wait for it to become connected to a network.\" \n\nRef:\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java;drc\u003d8aacf6b6a42b9b90939b8874980734dbef6308de;l\u003d244",
+      "parentUuid": "8a25b913_6ffe3b55",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "3c7a875f27da44996d0aa0ef03741fc0379d848a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "09c6e938_47140fc7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -158,6 +182,24 @@
       "writtenOn": "2024-07-10T07:07:00Z",
       "side": 1,
       "message": "Is there any reason that this is not for aosp main?\nWill we cherry-pick to aosp main?",
+      "revId": "3c7a875f27da44996d0aa0ef03741fc0379d848a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5caa0bba_ddc9627d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2051900
+      },
+      "writtenOn": "2024-07-10T07:39:31Z",
+      "side": 1,
+      "message": "We can do for main line also @motomuman@google.com",
+      "parentUuid": "6ab7a596_917aee71",
       "revId": "3c7a875f27da44996d0aa0ef03741fc0379d848a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
