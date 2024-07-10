@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b7dfc8a_e4f89e75",
+        "filename": "staticlibs/device/com/android/net/module/util/GrowingIntArray.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-10T10:12:03Z",
+      "side": 1,
+      "message": "nits:\nDo we have usecase that calls `getBackingArray` without calling `shrinkToLength`?\nIsn\u0027t it better to call `shrinkToLength` in `getBackingArray` or throw if `mValues.length !\u003d mLength`?",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 5
+      },
+      "revId": "327cb2061d9c1d4953c576298f144020b597c3d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
