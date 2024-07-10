@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fd26ba9_309524c6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T21:10:31Z",
+      "side": 1,
+      "message": "I don\u0027t think that this is needed. All the information is already there; if a tethering request is in-flight, the TetheringRequest is in mActiveTetheringRequests. If it is actively serving, then it is kept inside IpServer. I think the longer term goal should still be to get rid of the mActiveTetheringRequests list altogether (in favor of keeping everything related to a particular downstream in IpServer or TetherState).",
+      "range": {
+        "startLine": 662,
+        "startChar": 20,
+        "endLine": 662,
+        "endChar": 49
+      },
+      "revId": "d816968f294cddb606e09bdd9cdb05ac09178158",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
