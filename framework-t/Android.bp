@@ -137,6 +137,9 @@ java_sdk_library {
     // framework-connectivity-pre-jarjar match at runtime.
     jarjar_rules: ":framework-connectivity-jarjar-rules",
     stub_only_libs: [
+        // TODO: figure out why static lib declaration is not working for
+        //  framework-connectivity-t.stubs.system.from-source.
+        "com.android.net.flags-aconfig-java",
         // Use prebuilt framework-connectivity stubs to avoid circular dependencies
         "sdk_module-lib_current_framework-connectivity",
     ],

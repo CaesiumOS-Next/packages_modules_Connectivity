@@ -28,11 +28,18 @@ import android.net.NetworkStats.ROAMING_YES
 import android.net.NetworkStats.SET_DEFAULT
 import android.net.NetworkStats.SET_FOREGROUND
 import android.net.NetworkStats.TAG_NONE
+import android.platform.test.annotations.EnableFlags
+import android.platform.test.flag.junit.SetFlagsRule
+import android.os.Build
 import androidx.test.filters.SmallTest
+import com.android.net.flags.Flags
+import com.android.testutils.ConnectivityModuleTest
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.assertNetworkStatsEquals
 import com.android.testutils.assertParcelingIsLossless
 import kotlin.test.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -40,6 +47,9 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 @SmallTest
 class NetworkStatsApiTest {
+    @get:Rule
+    val setFlagsRule: SetFlagsRule = SetFlagsRule()
+
     private val testStatsEmpty = NetworkStats(0L, 0)
 
     // Note that these variables need to be initialized outside of constructor, initialize
@@ -49,6 +59,7 @@ class NetworkStatsApiTest {
     // be merged if performing add on these 2 stats.
     private lateinit var testStats1: NetworkStats
     private lateinit var testStats2: NetworkStats
+    private val entriesInStats2 = ArrayList<Entry>()
 
     // This is a result of adding stats1 and stats2, while the merging of common key items is
     // subject to test later, this should not be initialized with for a loop to add stats1
@@ -98,6 +109,9 @@ class NetworkStatsApiTest {
                 .addEntry(Entry(IFACE_VT, TEST_UID2, SET_DEFAULT, TAG_NONE,
                         METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 2, 3, 7, 8, 0))
         assertEquals(5, testStats2.size())
+        testStats2.forEach {
+            entriesInStats2.add(it)
+        }
 
         testStats3 = NetworkStats(0L, 9)
                 // Entries which are unique either in stats1 or stats2.
@@ -125,23 +139,11 @@ class NetworkStatsApiTest {
 
     @Test
     fun testAddEntry() {
-        val expectedEntriesInStats2 = arrayOf(
-                Entry(TEST_IFACE, TEST_UID1, SET_DEFAULT, 0x80,
-                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 3, 15, 2, 31, 1),
-                Entry(TEST_IFACE, TEST_UID1, SET_FOREGROUND, TAG_NONE,
-                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 13, 61, 10, 1, 45),
-                Entry(TEST_IFACE, TEST_UID2, SET_DEFAULT, TAG_NONE,
-                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 11, 2, 3, 4, 7),
-                Entry(IFACE_VT, TEST_UID1, SET_DEFAULT, TAG_NONE,
-                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 4, 3, 2, 1, 0),
-                Entry(IFACE_VT, TEST_UID2, SET_DEFAULT, TAG_NONE,
-                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 2, 3, 7, 8, 0))
-
         // While testStats* are already initialized with addEntry, verify content added
         // matches expectation.
-        for (i in expectedEntriesInStats2.indices) {
+        for (i in entriesInStats2.indices) {
             val entry = testStats2.getValues(i, null)
-            assertEquals(expectedEntriesInStats2[i], entry)
+            assertEquals(entriesInStats2[i], entry)
         }
 
         // Verify entry updated with addEntry.
@@ -150,6 +152,34 @@ class NetworkStatsApiTest {
         assertEquals(Entry(IFACE_VT, TEST_UID1, SET_DEFAULT, TAG_NONE,
                 METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 16, -2, 9, 1, 9),
                 stats.getValues(3, null))
+
+        // Verify the original ststs object is not altered.
+        for (i in entriesInStats2.indices) {
+            val entry = testStats2.getValues(i, null)
+            assertEquals(entriesInStats2[i], entry)
+        }
+    }
+
+    @ConnectivityModuleTest
+    @EnableFlags(Flags.FLAG_NETSTATS_COMBINE_ENTRY)
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2) // Mainlined NetworkStats only runs on T+
+    @Test
+    fun testCombineEntry() {
+        // Verify entry updated with combineEntry, which altered the original stats instance.
+        testStats2.combineEntry(Entry(IFACE_VT, TEST_UID1, SET_DEFAULT, TAG_NONE,
+                METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 12, -5, 7, 0, 9))
+        for (i in entriesInStats2.indices) {
+            val entry = testStats2.getValues(i, null)
+            if (i != 3) {
+                assertEquals(entriesInStats2[i], entry)
+            } else {
+                assertEquals(
+                        Entry(IFACE_VT, TEST_UID1, SET_DEFAULT, TAG_NONE,
+                                METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 16, -2, 9, 1, 9),
+                        testStats2.getValues(i, null)
+                )
+              }
+        }
     }
 
     @Test
