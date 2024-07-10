@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c50114f1_c039b844",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-10T09:00:23Z",
+      "side": 1,
+      "message": "I see what you mean.\nThank you for the clarification.\nLGTM.",
+      "parentUuid": "89adc907_1e4dbc93",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "3c7a875f27da44996d0aa0ef03741fc0379d848a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "09c6e938_47140fc7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
