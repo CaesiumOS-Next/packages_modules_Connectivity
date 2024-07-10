@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c895de2b_8bdf3845",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T17:32:00Z",
+      "side": 1,
+      "message": "Removing @NonNull here makes it seem it is nullable now. (I realize this class is very inconsistently annotated. In general, non-nullability is implied and nullability is annotated (see go/null), but that isn\u0027t the case at all here 😞). Maybe just leave the annotation and we can clean up the nullable annotations in the future.",
+      "range": {
+        "startLine": 241,
+        "startChar": 44,
+        "endLine": 241,
+        "endChar": 63
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4eda7bf_afebcd67",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T17:32:00Z",
+      "side": 1,
+      "message": "I don\u0027t think this was correct previously nor does it look correct now. I think this should be NonNull (i.e. just remove the annotation).",
+      "range": {
+        "startLine": 132,
+        "startChar": 5,
+        "endLine": 132,
+        "endChar": 13
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fb7fedb_d7f64cbd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T17:32:00Z",
+      "side": 1,
+      "message": "RoutingCoordinatorService takes a NonNull INetd object and omits all null checks within. However, getINetd technically returns @Nullable (if context.getSystemService(NETD_SERVICE) returns null). I guess this can / should never happen, so how about adding a Log.wtf() inside getINetd() if INetd.Stub.asInterface() returns null?",
+      "range": {
+        "startLine": 136,
+        "startChar": 25,
+        "endLine": 136,
+        "endChar": 50
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a439a0d_a5587517",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T17:32:00Z",
+      "side": 1,
+      "message": "do we still need this? how about verifying addInterfaceForward() was called with the right arguments below.",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 78
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a1ee6d7_0d9dd680",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T17:32:00Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 81
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09a5e51e_89f8cfa9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T17:32:00Z",
+      "side": 1,
+      "message": "should it just return a mock instead?",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 46
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e36c9fda_8785bd32",
+        "filename": "staticlibs/device/com/android/net/module/util/RoutingCoordinatorManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T17:32:00Z",
+      "side": 1,
+      "message": "nit: is this unused now?",
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
