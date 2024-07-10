@@ -70,6 +70,30 @@
       },
       "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "671b105e_15855448",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-10T03:19:54Z",
+      "side": 1,
+      "message": "Fixed.\n* Added additional parameter for `BROADCAST_NETWORK_STATS_UPDATED_DELAY_MS` this delay \n* Added kill-switch `BROADCAST_NETWORK_STATS_UPDATED_RATE_LIMIT_ENABLED_FLAG` for roll back and have tested.\n\nThank you!",
+      "parentUuid": "cfb27714_d9684a28",
+      "range": {
+        "startLine": 2653,
+        "startChar": 8,
+        "endLine": 2653,
+        "endChar": 9
+      },
+      "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
