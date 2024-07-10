@@ -18,6 +18,7 @@ package android.net;
 
 import static com.android.net.module.util.NetworkStatsUtils.multiplySafeByRational;
 
+import android.annotation.FlaggedApi;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -33,6 +34,7 @@ import android.util.SparseBooleanArray;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.flags.Flags;
 import com.android.net.module.util.CollectionUtils;
 
 import libcore.util.EmptyArray;
@@ -842,6 +844,21 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
             operations[i] += entry.operations;
         }
         return this;
+    }
+
+    /**
+     * Add given values with an existing row, or create a new row if
+     * {@link #findIndex(String, int, int, int, int, int, int)} is unable to find match. Can
+     * also be used to subtract values from existing rows. This method mutates the referencing
+     * {@link NetworkStats} object.
+     *
+     * @param entry the {@link Entry} to add.
+     * @return a reference to this mutated {@link NetworkStats} object.
+     */
+    @FlaggedApi(Flags.FLAG_NETSTATS_COMBINE_ENTRY)
+    public @NonNull NetworkStats combineEntry(@NonNull Entry entry) {
+        // TODO: Move the implementation here and deprecate combineValues.
+        return this.combineValues(entry);
     }
 
     /**

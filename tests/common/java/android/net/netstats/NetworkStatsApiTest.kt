@@ -29,6 +29,8 @@ import android.net.NetworkStats.SET_DEFAULT
 import android.net.NetworkStats.SET_FOREGROUND
 import android.net.NetworkStats.TAG_NONE
 import androidx.test.filters.SmallTest
+import com.android.net.flags.Flags
+import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.assertNetworkStatsEquals
 import com.android.testutils.assertParcelingIsLossless
 import kotlin.test.assertEquals
@@ -123,8 +125,9 @@ class NetworkStatsApiTest {
         assertEquals(9, testStats3.size())
     }
 
+    @ConnectivityModuleTest
     @Test
-    fun testAddEntry() {
+    fun testAddAndCombineEntry() {
         val expectedEntriesInStats2 = arrayOf(
                 Entry(TEST_IFACE, TEST_UID1, SET_DEFAULT, 0x80,
                         METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 3, 15, 2, 31, 1),
@@ -135,7 +138,8 @@ class NetworkStatsApiTest {
                 Entry(IFACE_VT, TEST_UID1, SET_DEFAULT, TAG_NONE,
                         METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 4, 3, 2, 1, 0),
                 Entry(IFACE_VT, TEST_UID2, SET_DEFAULT, TAG_NONE,
-                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 2, 3, 7, 8, 0))
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 2, 3, 7, 8, 0)
+        )
 
         // While testStats* are already initialized with addEntry, verify content added
         // matches expectation.
@@ -147,9 +151,33 @@ class NetworkStatsApiTest {
         // Verify entry updated with addEntry.
         val stats = testStats2.addEntry(Entry(IFACE_VT, TEST_UID1, SET_DEFAULT, TAG_NONE,
                 METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 12, -5, 7, 0, 9))
-        assertEquals(Entry(IFACE_VT, TEST_UID1, SET_DEFAULT, TAG_NONE,
+        assertEquals(
+            Entry(IFACE_VT, TEST_UID1, SET_DEFAULT, TAG_NONE,
                 METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 16, -2, 9, 1, 9),
-                stats.getValues(3, null))
+                stats.getValues(3, null)
+        )
+        // Verify the original ststs object is not altered.
+        for (i in expectedEntriesInStats2.indices) {
+            val entry = testStats2.getValues(i, null)
+            assertEquals(expectedEntriesInStats2[i], entry)
+        }
+
+        if (!Flags.netstatsCombineEntry()) return
+        // Verify entry updated with combineEntry, which altered the original stats instance.
+        testStats2.combineEntry(Entry(IFACE_VT, TEST_UID1, SET_DEFAULT, TAG_NONE,
+                METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 12, -5, 7, 0, 9))
+        for (i in expectedEntriesInStats2.indices) {
+            val entry = testStats2.getValues(i, null)
+            if (i != 3) {
+                assertEquals(expectedEntriesInStats2[i], entry)
+            } else {
+                assertEquals(
+                    Entry(IFACE_VT, TEST_UID1, SET_DEFAULT, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_NO, 16, -2, 9, 1, 9),
+                        testStats2.getValues(i, null)
+                )
+            }
+        }
     }
 
     @Test
