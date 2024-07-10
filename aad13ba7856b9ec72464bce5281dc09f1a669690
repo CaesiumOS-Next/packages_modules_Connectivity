@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83433649_10aa2da2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-10T10:36:49Z",
+      "side": 1,
+      "message": "typo: callbacks?",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 10,
+        "endChar": 16
+      },
+      "revId": "aad13ba7856b9ec72464bce5281dc09f1a669690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b6cf442_a045d99f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7784,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-10T10:36:49Z",
+      "side": 1,
+      "message": "nits: need to pass from the arg?",
+      "revId": "aad13ba7856b9ec72464bce5281dc09f1a669690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "417bc7d2_5c680d9f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10291,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-10T10:36:49Z",
+      "side": 1,
+      "message": "nits:\nCan arg1 be non-zero when the notificationType is not one of CALLBACK_AVAILABLE, CALLBACK_LOSING, and CALLBACK_BLK_CHANGED?\nIf no, we don\u0027t need `cbArg1` and can pass arg1 to callCallbackForRequest",
+      "range": {
+        "startLine": 10291,
+        "startChar": 22,
+        "endLine": 10291,
+        "endChar": 23
+      },
+      "revId": "aad13ba7856b9ec72464bce5281dc09f1a669690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
