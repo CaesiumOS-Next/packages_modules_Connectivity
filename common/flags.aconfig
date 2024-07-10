@@ -123,3 +123,11 @@ flag {
   description: "Flag for introducing TETHERING_VIRTUAL type"
   bug: "340376953"
 }
+
+flag {
+  name: "netstats_plusentry"
+  is_exported: true
+  namespace: "android_core_networking"
+  description: "Flag for NetworkStats#plusEntry API"
+  bug: "335680025"
+}

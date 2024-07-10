@@ -18,6 +18,7 @@ package android.net;
 
 import static com.android.net.module.util.NetworkStatsUtils.multiplySafeByRational;
 
+import android.annotation.FlaggedApi;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -204,6 +205,15 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
     // Delta between IPv4 header (20b) and IPv6 header (40b).
     // Used for correct stats accounting on clatd interfaces.
     private static final int IPV4V6_HEADER_DELTA = 20;
+
+    // TODO: remove this class when udc-mainline-prod is abandoned and com.android.net.flags.Flags
+    //  is available here.
+    /** @hide */
+    public static class Flags {
+        static final String NETSTATS_PLUSENTRY =
+                "com.android.net.flags.netstats_plusentry";
+    }
+
 
     // TODO: move fields to "mVariable" notation
 
@@ -842,6 +852,21 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
             operations[i] += entry.operations;
         }
         return this;
+    }
+
+    /**
+     * Add given values with an existing row, or create a new row if
+     * {@link #findIndex(String, int, int, int, int, int, int)} is unable to find match. Can
+     * also be used to subtract values from existing rows. This method mutates the referencing
+     * {@link NetworkStats} object.
+     *
+     * @param entry the {@link Entry} to add.
+     * @return a reference to this mutated {@link NetworkStats} object.
+     */
+    @FlaggedApi(Flags.NETSTATS_PLUSENTRY)
+    public @NonNull NetworkStats plusEntry(@NonNull Entry entry) {
+        // TODO: Move the implementation here and deprecate combineValues.
+        return this.combineValues(entry);
     }
 
     /**
