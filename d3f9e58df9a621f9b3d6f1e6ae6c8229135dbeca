@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffcddf80_c5010126",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 2377,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T18:35:58Z",
+      "side": 1,
+      "message": "This now looks like an almost exact copy of the test above.\n\nCould this be refactored to remove the duplicate assertions? (Can be done in a follow-up). I think one thing that could make tests in this class a lot more straight-forward is basing TestTetheringEventCallback on ArrayTrackRecord (though that\u0027s likely quite a bit of work).",
+      "range": {
+        "startLine": 2377,
+        "startChar": 0,
+        "endLine": 2377,
+        "endChar": 56
+      },
+      "revId": "d3f9e58df9a621f9b3d6f1e6ae6c8229135dbeca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
