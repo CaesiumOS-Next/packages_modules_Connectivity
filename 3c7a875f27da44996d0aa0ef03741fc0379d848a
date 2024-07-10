@@ -226,6 +226,24 @@
       "parentUuid": "6ab7a596_917aee71",
       "revId": "3c7a875f27da44996d0aa0ef03741fc0379d848a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eacf153_9abc7413",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-10T09:01:55Z",
+      "side": 1,
+      "message": "If we don\u0027t submit change in aosp main, next cts release would not have this fix.",
+      "parentUuid": "5caa0bba_ddc9627d",
+      "revId": "3c7a875f27da44996d0aa0ef03741fc0379d848a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
