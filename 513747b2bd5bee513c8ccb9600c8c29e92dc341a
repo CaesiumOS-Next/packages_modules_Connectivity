@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1f10ce9_e3fcfac5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T21:49:41Z",
+      "side": 1,
+      "message": "I think this should be either a TreeSet with a custom comparator, or an ArrayList with helper functions to retrieve / store an object.",
+      "range": {
+        "startLine": 234,
+        "startChar": 30,
+        "endLine": 234,
+        "endChar": 34
+      },
+      "revId": "513747b2bd5bee513c8ccb9600c8c29e92dc341a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cd579e7_90b98f36",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T21:49:41Z",
+      "side": 1,
+      "message": "This should first check whether this request is already being served by a downstream. If it is, it should send back some error (I am not sure which one yet. Possibly introduce a TETHER_ERROR_DUPLICATE_REQUEST?). Otherwise, check whether an equal request is in-flight and use the old logic. Note that you probably cannot use TetheringRequest.equals(). You are going to have to add some matches() method that only compares the relevant fields. I guess right now, that is just tetheringType. In the future, we want to add interfaceName as well.",
+      "range": {
+        "startLine": 682,
+        "startChar": 0,
+        "endLine": 686,
+        "endChar": 13
+      },
+      "revId": "513747b2bd5bee513c8ccb9600c8c29e92dc341a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "328e4c59_35049179",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-10T21:49:41Z",
+      "side": 1,
+      "message": "you probably have to pass in the TetheringRequest. stopProvisioningIfNeeded() currently calls `mCurrentDownstreams.set(downstreamType, false);`, which does not work if there could be multiple requests per type.\n\n```\n   public void stopProvisioningIfNeeded(int downstreamType) {\n        if (!isValidDownstreamType(downstreamType)) return;\n\n        mCurrentDownstreams.set(downstreamType, false);\n        // There are lurking bugs where the notion of \"provisioning required\" or\n        // \"tethering supported\" may change without without tethering being notified properly.\n        // Remove the mapping all the time no matter provisioning is required or not.\n        removeDownstreamMapping(downstreamType);\n        mExemptedDownstreams.set(downstreamType, false);\n    }\n```",
+      "range": {
+        "startLine": 690,
+        "startChar": 57,
+        "endLine": 690,
+        "endChar": 61
+      },
+      "revId": "513747b2bd5bee513c8ccb9600c8c29e92dc341a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
