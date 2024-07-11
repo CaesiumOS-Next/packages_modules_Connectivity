@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "020d5e1f_3e5f982a",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-11T09:18:55Z",
+      "side": 1,
+      "message": "That is at the stack of aosp/3158803 which is also waiting for Remi\u0027s review.",
+      "parentUuid": "590e4dec_02143d0e",
+      "range": {
+        "startLine": 90,
+        "startChar": 3,
+        "endLine": 92,
+        "endChar": 5
+      },
+      "revId": "4df2cd0def8cbedb8f5e9fb65dff041ace9d7d15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a80f8dd_84057291",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-07-11T09:10:20Z",
       "side": 1,
       "message": "This could be move before line 103, we don\u0027t need to enable doze mode if the DUT doesn\u0027t support APFv4.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 7
+      },
+      "revId": "4df2cd0def8cbedb8f5e9fb65dff041ace9d7d15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58a94b36_b7e3fb75",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-11T09:18:55Z",
+      "side": 1,
+      "message": "Will be refactored in later CLs.",
+      "parentUuid": "5a80f8dd_84057291",
       "range": {
         "startLine": 105,
         "startChar": 0,
