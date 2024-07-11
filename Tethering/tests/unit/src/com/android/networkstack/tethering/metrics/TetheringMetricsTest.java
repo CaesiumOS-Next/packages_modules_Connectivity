@@ -109,6 +109,7 @@ public final class TetheringMetricsTest {
     private TetheringMetrics mTetheringMetrics;
     private final NetworkTetheringReported.Builder mStatsBuilder =
             NetworkTetheringReported.newBuilder();
+    private final ArrayMap<UpstreamType, Pair<Long, Long>> mUpstreamUsage = new ArrayMap<>();
 
     private long mElapsedRealtime;
 
@@ -136,6 +137,16 @@ public final class TetheringMetricsTest {
         MockitoAnnotations.initMocks(this);
         doReturn(TEST_START_TIME).when(mDeps).timeNow();
         doReturn(mNetworkStatsManager).when(mContext).getSystemService(NetworkStatsManager.class);
+        // Set up the usage for upstream types.
+        mUpstreamUsage.put(UT_CELLULAR, new Pair<>(100L, 200L));
+        mUpstreamUsage.put(UT_WIFI, new Pair<>(400L, 800L));
+        mUpstreamUsage.put(UT_BLUETOOTH, new Pair<>(50L, 80L));
+        mUpstreamUsage.put(UT_ETHERNET, new Pair<>(0L, 0L));
+        doAnswer(inv -> {
+            final UpstreamType type = (UpstreamType) inv.getArguments()[1];
+            final Pair<Long, Long> usage = mUpstreamUsage.getOrDefault(type, null);
+            return usage == null ? new Pair<>(0L, 0L) : usage;
+        }).when(mDeps).getCurrentDataUsageForUpstreamType(any(), any());
         mTetheringMetrics = new TetheringMetrics(mContext, mDeps);
         mElapsedRealtime = 0L;
     }
@@ -469,32 +480,24 @@ public final class TetheringMetricsTest {
         verifyEmptyUsageForAllUpstreamTypes();
     }
 
+    private void initializeUpstreamDataUsage() {
+        doReturn(true).when(mDeps).isAtLeastT();
+        mTetheringMetrics.initializeUpstreamDataUsageAfterT();
+    }
+
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testInitializeUpstreamDataUsageAfterTAndCleanup() {
         // Verify the usage is empty for all upstream types before initialization.
         verifyEmptyUsageForAllUpstreamTypes();
 
-        // Set up the usage for upstream types.
-        final ArrayMap<UpstreamType, Pair<Long, Long>> upstreamUsage = new ArrayMap<>();
-        upstreamUsage.put(UT_CELLULAR, new Pair<>(100L, 200L));
-        upstreamUsage.put(UT_WIFI, new Pair<>(400L, 800L));
-        upstreamUsage.put(UT_BLUETOOTH, new Pair<>(50L, 80L));
-        upstreamUsage.put(UT_ETHERNET, new Pair<>(0L, 0L));
-        doAnswer(inv -> {
-            final UpstreamType type = (UpstreamType) inv.getArguments()[1];
-            final Pair<Long, Long> usage = upstreamUsage.getOrDefault(type, null);
-            return usage == null ? new Pair<>(0L, 0L) : usage;
-        }).when(mDeps).getCurrentDataUsageForUpstreamType(any(), any());
-
         // Verify the usage has been initialized
-        doReturn(true).when(mDeps).isAtLeastT();
-        mTetheringMetrics.initializeUpstreamDataUsageAfterT();
+        initializeUpstreamDataUsage();
         for (UpstreamType type : UpstreamType.values()) {
             final Pair<Long, Long> usage = mTetheringMetrics.getDataUsageFromUpstreamType(type);
             if (TetheringMetrics.isUsageSupportedForUpstreamType(type)) {
                 assertNotNull(usage);
-                assertEquals(upstreamUsage.get(type), usage);
+                assertEquals(mUpstreamUsage.get(type), usage);
             } else {
                 assertNull(usage);
             }
@@ -503,5 +506,46 @@ public final class TetheringMetricsTest {
         // Verify the usage is empty after clean up
         mTetheringMetrics.cleanup();
         verifyEmptyUsageForAllUpstreamTypes();
+    }
+
+    private void updateUpstreamDataUsage(UpstreamType type, long usageDiff) {
+        final Pair<Long, Long> oldWifiUsage = mUpstreamUsage.get(type);
+        final Pair<Long, Long> newWifiUsage =
+                new Pair<>(oldWifiUsage.first + usageDiff, oldWifiUsage.second + usageDiff);
+        mUpstreamUsage.put(type, newWifiUsage);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDataUsageCalculation() throws Exception {
+        initializeUpstreamDataUsage();
+        mTetheringMetrics.createBuilder(TETHERING_WIFI, SETTINGS_PKG);
+        final long wifiTetheringStartTime = currentTimeMillis();
+        incrementCurrentTime(1 * SECOND_IN_MILLIS);
+        mTetheringMetrics.maybeUpdateUpstreamType(buildUpstreamState(TRANSPORT_WIFI));
+        final long wifiDuration = 5 * SECOND_IN_MILLIS;
+        final long wifiUsageDiff = 100L;
+        incrementCurrentTime(wifiDuration);
+        updateUpstreamDataUsage(UT_WIFI, wifiUsageDiff);
+        mTetheringMetrics.maybeUpdateUpstreamType(buildUpstreamState(TRANSPORT_BLUETOOTH));
+        final long bluetoothDuration = 15 * SECOND_IN_MILLIS;
+        final long btUsageDiff = 50L;
+        incrementCurrentTime(bluetoothDuration);
+        updateUpstreamDataUsage(UT_BLUETOOTH, btUsageDiff);
+        mTetheringMetrics.maybeUpdateUpstreamType(buildUpstreamState(TRANSPORT_CELLULAR));
+        final long cellDuration = 20 * SECOND_IN_MILLIS;
+        final long cellUsageDiff = 500L;
+        incrementCurrentTime(cellDuration);
+        updateUpstreamDataUsage(UT_CELLULAR, cellUsageDiff);
+        updateErrorAndSendReport(TETHERING_WIFI, TETHER_ERROR_NO_ERROR);
+
+        UpstreamEvents.Builder upstreamEvents = UpstreamEvents.newBuilder();
+        addUpstreamEvent(upstreamEvents, UT_WIFI, wifiDuration, wifiUsageDiff, wifiUsageDiff);
+        addUpstreamEvent(upstreamEvents, UT_BLUETOOTH, bluetoothDuration, btUsageDiff, btUsageDiff);
+        addUpstreamEvent(upstreamEvents, UT_CELLULAR, cellDuration, cellUsageDiff, cellUsageDiff);
+
+        verifyReport(DownstreamType.DS_TETHERING_WIFI, ErrorCode.EC_NO_ERROR,
+                UserType.USER_SETTINGS, upstreamEvents,
+                currentTimeMillis() - wifiTetheringStartTime);
     }
 }
