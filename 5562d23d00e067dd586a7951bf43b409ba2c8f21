@@ -93,6 +93,30 @@
       },
       "revId": "5562d23d00e067dd586a7951bf43b409ba2c8f21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4621f3bf_bccb5eec",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-11T09:19:08Z",
+      "side": 1,
+      "message": "The existing API is confusing and error prone, we are actually going to deprecate it.\n\nAlso in ApfFilter, we already start using ram_size. https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/NetworkStack/src/android/net/ip/IpClient.java;l\u003d2585?q\u003dIpClient.java\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
+      "parentUuid": "a7861cee_84ce2307",
+      "range": {
+        "startLine": 214,
+        "startChar": 2,
+        "endLine": 214,
+        "endChar": 26
+      },
+      "revId": "5562d23d00e067dd586a7951bf43b409ba2c8f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
