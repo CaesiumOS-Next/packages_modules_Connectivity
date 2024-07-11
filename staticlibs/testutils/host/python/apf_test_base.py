@@ -23,6 +23,7 @@ class ApfTestBase(multi_devices_test_base.MultiDevicesTestBase):
     super().setup_class()
 
     # Check test preconditions.
+    client = self.clientDevice.connectivity_multi_devices_snippet
     tether_utils.assume_hotspot_test_preconditions(
         self.serverDevice, self.clientDevice, UpstreamType.NONE
     )
@@ -32,9 +33,16 @@ class ApfTestBase(multi_devices_test_base.MultiDevicesTestBase):
         ),
         "NetworkStack is too old to support send raw packet, skip test.",
     )
+    asserts.abort_class_if(
+        client.getVsrApiLevel() < 34, "APF became mandatory in Android 14 VSR."
+    )
+    asserts.abort_class_if(
+        not client.isAtLeastV(),
+        "Do not enforce the test until V+ since chipset potential bugs are"
+        " expected to be fixed on V+ releases.",
+    )
 
     # Fetch device properties and storing them locally for later use.
-    client = self.clientDevice.connectivity_multi_devices_snippet
     self.server_iface_name, client_network = (
         tether_utils.setup_hotspot_and_client_for_upstream_type(
             self.serverDevice, self.clientDevice, UpstreamType.NONE
@@ -45,6 +53,11 @@ class ApfTestBase(multi_devices_test_base.MultiDevicesTestBase):
     )
     self.server_mac_address = apf_utils.get_hardware_address(
         self.serverDevice, self.server_iface_name
+    )
+
+    # Check interface specific preconditions.
+    apf_utils.assume_apf_version_support_at_least(
+        self.clientDevice, self.client_iface_name, 4
     )
 
     # Enable doze mode to activate APF.
