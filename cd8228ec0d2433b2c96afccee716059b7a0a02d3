@@ -16,6 +16,24 @@
       "message": "As mentioned offline, we also need to skip the test if the framework is not V+. As old framework might contains known bugs.",
       "revId": "cd8228ec0d2433b2c96afccee716059b7a0a02d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c78711ff_7c3c50f3",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-11T09:34:37Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "885defd1_795efe2b",
+      "revId": "cd8228ec0d2433b2c96afccee716059b7a0a02d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
