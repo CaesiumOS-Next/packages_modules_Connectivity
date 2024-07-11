@@ -244,11 +244,21 @@ public class TetheringMetrics {
         statsBuilder.setErrorCode(errorCodeToEnum(errCode));
     }
 
-    private DataUsage calculateDataUsage(@Nullable UpstreamType upstream) {
+    /**
+     * Calculates the data usage difference between the current and previous usage for the
+     * specified upstream type.
+     *
+     * @return A DataUsage object containing the calculated difference in transmitted (tx) and
+     *         received (rx) bytes.
+     */
+    private DataUsage calculateDataUsageDelta(@Nullable UpstreamType upstream) {
         if (upstream != null && mDependencies.isUpstreamDataUsageMetricsEnabled(mContext)
                 && isUsageSupportedForUpstreamType(upstream)) {
-            // TODO: Implement data usage calculation for the upstream type.
-            return EMPTY_USAGE;
+            final DataUsage newUsage = getCurrentDataUsageForUpstreamType(upstream);
+            final DataUsage oldUsage = mUpstreamDataUsage.getOrDefault(upstream, EMPTY_USAGE);
+            return new DataUsage(
+                    newUsage.mTxBytes - oldUsage.mTxBytes,
+                    newUsage.mRxBytes - oldUsage.mRxBytes);
         }
         return EMPTY_USAGE;
     }
@@ -264,7 +274,7 @@ public class TetheringMetrics {
 
         final long newTime = mDependencies.timeNow();
         if (mCurrentUpstream != null) {
-            final DataUsage dataUsage = calculateDataUsage(upstream);
+            final DataUsage dataUsage = calculateDataUsageDelta(mCurrentUpstream);
             mUpstreamEventList.add(new RecordUpstreamEvent(mCurrentUpStreamStartTime, newTime,
                     mCurrentUpstream, dataUsage));
         }
@@ -322,7 +332,7 @@ public class TetheringMetrics {
         final long startTime = Math.max(downstreamStartTime, mCurrentUpStreamStartTime);
         final long stopTime = mDependencies.timeNow();
         // Handle the last upstream event.
-        final DataUsage dataUsage = calculateDataUsage(mCurrentUpstream);
+        final DataUsage dataUsage = calculateDataUsageDelta(mCurrentUpstream);
         addUpstreamEvent(upstreamEventsBuilder, startTime, stopTime, mCurrentUpstream,
                 dataUsage.mTxBytes, dataUsage.mRxBytes);
         statsBuilder.setUpstreamEvents(upstreamEventsBuilder);
