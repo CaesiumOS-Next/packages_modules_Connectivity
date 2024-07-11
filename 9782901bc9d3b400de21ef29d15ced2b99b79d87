@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede94754_31e81eec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-11T22:17:35Z",
+      "side": 1,
+      "message": "nit: isUsageSupportedForUpstreamType()",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "9782901bc9d3b400de21ef29d15ced2b99b79d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49bc0715_778fc5aa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-11T22:17:35Z",
+      "side": 1,
+      "message": "What does this mean? Should this be: \"Check whether tethering metrics can be collected for a given upstream type\"? Or does it mean something different?",
+      "range": {
+        "startLine": 406,
+        "startChar": 7,
+        "endLine": 406,
+        "endChar": 72
+      },
+      "revId": "9782901bc9d3b400de21ef29d15ced2b99b79d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
