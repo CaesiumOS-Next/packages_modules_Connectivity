@@ -36,6 +36,8 @@ import android.net.wifi.WifiManager
 import android.net.wifi.WifiNetworkSpecifier
 import android.net.wifi.WifiSsid
 import androidx.test.platform.app.InstrumentationRegistry
+import com.android.compatibility.common.util.PropertyUtil
+import com.android.modules.utils.build.SdkLevel
 import com.android.testutils.AutoReleaseNetworkCallbackRule
 import com.android.testutils.ConnectUtil
 import com.android.testutils.NetworkCallbackHelper
@@ -181,4 +183,10 @@ class ConnectivityMultiDevicesSnippet : Snippet {
             }
         }
     }
+
+    @Rpc(description = "Return the API level that the VSR requirement must be fulfilled.")
+    fun getVsrApiLevel() = PropertyUtil.getVsrApiLevel()
+
+    @Rpc(description = "Return whether the Sdk level is at least V.")
+    fun isAtLeastV() = SdkLevel.isAtLeastV()
 }
