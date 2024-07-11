@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0ee57b3_feae6d39",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-11T04:04:27Z",
+      "side": 1,
+      "message": "You are right. I changed the design to initialize the data usage when tethering is turned on. Done in aosp/3159374.",
+      "parentUuid": "4c8e4382_5895749b",
+      "range": {
+        "startLine": 161,
+        "startChar": 12,
+        "endLine": 161,
+        "endChar": 39
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e63287b_95e8661c",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-09-04T08:12:49Z",
       "side": 1,
       "message": "You can move isAtLeastT into populateInitialDataUsageMap and rename the function to populateInitialDataUsageMapAfterT().\n\n    private void populateInitialDataUsageMapAfterT() {\n        if (!isAtLeastT() || !mUsageMap.isEmpty()) return;\n        ....\n    }",
+      "range": {
+        "startLine": 160,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 9
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4261123_35cd5e55",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-11T04:04:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e63287b_95e8661c",
       "range": {
         "startLine": 160,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d990c30_5e5688e6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-11T04:04:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cbf26fd_b1384a72",
+      "range": {
+        "startLine": 190,
+        "startChar": 12,
+        "endLine": 198,
+        "endChar": 57
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba6f097b_f7b4ef81",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-09-04T08:12:49Z",
       "side": 1,
       "message": "import static com.android.modules.utils.build.SdkLevel.isAtLeastT;\n\nThen remove this function.",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 5
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d59828_fe06c880",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-11T04:04:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba6f097b_f7b4ef81",
       "range": {
         "startLine": 204,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c72664_6ba83263",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-11T04:04:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "001e69a1_5679fd45",
+      "range": {
+        "startLine": 208,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c0eef8c_3e2c55b9",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-09-04T08:12:49Z",
       "side": 1,
       "message": "If you take my suggestion above, you can just:\n\n    final Pair\u003cLong, Long\u003e dataUsage \u003d calculateDataUsage(mCurrentUpstream);\n    addUpstreamEvent(upstreamEventsBuilder, startTime, stopTime, mCurrentUpstream,\n                dataUsage.first, dataUsage.second);",
+      "range": {
+        "startLine": 321,
+        "startChar": 8,
+        "endLine": 330,
+        "endChar": 34
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1511fb00_870fb5f1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-11T04:04:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c0eef8c_3e2c55b9",
       "range": {
         "startLine": 321,
         "startChar": 8,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d09e2cd1_1af83bdc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-11T04:04:27Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "c2fff02c_43c8bd16",
+      "range": {
+        "startLine": 362,
+        "startChar": 15,
+        "endLine": 362,
+        "endChar": 33
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdb209d9_9a317e7e",
@@ -192,6 +360,30 @@
       "writtenOn": "2023-09-04T08:12:49Z",
       "side": 1,
       "message": "I think you can remove this function and rename mUsageMap to mPreviousUsageMap, then using mPreviousUsageMap.get(type) everywhere.",
+      "range": {
+        "startLine": 365,
+        "startChar": 4,
+        "endLine": 367,
+        "endChar": 5
+      },
+      "revId": "21c0acb61f8c3e6cd67167f841541b7188c8caca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9143cfd3_3d6871f9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-11T04:04:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdb209d9_9a317e7e",
       "range": {
         "startLine": 365,
         "startChar": 4,
