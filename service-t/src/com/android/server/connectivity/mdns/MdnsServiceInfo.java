@@ -431,6 +431,10 @@ public class MdnsServiceInfo implements Parcelable {
             return ByteUtils.concat(keyBytes, new byte[]{'='}, value);
         }
 
+        public boolean isEmpty() {
+            return key.isEmpty() && (value == null || value.length == 0);
+        }
+
         /** Converts this {@link TextEntry} instance to '=' separated string. */
         @Override
         public String toString() {
