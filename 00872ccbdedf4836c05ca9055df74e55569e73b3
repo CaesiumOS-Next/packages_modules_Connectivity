@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9d15f01_a26aa5b7",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-11T09:17:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c895de2b_8bdf3845",
+      "range": {
+        "startLine": 241,
+        "startChar": 44,
+        "endLine": 241,
+        "endChar": 63
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4eda7bf_afebcd67",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-07-10T17:32:00Z",
       "side": 1,
       "message": "I don\u0027t think this was correct previously nor does it look correct now. I think this should be NonNull (i.e. just remove the annotation).",
+      "range": {
+        "startLine": 132,
+        "startChar": 5,
+        "endLine": 132,
+        "endChar": 13
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2476e831_4a9761f3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-11T09:17:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4eda7bf_afebcd67",
       "range": {
         "startLine": 132,
         "startChar": 5,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c6f5539_27af862e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-11T09:17:05Z",
+      "side": 1,
+      "message": "Updated. This requires a logger so I added `SharedLog` as a parameter for `getINetd` and `getRoutingCoordinator`. Please take another look.",
+      "parentUuid": "0fb7fedb_d7f64cbd",
+      "range": {
+        "startLine": 136,
+        "startChar": 25,
+        "endLine": 136,
+        "endChar": 50
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a439a0d_a5587517",
         "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
         "patchSetId": 7
@@ -83,6 +155,30 @@
       "writtenOn": "2024-07-10T17:32:00Z",
       "side": 1,
       "message": "do we still need this? how about verifying addInterfaceForward() was called with the right arguments below.",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 78
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff19144_564cf29b",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-11T09:17:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a439a0d_a5587517",
       "range": {
         "startLine": 287,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c90f81a_2fe25251",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-11T09:17:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a1ee6d7_0d9dd680",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 81
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09a5e51e_89f8cfa9",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e33a5f2b_253c785a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-11T09:17:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09a5e51e_89f8cfa9",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 46
+      },
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e36c9fda_8785bd32",
@@ -152,6 +296,24 @@
       "writtenOn": "2024-07-10T17:32:00Z",
       "side": 1,
       "message": "nit: is this unused now?",
+      "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd7d1a4f_37407bda",
+        "filename": "staticlibs/device/com/android/net/module/util/RoutingCoordinatorManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-11T09:17:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e36c9fda_8785bd32",
       "revId": "00872ccbdedf4836c05ca9055df74e55569e73b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
