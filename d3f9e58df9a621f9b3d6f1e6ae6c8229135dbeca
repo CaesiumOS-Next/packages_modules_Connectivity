@@ -22,6 +22,30 @@
       },
       "revId": "d3f9e58df9a621f9b3d6f1e6ae6c8229135dbeca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1f1851d_c956a39c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 2377,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-07-11T09:01:26Z",
+      "side": 1,
+      "message": "I think we should consider refactoring it later. aosp/3161517 actually changes some of the calls to use the new Wifi API, so having two test cases better separates the different API usage.",
+      "parentUuid": "ffcddf80_c5010126",
+      "range": {
+        "startLine": 2377,
+        "startChar": 0,
+        "endLine": 2377,
+        "endChar": 56
+      },
+      "revId": "d3f9e58df9a621f9b3d6f1e6ae6c8229135dbeca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
