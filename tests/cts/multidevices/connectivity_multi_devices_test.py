@@ -90,15 +90,29 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
         self.serverDevice, self.clientDevice, UpstreamType.NONE
     )
     client = self.clientDevice.connectivity_multi_devices_snippet
+    asserts.skip_if(
+        client.getVsrApiLevel() < 34, "APF became mandatory in Android 14 VSR."
+    )
+    asserts.skip_if(
+        not client.isAtLeastV(),
+        "Do not enforce the test until V+ since partner potential bugs are"
+        " expected to be fixed in 2024Q3",
+    )
     try:
       server_iface_name, client_network = (
           tether_utils.setup_hotspot_and_client_for_upstream_type(
               self.serverDevice, self.clientDevice, UpstreamType.NONE
           )
       )
-      client_iface_name = client.getInterfaceNameFromNetworkHandle(client_network)
+      client_iface_name = client.getInterfaceNameFromNetworkHandle(
+          client_network
+      )
 
       adb_utils.set_doze_mode(self.clientDevice, True)
+
+      apf_utils.assume_apf_version_support_at_least(
+          self.clientDevice, client_iface_name, 4
+      )
 
       count_before_test = apf_utils.get_apf_counter(
           self.clientDevice,
