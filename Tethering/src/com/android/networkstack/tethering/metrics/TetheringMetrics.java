@@ -99,6 +99,7 @@ public class TetheringMetrics {
      */
     private static final String TETHER_UPSTREAM_DATA_USAGE_METRICS =
             "tether_upstream_data_usage_metrics";
+    private static final DataUsage NO_USAGE = new DataUsage(0L /* txBytes */, 0L /* rxBytes */);
     private final SparseArray<NetworkTetheringReported.Builder> mBuilderMap = new SparseArray<>();
     private final SparseArray<Long> mDownstreamStartTime = new SparseArray<Long>();
     private final ArrayList<RecordUpstreamEvent> mUpstreamEventList = new ArrayList<>();
@@ -211,13 +212,24 @@ public class TetheringMetrics {
         statsBuilder.setErrorCode(errorCodeToEnum(errCode));
     }
 
-    private DataUsage calculateDataUsage(@Nullable UpstreamType upstream) {
+    /**
+     * Calculates the data usage difference between the current and previous usage for the
+     * specified upstream type.
+     *
+     * @return A DataUsage object containing the calculated difference in transmitted (tx) and
+     *         received (rx) bytes.
+     */
+    private DataUsage calculateDataUsageDelta(@Nullable UpstreamType upstream) {
         if (upstream == null || !(mDependencies.isUpstreamDataUsageMetricsEnabled(mContext)
                 && isUsageSupportedForUpstreamType(upstream))) {
-            return new DataUsage(0L, 0L);
+            return NO_USAGE;
         }
-        // TODO: Implement data usage calculation for the upstream type.
-        return new DataUsage(0L, 0L);
+
+        final DataUsage newUsage = getCurrentDataUsageForUpstreamType(upstream);
+        final DataUsage oldUsage = mUpstreamDataUsage.getOrDefault(upstream, NO_USAGE);
+        return new DataUsage(
+                newUsage.txBytes - oldUsage.txBytes,
+                newUsage.rxBytes - oldUsage.rxBytes);
     }
 
     /**
@@ -231,7 +243,7 @@ public class TetheringMetrics {
 
         final long newTime = mDependencies.timeNow();
         if (mCurrentUpstream != null) {
-            final DataUsage dataUsage = calculateDataUsage(upstream);
+            final DataUsage dataUsage = calculateDataUsageDelta(mCurrentUpstream);
             mUpstreamEventList.add(new RecordUpstreamEvent(mCurrentUpStreamStartTime, newTime,
                     mCurrentUpstream, dataUsage));
         }
@@ -289,7 +301,7 @@ public class TetheringMetrics {
         final long startTime = Math.max(downstreamStartTime, mCurrentUpStreamStartTime);
         final long stopTime = mDependencies.timeNow();
         // Handle the last upstream event.
-        final DataUsage dataUsage = calculateDataUsage(mCurrentUpstream);
+        final DataUsage dataUsage = calculateDataUsageDelta(mCurrentUpstream);
         addUpstreamEvent(upstreamEventsBuilder, startTime, stopTime, mCurrentUpstream,
                 dataUsage.txBytes, dataUsage.rxBytes);
         statsBuilder.setUpstreamEvents(upstreamEventsBuilder);
