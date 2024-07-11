@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86c67b35_7fca7ddc",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-11T08:11:53Z",
+      "side": 1,
+      "message": "We should also mention that APF can reply the packet since APFv6.",
+      "range": {
+        "startLine": 201,
+        "startChar": 70,
+        "endLine": 201,
+        "endChar": 74
+      },
+      "revId": "5562d23d00e067dd586a7951bf43b409ba2c8f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0393aaa_de1a9361",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-11T08:11:53Z",
+      "side": 1,
+      "message": "lets call it `apf_ram_size` its more consist with the apf_interpreter term.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:hardware/google/apf/v7/apf_interpreter.h;l\u003d168?q\u003dapf_interpreter.h\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
+      "range": {
+        "startLine": 214,
+        "startChar": 2,
+        "endLine": 214,
+        "endChar": 26
+      },
+      "revId": "5562d23d00e067dd586a7951bf43b409ba2c8f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
