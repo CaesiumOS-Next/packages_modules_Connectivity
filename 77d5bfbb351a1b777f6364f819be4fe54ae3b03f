@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d23658f4_043cbf28",
+        "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T08:15:40Z",
+      "side": 1,
+      "message": "This isn\u0027t very flexible for future tests, as it mandates an exact service. If we need to add tests for multiple services we\u0027d need to multiply the number of methods...\n\nCould you instead have the register methods take a service description as argument, and the discover/resolve methods return a service ?\n\nI guess you\u0027d need to have some serialized way to pass that up to Python, maybe just a dictionary in JSON form or similar would be enough ?",
+      "revId": "77d5bfbb351a1b777f6364f819be4fe54ae3b03f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
