@@ -22,6 +22,30 @@
       },
       "revId": "8aade787cc03107a94d76b22376082616f9416f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53919db7_9de1367b",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-12T07:52:53Z",
+      "side": 1,
+      "message": "https://cs.android.com/search?q\u003dApfIntegrationTest.kt\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain\n\nWe make the check align with ApfIntegrationTest.kt.\n\nThe reason we only do for Android V+ is we know some U device might be buggy but we only want device fix the issue when they upgrade to V.",
+      "parentUuid": "a6555717_252d5631",
+      "range": {
+        "startLine": 93,
+        "startChar": 46,
+        "endLine": 93,
+        "endChar": 50
+      },
+      "revId": "8aade787cc03107a94d76b22376082616f9416f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
