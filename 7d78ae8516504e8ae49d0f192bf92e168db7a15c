@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a1038c_ea658acb",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1467989
+      },
+      "writtenOn": "2024-07-12T16:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3d8db2e_dfe70d13",
+      "revId": "7d78ae8516504e8ae49d0f192bf92e168db7a15c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cf3b69f_eb8ccd17",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-07-12T02:55:10Z",
       "side": 1,
       "message": "This looks a bit hacky and hard to understand why it\u0027s necessary; could you avoid it ? If you really need not to apply the jarjar rules from net-utils-non-bootclasspath-defaults, could you remove them from the defaults and move them to the current users of the defaults ?",
+      "revId": "7d78ae8516504e8ae49d0f192bf92e168db7a15c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "605093a3_abee0cf3",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1467989
+      },
+      "writtenOn": "2024-07-12T16:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cf3b69f_eb8ccd17",
       "revId": "7d78ae8516504e8ae49d0f192bf92e168db7a15c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
