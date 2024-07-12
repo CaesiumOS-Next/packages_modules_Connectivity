@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a28fc650_3b4ae10f",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T07:26:56Z",
+      "side": 1,
+      "message": "By \"this could be added separately\", I meant \"a test for registerServiceInfoCallback could be added separately\", which is what you did I guess :)",
+      "parentUuid": "9459ff48_717db163",
+      "range": {
+        "startLine": 94,
+        "startChar": 52,
+        "endLine": 94,
+        "endChar": 59
+      },
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3368038c_46d84c81",
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "I tried to use the lazy initialization but it can\u0027t not build.",
       "parentUuid": "3368038c_46d84c81",
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7762a5ff_cfaa2177",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T07:26:56Z",
+      "side": 1,
+      "message": "Sorry, there wouldn\u0027t be `lateinit`, it\u0027s just `private val wifiP2pManager by lazy`\n\n```\nprivate val wifiP2pManager by lazy {\n    context.getSystemService(...) ?: fail(\"WifiP2pManager was null\")\n}\n```",
+      "parentUuid": "e7182cf2_f263735f",
       "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
