@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6002eed_4198ea72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T07:28:41Z",
+      "side": 1,
+      "message": "Typo: NsdManager\n\nBut also it\u0027s better to explain why CTS is like that: NsdManager is only updatable on T+",
+      "range": {
+        "startLine": 10,
+        "startChar": 22,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "a16df4c3f82c7fad6b89317abbcde2bf98f16de6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
