@@ -34,6 +34,24 @@
       "parentUuid": "ea7b2519_6b4706fc",
       "revId": "53134c12296e16634a14cbd14dec029c33811a5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51ccf4f2_8d7b720d",
+        "filename": "tests/cts/multidevices/AndroidTest.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T04:38:38Z",
+      "side": 1,
+      "message": "Yes I think the TH failure was here to ensure that there was a clear list of requirements for b/225958696, but now that b/225958696 I don\u0027t think a TODO is supposed to be used anymore.\n\nI think we need to at least know what needs to be done to import the lib before getting this in, otherwise we may be stuck with tech debt that we don\u0027t have a path forward to fixing. So I\u0027d rather delay this until either we know what needs to be done (ideally with another CL uploaded), or the fixed approach is used directly.",
+      "parentUuid": "f0a71bd1_dabbf3bc",
+      "revId": "53134c12296e16634a14cbd14dec029c33811a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
