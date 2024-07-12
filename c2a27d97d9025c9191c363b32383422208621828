@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74a7d84f_47351511",
+        "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T08:16:59Z",
+      "side": 1,
+      "message": "Could the caller call a different methods instead of having a lot of different things in a single method ?\n\nThis won\u0027t test ServiceInfoCallback properly since it would always be after a \"resolve\", so the service was put in cache by the previous resolve call",
+      "revId": "c2a27d97d9025c9191c363b32383422208621828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
