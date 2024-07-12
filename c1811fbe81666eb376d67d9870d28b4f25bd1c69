@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f366d3e7_d10e3418",
+        "filename": "staticlibs/testutils/host/python/wifip2p_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T08:30:13Z",
+      "side": 1,
+      "message": "Typo: Server",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 9
+      },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df5fd295_3264eae4",
         "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
         "patchSetId": 1
@@ -20,6 +43,123 @@
         "endLine": 40,
         "endChar": 54
       },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afde3f19_2afcddbc",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T08:30:13Z",
+      "side": 1,
+      "message": "+1, it would be best to have this as argument, generated randomly in the python code",
+      "parentUuid": "df5fd295_3264eae4",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca72f477_5324da98",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T08:30:13Z",
+      "side": 1,
+      "message": "Nit: just `return@ensureIntentReceived ignoreGroupCheck || groupMatched`",
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2426e4e8_a6eb724f",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T08:30:13Z",
+      "side": 1,
+      "message": "Typo: Create",
+      "range": {
+        "startLine": 130,
+        "startChar": 11,
+        "endLine": 130,
+        "endChar": 16
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "2361e8cb_33ca2413",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 130,
+                "startChar": 0,
+                "endLine": 131,
+                "endChar": 0
+              },
+              "replacement": "        // Create a Wi-Fi P2P group\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa2de3a4_7122f3c7",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T08:30:13Z",
+      "side": 1,
+      "message": "If there\u0027s only one method, maybe this can use Kotlin lambda syntax ?",
+      "fixSuggestions": [
+        {
+          "fixId": "4f3d0a8b_8a060168",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 157,
+                "startChar": 0,
+                "endLine": 162,
+                "endChar": 0
+              },
+              "replacement": "                { state -\u003e\n                    if (state \u003d\u003d WifiP2pManager.WIFI_P2P_DISCOVERY_STARTED) {\n                        p2pDiscoveryStartedFuture.complete(true)\n"
+            }
+          ]
+        }
+      ],
       "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -60,6 +200,30 @@
       "writtenOn": "2024-07-05T03:43:53Z",
       "side": 1,
       "message": "How do you know which device to invite?\nMaybe describe in comment?",
+      "range": {
+        "startLine": 187,
+        "startChar": 38,
+        "endLine": 187,
+        "endChar": 52
+      },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e139453_3be1c67a",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T08:30:13Z",
+      "side": 1,
+      "message": "It would be best to have that as argument to the function, so the snippet is more reusable; that applies to a lot of these snippet methods",
+      "parentUuid": "655ad642_1c578ccb",
       "range": {
         "startLine": 187,
         "startChar": 38,
