@@ -94,6 +94,30 @@
       },
       "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4bbfd00_e79cd89a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T03:02:44Z",
+      "side": 1,
+      "message": "Would you be able to avoid the delay by noting down the last time it was sent, and only sending with a delay when that is \u003c 1s ago ?",
+      "parentUuid": "671b105e_15855448",
+      "range": {
+        "startLine": 2653,
+        "startChar": 8,
+        "endLine": 2653,
+        "endChar": 9
+      },
+      "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

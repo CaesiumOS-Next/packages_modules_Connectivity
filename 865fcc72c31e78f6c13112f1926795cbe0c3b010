@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "473de335_cf8d21e1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-12T03:02:44Z",
+      "side": 0,
+      "message": "There\u0027s a lot of style changes in this commit which make it hard to locate what the actual change here, and may make it more difficult to cherry-pick or revert (due to a higher chance of merge conflicts). Could you move the style changes to another style-only commit ?",
+      "range": {
+        "startLine": 2138,
+        "startChar": 16,
+        "endLine": 2138,
+        "endChar": 24
+      },
+      "revId": "865fcc72c31e78f6c13112f1926795cbe0c3b010",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
