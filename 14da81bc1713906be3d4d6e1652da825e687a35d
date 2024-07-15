@@ -16,6 +16,24 @@
       "message": "The key `THREAD_ENABLED_IN_AIRPLANE_MODE` in ThreadPersistentSettings is intentionally left as is to keep consistent with whatever probably already in the on-disk xml file",
       "revId": "14da81bc1713906be3d4d6e1652da825e687a35d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "119d0b17_58f963a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-15T13:20:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "495889c1_08062156",
+      "revId": "14da81bc1713906be3d4d6e1652da825e687a35d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
