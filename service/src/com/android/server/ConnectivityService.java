@@ -5440,7 +5440,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (nai.isCreated()) {
             try {
                 mNetd.networkSetPermissionForNetwork(nai.network.netId, INetd.PERMISSION_SYSTEM);
-            } catch (RemoteException e) {
+            } catch (RemoteException | ServiceSpecificException e) {
                 Log.d(TAG, "Error marking network restricted during teardown: ", e);
             }
         }
@@ -5917,8 +5917,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             satisfier.network.getNetId(),
                             toUidRangeStableParcels(nri.getUids()),
                             nri.getPreferenceOrderForNetd()));
-                } catch (RemoteException e) {
+                } catch (RemoteException | ServiceSpecificException e) {
                     loge("Exception setting network preference default network", e);
+                    loge("netid=" + satisfier.network.getNetId() +
+                            " uids=" + toUidRangeStableParcels(nri.getUids()) +
+                            " prio=" +  nri.getPriorityForNetd());
                 }
             }
         }
