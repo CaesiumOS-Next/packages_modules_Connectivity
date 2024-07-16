@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08a93ac5_0a6f9a72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-16T06:53:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83433649_10aa2da2",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 10,
+        "endChar": 16
+      },
+      "revId": "aad13ba7856b9ec72464bce5281dc09f1a669690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b6cf442_a045d99f",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78fccb96_293ee1bc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7784,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-16T06:53:42Z",
+      "side": 1,
+      "message": "As per discussion, this is a member of the class so no need to use an arg",
+      "parentUuid": "0b6cf442_a045d99f",
+      "revId": "aad13ba7856b9ec72464bce5281dc09f1a669690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "417bc7d2_5c680d9f",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-07-10T10:36:49Z",
       "side": 1,
       "message": "nits:\nCan arg1 be non-zero when the notificationType is not one of CALLBACK_AVAILABLE, CALLBACK_LOSING, and CALLBACK_BLK_CHANGED?\nIf no, we don\u0027t need `cbArg1` and can pass arg1 to callCallbackForRequest",
+      "range": {
+        "startLine": 10291,
+        "startChar": 22,
+        "endLine": 10291,
+        "endChar": 23
+      },
+      "revId": "aad13ba7856b9ec72464bce5281dc09f1a669690",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85b289ff_94339bbf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10291,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-16T06:53:42Z",
+      "side": 1,
+      "message": "No it\u0027s always 0 otherwise (looked at callers)\n\nDone",
+      "parentUuid": "417bc7d2_5c680d9f",
       "range": {
         "startLine": 10291,
         "startChar": 22,
