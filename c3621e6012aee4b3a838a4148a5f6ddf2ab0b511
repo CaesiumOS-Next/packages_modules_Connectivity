@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e33bba9c_2aa8b435",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-16T08:45:51Z",
+      "side": 1,
+      "message": "Lint errors are pre-existing",
+      "revId": "c3621e6012aee4b3a838a4148a5f6ddf2ab0b511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
