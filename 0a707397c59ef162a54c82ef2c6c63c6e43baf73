@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74466c9e_6139ac49",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-16T03:37:56Z",
+      "side": 1,
+      "message": "nit: add comment?",
+      "revId": "0a707397c59ef162a54c82ef2c6c63c6e43baf73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "543435c5_7750ab15",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-16T03:37:56Z",
+      "side": 1,
+      "message": "@GuardedBy(?",
+      "range": {
+        "startLine": 474,
+        "startChar": 17,
+        "endLine": 474,
+        "endChar": 54
+      },
+      "revId": "0a707397c59ef162a54c82ef2c6c63c6e43baf73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12b0cbdc_7372b48f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2676,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-16T03:37:56Z",
+      "side": 1,
+      "message": "mClock?",
+      "range": {
+        "startLine": 2676,
+        "startChar": 59,
+        "endLine": 2676,
+        "endChar": 70
+      },
+      "revId": "0a707397c59ef162a54c82ef2c6c63c6e43baf73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b11f29ed_296a5ef0",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2676,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-16T03:37:56Z",
+      "side": 1,
+      "message": "1. This could point to a next scheduled update time. \nMaybe rename and add comments?\n\n2. Maybe also comment how your logic works.\n\n3. I think this deserve some unit test, maybe try to add a test in NetworkStatsServiceTest?",
+      "range": {
+        "startLine": 2676,
+        "startChar": 20,
+        "endLine": 2676,
+        "endChar": 33
+      },
+      "revId": "0a707397c59ef162a54c82ef2c6c63c6e43baf73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9860c784_f9c71e41",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2679,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-16T03:37:56Z",
+      "side": 1,
+      "message": "redundant space.",
+      "range": {
+        "startLine": 2679,
+        "startChar": 22,
+        "endLine": 2679,
+        "endChar": 23
+      },
+      "revId": "0a707397c59ef162a54c82ef2c6c63c6e43baf73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
