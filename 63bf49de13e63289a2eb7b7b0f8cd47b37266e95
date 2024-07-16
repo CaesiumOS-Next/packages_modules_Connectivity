@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2566e1f5_9f00c65a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2678,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-16T06:04:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "225e07ad_b221aa48",
+      "range": {
+        "startLine": 2678,
+        "startChar": 59,
+        "endLine": 2678,
+        "endChar": 63
+      },
+      "revId": "63bf49de13e63289a2eb7b7b0f8cd47b37266e95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "258d9a08_e64fa658",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef29aa78_2b9fe443",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2681,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-16T06:04:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "258d9a08_e64fa658",
+      "range": {
+        "startLine": 2680,
+        "startChar": 12,
+        "endLine": 2681,
+        "endChar": 62
+      },
+      "revId": "63bf49de13e63289a2eb7b7b0f8cd47b37266e95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5996e71e_ad3d71e0",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-07-15T09:22:35Z",
       "side": 1,
       "message": "1. You mean \u003c ?\n2. IIUC we might want to do deduplicate here?",
+      "range": {
+        "startLine": 2684,
+        "startChar": 16,
+        "endLine": 2684,
+        "endChar": 18
+      },
+      "revId": "63bf49de13e63289a2eb7b7b0f8cd47b37266e95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "824a82cb_7963e68d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2684,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-16T06:04:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5996e71e_ad3d71e0",
       "range": {
         "startLine": 2684,
         "startChar": 16,

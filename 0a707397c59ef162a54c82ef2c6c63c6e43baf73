@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db3491aa_c1c3aae3",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-16T06:04:02Z",
+      "side": 1,
+      "message": "Is this the correct one? `@GuardedBy(\"mStatsLock\")`",
+      "parentUuid": "543435c5_7750ab15",
+      "range": {
+        "startLine": 474,
+        "startChar": 17,
+        "endLine": 474,
+        "endChar": 54
+      },
+      "revId": "0a707397c59ef162a54c82ef2c6c63c6e43baf73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12b0cbdc_7372b48f",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 9
@@ -89,6 +113,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5acf4b00_8085abe7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2676,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-16T06:04:02Z",
+      "side": 1,
+      "message": "The class `Handler` uses `SystemClock.uptimMillis()`\n\n```\n   public final boolean sendMessageDelayed(@NonNull Message msg, long delayMillis) {\n        if (delayMillis \u003c 0) {\n            delayMillis \u003d 0;\n        }\n        return sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis);\n    }\n\n```",
+      "parentUuid": "12b0cbdc_7372b48f",
+      "range": {
+        "startLine": 2676,
+        "startChar": 59,
+        "endLine": 2676,
+        "endChar": 70
+      },
+      "revId": "0a707397c59ef162a54c82ef2c6c63c6e43baf73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9860c784_f9c71e41",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 9
@@ -100,6 +148,30 @@
       "writtenOn": "2024-07-16T03:37:56Z",
       "side": 1,
       "message": "redundant space.",
+      "range": {
+        "startLine": 2679,
+        "startChar": 22,
+        "endLine": 2679,
+        "endChar": 23
+      },
+      "revId": "0a707397c59ef162a54c82ef2c6c63c6e43baf73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d62e39a_9df45731",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2679,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-16T06:04:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9860c784_f9c71e41",
       "range": {
         "startLine": 2679,
         "startChar": 22,
