@@ -49,6 +49,7 @@ java_library {
         // framework-connectivity
         "net-utils-device-common-struct",
         "ot-daemon-aidl-java",
+        "aconfig_thread_flags_java_lib",
     ],
     apex_available: ["com.android.tethering"],
 }

@@ -44,6 +44,7 @@ import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_OPERAT
 import static android.net.thread.ThreadNetworkManager.DISALLOW_THREAD_NETWORK;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 
+import static com.android.net.thread.flags.Flags.trelFlag;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_ABORT;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_BUSY;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_FAILED_PRECONDITION;
@@ -409,6 +410,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                             TAG,
                             "Initializing Thread system service: Thread is "
                                     + (shouldEnableThread() ? "enabled" : "disabled"));
+                    Log.i(TAG, "!!!!!!!! TREL flag " + trelFlag());
                     try {
                         mTunIfController.createTunInterface();
                     } catch (IOException e) {

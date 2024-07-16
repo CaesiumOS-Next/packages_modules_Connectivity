@@ -8,3 +8,10 @@ flag {
     description: "Controls whether the Android Thread feature is enabled"
     bug: "301473012"
 }
+
+flag {
+    name: "trel_flag"
+    namespace: "thread_network"
+    description: "Controls whether the TREL feature is enabled"
+    bug: "<none>"
+}
