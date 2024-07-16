@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fed64d19_640d9de0",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkStackConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-07-16T06:05:27Z",
+      "side": 1,
+      "message": "nit: looks like a byte can represent these constants, maybe short is better if we need to support other constants such as 255 later?",
+      "range": {
+        "startLine": 268,
+        "startChar": 24,
+        "endLine": 268,
+        "endChar": 27
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "e68b242b_31234d54",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/framework/com/android/net/module/util/NetworkStackConstants.java",
+              "range": {
+                "startLine": 268,
+                "startChar": 0,
+                "endLine": 273,
+                "endChar": 0
+              },
+              "replacement": "    public static final short TYPE_A \u003d 1;\n    public static final short TYPE_PTR \u003d 12;\n    public static final short TYPE_TXT \u003d 16;\n    public static final short TYPE_AAAA \u003d 28;\n    public static final short TYPE_SRV \u003d 33;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "d64491bb8f864f53258042b440c04cf88cb3886a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
