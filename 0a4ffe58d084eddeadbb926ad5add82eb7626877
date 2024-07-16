@@ -142,6 +142,30 @@
       },
       "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adec3e8f_30f5f64f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-16T09:22:22Z",
+      "side": 1,
+      "message": "In this case, do we miss broadcast even if the stats are updated in some cases?\n\n1) performPollLocked is called and stats are updated when uptimeMillis is 1000 -\u003e broad cast is delivered\n2) performPollLocked is called and stats are updated when uptimeMillis is 1999 -\u003e broad cast is not delivered\n\nI\u0027m not sure which is better, delay or missing broadcast.",
+      "parentUuid": "6963a611_41ce65c2",
+      "range": {
+        "startLine": 2653,
+        "startChar": 8,
+        "endLine": 2653,
+        "endChar": 9
+      },
+      "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
