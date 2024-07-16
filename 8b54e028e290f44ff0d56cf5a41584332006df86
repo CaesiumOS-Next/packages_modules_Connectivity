@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dcae6cc_fd9d6266",
+        "filename": "staticlibs/testutils/host/python/wifip2p_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-16T10:08:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "949ce32a_99b32586",
+      "range": {
+        "startLine": 39,
+        "startChar": 45,
+        "endLine": 39,
+        "endChar": 62
+      },
+      "revId": "8b54e028e290f44ff0d56cf5a41584332006df86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cef5ec75_bce5cf50",
@@ -55,6 +79,24 @@
       "writtenOn": "2024-07-12T08:23:41Z",
       "side": 1,
       "message": "You could avoid the `!!` with:\n\n```\nprivate val wifiP2pManager by lazy {\n    context.getSystemService(WifiManager::class.java)\n}\n```",
+      "revId": "8b54e028e290f44ff0d56cf5a41584332006df86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20773832_16710ab3",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-16T10:08:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cef5ec75_bce5cf50",
       "revId": "8b54e028e290f44ff0d56cf5a41584332006df86",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -126,6 +168,30 @@
           ]
         }
       ],
+      "revId": "8b54e028e290f44ff0d56cf5a41584332006df86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1d04f62_19b2d0ff",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-16T10:08:49Z",
+      "side": 1,
+      "message": "No, there is only one channel. I use `lateinit var` for a single chanel instead.",
+      "parentUuid": "0a82f6ea_da41f5e5",
+      "range": {
+        "startLine": 58,
+        "startChar": 13,
+        "endLine": 58,
+        "endChar": 42
+      },
       "revId": "8b54e028e290f44ff0d56cf5a41584332006df86",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
