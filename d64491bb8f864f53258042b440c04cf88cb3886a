@@ -40,6 +40,30 @@
       ],
       "revId": "d64491bb8f864f53258042b440c04cf88cb3886a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3a84f19_338e3f4b",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkStackConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-16T06:59:23Z",
+      "side": 1,
+      "message": "This a good point. However, the rest of DnsResolver and NsdService code use int for qtype class. I would like to prioritize the consistency here first.",
+      "parentUuid": "fed64d19_640d9de0",
+      "range": {
+        "startLine": 268,
+        "startChar": 24,
+        "endLine": 268,
+        "endChar": 27
+      },
+      "revId": "d64491bb8f864f53258042b440c04cf88cb3886a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
