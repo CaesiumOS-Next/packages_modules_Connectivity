@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8893e3a_e47556ae",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DefaultNetworkRestoreMonitor.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-16T06:19:37Z",
+      "side": 1,
+      "message": "Nit: `, e` would be better to keep the stacktrace of the inner exception",
+      "range": {
+        "startLine": 95,
+        "startChar": 80,
+        "endLine": 95,
+        "endChar": 84
+      },
+      "revId": "4389c4a6c4d519d45f7dd18cfdadb5bfae36a812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
