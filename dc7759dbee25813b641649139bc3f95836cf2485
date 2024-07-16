@@ -16,6 +16,24 @@
       "message": "For javadoc purposes, there should be an empty line after the first line, before the description paragraph",
       "revId": "dc7759dbee25813b641649139bc3f95836cf2485",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f59739_ab186018",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-07-16T04:40:48Z",
+      "side": 1,
+      "message": "Added an empty line, done.",
+      "parentUuid": "1b6f94ea_bab51efd",
+      "revId": "dc7759dbee25813b641649139bc3f95836cf2485",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
