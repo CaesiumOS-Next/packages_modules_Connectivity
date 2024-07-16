@@ -22,6 +22,30 @@
       },
       "revId": "327cb2061d9c1d4953c576298f144020b597c3d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78a46407_6053ff28",
+        "filename": "staticlibs/device/com/android/net/module/util/GrowingIntArray.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-16T04:36:10Z",
+      "side": 1,
+      "message": "Renamed to `getShrinkedBackingArray` and done that",
+      "parentUuid": "1b7dfc8a_e4f89e75",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 5
+      },
+      "revId": "327cb2061d9c1d4953c576298f144020b597c3d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
