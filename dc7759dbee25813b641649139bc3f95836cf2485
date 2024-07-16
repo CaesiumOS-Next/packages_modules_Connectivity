@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b6f94ea_bab51efd",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-16T04:33:24Z",
+      "side": 1,
+      "message": "For javadoc purposes, there should be an empty line after the first line, before the description paragraph",
+      "revId": "dc7759dbee25813b641649139bc3f95836cf2485",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
