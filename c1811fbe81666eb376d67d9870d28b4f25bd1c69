@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e42e0d3_6ef1fc64",
+        "filename": "staticlibs/testutils/host/python/wifip2p_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-16T11:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f366d3e7_d10e3418",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 9
+      },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df5fd295_3264eae4",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0140837_a6a0779a",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-16T11:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afde3f19_2afcddbc",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca72f477_5324da98",
@@ -84,6 +132,24 @@
       "writtenOn": "2024-07-12T08:30:13Z",
       "side": 1,
       "message": "Nit: just `return@ensureIntentReceived ignoreGroupCheck || groupMatched`",
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5dbef44_3628f1dc",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-16T11:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca72f477_5324da98",
       "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -129,6 +195,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bfe09c1_afdfd867",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-16T11:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2426e4e8_a6eb724f",
+      "range": {
+        "startLine": 130,
+        "startChar": 11,
+        "endLine": 130,
+        "endChar": 16
+      },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa2de3a4_7122f3c7",
@@ -164,6 +254,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ab9aee6_d8dc6a28",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-16T11:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa2de3a4_7122f3c7",
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3216f427_cf730c05",
@@ -177,6 +285,30 @@
       "writtenOn": "2024-07-05T03:43:53Z",
       "side": 1,
       "message": "Is there always 1 device?\nIf so maybe just store it in a variable without list to make it less errorprone?\nThe same question also apply to wifip2pChannels",
+      "range": {
+        "startLine": 176,
+        "startChar": 20,
+        "endLine": 176,
+        "endChar": 27
+      },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "957af5ce_23a77d5b",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-16T11:14:38Z",
+      "side": 1,
+      "message": "Yes, there is only one channel. Use `lateinit var` for a single device instead.",
+      "parentUuid": "3216f427_cf730c05",
       "range": {
         "startLine": 176,
         "startChar": 20,
