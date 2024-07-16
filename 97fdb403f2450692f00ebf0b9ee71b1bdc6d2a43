@@ -125,6 +125,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2b28271_0929d09d",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-16T11:14:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7762a5ff_cfaa2177",
+      "revId": "97fdb403f2450692f00ebf0b9ee71b1bdc6d2a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d1694fc_4332d4f0",
