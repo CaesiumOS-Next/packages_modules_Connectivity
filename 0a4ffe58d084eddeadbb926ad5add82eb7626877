@@ -166,6 +166,30 @@
       },
       "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fda8d353_d24b1b84",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-17T02:05:56Z",
+      "side": 1,
+      "message": "In patchset 10, case 2 would be delievered at `uptimeMillis 2000`, since  `mLatestBroadcastNetworkStatsUpdatedTime \u003d 1000` would be smaller than `uptimeMillis \u003d 1999`, a message would be scheduled at time `2000`. I think in this case the performPollLocked would result in a broadcast delivered.",
+      "parentUuid": "adec3e8f_30f5f64f",
+      "range": {
+        "startLine": 2653,
+        "startChar": 8,
+        "endLine": 2653,
+        "endChar": 9
+      },
+      "revId": "0a4ffe58d084eddeadbb926ad5add82eb7626877",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
