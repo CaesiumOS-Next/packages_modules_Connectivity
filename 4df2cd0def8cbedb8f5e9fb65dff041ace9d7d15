@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2defafbc_54bb821c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-17T03:01:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2485706f_72ed88ae",
+      "revId": "4df2cd0def8cbedb8f5e9fb65dff041ace9d7d15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "590e4dec_02143d0e",
         "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
         "patchSetId": 1

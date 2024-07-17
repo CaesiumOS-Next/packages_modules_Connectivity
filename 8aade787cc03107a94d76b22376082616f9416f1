@@ -46,6 +46,30 @@
       },
       "revId": "8aade787cc03107a94d76b22376082616f9416f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d13ae647_1814c893",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-17T03:01:14Z",
+      "side": 1,
+      "message": "Done, see if it works for you.",
+      "parentUuid": "53919db7_9de1367b",
+      "range": {
+        "startLine": 93,
+        "startChar": 46,
+        "endLine": 93,
+        "endChar": 50
+      },
+      "revId": "8aade787cc03107a94d76b22376082616f9416f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
