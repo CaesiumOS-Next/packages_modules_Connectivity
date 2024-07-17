@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8e4a13b_b3055e34",
+        "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-17T10:02:54Z",
+      "side": 1,
+      "message": "Do we plan to usee this private function somewhere else? if not, it seems like make this two line into one function is not necessary.",
+      "range": {
+        "startLine": 73,
+        "startChar": 16,
+        "endLine": 73,
+        "endChar": 35
+      },
+      "revId": "08baacfd2941e14268202f84f55c4a387df4427a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f5ced1c_97833dfd",
+        "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-17T10:02:54Z",
+      "side": 1,
+      "message": "nit: is correct to use `MDns` as name, shouldn\u0027t it be `Mdns`?",
+      "range": {
+        "startLine": 73,
+        "startChar": 16,
+        "endLine": 73,
+        "endChar": 35
+      },
+      "revId": "08baacfd2941e14268202f84f55c4a387df4427a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37d9c226_950105c8",
         "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
         "patchSetId": 1
