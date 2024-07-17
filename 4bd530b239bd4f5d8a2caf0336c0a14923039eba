@@ -39,6 +39,30 @@
       },
       "revId": "4bd530b239bd4f5d8a2caf0336c0a14923039eba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2902ba72_4aed496e",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-17T03:22:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deced393_1b852eb3",
+      "range": {
+        "startLine": 98,
+        "startChar": 48,
+        "endLine": 98,
+        "endChar": 55
+      },
+      "revId": "4bd530b239bd4f5d8a2caf0336c0a14923039eba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
