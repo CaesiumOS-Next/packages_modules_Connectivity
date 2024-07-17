@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66407e19_b339a360",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-17T07:23:31Z",
+      "side": 1,
+      "message": "nit: not sure if we want to @MonitorThreadLeak as well.\nFeel free to ignore.",
+      "revId": "8d122fac3ab4cf2880deb48d49867f00d769ffdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
