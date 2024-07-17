@@ -1,0 +1,132 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a8cfa6a_330282ce",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-17T06:20:00Z",
+      "side": 1,
+      "message": "Please fix this ERROR reported by Build Warnings: cannot find symbol\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    cannot find symbol\n    import com.android.net.module.util.DnsUtils;\n                                      ^\n      symbol:   class DnsUtils\n      location: package com.android.net.module.util\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P77635917/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "4c3d298e12f67833765eaa1b59ee6ffac641e4cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f45a7ab5_96e5db04",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/EnqueueMdnsQueryCallable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-17T06:20:00Z",
+      "side": 1,
+      "message": "Please fix this ERROR reported by Build Warnings: cannot find symbol\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    cannot find symbol\n                                            \u0026\u0026 DnsUtils.equalsDnsLabelIgnoreDnsCase(\n                                               ^\n      symbol:   variable DnsUtils\n      location: class EnqueueMdnsQueryCallable\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P77635917/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 80
+      },
+      "revId": "4c3d298e12f67833765eaa1b59ee6ffac641e4cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c5b3107_b1c62ef3",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-17T06:20:00Z",
+      "side": 1,
+      "message": "This desciption does not match the class name.",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 33
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4a71814c_bf0658bc",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/framework/com/android/net/module/util/DnsUtils.java",
+              "range": {
+                "startLine": 23,
+                "startChar": 0,
+                "endLine": 24,
+                "endChar": 0
+              },
+              "replacement": " * DNS common utility functions.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4c3d298e12f67833765eaa1b59ee6ffac641e4cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f963f24_479816e1",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-17T06:20:00Z",
+      "side": 1,
+      "message": "IIUC, DnsUtils no longer belongs to the mdns stack, does this test still need to be ignored before T?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 54
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "412585f7_70a0b91e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/net/module/util/DnsUtilsTest.kt",
+              "range": {
+                "startLine": 34,
+                "startChar": 0,
+                "endLine": 35,
+                "endChar": 0
+              },
+              "replacement": "@DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4c3d298e12f67833765eaa1b59ee6ffac641e4cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
