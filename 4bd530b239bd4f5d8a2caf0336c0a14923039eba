@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a6094cd_7badbbc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-17T03:20:00Z",
+      "side": 1,
+      "message": "Can we wait until Monday for Lorenzo to +1 on this one ? This isn\u0027t a flake fix or no-op so I don\u0027t think I\u0027m supposed to +1 it",
+      "revId": "4bd530b239bd4f5d8a2caf0336c0a14923039eba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deced393_1b852eb3",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-17T03:20:00Z",
+      "side": 1,
+      "message": "Nit: chipset ? From the point of view of AOSP contributors \"partner\" isn\u0027t clear",
+      "range": {
+        "startLine": 98,
+        "startChar": 48,
+        "endLine": 98,
+        "endChar": 55
+      },
+      "revId": "4bd530b239bd4f5d8a2caf0336c0a14923039eba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
