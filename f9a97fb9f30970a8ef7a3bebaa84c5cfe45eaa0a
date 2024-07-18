@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18efdfd9_c54ec65a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 3502,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-18T11:12:11Z",
+      "side": 1,
+      "message": "nits: Currently, uidCounter keeps the counter only for non-internal requests.\nAnd ConnectivityService internal requests (e.g. request to keep mobile up) are not tracked.\nI think this code is still correct since internal request does not have mMessenger and also system server can not be frozen.\nIt would be better to comment that this counter does not match with mNetworkRequests but this is fine in this case.",
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9655a74_1626ed34",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 7807,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-18T11:12:11Z",
+      "side": 1,
+      "message": "Do we need to copy `mQueuedCallbacks` and `mMatchedNetIdWhenFrozen` here?\nOtherwise, following case might have the issue\n1) app register TRACK_DEFAULT request\n2) app is frozen\n3) some callbacks are queued\n4) per-app default network request is filed\n5) app is unfrozen\nCan we have test with per-app default network?",
+      "range": {
+        "startLine": 7807,
+        "startChar": 8,
+        "endLine": 7807,
+        "endChar": 9
+      },
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceef761d_7fe7f33a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 23
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-18T11:12:11Z",
+      "side": 1,
+      "message": "nits: Do we need this? Don\u0027t we have mobile data always on request?",
+      "range": {
+        "startLine": 140,
+        "startChar": 8,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96e1a9ab_c626464a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 23
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-18T11:12:11Z",
+      "side": 1,
+      "message": "nits: Do we need this waitForIdle? `maybeSetUidsFrozen` posts message to handler thread so I thought we don\u0027t need to wait previous message is processed.",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 21
+      },
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18770965_d4582de9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 23
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-18T11:12:11Z",
+      "side": 1,
+      "message": "nits: I think you can call `handleBlockedReasonsChanged` with uid and blocked reasons.\nThis will update mUidBlockedReasons in ConnectivityService so you don\u0027t need to mock BpfNetMaps and maintain `mockedBlockedReasonsPerUid` .",
+      "range": {
+        "startLine": 485,
+        "startChar": 8,
+        "endLine": 489,
+        "endChar": 43
+      },
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24d35cd9_4ba9702b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 23
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-18T11:12:11Z",
+      "side": 1,
+      "message": "nits: Do we need to use `visibleOnHandlerThread` here? `onUidBlockedReasonChanged` will post message to handler thread so I think this don\u0027t need to be called from handler thread.",
+      "range": {
+        "startLine": 500,
+        "startChar": 11,
+        "endLine": 500,
+        "endChar": 13
+      },
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
