@@ -28,6 +28,7 @@ import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.TetheringManager.ACTION_TETHER_STATE_CHANGED;
+import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.EXTRA_ACTIVE_LOCAL_ONLY;
 import static android.net.TetheringManager.EXTRA_ACTIVE_TETHER;
@@ -666,14 +667,14 @@ public class Tethering {
             // disable before re-enabling.
             if (unfinishedRequest != null && !unfinishedRequest.equals(request)) {
                 enableTetheringInternal(type, false /* disabled */, null);
-                mEntitlementMgr.stopProvisioningIfNeeded(type);
+                mEntitlementMgr.stopProvisioningIfNeeded(unfinishedRequest);
             }
             mActiveTetheringRequests.put(type, request);
 
             if (request.isExemptFromEntitlementCheck()) {
-                mEntitlementMgr.setExemptedDownstreamType(type);
-            } else {
-                mEntitlementMgr.startProvisioningIfNeeded(type,
+                mEntitlementMgr.setExemptedDownstream(request);
+            } else if (request.getConnectivityScope() == CONNECTIVITY_SCOPE_GLOBAL) {
+                mEntitlementMgr.startProvisioningIfNeeded(request,
                         request.getShouldShowEntitlementUi());
             }
             enableTetheringInternal(type, true /* enabled */, listener);
@@ -688,7 +689,6 @@ public class Tethering {
     }
     void stopTetheringInternal(int type) {
         mActiveTetheringRequests.remove(type);
-
         enableTetheringInternal(type, false /* disabled */, null);
         mEntitlementMgr.stopProvisioningIfNeeded(type);
     }
