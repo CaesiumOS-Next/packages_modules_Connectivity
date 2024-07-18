@@ -247,6 +247,30 @@
       },
       "revId": "4c3d298e12f67833765eaa1b59ee6ffac641e4cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e08564d4_f06fd16b",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DnsUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-18T03:02:39Z",
+      "side": 1,
+      "message": "Ah, sorry for the misunderstanding the comment, the AI suggest fix is so confusing....",
+      "parentUuid": "23d1456c_c9d16fde",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 54
+      },
+      "revId": "4c3d298e12f67833765eaa1b59ee6ffac641e4cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
