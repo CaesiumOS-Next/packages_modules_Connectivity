@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96cd68db_fd0574db",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-18T13:34:49Z",
+      "side": 1,
+      "message": "According to the RFC, the mDNS character equivalent comparison is done on lowercase letters. Therefore, I don\u0027t think you can simply change lowercase to uppercase for all mDNS classes. Perhaps you can create a new method for uppercase usage.",
+      "range": {
+        "startLine": 34,
+        "startChar": 7,
+        "endLine": 34,
+        "endChar": 26
+      },
+      "revId": "e0051d4260f9943aac3a0b017ee72b608ccfad41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
