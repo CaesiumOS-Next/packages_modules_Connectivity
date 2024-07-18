@@ -16,8 +16,12 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSearchOptions.AGGRESSIVE_QUERY_MODE;
 import static com.android.server.connectivity.mdns.MdnsServiceCache.ServiceExpiredCallback;
 import static com.android.server.connectivity.mdns.MdnsServiceCache.findMatchedResponse;
+import static com.android.server.connectivity.mdns.QueryTaskConfig.INITIAL_AGGRESSIVE_TIME_BETWEEN_BURSTS_MS;
+import static com.android.server.connectivity.mdns.QueryTaskConfig.QUERIES_PER_BURST;
+import static com.android.server.connectivity.mdns.QueryTaskConfig.TIME_BETWEEN_RETRANSMISSION_QUERIES_IN_BURST_MS;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
 
@@ -395,11 +399,23 @@ public class MdnsServiceTypeClient {
         }
         // Remove the next scheduled periodical task.
         removeScheduledTask();
-        mdnsQueryScheduler.cancelScheduledRun();
-        // Keep tracking the ScheduledFuture for the task so we can cancel it if caller is not
-        // interested anymore.
-        final QueryTaskConfig taskConfig = new QueryTaskConfig(
-                searchOptions.getQueryMode());
+
+        // Get query task config
+        final boolean isAggressiveMode = searchOptions.getQueryMode() == AGGRESSIVE_QUERY_MODE;
+        final QueryTaskConfig taskConfig;
+        if (isAggressiveMode && hadReply) {
+            taskConfig = new QueryTaskConfig(
+                    searchOptions.numOfQueriesBeforeBackoff() + 1 /* queryCount */,
+                    0 /* transactionId */, true /* expectUnicastResponse */,
+                    false /* isFirstBurst */, 2 /* burstCounter */, QUERIES_PER_BURST,
+                    INITIAL_AGGRESSIVE_TIME_BETWEEN_BURSTS_MS,
+                    TIME_BETWEEN_RETRANSMISSION_QUERIES_IN_BURST_MS);
+        } else {
+            // Remove the latest scheduled run if there is no service in the cache.
+            mdnsQueryScheduler.cancelScheduledRun();
+            taskConfig = new QueryTaskConfig(searchOptions.getQueryMode());
+        }
+
         final long now = clock.elapsedRealtime();
         if (lastSentTime == 0) {
             lastSentTime = now;

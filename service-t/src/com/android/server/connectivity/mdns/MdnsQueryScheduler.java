@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSearchOptions.AGGRESSIVE_QUERY_MODE;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 
@@ -104,9 +106,12 @@ public class MdnsQueryScheduler {
             int queryMode,
             int numOfQueriesBeforeBackoff) {
         final QueryTaskConfig nextRunConfig = currentConfig.getConfigForNextRun(queryMode);
-        final long timeToRun;
+        long timeToRun;
         if (mLastScheduledQueryTaskArgs == null) {
             timeToRun = now + nextRunConfig.delayUntilNextTaskWithoutBackoffMs;
+            if (queryMode == AGGRESSIVE_QUERY_MODE && minRemainingTtl > 0) {
+                timeToRun = Math.max(now + (long) (0.8 * minRemainingTtl), timeToRun);
+            }
         } else {
             timeToRun = calculateTimeToRun(mLastScheduledQueryTaskArgs,
                     nextRunConfig, now, minRemainingTtl, lastSentTime, numOfQueriesBeforeBackoff);
