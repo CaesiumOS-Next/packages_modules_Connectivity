@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f23117b_32b5332a",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerDownstreamTetheringTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-18T22:16:57Z",
+      "side": 1,
+      "message": "FWIW, the ultimate goal is remove the dependency on EthernetTetheringTestBase altogether.",
+      "range": {
+        "startLine": 53,
+        "startChar": 42,
+        "endLine": 53,
+        "endChar": 67
+      },
+      "revId": "afae68a1f73335c80b53257fce19f23323a6d8bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
