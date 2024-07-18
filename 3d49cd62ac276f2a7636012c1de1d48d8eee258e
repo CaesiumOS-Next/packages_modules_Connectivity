@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02fecb33_f4044f92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3543974
+      },
+      "writtenOn": "2024-07-18T13:55:15Z",
+      "side": 1,
+      "message": "3147879: Shedule task with current run if there is a service in the cache | https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/3147879",
+      "revId": "3d49cd62ac276f2a7636012c1de1d48d8eee258e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
