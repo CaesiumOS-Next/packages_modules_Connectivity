@@ -419,8 +419,8 @@ static int doLoad(char** argv, char * const envp[]) {
          * and 32-bit userspace on 64-bit kernel bpf ringbuffer compatibility is broken.
          */
         ALOGE("64-bit userspace required on 6.2+ kernels.");
-        // Stuff won't work reliably, but exempt TVs & Arm Wear devices
-        if (!isTV() && !(isWear() && isArm())) return 1;
+        // Stuff won't work reliably, but exempt TVs & x86/Arm Wear devices
+        if (!isTV() && !(isWear() && !isRiscV())) return 1;
     }
 
     // Ensure we can determine the Android build type.
