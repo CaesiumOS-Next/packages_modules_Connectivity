@@ -65,6 +65,7 @@ import android.content.pm.ModuleInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.net.TetheringManager.TetheringRequest;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
@@ -76,6 +77,7 @@ import android.provider.DeviceConfig;
 import android.provider.Settings;
 import android.telephony.CarrierConfigManager;
 
+import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -165,10 +167,10 @@ public final class EntitlementManagerTest {
         }
 
         @Override
-        protected Intent runUiTetherProvisioning(int type,
+        protected Intent runUiTetherProvisioning(TetheringManager.@NonNull TetheringRequest request,
                 final TetheringConfiguration config, final ResultReceiver receiver) {
-            Intent intent = super.runUiTetherProvisioning(type, config, receiver);
-            assertUiTetherProvisioningIntent(type, config, receiver, intent);
+            Intent intent = super.runUiTetherProvisioning(request, config, receiver);
+            assertUiTetherProvisioningIntent(request, config, receiver, intent);
             uiProvisionCount++;
             receiver.send(fakeEntitlementResult, null);
             return intent;
@@ -190,19 +192,20 @@ public final class EntitlementManagerTest {
         }
 
         @Override
-        protected Intent runSilentTetherProvisioning(int type,
+        protected Intent runSilentTetherProvisioning(@NonNull TetheringRequest request,
                 final TetheringConfiguration config, final ResultReceiver receiver) {
-            Intent intent = super.runSilentTetherProvisioning(type, config, receiver);
-            assertSilentTetherProvisioning(type, config, intent);
+            Intent intent = super.runSilentTetherProvisioning(request, config, receiver);
+            assertSilentTetherProvisioning(request, config, intent);
             silentProvisionCount++;
-            addDownstreamMapping(type, fakeEntitlementResult);
+            addDownstreamMapping(request, fakeEntitlementResult);
             return intent;
         }
 
-        private void assertSilentTetherProvisioning(int type, final TetheringConfiguration config,
-                final Intent intent) {
-            assertEquals(type, intent.getIntExtra(EXTRA_ADD_TETHER_TYPE, TETHERING_INVALID));
-            assertEquals(true, intent.getBooleanExtra(EXTRA_RUN_PROVISION, false));
+        private void assertSilentTetherProvisioning(@NonNull TetheringRequest request,
+                final TetheringConfiguration config, final Intent intent) {
+            assertEquals(request.getTetheringType(), intent.getIntExtra(EXTRA_ADD_TETHER_TYPE,
+                    TETHERING_INVALID));
+            assertTrue(intent.getBooleanExtra(EXTRA_RUN_PROVISION, false));
             assertEquals(PROVISIONING_NO_UI_APP_NAME,
                     intent.getStringExtra(EXTRA_TETHER_SILENT_PROVISIONING_ACTION));
             assertEquals(PROVISIONING_APP_RESPONSE,
@@ -627,7 +630,7 @@ public final class EntitlementManagerTest {
 
         // If there is exempted downstream and no other non-exempted downstreams, cellular is
         // permitted.
-        mEnMgr.setExemptedDownstreamType(TETHERING_WIFI);
+        mEnMgr.setExemptedDownstream(TETHERING_WIFI);
         assertTrue(mEnMgr.isCellularUpstreamPermitted());
 
         // If second downstream run entitlement check fail, cellular upstream is not permitted.

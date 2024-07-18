@@ -668,14 +668,14 @@ public class Tethering {
             // disable before re-enabling.
             if (unfinishedRequest != null && !unfinishedRequest.equals(request)) {
                 enableTetheringInternal(type, false /* disabled */, null);
-                mEntitlementMgr.stopProvisioningIfNeeded(type);
+                mEntitlementMgr.stopProvisioningIfNeeded(unfinishedRequest);
             }
             mActiveTetheringRequests.put(type, request);
 
             if (request.isExemptFromEntitlementCheck()) {
-                mEntitlementMgr.setExemptedDownstreamType(type);
+                mEntitlementMgr.setExemptedDownstream(request);
             } else {
-                mEntitlementMgr.startProvisioningIfNeeded(type,
+                mEntitlementMgr.startProvisioningIfNeeded(request,
                         request.getShouldShowEntitlementUi());
             }
             enableTetheringInternal(type, true /* enabled */, listener);

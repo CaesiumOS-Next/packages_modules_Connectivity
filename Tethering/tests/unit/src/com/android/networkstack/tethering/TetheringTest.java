@@ -2888,7 +2888,7 @@ public class TetheringTest {
         mTethering.startTethering(wifiNotExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr).startProvisioningIfNeeded(TETHERING_WIFI, false);
-        verify(mEntitleMgr, never()).setExemptedDownstreamType(TETHERING_WIFI);
+        verify(mEntitleMgr, never()).setExemptedDownstream(TETHERING_WIFI);
         assertFalse(mEntitleMgr.isCellularUpstreamPermitted());
         mTethering.stopTethering(TETHERING_WIFI);
         mLooper.dispatchAll();
@@ -2902,7 +2902,7 @@ public class TetheringTest {
         mTethering.startTethering(wifiExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr, never()).startProvisioningIfNeeded(TETHERING_WIFI, false);
-        verify(mEntitleMgr).setExemptedDownstreamType(TETHERING_WIFI);
+        verify(mEntitleMgr).setExemptedDownstream(TETHERING_WIFI);
         assertTrue(mEntitleMgr.isCellularUpstreamPermitted());
         mTethering.stopTethering(TETHERING_WIFI);
         mLooper.dispatchAll();
@@ -2915,14 +2915,14 @@ public class TetheringTest {
         mTethering.startTethering(wifiExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr, never()).startProvisioningIfNeeded(TETHERING_WIFI, false);
-        verify(mEntitleMgr).setExemptedDownstreamType(TETHERING_WIFI);
+        verify(mEntitleMgr).setExemptedDownstream(TETHERING_WIFI);
         assertTrue(mEntitleMgr.isCellularUpstreamPermitted());
         reset(mEntitleMgr);
         setupForRequiredProvisioning();
         mTethering.startTethering(wifiNotExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr).startProvisioningIfNeeded(TETHERING_WIFI, false);
-        verify(mEntitleMgr, never()).setExemptedDownstreamType(TETHERING_WIFI);
+        verify(mEntitleMgr, never()).setExemptedDownstream(TETHERING_WIFI);
         assertFalse(mEntitleMgr.isCellularUpstreamPermitted());
         mTethering.stopTethering(TETHERING_WIFI);
         mLooper.dispatchAll();
