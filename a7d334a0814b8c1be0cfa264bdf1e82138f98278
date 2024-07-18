@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84a0a691_596ce2ed",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-18T03:10:45Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "72b3497f_694c1757",
+      "revId": "a7d334a0814b8c1be0cfa264bdf1e82138f98278",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b7d0f20_0eaf37c7",
@@ -52,6 +70,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22773393_d252fdfd",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-18T03:10:45Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "8b7d0f20_0eaf37c7",
+      "revId": "a7d334a0814b8c1be0cfa264bdf1e82138f98278",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30be1bfd_fd96ba36",
@@ -65,6 +101,30 @@
       "writtenOn": "2024-07-18T02:48:02Z",
       "side": 1,
       "message": "Style: It is unusual to use block comment herer.\nMaybe just use multiple // instead.",
+      "range": {
+        "startLine": 2683,
+        "startChar": 8,
+        "endLine": 2683,
+        "endChar": 11
+      },
+      "revId": "a7d334a0814b8c1be0cfa264bdf1e82138f98278",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4142332_455fa55a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2683,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-18T03:10:45Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "30be1bfd_fd96ba36",
       "range": {
         "startLine": 2683,
         "startChar": 8,
@@ -112,6 +172,30 @@
       "side": 1,
       "message": "Might want to also refer to \nNetworkStatsEventLogger#POLL_REASON_*",
       "parentUuid": "020e7c93_627607dd",
+      "range": {
+        "startLine": 2685,
+        "startChar": 38,
+        "endLine": 2685,
+        "endChar": 47
+      },
+      "revId": "a7d334a0814b8c1be0cfa264bdf1e82138f98278",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ecc065a_61d0e3be",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2685,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-07-18T03:10:45Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "8ab0b926_72bb6a24",
       "range": {
         "startLine": 2685,
         "startChar": 38,
