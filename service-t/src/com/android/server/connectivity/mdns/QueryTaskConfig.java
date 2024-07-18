@@ -31,7 +31,7 @@ public class QueryTaskConfig {
             (int) MdnsConfigs.initialTimeBetweenBurstsMs();
     private static final int MAX_TIME_BETWEEN_ACTIVE_PASSIVE_BURSTS_MS =
             (int) MdnsConfigs.timeBetweenBurstsMs();
-    private static final int QUERIES_PER_BURST = (int) MdnsConfigs.queriesPerBurst();
+    static final int QUERIES_PER_BURST = (int) MdnsConfigs.queriesPerBurst();
     private static final int TIME_BETWEEN_QUERIES_IN_BURST_MS =
             (int) MdnsConfigs.timeBetweenQueriesInBurstMs();
     private static final int QUERIES_PER_BURST_PASSIVE_MODE =
