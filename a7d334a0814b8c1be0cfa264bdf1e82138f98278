@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6adae0c1_eb0615a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-18T02:24:11Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed and Motomu is happy with the answer to his comment",
+      "revId": "a7d334a0814b8c1be0cfa264bdf1e82138f98278",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72b3497f_694c1757",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-18T02:24:11Z",
+      "side": 1,
+      "message": "Nit: \"...UpdatedTime\" sounds like the time of an update; maybe `mLatestNetworkStatsUpdatedBroadcastScheduledTime` ?",
+      "revId": "a7d334a0814b8c1be0cfa264bdf1e82138f98278",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b7d0f20_0eaf37c7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-18T02:24:11Z",
+      "side": 1,
+      "message": "Supernit: \"mEnableBroadcast...RateLimit\" (Enabled -\u003e Enable) or \"mBroadcast...RateLimitEnabled\" would seem more correct",
+      "revId": "a7d334a0814b8c1be0cfa264bdf1e82138f98278",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "020e7c93_627607dd",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2685,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-18T02:24:11Z",
+      "side": 1,
+      "message": "Nit: AOSP contributors can\u0027t necessarily see this, so it would be best to detail a bit more in which situations intents would be sent too frequently.",
+      "range": {
+        "startLine": 2685,
+        "startChar": 38,
+        "endLine": 2685,
+        "endChar": 47
+      },
+      "revId": "a7d334a0814b8c1be0cfa264bdf1e82138f98278",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
