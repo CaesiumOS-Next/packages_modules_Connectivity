@@ -669,14 +669,14 @@ public class Tethering {
             if (unfinishedRequest != null && !unfinishedRequest.equals(request)) {
                 enableTetheringInternal(type, false /* disabled */, request.getInterfaceName(),
                         null);
-                mEntitlementMgr.stopProvisioningIfNeeded(type);
+                mEntitlementMgr.stopProvisioningIfNeeded(unfinishedRequest);
             }
             mActiveTetheringRequests.put(type, request);
 
             if (request.isExemptFromEntitlementCheck()) {
-                mEntitlementMgr.setExemptedDownstreamType(type);
-            } else {
-                mEntitlementMgr.startProvisioningIfNeeded(type,
+                mEntitlementMgr.setExemptedDownstream(request);
+            } else if (request.getConnectivityScope() == CONNECTIVITY_SCOPE_GLOBAL) {
+                mEntitlementMgr.startProvisioningIfNeeded(request,
                         request.getShouldShowEntitlementUi());
             }
             enableTetheringInternal(type, true /* enabled */, null, listener);
@@ -689,11 +689,20 @@ public class Tethering {
             stopTetheringInternal(type);
         });
     }
-    void stopTetheringInternal(int type) {
-        mActiveTetheringRequests.remove(type);
 
+    void stopTetheringInternal(int type) {
+        TetheringRequest activeRequest = mActiveTetheringRequests.get(type);
+        mActiveTetheringRequests.remove(type);
+        if (activeRequest != null) {
+            mEntitlementMgr.stopProvisioningIfNeeded(activeRequest);
+        }
+        for (TetherState state : mTetherStates.values()) {
+            TetheringRequest servingRequest = state.ipServer.getTetheringRequest();
+            if (servingRequest != null && servingRequest.getTetheringType() == type) {
+                mEntitlementMgr.stopProvisioningIfNeeded(servingRequest);
+            }
+        }
         enableTetheringInternal(type, false /* disabled */, null, null);
-        mEntitlementMgr.stopProvisioningIfNeeded(type);
     }
 
     /**
@@ -1327,9 +1336,11 @@ public class Tethering {
 
         private void maybeStopUsbProvisioning() {
             for (int i = 0; i < mTetherStates.size(); i++) {
-                final int type = mTetherStates.valueAt(i).ipServer.interfaceType();
-                if (type == TETHERING_USB || type == TETHERING_NCM) {
-                    mEntitlementMgr.stopProvisioningIfNeeded(type);
+                final TetheringRequest request =
+                        mTetherStates.valueAt(i).ipServer.getTetheringRequest();
+                if (request != null && (request.getTetheringType() == TETHERING_USB
+                        || request.getTetheringType() == TETHERING_NCM)) {
+                    mEntitlementMgr.stopProvisioningIfNeeded(request);
                 }
             }
         }
