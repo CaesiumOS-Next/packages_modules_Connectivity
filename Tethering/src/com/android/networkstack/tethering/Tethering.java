@@ -689,14 +689,14 @@ public class Tethering {
             // disable before re-enabling.
             if (unfinishedRequest != null && !unfinishedRequest.equals(request)) {
                 enableTetheringInternal(unfinishedRequest, false /* disabled */, null);
-                mEntitlementMgr.stopProvisioningIfNeeded(type);
+                mEntitlementMgr.stopProvisioningIfNeeded(unfinishedRequest);
             }
             mActiveTetheringRequests.put(type, request);
 
             if (request.isExemptFromEntitlementCheck()) {
-                mEntitlementMgr.setExemptedDownstreamType(type);
-            } else {
-                mEntitlementMgr.startProvisioningIfNeeded(type,
+                mEntitlementMgr.setExemptedDownstream(request);
+            } else if (request.getConnectivityScope() == CONNECTIVITY_SCOPE_GLOBAL) {
+                mEntitlementMgr.startProvisioningIfNeeded(request,
                         request.getShouldShowEntitlementUi());
             }
             enableTetheringInternal(request, true /* enabled */, listener);
@@ -709,15 +709,14 @@ public class Tethering {
             stopTetheringInternal(type);
         });
     }
-    void stopTetheringInternal(int type) {
-        mActiveTetheringRequests.remove(type);
 
+    void stopTetheringInternal(int type) {
         for (TetheringRequest request : getAllTetheringRequests()) {
             if (request.getTetheringType() == type) {
                 enableTetheringInternal(request, false /* disabled */, null);
+                mEntitlementMgr.stopProvisioningIfNeeded(request);
             }
         }
-        mEntitlementMgr.stopProvisioningIfNeeded(type);
     }
 
     /**
@@ -1341,7 +1340,7 @@ public class Tethering {
                 switch (request.getTetheringType()) {
                     case TETHERING_USB:
                     case TETHERING_NCM:
-                        mEntitlementMgr.stopProvisioningIfNeeded(request.getTetheringType());
+                        mEntitlementMgr.stopProvisioningIfNeeded(request);
                         break;
                     default:
                         // Do nothing.
