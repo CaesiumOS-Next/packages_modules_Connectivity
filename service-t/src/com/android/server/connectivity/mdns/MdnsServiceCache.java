@@ -17,7 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import static com.android.net.module.util.DnsUtils.equalsIgnoreDnsCase;
-import static com.android.net.module.util.DnsUtils.toDnsLowerCase;
+import static com.android.net.module.util.DnsUtils.toDnsUpperCase;
 import static com.android.server.connectivity.mdns.MdnsResponse.EXPIRATION_NEVER;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
 
@@ -53,7 +53,7 @@ public class MdnsServiceCache {
         @NonNull final SocketKey mSocketKey;
 
         CacheKey(@NonNull String serviceType, @NonNull SocketKey socketKey) {
-            mLowercaseServiceType = toDnsLowerCase(serviceType);
+            mLowercaseServiceType = toDnsUpperCase(serviceType);
             mSocketKey = socketKey;
         }
 
