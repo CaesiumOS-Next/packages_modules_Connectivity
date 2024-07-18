@@ -718,14 +718,14 @@ public class Tethering {
                 // disable before re-enabling.
                 if (pendingRequest.equals(request)) continue;
                 enableTetheringInternal(pendingRequest, false /* disabled */, null);
-                mEntitlementMgr.stopProvisioningIfNeeded(type);
+                mEntitlementMgr.stopProvisioningIfNeeded(pendingRequest);
             }
             mSpecifiedTetheringRequests.add(request);
 
             if (request.isExemptFromEntitlementCheck()) {
-                mEntitlementMgr.setExemptedDownstreamType(type);
-            } else {
-                mEntitlementMgr.startProvisioningIfNeeded(type,
+                mEntitlementMgr.setExemptedDownstream(request);
+            } else if (request.getConnectivityScope() == CONNECTIVITY_SCOPE_GLOBAL) {
+                mEntitlementMgr.startProvisioningIfNeeded(request,
                         request.getShouldShowEntitlementUi());
             }
             enableTetheringInternal(request, true /* enabled */, listener);
@@ -746,7 +746,6 @@ public class Tethering {
             enableTetheringInternal(request, false /* disabled */, null);
             mSpecifiedTetheringRequests.remove(request);
         }
-        mEntitlementMgr.stopProvisioningIfNeeded(type);
     }
 
     /**
@@ -1380,7 +1379,7 @@ public class Tethering {
                 switch (request.getTetheringType()) {
                     case TETHERING_USB:
                     case TETHERING_NCM:
-                        mEntitlementMgr.stopProvisioningIfNeeded(request.getTetheringType());
+                        mEntitlementMgr.stopProvisioningIfNeeded(request);
                         break;
                     default:
                         // Do nothing.
