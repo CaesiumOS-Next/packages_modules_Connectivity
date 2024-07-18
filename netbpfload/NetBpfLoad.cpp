@@ -357,13 +357,13 @@ static int doLoad(char** argv, char * const envp[]) {
     // see also: //system/netd/tests/kernel_test.cpp TestKernel64Bit
     if (isAtLeastV && isKernel32Bit() && isAtLeastKernelVersion(5, 16, 0)) {
         ALOGE("Android V+ platform with 32 bit kernel version >= 5.16.0 is unsupported");
-        if (!isTV()) return 1;
+        if (!isTV() && !isWear()) return 1;
     }
 
     // Various known ABI layout issues, particularly wrt. bpf and ipsec/xfrm.
     if (isAtLeastV && isKernel32Bit() && isX86()) {
         ALOGE("Android V requires X86 kernel to be 64-bit.");
-        if (!isTV()) return 1;
+        if (!isTV() && !isWear()) return 1;
     }
 
     if (isAtLeastV) {
