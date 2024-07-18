@@ -168,8 +168,17 @@ public class QueryTaskConfig {
 
     /**
      * Determine if the query backoff should be used.
+     *
+     * @param numOfQueriesBeforeBackoff The number of queries after which the query backoff should
+     *                                  be used.
+     * @param hasReplyInAggressiveMode The condition to use the query backoff directly if there is a
+     *                                 reply while in aggressive mode
      */
-    public boolean shouldUseQueryBackoff(int numOfQueriesBeforeBackoff) {
+    public boolean shouldUseQueryBackoff(
+            int numOfQueriesBeforeBackoff, boolean hasReplyInAggressiveMode) {
+        if (hasReplyInAggressiveMode) {
+            return true;
+        }
         // Don't enable backoff mode during the burst or in the first burst
         if (burstCounter != 0 || isFirstBurst) {
             return false;
