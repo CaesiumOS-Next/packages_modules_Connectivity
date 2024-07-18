@@ -40,6 +40,7 @@ import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.RouteInfo.RTN_UNICAST;
 import static android.net.TetheringManager.ACTION_TETHER_STATE_CHANGED;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
+import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.EXTRA_ACTIVE_LOCAL_ONLY;
 import static android.net.TetheringManager.EXTRA_ACTIVE_TETHER;
 import static android.net.TetheringManager.EXTRA_AVAILABLE_TETHER;
@@ -2964,17 +2965,18 @@ public class TetheringTest {
     public void testExemptFromEntitlementCheck() throws Exception {
         initTetheringOnTestThread();
         setupForRequiredProvisioning();
+        when(mWifiManager.startTetheredHotspot(any())).thenReturn(true);
         final TetheringRequest wifiNotExemptRequest =
                 createTetheringRequest(TETHERING_WIFI, null, null, false,
                         CONNECTIVITY_SCOPE_GLOBAL, null);
         mTethering.startTethering(wifiNotExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
-        verify(mEntitleMgr).startProvisioningIfNeeded(TETHERING_WIFI, false);
-        verify(mEntitleMgr, never()).setExemptedDownstreamType(TETHERING_WIFI);
+        verify(mEntitleMgr).startProvisioningIfNeeded(wifiNotExemptRequest, false);
+        verify(mEntitleMgr, never()).setExemptedDownstream(wifiNotExemptRequest);
         assertFalse(mEntitleMgr.isCellularUpstreamPermitted());
         mTethering.stopTethering(TETHERING_WIFI);
         mLooper.dispatchAll();
-        verify(mEntitleMgr).stopProvisioningIfNeeded(TETHERING_WIFI);
+        verify(mEntitleMgr).stopProvisioningIfNeeded(wifiNotExemptRequest);
         reset(mEntitleMgr);
 
         setupForRequiredProvisioning();
@@ -2983,12 +2985,12 @@ public class TetheringTest {
                         CONNECTIVITY_SCOPE_GLOBAL, null);
         mTethering.startTethering(wifiExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
-        verify(mEntitleMgr, never()).startProvisioningIfNeeded(TETHERING_WIFI, false);
-        verify(mEntitleMgr).setExemptedDownstreamType(TETHERING_WIFI);
+        verify(mEntitleMgr, never()).startProvisioningIfNeeded(wifiExemptRequest, false);
+        verify(mEntitleMgr).setExemptedDownstream(wifiExemptRequest);
         assertTrue(mEntitleMgr.isCellularUpstreamPermitted());
         mTethering.stopTethering(TETHERING_WIFI);
         mLooper.dispatchAll();
-        verify(mEntitleMgr).stopProvisioningIfNeeded(TETHERING_WIFI);
+        verify(mEntitleMgr).stopProvisioningIfNeeded(wifiExemptRequest);
         reset(mEntitleMgr);
 
         // If one app enables tethering without provisioning check first, then another app enables
@@ -2996,20 +2998,44 @@ public class TetheringTest {
         setupForRequiredProvisioning();
         mTethering.startTethering(wifiExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
-        verify(mEntitleMgr, never()).startProvisioningIfNeeded(TETHERING_WIFI, false);
-        verify(mEntitleMgr).setExemptedDownstreamType(TETHERING_WIFI);
+        verify(mEntitleMgr, never()).startProvisioningIfNeeded(wifiExemptRequest, false);
+        verify(mEntitleMgr).setExemptedDownstream(wifiExemptRequest);
         assertTrue(mEntitleMgr.isCellularUpstreamPermitted());
         reset(mEntitleMgr);
         setupForRequiredProvisioning();
         mTethering.startTethering(wifiNotExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
-        verify(mEntitleMgr).startProvisioningIfNeeded(TETHERING_WIFI, false);
-        verify(mEntitleMgr, never()).setExemptedDownstreamType(TETHERING_WIFI);
+        verify(mEntitleMgr).startProvisioningIfNeeded(wifiNotExemptRequest, false);
+        verify(mEntitleMgr, never()).setExemptedDownstream(wifiNotExemptRequest);
         assertFalse(mEntitleMgr.isCellularUpstreamPermitted());
         mTethering.stopTethering(TETHERING_WIFI);
         mLooper.dispatchAll();
-        verify(mEntitleMgr, times(2)).stopProvisioningIfNeeded(TETHERING_WIFI);
+        verify(mEntitleMgr).stopProvisioningIfNeeded(wifiNotExemptRequest);
+        verify(mEntitleMgr).stopProvisioningIfNeeded(wifiExemptRequest);
         reset(mEntitleMgr);
+    }
+
+    @Test
+    public void testConnectivityScopeLocalSkipsEntitlementCheck() throws Exception {
+        initTetheringOnTestThread();
+        setupForRequiredProvisioning();
+        when(mWifiManager.startTetheredHotspot(any())).thenReturn(true);
+
+        // Local scope skips EntitlementManager
+        final TetheringRequest usbLocalRequest = createTetheringRequest(TETHERING_USB, null, null,
+                false, CONNECTIVITY_SCOPE_LOCAL, null);
+        mTethering.startTethering(usbLocalRequest, TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
+        verify(mEntitleMgr, never()).startProvisioningIfNeeded(usbLocalRequest, false);
+        verify(mEntitleMgr, never()).setExemptedDownstream(usbLocalRequest);
+        assertFalse(mEntitleMgr.isCellularUpstreamPermitted());
+
+        // Global scope still goes through EntitlementManager
+        final TetheringRequest wifiRequest = createTetheringRequest(TETHERING_WIFI, null, null,
+                false, CONNECTIVITY_SCOPE_GLOBAL, null);
+        mTethering.startTethering(wifiRequest, TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
+        verify(mEntitleMgr).startProvisioningIfNeeded(wifiRequest, false);
     }
 
     private void setupForRequiredProvisioning() {
