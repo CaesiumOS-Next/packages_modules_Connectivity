@@ -13,6 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+// ktlint does not allow annotating function argument literals inline. Disable the specific rule
+// since this negatively affects readability.
+@file:Suppress("ktlint:standard:comment-wrapping")
+
 package android.net.cts
 
 import android.net.EthernetTetheringTestBase
