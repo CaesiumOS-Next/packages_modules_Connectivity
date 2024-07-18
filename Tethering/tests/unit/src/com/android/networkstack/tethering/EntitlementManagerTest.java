@@ -66,6 +66,7 @@ import android.content.pm.ModuleInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.net.TetheringManager.TetheringRequest;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
@@ -459,19 +460,21 @@ public final class EntitlementManagerTest {
         setupForRequiredProvisioning();
         mEnMgr.notifyUpstream(true);
         mDeps.fakeEntitlementResult = TETHER_ERROR_PROVISIONING_FAILED;
-        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, true);
+        TetheringRequest wifiRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(wifiRequest, true);
         mLooper.dispatchAll();
         // Permitted: true -> false
         assertPermissionChangeCallback(inOrder);
         assertFalse(mEnMgr.isCellularUpstreamPermitted());
 
-        mEnMgr.stopProvisioningIfNeeded(TETHERING_WIFI);
+        mEnMgr.stopProvisioningIfNeeded(wifiRequest);
         mLooper.dispatchAll();
         // Permitted: false -> false
         assertNoPermissionChange(inOrder);
 
         mDeps.fakeEntitlementResult = TETHER_ERROR_NO_ERROR;
-        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, true);
+        mEnMgr.startProvisioningIfNeeded(wifiRequest, true);
         mLooper.dispatchAll();
         // Permitted: false -> true
         assertPermissionChangeCallback(inOrder);
@@ -484,21 +487,27 @@ public final class EntitlementManagerTest {
         setupForRequiredProvisioning();
         mEnMgr.notifyUpstream(true);
         mDeps.fakeEntitlementResult = TETHER_ERROR_PROVISIONING_FAILED;
-        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, true);
+        TetheringRequest wifiRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(wifiRequest, true);
         mLooper.dispatchAll();
         // Permitted: true -> false
         assertPermissionChangeCallback(inOrder);
         assertFalse(mEnMgr.isCellularUpstreamPermitted());
 
         mDeps.fakeEntitlementResult = TETHER_ERROR_PROVISIONING_FAILED;
-        mEnMgr.startProvisioningIfNeeded(TETHERING_USB, true);
+        TetheringRequest usbRequest = new TetheringRequest.Builder(TETHERING_USB)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(usbRequest, true);
         mLooper.dispatchAll();
         // Permitted: false -> false
         assertNoPermissionChange(inOrder);
         assertFalse(mEnMgr.isCellularUpstreamPermitted());
 
         mDeps.fakeEntitlementResult = TETHER_ERROR_PROVISIONING_FAILED;
-        mEnMgr.startProvisioningIfNeeded(TETHERING_BLUETOOTH, true);
+        TetheringRequest btRequest = new TetheringRequest.Builder(TETHERING_BLUETOOTH)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(btRequest, true);
         mLooper.dispatchAll();
         // Permitted: false -> false
         assertNoPermissionChange(inOrder);
@@ -511,20 +520,24 @@ public final class EntitlementManagerTest {
         setupForRequiredProvisioning();
         mEnMgr.notifyUpstream(true);
         mDeps.fakeEntitlementResult = TETHER_ERROR_NO_ERROR;
-        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, true);
+        TetheringRequest wifiRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(wifiRequest, true);
         mLooper.dispatchAll();
         // Permitted: true -> true
         assertNoPermissionChange(inOrder);
         assertTrue(mEnMgr.isCellularUpstreamPermitted());
 
         mDeps.fakeEntitlementResult = TETHER_ERROR_PROVISIONING_FAILED;
-        mEnMgr.startProvisioningIfNeeded(TETHERING_USB, true);
+        TetheringRequest usbRequest = new TetheringRequest.Builder(TETHERING_USB)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(usbRequest, true);
         mLooper.dispatchAll();
         // Permitted: true -> true
         assertNoPermissionChange(inOrder);
         assertTrue(mEnMgr.isCellularUpstreamPermitted());
 
-        mEnMgr.stopProvisioningIfNeeded(TETHERING_WIFI);
+        mEnMgr.stopProvisioningIfNeeded(wifiRequest);
         mLooper.dispatchAll();
         // Permitted: true -> false
         assertPermissionChangeCallback(inOrder);
@@ -549,7 +562,9 @@ public final class EntitlementManagerTest {
         mDeps.fakeEntitlementResult = TETHER_ERROR_NO_ERROR;
         mEnMgr.notifyUpstream(true);
         mLooper.dispatchAll();
-        mEnMgr.startProvisioningIfNeeded(TETHERING_USB, true);
+        TetheringRequest usbRequest = new TetheringRequest.Builder(TETHERING_USB)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(usbRequest, true);
         mLooper.dispatchAll();
         assertEquals(1, mDeps.uiProvisionCount);
         assertEquals(0, mDeps.silentProvisionCount);
@@ -560,7 +575,9 @@ public final class EntitlementManagerTest {
 
         // 2. start no-ui provisioning
         mDeps.fakeEntitlementResult = TETHER_ERROR_NO_ERROR;
-        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, false);
+        TetheringRequest wifiRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(wifiRequest, false);
         mLooper.dispatchAll();
         assertEquals(0, mDeps.uiProvisionCount);
         assertEquals(1, mDeps.silentProvisionCount);
@@ -572,7 +589,10 @@ public final class EntitlementManagerTest {
         // 3. tear down mobile, then start ui provisioning
         mEnMgr.notifyUpstream(false);
         mLooper.dispatchAll();
-        mEnMgr.startProvisioningIfNeeded(TETHERING_BLUETOOTH, true);
+        mDeps.fakeEntitlementResult = TETHER_ERROR_PROVISIONING_FAILED;
+        TetheringRequest btRequest = new TetheringRequest.Builder(TETHERING_BLUETOOTH)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(btRequest, true);
         mLooper.dispatchAll();
         assertEquals(0, mDeps.uiProvisionCount);
         assertEquals(0, mDeps.silentProvisionCount);
@@ -612,7 +632,9 @@ public final class EntitlementManagerTest {
 
         // 7. start ui provisioning, upstream is mobile, downstream is ethernet
         mDeps.fakeEntitlementResult = TETHER_ERROR_NO_ERROR;
-        mEnMgr.startProvisioningIfNeeded(TETHERING_ETHERNET, true);
+        TetheringRequest ethernetRequest = new TetheringRequest.Builder(TETHERING_ETHERNET)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(ethernetRequest, true);
         mLooper.dispatchAll();
         assertEquals(1, mDeps.uiProvisionCount);
         assertEquals(0, mDeps.silentProvisionCount);
@@ -623,7 +645,9 @@ public final class EntitlementManagerTest {
 
         // 8. downstream is invalid
         mDeps.fakeEntitlementResult = TETHER_ERROR_NO_ERROR;
-        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI_P2P, true);
+        TetheringRequest p2pRequest = new TetheringRequest.Builder(TETHERING_WIFI_P2P)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(p2pRequest, true);
         mLooper.dispatchAll();
         assertEquals(0, mDeps.uiProvisionCount);
         assertEquals(0, mDeps.silentProvisionCount);
@@ -639,7 +663,9 @@ public final class EntitlementManagerTest {
         mDeps.fakeEntitlementResult = TETHER_ERROR_PROVISIONING_FAILED;
         mEnMgr.notifyUpstream(true);
         mLooper.dispatchAll();
-        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, true);
+        TetheringRequest wifiRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(wifiRequest, true);
         mLooper.dispatchAll();
         assertEquals(1, mDeps.uiProvisionCount);
         verify(mTetherProvisioningFailedListener, times(1))
@@ -668,27 +694,33 @@ public final class EntitlementManagerTest {
         mDeps.fakeEntitlementResult = TETHER_ERROR_NO_ERROR;
         mEnMgr.notifyUpstream(true);
         mLooper.dispatchAll();
-        mEnMgr.startProvisioningIfNeeded(TETHERING_USB, true);
+        TetheringRequest usbRequest = new TetheringRequest.Builder(TETHERING_USB).build();
+        mEnMgr.startProvisioningIfNeeded(usbRequest, true);
         mLooper.dispatchAll();
         assertEquals(expectedUiProvisionCount, mDeps.uiProvisionCount);
     }
 
     @Test
-    public void testsetExemptedDownstreamType() throws Exception {
+    public void testSetExemptedDownstreamNonExemptSecondDownstream() throws Exception {
         setupForRequiredProvisioning();
         // Cellular upstream is not permitted when no entitlement result.
         assertFalse(mEnMgr.isCellularUpstreamPermitted());
 
         // If there is exempted downstream and no other non-exempted downstreams, cellular is
         // permitted.
-        mEnMgr.setExemptedDownstreamType(TETHERING_WIFI);
+        TetheringRequest wifiRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setExemptFromEntitlementCheck(true)
+                .build();
+        mEnMgr.setExemptedDownstream(wifiRequest);
         assertTrue(mEnMgr.isCellularUpstreamPermitted());
 
         // If second downstream run entitlement check fail, cellular upstream is not permitted.
         mDeps.fakeEntitlementResult = TETHER_ERROR_PROVISIONING_FAILED;
         mEnMgr.notifyUpstream(true);
         mLooper.dispatchAll();
-        mEnMgr.startProvisioningIfNeeded(TETHERING_USB, true);
+        TetheringRequest usbRequest = new TetheringRequest.Builder(TETHERING_USB)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(usbRequest, true);
         mLooper.dispatchAll();
         assertFalse(mEnMgr.isCellularUpstreamPermitted());
 
@@ -696,10 +728,45 @@ public final class EntitlementManagerTest {
         assertEquals(1, mDeps.uiProvisionCount);
         verify(mTetherProvisioningFailedListener).onTetherProvisioningFailed(TETHERING_USB,
                 FAILED_TETHERING_REASON);
-        mEnMgr.stopProvisioningIfNeeded(TETHERING_USB);
+        mEnMgr.stopProvisioningIfNeeded(usbRequest);
         assertTrue(mEnMgr.isCellularUpstreamPermitted());
 
-        mEnMgr.stopProvisioningIfNeeded(TETHERING_WIFI);
+        mEnMgr.stopProvisioningIfNeeded(wifiRequest);
+        assertFalse(mEnMgr.isCellularUpstreamPermitted());
+    }
+
+    @Test
+    public void testSetExemptedDownstreamTypeNonExemptSecondDownstreamSameType() throws Exception {
+        setupForRequiredProvisioning();
+        // Cellular upstream is not permitted when no entitlement result.
+        assertFalse(mEnMgr.isCellularUpstreamPermitted());
+
+        // If there is exempted downstream and no other non-exempted downstreams, cellular is
+        // permitted.
+        TetheringRequest wifiRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setExemptFromEntitlementCheck(true)
+                .build();
+        mEnMgr.setExemptedDownstream(wifiRequest);
+        assertTrue(mEnMgr.isCellularUpstreamPermitted());
+
+        // If second downstream run entitlement check fail, cellular upstream is not permitted.
+        mDeps.fakeEntitlementResult = TETHER_ERROR_PROVISIONING_FAILED;
+        mEnMgr.notifyUpstream(true);
+        mLooper.dispatchAll();
+        TetheringRequest nonExemptWifiRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(nonExemptWifiRequest, true);
+        mLooper.dispatchAll();
+        assertFalse(mEnMgr.isCellularUpstreamPermitted());
+
+        // When second downstream is down, exempted downstream can use cellular upstream.
+        assertEquals(1, mDeps.uiProvisionCount);
+        verify(mTetherProvisioningFailedListener).onTetherProvisioningFailed(TETHERING_WIFI,
+                FAILED_TETHERING_REASON);
+        mEnMgr.stopProvisioningIfNeeded(nonExemptWifiRequest);
+        assertTrue(mEnMgr.isCellularUpstreamPermitted());
+
+        mEnMgr.stopProvisioningIfNeeded(wifiRequest);
         assertFalse(mEnMgr.isCellularUpstreamPermitted());
     }
 
@@ -717,7 +784,9 @@ public final class EntitlementManagerTest {
         mDeps.fakeEntitlementResult = TETHER_ERROR_NO_ERROR;
         mEnMgr.notifyUpstream(true);
         mLooper.dispatchAll();
-        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, true);
+        TetheringRequest wifiRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(wifiRequest, true);
         mLooper.dispatchAll();
         assertTrue(mEnMgr.isCellularUpstreamPermitted());
         verify(mAlarmManager).setExact(eq(AlarmManager.ELAPSED_REALTIME_WAKEUP), anyLong(),
@@ -756,7 +825,9 @@ public final class EntitlementManagerTest {
 
         // Start a tethering with cellular data without provisioning.
         mEnMgr.notifyUpstream(true);
-        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, false);
+        TetheringRequest wifiRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(wifiRequest, false);
         mLooper.dispatchAll();
 
         // Tear down mobile, then switch SIM.
@@ -780,7 +851,9 @@ public final class EntitlementManagerTest {
             throws Exception {
         setupCarrierConfig(false);
         setupForRequiredProvisioning();
-        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, true);
+        TetheringRequest wifiRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .build();
+        mEnMgr.startProvisioningIfNeeded(wifiRequest, true);
         verify(mTetherProvisioningFailedListener, never())
                 .onTetherProvisioningFailed(TETHERING_WIFI, "Carrier does not support.");
 
@@ -788,10 +861,10 @@ public final class EntitlementManagerTest {
         mLooper.dispatchAll();
         verify(mTetherProvisioningFailedListener)
                 .onTetherProvisioningFailed(TETHERING_WIFI, "Carrier does not support.");
-        mEnMgr.stopProvisioningIfNeeded(TETHERING_WIFI);
+        mEnMgr.stopProvisioningIfNeeded(wifiRequest);
         reset(mTetherProvisioningFailedListener);
 
-        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, true);
+        mEnMgr.startProvisioningIfNeeded(wifiRequest, true);
         mLooper.dispatchAll();
         verify(mTetherProvisioningFailedListener)
                 .onTetherProvisioningFailed(TETHERING_WIFI, "Carrier does not support.");
