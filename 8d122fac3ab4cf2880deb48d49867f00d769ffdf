@@ -16,6 +16,24 @@
       "message": "nit: not sure if we want to @MonitorThreadLeak as well.\nFeel free to ignore.",
       "revId": "8d122fac3ab4cf2880deb48d49867f00d769ffdf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30fc71f2_7c85da05",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-18T09:26:55Z",
+      "side": 1,
+      "message": "Makes sense but I think that would be a separate change (in particular so it can be reverted separately)",
+      "parentUuid": "66407e19_b339a360",
+      "revId": "8d122fac3ab4cf2880deb48d49867f00d769ffdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
