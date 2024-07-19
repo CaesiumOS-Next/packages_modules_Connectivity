@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37464443_f86dbaba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-19T08:31:35Z",
+      "side": 1,
+      "message": "Was ktlint disabled by aosp/3179019?",
+      "revId": "ca1dc7f68768297b57a3c59122bd442530598e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
