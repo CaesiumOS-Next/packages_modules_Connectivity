@@ -46,6 +46,30 @@
       },
       "revId": "e0051d4260f9943aac3a0b017ee72b608ccfad41",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abe52ad1_e55b65c0",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-19T02:47:22Z",
+      "side": 1,
+      "message": "Discussed offline, converting to uppercase and do the comparing is also align with RFC.",
+      "parentUuid": "97b122f5_2e508459",
+      "range": {
+        "startLine": 34,
+        "startChar": 7,
+        "endLine": 34,
+        "endChar": 26
+      },
+      "revId": "e0051d4260f9943aac3a0b017ee72b608ccfad41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
