@@ -22,6 +22,30 @@
       },
       "revId": "e0051d4260f9943aac3a0b017ee72b608ccfad41",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97b122f5_2e508459",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-19T02:33:43Z",
+      "side": 1,
+      "message": "```\nThe simple rules for case-insensitivity in Unicast DNS [RFC1034]\n[RFC1035] also apply in Multicast DNS; that is to say, in name\ncomparisons, the lowercase letters \"a\" to \"z\" (0x61 to 0x7A) match\ntheir uppercase equivalents \"A\" to \"Z\" (0x41 to 0x5A). \n```\n\nThe above RFC requirement seems only indicate the uppercase and lowercase is interchangeable, it doesn\u0027t means the comparsing has to be done on lower case.",
+      "parentUuid": "96cd68db_fd0574db",
+      "range": {
+        "startLine": 34,
+        "startChar": 7,
+        "endLine": 34,
+        "endChar": 26
+      },
+      "revId": "e0051d4260f9943aac3a0b017ee72b608ccfad41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
