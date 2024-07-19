@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c176d18a_127041c9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-19T03:43:55Z",
+      "side": 1,
+      "message": "Could we avoid using null? maintenance code that both support null and empty array seems not a good idea. Maybe we can do sth. like follows?\n\n\n```\nnew MdnsServiceInfo.TextEntry(\"\", new byte[0])\n```",
+      "range": {
+        "startLine": 562,
+        "startChar": 54,
+        "endLine": 562,
+        "endChar": 67
+      },
+      "revId": "c22a811eab7763c159c79d3b8b4a7843f234264f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
