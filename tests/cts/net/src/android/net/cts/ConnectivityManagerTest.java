@@ -195,6 +195,7 @@ import android.util.Range;
 
 import androidx.test.filters.RequiresDevice;
 import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.android.compatibility.common.util.DynamicConfigDeviceSide;
 import com.android.internal.util.ArrayUtils;
@@ -210,7 +211,6 @@ import com.android.testutils.ConnectivityModuleTest;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
-import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.DeviceConfigRule;
 import com.android.testutils.DeviceInfoUtils;
 import com.android.testutils.DumpTestUtils;
@@ -274,8 +274,7 @@ import fi.iki.elonen.NanoHTTPD.Method;
 import fi.iki.elonen.NanoHTTPD.Response.IStatus;
 import fi.iki.elonen.NanoHTTPD.Response.Status;
 
-@RunWith(DevSdkIgnoreRunner.class)
-@DevSdkIgnoreRunner.RestoreDefaultNetwork
+@RunWith(AndroidJUnit4.class)
 public class ConnectivityManagerTest {
     @Rule(order = 1)
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
