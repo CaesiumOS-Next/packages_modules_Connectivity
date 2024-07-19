@@ -22,6 +22,93 @@
       },
       "revId": "c22a811eab7763c159c79d3b8b4a7843f234264f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fcbee75_eb26cae8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-19T06:12:00Z",
+      "side": 1,
+      "message": "Use `TextUtils.isEmpty` instead? Because the `key` can be null.",
+      "range": {
+        "startLine": 435,
+        "startChar": 19,
+        "endLine": 435,
+        "endChar": 32
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1c69c8e9_837804d0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+              "range": {
+                "startLine": 435,
+                "startChar": 0,
+                "endLine": 436,
+                "endChar": 0
+              },
+              "replacement": "            return TextUtils.isEmpty(key) \u0026\u0026 (value \u003d\u003d null || value.length \u003d\u003d 0);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c22a811eab7763c159c79d3b8b4a7843f234264f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b49da422_9d494d57",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsTextRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-19T06:12:00Z",
+      "side": 1,
+      "message": "Add a test in `MdnsRecordTests#testTextRecord` to verify all this cases above?",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 9
+      },
+      "revId": "c22a811eab7763c159c79d3b8b4a7843f234264f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf03662e_652c8d7c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 2240,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-19T06:12:00Z",
+      "side": 1,
+      "message": "This code is the same as the above test except it uses a different flag. Can you create a function for these to avoid duplication?",
+      "range": {
+        "startLine": 2226,
+        "startChar": 8,
+        "endLine": 2240,
+        "endChar": 28
+      },
+      "revId": "c22a811eab7763c159c79d3b8b4a7843f234264f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
