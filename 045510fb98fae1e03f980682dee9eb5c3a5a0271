@@ -52,6 +52,24 @@
       "parentUuid": "9ff9ec33_a66cf553",
       "revId": "045510fb98fae1e03f980682dee9eb5c3a5a0271",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f5c2461_eaa8e2f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-19T09:02:12Z",
+      "side": 1,
+      "message": "https://android-build.corp.google.com/builds/abtd/run/L42800030005269137\n\nAll passed.",
+      "parentUuid": "e8404c07_1f7312bc",
+      "revId": "045510fb98fae1e03f980682dee9eb5c3a5a0271",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
