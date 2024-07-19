@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d614d0e_22a558d0",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-07-19T19:13:37Z",
+      "side": 1,
+      "message": "(a) This \u0027isRiscV()\u0027 is actually guaranteed to be false at this point, as on RiscV there is no such thing as 32-bit kernel or userspace, in particular the header file refuses to even build:\n\nstatic constexpr bool isRiscV() {\n#if defined(__riscv)\n    static_assert(isUserspace64bit(), \"riscv must be 64 bit\");\n    return true;\n#else\n    return false;\n#endif\n}\n\nSo you could simply remove \u0027\u0026\u0026 !isRiscV())\u0027\n\n(b) The real problem with this patch though is that 32-on-64 on ARM and x86 are *VERY* different, because of subtleties in ABI wrt. long long alignment in structs.\n\nie. there\u0027s a good reason for this \u0027\u0026\u0026 isArm()\u0027\n\nSee bpf_map_def.h:\n\n// BPF wants 8, but 32-bit x86 wants 4\n//_Static_assert(_Alignof(unsigned long long) \u003d\u003d 8, \"_Alignof unsigned long long !\u003d 8\");\n\nie. even though \u0027sizeof(long long)\u0027 is always 8, _Alignof(long long) is only *usually* 8 (including on 32-bit arm) but is *amazingly* 4 on 32-bit x86 (which affects struct layouts), and as such there\u0027s code that works on 32-on-64-arm, that doesn\u0027t work on 32-on-64-x86.\n\nThis doesn\u0027t *only* affect bpf, it affects various other (non-bpf related) network apis as well (especially net_admin requiring ones) - especially xfrm (ie. vpn/ipsec stuff)\n\nFor example [ifirc] sizeof(struct { u32, u64 }) should normally be 16 (incl. riscv64, x86-64, aarch64, arm32) but is 12 when compiled on x86-32.\n\nAs such testing on x86 is non-representative of arm behaviour, and thus your wear testing will need to be arm and not x86 based.\n\nNote: while we don\u0027t abort here on wear (by explicit decision of wear team), it is not a supported configuration, and simply don\u0027t care whether things (ie. networking) actually work and indeed I know some stuff won\u0027t [and not just iptables, which (as you know) is easy enough to fix].",
+      "range": {
+        "startLine": 423,
+        "startChar": 38,
+        "endLine": 423,
+        "endChar": 45
+      },
+      "revId": "662611c966281c8cc29aab22524ce8c8969b7f15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
