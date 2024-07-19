@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b6c9efc_2ae7423b",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/EthernetTestInterface.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-19T08:59:17Z",
+      "side": 1,
+      "message": "Does ktlint complain after aosp/3179019?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 50
+      },
+      "revId": "521ebdc8f61c56d45cdfd889ae060462c62d4936",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c6c4021_25880faf",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/EthernetTestInterface.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-19T08:59:17Z",
+      "side": 1,
+      "message": "nits: It seems this is not used.",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 24
+      },
+      "revId": "521ebdc8f61c56d45cdfd889ae060462c62d4936",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c24a7a9_8829c7c1",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/EthernetTestInterface.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-19T08:59:17Z",
+      "side": 1,
+      "message": "Do we need to call `em.removeInterfaceStateListener(listener)` here?",
+      "revId": "521ebdc8f61c56d45cdfd889ae060462c62d4936",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
