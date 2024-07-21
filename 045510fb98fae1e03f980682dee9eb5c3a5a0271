@@ -70,6 +70,24 @@
       "parentUuid": "e8404c07_1f7312bc",
       "revId": "045510fb98fae1e03f980682dee9eb5c3a5a0271",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b166e22f_402ca487",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-21T06:41:49Z",
+      "side": 1,
+      "message": "Do you know why the missing of `OTBR_ENABLE_PLATFORM_ANDROID` is causing the flaky?",
+      "parentUuid": "2f5c2461_eaa8e2f4",
+      "revId": "045510fb98fae1e03f980682dee9eb5c3a5a0271",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
