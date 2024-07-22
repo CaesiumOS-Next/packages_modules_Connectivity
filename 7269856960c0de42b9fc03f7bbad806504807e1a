@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "172bd133_85351cff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-22T09:52:19Z",
+      "side": 1,
+      "message": "Are you also going to have CLs to fix the tests that were failing this check ?",
+      "revId": "7269856960c0de42b9fc03f7bbad806504807e1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
