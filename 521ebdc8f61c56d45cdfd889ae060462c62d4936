@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9f9b585_3ff4a7eb",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/EthernetTestInterface.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-22T19:08:05Z",
+      "side": 1,
+      "message": "I was not aware we did this. That\u0027s awesome!",
+      "parentUuid": "8b6c9efc_2ae7423b",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 50
+      },
+      "revId": "521ebdc8f61c56d45cdfd889ae060462c62d4936",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c6c4021_25880faf",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6d7736a_dffb2864",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/EthernetTestInterface.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-22T19:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c6c4021_25880faf",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 24
+      },
+      "revId": "521ebdc8f61c56d45cdfd889ae060462c62d4936",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c24a7a9_8829c7c1",
@@ -60,6 +108,24 @@
       "writtenOn": "2024-07-19T08:59:17Z",
       "side": 1,
       "message": "Do we need to call `em.removeInterfaceStateListener(listener)` here?",
+      "revId": "521ebdc8f61c56d45cdfd889ae060462c62d4936",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48ae8e76_8c304450",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/EthernetTestInterface.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-22T19:08:05Z",
+      "side": 1,
+      "message": "good catch, thanks!",
+      "parentUuid": "6c24a7a9_8829c7c1",
       "revId": "521ebdc8f61c56d45cdfd889ae060462c62d4936",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
