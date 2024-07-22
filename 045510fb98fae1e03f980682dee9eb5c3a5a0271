@@ -88,6 +88,24 @@
       "parentUuid": "2f5c2461_eaa8e2f4",
       "revId": "045510fb98fae1e03f980682dee9eb5c3a5a0271",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2772c6a9_adda8115",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-22T01:04:34Z",
+      "side": 1,
+      "message": "\u003e Do you know why the missing of OTBR_ENABLE_PLATFORM_ANDROID is causing the flaky?\n\nThey may not be related. \n\nIt could be other changes in the OT sync which caused a bit longer waiting time resulting in the flakiness.",
+      "parentUuid": "b166e22f_402ca487",
+      "revId": "045510fb98fae1e03f980682dee9eb5c3a5a0271",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
