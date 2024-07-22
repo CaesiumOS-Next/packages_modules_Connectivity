@@ -22,6 +22,30 @@
       },
       "revId": "662611c966281c8cc29aab22524ce8c8969b7f15",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bca1aff0_243ec982",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1466604
+      },
+      "writtenOn": "2024-07-22T11:49:58Z",
+      "side": 1,
+      "message": "Noted. I\u0027ll change this patch to enable booting 32 bit x86 kernels for the 32 bit userspaces for 32 bit-x86 CF wear devices to avoid the alignment issues and draw a line in the sand for the max support window (no 32 bit kernel support beyond a14-6.1).",
+      "parentUuid": "1d614d0e_22a558d0",
+      "range": {
+        "startLine": 423,
+        "startChar": 38,
+        "endLine": 423,
+        "endChar": 45
+      },
+      "revId": "662611c966281c8cc29aab22524ce8c8969b7f15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
