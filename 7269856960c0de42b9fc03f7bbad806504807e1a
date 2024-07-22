@@ -16,6 +16,24 @@
       "message": "Are you also going to have CLs to fix the tests that were failing this check ?",
       "revId": "7269856960c0de42b9fc03f7bbad806504807e1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63677801_5b9dc475",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-22T10:06:03Z",
+      "side": 1,
+      "message": "I don\u0027t plan to do now.  \nWe can update all the test to wait the default network is restored before finish the test.\nAnd after that we can update DefaultNetworkRestoreMonitor to fail without waiting 30 seconds.\n\nBut the difference is wait in test or wait in monitor and I feel it\u0027s also acceptable that tests rely on this monitor to wait the default network is restored before start running next test.",
+      "parentUuid": "172bd133_85351cff",
+      "revId": "7269856960c0de42b9fc03f7bbad806504807e1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
