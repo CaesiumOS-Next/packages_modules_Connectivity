@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "427fdea8_78ebde91",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 3502,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-22T09:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18efdfd9_c54ec65a",
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9655a74_1626ed34",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-07-18T11:12:11Z",
       "side": 1,
       "message": "Do we need to copy `mQueuedCallbacks` and `mMatchedNetIdWhenFrozen` here?\nOtherwise, following case might have the issue\n1) app register TRACK_DEFAULT request\n2) app is frozen\n3) some callbacks are queued\n4) per-app default network request is filed\n5) app is unfrozen\nCan we have test with per-app default network?",
+      "range": {
+        "startLine": 7807,
+        "startChar": 8,
+        "endLine": 7807,
+        "endChar": 9
+      },
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67262ce8_797b4f74",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 7807,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-22T09:55:49Z",
+      "side": 1,
+      "message": "Oops missed that - done",
+      "parentUuid": "f9655a74_1626ed34",
       "range": {
         "startLine": 7807,
         "startChar": 8,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc39c3ed_b8ad0bac",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 23
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-22T09:55:49Z",
+      "side": 1,
+      "message": "I guess not since it should be default on in a unit test - done",
+      "parentUuid": "ceef761d_7fe7f33a",
+      "range": {
+        "startLine": 140,
+        "startChar": 8,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96e1a9ab_c626464a",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-07-18T11:12:11Z",
       "side": 1,
       "message": "nits: Do we need this waitForIdle? `maybeSetUidsFrozen` posts message to handler thread so I thought we don\u0027t need to wait previous message is processed.",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 21
+      },
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78a891be_0a07307f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 23
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-22T09:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96e1a9ab_c626464a",
       "range": {
         "startLine": 154,
         "startChar": 8,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a7fc376_abfea22a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 23
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-22T09:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18770965_d4582de9",
+      "range": {
+        "startLine": 485,
+        "startChar": 8,
+        "endLine": 489,
+        "endChar": 43
+      },
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24d35cd9_4ba9702b",
@@ -123,6 +237,30 @@
       "writtenOn": "2024-07-18T11:12:11Z",
       "side": 1,
       "message": "nits: Do we need to use `visibleOnHandlerThread` here? `onUidBlockedReasonChanged` will post message to handler thread so I think this don\u0027t need to be called from handler thread.",
+      "range": {
+        "startLine": 500,
+        "startChar": 11,
+        "endLine": 500,
+        "endChar": 13
+      },
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c61c56cf_a75a01af",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 23
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-22T09:55:49Z",
+      "side": 1,
+      "message": "Removed, added waitForIdle instead",
+      "parentUuid": "24d35cd9_4ba9702b",
       "range": {
         "startLine": 500,
         "startChar": 11,
