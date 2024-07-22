@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b71d5ff_ca4445e3",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-22T05:05:19Z",
+      "side": 1,
+      "message": "The dataset should be listed as a parameter of startFtdChild(), otherwise, reader has no ideal of which network this FTD is joining and whether it\u0027s joining the same network of the Border Router.",
+      "range": {
+        "startLine": 171,
+        "startChar": 12,
+        "endLine": 171,
+        "endChar": 31
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "6b6a8e36_37775134",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+              "range": {
+                "startLine": 171,
+                "startChar": 0,
+                "endLine": 172,
+                "endChar": 0
+              },
+              "replacement": "            startFtdChild(ftd, DEFAULT_DATASET);\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+              "range": {
+                "startLine": 225,
+                "startChar": 0,
+                "endLine": 226,
+                "endChar": 0
+              },
+              "replacement": "        startFtdChild(ftd, DEFAULT_DATASET);\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+              "range": {
+                "startLine": 280,
+                "startChar": 0,
+                "endLine": 281,
+                "endChar": 0
+              },
+              "replacement": "        startFtdChild(ftd, DEFAULT_DATASET);\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+              "range": {
+                "startLine": 346,
+                "startChar": 0,
+                "endLine": 347,
+                "endChar": 0
+              },
+              "replacement": "            startFtdChild(ftd, DEFAULT_DATASET);\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+              "range": {
+                "startLine": 408,
+                "startChar": 0,
+                "endLine": 409,
+                "endChar": 0
+              },
+              "replacement": "        startFtdChild(srpClient, DEFAULT_DATASET);\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+              "range": {
+                "startLine": 419,
+                "startChar": 0,
+                "endLine": 420,
+                "endChar": 0
+              },
+              "replacement": "        startFtdChild(dnsClient, DEFAULT_DATASET);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4f02ee734e44512b08a1796484f9e7b3116dcbf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8820b761_72981366",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-07-22T05:05:19Z",
+      "side": 1,
+      "message": "It looks better if this method can be named to `joinNetworkAndWaitForOmr()` and returns the OMR address.",
+      "range": {
+        "startLine": 432,
+        "startChar": 23,
+        "endLine": 432,
+        "endChar": 36
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "43c13ed3_93183608",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
+              "range": {
+                "startLine": 431,
+                "startChar": 0,
+                "endLine": 433,
+                "endChar": 0
+              },
+              "replacement": "    /**\n     * Let the FTD join the default Thread network and wait for border routing to be available.\n     *\n     * @return the OMR address of the FTD\n     */\n    public static Inet6Address joinNetworkAndWaitForOmr(FullThreadDevice ftd) throws Exception {\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.java",
+              "range": {
+                "startLine": 439,
+                "startChar": 0,
+                "endLine": 439,
+                "endChar": 0
+              },
+              "replacement": "        return ftdOmr;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4f02ee734e44512b08a1796484f9e7b3116dcbf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
