@@ -91,6 +91,7 @@ public class TetheringManager {
 
     private volatile TetheringConfigurationParcel mTetheringConfiguration;
     private volatile TetherStatesParcel mTetherStatesParcel;
+    private IBinder mConnectorBinder = null;
 
     /**
      * Broadcast Action: A tetherable connection has come or gone.
@@ -303,7 +304,7 @@ public class TetheringManager {
 
         final String pkgName = mContext.getOpPackageName();
 
-        final IBinder connector = mConnectorSupplier.get();
+        mConnectorBinder = mConnectorSupplier.get();
         // If the connector is available on start, do not start a polling thread. This introduces
         // differences in the thread that sends the oneway binder calls to the service between the
         // first few seconds after boot and later, but it avoids always having differences between
@@ -312,8 +313,8 @@ public class TetheringManager {
         // up and be sent from a worker thread; later, they are always sent from the caller thread.
         // Considering that it's just oneway binder calls, and ordering is preserved, this seems
         // better than inconsistent behavior persisting after boot.
-        if (connector != null) {
-            mConnector = ITetheringConnector.Stub.asInterface(connector);
+        if (mConnectorBinder != null) {
+            mConnector = ITetheringConnector.Stub.asInterface(mConnectorBinder);
         } else {
             startPollingForConnector();
         }
@@ -348,9 +349,9 @@ public class TetheringManager {
                     // Not much to do here, the system needs to wait for the connector
                 }
 
-                final IBinder connector = mConnectorSupplier.get();
-                if (connector != null) {
-                    onTetheringConnected(ITetheringConnector.Stub.asInterface(connector));
+                mConnectorBinder = mConnectorSupplier.get();
+                if (mConnectorBinder != null) {
+                    onTetheringConnected(ITetheringConnector.Stub.asInterface(mConnectorBinder));
                     return;
                 }
             }
@@ -414,9 +415,16 @@ public class TetheringManager {
      * limited to performing oneway binder calls to minimize differences due to threading.
      */
     private void getConnector(ConnectorConsumer consumer) {
-        final ITetheringConnector connector;
+        ITetheringConnector connector;
         synchronized (mConnectorWaitQueue) {
             connector = mConnector;
+            if(mConnectorBinder != null && !mConnectorBinder.isBinderAlive()){
+                Log.i(TAG, "mConnector is dead.. hence refreshing the mConnector");
+                connector = null;
+                if (mConnectorWaitQueue.size() == 0) {
+                    startPollingForConnector();
+                }
+            }
             if (connector == null) {
                 mConnectorWaitQueue.add(consumer);
                 return;
