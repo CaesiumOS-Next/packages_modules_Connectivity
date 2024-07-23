@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2a5a717_b4e0d2f2",
+        "filename": "tests/cts/net/native/dns/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-23T03:04:08Z",
+      "side": 1,
+      "message": "These should be in the same order as the ones in aosp/2880548, otherwise there will be a merge conflict.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 26
+      },
+      "revId": "9f4b590bd6254135cd2d0e9c124b5b1354944568",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
