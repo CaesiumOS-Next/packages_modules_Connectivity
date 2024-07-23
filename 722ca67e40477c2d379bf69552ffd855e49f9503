@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38a2d2bf_68fc372d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2024-07-23T09:02:12Z",
+      "side": 1,
+      "message": "I already added the tags for net-tests-utils-host-common. We are using a tool to auto generate the CLs.",
+      "parentUuid": "28615cec_ca5a1c8a",
+      "revId": "722ca67e40477c2d379bf69552ffd855e49f9503",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "655d9011_07caf4e7",
@@ -48,6 +66,30 @@
       "writtenOn": "2024-07-23T03:01:44Z",
       "side": 1,
       "message": "These should be in the same order as the ones in aosp/2880548, otherwise there will be a merge conflict.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "722ca67e40477c2d379bf69552ffd855e49f9503",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43e1e012_236afce0",
+        "filename": "tests/cts/net/native/dns/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2024-07-23T09:02:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "655d9011_07caf4e7",
       "range": {
         "startLine": 50,
         "startChar": 0,
