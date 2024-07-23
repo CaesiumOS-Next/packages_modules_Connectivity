@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b641c0f_d43b21b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2051900
+      },
+      "writtenOn": "2024-07-23T01:12:55Z",
+      "side": 1,
+      "message": "We haven\u0027t merged in mainline. will do once dev branch is merged.",
+      "parentUuid": "9c818cbf_95d4ae23",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "3c7a875f27da44996d0aa0ef03741fc0379d848a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a25b913_6ffe3b55",
