@@ -71,7 +71,7 @@ public class TetheringManager {
 
     @GuardedBy("mConnectorWaitQueue")
     @Nullable
-    private ITetheringConnector mConnector;
+    private IBinder mConnector;
     @GuardedBy("mConnectorWaitQueue")
     @NonNull
     private final List<ConnectorConsumer> mConnectorWaitQueue = new ArrayList<>();
@@ -84,7 +84,10 @@ public class TetheringManager {
 
     private volatile TetheringConfigurationParcel mTetheringConfiguration;
     private volatile TetherStatesParcel mTetherStatesParcel;
-
+    
+    @GuardedBy("mConnectorWaitQueue")
+    @Nullable
+    private IBinder mConnectorBinder = null;
     /**
      * Broadcast Action: A tetherable connection has come or gone.
      * Uses {@code TetheringManager.EXTRA_AVAILABLE_TETHER},
@@ -295,7 +298,6 @@ public class TetheringManager {
         mConnectorSupplier = connectorSupplier;
 
         final String pkgName = mContext.getOpPackageName();
-
         final IBinder connector = mConnectorSupplier.get();
         // If the connector is available on start, do not start a polling thread. This introduces
         // differences in the thread that sends the oneway binder calls to the service between the
@@ -305,7 +307,8 @@ public class TetheringManager {
         // up and be sent from a worker thread; later, they are always sent from the caller thread.
         // Considering that it's just oneway binder calls, and ordering is preserved, this seems
         // better than inconsistent behavior persisting after boot.
-        if (connector != null) {
+        if (connector != null && connector.isBinderAlive()) {
+            mConnectorBinder = connector;
             mConnector = ITetheringConnector.Stub.asInterface(connector);
         } else {
             startPollingForConnector();
@@ -340,10 +343,9 @@ public class TetheringManager {
                 } catch (InterruptedException e) {
                     // Not much to do here, the system needs to wait for the connector
                 }
-
                 final IBinder connector = mConnectorSupplier.get();
-                if (connector != null) {
-                    onTetheringConnected(ITetheringConnector.Stub.asInterface(connector));
+                if (connector != null && connector.isBinderAlive()) {
+                    onTetheringConnected(connector);
                     return;
                 }
             }
@@ -353,8 +355,7 @@ public class TetheringManager {
     private interface ConnectorConsumer {
         void onConnectorAvailable(ITetheringConnector connector) throws RemoteException;
     }
-
-    private void onTetheringConnected(ITetheringConnector connector) {
+    private void onTetheringConnected(IBinder connectorBinder) {
         // Process the connector wait queue in order, including any items that are added
         // while processing.
         //
@@ -380,6 +381,7 @@ public class TetheringManager {
             }
 
             // Allow more tasks to be added at the end without blocking while draining the queue.
+            final ITetheringConnector connector = ITetheringConnector.Stub.asInterface(connectorBinder);
             for (ConnectorConsumer task : localWaitQueue) {
                 try {
                     task.onConnectorAvailable(connector);
@@ -392,6 +394,7 @@ public class TetheringManager {
 
             synchronized (mConnectorWaitQueue) {
                 if (mConnectorWaitQueue.size() == 0) {
+                    mConnectorBinder = connectorBinder; 
                     mConnector = connector;
                     return;
                 }
@@ -410,7 +413,10 @@ public class TetheringManager {
         final ITetheringConnector connector;
         synchronized (mConnectorWaitQueue) {
             connector = mConnector;
-            if (connector == null) {
+            if (connector == null && !mConnectorBinder.isBinderAlive()) {
+                if (mConnectorWaitQueue.size() == 0) {
+                    startPollingForConnector();
+                }  
                 mConnectorWaitQueue.add(consumer);
                 return;
             }
