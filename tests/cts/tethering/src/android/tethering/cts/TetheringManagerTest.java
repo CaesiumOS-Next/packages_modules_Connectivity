@@ -22,7 +22,9 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.TETHERING_USB;
+import static android.net.TetheringManager.TETHERING_VIRTUAL;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHER_ERROR_ENTITLEMENT_UNKNOWN;
@@ -241,6 +243,13 @@ public class TetheringManagerTest {
                 .setExemptFromEntitlementCheck(true)
                 .setShouldShowEntitlementUi(false).build();
         assertEquals(tr2, tr3);
+
+        final String interfaceName = "test_iface";
+        final TetheringRequest tr4 = new TetheringRequest.Builder(TETHERING_VIRTUAL)
+                .setInterfaceName(interfaceName)
+                .setConnectivityScope(CONNECTIVITY_SCOPE_GLOBAL).build();
+        assertEquals(interfaceName, tr4.getInterfaceName());
+        assertEquals(CONNECTIVITY_SCOPE_GLOBAL, tr4.getConnectivityScope());
     }
 
     @Test
@@ -253,6 +262,11 @@ public class TetheringManagerTest {
                 .setShouldShowEntitlementUi(false).build();
         final TetheringRequest parceled = ParcelUtils.parcelingRoundTrip(unparceled);
         assertEquals(unparceled, parceled);
+
+        final TetheringRequest unparceled2 = new TetheringRequest.Builder(TETHERING_VIRTUAL)
+                .setInterfaceName("test_iface").build();
+        final TetheringRequest parceled2 = ParcelUtils.parcelingRoundTrip(unparceled2);
+        assertEquals(unparceled2, parceled2);
     }
 
     @Test
