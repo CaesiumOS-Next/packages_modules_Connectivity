@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "28615cec_ca5a1c8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-23T03:14:30Z",
+      "side": 1,
+      "message": "aosp/2882146 has changes to the net-tests-utils-host-common test as well:\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2882146/4/staticlibs/testutils/Android.bp#71\n\nIn android13-tests-dev and android14-tests-dev that test is in frameworks/libs/net. Do you need CLs in frameworks/libs/net as well?",
+      "revId": "722ca67e40477c2d379bf69552ffd855e49f9503",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "655d9011_07caf4e7",
         "filename": "tests/cts/net/native/dns/Android.bp",
         "patchSetId": 5
