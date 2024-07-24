@@ -33,7 +33,7 @@ namespace bpf {
 // BpfRingbufBase contains the non-templated functionality of BPF ring buffers.
 class BpfRingbufBase {
  public:
-  ~BpfRingbufBase() {
+  virtual ~BpfRingbufBase() {
     if (mConsumerPos) munmap(mConsumerPos, mConsumerSize);
     if (mProducerPos) munmap(mProducerPos, mProducerSize);
     mConsumerPos = nullptr;
