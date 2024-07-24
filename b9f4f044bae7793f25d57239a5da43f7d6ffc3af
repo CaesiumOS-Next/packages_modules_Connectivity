@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42732945_eae6ce54",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-07-24T07:48:19Z",
+      "side": 1,
+      "message": "I admit I didn\u0027t think about the return type, but I did consider whether it should take \u0027int\u0027 or \u0027unique_fd\u0027 for the epfd argument, and I decided to go with simply mirroring the syscall signature in as much as possible, since it is thus simply a one-line wrapper around it.\n\nConverting from int+errno to something else seems like it can just as easily be done at the callsite - and often won\u0027t need to be.\n\n(Similarly thought about whether \u0027epoll_ctl_add\u0027 or \u0027EpollCtlAdd\u0027 or something else should be the method name, and mirroring the syscall seemed to make the most sense)",
+      "parentUuid": "608bda6d_be02c2e1",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 61
+      },
+      "revId": "b9f4f044bae7793f25d57239a5da43f7d6ffc3af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59ff63de_e0c1712a",
         "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
         "patchSetId": 1
