@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe5462c2_50863746",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-24T07:06:03Z",
+      "side": 1,
+      "message": "LGTM assuming comment addressed",
+      "revId": "ccefcba7b0dfcf3b6277526fb2e80444ca25a9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7da6eb60_ab2e4a60",
+        "filename": "framework/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-24T07:06:03Z",
+      "side": 1,
+      "message": "Is min_sdk_version and apex_available not necessary ? (I guess this isn\u0027t what ends up in the apex so apex_available maybe not, but min_sdk_version seems useful to ensure the linter can work properly, and to indicate this is usable on 30+",
+      "revId": "ccefcba7b0dfcf3b6277526fb2e80444ca25a9d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
