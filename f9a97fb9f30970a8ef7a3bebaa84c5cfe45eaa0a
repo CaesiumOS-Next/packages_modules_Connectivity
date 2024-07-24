@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "28666d5b_47435cac",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 23
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-24T05:45:38Z",
+      "side": 1,
+      "message": "nits: Forgot to remove this?",
+      "parentUuid": "bc39c3ed_b8ad0bac",
+      "range": {
+        "startLine": 140,
+        "startChar": 8,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "f9a97fb9f30970a8ef7a3bebaa84c5cfe45eaa0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96e1a9ab_c626464a",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
         "patchSetId": 23
