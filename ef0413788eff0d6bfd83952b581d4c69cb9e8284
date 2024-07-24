@@ -22,6 +22,30 @@
       },
       "revId": "ef0413788eff0d6bfd83952b581d4c69cb9e8284",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "379539d2_072c5f5d",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-07-24T19:17:31Z",
+      "side": 1,
+      "message": "I\u0027ll fix it in another commit... but I think that\u0027s probably only actually truly needed if the subclass adds more fields (that need to be destructed).\n\n[also there should presumably a lint/compiler error that catches this no?]\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3193071",
+      "parentUuid": "0b846c2f_9b6cd683",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 19
+      },
+      "revId": "ef0413788eff0d6bfd83952b581d4c69cb9e8284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
