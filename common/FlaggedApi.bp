@@ -37,3 +37,20 @@ aconfig_declarations {
     srcs: ["nearby_flags.aconfig"],
     visibility: ["//packages/modules/Connectivity:__subpackages__"],
 }
+
+aconfig_declarations {
+    name: "com.android.ct.flags-aconfig",
+    package: "com.android.ct.flags",
+    container: "com.android.tethering",
+    srcs: ["ct_flags.aconfig"],
+    visibility: ["//packages/modules/Connectivity:__subpackages__"],
+}
+
+java_aconfig_library {
+    name: "ct_flags_java_lib",
+    aconfig_declarations: "com.android.ct.flags-aconfig",
+    min_sdk_version: "30",
+    defaults: ["framework-minus-apex-aconfig-java-defaults"],
+    apex_available: ["com.android.tethering"],
+    visibility: ["//packages/modules/Connectivity:__subpackages__"],
+}
