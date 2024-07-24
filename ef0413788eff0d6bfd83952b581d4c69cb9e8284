@@ -46,6 +46,30 @@
       },
       "revId": "ef0413788eff0d6bfd83952b581d4c69cb9e8284",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c857221_8aba6959",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-24T20:18:36Z",
+      "side": 1,
+      "message": "Correct. I do not believe that there is a compiler error / warning for it. I don\u0027t even know whether the compiler would have enough information to warn you.",
+      "parentUuid": "379539d2_072c5f5d",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 19
+      },
+      "revId": "ef0413788eff0d6bfd83952b581d4c69cb9e8284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
