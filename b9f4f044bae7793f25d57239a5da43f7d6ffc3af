@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f40f6d3_a56cb807",
+        "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-07-24T07:26:11Z",
+      "side": 1,
+      "message": "a) ok.\n\nb) leaning towards the first one as well.\n\nindeed seems like\n\nint BpfRingbuf::epoll_ctl(int epfd, int op, struct epoll_event *_Nullable event) {\n  return epoll_ctl(epfd, op, mRingFd.get(), event);\n}\n\nmight already be enough?\n\nthough I think I\u0027d prefer:\n\nint epoll_ctl_add(int epfd, struct epoll_event *event) {\n  return epoll_ctl(epfd, EPOLL_CTL_ADD, mRingFd.get(), event);\n}\n\nint epoll_ctl_mod(int epfd, struct epoll_event *event) {\n  return epoll_ctl(epfd, EPOLL_CTL_MOD, mRingFd.get(), event);\n}\n\nint epoll_ctl_del(int epfd) {\n  return epoll_ctl(epfd, EPOLL_CTL_DEL, mRingFd.get(), NULL);\n}",
+      "parentUuid": "3fc56444_4377020e",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 61
+      },
+      "revId": "b9f4f044bae7793f25d57239a5da43f7d6ffc3af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59ff63de_e0c1712a",
         "filename": "staticlibs/native/bpf_headers/include/bpf/BpfRingbuf.h",
         "patchSetId": 1
