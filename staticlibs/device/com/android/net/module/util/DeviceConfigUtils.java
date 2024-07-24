@@ -57,6 +57,8 @@ public final class DeviceConfigUtils {
      */
     public static final String TETHERING_MODULE_NAME = "com.android.tethering";
 
+    private static final String CERTIFICATE_TRANSPARENCY_NAMESPACE = "certificate_transparency";
+
     @VisibleForTesting
     public static final String RESOURCES_APK_INTENT =
             "com.android.server.connectivity.intent.action.SERVICE_CONNECTIVITY_RESOURCES_APK";
@@ -201,6 +203,28 @@ public final class DeviceConfigUtils {
     public static boolean isTetheringFeatureEnabled(@NonNull Context context,
             @NonNull String name) {
         return isFeatureEnabled(NAMESPACE_TETHERING, name, false /* defaultEnabled */,
+                () -> getTetheringModuleVersion(context));
+    }
+
+    /**
+     * Check whether or not one specific experimental feature for a particular namespace from {@link
+     * DeviceConfig} is enabled by comparing module package version with current version of
+     * property. If this property version is valid, the corresponding experimental feature would be
+     * enabled, otherwise disabled.
+     *
+     * <p>This is useful to ensure that if a module install is rolled back, flags are not left fully
+     * rolled out on a version where they have not been well tested.
+     *
+     * @param context The global context information about an app environment.
+     * @param name The name of the property to look up.
+     * @return true if this feature is enabled, or false if disabled.
+     */
+    public static boolean isCertificateTransparencyFeatureEnabled(
+            @NonNull Context context, @NonNull String name) {
+        return isFeatureEnabled(
+                CERTIFICATE_TRANSPARENCY_NAMESPACE,
+                name,
+                false /* defaultEnabled */,
                 () -> getTetheringModuleVersion(context));
     }
 
