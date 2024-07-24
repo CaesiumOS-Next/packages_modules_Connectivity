@@ -58,6 +58,7 @@ java_library {
         "framework-tethering.impl",
         "framework-wifi",
         "service-connectivity-pre-jarjar",
+        "service-ct-pre-jarjar",
         "service-nearby-pre-jarjar",
         "service-thread-pre-jarjar",
         service_remoteauth_pre_jarjar_lib,

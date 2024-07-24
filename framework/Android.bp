@@ -63,6 +63,7 @@ java_defaults {
         ":framework-connectivity-sources",
         ":net-utils-framework-common-srcs",
         ":framework-connectivity-api-shared-srcs",
+        ":framework-ct-sources",
     ],
     aidl: {
         generate_get_transaction_name: true,
@@ -205,6 +206,7 @@ java_sdk_library {
         baseline_filename: "lint-baseline.xml",
     },
     aconfig_declarations: [
+        "com.android.ct.flags-aconfig",
         "com.android.net.flags-aconfig",
     ],
 }
@@ -306,6 +308,7 @@ droidstubs {
     srcs: [
         ":framework-connectivity-sources",
         ":framework-connectivity-tiramisu-updatable-sources",
+        ":framework-ct-sources",
         ":framework-nearby-java-sources",
         ":framework-thread-sources",
     ],
