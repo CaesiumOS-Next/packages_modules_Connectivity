@@ -63,6 +63,7 @@ java_defaults {
         ":framework-connectivity-sources",
         ":net-utils-framework-common-srcs",
         ":framework-connectivity-api-shared-srcs",
+        ":framework-networksecurity-sources",
     ],
     aidl: {
         generate_get_transaction_name: true,
@@ -206,6 +207,7 @@ java_sdk_library {
     },
     aconfig_declarations: [
         "com.android.net.flags-aconfig",
+        "com.android.networksecurity.flags-aconfig",
     ],
 }
 
@@ -306,6 +308,7 @@ droidstubs {
     srcs: [
         ":framework-connectivity-sources",
         ":framework-connectivity-tiramisu-updatable-sources",
+        ":framework-networksecurity-sources",
         ":framework-nearby-java-sources",
         ":framework-thread-sources",
     ],
