@@ -16,6 +16,24 @@
       "message": "The actual problem is that when you are passing a subclass of BpfRingbufBase via the BpfRingbufBase interface and subsequently destroy the object, only the destructor for BpfRingbufBase is called, *not* the entire destructor chain. Having a virtual destructor obviously solves that, because no matter the type, the vtable will always point to the \"bottom\"-most destructor. But yes, unless you have a custom destructor or class members, it technically doesn\u0027t matter.",
       "revId": "dea17b60ed0b91b50c1d702cbcc4833a8eda1438",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "918faf97_b1d89924",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-07-24T22:24:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2c9c924_4cf8e165",
+      "revId": "dea17b60ed0b91b50c1d702cbcc4833a8eda1438",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
