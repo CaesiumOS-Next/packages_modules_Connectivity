@@ -31,6 +31,7 @@ java_sdk_library {
         "//packages/modules/Connectivity/service-t",
 
         // Using for test only
+        "//cts/hostsidetests/network-policy/app",
         "//cts/tests/netlegacy22.api",
         "//external/sl4a:__subpackages__",
         "//frameworks/base/core/tests/bandwidthtests",
