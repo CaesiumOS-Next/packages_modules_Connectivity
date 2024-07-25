@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47bbfe0f_8d3be504",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-07-25T03:16:17Z",
+      "side": 1,
+      "message": "This could cause a build or boot failure, but not a test failure - and especially not somewhere in bluetooth.",
+      "revId": "67fb884b21c37c9f8712646b63295e861df8729d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
