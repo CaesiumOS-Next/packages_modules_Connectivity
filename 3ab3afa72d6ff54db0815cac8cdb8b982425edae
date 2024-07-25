@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7da1cc62_28c5a39c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-25T10:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd16b5d9_d2876517",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 69
+      },
+      "revId": "3ab3afa72d6ff54db0815cac8cdb8b982425edae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d5f6298_a1faaf5b",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8b3fff7_8c4e681b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-25T10:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d5f6298_a1faaf5b",
+      "range": {
+        "startLine": 528,
+        "startChar": 34,
+        "endLine": 528,
+        "endChar": 37
+      },
+      "revId": "3ab3afa72d6ff54db0815cac8cdb8b982425edae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b467b25_46e7b219",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-07-24T05:45:38Z",
       "side": 1,
       "message": "nits: from the method name, should this be just `BLOCKED_METERED_REASON_DATA_SAVER`?\nBLOCKED_REASON_APP_BACKGROUND is for background firewall chain.",
+      "range": {
+        "startLine": 539,
+        "startChar": 12,
+        "endLine": 539,
+        "endChar": 44
+      },
+      "revId": "3ab3afa72d6ff54db0815cac8cdb8b982425edae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf31f7cb_b8e3f659",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSQueuedCallbacksTest.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-25T10:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b467b25_46e7b219",
       "range": {
         "startLine": 539,
         "startChar": 12,
