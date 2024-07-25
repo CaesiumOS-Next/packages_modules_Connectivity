@@ -279,7 +279,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
                     }
 
                     @Override
-                    public void onSocketDestroyed(@NonNull SocketKey socketKey) {
+                    public void onSocketDestroyed(@NonNull SocketKey socketKey, int reason) {
                         discoveryExecutor.ensureRunningOnHandlerThread();
                         final MdnsServiceTypeClient serviceTypeClient =
                                 perSocketServiceTypeClients.get(serviceType, socketKey);

@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSocketClientBase.SocketCreationCallback.DESTROYED_REASON_INTERFACE_DESTROYED;
+import static com.android.server.connectivity.mdns.MdnsSocketClientBase.SocketCreationCallback.DESTROYED_REASON_SOCKET_DESTROYED;
 import static com.android.server.connectivity.mdns.MdnsSocketProvider.SocketCallback;
 import static com.android.server.connectivity.mdns.MulticastPacketReader.PacketHandler;
 import static com.android.testutils.Cleanup.testAndCleanup;
@@ -23,6 +25,7 @@ import static com.android.testutils.Cleanup.testAndCleanup;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.inOrder;
@@ -349,14 +352,16 @@ public class MdnsMultinetworkSocketClientTest {
         callback.onSocketCreated(otherSocketKey, otherSocket, List.of());
         verify(mSocketCreationCallback).onSocketCreated(otherSocketKey);
 
-        verify(mSocketCreationCallback, never()).onSocketDestroyed(mSocketKey);
-        verify(mSocketCreationCallback, never()).onSocketDestroyed(otherSocketKey);
+        verify(mSocketCreationCallback, never()).onSocketDestroyed(eq(mSocketKey), anyInt());
+        verify(mSocketCreationCallback, never()).onSocketDestroyed(eq(otherSocketKey), anyInt());
         mHandler.post(() -> mSocketClient.notifyNetworkUnrequested(mListener));
         HandlerUtils.waitForIdle(mHandler, DEFAULT_TIMEOUT);
 
         verify(mProvider).unrequestSocket(callback);
-        verify(mSocketCreationCallback).onSocketDestroyed(mSocketKey);
-        verify(mSocketCreationCallback).onSocketDestroyed(otherSocketKey);
+        verify(mSocketCreationCallback).onSocketDestroyed(
+                mSocketKey, DESTROYED_REASON_SOCKET_DESTROYED);
+        verify(mSocketCreationCallback).onSocketDestroyed(
+                otherSocketKey, DESTROYED_REASON_SOCKET_DESTROYED);
     }
 
     @Test
@@ -374,9 +379,11 @@ public class MdnsMultinetworkSocketClientTest {
 
         // Notify socket destroyed
         callback.onInterfaceDestroyed(mSocketKey, mSocket);
-        verify(mSocketCreationCallback).onSocketDestroyed(mSocketKey);
+        verify(mSocketCreationCallback).onSocketDestroyed(
+                mSocketKey, DESTROYED_REASON_INTERFACE_DESTROYED);
         callback.onInterfaceDestroyed(otherSocketKey, otherSocket);
-        verify(mSocketCreationCallback).onSocketDestroyed(otherSocketKey);
+        verify(mSocketCreationCallback).onSocketDestroyed(
+                otherSocketKey, DESTROYED_REASON_INTERFACE_DESTROYED);
     }
 
     @Test
@@ -409,10 +416,13 @@ public class MdnsMultinetworkSocketClientTest {
         callback1.onInterfaceDestroyed(mSocketKey, mSocket);
         callback2.onInterfaceDestroyed(mSocketKey, mSocket);
         callback3.onInterfaceDestroyed(mSocketKey, mSocket);
-        verify(creationCallback1).onSocketDestroyed(mSocketKey);
-        verify(creationCallback2).onSocketDestroyed(mSocketKey);
-        verify(creationCallback3).onSocketDestroyed(mSocketKey);
-        verify(creationCallback3, never()).onSocketDestroyed(socketKey2);
+        verify(creationCallback1).onSocketDestroyed(
+                mSocketKey, DESTROYED_REASON_INTERFACE_DESTROYED);
+        verify(creationCallback2).onSocketDestroyed(
+                mSocketKey, DESTROYED_REASON_INTERFACE_DESTROYED);
+        verify(creationCallback3).onSocketDestroyed(
+                mSocketKey, DESTROYED_REASON_INTERFACE_DESTROYED);
+        verify(creationCallback3, never()).onSocketDestroyed(eq(socketKey2), anyInt());
     }
 
     @Test
