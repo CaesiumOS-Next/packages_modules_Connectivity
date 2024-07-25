@@ -154,6 +154,7 @@ java_defaults {
         // if sdk_version="" this gets automatically included, but here we need to add manually.
         "framework-res",
     ],
+    defaults_visibility: ["//cts/hostsidetests/network-policy/app"],
 }
 
 // defaults for tests that need to build against framework-connectivity's @hide APIs, but also
