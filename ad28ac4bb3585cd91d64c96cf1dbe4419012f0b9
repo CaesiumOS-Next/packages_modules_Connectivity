@@ -16,6 +16,23 @@
       "message": "PTAL!",
       "revId": "ad28ac4bb3585cd91d64c96cf1dbe4419012f0b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e7fc213_14c6fd51",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-25T03:30:32Z",
+      "side": 1,
+      "message": "Nit: this comment seems out-of-date now, since wifi will now be using a library",
+      "revId": "ad28ac4bb3585cd91d64c96cf1dbe4419012f0b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
