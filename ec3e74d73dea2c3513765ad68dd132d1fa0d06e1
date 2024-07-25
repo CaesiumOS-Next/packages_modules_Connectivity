@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3878e0c_06f7c547",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 8764,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-25T08:52:39Z",
+      "side": 1,
+      "message": "I think this can be null if refactorSocketDestroyOnRemovedAddress is false.",
+      "range": {
+        "startLine": 8764,
+        "startChar": 5,
+        "endLine": 8764,
+        "endChar": 12
+      },
+      "revId": "ec3e74d73dea2c3513765ad68dd132d1fa0d06e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e751db3_23943a2b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 14327,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-25T08:52:39Z",
+      "side": 1,
+      "message": "From la, it seems only the address is used (la.getAddress).\nDo we use other information?\nCan we directly pass msg.getIpAddress()?",
+      "range": {
+        "startLine": 14327,
+        "startChar": 34,
+        "endLine": 14327,
+        "endChar": 36
+      },
+      "revId": "ec3e74d73dea2c3513765ad68dd132d1fa0d06e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa62b162_c18e2366",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 14344,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-25T08:52:39Z",
+      "side": 1,
+      "message": "Generally streams are discouraged in platform code due to the allocation and memory overhead.\nCan we write with for loop?",
+      "range": {
+        "startLine": 14344,
+        "startChar": 57,
+        "endLine": 14344,
+        "endChar": 65
+      },
+      "revId": "ec3e74d73dea2c3513765ad68dd132d1fa0d06e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
