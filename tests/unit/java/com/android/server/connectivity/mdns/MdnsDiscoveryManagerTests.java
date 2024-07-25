@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity.mdns;
 
+import static com.android.server.connectivity.mdns.MdnsSocketClientBase.SocketCreationCallback.DESTROYED_REASON_INTERFACE_DESTROYED;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
@@ -192,7 +193,8 @@ public class MdnsDiscoveryManagerTests {
         runOnHandler(() -> callback.onSocketCreated(SOCKET_KEY_NULL_NETWORK));
         verify(mockServiceTypeClientType1NullNetwork).startSendAndReceive(mockListenerOne, options);
 
-        runOnHandler(() -> callback.onSocketDestroyed(SOCKET_KEY_NULL_NETWORK));
+        runOnHandler(() -> callback.onSocketDestroyed(
+                SOCKET_KEY_NULL_NETWORK, DESTROYED_REASON_INTERFACE_DESTROYED));
         verify(executorProvider).shutdownExecutorService(mockExecutorService);
     }
 
@@ -292,7 +294,8 @@ public class MdnsDiscoveryManagerTests {
         // The first callback receives a notification that the network has been destroyed,
         // mockServiceTypeClientOne1 should send service removed notifications and remove from the
         // list of clients.
-        runOnHandler(() -> callback.onSocketDestroyed(SOCKET_KEY_NETWORK_1));
+        runOnHandler(() -> callback.onSocketDestroyed(
+                SOCKET_KEY_NETWORK_1, DESTROYED_REASON_INTERFACE_DESTROYED));
         verify(mockServiceTypeClientType1Network1).notifySocketDestroyed();
 
         // Receive a response again, it should be processed only on
@@ -307,7 +310,8 @@ public class MdnsDiscoveryManagerTests {
 
         // The client for NETWORK_1 receives the callback that the NETWORK_2 has been destroyed,
         // mockServiceTypeClientTwo2 shouldn't send any notifications.
-        runOnHandler(() -> callback2.onSocketDestroyed(SOCKET_KEY_NETWORK_2));
+        runOnHandler(() -> callback2.onSocketDestroyed(
+                SOCKET_KEY_NETWORK_2, DESTROYED_REASON_INTERFACE_DESTROYED));
         verify(mockServiceTypeClientType2Network1, never()).notifySocketDestroyed();
 
         // Receive a response again, mockServiceTypeClientType2Network1 is still in the list of
@@ -336,7 +340,8 @@ public class MdnsDiscoveryManagerTests {
         verify(mockServiceTypeClientType1NullNetwork).processResponse(
                 response, SOCKET_KEY_NULL_NETWORK);
 
-        runOnHandler(() -> callback.onSocketDestroyed(SOCKET_KEY_NULL_NETWORK));
+        runOnHandler(() -> callback.onSocketDestroyed(
+                SOCKET_KEY_NULL_NETWORK, DESTROYED_REASON_INTERFACE_DESTROYED));
         verify(mockServiceTypeClientType1NullNetwork).notifySocketDestroyed();
 
         // Receive a response again, it should not be processed.
@@ -382,10 +387,12 @@ public class MdnsDiscoveryManagerTests {
         assertEquals(1, createdServiceTypeClientCount);
 
         runOnHandler(() -> {
-            callback.onSocketDestroyed(SOCKET_KEY_NETWORK_1);
-            callback.onSocketDestroyed(SOCKET_KEY_NULL_NETWORK);
-            callback.onSocketDestroyed(matchingIfaceWithNetworkKey);
-            callback.onSocketDestroyed(unusedIfaceKey);
+            callback.onSocketDestroyed(SOCKET_KEY_NETWORK_1, DESTROYED_REASON_INTERFACE_DESTROYED);
+            callback.onSocketDestroyed(
+                    SOCKET_KEY_NULL_NETWORK, DESTROYED_REASON_INTERFACE_DESTROYED);
+            callback.onSocketDestroyed(
+                    matchingIfaceWithNetworkKey, DESTROYED_REASON_INTERFACE_DESTROYED);
+            callback.onSocketDestroyed(unusedIfaceKey, DESTROYED_REASON_INTERFACE_DESTROYED);
         });
         verify(mockServiceTypeClientType1NullNetwork).notifySocketDestroyed();
     }

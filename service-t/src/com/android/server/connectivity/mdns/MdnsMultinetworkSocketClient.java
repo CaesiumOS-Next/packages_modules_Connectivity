@@ -100,14 +100,16 @@ public class MdnsMultinetworkSocketClient implements MdnsSocketClientBase {
         public void onInterfaceDestroyed(@NonNull SocketKey socketKey,
                 @NonNull MdnsInterfaceSocket socket) {
             mActiveSockets.remove(socketKey);
-            mSocketCreationCallback.onSocketDestroyed(socketKey);
+            mSocketCreationCallback.onSocketDestroyed(
+                    socketKey, SocketCreationCallback.DESTROYED_REASON_INTERFACE_DESTROYED);
             maybeCleanupPacketHandler(socketKey);
         }
 
         private void notifySocketDestroyed(@NonNull SocketKey socketKey) {
             mActiveSockets.remove(socketKey);
             if (!isSocketActive(socketKey)) {
-                mSocketCreationCallback.onSocketDestroyed(socketKey);
+                mSocketCreationCallback.onSocketDestroyed(
+                        socketKey, SocketCreationCallback.DESTROYED_REASON_NETWORK_UNREQUESTED);
             }
         }
 
