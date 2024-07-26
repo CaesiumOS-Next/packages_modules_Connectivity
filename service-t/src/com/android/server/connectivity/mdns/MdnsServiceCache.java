@@ -27,11 +27,14 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.ArrayMap;
+import android.util.IndentingPrintWriter;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -70,6 +73,11 @@ public class MdnsServiceCache {
             }
             return Objects.equals(mUpperCaseServiceType, ((CacheKey) other).mUpperCaseServiceType)
                     && Objects.equals(mSocketKey, ((CacheKey) other).mSocketKey);
+        }
+
+        @Override
+        public String toString() {
+            return "CacheKey{ ServiceType=" + mUpperCaseServiceType + ", " + mSocketKey + " }";
         }
     }
     /**
@@ -352,6 +360,29 @@ public class MdnsServiceCache {
 
         // Update next expiration time.
         mNextExpirationTime = getNextExpirationTime(now);
+    }
+
+    /**
+     * Dump ServiceCache state.
+     */
+    public void dump(PrintWriter writer) {
+        ensureRunningOnHandlerThread(mHandler);
+        final IndentingPrintWriter pw = new IndentingPrintWriter(writer, "  ");
+        pw.increaseIndent();
+        for (int i = 0; i < mCachedServices.size(); i++) {
+            final CacheKey key = mCachedServices.keyAt(i);
+            pw.println(key);
+            final String[] serviceTypeLabels =
+                    TextUtils.split(key.mUpperCaseServiceType, "\\.");
+            final long now = mClock.elapsedRealtime();
+            pw.increaseIndent();
+            for (MdnsResponse response : mCachedServices.valueAt(i)) {
+                pw.println("Response{ " + response + " }");
+            }
+            pw.decreaseIndent();
+            pw.println();
+        }
+        pw.decreaseIndent();
     }
 
     /*** Callbacks for listening service expiration */
