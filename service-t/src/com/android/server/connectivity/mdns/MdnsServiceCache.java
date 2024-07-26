@@ -19,6 +19,7 @@ package com.android.server.connectivity.mdns;
 import static com.android.net.module.util.DnsUtils.equalsIgnoreDnsCase;
 import static com.android.net.module.util.DnsUtils.toDnsUpperCase;
 import static com.android.server.connectivity.mdns.MdnsResponse.EXPIRATION_NEVER;
+import static com.android.server.connectivity.mdns.util.MdnsUtils.buildMdnsServiceInfoFromResponse;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.ensureRunningOnHandlerThread;
 
 import static java.lang.Math.min;
@@ -27,11 +28,13 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -70,6 +73,11 @@ public class MdnsServiceCache {
             }
             return Objects.equals(mUpperCaseServiceType, ((CacheKey) other).mUpperCaseServiceType)
                     && Objects.equals(mSocketKey, ((CacheKey) other).mSocketKey);
+        }
+
+        @Override
+        public String toString() {
+            return "CacheKey{ ServiceType=" + mUpperCaseServiceType + ", " + mSocketKey + " }";
         }
     }
     /**
@@ -352,6 +360,26 @@ public class MdnsServiceCache {
 
         // Update next expiration time.
         mNextExpirationTime = getNextExpirationTime(now);
+    }
+
+    /**
+     * Dump ServiceCache state.
+     */
+    public void dump(PrintWriter pw) {
+        ensureRunningOnHandlerThread(mHandler);
+        for (int i = 0; i < mCachedServices.size(); i++) {
+            final CacheKey key = mCachedServices.keyAt(i);
+            pw.println("  " + key);
+            final String[] serviceTypeLabels =
+                    TextUtils.split(key.mUpperCaseServiceType, "\\.");
+            final long now = mClock.elapsedRealtime();
+            for (MdnsResponse response : mCachedServices.valueAt(i)) {
+                pw.println("    ServiceInfo{ "
+                        + buildMdnsServiceInfoFromResponse(response, serviceTypeLabels, now)
+                        + " }");
+            }
+            pw.println();
+        }
     }
 
     /*** Callbacks for listening service expiration */
