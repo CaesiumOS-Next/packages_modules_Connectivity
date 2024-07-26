@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "771754b6_dc724d8e",
+        "filename": "Tethering/common/TetheringLib/api/system-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-26T17:06:56Z",
+      "side": 1,
+      "message": "Could there be other types of interface errors? For example, \"this interface is already tethered\" or \"this interface is already used by something else\"? If so, we might want to make this more generic, such as TETHER_ERROR_INVALID_IFACE or TETHER_ERROR_INVALID_REQUEST.\n\nIt might be better if we can use an existing code. We already have TETHER_ERROR_UNKNOWN_IFACE, TETHER_ERROR_UNAVAIL_IFACE and TETHER_ERROR_IFACE_CFG_ERROR, which we might be able to use. In that case we might be able to add no new constants in this CL.",
+      "range": {
+        "startLine": 55,
+        "startChar": 100,
+        "endLine": 55,
+        "endChar": 132
+      },
+      "revId": "8c0393e51930bb0d5010eaeb9578e2a2d1a89231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "747498b6_f3065222",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/TetheringUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-26T17:06:56Z",
+      "side": 1,
+      "message": "This should be Objects.equals() instead of \u003d\u003d. In Java \u003d\u003d is almost always incorrect because it does pointer equality not object equality.",
+      "range": {
+        "startLine": 173,
+        "startChar": 41,
+        "endLine": 173,
+        "endChar": 43
+      },
+      "revId": "8c0393e51930bb0d5010eaeb9578e2a2d1a89231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
