@@ -19,11 +19,13 @@ package com.android.server.connectivity.mdns;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.Network;
+import android.text.TextUtils;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.DnsUtils;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -425,5 +427,18 @@ public class MdnsResponse {
         }
 
         return count;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + TextUtils.join(".", serviceName)
+                + ", pointerRecords: " + pointerRecords
+                + ", serviceRecord: " + serviceRecord
+                + ", textRecord: " + textRecord
+                + ", inet4AddressRecords: " + inet4AddressRecords
+                + ", inet6AddressRecords: " + inet6AddressRecords
+                + ", interfaceIndex: " + interfaceIndex
+                + ", network: " + network
+                + ", lastUpdateTime: " + Instant.now().plusMillis(lastUpdateTime);
     }
 }
