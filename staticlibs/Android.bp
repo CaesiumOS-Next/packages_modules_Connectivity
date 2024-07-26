@@ -530,10 +530,15 @@ java_library {
 }
 
 java_library {
-    name: "net-utils-tethering",
+    name: "net-utils-connectivity-apks",
     srcs: [
         ":net-utils-all-srcs",
         ":framework-connectivity-shared-srcs",
+    ],
+    visibility: [
+        "//packages/modules/CaptivePortalLogin:__subpackages__",
+        "//packages/modules/Connectivity/Tethering:__subpackages__",
+        "//packages/modules/NetworkStack:__subpackages__",
     ],
     defaults: ["net-utils-non-bootclasspath-defaults"],
 }
