@@ -1,0 +1,68 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcfde964_5dfc230b",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-26T17:25:23Z",
+      "side": 1,
+      "message": "{@link #TETHERING_WIFI}",
+      "range": {
+        "startLine": 815,
+        "startChar": 55,
+        "endLine": 815,
+        "endChar": 69
+      },
+      "revId": "594572582fa66793d4d13b115468c507f508d854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "685a421f_73e785d8",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-26T17:25:23Z",
+      "side": 1,
+      "message": "Generally, system APIs should require privileged permissions. What permission should this require?",
+      "range": {
+        "startLine": 828,
+        "startChar": 12,
+        "endLine": 828,
+        "endChar": 18
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "7c241322_d136d489",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+              "range": {
+                "startLine": 828,
+                "startChar": 0,
+                "endLine": 828,
+                "endChar": 0
+              },
+              "replacement": "            @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "594572582fa66793d4d13b115468c507f508d854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
