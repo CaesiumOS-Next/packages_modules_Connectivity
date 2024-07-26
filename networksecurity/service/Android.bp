@@ -30,6 +30,7 @@ java_library {
         "networksecurity_flags_java_lib",
     ],
     libs: [
+        "framework-configinfrastructure",
         "framework-connectivity-pre-jarjar",
         "service-connectivity-pre-jarjar",
     ],
