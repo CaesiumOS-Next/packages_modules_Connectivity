@@ -20,6 +20,7 @@ import static com.android.server.connectivity.mdns.MdnsSearchOptions.ACTIVE_QUER
 import static com.android.server.connectivity.mdns.MdnsSearchOptions.AGGRESSIVE_QUERY_MODE;
 import static com.android.server.connectivity.mdns.MdnsSearchOptions.PASSIVE_QUERY_MODE;
 import static com.android.server.connectivity.mdns.MdnsServiceTypeClient.EVENT_START_QUERYTASK;
+import static com.android.server.connectivity.mdns.MdnsSocketClientBase.SocketCreationCallback.DESTROYED_REASON_INTERFACE_DESTROYED;
 import static com.android.server.connectivity.mdns.QueryTaskConfig.INITIAL_AGGRESSIVE_TIME_BETWEEN_BURSTS_MS;
 import static com.android.server.connectivity.mdns.QueryTaskConfig.MAX_TIME_BETWEEN_AGGRESSIVE_BURSTS_MS;
 import static com.android.server.connectivity.mdns.QueryTaskConfig.TIME_BETWEEN_RETRANSMISSION_QUERIES_IN_BURST_MS;
@@ -279,8 +280,8 @@ public class MdnsServiceTypeClientTests {
         runOnHandler(() -> client.stopSendAndReceive(listener));
     }
 
-    private void notifySocketDestroyed() {
-        runOnHandler(() -> client.notifySocketDestroyed());
+    private void notifySocketDestroyed(int reason) {
+        runOnHandler(() -> client.notifySocketDestroyed(reason));
     }
 
     private void dispatchMessage() {
@@ -1687,7 +1688,7 @@ public class MdnsServiceTypeClientTests {
                         Collections.emptyMap() /* textAttributes */, TEST_TTL),
                 socketKey);
 
-        notifySocketDestroyed();
+        notifySocketDestroyed(DESTROYED_REASON_INTERFACE_DESTROYED);
         verify(mockDeps, times(3)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
 
         // mockListenerOne gets notified for the requested instance

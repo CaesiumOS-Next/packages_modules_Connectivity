@@ -2445,8 +2445,10 @@ class NsdManagerTest {
             assertEquals(testNetwork1.network, foundInfo.network)
             // Verify that associated ServiceTypeClients has been created for testNetwork1.
             assertTrue("No serviceTypeClients for testNetwork1.",
-                    hasServiceTypeClientsForNetwork(
-                            getServiceTypeClients(), testNetwork1.network))
+                    hasLogsForNetwork(getServiceTypeClients(), testNetwork1.network))
+            // Verify that found services for testNetwork1 are cached.
+            assertTrue("No cached services for testNetwork1.",
+                    hasLogsForNetwork(getCachedServices(), testNetwork1.network))
 
             // Disconnect testNetwork1
             runAsShell(MANAGE_TEST_NETWORKS) {
@@ -2456,8 +2458,10 @@ class NsdManagerTest {
             // Verify that no ServiceTypeClients for testNetwork1.
             discoveryRecord3.expectCallback<ServiceLost>()
             assertFalse("Still has serviceTypeClients for testNetwork1.",
-                    hasServiceTypeClientsForNetwork(
-                            getServiceTypeClients(), testNetwork1.network))
+                    hasLogsForNetwork(getServiceTypeClients(), testNetwork1.network))
+            // Verify that no cached service for testNetwork1.
+            assertFalse("Still has cached services for testNetwork1.",
+                    hasLogsForNetwork(getCachedServices(), testNetwork1.network))
         } cleanupStep {
             nsdManager.stopServiceDiscovery(discoveryRecord1)
             nsdManager.stopServiceDiscovery(discoveryRecord2)
@@ -2471,8 +2475,8 @@ class NsdManagerTest {
         }
     }
 
-    private fun hasServiceTypeClientsForNetwork(clients: List<String>, network: Network): Boolean {
-        return clients.any { client -> client.substring(
+    private fun hasLogsForNetwork(logs: List<String>, network: Network): Boolean {
+        return logs.any { client -> client.substring(
                 client.indexOf("network=") + "network=".length,
                 client.indexOf("interfaceIndex=") - 1) == network.getNetId().toString()
         }
@@ -2492,6 +2496,29 @@ class NsdManagerTest {
                 InstrumentationRegistry.getInstrumentation(), "dumpsys servicediscovery")
                 .split("\n").mapNotNull { line ->
                     line.indexOf("ServiceTypeClient:").let { idx ->
+                        if (idx == -1) null
+                        else line.substring(idx)
+                    }
+                }
+    }
+
+    /**
+     * Get cached services logs from the system dump servicediscovery section.
+     *
+     * The sample output:
+     *     Cached services:
+     *     CacheKey{ ServiceType=_NEARBY_PRESENCE._TCP.LOCAL, SocketKey{ network=100 \
+     *     interfaceIndex=47 } }
+     *       ServiceInfo{ Name: NsdManagerTest7899, type:_NEARBY_PRESENCE._TCP.LOCAL, subtypes: , \
+     *       ip: [192.168.1.118], ipv6: [2001:b011:3010:1dd4:c30a:d2de:adea:6004], port: 12345, \
+     *       interfaceIndex: 47, network: 100, textStrings: [T=0, SAI=800, SAT=4000, SII=800], \
+     *       textEntries: [T=0, SAI=800, SAT=4000, SII=800], expirationTime: 2024-07-26T06:46:10Z }
+     */
+    private fun getCachedServices(): List<String> {
+        return SystemUtil.runShellCommand(
+                InstrumentationRegistry.getInstrumentation(), "dumpsys servicediscovery")
+                .split("\n").mapNotNull { line ->
+                    line.indexOf("CacheKey{").let { idx ->
                         if (idx == -1) null
                         else line.substring(idx)
                     }

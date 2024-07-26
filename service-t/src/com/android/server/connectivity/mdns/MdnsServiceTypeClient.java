@@ -36,6 +36,7 @@ import androidx.annotation.VisibleForTesting;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.DnsUtils;
 import com.android.net.module.util.SharedLog;
+import com.android.server.connectivity.mdns.MdnsSocketClientBase.SocketCreationCallback;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
@@ -525,12 +526,16 @@ public class MdnsServiceTypeClient {
     }
 
     /** Notify all services are removed because the socket is destroyed. */
-    public void notifySocketDestroyed() {
+    public void notifySocketDestroyed(int reason) {
         ensureRunningOnHandlerThread(handler);
         for (MdnsResponse response : serviceCache.getCachedServices(cacheKey)) {
             final String name = response.getServiceInstanceName();
             if (name == null) continue;
             notifyRemovedServiceToListeners(response, "Socket destroyed");
+        }
+        if (reason == SocketCreationCallback.DESTROYED_REASON_INTERFACE_DESTROYED) {
+            // Clear the service cache if the socket is indeed destroyed.
+            serviceCache.removeServices(cacheKey);
         }
         shutDown();
     }
