@@ -57,7 +57,7 @@ public final class DeviceConfigUtils {
      */
     public static final String TETHERING_MODULE_NAME = "com.android.tethering";
 
-    private static final String CERTIFICATE_TRANSPARENCY_NAMESPACE = "certificate_transparency";
+    public static final String CERTIFICATE_TRANSPARENCY_NAMESPACE = "certificate_transparency";
 
     @VisibleForTesting
     public static final String RESOURCES_APK_INTENT =
