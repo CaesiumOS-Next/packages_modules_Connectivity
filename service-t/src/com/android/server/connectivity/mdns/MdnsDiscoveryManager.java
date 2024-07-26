@@ -285,7 +285,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
                                 perSocketServiceTypeClients.get(serviceType, socketKey);
                         if (serviceTypeClient == null) return;
                         // Notify all listeners that all services are removed from this socket.
-                        serviceTypeClient.notifySocketDestroyed();
+                        serviceTypeClient.notifySocketDestroyed(reason);
                         executorProvider.shutdownExecutorService(serviceTypeClient.getExecutor());
                         perSocketServiceTypeClients.remove(serviceTypeClient);
                     }

@@ -20,6 +20,7 @@ import static com.android.server.connectivity.mdns.MdnsSearchOptions.ACTIVE_QUER
 import static com.android.server.connectivity.mdns.MdnsSearchOptions.AGGRESSIVE_QUERY_MODE;
 import static com.android.server.connectivity.mdns.MdnsSearchOptions.PASSIVE_QUERY_MODE;
 import static com.android.server.connectivity.mdns.MdnsServiceTypeClient.EVENT_START_QUERYTASK;
+import static com.android.server.connectivity.mdns.MdnsSocketClientBase.SocketCreationCallback.DESTROYED_REASON_INTERFACE_DESTROYED;
 import static com.android.server.connectivity.mdns.QueryTaskConfig.INITIAL_AGGRESSIVE_TIME_BETWEEN_BURSTS_MS;
 import static com.android.server.connectivity.mdns.QueryTaskConfig.MAX_TIME_BETWEEN_AGGRESSIVE_BURSTS_MS;
 import static com.android.server.connectivity.mdns.QueryTaskConfig.TIME_BETWEEN_RETRANSMISSION_QUERIES_IN_BURST_MS;
@@ -279,8 +280,8 @@ public class MdnsServiceTypeClientTests {
         runOnHandler(() -> client.stopSendAndReceive(listener));
     }
 
-    private void notifySocketDestroyed() {
-        runOnHandler(() -> client.notifySocketDestroyed());
+    private void notifySocketDestroyed(int reason) {
+        runOnHandler(() -> client.notifySocketDestroyed(reason));
     }
 
     private void dispatchMessage() {
@@ -1687,7 +1688,7 @@ public class MdnsServiceTypeClientTests {
                         Collections.emptyMap() /* textAttributes */, TEST_TTL),
                 socketKey);
 
-        notifySocketDestroyed();
+        notifySocketDestroyed(DESTROYED_REASON_INTERFACE_DESTROYED);
         verify(mockDeps, times(3)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
 
         // mockListenerOne gets notified for the requested instance
@@ -2054,6 +2055,65 @@ public class MdnsServiceTypeClientTests {
         assertTrue(hasQuestion(knownAnswersQueryPacket, MdnsRecord.TYPE_PTR, subtypeLabels));
         assertTrue(hasAnswer(knownAnswersQueryPacket, MdnsRecord.TYPE_PTR, SERVICE_TYPE_LABELS));
         assertTrue(hasAnswer(knownAnswersQueryPacket, MdnsRecord.TYPE_PTR, subtypeLabels));
+    }
+
+    @Test
+    public void testServicesRemovedAfterInterfaceDestroyed() throws Exception {
+        final String serviceName = "service-instance";
+        final String ipV4Address = "192.0.2.0";
+        // Register a listener
+        startSendAndReceive(mockListenerOne, MdnsSearchOptions.getDefaultOptions());
+        verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+        InOrder inOrder = inOrder(mockListenerOne);
+
+        // Process a response which has ip address to make response become complete.
+        processResponse(createResponse(
+                        serviceName, ipV4Address, 5353, SUBTYPE,
+                        Collections.emptyMap(), TEST_TTL),
+                socketKey);
+
+        // Verify that onServiceNameDiscovered is called.
+        inOrder.verify(mockListenerOne).onServiceNameDiscovered(
+                serviceInfoCaptor.capture(), eq(false) /* isServiceFromCache */);
+        verifyServiceInfo(serviceInfoCaptor.getAllValues().get(0),
+                serviceName,
+                SERVICE_TYPE_LABELS,
+                List.of(ipV4Address) /* ipv4Address */,
+                List.of() /* ipv6Address */,
+                5353 /* port */,
+                Collections.singletonList(SUBTYPE) /* subTypes */,
+                Collections.singletonMap("key", null) /* attributes */,
+                socketKey);
+
+        // Verify that onServiceFound is called.
+        inOrder.verify(mockListenerOne).onServiceFound(
+                serviceInfoCaptor.capture(), eq(false) /* isServiceFromCache */);
+        verifyServiceInfo(serviceInfoCaptor.getAllValues().get(1),
+                serviceName,
+                SERVICE_TYPE_LABELS,
+                List.of(ipV4Address) /* ipv4Address */,
+                List.of() /* ipv6Address */,
+                5353 /* port */,
+                Collections.singletonList(SUBTYPE) /* subTypes */,
+                Collections.singletonMap("key", null) /* attributes */,
+                socketKey);
+
+        // Unregister the listener
+        stopSendAndReceive(mockListenerOne);
+        verify(mockDeps, times(2)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+
+        // Notify the interface is destroyed.
+        notifySocketDestroyed(DESTROYED_REASON_INTERFACE_DESTROYED);
+        verify(mockDeps, times(3)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+
+        // Register another listener.
+        startSendAndReceive(mockListenerTwo, MdnsSearchOptions.getDefaultOptions());
+        verify(mockDeps, times(4)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
+
+        // There should be no services in cache, verify that onServiceNameDiscovered and
+        // onServiceFound is never called.
+        verify(mockListenerTwo, never()).onServiceNameDiscovered(any(), anyBoolean());
+        verify(mockListenerTwo, never()).onServiceFound(any(), anyBoolean());
     }
 
     private static MdnsServiceInfo matchServiceName(String name) {
