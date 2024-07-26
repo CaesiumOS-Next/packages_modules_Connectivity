@@ -34,6 +34,7 @@ java_library {
         "framework-connectivity",
         "framework-connectivity-pre-jarjar",
         "service-connectivity-pre-jarjar",
+        "CTDownloadService",
     ],
 
     // This is included in service-connectivity which is 30+

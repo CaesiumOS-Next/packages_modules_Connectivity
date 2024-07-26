@@ -15,11 +15,14 @@
  */
 package com.android.server.ct;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.provider.DeviceConfig;
 import android.provider.DeviceConfig.Properties;
 import android.util.Log;
 
+import com.android.ct.DownloadService;
 import com.android.net.module.util.DeviceConfigUtils;
 
 /** Listener class for the Certificate Transparency Phenotype flags. */
@@ -70,6 +73,13 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
             return;
         }
         Log.d(TAG, "received new log list url: " + url);
-        // TODO: start download service in separate process.
+        ComponentName service =
+                mContext.startService(
+                        new Intent(mContext.getApplicationContext(), DownloadService.class));
+        if (service == null) {
+            Log.e(TAG, "Service not found");
+        } else {
+            Log.i(TAG, "Started service " + service);
+        }
     }
 }
