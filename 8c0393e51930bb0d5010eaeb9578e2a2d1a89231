@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7bc79bf4_75a31ee1",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-26T17:19:12Z",
+      "side": 1,
+      "message": ". Currently supported only for {@link #TETHERING_VIRTUAL}.",
+      "range": {
+        "startLine": 799,
+        "startChar": 45,
+        "endLine": 799,
+        "endChar": 46
+      },
+      "revId": "8c0393e51930bb0d5010eaeb9578e2a2d1a89231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "747498b6_f3065222",
         "filename": "Tethering/src/com/android/networkstack/tethering/util/TetheringUtils.java",
         "patchSetId": 4
