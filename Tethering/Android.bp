@@ -72,10 +72,12 @@ java_defaults {
         "net-utils-tethering",
         "netd-client",
         "tetheringstatsprotos",
+        "CTDownloadService",
     ],
     defaults: ["TetheringExternalLibs"],
     libs: [
         "framework-tethering.impl",
+        "CTDownloadService",
     ],
     manifest: "AndroidManifestBase.xml",
     lint: {
