@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4f11b37_7c4ede0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3558602
+      },
+      "writtenOn": "2024-07-27T04:04:34Z",
+      "side": 1,
+      "message": "Padooka",
+      "revId": "507c6366104600af0bd7e5ce62e3babb012f56fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
