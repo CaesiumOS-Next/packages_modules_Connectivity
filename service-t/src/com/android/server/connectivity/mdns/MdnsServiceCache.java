@@ -95,6 +95,12 @@ public class MdnsServiceCache {
      */
     @NonNull
     private final ArrayMap<CacheKey, ServiceExpiredCallback> mCallbacks = new ArrayMap<>();
+    /**
+     * A map of clients destroyed time. Key is composed of service type and socket and value is the
+     * destroyed time.
+     */
+    @NonNull
+    private final ArrayMap<CacheKey, Long> mClientsDestroyedTime = new ArrayMap<>();
     @NonNull
     private final Handler mHandler;
     @NonNull
@@ -279,6 +285,17 @@ public class MdnsServiceCache {
     public void unregisterServiceExpiredCallback(@NonNull CacheKey cacheKey) {
         ensureRunningOnHandlerThread(mHandler);
         mCallbacks.remove(cacheKey);
+    }
+
+    /**
+     * Notify the client destroyed time
+     *
+     * @param cacheKey      the CacheKey associate to the client.
+     * @param destroyedTime the destroyed time.
+     */
+    public void notifyClientDestroyedTime(@NonNull CacheKey cacheKey, long destroyedTime) {
+        ensureRunningOnHandlerThread(mHandler);
+        mClientsDestroyedTime.put(cacheKey, destroyedTime);
     }
 
     private void notifyServiceExpired(@NonNull CacheKey cacheKey,

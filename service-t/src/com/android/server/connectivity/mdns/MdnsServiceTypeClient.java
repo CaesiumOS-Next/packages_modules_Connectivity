@@ -536,6 +536,9 @@ public class MdnsServiceTypeClient {
         if (reason == SocketCreationCallback.DESTROYED_REASON_INTERFACE_DESTROYED) {
             // Clear the service cache if the socket is indeed destroyed.
             serviceCache.removeServices(cacheKey);
+        } else {
+            // Notify the client destroyed time.
+            serviceCache.notifyClientDestroyedTime(cacheKey, clock.elapsedRealtime());
         }
         shutDown();
     }
