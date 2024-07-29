@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "510ae07b_a4b10a2d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-29T09:07:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "20b0e8de_f62b7b58",
+      "range": {
+        "startLine": 392,
+        "startChar": 26,
+        "endLine": 392,
+        "endChar": 52
+      },
+      "revId": "971e23882fbc1766e7313cc13a89010b8eb62e83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "947a29a7_eba5406e",
@@ -84,6 +108,24 @@
       "writtenOn": "2024-07-29T06:34:48Z",
       "side": 1,
       "message": "Could you add toString to MdnsResponse instead ? Converting to ServiceInfo is a bit indirect and may lose some information, especially if we change the MdnsResponse contents or the conversion function.",
+      "revId": "971e23882fbc1766e7313cc13a89010b8eb62e83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93a20d83_c2d2322d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-29T09:07:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "876dc4b1_1978c027",
       "revId": "971e23882fbc1766e7313cc13a89010b8eb62e83",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
