@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4a6c842_d658f21c",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-29T03:59:59Z",
+      "side": 1,
+      "message": "Tethering.apk is an older APK inside the Connectivity APEX, which is separate from service-connectivity. Basically inside the module there is:\n\n    /apex/com.android.tethering/javalib/service-connectivity.jar\n    /apex/com.android.tethering/priv-app/Tethering@VERSION/Tethering.apk\n\nAt runtime they\u0027re really separate, so `new Intent(mContext.getApplicationContext(), DownloadService.class)` won\u0027t find the service (the \"application\" context of service-connectivity, which is system_server, won\u0027t find classes inside Tethering.apk, which is an app).\n\nPutting CTDownloadService code inside Tethering.apk doesn\u0027t sound right though, I think it should either run directly in system_server, or be its own app. Tethering.apk is pretty special (it has its own UID, special signature, sepolicy context) and is kind of \"legacy\" from Android R, newer stuff is built into service-connectivity.",
+      "revId": "2425b1646a322e0b02bcea269f2bfc06ea484cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6b04520_161a0d5f",
+        "filename": "certificatetransparency/service/src/com/android/server/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-29T03:59:59Z",
+      "side": 1,
+      "message": "Do you really need this to run in a separate process ? Why not directly within system_server ?\n\nI guess there\u0027s security implications, but also a separate process uses at least 4MB of memory overhead. There\u0027s probably precedent to doing this kind of download from system_server ?",
+      "revId": "2425b1646a322e0b02bcea269f2bfc06ea484cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
