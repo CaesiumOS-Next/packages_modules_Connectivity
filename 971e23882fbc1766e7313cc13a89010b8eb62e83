@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20b0e8de_f62b7b58",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-29T06:34:48Z",
+      "side": 1,
+      "message": "Pre-existing, but this doesn\u0027t block until the task finishes, which would be very wrong for dumping in general.\n\nRight now I think this is only used in AOSP which uses a specific Handler, and in this case the task runs synchronously, but that\u0027s easy to break.\n\nIt would be best to have some mechanism to block until the dump is done. That could be in another CL though.",
+      "range": {
+        "startLine": 392,
+        "startChar": 26,
+        "endLine": 392,
+        "endChar": 52
+      },
+      "revId": "971e23882fbc1766e7313cc13a89010b8eb62e83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "947a29a7_eba5406e",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
         "patchSetId": 1
@@ -20,6 +43,23 @@
         "endLine": 372,
         "endChar": 35
       },
+      "revId": "971e23882fbc1766e7313cc13a89010b8eb62e83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "876dc4b1_1978c027",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-29T06:34:48Z",
+      "side": 1,
+      "message": "Could you add toString to MdnsResponse instead ? Converting to ServiceInfo is a bit indirect and may lose some information, especially if we change the MdnsResponse contents or the conversion function.",
       "revId": "971e23882fbc1766e7313cc13a89010b8eb62e83",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
