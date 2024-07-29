@@ -16,6 +16,24 @@
       "message": "If the requester stops discovering, and then the interface goes down, do the services stay in cache ? If yes, maybe a different solution is necessary ?",
       "revId": "e2c43ce550a952d30f073718ab3da893e209ec36",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3bb95e1_94358d1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-29T07:14:02Z",
+      "side": 1,
+      "message": "Yes, those services will stay in the cache and cannot be removed if the network is disconnected after discovery is stopped. As you said, we need a different solution to handle this case, but that should be in a follow up change.",
+      "parentUuid": "03195e78_5b33c285",
+      "revId": "e2c43ce550a952d30f073718ab3da893e209ec36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
