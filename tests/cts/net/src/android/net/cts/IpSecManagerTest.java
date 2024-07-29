@@ -452,10 +452,9 @@ public class IpSecManagerTest extends IpSecBaseTest {
             long uidRxDelta = 0;
             for (int i = 0; i < 100; i++) {
                 // Clear TrafficStats cache is needed to avoid rate-limit caching for
-                // TrafficStats API results on V+ devices.
-                if (SdkLevel.isAtLeastV()) {
-                    runAsShell(NETWORK_SETTINGS, () -> TrafficStats.clearRateLimitCaches());
-                }
+                // TrafficStats API results on V+ devices or target SDK V+ callers.
+                // Since the target SDK of the test is always latest, clear cache unconditionally.
+                runAsShell(NETWORK_SETTINGS, () -> TrafficStats.clearRateLimitCaches());
                 uidTxDelta = TrafficStats.getUidTxPackets(Os.getuid()) - uidTxPackets;
                 uidRxDelta = TrafficStats.getUidRxPackets(Os.getuid()) - uidRxPackets;
 
@@ -531,10 +530,9 @@ public class IpSecManagerTest extends IpSecBaseTest {
 
         private static void initStatsChecker() throws Exception {
             // Clear TrafficStats cache is needed to avoid rate-limit caching for
-            // TrafficStats API results on V+ devices.
-            if (SdkLevel.isAtLeastV()) {
-                runAsShell(NETWORK_SETTINGS, () -> TrafficStats.clearRateLimitCaches());
-            }
+            // TrafficStats API results on V+ devices or target SDK V+ callers.
+            // Since the target SDK of the test is always latest, clear cache unconditionally.
+            runAsShell(NETWORK_SETTINGS, () -> TrafficStats.clearRateLimitCaches());
             uidTxBytes = TrafficStats.getUidTxBytes(Os.getuid());
             uidRxBytes = TrafficStats.getUidRxBytes(Os.getuid());
             uidTxPackets = TrafficStats.getUidTxPackets(Os.getuid());
