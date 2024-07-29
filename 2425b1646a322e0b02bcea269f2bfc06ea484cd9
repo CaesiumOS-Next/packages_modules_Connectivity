@@ -51,6 +51,24 @@
       "parentUuid": "f6b04520_161a0d5f",
       "revId": "2425b1646a322e0b02bcea269f2bfc06ea484cd9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92854310_9ac9ae46",
+        "filename": "certificatetransparency/service/src/com/android/server/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1363994
+      },
+      "writtenOn": "2024-07-29T07:47:32Z",
+      "side": 1,
+      "message": "Rather than spinning up a service immediately after receiving a new log list URL, why not schedule a job here (with some constraints like \"device on charger\")? That seems like it should help with SysHealth concerns?\n\nOtherwise, I guess doing the download from system_server (assuming this is a HTTPS URL) should be fine, as long as any parsing happens elsewhere.",
+      "parentUuid": "7693d09f_19ef8d83",
+      "revId": "2425b1646a322e0b02bcea269f2bfc06ea484cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
