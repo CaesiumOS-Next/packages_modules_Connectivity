@@ -108,10 +108,13 @@ class MdnsServiceCacheTest {
         thread.join()
     }
 
-    private fun makeFlags(isExpiredServicesRemovalEnabled: Boolean = false) =
-            MdnsFeatureFlags.Builder()
-                    .setIsExpiredServicesRemovalEnabled(isExpiredServicesRemovalEnabled)
-                    .build()
+    private fun makeFlags(
+            isExpiredServicesRemovalEnabled: Boolean = false,
+            isCachedServicesRemovalEnabled: Boolean = false
+    ) = MdnsFeatureFlags.Builder()
+            .setIsExpiredServicesRemovalEnabled(isExpiredServicesRemovalEnabled)
+            .setIsCachedServicesRemovalEnabled(isCachedServicesRemovalEnabled)
+            .build()
 
     private fun <T> runningOnHandlerAndReturn(functor: (() -> T)): T {
         val future = CompletableFuture<T>()
@@ -158,6 +161,14 @@ class MdnsServiceCacheTest {
             serviceCache: MdnsServiceCache,
             cacheKey: CacheKey
     ): Unit = runningOnHandlerAndReturn { serviceCache.removeServices(cacheKey) }
+
+    private fun notifyClientDestroyedTime(
+            serviceCache: MdnsServiceCache,
+            cacheKey: CacheKey,
+            destroyedTime: Long
+    ): Unit = runningOnHandlerAndReturn {
+        serviceCache.notifyClientDestroyedTime(cacheKey, destroyedTime)
+    }
 
     @Test
     fun testAddAndRemoveService() {
@@ -325,6 +336,52 @@ class MdnsServiceCacheTest {
         removeServices(serviceCache, cacheKey2)
         val responses5 = getServices(serviceCache, cacheKey2)
         assertEquals(0, responses5.size)
+    }
+
+    @Test
+    fun testRemoveCachedServicesWhenGetting() {
+        val serviceCache = MdnsServiceCache(
+                thread.looper, makeFlags(isCachedServicesRemovalEnabled = true), clock)
+        val service1 = createResponse(SERVICE_NAME_1, SERVICE_TYPE_1, 120000L /* ttlTime */)
+        val service2 = createResponse(SERVICE_NAME_2, SERVICE_TYPE_2, 120000L /* ttlTime */)
+        var currentTime = TEST_ELAPSED_REALTIME_MS
+        doReturn(currentTime).`when`(clock).elapsedRealtime()
+        // Verify the cached services will be removed if the time is more than keeping time.
+        addOrUpdateService(serviceCache, cacheKey1, service1)
+        addOrUpdateService(serviceCache, cacheKey2, service2)
+        currentTime += 100L
+        notifyClientDestroyedTime(serviceCache, cacheKey1, currentTime)
+        notifyClientDestroyedTime(serviceCache, cacheKey2, currentTime)
+        currentTime += 10001L
+        doReturn(currentTime).`when`(clock).elapsedRealtime()
+        assertNull(getService(serviceCache, SERVICE_NAME_1, cacheKey1))
+        assertEquals(0, getServices(serviceCache, cacheKey2).size)
+
+        // Verify the cached services will persist if the time is less than keeping time and still
+        // keep services afterward.
+        addOrUpdateService(serviceCache, cacheKey1, service1)
+        addOrUpdateService(serviceCache, cacheKey2, service2)
+        currentTime += 100L
+        notifyClientDestroyedTime(serviceCache, cacheKey1, currentTime)
+        notifyClientDestroyedTime(serviceCache, cacheKey2, currentTime)
+        currentTime += 9000L
+        doReturn(currentTime).`when`(clock).elapsedRealtime()
+        assertEquals(
+                SERVICE_NAME_1,
+                getService(serviceCache, SERVICE_NAME_1, cacheKey1)?.serviceInstanceName)
+        getServices(serviceCache, cacheKey2).apply {
+            assertEquals(1, this.size)
+            assertEquals(SERVICE_NAME_2, this[0].serviceInstanceName)
+        }
+        currentTime += 1001L
+        doReturn(currentTime).`when`(clock).elapsedRealtime()
+        assertEquals(
+                SERVICE_NAME_1,
+                getService(serviceCache, SERVICE_NAME_1, cacheKey1)?.serviceInstanceName)
+        getServices(serviceCache, cacheKey2).apply {
+            assertEquals(1, this.size)
+            assertEquals(SERVICE_NAME_2, this[0].serviceInstanceName)
+        }
     }
 
     private fun createResponse(

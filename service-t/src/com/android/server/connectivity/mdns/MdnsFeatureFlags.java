@@ -67,6 +67,12 @@ public class MdnsFeatureFlags {
      */
     public static final String NSD_QUERY_WITH_KNOWN_ANSWER = "nsd_query_with_known_answer";
 
+    /**
+     * A feature flag to control whether the cached services removal should be enabled. The removal
+     * will trigger if the socket is destroyed for more 10s.
+     */
+    public static final String NSD_CACHED_SERVICES_REMOVAL = "nsd_cached_services_removal";
+
     // Flag for offload feature
     public final boolean mIsMdnsOffloadFeatureEnabled;
 
@@ -90,6 +96,9 @@ public class MdnsFeatureFlags {
 
     // Flag for query with known-answer
     public final boolean mIsQueryWithKnownAnswerEnabled;
+
+    // Flag for cached services removal
+    public final boolean mIsCachedServicesRemovalEnabled;
 
     @Nullable
     private final FlagOverrideProvider mOverrideProvider;
@@ -142,6 +151,14 @@ public class MdnsFeatureFlags {
     }
 
     /**
+     * Indicates whether {@link #NSD_CACHED_SERVICES_REMOVAL} is enabled, including for testing.
+     */
+    public boolean isCachedServicesRemovalEnabled() {
+        return mIsCachedServicesRemovalEnabled
+                || isForceEnabledForTest(NSD_CACHED_SERVICES_REMOVAL);
+    }
+
+    /**
      * The constructor for {@link MdnsFeatureFlags}.
      */
     public MdnsFeatureFlags(boolean isOffloadFeatureEnabled,
@@ -152,6 +169,7 @@ public class MdnsFeatureFlags {
             boolean isUnicastReplyEnabled,
             boolean isAggressiveQueryModeEnabled,
             boolean isQueryWithKnownAnswerEnabled,
+            boolean isCachedServicesRemovalEnabled,
             @Nullable FlagOverrideProvider overrideProvider) {
         mIsMdnsOffloadFeatureEnabled = isOffloadFeatureEnabled;
         mIncludeInetAddressRecordsInProbing = includeInetAddressRecordsInProbing;
@@ -161,6 +179,7 @@ public class MdnsFeatureFlags {
         mIsUnicastReplyEnabled = isUnicastReplyEnabled;
         mIsAggressiveQueryModeEnabled = isAggressiveQueryModeEnabled;
         mIsQueryWithKnownAnswerEnabled = isQueryWithKnownAnswerEnabled;
+        mIsCachedServicesRemovalEnabled = isCachedServicesRemovalEnabled;
         mOverrideProvider = overrideProvider;
     }
 
@@ -181,6 +200,7 @@ public class MdnsFeatureFlags {
         private boolean mIsUnicastReplyEnabled;
         private boolean mIsAggressiveQueryModeEnabled;
         private boolean mIsQueryWithKnownAnswerEnabled;
+        private boolean mIsCachedServicesRemovalEnabled;
         private FlagOverrideProvider mOverrideProvider;
 
         /**
@@ -195,6 +215,7 @@ public class MdnsFeatureFlags {
             mIsUnicastReplyEnabled = true; // Default enabled.
             mIsAggressiveQueryModeEnabled = false;
             mIsQueryWithKnownAnswerEnabled = false;
+            mIsCachedServicesRemovalEnabled = false;
             mOverrideProvider = null;
         }
 
@@ -291,6 +312,16 @@ public class MdnsFeatureFlags {
         }
 
         /**
+         * Set whether the cached services removal is enabled.
+         *
+         * @see #NSD_CACHED_SERVICES_REMOVAL
+         */
+        public Builder setIsCachedServicesRemovalEnabled(boolean isCachedServicesRemovalEnabled) {
+            mIsCachedServicesRemovalEnabled = isCachedServicesRemovalEnabled;
+            return this;
+        }
+
+        /**
          * Builds a {@link MdnsFeatureFlags} with the arguments supplied to this builder.
          */
         public MdnsFeatureFlags build() {
@@ -302,6 +333,7 @@ public class MdnsFeatureFlags {
                     mIsUnicastReplyEnabled,
                     mIsAggressiveQueryModeEnabled,
                     mIsQueryWithKnownAnswerEnabled,
+                    mIsCachedServicesRemovalEnabled,
                     mOverrideProvider);
         }
     }

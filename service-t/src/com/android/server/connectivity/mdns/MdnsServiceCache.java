@@ -51,6 +51,9 @@ import java.util.Objects;
  *  to their default value (0, false or null).
  */
 public class MdnsServiceCache {
+    // The time to keep cached services after the socket is destroyed.
+    public static final long KEEP_CACHED_SERVICE_TIME = 10000L;
+
     static class CacheKey {
         @NonNull final String mUpperCaseServiceType;
         @NonNull final SocketKey mSocketKey;
@@ -121,6 +124,18 @@ public class MdnsServiceCache {
         mClock = clock;
     }
 
+    private void maybeRemoveCachedServices(@NonNull CacheKey cacheKey, long now) {
+        final long destroyedTime = mClientsDestroyedTime.getOrDefault(cacheKey, Long.MAX_VALUE);
+        if (destroyedTime != Long.MAX_VALUE) {
+            // Remove the destroyed time record after checking.
+            mClientsDestroyedTime.remove(cacheKey);
+            // Remove the cached services if the socket is destroyed more than keeping time.
+            if ((now - destroyedTime) >= KEEP_CACHED_SERVICE_TIME) {
+                removeServices(cacheKey);
+            }
+        }
+    }
+
     /**
      * Get the cache services which are queried from given service type and socket.
      *
@@ -130,8 +145,12 @@ public class MdnsServiceCache {
     @NonNull
     public List<MdnsResponse> getCachedServices(@NonNull CacheKey cacheKey) {
         ensureRunningOnHandlerThread(mHandler);
+        final long now = mClock.elapsedRealtime();
         if (mMdnsFeatureFlags.mIsExpiredServicesRemovalEnabled) {
-            maybeRemoveExpiredServices(cacheKey, mClock.elapsedRealtime());
+            maybeRemoveExpiredServices(cacheKey, now);
+        }
+        if (mMdnsFeatureFlags.isCachedServicesRemovalEnabled()) {
+            maybeRemoveCachedServices(cacheKey, now);
         }
         return mCachedServices.containsKey(cacheKey)
                 ? Collections.unmodifiableList(new ArrayList<>(mCachedServices.get(cacheKey)))
@@ -165,8 +184,12 @@ public class MdnsServiceCache {
     @Nullable
     public MdnsResponse getCachedService(@NonNull String serviceName, @NonNull CacheKey cacheKey) {
         ensureRunningOnHandlerThread(mHandler);
+        final long now = mClock.elapsedRealtime();
         if (mMdnsFeatureFlags.mIsExpiredServicesRemovalEnabled) {
-            maybeRemoveExpiredServices(cacheKey, mClock.elapsedRealtime());
+            maybeRemoveExpiredServices(cacheKey, now);
+        }
+        if (mMdnsFeatureFlags.isCachedServicesRemovalEnabled()) {
+            maybeRemoveCachedServices(cacheKey, now);
         }
         final List<MdnsResponse> responses = mCachedServices.get(cacheKey);
         if (responses == null) {
