@@ -259,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e649b9d1_d10a0e76",
+        "filename": "thread/tests/cts/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-29T07:03:29Z",
+      "side": 1,
+      "message": "resolved via offline discussion",
+      "parentUuid": "bc78aaab_6d993094",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 47
+      },
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a01a9aeb_ac5b6a05",
