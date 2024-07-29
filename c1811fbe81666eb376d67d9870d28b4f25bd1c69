@@ -364,6 +364,30 @@
       },
       "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edff784f_7965abcb",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-29T15:04:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e139453_3be1c67a",
+      "range": {
+        "startLine": 187,
+        "startChar": 38,
+        "endLine": 187,
+        "endChar": 52
+      },
+      "revId": "c1811fbe81666eb376d67d9870d28b4f25bd1c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
