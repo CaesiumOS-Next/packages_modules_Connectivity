@@ -40,6 +40,29 @@
       ],
       "revId": "874f71cf74e8c0203098b9118fdcf4627fe6cf07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecbc886a_22a6d000",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-29T06:37:43Z",
+      "side": 1,
+      "message": "This should say what happens if the power is higher than the maximum power that the chipset supports or lower than the minimum that the chipset supports.",
+      "range": {
+        "startLine": 726,
+        "startChar": 49,
+        "endLine": 726,
+        "endChar": 50
+      },
+      "revId": "874f71cf74e8c0203098b9118fdcf4627fe6cf07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
