@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd18a66a_24b812d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2051900
+      },
+      "writtenOn": "2024-07-29T08:46:54Z",
+      "side": 1,
+      "message": "Hi Google team,\n\n  Please help to review the changes.\n\nRegards,\nChaneswar.",
+      "revId": "eeed24cd544ab205988a26dcc1a21d479945833b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
