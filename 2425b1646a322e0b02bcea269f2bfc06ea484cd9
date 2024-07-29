@@ -33,6 +33,24 @@
       "message": "Do you really need this to run in a separate process ? Why not directly within system_server ?\n\nI guess there\u0027s security implications, but also a separate process uses at least 4MB of memory overhead. There\u0027s probably precedent to doing this kind of download from system_server ?",
       "revId": "2425b1646a322e0b02bcea269f2bfc06ea484cd9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7693d09f_19ef8d83",
+        "filename": "certificatetransparency/service/src/com/android/server/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-07-29T07:38:35Z",
+      "side": 1,
+      "message": "@brambonne@google.com could you please chime in on the security implications of downloading from system_server?\n\nI understand both the syshealth and the security concerns, I am not sure what is the best tradeoff here.",
+      "parentUuid": "f6b04520_161a0d5f",
+      "revId": "2425b1646a322e0b02bcea269f2bfc06ea484cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
