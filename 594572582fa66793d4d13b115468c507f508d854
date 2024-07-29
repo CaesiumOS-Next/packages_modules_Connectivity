@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57d4806d_6fd93ccd",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-07-29T09:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcfde964_5dfc230b",
+      "range": {
+        "startLine": 815,
+        "startChar": 55,
+        "endLine": 815,
+        "endChar": 69
+      },
+      "revId": "594572582fa66793d4d13b115468c507f508d854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "685a421f_73e785d8",
@@ -61,6 +85,30 @@
           ]
         }
       ],
+      "revId": "594572582fa66793d4d13b115468c507f508d854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f10df30_14303741",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-07-29T09:22:20Z",
+      "side": 1,
+      "message": "I\u0027m not sure if it makes sense to add a permission here since we\u0027re going to have to open the API up to Public DO apps as well. But if necessary, we could have it mirror the current Tethering permissions (I.e. TETHER_PRIVILEGED and WRITE_SETTINGS)",
+      "parentUuid": "685a421f_73e785d8",
+      "range": {
+        "startLine": 828,
+        "startChar": 12,
+        "endLine": 828,
+        "endChar": 18
+      },
       "revId": "594572582fa66793d4d13b115468c507f508d854",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
