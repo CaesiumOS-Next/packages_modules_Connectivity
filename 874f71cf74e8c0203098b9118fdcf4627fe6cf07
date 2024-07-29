@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6085b70b_a554695c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-29T06:32:03Z",
+      "side": 1,
+      "message": "disabled",
+      "range": {
+        "startLine": 726,
+        "startChar": 36,
+        "endLine": 726,
+        "endChar": 49
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "865afd20_9d7d503a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 726,
+                "startChar": 0,
+                "endLine": 727,
+                "endChar": 0
+              },
+              "replacement": "     *     corresponding channel is disabled.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "874f71cf74e8c0203098b9118fdcf4627fe6cf07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

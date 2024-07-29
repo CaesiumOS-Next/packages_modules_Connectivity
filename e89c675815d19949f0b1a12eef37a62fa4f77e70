@@ -193,6 +193,30 @@
       },
       "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e52474fa_817b3dda",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-29T06:32:03Z",
+      "side": 1,
+      "message": "Can we have an explicit unsupported value then? CHANNEL_DISABLED? MAX_POWER_CHANNEL_DISABLED?",
+      "parentUuid": "690a347d_7865b713",
+      "range": {
+        "startLine": 628,
+        "startChar": 21,
+        "endLine": 628,
+        "endChar": 30
+      },
+      "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
