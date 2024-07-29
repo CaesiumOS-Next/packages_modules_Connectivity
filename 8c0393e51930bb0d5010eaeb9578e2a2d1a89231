@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c58ccf2_4cf44299",
+        "filename": "Tethering/common/TetheringLib/api/system-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-07-29T07:41:05Z",
+      "side": 1,
+      "message": "Perhaps there would be another type of interface error; the interface name is invalid to used by TETHERING_VIRTUAL, not to be used by any interface. I missed that.\n\nBack to the comment, it seems colliding with your previous comment or I misunderstood. I have no strong opinion about error type. I\u0027ll be finding proper existing error type.\n\nBTW, sorry for long delay on this change. I\u0027m currently concentrating on other part of Ferrochrome. But I won\u0027t leave this like now before unflagging this feature for landing Ferrochrome on release builds.",
+      "parentUuid": "771754b6_dc724d8e",
+      "range": {
+        "startLine": 55,
+        "startChar": 100,
+        "endLine": 55,
+        "endChar": 132
+      },
+      "revId": "8c0393e51930bb0d5010eaeb9578e2a2d1a89231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bc79bf4_75a31ee1",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
         "patchSetId": 4
