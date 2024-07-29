@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc374714_ac93ea13",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-29T08:22:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff101793_170508fe",
+      "range": {
+        "startLine": 950,
+        "startChar": 8,
+        "endLine": 957,
+        "endChar": 84
+      },
+      "revId": "bbe9f36d5ef8eeb975ce7d29bd7da5ca3b7cde91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbf5199d_e7be1374",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-07-29T07:18:30Z",
       "side": 1,
       "message": "If a test case is not testing about permissions, I would use \"grantPermissions()\" to grant all the permissions required by this test at the beginning. This is going to make the code more readable, especially the \"assertThrows\" which has lambda in lambda...",
+      "range": {
+        "startLine": 998,
+        "startChar": 8,
+        "endLine": 1009,
+        "endChar": 94
+      },
+      "revId": "bbe9f36d5ef8eeb975ce7d29bd7da5ca3b7cde91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f598ae7_041a0fc6",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-07-29T08:22:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbf5199d_e7be1374",
       "range": {
         "startLine": 998,
         "startChar": 8,
