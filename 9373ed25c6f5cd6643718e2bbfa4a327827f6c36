@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "349db8ba_a7275f65",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-29T12:00:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1097532_ec9118c7",
+      "range": {
+        "startLine": 539,
+        "startChar": 7,
+        "endLine": 539,
+        "endChar": 9
+      },
+      "revId": "9373ed25c6f5cd6643718e2bbfa4a327827f6c36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b273234_a244baac",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8388e1a_002fda5f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2525,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-29T12:00:01Z",
+      "side": 1,
+      "message": "There is no entry to access the cache. In addition, we want to verify that the cached is removed after the network is disconnected, so the discovery packet is not able to be checked.",
+      "parentUuid": "1b273234_a244baac",
+      "range": {
+        "startLine": 2518,
+        "startChar": 9,
+        "endLine": 2525,
+        "endChar": 17
+      },
+      "revId": "9373ed25c6f5cd6643718e2bbfa4a327827f6c36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7773fe6_c357469f",
@@ -60,6 +108,24 @@
       "writtenOn": "2024-07-28T05:39:12Z",
       "side": 1,
       "message": "Can we add unit test to actually testing the service is removed from cache?",
+      "revId": "9373ed25c6f5cd6643718e2bbfa4a327827f6c36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87793eaf_6b925d2c",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-29T12:00:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7773fe6_c357469f",
       "revId": "9373ed25c6f5cd6643718e2bbfa4a327827f6c36",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
