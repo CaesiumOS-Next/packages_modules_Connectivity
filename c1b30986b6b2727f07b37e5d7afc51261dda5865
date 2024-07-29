@@ -188,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e0ff27c_04c82e57",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-07-29T06:48:33Z",
+      "side": 1,
+      "message": "The reason ISE is more correct is that the callback per se is not invalid. The callback is valid - it just hasn\u0027t been registered yet.\n\nThat said: per discussion on GVC, the other register/unregister functions already call IAE not ISE, so being consistent with those is better.",
+      "parentUuid": "36d55417_bb3fd6c5",
+      "range": {
+        "startLine": 657,
+        "startChar": 15,
+        "endLine": 657,
+        "endChar": 39
+      },
+      "revId": "c1b30986b6b2727f07b37e5d7afc51261dda5865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2466c209_9af1b648",
