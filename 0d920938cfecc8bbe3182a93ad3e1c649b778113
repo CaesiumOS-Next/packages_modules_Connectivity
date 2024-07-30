@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eacb644d_44d4d48e",
+        "filename": "staticlibs/testutils/host/python/wifip2p_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-30T09:01:56Z",
+      "side": 1,
+      "message": "You might want to fix some lint errors first:\n************* File staticlibs/testutils/host/python/wifip2p_utils.py\nC0114:  1: Missing module docstring [missing-module-docstring]\nhttp://go/gpylint-faq#missing-module-docstring\nC0116: 20:assume_wifi_p2p_test_preconditions: Missing function or method docstring [missing-function-docstring]\nhttp://go/gpylint-faq#missing-function-docstring\nC0103: 49:setup_wifi_p2p_server_and_client: Variable name \"serverName\" doesn\u0027t conform to \u0027^[a-z][a-z0-9_]*$\u0027 pattern [invalid-name]\nhttp://go/gpylint-faq#invalid-name\nC0103: 50:setup_wifi_p2p_server_and_client: Variable name \"clientName\" doesn\u0027t conform to \u0027^[a-z][a-z0-9_]*$\u0027 pattern [invalid-name]\nhttp://go/gpylint-faq#invalid-name\nC0301: 70: Line too long (87/80) [line-too-long]\nhttp://go/gpylint-faq#line-too-long",
+      "revId": "0d920938cfecc8bbe3182a93ad3e1c649b778113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
