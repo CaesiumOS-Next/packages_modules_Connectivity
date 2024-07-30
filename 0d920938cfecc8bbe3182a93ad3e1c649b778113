@@ -16,6 +16,130 @@
       "message": "You might want to fix some lint errors first:\n************* File staticlibs/testutils/host/python/wifip2p_utils.py\nC0114:  1: Missing module docstring [missing-module-docstring]\nhttp://go/gpylint-faq#missing-module-docstring\nC0116: 20:assume_wifi_p2p_test_preconditions: Missing function or method docstring [missing-function-docstring]\nhttp://go/gpylint-faq#missing-function-docstring\nC0103: 49:setup_wifi_p2p_server_and_client: Variable name \"serverName\" doesn\u0027t conform to \u0027^[a-z][a-z0-9_]*$\u0027 pattern [invalid-name]\nhttp://go/gpylint-faq#invalid-name\nC0103: 50:setup_wifi_p2p_server_and_client: Variable name \"clientName\" doesn\u0027t conform to \u0027^[a-z][a-z0-9_]*$\u0027 pattern [invalid-name]\nhttp://go/gpylint-faq#invalid-name\nC0301: 70: Line too long (87/80) [line-too-long]\nhttp://go/gpylint-faq#line-too-long",
       "revId": "0d920938cfecc8bbe3182a93ad3e1c649b778113",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9e4f105_ae2824b6",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-30T09:43:13Z",
+      "side": 1,
+      "message": "style: groupName",
+      "range": {
+        "startLine": 113,
+        "startChar": 63,
+        "endLine": 113,
+        "endChar": 73
+      },
+      "revId": "0d920938cfecc8bbe3182a93ad3e1c649b778113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aac3bfe_3ae4d779",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-30T09:43:13Z",
+      "side": 1,
+      "message": "style: groupName",
+      "range": {
+        "startLine": 123,
+        "startChar": 20,
+        "endLine": 123,
+        "endChar": 30
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1aacf0cd_dc53d367",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 113,
+                "startChar": 0,
+                "endLine": 114,
+                "endChar": 0
+              },
+              "replacement": "    fun waitForP2pConnectionChanged(ignoreGroupCheck: Boolean, groupName: String) {\n"
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 117,
+                "startChar": 0,
+                "endLine": 118,
+                "endChar": 0
+              },
+              "replacement": "            val groupMatched \u003d p2pGroup?.networkName \u003d\u003d groupName\n"
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 123,
+                "startChar": 0,
+                "endLine": 124,
+                "endChar": 0
+              },
+              "replacement": "    fun createGroup(groupName: String, groupPassphrase: String) {\n"
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 126,
+                "startChar": 0,
+                "endLine": 128,
+                "endChar": 0
+              },
+              "replacement": "                .setNetworkName(groupName)\n                .setPassphrase(groupPassphrase)\n"
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 141,
+                "startChar": 0,
+                "endLine": 142,
+                "endChar": 0
+              },
+              "replacement": "        waitForP2pConnectionChanged(false, groupName)\n"
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 179,
+                "startChar": 0,
+                "endLine": 180,
+                "endChar": 0
+              },
+              "replacement": "    fun inviteDeviceToGroup(groupName: String, groupPassphrase: String, deviceAddress: String) {\n"
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 182,
+                "startChar": 0,
+                "endLine": 184,
+                "endChar": 0
+              },
+              "replacement": "                .setNetworkName(groupName)\n                .setPassphrase(groupPassphrase)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0d920938cfecc8bbe3182a93ad3e1c649b778113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
