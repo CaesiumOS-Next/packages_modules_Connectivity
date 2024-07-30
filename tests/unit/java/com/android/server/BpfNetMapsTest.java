@@ -41,6 +41,7 @@ import static android.net.BpfNetMapsConstants.UID_RULES_CONFIGURATION_KEY;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_ADMIN_DISABLED;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_DATA_SAVER;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRICTED;
+import static android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND;
 import static android.net.ConnectivityManager.BLOCKED_REASON_APP_STANDBY;
 import static android.net.ConnectivityManager.BLOCKED_REASON_BATTERY_SAVER;
 import static android.net.ConnectivityManager.BLOCKED_REASON_DOZE;
@@ -1273,6 +1274,32 @@ public final class BpfNetMapsTest {
                 final int uid = UserHandle.getUid(userId, aid);
                 assertFalse(BpfNetMapsUtils.isUidNetworkingBlocked(uid, false, mConfigurationMap,
                         mUidOwnerMap, mDataSaverEnabledMap));
+            }
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testGetUidNetworkingBlockedReasonsForCoreUids() throws Exception {
+        // Enable BACKGROUND_MATCH that is an allowlist match.
+        mConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY, new U32(BACKGROUND_MATCH));
+
+        // Non-core uid that is not on this chain is blocked by BLOCKED_REASON_APP_BACKGROUND.
+        assertEquals(BLOCKED_REASON_APP_BACKGROUND, BpfNetMapsUtils.getUidNetworkingBlockedReasons(
+                TEST_UID, mConfigurationMap, mUidOwnerMap, mDataSaverEnabledMap));
+
+        final int[] coreAids = new int[] {
+                Process.ROOT_UID,
+                Process.SYSTEM_UID,
+                Process.FIRST_APPLICATION_UID - 10,
+                Process.FIRST_APPLICATION_UID - 1,
+        };
+        // Core appIds are not on the chain but should not be blocked on any users.
+        for (int userId = 0; userId < 20; userId++) {
+            for (final int aid : coreAids) {
+                final int uid = UserHandle.getUid(userId, aid);
+                assertEquals(BLOCKED_REASON_NONE, BpfNetMapsUtils.getUidNetworkingBlockedReasons(
+                        uid, mConfigurationMap, mUidOwnerMap, mDataSaverEnabledMap));
             }
         }
     }
