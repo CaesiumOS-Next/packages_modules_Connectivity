@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06a07596_6066b44f",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-30T07:25:56Z",
+      "side": 1,
+      "message": "1. Maybe make this global since it repeated with the above test.\n2. More over, is it better if we merge this two tests?",
+      "range": {
+        "startLine": 1291,
+        "startChar": 0,
+        "endLine": 1296,
+        "endChar": 10
+      },
+      "revId": "852bf06a22ecdf63fe344049c97aa1055c3540cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
