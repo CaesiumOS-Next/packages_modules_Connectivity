@@ -3,6 +3,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44f2ca4d_537de956",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-30T04:31:23Z",
+      "side": 1,
+      "message": "Adding comments as noted with Lorenzo in release review",
+      "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2f168c7_42501ac8",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-30T04:31:23Z",
+      "side": 1,
+      "message": "It would be best to have a comment on the java_library to explain the net-utils-framework-connectivity is only for framework-connectivity, and net-utils-service-connectivity is only for service-connectivity, etc.",
+      "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14d94594_03ba0fcf",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-30T04:31:23Z",
+      "side": 1,
+      "message": "This should only be used by framework-connectivity, so visibility should just be //package/modules/Connectivity/framework",
+      "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fed32b00_b748c6c9",
         "filename": "staticlibs/Android.bp",
         "patchSetId": 11
@@ -32,6 +83,23 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "fed32b00_b748c6c9",
+      "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "064e06fd_55f5d599",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-30T04:31:23Z",
+      "side": 1,
+      "message": "Better not have the visibility here, and have it in the users: only Tethering for net-utils-tethering, and only Connectivity/service for net-utils-service-connectivity",
       "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
