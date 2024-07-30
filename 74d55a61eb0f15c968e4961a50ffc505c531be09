@@ -16,6 +16,24 @@
       "message": "nit: Not sure if you want to put some background of this change.\nsince not everyone can see the context on the bug.\nNo strong opinion.",
       "revId": "74d55a61eb0f15c968e4961a50ffc505c531be09",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98abfc3e_b58fe1a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-30T06:10:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b823f984_e270d5e6",
+      "revId": "74d55a61eb0f15c968e4961a50ffc505c531be09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
