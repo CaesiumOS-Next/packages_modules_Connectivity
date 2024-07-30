@@ -69,6 +69,7 @@ import static com.android.dx.mockito.inline.extended.ExtendedMockito.doThrow;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_RAT_CHANGED;
 import static com.android.server.net.NetworkStatsEventLogger.PollEvent.pollReasonNameOf;
 import static com.android.server.net.NetworkStatsService.ACTION_NETWORK_STATS_POLL;
+import static com.android.server.net.NetworkStatsService.ACTION_NETWORK_STATS_UPDATED;
 import static com.android.server.net.NetworkStatsService.DEFAULT_TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS;
 import static com.android.server.net.NetworkStatsService.DEFAULT_TRAFFIC_STATS_CACHE_MAX_ENTRIES;
 import static com.android.server.net.NetworkStatsService.NETSTATS_FASTDATAINPUT_FALLBACKS_COUNTER_NAME;
@@ -82,6 +83,7 @@ import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.AdditionalMatchers.aryEq;
@@ -101,8 +103,10 @@ import static org.mockito.Mockito.verify;
 
 import android.annotation.NonNull;
 import android.app.AlarmManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.ContentObserver;
@@ -138,6 +142,7 @@ import android.os.UserHandle;
 import android.provider.Settings;
 import android.system.ErrnoException;
 import android.telephony.TelephonyManager;
+import android.testing.TestableLooper;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.IndentingPrintWriter;
@@ -150,6 +155,7 @@ import androidx.test.filters.SmallTest;
 import com.android.connectivity.resources.R;
 import com.android.internal.util.FileRotator;
 import com.android.internal.util.test.BroadcastInterceptingContext;
+import com.android.net.module.util.ArrayTrackRecord;
 import com.android.net.module.util.BpfDump;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.LocationPermissionChecker;
@@ -294,6 +300,9 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private AlertObserver mAlertObserver;
     private ContentObserver mContentObserver;
     private Handler mHandler;
+
+    private TestableLooper mTestableLooper;
+
     private TetheringManager.TetheringEventCallback mTetheringEventCallback;
     private Map<String, NetworkStatsCollection> mPlatformNetworkStatsCollection =
             new ArrayMap<String, NetworkStatsCollection>();
@@ -465,12 +474,22 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 .getPackageUid(eq(mServiceContext.getPackageName()), anyInt());
 
         mUsageCallback = new TestableUsageCallback(mUsageCallbackBinder);
+
     }
 
     class TestDependencies extends NetworkStatsService.Dependencies {
         private int mCompareStatsInvocation = 0;
         private NetworkStats.Entry mMockedTrafficStatsNativeStat = null;
 
+        private long mBroadcastNetworkStatsUpdatedDelayMs = 10000000;
+
+        public void setBroadcastNetworkStatsUpdatedDelayMs(long updatedMs) {
+            mBroadcastNetworkStatsUpdatedDelayMs = updatedMs;
+        }
+        @Override
+        public long getBroadcastNetworkStatsUpdateDelayMs() {
+            return mBroadcastNetworkStatsUpdatedDelayMs;
+        }
         @Override
         public File getLegacyStatsDir() {
             return mLegacyStatsDir;
@@ -660,6 +679,12 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
     @After
     public void tearDown() throws Exception {
+        // This has to go first to prevent hang forever
+        if (mTestableLooper != null) {
+            mTestableLooper.destroy();
+            mTestableLooper = null;
+        }
+
         mServiceContext = null;
         mStatsDir = null;
 
@@ -3063,5 +3088,68 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
         final String dump = getDump();
         assertDumpContains(dump, "Log for testing");
+    }
+
+    public class TestNetworkStatsReceiver extends BroadcastReceiver {
+        private ArrayTrackRecord<Intent>.ReadHead mHistory;
+
+        TestNetworkStatsReceiver() {
+            mHistory = (new ArrayTrackRecord<Intent>()).newReadHead();
+        }
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mHistory.add(intent);
+        }
+
+        /**
+         * Assert no broadcast intent is received in blocking manner
+         */
+        public void assertNoBroadcastIntentReceived()  {
+            assertNull(mHistory.peek());
+        }
+
+        /**
+         * Assert exactly {@code num} intents are received and remove them
+         * from queue
+         * @param num number of intents
+         */
+        public void assertBroadcastIntentReceived(int num) {
+            for (int i = 0; i < num; i++) {
+                assertNotNull(mHistory.poll(3000, number -> true) != null);
+            }
+            assertNoBroadcastIntentReceived();
+        }
+    }
+    @Test
+    public void testIntentSpam() throws Exception {
+        // Set a long delay so that there won't be unintended active messages
+        // Set a short time to test the behavior before reaching delay
+        long longTime = 10_000_000L;
+        long shortTime = 5000;
+        mDeps.setBroadcastNetworkStatsUpdatedDelayMs(longTime);
+
+        mTestableLooper = new TestableLooper(mHandlerThread.getLooper());
+        final IntentFilter broadcastFilter = new IntentFilter(ACTION_NETWORK_STATS_UPDATED);
+        final TestNetworkStatsReceiver receiver = new TestNetworkStatsReceiver();
+        mServiceContext.registerReceiver(receiver, broadcastFilter);
+
+        // Test that before anything, the intent is delivered immediately
+        mService.forceUpdate();
+        mTestableLooper.processAllMessages();
+        receiver.assertBroadcastIntentReceived(1);
+
+        // Test that the next two intents results in exactly one intent delivered
+        for (int i = 0; i < 2; i++) {
+            mService.forceUpdate();
+        }
+        // Test that the delay depends on our set value
+        mTestableLooper.moveTimeForward(longTime - shortTime);
+        mTestableLooper.processAllMessages();
+        receiver.assertNoBroadcastIntentReceived();
+
+        // Test that the second and third update is broadcasted right after the delay
+        mTestableLooper.moveTimeForward(shortTime);
+        mTestableLooper.processAllMessages();
+        receiver.assertBroadcastIntentReceived(1);
     }
 }
