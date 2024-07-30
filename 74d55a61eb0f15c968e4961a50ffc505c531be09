@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b823f984_e270d5e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-30T05:15:14Z",
+      "side": 1,
+      "message": "nit: Not sure if you want to put some background of this change.\nsince not everyone can see the context on the bug.\nNo strong opinion.",
+      "revId": "74d55a61eb0f15c968e4961a50ffc505c531be09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
