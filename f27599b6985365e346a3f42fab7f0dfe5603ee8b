@@ -34,6 +34,24 @@
       "parentUuid": "7916f7da_c9aca706",
       "revId": "f27599b6985365e346a3f42fab7f0dfe5603ee8b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76d8561c_c1ae617a",
+        "filename": "tests/cts/multidevices/run_tests.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-07-30T13:18:12Z",
+      "side": 1,
+      "message": "This only ensures if \"--\" is in the argument we passed to run_test.py.  \nIf there are other arguments before \"--\" will be ignored, is this the intended behavior?  \nIf so, I think it needs to add some description for it.   \n\nBesides, what if \"--\" is not existed in the argument list? \nShould it prompt some error message and exist instead of passing to the suite_runner?",
+      "parentUuid": "7429f664_5008ba34",
+      "revId": "f27599b6985365e346a3f42fab7f0dfe5603ee8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
