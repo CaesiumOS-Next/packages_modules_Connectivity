@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdc57443_1e49069e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-30T06:46:38Z",
+      "side": 1,
+      "message": "Question: Do we know who is the source of blocking system uids?\nIf that is legit, maybe describe the case in in-line comment to leave a trace.\nIf not, do we want to fix the source as well?",
+      "range": {
+        "startLine": 7,
+        "startChar": 34,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "ab5521ebf330d7aa82488f7282e2e65aa7655e13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
