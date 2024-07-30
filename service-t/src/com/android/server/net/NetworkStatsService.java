@@ -74,12 +74,12 @@ import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIV
 import static com.android.net.module.util.DeviceConfigUtils.getDeviceConfigPropertyInt;
 import static com.android.net.module.util.NetworkCapabilitiesUtils.getDisplayTransport;
 import static com.android.net.module.util.NetworkStatsUtils.LIMIT_GLOBAL_ALERT;
-import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_PERIODIC;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_DUMPSYS;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_FORCE_UPDATE;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_GLOBAL_ALERT;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_NETWORK_STATUS_CHANGED;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_OPEN_SESSION;
+import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_PERIODIC;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_RAT_CHANGED;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_REG_CALLBACK;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_REMOVE_UIDS;
@@ -667,7 +667,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
         final HandlerThread handlerThread = mDeps.makeHandlerThread();
         handlerThread.start();
-        mHandler = new NetworkStatsHandler(handlerThread.getLooper());
+        mHandler = new NetworkStatsHandler(mDeps.getLooperForHandlerThread(handlerThread));
         mNetworkStatsSubscriptionsMonitor = deps.makeSubscriptionsMonitor(mContext,
                 (command) -> mHandler.post(command) , this);
         mContentResolver = mContext.getContentResolver();
@@ -719,6 +719,24 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     // TODO: Move more stuff into dependencies object.
     @VisibleForTesting
     public static class Dependencies {
+        /**
+         * Get broadcast network stats updated delay time in ms
+         * @return
+         */
+        @NonNull
+        public long getBroadcastNetworkStatsUpdateDelayMs() {
+            return BROADCAST_NETWORK_STATS_UPDATED_DELAY_MS;
+        }
+
+        /**
+         * Get looper for handler thread
+         * @param handlerThread
+         * @return
+         */
+        @NonNull
+        public Looper getLooperForHandlerThread(HandlerThread handlerThread) {
+            return handlerThread.getLooper();
+        }
         /**
          * Get legacy platform stats directory.
          */
@@ -2687,10 +2705,14 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         // to schedule the next one ASAP.
         if (!mBroadcastNetworkStatsUpdatedRateLimitEnabled) {
             mHandler.sendMessage(mHandler.obtainMessage(MSG_BROADCAST_NETWORK_STATS_UPDATED));
+        } else if (mLatestNetworkStatsUpdatedBroadcastScheduledTime == -1) {
+            mLatestNetworkStatsUpdatedBroadcastScheduledTime = SystemClock.uptimeMillis();
+            mHandler.sendMessageAtTime(mHandler.obtainMessage(MSG_BROADCAST_NETWORK_STATS_UPDATED),
+                    mLatestNetworkStatsUpdatedBroadcastScheduledTime);
         } else if (mLatestNetworkStatsUpdatedBroadcastScheduledTime < SystemClock.uptimeMillis()) {
             mLatestNetworkStatsUpdatedBroadcastScheduledTime = Math.max(SystemClock.uptimeMillis(),
                     mLatestNetworkStatsUpdatedBroadcastScheduledTime
-                    + BROADCAST_NETWORK_STATS_UPDATED_DELAY_MS);
+                            + mDeps.getBroadcastNetworkStatsUpdateDelayMs());
             mHandler.sendMessageAtTime(mHandler.obtainMessage(MSG_BROADCAST_NETWORK_STATS_UPDATED),
                     mLatestNetworkStatsUpdatedBroadcastScheduledTime);
         }
