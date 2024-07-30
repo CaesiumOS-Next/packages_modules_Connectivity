@@ -22,6 +22,30 @@
       },
       "revId": "ab5521ebf330d7aa82488f7282e2e65aa7655e13",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a019361b_9d1f2683",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-30T06:58:40Z",
+      "side": 1,
+      "message": "Updated the commit message.\nAllowlist firewall chain (e.g. background chain) blocks all uids by default.\nAnd each uids need to be explicitly allowed.\nBut system uids should not be blocked by allowlist firewall chains.",
+      "parentUuid": "bdc57443_1e49069e",
+      "range": {
+        "startLine": 7,
+        "startChar": 34,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "ab5521ebf330d7aa82488f7282e2e65aa7655e13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
