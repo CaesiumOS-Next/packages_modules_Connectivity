@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe26fe7c_d0b4e8cf",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-30T03:37:36Z",
+      "side": 1,
+      "message": "I thought we don\u0027t need sdk level check since target sdk of this test should always equal or larger than V.\nDo we run this test on the device where the NetworkStats is not upstreamed (S-?)\nIn this case, should we check the SdkLevel.isAtleastT()?",
+      "range": {
+        "startLine": 456,
+        "startChar": 54,
+        "endLine": 456,
+        "endChar": 98
+      },
+      "revId": "528fc3d4e465f98a78a932ce5d82b22204f62b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
