@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb0ea4aa_14cb40a8",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/GetTestNameRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-30T06:48:23Z",
+      "side": 1,
+      "message": "This looks identical to org.junit.rules.TestName ?",
+      "revId": "42592e5f20bc0880a3941a20549ba15d43c08f2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
