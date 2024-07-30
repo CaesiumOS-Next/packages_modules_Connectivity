@@ -135,12 +135,14 @@ import android.os.PowerManager;
 import android.os.Process;
 import android.os.SimpleClock;
 import android.os.UserHandle;
+import android.os.test.TestLooper;
 import android.provider.Settings;
 import android.system.ErrnoException;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.IndentingPrintWriter;
+import android.util.Log;
 import android.util.Pair;
 
 import androidx.annotation.Nullable;
@@ -168,8 +170,10 @@ import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
 import com.android.testutils.TestBpfMap;
 import com.android.testutils.TestableNetworkStatsProviderBinder;
+import com.android.testutils.com.android.testutils.GetTestNameRule;
 import com.android.testutils.com.android.testutils.SetFeatureFlagsRule;
 import com.android.testutils.com.android.testutils.SetFeatureFlagsRule.FeatureFlag;
+import com.android.testutils.com.android.testutils.UseTestLooper;
 
 import libcore.testing.io.TestIoUtils;
 
@@ -187,6 +191,7 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Clock;
@@ -271,6 +276,9 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private NetworkStatsSubscriptionsMonitor mNetworkStatsSubscriptionsMonitor;
     private @Mock BpfInterfaceMapHelper mBpfInterfaceMapHelper;
     private HandlerThread mHandlerThread;
+
+    //yunchenc
+    private TestLooper mTestLooper;
     @Mock
     private LocationPermissionChecker mLocationPermissionChecker;
     private TestBpfMap<S32, U8> mUidCounterSetMap = spy(new TestBpfMap<>(S32.class, U8.class));
@@ -322,6 +330,9 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 return null;
             }, (name) -> mFeatureFlags.getOrDefault(name, false));
 
+    //yunchenc: set get name rule
+    @Rule
+    public final GetTestNameRule mGetTestNameRule = new GetTestNameRule();
     private class MockContext extends BroadcastInterceptingContext {
         private final Context mBaseContext;
 
@@ -426,8 +437,19 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 return observerLooper;
             }
         };
+        //yunchenc: test new Rule good or not
+        String testName = GetTestNameRule.getCurrentTestName();
+        Log.d("yunchenc", "The name of this test is " + testName);
+        Method method = this.getClass().getMethod(testName);
+        if (method.isAnnotationPresent(UseTestLooper.class)) {
+            mDeps.setTestLooperEnabled(true);
+            Log.d("yunchenc", "Reflection successful");
+        }
+
+
+
         mService = new NetworkStatsService(mServiceContext, mNetd, mAlarmManager, wakeLock,
-                mClock, mSettings, mStatsFactory, statsObservers, mDeps);
+            mClock, mSettings, mStatsFactory, statsObservers, mDeps);
 
         mElapsedRealtime = 0L;
 
@@ -470,6 +492,25 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     class TestDependencies extends NetworkStatsService.Dependencies {
         private int mCompareStatsInvocation = 0;
         private NetworkStats.Entry mMockedTrafficStatsNativeStat = null;
+
+        //yunchenc
+        private boolean mTestLooperEnabled = false;
+
+        // yunchenc
+        public void setTestLooperEnabled(boolean flag) {
+            mTestLooperEnabled = flag;
+        }
+        @Override
+        public Looper getLooperForHandlerThread(HandlerThread handlerThread) {
+            // set a flag in class to decide which version to return
+            if (!mTestLooperEnabled) {
+                return handlerThread.getLooper();
+            }
+            if (mTestLooper == null) {
+                mTestLooper = new TestLooper();
+            }
+            return mTestLooper.getLooper();
+        }
 
         @Override
         public File getLegacyStatsDir() {
@@ -676,6 +717,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             mObserverHandlerThread.quitSafely();
             mObserverHandlerThread.join();
         }
+        // yunchenc: teardown logic for testLooper
     }
 
     private void initWifiStats(NetworkStateSnapshot snapshot) throws Exception {
@@ -3063,5 +3105,21 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
         final String dump = getDump();
         assertDumpContains(dump, "Log for testing");
+    }
+
+    @Test
+    @UseTestLooper
+    public void testIntentSpam() throws Exception {
+
+        // test start of interval, how do I trigger the PerformPollLocked ?
+        mTestLooper.moveTimeForward(1000);
+
+        // mTestLooper.moveTimeForward(SCAN_INTERVAL_MILLIS);
+        // mTestLooper.dispatchAll();
+        // 1. every two messages have an at least 1-sec interval
+        // 2. no message is missed, which means the last log record should be later than
+        // the last request
+        Log.d("yunchenc", "running test");
+
     }
 }

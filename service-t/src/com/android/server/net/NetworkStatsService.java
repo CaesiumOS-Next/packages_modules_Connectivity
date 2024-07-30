@@ -667,7 +667,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
         final HandlerThread handlerThread = mDeps.makeHandlerThread();
         handlerThread.start();
-        mHandler = new NetworkStatsHandler(handlerThread.getLooper());
+        // yunchenc: currently doesn't work, test looper has to be installed in the thread
+        //mHandler = new NetworkStatsHandler(handlerThread.getLooper());
+        mHandler = new NetworkStatsHandler(mDeps.getLooperForHandlerThread(handlerThread));
         mNetworkStatsSubscriptionsMonitor = deps.makeSubscriptionsMonitor(mContext,
                 (command) -> mHandler.post(command) , this);
         mContentResolver = mContext.getContentResolver();
@@ -719,6 +721,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     // TODO: Move more stuff into dependencies object.
     @VisibleForTesting
     public static class Dependencies {
+        //yunchenc: looper returner
+        @NonNull
+        public Looper getLooperForHandlerThread(HandlerThread handlerThread) {
+            return handlerThread.getLooper();
+        }
         /**
          * Get legacy platform stats directory.
          */
