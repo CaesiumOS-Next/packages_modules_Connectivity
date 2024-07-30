@@ -121,6 +121,40 @@
       "message": "markchien@google.com - Could you please review and provide your approval.",
       "revId": "864a28edeaacc8c924eeb7be78173eb8c496fa3c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bfae005_82ad0e34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-30T09:04:02Z",
+      "side": 1,
+      "message": "I\u0027m a bit late here but agree with Maze\u0027s previous comment we shouldn\u0027t be touching android12L-dev (except maybe for security fixes). General CTS passed on other device types so this kind of change shouldn\u0027t be necessary for auto.\n\nThe change in the Tethering manifest suggests an integration problem as S non-mainline devices are supposed to be using InProcessTethering which uses AndroidManifest_InProcess.xml, not AndroidManifest.xml.",
+      "revId": "864a28edeaacc8c924eeb7be78173eb8c496fa3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f12305f9_47972e69",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-30T09:04:02Z",
+      "side": 1,
+      "message": "Non-mainline devices on S are not supposed to be using this file, they should be using InProcessTethering",
+      "revId": "864a28edeaacc8c924eeb7be78173eb8c496fa3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
