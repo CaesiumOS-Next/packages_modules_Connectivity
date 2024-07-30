@@ -2947,13 +2947,12 @@ public class ConnectivityManagerTest {
     }
 
     private void ensureValidatedNetwork(NetworkRequest request) {
-        final TestableNetworkCallback cb = new TestableNetworkCallback();
-        mCm.registerNetworkCallback(request, cb);
+        // Request network in case this network is down currently.
+        final TestableNetworkCallback cb = networkCallbackRule.requestNetwork(request);
         cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
                 NETWORK_CALLBACK_TIMEOUT_MS,
                 entry -> ((CallbackEntry.CapabilitiesChanged) entry).getCaps()
                         .hasCapability(NET_CAPABILITY_VALIDATED));
-        mCm.unregisterNetworkCallback(cb);
     }
 
     @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
