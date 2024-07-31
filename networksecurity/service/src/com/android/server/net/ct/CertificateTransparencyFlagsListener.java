@@ -15,27 +15,35 @@
  */
 package com.android.server.net.ct;
 
+import static com.android.server.net.ct.Config.TAG;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.provider.DeviceConfig;
 import android.provider.DeviceConfig.Properties;
+import android.text.TextUtils;
 import android.util.Log;
 
 /** Listener class for the Certificate Transparency Phenotype flags. */
 class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesChangedListener {
 
-    private static final String TAG = "CertificateTransparency";
-
-    private static final String LOG_LIST_DATA_URL = "log_list_data_url";
-
     private final Context mContext;
+    private final SharedPreferences mSharedPreferences;
+    private final CertificateTransparencyDownloader mCertificateTransparencyDownloader;
 
     CertificateTransparencyFlagsListener(Context context) {
         mContext = context;
+        mSharedPreferences = Config.getSharedPreferences(context);
+        mCertificateTransparencyDownloader = new CertificateTransparencyDownloader(context);
     }
 
-    void startListeners() {
+    void initialize() {
+        mCertificateTransparencyDownloader.initialize();
         DeviceConfig.addOnPropertiesChangedListener(
                 DeviceConfig.NAMESPACE_TETHERING, mContext.getMainExecutor(), this);
+        if (Config.DEBUG) {
+            Log.d(TAG, "CertificateTransparencyFlagsListener initialized successfully");
+        }
     }
 
     @Override
@@ -43,26 +51,42 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
         if (!DeviceConfig.NAMESPACE_TETHERING.equals(properties.getNamespace())) {
             return;
         }
-        for (String property : properties.getKeyset()) {
-            switch (property) {
-                case LOG_LIST_DATA_URL:
-                    String url =
-                            DeviceConfig.getString(
-                                    DeviceConfig.NAMESPACE_TETHERING, LOG_LIST_DATA_URL, "");
-                    startDownloadService(url);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 
-    private void startDownloadService(String url) {
-        if (url == null || "".equals(url)) {
-            Log.w(TAG, "Received null or empty intent");
+        String newContentUrl =
+                DeviceConfig.getString(DeviceConfig.NAMESPACE_TETHERING, Config.CONTENT_URL, "");
+        String newMetadataUrl =
+                DeviceConfig.getString(DeviceConfig.NAMESPACE_TETHERING, Config.METADATA_URL, "");
+        int newVersion = DeviceConfig.getInt(DeviceConfig.NAMESPACE_TETHERING, Config.VERSION, -1);
+        if (Config.DEBUG) {
+            Log.d(TAG, "newContentUrl=" + newContentUrl);
+            Log.d(TAG, "newMetadataUrl=" + newMetadataUrl);
+            Log.d(TAG, "newVersion=" + newVersion);
+        }
+
+        if (newVersion == -1
+                || TextUtils.isEmpty(newContentUrl)
+                || TextUtils.isEmpty(newMetadataUrl)) {
             return;
         }
-        Log.d(TAG, "received new log list url: " + url);
-        // TODO: start download of list url.
+
+        String oldContentUrl = mSharedPreferences.getString(Config.CONTENT_URL, null);
+        String oldMetadataUrl = mSharedPreferences.getString(Config.METADATA_URL, null);
+        int oldVersion = mSharedPreferences.getInt(Config.VERSION, -1);
+
+        if (newVersion == oldVersion
+                && newContentUrl.equals(oldContentUrl)
+                && newMetadataUrl.equals(oldMetadataUrl)) {
+            Log.i(TAG, "No flag changed, ignoring update");
+            return;
+        }
+
+        mSharedPreferences
+                .edit()
+                .putString(Config.CONTENT_URL, newContentUrl)
+                .putString(Config.METADATA_URL, newMetadataUrl)
+                .putInt(Config.VERSION, newVersion)
+                .apply();
+
+        mCertificateTransparencyDownloader.startMetadataDownload(newMetadataUrl);
     }
 }
