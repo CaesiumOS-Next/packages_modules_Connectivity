@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d64502e_878ab278",
+        "filename": "staticlibs/testutils/host/python/wifip2p_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-31T03:01:23Z",
+      "side": 1,
+      "message": "file: Maybe rename the file to wifi_p2p_utils.py to aligh naming style.\nNo strong opinion.",
+      "range": {
+        "startLine": 20,
+        "startChar": 11,
+        "endLine": 20,
+        "endChar": 19
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f418ef70_30d78ff4",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-31T03:01:23Z",
+      "side": 1,
+      "message": "Since the method is global for all snippets.\nMaybe name it more specifically, e.g. getWifiP2pDeviceName?\nAlso for other method like createGroup.\nNo strong opinion.",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 21
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afde23d1_067bc118",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-31T03:01:23Z",
+      "side": 1,
+      "message": "Question: What happens if the intent is sent before register receiver?\nDo we need to register receiver earilier to avoid race?",
+      "range": {
+        "startLine": 93,
+        "startChar": 37,
+        "endLine": 93,
+        "endChar": 43
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d575e3f_cbc9882f",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-31T03:01:23Z",
+      "side": 1,
+      "message": "1. Maybe add comment about what will be the outcome of this method?\nOr how to use it with other methods.\n\n2. Is it more like startDiscoverPeers()? If so maybe rename it. no strong opinion.",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 21
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dc2f43a_5587afc6",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-31T03:01:23Z",
+      "side": 1,
+      "message": "Will this be printed for debugging somewhere in case the test failed?\nIf not, do we want to add some way for debugging?\n\nAlso for other places.",
+      "range": {
+        "startLine": 191,
+        "startChar": 33,
+        "endLine": 191,
+        "endChar": 58
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
