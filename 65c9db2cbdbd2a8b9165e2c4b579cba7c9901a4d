@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e03baeae_03606edb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T08:04:22Z",
+      "side": 1,
+      "message": "Generally LGTM but see some comments on flags in particular",
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c834262b_fc2f28b6",
+        "filename": "certificatetransparency/framework/src/android/ct/CertificateTransparencyManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T08:04:22Z",
+      "side": 1,
+      "message": "Bikeshedding but: personally I\u0027m not a fan of the package name, it\u0027s very specific to one feature and I don\u0027t see it reused for much more than this class. It would have felt better to have something more generic that points to certificate management in general, or just \"net\" since this is about networking too.\n\nThat\u0027s kind of up to discussion with the API councilors though.",
+      "range": {
+        "startLine": 16,
+        "startChar": 16,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51a01cdf_0dc886b0",
+        "filename": "certificatetransparency/framework/src/android/ct/CertificateTransparencyManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T08:04:22Z",
+      "side": 1,
+      "message": "I think that\u0027s kind of the case right now ? We transitioned out of U branches for modules so I think the infra is there in AOSP and main to do build-time flags.\n\nThat\u0027s not useful for features to launch via mainline since it needs runtime flags to do proper rollouts, but in any case if you can use the generated constant that\u0027s better.",
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30ace2a5_9d47f97f",
+        "filename": "certificatetransparency/service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T08:04:22Z",
+      "side": 1,
+      "message": "You shouldn\u0027t need framework-connectivity if you\u0027ve got framework-connectivity-pre-jarjar",
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ccb9455_3603cab2",
+        "filename": "common/FlaggedApi.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T08:04:22Z",
+      "side": 1,
+      "message": "Nit: bikeshedding still, but this isn\u0027t very easy to understand for anyone not familiar with the effort. Something like certtransparency in the build rule naming would be a bit more readable.\n\nOr something like networksecurity, since that\u0027s the name of the namespace",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 13
+      },
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03fd26c0_d6401864",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T08:04:22Z",
+      "side": 1,
+      "message": "Before setting up a flag with this namespace, can you check that you are able to successfully configure multiple namespaces associated with the tethering module (http://shortn/_dElvtDN6XN, http://shortn/_yWwq7SMTgL) ? In the past I think we\u0027ve hit some presubmit problems as this isn\u0027t a configuration that is often tested.\n\nOne namespace shouldn\u0027t be across several modules with the current infra, but theoretically one module can cover several namespaces.\n\nThis association allows the on-device watchdog to know that on rollback of the module it should clear associated flags, to go back to a clean state.\n\nI think it would be OK to use the tethering namespace (DeviceConfigUtils.isTetheringFeatureEnabled) for this flag for now while you\u0027re confirming that.",
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
