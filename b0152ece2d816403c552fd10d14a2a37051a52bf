@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9bb8eb5_4e92b7bb",
+        "filename": "staticlibs/testutils/host/python/wifip2p_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T15:48:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6d64502e_878ab278",
+      "range": {
+        "startLine": 20,
+        "startChar": 11,
+        "endLine": 20,
+        "endChar": 19
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f41852e_29e44486",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b54d5ad_c457f5eb",
+        "filename": "staticlibs/testutils/host/python/wifip2p_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T15:48:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f41852e_29e44486",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 9
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f418ef70_30d78ff4",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-07-31T03:01:23Z",
       "side": 1,
       "message": "Since the method is global for all snippets.\nMaybe name it more specifically, e.g. getWifiP2pDeviceName?\nAlso for other method like createGroup.\nNo strong opinion.",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 21
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bbbd6a6_8cf92b86",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T15:48:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f418ef70_30d78ff4",
       "range": {
         "startLine": 81,
         "startChar": 8,
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8318ccbd_3cf65a29",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T15:48:08Z",
+      "side": 1,
+      "message": "Acknowledged. Register the intent filter when starting Wi-Fi Direct. Otherwise, it may miss the intent.",
+      "parentUuid": "89e042f2_52b9b4bc",
+      "range": {
+        "startLine": 93,
+        "startChar": 37,
+        "endLine": 93,
+        "endChar": 43
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d16b3e6_6c620995",
@@ -130,6 +226,30 @@
       "writtenOn": "2024-07-31T04:08:22Z",
       "side": 1,
       "message": "Nit: not necessary if the predicate returns non-nullable Boolean ?",
+      "range": {
+        "startLine": 97,
+        "startChar": 37,
+        "endLine": 97,
+        "endChar": 45
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca3a77d6_7ce2178f",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T15:48:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d16b3e6_6c620995",
       "range": {
         "startLine": 97,
         "startChar": 37,
@@ -163,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5beaa7b6_1a9075b1",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T15:48:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d575e3f_cbc9882f",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 21
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a21bd0f_3ea21b99",
@@ -176,6 +320,24 @@
       "writtenOn": "2024-07-31T04:08:22Z",
       "side": 1,
       "message": "Nit: some doc would be useful to explain what this returns (the device address) and what that value looks like",
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e60ddd83_52346e96",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T15:48:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a21bd0f_3ea21b99",
       "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -197,6 +359,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f54d2ec9_f0340841",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T15:48:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "736a5517_eb81c01e",
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7dc2f43a_5587afc6",
@@ -210,6 +390,30 @@
       "writtenOn": "2024-07-31T03:01:23Z",
       "side": 1,
       "message": "Will this be printed for debugging somewhere in case the test failed?\nIf not, do we want to add some way for debugging?\n\nAlso for other places.",
+      "range": {
+        "startLine": 191,
+        "startChar": 33,
+        "endLine": 191,
+        "endChar": 58
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de748c10_29df11c3",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T15:48:08Z",
+      "side": 1,
+      "message": "As discussed offline, the failure reason is quite simple and it\u0027s hard to pinpoint the problem from it. I think we can check the failure logs for debugging instead of printing logs here.",
+      "parentUuid": "7dc2f43a_5587afc6",
       "range": {
         "startLine": 191,
         "startChar": 33,
