@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf75b601_99bbf234",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 2012225
+      },
+      "writtenOn": "2024-07-31T19:21:14Z",
+      "side": 0,
+      "message": "A note for posterity, this change is not a no-op\n\nPreviously, we were using the passed-in parameter, socketKey, to lookup the entry in the cache\n\nWith this change, we instead use the cacheKey field\n\nThis is a significant change in behavior",
+      "range": {
+        "startLine": 408,
+        "startChar": 47,
+        "endLine": 408,
+        "endChar": 69
+      },
+      "revId": "02193c0cce161a44f05535c0e214295534876eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
