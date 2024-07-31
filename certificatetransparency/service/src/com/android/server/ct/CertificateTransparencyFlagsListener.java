@@ -18,7 +18,6 @@ package com.android.server.ct;
 import android.content.Context;
 import android.provider.DeviceConfig;
 import android.provider.DeviceConfig.Properties;
-import android.util.Log;
 
 import com.android.net.module.util.DeviceConfigUtils;
 
@@ -30,12 +29,15 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
     private static final String LOG_LIST_DATA_URL = "log_list_data_url";
 
     private final Context mContext;
+    private final CertificateTransparencyDownloader mCertificateTransparencyDownloader;
 
     CertificateTransparencyFlagsListener(Context context) {
         mContext = context;
+        mCertificateTransparencyDownloader = new CertificateTransparencyDownloader(context);
     }
 
-    void startListeners() {
+    void initialize() {
+        mCertificateTransparencyDownloader.initialize();
         DeviceConfig.addOnPropertiesChangedListener(
                 DeviceConfigUtils.CERTIFICATE_TRANSPARENCY_NAMESPACE,
                 mContext.getMainExecutor(),
@@ -56,20 +58,11 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
                                     DeviceConfigUtils.CERTIFICATE_TRANSPARENCY_NAMESPACE,
                                     LOG_LIST_DATA_URL,
                                     "");
-                    startDownloadService(url);
+                    mCertificateTransparencyDownloader.startDownload(url);
                     break;
                 default:
                     break;
             }
         }
-    }
-
-    private void startDownloadService(String url) {
-        if (url == null || "".equals(url)) {
-            Log.w(TAG, "Received null or empty intent");
-            return;
-        }
-        Log.d(TAG, "received new log list url: " + url);
-        // TODO: start download of list url.
     }
 }
