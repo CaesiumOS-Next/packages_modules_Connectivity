@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81974aa0_07b15e58",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-07-31T07:39:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bc79bf4_75a31ee1",
+      "range": {
+        "startLine": 799,
+        "startChar": 45,
+        "endLine": 799,
+        "endChar": 46
+      },
+      "revId": "8c0393e51930bb0d5010eaeb9578e2a2d1a89231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "747498b6_f3065222",
@@ -84,6 +108,30 @@
       "writtenOn": "2024-07-26T17:06:56Z",
       "side": 1,
       "message": "This should be Objects.equals() instead of \u003d\u003d. In Java \u003d\u003d is almost always incorrect because it does pointer equality not object equality.",
+      "range": {
+        "startLine": 173,
+        "startChar": 41,
+        "endLine": 173,
+        "endChar": 43
+      },
+      "revId": "8c0393e51930bb0d5010eaeb9578e2a2d1a89231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "198f96db_21d4e0fd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/TetheringUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-07-31T07:39:30Z",
+      "side": 1,
+      "message": "I think this comment is outdated. After rebasing, `TetheringUtils.java` was gone.",
+      "parentUuid": "747498b6_f3065222",
       "range": {
         "startLine": 173,
         "startChar": 41,
