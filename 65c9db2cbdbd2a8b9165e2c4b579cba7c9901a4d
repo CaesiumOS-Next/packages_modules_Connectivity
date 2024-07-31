@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f51a7cba_be58310c",
+        "filename": "certificatetransparency/framework/src/android/ct/CertificateTransparencyManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-07-31T13:38:16Z",
+      "side": 1,
+      "message": "I renamed the package to `android.net.ct`, hopefully that is a bit more readable.",
+      "parentUuid": "c834262b_fc2f28b6",
+      "range": {
+        "startLine": 16,
+        "startChar": 16,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51a01cdf_0dc886b0",
@@ -60,6 +84,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1098b12_2e939bae",
+        "filename": "certificatetransparency/framework/src/android/ct/CertificateTransparencyManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-07-31T13:38:16Z",
+      "side": 1,
+      "message": "I agree, it would be nice to use the generated classes instead of the hard-coded string.\n\nHowever, I am not sure how to access the generated flags code from this class. I tried importing `com.android.ct.flags.Flags`, but I get a `cannot find symbol` error. Adding the aconfig_declarations dependency `com.android.ct.flags-aconfig` in the `framework-connectivity` target is not enough, apparently.\n\nMaybe the jarjar rules rewrite the package name in a way I don\u0027t understand?",
+      "parentUuid": "51a01cdf_0dc886b0",
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30ace2a5_9d47f97f",
         "filename": "certificatetransparency/service/Android.bp",
         "patchSetId": 5
@@ -71,6 +113,24 @@
       "writtenOn": "2024-07-31T08:04:22Z",
       "side": 1,
       "message": "You shouldn\u0027t need framework-connectivity if you\u0027ve got framework-connectivity-pre-jarjar",
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c159f89c_c74386b7",
+        "filename": "certificatetransparency/service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-07-31T13:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30ace2a5_9d47f97f",
       "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -98,6 +158,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6395923_57fe1352",
+        "filename": "common/FlaggedApi.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-07-31T13:38:16Z",
+      "side": 1,
+      "message": "Done. I replaced the instances of ct with networksecurity instead, hopefully that\u0027s better and more general.",
+      "parentUuid": "9ccb9455_3603cab2",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 13
+      },
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03fd26c0_d6401864",
@@ -111,6 +195,24 @@
       "writtenOn": "2024-07-31T08:04:22Z",
       "side": 1,
       "message": "Before setting up a flag with this namespace, can you check that you are able to successfully configure multiple namespaces associated with the tethering module (http://shortn/_dElvtDN6XN, http://shortn/_yWwq7SMTgL) ? In the past I think we\u0027ve hit some presubmit problems as this isn\u0027t a configuration that is often tested.\n\nOne namespace shouldn\u0027t be across several modules with the current infra, but theoretically one module can cover several namespaces.\n\nThis association allows the on-device watchdog to know that on rollback of the module it should clear associated flags, to go back to a clean state.\n\nI think it would be OK to use the tethering namespace (DeviceConfigUtils.isTetheringFeatureEnabled) for this flag for now while you\u0027re confirming that.",
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6038a8df_9dbbc353",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-07-31T13:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03fd26c0_d6401864",
       "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
