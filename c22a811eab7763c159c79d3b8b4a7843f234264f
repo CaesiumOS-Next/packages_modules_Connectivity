@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c50c3d82_25bc3a5a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T02:24:30Z",
+      "side": 1,
+      "message": "An empty value is actually different from no value; I added a documented constant for the \"null\" case which hopefully makes it clearer. I think it\u0027s better to use VALUE_NONE (no value) instead of an empty value for an empty entry.",
+      "parentUuid": "c176d18a_127041c9",
+      "range": {
+        "startLine": 562,
+        "startChar": 54,
+        "endLine": 562,
+        "endChar": 67
+      },
+      "revId": "c22a811eab7763c159c79d3b8b4a7843f234264f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fcbee75_eb26cae8",
@@ -65,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91ab0e72_9c16e9f4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T02:24:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fcbee75_eb26cae8",
+      "range": {
+        "startLine": 435,
+        "startChar": 19,
+        "endLine": 435,
+        "endChar": 32
+      },
+      "revId": "c22a811eab7763c159c79d3b8b4a7843f234264f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b49da422_9d494d57",
@@ -88,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "267854ff_c73aeb18",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsTextRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T02:24:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b49da422_9d494d57",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 9
+      },
+      "revId": "c22a811eab7763c159c79d3b8b4a7843f234264f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf03662e_652c8d7c",
@@ -101,6 +173,30 @@
       "writtenOn": "2024-07-19T06:12:00Z",
       "side": 1,
       "message": "This code is the same as the above test except it uses a different flag. Can you create a function for these to avoid duplication?",
+      "range": {
+        "startLine": 2226,
+        "startChar": 8,
+        "endLine": 2240,
+        "endChar": 28
+      },
+      "revId": "c22a811eab7763c159c79d3b8b4a7843f234264f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e329507_fa1c9507",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsRecordRepositoryTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 2240,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T02:24:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf03662e_652c8d7c",
       "range": {
         "startLine": 2226,
         "startChar": 8,
