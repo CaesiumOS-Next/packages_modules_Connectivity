@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30114016_dc167b92",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-07-31T04:44:04Z",
+      "side": 1,
+      "message": "ETHER_BROADCAST_ADDR",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "d323e054bd7452cdb57dd8fe23aaa968a851a3a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
