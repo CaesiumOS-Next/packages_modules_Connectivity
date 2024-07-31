@@ -16,6 +16,40 @@
       "message": "3147879: Shedule task with current run if there is a service in the cache | https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/3147879",
       "revId": "3d49cd62ac276f2a7636012c1de1d48d8eee258e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1955c99a_d512f884",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T03:35:07Z",
+      "side": 1,
+      "message": "I think you could consolidate the implementations a bit by making taskArgs @Nullable in calculateTimeToRun (add a null check inside there), and calling it instead:\n\n```\nif (mLastScheduledQueryTaskArgs \u003d\u003d null \u0026\u0026 !aggressive) {\n    timeToRun \u003d now + nextRunConfig.delayUntilNextTaskWithoutBackoffMs;\n} else {\n    timeToRun \u003d calculateTimeToRun(mLastScheduledQueryTaskArgs,\n                    nextRunConfig, now, minRemainingTtl, lastSentTime, numOfQueriesBeforeBackoff);\n}\n```\n\nThis should do the same thing as what you have here I think",
+      "revId": "3d49cd62ac276f2a7636012c1de1d48d8eee258e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a18a415_c1e08fc5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T03:35:07Z",
+      "side": 1,
+      "message": "Instead of creating a custom taskConfig that simulates the current queryCount being after numOfQueriesBeforeBackoff, could you just call scheduleNextRun with numOfQueriesBeforeBackoff \u003d 0 ? I think the result would be basically the same if there\u0027s a service with a reasonable TTL left ?",
+      "revId": "3d49cd62ac276f2a7636012c1de1d48d8eee258e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
