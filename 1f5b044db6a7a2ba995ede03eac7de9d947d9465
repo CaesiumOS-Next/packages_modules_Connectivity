@@ -22,6 +22,30 @@
       },
       "revId": "1f5b044db6a7a2ba995ede03eac7de9d947d9465",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "218025bc_aebad796",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-31T07:34:30Z",
+      "side": 1,
+      "message": "Yes raw socket listening is the plan as discussed before.\nIt might be good to have but not that bad if we don\u0027t do that.",
+      "parentUuid": "28d458e2_33cdbca1",
+      "range": {
+        "startLine": 63,
+        "startChar": 6,
+        "endLine": 63,
+        "endChar": 57
+      },
+      "revId": "1f5b044db6a7a2ba995ede03eac7de9d947d9465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
