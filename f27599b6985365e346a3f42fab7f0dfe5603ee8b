@@ -52,6 +52,24 @@
       "parentUuid": "7429f664_5008ba34",
       "revId": "f27599b6985365e346a3f42fab7f0dfe5603ee8b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce133b44_8122fdb2",
+        "filename": "tests/cts/multidevices/run_tests.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-31T03:16:44Z",
+      "side": 1,
+      "message": "Comment added.\nSee if it works for you.",
+      "parentUuid": "76d8561c_c1ae617a",
+      "revId": "f27599b6985365e346a3f42fab7f0dfe5603ee8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

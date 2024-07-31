@@ -16,6 +16,24 @@
       "message": "nit: the counter can defined in the enum class for other tests as well, this can be another CL",
       "revId": "ec6242178db379812d4e95bc2ebd9fbe51b8e101",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdfea094_8d36d91f",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-07-31T03:16:44Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ac1f7cdd_60304f51",
+      "revId": "ec6242178db379812d4e95bc2ebd9fbe51b8e101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
