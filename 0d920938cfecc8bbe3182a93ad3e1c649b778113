@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e8fac26_b35c6344",
+        "filename": "staticlibs/testutils/host/python/wifip2p_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T01:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eacb644d_44d4d48e",
+      "revId": "0d920938cfecc8bbe3182a93ad3e1c649b778113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9e4f105_ae2824b6",
@@ -31,6 +49,54 @@
       "writtenOn": "2024-07-30T09:43:13Z",
       "side": 1,
       "message": "style: groupName",
+      "range": {
+        "startLine": 113,
+        "startChar": 63,
+        "endLine": 113,
+        "endChar": 73
+      },
+      "revId": "0d920938cfecc8bbe3182a93ad3e1c649b778113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7a1d7b2_52c0801e",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T01:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9e4f105_ae2824b6",
+      "range": {
+        "startLine": 113,
+        "startChar": 63,
+        "endLine": 113,
+        "endChar": 73
+      },
+      "revId": "0d920938cfecc8bbe3182a93ad3e1c649b778113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e75107c_f7f53660",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T01:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9e4f105_ae2824b6",
       "range": {
         "startLine": 113,
         "startChar": 63,
@@ -138,6 +204,30 @@
           ]
         }
       ],
+      "revId": "0d920938cfecc8bbe3182a93ad3e1c649b778113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "414f6187_b9dc069c",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T01:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4aac3bfe_3ae4d779",
+      "range": {
+        "startLine": 123,
+        "startChar": 20,
+        "endLine": 123,
+        "endChar": 30
+      },
       "revId": "0d920938cfecc8bbe3182a93ad3e1c649b778113",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
