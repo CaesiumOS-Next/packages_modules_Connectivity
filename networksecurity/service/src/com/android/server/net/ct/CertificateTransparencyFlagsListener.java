@@ -15,9 +15,12 @@
  */
 package com.android.server.net.ct;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.provider.DeviceConfig;
 import android.provider.DeviceConfig.Properties;
+import android.util.Log;
 
 /** Listener class for the Certificate Transparency Phenotype flags. */
 class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesChangedListener {
@@ -51,7 +54,20 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
                     String url =
                             DeviceConfig.getString(
                                     DeviceConfig.NAMESPACE_TETHERING, LOG_LIST_DATA_URL, "");
-                    mCertificateTransparencyDownloader.startDownload(url);
+                    if ("".equals(url)) {
+                        Log.w(TAG, "Received null or empty url");
+                        return;
+                    }
+                    ComponentName serviceComponent =
+                            mContext.startForegroundService(
+                                    new Intent()
+                                            .setComponent(
+                                                    new ComponentName(
+                                                            "com.android.net.ct",
+                                                            "com.android.net.ct.DownloadService"))
+                                            .setAction("com.android.net.ct.START_DOWNLOAD_SERVICE")
+                                            .putExtra(LOG_LIST_DATA_URL, url));
+                    Log.e(TAG, "started service " + serviceComponent);
                     break;
                 default:
                     break;
