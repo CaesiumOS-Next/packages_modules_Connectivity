@@ -24,18 +24,25 @@ import android.util.Log;
 class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesChangedListener {
 
     private static final String TAG = "CertificateTransparency";
+    private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     private static final String LOG_LIST_DATA_URL = "log_list_data_url";
 
     private final Context mContext;
+    private final CertificateTransparencyDownloader mCertificateTransparencyDownloader;
 
     CertificateTransparencyFlagsListener(Context context) {
         mContext = context;
+        mCertificateTransparencyDownloader = new CertificateTransparencyDownloader(context);
     }
 
-    void startListeners() {
+    void initialize() {
+        mCertificateTransparencyDownloader.initialize();
         DeviceConfig.addOnPropertiesChangedListener(
                 DeviceConfig.NAMESPACE_TETHERING, mContext.getMainExecutor(), this);
+        if (DEBUG) {
+            Log.d(TAG, "CertificateTransparencyFlagsListener initialized successfully");
+        }
     }
 
     @Override
@@ -44,25 +51,19 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
             return;
         }
         for (String property : properties.getKeyset()) {
+            if (DEBUG) {
+                Log.d(TAG, "Received new property " + property);
+            }
             switch (property) {
                 case LOG_LIST_DATA_URL:
                     String url =
                             DeviceConfig.getString(
                                     DeviceConfig.NAMESPACE_TETHERING, LOG_LIST_DATA_URL, "");
-                    startDownloadService(url);
+                    mCertificateTransparencyDownloader.startDownload(url);
                     break;
                 default:
                     break;
             }
         }
-    }
-
-    private void startDownloadService(String url) {
-        if (url == null || "".equals(url)) {
-            Log.w(TAG, "Received null or empty intent");
-            return;
-        }
-        Log.d(TAG, "received new log list url: " + url);
-        // TODO: start download of list url.
     }
 }
