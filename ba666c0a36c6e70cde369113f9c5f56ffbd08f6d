@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7da79de_dc5f123c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-07-31T02:36:49Z",
+      "side": 1,
+      "message": "Super nit: VALUE_NONE",
+      "range": {
+        "startLine": 416,
+        "startChar": 47,
+        "endLine": 416,
+        "endChar": 51
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "91b43e44_fde7ef0e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceInfo.java",
+              "range": {
+                "startLine": 416,
+                "startChar": 0,
+                "endLine": 417,
+                "endChar": 0
+              },
+              "replacement": "            this.value \u003d value \u003d\u003d VALUE_NONE ? VALUE_NONE : value.clone();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ba666c0a36c6e70cde369113f9c5f56ffbd08f6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
