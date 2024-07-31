@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b83b9cf_0fda9e1f",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-07-31T06:27:17Z",
+      "side": 1,
+      "message": "We don\u0027t have udc-mainline-prod anymore, can you use generated java library instead?",
+      "range": {
+        "startLine": 215,
+        "startChar": 4,
+        "endLine": 215,
+        "endChar": 5
+      },
+      "revId": "b4965e51b57edb70f211e0c0be31e4a2dafdc407",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
