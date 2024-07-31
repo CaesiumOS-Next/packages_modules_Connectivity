@@ -44,7 +44,7 @@ public class CertificateTransparencyService extends ICertificateTransparencyMana
 
     /** Creates a new {@link CertificateTransparencyService} object. */
     public CertificateTransparencyService(Context context) {
-        mFlagsListener = new CertificateTransparencyFlagsListener(context);
+        mFlagsListener = new CertificateTransparencyFlagsListener(context.getApplicationContext());
     }
 
     /**
@@ -57,7 +57,7 @@ public class CertificateTransparencyService extends ICertificateTransparencyMana
         switch (phase) {
             case SystemService.PHASE_BOOT_COMPLETED:
                 Log.d(TAG, "setting up flags listeners");
-                mFlagsListener.startListeners();
+                mFlagsListener.initialize();
                 break;
             default:
         }

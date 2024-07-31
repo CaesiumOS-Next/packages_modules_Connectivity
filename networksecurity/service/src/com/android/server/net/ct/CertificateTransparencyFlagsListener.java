@@ -18,7 +18,6 @@ package com.android.server.net.ct;
 import android.content.Context;
 import android.provider.DeviceConfig;
 import android.provider.DeviceConfig.Properties;
-import android.util.Log;
 
 /** Listener class for the Certificate Transparency Phenotype flags. */
 class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesChangedListener {
@@ -28,12 +27,15 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
     private static final String LOG_LIST_DATA_URL = "log_list_data_url";
 
     private final Context mContext;
+    private final CertificateTransparencyDownloader mCertificateTransparencyDownloader;
 
     CertificateTransparencyFlagsListener(Context context) {
         mContext = context;
+        mCertificateTransparencyDownloader = new CertificateTransparencyDownloader(context);
     }
 
-    void startListeners() {
+    void initialize() {
+        mCertificateTransparencyDownloader.initialize();
         DeviceConfig.addOnPropertiesChangedListener(
                 DeviceConfig.NAMESPACE_TETHERING, mContext.getMainExecutor(), this);
     }
@@ -49,20 +51,11 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
                     String url =
                             DeviceConfig.getString(
                                     DeviceConfig.NAMESPACE_TETHERING, LOG_LIST_DATA_URL, "");
-                    startDownloadService(url);
+                    mCertificateTransparencyDownloader.startDownload(url);
                     break;
                 default:
                     break;
             }
         }
-    }
-
-    private void startDownloadService(String url) {
-        if (url == null || "".equals(url)) {
-            Log.w(TAG, "Received null or empty intent");
-            return;
-        }
-        Log.d(TAG, "received new log list url: " + url);
-        // TODO: start download of list url.
     }
 }
