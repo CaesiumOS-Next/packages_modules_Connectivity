@@ -17,6 +17,8 @@ package com.android.server.net.ct;
 
 import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
+import static com.android.server.net.ct.Config.TAG;
+
 import android.content.Context;
 import android.provider.DeviceConfig;
 import android.provider.DeviceConfig.Properties;
@@ -30,17 +32,23 @@ import java.util.concurrent.Executors;
 /** Listener class for the Certificate Transparency Phenotype flags. */
 class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesChangedListener {
 
-    private static final String TAG = "CertificateTransparency";
+    private final DataStore mDataStore;
+    private final CertificateTransparencyDownloader mCertificateTransparencyDownloader;
 
-    private static final String VERSION = "version";
-    private static final String CONTENT_URL = "content_url";
-    private static final String METADATA_URL = "metadata_url";
-
-    CertificateTransparencyFlagsListener(Context context) {}
+    CertificateTransparencyFlagsListener(Context context) {
+        mDataStore = new DataStore(Config.PREFERENCES_FILE);
+        mCertificateTransparencyDownloader =
+                new CertificateTransparencyDownloader(context, mDataStore);
+    }
 
     void initialize() {
+        mDataStore.load();
+        mCertificateTransparencyDownloader.initialize();
         DeviceConfig.addOnPropertiesChangedListener(
                 NAMESPACE_TETHERING, Executors.newSingleThreadExecutor(), this);
+        if (Config.DEBUG) {
+            Log.d(TAG, "CertificateTransparencyFlagsListener initialized successfully");
+        }
         // TODO: handle property changes triggering on boot before registering this listener.
     }
 
@@ -50,18 +58,38 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
             return;
         }
 
-        String newVersion = DeviceConfig.getString(NAMESPACE_TETHERING, VERSION, "");
-        String newContentUrl = DeviceConfig.getString(NAMESPACE_TETHERING, CONTENT_URL, "");
-        String newMetadataUrl = DeviceConfig.getString(NAMESPACE_TETHERING, METADATA_URL, "");
+        String newVersion = DeviceConfig.getString(NAMESPACE_TETHERING, Config.VERSION, "");
+        String newContentUrl = DeviceConfig.getString(NAMESPACE_TETHERING, Config.CONTENT_URL, "");
+        String newMetadataUrl =
+                DeviceConfig.getString(NAMESPACE_TETHERING, Config.METADATA_URL, "");
         if (TextUtils.isEmpty(newVersion)
                 || TextUtils.isEmpty(newContentUrl)
                 || TextUtils.isEmpty(newMetadataUrl)) {
             return;
         }
 
-        Log.d(TAG, "newVersion=" + newVersion);
-        Log.d(TAG, "newContentUrl=" + newContentUrl);
-        Log.d(TAG, "newMetadataUrl=" + newMetadataUrl);
-        // TODO: start download of URLs.
+        if (Config.DEBUG) {
+            Log.d(TAG, "newVersion=" + newVersion);
+            Log.d(TAG, "newContentUrl=" + newContentUrl);
+            Log.d(TAG, "newMetadataUrl=" + newMetadataUrl);
+        }
+
+        String oldVersion = mDataStore.getProperty(Config.VERSION);
+        String oldContentUrl = mDataStore.getProperty(Config.CONTENT_URL);
+        String oldMetadataUrl = mDataStore.getProperty(Config.METADATA_URL);
+
+        if (TextUtils.equals(newVersion, oldVersion)
+                && TextUtils.equals(newContentUrl, oldContentUrl)
+                && TextUtils.equals(newMetadataUrl, oldMetadataUrl)) {
+            Log.i(TAG, "No flag changed, ignoring update");
+            return;
+        }
+
+        mDataStore.setProperty(Config.VERSION, newVersion);
+        mDataStore.setProperty(Config.CONTENT_URL, newContentUrl);
+        mDataStore.setProperty(Config.METADATA_URL, newMetadataUrl);
+        mDataStore.store();
+
+        mCertificateTransparencyDownloader.startMetadataDownload(newMetadataUrl);
     }
 }
