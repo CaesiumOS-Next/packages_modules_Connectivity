@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f41852e_29e44486",
+        "filename": "staticlibs/testutils/host/python/wifip2p_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T04:08:22Z",
+      "side": 1,
+      "message": "Typo: Server",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 9
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f418ef70_30d78ff4",
         "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
         "patchSetId": 4
@@ -72,6 +95,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89e042f2_52b9b4bc",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T04:08:22Z",
+      "side": 1,
+      "message": "I guess this only works for sticky broadcasts ?\n\nBut starting from Q it looks like the one we\u0027re interested in is not sticky: https://developer.android.com/develop/connectivity/wifi/wifip2p#broadcast-receiver\n\nSo the BroadcastReceiver needs to be registered before trying to establish the connection",
+      "parentUuid": "afde23d1_067bc118",
+      "range": {
+        "startLine": 93,
+        "startChar": 37,
+        "endLine": 93,
+        "endChar": 43
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d16b3e6_6c620995",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T04:08:22Z",
+      "side": 1,
+      "message": "Nit: not necessary if the predicate returns non-nullable Boolean ?",
+      "range": {
+        "startLine": 97,
+        "startChar": 37,
+        "endLine": 97,
+        "endChar": 45
+      },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d575e3f_cbc9882f",
         "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
         "patchSetId": 4
@@ -89,6 +159,40 @@
         "endLine": 145,
         "endChar": 21
       },
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a21bd0f_3ea21b99",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T04:08:22Z",
+      "side": 1,
+      "message": "Nit: some doc would be useful to explain what this returns (the device address) and what that value looks like",
+      "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "736a5517_eb81c01e",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-07-31T04:08:22Z",
+      "side": 1,
+      "message": "It\u0027s a bit confusing/unusual to have side-effects in a predicate. Could you have ensureIntentReceived return the Intent itself ? Then you could have something like:\n\n```\nfun getDeviceAddress(peersChangedIntent: Intent, deviceName: String): String? {\n    return peersChangedIntent.getParcelableExtra(...)?.deviceList?.firstOrNull {\n        it.deviceName \u003d\u003d deviceName\n    }?.deviceAddress\n}\n\nval intent \u003d ensureIntentReceived(action) { getDeviceAddress(it, deviceName) !\u003d null }\nreturn getDeviceAddress(intent, deviceName) ?: fail(\"Missing device in filtered intent\")\n```",
       "revId": "b0152ece2d816403c552fd10d14a2a37051a52bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
