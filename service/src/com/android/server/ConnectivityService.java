@@ -9400,8 +9400,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * interfaces.
      * Ingress discard rule is added to the address iff
      *   1. The address is not a link local address
-     *   2. The address is used by a single VPN interface and not used by any other
+     *   2. The address is used by a single non-Legacy VPN interface and not used by any other
      *      interfaces even non-VPN ones
+     * Ingress discard rule is not be added to Legacy VPN since some Legacy VPNs need to receive
+     * packet to VPN address via non-VPN interface.
      * This method can be called during network disconnects, when nai has already been removed from
      * mNetworkAgentInfos.
      *
@@ -9436,7 +9438,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // for different network.
         final Set<Pair<InetAddress, String>> ingressDiscardRules = new ArraySet<>();
         for (final NetworkAgentInfo agent : nais) {
-            if (!agent.isVPN() || agent.isDestroyed()) {
+            // Owner uid of Legacy VPN is SYSTEM_UID.
+            if (!agent.isVPN() || agent.isDestroyed()
+                    || agent.networkCapabilities.getOwnerUid() == Process.SYSTEM_UID) {
                 continue;
             }
             final LinkProperties agentLp = (nai == agent) ? lp : agent.linkProperties;

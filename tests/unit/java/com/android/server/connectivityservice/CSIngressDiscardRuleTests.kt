@@ -29,6 +29,7 @@ import android.net.NetworkRequest
 import android.net.VpnManager.TYPE_VPN_SERVICE
 import android.net.VpnTransportInfo
 import android.os.Build
+import android.os.Process
 import androidx.test.filters.SmallTest
 import com.android.server.connectivity.ConnectivityFlags
 import com.android.testutils.DevSdkIgnoreRule
@@ -49,19 +50,23 @@ private const val WIFI_IFNAME = "wlan0"
 private const val TIMEOUT_MS = 1_000L
 private const val LONG_TIMEOUT_MS = 5_000
 
-private fun vpnNc() = NetworkCapabilities.Builder()
-        .addTransportType(TRANSPORT_VPN)
-        .removeCapability(NET_CAPABILITY_NOT_VPN)
-        .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
-        .setTransportInfo(
-                VpnTransportInfo(
-                        TYPE_VPN_SERVICE,
-                        "MySession12345",
-                        false /* bypassable */,
-                        false /* longLivedTcpConnectionsExpensive */
-                )
-        )
-        .build()
+private fun vpnNc(legacyVpn: Boolean = false) = NetworkCapabilities.Builder().apply {
+    addTransportType(TRANSPORT_VPN)
+    removeCapability(NET_CAPABILITY_NOT_VPN)
+    addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+    if (legacyVpn) {
+        setAdministratorUids(intArrayOf(Process.SYSTEM_UID))
+        setOwnerUid(Process.SYSTEM_UID)
+    }
+    setTransportInfo(
+            VpnTransportInfo(
+                    TYPE_VPN_SERVICE,
+                    "MySession12345",
+                    false /* bypassable */,
+                    false /* longLivedTcpConnectionsExpensive */
+            )
+    )
+}.build()
 
 private fun wifiNc() = NetworkCapabilities.Builder()
         .addTransportType(TRANSPORT_WIFI)
@@ -308,6 +313,21 @@ class CSIngressDiscardRuleTests : CSTest() {
         cb.expectAvailableCallbacks(agent.network, validated = false)
 
         // IngressDiscardRule should not be added since feature is disabled
+        verify(bpfNetMaps, never()).setIngressDiscardRule(any(), any())
+    }
+
+    @Test
+    fun testVpnIngressDiscardRule_LegacyVpn() {
+        val nr = nr(TRANSPORT_VPN)
+        val cb = TestableNetworkCallback()
+        cm.registerNetworkCallback(nr, cb)
+        val nc = vpnNc(legacyVpn = true)
+        val lp = lp(VPN_IFNAME, IPV6_LINK_ADDRESS, LOCAL_IPV6_LINK_ADDRRESS)
+        val agent = Agent(nc = nc, lp = lp)
+        agent.connect()
+        cb.expectAvailableCallbacks(agent.network, validated = false)
+
+        // IngressDiscardRule should not be added to Legacy VPN
         verify(bpfNetMaps, never()).setIngressDiscardRule(any(), any())
     }
 }
