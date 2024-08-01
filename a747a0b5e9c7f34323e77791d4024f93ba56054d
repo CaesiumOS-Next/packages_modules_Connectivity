@@ -1,0 +1,435 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34346143_3c88c622",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "Code LGTM. Didn\u0027t look at the tests, but Motomu\u0027s review is probably sufficient.",
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "427f0b1f_88c58bbd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 3500,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "Add a comment explaining why it\u0027s OK to use these counters in this method even though they are concurrently incremented (not sure if they\u0027re decremented) on another thread.",
+      "range": {
+        "startLine": 3500,
+        "startChar": 16,
+        "endLine": 3500,
+        "endChar": 44
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6f632db_cf17dba9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 3524,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "Might want to explain what would need to change in our code if in the future the \"it is not possible for a process to be frozen during a blocking binder call\" limitation is removed.",
+      "range": {
+        "startLine": 3524,
+        "startChar": 54,
+        "endLine": 3524,
+        "endChar": 55
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59880d99_096c50d3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 3531,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "Does this also mean that if we get an UID_FROZEN_STATE_FROZEN for a UID more than once, the code is correct? Might want to state that (or not). See comment in onFrozen as well.",
+      "range": {
+        "startLine": 3531,
+        "startChar": 46,
+        "endLine": 3531,
+        "endChar": 47
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60fc4549_91b55ca5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7620,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "Should this say \"was already satisfied by\" instead of \"already matched\"? Or is \"satisfied\" only applicable for requests and not listens?",
+      "range": {
+        "startLine": 7620,
+        "startChar": 27,
+        "endLine": 7620,
+        "endChar": 44
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bc61388_ebf3f7c7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7866,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "Might want to talk about what happens if we get UID_FROZEN_STATE_FROZEN more than once for the same UID. This can definitely happen if the app is frozen, then killed, then restarted, then frozen, but that\u0027s fine because when it gets killed all the NRIs are now useless.\n\nBut can it can happen without the app getting killed? If so, would the code be correct?",
+      "range": {
+        "startLine": 7866,
+        "startChar": 79,
+        "endLine": 7866,
+        "endChar": 80
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e85bcf17_40fe7c14",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7882,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "intermediate",
+      "range": {
+        "startLine": 7882,
+        "startChar": 77,
+        "endLine": 7882,
+        "endChar": 89
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3280068c_03c058bc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7883,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "ignoreCallback?\n\nAlso, might want to add a comment about this boolean specifically. The comment right above it is confusing because it talks about skipping *previous* callbacks. Something like:\n\n    boolean ignoreCallback \u003d false;  // Whether to ignore this specific callback.\n\nor even:\n\n    boolean ignoreThisCallback \u003d false;",
+      "range": {
+        "startLine": 7883,
+        "startChar": 20,
+        "endLine": 7883,
+        "endChar": 32
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "672a09cb_58d62e01",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7894,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "All callbacks for this netId",
+      "range": {
+        "startLine": 7894,
+        "startChar": 23,
+        "endLine": 7894,
+        "endChar": 36
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30ecf2f1_f2d847e8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7895,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "previously queued for this netId",
+      "range": {
+        "startLine": 7895,
+        "startChar": 54,
+        "endLine": 7895,
+        "endChar": 65
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afac21f0_fd473ea0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7935,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "can appear in the queue",
+      "range": {
+        "startLine": 7935,
+        "startChar": 66,
+        "endLine": 7935,
+        "endChar": 81
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac898f06_b15d0f6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7936,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "if the new AVAILABLE suppressed intermediate AVAILABLEs for other networks. Example:",
+      "range": {
+        "startLine": 7936,
+        "startChar": 36,
+        "endLine": 7936,
+        "endChar": 99
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24f964fb_13bd26a5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7948,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "TODO: This code always adds the callback for simplicity. It would save CPU if the code instead...",
+      "range": {
+        "startLine": 7948,
+        "startChar": 23,
+        "endLine": 7948,
+        "endChar": 27
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e187135_43db10ab",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7948,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "This comment should contain the word TODO :-)",
+      "range": {
+        "startLine": 7948,
+        "startChar": 20,
+        "endLine": 7948,
+        "endChar": 22
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9320f68_0b290fa1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7954,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "Shrunken? Compacted? Minimized?",
+      "range": {
+        "startLine": 7954,
+        "startChar": 40,
+        "endLine": 7954,
+        "endChar": 48
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a457ce5_aaf4fe4e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7954,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "Might want to mention that this does a little bit more work than strictly necessary, but saves memory and simplifies...",
+      "range": {
+        "startLine": 7954,
+        "startChar": 12,
+        "endLine": 7954,
+        "endChar": 28
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49a9eb0b_1ce7ee97",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7961,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "Perhaps not here (maybe in onFrozen?), but would be good to explain when it can happen that this will be called multiple times.",
+      "range": {
+        "startLine": 7961,
+        "startChar": 34,
+        "endLine": 7961,
+        "endChar": 42
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91e24aef_e06112ac",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 7981,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "Nit on the comment: I think that when a network disconnects, LOST is always called first, even if there is a replacement? So maybe don\u0027t mention AVAILABLE here?",
+      "range": {
+        "startLine": 7981,
+        "startChar": 24,
+        "endLine": 7981,
+        "endChar": 36
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29b890b7_b09913ab",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 8010,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-01T10:06:35Z",
+      "side": 1,
+      "message": "\"queue\" instead of \"Add\"?\n\nOr maybe addAvaiableSubcallbacks?",
+      "range": {
+        "startLine": 8010,
+        "startChar": 21,
+        "endLine": 8010,
+        "endChar": 24
+      },
+      "revId": "a747a0b5e9c7f34323e77791d4024f93ba56054d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
