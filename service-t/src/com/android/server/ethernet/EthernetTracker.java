@@ -18,6 +18,7 @@ package com.android.server.ethernet;
 
 import static android.net.EthernetManager.ETHERNET_STATE_DISABLED;
 import static android.net.EthernetManager.ETHERNET_STATE_ENABLED;
+import static android.net.TestNetworkManager.CLAT_INTERFACE_PREFIX;
 import static android.net.TestNetworkManager.TEST_TAP_PREFIX;
 
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PACKAGE;
@@ -91,6 +92,8 @@ public class EthernetTracker {
     private static final boolean DBG = EthernetNetworkFactory.DBG;
 
     private static final String TEST_IFACE_REGEXP = TEST_TAP_PREFIX + "\\d+";
+    private static final String TEST_CLAT_IFACE_REGEXP =
+            CLAT_INTERFACE_PREFIX + TEST_TAP_PREFIX + "\\d+";
 
     // TODO: consider using SharedLog consistently across ethernet service.
     private static final SharedLog sLog = new SharedLog(TAG);
@@ -477,7 +480,8 @@ public class EthernetTracker {
         final Iterator<String> iterator = mIpConfigurations.keySet().iterator();
         while (iterator.hasNext()) {
             final String iface = iterator.next();
-            if (iface.matches(TEST_IFACE_REGEXP)) {
+            if (iface.matches(TEST_IFACE_REGEXP) || iface.matches(
+                    TEST_CLAT_IFACE_REGEXP)) {
                 mConfigStore.write(iface, null);
                 iterator.remove();
             }
@@ -485,7 +489,9 @@ public class EthernetTracker {
     }
 
     private void removeTestCapabilityData() {
-        mNetworkCapabilities.keySet().removeIf(iface -> iface.matches(TEST_IFACE_REGEXP));
+        mNetworkCapabilities.keySet().removeIf(
+                iface -> iface.matches(TEST_IFACE_REGEXP) || iface.matches(
+                        TEST_CLAT_IFACE_REGEXP));
     }
 
     public void requestTetheredInterface(ITetheredInterfaceCallback callback) {
@@ -860,6 +866,11 @@ public class EthernetTracker {
                     }
                 }
             }
+        } else {
+            builder
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
         }
         // Ethernet networks have no way to update the following capabilities, so they always
         // have them.
@@ -947,7 +958,8 @@ public class EthernetTracker {
      * interface prefix, {@code false} otherwise.
      */
     public boolean isValidTestInterface(@NonNull final String iface) {
-        return mIncludeTestInterfaces && iface.matches(TEST_IFACE_REGEXP);
+        return mIncludeTestInterfaces && (iface.matches(TEST_IFACE_REGEXP) || iface.matches(
+                TEST_CLAT_IFACE_REGEXP));
     }
 
     private void postAndWaitForRunnable(Runnable r) {

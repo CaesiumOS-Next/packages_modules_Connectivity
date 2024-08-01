@@ -278,6 +278,31 @@ public class TestNetworkManager {
     }
 
     /**
+     * Create a tap interface with or without carrier and the given interface name
+     * for testing purposes.
+     *
+     * Note: setting carrierUp = false is not supported until kernel version 6.0.
+     *
+     * @param carrierUp whether the created interface has a carrier or not.
+     * @param bringUp whether to bring up the interface before returning it.
+     * @param iface interface name to be assigned, so far only interface name which starts with
+     *              "v4-testtap" or "v4-testtun" is allowed to be created. If it's null, then use
+     *              the default name(e.g. testtap or testtun).
+     * @hide
+     */
+    @RequiresPermission(Manifest.permission.MANAGE_TEST_NETWORKS)
+    @NonNull
+    public TestNetworkInterface createTapInterface(boolean carrierUp, boolean bringUp,
+            String iface) {
+        try {
+            return mService.createInterface(TAP, carrierUp, bringUp, USE_IPV6_PROV_DELAY, NO_ADDRS,
+                    iface);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Create a tap interface for testing purposes.
      *
      * Note: setting carrierUp = false is not supported until kernel version 6.0.
