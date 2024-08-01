@@ -20,6 +20,7 @@ import android.Manifest.permission;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
+import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -389,6 +390,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
      * Dump DiscoveryManager state.
      */
     public void dump(PrintWriter pw) {
+        final ConditionVariable conditionVariable = new ConditionVariable();
         discoveryExecutor.checkAndRunOnHandlerThread(() -> {
             pw.println();
             // Dump ServiceTypeClients
@@ -396,6 +398,9 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
                     : perSocketServiceTypeClients.getAllMdnsServiceTypeClient()) {
                 serviceTypeClient.dump(pw);
             }
+            conditionVariable.open();
         });
+        // Block until the service dump is completed.
+        conditionVariable.block();
     }
 }
