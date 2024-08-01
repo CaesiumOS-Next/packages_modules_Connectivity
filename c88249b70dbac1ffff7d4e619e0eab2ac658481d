@@ -1,0 +1,137 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95febc3a_69b01775",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-01T03:26:33Z",
+      "side": 1,
+      "message": "The naming looks weird because it is actually a BroadcstReceiver.\nMaybe just TestIntentReceiver?",
+      "range": {
+        "startLine": 58,
+        "startChar": 18,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "c88249b70dbac1ffff7d4e619e0eab2ac658481d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a2f02d5_aa436d2e",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-01T03:26:33Z",
+      "side": 1,
+      "message": "It seems this has to be sync with registered intent filter.\nThis is kind of errorprone, maybe still check the action and throw for unknown intent?",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 72,
+        "endChar": 13
+      },
+      "revId": "c88249b70dbac1ffff7d4e619e0eab2ac658481d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f9200eb_a41e8b92",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-01T03:26:33Z",
+      "side": 1,
+      "message": "nit: Should this be private?",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 173,
+        "endChar": 7
+      },
+      "revId": "c88249b70dbac1ffff7d4e619e0eab2ac658481d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7836b183_00eb1487",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-01T03:26:33Z",
+      "side": 1,
+      "message": "Maybe add comment about in what case this is normal,\nor make it nonnull and throw if not normal?",
+      "range": {
+        "startLine": 173,
+        "startChar": 80,
+        "endLine": 173,
+        "endChar": 81
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ae28e536_60542738",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 173,
+                "startChar": 0,
+                "endLine": 173,
+                "endChar": 0
+              },
+              "replacement": "    /**\n     * Get the device address from the given intent.\n     *\n     * @param peersChangedIntent the intent to get the device address from\n     * @param deviceName the target device name\n     * @return the address of the target device.\n     */\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c88249b70dbac1ffff7d4e619e0eab2ac658481d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "843ee6df_7fa5e9cb",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-01T03:26:33Z",
+      "side": 1,
+      "message": "Lint error you might want to check it out:\n\nPlease fix this WARNING reported by Build Warnings: \u0027getParcelableExtra(String!): T?\u0027 is deprecated. Deprecated in Java\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    \u0027getParcelableExtra(String!): T?\u0027 is deprecated. Deprecated in Java\n                    peersChangedIntent.getParcelableExtra(WifiP2pManager.EXTRA_P2P_DEVICE_LIST)\n                                       ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P78444522/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 175,
+        "startChar": 35,
+        "endLine": 175,
+        "endChar": 91
+      },
+      "revId": "c88249b70dbac1ffff7d4e619e0eab2ac658481d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
