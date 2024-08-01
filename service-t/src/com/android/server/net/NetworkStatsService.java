@@ -51,10 +51,6 @@ import static android.net.NetworkTemplate.MATCH_TEST;
 import static android.net.NetworkTemplate.MATCH_WIFI;
 import static android.net.TrafficStats.KB_IN_BYTES;
 import static android.net.TrafficStats.MB_IN_BYTES;
-import static android.net.TrafficStats.TYPE_RX_BYTES;
-import static android.net.TrafficStats.TYPE_RX_PACKETS;
-import static android.net.TrafficStats.TYPE_TX_BYTES;
-import static android.net.TrafficStats.TYPE_TX_PACKETS;
 import static android.net.TrafficStats.UID_TETHERING;
 import static android.net.TrafficStats.UNSUPPORTED;
 import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE;
@@ -74,12 +70,14 @@ import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIV
 import static com.android.net.module.util.DeviceConfigUtils.getDeviceConfigPropertyInt;
 import static com.android.net.module.util.NetworkCapabilitiesUtils.getDisplayTransport;
 import static com.android.net.module.util.NetworkStatsUtils.LIMIT_GLOBAL_ALERT;
-import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_PERIODIC;
+import static com.android.net.module.util.NetworkStatsUtils.getEntryValueForType;
+import static com.android.net.module.util.NetworkStatsUtils.isEntryValueTypeValid;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_DUMPSYS;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_FORCE_UPDATE;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_GLOBAL_ALERT;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_NETWORK_STATUS_CHANGED;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_OPEN_SESSION;
+import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_PERIODIC;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_RAT_CHANGED;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_REG_CALLBACK;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_REMOVE_UIDS;
@@ -2096,22 +2094,39 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
     }
 
+    // yunchenc
     @Override
+    public NetworkStats getTypelessUidStats(int uid) {
+        final int callingUid = Binder.getCallingUid();
+        if (callingUid != android.os.Process.SYSTEM_UID && callingUid != uid) {
+            return null; // will become UNSUPPORTED when go back to client
+        }
+        if (mAlwaysUseTrafficStatsRateLimitCache
+                || mDeps.isChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, callingUid)) {
+            final NetworkStats stats = mTrafficStatsUidCache.getOrCompute2(IFACE_ALL, uid,
+                    () -> mDeps.nativeGetUidStat(uid));
+            return stats;
+        }
+
+        // client side cache feature is not enabled
+        NetworkStats.Entry entry = mDeps.nativeGetUidStat(uid);
+        NetworkStats stats = null;
+        if (entry != null) {
+            // check that the clocks are consistent, yunchenc
+            stats = new NetworkStats(mClock.millis(), 1);
+            stats.insertEntry(entry);
+        }
+        return stats;
+    }
+    @Override
+    // yunchenc: refactor so that they have the same call path (for backward compatibility)
     public long getUidStats(int uid, int type) {
         final int callingUid = Binder.getCallingUid();
         if (callingUid != android.os.Process.SYSTEM_UID && callingUid != uid) {
             return UNSUPPORTED;
         }
-        if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
-
-        if (mAlwaysUseTrafficStatsRateLimitCache
-                || mDeps.isChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, callingUid)) {
-            final NetworkStats.Entry entry = mTrafficStatsUidCache.getOrCompute(IFACE_ALL, uid,
-                    () -> mDeps.nativeGetUidStat(uid));
-            return getEntryValueForType(entry, type);
-        }
-
-        return getEntryValueForType(mDeps.nativeGetUidStat(uid), type);
+        NetworkStats stats = getTypelessUidStats(uid);
+        return NetworkStatsUtils.getEntryValueForTypeFromStats(stats, type);
     }
 
     @Nullable
@@ -2144,35 +2159,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return getEntryValueForType(getIfaceStatsInternal(iface), type);
     }
 
-    private long getEntryValueForType(@Nullable NetworkStats.Entry entry, int type) {
-        if (entry == null) return UNSUPPORTED;
-        if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
-        switch (type) {
-            case TYPE_RX_BYTES:
-                return entry.rxBytes;
-            case TYPE_RX_PACKETS:
-                return entry.rxPackets;
-            case TYPE_TX_BYTES:
-                return entry.txBytes;
-            case TYPE_TX_PACKETS:
-                return entry.txPackets;
-            default:
-                throw new IllegalStateException("Bug: Invalid type: "
-                        + type + " should not reach here.");
-        }
-    }
-
-    private boolean isEntryValueTypeValid(int type) {
-        switch (type) {
-            case TYPE_RX_BYTES:
-            case TYPE_RX_PACKETS:
-            case TYPE_TX_BYTES:
-            case TYPE_TX_PACKETS:
-                return true;
-            default :
-                return false;
-        }
-    }
 
     @Nullable
     private NetworkStats.Entry getTotalStatsInternal() {

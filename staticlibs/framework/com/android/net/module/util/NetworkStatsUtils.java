@@ -15,10 +15,20 @@
  */
 
 package com.android.net.module.util;
+/*
+import static android.net.TrafficStats.TYPE_RX_BYTES;
+import static android.net.TrafficStats.TYPE_RX_PACKETS;
+import static android.net.TrafficStats.TYPE_TX_BYTES;
+import static android.net.TrafficStats.TYPE_TX_PACKETS;
+*/
+import static android.net.TrafficStats.UNSUPPORTED;
 
+import android.annotation.Nullable;
 import android.app.usage.NetworkStats;
 
 import com.android.internal.annotations.VisibleForTesting;
+
+import java.util.Iterator;
 
 /**
  * Various utilities used for NetworkStats related code.
@@ -33,6 +43,16 @@ public class NetworkStatsUtils {
     private static final int ROAMING_ALL = -1;
     private static final int DEFAULT_NETWORK_ALL = -1;
 
+    // NOTE: keep these in sync with {@code com_android_server_net_NetworkStatsService.cpp}.
+    // Just moved from traffic stats
+    /** {@hide} */
+    public static final int TYPE_RX_BYTES = 0;
+    /** {@hide} */
+    public static final int TYPE_RX_PACKETS = 1;
+    /** {@hide} */
+    public static final int TYPE_TX_BYTES = 2;
+    /** {@hide} */
+    public static final int TYPE_TX_PACKETS = 3;
     /**
      * Safely multiple a value by a rational.
      * <p>
@@ -171,5 +191,46 @@ public class NetworkStatsUtils {
                 return android.net.NetworkStats.DEFAULT_NETWORK_YES;
         }
         return 0;
+    }
+
+    // yunchenc: moved from NetworkStats Service
+    public static long getEntryValueForTypeFromStats(android.net.NetworkStats stats, int type) {
+        if (stats == null) {
+            return UNSUPPORTED;
+        }
+        Iterator<android.net.NetworkStats.Entry> iter = stats.iterator();
+        assert iter.hasNext();
+        android.net.NetworkStats.Entry entry = iter.next();
+        return getEntryValueForType(entry, type);
+    }
+    public static long getEntryValueForType(@Nullable android.net.NetworkStats.Entry entry, int type) {
+        if (entry == null) return UNSUPPORTED;
+        if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
+        switch (type) {
+            case TYPE_RX_BYTES:
+                return entry.getRxBytes();
+            case TYPE_RX_PACKETS:
+                return entry.getRxPackets();
+            case TYPE_TX_BYTES:
+                return entry.getTxBytes();
+            case TYPE_TX_PACKETS:
+                return entry.getTxPackets();
+            default:
+                throw new IllegalStateException("Bug: Invalid type: "
+                        + type + " should not reach here.");
+        }
+    }
+
+    // yunchenc: moved from NetworkStatsService
+    public static boolean isEntryValueTypeValid(int type) {
+        switch (type) {
+            case TYPE_RX_BYTES:
+            case TYPE_RX_PACKETS:
+            case TYPE_TX_BYTES:
+            case TYPE_TX_PACKETS:
+                return true;
+            default :
+                return false;
+        }
     }
 }
