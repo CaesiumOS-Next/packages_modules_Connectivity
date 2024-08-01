@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5994225c_988bfc1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-01T01:24:32Z",
+      "side": 1,
+      "message": "Typo: classes",
+      "range": {
+        "startLine": 16,
+        "startChar": 25,
+        "endLine": 16,
+        "endChar": 31
+      },
+      "revId": "ec6242178db379812d4e95bc2ebd9fbe51b8e101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c3bb91f_c4ea1a4a",
+        "filename": "tests/cts/multidevices/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-01T01:24:32Z",
+      "side": 1,
+      "message": "Nit: should that be renamed to something like tethering_test now ?",
+      "revId": "ec6242178db379812d4e95bc2ebd9fbe51b8e101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac1f7cdd_60304f51",
         "filename": "tests/cts/multidevices/apfv4_test.py",
         "patchSetId": 6
