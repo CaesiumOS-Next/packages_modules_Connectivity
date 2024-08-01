@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "466715ff_0f4ab45c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-01T14:42:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1955c99a_d512f884",
+      "revId": "3d49cd62ac276f2a7636012c1de1d48d8eee258e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a18a415_c1e08fc5",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-07-31T03:35:07Z",
       "side": 1,
       "message": "Instead of creating a custom taskConfig that simulates the current queryCount being after numOfQueriesBeforeBackoff, could you just call scheduleNextRun with numOfQueriesBeforeBackoff \u003d 0 ? I think the result would be basically the same if there\u0027s a service with a reasonable TTL left ?",
+      "revId": "3d49cd62ac276f2a7636012c1de1d48d8eee258e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a667e08c_ec622c08",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-01T14:42:56Z",
+      "side": 1,
+      "message": "As we discussed in the meeting, setting `numOfQueriesBeforeBackoff \u003d 0` wasn\u0027t working. I\u0027ve added a bit in `QueryTaskConfig#shouldUseQueryBackoff()` to use the query backoff directly if there\u0027s a service in the cache while in aggressive mode. This aligns with the current design and should simplify things overall.",
+      "parentUuid": "2a18a415_c1e08fc5",
       "revId": "3d49cd62ac276f2a7636012c1de1d48d8eee258e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

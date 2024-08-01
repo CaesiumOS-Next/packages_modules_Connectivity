@@ -128,6 +128,24 @@
       "parentUuid": "1d71cd4a_a2fa883e",
       "revId": "9e0fca9a0a2ec8d1165ac55f74ee7b398ad09da9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e570fa25_8259bc7a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-01T14:42:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9384878f_ff3edc14",
+      "revId": "9e0fca9a0a2ec8d1165ac55f74ee7b398ad09da9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
