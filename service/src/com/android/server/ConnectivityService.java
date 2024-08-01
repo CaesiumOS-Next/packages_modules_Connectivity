@@ -9436,7 +9436,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // for different network.
         final Set<Pair<InetAddress, String>> ingressDiscardRules = new ArraySet<>();
         for (final NetworkAgentInfo agent : nais) {
-            if (!agent.isVPN() || agent.isDestroyed()) {
+            // Ingress discard rule should not be added to Legacy VPN since some Legacy VPN types
+            // need to receive packet to VPN address via non-VPN interface.
+            // Owner uid of Legacy VPN is SYSTEM_UID.
+            if (!agent.isVPN() || agent.isDestroyed()
+                    || agent.networkCapabilities.getOwnerUid() == Process.SYSTEM_UID) {
                 continue;
             }
             final LinkProperties agentLp = (nai == agent) ? lp : agent.linkProperties;
