@@ -22,6 +22,30 @@
       },
       "revId": "02193c0cce161a44f05535c0e214295534876eb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7df83f7b_8b8fbb19",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-01T02:50:41Z",
+      "side": 0,
+      "message": "Yes and no.\n\nFor the mainline module, we are using MdnsMultinetworkSocketClient, and the passed-in SocketKey is the same as the CacheKey it has. The MdnsDiscoveryManager#handleOnResponseReceived has a check to ensure that.\n\nHowever, GMScore is using MdnsSocketClient, which means that MdnsDiscoveryManager#getMdnsServiceTypeClient returns all service type clients and passes a SocketKey to process a response. The passed-in SocketKey might be different from the CacheKey. Therefore, this is a behavior change for GMScore. I think the problem is that this change returns incorrect service type clients that are unrelated to the SocketKey in `getMdnsServiceTypeClient()`.\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/2593907/6/service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java\n\nUnfortunately, we didn\u0027t have a way to verify the design with MdnsSocketClient before. Thanks for figuring out a way to run the test with MdnsSocketClient.",
+      "parentUuid": "bf75b601_99bbf234",
+      "range": {
+        "startLine": 408,
+        "startChar": 47,
+        "endLine": 408,
+        "endChar": 69
+      },
+      "revId": "02193c0cce161a44f05535c0e214295534876eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
