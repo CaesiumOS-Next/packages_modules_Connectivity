@@ -33,13 +33,19 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.RemoteException;
 import android.os.StrictMode;
+import android.os.SystemClock;
 import android.util.Log;
+import android.util.LruCache;
+
+import com.android.net.module.util.NetworkStatsUtils;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
+
+//import sun.nio.ch.Net;
 
 /**
  * Class that provides network traffic statistics. These statistics include
@@ -176,6 +182,11 @@ public class TrafficStats {
 
     private static INetworkStatsService sStatsService;
 
+    // yunchenc
+    private static LruCache<Integer, NetworkStats> sTrafficStatsUidCache;
+
+
+
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P, trackingBug = 130143562)
     private synchronized static INetworkStatsService getStatsService() {
         if (sStatsService == null) {
@@ -223,6 +234,8 @@ public class TrafficStats {
             return;
         }
         sStatsService = statsManager.getBinder();
+        sTrafficStatsUidCache = new LruCache<Integer, NetworkStats>(100);
+
     }
 
     /**
@@ -932,12 +945,41 @@ public class TrafficStats {
      * @see android.os.Process#myUid()
      * @see android.content.pm.ApplicationInfo#uid
      */
-    public static long getUidTxBytes(int uid) {
-        try {
-            return getStatsService().getUidStats(uid, TYPE_TX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
+    /**
+     * @hide
+     */
+
+    /**
+     * @hide
+     * @param uid
+     * @param type
+     * @return
+     */
+    // yunchenc
+    public static long getCachedUidStats(int uid, int type) {
+        if (!NetworkStatsUtils.isEntryValueTypeValid(type)) {
+            return UNSUPPORTED;
         }
+        NetworkStats stats = sTrafficStatsUidCache.get(new Integer(uid));
+        if (stats == null || SystemClock.uptimeMillis()
+                - stats.getElapsedRealtime() > 1000)   {
+            try {
+                stats = getStatsService().getTypelessUidStats(uid);
+                // do I have to cache if the thing is empty ?
+                if (stats != null) {
+                    sTrafficStatsUidCache.put(new Integer(uid), stats);
+                }
+            } catch (RemoteException e) {
+                throw e.rethrowFromSystemServer();
+            }
+        }
+       return NetworkStatsUtils.getEntryValueForTypeFromStats(stats, type);
+    }
+
+    // yunchenc: first API to change
+    // TODO: add tweakable feature
+    public static long getUidTxBytes(int uid) {
+        return getCachedUidStats(uid, TYPE_TX_BYTES);
     }
 
     /**

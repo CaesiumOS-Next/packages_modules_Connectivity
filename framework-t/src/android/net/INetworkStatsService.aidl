@@ -80,6 +80,9 @@ interface INetworkStatsService {
     /** Get the uid stats information since boot */
     long getUidStats(int uid, int type);
 
+    // yunchenc: new function
+    NetworkStats getTypelessUidStats(int uid);
+
     /** Get the iface stats information since boot */
     long getIfaceStats(String iface, int type);
 

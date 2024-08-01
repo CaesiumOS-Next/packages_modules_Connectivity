@@ -16,6 +16,7 @@
 
 package com.android.server.net;
 
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.NetworkStats;
@@ -26,11 +27,11 @@ import com.android.internal.annotations.GuardedBy;
 import java.time.Clock;
 import java.util.Objects;
 import java.util.function.Supplier;
-
 /**
  * A thread-safe cache for storing and retrieving {@link NetworkStats.Entry} objects,
  * with an adjustable expiry duration to manage data freshness.
  */
+
 class TrafficStatsRateLimitCache {
     private final Clock mClock;
     private final long mExpiryDurationMs;
@@ -42,6 +43,7 @@ class TrafficStatsRateLimitCache {
      * @param expiryDurationMs The expiry duration in milliseconds.
      * @param maxSize Maximum number of entries.
      */
+
     TrafficStatsRateLimitCache(@NonNull Clock clock, long expiryDurationMs, int maxSize) {
         mClock = clock;
         mExpiryDurationMs = expiryDurationMs;
@@ -94,12 +96,13 @@ class TrafficStatsRateLimitCache {
      * @return The cached {@link NetworkStats.Entry}, or null if not found or expired.
      */
     @Nullable
-    NetworkStats.Entry get(String iface, int uid) {
+    // yunchenc: change return type from NetworkStats.Entry to CacheValue
+    TrafficStatsCacheValue get(String iface, int uid) {
         final TrafficStatsCacheKey key = new TrafficStatsCacheKey(iface, uid);
         synchronized (mMap) { // Synchronize for thread-safety
             final TrafficStatsCacheValue value = mMap.get(key);
             if (value != null && !isExpired(value.timestamp)) {
-                return value.entry;
+                return value;
             } else {
                 mMap.remove(key); // Remove expired entries
                 return null;
@@ -119,13 +122,15 @@ class TrafficStatsRateLimitCache {
      * @return The cached or computed {@link NetworkStats.Entry}, or null if not found, expired,
      *         or if the {@code supplier} returns null.
      */
+    /*
+    yunchenc: should be removed after full implementation
     @Nullable
     NetworkStats.Entry getOrCompute(String iface, int uid,
             @NonNull Supplier<NetworkStats.Entry> supplier) {
         synchronized (mMap) {
-            final NetworkStats.Entry cachedValue = get(iface, uid);
+            final TrafficStatsCacheValue cachedValue = get(iface, uid);
             if (cachedValue != null) {
-                return cachedValue;
+                return cachedValue.entry;
             }
 
             // Entry not found or expired, compute it
@@ -136,7 +141,41 @@ class TrafficStatsRateLimitCache {
             return computedEntry;
         }
     }
+     */
+    // yunchenc: version of getOrCompute where the return type is NetworkStats
+    NetworkStats getOrCompute2(String iface, int uid,
+            @NonNull Supplier<NetworkStats.Entry> supplier) {
+        synchronized (mMap) {
+            TrafficStatsCacheValue cachedValue = get(iface, uid);
 
+            if (cachedValue == null) {
+                final NetworkStats.Entry computedEntry = supplier.get();
+                long currentTime = mClock.millis();
+
+                // yunchenc: put in cache or not
+                if (computedEntry == null) {
+                    return null;
+                }
+                cachedValue = new TrafficStatsCacheValue(currentTime, computedEntry);
+                if (!computedEntry.isEmpty()) {
+                    put(iface, uid, cachedValue);
+                }
+            }
+
+            NetworkStats cachedStats = new NetworkStats(cachedValue.timestamp, 1);
+            cachedStats.insertEntry(cachedValue.entry);
+            return cachedStats;
+        }
+    }
+
+    // yunchenc
+    void put(String iface, int uid, @NonNull final TrafficStatsCacheValue cacheValue) {
+        Objects.requireNonNull(cacheValue);
+        final TrafficStatsCacheKey key = new TrafficStatsCacheKey(iface, uid);
+        synchronized (mMap) { // Synchronize for thread-safety
+            mMap.put(key, cacheValue);
+        }
+    }
     /**
      * Stores a {@link NetworkStats.Entry} in the cache, associated with the given key.
      *
@@ -144,6 +183,8 @@ class TrafficStatsRateLimitCache {
      * @param uid   The UID to include in the cache key. {@code UID_ALL} if not applicable.
      * @param entry The {@link NetworkStats.Entry} to store in the cache.
      */
+    /*
+    yunchenc: should be removed after full implementation
     void put(String iface, int uid, @NonNull final NetworkStats.Entry entry) {
         Objects.requireNonNull(entry);
         final TrafficStatsCacheKey key = new TrafficStatsCacheKey(iface, uid);
@@ -152,9 +193,12 @@ class TrafficStatsRateLimitCache {
         }
     }
 
+     */
+
     /**
      * Clear the cache.
      */
+    @FlaggedApi("Internal Use Only")
     void clear() {
         synchronized (mMap) {
             mMap.evictAll();
