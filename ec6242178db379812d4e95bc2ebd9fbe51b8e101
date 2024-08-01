@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ece38d_8ca31f6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-01T03:31:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5994225c_988bfc1c",
+      "range": {
+        "startLine": 16,
+        "startChar": 25,
+        "endLine": 16,
+        "endChar": 31
+      },
+      "revId": "ec6242178db379812d4e95bc2ebd9fbe51b8e101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c3bb91f_c4ea1a4a",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-08-01T01:24:32Z",
       "side": 1,
       "message": "Nit: should that be renamed to something like tethering_test now ?",
+      "revId": "ec6242178db379812d4e95bc2ebd9fbe51b8e101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6e76047_a3c77f4d",
+        "filename": "tests/cts/multidevices/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-01T03:31:32Z",
+      "side": 1,
+      "message": "Ack, will address in follow-up to unblock jimi\u0027s work first.",
+      "parentUuid": "0c3bb91f_c4ea1a4a",
       "revId": "ec6242178db379812d4e95bc2ebd9fbe51b8e101",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
