@@ -18,6 +18,7 @@ package com.android.server.ethernet;
 
 import static android.net.EthernetManager.ETHERNET_STATE_DISABLED;
 import static android.net.EthernetManager.ETHERNET_STATE_ENABLED;
+import static android.net.TestNetworkManager.CLAT_INTERFACE_PREFIX;
 import static android.net.TestNetworkManager.TEST_TAP_PREFIX;
 
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PACKAGE;
@@ -95,7 +96,9 @@ public class EthernetTracker {
     private static final String TAG = EthernetTracker.class.getSimpleName();
     private static final boolean DBG = EthernetNetworkFactory.DBG;
 
-    private static final String TEST_IFACE_REGEXP = TEST_TAP_PREFIX + "\\d+";
+    // Matches test interface names with optional CLAT prefix
+    private static final String TEST_IFACE_REGEXP =
+            "(" + CLAT_INTERFACE_PREFIX + ")?" + TEST_TAP_PREFIX + "\\d+";
 
     // TODO: consider using SharedLog consistently across ethernet service.
     private static final SharedLog sLog = new SharedLog(TAG);
@@ -843,6 +846,11 @@ public class EthernetTracker {
                     }
                 }
             }
+        } else {
+            builder
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
         }
         // Ethernet networks have no way to update the following capabilities, so they always
         // have them.

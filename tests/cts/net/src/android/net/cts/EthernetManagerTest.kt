@@ -19,6 +19,7 @@ import android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
+import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.EthernetManager
 import android.net.EthernetManager.ETHERNET_STATE_DISABLED
@@ -41,6 +42,7 @@ import android.net.LinkAddress
 import android.net.MacAddress
 import android.net.Network
 import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
@@ -51,6 +53,8 @@ import android.net.NetworkRequest
 import android.net.StaticIpConfiguration
 import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
+import android.net.TestNetworkManager.CLAT_INTERFACE_PREFIX
+import android.net.TestNetworkManager.TEST_TAP_PREFIX
 import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.EthernetStateChanged
 import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.InterfaceStateChanged
 import android.os.Build
@@ -62,17 +66,18 @@ import android.os.SystemProperties
 import android.platform.test.annotations.AppModeFull
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.DeviceConfigUtils
 import com.android.net.module.util.TrackRecord
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.DeviceInfoUtils.isKernelVersionAtLeast
+import com.android.testutils.PollPacketReader
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.RouterAdvertisementResponder
-import com.android.testutils.PollPacketReader
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.assertThrows
 import com.android.testutils.runAsShell
@@ -109,6 +114,8 @@ private const val TIMEOUT_MS = 10_000L
 // process all callbacks including ip provisioning when using the updateConfiguration API.
 // Note that increasing this timeout increases the test duration.
 private const val NO_CALLBACK_TIMEOUT_MS = 500L
+// Matches to test interface names
+private const val TEST_CLAT_IFACE_REGEXP = "$CLAT_INTERFACE_PREFIX$TEST_TAP_PREFIX\\d+"
 
 private val DEFAULT_IP_CONFIGURATION = IpConfiguration(IpConfiguration.IpAssignment.DHCP,
         IpConfiguration.ProxySettings.NONE, null, null)
@@ -151,7 +158,8 @@ class EthernetManagerTest {
     private class EthernetTestInterface(
         context: Context,
         private val handler: Handler,
-        hasCarrier: Boolean
+        hasCarrier: Boolean,
+        ifaceName: String?
     ) {
         private val tapInterface: TestNetworkInterface
         private val packetReader: PollPacketReader
@@ -169,7 +177,7 @@ class EthernetManagerTest {
                 // false, it is subsequently disabled. This means that the interface may briefly get
                 // link. With IPv6 provisioning delays (RS delay and DAD) disabled, this can cause
                 // tests that expect no network to come up when hasCarrier is false to become flaky.
-                tnm.createTapInterface(hasCarrier, false /* bringUp */)
+                tnm.createTapInterface(hasCarrier, false /* bringUp */, ifaceName)
             }
             val mtu = tapInterface.mtu
             packetReader = PollPacketReader(
@@ -343,6 +351,13 @@ class EthernetManagerTest {
         }
     }
 
+    private class EthernetInterfaceConfig(tokens: List<String?>) {
+        val mIface: String? = tokens.getOrNull(0)
+        val mCapabilities: String? = tokens.getOrNull(1)
+        val mIpConfig: String? = tokens.getOrNull(2)?.takeIf { it.isNotEmpty() }
+        val mTransport: String? = tokens.getOrNull(3)
+    }
+
     private fun isEthernetSupported(): Boolean {
         return context.getSystemService(EthernetManager::class.java) != null
     }
@@ -422,11 +437,15 @@ class EthernetManagerTest {
 
     // WARNING: setting hasCarrier to false requires kernel support. Call
     // assumeCreateInterfaceWithoutCarrierSupported() at the top of your test.
-    private fun createInterface(hasCarrier: Boolean = true): EthernetTestInterface {
+    private fun createInterface(
+        hasCarrier: Boolean = true,
+        ifaceName: String? = null
+    ): EthernetTestInterface {
         val iface = EthernetTestInterface(
             context,
             handler,
-            hasCarrier
+            hasCarrier,
+            ifaceName
         ).also { createdIfaces.add(it) }
 
         // when an interface comes up, we should always see a down cb before an up cb.
@@ -511,6 +530,12 @@ class EthernetManagerTest {
                 handler::post,
                 it)
         }
+    }
+
+    private fun getConnectivityResources(): Resources {
+        val resourcePackage = DeviceConfigUtils.getConnectivityResourcesPackageName(context)
+        val packageContext = context.createPackageContext(resourcePackage, 0 /* flags */)
+        return packageContext.resources
     }
 
     // WARNING: check that isAdbOverEthernet() is false before calling setEthernetEnabled(false).
@@ -1109,5 +1134,48 @@ class EthernetManagerTest {
         assertThat(ifaces).contains(iface2.name)
 
         removeInterface(iface2)
+    }
+
+    private fun assumeEthernetInterfaceConfig(): List<EthernetInterfaceConfig> {
+        val resources = getConnectivityResources()
+        val ethernetInterfaceResId = resources.getIdentifier(
+            "config_ethernet_interfaces",
+            "array",
+            "com.google.android.connectivity.resources.cuttlefish"
+        )
+        assumeTrue("Ethernet interface id", ethernetInterfaceResId != 0)
+
+        val interfaces = resources.getStringArray(ethernetInterfaceResId)
+        val ethernetInterfaceConfigs = interfaces.mapNotNull { ifaceString ->
+            EthernetInterfaceConfig(ifaceString.split(";", limit = 4))
+        }.filter {
+            // Filter for the test interfaces.
+            it.mIface?.matches(TEST_CLAT_IFACE_REGEXP.toRegex()) == true
+        }
+        assumeTrue(
+            "Ethernet interface configurations",
+            ethernetInterfaceConfigs.isNotEmpty()
+        )
+        return ethernetInterfaceConfigs
+    }
+
+    @Test
+    fun testDefaultNetworkCapabilitiesIncludesInternet() {
+        val interfaces = assumeEthernetInterfaceConfig()
+
+        for (ethInterface in interfaces) {
+            if (ethInterface.mCapabilities.isNullOrEmpty()) {
+                val iface = createInterface(ifaceName = ethInterface.mIface)
+
+                // Make sure the default network capabilities from parsing
+                // the interface includes internet.
+                val request =
+                    NetworkRequest.Builder(ETH_REQUEST.copyWithEthernetSpecifier(iface.name))
+                        .addCapability(NET_CAPABILITY_INTERNET)
+                        .build()
+                val cb = requestNetwork(request)
+                cb.expect<Available>()
+            }
+        }
     }
 }
