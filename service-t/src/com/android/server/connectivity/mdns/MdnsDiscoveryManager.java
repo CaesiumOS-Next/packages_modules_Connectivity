@@ -33,6 +33,7 @@ import androidx.annotation.GuardedBy;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.DnsUtils;
+import com.android.net.module.util.HandlerUtils;
 import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
@@ -211,6 +212,16 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         void ensureRunningOnHandlerThread() {
             synchronized (pendingTasks) {
                 MdnsUtils.ensureRunningOnHandlerThread(handler);
+            }
+        }
+
+        public void runWithScissorsForDump(@NonNull Runnable function) {
+            synchronized (pendingTasks) {
+                if (this.handler == null) {
+                    Log.d(TAG, "The handler is not ready. Ignore the DiscoveryManager dump");
+                    return;
+                }
+                HandlerUtils.runWithScissorsForDump(handler, function, 10_000);
             }
         }
     }
@@ -469,7 +480,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
      * Dump DiscoveryManager state.
      */
     public void dump(PrintWriter pw) {
-        discoveryExecutor.checkAndRunOnHandlerThread(() -> {
+        discoveryExecutor.runWithScissorsForDump(() -> {
             pw.println("Clients:");
             // Dump ServiceTypeClients
             for (MdnsServiceTypeClient serviceTypeClient
