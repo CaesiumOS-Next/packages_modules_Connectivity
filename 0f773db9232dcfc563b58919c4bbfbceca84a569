@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ef825e8_ad3b6e96",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-08-02T19:05:53Z",
+      "side": 1,
+      "message": "Just saw that this is done in aosp/2639634",
+      "parentUuid": "1b334648_9c83f07a",
+      "range": {
+        "startLine": 196,
+        "startChar": 12,
+        "endLine": 196,
+        "endChar": 28
+      },
+      "revId": "0f773db9232dcfc563b58919c4bbfbceca84a569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a830072e_2727e647",
