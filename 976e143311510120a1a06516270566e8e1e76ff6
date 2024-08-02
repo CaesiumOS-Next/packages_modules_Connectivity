@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8da0d0c_109ac9b8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsResponse.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-02T07:22:08Z",
+      "side": 1,
+      "message": "That doesn\u0027t seem correct, I think lastUpdateTime is relative to SystemClock.elapsedRealtime ? So this is adding the time since boot to the current time ?",
+      "range": {
+        "startLine": 442,
+        "startChar": 41,
+        "endLine": 442,
+        "endChar": 81
+      },
+      "revId": "976e143311510120a1a06516270566e8e1e76ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "436ce279_e800acf5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-02T07:22:08Z",
+      "side": 1,
+      "message": "This seems strange since it\u0027s assuming that the indent will make sense in the context of the caller (it\u0027s assuming that an indent is necessary on the caller PrintWriter).\n\nHow about having it as argument (just called indent ?), so it\u0027s configured by MdnsDiscoveryManager ? It would make more sense to have the indent set there, since it\u0027s to differentiate between \"Cached services:\" and the dump that follows.",
+      "revId": "976e143311510120a1a06516270566e8e1e76ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
