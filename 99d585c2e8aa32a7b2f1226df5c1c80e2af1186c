@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7bb475e_b1ee9250",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-02T08:14:39Z",
+      "side": 1,
+      "message": "reported.getUpstreamEvents().toByteArray() ? Considering that when DBG\u003dfalse it\u0027s dead code and called twice",
+      "range": {
+        "startLine": 299,
+        "startChar": 38,
+        "endLine": 299,
+        "endChar": 52
+      },
+      "revId": "99d585c2e8aa32a7b2f1226df5c1c80e2af1186c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
