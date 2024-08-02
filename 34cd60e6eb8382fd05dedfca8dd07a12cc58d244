@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f73674b_e93d57be",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9443,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-02T09:41:38Z",
+      "side": 1,
+      "message": "Can we instead use the VpnTransportInfo and look for TYPE_VPN_LEGACY?",
+      "range": {
+        "startLine": 9443,
+        "startChar": 49,
+        "endLine": 9443,
+        "endChar": 60
+      },
+      "revId": "34cd60e6eb8382fd05dedfca8dd07a12cc58d244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
