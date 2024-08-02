@@ -16,6 +16,46 @@
       "message": "Padooka",
       "revId": "507c6366104600af0bd7e5ce62e3babb012f56fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1260b2d8_38961507",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-02T07:14:25Z",
+      "side": 1,
+      "message": "No need to respin for the comment change, you could move the comment when adding a caller",
+      "revId": "507c6366104600af0bd7e5ce62e3babb012f56fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "119edb64_0847b831",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-02T07:14:25Z",
+      "side": 1,
+      "message": "Nit: This should probably be a comment on the caller, this method doesn\u0027t know what happend to the socket",
+      "range": {
+        "startLine": 242,
+        "startChar": 32,
+        "endLine": 243,
+        "endChar": 100
+      },
+      "revId": "507c6366104600af0bd7e5ce62e3babb012f56fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
