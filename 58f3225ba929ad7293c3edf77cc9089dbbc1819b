@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "592bef81_22d02163",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-08-02T19:04:11Z",
+      "side": 1,
+      "message": "Why is this in Dependencies? Couldn\u0027t you mock out the call to mContext.getSystemService(NetworkStatsManager.class) and inject a mock NetworkStatsManager that returns whatever you want it to return? I would inline this inside initializeUpstreamDataUsageAfterT",
+      "range": {
+        "startLine": 142,
+        "startChar": 32,
+        "endLine": 142,
+        "endChar": 66
+      },
+      "revId": "58f3225ba929ad7293c3edf77cc9089dbbc1819b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
