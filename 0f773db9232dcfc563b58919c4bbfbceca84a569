@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01eefb49_2ef88904",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-08-02T18:36:37Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 9
+      },
+      "revId": "0f773db9232dcfc563b58919c4bbfbceca84a569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b334648_9c83f07a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-08-02T18:36:37Z",
+      "side": 1,
+      "message": "nit: Can you add a comment here:\n```\n/**\n * @returns a Pair\u003crxBytes, txBytes\u003e\n */\n ```",
+      "range": {
+        "startLine": 196,
+        "startChar": 12,
+        "endLine": 196,
+        "endChar": 28
+      },
+      "revId": "0f773db9232dcfc563b58919c4bbfbceca84a569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a830072e_2727e647",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-08-02T18:36:37Z",
+      "side": 1,
+      "message": "nit: maybe just put this null check inside calculateDataUsage()",
+      "range": {
+        "startLine": 275,
+        "startChar": 18,
+        "endLine": 275,
+        "endChar": 36
+      },
+      "revId": "0f773db9232dcfc563b58919c4bbfbceca84a569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
