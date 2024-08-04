@@ -487,6 +487,7 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
 
     @Test
     public void testIcmpv6Echo() throws Exception {
+        assumeFalse(isAdbOverNetwork());
         runPing6Test(initTetheringTester(toList(TEST_IP4_ADDR, TEST_IP6_ADDR),
                 toList(TEST_IP4_DNS, TEST_IP6_DNS)));
     }
@@ -606,6 +607,7 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
 
     @Test
     public void testIcmpv4Echo() throws Exception {
+        assumeFalse(isAdbOverNetwork());
         final TetheringTester tester = initTetheringTester(toList(TEST_IP4_ADDR),
                 toList(TEST_IP4_DNS));
         final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, false /* hasIpv6 */);
