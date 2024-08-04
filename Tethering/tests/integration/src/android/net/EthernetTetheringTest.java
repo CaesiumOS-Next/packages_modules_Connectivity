@@ -392,6 +392,15 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
                 || (SystemProperties.getInt("service.adb.tcp.port", -1) > -1);
     }
 
+    private boolean isAdbOverEthernet() { 
+        // cuttlefish is special and does not connect adb over ethernet.
+        if (SystemProperties.get("ro.product.board", "") == "cutf") return false;
+
+        // Check if adb is connected over the network.
+        return (SystemProperties.getInt("persist.adb.tcp.port", -1) > -1 ||
+                SystemProperties.getInt("service.adb.tcp.port", -1) > -1);
+    }
+
     @Test
     public void testPhysicalEthernet() throws Exception {
         assumeTrue(isInterfaceForTetheringAvailable());
@@ -487,6 +496,7 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
 
     @Test
     public void testIcmpv6Echo() throws Exception {
+        assumeFalse(isAdbOverEthernet());
         runPing6Test(initTetheringTester(toList(TEST_IP4_ADDR, TEST_IP6_ADDR),
                 toList(TEST_IP4_DNS, TEST_IP6_DNS)));
     }
@@ -606,6 +616,7 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
 
     @Test
     public void testIcmpv4Echo() throws Exception {
+        assumeFalse(isAdbOverEthernet());
         final TetheringTester tester = initTetheringTester(toList(TEST_IP4_ADDR),
                 toList(TEST_IP4_DNS));
         final TetheredDevice tethered = tester.createTetheredDevice(TEST_MAC, false /* hasIpv6 */);
