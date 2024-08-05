@@ -22,6 +22,30 @@
       },
       "revId": "4641f696081e9c4cdd2cfded5e80f732554d4981",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9078d9fa_f1641887",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-05T04:17:08Z",
+      "side": 1,
+      "message": "It covers the non-test network case.\n\nSee here:\n```java\n        mService.setTestNetworkAsUpstream(\"test-network\", mockReceiver1);\n        mService.setTestNetworkAsUpstream(null, mockReceiver2);\n```",
+      "parentUuid": "65431f24_03a37991",
+      "range": {
+        "startLine": 749,
+        "startChar": 16,
+        "endLine": 749,
+        "endChar": 40
+      },
+      "revId": "4641f696081e9c4cdd2cfded5e80f732554d4981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
