@@ -636,6 +636,7 @@ class EthernetManagerTest {
 
     @Test
     fun testCallbacks_forServerModeInterfaces() {
+        assumeFalse(isAdbOverEthernet())
         // do not run this test if an interface that can be used for tethering already exists.
         assumeNoInterfaceForTetheringAvailable()
 
@@ -881,6 +882,7 @@ class EthernetManagerTest {
 
     @Test
     fun testEnableDisableInterface_withMissingInterface() {
+        assumeFalse(isAdbOverEthernet())
         val iface = createInterface()
         removeInterface(iface)
         // Interface does not exist, enable/disableInterface() should both return an error.
