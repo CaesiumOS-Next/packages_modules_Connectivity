@@ -562,6 +562,7 @@ class EthernetManagerTest {
         // check is explicitly *not* using an interface state listener.
         // Since restricted interfaces cannot be used for tethering,
         // assumeNoInterfaceForTetheringAvailable() is an okay proxy.
+        assumeFalse(isAdbOverEthernet())
         assumeNoInterfaceForTetheringAvailable()
 
         // If an interface exists when the callback is registered, it is reported on registration.
@@ -636,6 +637,7 @@ class EthernetManagerTest {
 
     @Test
     fun testCallbacks_forServerModeInterfaces() {
+        assumeFalse(isAdbOverEthernet())
         // do not run this test if an interface that can be used for tethering already exists.
         assumeNoInterfaceForTetheringAvailable()
 
@@ -834,6 +836,7 @@ class EthernetManagerTest {
 
     @Test
     fun testRemoveInterface_whileInServerMode() {
+        assumeFalse(isAdbOverEthernet())
         assumeNoInterfaceForTetheringAvailable()
 
         val listener = EthernetStateListener()
@@ -881,6 +884,7 @@ class EthernetManagerTest {
 
     @Test
     fun testEnableDisableInterface_withMissingInterface() {
+        assumeFalse(isAdbOverEthernet())
         val iface = createInterface()
         removeInterface(iface)
         // Interface does not exist, enable/disableInterface() should both return an error.
