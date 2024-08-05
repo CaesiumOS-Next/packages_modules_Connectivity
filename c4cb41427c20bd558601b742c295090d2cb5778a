@@ -1,0 +1,333 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0917d0b4_f458b432",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "Maybe remove if it is not useful.",
+      "range": {
+        "startLine": 733,
+        "startChar": 0,
+        "endLine": 734,
+        "endChar": 18
+      },
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e634450_6786cea8",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2708,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "Question:\nCan this case be merged with l.2712?",
+      "range": {
+        "startLine": 2708,
+        "startChar": 19,
+        "endLine": 2708,
+        "endChar": 76
+      },
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9bd6406_93c19b01",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/UseTestableLooper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "Can this be private in NetworkStatsServiceTest?",
+      "range": {
+        "startLine": 25,
+        "startChar": 18,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c79750f_e964bc06",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "final? \nalso for others.",
+      "range": {
+        "startLine": 283,
+        "startChar": 12,
+        "endLine": 283,
+        "endChar": 28
+      },
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28f66c03_1cbd771e",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "final ?\nAlso for below.",
+      "range": {
+        "startLine": 485,
+        "startChar": 8,
+        "endLine": 485,
+        "endChar": 14
+      },
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f560a30_50c7c303",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "1. Maybe comment how you choose this value?\n\n2. Maybe 10_000_000L",
+      "range": {
+        "startLine": 496,
+        "startChar": 60,
+        "endLine": 496,
+        "endChar": 68
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9b7ac79c_92868497",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+              "range": {
+                "startLine": 496,
+                "startChar": 0,
+                "endLine": 496,
+                "endChar": 0
+              },
+              "replacement": "        // Set a large value to avoid broadcast being triggered during test.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3944cd73_64be625b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "Maybe remove this method if it is not useful?",
+      "range": {
+        "startLine": 498,
+        "startChar": 20,
+        "endLine": 498,
+        "endChar": 58
+      },
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb610ac6_7a4b3433",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "IIUC you don\u0027t need this method to get Looper since you already have mHandlerThread?",
+      "range": {
+        "startLine": 506,
+        "startChar": 22,
+        "endLine": 506,
+        "endChar": 47
+      },
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff119de5_540d8232",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3109,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "Maybe TestNetworkStatsReceiver",
+      "range": {
+        "startLine": 3109,
+        "startChar": 17,
+        "endLine": 3109,
+        "endChar": 37
+      },
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43985adb_a4482738",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 3122,
+        "startChar": 29,
+        "endLine": 3122,
+        "endChar": 37
+      },
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d38ca896_224be28c",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3129,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "redundant new line?",
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74fba1ed_921c2a97",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3132,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "Maybe refactor this?\ne.g. Put this into NetworkStatsReceiver.\nAnd use public method to assert.",
+      "range": {
+        "startLine": 3132,
+        "startChar": 19,
+        "endLine": 3132,
+        "endChar": 69
+      },
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "996e6151_94c0d588",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3133,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-05T06:32:24Z",
+      "side": 1,
+      "message": "1. IIUC this will create unconditional 3sec sleep in the test in normal case.\nCan we do better?\n\n2. assertNull?",
+      "range": {
+        "startLine": 3133,
+        "startChar": 48,
+        "endLine": 3133,
+        "endChar": 52
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ee2590c4_41628ad2",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+              "range": {
+                "startLine": 3136,
+                "startChar": 0,
+                "endLine": 3137,
+                "endChar": 0
+              },
+              "replacement": "        assertTrue(mBroadcastIntent.poll(3000, number -\u003e true) !\u003d null);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c4cb41427c20bd558601b742c295090d2cb5778a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
