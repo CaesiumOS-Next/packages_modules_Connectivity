@@ -16,6 +16,24 @@
       "message": "This looks identical to org.junit.rules.TestName ?",
       "revId": "42592e5f20bc0880a3941a20549ba15d43c08f2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dad9a10f_d236cf2a",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/GetTestNameRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-08-05T05:53:53Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "fb0ea4aa_14cb40a8",
+      "revId": "42592e5f20bc0880a3941a20549ba15d43c08f2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
