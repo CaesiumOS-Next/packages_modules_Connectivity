@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65431f24_03a37991",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-05T03:46:10Z",
+      "side": 1,
+      "message": "This doesn\u0027t cover the non test network cases. I think the unit test should be\n\n```\npublic void initialize_upstreamNetworkRequestDisallowsVpn()\n```",
+      "range": {
+        "startLine": 749,
+        "startChar": 16,
+        "endLine": 749,
+        "endChar": 40
+      },
+      "revId": "4641f696081e9c4cdd2cfded5e80f732554d4981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
