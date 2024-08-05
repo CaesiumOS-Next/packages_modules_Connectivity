@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93cd4e40_37bb1601",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-05T10:25:29Z",
+      "side": 1,
+      "message": "Consider using this function: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/device/com/android/net/module/util/HandlerUtils.java;l\u003d66?q\u003dHandlerUtils%20runWithScissors\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
+      "range": {
+        "startLine": 394,
+        "startChar": 26,
+        "endLine": 394,
+        "endChar": 52
+      },
+      "revId": "af72b3f22c31f14956690c47dc22e55a0b95cf3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
