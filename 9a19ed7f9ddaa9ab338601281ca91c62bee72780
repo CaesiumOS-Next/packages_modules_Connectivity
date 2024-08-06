@@ -94,6 +94,30 @@
       },
       "revId": "9a19ed7f9ddaa9ab338601281ca91c62bee72780",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6544b3f8_580857fa",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-06T08:47:53Z",
+      "side": 1,
+      "message": "Aha, okay, so it also works for the test network. Can you document this here?\n\nBTW, are there test cases verify that PIO are sent and received on AIL? And addresses or routes are added?",
+      "parentUuid": "9497e558_f8694a46",
+      "range": {
+        "startLine": 638,
+        "startChar": 11,
+        "endLine": 638,
+        "endChar": 19
+      },
+      "revId": "9a19ed7f9ddaa9ab338601281ca91c62bee72780",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
