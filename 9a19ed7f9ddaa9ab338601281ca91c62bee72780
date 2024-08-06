@@ -22,6 +22,30 @@
       },
       "revId": "9a19ed7f9ddaa9ab338601281ca91c62bee72780",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee7a22b_9f7acf9c",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-06T08:37:59Z",
+      "side": 1,
+      "message": "This is an IPv4 default route. Without it the Thread-\u003eAIL packet cannot be routed to 8.8.8.8.",
+      "parentUuid": "4ad3ca7a_eeea5ee3",
+      "range": {
+        "startLine": 638,
+        "startChar": 11,
+        "endLine": 638,
+        "endChar": 19
+      },
+      "revId": "9a19ed7f9ddaa9ab338601281ca91c62bee72780",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
