@@ -118,6 +118,30 @@
       },
       "revId": "9a19ed7f9ddaa9ab338601281ca91c62bee72780",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1058902_c086d6a8",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-06T08:57:41Z",
+      "side": 1,
+      "message": "\u003e Can you document this here?\nadded\n\nThere\u0027s a long-open kernel test CL aosp/2832730. I\u0027ll try pinging Lorenzo to merge it.",
+      "parentUuid": "6544b3f8_580857fa",
+      "range": {
+        "startLine": 638,
+        "startChar": 11,
+        "endLine": 638,
+        "endChar": 19
+      },
+      "revId": "9a19ed7f9ddaa9ab338601281ca91c62bee72780",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
