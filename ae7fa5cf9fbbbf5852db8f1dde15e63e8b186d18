@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66c46ac1_5e58f693",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2949,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-06T05:58:20Z",
+      "side": 1,
+      "message": "To me it is more like connectUtil#ensureCellularValidated().\nIf so, is it better if we just use that one?",
+      "range": {
+        "startLine": 2949,
+        "startChar": 17,
+        "endLine": 2949,
+        "endChar": 39
+      },
+      "revId": "ae7fa5cf9fbbbf5852db8f1dde15e63e8b186d18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
