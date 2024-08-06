@@ -100,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86759786_8c85b16a",
+        "filename": "certificatetransparency/framework/src/android/ct/CertificateTransparencyManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-06T13:20:17Z",
+      "side": 1,
+      "message": "It turns out I was missing the static_libs dependency in the `framework/Android.bp` target. Thanks for the hint, done.",
+      "parentUuid": "a1098b12_2e939bae",
+      "revId": "65c9db2cbdbd2a8b9165e2c4b579cba7c9901a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30ace2a5_9d47f97f",
