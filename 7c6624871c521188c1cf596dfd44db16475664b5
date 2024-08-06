@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "550dda71_c4a3def1",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-08-06T10:41:24Z",
+      "side": 1,
+      "message": "Do you want to change this to InetAddress too?",
+      "range": {
+        "startLine": 420,
+        "startChar": 42,
+        "endLine": 420,
+        "endChar": 54
+      },
+      "revId": "7c6624871c521188c1cf596dfd44db16475664b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
