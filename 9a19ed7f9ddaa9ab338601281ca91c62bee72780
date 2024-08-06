@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ad3ca7a_eeea5ee3",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-06T08:27:51Z",
+      "side": 1,
+      "message": "Why existing test cases don\u0027t need such a route?",
+      "range": {
+        "startLine": 638,
+        "startChar": 11,
+        "endLine": 638,
+        "endChar": 19
+      },
+      "revId": "9a19ed7f9ddaa9ab338601281ca91c62bee72780",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
