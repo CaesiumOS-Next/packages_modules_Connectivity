@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48cbeb3e_66207320",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-06T01:55:30Z",
+      "side": 1,
+      "message": "Could you check whether the binder is alive here ? If the Tethering process dies the system_server needs to restart because a lot of state would otherwise be out of sync between Tethering and the system server. However after system_server restarts it is still possible for the ServiceManager to have old (dead) references to the Tethering service. For that case a check is useful here.",
+      "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "565e4f4e_59ad98a4",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-06T01:55:30Z",
+      "side": 1,
+      "message": "Similarly can you check if the connector is alive here ?",
+      "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4e41719_e375f403",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-06T01:55:30Z",
+      "side": 1,
+      "message": "This is written in the polling thread without a lock so the state seen here may be out-of-sync with mConnector. As per the other comments I think the mConnectorBinder class-level attribute shouldn\u0027t be necessary though.",
+      "range": {
+        "startLine": 421,
+        "startChar": 15,
+        "endLine": 421,
+        "endChar": 31
+      },
+      "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2a1512c_326c4146",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-06T01:55:30Z",
+      "side": 1,
+      "message": "As discussed the system_server can\u0027t support working with different Tethering services that restart, as state will be out-of-sync and this is not a tested/supported use-case. When Tethering crashes (a system bug) the system_server is expected to crash to recover to a working state, otherwise the device may get unstable behavior for a long time instead of recovering immediately.\n\nIf you add the \"alive\" checks in the 2 places suggested above this should allow ensuring that after system_server restart, it can properly fetch an alive connector.",
+      "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
