@@ -46,6 +46,30 @@
       },
       "revId": "9a19ed7f9ddaa9ab338601281ca91c62bee72780",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2282e786_7ec7712e",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-06T08:39:55Z",
+      "side": 1,
+      "message": "Sure. But my question is why IPv6 packets can be correctly routed without a similar default route. There are existing Thread -\u003e AIL IPv6 ping tests, right?",
+      "parentUuid": "6ee7a22b_9f7acf9c",
+      "range": {
+        "startLine": 638,
+        "startChar": 11,
+        "endLine": 638,
+        "endChar": 19
+      },
+      "revId": "9a19ed7f9ddaa9ab338601281ca91c62bee72780",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
