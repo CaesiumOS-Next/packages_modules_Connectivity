@@ -1,0 +1,337 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7e282e0_e8ee82fb",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "nits: Maybe `connectivity_service_destroy_socket_on_removed_address` is easier to understand who is destroying sockets when the flag is true.",
+      "range": {
+        "startLine": 128,
+        "startChar": 9,
+        "endLine": 128,
+        "endChar": 51
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a0effe5_1ef8e885",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "It seems this is not used.",
+      "range": {
+        "startLine": 498,
+        "startChar": 24,
+        "endLine": 498,
+        "endChar": 54
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e86daad1_848db88b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1446,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "Can we rename to more specific name for this usecase? something like RemovedAddressMonitor, AddressUpdateMonitor?",
+      "range": {
+        "startLine": 1446,
+        "startChar": 24,
+        "endLine": 1446,
+        "endChar": 57
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a381102f_1c95d905",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1450,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "nits: I think SOCKET_RECV_BUFFER_SIZE can be define in this class and don\u0027t need to pass in from ConnectivityService.",
+      "range": {
+        "startLine": 1450,
+        "startChar": 20,
+        "endLine": 1450,
+        "endChar": 34
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b82f1ece_0f9b0ecf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1847,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "It seems this is not used.",
+      "range": {
+        "startLine": 1847,
+        "startChar": 8,
+        "endLine": 1847,
+        "endChar": 9
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85a23faa_ff64370b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 14337,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "Could you call ensureRunningOnConnectivityServiceThread here to make sure this is running on handler thread?",
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d113eab8_0b58cc0d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 14342,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "nits: I don\u0027t think we need to run the code after this if block multiple times for the single nai.\nMaybe the following code is easier to understand.\n\n```\nfor (NetworkAgentInfo nai : mNetworkAgentInfos) {\n  if (!hasAddress(nai, address)) {\n       continue;\n  }  \n  int naiIfaceIndex \u003d mDeps.getIndexFromInterfaceName(\n                        nai.linkProperties.getInterfaceName());\n  ....\n  ....\n}\n```",
+      "range": {
+        "startLine": 14342,
+        "startChar": 16,
+        "endLine": 14342,
+        "endChar": 17
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0abc6aa_de466f13",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 14350,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "Do we need this \"not\"? \nI guess we don\u0027t want to close socket if the network is VPN or CELL?",
+      "range": {
+        "startLine": 14350,
+        "startChar": 24,
+        "endLine": 14350,
+        "endChar": 25
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1dba983_4b276c45",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 14362,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "Could you update the commit message to explain what is the current behavior and what will be the new behavior?\n\nFrom my reading of `NetworkController::removeInterfaceAddress`, I think original behavior was we destroy sockets when\n1) This address is not used by any network.\n2) This address was used only by the |interfaceIndex|\n3) Device does not have VPN network that uses the same netId and the same address.\n\nI think the first behavior does not change.\nI guess the second behavior is changed if the network has KEEP_CONNECTED_FOR_HANDOVER?\nThird behavior is also changed?",
+      "range": {
+        "startLine": 14362,
+        "startChar": 8,
+        "endLine": 14362,
+        "endChar": 9
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27de48fc_a661b7f2",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "nits: I think you can use InetAddressUtils#v4MappedV6Address to convert v4 address to v4-mapped v6 address.",
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "362e6ca1_92c1e381",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/InetDiagSocketTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "Does this return Inet6Address for `::FFFF:10.23.9.215` (v4-mapped v6 address)?\nI remember some utils internally convert v4-mapped v6 address to Inet4Address.",
+      "range": {
+        "startLine": 807,
+        "startChar": 30,
+        "endLine": 807,
+        "endChar": 49
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e3f9ff5_b47763a4",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "We usually use address from the range reserved for documentation in the test.\nhttps://datatracker.ietf.org/doc/html/rfc5737",
+      "range": {
+        "startLine": 54,
+        "startChar": 50,
+        "endLine": 54,
+        "endChar": 51
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2b08513_acb7871b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "nits: I feel it\u0027s strange to use TEST_IPSEC_IFACE for cellLp.\nIs this to test VPN case?",
+      "range": {
+        "startLine": 382,
+        "startChar": 12,
+        "endLine": 382,
+        "endChar": 28
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c9a4e8b_ad6ba336",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "\u003e  // Sockets on removed address will not be destroyed at following cases.\n                // 1. The removed address is assigned to another interface for the network which\n                //   allows switching network interface. (e.g. VPN or MOBILE network).\n                // 2. The network has reason NetworkScore.KEEP_CONNECTED_FOR_HANDOVER.\n\nCould you add test cases for above logic?  \nThis logic is a bit complicated so we should have test to avoid the future regression.",
+      "range": {
+        "startLine": 384,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 1
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbd2343c_d9c982f9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-06T13:34:34Z",
+      "side": 1,
+      "message": "Can you add @NonNull to makeConnectivityServiceNetlinkMonitor arguments in ConnectivityService?\nAfter that, I think you can remove \"?\" here.",
+      "range": {
+        "startLine": 401,
+        "startChar": 22,
+        "endLine": 401,
+        "endChar": 23
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
