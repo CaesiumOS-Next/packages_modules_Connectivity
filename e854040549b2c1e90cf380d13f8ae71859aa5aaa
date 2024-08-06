@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa634502_49d9e78e",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-08-06T10:29:47Z",
+      "side": 1,
+      "message": "```suggestion\n    /** Returns whether there\u0027s a NAT64 prefix in network data */\n```",
+      "range": {
+        "startLine": 118,
+        "startChar": 40,
+        "endLine": 118,
+        "endChar": 46
+      },
+      "revId": "e854040549b2c1e90cf380d13f8ae71859aa5aaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e49a7bf1_073bc7e1",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-08-06T10:29:47Z",
+      "side": 1,
+      "message": "are the NAT64 prefixes always 96 bits?",
+      "range": {
+        "startLine": 124,
+        "startChar": 32,
+        "endLine": 124,
+        "endChar": 37
+      },
+      "revId": "e854040549b2c1e90cf380d13f8ae71859aa5aaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
