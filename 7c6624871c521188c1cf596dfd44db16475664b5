@@ -22,6 +22,30 @@
       },
       "revId": "7c6624871c521188c1cf596dfd44db16475664b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "924b4c18_57f7d50a",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-06T13:36:52Z",
+      "side": 1,
+      "message": "I\u0027d prefer to keep it Inet6Address because the CLI doesn\u0027t support IPv4 source address: https://github.com/openthread/openthread/blob/10366cb3bfb0c2c82873ce6876d2bcd7fccdd7e9/src/cli/cli_ping.cpp#L83",
+      "parentUuid": "550dda71_c4a3def1",
+      "range": {
+        "startLine": 420,
+        "startChar": 42,
+        "endLine": 420,
+        "endChar": 54
+      },
+      "revId": "7c6624871c521188c1cf596dfd44db16475664b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
