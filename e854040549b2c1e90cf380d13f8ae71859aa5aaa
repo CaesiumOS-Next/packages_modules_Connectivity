@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "041f0e03_7ca90803",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-06T13:41:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa634502_49d9e78e",
+      "range": {
+        "startLine": 118,
+        "startChar": 40,
+        "endLine": 118,
+        "endChar": 46
+      },
+      "revId": "e854040549b2c1e90cf380d13f8ae71859aa5aaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e49a7bf1_073bc7e1",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-06T10:29:47Z",
       "side": 1,
       "message": "are the NAT64 prefixes always 96 bits?",
+      "range": {
+        "startLine": 124,
+        "startChar": 32,
+        "endLine": 124,
+        "endChar": 37
+      },
+      "revId": "e854040549b2c1e90cf380d13f8ae71859aa5aaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e221a39_cbf8be98",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-06T13:41:47Z",
+      "side": 1,
+      "message": "Good point. It\u0027s possible the length is not 96.",
+      "parentUuid": "e49a7bf1_073bc7e1",
       "range": {
         "startLine": 124,
         "startChar": 32,
