@@ -217,6 +217,30 @@
       },
       "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "144a8bea_e9e3d106",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-08-06T03:29:43Z",
+      "side": 1,
+      "message": "I have added MAX_POWER_CHANNEL_DISABLED.",
+      "parentUuid": "e52474fa_817b3dda",
+      "range": {
+        "startLine": 628,
+        "startChar": 21,
+        "endLine": 628,
+        "endChar": 30
+      },
+      "revId": "e89c675815d19949f0b1a12eef37a62fa4f77e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

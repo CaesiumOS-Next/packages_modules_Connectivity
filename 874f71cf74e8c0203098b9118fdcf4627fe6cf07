@@ -86,6 +86,78 @@
       },
       "revId": "874f71cf74e8c0203098b9118fdcf4627fe6cf07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db704ae7_d1b8caaa",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-08-06T03:29:43Z",
+      "side": 1,
+      "message": "If callers set invalid channel or power, the function will throw `IllegalArgumentException`. The `OutcomeReceiver` won\u0027t be called if the caller passes an invalid value based on the updated description of the API.",
+      "parentUuid": "c0adfd8a_317e9d28",
+      "range": {
+        "startLine": 726,
+        "startChar": 49,
+        "endLine": 726,
+        "endChar": 50
+      },
+      "revId": "874f71cf74e8c0203098b9118fdcf4627fe6cf07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34c22373_bb6c99ec",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-08-06T03:29:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecbc886a_22a6d000",
+      "range": {
+        "startLine": 726,
+        "startChar": 49,
+        "endLine": 726,
+        "endChar": 50
+      },
+      "revId": "874f71cf74e8c0203098b9118fdcf4627fe6cf07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da2ca6fd_78b7b49b",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-08-06T03:29:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6085b70b_a554695c",
+      "range": {
+        "startLine": 726,
+        "startChar": 36,
+        "endLine": 726,
+        "endChar": 49
+      },
+      "revId": "874f71cf74e8c0203098b9118fdcf4627fe6cf07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
