@@ -142,6 +142,30 @@
       },
       "revId": "9a19ed7f9ddaa9ab338601281ca91c62bee72780",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09e40665_a5a0bddd",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-06T09:18:51Z",
+      "side": 1,
+      "message": "\u003e And addresses or routes are added?\n\nCan we assert this in our integration tests? Maybe add a new simple test for it",
+      "parentUuid": "c1058902_c086d6a8",
+      "range": {
+        "startLine": 638,
+        "startChar": 11,
+        "endLine": 638,
+        "endChar": 19
+      },
+      "revId": "9a19ed7f9ddaa9ab338601281ca91c62bee72780",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
