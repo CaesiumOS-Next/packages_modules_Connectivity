@@ -21,7 +21,6 @@ import static android.net.NetworkStats.TAG_ALL;
 import static android.net.NetworkStats.UID_ALL;
 
 import android.annotation.NonNull;
-import android.annotation.Nullable;
 import android.content.Context;
 import android.net.NetworkStats;
 import android.net.UnderlyingNetworkInfo;
@@ -80,8 +79,8 @@ public class NetworkStatsFactory {
     @VisibleForTesting
     public static class Dependencies {
         /**
-         * Parse detailed statistics from bpf into given {@link NetworkStats} object. Values
-         * are expected to monotonically increase since device boot.
+         * Parse detailed statistics from bpf into a {@link NetworkStats} object. Values are
+         * incremental, i.e. they represent stats since the last call to this method.
          */
         @NonNull
         public NetworkStats getNetworkStatsDetail() throws IOException {
@@ -92,8 +91,9 @@ public class NetworkStatsFactory {
             }
             return stats;
         }
+
         /**
-         * Parse device summary statistics from bpf into given {@link NetworkStats} object. Values
+         * Parse device summary statistics from bpf into a {@link NetworkStats} object. Values
          * are expected to monotonically increase since device boot.
          */
         @NonNull
@@ -195,7 +195,7 @@ public class NetworkStatsFactory {
      * @param limitIfaces the interfaces to limit this query to. Use {@link
      *     NetworkStats.INTERFACES_ALL} to select all interfaces
      * @param limitTag the tags to limit this query to
-     * @return the NetworkStats instance containing network statistics at the present time.
+     * @return the NetworkStats instance containing network statistics since boot.
      */
     public NetworkStats readNetworkStatsDetail(
             int limitUid, String[] limitIfaces, int limitTag) throws IOException {
@@ -208,8 +208,7 @@ public class NetworkStatsFactory {
             final NetworkStats prev = mPersistSnapshot.clone();
 
             requestSwapActiveStatsMapLocked();
-            // Stats are always read from the inactive map, so they must be read after the
-            // swap
+            // Stats are always read from the inactive map, so they must be read after the swap
             final NetworkStats stats = mDeps.getNetworkStatsDetail();
             // BPF stats are incremental; fold into mPersistSnapshot.
             mPersistSnapshot.setElapsedRealtime(stats.getElapsedRealtime());
@@ -293,12 +292,16 @@ public class NetworkStatsFactory {
     }
 
     /**
-     * Parse statistics from file into given {@link NetworkStats} object. Values
-     * are expected to monotonically increase since device boot.
+     * Parse statistics from bpf into a given {@link NetworkStats} object. Values are incremental,
+     * i.e. they represent stats since the last call to this method.
      */
     @VisibleForTesting
     public static native int nativeReadNetworkStatsDetail(NetworkStats stats);
 
+    /**
+     * Parse device summary statistics from bpf into a given {@link NetworkStats} object. Values
+     * are expected to monotonically increase since device boot.
+     */
     @VisibleForTesting
     public static native int nativeReadNetworkStatsDev(NetworkStats stats);
 

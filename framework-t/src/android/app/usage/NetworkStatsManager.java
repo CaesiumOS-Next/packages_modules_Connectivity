@@ -757,8 +757,6 @@ public class NetworkStatsManager {
      * tethering traffic, video calling data usage and count of
      * network operations set by {@link TrafficStats#incrementOperationCount}
      * made over a mobile radio.
-     * The snapshot will not include any statistics that cannot be seen by
-     * the kernel, e.g. statistics reported by {@link NetworkStatsProvider}s.
      *
      * @hide
      */
@@ -783,8 +781,6 @@ public class NetworkStatsManager {
      * tethering traffic, video calling data usage and count of
      * network operations set by {@link TrafficStats#incrementOperationCount}
      * made over a Wi-Fi radio.
-     * The snapshot will not include any statistics that cannot be seen by
-     * the kernel, e.g. statistics reported by {@link NetworkStatsProvider}s.
      *
      * @hide
      */
