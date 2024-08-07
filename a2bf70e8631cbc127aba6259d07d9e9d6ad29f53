@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab54d621_8c85962c",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-08-07T13:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48cbeb3e_66207320",
+      "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "565e4f4e_59ad98a4",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-08-06T01:55:30Z",
       "side": 1,
       "message": "Similarly can you check if the connector is alive here ?",
+      "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10031930_88d71c01",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-08-07T13:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "565e4f4e_59ad98a4",
       "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93de7646_72312d34",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-08-07T13:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4e41719_e375f403",
+      "range": {
+        "startLine": 421,
+        "startChar": 15,
+        "endLine": 421,
+        "endChar": 31
+      },
+      "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2a1512c_326c4146",
@@ -71,6 +131,24 @@
       "writtenOn": "2024-08-06T01:55:30Z",
       "side": 1,
       "message": "As discussed the system_server can\u0027t support working with different Tethering services that restart, as state will be out-of-sync and this is not a tested/supported use-case. When Tethering crashes (a system bug) the system_server is expected to crash to recover to a working state, otherwise the device may get unstable behavior for a long time instead of recovering immediately.\n\nIf you add the \"alive\" checks in the 2 places suggested above this should allow ensuring that after system_server restart, it can properly fetch an alive connector.",
+      "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "680810e5_2ec8c5d8",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-08-07T13:35:12Z",
+      "side": 1,
+      "message": "You mean, we don\u0027t need to startPollingForConnector again. \n\nJust checking the binder is alive or not, should be sufficient?\n\nin this function, if binder is dead, then should add consumer to queue and return?",
+      "parentUuid": "d2a1512c_326c4146",
       "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
