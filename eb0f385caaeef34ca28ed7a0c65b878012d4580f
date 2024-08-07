@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2974a0e_4aa3dd80",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 12
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-07T18:11:45Z",
+      "side": 1,
+      "message": "and then it\u0027ll fail if the flags aren\u0027t in sync, or if the platform or module doesn\u0027t actually check the flag even if it is in sync...\n(old platform, new module, or old module, new platform, both of which can happen)\n\nusually the answer would be to guard this with a sdk\u003e\u003dX check, but the next X bump is still quarters away...\n\nI wonder if we need to add a binder netd rpc \u0027get version\u0027 which returns an int.\n\ncheck this from mainline and flip behaviour based on the int \u003e\u003d X.\n\nonce the mainline code is rolled out we can then bump netd\u0027s X.\n\n(or alternatively netd reports X-1 or X based on a netd flag, and at some point we delete the flag, delete the code, and unconditionally return X [or more])",
+      "parentUuid": "17939904_3ec37068",
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a0effe5_1ef8e885",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 12
