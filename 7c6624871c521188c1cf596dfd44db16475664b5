@@ -46,6 +46,47 @@
       },
       "revId": "7c6624871c521188c1cf596dfd44db16475664b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ef2428b_d3be32f2",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-08-07T00:35:51Z",
+      "side": 1,
+      "message": "should this be kept Inet6Address if the cli doesn\u0027t support IPv4 source address?",
+      "range": {
+        "startLine": 458,
+        "startChar": 12,
+        "endLine": 458,
+        "endChar": 23
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "2a737ebc_7aa3848f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+              "range": {
+                "startLine": 458,
+                "startChar": 0,
+                "endLine": 459,
+                "endChar": 0
+              },
+              "replacement": "            Inet6Address source,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "7c6624871c521188c1cf596dfd44db16475664b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
