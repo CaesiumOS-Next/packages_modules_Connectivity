@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cf960fd_fcf3e8ae",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-07T08:43:12Z",
+      "side": 1,
+      "message": "Is combineValues an API?\nCan not we rename `combineValues`  and make API?",
+      "range": {
+        "startLine": 862,
+        "startChar": 4,
+        "endLine": 862,
+        "endChar": 5
+      },
+      "revId": "0c8f2b0b0725078f942067112fbb678f20d56e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcf03952_686b88a3",
+        "filename": "tests/common/java/android/net/netstats/NetworkStatsApiTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-07T08:43:12Z",
+      "side": 1,
+      "message": "As this is a unit test, can we just call combineEntry?\nDo we have any linter without this?",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 60
+      },
+      "revId": "0c8f2b0b0725078f942067112fbb678f20d56e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
