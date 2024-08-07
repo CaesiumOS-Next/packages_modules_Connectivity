@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f17cf66_98bab618",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-07T08:48:32Z",
+      "side": 1,
+      "message": "Do we have any other APIs that mutate NetworkStats?  \nIf no, is it better to keep NetworkStats immutable to be consistent?",
+      "range": {
+        "startLine": 856,
+        "startChar": 35,
+        "endLine": 856,
+        "endChar": 71
+      },
+      "revId": "0c8f2b0b0725078f942067112fbb678f20d56e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cf960fd_fcf3e8ae",
         "filename": "framework-t/src/android/net/NetworkStats.java",
         "patchSetId": 15
