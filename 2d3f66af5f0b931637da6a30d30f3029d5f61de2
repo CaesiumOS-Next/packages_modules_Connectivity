@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e54a987_02f7689a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-07T04:27:22Z",
+      "side": 1,
+      "message": "redundant new lines?",
+      "revId": "2d3f66af5f0b931637da6a30d30f3029d5f61de2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "911f4ff3_f6306a1d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-07T04:27:22Z",
+      "side": 1,
+      "message": "redundant new line?",
+      "revId": "2d3f66af5f0b931637da6a30d30f3029d5f61de2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c793950_2f9aebee",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3092,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-07T04:27:22Z",
+      "side": 1,
+      "message": "1. static private?\n\n2. sorry I think it needs to be more specific.\nMaybe TestNetworkStatsUpdatedReceiver or NetworkStatsUpdatedIntentReceiver?",
+      "range": {
+        "startLine": 3092,
+        "startChar": 2,
+        "endLine": 3092,
+        "endChar": 3
+      },
+      "revId": "2d3f66af5f0b931637da6a30d30f3029d5f61de2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57789354_4d2d2635",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3093,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-07T04:27:22Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 3093,
+        "startChar": 15,
+        "endLine": 3093,
+        "endChar": 16
+      },
+      "revId": "2d3f66af5f0b931637da6a30d30f3029d5f61de2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a92dc8a_ca177d53",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3117,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-07T04:27:22Z",
+      "side": 1,
+      "message": "Do we have existing constant we can use?\nMaybe define as a constant we there is none.",
+      "range": {
+        "startLine": 3117,
+        "startChar": 44,
+        "endLine": 3117,
+        "endChar": 48
+      },
+      "revId": "2d3f66af5f0b931637da6a30d30f3029d5f61de2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45217515_1a277e5f",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3119,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-07T04:27:22Z",
+      "side": 1,
+      "message": "Typically we\u0027ll assert this in different place to make the method name matches what it does.\nMaybe move it to the caller to make it explicit?",
+      "range": {
+        "startLine": 3119,
+        "startChar": 12,
+        "endLine": 3119,
+        "endChar": 46
+      },
+      "revId": "2d3f66af5f0b931637da6a30d30f3029d5f61de2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab055361_0c59dc01",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-07T04:27:22Z",
+      "side": 1,
+      "message": "style: one space between methods?",
+      "range": {
+        "startLine": 3122,
+        "startChar": 4,
+        "endLine": 3122,
+        "endChar": 5
+      },
+      "revId": "2d3f66af5f0b931637da6a30d30f3029d5f61de2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39b621ad_43c2093a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3123,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-07T04:27:22Z",
+      "side": 1,
+      "message": "Maybe name it more specifically about what is the intent.",
+      "range": {
+        "startLine": 3123,
+        "startChar": 20,
+        "endLine": 3123,
+        "endChar": 26
+      },
+      "revId": "2d3f66af5f0b931637da6a30d30f3029d5f61de2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe29b2f5_92a907e8",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3130,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-07T04:27:22Z",
+      "side": 1,
+      "message": "1. Since the TestableLooper is not assign back to anywhere.\nThis is super confusing to the readers.\nMaybe comment about what are the side effects of create a TestableLooper?\n\n2. Maybe make mTestableLooper private to this method since only your test uses it?",
+      "range": {
+        "startLine": 3130,
+        "startChar": 25,
+        "endLine": 3130,
+        "endChar": 44
+      },
+      "revId": "2d3f66af5f0b931637da6a30d30f3029d5f61de2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc0fca6e_320d4f38",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3145,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-07T04:27:22Z",
+      "side": 1,
+      "message": "Maybe name it more specifically, e.g. testIntentRateLimitDelayMs and toleranceMs?",
+      "range": {
+        "startLine": 3145,
+        "startChar": 51,
+        "endLine": 3145,
+        "endChar": 60
+      },
+      "revId": "2d3f66af5f0b931637da6a30d30f3029d5f61de2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
