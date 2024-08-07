@@ -87,6 +87,30 @@
       ],
       "revId": "7c6624871c521188c1cf596dfd44db16475664b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20f04980_db536d00",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-07T01:13:23Z",
+      "side": 1,
+      "message": "Good catch!",
+      "parentUuid": "0ef2428b_d3be32f2",
+      "range": {
+        "startLine": 458,
+        "startChar": 12,
+        "endLine": 458,
+        "endChar": 23
+      },
+      "revId": "7c6624871c521188c1cf596dfd44db16475664b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
