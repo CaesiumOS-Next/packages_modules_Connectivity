@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "56836d31_b4c2fae5",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 12
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-07T08:23:47Z",
+      "side": 1,
+      "message": "Sorry, I realized declaring the flag in the module could cause the issue since the module will be delivered to the device where the platform can not understand this flag.\nIf the module think the flag is enabled on the older platform, both ConnectivityService and netd will try to destroy the socket.\n\nInstead, we should declare this in the platform and ConnectivityService should destroy the socket only when the flag is enabled by the platform.\nThis way, ConnectivityService running on the old platform will not destroy the sockets.\n\nCould you move the flag definition to https://cs.android.com/android/platform/superproject/+/android14-qpr3-release:frameworks/base/core/java/android/net/flags.aconfig ?",
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a0effe5_1ef8e885",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 12
