@@ -19,7 +19,10 @@ package android.net;
 import static android.Manifest.permission.DUMP;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
+import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
+import static android.net.TetheringManager.Flags;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
+import static android.net.TetheringManager.TETHERING_VIRTUAL;
 import static android.net.TetheringTester.TestDnsPacket;
 import static android.net.TetheringTester.buildIcmpEchoPacketV4;
 import static android.net.TetheringTester.buildUdpPacket;
@@ -51,6 +54,7 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.VintfRuntimeInfo;
+import android.platform.test.annotations.RequiresFlagsEnabled;
 import android.util.Log;
 import android.util.Pair;
 
@@ -227,7 +231,8 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
             downstreamReader = makePacketReader(fd, mtu);
             tetheringEventCallback = enableEthernetTethering(downstreamIface.getInterfaceName(),
                     null /* any upstream */);
-            checkTetheredClientCallbacks(downstreamReader, tetheringEventCallback);
+            checkTetheredClientCallbacks(
+                    downstreamReader, TETHERING_ETHERNET, tetheringEventCallback);
         } finally {
             maybeStopTapPacketReader(downstreamReader);
             maybeCloseTestInterface(downstreamIface);
@@ -258,7 +263,8 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
             downstreamReader = makePacketReader(fd, getMTU(downstreamIface));
             tetheringEventCallback = enableEthernetTethering(downstreamIface.getInterfaceName(),
                     null /* any upstream */);
-            checkTetheredClientCallbacks(downstreamReader, tetheringEventCallback);
+            checkTetheredClientCallbacks(
+                    downstreamReader, TETHERING_ETHERNET, tetheringEventCallback);
         } finally {
             maybeStopTapPacketReader(downstreamReader);
             maybeCloseTestInterface(downstreamIface);
@@ -293,7 +299,7 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
 
             final String localAddr = "192.0.2.3/28";
             final String clientAddr = "192.0.2.2/28";
-            tetheringEventCallback = enableEthernetTethering(iface,
+            tetheringEventCallback = enableTethering(iface,
                     requestWithStaticIpv4(localAddr, clientAddr), null /* any upstream */);
 
             tetheringEventCallback.awaitInterfaceTethered();
@@ -359,8 +365,7 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
 
             final TetheringRequest request = new TetheringRequest.Builder(TETHERING_ETHERNET)
                     .setConnectivityScope(CONNECTIVITY_SCOPE_LOCAL).build();
-            tetheringEventCallback = enableEthernetTethering(iface, request,
-                    null /* any upstream */);
+            tetheringEventCallback = enableTethering(iface, request, null /* any upstream */);
             tetheringEventCallback.awaitInterfaceLocalOnly();
 
             // makePacketReader only works after tethering is started, because until then the
@@ -415,6 +420,7 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
     }
 
     private void checkTetheredClientCallbacks(final TapPacketReader packetReader,
+            final int tetheringType,
             final MyTetheringEventCallback tetheringEventCallback) throws Exception {
         // Create a fake client.
         byte[] clientMacAddr = new byte[6];
@@ -429,7 +435,7 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
 
         // Check the MAC address.
         assertEquals(MacAddress.fromBytes(clientMacAddr), client.getMacAddress());
-        assertEquals(TETHERING_ETHERNET, client.getTetheringType());
+        assertEquals(tetheringType, client.getTetheringType());
 
         // Check the hostname.
         assertEquals(1, client.getAddresses().size());
@@ -466,8 +472,7 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
     private void assertInvalidStaticIpv4Request(String iface, String local, String client)
             throws Exception {
         try {
-            enableEthernetTethering(iface, requestWithStaticIpv4(local, client),
-                    null /* any upstream */);
+            enableTethering(iface, requestWithStaticIpv4(local, client), null /* any upstream */);
             fail("Unexpectedly accepted invalid IPv4 configuration: " + local + ", " + client);
         } catch (IllegalArgumentException | NullPointerException expected) { }
     }
@@ -1052,5 +1057,34 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
         assumeKernelSupportBpfOffloadUdpV4();
 
         runUdp4Test();
+    }
+
+    @Test
+    @RequiresFlagsEnabled(Flags.TETHERING_REQUEST_VIRTUAL)
+    public void testTetheringVirtual() throws Exception {
+        assumeFalse(isInterfaceForTetheringAvailable());
+        setIncludeTestInterfaces(true);
+
+        TestNetworkInterface downstreamIface = null;
+        MyTetheringEventCallback tetheringEventCallback = null;
+        TapPacketReader downstreamReader = null;
+        try {
+            downstreamIface = createTestInterface();
+            String iface = downstreamIface.getInterfaceName();
+            final TetheringRequest request = new TetheringRequest.Builder(TETHERING_VIRTUAL)
+                    .setConnectivityScope(CONNECTIVITY_SCOPE_GLOBAL)
+                    .setInterfaceName(iface)
+                    .build();
+            tetheringEventCallback = enableTethering(iface, request, null /* any upstream */);
+
+            FileDescriptor fd = downstreamIface.getFileDescriptor().getFileDescriptor();
+            downstreamReader = makePacketReader(fd, getMTU(downstreamIface));
+            checkTetheredClientCallbacks(
+                    downstreamReader, TETHERING_VIRTUAL, tetheringEventCallback);
+        } finally {
+            maybeStopTapPacketReader(downstreamReader);
+            maybeCloseTestInterface(downstreamIface);
+            maybeUnregisterTetheringEventCallback(tetheringEventCallback);
+        }
     }
 }

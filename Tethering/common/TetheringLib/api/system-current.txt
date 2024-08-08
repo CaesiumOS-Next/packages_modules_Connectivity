@@ -100,6 +100,7 @@ package android.net {
     method @FlaggedApi("com.android.net.flags.tethering_request_with_soft_ap_config") public int describeContents();
     method @Nullable public android.net.LinkAddress getClientStaticIpv4Address();
     method public int getConnectivityScope();
+    method @FlaggedApi("com.android.net.flags.tethering_request_virtual") @Nullable public String getInterfaceName();
     method @Nullable public android.net.LinkAddress getLocalIpv4Address();
     method public boolean getShouldShowEntitlementUi();
     method public int getTetheringType();
@@ -113,6 +114,7 @@ package android.net {
     method @NonNull public android.net.TetheringManager.TetheringRequest build();
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setConnectivityScope(int);
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setExemptFromEntitlementCheck(boolean);
+    method @FlaggedApi("com.android.net.flags.tethering_request_virtual") @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setInterfaceName(@NonNull String);
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setShouldShowEntitlementUi(boolean);
     method @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setStaticIpv4Addresses(@NonNull android.net.LinkAddress, @NonNull android.net.LinkAddress);
   }
