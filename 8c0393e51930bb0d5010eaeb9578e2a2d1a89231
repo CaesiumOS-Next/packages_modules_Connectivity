@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abbe4d83_9c411b6f",
+        "filename": "Tethering/common/TetheringLib/api/system-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-08-08T06:36:58Z",
+      "side": 1,
+      "message": "Backed to using `TETHER_ERROR_UNAVAIL_IFACE`. IMO, we should introduce a new constant if the usage `TETHER_ERROR_UNAVAIL_IFACE` is wrong.",
+      "parentUuid": "4c58ccf2_4cf44299",
+      "range": {
+        "startLine": 55,
+        "startChar": 100,
+        "endLine": 55,
+        "endChar": 132
+      },
+      "revId": "8c0393e51930bb0d5010eaeb9578e2a2d1a89231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bc79bf4_75a31ee1",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "596d5255_1d906637",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-08-08T06:36:58Z",
+      "side": 1,
+      "message": "I tried to add some codes for validating `setInterfaceName` and `getInterfaceName` methods which are guarded by trunk stable flags. \n\nSo I wanted to make sure this block running when flag is enabled(e.g. `@RequiresFlagsEnabled`), but I couldn\u0027t find any examples for CTS tests inside `packages/modules/Connectivity`. I\u0027m not sure if I\u0027m the first one trying to test flag-guarded methods in this repository. Just importing flags defined on TetheringManager haven\u0027t worked.\n\nThough I think applying flag for CTS is doable with introducing a new flag, but I got wonder for treating trunk stable things in Connectivity CTS tests. Are there any common strategies Connectivity team using?",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 76
+      },
+      "revId": "7272406a4f376d806fec5834dd164b314c2c295e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -108,6 +108,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cddc7791_4186c70d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-08-08T06:36:58Z",
+      "side": 1,
+      "message": "I\u0027ve added one test for `TETHERING_VIRTUAL` into `EthernetTetheringTest`. Added tiny refactoring as well due to naming issues.",
+      "parentUuid": "68626261_dfa6ac46",
+      "revId": "37734f7fe2f96efe130c064072a0191e73e6125d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc19b8a3_6ac1ed04",
