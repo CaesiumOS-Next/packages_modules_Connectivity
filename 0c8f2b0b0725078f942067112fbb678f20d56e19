@@ -140,6 +140,30 @@
       },
       "revId": "0c8f2b0b0725078f942067112fbb678f20d56e19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38e42a0f_c8f3f735",
+        "filename": "tests/common/java/android/net/netstats/NetworkStatsApiTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-08T06:16:32Z",
+      "side": 1,
+      "message": "TH +2\u0027d without the annotation 😊",
+      "parentUuid": "242659c9_450654c7",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 60
+      },
+      "revId": "0c8f2b0b0725078f942067112fbb678f20d56e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
