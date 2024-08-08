@@ -463,6 +463,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                     mUserRestricted = isThreadUserRestricted();
                     registerUserRestrictionsReceiver();
                     maybeInitializeOtDaemon();
+                    configureBorderRouter(
+                            borderRouterConfigFromThreadConfig(
+                                    mBorderRouterConfig, mPersistentSettings.getConfiguration()));
                 });
     }
 
@@ -567,21 +570,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         Log.i(TAG, "Set Thread configuration: " + configuration);
 
-        final boolean changed = mPersistentSettings.putConfiguration(configuration);
-        try {
-            operationReceiver.onSuccess();
-        } catch (RemoteException e) {
-            // do nothing if the client is dead
-        }
-        if (changed) {
-            for (IConfigurationReceiver configReceiver : mConfigurationReceivers.keySet()) {
-                try {
-                    configReceiver.onConfigurationChanged(configuration);
-                } catch (RemoteException e) {
-                    // do nothing if the client is dead
-                }
-            }
-        }
+        final BorderRouterConfiguration newBrConfig =
+                borderRouterConfigFromThreadConfig(mBorderRouterConfig, configuration);
+        configureBorderRouter(newBrConfig, configuration, operationReceiver);
     }
 
     @Override
@@ -1263,7 +1254,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                     .setConfiguration(
                             mOtDaemonConfig,
                             infraIcmp6Socket,
-                            new ConfigureBorderRouterStatusReceiver());
+                            new ConfigureBorderRouterStatusReceiver(
+                                    borderRouterConfig, threadConfig, operationReceiver));
         } catch (RemoteException | ThreadNetworkException e) {
             Log.w(TAG, "Failed to configure border router " + mOtDaemonConfig, e);
         }
@@ -1392,7 +1384,18 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             OtDaemonConfiguration brConfig) {
         return new OtDaemonConfiguration.Builder()
                 .setIsBorderRoutingEnabled(brConfig.isBorderRoutingEnabled)
-                .setInfraInterfaceName(brConfig.infraInterfaceName);
+                .setInfraInterfaceName(brConfig.infraInterfaceName)
+                .setIsNat64Enabled(brConfig.isNat64Enabled)
+                .setInfraNat64Prefix(brConfig.infraNat64Prefix);
+    }
+
+    private static BorderRouterConfiguration defaultBorderRouterConfiguration() {
+        return new BorderRouterConfiguration.Builder()
+                .setIsBorderRoutingEnabled(false)
+                .setInfraInterfaceName("")
+                .setIsNat64Enabled(false)
+                .setInfraNat64Prefix("::/0")
+                .build();
     }
 
     private static final class CallbackMetadata {
@@ -1416,17 +1419,60 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
-    private static final class ConfigureBorderRouterStatusReceiver extends IOtStatusReceiver.Stub {
-        public ConfigureBorderRouterStatusReceiver() {}
+    private final class ConfigureBorderRouterStatusReceiver extends IOtStatusReceiver.Stub {
+        private final BorderRouterConfiguration mBorderRouterConfig;
+        @Nullable private final ThreadConfiguration mThreadConfig;
+        @Nullable private final IOperationReceiver mOperationReceiver;
+
+        public ConfigureBorderRouterStatusReceiver(
+                @NonNull BorderRouterConfiguration borderRouterConfig,
+                @Nullable ThreadConfiguration threadConfig,
+                @Nullable IOperationReceiver operationReceiver) {
+            mBorderRouterConfig = borderRouterConfig;
+            mThreadConfig = threadConfig;
+            mOperationReceiver = operationReceiver;
+        }
 
         @Override
         public void onSuccess() {
-            Log.i(TAG, "Configured border router successfully");
+            Log.i(TAG, "Configured border router successfully. Config: " + mBorderRouterConfig);
+            // When the BR config is changed due to ThreadConfiguration change, we need to persist
+            // the configuration and trigger the callbacks
+            if (mThreadConfig != null) {
+                final boolean changed = mPersistentSettings.putConfiguration(mThreadConfig);
+                if (changed) {
+                    for (IConfigurationReceiver configReceiver : mConfigurationReceivers.keySet()) {
+                        try {
+                            configReceiver.onConfigurationChanged(mThreadConfig);
+                        } catch (RemoteException e) {
+                            // do nothing if the client is dead
+                        }
+                    }
+                }
+            }
+            if (mOperationReceiver != null) {
+                try {
+                    mOperationReceiver.onSuccess();
+                } catch (RemoteException ignored) {
+                    // Do nothing if the client is dead
+                }
+            }
         }
 
         @Override
         public void onError(int i, String s) {
-            Log.w(TAG, String.format("Failed to configure border router: %d %s", i, s));
+            Log.w(
+                    TAG,
+                    String.format(
+                            "Failed to configure border router: %d %s. Config: %s",
+                            i, s, mBorderRouterConfig));
+            if (mOperationReceiver != null) {
+                try {
+                    mOperationReceiver.onError(i, s);
+                } catch (RemoteException ignored) {
+                    // Do nothing if the client is dead
+                }
+            }
         }
     }
 
