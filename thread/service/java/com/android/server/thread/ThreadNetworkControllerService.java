@@ -127,6 +127,7 @@ import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
+import com.android.server.thread.openthread.Ipv6Prefix;
 import com.android.server.thread.openthread.MeshcopTxtAttributes;
 import com.android.server.thread.openthread.OnMeshPrefixConfig;
 import com.android.server.thread.openthread.OtDaemonState;
@@ -238,11 +239,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mInfraIfController = infraIfController;
         mUpstreamNetworkRequest = newUpstreamNetworkRequest();
         mNetworkToInterface = new HashMap<Network, String>();
-        mBorderRouterConfig =
-                new BorderRouterConfiguration.Builder()
-                        .setIsBorderRoutingEnabled(true)
-                        .setInfraInterfaceName(null)
-                        .build();
+        mBorderRouterConfig = defaultBorderRouterConfiguration();
         mPersistentSettings = persistentSettings;
         mNsdPublisher = nsdPublisher;
         mUserManager = userManager;
@@ -1384,7 +1381,19 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             BorderRouterConfiguration brConfig) {
         return new BorderRouterConfiguration.Builder()
                 .setIsBorderRoutingEnabled(brConfig.isBorderRoutingEnabled)
-                .setInfraInterfaceName(brConfig.infraInterfaceName);
+                .setInfraInterfaceName(brConfig.infraInterfaceName)
+                .setIsNat64Enabled(brConfig.isNat64Enabled)
+                .setInfraNat64Prefix(brConfig.infraNat64Prefix);
+    }
+
+    private static BorderRouterConfiguration defaultBorderRouterConfiguration() {
+        return new BorderRouterConfiguration.Builder()
+                .setIsBorderRoutingEnabled(false)
+                .setInfraInterfaceName("")
+                .setIsNat64Enabled(false)
+                .setInfraNat64Prefix(
+                        new Ipv6Prefix.Builder().setAddress(new byte[0]).setPrefixLength(0).build())
+                .build();
     }
 
     private static final class CallbackMetadata {
