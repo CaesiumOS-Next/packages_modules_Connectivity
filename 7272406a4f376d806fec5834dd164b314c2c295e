@@ -22,6 +22,30 @@
       },
       "revId": "7272406a4f376d806fec5834dd164b314c2c295e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9336c16a_6f02f36c",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-08-08T08:05:20Z",
+      "side": 1,
+      "message": "For `EthernetTetheringTest` as well. According to my investigation, just adding `@RequiresFlagsEnabled` wasn\u0027t enough. After adding rules, there were test failure for loading trunk stable flags.",
+      "parentUuid": "596d5255_1d906637",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 76
+      },
+      "revId": "7272406a4f376d806fec5834dd164b314c2c295e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
