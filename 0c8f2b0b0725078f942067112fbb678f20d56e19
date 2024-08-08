@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea3d1d99_b5bea5f4",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-08T04:19:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f17cf66_98bab618",
+      "range": {
+        "startLine": 856,
+        "startChar": 35,
+        "endLine": 856,
+        "endChar": 71
+      },
+      "revId": "0c8f2b0b0725078f942067112fbb678f20d56e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cf960fd_fcf3e8ae",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "999ab0a4_0699c26f",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-08T04:19:11Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "7cf960fd_fcf3e8ae",
+      "range": {
+        "startLine": 862,
+        "startChar": 4,
+        "endLine": 862,
+        "endChar": 5
+      },
+      "revId": "0c8f2b0b0725078f942067112fbb678f20d56e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcf03952_686b88a3",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-08-07T08:43:12Z",
       "side": 1,
       "message": "As this is a unit test, can we just call combineEntry?\nDo we have any linter without this?",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 60
+      },
+      "revId": "0c8f2b0b0725078f942067112fbb678f20d56e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "242659c9_450654c7",
+        "filename": "tests/common/java/android/net/netstats/NetworkStatsApiTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-08T04:19:11Z",
+      "side": 1,
+      "message": "This is a CTS as well since it is in the common folder.\nAnnotation removed let\u0027s see what will happen.",
+      "parentUuid": "fcf03952_686b88a3",
       "range": {
         "startLine": 166,
         "startChar": 0,
