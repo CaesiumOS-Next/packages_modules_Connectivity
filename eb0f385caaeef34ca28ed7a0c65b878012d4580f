@@ -121,6 +121,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b830c260_896fd396",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 12
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-09T04:38:52Z",
+      "side": 1,
+      "message": "\u003e After the flag is enabled at platform side, altough we roll back to old version of Connectivity module, the flag will be still enabled. So, both connectivity module \u0026 netd will not destroy sockets.\n\nModule will not be rollbacked to older module than the prebuilt devices are shipped with.\nSo, if we enable the flag only after the module prebuilt contains this change, we should not have the case of new platform + old module.\n\nIf we define the \"DestroyInConnectivityFlag\" in the platform, I think we have the following cases.  \nAnd all cases should be fine.\n\n1) new platform \u0026 new module\nThis should not be the issue since both understand the flag.\n\n2) old platform \u0026 new module\nPlatform does not know about the flag, so platform will destroy the sockets.\nConnectivity think the flag is disabled since there is no flag on the device, so Connectivity should not destroy the sockets.\n\n3) old platform \u0026 old module\nThis should not be the issue since this is the current behavior",
+      "parentUuid": "6a00a8f3_94b2ca1c",
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a0effe5_1ef8e885",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 12
@@ -426,6 +444,30 @@
       "side": 1,
       "message": "The capability is NET_CAPABILITY_NOT_VPN. \n!nai.networkCapabilities.hasCapability(NET_CAPABILITY_NOT_VPN) is VPN case.",
       "parentUuid": "e0abc6aa_de466f13",
+      "range": {
+        "startLine": 14350,
+        "startChar": 24,
+        "endLine": 14350,
+        "endChar": 25
+      },
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9894233c_db206322",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 14350,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-09T04:38:52Z",
+      "side": 1,
+      "message": "Ah, sorry that\u0027s correct.",
+      "parentUuid": "2bd2bfc5_8ed912c1",
       "range": {
         "startLine": 14350,
         "startChar": 24,
