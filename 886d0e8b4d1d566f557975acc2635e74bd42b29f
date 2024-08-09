@@ -16,6 +16,24 @@
       "message": "Can you add @RequiresApi(T) to the class (and any caller this is T+), and use com.android.modules.utils.build.SdkLevel.isAtLeastT() to guard callers ?\n\nIs there an alternative for S devices ?",
       "revId": "886d0e8b4d1d566f557975acc2635e74bd42b29f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a2ed6ff_0e93cec8",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-09T12:42:23Z",
+      "side": 1,
+      "message": "I added the `@RequiresApi(T)` annotation to the `CertificateTransparencyService`\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3191500/12/networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyService.java\n\nI also added a check to make sure the service is only created for `SdkLevel.isAtLeastV`\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3191500/12/networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyService.java\n\nAlthough backporting is a consideration, right now I want to make sure the code works on W. We will consider backporting after that.",
+      "parentUuid": "4678d8ec_dd34c841",
+      "revId": "886d0e8b4d1d566f557975acc2635e74bd42b29f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
