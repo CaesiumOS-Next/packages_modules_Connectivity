@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1edccf28_78027047",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-09T02:25:11Z",
+      "side": 1,
+      "message": "fixed in aosp/3213396",
+      "parentUuid": "44f2ca4d_537de956",
+      "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2f168c7_42501ac8",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bea76f4a_3eb1f869",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-09T02:25:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2f168c7_42501ac8",
+      "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14d94594_03ba0fcf",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-07-30T04:31:23Z",
       "side": 1,
       "message": "This should only be used by framework-connectivity, so visibility should just be //package/modules/Connectivity/framework",
+      "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77eeacab_ccbe8433",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-09T02:25:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14d94594_03ba0fcf",
       "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -100,6 +154,24 @@
       "writtenOn": "2024-07-30T04:31:23Z",
       "side": 1,
       "message": "Better not have the visibility here, and have it in the users: only Tethering for net-utils-tethering, and only Connectivity/service for net-utils-service-connectivity",
+      "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7a55baf_006d4e2b",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-09T02:25:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "064e06fd_55f5d599",
       "revId": "9b0df36ea45268d8c9ef5464f150864e518da5d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
