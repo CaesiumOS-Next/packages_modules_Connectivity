@@ -225,6 +225,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb873745_4ad057e0",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2676,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T02:58:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "048d5758_539ecf13",
+      "range": {
+        "startLine": 2676,
+        "startChar": 20,
+        "endLine": 2676,
+        "endChar": 33
+      },
+      "revId": "0a707397c59ef162a54c82ef2c6c63c6e43baf73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9860c784_f9c71e41",
