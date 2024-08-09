@@ -107,6 +107,8 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         pw.println("    Gets country code as a two-letter string");
         pw.println("  force-country-code enabled <two-letter code> | disabled ");
         pw.println("    Sets country code to <two-letter code> or left for normal value");
+        pw.println("  ot-ctl <subcommand> ");
+        pw.println("    Runs ot-ctl command");
     }
 
     @Override
@@ -133,6 +135,8 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
                 return forceCountryCode();
             case "get-country-code":
                 return getCountryCode();
+            case "ot-ctl":
+                return handleOtCtlCommands();
             default:
                 return handleDefaultCommands(cmd);
         }
@@ -245,6 +249,15 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
     private int getCountryCode() {
         ensureTestingPermission();
         getOutputWriter().println("Thread country code = " + mCountryCode.getCountryCode());
+        return 0;
+    }
+
+    private int handleOtCtlCommands() {
+        ensureTestingPermission();
+        String subCommand = String.join(" ", peekRemainingArgs());
+        getOutputWriter().println("subCommand is = " + subCommand);
+
+        mControllerService.runOtCtlCommand(subCommand);
         return 0;
     }
 

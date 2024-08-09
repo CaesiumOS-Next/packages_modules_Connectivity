@@ -1331,6 +1331,29 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
+    /**
+     * Runs an ot-ctl command
+     *
+     * @param command The complete ot-ctl command string, including any arguments.
+     */
+    @RequiresPermission(PERMISSION_THREAD_NETWORK_PRIVILEGED)
+    public void runOtCtlCommand(@NonNull String command) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        mHandler.post(() -> runOtCtlCommandInternal(command));
+    }
+
+    private void runOtCtlCommandInternal(
+            String command) {
+        checkOnHandlerThread();
+
+        try {
+            getOtDaemon().runOtCtlCommand(command);
+        } catch (RemoteException | ThreadNetworkException e) {
+            Log.e(TAG, "otDaemon.runOtCtlCommand failed", e);
+        }
+    }
+
     private void sendLocalNetworkConfig() {
         if (mNetworkAgent == null) {
             return;
