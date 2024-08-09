@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4678d8ec_dd34c841",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-09T10:16:23Z",
+      "side": 1,
+      "message": "Can you add @RequiresApi(T) to the class (and any caller this is T+), and use com.android.modules.utils.build.SdkLevel.isAtLeastT() to guard callers ?\n\nIs there an alternative for S devices ?",
+      "revId": "886d0e8b4d1d566f557975acc2635e74bd42b29f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
