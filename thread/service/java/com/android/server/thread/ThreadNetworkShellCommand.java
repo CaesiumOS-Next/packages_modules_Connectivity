@@ -28,6 +28,7 @@ import android.text.TextUtils;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.net.module.util.HexDump;
+import com.android.server.thread.openthread.IOtCtlOutputReceiver;
 
 import java.io.PrintWriter;
 import java.time.Duration;
@@ -36,6 +37,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.List;
 
 /**
  * Interprets and executes 'adb shell cmd thread_network <subcommand>'.
@@ -107,6 +109,8 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         pw.println("    Gets country code as a two-letter string");
         pw.println("  force-country-code enabled <two-letter code> | disabled ");
         pw.println("    Sets country code to <two-letter code> or left for normal value");
+        pw.println("  ot-ctl <subcommand> ");
+        pw.println("    Runs ot-ctl command");
     }
 
     @Override
@@ -133,6 +137,8 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
                 return forceCountryCode();
             case "get-country-code":
                 return getCountryCode();
+            case "ot-ctl":
+                return handleOtCtlCommands();
             default:
                 return handleDefaultCommands(cmd);
         }
@@ -245,6 +251,27 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
     private int getCountryCode() {
         ensureTestingPermission();
         getOutputWriter().println("Thread country code = " + mCountryCode.getCountryCode());
+        return 0;
+    }
+
+    private IOtCtlOutputReceiver newIOtCtlOutputReceiver() {
+        return new IOtCtlOutputReceiver.Stub() {
+            @Override
+            public void onReceive(List<String> output) {
+                // Handle the received output (e.g., print to console)
+                for (String line : output) {
+                    getOutputWriter().println(line);
+                }
+            }
+        };
+    };
+
+    private int handleOtCtlCommands() {
+        ensureTestingPermission();
+        String subCommand = String.join(" ", peekRemainingArgs());
+        getOutputWriter().println("subCommand is = " + subCommand);
+
+        mControllerService.runOtCtlCommand(subCommand, newIOtCtlOutputReceiver());
         return 0;
     }
 
