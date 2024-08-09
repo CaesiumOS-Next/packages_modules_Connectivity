@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eec8cd91_4d9e751c",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T06:22:53Z",
+      "side": 1,
+      "message": "Done.\nThanks for explanation.\nYes we have it in static_libs of framework-connectivity-defaults.\nThus comments are updated.",
+      "parentUuid": "31ddd39c_43b3274a",
+      "range": {
+        "startLine": 142,
+        "startChar": 44,
+        "endLine": 142,
+        "endChar": 45
+      },
+      "revId": "f990b338e61378f51370e3219e831859adc77142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64e4f092_80630db5",
@@ -61,6 +85,30 @@
       "writtenOn": "2024-08-09T03:16:57Z",
       "side": 1,
       "message": "nits: I slightly prefer addAllEntries but not strong opinion.",
+      "range": {
+        "startLine": 856,
+        "startChar": 33,
+        "endLine": 856,
+        "endChar": 43
+      },
+      "revId": "f990b338e61378f51370e3219e831859adc77142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d21ab191_b9788658",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T06:22:53Z",
+      "side": 1,
+      "message": "Prefer to keep it as is but no strong opinion.\nLet\u0027s see if other reviewers would have different preferences.\n1. addEntries\n2. addAllEntries\n3. addAll",
+      "parentUuid": "64e4f092_80630db5",
       "range": {
         "startLine": 856,
         "startChar": 33,
