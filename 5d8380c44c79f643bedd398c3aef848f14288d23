@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41e9ac64_fdcf6041",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T02:18:17Z",
+      "side": 1,
+      "message": "@VisibleForTesting(visibility \u003d PRIVATE) ?",
+      "range": {
+        "startLine": 317,
+        "startChar": 5,
+        "endLine": 317,
+        "endChar": 7
+      },
+      "revId": "5d8380c44c79f643bedd398c3aef848f14288d23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fbf6c28_5b485f9e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T02:18:17Z",
+      "side": 1,
+      "message": "This would be ambiguous and not helpful to know how this is choosed.\nThe problem is: How does a reader without context could choose a value if Long.MIN_VALUE somehow problematic?",
+      "range": {
+        "startLine": 478,
+        "startChar": 57,
+        "endLine": 478,
+        "endChar": 72
+      },
+      "revId": "5d8380c44c79f643bedd398c3aef848f14288d23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9b42a74_9c8c7625",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T02:18:17Z",
+      "side": 1,
+      "message": "nit: Problably this is more important, if so maybe move it as the first paragraph?",
+      "range": {
+        "startLine": 479,
+        "startChar": 7,
+        "endLine": 481,
+        "endChar": 64
+      },
+      "revId": "5d8380c44c79f643bedd398c3aef848f14288d23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a60016a_fcc76541",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 3110,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T02:18:17Z",
+      "side": 1,
+      "message": "redundant?",
+      "range": {
+        "startLine": 3110,
+        "startChar": 69,
+        "endLine": 3110,
+        "endChar": 77
+      },
+      "revId": "5d8380c44c79f643bedd398c3aef848f14288d23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b750f073_aa7f9716",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 3117,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T02:18:17Z",
+      "side": 1,
+      "message": "Maybe describe to the reader about how the values should be choosed if the values are somehow problematic?",
+      "range": {
+        "startLine": 3116,
+        "startChar": 9,
+        "endLine": 3117,
+        "endChar": 70
+      },
+      "revId": "5d8380c44c79f643bedd398c3aef848f14288d23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
