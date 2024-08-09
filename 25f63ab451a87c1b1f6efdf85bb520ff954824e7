@@ -26,6 +26,213 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7701a868_fb960f59",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1441,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "Maybe add a comment explaining why 4MB? Maybe to make it very likely that we will never get ENOBUFS? Perhaps it doesn\u0027t matter too much because the memory is only ever used if there are actually lots of messages in the buffer.\u003d",
+      "range": {
+        "startLine": 1441,
+        "startChar": 25,
+        "endLine": 1441,
+        "endChar": 48
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "640e3bcf_9c319404",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1456,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "What happens if the netlink read loop hits an error and the AddressMonitor stops?",
+      "range": {
+        "startLine": 1456,
+        "startChar": 4,
+        "endLine": 1456,
+        "endChar": 5
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1234d96_c1d5387b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2127,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "Seems like a waste to create a SharedLog if we never dump it. Is null allowed here? Should it be?",
+      "range": {
+        "startLine": 2127,
+        "startChar": 26,
+        "endLine": 2127,
+        "endChar": 49
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ab6e711_9f4b90e8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 4069,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "Can this happen?",
+      "range": {
+        "startLine": 4069,
+        "startChar": 24,
+        "endLine": 4069,
+        "endChar": 27
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e6e8cb9_bb58a4a4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 8742,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "If this is a member variable, maybe put it at the top of the file close to the others?",
+      "range": {
+        "startLine": 8742,
+        "startChar": 7,
+        "endLine": 8742,
+        "endChar": 21
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c1c1c6e_388838b5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 8744,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "Motomu points out that instead of listening to netlink events we could just look for cases where an IP address is removed from LinkProperties, or when a network disconnects. Might that be simpler?",
+      "range": {
+        "startLine": 8744,
+        "startChar": 12,
+        "endLine": 8744,
+        "endChar": 32
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc12bbbc_8bff096e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 14336,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "Why is cellular special? And why is it guaranteed that if a new network shows up with a different interface but the same IP address, that the network is the same?\n\nJust because the IP address is the same doesn\u0027t mean the sockets will continue to work. For example, it could be the same IP address on a different carrier...",
+      "range": {
+        "startLine": 14336,
+        "startChar": 68,
+        "endLine": 14336,
+        "endChar": 86
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ed64791_39c692b3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 14341,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "Java doesn\u0027t have unsigned integers, so technically \"!\u003d 0\" is more correct than \"\u003e 0\".",
+      "range": {
+        "startLine": 14341,
+        "startChar": 31,
+        "endLine": 14341,
+        "endChar": 32
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e92356a3_2d487179",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 14341,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "This is hard to read. Isn\u0027t it equivalent to:\n\n    if (keepConnectedForHandover) return false;\n\n    if (supportUpdateNetworkInterface \u0026\u0026 naiIfaceIndex !\u003d 0 \u0026\u0026 naiIfaceIndex !\u003d ifaceIndex) {\n        return false;\n    }",
+      "range": {
+        "startLine": 14341,
+        "startChar": 12,
+        "endLine": 14341,
+        "endChar": 14
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eeb55726_f54b59f0",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 14
@@ -37,6 +244,30 @@
       "writtenOn": "2024-08-09T06:57:31Z",
       "side": 1,
       "message": "It seems the current netd check for VPN is that we don\u0027t destroy if the there is a VPN with the same address and the same netid.\nI think this code does not check the netid but I\u0027m not sure if difference cause any issue.\n@lorenzo@google.com, Do you know why are we checking the netId in the current netd?",
+      "range": {
+        "startLine": 14346,
+        "startChar": 8,
+        "endLine": 14346,
+        "endChar": 9
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04dcd17a_9e4c8472",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 14346,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "The comment in NetworkController says that we need to check the netId is the same:\n\n        // If this IP address is still assigned to another interface in the same network,\n        // then we don\u0027t need to destroy sockets on it because they are likely still valid.\n        // For now we do this only on VPNs.\n        // TODO: evaluate extending this to all network types.\n\n\nThe intent of the current code is to cover the case where a VPN does not disconnect, but changes interface with the same IP address.\n\nGenerally, sockets will only work on the netId they were established on. Just because two interfaces have the same IP address doesn\u0027t mean that sockets started on the old network will work on the new network.",
+      "parentUuid": "eeb55726_f54b59f0",
       "range": {
         "startLine": 14346,
         "startChar": 8,
@@ -65,6 +296,53 @@
         "startChar": 23,
         "endLine": 498,
         "endChar": 58
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20cc6fbb_5ca0318a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "It should be easy to do this using InetAddress#isLinkLocalAddress and Inet6Address#getScopeId. On Linux, the scope ID is the interface index.\n\nRemember to check that the address is an Inet6Address before doing this. isLinkLocalAddress will return true for addresses in 169.254.0.0/16, but these are not scoped addresses and we don\u0027t need to check the interface ID before closing them.",
+      "parentUuid": "d7291b57_618a3213",
+      "range": {
+        "startLine": 498,
+        "startChar": 23,
+        "endLine": 498,
+        "endChar": 58
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a29954b_f7f3e999",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-09T08:49:12Z",
+      "side": 1,
+      "message": "doesAddressMatch?",
+      "range": {
+        "startLine": 503,
+        "startChar": 29,
+        "endLine": 503,
+        "endChar": 45
       },
       "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
