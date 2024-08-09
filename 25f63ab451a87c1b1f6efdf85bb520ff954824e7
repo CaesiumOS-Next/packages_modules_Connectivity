@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1c81bce_5d4a91a3",
+        "filename": "service/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-09T06:57:31Z",
+      "side": 1,
+      "message": "nits: once aosp/3165676 is merged, we don\u0027t need to add `com.android.net.flags-aconfig-java` here.",
+      "range": {
+        "startLine": 199,
+        "startChar": 9,
+        "endLine": 199,
+        "endChar": 43
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeb55726_f54b59f0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 14346,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-09T06:57:31Z",
+      "side": 1,
+      "message": "It seems the current netd check for VPN is that we don\u0027t destroy if the there is a VPN with the same address and the same netid.\nI think this code does not check the netid but I\u0027m not sure if difference cause any issue.\n@lorenzo@google.com, Do you know why are we checking the netId in the current netd?",
+      "range": {
+        "startLine": 14346,
+        "startChar": 8,
+        "endLine": 14346,
+        "endChar": 9
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7291b57_618a3213",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-09T06:57:31Z",
+      "side": 1,
+      "message": "netd socket destroy code specifies the interface index for link-local address. (aosp/1738773)\nDo we need to do the same thing?",
+      "range": {
+        "startLine": 498,
+        "startChar": 23,
+        "endLine": 498,
+        "endChar": 58
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
