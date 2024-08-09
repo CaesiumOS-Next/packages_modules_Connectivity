@@ -20,6 +20,8 @@ import android.app.usage.NetworkStats;
 
 import com.android.internal.annotations.VisibleForTesting;
 
+import java.util.ArrayList;
+
 /**
  * Various utilities used for NetworkStats related code.
  *
@@ -105,13 +107,14 @@ public class NetworkStatsUtils {
      */
     public static android.net.NetworkStats fromPublicNetworkStats(
             NetworkStats publiceNetworkStats) {
-        android.net.NetworkStats stats = new android.net.NetworkStats(0L, 0);
+        final ArrayList<android.net.NetworkStats.Entry> entries = new ArrayList<>();
         while (publiceNetworkStats.hasNextBucket()) {
             NetworkStats.Bucket bucket = new NetworkStats.Bucket();
             publiceNetworkStats.getNextBucket(bucket);
-            final android.net.NetworkStats.Entry entry = fromBucket(bucket);
-            stats = stats.addEntry(entry);
+            entries.add(fromBucket(bucket));
         }
+        final android.net.NetworkStats stats =
+                new android.net.NetworkStats(0L, 0).addEntries(entries);
         return stats;
     }
 
