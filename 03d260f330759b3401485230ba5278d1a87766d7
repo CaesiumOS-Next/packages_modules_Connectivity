@@ -1,0 +1,171 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "764ca42c_eb17a7aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T08:15:41Z",
+      "side": 1,
+      "message": "LGTM assuming nits will be addressed.",
+      "revId": "03d260f330759b3401485230ba5278d1a87766d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7782c8f0_85288897",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T08:15:41Z",
+      "side": 1,
+      "message": "redundant new line.",
+      "revId": "03d260f330759b3401485230ba5278d1a87766d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df6add88_77957a9a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 3124,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T08:15:41Z",
+      "side": 1,
+      "message": "r",
+      "range": {
+        "startLine": 3124,
+        "startChar": 50,
+        "endLine": 3124,
+        "endChar": 51
+      },
+      "revId": "03d260f330759b3401485230ba5278d1a87766d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a65e5d3a_3563fe7c",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 3128,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T08:15:41Z",
+      "side": 1,
+      "message": "This is called in setup() so this should not be needed?",
+      "range": {
+        "startLine": 3128,
+        "startChar": 8,
+        "endLine": 3128,
+        "endChar": 30
+      },
+      "revId": "03d260f330759b3401485230ba5278d1a87766d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79f53821_a44a4c81",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 3167,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T08:15:41Z",
+      "side": 1,
+      "message": "r",
+      "range": {
+        "startLine": 3167,
+        "startChar": 50,
+        "endLine": 3167,
+        "endChar": 51
+      },
+      "revId": "03d260f330759b3401485230ba5278d1a87766d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0275b5d3_d1f0014d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 3170,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T08:15:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 3170,
+        "startChar": 8,
+        "endLine": 3170,
+        "endChar": 27
+      },
+      "revId": "03d260f330759b3401485230ba5278d1a87766d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5741da5c_49442b36",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 3181,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-09T08:15:41Z",
+      "side": 1,
+      "message": "receiver.assertNoBroadcastIntentReceived(); ?",
+      "range": {
+        "startLine": 3181,
+        "startChar": 4,
+        "endLine": 3181,
+        "endChar": 5
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1e0b20b9_da40e5ea",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+              "range": {
+                "startLine": 3182,
+                "startChar": 0,
+                "endLine": 3182,
+                "endChar": 0
+              },
+              "replacement": "    receiver.assertNoBroadcastIntentReceived();\n}\n"
+            }
+          ]
+        }
+      ],
+      "revId": "03d260f330759b3401485230ba5278d1a87766d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
