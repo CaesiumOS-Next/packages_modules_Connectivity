@@ -1,0 +1,39 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e6aee31_42be02c0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-09T03:21:32Z",
+      "side": 1,
+      "message": "You may not want this check if you don\u0027t post your task on mHandler.",
+      "fixSuggestions": [
+        {
+          "fixId": "11d41036_fedf151a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+              "range": {
+                "startLine": 1336,
+                "startChar": 0,
+                "endLine": 1338,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "c64de411874d96014cc356740a5a14648c930085",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
