@@ -1386,7 +1386,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 .setIsBorderRoutingEnabled(brConfig.isBorderRoutingEnabled)
                 .setInfraInterfaceName(brConfig.infraInterfaceName)
                 .setIsNat64Enabled(brConfig.isNat64Enabled)
-                .setInfraNat64Prefix(brConfig.infraNat64Prefix);
+                .setInfraNat64Prefix(brConfig.infraNat64Prefix)
+                .setNat64Cidr(brConfig.nat64Cidr);
     }
 
     private static BorderRouterConfiguration defaultBorderRouterConfiguration() {
@@ -1394,7 +1395,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 .setIsBorderRoutingEnabled(false)
                 .setInfraInterfaceName("")
                 .setIsNat64Enabled(false)
-                .setInfraNat64Prefix("::/0")
+                .setInfraNat64Prefix(null)
+                .setNat64Cidr(null)
                 .build();
     }
 
