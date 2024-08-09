@@ -740,6 +740,8 @@ DEFINE_NETD_V_BPF_PROG_KVER("sendmsg6/udp6_sendmsg", AID_ROOT, AID_ROOT, udp6_se
 
 DEFINE_NETD_V_BPF_PROG_KVER("getsockopt/prog", AID_ROOT, AID_ROOT, getsockopt_prog, KVER_5_4)
 (struct bpf_sockopt *ctx) {
+    uint64_t cookie = bpf_get_sockopt_cookie(ctx);
+    if (cookie) bpf_cookie_tag_map_delete_elem(&cookie);
     // Tell kernel to return 'original' kernel reply (instead of the bpf modified buffer)
     // This is important if the answer is larger than PAGE_SIZE (max size this bpf hook can provide)
     ctx->optlen = 0;
