@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50acecaa_33e5c511",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-08-09T02:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fbf6c28_5b485f9e",
+      "range": {
+        "startLine": 478,
+        "startChar": 57,
+        "endLine": 478,
+        "endChar": 72
+      },
+      "revId": "5d8380c44c79f643bedd398c3aef848f14288d23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9b42a74_9c8c7625",
@@ -84,6 +108,30 @@
       "writtenOn": "2024-08-09T02:18:17Z",
       "side": 1,
       "message": "nit: Problably this is more important, if so maybe move it as the first paragraph?",
+      "range": {
+        "startLine": 479,
+        "startChar": 7,
+        "endLine": 481,
+        "endChar": 64
+      },
+      "revId": "5d8380c44c79f643bedd398c3aef848f14288d23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0285db0_b1e61883",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-08-09T02:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9b42a74_9c8c7625",
       "range": {
         "startLine": 479,
         "startChar": 7,
@@ -154,6 +202,30 @@
       "writtenOn": "2024-08-09T02:18:17Z",
       "side": 1,
       "message": "Maybe describe to the reader about how the values should be choosed if the values are somehow problematic?",
+      "range": {
+        "startLine": 3116,
+        "startChar": 9,
+        "endLine": 3117,
+        "endChar": 70
+      },
+      "revId": "5d8380c44c79f643bedd398c3aef848f14288d23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a133d916_dbc318af",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 3117,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-08-09T02:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b750f073_aa7f9716",
       "range": {
         "startLine": 3116,
         "startChar": 9,
