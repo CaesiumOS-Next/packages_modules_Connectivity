@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31ddd39c_43b3274a",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-09T03:36:36Z",
+      "side": 1,
+      "message": "See refs in http://shortn/_n6pQMhTKc7\n\nAnd b/227269567\n\nIt\u0027s probably expected that the stubs don\u0027t build by just adding the lib to static_libs, likely because static_libs is not used to compile stubs (or to generate them ?). So this lib needs to be in stub_only_libs to be usable when generating the API stubs (since the @FlaggedApi annotation is part of them).\n\nHowever you still need to have the classes in the implementation library that will be on the bootclasspath, otherwise this is \"dynamically linking\" against a library that isn\u0027t actually on the bootclasspath. It probably still works today because this is just using a constant, which ends up inlined at compile time.\n\nSo I think the lib should also be added to static_libs for framework-connectivity in framework-connectivity-defaults (not framework-connectivity-t as we shouldn\u0027t have it in 2 places, and we\u0027ll need it in framework-connectivity too at some point).\n\nYou can update the comments to explain the situation too :)",
+      "parentUuid": "290b2ede_eb15a1cb",
+      "range": {
+        "startLine": 142,
+        "startChar": 44,
+        "endLine": 142,
+        "endChar": 45
+      },
+      "revId": "f990b338e61378f51370e3219e831859adc77142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64e4f092_80630db5",
         "filename": "framework-t/src/android/net/NetworkStats.java",
         "patchSetId": 16
