@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "716e9a49_7c34052b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-09T10:13:02Z",
+      "side": 1,
+      "message": "LGTM assuming comment addressed",
+      "revId": "9a3fe7b8c53007a24270646d9cb65245f92117c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "422dcf0b_c4b5fb63",
+        "filename": "networksecurity/service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-09T10:13:02Z",
+      "side": 1,
+      "message": "You shouldn\u0027t include this since they are in the static_libs of framework-connectivity-pre-jarjar which is in \"libs\" below (so it\u0027s already in the classpath of the service jar)",
+      "revId": "9a3fe7b8c53007a24270646d9cb65245f92117c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
