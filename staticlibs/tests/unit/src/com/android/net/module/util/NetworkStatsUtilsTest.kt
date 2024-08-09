@@ -16,16 +16,36 @@
 
 package com.android.net.module.util
 
+import android.app.usage.NetworkStatsManager
+import android.content.Context
+import android.net.INetworkStatsService
+import android.net.INetworkStatsSession
 import android.net.NetworkStats
+import android.net.NetworkStats.DEFAULT_NETWORK_NO
+import android.net.NetworkStats.DEFAULT_NETWORK_YES
+import android.net.NetworkStats.Entry
+import android.net.NetworkStats.METERED_NO
+import android.net.NetworkStats.ROAMING_NO
+import android.net.NetworkStats.ROAMING_YES
+import android.net.NetworkStats.SET_DEFAULT
+import android.net.NetworkStats.TAG_NONE
+import android.net.NetworkTemplate
 import android.text.TextUtils
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
+import com.android.testutils.assertNetworkStatsEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyBoolean
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
+
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest
@@ -93,6 +113,53 @@ class NetworkStatsUtilsTest {
         // TODO: Use assertEquals once all downstreams accept null iface in
         // NetworkStats.Entry#equals.
         assertEntryEquals(expectedEntry, entry)
+    }
+
+    @Test
+    fun testPublicStatsToAndroidNetStats() {
+        val uid1 = 10001
+        val uid2 = 10002
+        val testIface = "wlan0"
+        // The public `NetworkStats` class lacks an operations field.
+        // Set it to zero for testing convenience.
+        val testAndroidNetStats = NetworkStats(0L, 0)
+                .addEntry(Entry(testIface, uid1, SET_DEFAULT, TAG_NONE,
+                        METERED_NO, ROAMING_NO, DEFAULT_NETWORK_YES, 20, 3, 57, 40, 0))
+                .addEntry(Entry(
+                        testIface, uid2, SET_DEFAULT, TAG_NONE,
+                        METERED_NO, ROAMING_YES, DEFAULT_NETWORK_NO, 2, 7, 2, 5, 0))
+                .addEntry(Entry(testIface, uid2, SET_DEFAULT, TAG_NONE,
+                        METERED_NO, ROAMING_YES, DEFAULT_NETWORK_NO, 4, 5, 3, 1, 0))
+        val publicStats: android.app.usage.NetworkStats =
+                makePublicStatsFromAndroidNetStats(testAndroidNetStats)
+        val androidNetStats: NetworkStats =
+                NetworkStatsUtils.fromPublicNetworkStats(publicStats)
+
+        // The public `NetworkStats` class does not include interface information.
+        // Interface details must be removed before making any comparisons.
+        assertNetworkStatsEquals(testAndroidNetStats.withoutInterfaces(), androidNetStats)
+    }
+
+    // It's not possible to directly create a mocked `NetworkStats` instance
+    // because of limitations with `NetworkStats#getNextBucket`.
+    // As a workaround for testing, create a mock by controlling the return values
+    // from the mocked service that provides the `NetworkStats` data.
+    // Note: The order of records in the final `NetworkStats` object might change or
+    // some records might be merged if there are duplicate keys.
+    private fun makePublicStatsFromAndroidNetStats(androidNetStats: NetworkStats):
+            android.app.usage.NetworkStats {
+        val mockService = mock(INetworkStatsService::class.java)
+        val manager = NetworkStatsManager(mock(Context::class.java), mockService)
+        val mockStatsSession = mock(INetworkStatsSession::class.java)
+
+        doReturn(mockStatsSession).`when`(mockService)
+                .openSessionForUsageStats(anyInt(), any())
+        doReturn(androidNetStats).`when`(mockStatsSession).getSummaryForAllUid(
+                any(NetworkTemplate::class.java), anyLong(), anyLong(), anyBoolean())
+        return manager.querySummary(
+                mock(NetworkTemplate::class.java),
+                Long.MIN_VALUE, Long.MAX_VALUE
+        )
     }
 
     private fun makeMockBucket(
