@@ -1331,6 +1331,22 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
+    public void runOtCtlCommand(
+        String command) {
+        checkOnHandlerThread();
+
+        // Fails early to avoid waking up ot-daemon by the ThreadNetworkCountryCode class
+        if (!shouldEnableThread()) {
+            return;
+        }
+
+        try {
+            getOtDaemon().runOtCtlCommand(command);
+        } catch (RemoteException | ThreadNetworkException e) {
+            Log.e(TAG, "otDaemon.runOtCtlCommand failed", e);
+        }
+    }
+
     private void sendLocalNetworkConfig() {
         if (mNetworkAgent == null) {
             return;
