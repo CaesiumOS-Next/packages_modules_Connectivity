@@ -117,6 +117,8 @@ import android.util.SparseArray;
 
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.IRoutingCoordinator;
+import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.server.ServiceManagerWrapper;
 import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.thread.openthread.BackboneRouterState;
@@ -186,6 +188,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final NetworkProvider mNetworkProvider;
     private final Supplier<IOtDaemon> mOtDaemonSupplier;
     private final ConnectivityManager mConnectivityManager;
+    private final RoutingCoordinatorManager mRoutingCoordinatorManager;
     private final TunInterfaceController mTunIfController;
     private final InfraInterfaceController mInfraIfController;
     private final NsdPublisher mNsdPublisher;
@@ -222,6 +225,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             NetworkProvider networkProvider,
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
+            RoutingCoordinatorManager routingCoordinatorManager,
             TunInterfaceController tunIfController,
             InfraInterfaceController infraIfController,
             ThreadPersistentSettings persistentSettings,
@@ -234,6 +238,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mNetworkProvider = networkProvider;
         mOtDaemonSupplier = otDaemonSupplier;
         mConnectivityManager = connectivityManager;
+        mRoutingCoordinatorManager = routingCoordinatorManager;
         mTunIfController = tunIfController;
         mInfraIfController = infraIfController;
         mUpstreamNetworkRequest = newUpstreamNetworkRequest();
@@ -259,13 +264,19 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         Handler handler = new Handler(handlerThread.getLooper());
         NetworkProvider networkProvider =
                 new NetworkProvider(context, handlerThread.getLooper(), "ThreadNetworkProvider");
+        ConnectivityManager connectivityManager =
+                context.getSystemService(ConnectivityManager.class);
+        RoutingCoordinatorManager routingCoordinatorManager =
+                new RoutingCoordinatorManager(
+                        context, connectivityManager.getRoutingCoordinatorService());
 
         return new ThreadNetworkControllerService(
                 context,
                 handler,
                 networkProvider,
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
-                context.getSystemService(ConnectivityManager.class),
+                connectivityManager,
+                routingCoordinatorManager,
                 new TunInterfaceController(TUN_IF_NAME),
                 new InfraInterfaceController(),
                 persistentSettings,
