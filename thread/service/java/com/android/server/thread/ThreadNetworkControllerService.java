@@ -18,6 +18,8 @@ import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.MulticastRoutingConfig.CONFIG_FORWARD_NONE;
 import static android.net.MulticastRoutingConfig.FORWARD_SELECTED;
 import static android.net.MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE;
+import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
+import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.thread.ActiveOperationalDataset.CHANNEL_PAGE_24_GHZ;
 import static android.net.thread.ActiveOperationalDataset.LENGTH_EXTENDED_PAN_ID;
 import static android.net.thread.ActiveOperationalDataset.LENGTH_MESH_LOCAL_PREFIX_BITS;
@@ -75,6 +77,8 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.InetAddresses;
+import android.net.IpPrefix;
+import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
 import android.net.LocalNetworkInfo;
@@ -117,6 +121,9 @@ import android.util.SparseArray;
 
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.IRoutingCoordinator;
+import com.android.net.module.util.IRoutingCoordinatorCallback;
+import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.server.ServiceManagerWrapper;
 import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.thread.openthread.BackboneRouterState;
@@ -186,6 +193,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final NetworkProvider mNetworkProvider;
     private final Supplier<IOtDaemon> mOtDaemonSupplier;
     private final ConnectivityManager mConnectivityManager;
+    private final RoutingCoordinatorManager mRoutingCoordinatorManager;
     private final TunInterfaceController mTunIfController;
     private final InfraInterfaceController mInfraIfController;
     private final NsdPublisher mNsdPublisher;
@@ -222,6 +230,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             NetworkProvider networkProvider,
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
+            RoutingCoordinatorManager routingCoordinatorManager,
             TunInterfaceController tunIfController,
             InfraInterfaceController infraIfController,
             ThreadPersistentSettings persistentSettings,
@@ -234,6 +243,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mNetworkProvider = networkProvider;
         mOtDaemonSupplier = otDaemonSupplier;
         mConnectivityManager = connectivityManager;
+        mRoutingCoordinatorManager = routingCoordinatorManager;
         mTunIfController = tunIfController;
         mInfraIfController = infraIfController;
         mUpstreamNetworkRequest = newUpstreamNetworkRequest();
@@ -259,13 +269,19 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         Handler handler = new Handler(handlerThread.getLooper());
         NetworkProvider networkProvider =
                 new NetworkProvider(context, handlerThread.getLooper(), "ThreadNetworkProvider");
+        ConnectivityManager connectivityManager =
+                context.getSystemService(ConnectivityManager.class);
+        RoutingCoordinatorManager routingCoordinatorManager =
+                new RoutingCoordinatorManager(
+                        context, connectivityManager.getRoutingCoordinatorService());
 
         return new ThreadNetworkControllerService(
                 context,
                 handler,
                 networkProvider,
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
-                context.getSystemService(ConnectivityManager.class),
+                connectivityManager,
+                routingCoordinatorManager,
                 new TunInterfaceController(TUN_IF_NAME),
                 new InfraInterfaceController(),
                 persistentSettings,
@@ -453,8 +469,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                     registerUserRestrictionsReceiver();
                     maybeInitializeOtDaemon();
                     configureBorderRouter(
-                            borderRouterConfigFromThreadConfig(
-                                    mBorderRouterConfig, mPersistentSettings.getConfiguration()));
+                            otDaemonConfigFromThreadConfig(
+                                    mOtDaemonConfig, mPersistentSettings.getConfiguration()));
+                    requestNat64Cidr();
                 });
     }
 
@@ -559,8 +576,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         Log.i(TAG, "Set Thread configuration: " + configuration);
 
-        final BorderRouterConfiguration newBrConfig =
-                borderRouterConfigFromThreadConfig(mBorderRouterConfig, configuration);
+        final OtDaemonConfiguration newBrConfig =
+                otDaemonConfigFromThreadConfig(mOtDaemonConfig, configuration);
         configureBorderRouter(newBrConfig, configuration, operationReceiver);
     }
 
@@ -602,6 +619,41 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             return;
         }
         callback.asBinder().unlinkToDeath(mConfigurationReceivers.remove(callback), 0);
+    }
+
+    private final class RoutingCoordinatorCallback extends IRoutingCoordinatorCallback.Stub {
+        public void onIpv4PrefixConflict(IpPrefix ipPrefix) throws RemoteException {
+            Log.i(TAG, "requestNat64Cidr: on conflict " + ipPrefix);
+            mHandler.post(() -> requestNat64Cidr());
+        }
+
+        public LinkAddress getAddress() throws RemoteException {
+            return mRequestedIpv4Address;
+        }
+    }
+    private LinkAddress mRequestedIpv4Address = null;
+
+    private void requestNat64Cidr() {
+        checkOnHandlerThread();
+        LinkAddress ipv4Addr =
+                mRoutingCoordinatorManager.requestDownstreamAddress(
+                        TETHERING_WIFI,
+                        CONNECTIVITY_SCOPE_GLOBAL,
+                        false /* useLastAddress */,
+                        new RoutingCoordinatorCallback());
+        mRequestedIpv4Address = ipv4Addr;
+        Log.i(TAG, "requestNat64Cidr: " + ipv4Addr);
+        mOtDaemonConfig =
+                newOtDaemonConfigBuilder(mOtDaemonConfig)
+                        .setNat64Cidr(
+                                ipv4Addr != null
+                                        ? new IpPrefix(
+                                                        ipv4Addr.getAddress(),
+                                                        ipv4Addr.getPrefixLength())
+                                                .toString()
+                                        : null)
+                        .build();
+        configureBorderRouter(mOtDaemonConfig);
     }
 
     private void registerUserRestrictionsReceiver() {
@@ -1223,7 +1275,15 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
-    private void configureBorderRouter(OtDaemonConfiguration otDaemonConfig) {
+    private void configureBorderRouter(@NonNull OtDaemonConfiguration otDaemonConfig) {
+        configureBorderRouter(
+                otDaemonConfig, null /* threadConfig */, null /* operationReceiver */);
+    }
+
+    private void configureBorderRouter(
+            OtDaemonConfiguration otDaemonConfig,
+            @Nullable ThreadConfiguration threadConfig,
+            @Nullable IOperationReceiver operationReceiver) {
         if (mOtDaemonConfig.equals(otDaemonConfig)) {
             return;
         }
@@ -1244,7 +1304,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                             mOtDaemonConfig,
                             infraIcmp6Socket,
                             new ConfigureBorderRouterStatusReceiver(
-                                    borderRouterConfig, threadConfig, operationReceiver));
+                                    otDaemonConfig, threadConfig, operationReceiver));
         } catch (RemoteException | ThreadNetworkException e) {
             Log.w(TAG, "Failed to configure border router " + mOtDaemonConfig, e);
         }
@@ -1369,21 +1429,30 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         return builder.build();
     }
 
+    private static OtDaemonConfiguration otDaemonConfigFromThreadConfig(
+            OtDaemonConfiguration brConfig, ThreadConfiguration threadConfig) {
+        return newOtDaemonConfigBuilder(brConfig)
+                .setIsNat64Enabled(threadConfig.isNat64Enabled())
+                .build();
+    }
+
     private static OtDaemonConfiguration.Builder newOtDaemonConfigBuilder(
             OtDaemonConfiguration brConfig) {
         return new OtDaemonConfiguration.Builder()
                 .setIsBorderRoutingEnabled(brConfig.isBorderRoutingEnabled)
                 .setInfraInterfaceName(brConfig.infraInterfaceName)
                 .setIsNat64Enabled(brConfig.isNat64Enabled)
-                .setInfraNat64Prefix(brConfig.infraNat64Prefix);
+                .setInfraNat64Prefix(brConfig.infraNat64Prefix)
+                .setNat64Cidr(brConfig.nat64Cidr);
     }
 
-    private static BorderRouterConfiguration defaultBorderRouterConfiguration() {
-        return new BorderRouterConfiguration.Builder()
+    private static OtDaemonConfiguration defaultBorderRouterConfiguration() {
+        return new OtDaemonConfiguration.Builder()
                 .setIsBorderRoutingEnabled(false)
                 .setInfraInterfaceName("")
                 .setIsNat64Enabled(false)
-                .setInfraNat64Prefix("::/0")
+                .setInfraNat64Prefix(null)
+                .setNat64Cidr(null)
                 .build();
     }
 
@@ -1409,22 +1478,22 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     private final class ConfigureBorderRouterStatusReceiver extends IOtStatusReceiver.Stub {
-        private final BorderRouterConfiguration mBorderRouterConfig;
+        private final OtDaemonConfiguration mOtDaemonConfig;
         @Nullable private final ThreadConfiguration mThreadConfig;
         @Nullable private final IOperationReceiver mOperationReceiver;
 
         public ConfigureBorderRouterStatusReceiver(
-                @NonNull BorderRouterConfiguration borderRouterConfig,
+                @NonNull OtDaemonConfiguration otdaemonConfig,
                 @Nullable ThreadConfiguration threadConfig,
                 @Nullable IOperationReceiver operationReceiver) {
-            mBorderRouterConfig = borderRouterConfig;
+            mOtDaemonConfig = otdaemonConfig;
             mThreadConfig = threadConfig;
             mOperationReceiver = operationReceiver;
         }
 
         @Override
         public void onSuccess() {
-            Log.i(TAG, "Configured border router successfully. Config: " + mBorderRouterConfig);
+            Log.i(TAG, "Configured border router successfully. Config: " + mOtDaemonConfig);
             // When the BR config is changed due to ThreadConfiguration change, we need to persist
             // the configuration and trigger the callbacks
             if (mThreadConfig != null) {
@@ -1454,7 +1523,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                     TAG,
                     String.format(
                             "Failed to configure border router: %d %s. Config: %s",
-                            i, s, mBorderRouterConfig));
+                            i, s, mOtDaemonConfig));
             if (mOperationReceiver != null) {
                 try {
                     mOperationReceiver.onError(i, s);
