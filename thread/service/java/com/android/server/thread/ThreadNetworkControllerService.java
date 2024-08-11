@@ -18,6 +18,8 @@ import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.MulticastRoutingConfig.CONFIG_FORWARD_NONE;
 import static android.net.MulticastRoutingConfig.FORWARD_SELECTED;
 import static android.net.MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE;
+import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
+import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.thread.ActiveOperationalDataset.CHANNEL_PAGE_24_GHZ;
 import static android.net.thread.ActiveOperationalDataset.LENGTH_EXTENDED_PAN_ID;
 import static android.net.thread.ActiveOperationalDataset.LENGTH_MESH_LOCAL_PREFIX_BITS;
@@ -75,6 +77,8 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.InetAddresses;
+import android.net.IpPrefix;
+import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
 import android.net.LocalNetworkInfo;
@@ -118,6 +122,7 @@ import android.util.SparseArray;
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.IRoutingCoordinator;
+import com.android.net.module.util.IRoutingCoordinatorCallback;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.server.ServiceManagerWrapper;
 import com.android.server.connectivity.ConnectivityResources;
@@ -462,6 +467,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                     configureBorderRouter(
                             borderRouterConfigFromThreadConfig(
                                     mBorderRouterConfig, mPersistentSettings.getConfiguration()));
+                    requestNat64Cidr();
                 });
     }
 
@@ -609,6 +615,35 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             return;
         }
         callback.asBinder().unlinkToDeath(mConfigurationReceivers.remove(callback), 0);
+    }
+
+    private final class RoutingCoordinatorCallback extends IRoutingCoordinatorCallback.Stub {
+        public void onIpv4PrefixConflict(IpPrefix ipPrefix) throws RemoteException {
+            Log.i(TAG, "requestNat64Cidr: on conflict " + ipPrefix);
+            mHandler.post(() -> requestNat64Cidr());
+        }
+    }
+
+    private void requestNat64Cidr() {
+        checkOnHandlerThread();
+        LinkAddress ipv4Addr =
+                mRoutingCoordinatorManager.requestDownstreamAddress(
+                        TETHERING_WIFI,
+                        CONNECTIVITY_SCOPE_GLOBAL,
+                        false /* useLastAddress */,
+                        new RoutingCoordinatorCallback());
+        Log.i(TAG, "requestNat64Cidr: " + ipv4Addr);
+        mBorderRouterConfig =
+                newBorderRouterConfigBuilder(mBorderRouterConfig)
+                        .setNat64Cidr(
+                                ipv4Addr != null
+                                        ? new IpPrefix(
+                                                        ipv4Addr.getAddress(),
+                                                        ipv4Addr.getPrefixLength())
+                                                .toString()
+                                        : null)
+                        .build();
+        configureBorderRouter(mBorderRouterConfig);
     }
 
     private void registerUserRestrictionsReceiver() {
