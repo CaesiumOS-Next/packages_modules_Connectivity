@@ -164,6 +164,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c000c0b2_35f4d598",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 8744,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-12T07:04:21Z",
+      "side": 1,
+      "message": "Yeah, that makes sense.\nActually, My previous CL (aosp/2850386) was made with same concept with that.\n\nPros of using linkproperties update: It\u0027s simple and there will be less workload on connectivity module compared than using netlink event.\n \nCons of using linkproperties update: It may a bit different from legacy socket destroy behavior. \n \u003e There can be a case that vendor or 3rd party NIC control program may not report addresses to connectivity service via network provider, even if it\u0027s added them to kernel. \n\nIf we don\u0027t need to destroy sockets on addresses that they were not reported to connectivity service, using LinkProperties update looks good to me also.\n\nI\u0027ll discuss with Motomu about this again.",
+      "parentUuid": "3c1c1c6e_388838b5",
+      "range": {
+        "startLine": 8744,
+        "startChar": 12,
+        "endLine": 8744,
+        "endChar": 32
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc12bbbc_8bff096e",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 14
