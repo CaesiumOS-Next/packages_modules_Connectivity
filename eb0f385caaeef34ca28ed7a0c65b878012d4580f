@@ -139,6 +139,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59b9b004_2a094fca",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 12
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-12T01:43:30Z",
+      "side": 1,
+      "message": "Oh, I see.\n\nBy the way, don\u0027t we need to consider to have a way to disable the feature at the next mainline release just for the case of any unexpected problem?\n\nE.g.)\n - Enabled this feature at connectivity module version 10.\n - Need to disable this feature at connectivity module version 11.\n\nI think, if we only have platform flag, we can\u0027t disable this by upgrading mainline module. (we need to wait the next platform upgrade.)",
+      "parentUuid": "b830c260_896fd396",
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a0effe5_1ef8e885",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 12
