@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe3f510e_77394d7e",
+        "filename": "thread/scripts/make-pretty.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-12T06:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a81fd4d_bf421bfa",
+      "range": {
+        "startLine": 4,
+        "startChar": 27,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "7e14da071a28f67094bda5d1023b307d3d9cfcb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddbd2c68_977b3ebe",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-08-12T05:47:39Z",
       "side": 1,
       "message": "nit: check that the CODE_DIR can be only one of the three Thread git repo.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 2
+      },
+      "revId": "7e14da071a28f67094bda5d1023b307d3d9cfcb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "640a3bc1_65d9bc21",
+        "filename": "thread/scripts/make-pretty.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-12T06:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddbd2c68_977b3ebe",
       "range": {
         "startLine": 17,
         "startChar": 0,
