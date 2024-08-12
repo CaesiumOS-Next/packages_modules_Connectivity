@@ -17,6 +17,7 @@
 package com.android.testutils
 
 import android.net.NetworkStats
+import android.text.TextUtils
 import kotlin.test.assertTrue
 
 @JvmOverloads
@@ -26,7 +27,7 @@ fun orderInsensitiveEquals(
     compareTime: Boolean = false
 ): Boolean {
     if (leftStats == rightStats) return true
-    if (compareTime && leftStats.getElapsedRealtime() != rightStats.getElapsedRealtime()) {
+    if (compareTime && leftStats.elapsedRealtime != rightStats.elapsedRealtime) {
         return false
     }
 
@@ -47,9 +48,35 @@ fun orderInsensitiveEquals(
                 left.metered, left.roaming, left.defaultNetwork, i)
         if (j == -1) return false
         rightTrimmedEmpty.getValues(j, right)
-        if (left != right) return false
+        if (!checkEntryEquals(left, right)) return false
     }
     return true
+}
+
+/**
+ * Assert that the two {@link NetworkStats.Entry} are equals.
+ */
+@JvmOverloads
+fun assertEntryEquals(left: NetworkStats.Entry, right: NetworkStats.Entry) {
+    assertTrue(checkEntryEquals(left, right))
+}
+
+// TODO: Make all callers use NetworkStats.Entry#assertEquals once T- downstreams
+//  are no longer supported. Because they do not accept null iface in
+//  NetworkStats.Entry#equals.
+fun checkEntryEquals(left: NetworkStats.Entry, right: NetworkStats.Entry): Boolean {
+    return TextUtils.equals(left.iface, right.iface) &&
+            left.uid == right.uid &&
+            left.set == right.set &&
+            left.tag == right.tag &&
+            left.metered == right.metered &&
+            left.roaming == right.roaming &&
+            left.defaultNetwork == right.defaultNetwork &&
+            left.rxBytes == right.rxBytes &&
+            left.rxPackets == right.rxPackets &&
+            left.txBytes == right.txBytes &&
+            left.txPackets == right.txPackets &&
+            left.operations == right.operations
 }
 
 /**
@@ -66,7 +93,7 @@ fun assertNetworkStatsEquals(
     compareTime: Boolean = false
 ) {
     assertTrue(orderInsensitiveEquals(expected, actual, compareTime),
-            "expected: " + expected + " but was: " + actual)
+            "expected: $expected but was: $actual")
 }
 
 /**
@@ -74,5 +101,5 @@ fun assertNetworkStatsEquals(
  * object.
  */
 fun assertParcelingIsLossless(stats: NetworkStats) {
-    assertParcelingIsLossless(stats, { a, b -> orderInsensitiveEquals(a, b) })
+    assertParcelingIsLossless(stats) { a, b -> orderInsensitiveEquals(a, b) }
 }
