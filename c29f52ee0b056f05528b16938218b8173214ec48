@@ -1,0 +1,266 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6f26f3b_e92758a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2041348
+      },
+      "writtenOn": "2024-08-12T08:39:26Z",
+      "side": 1,
+      "message": "LGTM overall, added a few minor wording suggestions",
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8a15b94_60943306",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2041348
+      },
+      "writtenOn": "2024-08-12T08:39:26Z",
+      "side": 1,
+      "message": "a -\u003e an",
+      "fixSuggestions": [
+        {
+          "fixId": "9b29736c_e9f39383",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/docs/make-your-android-border-router.md",
+              "range": {
+                "startLine": 3,
+                "startChar": 0,
+                "endLine": 4,
+                "endChar": 0
+              },
+              "replacement": "If you are not an Android device vendor, you can stop reading now.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb684b1f_9a798b98",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2041348
+      },
+      "writtenOn": "2024-08-12T08:39:26Z",
+      "side": 1,
+      "message": "if you have questions",
+      "fixSuggestions": [
+        {
+          "fixId": "7f851a55_95ffa2df",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/docs/make-your-android-border-router.md",
+              "range": {
+                "startLine": 16,
+                "startChar": 0,
+                "endLine": 17,
+                "endChar": 0
+              },
+              "replacement": "[Dicussion](https://github.com/orgs/openthread/discussions) if you have\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ca4a15b_58adf428",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2041348
+      },
+      "writtenOn": "2024-08-12T08:39:26Z",
+      "side": 1,
+      "message": "As",
+      "fixSuggestions": [
+        {
+          "fixId": "9c46834b_9101652b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/docs/make-your-android-border-router.md",
+              "range": {
+                "startLine": 25,
+                "startChar": 0,
+                "endLine": 26,
+                "endChar": 0
+              },
+              "replacement": "open-sourced by Google in GitHub. As the same way OpenThread is developed in\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a4f2fc8_fc310797",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2041348
+      },
+      "writtenOn": "2024-08-12T08:39:26Z",
+      "side": 1,
+      "message": "have been",
+      "fixSuggestions": [
+        {
+          "fixId": "dbd00029_9917e0a1",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/docs/make-your-android-border-router.md",
+              "range": {
+                "startLine": 70,
+                "startChar": 0,
+                "endLine": 71,
+                "endChar": 0
+              },
+              "replacement": "If you are already an Android device vendor, you must have been set up an Android\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cee2733_f5755a23",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2041348
+      },
+      "writtenOn": "2024-08-12T08:39:26Z",
+      "side": 1,
+      "message": "have been",
+      "fixSuggestions": [
+        {
+          "fixId": "bd53f06b_1fb6530b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/docs/make-your-android-border-router.md",
+              "range": {
+                "startLine": 215,
+                "startChar": 0,
+                "endLine": 216,
+                "endChar": 0
+              },
+              "replacement": "Either you are an Android device or silicon vendor, you should have been\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c65747e2_691ad094",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 2041348
+      },
+      "writtenOn": "2024-08-12T08:39:26Z",
+      "side": 1,
+      "message": "a part of",
+      "fixSuggestions": [
+        {
+          "fixId": "80782f5c_df3a6982",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/docs/make-your-android-border-router.md",
+              "range": {
+                "startLine": 356,
+                "startChar": 0,
+                "endLine": 357,
+                "endChar": 0
+              },
+              "replacement": "The Thread mainline module (it\u0027s actually a part of the \"Tethering\" module) provides a\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd4713ad_139838e1",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 2041348
+      },
+      "writtenOn": "2024-08-12T08:39:26Z",
+      "side": 1,
+      "message": "quality -\u003e compatibility",
+      "fixSuggestions": [
+        {
+          "fixId": "7baf9080_146f6e85",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/docs/make-your-android-border-router.md",
+              "range": {
+                "startLine": 469,
+                "startChar": 0,
+                "endLine": 470,
+                "endChar": 0
+              },
+              "replacement": "are a few Android xTS tests should be exercised to ensure the compatibility.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
