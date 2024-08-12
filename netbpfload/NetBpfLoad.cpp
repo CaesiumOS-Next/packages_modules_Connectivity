@@ -137,9 +137,6 @@ inline bool isUserdebug() {
 // Size of the BPF log buffer for verifier logging
 #define BPF_LOAD_LOG_SZ 0xfffff
 
-// Unspecified attach type is 0 which is BPF_CGROUP_INET_INGRESS.
-#define BPF_ATTACH_TYPE_UNSPEC BPF_CGROUP_INET_INGRESS
-
 static unsigned int page_size = static_cast<unsigned int>(getpagesize());
 
 constexpr const char* lookupSelinuxContext(const domain d) {
@@ -201,7 +198,7 @@ static string pathToObjName(const string& path) {
 typedef struct {
     const char* name;
     enum bpf_prog_type type;
-    enum bpf_attach_type expected_attach_type;
+    enum bpf_attach_type attach_type;
 } sectionType;
 
 /*
@@ -218,6 +215,7 @@ typedef struct {
  * as KPROBE, PERF_EVENT, TRACEPOINT are dangerous to use from mainline updatable code,
  * since they are less stable abi/api and may conflict with platform uses of bpf.
  */
+#define BPF_ATTACH_TYPE_UNSPEC 0
 sectionType sectionNameTypes[] = {
         {"bind4/",             BPF_PROG_TYPE_CGROUP_SOCK_ADDR, BPF_CGROUP_INET4_BIND},
         {"bind6/",             BPF_PROG_TYPE_CGROUP_SOCK_ADDR, BPF_CGROUP_INET6_BIND},
@@ -251,7 +249,7 @@ sectionType sectionNameTypes[] = {
 
 typedef struct {
     enum bpf_prog_type type;
-    enum bpf_attach_type expected_attach_type;
+    enum bpf_attach_type attach_type;
     string name;
     vector<char> data;
     vector<char> rel_data;
@@ -435,9 +433,9 @@ static enum bpf_prog_type getSectionType(string& name) {
     return BPF_PROG_TYPE_UNSPEC;
 }
 
-static enum bpf_attach_type getExpectedAttachType(string& name) {
+static enum bpf_attach_type getAttachType(string& name) {
     for (auto& snt : sectionNameTypes)
-        if (StartsWith(name, snt.name)) return snt.expected_attach_type;
+        if (StartsWith(name, snt.name)) return snt.attach_type;
     return BPF_ATTACH_TYPE_UNSPEC;
 }
 
@@ -556,7 +554,7 @@ static int readCodeSections(ifstream& elfFile, vector<codeSection>& cs, size_t s
         if (ptype == BPF_PROG_TYPE_UNSPEC) continue;
 
         // This must be done before '/' is replaced with '_'.
-        cs_temp.expected_attach_type = getExpectedAttachType(name);
+        cs_temp.attach_type = getAttachType(name);
 
         string oldName = name;
 
@@ -1062,7 +1060,7 @@ static int loadCodeSections(const char* elfPath, vector<codeSection>& cs, const 
               .log_level = 1,
               .log_buf = ptr_to_u64(log_buf.data()),
               .log_size = static_cast<__u32>(log_buf.size()),
-              .expected_attach_type = cs[i].expected_attach_type,
+              .expected_attach_type = cs[i].attach_type,
             };
             if (isAtLeastKernelVersion(4, 15, 0))
                 strlcpy(req.prog_name, cs[i].name.c_str(), sizeof(req.prog_name));
