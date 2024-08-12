@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bac1f33e_acefb2f8",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-12T12:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8a15b94_60943306",
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb684b1f_9a798b98",
@@ -84,6 +102,24 @@
           ]
         }
       ],
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6552414b_36cc2dc8",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-12T12:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb684b1f_9a798b98",
       "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -123,6 +159,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d27ed6ab_e9d5d326",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-12T12:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ca4a15b_58adf428",
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a4f2fc8_fc310797",
@@ -154,6 +208,24 @@
           ]
         }
       ],
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b752aae3_e311e7be",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-12T12:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a4f2fc8_fc310797",
       "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -193,6 +265,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5776e6f8_045281bc",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-12T12:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cee2733_f5755a23",
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c65747e2_691ad094",
@@ -228,6 +318,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "720bf04c_1a414a38",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-12T12:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c65747e2_691ad094",
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd4713ad_139838e1",
@@ -259,6 +367,24 @@
           ]
         }
       ],
+      "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1828279_4b31aa25",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-12T12:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd4713ad_139838e1",
       "revId": "c29f52ee0b056f05528b16938218b8173214ec48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
