@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "307a548f_55923c65",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-12T14:01:16Z",
+      "side": 1,
+      "message": "```suggestion\n  implements the Border Routing and Service Discovery functionalities.\n```",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2a272d6_6b14046c",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-12T14:01:16Z",
+      "side": 1,
+      "message": "nit: add a link to Tethering module\nhttps://source.android.com/docs/core/ota/modular-system/tethering",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65047984_ab6db7a0",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-12T14:01:16Z",
+      "side": 1,
+      "message": "```suggestion\nIf you are new to Android ecosystem or your are a silicon vendor who wants to\n```",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "431443c0_3b4feef4",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-12T14:01:16Z",
+      "side": 1,
+      "message": "```suggestion\nThere is also a very good codelab for you to set up your Android development\n```",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf848caa_0e71b9b9",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-12T14:01:16Z",
+      "side": 1,
+      "message": "```suggestion\nwhich tranceives packets via UDP socket to simulate Thread (802.15.4) radio.\n```",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b36c94a_5b60ce94",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-12T14:01:16Z",
+      "side": 1,
+      "message": "```suggestion\nEither you are an Android device vendor or a silicon vendor, you should have been\n```",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b8b2be3_90ad8666",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-12T14:01:16Z",
+      "side": 1,
+      "message": "```suggestion\nThe simplest way to build your HAL APEX is to override the default HAL APEX\n```",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b34f5065_f1b681e7",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-12T14:01:16Z",
+      "side": 1,
+      "message": "That\u0027s happening when there\u0027s `factoryreset` for the CLI input. Will it cause any confusion when the vendor doesn\u0027t see this in their own logs?",
+      "range": {
+        "startLine": 348,
+        "startChar": 0,
+        "endLine": 350,
+        "endChar": 78
+      },
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
