@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbf5a494_642f81b5",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-13T09:47:04Z",
+      "side": 1,
+      "message": "This is for accessing SdkLevel",
+      "parentUuid": "5b950dcf_42d17a5f",
+      "range": {
+        "startLine": 300,
+        "startChar": 8,
+        "endLine": 300,
+        "endChar": 29
+      },
+      "revId": "e6e8ce50c620d94005caf87e878297edd6744273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0f75f4e_d08dedd5",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-13T09:27:43Z",
       "side": 1,
       "message": "nits: Can you mention that we should use new API for memory efficiency?",
+      "range": {
+        "startLine": 118,
+        "startChar": 11,
+        "endLine": 118,
+        "endChar": 23
+      },
+      "revId": "e6e8ce50c620d94005caf87e878297edd6744273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbb37e32_0c761395",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkStatsUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-13T09:47:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0f75f4e_d08dedd5",
       "range": {
         "startLine": 118,
         "startChar": 11,
