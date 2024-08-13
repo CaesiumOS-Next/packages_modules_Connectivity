@@ -50,6 +50,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "69e42b53_002f086e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-13T06:36:25Z",
+      "side": 1,
+      "message": "nits: mentioning that NetworkStats is mainlined on T+ is helpful to understand.",
+      "range": {
+        "startLine": 15,
+        "startChar": 19,
+        "endLine": 15,
+        "endChar": 30
+      },
+      "revId": "26f1448d32a900d75a1d57d7126d080577e5d0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "908106f8_61056112",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkStatsUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-13T06:36:25Z",
+      "side": 1,
+      "message": "nits: Can we mention that NetworkStats is mainlined on T+ and NetworkStats.Entry#equals in S- does not support null iface?",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 30
+      },
+      "revId": "26f1448d32a900d75a1d57d7126d080577e5d0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6e61e03_11139d51",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkStatsUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-13T06:36:25Z",
+      "side": 1,
+      "message": "Is it ok to ignore this warning?\n```\nPlease fix this WARNING reported by Build Warnings: \u0027@JvmOverloads\u0027 annotation has no effect for methods without default arguments\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    \u0027@JvmOverloads\u0027 annotation has no effect for methods without default arguments\n    @JvmOverloads\n    ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P79040303/targets/cf_x86_64_phone-trunk_staging-userdebug, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.\n```",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 36
+      },
+      "revId": "26f1448d32a900d75a1d57d7126d080577e5d0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4efb3a3f_1368ece6",
         "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkStatsUtils.kt",
         "patchSetId": 2

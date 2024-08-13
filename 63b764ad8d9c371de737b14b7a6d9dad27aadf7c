@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48f73c08_76f771ed",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/NetworkStatsUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-13T06:36:25Z",
+      "side": 0,
+      "message": "Just question, Did we ignore the iface difference? I guess this does not fail even if the iface is different.",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 49
+      },
+      "revId": "63b764ad8d9c371de737b14b7a6d9dad27aadf7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
