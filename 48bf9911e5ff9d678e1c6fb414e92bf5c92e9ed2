@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cf71a59_676221f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-08-13T09:45:17Z",
+      "side": 1,
+      "message": "LGTM with a couple of nits.",
+      "revId": "48bf9911e5ff9d678e1c6fb414e92bf5c92e9ed2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7285b2a_feaf197a",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-08-13T09:45:17Z",
+      "side": 1,
+      "message": "```suggestion\n3. how to test your Thread Border Router\n```",
+      "range": {
+        "startLine": 12,
+        "startChar": 14,
+        "endLine": 12,
+        "endChar": 17
+      },
+      "revId": "48bf9911e5ff9d678e1c6fb414e92bf5c92e9ed2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18822c56_1785609c",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-08-13T09:45:17Z",
+      "side": 1,
+      "message": "```suggestion\nAndroid device vendors who have already established an Android development environment for the device can skip this section.\n```",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 8
+      },
+      "revId": "48bf9911e5ff9d678e1c6fb414e92bf5c92e9ed2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50ae91bd_70228653",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-08-13T09:45:17Z",
+      "side": 1,
+      "message": "shall we mention how to get the logs for system service too?",
+      "revId": "48bf9911e5ff9d678e1c6fb414e92bf5c92e9ed2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "174bf9a1_54a97faa",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-08-13T09:45:17Z",
+      "side": 1,
+      "message": "```suggestion\nThe simplest way to build your HAL APEX is to create a new APEX with the binaries\n```",
+      "range": {
+        "startLine": 230,
+        "startChar": 42,
+        "endLine": 230,
+        "endChar": 43
+      },
+      "revId": "48bf9911e5ff9d678e1c6fb414e92bf5c92e9ed2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
