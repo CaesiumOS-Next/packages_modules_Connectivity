@@ -73,6 +73,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95160efb_a36a18ac",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkStatsUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-08-13T06:36:45Z",
+      "side": 1,
+      "message": "Is this change related to this CL?",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 78
+      },
+      "revId": "26f1448d32a900d75a1d57d7126d080577e5d0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37e0f8a3_cca05e4e",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkStatsUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-08-13T06:36:45Z",
+      "side": 1,
+      "message": "Since this is only for fixing T- devices, is that possible to check SDK version here? \nif T+ device: \n  check (left !\u003d right)\nelse:\n  check (checkEntryEquals(left, right))\n\nThen this can make sure the T+ device always use the equals() method overrided in the NetworkStats.Entry.",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 56
+      },
+      "revId": "26f1448d32a900d75a1d57d7126d080577e5d0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "908106f8_61056112",
         "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkStatsUtils.kt",
         "patchSetId": 2
