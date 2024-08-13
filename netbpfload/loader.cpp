@@ -624,6 +624,9 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
     string objName = pathToObjName(string(elfPath));
 
     ret = readSectionByName("maps", elfFile, mdData);
+    if (ret) {
+        ALOGE("readSectionByName: (ret=%d)", ret);
+    }
     if (ret == -2) return 0;  // no maps to read
     if (ret) return ret;
 
@@ -651,7 +654,10 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
     }
 
     ret = getSectionSymNames(elfFile, "maps", mapNames);
-    if (ret) return ret;
+    if (ret) {
+       ALOGE("getSectionSymNames: (ret=%d)", ret);
+       return ret;
+    }
 
     unsigned kvers = kernelVersion();
 
@@ -743,7 +749,10 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
         }
 
         domain pin_subdir = getDomainFromPinSubdir(md[i].pin_subdir);
-        if (unrecognized(pin_subdir)) return -ENOTDIR;
+        if (unrecognized(pin_subdir)) {
+         ALOGE("unrecognized");
+         return -ENOTDIR;
+        }
         if (specified(pin_subdir)) {
             ALOGI("map %s pin_subdir [%-32s] -> %d -> '%s'", mapNames[i].c_str(), md[i].pin_subdir,
                   static_cast<int>(pin_subdir), lookupPinSubdir(pin_subdir));
@@ -778,12 +787,18 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
             ALOGD("bpf_create_map name %s, ret: %d", mapNames[i].c_str(), fd.get());
         }
 
-        if (!fd.ok()) return -saved_errno;
+        if (!fd.ok()) {
+         ALOGE("!fd.ok");
+        return -saved_errno;
+        }
 
         // When reusing a pinned map, we need to check the map type/sizes/etc match, but for
         // safety (since reuse code path is rare) run these checks even if we just created it.
         // We assume failure is due to pinned map mismatch, hence the 'NOT UNIQUE' return code.
-        if (!mapMatchesExpectations(fd, mapNames[i], md[i], type)) return -ENOTUNIQ;
+        if (!mapMatchesExpectations(fd, mapNames[i], md[i], type)) {
+         ALOGE("mapMatchesExpectations");
+        return -ENOTUNIQ;
+        }
 
         if (!reuse) {
             if (specified(selinux_context)) {
