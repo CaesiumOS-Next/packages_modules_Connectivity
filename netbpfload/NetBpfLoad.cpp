@@ -693,7 +693,10 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
     }
 
     ret = getSectionSymNames(elfFile, "maps", mapNames);
-    if (ret) return ret;
+    if (ret) {
+        ALOGE("getSectionSysNames");
+        return ret;
+    }
 
     unsigned kvers = kernelVersion();
 
@@ -819,12 +822,18 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
             ALOGD("bpf_create_map name %s, ret: %d", mapNames[i].c_str(), fd.get());
         }
 
-        if (!fd.ok()) return -saved_errno;
+        if (!fd.ok()) {
+        ALOGE("!fd.ok()");
+        return -saved_errno;
+        }
 
         // When reusing a pinned map, we need to check the map type/sizes/etc match, but for
         // safety (since reuse code path is rare) run these checks even if we just created it.
         // We assume failure is due to pinned map mismatch, hence the 'NOT UNIQUE' return code.
-        if (!mapMatchesExpectations(fd, mapNames[i], md[i], type)) return -ENOTUNIQ;
+        if (!mapMatchesExpectations(fd, mapNames[i], md[i], type)) {
+        ALOGE("mapMatchesExpectations");
+        return -ENOTUNIQ;
+        }
 
         if (!reuse) {
             if (specified(selinux_context)) {
