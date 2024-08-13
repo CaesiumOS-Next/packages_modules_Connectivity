@@ -214,6 +214,9 @@ static void* (*bpf_ringbuf_reserve_unsafe)(const struct bpf_map_def* ringbuf,
         BPF_FUNC_ringbuf_reserve;
 static void (*bpf_ringbuf_submit_unsafe)(const void* data, __u64 flags) = (void*)
         BPF_FUNC_ringbuf_submit;
+static void* (*bpf_sk_storage_get_unsafe)(const struct bpf_map_def* map, const void* key,
+                                         const void* value, unsigned long long flags) = (void*)
+        BPF_FUNC_sk_storage_get;
 
 #define BPF_ANNOTATE_KV_PAIR(name, type_key, type_val)  \
         struct ____btf_map_##name {                     \
@@ -291,6 +294,24 @@ static void (*bpf_ringbuf_submit_unsafe)(const void* data, __u64 flags) = (void*
             const ValueType* v) {                                              \
         bpf_ringbuf_submit_unsafe(v, 0);                                       \
     }
+
+#define DEFINE_BPF_SK_STORAGE_EXT(the_map, TYPE, KeyType, ValueType, num_entries, usr, grp, md,  \
+                           selinux, pindir, share, min_loader, max_loader, ignore_eng,           \
+                           ignore_user, ignore_userdebug)                                        \
+  DEFINE_BPF_MAP_BASE(the_map, TYPE, sizeof(KeyType), sizeof(ValueType),                         \
+                      num_entries, usr, grp, md, selinux, pindir, share,                         \
+                      KVER_NONE, KVER_INF, min_loader, max_loader,                               \
+                      ignore_eng, ignore_user, ignore_userdebug);                                \
+    BPF_MAP_ASSERT_OK(BPF_MAP_TYPE_##TYPE, (num_entries), (md));                                 \
+    _Static_assert(sizeof(KeyType) < 1024, "aosp/2370288 requires < 1024 byte keys");            \
+    _Static_assert(sizeof(ValueType) < 65536, "aosp/2370288 requires < 65536 byte values");      \
+    BPF_ANNOTATE_KV_PAIR(the_map, KeyType, ValueType);                                           \
+                                                                                                 \
+    static inline __always_inline __unused ValueType*  bpf_##the_map##_get(                      \
+            const KeyType* k, const ValueType* v, unsigned long long flags) {                    \
+        return bpf_sk_storage_get_unsafe(&the_map, k, v, flags);                                \
+    };
+
 
 /* There exist buggy kernels with pre-T OS, that due to
  * kernel patch "[ALPS05162612] bpf: fix ubsan error"

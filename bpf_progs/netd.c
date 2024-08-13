@@ -153,6 +153,11 @@ DEFINE_BPF_MAP_RO_NETD(data_saver_enabled_map, ARRAY, uint32_t, bool,
                         BPFLOADER_MIN_VER, BPFLOADER_MAX_VER, MANDATORY, \
                         "fs_bpf_net_shared", "", LOAD_ON_ENG, LOAD_ON_USER, LOAD_ON_USERDEBUG)
 
+DEFINE_BPF_SK_STORAGE_EXT(socket_cookie_map, SK_STORAGE, int, uint64_t, 1000,
+                       AID_ROOT, AID_SYSTEM, 0060, "fs_bpf_net_shared", "", PRIVATE,
+                       BPFLOADER_MAINLINE_U_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG,
+                       LOAD_ON_USER, LOAD_ON_USERDEBUG);
+
 /*
  * Note: this blindly assumes an MTU of 1500, and that packets > MTU are always TCP,
  * and that TCP is using the Linux default settings with TCP timestamp option enabled
