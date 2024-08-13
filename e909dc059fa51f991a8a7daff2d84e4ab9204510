@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da3e0a9a_828a01ee",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-13T12:46:16Z",
+      "side": 1,
+      "message": "I am not sure how soon after boot property changes can happen. My (vague) understanding is that normally deviceconfig flags are not available right after boot, and you need to go through some additional steps if you need them available at that stage. But this is definitely something I need to investigate further. For now I just added a TODO to for later 😊",
+      "parentUuid": "6efa1d07_ffa13073",
+      "revId": "e909dc059fa51f991a8a7daff2d84e4ab9204510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea5ac4f4_ee001268",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-08-13T02:46:24Z",
       "side": 1,
       "message": "Nit: it might be a bit more efficient to iterate on the Properties key-values instead of querying again ?\n\nI guess this makes a difference if the property changes several times in a row: calling DeviceConfig here may miss intermediate changes. It may be desired behavior but may also be a bit harder to follow.",
+      "revId": "e909dc059fa51f991a8a7daff2d84e4ab9204510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e002920_a3e40f3b",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-13T12:46:16Z",
+      "side": 1,
+      "message": "I modified this code a bit to hopefully make it a bit easier to understand. I now query the `properties` object directly, so that within one call of `onPropertiesChanged` we only look at the current snapshot of device properties. I also added the handing off of the new property values to a handler thread.",
+      "parentUuid": "ea5ac4f4_ee001268",
       "revId": "e909dc059fa51f991a8a7daff2d84e4ab9204510",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15bac8ce_2a162369",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-13T12:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "169028d1_22dd99be",
+      "revId": "e909dc059fa51f991a8a7daff2d84e4ab9204510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74a7e499_c0c880e7",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-08-13T02:46:24Z",
       "side": 1,
       "message": "Note: as this is on the main executor, remember to only do something quick\u0026small like post a task on a HandlerThread, or start a new thread. I guess you\u0027d post a job to DownloadService ?\n\nAt some point you might want to have a HandlerThread anyway in which case it might be better to have this run on it, as it\u0027s probably best to avoid running much on the main thread. Or if you\u0027re just posting a task, instead of using the main executor maybe running the task on the DeviceConfig binder thread might be OK (basically executor\u003d\u003dRunnable::run) ?",
+      "revId": "e909dc059fa51f991a8a7daff2d84e4ab9204510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1c344fa_9cb179c1",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-13T12:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74a7e499_c0c880e7",
       "revId": "e909dc059fa51f991a8a7daff2d84e4ab9204510",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
