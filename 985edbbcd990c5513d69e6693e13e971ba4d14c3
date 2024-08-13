@@ -213,6 +213,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a3e3515_0f252ca3",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-13T07:05:05Z",
+      "side": 1,
+      "message": "Updated to document \"spinel+socket\", PTAL!",
+      "parentUuid": "efef7359_7e2816ce",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b36c94a_5b60ce94",
         "filename": "thread/docs/make-your-android-border-router.md",
         "patchSetId": 7
