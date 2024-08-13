@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96f7b281_5e189a4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-13T05:48:05Z",
+      "side": 1,
+      "message": "The assertNetworkStatsEquals hits NPE if the interface was null, on R/S/SV2 based images.\nIt now returns true if two string equals.\ne.g. \nnull, null -\u003e true\nnull, \"test\" -\u003e false\n\"\", \"\" -\u003e true\nnull, \"\" -\u003e false",
+      "parentUuid": "857c4403_fb8b3b61",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "26f1448d32a900d75a1d57d7126d080577e5d0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4efb3a3f_1368ece6",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-13T04:35:55Z",
       "side": 1,
       "message": "What is a difference from NetworkStats#equals?\nI saw NetworkStats#equals also uses `TextUtils.equals` for iface.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 1
+      },
+      "revId": "26f1448d32a900d75a1d57d7126d080577e5d0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f8d5102_b88d35f9",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkStatsUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-13T05:48:05Z",
+      "side": 1,
+      "message": "The equals was fixed at aosp/1946587 in the mainline module.\nThus, for R/S/SV2 devices, since mainlined NetworkStats is not running, the fix is not there, even if the apk pushed to the device.",
+      "parentUuid": "4efb3a3f_1368ece6",
       "range": {
         "startLine": 80,
         "startChar": 0,
