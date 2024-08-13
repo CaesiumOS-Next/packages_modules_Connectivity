@@ -88,6 +88,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "efef7359_7e2816ce",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-08-13T01:30:16Z",
+      "side": 1,
+      "message": "The Thread HAL also support the socket interface `spinel+socket://`. Ref: https://googleplex-android.git.corp.google.com/platform/hardware/interfaces/+/refs/heads/main/threadnetwork/aidl/default/socket_interface.hpp#161",
+      "fixSuggestions": [
+        {
+          "fixId": "0b66fa2e_a84c3fd6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/docs/make-your-android-border-router.md",
+              "range": {
+                "startLine": 167,
+                "startChar": 0,
+                "endLine": 169,
+                "endChar": 0
+              },
+              "replacement": "For real RCP device, it supports both SPI, UART and socket interace and you can\nspecify the device with the schema `spinel+spi://`, `spinel+hdlc+uart://` and\n`spinel+socket://` respectively.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b36c94a_5b60ce94",
         "filename": "thread/docs/make-your-android-border-router.md",
         "patchSetId": 7
