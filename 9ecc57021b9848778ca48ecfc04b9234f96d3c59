@@ -1,5 +1,52 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb6a5f55_fa982cb6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsRecordRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-13T04:21:40Z",
+      "side": 1,
+      "message": "Could this have been VALUE_NONE?",
+      "range": {
+        "startLine": 563,
+        "startChar": 55,
+        "endLine": 563,
+        "endChar": 67
+      },
+      "revId": "9ecc57021b9848778ca48ecfc04b9234f96d3c59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06a73d4c_45369342",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsTextRecord.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-13T04:21:40Z",
+      "side": 1,
+      "message": "It\u0027s generally brittle to support multiple representations of things that are equivalent on the wire. It\u0027s often better to always use one internal representation (pick null or [], whichever) and when receiving incoming packets or requests, convert both equivalent forms to our preferred internal representation.",
+      "range": {
+        "startLine": 136,
+        "startChar": 50,
+        "endLine": 136,
+        "endChar": 57
+      },
+      "revId": "9ecc57021b9848778ca48ecfc04b9234f96d3c59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
