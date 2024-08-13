@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6efa1d07_ffa13073",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-13T02:46:24Z",
+      "side": 1,
+      "message": "What if the property changes soon on boot, before the listener is registered ? Would this miss refreshing ? Does that mean you need to persist the last downloaded version to check if a refresh is necessary on boot ? (I guess that\u0027s probably the case anyway since it\u0027s possible the download fails ?)",
+      "revId": "e909dc059fa51f991a8a7daff2d84e4ab9204510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea5ac4f4_ee001268",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-13T02:46:24Z",
+      "side": 1,
+      "message": "Nit: it might be a bit more efficient to iterate on the Properties key-values instead of querying again ?\n\nI guess this makes a difference if the property changes several times in a row: calling DeviceConfig here may miss intermediate changes. It may be desired behavior but may also be a bit harder to follow.",
+      "revId": "e909dc059fa51f991a8a7daff2d84e4ab9204510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "169028d1_22dd99be",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-13T02:46:24Z",
+      "side": 1,
+      "message": "Nit: TextUtils.isEmpty would to the same check",
+      "revId": "e909dc059fa51f991a8a7daff2d84e4ab9204510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74a7e499_c0c880e7",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-13T02:46:24Z",
+      "side": 1,
+      "message": "Note: as this is on the main executor, remember to only do something quick\u0026small like post a task on a HandlerThread, or start a new thread. I guess you\u0027d post a job to DownloadService ?\n\nAt some point you might want to have a HandlerThread anyway in which case it might be better to have this run on it, as it\u0027s probably best to avoid running much on the main thread. Or if you\u0027re just posting a task, instead of using the main executor maybe running the task on the DeviceConfig binder thread might be OK (basically executor\u003d\u003dRunnable::run) ?",
+      "revId": "e909dc059fa51f991a8a7daff2d84e4ab9204510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
