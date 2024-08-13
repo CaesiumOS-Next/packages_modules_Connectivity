@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83bc65d2_910bb639",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-13T05:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "307a548f_55923c65",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2a272d6_6b14046c",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-08-12T14:01:16Z",
       "side": 1,
       "message": "nit: add a link to Tethering module\nhttps://source.android.com/docs/core/ota/modular-system/tethering",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "469d306a_fa360b61",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-13T05:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2a272d6_6b14046c",
       "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "787158b6_f85c042b",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-13T05:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65047984_ab6db7a0",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "431443c0_3b4feef4",
@@ -69,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dafa6e11_5c675528",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-13T05:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "431443c0_3b4feef4",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf848caa_0e71b9b9",
@@ -82,6 +154,24 @@
       "writtenOn": "2024-08-12T14:01:16Z",
       "side": 1,
       "message": "```suggestion\nwhich tranceives packets via UDP socket to simulate Thread (802.15.4) radio.\n```",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f3399c0_b5dad4d2",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-13T05:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf848caa_0e71b9b9",
       "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -138,6 +228,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79e8d416_82075fef",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-13T05:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b36c94a_5b60ce94",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b8b2be3_90ad8666",
@@ -155,6 +263,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be71355a_586e330a",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-13T05:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b8b2be3_90ad8666",
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b34f5065_f1b681e7",
@@ -168,6 +294,30 @@
       "writtenOn": "2024-08-12T14:01:16Z",
       "side": 1,
       "message": "That\u0027s happening when there\u0027s `factoryreset` for the CLI input. Will it cause any confusion when the vendor doesn\u0027t see this in their own logs?",
+      "range": {
+        "startLine": 348,
+        "startChar": 0,
+        "endLine": 350,
+        "endChar": 78
+      },
+      "revId": "985edbbcd990c5513d69e6693e13e971ba4d14c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "334199cb_3ae65a92",
+        "filename": "thread/docs/make-your-android-border-router.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-13T05:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b34f5065_f1b681e7",
       "range": {
         "startLine": 348,
         "startChar": 0,
