@@ -71,6 +71,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6df76184_fbeb7ddb",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-13T16:05:02Z",
+      "side": 1,
+      "message": "I had to make some additional changes, I misunderstood how the `properties` object works. It only contains the changed values, not all of the values. I now query the values I care about directly, without using a loop at all. I guess iterating over the key-values set would be a bit more robust, as it creates a snapshot of the current values. Not sure if the additional complexity is worth it, though.\n\nI also modified the HandlerThread, now I create a single thread executors when registering the properties listener. I think it is a bit simpler this way, but if you think a HandlerThread is better please let me know.",
+      "parentUuid": "6e002920_a3e40f3b",
+      "revId": "e909dc059fa51f991a8a7daff2d84e4ab9204510",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "169028d1_22dd99be",
