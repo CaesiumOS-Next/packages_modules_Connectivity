@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2efa904_0e98dd7c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1441,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-13T02:12:06Z",
+      "side": 1,
+      "message": "I see. Updated this to use the default socket receive buffer size.",
+      "parentUuid": "7701a868_fb960f59",
+      "range": {
+        "startLine": 1441,
+        "startChar": 25,
+        "endLine": 1441,
+        "endChar": 48
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "640e3bcf_9c319404",
@@ -93,6 +117,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c814dc9_a3d94de4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2127,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-13T02:12:06Z",
+      "side": 1,
+      "message": "It is defined as a @NonNull parameter in NetlinkMonitor.",
+      "parentUuid": "e1234d96_c1d5387b",
+      "range": {
+        "startLine": 2127,
+        "startChar": 26,
+        "endLine": 2127,
+        "endChar": 49
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ab6e711_9f4b90e8",
@@ -116,6 +164,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c359b628_35052cd7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 4069,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-13T02:12:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2ab6e711_9f4b90e8",
+      "range": {
+        "startLine": 4069,
+        "startChar": 24,
+        "endLine": 4069,
+        "endChar": 27
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e6e8cb9_bb58a4a4",
@@ -129,6 +201,30 @@
       "writtenOn": "2024-08-09T08:49:12Z",
       "side": 1,
       "message": "If this is a member variable, maybe put it at the top of the file close to the others?",
+      "range": {
+        "startLine": 8742,
+        "startChar": 7,
+        "endLine": 8742,
+        "endChar": 21
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3f4fc45_954c23f6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 8742,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-13T02:12:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8e6e8cb9_bb58a4a4",
       "range": {
         "startLine": 8742,
         "startChar": 7,
@@ -209,6 +305,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5a44b31_d6d3e2e3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 14336,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-13T02:12:06Z",
+      "side": 1,
+      "message": "Cellular network provider(Telephony) maintains Network instance only for the cellular data session(LTE PDN, 5g PDU) is connected. If new data session is connected, new network agent is registered to connectivity service, even though the same IP address is assigned to the new session.\nThus, we can say it\u0027s handover, if interface is updated during a Network instance is maintained with the same IP address.",
+      "parentUuid": "bc12bbbc_8bff096e",
+      "range": {
+        "startLine": 14336,
+        "startChar": 68,
+        "endLine": 14336,
+        "endChar": 86
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ed64791_39c692b3",
@@ -245,6 +365,54 @@
       "writtenOn": "2024-08-09T08:49:12Z",
       "side": 1,
       "message": "This is hard to read. Isn\u0027t it equivalent to:\n\n    if (keepConnectedForHandover) return false;\n\n    if (supportUpdateNetworkInterface \u0026\u0026 naiIfaceIndex !\u003d 0 \u0026\u0026 naiIfaceIndex !\u003d ifaceIndex) {\n        return false;\n    }",
+      "range": {
+        "startLine": 14341,
+        "startChar": 12,
+        "endLine": 14341,
+        "endChar": 14
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c13e32d8_78aa59c1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 14341,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-13T02:12:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4ed64791_39c692b3",
+      "range": {
+        "startLine": 14341,
+        "startChar": 31,
+        "endLine": 14341,
+        "endChar": 32
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd7cdee4_517a52b5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 14341,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-13T02:12:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e92356a3_2d487179",
       "range": {
         "startLine": 14341,
         "startChar": 12,
@@ -349,6 +517,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51a31dbf_0b324938",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-13T02:12:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "20cc6fbb_5ca0318a",
+      "range": {
+        "startLine": 498,
+        "startChar": 23,
+        "endLine": 498,
+        "endChar": 58
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a29954b_f7f3e999",
@@ -362,6 +554,30 @@
       "writtenOn": "2024-08-09T08:49:12Z",
       "side": 1,
       "message": "doesAddressMatch?",
+      "range": {
+        "startLine": 503,
+        "startChar": 29,
+        "endLine": 503,
+        "endChar": 45
+      },
+      "revId": "25f63ab451a87c1b1f6efdf85bb520ff954824e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f323017e_a9fe16c0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-13T02:12:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0a29954b_f7f3e999",
       "range": {
         "startLine": 503,
         "startChar": 29,
