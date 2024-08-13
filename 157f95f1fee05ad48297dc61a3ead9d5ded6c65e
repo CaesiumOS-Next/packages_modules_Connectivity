@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afff651a_09eef8aa",
+        "filename": "framework-t/api/system-lint-baseline.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-08-13T05:14:45Z",
+      "side": 1,
+      "message": "I have renamed it to POWER_CHANNEL_DISABLED.",
+      "parentUuid": "068925c2_2ba7b06c",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 14
+      },
+      "revId": "157f95f1fee05ad48297dc61a3ead9d5ded6c65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fe83e29_71b7124b",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a57aa6be_a9b2ef76",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-08-13T05:14:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fe83e29_71b7124b",
+      "range": {
+        "startLine": 730,
+        "startChar": 30,
+        "endLine": 730,
+        "endChar": 51
+      },
+      "revId": "157f95f1fee05ad48297dc61a3ead9d5ded6c65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69d47009_b07dc266",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-08-13T02:54:02Z",
       "side": 1,
       "message": "will",
+      "range": {
+        "startLine": 734,
+        "startChar": 38,
+        "endLine": 734,
+        "endChar": 44
+      },
+      "revId": "157f95f1fee05ad48297dc61a3ead9d5ded6c65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c42a1bed_0e808859",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-08-13T05:14:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69d47009_b07dc266",
       "range": {
         "startLine": 734,
         "startChar": 38,
