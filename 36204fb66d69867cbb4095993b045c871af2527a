@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ca636be_6bb7457a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-13T03:09:57Z",
+      "side": 1,
+      "message": "use a member variable for the callback to check if the callback is stale.\n\nignore the stale callbacks.",
+      "revId": "36204fb66d69867cbb4095993b045c871af2527a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc31a336_5d0e19a8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 2004,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-13T03:09:57Z",
+      "side": 1,
+      "message": "Do we need all fields?",
+      "revId": "36204fb66d69867cbb4095993b045c871af2527a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
