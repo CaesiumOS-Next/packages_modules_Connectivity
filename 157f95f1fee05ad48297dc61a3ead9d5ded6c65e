@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "068925c2_2ba7b06c",
+        "filename": "framework-t/api/system-lint-baseline.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-13T02:54:02Z",
+      "side": 1,
+      "message": "This linter warning seems generally useful, but it does not apply here since this constant can never change. We can either\n- @SuppressLint it and explain that it has \"max\" in the name not because it indicates maximum power, but because it\u0027s passed to an API that sets the maximum power.\n- Rename it to something that does not contain the word MAX. Perhaps CHANNEL_DISABLED?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 14
+      },
+      "revId": "157f95f1fee05ad48297dc61a3ead9d5ded6c65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fe83e29_71b7124b",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-13T02:54:02Z",
+      "side": 1,
+      "message": "AFICT 32767 is 5e29 watts, which is obviously an absurd value. Similarly -32768 doesn\u0027t make sense. So I don\u0027t think there\u0027s any point accepting 32767 and throwing IAE for 32768. Can we just remove all mentions of INT16_MIN AND INT16_MAX here, and just set the DISABLED value to INT_MIN?\n\nThe documentation already says that if the value is lower/higher than what the hardware supports, it will be set to the minimum/maxumum supported by the hardare.",
+      "range": {
+        "startLine": 730,
+        "startChar": 30,
+        "endLine": 730,
+        "endChar": 51
+      },
+      "revId": "157f95f1fee05ad48297dc61a3ead9d5ded6c65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69d47009_b07dc266",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-13T02:54:02Z",
+      "side": 1,
+      "message": "will",
+      "range": {
+        "startLine": 734,
+        "startChar": 38,
+        "endLine": 734,
+        "endChar": 44
+      },
+      "revId": "157f95f1fee05ad48297dc61a3ead9d5ded6c65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
