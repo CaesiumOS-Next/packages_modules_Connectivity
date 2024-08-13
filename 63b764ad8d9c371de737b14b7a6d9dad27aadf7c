@@ -22,6 +22,30 @@
       },
       "revId": "63b764ad8d9c371de737b14b7a6d9dad27aadf7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d25610e2_79c1fd22",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/NetworkStatsUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-13T09:05:30Z",
+      "side": 0,
+      "message": "Ooops, good finding.\nYes this probably is an big oversight.\nLucily we don\u0027t have many callers.",
+      "parentUuid": "48f73c08_76f771ed",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 49
+      },
+      "revId": "63b764ad8d9c371de737b14b7a6d9dad27aadf7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
