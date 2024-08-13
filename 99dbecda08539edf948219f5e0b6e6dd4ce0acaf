@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc8991ec_f657859b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-13T02:18:39Z",
+      "side": 1,
+      "message": "Note that this doesn\u0027t filter meteredness or other conditions.\nDo we want to include non-default statistics such as MMS, IMS?",
+      "range": {
+        "startLine": 443,
+        "startChar": 51,
+        "endLine": 443,
+        "endChar": 63
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d055c934_073298ec",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 26,
+                "endChar": 0
+              },
+              "replacement": "import static android.net.NetworkTemplate.MATCH_BLUETOOTH;\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+              "range": {
+                "startLine": 443,
+                "startChar": 0,
+                "endLine": 444,
+                "endChar": 0
+              },
+              "replacement": "                return new NetworkTemplate.Builder(MATCH_MOBILE)\n                        .setMeteredness(NetworkStats.METERED_YES)\n                        .build();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "99dbecda08539edf948219f5e0b6e6dd4ce0acaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
