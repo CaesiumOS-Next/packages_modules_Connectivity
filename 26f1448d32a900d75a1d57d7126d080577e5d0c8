@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "857c4403_fb8b3b61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-13T04:35:55Z",
+      "side": 1,
+      "message": "nits: Does this mean the new comparison returns true when one of the Entry has null interface? Or returns true when two Entries have null interface?\nWhat was behavior of the old comparison?",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "26f1448d32a900d75a1d57d7126d080577e5d0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4efb3a3f_1368ece6",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkStatsUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-13T04:35:55Z",
+      "side": 1,
+      "message": "What is a difference from NetworkStats#equals?\nI saw NetworkStats#equals also uses `TextUtils.equals` for iface.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 1
+      },
+      "revId": "26f1448d32a900d75a1d57d7126d080577e5d0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
