@@ -25,17 +25,21 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.util.Log;
 
+import java.io.IOException;
+
 /** Helper class to download certificate transparency log files. */
 class CertificateTransparencyDownloader extends BroadcastReceiver {
 
     private final Context mContext;
     private final DataStore mDataStore;
     private final DownloadHelper mDownloadHelper;
+    private final CertificateTransparencyInstaller mInstaller;
 
     CertificateTransparencyDownloader(Context context, DataStore dataStore) {
         mContext = context;
         mDataStore = dataStore;
         mDownloadHelper = new DownloadHelper(context, dataStore);
+        mInstaller = new CertificateTransparencyInstaller(context);
     }
 
     void initialize() {
@@ -107,6 +111,12 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
 
-        // TODO: 1. verify file signature, 2. validate file content, 3. install log file.
+        // TODO: 1. verify file signature, 2. validate file content.
+
+        try {
+            mInstaller.install(contentUri, mDataStore.getProperty(Config.VERSION));
+        } catch (IOException e) {
+            Log.e(TAG, "Could not install new content", e);
+        }
     }
 }
