@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f006bc88_199f745c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-14T02:03:30Z",
+      "side": 1,
+      "message": "Yes. Because the `NetworkTemplate#Builder` has been supported since Android T.",
+      "parentUuid": "01eefb49_2ef88904",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 9
+      },
+      "revId": "0f773db9232dcfc563b58919c4bbfbceca84a569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b334648_9c83f07a",
@@ -84,6 +108,30 @@
       "writtenOn": "2024-08-02T18:36:37Z",
       "side": 1,
       "message": "nit: maybe just put this null check inside calculateDataUsage()",
+      "range": {
+        "startLine": 275,
+        "startChar": 18,
+        "endLine": 275,
+        "endChar": 36
+      },
+      "revId": "0f773db9232dcfc563b58919c4bbfbceca84a569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12caccda_408d0d53",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-14T02:03:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a830072e_2727e647",
       "range": {
         "startLine": 275,
         "startChar": 18,
