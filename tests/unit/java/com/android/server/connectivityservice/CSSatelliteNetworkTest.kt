@@ -162,6 +162,42 @@ class CSSatelliteNetworkTest : CSTest() {
         doTestSatelliteNeverBecomeDefaultNetwork(restricted = false)
     }
 
+    private fun doTestSatelliteRequestSatisfier(destroyed: Boolean) {
+        val netdInOrder = inOrder(netd)
+        val satelliteAgent = createSatelliteAgent("satellite0")
+        satelliteAgent.connect()
+
+        var uids = setOf(TEST_PACKAGE_UID)
+        val config1 = NativeUidRangeConfig(
+                satelliteAgent.network.netId,
+                toUidRangeStableParcels(uidRangesForUids(uids)),
+                PREFERENCE_ORDER_SATELLITE_FALLBACK
+        )
+        updateSatelliteNetworkFallbackUids(uids)
+
+        if (destroyed) {
+            satelliteAgent.unregisterAfterReplacement(timeoutMs = 5000)
+        }
+
+        updateSatelliteNetworkFallbackUids(setOf())
+        if (destroyed) {
+            // If the network is already destroyed, networkRemoveUidRangesParcel is not called
+            netdInOrder.verify(netd, never()).networkRemoveUidRangesParcel(any())
+        } else {
+            netdInOrder.verify(netd).networkRemoveUidRangesParcel(config1)
+        }
+    }
+
+    @Test
+    fun testSatelliteRequestSatisfier_destroyed() {
+        doTestSatelliteRequestSatisfier(destroyed = true)
+    }
+
+    @Test
+    fun testSatelliteRequestSatisfier_notDestroyed() {
+        doTestSatelliteRequestSatisfier(destroyed = false)
+    }
+
     private fun assertCreateMultiLayerNrisFromSatelliteNetworkPreferredUids(uids: Set<Int>) {
         val nris: Set<ConnectivityService.NetworkRequestInfo> =
             service.createMultiLayerNrisFromSatelliteNetworkFallbackUids(uids)
