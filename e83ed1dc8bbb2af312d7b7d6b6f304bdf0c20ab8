@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98ec73b6_0178baa4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-14T07:06:37Z",
+      "side": 1,
+      "message": "Could this be forceEnableBackoff, which would be set by the caller as `queryMode \u003d\u003d AGGRESSIVE_QUERY_MODE \u0026\u0026 hasReply` ? I think it would be clearer to have the selection of what kind of scheduling to use in the caller (MdnsServiceTypeClient), as this class is pretty complicated.\n\nThen the condition would become:\n\n```\nif (mLastScheduledQueryTaskArgs \u003d\u003d null \u0026\u0026 !forceEnableBackoff) {\n   ...\n} else {\n   ...\n}\n```\n\nWhich is slightly different since there would be no backoff in aggressive mode if there was no reply from cache. That only makes a difference when resolving a service, and there\u0027s another service in cache with a different name but the same service type, so there\u0027s no reply from cache but there is a minTtl. Arguably in that case it\u0027s better not to backoff since we need to query additional results.",
+      "revId": "e83ed1dc8bbb2af312d7b7d6b6f304bdf0c20ab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ff71469_b9c088fe",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-14T07:06:37Z",
+      "side": 1,
+      "message": "Nit: to make it clear what this is, either put a `/* forceEnableBackoff */` comment or define a boolean variable for it (the second option is generally better)",
+      "revId": "e83ed1dc8bbb2af312d7b7d6b6f304bdf0c20ab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46b79b17_d27d7e52",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-14T07:06:37Z",
+      "side": 1,
+      "message": "How about \"forceEnableBackoff\" ? The semantics aren\u0027t very clear with the current name.\n\nThen instead of having it as argument in shouldUseQueryBackoff, you\u0027d just do:\n\n```\nif (forceEnableBackoff\n    || queryTaskConfig.shouldUseQueryBackoff(numOfQueriesBeforeBackoff))\n```",
+      "range": {
+        "startLine": 138,
+        "startChar": 51,
+        "endLine": 138,
+        "endChar": 75
+      },
+      "revId": "e83ed1dc8bbb2af312d7b7d6b6f304bdf0c20ab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
