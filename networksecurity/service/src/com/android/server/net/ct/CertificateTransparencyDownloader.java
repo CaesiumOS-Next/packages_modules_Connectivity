@@ -27,23 +27,34 @@ import android.util.Log;
 
 import androidx.annotation.VisibleForTesting;
 
+import java.io.IOException;
+
 /** Helper class to download certificate transparency log files. */
 class CertificateTransparencyDownloader extends BroadcastReceiver {
 
     private final Context mContext;
     private final DataStore mDataStore;
     private final DownloadHelper mDownloadHelper;
+    private final CertificateTransparencyInstaller mInstaller;
 
     @VisibleForTesting
     CertificateTransparencyDownloader(
-            Context context, DataStore dataStore, DownloadHelper downloadHelper) {
+            Context context,
+            DataStore dataStore,
+            DownloadHelper downloadHelper,
+            CertificateTransparencyInstaller installer) {
         mContext = context;
         mDataStore = dataStore;
         mDownloadHelper = downloadHelper;
+        mInstaller = installer;
     }
 
     CertificateTransparencyDownloader(Context context, DataStore dataStore) {
-        this(context, dataStore, new DownloadHelper(context));
+        this(
+                context,
+                dataStore,
+                new DownloadHelper(context),
+                new CertificateTransparencyInstaller(context));
     }
 
     void initialize() {
@@ -127,7 +138,13 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
 
-        // TODO: 1. verify file signature, 2. validate file content, 3. install log file.
+        // TODO: 1. verify file signature, 2. validate file content.
+
+        try {
+            mInstaller.install(contentUri, mDataStore.getProperty(Config.VERSION));
+        } catch (IOException e) {
+            Log.e(TAG, "Could not install new content", e);
+        }
     }
 
     @VisibleForTesting
