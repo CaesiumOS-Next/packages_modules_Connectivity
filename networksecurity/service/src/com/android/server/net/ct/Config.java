@@ -35,8 +35,11 @@ final class Config {
 
     // flags and properties names
     static final String VERSION = "version";
+    static final String VERSION_STORED = "version_stored";
     static final String CONTENT_URL = "content_url";
+    static final String CONTENT_URL_STORED = "content_url_stored";
     static final String CONTENT_URL_KEY = "content_url_key";
     static final String METADATA_URL = "metadata_url";
+    static final String METADATA_URL_STORED = "metadata_url_stored";
     static final String METADATA_URL_KEY = "metadata_url_key";
 }
