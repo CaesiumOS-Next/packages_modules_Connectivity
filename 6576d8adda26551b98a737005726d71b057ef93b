@@ -22,6 +22,30 @@
       },
       "revId": "6576d8adda26551b98a737005726d71b057ef93b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce515655_c9a1a710",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-14T09:26:06Z",
+      "side": 1,
+      "message": "\"so it **shouldn\u0027t** be included in the javadoc\"",
+      "parentUuid": "40770fd6_6ffe81f1",
+      "range": {
+        "startLine": 107,
+        "startChar": 7,
+        "endLine": 109,
+        "endChar": 35
+      },
+      "revId": "6576d8adda26551b98a737005726d71b057ef93b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
