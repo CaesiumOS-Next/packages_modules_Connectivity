@@ -28,10 +28,6 @@ final class Config {
     static final String TAG = "CertificateTransparency";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
-    // ct directory and files
-    static final String CT_LOGS_DIR = "/data/misc/keychain/ct/";
-    static final String CT_LOGS_TEMP_FILE = "log_list_temp-";
-
     // preferences file
     private static final File DEVICE_PROTECTED_DATA_DIR =
             ApexEnvironment.getApexEnvironment(DeviceConfigUtils.TETHERING_MODULE_NAME)
