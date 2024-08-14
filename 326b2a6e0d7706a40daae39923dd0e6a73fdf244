@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c9cee29_8da7bf8b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-14T06:13:13Z",
+      "side": 1,
+      "message": "Maybe use a private class to make it less errorprone.",
+      "range": {
+        "startLine": 198,
+        "startChar": 12,
+        "endLine": 198,
+        "endChar": 28
+      },
+      "revId": "326b2a6e0d7706a40daae39923dd0e6a73fdf244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1950bf21_e4fad0bf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-14T06:13:13Z",
+      "side": 1,
+      "message": "Maybe use a isTetheringFeatureNotChickenedOut to control.",
+      "range": {
+        "startLine": 200,
+        "startChar": 35,
+        "endLine": 200,
+        "endChar": 45
+      },
+      "revId": "326b2a6e0d7706a40daae39923dd0e6a73fdf244",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
