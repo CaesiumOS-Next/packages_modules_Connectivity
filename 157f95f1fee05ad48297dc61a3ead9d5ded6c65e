@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65eaf3df_bc8a768d",
+        "filename": "framework-t/api/system-lint-baseline.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-08-14T09:17:14Z",
+      "side": 1,
+      "message": "I have added the `@SuppressLint(\"MinMaxConstant\")`.",
+      "parentUuid": "afff651a_09eef8aa",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 14
+      },
+      "revId": "157f95f1fee05ad48297dc61a3ead9d5ded6c65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fe83e29_71b7124b",
