@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee8cb964_267682ee",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-14T06:44:59Z",
+      "side": 1,
+      "message": "I was thinking that indent was the \"base indent\" that the caller is using, so you wouldn\u0027t necessarily want to double it here, just add one indent (for example if the caller is currently dumping with 3 indents, you wouldn\u0027t want to indent 6 times here)\n\nYou could just say `indent + \"    Response{ \" ....`",
+      "range": {
+        "startLine": 372,
+        "startChar": 36,
+        "endLine": 372,
+        "endChar": 42
+      },
+      "revId": "889129b4bdef7866df018f7e69a74acad3fd3da2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
