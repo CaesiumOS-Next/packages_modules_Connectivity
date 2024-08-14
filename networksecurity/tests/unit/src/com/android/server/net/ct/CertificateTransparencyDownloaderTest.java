@@ -48,6 +48,7 @@ public class CertificateTransparencyDownloaderTest {
     private Context mContext;
     private File mTempFile;
     private DataStore mDataStore;
+    private CertificateTransparencyInstaller mCertificateTransparencyInstaller;
     private CertificateTransparencyDownloader mCertificateTransparencyDownloader;
 
     @Before
@@ -58,9 +59,11 @@ public class CertificateTransparencyDownloaderTest {
         mTempFile = File.createTempFile("datastore-test", ".properties");
         mDataStore = new DataStore(mTempFile);
         mDataStore.load();
+        mCertificateTransparencyInstaller = new CertificateTransparencyInstaller();
 
         mCertificateTransparencyDownloader =
-                new CertificateTransparencyDownloader(mContext, mDataStore, mDownloadHelper);
+                new CertificateTransparencyDownloader(
+                        mContext, mDataStore, mDownloadHelper, mCertificateTransparencyInstaller);
         mCertificateTransparencyDownloader.initialize();
     }
 
