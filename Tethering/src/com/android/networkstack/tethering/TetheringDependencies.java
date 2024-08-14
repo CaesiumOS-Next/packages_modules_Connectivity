@@ -21,6 +21,7 @@ import android.app.usage.NetworkStatsManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.INetd;
 import android.net.connectivity.ConnectivityInternalApiUtil;
 import android.net.ip.IpServer;
@@ -135,7 +136,8 @@ public abstract class TetheringDependencies {
     public RoutingCoordinatorManager getRoutingCoordinator(Context context, SharedLog log) {
         IBinder binder;
         if (!SdkLevel.isAtLeastS()) {
-            binder = new RoutingCoordinatorService(getINetd(context, log));
+            ConnectivityManager cm = context.getSystemService(ConnectivityManager.class);
+            binder = new RoutingCoordinatorService(getINetd(context, log), cm);
         } else {
             binder = ConnectivityInternalApiUtil.getRoutingCoordinator(context);
         }
@@ -178,7 +180,7 @@ public abstract class TetheringDependencies {
      */
     public PrivateAddressCoordinator makePrivateAddressCoordinator(Context ctx,
             TetheringConfiguration cfg) {
-        return new PrivateAddressCoordinator(ctx, cfg);
+        return new PrivateAddressCoordinator(ctx.getSystemService(ConnectivityManager.class));
     }
 
     /**
