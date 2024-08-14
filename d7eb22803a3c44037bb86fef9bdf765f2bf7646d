@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8cb0b50_6f867616",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-14T07:22:07Z",
+      "side": 1,
+      "message": "Considering other comments, I don\u0027t think the type needs to change here; after the member is set there shouldn\u0027t be a need to check whether it is alive again.",
+      "revId": "d7eb22803a3c44037bb86fef9bdf765f2bf7646d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8028121f_0025c893",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-14T07:22:07Z",
+      "side": 1,
+      "message": "mConnector should be set with the mConnectorWaitQueue lock held in onTetheringConnected, otherwise it is possible that other threads call getConnector after this runs (but before the queue is drained) and receive a connector before the queue is drained. This would cause calls to be processed out-of-order.\n\nI think you can leave the code here as it was, just changing `connector !\u003d null` to `connector !\u003d null \u0026\u0026 connector.isBinderAlive()`, and un-commenting the assignment in onTetheringConnected.",
+      "revId": "d7eb22803a3c44037bb86fef9bdf765f2bf7646d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50e300be_b01e1442",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-14T07:22:07Z",
+      "side": 1,
+      "message": "The polling shouldn\u0027t be started for each caller that needs the connector; it only needs to run once on initialization.\n\nI think you can revert this code to what it was, just changing `if (connector \u003d\u003d null)` to `if (connector \u003d\u003d null || !connector.isBinderAlive())`",
+      "revId": "d7eb22803a3c44037bb86fef9bdf765f2bf7646d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
