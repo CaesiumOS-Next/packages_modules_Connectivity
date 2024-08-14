@@ -74,9 +74,9 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
             Log.d(TAG, "newMetadataUrl=" + newMetadataUrl);
         }
 
-        String oldVersion = mDataStore.getProperty(Config.VERSION);
-        String oldContentUrl = mDataStore.getProperty(Config.CONTENT_URL);
-        String oldMetadataUrl = mDataStore.getProperty(Config.METADATA_URL);
+        String oldVersion = mDataStore.getProperty(Config.VERSION_STORED);
+        String oldContentUrl = mDataStore.getProperty(Config.CONTENT_URL_STORED);
+        String oldMetadataUrl = mDataStore.getProperty(Config.METADATA_URL_STORED);
 
         if (TextUtils.equals(newVersion, oldVersion)
                 && TextUtils.equals(newContentUrl, oldContentUrl)

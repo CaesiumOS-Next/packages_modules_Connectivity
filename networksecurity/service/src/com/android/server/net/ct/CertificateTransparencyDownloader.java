@@ -27,23 +27,34 @@ import android.util.Log;
 
 import androidx.annotation.VisibleForTesting;
 
+import java.io.IOException;
+
 /** Helper class to download certificate transparency log files. */
 class CertificateTransparencyDownloader extends BroadcastReceiver {
 
     private final Context mContext;
     private final DataStore mDataStore;
     private final DownloadHelper mDownloadHelper;
+    private final CertificateTransparencyInstaller mInstaller;
 
     @VisibleForTesting
     CertificateTransparencyDownloader(
-            Context context, DataStore dataStore, DownloadHelper downloadHelper) {
+            Context context,
+            DataStore dataStore,
+            DownloadHelper downloadHelper,
+            CertificateTransparencyInstaller installer) {
         mContext = context;
         mDataStore = dataStore;
         mDownloadHelper = downloadHelper;
+        mInstaller = installer;
     }
 
     CertificateTransparencyDownloader(Context context, DataStore dataStore) {
-        this(context, dataStore, new DownloadHelper(context));
+        this(
+                context,
+                dataStore,
+                new DownloadHelper(context),
+                new CertificateTransparencyInstaller(context));
     }
 
     void initialize() {
@@ -127,7 +138,23 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
 
-        // TODO: 1. verify file signature, 2. validate file content, 3. install log file.
+        // TODO: 1. verify file signature, 2. validate file content.
+
+        String version = mDataStore.getProperty(Config.VERSION);
+        String contentUrl = mDataStore.getProperty(Config.CONTENT_URL);
+        String metadataUrl = mDataStore.getProperty(Config.METADATA_URL);
+        try {
+            mInstaller.install(contentUri, version);
+        } catch (IOException e) {
+            Log.e(TAG, "Could not install new content", e);
+            return;
+        }
+
+        // Install was successful. Update information about the stored version.
+        mDataStore.setProperty(Config.VERSION_STORED, version);
+        mDataStore.setProperty(Config.CONTENT_URL_STORED, contentUrl);
+        mDataStore.setProperty(Config.METADATA_URL_STORED, metadataUrl);
+        mDataStore.store();
     }
 
     @VisibleForTesting
