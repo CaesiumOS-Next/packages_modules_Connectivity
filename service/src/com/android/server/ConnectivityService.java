@@ -2028,7 +2028,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mCdmps = null;
         }
 
-        mRoutingCoordinatorService = new RoutingCoordinatorService(netd);
+        final ConnectivityManager cm = new ConnectivityManager(mContext, this);
+        mRoutingCoordinatorService =
+                new RoutingCoordinatorService(netd, cm::getAllNetworks, mContext);
         mMulticastRoutingCoordinatorService =
                 mDeps.makeMulticastRoutingCoordinatorService(mHandler);
 
