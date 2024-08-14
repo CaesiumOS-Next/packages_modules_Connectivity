@@ -16,7 +16,13 @@
 
 package com.android.net.module.util;
 
+import android.net.LinkAddress;
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.RouteInfo;
+
+import com.android.net.module.util.IRoutingCoordinatorCallback;
 
 /** @hide */
 // TODO: b/350630377 - This @Descriptor annotation workaround is to prevent the DESCRIPTOR from
@@ -96,4 +102,36 @@ interface IRoutingCoordinator {
     *         cause of the failure.
     */
     void removeInterfaceForward(in String fromIface, in String toIface);
+
+    /** Update the prefix of an upstream. */
+    void updateUpstreamPrefix(in LinkProperties lp,
+                              in NetworkCapabilities nc,
+                              in Network network);
+
+    /** Remove the upstream prefix of the given {@link Network}. */
+    void removeUpstreamPrefix(in Network network);
+
+    /** Remove the deprecated upstream networks if any. */
+    void maybeRemoveDeprecatedUpstreams();
+
+   /**
+    * Request an IPv4 address for the downstream.
+    *
+    * The {@code callback} is used for identifying the downstream.
+    *
+    * @param interfaceType the Tethering type (see TetheringManager#TETHERING_*).
+    * @param scope CONNECTIVITY_SCOPE_GLOBAL or CONNECTIVITY_SCOPE_LOCAL
+    * @param useLastAddress whether to use the last address
+    * @param callback a {@link IRoutingCoordinatorCallback} to report conflicts
+    * @return an IPv4 address allocated for the downstream, could be null
+    */
+    @nullable
+    LinkAddress requestDownstreamAddress(
+            in int interfaceType,
+            in int scope,
+            in boolean useLastAddress,
+            in IRoutingCoordinatorCallback callback);
+
+    /** Release the IPv4 address allocated for the downstream. */
+    void releaseDownstream(in IRoutingCoordinatorCallback callback);
 }
