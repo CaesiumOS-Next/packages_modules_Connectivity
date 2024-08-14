@@ -25,6 +25,9 @@ import android.util.Log;
 
 import androidx.annotation.VisibleForTesting;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /** Helper class to download certificate transparency log files. */
 class CertificateTransparencyDownloader extends BroadcastReceiver {
 
@@ -33,17 +36,26 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
     private final Context mContext;
     private final DataStore mDataStore;
     private final DownloadHelper mDownloadHelper;
+    private final CertificateTransparencyInstaller mInstaller;
 
     @VisibleForTesting
     CertificateTransparencyDownloader(
-            Context context, DataStore dataStore, DownloadHelper downloadHelper) {
+            Context context,
+            DataStore dataStore,
+            DownloadHelper downloadHelper,
+            CertificateTransparencyInstaller installer) {
         mContext = context;
         mDataStore = dataStore;
         mDownloadHelper = downloadHelper;
+        mInstaller = installer;
     }
 
     CertificateTransparencyDownloader(Context context, DataStore dataStore) {
-        this(context, dataStore, new DownloadHelper(context));
+        this(
+                context,
+                dataStore,
+                new DownloadHelper(context),
+                new CertificateTransparencyInstaller());
     }
 
     void registerReceiver() {
@@ -127,7 +139,26 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
 
-        // TODO: 1. verify file signature, 2. validate file content, 3. install log file.
+        // TODO: 1. verify file signature, 2. validate file content.
+
+        String version = mDataStore.getProperty(Config.VERSION);
+        String contentUrl = mDataStore.getProperty(Config.CONTENT_URL);
+        String metadataUrl = mDataStore.getProperty(Config.METADATA_URL);
+        boolean success = false;
+        try (InputStream inputStream = mContext.getContentResolver().openInputStream(contentUri)) {
+            success = mInstaller.install(inputStream, version);
+        } catch (IOException e) {
+            Log.e(TAG, "Could not install new content", e);
+            return;
+        }
+
+        if (success) {
+            // Update information about the stored version on successful install.
+            mDataStore.setProperty(Config.VERSION_STORED, version);
+            mDataStore.setProperty(Config.CONTENT_URL_STORED, contentUrl);
+            mDataStore.setProperty(Config.METADATA_URL_STORED, metadataUrl);
+            mDataStore.store();
+        }
     }
 
     private long download(String url) {
