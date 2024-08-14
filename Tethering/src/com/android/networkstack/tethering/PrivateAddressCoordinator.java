@@ -24,7 +24,6 @@ import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static com.android.net.module.util.Inet4AddressUtils.inet4AddressToIntHTH;
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
 import static com.android.net.module.util.Inet4AddressUtils.prefixLengthToV4NetmaskIntHTH;
-import static com.android.networkstack.tethering.util.PrefixUtils.asIpPrefix;
 
 import static java.util.Arrays.asList;
 
@@ -33,15 +32,14 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.net.ip.IpServer;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.ArrayMap;
-import android.util.ArraySet;
+import android.util.IndentingPrintWriter;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.internal.util.IndentingPrintWriter;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -73,7 +71,8 @@ public class PrivateAddressCoordinator {
     // when tethering is down. Instead tethering would remove all deprecated upstreams from
     // mUpstreamPrefixMap when tethering is starting. See #maybeRemoveDeprecatedUpstreams().
     private final ArrayMap<Network, List<IpPrefix>> mUpstreamPrefixMap;
-    private final ArraySet<IpServer> mDownstreams;
+    // The downstreams are indexed by the IBinder object of IIpv4AddressRequester.
+    private final ArrayMap<IBinder, Downstream> mDownstreams;
     private static final String LEGACY_WIFI_P2P_IFACE_ADDRESS = "192.168.49.1/24";
     private static final String LEGACY_BLUETOOTH_IFACE_ADDRESS = "192.168.44.1/24";
     private final List<IpPrefix> mTetheringPrefixes;
@@ -115,7 +114,7 @@ public class PrivateAddressCoordinator {
     @VisibleForTesting
     public PrivateAddressCoordinator(Supplier<Network[]> getAllNetworksSupplier,
                                      Dependencies deps) {
-        mDownstreams = new ArraySet<>();
+        mDownstreams = new ArrayMap<>();
         mUpstreamPrefixMap = new ArrayMap<>();
         mGetAllNetworksSupplier = getAllNetworksSupplier;
         mDeps = deps;
@@ -167,12 +166,16 @@ public class PrivateAddressCoordinator {
     }
 
     private void handleMaybePrefixConflict(final List<IpPrefix> prefixes) {
-        for (IpServer downstream : mDownstreams) {
-            final IpPrefix target = getDownstreamPrefix(downstream);
+        for (Downstream downstream : mDownstreams.values()) {
+            final IpPrefix target = asIpPrefix(downstream.getAddress());
 
             for (IpPrefix source : prefixes) {
                 if (isConflictPrefix(source, target)) {
-                    downstream.sendMessage(IpServer.CMD_NOTIFY_PREFIX_CONFLICT);
+                    try {
+                        downstream.getRequester().onIpv4PrefixConflict(target);
+                    } catch (RemoteException ignored) {
+                        // ignore
+                    }
                     break;
                 }
             }
@@ -198,26 +201,31 @@ public class PrivateAddressCoordinator {
         mUpstreamPrefixMap.removeAll(toBeRemoved);
     }
 
+    // TODO: There needs to be a reserveDownstreamAddress() method for the cases where
+    // TetheringRequest has been set a static IPv4 address.
+
     /**
      * Pick a random available address and mark its prefix as in use for the provided IpServer,
      * returns null if there is no available address.
      */
     @Nullable
-    public LinkAddress requestDownstreamAddress(final IpServer ipServer, final int scope,
-            boolean useLastAddress) {
+    public LinkAddress requestDownstreamAddress(int interfaceType, final int scope,
+            boolean useLastAddress,
+            IIpv4AddressRequester requester) {
         if (mDeps.shouldEnableWifiP2pDedicatedIp()
-                && ipServer.interfaceType() == TETHERING_WIFI_P2P) {
+                && interfaceType == TETHERING_WIFI_P2P) {
             return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
         }
 
-        final AddressKey addrKey = new AddressKey(ipServer.interfaceType(), scope);
+        final AddressKey addrKey = new AddressKey(interfaceType, scope);
         // This ensures that tethering isn't started on 2 different interfaces with the same type.
         // Once tethering could support multiple interface with the same type,
         // TetheringSoftApCallback would need to handle it among others.
         final LinkAddress cachedAddress = mCachedAddresses.get(addrKey);
         if (useLastAddress && cachedAddress != null
                 && !isConflictWithUpstream(asIpPrefix(cachedAddress))) {
-            mDownstreams.add(ipServer);
+            mDownstreams.put(requester.asBinder(),
+                    new Downstream(requester, interfaceType, cachedAddress));
             return cachedAddress;
         }
 
@@ -227,7 +235,8 @@ public class PrivateAddressCoordinator {
                     (prefixIndex + i) % mTetheringPrefixes.size());
             final LinkAddress newAddress = chooseDownstreamAddress(prefixRange);
             if (newAddress != null) {
-                mDownstreams.add(ipServer);
+                mDownstreams.put(requester.asBinder(),
+                        new Downstream(requester, interfaceType, newAddress));
                 mCachedAddresses.put(addrKey, newAddress);
                 return newAddress;
             }
@@ -331,8 +340,8 @@ public class PrivateAddressCoordinator {
     }
 
     /** Release downstream record for IpServer. */
-    public void releaseDownstream(final IpServer ipServer) {
-        mDownstreams.remove(ipServer);
+    public void releaseDownstream(IIpv4AddressRequester requester) {
+        mDownstreams.remove(requester.asBinder());
     }
 
     /** Clear current upstream prefixes records. */
@@ -372,8 +381,8 @@ public class PrivateAddressCoordinator {
 
         // IpServer may use manually-defined address (mStaticIpv4ServerAddr) which does not include
         // in mCachedAddresses.
-        for (IpServer downstream : mDownstreams) {
-            final IpPrefix target = getDownstreamPrefix(downstream);
+        for (Downstream downstream : mDownstreams.values()) {
+            final IpPrefix target = asIpPrefix(downstream.getAddress());
 
             if (isConflictPrefix(prefix, target)) return target;
         }
@@ -381,11 +390,33 @@ public class PrivateAddressCoordinator {
         return null;
     }
 
-    @NonNull
-    private IpPrefix getDownstreamPrefix(final IpServer downstream) {
-        final LinkAddress address = downstream.getAddress();
+    private static IpPrefix asIpPrefix(LinkAddress addr) {
+        return new IpPrefix(addr.getAddress(), addr.getPrefixLength());
+    }
 
-        return asIpPrefix(address);
+    private static final class Downstream {
+        private final IIpv4AddressRequester mRequester;
+        private final int mInterfaceType;
+        private final LinkAddress mAddress;
+
+        private Downstream(
+                IIpv4AddressRequester requester, int interfaceType, LinkAddress address) {
+            mRequester = requester;
+            mInterfaceType = interfaceType;
+            mAddress = address;
+        }
+
+        public IIpv4AddressRequester getRequester() {
+            return mRequester;
+        }
+
+        public int getInterfaceType() {
+            return mInterfaceType;
+        }
+
+        public LinkAddress getAddress() {
+            return mAddress;
+        }
     }
 
     private static class AddressKey {
@@ -416,6 +447,7 @@ public class PrivateAddressCoordinator {
         }
     }
 
+    // TODO: dump PrivateAddressCoordinator when dumping RoutingCoordinatorService.
     void dump(final IndentingPrintWriter pw) {
         pw.println("mTetheringPrefixes:");
         pw.increaseIndent();
@@ -433,8 +465,8 @@ public class PrivateAddressCoordinator {
 
         pw.println("mDownstreams:");
         pw.increaseIndent();
-        for (IpServer ipServer : mDownstreams) {
-            pw.println(ipServer.interfaceType() + " - " + ipServer.getAddress());
+        for (Downstream downstream : mDownstreams.values()) {
+            pw.println(downstream.getInterfaceType() + " - " + downstream.getAddress());
         }
         pw.decreaseIndent();
 
