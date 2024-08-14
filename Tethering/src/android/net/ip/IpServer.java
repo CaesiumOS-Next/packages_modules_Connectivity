@@ -70,13 +70,14 @@ import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.InterfaceParams;
+import com.android.net.module.util.IRoutingCoordinatorCallback;
 import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.SyncStateMachine.StateInfo;
 import com.android.net.module.util.ip.InterfaceController;
 import com.android.networkstack.tethering.BpfCoordinator;
-import com.android.networkstack.tethering.PrivateAddressCoordinator;
+//import com.android.networkstack.tethering.PrivateAddressCoordinator;
 import com.android.networkstack.tethering.TetheringConfiguration;
 import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.networkstack.tethering.util.InterfaceSet;
@@ -242,7 +243,6 @@ public class IpServer extends StateMachineShim {
     private final RoutingCoordinatorManager mRoutingCoordinator;
     private final Callback mCallback;
     private final InterfaceController mInterfaceCtrl;
-    private final PrivateAddressCoordinator mPrivateAddressCoordinator;
 
     private final String mIfaceName;
     private final int mInterfaceType;
@@ -298,7 +298,7 @@ public class IpServer extends StateMachineShim {
             String ifaceName, Handler handler, int interfaceType, SharedLog log,
             INetd netd, @NonNull BpfCoordinator bpfCoordinator,
             RoutingCoordinatorManager routingCoordinatorManager, Callback callback,
-            TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
+            TetheringConfiguration config,
             TetheringMetrics tetheringMetrics, Dependencies deps) {
         super(ifaceName, USE_SYNC_SM ? null : handler.getLooper());
         mHandler = handler;
@@ -313,7 +313,6 @@ public class IpServer extends StateMachineShim {
         mLinkProperties = new LinkProperties();
         mUsingLegacyDhcp = config.useLegacyDhcpServer();
         mP2pLeasesSubnetPrefixLength = config.getP2pLeasesSubnetPrefixLength();
-        mPrivateAddressCoordinator = addressCoordinator;
         mDeps = deps;
         mTetheringMetrics = tetheringMetrics;
         resetLinkProperties();
@@ -639,7 +638,7 @@ public class IpServer extends StateMachineShim {
         // NOTE: All of configureIPv4() will be refactored out of existence
         // into calls to InterfaceController, shared with startIPv4().
         mInterfaceCtrl.clearIPv4Address();
-        mPrivateAddressCoordinator.releaseDownstream(this);
+//        mPrivateAddressCoordinator.releaseDownstream(this);
         mBpfCoordinator.tetherOffloadClientClear(this);
         mIpv4Address = null;
         mStaticIpv4ServerAddr = null;
@@ -703,7 +702,30 @@ public class IpServer extends StateMachineShim {
 
         if (shouldNotConfigureBluetoothInterface()) return new LinkAddress(BLUETOOTH_IFACE_ADDR);
 
-        return mPrivateAddressCoordinator.requestDownstreamAddress(this, scope, useLastAddress);
+        LinkAddress addr = mRoutingCoordinator.requestDownstreamAddress(
+                mInterfaceType,
+                scope,
+                useLastAddress,
+                new RoutingCoordinatorCallbackProxy(this));
+        return addr;
+    }
+
+    private final class RoutingCoordinatorCallbackProxy extends IRoutingCoordinatorCallback.Stub {
+        private final IpServer mIpServer;
+
+        public RoutingCoordinatorCallbackProxy(IpServer ipServer) {
+            mIpServer = ipServer;
+        }
+
+        @Override
+        public void onIpv4PrefixConflict(IpPrefix ipPrefix) {
+            sendMessage(CMD_NOTIFY_PREFIX_CONFLICT);
+        }
+
+        @Override
+        public LinkAddress getAddress() {
+            return mIpServer.getAddress();
+        }
     }
 
     private boolean startIPv6() {
