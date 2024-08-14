@@ -487,8 +487,13 @@ public class TetheringTest {
         }
 
         @Override
-        public RoutingCoordinatorManager getRoutingCoordinator(final Context context,
-                SharedLog log) {
+        public RoutingCoordinatorManager getRoutingCoordinator(
+                final Context context, SharedLog log, TetheringConfiguration tetheringConfig) {
+            RoutingCoordinatorService service =
+                    new RoutingCoordinatorService(
+                            getINetd(context, log),
+                            new PrivateAddressCoordinatorDeps(mCm, tetheringConfig));
+            mRoutingCoordinatorManager = spy(new RoutingCoordinatorManager(context, service));
             return mRoutingCoordinatorManager;
         }
 
