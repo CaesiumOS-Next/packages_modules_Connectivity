@@ -50,6 +50,30 @@
       ],
       "revId": "99dbecda08539edf948219f5e0b6e6dd4ce0acaf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "502f514c_962fa847",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-14T02:03:06Z",
+      "side": 1,
+      "message": "No, I have set the attribute DEFAULT_NETWORK_YES.",
+      "parentUuid": "fc8991ec_f657859b",
+      "range": {
+        "startLine": 443,
+        "startChar": 51,
+        "endLine": 443,
+        "endChar": 63
+      },
+      "revId": "99dbecda08539edf948219f5e0b6e6dd4ce0acaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
