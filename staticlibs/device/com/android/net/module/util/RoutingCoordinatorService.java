@@ -21,6 +21,10 @@ import static com.android.net.module.util.NetdUtils.toRouteInfoParcel;
 import android.annotation.NonNull;
 import android.net.INetd;
 
+import android.net.LinkAddress;
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.RouteInfo;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
@@ -28,8 +32,10 @@ import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
+import com.android.networkstack.tethering.PrivateAddressCoordinator;
 
 import java.util.Objects;
+import java.util.function.Supplier;
 
 /**
  * Class to coordinate routing across multiple clients.
@@ -45,8 +51,19 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
     private static final String TAG = RoutingCoordinatorService.class.getSimpleName();
     private final INetd mNetd;
 
-    public RoutingCoordinatorService(@NonNull INetd netd) {
+    private final Object mPrivateAddressCoordinatorLock = new Object();
+    @GuardedBy("mPrivateAddressCoordinatorLock")
+    private final PrivateAddressCoordinator mPrivateAddressCoordinator;
+
+    public RoutingCoordinatorService(@NonNull INetd netd,
+                                     @NonNull Supplier<Network[]> getAllNetworksSupplier,
+                                     boolean isRandomPrefixBasedEnabled,
+                                     boolean shouldEnableWifiP2pDedicatedIp) {
         mNetd = netd;
+        mPrivateAddressCoordinator =
+                new PrivateAddressCoordinator(getAllNetworksSupplier, isRandomPrefixBasedEnabled,
+                        shouldEnableWifiP2pDedicatedIp);
+        ;
     }
 
     /**
@@ -223,6 +240,66 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
             if (mForwardedInterfaces.size() == 0) {
                 mNetd.ipfwdDisableForwarding("RoutingCoordinator");
             }
+        }
+    }
+
+    // PrivateAddressCoordinator methods:
+
+    /** Update the prefix of an upstream. */
+    @Override
+    public void updateUpstreamPrefix(LinkProperties lp, NetworkCapabilities nc, Network network) {
+        synchronized (mPrivateAddressCoordinatorLock) {
+            mPrivateAddressCoordinator.updateUpstreamPrefix(lp, nc, network);
+        }
+    }
+
+    /** Remove the upstream prefix of the given {@link Network}. */
+    @Override
+    public void removeUpstreamPrefix(Network network) {
+        synchronized (mPrivateAddressCoordinatorLock) {
+            mPrivateAddressCoordinator.removeUpstreamPrefix(network);
+        }
+    }
+
+    /** Remove the deprecated upstream networks if any. */
+    @Override
+    public void maybeRemoveDeprecatedUpstreams() {
+        synchronized (mPrivateAddressCoordinatorLock) {
+            mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams();
+        }
+    }
+
+    /**
+     * Request an IPv4 address for the downstream.
+     *
+     * @param interfaceType the Tethering type (see TetheringManager#TETHERING_*).
+     * @param scope CONNECTIVITY_SCOPE_GLOBAL or CONNECTIVITY_SCOPE_LOCAL
+     * @param useLastAddress whether to use the last address
+     * @param requester a {@link IIpv4AddressRequester} to report conflicts
+     * @return an IPv4 address allocated for the downstream, could be null
+     */
+    @Override
+    public LinkAddress requestDownstreamAddress(
+            int interfaceType,
+            int scope,
+            boolean useLastAddress,
+            IIpv4AddressRequester requester) {
+        try {
+            requester.asBinder().linkToDeath(() -> releaseDownstream(requester), 0);
+        } catch (RemoteException e) {
+            return null;
+        }
+        synchronized (mPrivateAddressCoordinatorLock) {
+            return mPrivateAddressCoordinator.requestDownstreamAddress(
+                    interfaceType, scope, useLastAddress, requester);
+        }
+    }
+
+    /** Release the IPv4 address allocated for the downstream. */
+    @Override
+    public void releaseDownstream(IIpv4AddressRequester requester) {
+        synchronized (mPrivateAddressCoordinatorLock) {
+            mPrivateAddressCoordinator.releaseDownstream(requester);
         }
     }
 }
