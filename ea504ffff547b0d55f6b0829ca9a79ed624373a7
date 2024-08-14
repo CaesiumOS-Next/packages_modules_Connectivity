@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fec8af0b_0974acfd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-14T09:23:36Z",
+      "side": 1,
+      "message": "It is very unlikely that this changes is causing the breakage: this is a \"build rule missing variant\" error, about an unrelated build target. This only modifies Java code and doesn\u0027t touch build files.",
+      "revId": "ea504ffff547b0d55f6b0829ca9a79ed624373a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
