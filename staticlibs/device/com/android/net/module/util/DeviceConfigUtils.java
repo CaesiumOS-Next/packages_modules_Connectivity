@@ -75,8 +75,11 @@ public final class DeviceConfigUtils {
     private static final int FORCE_ENABLE_FEATURE_FLAG_VALUE = 1;
     private static final int FORCE_DISABLE_FEATURE_FLAG_VALUE = -1;
 
+    private static final String NETWORKSTACK_PACKAGE_SUFFIX = "networkstack";
+    private static final String CAPTIVEPORTALLOGIN_PACKAGE_SUFFIX = "captiveportallogin";
+
     private static volatile long sPackageVersion = -1;
-    private static long getPackageVersion(@NonNull final Context context) {
+    private static long getMyPackageVersion(@NonNull final Context context) {
         // sPackageVersion may be set by another thread just after this check, but querying the
         // package version several times on rare occasions is fine.
         if (sPackageVersion >= 0) {
@@ -171,6 +174,12 @@ public final class DeviceConfigUtils {
      * If the feature is enabled by default and disabled by flag push (kill switch),
      * {@link #isNetworkStackFeatureNotChickenedOut(Context, String)} should be used.
      *
+     * <p>While this may be called from other modules (like tethering), this should be done with
+     * care as flags are only cleared on rollback of the corresponding module, and different modules
+     * may read a flag at different times. Calling this from another module should only be done if
+     * consistency is not important for that flag, and the guarded code can be left enabled even if
+     * the containing module rolls back.
+     *
      * @param context The global context information about an app environment.
      * @param name The name of the property to look up.
      * @return true if this feature is enabled, or false if disabled.
@@ -178,7 +187,7 @@ public final class DeviceConfigUtils {
     public static boolean isNetworkStackFeatureEnabled(@NonNull Context context,
             @NonNull String name) {
         return isFeatureEnabled(NAMESPACE_CONNECTIVITY, name, false /* defaultEnabled */,
-                () -> getPackageVersion(context));
+                () -> getNetworkStackModuleVersion(context));
     }
 
     /**
@@ -223,8 +232,12 @@ public final class DeviceConfigUtils {
      */
     public static boolean isCaptivePortalLoginFeatureEnabled(@NonNull Context context,
             @NonNull String name) {
+        if (!context.getPackageName().endsWith(CAPTIVEPORTALLOGIN_PACKAGE_SUFFIX)) {
+            throw new UnsupportedOperationException(
+                    "This method only supports being called by CaptivePortalLogin");
+        }
         return isFeatureEnabled(NAMESPACE_CAPTIVEPORTALLOGIN, name, false /* defaultEnabled */,
-                () -> getPackageVersion(context));
+                () -> getMyPackageVersion(context));
     }
 
     private static boolean isFeatureEnabled(@NonNull String namespace,
@@ -309,19 +322,23 @@ public final class DeviceConfigUtils {
 
     private static long resolveNetworkStackModuleVersion(@NonNull Context context)
             throws PackageManager.NameNotFoundException {
+        final String myPackageName = context.getPackageName();
+        if (myPackageName != null && myPackageName.endsWith(NETWORKSTACK_PACKAGE_SUFFIX)) {
+            return getMyPackageVersion(context);
+        }
         // TODO(b/293975546): Strictly speaking this is the prefix for connectivity and not
         //  network stack. In practice, it's the same. Read the prefix from network stack instead.
         final String pkgPrefix = resolvePkgPrefix(context);
         final PackageManager packageManager = context.getPackageManager();
         try {
-            return packageManager.getPackageInfo(pkgPrefix + "networkstack",
+            return packageManager.getPackageInfo(pkgPrefix + NETWORKSTACK_PACKAGE_SUFFIX,
                     PackageManager.MATCH_SYSTEM_ONLY).getLongVersionCode();
         } catch (PackageManager.NameNotFoundException e) {
             Log.d(TAG, "Device is using go or non-mainline modules");
             // fall through
         }
 
-        return packageManager.getPackageInfo(pkgPrefix + "go.networkstack",
+        return packageManager.getPackageInfo(pkgPrefix + "go." + NETWORKSTACK_PACKAGE_SUFFIX,
                 PackageManager.MATCH_ALL).getLongVersionCode();
     }
 
@@ -375,6 +392,12 @@ public final class DeviceConfigUtils {
      * If the feature is disabled by default and enabled by flag push,
      * {@link #isNetworkStackFeatureEnabled(Context, String)} should be used.
      *
+     * <p>While this may be called from other modules (like tethering), this should be done with
+     * care as flags are only cleared on rollback of the corresponding module, and different modules
+     * may read a flag at different times. Calling this from another module should only be done if
+     * consistency is not important for that flag, and the guarded code can be left enabled even if
+     * the containing module rolls back.
+     *
      * @param context The global context information about an app environment.
      * @param name The name of the property in NetworkStack module to look up.
      * @return true if this feature is enabled, or false if disabled.
@@ -382,7 +405,7 @@ public final class DeviceConfigUtils {
     public static boolean isNetworkStackFeatureNotChickenedOut(
             @NonNull Context context, String name) {
         return isFeatureEnabled(NAMESPACE_CONNECTIVITY, name, true /* defaultEnabled */,
-                () -> getPackageVersion(context));
+                () -> getNetworkStackModuleVersion(context));
     }
 
     /**
