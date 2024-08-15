@@ -30,6 +30,7 @@ import static android.system.OsConstants.ETH_P_IPV6;
 import static com.android.net.module.util.NetworkStackConstants.IPV4_MIN_MTU;
 import static com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_LEN;
 import static com.android.net.module.util.ip.ConntrackMonitor.ConntrackEvent;
+import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
@@ -132,6 +133,7 @@ public class BpfCoordinator {
     private static final String TETHER_LIMIT_MAP_PATH = makeMapPath("limit");
     private static final String TETHER_ERROR_MAP_PATH = makeMapPath("error");
     private static final String TETHER_DEV_MAP_PATH = makeMapPath("dev");
+    private static final String TETHER_CALLBACK_MAP_PATH = makeMapPath("callback_ringbuf");
     private static final String DUMPSYS_RAWMAP_ARG_STATS = "--stats";
     private static final String DUMPSYS_RAWMAP_ARG_UPSTREAM4 = "--upstream4";
 
@@ -310,7 +312,7 @@ public class BpfCoordinator {
 
     // Runnable that used by scheduling next refreshing of conntrack timeout.
     private final Runnable mScheduledConntrackTimeoutUpdate = () -> {
-        refreshAllConntrackTimeouts();
+        //refreshAllConntrackTimeouts();
         scheduleConntrackTimeoutUpdate();
     };
 
@@ -508,6 +510,7 @@ public class BpfCoordinator {
         if (!mBpfCoordinatorShim.isInitialized()) {
             mLog.e("Bpf shim not initialized");
         }
+        startCallback(TETHER_CALLBACK_MAP_PATH);
     }
 
     /**
@@ -2370,6 +2373,8 @@ public class BpfCoordinator {
     }
 
     private void updateForwardedStats() {
+        pollTest();
+
         final SparseArray<TetherStatsValue> tetherStatsList =
                 mBpfCoordinatorShim.tetherOffloadGetStats();
 
@@ -2401,6 +2406,39 @@ public class BpfCoordinator {
             mLog.e("Failed to parse IPv4 address: " + e);
         }
         return null;
+    }
+
+    private void onUpdateConntrackTimeout(int src4, int dst4, byte proto, short srcPort,
+            short dstPort) {
+        final int timeoutSec = (proto == OsConstants.IPPROTO_TCP)
+                ? NF_CONNTRACK_TCP_TIMEOUT_ESTABLISHED
+                : NF_CONNTRACK_UDP_TIMEOUT_STREAM;
+        final byte[] msg = ConntrackMessage.newIPv4TimeoutUpdateRequest(
+                proto, intToInet4AddressHTH(src4), (int) srcPort, intToInet4AddressHTH(dst4),
+                (int) dstPort, timeoutSec);
+        try {
+            NetlinkUtils.sendOneShotKernelMessage(OsConstants.NETLINK_NETFILTER, msg);
+        } catch (ErrnoException e) {
+            // Lower the log level for the entry not existing. The conntrack entry may have been
+            // deleted and not handled by the conntrack event monitor yet. In other words, the
+            // rule has not been deleted from the BPF map yet. Deleting a non-existent entry may
+            // happen during the conntrack timeout refreshing iteration. Note that ENOENT may be
+            // a real error but is hard to distinguish.
+            // TODO: Figure out a better way to handle this.
+            final String errMsg = "Failed to update conntrack entry ("
+                    + "proto: " + proto + ", "
+                    + "src4: " + src4 + ", "
+                    + "srcPort: " + Short.toUnsignedInt(srcPort) + ", "
+                    + "dst4: " + dst4 + ", "
+                    + "dstPort: " + Short.toUnsignedInt(dstPort) + "), "
+                    + "msg: " + NetlinkConstants.hexify(msg) + ", "
+                    + "e: " + e;
+            if (OsConstants.ENOENT == e.errno) {
+                Log.w(TAG, errMsg);
+            } else {
+                Log.e(TAG, errMsg);
+            }
+        }
     }
 
     // Update CTA_TUPLE_ORIG timeout for a given conntrack entry. Note that there will also be
@@ -2536,4 +2574,8 @@ public class BpfCoordinator {
     }
 
     private static native String[] getBpfCounterNames();
+
+    private static native boolean startCallback(String path);
+
+    private static native boolean pollTest();
 }

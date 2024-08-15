@@ -124,6 +124,14 @@ DEFINE_BPF_MAP_GRW(tether_downstream64_map, HASH, TetherDownstream64Key, TetherD
 DEFINE_BPF_MAP_GRW(tether_upstream6_map, HASH, TetherUpstream6Key, Tether6Value, 64,
                    TETHERING_GID)
 
+// ---- Callback Support ----
+DEFINE_BPF_RINGBUF_EXT(tether_callback_ringbuf_map, TetherCallback,
+                       TETHER_CALLBACK_BUF_SIZE, TETHERING_UID, TETHERING_GID,
+                       0660, DEFAULT_BPF_MAP_SELINUX_CONTEXT,
+                       DEFAULT_BPF_MAP_PIN_SUBDIR, PRIVATE,
+                       BPFLOADER_MAINLINE_U_VERSION, BPFLOADER_MAX_VER,
+                       LOAD_ON_ENG, LOAD_ON_USER, LOAD_ON_USERDEBUG);
+
 static inline __always_inline int do_forward6(struct __sk_buff* skb,
                                               const struct rawip_bool rawip,
                                               const struct stream_bool stream,
@@ -359,6 +367,22 @@ DEFINE_BPF_MAP_GRW(tether_downstream4_map, HASH, Tether4Key, Tether4Value, 1024,
 
 DEFINE_BPF_MAP_GRW(tether_upstream4_map, HASH, Tether4Key, Tether4Value, 1024, TETHERING_GID)
 
+static inline __always_inline void
+do_callback(const uint16_t proto, const uint32_t src4, const __be16 srcPort,
+            const uint32_t dst4, const __be16 dstPort) {
+  TetherCallback *cb = bpf_tether_callback_ringbuf_map_reserve();
+  if (cb == NULL)
+    return;
+
+  cb->proto = proto;
+  cb->src4 = src4;
+  cb->srcPort = srcPort;
+  cb->dst4 = dst4;
+  cb->dstPort = dstPort;
+
+  bpf_tether_callback_ringbuf_map_submit(cb);
+}
+
 static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
         const int l2_header_size, void* data, const void* data_end,
         struct ethhdr* eth, struct iphdr* ip, const struct rawip_bool rawip,
@@ -539,7 +563,15 @@ static inline __always_inline int do_forward4_bottom(struct __sk_buff* skb,
 
     // This requires the bpf_ktime_get_boot_ns() helper which was added in 5.8,
     // and backported to all Android Common Kernel 4.14+ trees.
-    if (updatetime.updatetime) v->last_used = bpf_ktime_get_boot_ns();
+    if (updatetime.updatetime) {
+        if (v->last_used == 0) v->last_used = bpf_ktime_get_boot_ns();
+
+        // do callback only if packet coming 30 seconds after last callback.
+        if (bpf_ktime_get_boot_ns() - v->last_used > 30000000000) {
+          v->last_used = bpf_ktime_get_boot_ns();
+          do_callback(k.l4Proto, old_saddr, k.srcPort, old_daddr, k.dstPort);
+        }
+    }
 
     __sync_fetch_and_add(stream.down ? &stat_v->rxPackets : &stat_v->txPackets, packets);
     __sync_fetch_and_add(stream.down ? &stat_v->rxBytes : &stat_v->txBytes, L3_bytes);

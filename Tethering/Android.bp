@@ -127,6 +127,8 @@ cc_library {
     min_sdk_version: "30",
     header_libs: [
         "bpf_connectivity_headers",
+        "liblog_headers",
+        "bpf_headers",
     ],
     srcs: [
         "jni/*.cpp",
@@ -136,6 +138,7 @@ cc_library {
         "libnativehelper_compat_libc++",
     ],
     static_libs: [
+        "libbase_ndk",
         "libnet_utils_device_common_bpfjni",
         "libnetjniutils",
     ],
@@ -185,7 +188,8 @@ java_defaults {
     ],
     jarjar_rules: "jarjar-rules.txt",
     optimize: {
-        proguard_flags_files: ["proguard.flags"],
+        enabled: false,
+        //proguard_flags_files: ["proguard.flags"],
     },
 }
 
