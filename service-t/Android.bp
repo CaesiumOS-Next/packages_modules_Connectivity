@@ -124,6 +124,7 @@ java_library {
         "framework-annotations-lib",
         "android_system_stubs_current",
         "androidx.annotation_annotation",
+        "com.android.net.flags-aconfig-java",
     ],
     visibility: [
         "//visibility:private",
