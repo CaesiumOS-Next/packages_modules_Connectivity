@@ -33,8 +33,10 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -50,24 +52,29 @@ import android.content.res.Resources;
 import android.provider.DeviceConfig;
 
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.MockitoSession;
 
 import java.util.Arrays;
+import java.util.function.BiPredicate;
 
 
 /**
  * Tests for DeviceConfigUtils.
- *
  */
-@RunWith(AndroidJUnit4.class)
+@SuppressWarnings("JUnitMalformedDeclaration") // Parameterized tests have arguments
+@RunWith(JUnitParamsRunner.class)
 @SmallTest
 public class DeviceConfigUtilsTest {
     private static final String TEST_NAME_SPACE = "connectivity";
@@ -78,7 +85,6 @@ public class DeviceConfigUtilsTest {
     private static final int TEST_MAX_FLAG_VALUE = 1000;
     private static final int TEST_MIN_FLAG_VALUE = 100;
     private static final long TEST_PACKAGE_VERSION = 290000000;
-    private static final String TEST_PACKAGE_NAME = "test.package.name";
     // The APEX name is the name of the APEX module, as in android.content.pm.ModuleInfo, and is
     // used for its mount point in /apex. APEX packages are actually APKs with a different
     // file extension, so they have an AndroidManifest: the APEX package name is the package name in
@@ -91,6 +97,10 @@ public class DeviceConfigUtilsTest {
             "com.prefix.android.connectivity.resources";
     private static final String TEST_NETWORKSTACK_NAME = "com.prefix.android.networkstack";
     private static final String TEST_GO_NETWORKSTACK_NAME = "com.prefix.android.go.networkstack";
+    private static final String TEST_CAPTIVEPORTALLOGIN_NAME =
+            "com.prefix.android.captiveportallogin";
+    private static final String TEST_SYSTEMSERVER_PACKAGE_NAME = "android";
+    private static final String TEST_NAMING_TEMPLATE = "{method}_{params}";
     private final PackageInfo mPackageInfo = new PackageInfo();
     private final PackageInfo mApexPackageInfo = new PackageInfo();
     private MockitoSession mSession;
@@ -98,6 +108,45 @@ public class DeviceConfigUtilsTest {
     @Mock private Context mContext;
     @Mock private PackageManager mPm;
     @Mock private Resources mResources;
+
+    private enum Module {
+        NETWORKSTACK(TEST_NETWORKSTACK_NAME, NAMESPACE_CONNECTIVITY,
+                DeviceConfigUtils::isNetworkStackFeatureEnabled,
+                DeviceConfigUtils::isNetworkStackFeatureNotChickenedOut),
+        TETHERING(TEST_APEX_PACKAGE_NAME, NAMESPACE_TETHERING,
+                DeviceConfigUtils::isTetheringFeatureEnabled,
+                DeviceConfigUtils::isTetheringFeatureNotChickenedOut),
+        CAPTIVEPORTALLOGIN(TEST_CAPTIVEPORTALLOGIN_NAME, NAMESPACE_CAPTIVEPORTALLOGIN,
+                DeviceConfigUtils::isCaptivePortalLoginFeatureEnabled,
+                (ctx, pkgName) -> {
+                    throw new UnsupportedOperationException(
+                        "isFeatureNotChickenedOutMethod not implemented for captiveportallogin");
+                });
+
+        public final String pkgName;
+        public final String namespace;
+        public final BiPredicate<Context, String> isFeatureEnabledMethod;
+        public final BiPredicate<Context, String> isFeatureNotChickenedOutMethod;
+
+        Module(String pkgName, String namespace,
+                BiPredicate<Context, String> isFeatureEnabledMethod,
+                BiPredicate<Context, String> isFeatureNotChickenedOutMethod) {
+            this.pkgName = pkgName;
+            this.namespace = namespace;
+            this.isFeatureEnabledMethod = isFeatureEnabledMethod;
+            this.isFeatureNotChickenedOutMethod = isFeatureNotChickenedOutMethod;
+        }
+    }
+
+    /** Get test parameters for tests covering all modules */
+    public Object moduleParameters() {
+        return Module.values();
+    }
+
+    /** Get test parameters for isFeatureNotChickenedOut tests */
+    public Object moduleSupportingFeatureNotChickenedOutParameters() {
+        return new Module[] { Module.NETWORKSTACK, Module.TETHERING };
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -108,11 +157,8 @@ public class DeviceConfigUtilsTest {
         mApexPackageInfo.setLongVersionCode(TEST_PACKAGE_VERSION);
 
         doReturn(mPm).when(mContext).getPackageManager();
-        doReturn(TEST_PACKAGE_NAME).when(mContext).getPackageName();
         doThrow(NameNotFoundException.class).when(mPm).getPackageInfo(anyString(), anyInt());
-        doReturn(mPackageInfo).when(mPm).getPackageInfo(eq(TEST_PACKAGE_NAME), anyInt());
         doReturn(mApexPackageInfo).when(mPm).getPackageInfo(eq(TEST_APEX_PACKAGE_NAME), anyInt());
-
         doReturn(mResources).when(mContext).getResources();
 
         final ResolveInfo ri = new ResolveInfo();
@@ -124,6 +170,11 @@ public class DeviceConfigUtilsTest {
         doReturn(Arrays.asList(ri)).when(mPm).queryIntentActivities(argThat(
                 intent -> intent.getAction().equals(DeviceConfigUtils.RESOURCES_APK_INTENT)),
                 eq(MATCH_SYSTEM_ONLY));
+    }
+
+    private void setupMockPackage(Module module) throws NameNotFoundException {
+        doReturn(module.pkgName).when(mContext).getPackageName();
+        doReturn(mPackageInfo).when(mPm).getPackageInfo(eq(module.pkgName), anyInt());
     }
 
     @After
@@ -229,177 +280,122 @@ public class DeviceConfigUtilsTest {
     }
 
     @Test
-    public void testIsFeatureEnabled() {
-        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+    @Parameters(method = "moduleParameters")
+    @TestCaseName(TEST_NAMING_TEMPLATE)
+    public void testIsFeatureEnabled(Module module) throws Exception {
+        setupMockPackage(module);
+        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(
-                NAMESPACE_CAPTIVEPORTALLOGIN, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isNetworkStackFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isTetheringFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isCaptivePortalLoginFeatureEnabled(mContext,
-                TEST_EXPERIMENT_FLAG));
+        assertTrue(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
     }
+
     @Test
-    public void testIsFeatureEnabledFeatureDefaultDisabled() throws Exception {
-        doReturn(null).when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+    @Parameters(method = "moduleParameters")
+    @TestCaseName(TEST_NAMING_TEMPLATE)
+    public void testIsFeatureEnabledFeatureDefaultDisabled(Module module) throws Exception {
+        setupMockPackage(module);
+        doReturn(null).when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        doReturn(null).when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        doReturn(null).when(() -> DeviceConfig.getProperty(NAMESPACE_CAPTIVEPORTALLOGIN,
-                TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isNetworkStackFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isTetheringFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isCaptivePortalLoginFeatureEnabled(mContext,
-                TEST_EXPERIMENT_FLAG));
+        assertFalse(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
 
         // If the flag is unset, package info is not queried
         verify(mContext, never()).getPackageManager();
-        verify(mContext, never()).getPackageName();
         verify(mPm, never()).getPackageInfo(anyString(), anyInt());
     }
 
     @Test
-    public void testIsFeatureEnabledFeatureForceEnabled() throws Exception {
-        doReturn("1").when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+    @Parameters(method = "moduleParameters")
+    @TestCaseName(TEST_NAMING_TEMPLATE)
+    public void testIsFeatureEnabledFeatureForceEnabled(Module module) throws Exception {
+        setupMockPackage(module);
+        doReturn("1").when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        doReturn("1").when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        doReturn("1").when(() -> DeviceConfig.getProperty(NAMESPACE_CAPTIVEPORTALLOGIN,
-                TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isNetworkStackFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isTetheringFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isCaptivePortalLoginFeatureEnabled(mContext,
-                TEST_EXPERIMENT_FLAG));
+        assertTrue(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
 
         // If the feature is force enabled, package info is not queried
         verify(mContext, never()).getPackageManager();
-        verify(mContext, never()).getPackageName();
         verify(mPm, never()).getPackageInfo(anyString(), anyInt());
     }
 
     @Test
-    public void testIsFeatureEnabledFeatureForceDisabled() throws Exception {
-        doReturn("-1").when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+    @Parameters(method = "moduleParameters")
+    @TestCaseName(TEST_NAMING_TEMPLATE)
+    public void testIsFeatureEnabledFeatureForceDisabled(Module module)
+            throws Exception {
+        setupMockPackage(module);
+        doReturn("-1").when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        doReturn("-1").when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        doReturn("-1").when(() -> DeviceConfig.getProperty(NAMESPACE_CAPTIVEPORTALLOGIN,
-                TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isNetworkStackFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isTetheringFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isCaptivePortalLoginFeatureEnabled(mContext,
-                TEST_EXPERIMENT_FLAG));
+        assertFalse(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
 
         // If the feature is force disabled, package info is not queried
         verify(mContext, never()).getPackageManager();
-        verify(mContext, never()).getPackageName();
         verify(mPm, never()).getPackageInfo(anyString(), anyInt());
     }
 
     @Test
-    public void testFeatureIsEnabledWithException() throws Exception {
-        doThrow(NameNotFoundException.class).when(mPm).getPackageInfo(anyString(), anyInt());
+    @Parameters(method = "moduleParameters")
+    @TestCaseName(TEST_NAMING_TEMPLATE)
+    public void testFeatureIsEnabledWithException(Module module) throws Exception {
+        setupMockPackage(module);
 
         // Feature should be enabled by flag value "1".
-        doReturn("1").when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+        doReturn("1").when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        doReturn("1").when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        doReturn("1").when(() -> DeviceConfig.getProperty(NAMESPACE_CAPTIVEPORTALLOGIN,
-                TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isNetworkStackFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isTetheringFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isCaptivePortalLoginFeatureEnabled(mContext,
-                TEST_EXPERIMENT_FLAG));
+        assertTrue(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
 
         // Feature should be disabled by flag value "999999999".
-        doReturn("999999999").when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+        doReturn("999999999").when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        doReturn("999999999").when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        doReturn("999999999").when(() -> DeviceConfig.getProperty(NAMESPACE_CAPTIVEPORTALLOGIN,
-                TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isNetworkStackFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isTetheringFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isCaptivePortalLoginFeatureEnabled(mContext,
-                TEST_EXPERIMENT_FLAG));
+        assertFalse(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
 
         // If the flag is not set feature is disabled
-        doReturn(null).when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+        doReturn(null).when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        doReturn(null).when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        doReturn(null).when(() -> DeviceConfig.getProperty(NAMESPACE_CAPTIVEPORTALLOGIN,
-                TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isNetworkStackFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isTetheringFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isCaptivePortalLoginFeatureEnabled(mContext,
-                TEST_EXPERIMENT_FLAG));
+        assertFalse(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
     }
 
     @Test
-    public void testFeatureIsEnabledOnGo() throws Exception {
-        doThrow(NameNotFoundException.class).when(mPm).getPackageInfo(
-                eq(TEST_APEX_PACKAGE_NAME), anyInt());
-        doReturn(mApexPackageInfo).when(mPm).getPackageInfo(
-                eq(TEST_GO_APEX_PACKAGE_NAME), anyInt());
+    @Parameters(method = "moduleParameters")
+    @TestCaseName(TEST_NAMING_TEMPLATE)
+    public void testFeatureIsEnabledOnGo(Module module) throws Exception {
+        setupMockPackage(module);
         doReturn("0").when(() -> DeviceConfig.getProperty(
-                NAMESPACE_CONNECTIVITY, TEST_EXPERIMENT_FLAG));
-        doReturn("0").when(() -> DeviceConfig.getProperty(
-                NAMESPACE_TETHERING, TEST_EXPERIMENT_FLAG));
-        doReturn("0").when(() -> DeviceConfig.getProperty(
-                NAMESPACE_CAPTIVEPORTALLOGIN, TEST_EXPERIMENT_FLAG));
+                module.namespace, TEST_EXPERIMENT_FLAG));
 
-        assertFalse(DeviceConfigUtils.isNetworkStackFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isTetheringFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isCaptivePortalLoginFeatureEnabled(mContext,
-                TEST_EXPERIMENT_FLAG));
+        assertFalse(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
 
-        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
+        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isTetheringFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
+        assertTrue(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
     }
 
     @Test
-    public void testIsNetworkStackFeatureEnabledCaching() throws Exception {
-        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+    @Parameters(method = "moduleParameters")
+    @TestCaseName(TEST_NAMING_TEMPLATE)
+    public void testIsFeatureEnabledCaching(Module module) throws Exception {
+        setupMockPackage(module);
+        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isNetworkStackFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isNetworkStackFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
+
+        final InOrder inOrder = inOrder(mContext, mPm);
+        assertTrue(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
+        inOrder.verify(mContext, atLeastOnce()).getPackageManager();
+        inOrder.verify(mPm).getPackageInfo(anyString(), anyInt());
 
         // Package info is only queried once
-        verify(mContext, times(1)).getPackageManager();
-        verify(mContext, times(1)).getPackageName();
-        verify(mPm, times(1)).getPackageInfo(anyString(), anyInt());
+        assertTrue(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
+        inOrder.verify(mContext, never()).getPackageManager();
+        inOrder.verify(mPm, never()).getPackageInfo(anyString(), anyInt());
     }
 
     @Test
-    public void testIsCaptivePortalLoginFeatureEnabledCaching() throws Exception {
+    public void testIsNetworkStackFeatureEnabledCalledFromTethering() throws Exception {
+        doReturn(TEST_SYSTEMSERVER_PACKAGE_NAME).when(mContext).getPackageName();
+        doReturn(mPackageInfo).when(mPm).getPackageInfo(eq(TEST_NETWORKSTACK_NAME), anyInt());
         doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(
-                NAMESPACE_CAPTIVEPORTALLOGIN, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isCaptivePortalLoginFeatureEnabled(mContext,
-                TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isCaptivePortalLoginFeatureEnabled(mContext,
-                TEST_EXPERIMENT_FLAG));
+                NAMESPACE_CONNECTIVITY, TEST_EXPERIMENT_FLAG));
 
-        // Package info is only queried once
-        verify(mContext, times(1)).getPackageManager();
-        verify(mContext, times(1)).getPackageName();
-        verify(mPm, times(1)).getPackageInfo(anyString(), anyInt());
-    }
-
-    @Test
-    public void testIsTetheringFeatureEnabledCaching() throws Exception {
-        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isTetheringFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isTetheringFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
-
-        // Package info is only queried once
-        verify(mPm, times(1)).getPackageInfo(anyString(), anyInt());
-        verify(mContext, never()).getPackageName();
+        assertTrue(DeviceConfigUtils.isNetworkStackFeatureEnabled(mContext, TEST_EXPERIMENT_FLAG));
     }
 
     @Test
@@ -424,6 +420,7 @@ public class DeviceConfigUtilsTest {
 
     @Test
     public void testGetNetworkStackModuleVersionCaching() throws Exception {
+        setupMockPackage(Module.NETWORKSTACK);
         final PackageInfo networkStackPackageInfo = new PackageInfo();
         networkStackPackageInfo.setLongVersionCode(TEST_PACKAGE_VERSION);
         doReturn(networkStackPackageInfo).when(mPm).getPackageInfo(
@@ -435,7 +432,6 @@ public class DeviceConfigUtilsTest {
                 DeviceConfigUtils.getNetworkStackModuleVersion(mContext));
         // Package info is only queried once
         verify(mPm, times(1)).getPackageInfo(anyString(), anyInt());
-        verify(mContext, never()).getPackageName();
     }
 
     @Test
@@ -490,65 +486,51 @@ public class DeviceConfigUtilsTest {
     }
 
     @Test
-    public void testIsFeatureNotChickenedOut() {
-        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+    @Parameters(method = "moduleSupportingFeatureNotChickenedOutParameters")
+    @TestCaseName(TEST_NAMING_TEMPLATE)
+    public void testIsFeatureNotChickenedOut(Module module) throws Exception {
+        setupMockPackage(module);
+        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        doReturn(TEST_FLAG_VALUE_STRING).when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
-                mContext, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isNetworkStackFeatureNotChickenedOut(
-                mContext, TEST_EXPERIMENT_FLAG));
+        assertTrue(module.isFeatureEnabledMethod.test(mContext, TEST_EXPERIMENT_FLAG));
     }
 
     @Test
-    public void testIsFeatureNotChickenedOutFeatureDefaultEnabled() throws Exception {
-        doReturn(null).when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+    @Parameters(method = "moduleSupportingFeatureNotChickenedOutParameters")
+    @TestCaseName(TEST_NAMING_TEMPLATE)
+    public void testIsFeatureNotChickenedOutFeatureDefaultEnabled(Module module) throws Exception {
+        doReturn(null).when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        doReturn(null).when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
-                mContext, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isNetworkStackFeatureNotChickenedOut(
-                mContext, TEST_EXPERIMENT_FLAG));
+        assertTrue(module.isFeatureNotChickenedOutMethod.test(mContext, TEST_EXPERIMENT_FLAG));
 
         // If the flag is unset, package info is not queried
         verify(mContext, never()).getPackageManager();
-        verify(mContext, never()).getPackageName();
         verify(mPm, never()).getPackageInfo(anyString(), anyInt());
     }
 
     @Test
-    public void testIsFeatureNotChickenedOutFeatureForceEnabled() throws Exception {
-        doReturn("1").when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+    @Parameters(method = "moduleSupportingFeatureNotChickenedOutParameters")
+    @TestCaseName(TEST_NAMING_TEMPLATE)
+    public void testIsFeatureNotChickenedOutFeatureForceEnabled(Module module) throws Exception {
+        doReturn("1").when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        doReturn("1").when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isNetworkStackFeatureNotChickenedOut(
-                mContext, TEST_EXPERIMENT_FLAG));
-        assertTrue(DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
-                mContext, TEST_EXPERIMENT_FLAG));
+        assertTrue(module.isFeatureNotChickenedOutMethod.test(mContext, TEST_EXPERIMENT_FLAG));
 
         // If the feature is force enabled, package info is not queried
         verify(mContext, never()).getPackageManager();
-        verify(mContext, never()).getPackageName();
         verify(mPm, never()).getPackageInfo(anyString(), anyInt());
     }
 
     @Test
-    public void testIsFeatureNotChickenedOutFeatureForceDisabled() throws Exception {
-        doReturn("-1").when(() -> DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY,
+    @Parameters(method = "moduleSupportingFeatureNotChickenedOutParameters")
+    @TestCaseName(TEST_NAMING_TEMPLATE)
+    public void testIsFeatureNotChickenedOutFeatureForceDisabled(Module module) throws Exception {
+        doReturn("-1").when(() -> DeviceConfig.getProperty(module.namespace,
                 TEST_EXPERIMENT_FLAG));
-        doReturn("-1").when(() -> DeviceConfig.getProperty(NAMESPACE_TETHERING,
-                TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isNetworkStackFeatureNotChickenedOut(
-                mContext, TEST_EXPERIMENT_FLAG));
-        assertFalse(DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
-                mContext, TEST_EXPERIMENT_FLAG));
+        assertFalse(module.isFeatureNotChickenedOutMethod.test(mContext, TEST_EXPERIMENT_FLAG));
 
         // If the feature is force disabled, package info is not queried
         verify(mContext, never()).getPackageManager();
-        verify(mContext, never()).getPackageName();
         verify(mPm, never()).getPackageInfo(anyString(), anyInt());
     }
 }
