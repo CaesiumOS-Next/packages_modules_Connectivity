@@ -155,6 +155,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbac2e43_978ee632",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 12
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2024-08-15T04:52:49Z",
+      "side": 1,
+      "message": "Acknowledged.\nI moved the feature flag to platform side.",
+      "parentUuid": "59b9b004_2a094fca",
+      "revId": "eb0f385caaeef34ca28ed7a0c65b878012d4580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a0effe5_1ef8e885",
