@@ -422,7 +422,7 @@ package android.net {
     method public int describeContents();
     method @NonNull public int[] getCapabilities();
     method @Nullable public android.net.NetworkSpecifier getNetworkSpecifier();
-    method @FlaggedApi("com.android.net.flags.request_restricted_wifi") @NonNull public java.util.Set<java.lang.Integer> getSubscriptionIds();
+    method @FlaggedApi(Flags.REQUEST_RESTRICTED_WIFI) @NonNull public java.util.Set<java.lang.Integer> getSubscriptionIds();
     method @NonNull public int[] getTransportTypes();
     method public boolean hasCapability(int);
     method public boolean hasTransport(int);

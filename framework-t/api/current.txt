@@ -210,7 +210,7 @@ package android.net {
 
 package android.net.nsd {
 
-  @FlaggedApi("com.android.net.flags.nsd_subtypes_support_enabled") public final class DiscoveryRequest implements android.os.Parcelable {
+  @FlaggedApi(NsdManager.Flags.NSD_SUBTYPES_SUPPORT_ENABLED) public final class DiscoveryRequest implements android.os.Parcelable {
     method public int describeContents();
     method @Nullable public android.net.Network getNetwork();
     method @NonNull public String getServiceType();
