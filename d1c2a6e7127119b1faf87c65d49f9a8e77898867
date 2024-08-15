@@ -16,6 +16,24 @@
       "message": "I don\u0027t think we should remove CtsHostsideNetworkTests from MCTS since they test important system functionality. Have you looked into why the app can\u0027t be installed? Maybe it\u0027s enough to specify a target SDK version?",
       "revId": "d1c2a6e7127119b1faf87c65d49f9a8e77898867",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed1958b1_74ec6a18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2024-08-15T04:23:43Z",
+      "side": 1,
+      "message": "Hi Lorenzo, but this test is never run in MTS, if you want it to be ran in MCTS then you need to onboard it to MTS first and you should follow go/mainline-test-suite#how-to-add-my-tests-to-mts, thanks",
+      "parentUuid": "7fc7782e_e6148b1a",
+      "revId": "d1c2a6e7127119b1faf87c65d49f9a8e77898867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
