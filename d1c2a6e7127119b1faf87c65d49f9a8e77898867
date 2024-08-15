@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fc7782e_e6148b1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-15T03:59:42Z",
+      "side": 1,
+      "message": "I don\u0027t think we should remove CtsHostsideNetworkTests from MCTS since they test important system functionality. Have you looked into why the app can\u0027t be installed? Maybe it\u0027s enough to specify a target SDK version?",
+      "revId": "d1c2a6e7127119b1faf87c65d49f9a8e77898867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
