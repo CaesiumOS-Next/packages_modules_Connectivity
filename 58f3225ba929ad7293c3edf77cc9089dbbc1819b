@@ -22,6 +22,30 @@
       },
       "revId": "58f3225ba929ad7293c3edf77cc9089dbbc1819b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "010d53f7_b8746969",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-15T02:38:55Z",
+      "side": 1,
+      "message": "Because the NetworkStats is not easy to mock, after discussing it with Junyu, he provided a way to mock it and generate rx/tx bytes. The design has been updated accordingly.",
+      "parentUuid": "592bef81_22d02163",
+      "range": {
+        "startLine": 142,
+        "startChar": 32,
+        "endLine": 142,
+        "endChar": 66
+      },
+      "revId": "58f3225ba929ad7293c3edf77cc9089dbbc1819b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
