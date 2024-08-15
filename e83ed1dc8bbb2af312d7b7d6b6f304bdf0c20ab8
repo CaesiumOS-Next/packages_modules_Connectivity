@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "531aa212_25866fa9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-15T09:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98ec73b6_0178baa4",
+      "revId": "e83ed1dc8bbb2af312d7b7d6b6f304bdf0c20ab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ff71469_b9c088fe",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a16ea73c_d16379cf",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-15T09:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ff71469_b9c088fe",
+      "revId": "e83ed1dc8bbb2af312d7b7d6b6f304bdf0c20ab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46b79b17_d27d7e52",
@@ -48,6 +84,30 @@
       "writtenOn": "2024-08-14T07:06:37Z",
       "side": 1,
       "message": "How about \"forceEnableBackoff\" ? The semantics aren\u0027t very clear with the current name.\n\nThen instead of having it as argument in shouldUseQueryBackoff, you\u0027d just do:\n\n```\nif (forceEnableBackoff\n    || queryTaskConfig.shouldUseQueryBackoff(numOfQueriesBeforeBackoff))\n```",
+      "range": {
+        "startLine": 138,
+        "startChar": 51,
+        "endLine": 138,
+        "endChar": 75
+      },
+      "revId": "e83ed1dc8bbb2af312d7b7d6b6f304bdf0c20ab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13923e1e_42c27f2f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-15T09:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46b79b17_d27d7e52",
       "range": {
         "startLine": 138,
         "startChar": 51,
