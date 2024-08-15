@@ -297,6 +297,7 @@ java_library {
         "framework-location.stubs.module_lib",
     ],
     static_libs: [
+        "com.android.net.flags-aconfig-exported-java",
         "modules-utils-build",
     ],
     jarjar_rules: "jarjar-rules-shared.txt",

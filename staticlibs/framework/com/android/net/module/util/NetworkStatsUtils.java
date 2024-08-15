@@ -20,6 +20,7 @@ import android.app.usage.NetworkStats;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.flags.Flags;
 
 import java.util.ArrayList;
 
@@ -117,7 +118,7 @@ public class NetworkStatsUtils {
         android.net.NetworkStats stats = new android.net.NetworkStats(0L, 0);
         // The new API is only supported on devices running the mainline version of `NetworkStats`.
         // It should always be used when available for memory efficiency.
-        if (SdkLevel.isAtLeastT()) {
+        if (SdkLevel.isAtLeastT() && Flags.netstatsAddEntries()) {
             stats = stats.addEntries(entries);
         } else {
             for (android.net.NetworkStats.Entry entry : entries) {
