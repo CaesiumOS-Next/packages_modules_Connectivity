@@ -67,6 +67,8 @@ static const char *bpf_tether_errors[] = {
 };
 #undef ERR
 
+static const int TETHER_CALLBACK_BUF_SIZE = 16 * 1024;
+
 // This header file is shared by eBPF kernel programs (C) and netd (C++) and
 // some of the maps are also accessed directly from Java mainline module code.
 //
@@ -162,5 +164,15 @@ typedef struct {
     uint64_t last_used;       // Kernel updates on each use with bpf_ktime_get_boot_ns()
 } Tether4Value;
 STRUCT_SIZE(Tether4Value, 4 + 14 + 2 + 16 + 16 + 2 + 2 + 8);  // 64
+
+typedef struct {
+  uint32_t src4;
+  uint32_t dst4;
+  uint16_t proto;
+  __be16 srcPort;
+  __be16 dstPort;
+  uint8_t zero[2]; // zero pad for 4 byte alignment
+} TetherCallback;
+STRUCT_SIZE(TetherCallback, 2 + 4 + 2 + 4 + 2 + 2); // 16
 
 #undef STRUCT_SIZE

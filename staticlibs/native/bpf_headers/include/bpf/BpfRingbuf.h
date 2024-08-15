@@ -22,7 +22,7 @@
 #include <poll.h>
 #include <sys/epoll.h>
 #include <sys/mman.h>
-#include <utils/Log.h>
+// #include <utils/Log.h>
 
 #include "bpf/BpfUtils.h"
 
@@ -53,7 +53,7 @@ class BpfRingbufBase {
   // Full construction that aborts on error (use Create/Init to handle errors).
   BpfRingbufBase(const char* path, size_t value_size) : mValueSize(value_size) {
     if (auto status = Init(path); !status.ok()) {
-      ALOGE("BpfRingbuf init failed: %s", status.error().message().c_str());
+      // ALOGE("BpfRingbuf init failed: %s", status.error().message().c_str());
       abort();
     }
   }

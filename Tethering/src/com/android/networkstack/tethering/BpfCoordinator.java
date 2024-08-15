@@ -132,6 +132,7 @@ public class BpfCoordinator {
     private static final String TETHER_LIMIT_MAP_PATH = makeMapPath("limit");
     private static final String TETHER_ERROR_MAP_PATH = makeMapPath("error");
     private static final String TETHER_DEV_MAP_PATH = makeMapPath("dev");
+    private static final String TETHER_CALLBACK_MAP_PATH = makeMapPath("callback_ringbuf");
     private static final String DUMPSYS_RAWMAP_ARG_STATS = "--stats";
     private static final String DUMPSYS_RAWMAP_ARG_UPSTREAM4 = "--upstream4";
 
@@ -508,6 +509,7 @@ public class BpfCoordinator {
         if (!mBpfCoordinatorShim.isInitialized()) {
             mLog.e("Bpf shim not initialized");
         }
+        startCallback(TETHER_CALLBACK_MAP_PATH);
     }
 
     /**
@@ -2370,6 +2372,8 @@ public class BpfCoordinator {
     }
 
     private void updateForwardedStats() {
+        pollTest();
+
         final SparseArray<TetherStatsValue> tetherStatsList =
                 mBpfCoordinatorShim.tetherOffloadGetStats();
 
@@ -2536,4 +2540,8 @@ public class BpfCoordinator {
     }
 
     private static native String[] getBpfCounterNames();
+
+    private static native boolean startCallback(String path);
+
+    private static native boolean pollTest();
 }

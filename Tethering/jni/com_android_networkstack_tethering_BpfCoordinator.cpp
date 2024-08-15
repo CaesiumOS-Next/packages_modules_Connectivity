@@ -15,11 +15,18 @@
  */
 
 #include <jni.h>
+#include <log/log.h>
 #include <nativehelper/JNIHelp.h>
 
+#include "nativehelper/scoped_utf_chars.h"
+
+#include "BpfSyscallWrappers.h"
+#include "bpf/BpfRingbuf.h"
 #include "offload.h"
 
 namespace android {
+
+std::unique_ptr<android::bpf::BpfRingbuf<TetherCallback>> sRingBuffer;
 
 static jobjectArray getBpfCounterNames(JNIEnv *env) {
     size_t size = BPF_TETHER_ERR__MAX;
@@ -30,12 +37,49 @@ static jobjectArray getBpfCounterNames(JNIEnv *env) {
     return ret;
 }
 
+static jboolean startCallback(JNIEnv *env, jclass clazz, jstring path) {
+  ALOGI("startCallback");
+  ScopedUtfChars pathname(env, path);
+
+  auto rb = android::bpf::BpfRingbuf<TetherCallback>::Create(pathname.c_str());
+  if (!rb.ok()) {
+    ALOGI("Failed to create ringbuf: %s", rb.error().message().c_str());
+    return false;
+  }
+
+  sRingBuffer = std::move(*rb);
+  return true;
+}
+
+static jboolean pollTest(JNIEnv *env, jclass clazz) {
+  ALOGI("pollTest");
+
+  std::vector<TetherCallback> callbacks;
+  base::Result<int> ret = sRingBuffer->ConsumeAll(
+      [&](const TetherCallback &cb) { callbacks.push_back(cb); });
+  if (!ret.ok()) {
+    ALOGI("Failed to poll ringbuf: %s", ret.error().message().c_str());
+    return false;
+  }
+
+  ALOGI("num of TetherCallbacks %d", callbacks.size());
+
+  for (const TetherCallback &cb : callbacks) {
+    ALOGI("cb %d, %d, %d, %d, %d", cb.proto, cb.src4, cb.srcPort, cb.dst4,
+          cb.dstPort);
+  }
+
+  return true;
+}
+
 /*
  * JNI registration.
  */
 static const JNINativeMethod gMethods[] = {
     /* name, signature, funcPtr */
-    { "getBpfCounterNames", "()[Ljava/lang/String;", (void*) getBpfCounterNames },
+    {"getBpfCounterNames", "()[Ljava/lang/String;", (void *)getBpfCounterNames},
+    {"startCallback", "(Ljava/lang/String;)Z", (void *)startCallback},
+    {"pollTest", "()Z", (void *)pollTest},
 };
 
 int register_com_android_networkstack_tethering_BpfCoordinator(JNIEnv* env) {
