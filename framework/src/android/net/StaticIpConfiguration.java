@@ -180,6 +180,10 @@ public final class StaticIpConfiguration implements Parcelable {
          * if an IP Address was not configured via {@link #setIpAddress(LinkAddress)}.
          */
         public @NonNull StaticIpConfiguration build() {
+            if (mIpAddress == null) {
+                throw new IllegalArgumentException("IP address is not set");
+            }
+
             final StaticIpConfiguration config = new StaticIpConfiguration();
             config.ipAddress = mIpAddress;
             config.gateway = mGateway;

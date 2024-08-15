@@ -278,6 +278,10 @@ public class StaticIpConfigurationTest {
             StaticIpConfiguration.Builder b = new StaticIpConfiguration.Builder().setDnsServers(
                     dnsServers);
         });
+
+        assertThrows("IP address must be set!", IllegalArgumentException.class, () -> {
+            StaticIpConfiguration b = new StaticIpConfiguration.Builder().build();
+        });
     }
 
     @Test
