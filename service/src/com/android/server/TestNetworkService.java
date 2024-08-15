@@ -311,6 +311,8 @@ class TestNetworkService extends ITestNetworkManager.Stub {
                     NetworkStackConstants.IPV6_ADDR_ANY, 0), null, iface));
         }
 
+        lp.setMtu(1000);
+
         // For testing purpose, fill legacy type for NetworkStatsService since it does not
         // support transport types.
         final TestNetworkAgent agent = new TestNetworkAgent(context, looper, nc, lp,

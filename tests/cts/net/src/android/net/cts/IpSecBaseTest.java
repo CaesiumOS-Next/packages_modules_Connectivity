@@ -371,6 +371,10 @@ public class IpSecBaseTest {
         public void removeTransportModeTransforms(IpSecManager ism) throws Exception {
             ism.removeTransportModeTransforms(mSocket);
         }
+
+        public FileDescriptor getFd() {
+            return mSocket.getFileDescriptor$();
+        }
     }
 
     public static class JavaTcpSocket implements GenericTcpSocket {

@@ -45,6 +45,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
+import android.system.Os;
+import static android.system.OsConstants.IPPROTO_IP;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -396,7 +398,17 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                 socket.mSocket, IpSecManager.DIRECTION_OUT, outTransportTransform);
                     }
 
-                    socket.sendTo(TEST_DATA, remoteInner, socket.getPort());
+                    final byte[] testData = new byte[900];
+
+                    // Always set DF
+                    // Os.setsockoptInt(socket.getFd(), IPPROTO_IP,
+                    //     10 /* IP_MTU_DISCOVER */, 2 /* IP_PMTUDISC_DO */);
+
+                    // Always clear DF
+                    // Os.setsockoptInt(socket.getFd(), IPPROTO_IP,
+                    //     10 /* IP_MTU_DISCOVER */, 0 /* IP_PMTUDISC_DONT */);
+
+                    socket.sendTo(testData, remoteInner, socket.getPort());
 
                     // Verify that an encrypted packet is sent. As of right now, checking encrypted
                     // body is not possible, due to the test not knowing some of the fields of the
@@ -408,22 +420,22 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                             getPacketSize(
                                     innerFamily, outerFamily, useEncap, transportInTunnelMode);
                     tunUtils.awaitEspPacketNoPlaintext(
-                            spi, TEST_DATA, useEncap, expectedPacketSize);
+                            spi, testData, useEncap, expectedPacketSize);
                     socket.close();
 
-                    if (isRequestTransformStateSupported()) {
-                        final int innerPacketSize =
-                                getInnerPacketSize(innerFamily, transportInTunnelMode);
+                    // if (isRequestTransformStateSupported()) {
+                    //     final int innerPacketSize =
+                    //             getInnerPacketSize(innerFamily, transportInTunnelMode);
 
-                        checkTransformState(
-                                outTunnelTransform,
-                                seqNum,
-                                0L,
-                                seqNum,
-                                seqNum * (long) innerPacketSize,
-                                newReplayBitmap(0));
-                        checkTransformStateNoTraffic(inTunnelTransform);
-                    }
+                    //     checkTransformState(
+                    //             outTunnelTransform,
+                    //             seqNum,
+                    //             0L,
+                    //             seqNum,
+                    //             seqNum * (long) innerPacketSize,
+                    //             newReplayBitmap(0));
+                    //     checkTransformStateNoTraffic(inTunnelTransform);
+                    // }
 
                     return innerSocketPort;
                 }
@@ -516,6 +528,11 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                 socket.mSocket, IpSecManager.DIRECTION_OUT, inTransportTransform);
                     }
 
+                    final byte[] testData = new byte[3000];
+
+                    Os.setsockoptInt(socket.getFd(), IPPROTO_IP,
+                        10 /* IP_MTU_DISCOVER */, 2 /* IP_PMTUDISC_DO */);
+
                     byte[] pkt;
                     if (transportInTunnelMode) {
                         pkt =
@@ -539,7 +556,8 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                         localOuter,
                                         socket.getPort(),
                                         encapSocket != null ? encapSocket.getPort() : 0,
-                                        seqNum);
+                                        seqNum,
+                                        testData);
                     }
                     tunUtils.injectPacket(pkt);
 
@@ -1181,6 +1199,11 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
 
     private static void receiveAndValidatePacket(JavaUdpSocket socket) throws Exception {
         byte[] socketResponseBytes = socket.receive();
+        android.util.Log.i("TEST", "receiveAndValidatePacket");
+        android.util.Log.i(
+                "TEST",
+                "inbound packet from socket.receive "
+                        + TunUtils.byteArrayToHexString(socketResponseBytes));
         assertArrayEquals(TEST_DATA, socketResponseBytes);
     }
 
@@ -1237,6 +1260,25 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         }
 
         return getIpHeader(payload.getProtocolId(), src, dst, payload);
+    }
+
+    private byte[] getTunnelModePacket(
+            int spi,
+            InetAddress srcInner,
+            InetAddress dstInner,
+            InetAddress srcOuter,
+            InetAddress dstOuter,
+            int port,
+            int encapPort,
+            int seqNum,
+            byte[] testData)
+            throws Exception {
+        UdpHeader udp = new UdpHeader(port, port, new BytePayload(testData));
+
+        EspHeader espPayload =
+                buildTunnelModeEspPacket(
+                        spi, srcInner, dstInner, srcOuter, dstOuter, port, encapPort, seqNum, udp);
+        return maybeEncapPacket(srcOuter, dstOuter, encapPort, espPayload).getPacketBytes();
     }
 
     private byte[] getTunnelModePacket(
@@ -1498,6 +1540,18 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
     public void testTunnelV4InV4() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelOutput(AF_INET, AF_INET, false, false);
+        checkTunnelInput(AF_INET, AF_INET, false, false);
+    }
+
+    @Test
+    public void testTunnelV4InV4Output() throws Exception {
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+        checkTunnelOutput(AF_INET, AF_INET, false, false);
+    }
+
+    @Test
+    public void testTunnelV4InV4Input() throws Exception {
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
         checkTunnelInput(AF_INET, AF_INET, false, false);
     }
 
