@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36c99286_eb18b186",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1550296
+      },
+      "writtenOn": "2024-08-15T10:15:34Z",
+      "side": 1,
+      "message": "Ah looks like there are tests relying on the fact that ipAddress can be null.\n\nIf it is the case, should we remove the NonNull annotation on getIpAddress() instead?",
+      "revId": "a8a4986f8b3c373818d6c4ead9745f8efeaf8e13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
