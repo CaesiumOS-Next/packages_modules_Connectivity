@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.networkstack.tethering;
+package com.android.net.module.util;
 
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
@@ -39,7 +39,6 @@ import android.util.IndentingPrintWriter;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.net.module.util.IRoutingCoordinatorCallback;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
