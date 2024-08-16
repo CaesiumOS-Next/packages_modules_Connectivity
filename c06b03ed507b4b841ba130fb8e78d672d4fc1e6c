@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87624e03_e92c61b2",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DeviceConfigUtilsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-16T09:14:05Z",
+      "side": 1,
+      "message": "isFeatureNotChickenedOutMethod?",
+      "range": {
+        "startLine": 500,
+        "startChar": 26,
+        "endLine": 500,
+        "endChar": 48
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "7144cf8f_85ccc7cb",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/net/module/util/DeviceConfigUtilsTest.java",
+              "range": {
+                "startLine": 292,
+                "startChar": 0,
+                "endLine": 293,
+                "endChar": 0
+              },
+              "replacement": "        assertTrue(module.isFeatureNotChickenedOutMethod.test(mContext, TEST_EXPERIMENT_FLAG));\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c06b03ed507b4b841ba130fb8e78d672d4fc1e6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
