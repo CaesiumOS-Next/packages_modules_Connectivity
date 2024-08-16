@@ -622,7 +622,12 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             Log.i(TAG, "requestNat64Cidr: on conflict " + ipPrefix);
             mHandler.post(() -> requestNat64Cidr());
         }
+
+        public LinkAddress getAddress() throws RemoteException {
+            return mRequestedIpv4Address;
+        }
     }
+    private LinkAddress mRequestedIpv4Address = null;
 
     private void requestNat64Cidr() {
         checkOnHandlerThread();
@@ -632,6 +637,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                         CONNECTIVITY_SCOPE_GLOBAL,
                         false /* useLastAddress */,
                         new RoutingCoordinatorCallback());
+        mRequestedIpv4Address = ipv4Addr;
         Log.i(TAG, "requestNat64Cidr: " + ipv4Addr);
         mBorderRouterConfig =
                 newBorderRouterConfigBuilder(mBorderRouterConfig)
