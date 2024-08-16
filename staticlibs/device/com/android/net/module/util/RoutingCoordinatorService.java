@@ -19,7 +19,6 @@ package com.android.net.module.util;
 import static com.android.net.module.util.NetdUtils.toRouteInfoParcel;
 
 import android.annotation.NonNull;
-import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.INetd;
 
@@ -34,7 +33,6 @@ import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
-import com.android.networkstack.tethering.PrivateAddressCoordinator;
 
 import java.util.Objects;
 
