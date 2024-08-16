@@ -29,6 +29,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_FAILURE;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_SUCCESS;
 
+import static com.android.net.module.util.NetworkStackConstants.DNS_DDR_VERSION;
 import static com.android.testutils.MiscAsserts.assertFieldCountEquals;
 
 import static org.junit.Assert.assertEquals;
@@ -36,6 +37,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
@@ -99,11 +101,28 @@ public class DnsManagerTest {
     static final int TEST_DEFAULT_MAX_SAMPLES = 64;
     static final int[] TEST_TRANSPORT_TYPES = {TRANSPORT_WIFI, TRANSPORT_VPN};
 
-    DnsManager mDnsManager;
+    TestDnsManager mDnsManager;
     MockContentResolver mContentResolver;
 
     @Mock Context mCtx;
     @Mock IDnsResolver mMockDnsResolver;
+
+    private static class TestDnsManager extends DnsManager {
+        boolean mDdrEnabled = false;
+
+        TestDnsManager(Context ctx, IDnsResolver dnsResolver) {
+            super(ctx, dnsResolver);
+        }
+
+        @Override
+        protected boolean isNetworkStackFeatureEnabled(Context context, String feature) {
+            if (DNS_DDR_VERSION.equals(feature)) {
+                return mDdrEnabled;
+            }
+            fail("Unknown feature: " + feature);
+            return false;
+        }
+    }
 
     private void assertResolverOptionsEquals(
             @Nullable ResolverOptionsParcel actual,
@@ -127,7 +146,7 @@ public class DnsManagerTest {
         mContentResolver.addProvider(Settings.AUTHORITY,
                 new FakeSettingsProvider());
         when(mCtx.getContentResolver()).thenReturn(mContentResolver);
-        mDnsManager = new DnsManager(mCtx, mMockDnsResolver);
+        mDnsManager = new TestDnsManager(mCtx, mMockDnsResolver);
 
         // Clear the private DNS settings
         Settings.Global.putString(mContentResolver, PRIVATE_DNS_DEFAULT_MODE, "");
@@ -325,8 +344,7 @@ public class DnsManagerTest {
         assertEquals(new InetAddress[0], cfgStrict.ips);
     }
 
-    @Test
-    public void testSendDnsConfiguration() throws Exception {
+    private void doTestSendDnsConfiguration(boolean expectDohParams) throws Exception {
         reset(mMockDnsResolver);
         final PrivateDnsConfig cfg = new PrivateDnsConfig(
                 PRIVATE_DNS_MODE_OPPORTUNISTIC /* mode */,
@@ -361,13 +379,27 @@ public class DnsManagerTest {
         expectedParams.transportTypes = TEST_TRANSPORT_TYPES;
         expectedParams.resolverOptions = null;
         expectedParams.meteredNetwork = true;
-        expectedParams.dohParams = new DohParamsParcel.Builder()
-                .setName("doh.com")
-                .setDohpath("/some-path{?dns}")
-                .setPort(5353)
-                .build();
+        if (expectDohParams) {
+            expectedParams.dohParams = new DohParamsParcel.Builder()
+                    .setName("doh.com")
+                    .setDohpath("/some-path{?dns}")
+                    .setPort(5353)
+                    .build();
+        }
         expectedParams.interfaceNames = new String[]{TEST_IFACENAME};
         verify(mMockDnsResolver, times(1)).setResolverConfiguration(eq(expectedParams));
+    }
+
+    @Test
+    public void testSendDnsConfiguration_DdrEnabled() throws Exception {
+        mDnsManager.mDdrEnabled = true;
+        doTestSendDnsConfiguration(true /* expectDohParams */);
+    }
+
+    @Test
+    public void testSendDnsConfiguration_DdrDisabled() throws Exception {
+        mDnsManager.mDdrEnabled = false;
+        doTestSendDnsConfiguration(false /* expectDohParams */);
     }
 
     @Test
