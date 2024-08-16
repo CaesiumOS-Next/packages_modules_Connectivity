@@ -40,6 +40,30 @@
       ],
       "revId": "574e8be247bd5f1a028893c27c068d62b332e6cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0a94288_08048dfb",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-16T08:38:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a454455a_a323d9bc",
+      "range": {
+        "startLine": 229,
+        "startChar": 48,
+        "endLine": 229,
+        "endChar": 66
+      },
+      "revId": "574e8be247bd5f1a028893c27c068d62b332e6cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

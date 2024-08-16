@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "861ccb28_7fc8ce3a",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DeviceConfigUtilsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-16T08:38:36Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "731306dc_e39347aa",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 93
+      },
+      "revId": "4c7f59f8f4c626f456e1a354a27d84fc34a15d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66888ee3_1a6ef2f4",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-16T07:11:21Z",
       "side": 0,
       "message": "Do we need them to test go package case?",
+      "range": {
+        "startLine": 344,
+        "startChar": 8,
+        "endLine": 347,
+        "endChar": 57
+      },
+      "revId": "4c7f59f8f4c626f456e1a354a27d84fc34a15d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "813dd75a_eabfe8e7",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DeviceConfigUtilsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-16T08:38:36Z",
+      "side": 0,
+      "message": "Oops yes - done",
+      "parentUuid": "66888ee3_1a6ef2f4",
       "range": {
         "startLine": 344,
         "startChar": 8,

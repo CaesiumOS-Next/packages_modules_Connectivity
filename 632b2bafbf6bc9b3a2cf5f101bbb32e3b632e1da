@@ -16,6 +16,24 @@
       "message": "code LGTM.\nIs there any concern to read network stack from tethering module?\nI think it\u0027s possible that Tethering module and NetworkStack could see the different flag value if the flag is pushed between their flag reads.\nCould this be an issue for your use case?",
       "revId": "632b2bafbf6bc9b3a2cf5f101bbb32e3b632e1da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "439619f0_b586fe2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-16T08:38:36Z",
+      "side": 1,
+      "message": "Yes this is not generally good practice, I added some comments. The followup change that uses the flag also has a comment about that case.",
+      "parentUuid": "fe6b713d_ecbd6251",
+      "revId": "632b2bafbf6bc9b3a2cf5f101bbb32e3b632e1da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
