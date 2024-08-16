@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cec1993_218e6d68",
+        "filename": "netbpfload/NetBpfLoad.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-16T02:48:28Z",
+      "side": 0,
+      "message": "Why we remove this line?",
+      "range": {
+        "startLine": 450,
+        "startChar": 8,
+        "endLine": 450,
+        "endChar": 33
+      },
+      "revId": "401c98f12759c4254c4c4ecbb1d2a9115eba7091",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
