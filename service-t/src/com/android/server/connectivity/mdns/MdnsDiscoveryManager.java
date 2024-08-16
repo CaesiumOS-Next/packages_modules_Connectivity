@@ -140,7 +140,7 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         @GuardedBy("pendingTasks")
         @Nullable private Handler handler;
         @GuardedBy("pendingTasks")
-        @NonNull private final ArrayList<Runnable> pendingTasks = new ArrayList<>();
+        @NonNull private final ArrayMap<Runnable, Long> pendingTasks = new ArrayMap<>();
 
         DiscoveryExecutor(@Nullable Looper defaultLooper) {
             if (defaultLooper != null) {
@@ -154,8 +154,8 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
                     protected void onLooperPrepared() {
                         synchronized (pendingTasks) {
                             handler = new Handler(getLooper());
-                            for (Runnable pendingTask : pendingTasks) {
-                                handler.post(pendingTask);
+                            for (int i = 0; i < pendingTasks.size(); i++) {
+                                handler.postDelayed(pendingTasks.keyAt(i), pendingTasks.valueAt(i));
                             }
                             pendingTasks.clear();
                         }
@@ -177,16 +177,20 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
 
         @Override
         public void execute(Runnable function) {
+            executeDelayed(function, 0L /* delayMillis */);
+        }
+
+        public void executeDelayed(Runnable function, long delayMillis) {
             final Handler handler;
             synchronized (pendingTasks) {
                 if (this.handler == null) {
-                    pendingTasks.add(function);
+                    pendingTasks.put(function, delayMillis);
                     return;
                 } else {
                     handler = this.handler;
                 }
             }
-            handler.post(function);
+            handler.postDelayed(function, delayMillis);
         }
 
         void shutDown() {
