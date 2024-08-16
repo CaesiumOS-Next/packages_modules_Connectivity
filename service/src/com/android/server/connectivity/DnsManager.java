@@ -51,6 +51,11 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
+import android.util.SparseBooleanArray;
+
+import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.DeviceConfigUtils;
+import com.android.net.module.util.NetworkStackConstants;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -255,6 +260,23 @@ public class DnsManager {
     private final Map<Integer, PrivateDnsValidationStatuses> mPrivateDnsValidationMap;
     private final Map<Integer, LinkProperties> mLinkPropertiesMap;
     private final Map<Integer, NetworkCapabilities> mNetworkCapabilitiesMap;
+    /**
+     * Whether DDR was enabled when sending the first DNS configuration, on network creation.
+     *
+     * <p>This caches the initial setting to ensure that it does not change during the lifetime
+     * of the network.
+     *
+     * <p>NetworkMonitor will query the flag at a different timing, but this should be fine as:
+     *  - If this is enabled here and disabled in NetworkMonitor (typically if the flag was just
+     *    ramped down), NetworkMonitor will not do SVCB resolution and DnsManager will just send
+     *    empty dohParams, similarly to a network that does not have SVCB records. If that race
+     *    happens the resolver may fall back to DoT and not upgrade to DoH, which is fine for one
+     *    connection established during flag change.
+     *  - If this is disabled here and enabled in NetworkMonitor (typically if the flag was just
+     *    ramped up), no dohParams will be sent even if NetworkMonitor does SVCB resolution, which
+     *    is identical to the flag not being enabled yet.
+     */
+    private final SparseBooleanArray mDdrEnabledMap;
 
     private int mSampleValidity;
     private int mSuccessThreshold;
@@ -269,6 +291,7 @@ public class DnsManager {
         mPrivateDnsValidationMap = new HashMap<>();
         mLinkPropertiesMap = new HashMap<>();
         mNetworkCapabilitiesMap = new HashMap<>();
+        mDdrEnabledMap = new SparseBooleanArray();
 
         // TODO: Create and register ContentObservers to track every setting
         // used herein, posting messages to respond to changes.
@@ -283,6 +306,7 @@ public class DnsManager {
         mPrivateDnsValidationMap.remove(network.getNetId());
         mNetworkCapabilitiesMap.remove(network.getNetId());
         mLinkPropertiesMap.remove(network.getNetId());
+        mDdrEnabledMap.delete(network.getNetId());
     }
 
     // This is exclusively called by ConnectivityService#dumpNetworkDiagnostics() which
@@ -390,7 +414,9 @@ public class DnsManager {
         paramsParcel.transportTypes = nc.getTransportTypes();
         paramsParcel.meteredNetwork = nc.isMetered();
         paramsParcel.interfaceNames = lp.getAllInterfaceNames().toArray(new String[0]);
-        paramsParcel.dohParams = makeDohParamsParcel(privateDnsCfg, lp);
+        if (isDdrEnabled(netId)) {
+            paramsParcel.dohParams = makeDohParamsParcel(privateDnsCfg, lp);
+        }
 
         // Prepare to track the validation status of the DNS servers in the
         // resolver config when private DNS is in opportunistic or strict mode.
@@ -411,6 +437,22 @@ public class DnsManager {
             Log.e(TAG, "Error setting DNS configuration: " + e);
             return;
         }
+    }
+
+    private boolean isDdrEnabled(int netId) {
+        final int idx = mDdrEnabledMap.indexOfKey(netId);
+        if (idx >= 0) {
+            return mDdrEnabledMap.valueAt(idx);
+        }
+        final boolean enabled = isNetworkStackFeatureEnabled(mContext,
+                NetworkStackConstants.DNS_DDR_VERSION);
+        mDdrEnabledMap.put(netId, enabled);
+        return enabled;
+    }
+
+    @VisibleForTesting
+    protected boolean isNetworkStackFeatureEnabled(Context context, String feature) {
+        return DeviceConfigUtils.isNetworkStackFeatureEnabled(context, feature);
     }
 
     /**

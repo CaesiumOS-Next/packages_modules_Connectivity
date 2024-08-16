@@ -329,6 +329,11 @@ public final class NetworkStackConstants {
      */
     public static final String TEST_URL_EXPIRATION_TIME = "test_url_expiration_time";
 
+    /**
+     * Experiment flag to enable Discovery of Designated Resolvers (DDR).
+     */
+    public static final String DNS_DDR_VERSION = "dns_ddr_version";
+
     // TODO: Move to Inet4AddressUtils
     // See aosp/1455936: NetworkStackConstants can't depend on it as it causes jarjar-related issues
     // for users of both the net-utils-device-common and net-utils-framework-common libraries.
