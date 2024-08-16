@@ -134,13 +134,17 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         this.discoveryExecutor = new DiscoveryExecutor(socketClient.getLooper());
     }
 
-    private static class DiscoveryExecutor implements Executor {
+    @VisibleForTesting
+    static class DiscoveryExecutor implements Executor {
         private final HandlerThread handlerThread;
 
         @GuardedBy("pendingTasks")
         @Nullable private Handler handler;
+        // Store pending tasks and associated delay time.
+        // Keys are pending tasks that need to be posted to the handler when it's ready. Values are
+        // the delay time for posting a pending task.
         @GuardedBy("pendingTasks")
-        @NonNull private final ArrayList<Runnable> pendingTasks = new ArrayList<>();
+        @NonNull private final ArrayList<Pair<Runnable, Long>> pendingTasks = new ArrayList<>();
 
         DiscoveryExecutor(@Nullable Looper defaultLooper) {
             if (defaultLooper != null) {
@@ -154,8 +158,8 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
                     protected void onLooperPrepared() {
                         synchronized (pendingTasks) {
                             handler = new Handler(getLooper());
-                            for (Runnable pendingTask : pendingTasks) {
-                                handler.post(pendingTask);
+                            for (Pair<Runnable, Long> pendingTask : pendingTasks) {
+                                handler.postDelayed(pendingTask.first, pendingTask.second);
                             }
                             pendingTasks.clear();
                         }
@@ -177,16 +181,20 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
 
         @Override
         public void execute(Runnable function) {
+            executeDelayed(function, 0L /* delayMillis */);
+        }
+
+        public void executeDelayed(Runnable function, long delayMillis) {
             final Handler handler;
             synchronized (pendingTasks) {
                 if (this.handler == null) {
-                    pendingTasks.add(function);
+                    pendingTasks.add(Pair.create(function, delayMillis));
                     return;
                 } else {
                     handler = this.handler;
                 }
             }
-            handler.post(function);
+            handler.postDelayed(function, delayMillis);
         }
 
         void shutDown() {
