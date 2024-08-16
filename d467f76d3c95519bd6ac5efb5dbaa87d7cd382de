@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c33b15a_2215e734",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-16T04:39:33Z",
+      "side": 1,
+      "message": "Nit: also copy-paste description from the original commit so there\u0027s no need to jump to the original change for context",
+      "revId": "d467f76d3c95519bd6ac5efb5dbaa87d7cd382de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec42676_bb7cbd6a",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-16T04:39:33Z",
+      "side": 1,
+      "message": "I\u0027d rather avoid adding stuff to this library because 1) there\u0027s efforts to migrate to per-module libraries (net-utils-framework-connectivity, net-utils-framework-wifi, net-utils-connectivity-apks), and 2) it\u0027s for bootclasspath usage so it\u0027s best to limit its contents.\n\nSee other comments though, maybe we can move the code out ?",
+      "revId": "d467f76d3c95519bd6ac5efb5dbaa87d7cd382de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "433e8921_b3546af6",
+        "filename": "staticlibs/framework/com/android/net/module/util/NetworkStatsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-16T04:39:33Z",
+      "side": 1,
+      "message": "This is only safe to assume when used within the tethering module, but there are other users of this library (for example Wifi or NetworkStack).\n\nIt seems there\u0027s only one user of this method, which is in platform code (StatsPullAtomService.java); or is that the statsd module ? It\u0027s not great since that means this code isn\u0027t actually updatable (or is part of another module), even though it\u0027s in p/m/Connectivity.\n\nMaybe it would be best to just move this method to StatsPullAtomService ?",
+      "revId": "d467f76d3c95519bd6ac5efb5dbaa87d7cd382de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
