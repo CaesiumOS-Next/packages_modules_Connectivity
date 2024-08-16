@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "230a6be7_13b5117f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-08-16T05:41:29Z",
+      "side": 1,
+      "message": "Nit: might want to mention why this includes removing framework-connectivity-t-mdns-standalone-build-sources: it also uses flags which won\u0027t be available in the out-of-tree build, and the next out-of-tree library import will not use the classes in that filegroup anymore, so they are removed so that the standalone build rule matches the out-of-tree build.",
+      "revId": "75f1314f2fa225e70bb66bd9394f2c8da32bc0ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
