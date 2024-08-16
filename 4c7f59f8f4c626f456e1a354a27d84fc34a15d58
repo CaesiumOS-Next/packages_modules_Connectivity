@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "731306dc_e39347aa",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DeviceConfigUtilsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-16T07:11:21Z",
+      "side": 0,
+      "message": "I think we need this mock to verify exception case",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 93
+      },
+      "revId": "4c7f59f8f4c626f456e1a354a27d84fc34a15d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66888ee3_1a6ef2f4",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DeviceConfigUtilsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-16T07:11:21Z",
+      "side": 0,
+      "message": "Do we need them to test go package case?",
+      "range": {
+        "startLine": 344,
+        "startChar": 8,
+        "endLine": 347,
+        "endChar": 57
+      },
+      "revId": "4c7f59f8f4c626f456e1a354a27d84fc34a15d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

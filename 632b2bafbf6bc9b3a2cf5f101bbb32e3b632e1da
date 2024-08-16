@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe6b713d_ecbd6251",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-16T07:11:21Z",
+      "side": 1,
+      "message": "code LGTM.\nIs there any concern to read network stack from tethering module?\nI think it\u0027s possible that Tethering module and NetworkStack could see the different flag value if the flag is pushed between their flag reads.\nCould this be an issue for your use case?",
+      "revId": "632b2bafbf6bc9b3a2cf5f101bbb32e3b632e1da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

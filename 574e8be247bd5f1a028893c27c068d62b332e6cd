@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a454455a_a323d9bc",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-16T07:11:21Z",
+      "side": 1,
+      "message": "nits: CAPTIVEPORTALLOGIN_PACKAGE_SUFFIX?",
+      "range": {
+        "startLine": 229,
+        "startChar": 48,
+        "endLine": 229,
+        "endChar": 66
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "706e48cf_19e665d5",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+              "range": {
+                "startLine": 229,
+                "startChar": 0,
+                "endLine": 230,
+                "endChar": 0
+              },
+              "replacement": "        if (!context.getPackageName().endsWith(CAPTIVEPORTALLOGIN_PACKAGE_SUFFIX)) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "574e8be247bd5f1a028893c27c068d62b332e6cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
