@@ -32,7 +32,6 @@ import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
-import com.android.networkstack.tethering.PrivateAddressCoordinator;
 
 import java.util.Objects;
 
