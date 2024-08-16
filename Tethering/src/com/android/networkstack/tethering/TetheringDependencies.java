@@ -36,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.PrivateAddressCoordinator;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.net.module.util.RoutingCoordinatorService;
 import com.android.net.module.util.SharedLog;
@@ -175,12 +176,11 @@ public abstract class TetheringDependencies {
         return TextUtils.equals(SystemProperties.get("ro.tether.denied"), "true");
     }
 
-    /**
-     * Make PrivateAddressCoordinator to be used by Tethering.
-     */
-    public PrivateAddressCoordinator makePrivateAddressCoordinator(Context ctx,
-            TetheringConfiguration cfg) {
-        return new PrivateAddressCoordinator(ctx.getSystemService(ConnectivityManager.class));
+    /** Make PrivateAddressCoordinator to be used by Tethering. */
+    public PrivateAddressCoordinator makePrivateAddressCoordinator(
+            Context ctx, TetheringConfiguration cfg) {
+        return new PrivateAddressCoordinator(
+                ctx.getSystemService(ConnectivityManager.class), false, false);
     }
 
     /**
