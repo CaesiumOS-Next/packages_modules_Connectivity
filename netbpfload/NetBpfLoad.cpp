@@ -750,17 +750,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
         }
 
         domain selinux_context = getDomainFromSelinuxContext(md[i].selinux_context);
-        if (specified(selinux_context)) {
-            ALOGV("map %s selinux_context [%-32s] -> %d -> '%s' (%s)", mapNames[i].c_str(),
-                  md[i].selinux_context, static_cast<int>(selinux_context),
-                  lookupSelinuxContext(selinux_context), lookupPinSubdir(selinux_context));
-        }
-
         domain pin_subdir = getDomainFromPinSubdir(md[i].pin_subdir);
-        if (specified(pin_subdir)) {
-            ALOGV("map %s pin_subdir [%-32s] -> %d -> '%s'", mapNames[i].c_str(), md[i].pin_subdir,
-                  static_cast<int>(pin_subdir), lookupPinSubdir(pin_subdir));
-        }
 
         // Format of pin location is /sys/fs/bpf/<pin_subdir|prefix>map_<objName>_<mapName>
         // except that maps shared across .o's have empty <objName>
@@ -959,18 +949,6 @@ static int loadCodeSections(const char* elfPath, vector<codeSection>& cs, const 
             (isRiscV() && cs[i].prog_def->ignore_on_riscv64)) {
             ALOGD("cs[%d].name:%s is ignored on %s", i, name.c_str(), describeArch());
             continue;
-        }
-
-        if (specified(selinux_context)) {
-            ALOGV("prog %s selinux_context [%-32s] -> %d -> '%s' (%s)", name.c_str(),
-                  cs[i].prog_def->selinux_context, static_cast<int>(selinux_context),
-                  lookupSelinuxContext(selinux_context), lookupPinSubdir(selinux_context));
-        }
-
-        if (specified(pin_subdir)) {
-            ALOGV("prog %s pin_subdir [%-32s] -> %d -> '%s'", name.c_str(),
-                  cs[i].prog_def->pin_subdir, static_cast<int>(pin_subdir),
-                  lookupPinSubdir(pin_subdir));
         }
 
         // strip any potential $foo suffix
