@@ -19,6 +19,7 @@ aconfig_declarations {
     package: "com.android.net.flags",
     container: "com.android.tethering",
     srcs: ["flags.aconfig"],
+    exportable: true,
     visibility: ["//packages/modules/Connectivity:__subpackages__"],
 }
 
@@ -30,6 +31,23 @@ java_aconfig_library {
     apex_available: [
         "com.android.tethering",
     ],
+}
+
+// Export flags to a different soong target, this special target is needed
+// to make flags can be accessed in different containers, e.g. static
+// library be included by the platform code. And the accessors in the
+// client containers are implemented by querying the flag's host container
+// to maintain the synchronization between different containers.
+// See go/android-flag-containers#sharing-flags-across-containers for more detail.
+java_aconfig_library {
+    name: "com.android.net.flags-aconfig-exported-java",
+    aconfig_declarations: "com.android.net.flags-aconfig",
+    defaults: ["framework-minus-apex-aconfig-java-defaults"],
+    min_sdk_version: "30",
+    apex_available: [
+        "//apex_available:platform",
+    ],
+    mode: "exported",
 }
 
 aconfig_declarations {
