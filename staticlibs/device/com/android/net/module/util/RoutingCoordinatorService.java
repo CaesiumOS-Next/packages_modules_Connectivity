@@ -55,8 +55,7 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
     @GuardedBy("mPrivateAddressCoordinatorLock")
     private final PrivateAddressCoordinator mPrivateAddressCoordinator;
 
-    public RoutingCoordinatorService(
-            @NonNull INetd netd, @NonNull ConnectivityManager cm) {
+    public RoutingCoordinatorService(@NonNull INetd netd) {
         mNetd = netd;
         mPrivateAddressCoordinator = new PrivateAddressCoordinator(false, false);
     }
