@@ -638,7 +638,8 @@ static bool mapMatchesExpectations(const unique_fd& fd, const string& mapName,
 }
 
 static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>& mapFds,
-                      const char* prefix, const unsigned int bpfloader_ver) {
+                      const char* prefix, const size_t sizeOfBpfMapDef,
+                      const unsigned int bpfloader_ver) {
     int ret;
     vector<char> mdData;
     vector<struct bpf_map_def> md;
@@ -649,19 +650,27 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
     if (ret == -2) return 0;  // no maps to read
     if (ret) return ret;
 
-    if (mdData.size() % sizeof(struct bpf_map_def)) {
+    if (mdData.size() % sizeOfBpfMapDef) {
         ALOGE("createMaps failed due to improper sized maps section, %zu %% %zu != 0",
-              mdData.size(), sizeof(struct bpf_map_def));
+              mdData.size(), sizeOfBpfMapDef);
         return -1;
     };
 
-    md.resize(mdData.size() / sizeof(struct bpf_map_def));
+    int mapCount = mdData.size() / sizeOfBpfMapDef;
+    md.resize(mapCount);
+    size_t trimmedSize = std::min(sizeOfBpfMapDef, sizeof(struct bpf_map_def));
 
     const char* dataPtr = mdData.data();
     for (auto& m : md) {
-        // Copy the structure from the ELF file and move to the next one.
-        memcpy(&m, dataPtr, sizeof(struct bpf_map_def));
-        dataPtr += sizeof(struct bpf_map_def);
+        // First we zero initialize
+        memset(&m, 0, sizeof(m));
+        // Then we set non-zero defaults
+        m.bpfloader_max_ver = DEFAULT_BPFLOADER_MAX_VER;  // v1.0
+        m.max_kver = 0xFFFFFFFFu;                         // matches KVER_INF from bpf_helpers.h
+        // Then we copy over the structure prefix from the ELF file.
+        memcpy(&m, dataPtr, trimmedSize);
+        // Move to next struct in the ELF file
+        dataPtr += sizeOfBpfMapDef;
     }
 
     ret = getSectionSymNames(elfFile, "maps", mapNames);
@@ -1109,6 +1118,8 @@ int loadProg(const char* const elfPath, bool* const isCritical, const unsigned i
             readSectionUint("bpfloader_min_ver", elfFile, DEFAULT_BPFLOADER_MIN_VER);
     unsigned int bpfLoaderMaxVer =
             readSectionUint("bpfloader_max_ver", elfFile, DEFAULT_BPFLOADER_MAX_VER);
+    size_t sizeOfBpfMapDef =
+            readSectionUint("size_of_bpf_map_def", elfFile, DEFAULT_SIZEOF_BPF_MAP_DEF);
 
     // inclusive lower bound check
     if (bpfloader_ver < bpfLoaderMinVer) {
@@ -1127,13 +1138,19 @@ int loadProg(const char* const elfPath, bool* const isCritical, const unsigned i
     ALOGI("BpfLoader version 0x%05x processing ELF object %s with ver [0x%05x,0x%05x)",
           bpfloader_ver, elfPath, bpfLoaderMinVer, bpfLoaderMaxVer);
 
+    if (sizeOfBpfMapDef < DEFAULT_SIZEOF_BPF_MAP_DEF) {
+        ALOGE("sizeof(bpf_map_def) of %zu is too small (< %d)", sizeOfBpfMapDef,
+              DEFAULT_SIZEOF_BPF_MAP_DEF);
+        return -1;
+    }
+
     ret = readCodeSections(elfFile, cs);
     if (ret) {
         ALOGE("Couldn't read all code sections in %s", elfPath);
         return ret;
     }
 
-    ret = createMaps(elfPath, elfFile, mapFds, location.prefix, bpfloader_ver);
+    ret = createMaps(elfPath, elfFile, mapFds, location.prefix, sizeOfBpfMapDef, bpfloader_ver);
     if (ret) {
         ALOGE("Failed to create maps: (ret=%d) in %s", ret, elfPath);
         return ret;
