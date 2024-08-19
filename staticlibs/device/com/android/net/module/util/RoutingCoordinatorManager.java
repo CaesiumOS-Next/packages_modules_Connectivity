@@ -27,6 +27,8 @@ import android.os.RemoteException;
 
 import androidx.annotation.NonNull;
 
+import java.util.List;
+
 /**
  * A manager class for talking to the routing coordinator service.
  *
@@ -175,9 +177,9 @@ public class RoutingCoordinatorManager {
         }
     }
 
-    public void maybeRemoveDeprecatedUpstreams() {
+    public void maybeRemoveDeprecatedUpstreams(List<Network> networks) {
         try {
-            mService.maybeRemoveDeprecatedUpstreams();
+            mService.maybeRemoveDeprecatedUpstreams(networks);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
