@@ -22,6 +22,30 @@
       },
       "revId": "514f40b0c32b1b8bd82c5a2190744b245acc4e12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5b26621_8b3562fc",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/NetworkStatsUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-19T09:04:55Z",
+      "side": 0,
+      "message": "Done.\nThanks for asking.",
+      "parentUuid": "526011a8_b78ad33d",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 121,
+        "endChar": 5
+      },
+      "revId": "514f40b0c32b1b8bd82c5a2190744b245acc4e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
