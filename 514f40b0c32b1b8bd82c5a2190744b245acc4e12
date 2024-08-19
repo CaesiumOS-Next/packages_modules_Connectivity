@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "526011a8_b78ad33d",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/NetworkStatsUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-19T07:44:02Z",
+      "side": 0,
+      "message": "Can we move these test as well?",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 121,
+        "endChar": 5
+      },
+      "revId": "514f40b0c32b1b8bd82c5a2190744b245acc4e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
