@@ -46,6 +46,30 @@
       },
       "revId": "7272406a4f376d806fec5834dd164b314c2c295e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c76aad2a_41f18151",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-08-19T07:54:51Z",
+      "side": 1,
+      "message": "@lorenzo@google.com @prohr@google.com Would you know the current status of testing with trunk stable things in `packages/modules/Connectivity`?",
+      "parentUuid": "9336c16a_6f02f36c",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 76
+      },
+      "revId": "7272406a4f376d806fec5834dd164b314c2c295e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
