@@ -111,8 +111,8 @@ interface IRoutingCoordinator {
     /** Remove the upstream prefix of the given {@link Network}. */
     void removeUpstreamPrefix(in Network network);
 
-    /** Remove the deprecated upstream networks if any. */
-    void maybeRemoveDeprecatedUpstreams();
+    /** Remove the deprecated upstream networks if any, among the given {@code networks}. */
+    void maybeRemoveDeprecatedUpstreams(in List<Network> networks);
 
    /**
     * Request an IPv4 address for the downstream.
