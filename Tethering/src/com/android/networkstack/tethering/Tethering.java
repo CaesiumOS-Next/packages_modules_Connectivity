@@ -255,7 +255,6 @@ public class Tethering {
     private final TetheringNotificationUpdater mNotificationUpdater;
     private final UserManager mUserManager;
     private final BpfCoordinator mBpfCoordinator;
-//    private final PrivateAddressCoordinator mPrivateAddressCoordinator;
     private final TetheringMetrics mTetheringMetrics;
     private final WearableConnectionManager mWearableConnectionManager;
     private int mActiveDataSubId = INVALID_SUBSCRIPTION_ID;
@@ -361,10 +360,6 @@ public class Tethering {
         // Load tethering configuration.
         updateConfiguration();
         mConfig.readEnableSyncSM(mContext);
-        // It is OK for the configuration to be passed to the PrivateAddressCoordinator at
-        // construction time because the only part of the configuration it uses is
-        // shouldEnableWifiP2pDedicatedIp(), and currently do not support changing that.
-//        mPrivateAddressCoordinator = mDeps.makePrivateAddressCoordinator(mContext, mConfig);
 
         // Must be initialized after tethering configuration is loaded because BpfCoordinator
         // constructor needs to use the configuration.
@@ -2001,14 +1996,10 @@ public class Tethering {
             final UpstreamNetworkState ns = (UpstreamNetworkState) o;
             switch (arg1) {
                 case UpstreamNetworkMonitor.EVENT_ON_LINKPROPERTIES:
-//                    mPrivateAddressCoordinator.updateUpstreamPrefix(ns);
-                    // 11111111 Use RoutingCoordinator
                     mRoutingCoordinator.updateUpstreamPrefix(
                             ns.linkProperties, ns.networkCapabilities, ns.network);
                     break;
                 case UpstreamNetworkMonitor.EVENT_ON_LOST:
-//                    mPrivateAddressCoordinator.removeUpstreamPrefix(ns.network);
-                    // 11111111 Use RoutingCoordinator
                     mRoutingCoordinator.removeUpstreamPrefix(ns.network);
                     break;
             }
@@ -2079,8 +2070,6 @@ public class Tethering {
                     return;
                 }
 
-//                mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams();
-                // 1111111 RoutingCoordinator
                 ConnectivityManager cm = mContext.getSystemService(ConnectivityManager.class);
                 mRoutingCoordinator.maybeRemoveDeprecatedUpstreams(asList(cm.getAllNetworks()));
                 mUpstreamNetworkMonitor.startObserveAllNetworks();
@@ -2671,7 +2660,6 @@ public class Tethering {
 
         pw.println("Private address coordinator:");
         pw.increaseIndent();
-//        mPrivateAddressCoordinator.dump(pw);
         pw.decreaseIndent();
 
         if (mWearableConnectionManager != null) {
@@ -2828,8 +2816,7 @@ public class Tethering {
         final TetherState tetherState = new TetherState(
                 new IpServer(iface, mHandler, interfaceType, mLog, mNetd, mBpfCoordinator,
                         mRoutingCoordinator, new ControlCallback(), mConfig,
-                        /* mPrivateAddressCoordinator, */ mTetheringMetrics,
-                        mDeps.makeIpServerDependencies()), isNcm);
+                        mTetheringMetrics, mDeps.makeIpServerDependencies()), isNcm);
         mTetherStates.put(iface, tetherState);
         tetherState.ipServer.start();
     }
