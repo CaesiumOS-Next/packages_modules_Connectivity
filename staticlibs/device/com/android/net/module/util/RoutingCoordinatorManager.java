@@ -28,6 +28,8 @@ import android.os.RemoteException;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.List;
+
 /**
  * A manager class for talking to the routing coordinator service.
  *
@@ -185,10 +187,10 @@ public class RoutingCoordinatorManager {
         }
     }
 
-    /** Remove the deprecated upstream networks if any. */
-    public void maybeRemoveDeprecatedUpstreams() {
+    /** Remove the deprecated upstream networks if any, among the given {@code networks}. */
+    public void maybeRemoveDeprecatedUpstreams(List<Network> networks) {
         try {
-            mService.maybeRemoveDeprecatedUpstreams();
+            mService.maybeRemoveDeprecatedUpstreams(networks);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
