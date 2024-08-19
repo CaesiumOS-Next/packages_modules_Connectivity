@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3e7b23f_c1a46b34",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-19T08:46:43Z",
+      "side": 1,
+      "message": "Question:\nIt seems to me the method doesn\u0027t make sure the network is re-validatated?\nCtsNetUtils#reconnectWifiIfSupported\n-\u003e CtsNetUtils#ensureWifiConnected\n-\u003e CtsNetUtils#connectToWifi\n-\u003e ConnectUtil#ensureWifiConnected();\n-\u003e ConnectUtil#ensureWifiConnected(requireValidated \u003d false)",
+      "range": {
+        "startLine": 1081,
+        "startChar": 25,
+        "endLine": 1081,
+        "endChar": 49
+      },
+      "revId": "7f25a490d9e5391cc8c249b97d6f3c512d479469",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
