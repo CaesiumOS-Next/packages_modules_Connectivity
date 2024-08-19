@@ -143,6 +143,8 @@ public class NetworkStatsManager {
     public static final int FLAG_POLL_FORCE = 1 << 1;
     /** @hide */
     public static final int FLAG_AUGMENT_WITH_SUBSCRIPTION_PLAN = 1 << 2;
+    /** @hide */
+    public static final int START_TIME_SYSTEM_BOOT = -1;
 
     /**
      * Virtual RAT type to represent 5G NSA (Non Stand Alone) mode, where the primary cell is

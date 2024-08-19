@@ -1667,6 +1667,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
             private NetworkStatsCollection mUidComplete;
             private NetworkStatsCollection mUidTagComplete;
+            private NetworkStatsCollection mUidSinceBoot;
+            private NetworkStatsCollection mUidTagSinceBoot;
 
             private NetworkStatsCollection getUidComplete() {
                 synchronized (mStatsLock) {
@@ -1683,6 +1685,40 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                         mUidTagComplete = mUidTagRecorder.getOrLoadCompleteLocked();
                     }
                     return mUidTagComplete;
+                }
+            }
+
+            private NetworkStatsCollection getUidSinceBoot() {
+                synchronized (mStatsLock) {
+                    if (mUidSinceBoot == null) {
+                        mUidSinceBoot = mUidRecorder.getSinceBoot();
+                    }
+                    return mUidSinceBoot;
+                }
+            }
+
+            private NetworkStatsCollection getUidTagSinceBoot() {
+                synchronized (mStatsLock) {
+                    if (mUidTagSinceBoot == null) {
+                        mUidTagSinceBoot = mUidTagRecorder.getSinceBoot();
+                    }
+                    return mUidTagSinceBoot;
+                }
+            }
+
+            private NetworkStatsCollection getUidStatsCollection(long start) {
+                if (start == NetworkStatsManager.START_TIME_SYSTEM_BOOT) {
+                    return getUidSinceBoot();
+                } else {
+                    return getUidComplete();
+                }
+            }
+
+            private NetworkStatsCollection getUidTagStatsCollection(long start) {
+                if (start == NetworkStatsManager.START_TIME_SYSTEM_BOOT) {
+                    return getUidTagSinceBoot();
+                } else {
+                    return getUidTagComplete();
                 }
             }
 
@@ -1730,10 +1766,10 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                     NetworkTemplate template, long start, long end, boolean includeTags) {
                 enforceTemplatePermissions(template, callingPackage);
                 try {
-                    final NetworkStats stats = getUidComplete()
+                    final NetworkStats stats = getUidStatsCollection(start)
                             .getSummary(template, start, end, mAccessLevel, mCallingUid);
                     if (includeTags) {
-                        final NetworkStats tagStats = getUidTagComplete()
+                        final NetworkStats tagStats = getUidStatsCollection(start)
                                 .getSummary(template, start, end, mAccessLevel, mCallingUid);
                         stats.combineAllValues(tagStats);
                     }
@@ -1748,7 +1784,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                     NetworkTemplate template, long start, long end) {
                 enforceTemplatePermissions(template, callingPackage);
                 try {
-                    final NetworkStats tagStats = getUidTagComplete()
+                    final NetworkStats tagStats = getUidStatsCollection(start)
                             .getSummary(template, start, end, mAccessLevel, mCallingUid);
                     return tagStats;
                 } catch (NullPointerException e) {
