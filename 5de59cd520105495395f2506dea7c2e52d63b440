@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "994c8e84_481cd349",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-19T08:58:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bba06a3_33853310",
+      "range": {
+        "startLine": 134,
+        "startChar": 28,
+        "endLine": 134,
+        "endChar": 38
+      },
+      "revId": "5de59cd520105495395f2506dea7c2e52d63b440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbbd5e3a_aef2f9a3",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-08-19T02:36:37Z",
       "side": 1,
       "message": "private?",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 153,
+        "endChar": 10
+      },
+      "revId": "5de59cd520105495395f2506dea7c2e52d63b440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34b9d738_d0046614",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-19T08:58:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbbd5e3a_aef2f9a3",
       "range": {
         "startLine": 153,
         "startChar": 4,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f17a760f_012f909c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-19T08:58:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdaa3d7f_0a533869",
+      "range": {
+        "startLine": 172,
+        "startChar": 26,
+        "endLine": 172,
+        "endChar": 36
+      },
+      "revId": "5de59cd520105495395f2506dea7c2e52d63b440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cce8f5bf_9a5fd868",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-08-19T02:36:37Z",
       "side": 1,
       "message": "Is it better to:\nif (upstream !\u003d null \n                \u0026\u0026 mDependencies.isUpstreamDataUsageMetricsEnabled(mContext)\n                \u0026\u0026 isUsageSupportedForUpstreamType(upstream))) {\n            // Do something ...?\n}\n?",
+      "range": {
+        "startLine": 221,
+        "startChar": 8,
+        "endLine": 224,
+        "endChar": 9
+      },
+      "revId": "5de59cd520105495395f2506dea7c2e52d63b440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "773e668c_46a724b2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-19T08:58:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cce8f5bf_9a5fd868",
       "range": {
         "startLine": 221,
         "startChar": 8,
