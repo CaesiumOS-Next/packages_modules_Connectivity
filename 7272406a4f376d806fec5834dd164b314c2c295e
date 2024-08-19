@@ -70,6 +70,30 @@
       },
       "revId": "7272406a4f376d806fec5834dd164b314c2c295e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b89597f_1e433063",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-19T08:11:26Z",
+      "side": 1,
+      "message": "Connectivity code has so far not used trunk-stable flags because udc-mainline-prod did not support them, and because the infrastructure only supported flags set by the platform, which could not be changed via a mainline update.\n\nI believe the way this works for testing is that (most of?) our CTS tests compile against hidden APIs and can cell the flagged APIs even if the flag is off. @motomuman@google.com is that correct? I think the infrastructure has improved so maybe this works now?\n\nSeungjae, what tests were you trying to modify? If they compile against hidden APIs, you can just write the tests without using @RequiresFlagsEnabled.",
+      "parentUuid": "c76aad2a_41f18151",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 76
+      },
+      "revId": "7272406a4f376d806fec5834dd164b314c2c295e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
