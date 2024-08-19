@@ -69,6 +69,8 @@ import static com.android.networkstack.tethering.TetheringNotificationUpdater.DO
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellular;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_MAIN_SM;
 
+import static java.util.Arrays.asList;
+
 import android.app.usage.NetworkStatsManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
@@ -2079,7 +2081,8 @@ public class Tethering {
 
 //                mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams();
                 // 1111111 RoutingCoordinator
-                mRoutingCoordinator.maybeRemoveDeprecatedUpstreams();
+                ConnectivityManager cm = mContext.getSystemService(ConnectivityManager.class);
+                mRoutingCoordinator.maybeRemoveDeprecatedUpstreams(asList(cm.getAllNetworks()));
                 mUpstreamNetworkMonitor.startObserveAllNetworks();
 
                 // TODO: De-duplicate with updateUpstreamWanted() below.
