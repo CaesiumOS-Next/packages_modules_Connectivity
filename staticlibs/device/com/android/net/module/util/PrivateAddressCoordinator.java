@@ -25,6 +25,8 @@ import static com.android.net.module.util.Inet4AddressUtils.inet4AddressToIntHTH
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
 import static com.android.net.module.util.Inet4AddressUtils.prefixLengthToV4NetmaskIntHTH;
 
+import static java.util.Arrays.asList;
+
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
@@ -77,11 +79,10 @@ public class PrivateAddressCoordinator {
     private final ArrayMap<AddressKey, LinkAddress> mCachedAddresses;
     private final Random mRandom;
 
-    public PrivateAddressCoordinator(@NonNull ConnectivityManager cm, boolean isRandomPrefixBase,
+    public PrivateAddressCoordinator(boolean isRandomPrefixBase,
                                      boolean shouldEnableWifiP2pDedicatedIp) {
         mDownstreams = new ArrayMap<>();
         mUpstreamPrefixMap = new ArrayMap<>();
-        mConnectivityMgr = cm;
 
         mIsRandomPrefixBaseEnabled = isRandomPrefixBase;
         mShouldEnableWifiP2pDedicatedIp = shouldEnableWifiP2pDedicatedIp;
@@ -163,12 +164,12 @@ public class PrivateAddressCoordinator {
      * Maybe remove deprecated upstream records, this would be called once tethering started without
      * any exiting tethered downstream.
      */
-    public void maybeRemoveDeprecatedUpstreams() {
+    public void maybeRemoveDeprecatedUpstreams(List<Network> networks) {
         if (mUpstreamPrefixMap.isEmpty()) return;
 
         // Remove all upstreams that are no longer valid networks
         final Set<Network> toBeRemoved = new HashSet<>(mUpstreamPrefixMap.keySet());
-        toBeRemoved.removeAll(asList(mConnectivityMgr.getAllNetworks()));
+        toBeRemoved.removeAll(networks);
 
         mUpstreamPrefixMap.removeAll(toBeRemoved);
     }

@@ -109,7 +109,7 @@ interface IRoutingCoordinator {
 
     void removeUpstreamPrefix(in Network network);
 
-    void maybeRemoveDeprecatedUpstreams();
+    void maybeRemoveDeprecatedUpstreams(in List<Network> networks);
 
     LinkAddress requestDownstreamAddress(
             in int interfaceType,
