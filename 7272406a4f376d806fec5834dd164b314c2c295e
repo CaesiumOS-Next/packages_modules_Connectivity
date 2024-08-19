@@ -94,6 +94,30 @@
       },
       "revId": "7272406a4f376d806fec5834dd164b314c2c295e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1752fac_a4af21a1",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-08-19T08:19:46Z",
+      "side": 1,
+      "message": "\u003e Seungjae, what tests were you trying to modify? If they compile against hidden APIs, you can just write the tests without using @RequiresFlagsEnabled.\n\nI was trying to change like below. For test method modifications, I can avoid it with adding new test methods.\n- Modifying `TetheringManagerTest#testTetheringRequestParcelable`\n- Modifying `TetheringManagerTest#testTetheringRequest`\n- Adding `EthernetTetheringTest#testTetheringVirtual`\n\nBTW, the existence of hidden mechanism was exactly what I wanted to ask. Since I thought I wouldn\u0027t be the first one trying to add more tests under trunk stable flags in `packages/modules/Connectivity`. I\u0027ll remove trunk stable things again from testing code then.",
+      "parentUuid": "6b89597f_1e433063",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 76
+      },
+      "revId": "7272406a4f376d806fec5834dd164b314c2c295e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
