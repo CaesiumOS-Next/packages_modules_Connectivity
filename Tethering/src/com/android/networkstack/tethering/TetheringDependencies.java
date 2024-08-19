@@ -137,8 +137,7 @@ public abstract class TetheringDependencies {
     public RoutingCoordinatorManager getRoutingCoordinator(Context context, SharedLog log) {
         IBinder binder;
         if (!SdkLevel.isAtLeastS()) {
-            ConnectivityManager cm = context.getSystemService(ConnectivityManager.class);
-            binder = new RoutingCoordinatorService(getINetd(context, log), cm);
+            binder = new RoutingCoordinatorService(getINetd(context, log));
         } else {
             binder = ConnectivityInternalApiUtil.getRoutingCoordinator(context);
         }
@@ -177,10 +176,9 @@ public abstract class TetheringDependencies {
     }
 
     /** Make PrivateAddressCoordinator to be used by Tethering. */
-    public PrivateAddressCoordinator makePrivateAddressCoordinator(
-            Context ctx, TetheringConfiguration cfg) {
+    public PrivateAddressCoordinator makePrivateAddressCoordinator(TetheringConfiguration cfg) {
         return new PrivateAddressCoordinator(
-                ctx.getSystemService(ConnectivityManager.class), false, false);
+                cfg.isRandomPrefixBaseEnabled(), cfg.shouldEnableWifiP2pDedicatedIp());
     }
 
     /**

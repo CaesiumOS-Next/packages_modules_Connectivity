@@ -34,6 +34,7 @@ import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -57,7 +58,7 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
     public RoutingCoordinatorService(
             @NonNull INetd netd, @NonNull ConnectivityManager cm) {
         mNetd = netd;
-        mPrivateAddressCoordinator = new PrivateAddressCoordinator(cm, false, false);
+        mPrivateAddressCoordinator = new PrivateAddressCoordinator(false, false);
     }
 
     /**
@@ -252,9 +253,9 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
     }
 
     @Override
-    public void maybeRemoveDeprecatedUpstreams() {
+    public void maybeRemoveDeprecatedUpstreams(List<Network> networks) {
         synchronized (mPrivateAddressCoordinatorLock) {
-            mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams();
+            mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams(networks);
         }
     }
 
