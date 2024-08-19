@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1b7b1c7_5e0d9e58",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-19T07:57:11Z",
+      "side": 1,
+      "message": "Don\u0027t we need a permission check here? AIUI the desire is that DO apps should be able to call this, but I don\u0027t see any DO package check that would allow them to do so.\n\nAnd actually, I don\u0027t see any permission check that would prevent unprivileged apps from using this. TetheringService#startTethering calls checkAndNotifyCommonError, but that doesn\u0027t seem to check anything in the request except for exemptFromEntitlementCheck.",
+      "range": {
+        "startLine": 877,
+        "startChar": 32,
+        "endLine": 877,
+        "endChar": 52
+      },
+      "revId": "4278af57a52df5a1f8aaaa48128aa5117d031f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
