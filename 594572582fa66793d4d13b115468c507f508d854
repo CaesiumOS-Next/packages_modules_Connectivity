@@ -111,6 +111,30 @@
       },
       "revId": "594572582fa66793d4d13b115468c507f508d854",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b26974d_f0d349e6",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-19T07:46:31Z",
+      "side": 1,
+      "message": "Maybe just make it consistent with the other methods in this class?\n\nIf we plan to make this builder class a public API, what does that mean for the existing methods that have @RequiresPermission? Can you check if it\u0027s possible to remove that annotation when making the API public?",
+      "parentUuid": "1f10df30_14303741",
+      "range": {
+        "startLine": 828,
+        "startChar": 12,
+        "endLine": 828,
+        "endChar": 18
+      },
+      "revId": "594572582fa66793d4d13b115468c507f508d854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
