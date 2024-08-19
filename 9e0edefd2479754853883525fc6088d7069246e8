@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f89fab_c4c28aed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-19T07:37:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae53d3ce_81517f19",
+      "range": {
+        "startLine": 9,
+        "startChar": 36,
+        "endLine": 9,
+        "endChar": 59
+      },
+      "revId": "9e0edefd2479754853883525fc6088d7069246e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49cb36c0_95ebee26",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-19T07:03:41Z",
       "side": 1,
       "message": "Stupid question:\n1. What would be the sequence of a network replaces another?\n2. Is this issue only happening when the step 3 is inverleaving with specific steps of network replacement?",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 29
+      },
+      "revId": "9e0edefd2479754853883525fc6088d7069246e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b90406bb_491c546f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-19T07:37:44Z",
+      "side": 1,
+      "message": "Updated the comment. \nunregisterAfterReplacement destroy network from netd but keep in ConnectivityService until the timeout or other network satisfy the network request the old network was satisfying.  \nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/NetworkAgent.java;l\u003d1041-1074\n\nSo netd forget about this network at step2 but step3 still call netd.networkRemoveUidRangesParcel so netd throws exception saying \"no such netId xxx\"",
+      "parentUuid": "49cb36c0_95ebee26",
       "range": {
         "startLine": 13,
         "startChar": 3,
