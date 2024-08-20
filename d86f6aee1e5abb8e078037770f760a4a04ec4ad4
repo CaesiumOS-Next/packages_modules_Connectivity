@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8f9185c_84ad3155",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2041348
+      },
+      "writtenOn": "2024-08-20T03:11:47Z",
+      "side": 1,
+      "message": "Can we reflect some Thread related words in the description \"[docs] initial vendor guide\"?",
+      "revId": "d86f6aee1e5abb8e078037770f760a4a04ec4ad4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3477e31e_b4fd553b",
