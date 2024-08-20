@@ -16,6 +16,29 @@
       "message": "Looks legit to me but not sure if you want lorenzo to review it as well.",
       "revId": "471f20142f8cea1a88a05bb894c62b7c1b74ae5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "525cac4f_697ea83d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6007,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-20T07:14:20Z",
+      "side": 1,
+      "message": "What about *adding* UID ranges to the network? Is it possible that a per-app default request is created, and that matches a network that is already destroyed?\n\nYou could do something like:\n\n    private void networkAddUidRanges(NetworkAgentInfo nai, NetworkRequestInfo nri) {\n        // explain why this check is here\n        if (nai.isDestroyed()) {\n            return;\n        }\n        mNetd.addRemoveUidRangesParcel(...);\n    }\n\n    private void networkRemoveUidRanges(NetworkAgentInfo nai, NetworkRequestInfo nri) {\n        // explain why this check is here\n        if (nai.isDestroyed()) {\n            return;\n        }\n        mNetd.networkRemoveUidRangesParcel(...);\n    }",
+      "range": {
+        "startLine": 6007,
+        "startChar": 26,
+        "endLine": 6007,
+        "endChar": 54
+      },
+      "revId": "471f20142f8cea1a88a05bb894c62b7c1b74ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
