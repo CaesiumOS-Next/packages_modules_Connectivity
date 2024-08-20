@@ -73,6 +73,18 @@ public class MdnsFeatureFlags {
     public static final String NSD_AVOID_ADVERTISING_EMPTY_TXT_RECORDS =
             "nsd_avoid_advertising_empty_txt_records";
 
+    /**
+     * A feature flag to control whether the cached services removal should be enabled. The
+     * removal will trigger if the keeping time has elapsed after the service type is removed.
+     */
+    public static final String NSD_CACHED_SERVICES_REMOVAL = "nsd_cached_services_removal";
+
+    /**
+     * A feature flag to control the time for keeping cached services.
+     */
+    public static final String NSD_KEEP_CACHED_SERVICES_TIME = "nsd_keep_cached_services_time";
+    public static final long DEFAULT_KEEP_CACHED_SERVICES_TIME_MILLISECONDS = 10000L;
+
     // Flag for offload feature
     public final boolean mIsMdnsOffloadFeatureEnabled;
 
@@ -99,6 +111,12 @@ public class MdnsFeatureFlags {
 
     // Flag for avoiding advertising empty TXT records
     public final boolean mAvoidAdvertisingEmptyTxtRecords;
+
+    // Flag for cached services removal
+    public final boolean mIsCachedServicesRemovalEnabled;
+
+    // Time for keeping cached services
+    public final long mKeepCachedServicesTime;
 
     @Nullable
     private final FlagOverrideProvider mOverrideProvider;
@@ -177,6 +195,22 @@ public class MdnsFeatureFlags {
     }
 
     /**
+     * Indicates whether {@link #NSD_CACHED_SERVICES_REMOVAL} is enabled, including for testing.
+     */
+    public boolean isCachedServicesRemovalEnabled() {
+        return mIsCachedServicesRemovalEnabled
+                || isForceEnabledForTest(NSD_CACHED_SERVICES_REMOVAL);
+    }
+
+    /**
+     * Get the value which is set to {@link #NSD_KEEP_CACHED_SERVICES_TIME}, including for testing.
+     */
+    public long getKeepCachedServicesTime() {
+        final String testValue = getFlagValueForTest(NSD_KEEP_CACHED_SERVICES_TIME);
+        return testValue == null ? mKeepCachedServicesTime : Long.parseLong(testValue);
+    }
+
+    /**
      * The constructor for {@link MdnsFeatureFlags}.
      */
     public MdnsFeatureFlags(boolean isOffloadFeatureEnabled,
@@ -188,6 +222,8 @@ public class MdnsFeatureFlags {
             boolean isAggressiveQueryModeEnabled,
             boolean isQueryWithKnownAnswerEnabled,
             boolean avoidAdvertisingEmptyTxtRecords,
+            boolean isCachedServicesRemovalEnabled,
+            long keepCachedServicesTime,
             @Nullable FlagOverrideProvider overrideProvider) {
         mIsMdnsOffloadFeatureEnabled = isOffloadFeatureEnabled;
         mIncludeInetAddressRecordsInProbing = includeInetAddressRecordsInProbing;
@@ -198,6 +234,8 @@ public class MdnsFeatureFlags {
         mIsAggressiveQueryModeEnabled = isAggressiveQueryModeEnabled;
         mIsQueryWithKnownAnswerEnabled = isQueryWithKnownAnswerEnabled;
         mAvoidAdvertisingEmptyTxtRecords = avoidAdvertisingEmptyTxtRecords;
+        mIsCachedServicesRemovalEnabled = isCachedServicesRemovalEnabled;
+        mKeepCachedServicesTime = keepCachedServicesTime;
         mOverrideProvider = overrideProvider;
     }
 
@@ -219,6 +257,8 @@ public class MdnsFeatureFlags {
         private boolean mIsAggressiveQueryModeEnabled;
         private boolean mIsQueryWithKnownAnswerEnabled;
         private boolean mAvoidAdvertisingEmptyTxtRecords;
+        private boolean mIsCachedServicesRemovalEnabled;
+        private long mKeepCachedServicesTime;
         private FlagOverrideProvider mOverrideProvider;
 
         /**
@@ -234,6 +274,8 @@ public class MdnsFeatureFlags {
             mIsAggressiveQueryModeEnabled = false;
             mIsQueryWithKnownAnswerEnabled = false;
             mAvoidAdvertisingEmptyTxtRecords = true; // Default enabled.
+            mIsCachedServicesRemovalEnabled = false;
+            mKeepCachedServicesTime = DEFAULT_KEEP_CACHED_SERVICES_TIME_MILLISECONDS;
             mOverrideProvider = null;
         }
 
@@ -340,6 +382,26 @@ public class MdnsFeatureFlags {
         }
 
         /**
+         * Set whether the cached services removal is enabled.
+         *
+         * @see #NSD_CACHED_SERVICES_REMOVAL
+         */
+        public Builder setIsCachedServicesRemovalEnabled(boolean isCachedServicesRemovalEnabled) {
+            mIsCachedServicesRemovalEnabled = isCachedServicesRemovalEnabled;
+            return this;
+        }
+
+        /**
+         * Set keeping cached services time.
+         *
+         * @see #NSD_KEEP_CACHED_SERVICES_TIME
+         */
+        public Builder setKeepCachedServicesTime(long keepCachedServicesTime) {
+            mKeepCachedServicesTime = keepCachedServicesTime;
+            return this;
+        }
+
+        /**
          * Builds a {@link MdnsFeatureFlags} with the arguments supplied to this builder.
          */
         public MdnsFeatureFlags build() {
@@ -352,6 +414,8 @@ public class MdnsFeatureFlags {
                     mIsAggressiveQueryModeEnabled,
                     mIsQueryWithKnownAnswerEnabled,
                     mAvoidAdvertisingEmptyTxtRecords,
+                    mIsCachedServicesRemovalEnabled,
+                    mKeepCachedServicesTime,
                     mOverrideProvider);
         }
     }
