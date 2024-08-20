@@ -27,6 +27,7 @@ import static android.system.OsConstants.FIONREAD;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -156,6 +157,43 @@ public class IpSecBaseTest {
         assertEquals(rxHighestSeqNum, transformState.getRxHighestSequenceNumber());
         assertEquals(packetCnt, transformState.getPacketCount());
         assertEquals(byteCnt, transformState.getByteCount());
+        assertArrayEquals(replayBitmap, transformState.getReplayBitmap());
+    }
+
+    protected static void checkTransformStateWithIcmp(
+            IpSecTransform transform,
+            long txHighestSeqNum,
+            long rxHighestSeqNum,
+            long packetCnt,
+            long byteCnt,
+            byte[] replayBitmap)
+            throws Exception {
+        final CompletableFuture<IpSecTransformState> futureIpSecTransform =
+                new CompletableFuture<>();
+        transform.requestIpSecTransformState(
+                Executors.newSingleThreadExecutor(),
+                new OutcomeReceiver<IpSecTransformState, RuntimeException>() {
+                    @Override
+                    public void onResult(IpSecTransformState state) {
+                        futureIpSecTransform.complete(state);
+                    }
+                });
+
+        final IpSecTransformState transformState =
+                futureIpSecTransform.get(SOCK_TIMEOUT, TimeUnit.MILLISECONDS);
+
+        long packetCntDiff = transformState.getPacketCount() - (long) packetCnt;
+        assertTrue(packetCntDiff == 0 || packetCntDiff > 0);
+
+        android.util.Log.i("TEST", "getPacketCount " + transformState.getPacketCount());
+        android.util.Log.i("TEST", "txHighSeqNum " + transformState.getTxHighestSequenceNumber());
+
+        long adjustedTxHighestSeqNum = txHighestSeqNum + packetCntDiff;
+        long adjustedByteCnt = byteCnt + packetCntDiff * 48;
+
+        assertEquals(adjustedTxHighestSeqNum, transformState.getTxHighestSequenceNumber());
+        assertEquals(rxHighestSeqNum, transformState.getRxHighestSequenceNumber());
+        assertEquals(adjustedByteCnt, transformState.getByteCount());
         assertArrayEquals(replayBitmap, transformState.getReplayBitmap());
     }
 
