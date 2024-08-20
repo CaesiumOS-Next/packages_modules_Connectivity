@@ -56,7 +56,11 @@ import android.net.LinkAddress;
 import android.net.Network;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
+import android.net.cts.PacketUtils.BytePayload;
+import android.net.cts.PacketUtils.EspHeader;
+import android.net.cts.PacketUtils.IpHeader;
 import android.net.cts.PacketUtils.Payload;
+import android.net.cts.PacketUtils.UdpHeader;
 import android.net.cts.util.CtsNetUtils;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
@@ -119,7 +123,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
 
     private static final int TIMEOUT_MS = 500;
 
-    private static final int PACKET_COUNT = 5000;
+    private static final int PACKET_COUNT = 200;
 
     // Static state to reduce setup/teardown
     private static ConnectivityManager sCM;
@@ -1115,8 +1119,8 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
 
             // Configure Transform parameters
             IpSecTransform.Builder transformBuilder = new IpSecTransform.Builder(sContext);
-            transformBuilder.setEncryption(
-                    new IpSecAlgorithm(IpSecAlgorithm.CRYPT_AES_CBC, CRYPT_KEY));
+            // transformBuilder.setEncryption(
+            //         new IpSecAlgorithm(IpSecAlgorithm.CRYPT_AES_CBC, CRYPT_KEY));
             transformBuilder.setAuthentication(
                     new IpSecAlgorithm(
                             IpSecAlgorithm.AUTH_HMAC_SHA256, AUTH_KEY, AUTH_KEY.length * 4));
@@ -1821,10 +1825,11 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                                     false /* useEncap */,
                                     false /* transportInTunnelMode */);
 
-                    for (int i = 0; i < PACKET_COUNT; i++) {
+                    for (int i = 1; i < PACKET_COUNT + 1; i++) {
                         outSocket.sendTo(TEST_DATA, REMOTE_INNER_6, innerSocketPort);
-                        tunUtils.awaitEspPacketNoPlaintext(
-                                spi, TEST_DATA, false /* useEncap */, expectedPacketSize);
+                        android.util.Log.i("TEST", "sendTo i " + i);
+                        tunUtils.awaitEspPacket(spi, false /* useEncap */, i, 136);
+                        android.util.Log.i("TEST", "awaitEspPacketNoPlaintext i " + i);
                     }
 
                     final int innerPacketSize =

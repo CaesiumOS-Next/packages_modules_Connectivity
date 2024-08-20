@@ -47,6 +47,8 @@ public class TunUtils {
     protected static final int IP4_PROTO_OFFSET = 9;
     protected static final int IP6_PROTO_OFFSET = 6;
 
+    private static final int SEQ_NUM_MATCH_NOT_REQUIRED = -1;
+
     private static final int DATA_BUFFER_LEN = 4096;
     private static final int TIMEOUT = 2000;
 
@@ -72,6 +74,10 @@ public class TunUtils {
                                         // Exit once we've hit EOF
                                         return;
                                     } else if (intercepted.length > 0) {
+                                        android.util.Log.i(
+                                                "TEST",
+                                                "Outbound packet from receiveFromTun "
+                                                        + byteArrayToHexString(intercepted));
                                         // Only save packet if we've received any bytes.
                                         synchronized (mPackets) {
                                             mPackets.add(intercepted);
@@ -85,6 +91,18 @@ public class TunUtils {
                             }
                         });
         mReaderThread.start();
+    }
+
+    public static String byteArrayToHexString(byte[] data) {
+        if (data == null || data.length == 0) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : data) {
+            sb.append(String.format(java.util.Locale.US, "%02X", b));
+        }
+        return sb.toString();
     }
 
     private byte[] receiveFromTun() throws IOException {
@@ -138,24 +156,54 @@ public class TunUtils {
     }
 
     public byte[] awaitEspPacketNoPlaintext(
-            int spi, byte[] plaintext, boolean useEncap, int expectedPacketSize) throws Exception {
-        final byte[] espPkt = awaitPacket(
-            (pkt) -> expectedPacketSize == pkt.length
-                    && isEspFailIfSpecifiedPlaintextFound(pkt, spi, useEncap, plaintext));
+            int spi, byte[] plaintext, boolean useEncap, int expectedPacketSize, int seqNum)
+            throws Exception {
+        final byte[] espPkt =
+                awaitPacket(
+                        (pkt) ->
+                                expectedPacketSize == pkt.length
+                                        && isEspFailIfSpecifiedPlaintextFound(
+                                                pkt, spi, seqNum, useEncap, plaintext));
 
         return espPkt; // We've found the packet we're looking for.
     }
 
-    public byte[] awaitEspPacket(int spi, boolean useEncap) throws Exception {
-        return awaitPacket((pkt) -> isEsp(pkt, spi, useEncap));
+    public byte[] awaitEspPacketNoPlaintext(
+            int spi, byte[] plaintext, boolean useEncap, int expectedPacketSize) throws Exception {
+        return awaitEspPacketNoPlaintext(
+                spi, plaintext, useEncap, expectedPacketSize, SEQ_NUM_MATCH_NOT_REQUIRED);
     }
 
-    private static boolean isSpiEqual(byte[] pkt, int espOffset, int spi) {
+    public byte[] awaitEspPacket(int spi, boolean useEncap) throws Exception {
+        return awaitPacket((pkt) -> isEsp(pkt, spi, SEQ_NUM_MATCH_NOT_REQUIRED,useEncap));
+    }
+
+    public byte[] awaitEspPacket(int spi, boolean useEncap, int seqNum, int expectedPacketSize) throws Exception {
+        
+        return awaitPacket((pkt) -> 
+        
+        {
+            return expectedPacketSize == pkt.length && isEsp(pkt, spi, seqNum,useEncap);
+        }
+        
+        );
+    }
+
+    private static boolean areSpiAndSeqNumEqual(byte[] pkt, int espOffset, int spi, int seqNum) {
         ByteBuffer buffer = ByteBuffer.wrap(pkt);
         buffer.get(new byte[espOffset]); // Skip IP, UDP header
         int actualSpi = buffer.getInt();
+        int actualSeqNum = buffer.getInt();
 
-        return actualSpi == spi;
+        if (actualSeqNum < 0) {
+            throw new UnsupportedOperationException(
+                    "actualSeqNum overflow. Update the code to convert it to a 32-bit unsigned"
+                        + " integer");
+        }
+
+        boolean isSeqNumMatched = (seqNum == SEQ_NUM_MATCH_NOT_REQUIRED || seqNum == actualSeqNum);
+
+        return actualSpi == spi && isSeqNumMatched;
     }
 
     /**
@@ -168,30 +216,32 @@ public class TunUtils {
      *     the provided packet.
      */
     private static boolean isEspFailIfSpecifiedPlaintextFound(
-            byte[] pkt, int spi, boolean encap, byte[] plaintext) {
+            byte[] pkt, int spi, int seqNum, boolean encap, byte[] plaintext) {
         if (CollectionUtils.indexOfSubArray(pkt, plaintext) != -1) {
             fail("Banned plaintext packet found");
         }
 
-        return isEsp(pkt, spi, encap);
+        return isEsp(pkt, spi, seqNum, encap);
     }
 
-    private static boolean isEsp(byte[] pkt, int spi, boolean encap) {
+    private static boolean isEsp(byte[] pkt, int spi, int seqNum, boolean encap) {
         if (isIpv6(pkt)) {
             if (encap) {
                 return pkt[IP6_PROTO_OFFSET] == IPPROTO_UDP
-                        && isSpiEqual(pkt, IP6_HDRLEN + UDP_HDRLEN, spi);
+                        && areSpiAndSeqNumEqual(pkt, IP6_HDRLEN + UDP_HDRLEN, spi, seqNum);
             } else {
-                return pkt[IP6_PROTO_OFFSET] == IPPROTO_ESP && isSpiEqual(pkt, IP6_HDRLEN, spi);
+                return pkt[IP6_PROTO_OFFSET] == IPPROTO_ESP
+                        && areSpiAndSeqNumEqual(pkt, IP6_HDRLEN, spi, seqNum);
             }
 
         } else {
             // Use default IPv4 header length (assuming no options)
             if (encap) {
                 return pkt[IP4_PROTO_OFFSET] == IPPROTO_UDP
-                        && isSpiEqual(pkt, IP4_HDRLEN + UDP_HDRLEN, spi);
+                        && areSpiAndSeqNumEqual(pkt, IP4_HDRLEN + UDP_HDRLEN, spi, seqNum);
             } else {
-                return pkt[IP4_PROTO_OFFSET] == IPPROTO_ESP && isSpiEqual(pkt, IP4_HDRLEN, spi);
+                return pkt[IP4_PROTO_OFFSET] == IPPROTO_ESP
+                        && areSpiAndSeqNumEqual(pkt, IP4_HDRLEN, spi, seqNum);
             }
         }
     }
