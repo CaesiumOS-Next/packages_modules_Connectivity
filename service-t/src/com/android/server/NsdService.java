@@ -1885,6 +1885,14 @@ public class NsdService extends INsdManager.Stub {
         return Pattern.compile("^" + SUBTYPE_LABEL_REGEX + "$").matcher(subtype).matches();
     }
 
+    private long getKeepCachedServicesTime() {
+        final int keepCachedServicesTime = mDeps.getDeviceConfigPropertyInt(
+                MdnsFeatureFlags.NSD_KEEP_CACHED_SERVICES_TIME, -1 /* defaultValue */);
+        return keepCachedServicesTime == -1
+                ? MdnsFeatureFlags.DEFAULT_KEEP_CACHED_SERVICES_TIME_MILLISECONDS
+                : keepCachedServicesTime;
+    }
+
     @VisibleForTesting
     NsdService(Context ctx, Handler handler, long cleanupDelayMs) {
         this(ctx, handler, cleanupDelayMs, new Dependencies());
@@ -1938,6 +1946,9 @@ public class NsdService extends INsdManager.Stub {
                         mContext, MdnsFeatureFlags.NSD_QUERY_WITH_KNOWN_ANSWER))
                 .setAvoidAdvertisingEmptyTxtRecords(mDeps.isTetheringFeatureNotChickenedOut(
                         mContext, MdnsFeatureFlags.NSD_AVOID_ADVERTISING_EMPTY_TXT_RECORDS))
+                .setIsCachedServicesRemovalEnabled(mDeps.isFeatureEnabled(
+                        mContext, MdnsFeatureFlags.NSD_CACHED_SERVICES_REMOVAL))
+                .setKeepCachedServicesTime(getKeepCachedServicesTime())
                 .setOverrideProvider(new MdnsFeatureFlags.FlagOverrideProvider() {
                     @Override
                     public boolean isForceEnabledForTest(@NonNull String flag) {

@@ -301,6 +301,14 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
                         serviceTypeClient.notifySocketDestroyed();
                         executorProvider.shutdownExecutorService(serviceTypeClient.getExecutor());
                         perSocketServiceTypeClients.remove(serviceTypeClient);
+                        if (mdnsFeatureFlags.isCachedServicesRemovalEnabled()) {
+                            // Remove the cached service after the keeping time has elapsed.
+                            final MdnsServiceCache.CacheKey cacheKey =
+                                    serviceTypeClient.getCacheKey();
+                            discoveryExecutor.executeDelayed(
+                                    () -> handleRemoveCachedServices(cacheKey),
+                                    mdnsFeatureFlags.getKeepCachedServicesTime());
+                        }
                     }
                 });
     }
@@ -337,6 +345,13 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
                 // of the service type clients.
                 executorProvider.shutdownExecutorService(serviceTypeClient.getExecutor());
                 perSocketServiceTypeClients.remove(serviceTypeClient);
+                if (mdnsFeatureFlags.isCachedServicesRemovalEnabled()) {
+                    // Remove the cached service after the keeping time has elapsed.
+                    final MdnsServiceCache.CacheKey cacheKey = serviceTypeClient.getCacheKey();
+                    discoveryExecutor.executeDelayed(
+                            () -> handleRemoveCachedServices(cacheKey),
+                            mdnsFeatureFlags.getKeepCachedServicesTime());
+                }
             }
         }
         if (perSocketServiceTypeClients.isEmpty()) {
@@ -379,6 +394,25 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         for (MdnsServiceTypeClient serviceTypeClient : getMdnsServiceTypeClient(socketKey)) {
             serviceTypeClient.onFailedToParseMdnsResponse(receivedPacketNumber, errorCode);
         }
+    }
+
+    private void handleRemoveCachedServices(@NonNull MdnsServiceCache.CacheKey cacheKey) {
+        // Check if there is an active service type client that requires the cached services. If so,
+        // do not remove associated services from cache.
+        for (MdnsServiceTypeClient client : getMdnsServiceTypeClient(cacheKey.mSocketKey)) {
+            if (client.getCacheKey().equals(cacheKey)) {
+                // Found a client that has same CacheKey.
+                return;
+            }
+        }
+        sharedLog.log("Remove cached services for " + cacheKey);
+        // No client has same CacheKey. Remove associated services.
+        getServiceCache().removeServices(cacheKey);
+    }
+
+    @VisibleForTesting
+    MdnsServiceCache getServiceCache() {
+        return serviceCache;
     }
 
     @VisibleForTesting
