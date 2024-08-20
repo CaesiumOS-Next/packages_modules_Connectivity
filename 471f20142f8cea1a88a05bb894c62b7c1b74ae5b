@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9024d475_35adf171",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-20T02:51:04Z",
+      "side": 1,
+      "message": "Looks legit to me but not sure if you want lorenzo to review it as well.",
+      "revId": "471f20142f8cea1a88a05bb894c62b7c1b74ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
