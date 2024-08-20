@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6851eb3_9beb773e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-20T17:19:11Z",
+      "side": 1,
+      "message": "Hi Thiébaud,\n\nThis CL is adding the logs installer, that copies the downloaded logs in the CT directory. I tried to make the code as similar to the CertificateTransparencyLogInstallReceiver as possible, hopefully simplifying a bit here and there where I could.",
+      "revId": "c43952b0614883a21454d0cc98f0f4f019d1ea15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
