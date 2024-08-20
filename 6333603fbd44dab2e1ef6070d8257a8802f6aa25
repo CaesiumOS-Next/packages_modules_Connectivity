@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecf92825_3d278ccf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-20T05:50:36Z",
+      "side": 1,
+      "message": "If we are moving away from the ConfigUpdater schema, what will metadata look like in the future? Could it simply be the signature for the log list? (Suggesting this as, if so, we could probably just plug in the current Chrome signature (log_list.sig)).",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5f3f150_280b8e45",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-20T05:50:36Z",
+      "side": 1,
+      "message": "nit: maybe rename to something more explicit like `registerReceiver`",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75c6ef6a_7562e301",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-20T05:50:36Z",
+      "side": 1,
+      "message": "I would move TAG within each class. The more classes you will have in the package, the harder it will be to pinpoint where a message is coming from.",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "854018f4_9e75561d",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-20T05:50:36Z",
+      "side": 1,
+      "message": "The issue is that isLoggable is not removed from the build, so you are left with all the logging messages (see https://source.android.com/docs/core/tests/debug/understanding-logging), maybe use a constant that you can manually change:\n```\nfinal static boolean DEBUG \u003d false;\n```",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ade5eb00_c6ca76ea",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-20T05:50:36Z",
+      "side": 1,
+      "message": "Does it need to have a \".xml\" at the end?",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f56bfa7c_630692a4",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DataStore.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-20T05:50:36Z",
+      "side": 1,
+      "message": "Is this use/required?",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1102c0ca_a6e3c882",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DataStore.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-20T05:50:36Z",
+      "side": 1,
+      "message": "Same here, is it used?",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7227f2ab_83dbaa3e",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-20T05:50:36Z",
+      "side": 1,
+      "message": "From the doc on DownloadManager: \"Apps that request downloads through this API should register a broadcast receiver for ACTION_NOTIFICATION_CLICKED to appropriately handle when the user clicks on a running download in a notification or from the downloads UI.\"\n\nWill the download show up as a notification? Can the user dismiss it?",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "731d8f34_a54fa53e",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-20T05:50:36Z",
+      "side": 1,
+      "message": "Could the download be done over MOBILE? I think you can set roaming to `false` here as well. Is that the recommended default?",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
