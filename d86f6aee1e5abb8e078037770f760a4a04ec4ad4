@@ -435,6 +435,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd207851_d2138107",
+        "filename": "thread/docs/build-an-android-border-router.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3583951
+      },
+      "writtenOn": "2024-08-20T14:56:01Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "b0ec479a_87ac59e2",
+      "range": {
+        "startLine": 44,
+        "startChar": 49,
+        "endLine": 44,
+        "endChar": 73
+      },
+      "revId": "d86f6aee1e5abb8e078037770f760a4a04ec4ad4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13504ea3_dd0dc817",
