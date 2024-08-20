@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1926c51_838c4989",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-20T08:42:54Z",
+      "side": 1,
+      "message": "1. Maybe add comment about what is the key and values?\n2. It seems to me using a map is not a correct strcuture given that you don\u0027t access value by the key.\nIf so, is it better to use ArrayList\u003cPair\u003cRunnable, Long\u003e\u003e?",
+      "range": {
+        "startLine": 143,
+        "startChar": 50,
+        "endLine": 143,
+        "endChar": 54
+      },
+      "revId": "18978c6d32fda88b5edcccb690f4a0a16b976f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "579898a0_68dba0ab",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-20T08:42:54Z",
+      "side": 1,
+      "message": "nit: Maybe use TestableLooper and ComletableFuture to write unit?",
+      "range": {
+        "startLine": 183,
+        "startChar": 20,
+        "endLine": 183,
+        "endChar": 34
+      },
+      "revId": "18978c6d32fda88b5edcccb690f4a0a16b976f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4d423fe_f89bc4a9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-20T08:42:54Z",
+      "side": 1,
+      "message": "Maybe: \n        public void executeDelayed(Runnable function, long delayMillis) {\n            final Handler handler \u003d this.handler;\n            synchronized (pendingTasks) {\n                if (handler \u003d\u003d null) {\n                    pendingTasks.put(function, delayMillis);\n                    return;\n                }\n            }\n            handler.postDelayed(function, delayMillis);\n        }",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 9
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "06b9eef6_2533c1b8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+              "range": {
+                "startLine": 184,
+                "startChar": 0,
+                "endLine": 185,
+                "endChar": 0
+              },
+              "replacement": "            final Handler handler \u003d this.handler;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+              "range": {
+                "startLine": 189,
+                "startChar": 0,
+                "endLine": 191,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "18978c6d32fda88b5edcccb690f4a0a16b976f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
