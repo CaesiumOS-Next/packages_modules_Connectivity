@@ -72,6 +72,10 @@ public class TunUtils {
                                         // Exit once we've hit EOF
                                         return;
                                     } else if (intercepted.length > 0) {
+                                        android.util.Log.i(
+                                                "TEST",
+                                                "Outbound packet from receiveFromTun "
+                                                        + byteArrayToHexString(intercepted));
                                         // Only save packet if we've received any bytes.
                                         synchronized (mPackets) {
                                             mPackets.add(intercepted);
@@ -85,6 +89,18 @@ public class TunUtils {
                             }
                         });
         mReaderThread.start();
+    }
+
+    public static String byteArrayToHexString(byte[] data) {
+        if (data == null || data.length == 0) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : data) {
+            sb.append(String.format(java.util.Locale.US, "%02X", b));
+        }
+        return sb.toString();
     }
 
     private byte[] receiveFromTun() throws IOException {
