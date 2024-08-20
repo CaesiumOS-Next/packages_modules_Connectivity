@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b14af8e_1d8c4b36",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkStatsUtils.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-20T03:04:49Z",
+      "side": 1,
+      "message": "ACK. will address in follow-up in order to prevent from respin.",
+      "parentUuid": "5423736a_b7fc13d3",
+      "range": {
+        "startLine": 128,
+        "startChar": 59,
+        "endLine": 128,
+        "endChar": 60
+      },
+      "revId": "065c37a17f3e6189d8c53a54334a5646ce9a9858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07975d40_f956fbae",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-20T02:58:45Z",
       "side": 1,
       "message": "Nit: Maybe use MATCH_TEST or add a comment that the match rule doesn\u0027t matter here.",
+      "range": {
+        "startLine": 147,
+        "startChar": 36,
+        "endLine": 147,
+        "endChar": 48
+      },
+      "revId": "065c37a17f3e6189d8c53a54334a5646ce9a9858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09697532_e8422510",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/NetworkStatsUtils.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-20T03:04:49Z",
+      "side": 1,
+      "message": "ACK. will address in follow-up in order to prevent from respin.",
+      "parentUuid": "07975d40_f956fbae",
       "range": {
         "startLine": 147,
         "startChar": 36,
