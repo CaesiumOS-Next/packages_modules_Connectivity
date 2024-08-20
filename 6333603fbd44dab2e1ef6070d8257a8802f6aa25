@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e401bd21_2e28428c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-20T12:03:52Z",
+      "side": 1,
+      "message": "I agree, if we could reuse the current Chrome signature it would make our life much easier. I don\u0027t want to make any promises as I have not started looking into the back-end part yet, but I very much hope we can reuse as much of the Chrome pipeline as possible.\n\nMy current plan is to submit this CL and aosp/3216083 and then start looking at the back-end part.",
+      "parentUuid": "ecf92825_3d278ccf",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5f3f150_280b8e45",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-08-20T05:50:36Z",
       "side": 1,
       "message": "nit: maybe rename to something more explicit like `registerReceiver`",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6159dd8f_30c43e0a",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-20T12:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5f3f150_280b8e45",
       "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "938e0042_98c62d8e",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-20T12:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c6ef6a_7562e301",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "854018f4_9e75561d",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-08-20T05:50:36Z",
       "side": 1,
       "message": "The issue is that isLoggable is not removed from the build, so you are left with all the logging messages (see https://source.android.com/docs/core/tests/debug/understanding-logging), maybe use a constant that you can manually change:\n```\nfinal static boolean DEBUG \u003d false;\n```",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ba96be_84cc0b09",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-20T12:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "854018f4_9e75561d",
       "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f482c60_71bb0d7a",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-20T12:03:52Z",
+      "side": 1,
+      "message": "Currently I am using the [.properties](https://en.wikipedia.org/wiki/.properties) format and therefore I used \".properties\" as file extension.\n\nThe `Property` class in Java also supports XML. I have no strong preference between the two, if you think it\u0027s better I can switch to that.",
+      "parentUuid": "ade5eb00_c6ca76ea",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f56bfa7c_630692a4",
         "filename": "networksecurity/service/src/com/android/server/net/ct/DataStore.java",
         "patchSetId": 24
@@ -99,6 +189,24 @@
       "writtenOn": "2024-08-20T05:50:36Z",
       "side": 1,
       "message": "Is this use/required?",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b599124_f839c84b",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DataStore.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-20T12:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f56bfa7c_630692a4",
       "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -116,6 +224,24 @@
       "writtenOn": "2024-08-20T05:50:36Z",
       "side": 1,
       "message": "Same here, is it used?",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb6aabb6_e01bb34f",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DataStore.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-20T12:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1102c0ca_a6e3c882",
       "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -139,6 +265,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c4350a5_7faaeb32",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-20T12:03:52Z",
+      "side": 1,
+      "message": "For system_server it looks like the default setting is overridden to not show a notification, or maybe the download is just too quick and the notification does not have time to appear.\n\nConsidering we are going to trigger a download every day and most users won\u0027t know what data is being downloaded, I would be more in favor of not having a download notification. I added a line setting `VISIBILITY_HIDDEN` at request construction.",
+      "parentUuid": "7227f2ab_83dbaa3e",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "731d8f34_a54fa53e",
         "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
         "patchSetId": 24
@@ -150,6 +294,24 @@
       "writtenOn": "2024-08-20T05:50:36Z",
       "side": 1,
       "message": "Could the download be done over MOBILE? I think you can set roaming to `false` here as well. Is that the recommended default?",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9fbf569_5371369d",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-20T12:03:52Z",
+      "side": 1,
+      "message": "AFAIU, setting Wifi as the only network type allowed should be sufficient to forbid roaming and mobile as well ([documentation](https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/app/DownloadManager.java;l\u003d713-726;drc\u003d2a21dd13be99be7c939b2c45b08656477055c562)). In any case, I added those two options explicitly, it does not hurt to have them.",
+      "parentUuid": "731d8f34_a54fa53e",
       "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
