@@ -44,6 +44,7 @@ import com.android.net.module.util.SharedLog;
 import com.android.networkstack.apishim.BluetoothPanShimImpl;
 import com.android.networkstack.apishim.common.BluetoothPanShim;
 import com.android.networkstack.tethering.metrics.TetheringMetrics;
+import com.android.networkstack.tethering.util.TetheringPermissionsUtils;
 import com.android.networkstack.tethering.wear.WearableConnectionManager;
 
 import java.util.ArrayList;
@@ -224,5 +225,12 @@ public abstract class TetheringDependencies {
     public boolean isTetheringRequestWithSoftApConfigEnabled(Context ctx) {
         return DeviceConfigUtils.isTetheringFeatureEnabled(ctx,
                 "tethering_request_with_soft_ap_config");
+    }
+
+    /**
+     * Make the TetheringPermissionsUtils to be used by tethering.
+     */
+    public TetheringPermissionsUtils makeTetheringPermissionsUtils(Context ctx) {
+        return new TetheringPermissionsUtils(ctx);
     }
 }
