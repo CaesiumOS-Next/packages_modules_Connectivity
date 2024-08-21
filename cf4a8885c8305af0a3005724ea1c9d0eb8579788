@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33cf64e5_1cf529f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-21T05:23:22Z",
+      "side": 1,
+      "message": "Please add the `Bug: ` and `Test: ` sections.",
+      "revId": "cf4a8885c8305af0a3005724ea1c9d0eb8579788",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4ca73ce_50967eb7",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
         "patchSetId": 1
