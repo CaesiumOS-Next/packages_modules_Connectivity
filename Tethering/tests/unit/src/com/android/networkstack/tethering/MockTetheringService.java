@@ -29,6 +29,8 @@ import android.util.ArrayMap;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.networkstack.tethering.util.TetheringPermissionsUtils;
+
 public class MockTetheringService extends TetheringService {
     private final Tethering mTethering = mock(Tethering.class);
     private final ArrayMap<String, Integer> mMockedPermissions = new ArrayMap<>();
@@ -91,5 +93,41 @@ public class MockTetheringService extends TetheringService {
                 mMockedPermissions.put(permission, granted);
             }
         }
+<<<<<<< PATCH SET (cbd2e0 Make Tethering public API for DO/Carrier apps)
+
+        /**
+         * Mock a package name matching a uid.
+         */
+        public void setPackageNameUid(String packageName, int uid) {
+            mMockedPackageUids.put(packageName, uid);
+        }
+
+        /**
+         * Mock a package name matching a uid.
+         */
+        public void setCallingUid(int uid) {
+            mMockCallingUid = uid;
+        }
+
+        public void setTetheringPermissionsUtils(@NonNull final TetheringPermissionsUtils utils) {
+            mTetheringPermissionsUtils = utils;
+        }
+||||||| BASE
+
+        /**
+         * Mock a package name matching a uid.
+         */
+        public void setPackageNameUid(String packageName, int uid) {
+            mMockedPackageUids.put(packageName, uid);
+        }
+
+        /**
+         * Mock a package name matching a uid.
+         */
+        public void setCallingUid(int uid) {
+            mMockCallingUid = uid;
+        }
+=======
+>>>>>>> BASE      (46f51c Start tethered hotspot with TetheringRequest)
     }
 }

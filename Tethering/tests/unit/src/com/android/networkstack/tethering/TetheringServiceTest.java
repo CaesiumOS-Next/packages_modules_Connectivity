@@ -61,6 +61,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.net.module.util.CollectionUtils;
 import com.android.networkstack.tethering.MockTetheringService.MockTetheringConnector;
+import com.android.networkstack.tethering.util.TetheringPermissionsUtils;
 
 import org.junit.After;
 import org.junit.Before;
@@ -86,6 +87,8 @@ public final class TetheringServiceTest {
     private Intent mMockServiceIntent;
     private MockTetheringConnector mMockConnector;
     private ITetheringConnector mTetheringConnector;
+    @Mock private TetheringDependencies mMockTetheringDependencies;
+    @Mock private TetheringPermissionsUtils mMockTetheringPermissionsUtils;
     private UiAutomation mUiAutomation;
 
     private class TestTetheringResult extends IIntResultListener.Stub {
@@ -128,6 +131,15 @@ public final class TetheringServiceTest {
         mTetheringConnector = ITetheringConnector.Stub.asInterface(mMockConnector.getIBinder());
         final MockTetheringService service = mMockConnector.getService();
         mTethering = service.getTethering();
+<<<<<<< PATCH SET (cbd2e0 Make Tethering public API for DO/Carrier apps)
+        mMockConnector.setCallingUid(TEST_CALLER_UID);
+        mMockConnector.setPackageNameUid(TEST_CALLER_PKG, TEST_CALLER_UID);
+        mMockConnector.setTetheringPermissionsUtils(mMockTetheringPermissionsUtils);
+||||||| BASE
+        mMockConnector.setCallingUid(TEST_CALLER_UID);
+        mMockConnector.setPackageNameUid(TEST_CALLER_PKG, TEST_CALLER_UID);
+=======
+>>>>>>> BASE      (46f51c Start tethered hotspot with TetheringRequest)
     }
 
     @After
@@ -328,6 +340,24 @@ public final class TetheringServiceTest {
             result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
             verifyNoMoreInteractionsForTethering();
         });
+
+        when(mMockTetheringPermissionsUtils.isDeviceOwner(TEST_CALLER_UID, TEST_CALLER_PKG))
+                .thenReturn(true);
+        runAsNoPermission((result) -> {
+            runStartTethering(result, request);
+            verifyNoMoreInteractionsForTethering();
+        });
+        when(mMockTetheringPermissionsUtils.isDeviceOwner(TEST_CALLER_UID, TEST_CALLER_PKG))
+                .thenReturn(false);
+
+        when(mMockTetheringPermissionsUtils.isCarrierApp(TEST_CALLER_PKG))
+                .thenReturn(true);
+        runAsNoPermission((result) -> {
+            runStartTethering(result, request);
+            verifyNoMoreInteractionsForTethering();
+        });
+        when(mMockTetheringPermissionsUtils.isCarrierApp(TEST_CALLER_PKG))
+                .thenReturn(false);
 
         runAsTetherPrivileged((result) -> {
             runStartTethering(result, request);
