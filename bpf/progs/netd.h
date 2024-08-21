@@ -127,6 +127,7 @@ static const int UID_OWNER_MAP_SIZE = 4000;
 static const int INGRESS_DISCARD_MAP_SIZE = 100;
 static const int PACKET_TRACE_BUF_SIZE = 32 * 1024;
 static const int DATA_SAVER_ENABLED_MAP_SIZE = 1;
+static const int SATELLITE_EVENT_BUF_SIZE = 16 * 1024;
 
 #ifdef __cplusplus
 
@@ -244,6 +245,40 @@ typedef struct {
     uint32_t iif[2];
 } IngressDiscardValue;
 STRUCT_SIZE(IngressDiscardValue, 2 * 4);  // 8
+
+typedef struct {
+    uint64_t time_threshold_ns;
+    uint32_t ifindex6;
+    uint32_t ifindex4;
+    uint16_t rx_threshold_bytes;
+    uint16_t tx_threshold_bytes;
+    uint16_t rx_threshold_packets;
+    uint16_t tx_threshold_packets;
+    uint8_t rx6_overhead_bytes;
+    uint8_t tx6_overhead_bytes;
+    uint8_t rx4_overhead_bytes;
+    uint8_t tx4_overhead_bytes;
+    uint8_t pad[4];
+} SatelliteConfigValue;
+STRUCT_SIZE(SatelliteConfigValue, 8 + 2 * 4 + 4 * 2 + 8 * 1);  // 32
+
+typedef struct {
+    uint64_t first_ns;
+    uint64_t last_ns;
+    uint32_t uid;
+    uint16_t rx_bytes;
+    uint16_t tx_bytes;
+    bool foreground;
+    uint8_t pad[7];
+} SatelliteCacheValue;
+STRUCT_SIZE(SatelliteCacheValue, 2 * 8 + 4 + 2 * 2 + 1 + 7);  // 32
+
+typedef struct {
+    uint32_t uid;
+    uint16_t rx_bytes;
+    uint16_t tx_bytes;
+} SatelliteEvent;
+STRUCT_SIZE(SatelliteEvent, 4 + 2 * 2);  // 8
 
 // Entry in the configuration map that stores which UID rules are enabled.
 #define UID_RULES_CONFIGURATION_KEY 0
