@@ -134,11 +134,17 @@ public abstract class TetheringDependencies {
     /**
      * Get the routing coordinator.
      */
-    public RoutingCoordinatorManager getRoutingCoordinator(Context context, SharedLog log) {
+    public RoutingCoordinatorManager getRoutingCoordinator(Context context, SharedLog log,
+                                                           TetheringConfiguration tetheringConfig) {
         IBinder binder;
         if (!SdkLevel.isAtLeastS()) {
             ConnectivityManager cm = context.getSystemService(ConnectivityManager.class);
-            binder = new RoutingCoordinatorService(getINetd(context, log), cm);
+            binder =
+                    new RoutingCoordinatorService(
+                            getINetd(context, log),
+                            cm::getAllNetworks,
+                            tetheringConfig.isRandomPrefixBaseEnabled(),
+                            tetheringConfig.shouldEnableWifiP2pDedicatedIp());
         } else {
             binder = ConnectivityInternalApiUtil.getRoutingCoordinator(context);
         }
