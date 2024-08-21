@@ -135,6 +135,30 @@
       },
       "revId": "594572582fa66793d4d13b115468c507f508d854",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "936460d8_a94efa2c",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-08-21T06:59:09Z",
+      "side": 1,
+      "message": "Done.\n\nI also confirmed that it\u0027s possible to remove the @RequiresPermission annotation when updating the API.",
+      "parentUuid": "9b26974d_f0d349e6",
+      "range": {
+        "startLine": 828,
+        "startChar": 12,
+        "endLine": 828,
+        "endChar": 18
+      },
+      "revId": "594572582fa66793d4d13b115468c507f508d854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
