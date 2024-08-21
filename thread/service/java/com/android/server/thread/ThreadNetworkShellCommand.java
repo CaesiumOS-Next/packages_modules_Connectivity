@@ -23,12 +23,15 @@ import android.net.thread.IOperationReceiver;
 import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
 import android.net.thread.ThreadNetworkException;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.net.module.util.HexDump;
+import com.android.server.thread.openthread.IOtCtlOutputReceiver;
 
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.time.Duration;
 import java.time.Instant;
@@ -52,6 +55,7 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
     private static final Duration LEAVE_TIMEOUT = Duration.ofSeconds(2);
     private static final Duration MIGRATE_TIMEOUT = Duration.ofSeconds(2);
     private static final Duration FORCE_STOP_TIMEOUT = Duration.ofSeconds(1);
+    private static final Duration OT_CTL_COMMAND_TIMEOUT = Duration.ofSeconds(5);
     private static final String PERMISSION_THREAD_NETWORK_TESTING =
             "android.permission.THREAD_NETWORK_TESTING";
 
@@ -61,6 +65,7 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
 
     @Nullable private PrintWriter mOutputWriter;
     @Nullable private PrintWriter mErrorWriter;
+    @Nullable private InputStream mInputStream;
 
     public ThreadNetworkShellCommand(
             Context context,
@@ -77,12 +82,20 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         mErrorWriter = errorWriter;
     }
 
+    private static boolean isUserBuild() {
+        return "user".equals(Build.TYPE);
+    }
+
     private PrintWriter getOutputWriter() {
         return (mOutputWriter != null) ? mOutputWriter : getOutPrintWriter();
     }
 
     private PrintWriter getErrorWriter() {
         return (mErrorWriter != null) ? mErrorWriter : getErrPrintWriter();
+    }
+
+    private InputStream getInputStream() {
+        return (mInputStream != null) ? mInputStream : getRawInputStream();
     }
 
     @Override
@@ -107,6 +120,8 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         pw.println("    Gets country code as a two-letter string");
         pw.println("  force-country-code enabled <two-letter code> | disabled ");
         pw.println("    Sets country code to <two-letter code> or left for normal value");
+        pw.println("  ot-ctl <subcommand>");
+        pw.println("    Runs ot-ctl command");
     }
 
     @Override
@@ -133,6 +148,10 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
                 return forceCountryCode();
             case "get-country-code":
                 return getCountryCode();
+            case "ot-ctl":
+                if (!isUserBuild()) {
+                    return handleOtCtlCommand();
+                }
             default:
                 return handleDefaultCommands(cmd);
         }
@@ -246,6 +265,39 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         ensureTestingPermission();
         getOutputWriter().println("Thread country code = " + mCountryCode.getCountryCode());
         return 0;
+    }
+
+    private static final class OtCtlOutputReceiver extends IOtCtlOutputReceiver.Stub {
+        private final CompletableFuture<Void> future;
+        private final PrintWriter outputWriter;
+
+        public OtCtlOutputReceiver(CompletableFuture<Void> future, PrintWriter outputWriter) {
+            this.future = future;
+            this.outputWriter = outputWriter;
+        }
+
+        @Override
+        public void onReceive(String output) {
+            outputWriter.print(output);
+            outputWriter.flush();
+        }
+
+        @Override
+        public void onComplete() {
+            future.complete(null);
+        }
+    }
+
+    private int handleOtCtlCommand() {
+        ensureTestingPermission();
+        final String subCommand = String.join(" ", peekRemainingArgs());
+
+        CompletableFuture<Void> completeFuture = new CompletableFuture<>();
+        mControllerService.runOtCtlCommand(
+                subCommand,
+                new OtCtlOutputReceiver(completeFuture, getOutputWriter()),
+                false /* isInteractive */);
+        return waitForFuture(completeFuture, OT_CTL_COMMAND_TIMEOUT, getErrorWriter());
     }
 
     private static IOperationReceiver newOperationReceiver(CompletableFuture<Void> future) {
