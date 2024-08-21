@@ -22,6 +22,29 @@
       },
       "revId": "b66fb25843ea9bc32d2e053bad80d9a2a41ce938",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b163f543_629c3843",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-21T07:57:48Z",
+      "side": 1,
+      "message": "Per discussion: this will send the SoftApConfiguration, which contains private data such as SSID and password, in the broadcast. Does that mean that any app can see this private information? If so, we should just not pass the SoftApConfiguration in at all. Looks like the broadcast has been deprecated since 2021, so it\u0027s OK not to update it.",
+      "range": {
+        "startLine": 1110,
+        "startChar": 46,
+        "endLine": 1110,
+        "endChar": 68
+      },
+      "revId": "b66fb25843ea9bc32d2e053bad80d9a2a41ce938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
