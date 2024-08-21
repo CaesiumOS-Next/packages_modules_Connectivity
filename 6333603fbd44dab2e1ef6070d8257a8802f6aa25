@@ -176,6 +176,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be623488_2f86d408",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-21T09:32:42Z",
+      "side": 1,
+      "message": "Ack. Sorry, you just mentioned \".properties\" here but it\u0027s \".preferences\" on that line. Or maybe the \".properties\" is added somewhere else?\n\nLGTM either way. Thanks.",
+      "parentUuid": "7f482c60_71bb0d7a",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f56bfa7c_630692a4",
@@ -281,6 +299,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acd06bfd_7e881e10",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-21T09:32:42Z",
+      "side": 1,
+      "message": "Ok great, LGTM. Thanks.",
+      "parentUuid": "4c4350a5_7faaeb32",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "731d8f34_a54fa53e",
@@ -312,6 +348,24 @@
       "side": 1,
       "message": "AFAIU, setting Wifi as the only network type allowed should be sufficient to forbid roaming and mobile as well ([documentation](https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/app/DownloadManager.java;l\u003d713-726;drc\u003d2a21dd13be99be7c939b2c45b08656477055c562)). In any case, I added those two options explicitly, it does not hurt to have them.",
       "parentUuid": "731d8f34_a54fa53e",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a0acbd_5c98c2b0",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-21T09:32:42Z",
+      "side": 1,
+      "message": "Ack. My comment was more about: are some users never going to receive the list at all? (i.e., are there users that are never on unmetered wifi?) Taking into account how critical the list is and how small it is, maybe it is fine to download it over mobile?",
+      "parentUuid": "a9fbf569_5371369d",
       "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

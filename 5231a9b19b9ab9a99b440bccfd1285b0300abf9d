@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dde4e3c0_eed9ece0",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DataStore.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-21T09:32:42Z",
+      "side": 1,
+      "message": "Is that a bit verbose? It\u0027s expected that the first load() would fail, no?",
+      "revId": "5231a9b19b9ab9a99b440bccfd1285b0300abf9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
