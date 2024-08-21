@@ -20,12 +20,15 @@ import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
 
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.contains;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -42,15 +45,19 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.server.thread.openthread.IOtCtlOutputReceiver;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.FileDescriptor;
+import java.io.InputStream;
 import java.io.PrintWriter;
 
 /** Unit tests for {@link ThreadNetworkShellCommand}. */
@@ -79,6 +86,7 @@ public class ThreadNetworkShellCommandTest {
     @Mock private ThreadNetworkCountryCode mCountryCode;
     @Mock private PrintWriter mErrorWriter;
     @Mock private PrintWriter mOutputWriter;
+    @Mock private InputStream mInputStream;
 
     private Context mContext;
     private ThreadNetworkShellCommand mShellCommand;
@@ -300,5 +308,95 @@ public class ThreadNetworkShellCommandTest {
 
         verify(mControllerService, times(1)).leave(any());
         verify(mErrorWriter, never()).println();
+    }
+
+    @Test
+    public void handleOtCtlCommand_testingPermissionIsChecked() {
+        doAnswer(
+                        invocation -> {
+                            IOtCtlOutputReceiver receiver = invocation.getArgument(1);
+                            receiver.onComplete();
+                            return null;
+                        })
+                .when(mControllerService)
+                .runOtCtlCommand(anyString(), any(), anyBoolean());
+
+        mShellCommand.exec(
+                new Binder(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new String[] {"ot-ctl", "state"});
+
+        verify(mContext, times(1))
+                .enforceCallingOrSelfPermission(
+                        eq("android.permission.THREAD_NETWORK_TESTING"), anyString());
+    }
+
+    @Test
+    public void handleOtCtlCommand_nonInteractive_serviceThrows_failed() {
+        doThrow(new SecurityException(""))
+                .when(mControllerService)
+                .runOtCtlCommand(anyString(), any(), eq(false));
+
+        mShellCommand.exec(
+                new Binder(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new String[] {"ot-ctl", "state"});
+
+        verify(mControllerService, times(1)).runOtCtlCommand(anyString(), any(), eq(false));
+        verify(mOutputWriter, never()).println();
+    }
+
+    @Test
+    public void handleOtCtlCommand_nonInteractive_serviceApiTimeout_failedWithTimeoutError() {
+        doNothing().when(mControllerService).runOtCtlCommand(anyString(), any(), eq(false));
+
+        mShellCommand.exec(
+                new Binder(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new String[] {"ot-ctl", "state"});
+
+        verify(mControllerService, times(1)).runOtCtlCommand(anyString(), any(), eq(false));
+        verify(mErrorWriter, atLeastOnce()).println(contains("timeout"));
+        verify(mOutputWriter, never()).println();
+    }
+
+    @Test
+    public void handleOtCtlCommand_nonInteractive_state_outputIsPrinted() {
+        doAnswer(
+                        invocation -> {
+                            String command = invocation.getArgument(0);
+                            IOtCtlOutputReceiver receiver = invocation.getArgument(1);
+
+                            if (command.equals("state")) {
+                                receiver.onReceive("leader");
+                                receiver.onReceive("\r\n");
+                                receiver.onReceive("Done");
+                                receiver.onReceive("\r\n");
+                            }
+
+                            receiver.onComplete();
+                            return null;
+                        })
+                .when(mControllerService)
+                .runOtCtlCommand(anyString(), any(), anyBoolean());
+
+        mShellCommand.exec(
+                new Binder(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new String[] {"ot-ctl", "state"});
+
+        InOrder inOrder = inOrder(mOutputWriter);
+        inOrder.verify(mOutputWriter).print("leader");
+        inOrder.verify(mOutputWriter).print("\r\n");
+        inOrder.verify(mOutputWriter).print("Done");
+        inOrder.verify(mOutputWriter).print("\r\n");
     }
 }

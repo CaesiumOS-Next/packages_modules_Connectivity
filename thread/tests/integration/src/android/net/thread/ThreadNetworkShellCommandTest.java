@@ -22,11 +22,15 @@ import static android.net.thread.ThreadNetworkException.ERROR_THREAD_DISABLED;
 
 import static com.android.compatibility.common.util.SystemUtil.runShellCommandOrThrow;
 
+import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 
 import android.content.Context;
+import android.net.thread.utils.FullThreadDevice;
+import android.net.thread.utils.OtDaemonController;
 import android.net.thread.utils.ThreadFeatureCheckerRule;
 import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresThreadFeature;
 import android.net.thread.utils.ThreadNetworkControllerWrapper;
@@ -41,6 +45,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.net.Inet6Address;
+import java.time.Duration;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /** Integration tests for {@link ThreadNetworkShellCommand}. */
@@ -50,23 +57,47 @@ import java.util.concurrent.ExecutionException;
 public class ThreadNetworkShellCommandTest {
     @Rule public final ThreadFeatureCheckerRule mThreadRule = new ThreadFeatureCheckerRule();
 
+    // A valid Thread Active Operational Dataset generated from OpenThread CLI "dataset init new".
+    private static final byte[] DEFAULT_DATASET_TLVS =
+            base16().decode(
+                            "0E080000000000010000000300001335060004001FFFE002"
+                                    + "08ACC214689BC40BDF0708FD64DB1225F47E0B0510F26B31"
+                                    + "53760F519A63BAFDDFFC80D2AF030F4F70656E5468726561"
+                                    + "642D643961300102D9A00410A245479C836D551B9CA557F7"
+                                    + "B9D351B40C0402A0FFF8");
+    private static final ActiveOperationalDataset DEFAULT_DATASET =
+            ActiveOperationalDataset.fromThreadTlvs(DEFAULT_DATASET_TLVS);
+
     private final Context mContext = ApplicationProvider.getApplicationContext();
     private final ThreadNetworkControllerWrapper mController =
             ThreadNetworkControllerWrapper.newInstance(mContext);
+    private final OtDaemonController mOtCtl = new OtDaemonController();
+    private FullThreadDevice mFtd;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
+        mOtCtl.factoryReset();
+
+        mFtd = new FullThreadDevice(10 /* nodeId */);
         ensureThreadEnabled();
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws Exception {
+        mFtd.destroy();
         ensureThreadEnabled();
     }
 
     private static void ensureThreadEnabled() {
         runThreadCommand("force-stop-ot-daemon disabled");
         runThreadCommand("enable");
+    }
+
+    private void startFtdChild(FullThreadDevice ftd, ActiveOperationalDataset activeDataset)
+            throws Exception {
+        ftd.factoryReset();
+        ftd.joinNetwork(activeDataset);
+        ftd.waitForStateAnyOf(List.of("router", "child"), Duration.ofSeconds(8));
     }
 
     @Test
@@ -121,6 +152,36 @@ public class ThreadNetworkShellCommandTest {
 
         final String result = runThreadCommand("get-country-code");
         assertThat(result).contains("Thread country code = CN");
+    }
+
+    @Test
+    public void handleOtCtlCommand_enableIfconfig_getIfconfigReturnsUP() {
+        runThreadCommand("ot-ctl ifconfig up");
+
+        final String result = runThreadCommand("ot-ctl ifconfig");
+        assertThat(result).contains("up\r\nDone\r\n");
+    }
+
+    @Test
+    public void handleOtCtlCommand_disableIfconfig_startThreadFailsWithInvalidState() {
+        runThreadCommand("ot-ctl ifconfig down");
+
+        final String result = runThreadCommand("ot-ctl thread start");
+        assertThat(result).contains("Error 13: InvalidState\r\n");
+    }
+
+    @Test
+    public void handleOtCtlCommand_ping_getValidResponse() throws Exception {
+        mController.joinAndWait(DEFAULT_DATASET);
+        startFtdChild(mFtd, DEFAULT_DATASET);
+
+        final Inet6Address ftdLla = mFtd.getLinkLocalAddress();
+        assertNotNull(ftdLla);
+
+        final String result = runThreadCommand("ot-ctl ping " + ftdLla.getHostAddress());
+        assertThat(result).contains("1 packets transmitted, 1 packets received");
+        assertThat(result).contains("Packet loss = 0.0%");
+        assertThat(result).contains("Done");
     }
 
     private static String runThreadCommand(String cmd) {
