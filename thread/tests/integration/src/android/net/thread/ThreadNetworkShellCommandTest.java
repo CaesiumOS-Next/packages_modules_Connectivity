@@ -35,6 +35,8 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.server.thread.ThreadNetworkShellCommand;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -121,6 +123,15 @@ public class ThreadNetworkShellCommandTest {
 
         final String result = runThreadCommand("get-country-code");
         assertThat(result).contains("Thread country code = CN");
+    }
+
+    @Test
+    public void handleOtCtlCommand_state_getStateReturnsDone() {
+        runThreadCommand("ot-ctl thread stop");
+        runThreadCommand("ot-ctl ifconfig down");
+
+        final String result = runThreadCommand("ot-ctl state");
+        assertThat(result).contains("disabled\r\nDone\r\n");
     }
 
     private static String runThreadCommand(String cmd) {
