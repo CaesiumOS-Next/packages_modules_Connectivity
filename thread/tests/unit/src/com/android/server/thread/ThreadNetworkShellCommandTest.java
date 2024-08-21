@@ -301,4 +301,30 @@ public class ThreadNetworkShellCommandTest {
         verify(mControllerService, times(1)).leave(any());
         verify(mErrorWriter, never()).println();
     }
+
+    @Test
+    public void handleOtCtlCommandsState_testingPermissionIsChecked() {
+        doNothing().when(mControllerService).runOtCtlCommand(any(), any(), anyBoolean());
+
+        mShellCommand.exec(
+                new Binder(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new String[] {"ot-ctl", "state"});
+
+        verify(mContext, times(1))
+                .enforceCallingOrSelfPermission(eq("android.permission.THREAD_NETWORK_TESTING"), anyString());
+    }
+
+    public void handleOtCtlCommandsState_commandReturnDone() {
+        mShellCommand.exec(
+                new Binder(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new FileDescriptor(),
+                new String[] {"ot-ctl", "state"});
+
+        verify(mOutputWriter).print(contains("Done"));
+    }
 }
