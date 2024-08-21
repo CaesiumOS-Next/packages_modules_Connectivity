@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21827af3_029f334b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-21T02:19:55Z",
+      "side": 1,
+      "message": "@lorenzo@google.com\n\nThe `PrivateAddressCoordinator` is depending on 2 fields of `TetheringConfiguration`:\n- [mRandomPrefixBase](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java;l\u003d297;drc\u003dc512ab7e23ec82c7354d2c1fdb97db76a516c6ce), from DeviceConfig\n- [mEnableWifiP2pDedicatedIp](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java;l\u003d289;drc\u003dc512ab7e23ec82c7354d2c1fdb97db76a516c6ce), from Tethering resources.\n\nThe problem is that the `RoutingCoordinatorService` could be created by `ConnectivityService` so it may not be able to get the `TetheringConfiguration` or read `Tethering`\u0027s resource. What\u0027s the suggested way to solve this?",
+      "range": {
+        "startLine": 2030,
+        "startChar": 0,
+        "endLine": 2036,
+        "endChar": 94
+      },
+      "revId": "e991f43a432a2580cad883b1d686b958f253c74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
