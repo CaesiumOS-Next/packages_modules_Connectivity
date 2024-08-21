@@ -110,3 +110,6 @@ def cleanup_tethering_for_upstream_type(
     server.unregisterAll()
   # Teardown the hotspot.
   server.stopAllTethering()
+  # Some test cases would disable wifi, e.g. cellular upstream tests.
+  # Reconnect to it if feasible.
+  server.reconnectWifiIfSupported()
