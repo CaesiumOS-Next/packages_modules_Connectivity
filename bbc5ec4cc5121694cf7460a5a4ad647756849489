@@ -95,6 +95,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd3c585f_d70278fe",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-21T17:34:02Z",
+      "side": 1,
+      "message": "also may want u8 rx/tx threshold packets + packet counters\nalso may want a \u0027overhead_rx/tx_bytes\u0027 and a rx/tx_mtu\nprobably should also account for gso correctly.",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 4
+      },
+      "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4864bfe1_33eee893",
         "filename": "bpf/progs/netd.h",
         "patchSetId": 1
