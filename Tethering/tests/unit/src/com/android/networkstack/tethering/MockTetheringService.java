@@ -29,6 +29,8 @@ import android.util.ArrayMap;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.networkstack.tethering.util.TetheringPermissionsUtils;
+
 public class MockTetheringService extends TetheringService {
     private final Tethering mTethering = mock(Tethering.class);
     private final ArrayMap<String, Integer> mMockedPermissions = new ArrayMap<>();
@@ -117,6 +119,10 @@ public class MockTetheringService extends TetheringService {
          */
         public void setCallingUid(int uid) {
             mMockCallingUid = uid;
+        }
+
+        public void setTetheringPermissionsUtils(@NonNull final TetheringPermissionsUtils utils) {
+            mTetheringPermissionsUtils = utils;
         }
     }
 }
