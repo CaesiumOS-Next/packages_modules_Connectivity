@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5355ceb2_4fd5436d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-21T07:51:34Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this require a permission? Isn\u0027t there private date in the softapconfig such as passwords and MAC addresses? Presumably this will be redacted for some callers?\n\nSpecifically: it looks like currently any app with ACCESS_NETWORK_STATE can call registerTetheringEventCallback, which will call callback methods such as onTetherableInterfacesChanged.\n\nUnless those callbacks are already redacted for unprivileged apps such that the TetheringInterface is null, then we\u0027ll need code to redact the SoftApConfig in the TetheringInterface object. That would suggest this method needs a @RequiresPermission(TETHER_PRIVILEGED).",
+      "range": {
+        "startLine": 75,
+        "startChar": 31,
+        "endLine": 75,
+        "endChar": 53
+      },
+      "revId": "b66fb25843ea9bc32d2e053bad80d9a2a41ce938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
