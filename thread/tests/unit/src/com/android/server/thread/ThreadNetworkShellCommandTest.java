@@ -20,12 +20,15 @@ import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
 
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.contains;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -42,11 +45,15 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.server.thread.ThreadNetworkShellCommand.Dependencies;
+import com.android.server.thread.openthread.IOtCtlOutputReceiver;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -77,6 +84,7 @@ public class ThreadNetworkShellCommandTest {
 
     @Mock private ThreadNetworkControllerService mControllerService;
     @Mock private ThreadNetworkCountryCode mCountryCode;
+    @Mock private Dependencies mDependencies;
     @Mock private PrintWriter mErrorWriter;
     @Mock private PrintWriter mOutputWriter;
 
@@ -93,7 +101,9 @@ public class ThreadNetworkShellCommandTest {
                 .enforceCallingOrSelfPermission(
                         eq("android.permission.THREAD_NETWORK_TESTING"), anyString());
 
-        mShellCommand = new ThreadNetworkShellCommand(mContext, mControllerService, mCountryCode);
+        mShellCommand =
+                new ThreadNetworkShellCommand(
+                        mContext, mControllerService, mCountryCode, mDependencies);
         mShellCommand.setPrintWriters(mOutputWriter, mErrorWriter);
     }
 
@@ -102,16 +112,20 @@ public class ThreadNetworkShellCommandTest {
         validateMockitoUsage();
     }
 
-    @Test
-    public void getCountryCode_testingPermissionIsChecked() {
-        when(mCountryCode.getCountryCode()).thenReturn("US");
-
+    private void runShellCommand(String... args) {
         mShellCommand.exec(
                 new Binder(),
                 new FileDescriptor(),
                 new FileDescriptor(),
                 new FileDescriptor(),
-                new String[] {"get-country-code"});
+                args);
+    }
+
+    @Test
+    public void getCountryCode_testingPermissionIsChecked() {
+        when(mCountryCode.getCountryCode()).thenReturn("US");
+
+        runShellCommand("get-country-code");
 
         verify(mContext, times(1))
                 .enforceCallingOrSelfPermission(
@@ -122,24 +136,14 @@ public class ThreadNetworkShellCommandTest {
     public void getCountryCode_currentCountryCodePrinted() {
         when(mCountryCode.getCountryCode()).thenReturn("US");
 
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"get-country-code"});
+        runShellCommand("get-country-code");
 
         verify(mOutputWriter).println(contains("US"));
     }
 
     @Test
     public void forceSetCountryCodeEnabled_testingPermissionIsChecked() {
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"force-country-code", "enabled", "US"});
+        runShellCommand("force-country-code", "enabled", "US");
 
         verify(mContext, times(1))
                 .enforceCallingOrSelfPermission(
@@ -148,36 +152,21 @@ public class ThreadNetworkShellCommandTest {
 
     @Test
     public void forceSetCountryCodeEnabled_countryCodeIsOverridden() {
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"force-country-code", "enabled", "US"});
+        runShellCommand("force-country-code", "enabled", "US");
 
         verify(mCountryCode).setOverrideCountryCode(eq("US"));
     }
 
     @Test
     public void forceSetCountryCodeDisabled_overriddenCountryCodeIsCleared() {
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"force-country-code", "disabled"});
+        runShellCommand("force-country-code", "disabled");
 
         verify(mCountryCode).clearOverrideCountryCode();
     }
 
     @Test
     public void forceStopOtDaemon_testingPermissionIsChecked() {
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"force-stop-ot-daemon", "enabled"});
+        runShellCommand("force-stop-ot-daemon", "enabled");
 
         verify(mContext, times(1))
                 .enforceCallingOrSelfPermission(
@@ -190,12 +179,7 @@ public class ThreadNetworkShellCommandTest {
                 .when(mControllerService)
                 .forceStopOtDaemonForTest(eq(true), any());
 
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"force-stop-ot-daemon", "enabled"});
+        runShellCommand("force-stop-ot-daemon", "enabled");
 
         verify(mControllerService, times(1)).forceStopOtDaemonForTest(eq(true), any());
         verify(mOutputWriter, never()).println();
@@ -205,12 +189,7 @@ public class ThreadNetworkShellCommandTest {
     public void forceStopOtDaemon_serviceApiTimeout_failedWithTimeoutError() {
         doNothing().when(mControllerService).forceStopOtDaemonForTest(eq(true), any());
 
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"force-stop-ot-daemon", "enabled"});
+        runShellCommand("force-stop-ot-daemon", "enabled");
 
         verify(mControllerService, times(1)).forceStopOtDaemonForTest(eq(true), any());
         verify(mErrorWriter, atLeastOnce()).println(contains("timeout"));
@@ -221,12 +200,7 @@ public class ThreadNetworkShellCommandTest {
     public void join_controllerServiceJoinIsCalled() {
         doNothing().when(mControllerService).join(any(), any());
 
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"join", DEFAULT_ACTIVE_DATASET_TLVS});
+        runShellCommand("join", DEFAULT_ACTIVE_DATASET_TLVS);
 
         var activeDataset =
                 ActiveOperationalDataset.fromThreadTlvs(
@@ -239,12 +213,7 @@ public class ThreadNetworkShellCommandTest {
     public void join_invalidDataset_controllerServiceJoinIsNotCalled() {
         doNothing().when(mControllerService).join(any(), any());
 
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"join", "000102"});
+        runShellCommand("join", "000102");
 
         verify(mControllerService, never()).join(any(), any());
         verify(mErrorWriter, times(1)).println(contains("Invalid dataset argument"));
@@ -254,12 +223,7 @@ public class ThreadNetworkShellCommandTest {
     public void migrate_controllerServiceMigrateIsCalled() {
         doNothing().when(mControllerService).scheduleMigration(any(), any());
 
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"migrate", DEFAULT_ACTIVE_DATASET_TLVS, "300"});
+        runShellCommand("migrate", DEFAULT_ACTIVE_DATASET_TLVS, "300");
 
         ArgumentCaptor<PendingOperationalDataset> captor =
                 ArgumentCaptor.forClass(PendingOperationalDataset.class);
@@ -276,12 +240,7 @@ public class ThreadNetworkShellCommandTest {
     public void migrate_invalidDataset_controllerServiceMigrateIsNotCalled() {
         doNothing().when(mControllerService).scheduleMigration(any(), any());
 
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"migrate", "000102", "300"});
+        runShellCommand("migrate", "000102", "300");
 
         verify(mControllerService, never()).scheduleMigration(any(), any());
         verify(mErrorWriter, times(1)).println(contains("Invalid dataset argument"));
@@ -291,14 +250,80 @@ public class ThreadNetworkShellCommandTest {
     public void leave_controllerServiceLeaveIsCalled() {
         doNothing().when(mControllerService).leave(any());
 
-        mShellCommand.exec(
-                new Binder(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new FileDescriptor(),
-                new String[] {"leave"});
+        runShellCommand("leave");
 
         verify(mControllerService, times(1)).leave(any());
         verify(mErrorWriter, never()).println();
+    }
+
+    @Test
+    public void handleOtCtlCommand_testingPermissionIsChecked() {
+        when(mDependencies.isRootProcess()).thenReturn(true);
+
+        doAnswer(
+                        invocation -> {
+                            IOtCtlOutputReceiver receiver = invocation.getArgument(1);
+                            receiver.onComplete();
+                            return null;
+                        })
+                .when(mControllerService)
+                .runOtCtlCommand(anyString(), any(), anyBoolean());
+
+        runShellCommand("ot-ctl", "state");
+
+        verify(mContext, times(1))
+                .enforceCallingOrSelfPermission(
+                        eq("android.permission.THREAD_NETWORK_TESTING"), anyString());
+    }
+
+    @Test
+    public void handleOtCtlCommand_failsWithNonRootProcess() {
+        when(mDependencies.isRootProcess()).thenReturn(false);
+
+        runShellCommand("ot-ctl", "state");
+
+        verify(mErrorWriter, times(1)).println(contains("No access to ot-ctl command"));
+        verify(mOutputWriter, never()).println();
+    }
+
+    @Test
+    public void handleOtCtlCommand_nonInteractive_serviceTimeout_failsWithTimeoutError() {
+        when(mDependencies.isRootProcess()).thenReturn(true);
+        doNothing().when(mControllerService).runOtCtlCommand(anyString(), any(), eq(false));
+
+        runShellCommand("ot-ctl", "state");
+
+        verify(mControllerService, times(1)).runOtCtlCommand(anyString(), any(), eq(false));
+        verify(mErrorWriter, atLeastOnce()).println(contains("timeout"));
+        verify(mOutputWriter, never()).println();
+    }
+
+    @Test
+    public void handleOtCtlCommand_nonInteractive_state_outputIsPrinted() {
+        when(mDependencies.isRootProcess()).thenReturn(true);
+
+        doAnswer(
+                        invocation -> {
+                            String command = invocation.getArgument(0);
+                            IOtCtlOutputReceiver receiver = invocation.getArgument(1);
+
+                            receiver.onReceive("leader");
+                            receiver.onReceive("\r\n");
+                            receiver.onReceive("Done");
+                            receiver.onReceive("\r\n");
+
+                            receiver.onComplete();
+                            return null;
+                        })
+                .when(mControllerService)
+                .runOtCtlCommand(eq("state"), any(), eq(false));
+
+        runShellCommand("ot-ctl", "state");
+
+        InOrder inOrder = inOrder(mOutputWriter);
+        inOrder.verify(mOutputWriter).print("leader");
+        inOrder.verify(mOutputWriter).print("\r\n");
+        inOrder.verify(mOutputWriter).print("Done");
+        inOrder.verify(mOutputWriter).print("\r\n");
     }
 }
