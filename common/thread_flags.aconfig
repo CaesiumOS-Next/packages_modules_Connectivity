@@ -7,6 +7,7 @@ flag {
     namespace: "thread_network"
     description: "Controls whether the Android Thread feature is enabled"
     bug: "301473012"
+    is_fixed_read_only: true
 }
 
 flag {
@@ -15,4 +16,5 @@ flag {
     namespace: "thread_network"
     description: "Controls whether the Android Thread configuration is enabled"
     bug: "342519412"
+    is_fixed_read_only: true
 }
