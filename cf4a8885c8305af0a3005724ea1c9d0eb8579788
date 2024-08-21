@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4ca73ce_50967eb7",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-21T05:22:36Z",
+      "side": 1,
+      "message": "```suggestion\n        pw.println(\"  ot-ctl \u003csubcommand\u003e\");\n```",
+      "revId": "cf4a8885c8305af0a3005724ea1c9d0eb8579788",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38465d39_66b8c338",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-21T05:22:36Z",
+      "side": 1,
+      "message": "make it a named class",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 0
+      },
+      "revId": "cf4a8885c8305af0a3005724ea1c9d0eb8579788",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99143f80_afdfd1c3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-21T05:22:36Z",
+      "side": 1,
+      "message": "I think you need to return a negative value on error.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/libs/modules-utils/java/com/android/modules/utils/BasicShellCommandHandler.java;l\u003d335;drc\u003de682916114ee32ead73dfd71545ce02340ed52d4",
+      "revId": "cf4a8885c8305af0a3005724ea1c9d0eb8579788",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed7af7c3_3395bfab",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-21T05:22:36Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 101
+      },
+      "revId": "cf4a8885c8305af0a3005724ea1c9d0eb8579788",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
