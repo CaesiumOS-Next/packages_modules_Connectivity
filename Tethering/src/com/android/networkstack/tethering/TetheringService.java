@@ -58,6 +58,7 @@ import androidx.annotation.Nullable;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.networkstack.apishim.SettingsShimImpl;
 import com.android.networkstack.apishim.common.SettingsShim;
+import com.android.networkstack.tethering.util.TetheringPermissionsUtils;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -72,6 +73,8 @@ public class TetheringService extends Service {
 
     private TetheringConnector mConnector;
     private SettingsShim mSettingsShim;
+    @VisibleForTesting
+    protected TetheringPermissionsUtils mTetheringPermissionsUtils;
 
     @Override
     public void onCreate() {
@@ -81,6 +84,7 @@ public class TetheringService extends Service {
         mConnector = new TetheringConnector(makeTethering(deps), TetheringService.this);
 
         mSettingsShim = SettingsShimImpl.newInstance();
+        mTetheringPermissionsUtils = deps.makeTetheringPermissionsUtils(this);
     }
 
     /**
@@ -136,7 +140,7 @@ public class TetheringService extends Service {
             if (checkAndNotifyCommonError(callerPkg,
                     callingAttributionTag,
                     request.exemptFromEntitlementCheck /* onlyAllowPrivileged */,
-                    listener)) {
+                    true, true, listener)) {
                 return;
             }
             TetheringRequest external = new TetheringRequest(request);
@@ -160,7 +164,10 @@ public class TetheringService extends Service {
         public void stopTetheringRequest(TetheringRequest request,
                 String callerPkg, String callingAttributionTag,
                 IIntResultListener listener) {
-            if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, listener)) return;
+            if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, false, true, true,
+                    listener)) {
+                return;
+            }
             request.setUid(getBinderCallingUid());
             request.setPackageName(callerPkg);
             mTethering.stopTetheringRequest(request, listener);
@@ -244,20 +251,23 @@ public class TetheringService extends Service {
         private boolean checkAndNotifyCommonError(final String callerPkg,
                 final String callingAttributionTag, final IIntResultListener listener) {
             return checkAndNotifyCommonError(callerPkg, callingAttributionTag,
-                    false /* onlyAllowPrivileged */, listener);
+                    false /* onlyAllowPrivileged */, false /* allowDo*/,
+                    false /* allowCarrierApp */, listener);
         }
 
         private boolean checkAndNotifyCommonError(final String callerPkg,
                 final String callingAttributionTag, final boolean onlyAllowPrivileged,
-                final IIntResultListener listener) {
+                boolean allowDo, boolean allowCarrierApp, final IIntResultListener listener) {
             try {
-                if (!checkPackageNameMatchesUid(getBinderCallingUid(), callerPkg)) {
-                    Log.e(TAG, "Package name " + callerPkg + " does not match UID "
-                            + getBinderCallingUid());
+                int uid = getBinderCallingUid();
+                if (!checkPackageNameMatchesUid(uid, callerPkg)) {
+                    Log.e(TAG, "Package name " + callerPkg + " does not match UID " + uid);
                     listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
                     return true;
                 }
-                if (!hasTetherChangePermission(callerPkg, callingAttributionTag,
+                if (!((allowDo && isDeviceOwner(uid, callerPkg))
+                        || (allowCarrierApp && isCarrierApp(callerPkg)))
+                        && !hasTetherChangePermission(callerPkg, callingAttributionTag,
                         onlyAllowPrivileged)) {
                     listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
                     return true;
@@ -338,6 +348,14 @@ public class TetheringService extends Service {
         private boolean checkPackageNameMatchesUid(final int uid, final String callerPkg) {
             return mService.checkPackageNameMatchesUid(mService, uid, callerPkg);
         }
+
+        private boolean isDeviceOwner(final int uid, @NonNull final String callerPkg) {
+            return mService.isDeviceOwner(uid, callerPkg);
+        }
+
+        private boolean isCarrierApp(@NonNull final String callerPkg) {
+            return mService.isCarrierApp(callerPkg);
+        }
     }
 
     /**
@@ -378,6 +396,14 @@ public class TetheringService extends Service {
     @VisibleForTesting
     int getBinderCallingUid() {
         return Binder.getCallingUid();
+    }
+
+    private boolean isDeviceOwner(final int uid, @NonNull final String callerPkg) {
+        return mTetheringPermissionsUtils.isDeviceOwner(uid, callerPkg);
+    }
+
+    private boolean isCarrierApp(@NonNull final String callerPkg) {
+        return mTetheringPermissionsUtils.isCarrierApp(callerPkg);
     }
 
     /**
