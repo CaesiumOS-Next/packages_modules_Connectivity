@@ -16,6 +16,24 @@
       "message": "(TH failure unrelated, this can only cause build failures)",
       "revId": "d33d63701cca61e8c3b6c9dd2d6fc906751eebeb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fad9cf65_6a520568",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-21T17:27:17Z",
+      "side": 1,
+      "message": "(also the build failure in the TH result are without https://android-review.git.corp.google.com/c/platform/test/vts-testcase/kernel/+/3233574, the latest run is only on the tip-of-the stack)",
+      "parentUuid": "732073fd_6e8915dd",
+      "revId": "d33d63701cca61e8c3b6c9dd2d6fc906751eebeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
