@@ -21,7 +21,6 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SuppressLint;
-import android.annotation.SystemApi;
 import android.net.TetheringManager.TetheringType;
 import android.net.wifi.SoftApConfiguration;
 import android.os.Parcel;
@@ -33,15 +32,15 @@ import java.util.Objects;
 
 /**
  * The mapping of tethering interface and type.
- * @hide
  */
-@SystemApi
+@SuppressLint("UnflaggedApi")
 public final class TetheringInterface implements Parcelable {
     private final int mType;
     private final String mInterface;
     @Nullable
     private final SoftApConfiguration mSoftApConfig;
 
+    @SuppressLint("UnflaggedApi")
     public TetheringInterface(@TetheringType int type, @NonNull String iface) {
         Objects.requireNonNull(iface);
         mType = type;
@@ -59,12 +58,14 @@ public final class TetheringInterface implements Parcelable {
     }
 
     /** Get tethering type. */
+    @SuppressLint("UnflaggedApi")
     public int getType() {
         return mType;
     }
 
     /** Get tethering interface. */
     @NonNull
+    @SuppressLint("UnflaggedApi")
     public String getInterface() {
         return mInterface;
     }
@@ -77,11 +78,13 @@ public final class TetheringInterface implements Parcelable {
     @FlaggedApi(Flags.FLAG_TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
     @RequiresPermission(value = android.Manifest.permission.NETWORK_SETTINGS, conditional = true)
     @Nullable
+    @SuppressLint("UnflaggedApi")
     public SoftApConfiguration getSoftApConfiguration() {
         return mSoftApConfig;
     }
 
     @Override
+    @SuppressLint("UnflaggedApi")
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(mType);
         dest.writeString(mInterface);
@@ -89,11 +92,13 @@ public final class TetheringInterface implements Parcelable {
     }
 
     @Override
+    @SuppressLint("UnflaggedApi")
     public int hashCode() {
         return Objects.hash(mType, mInterface, mSoftApConfig);
     }
 
     @Override
+    @SuppressLint("UnflaggedApi")
     public boolean equals(@Nullable Object obj) {
         if (!(obj instanceof TetheringInterface)) return false;
         final TetheringInterface other = (TetheringInterface) obj;
@@ -102,11 +107,13 @@ public final class TetheringInterface implements Parcelable {
     }
 
     @Override
+    @SuppressLint("UnflaggedApi")
     public int describeContents() {
         return 0;
     }
 
     @NonNull
+    @SuppressLint("UnflaggedApi")
     public static final Creator<TetheringInterface> CREATOR = new Creator<TetheringInterface>() {
         @NonNull
         @Override
@@ -118,6 +125,7 @@ public final class TetheringInterface implements Parcelable {
 
         @NonNull
         @Override
+        @SuppressLint("UnflaggedApi")
         public TetheringInterface[] newArray(int size) {
             return new TetheringInterface[size];
         }
