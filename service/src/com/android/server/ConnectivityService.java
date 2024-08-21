@@ -139,6 +139,7 @@ import static com.android.net.module.util.BpfUtils.BPF_CGROUP_UDP4_RECVMSG;
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_UDP4_SENDMSG;
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_UDP6_RECVMSG;
 import static com.android.net.module.util.BpfUtils.BPF_CGROUP_UDP6_SENDMSG;
+import static com.android.net.module.util.DeviceConfigUtils.resolvePkgPrefix;
 import static com.android.net.module.util.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
@@ -172,6 +173,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.database.ContentObserver;
 import android.net.BpfNetMapsUtils;
@@ -953,6 +955,23 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     private static final String TC_POLICE_BPF_PROG_PATH =
             "/sys/fs/bpf/netd_shared/prog_netd_schedact_ingress_account";
+
+    /**
+     * The experiment flag's name of enabling random prefix base selection.
+     *
+     * The name is copied from TetheringConfiguration.
+     */
+    private static final String TETHER_FORCE_RANDOM_PREFIX_BASE_SELECTION =
+            "tether_force_random_prefix_base_selection";
+
+    /**
+     * The Tethering resource name to configure whether to use dedicated IP address for WiFi P2P
+     * tethering.
+     *
+     * The name is copied from TetheringConfiguration.
+     */
+    private static final String CONFIG_TETHER_ENABLE_WIFI_P2P_DEDICATED_IP =
+            "config_tether_enable_legacy_wifi_p2p_dedicated_ip";
 
     private static String eventName(int what) {
         return sMagicDecoderRing.get(what, Integer.toString(what));
@@ -1770,6 +1789,33 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 @NonNull final Network network, final long delayMs) {
             handler.sendMessageDelayed(
                     handler.obtainMessage(EVENT_INITIAL_EVALUATION_TIMEOUT, network), delayMs);
+        }
+
+        public boolean isRandomPrefixBaseEnabled(Context context) {
+            return isFeatureEnabled(context, TETHER_FORCE_RANDOM_PREFIX_BASE_SELECTION);
+        }
+
+        public boolean isDedicatedWifiP2pEnabled(Context context) {
+            final String pkgNamePrefix = DeviceConfigUtils.resolvePkgPrefix(context);
+            final String pkgNameSuffix = "networkstack.tethering";
+            List<String> pkgNames =
+                    List.of(pkgNamePrefix + pkgNameSuffix, pkgNamePrefix + "go." + pkgNameSuffix);
+            boolean enabled = false;  // Default value according to TetheringConfiguration
+            for (String pkgName : pkgNames) {
+                try {
+                    Resources tetheringResources =
+                            context.getPackageManager().getResourcesForApplication(pkgName);
+                    int id =
+                            tetheringResources.getIdentifier(
+                                    CONFIG_TETHER_ENABLE_WIFI_P2P_DEDICATED_IP,
+                                    "bool",
+                                    pkgName);
+                    return tetheringResources.getBoolean(id);
+                } catch (PackageManager.NameNotFoundException ignored) {
+                    // ignored
+                }
+            }
+            return enabled;
         }
     }
 
