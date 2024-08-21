@@ -123,6 +123,15 @@ public class ThreadNetworkShellCommandTest {
         assertThat(result).contains("Thread country code = CN");
     }
 
+    @Test
+    public void handleOtCtlCommand_state_getStateReturnsDone() {
+        runThreadCommand("ot-ctl thread stop");
+        runThreadCommand("ot-ctl ifconfig down");
+
+        final String result = runThreadCommand("ot-ctl state");
+        assertThat(result).contains("disabled\r\nDone\r\n");
+    }
+
     private static String runThreadCommand(String cmd) {
         return runShellCommandOrThrow("cmd thread_network " + cmd);
     }
