@@ -18,7 +18,7 @@ package android.net;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.annotation.SystemApi;
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -30,9 +30,8 @@ import java.util.Objects;
 
 /**
  * Information on a tethered downstream client.
- * @hide
  */
-@SystemApi
+@SuppressLint("UnflaggedApi")
 public final class TetheredClient implements Parcelable {
     @NonNull
     private final MacAddress mMacAddress;
@@ -41,6 +40,7 @@ public final class TetheredClient implements Parcelable {
     // TODO: use an @IntDef here
     private final int mTetheringType;
 
+    @SuppressLint("UnflaggedApi")
     public TetheredClient(@NonNull MacAddress macAddress,
             @NonNull Collection<AddressInfo> addresses, int tetheringType) {
         mMacAddress = macAddress;
@@ -53,6 +53,7 @@ public final class TetheredClient implements Parcelable {
     }
 
     @Override
+    @SuppressLint("UnflaggedApi")
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeParcelable(mMacAddress, flags);
         dest.writeTypedList(mAddresses);
@@ -63,6 +64,7 @@ public final class TetheredClient implements Parcelable {
      * Get the MAC address used to identify the client.
      */
     @NonNull
+    @SuppressLint("UnflaggedApi")
     public MacAddress getMacAddress() {
         return mMacAddress;
     }
@@ -71,6 +73,7 @@ public final class TetheredClient implements Parcelable {
      * Get information on the list of addresses that are associated with the client.
      */
     @NonNull
+    @SuppressLint("UnflaggedApi")
     public List<AddressInfo> getAddresses() {
         return new ArrayList<>(mAddresses);
     }
@@ -79,6 +82,7 @@ public final class TetheredClient implements Parcelable {
      * Get the type of tethering used by the client.
      * @return one of the {@code TetheringManager#TETHERING_*} constants.
      */
+    @SuppressLint("UnflaggedApi")
     public int getTetheringType() {
         return mTetheringType;
     }
@@ -90,6 +94,7 @@ public final class TetheredClient implements Parcelable {
      * <p>Duplicate addresses are removed.
      * @hide
      */
+
     public TetheredClient addAddresses(@NonNull TetheredClient other) {
         final LinkedHashSet<AddressInfo> newAddresses = new LinkedHashSet<>(
                 mAddresses.size() + other.mAddresses.size());
@@ -99,11 +104,13 @@ public final class TetheredClient implements Parcelable {
     }
 
     @Override
+    @SuppressLint("UnflaggedApi")
     public int hashCode() {
         return Objects.hash(mMacAddress, mAddresses, mTetheringType);
     }
 
     @Override
+    @SuppressLint("UnflaggedApi")
     public boolean equals(@Nullable Object obj) {
         if (!(obj instanceof TetheredClient)) return false;
         final TetheredClient other = (TetheredClient) obj;
@@ -115,6 +122,7 @@ public final class TetheredClient implements Parcelable {
     /**
      * Information on an lease assigned to a tethered client.
      */
+    @SuppressLint("UnflaggedApi")
     public static final class AddressInfo implements Parcelable {
         @NonNull
         private final LinkAddress mAddress;
@@ -132,6 +140,7 @@ public final class TetheredClient implements Parcelable {
         }
 
         @Override
+        @SuppressLint("UnflaggedApi")
         public void writeToParcel(@NonNull Parcel dest, int flags) {
             dest.writeParcelable(mAddress, flags);
             dest.writeString(mHostname);
@@ -143,6 +152,7 @@ public final class TetheredClient implements Parcelable {
          * This may be an IPv4 or IPv6 address.
          */
         @NonNull
+        @SuppressLint("UnflaggedApi")
         public LinkAddress getAddress() {
             return mAddress;
         }
@@ -151,6 +161,7 @@ public final class TetheredClient implements Parcelable {
          * Get the hostname that was advertised by the client when obtaining its address, if any.
          */
         @Nullable
+        @SuppressLint("UnflaggedApi")
         public String getHostname() {
             return mHostname;
         }
@@ -164,16 +175,19 @@ public final class TetheredClient implements Parcelable {
         }
 
         @Override
+        @SuppressLint("UnflaggedApi")
         public int describeContents() {
             return 0;
         }
 
         @Override
+        @SuppressLint("UnflaggedApi")
         public int hashCode() {
             return Objects.hash(mAddress, mHostname);
         }
 
         @Override
+        @SuppressLint("UnflaggedApi")
         public boolean equals(@Nullable Object obj) {
             if (!(obj instanceof AddressInfo)) return false;
             final AddressInfo other = (AddressInfo) obj;
@@ -184,15 +198,18 @@ public final class TetheredClient implements Parcelable {
         }
 
         @NonNull
+        @SuppressLint("UnflaggedApi")
         public static final Creator<AddressInfo> CREATOR = new Creator<AddressInfo>() {
             @NonNull
             @Override
+            @SuppressLint("UnflaggedApi")
             public AddressInfo createFromParcel(@NonNull Parcel in) {
                 return new AddressInfo(in);
             }
 
             @NonNull
             @Override
+            @SuppressLint("UnflaggedApi")
             public AddressInfo[] newArray(int size) {
                 return new AddressInfo[size];
             }
@@ -200,6 +217,7 @@ public final class TetheredClient implements Parcelable {
 
         @NonNull
         @Override
+        @SuppressLint("UnflaggedApi")
         public String toString() {
             return "AddressInfo {"
                     + mAddress
@@ -209,20 +227,24 @@ public final class TetheredClient implements Parcelable {
     }
 
     @Override
+    @SuppressLint("UnflaggedApi")
     public int describeContents() {
         return 0;
     }
 
     @NonNull
+    @SuppressLint("UnflaggedApi")
     public static final Creator<TetheredClient> CREATOR = new Creator<TetheredClient>() {
         @NonNull
         @Override
+        @SuppressLint("UnflaggedApi")
         public TetheredClient createFromParcel(@NonNull Parcel in) {
             return new TetheredClient(in);
         }
 
         @NonNull
         @Override
+        @SuppressLint("UnflaggedApi")
         public TetheredClient[] newArray(int size) {
             return new TetheredClient[size];
         }
@@ -230,6 +252,7 @@ public final class TetheredClient implements Parcelable {
 
     @NonNull
     @Override
+    @SuppressLint("UnflaggedApi")
     public String toString() {
         return "TetheredClient {hwAddr " + mMacAddress
                 + ", addresses " + mAddresses
