@@ -263,7 +263,7 @@ public final class DeviceConfigUtils {
                 PackageManager.MATCH_APEX).getLongVersionCode();
     }
 
-    private static String resolvePkgPrefix(Context context) {
+    public static String resolvePkgPrefix(Context context) {
         final String connResourcesPackage = getConnectivityResourcesPackageName(context);
         final int pkgPrefixLen = connResourcesPackage.indexOf("connectivity");
         if (pkgPrefixLen < 0) {
