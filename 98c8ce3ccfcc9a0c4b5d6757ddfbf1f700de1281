@@ -1,0 +1,86 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "458193f1_173c75d0",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-08-21T23:40:26Z",
+      "side": 1,
+      "message": "Since we fix the test to require sequence number match in #await, 5000 packets will take too long (more than 1 minute) for the test to run",
+      "range": {
+        "startLine": 123,
+        "startChar": 29,
+        "endLine": 123,
+        "endChar": 41
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "32ec02e9_55770886",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+              "range": {
+                "startLine": 123,
+                "startChar": 0,
+                "endLine": 124,
+                "endChar": 0
+              },
+              "replacement": "    private static final int PACKET_COUNT \u003d 500;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "98c8ce3ccfcc9a0c4b5d6757ddfbf1f700de1281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cb186bd_b44b1062",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1817,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-08-21T23:40:26Z",
+      "side": 1,
+      "message": "Now the tunnel only receive 100 packets. Previously PACKET_COUNT was 5000 and thus the tunnel received all the 4096 packets.",
+      "range": {
+        "startLine": 1817,
+        "startChar": 44,
+        "endLine": 1817,
+        "endChar": 56
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "7d0b3078_c7cb58b8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+              "range": {
+                "startLine": 123,
+                "startChar": 0,
+                "endLine": 124,
+                "endChar": 0
+              },
+              "replacement": "    private static final int PACKET_COUNT \u003d 5000;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "98c8ce3ccfcc9a0c4b5d6757ddfbf1f700de1281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
