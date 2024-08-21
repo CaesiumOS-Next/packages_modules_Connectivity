@@ -7,4 +7,5 @@ flag {
     namespace: "nearby"
     description: "Controls whether the Powered Off Finding feature is enabled"
     bug: "307898240"
+    is_fixed_read_only: true
 }
