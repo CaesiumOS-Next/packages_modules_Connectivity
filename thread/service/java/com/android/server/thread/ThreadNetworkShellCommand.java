@@ -28,10 +28,12 @@ import android.text.TextUtils;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.net.module.util.HexDump;
+import com.android.server.thread.openthread.IOtCtlOutputReceiver;
 
 import java.io.PrintWriter;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -52,6 +54,7 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
     private static final Duration LEAVE_TIMEOUT = Duration.ofSeconds(2);
     private static final Duration MIGRATE_TIMEOUT = Duration.ofSeconds(2);
     private static final Duration FORCE_STOP_TIMEOUT = Duration.ofSeconds(1);
+    private static final Duration OT_CTL_COMMAND_TIMEOUT = Duration.ofSeconds(5);
     private static final String PERMISSION_THREAD_NETWORK_TESTING =
             "android.permission.THREAD_NETWORK_TESTING";
 
@@ -107,6 +110,8 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         pw.println("    Gets country code as a two-letter string");
         pw.println("  force-country-code enabled <two-letter code> | disabled ");
         pw.println("    Sets country code to <two-letter code> or left for normal value");
+        pw.println("  ot-ctl <subcommand>");
+        pw.println("    Runs ot-ctl command");
     }
 
     @Override
@@ -133,6 +138,8 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
                 return forceCountryCode();
             case "get-country-code":
                 return getCountryCode();
+            case "ot-ctl":
+                return handleOtCtlCommands();
             default:
                 return handleDefaultCommands(cmd);
         }
@@ -246,6 +253,34 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         ensureTestingPermission();
         getOutputWriter().println("Thread country code = " + mCountryCode.getCountryCode());
         return 0;
+    }
+
+    private final class OtCtlOutputReceiver extends IOtCtlOutputReceiver.Stub {
+        private final CompletableFuture<Void> future;
+
+        public OtCtlOutputReceiver(CompletableFuture<Void> future) {
+            this.future = future;
+        }
+
+        @Override
+        public void onReceive(String output) {
+            getOutputWriter().print(output);
+        }
+
+        @Override
+        public void onComplete() {
+            getOutputWriter().println();
+            future.complete(null);
+        }
+    }
+
+    private int handleOtCtlCommands() {
+        ensureTestingPermission();
+        final String subCommand = String.join(" ", peekRemainingArgs());
+
+        CompletableFuture<Void> completeFuture = new CompletableFuture<>();
+        mControllerService.runOtCtlCommand(subCommand, new OtCtlOutputReceiver(completeFuture));
+        return waitForFuture(completeFuture, OT_CTL_COMMAND_TIMEOUT, getErrorWriter());
     }
 
     private static IOperationReceiver newOperationReceiver(CompletableFuture<Void> future) {
