@@ -103,6 +103,23 @@ DEFINE_BPF_RINGBUF_EXT(packet_trace_ringbuf, PacketTrace, PACKET_TRACE_BUF_SIZE,
 DEFINE_BPF_MAP_RO_NETD(data_saver_enabled_map, ARRAY, uint32_t, bool,
                        DATA_SAVER_ENABLED_MAP_SIZE)
 
+// satellite
+DEFINE_BPF_MAP_EXT(satellite_config_map, ARRAY, uint32_t, SatelliteConfigValue, 1,
+                   AID_ROOT, AID_SYSTEM, 0060, "fs_bpf_net_shared", "", PRIVATE,
+                   BPFLOADER_MAINLINE_U_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG,
+                   LOAD_ON_USER, LOAD_ON_USERDEBUG)
+
+// could we use DEFINE_BPF_MAP_KERNEL_INTERNAL() ?
+DEFINE_BPF_MAP_EXT(satellite_cache_map, PERCPU_ARRAY, uint32_t, SatelliteCacheValue, 1,
+                   AID_ROOT, AID_ROOT, 0000, "fs_bpf_loader", "", PRIVATE,
+                   BPFLOADER_MAINLINE_U_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG,
+                   LOAD_ON_USER, LOAD_ON_USERDEBUG)
+
+DEFINE_BPF_RINGBUF_EXT(satellite_event_ringbuf, SatelliteEvent, SATELLITE_EVENT_BUF_SIZE,
+                       AID_ROOT, AID_SYSTEM, 0060, "fs_bpf_net_shared", "", PRIVATE,
+                       BPFLOADER_MAINLINE_U_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG,
+                       LOAD_ON_USER, LOAD_ON_USERDEBUG);
+
 // iptables xt_bpf programs need to be usable by both netd and netutils_wrappers
 // selinux contexts, because even non-xt_bpf iptables mutations are implemented as
 // a full table dump, followed by an update in userspace, and then a reload into the kernel,
@@ -229,6 +246,54 @@ static __always_inline inline int bpf_skb_load_bytes_net(const struct __sk_buff*
     return KVER_IS_AT_LEAST(kver, 4, 19, 0)
         ? bpf_skb_load_bytes_relative(skb, L3_off, to, len, BPF_HDR_START_NET)
         : bpf_skb_load_bytes(skb, L3_off, to, len);
+}
+
+static __always_inline inline void do_satellite_logging(
+        const struct __sk_buff* const skb, const struct egress_bool egress, const uint32_t uid,
+        const uint32_t tag, const bool foreground, const struct kver_uint kver) {
+    if (!KVER_IS_AT_LEAST(kver, 5, 8, 0)) return;
+
+    uint32_t zero = 0;
+    SatelliteConfigValue* cfg = bpf_satellite_config_map_lookup_elem(&zero);
+    if (!cfg) return;  // impossible
+    if (cfg->ifindex6 != skb->ifindex) return;  // handle ifindex4 too
+
+    SatelliteCacheValue* cache = bpf_satellite_cache_map_lookup_elem(&zero);
+    if (!cache) return;  // impossible
+
+    uint64_t now = bpf_ktime_get_boot_ns();
+
+    uint32_t bytes = skb->len + (egress.egress ? cfg->tx6_overhead_bytes : cfg->rx6_overhead_bytes);
+    bool flush = false;
+    if (uid != cache->uid) flush = true;
+    if (foreground != cache->foreground) flush = true;
+    if (now >= cache->first_ns + cfg->time_threshold_ns) flush = true;
+    if (!egress.egress && (cache->rx_bytes + bytes > cfg->rx_threshold_bytes)) flush = true;
+    if ( egress.egress && (cache->tx_bytes + bytes > cfg->tx_threshold_bytes)) flush = true;
+
+    if (flush) {
+        SatelliteEvent* event = bpf_satellite_event_ringbuf_reserve();
+        if (event == NULL) return;
+        event->uid = cache->uid;
+        event->rx_bytes = cache->rx_bytes;
+        event->tx_bytes = cache->tx_bytes;
+        bpf_satellite_event_ringbuf_submit(event);
+
+        cache->first_ns = now;
+        //cache->last_ns = now;
+        cache->uid = uid;
+        cache->rx_bytes = 0;
+        cache->tx_bytes = 0;
+        cache->foreground = foreground;
+    }
+
+    cache->last_ns = now;
+    if (egress.egress) cache->tx_bytes += bytes; else cache->rx_bytes += bytes;
+
+    // SatelliteConfigValue: u64 time_threshold_ns; u32 ifindex; u16 {rx,tx}_threshold_bytes;
+    // SatelliteCacheValue:  u64 {first,last}_ns; u32 uid; u16 {rx,tx}_bytes; bool foreground;
+    // SatelliteEvent:       u32 uid; u16 rx_bytes, rx_bytes;
+    (void)tag;
 }
 
 static __always_inline inline void do_packet_tracing(
@@ -496,6 +561,7 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
 
     if (!selectedMap) return PASS;  // cannot happen, needed to keep bpf verifier happy
 
+    do_satellite_logging(skb, egress, uid, tag, key.counterSet, kver);
     do_packet_tracing(skb, egress, uid, tag, enable_tracing, kver);
     update_stats_with_config(*selectedMap, skb, &key, egress, kver);
     update_app_uid_stats_map(skb, &uid, egress, kver);
