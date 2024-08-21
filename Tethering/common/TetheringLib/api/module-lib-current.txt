@@ -9,7 +9,7 @@ package android.net {
     field public static final String EXTRA_SET_ALARM = "extraSetAlarm";
   }
 
-  public class TetheringManager {
+  public class TetheringManager implements java.lang.AutoCloseable {
     ctor public TetheringManager(@NonNull android.content.Context, @NonNull java.util.function.Supplier<android.os.IBinder>);
     method public int getLastTetherError(@NonNull String);
     method @NonNull public String[] getTetherableBluetoothRegexs();
