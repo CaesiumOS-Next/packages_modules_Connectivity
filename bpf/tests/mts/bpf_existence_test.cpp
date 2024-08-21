@@ -136,11 +136,14 @@ static const set<string> MAINLINE_FOR_T_5_15_PLUS = {
 // Provided by *current* mainline module for U+ devices
 static const set<string> MAINLINE_FOR_U_PLUS = {
     NETD "map_netd_packet_trace_enabled_map",
+    NETD "map_netd_satellite_cache_map",
+    NETD "map_netd_satellite_config_map",
 };
 
 // Provided by *current* mainline module for U+ devices with 5.10+ kernels
 static const set<string> MAINLINE_FOR_U_5_10_PLUS = {
     NETD "map_netd_packet_trace_ringbuf",
+    NETD "map_netd_satellite_event_ringbuf",
 };
 
 // Provided by *current* mainline module for V+ devices
