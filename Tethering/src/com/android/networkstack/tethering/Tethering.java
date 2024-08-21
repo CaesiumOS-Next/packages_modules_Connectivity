@@ -292,7 +292,6 @@ public class Tethering {
         mDeps = deps;
         mContext = mDeps.getContext();
         mNetd = mDeps.getINetd(mContext, mLog);
-        mRoutingCoordinator = mDeps.getRoutingCoordinator(mContext, mLog);
         mLooper = mDeps.makeTetheringLooper();
         mNotificationUpdater = mDeps.makeNotificationUpdater(mContext, mLooper);
         mTetheringMetrics = mDeps.makeTetheringMetrics(mContext);
@@ -360,6 +359,11 @@ public class Tethering {
         // Load tethering configuration.
         updateConfiguration();
         mConfig.readEnableSyncSM(mContext);
+
+        // Must be initialized after tethering configuration is loaded because RoutingCoordinator
+        // constructor needs to use the configuration.
+        mRoutingCoordinator =
+                mDeps.getRoutingCoordinator(mContext, mLog, getTetheringConfiguration());
 
         // Must be initialized after tethering configuration is loaded because BpfCoordinator
         // constructor needs to use the configuration.

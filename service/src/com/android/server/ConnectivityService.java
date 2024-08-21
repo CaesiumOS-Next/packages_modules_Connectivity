@@ -2028,7 +2028,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mCdmps = null;
         }
 
-        mRoutingCoordinatorService = new RoutingCoordinatorService(netd);
+        // TODO: Read the TetheringConfiguration
+        mRoutingCoordinatorService =
+                new RoutingCoordinatorService(
+                        netd,
+                        false /* random-based prefix base, from DeviceConfig */,
+                        false /* shouldEnableWifiP2pDedicatedIp, from Tethering resources */);
         mMulticastRoutingCoordinatorService =
                 mDeps.makeMulticastRoutingCoordinatorService(mHandler);
 
