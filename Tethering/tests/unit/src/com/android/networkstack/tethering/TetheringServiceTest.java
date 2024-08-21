@@ -62,6 +62,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.net.module.util.CollectionUtils;
 import com.android.networkstack.tethering.MockTetheringService.MockTetheringConnector;
+import com.android.networkstack.tethering.util.TetheringPermissionsUtils;
 
 import org.junit.After;
 import org.junit.Before;
@@ -88,6 +89,8 @@ public final class TetheringServiceTest {
     private Intent mMockServiceIntent;
     private MockTetheringConnector mMockConnector;
     private ITetheringConnector mTetheringConnector;
+    @Mock private TetheringDependencies mMockTetheringDependencies;
+    @Mock private TetheringPermissionsUtils mMockTetheringPermissionsUtils;
     private UiAutomation mUiAutomation;
 
     private class TestTetheringResult extends IIntResultListener.Stub {
@@ -132,6 +135,7 @@ public final class TetheringServiceTest {
         mTethering = service.getTethering();
         mMockConnector.setCallingUid(TEST_CALLER_UID);
         mMockConnector.setPackageNameUid(TEST_CALLER_PKG, TEST_CALLER_UID);
+        mMockConnector.setTetheringPermissionsUtils(mMockTetheringPermissionsUtils);
     }
 
     @After
@@ -332,6 +336,24 @@ public final class TetheringServiceTest {
             result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
             verifyNoMoreInteractionsForTethering();
         });
+
+        when(mMockTetheringPermissionsUtils.isDeviceOwner(TEST_CALLER_UID, TEST_CALLER_PKG))
+                .thenReturn(true);
+        runAsNoPermission((result) -> {
+            runStartTethering(result, request);
+            verifyNoMoreInteractionsForTethering();
+        });
+        when(mMockTetheringPermissionsUtils.isDeviceOwner(TEST_CALLER_UID, TEST_CALLER_PKG))
+                .thenReturn(false);
+
+        when(mMockTetheringPermissionsUtils.isCarrierApp(TEST_CALLER_PKG))
+                .thenReturn(true);
+        runAsNoPermission((result) -> {
+            runStartTethering(result, request);
+            verifyNoMoreInteractionsForTethering();
+        });
+        when(mMockTetheringPermissionsUtils.isCarrierApp(TEST_CALLER_PKG))
+                .thenReturn(false);
 
         runAsTetherPrivileged((result) -> {
             String wrongPackage = "wrong.package";
