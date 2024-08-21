@@ -23,11 +23,14 @@ import android.net.thread.IOperationReceiver;
 import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
 import android.net.thread.ThreadNetworkException;
+import android.os.Binder;
+import android.os.Process;
 import android.text.TextUtils;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.net.module.util.HexDump;
+import com.android.server.thread.openthread.IOtCtlOutputReceiver;
 
 import java.io.PrintWriter;
 import java.time.Duration;
@@ -52,12 +55,14 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
     private static final Duration LEAVE_TIMEOUT = Duration.ofSeconds(2);
     private static final Duration MIGRATE_TIMEOUT = Duration.ofSeconds(2);
     private static final Duration FORCE_STOP_TIMEOUT = Duration.ofSeconds(1);
+    private static final Duration OT_CTL_COMMAND_TIMEOUT = Duration.ofSeconds(5);
     private static final String PERMISSION_THREAD_NETWORK_TESTING =
             "android.permission.THREAD_NETWORK_TESTING";
 
     private final Context mContext;
     private final ThreadNetworkControllerService mControllerService;
     private final ThreadNetworkCountryCode mCountryCode;
+    private final Dependencies mDependencies;
 
     @Nullable private PrintWriter mOutputWriter;
     @Nullable private PrintWriter mErrorWriter;
@@ -66,9 +71,19 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
             Context context,
             ThreadNetworkControllerService controllerService,
             ThreadNetworkCountryCode countryCode) {
+        this(context, controllerService, countryCode, new Dependencies());
+    }
+
+    @VisibleForTesting
+    ThreadNetworkShellCommand(
+            Context context,
+            ThreadNetworkControllerService controllerService,
+            ThreadNetworkCountryCode countryCode,
+            Dependencies dependencies) {
         mContext = context;
         mControllerService = controllerService;
         mCountryCode = countryCode;
+        mDependencies = dependencies;
     }
 
     @VisibleForTesting
@@ -107,6 +122,8 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         pw.println("    Gets country code as a two-letter string");
         pw.println("  force-country-code enabled <two-letter code> | disabled ");
         pw.println("    Sets country code to <two-letter code> or left for normal value");
+        pw.println("  ot-ctl <subcommand>");
+        pw.println("    Runs ot-ctl command");
     }
 
     @Override
@@ -133,6 +150,8 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
                 return forceCountryCode();
             case "get-country-code":
                 return getCountryCode();
+            case "ot-ctl":
+                return handleOtCtlCommand();
             default:
                 return handleDefaultCommands(cmd);
         }
@@ -248,6 +267,45 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         return 0;
     }
 
+    private static final class OtCtlOutputReceiver extends IOtCtlOutputReceiver.Stub {
+        private final CompletableFuture<Void> future;
+        private final PrintWriter outputWriter;
+
+        public OtCtlOutputReceiver(CompletableFuture<Void> future, PrintWriter outputWriter) {
+            this.future = future;
+            this.outputWriter = outputWriter;
+        }
+
+        @Override
+        public void onReceive(String output) {
+            outputWriter.print(output);
+            outputWriter.flush();
+        }
+
+        @Override
+        public void onComplete() {
+            future.complete(null);
+        }
+    }
+
+    private int handleOtCtlCommand() {
+        ensureTestingPermission();
+
+        if (!mDependencies.isRootProcess()) {
+            getErrorWriter().println("No access to ot-ctl command");
+            return -1;
+        }
+
+        final String subCommand = String.join(" ", peekRemainingArgs());
+
+        CompletableFuture<Void> completeFuture = new CompletableFuture<>();
+        mControllerService.runOtCtlCommand(
+                subCommand,
+                new OtCtlOutputReceiver(completeFuture, getOutputWriter()),
+                false /* isInteractive */);
+        return waitForFuture(completeFuture, OT_CTL_COMMAND_TIMEOUT, getErrorWriter());
+    }
+
     private static IOperationReceiver newOperationReceiver(CompletableFuture<Void> future) {
         return new IOperationReceiver.Stub() {
             @Override
@@ -305,5 +363,19 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
     private boolean getNextArgRequiredTrueOrFalse(String trueString, String falseString) {
         String nextArg = getNextArgRequired();
         return argTrueOrFalse(nextArg, trueString, falseString);
+    }
+
+    /** Dependencies of ThreadNetworkShellCommand, for test injections. */
+    @VisibleForTesting
+    public static class Dependencies {
+        /**
+         * Checks if the current process is running as the root user.
+         *
+         * <p>Return {@code true} if the current process is running as the root user, {@code false}
+         * otherwise.
+         */
+        public boolean isRootProcess() {
+            return Binder.getCallingUid() == Process.ROOT_UID;
+        }
     }
 }
