@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a616500_79c0aeb8",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-08-21T07:27:40Z",
+      "side": 1,
+      "message": "should be PER_CPU_",
+      "range": {
+        "startLine": 110,
+        "startChar": 40,
+        "endLine": 110,
+        "endChar": 45
+      },
+      "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2f6249c_38610a4f",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-08-21T07:27:40Z",
+      "side": 1,
+      "message": "0040",
+      "range": {
+        "startLine": 111,
+        "startChar": 41,
+        "endLine": 111,
+        "endChar": 45
+      },
+      "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4864bfe1_33eee893",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-08-21T07:27:40Z",
+      "side": 1,
+      "message": "probably should add u64 first/last_ns",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 4
+      },
+      "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a52e5f16_ae2d0e45",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-08-21T07:27:40Z",
+      "side": 1,
+      "message": "could use :31 and store foreground boolean in top bit\n\nnegative uids (or uids \u003e\u003d 0x80000000) are pretty busted anyway",
+      "range": {
+        "startLine": 267,
+        "startChar": 16,
+        "endLine": 267,
+        "endChar": 17
+      },
+      "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
