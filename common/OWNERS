@@ -1,1 +1,2 @@
+per-file networksecurity_flags.aconfig = file:platform/packages/modules/Connectivity:main:/networksecurity/OWNERS
 per-file thread_flags.aconfig = file:platform/packages/modules/Connectivity:main:/thread/OWNERS
