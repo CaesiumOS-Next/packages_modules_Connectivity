@@ -55,7 +55,9 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
     @GuardedBy("mPrivateAddressCoordinatorLock")
     private final PrivateAddressCoordinator mPrivateAddressCoordinator;
 
-    public RoutingCoordinatorService(@NonNull INetd netd) {
+    public RoutingCoordinatorService(@NonNull INetd netd,
+                                     boolean isRandomPrefixBasedEnabled,
+                                     boolean shouldEnableWifiP2pDedicatedIp) {
         mNetd = netd;
         mPrivateAddressCoordinator =
                 new PrivateAddressCoordinator(isRandomPrefixBasedEnabled,
