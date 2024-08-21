@@ -72,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "866bc41f_c0bd7376",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1604493
+      },
+      "writtenOn": "2024-08-21T07:33:09Z",
+      "side": 1,
+      "message": "do we need one more ifindex for v4- clat interface?",
+      "range": {
+        "startLine": 249,
+        "startChar": 13,
+        "endLine": 249,
+        "endChar": 20
+      },
+      "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4864bfe1_33eee893",
         "filename": "bpf/progs/netd.h",
         "patchSetId": 1
