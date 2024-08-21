@@ -368,6 +368,24 @@
       "parentUuid": "a9fbf569_5371369d",
       "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abe7c1ce_d16315fa",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-21T10:20:11Z",
+      "side": 1,
+      "message": "That\u0027s a valid point, I did not consider that. I personally know some people that never connect to wifi and always rely on data. For now I removed the network requirements from the request creation, but left the not roaming. If needed, we can discuss the matter further and make additional changes in a follow-up CL.",
+      "parentUuid": "d9a0acbd_5c98c2b0",
+      "revId": "6333603fbd44dab2e1ef6070d8257a8802f6aa25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
