@@ -43,6 +43,7 @@ import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_CHANNE
 import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_FEATURE;
 import static android.net.thread.ThreadNetworkManager.DISALLOW_THREAD_NETWORK;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
+import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_TESTING;
 
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_ABORT;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_BUSY;
@@ -122,6 +123,7 @@ import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.thread.openthread.BackboneRouterState;
 import com.android.server.thread.openthread.DnsTxtAttribute;
 import com.android.server.thread.openthread.IChannelMasksReceiver;
+import com.android.server.thread.openthread.IOtCtlOutputReceiver;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
@@ -1325,6 +1327,29 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         // registered
         if (mNetworkAgent != null) {
             mNetworkAgent.sendLinkProperties(mTunIfController.getLinkProperties());
+        }
+    }
+
+    @RequiresPermission(
+            allOf = {PERMISSION_THREAD_NETWORK_PRIVILEGED, PERMISSION_THREAD_NETWORK_TESTING})
+    public void runOtCtlCommand(
+            @NonNull String command,
+            @NonNull IOtCtlOutputReceiver receiver,
+            boolean isInteractive) {
+        enforceAllPermissionsGranted(
+                PERMISSION_THREAD_NETWORK_PRIVILEGED, PERMISSION_THREAD_NETWORK_TESTING);
+
+        mHandler.post(() -> runOtCtlCommandInternal(command, receiver, isInteractive));
+    }
+
+    private void runOtCtlCommandInternal(
+            String command, IOtCtlOutputReceiver receiver, boolean isInteractive) {
+        checkOnHandlerThread();
+
+        try {
+            getOtDaemon().runOtCtlCommand(command, receiver, isInteractive);
+        } catch (RemoteException | ThreadNetworkException e) {
+            Log.e(TAG, "otDaemon.runOtCtlCommand failed", e);
         }
     }
 
