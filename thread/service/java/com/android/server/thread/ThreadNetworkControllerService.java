@@ -123,6 +123,7 @@ import com.android.server.thread.openthread.BackboneRouterState;
 import com.android.server.thread.openthread.BorderRouterConfiguration;
 import com.android.server.thread.openthread.DnsTxtAttribute;
 import com.android.server.thread.openthread.IChannelMasksReceiver;
+import com.android.server.thread.openthread.IOtCtlOutputReceiver;
 import com.android.server.thread.openthread.IOtDaemon;
 import com.android.server.thread.openthread.IOtDaemonCallback;
 import com.android.server.thread.openthread.IOtStatusReceiver;
@@ -1328,6 +1329,24 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         // registered
         if (mNetworkAgent != null) {
             mNetworkAgent.sendLinkProperties(mTunIfController.getLinkProperties());
+        }
+    }
+
+    @RequiresPermission(PERMISSION_THREAD_NETWORK_PRIVILEGED)
+    public void runOtCtlCommand(@NonNull String command, @NonNull IOtCtlOutputReceiver receiver) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        mHandler.post(() -> runOtCtlCommandInternal(command, receiver));
+    }
+
+    private void runOtCtlCommandInternal(
+            String command, IOtCtlOutputReceiver receiver) {
+        checkOnHandlerThread();
+
+        try {
+            getOtDaemon().runOtCtlCommand(command, receiver);
+        } catch (RemoteException | ThreadNetworkException e) {
+            Log.e(TAG, "otDaemon.runOtCtlCommand failed", e);
         }
     }
 
