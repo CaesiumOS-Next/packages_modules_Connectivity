@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1bb553b_1c419d1a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-22T08:27:20Z",
+      "side": 1,
+      "message": "Use a constant?",
+      "range": {
+        "startLine": 407,
+        "startChar": 35,
+        "endLine": 407,
+        "endChar": 39
+      },
+      "revId": "c5cd5b0ac48f3dc19b6e710593e1729b4615977a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1b303d3_549ab229",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-22T08:27:20Z",
+      "side": 1,
+      "message": "Maybe describe how to choose this value?",
+      "range": {
+        "startLine": 417,
+        "startChar": 65,
+        "endLine": 417,
+        "endChar": 69
+      },
+      "revId": "c5cd5b0ac48f3dc19b6e710593e1729b4615977a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
