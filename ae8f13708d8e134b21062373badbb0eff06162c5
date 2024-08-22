@@ -22,6 +22,30 @@
       },
       "revId": "ae8f13708d8e134b21062373badbb0eff06162c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db7af596_d9773c5a",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-22T16:25:15Z",
+      "side": 1,
+      "message": "Thanks, that was indeed the issue!!",
+      "parentUuid": "8944e4af_a41f8b9f",
+      "range": {
+        "startLine": 195,
+        "startChar": 52,
+        "endLine": 195,
+        "endChar": 63
+      },
+      "revId": "ae8f13708d8e134b21062373badbb0eff06162c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
