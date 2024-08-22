@@ -22,6 +22,29 @@
       },
       "revId": "fecc2ec19312af071b0f2524060faf5427567f32",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d75062c6_d866e4e2",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-22T08:28:37Z",
+      "side": 1,
+      "message": "Do we need this? It seems this is not used.",
+      "range": {
+        "startLine": 730,
+        "startChar": 0,
+        "endLine": 733,
+        "endChar": 9
+      },
+      "revId": "fecc2ec19312af071b0f2524060faf5427567f32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
