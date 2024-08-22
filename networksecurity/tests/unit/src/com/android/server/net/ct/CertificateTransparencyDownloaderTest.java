@@ -31,6 +31,8 @@ import android.net.Uri;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.android.net.ct.FakeSecurityProvider;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +43,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Security;
 
 /** Tests for the {@link CertificateTransparencyDownloader}. */
 @RunWith(JUnit4.class)
@@ -48,6 +51,8 @@ public class CertificateTransparencyDownloaderTest {
 
     @Mock private DownloadHelper mDownloadHelper;
     @Mock private CertificateTransparencyInstaller mCertificateTransparencyInstaller;
+
+    private final FakeSecurityProvider mSecurityProvider = new FakeSecurityProvider();
 
     private Context mContext;
     private File mTempFile;
@@ -57,6 +62,7 @@ public class CertificateTransparencyDownloaderTest {
     @Before
     public void setUp() throws IOException {
         MockitoAnnotations.initMocks(this);
+        Security.insertProviderAt(mSecurityProvider, 1);
 
         mContext = InstrumentationRegistry.getInstrumentation().getContext();
         mTempFile = File.createTempFile("datastore-test", ".properties");
@@ -71,6 +77,7 @@ public class CertificateTransparencyDownloaderTest {
     @After
     public void tearDown() {
         mTempFile.delete();
+        Security.removeProvider(mSecurityProvider.getName());
     }
 
     @Test
@@ -129,6 +136,8 @@ public class CertificateTransparencyDownloaderTest {
 
     @Test
     public void testDownloader_handleContentCompleteInstallSuccessful() throws IOException {
+        mSecurityProvider.acceptAllSignatures();
+
         String version = "666";
         mDataStore.setProperty(Config.VERSION_PENDING, version);
 
@@ -158,6 +167,35 @@ public class CertificateTransparencyDownloaderTest {
         assertThat(mDataStore.getProperty(Config.VERSION)).isEqualTo(version);
         assertThat(mDataStore.getProperty(Config.CONTENT_URL)).isEqualTo(contentUri.toString());
         assertThat(mDataStore.getProperty(Config.METADATA_URL)).isEqualTo(metadataUri.toString());
+    }
+
+    @Test
+    public void testDownloader_handleContentCompleteVerificationFails() throws IOException {
+        mSecurityProvider.failAllSignatures();
+
+        String version = "666";
+        mDataStore.setProperty(Config.VERSION_PENDING, version);
+
+        long metadataId = 123;
+        mDataStore.setPropertyLong(Config.METADATA_URL_KEY, metadataId);
+        Uri metadataUri = Uri.fromFile(File.createTempFile("log_list-metadata", "txt"));
+        mDataStore.setProperty(Config.METADATA_URL_PENDING, metadataUri.toString());
+        when(mDownloadHelper.getUri(metadataId)).thenReturn(metadataUri);
+
+        long contentId = 666;
+        mDataStore.setPropertyLong(Config.CONTENT_URL_KEY, contentId);
+        when(mDownloadHelper.isSuccessful(contentId)).thenReturn(true);
+        Uri contentUri = Uri.fromFile(File.createTempFile("log_list", "json"));
+        mDataStore.setProperty(Config.CONTENT_URL_PENDING, contentUri.toString());
+        when(mDownloadHelper.getUri(contentId)).thenReturn(contentUri);
+
+        mCertificateTransparencyDownloader.onReceive(
+                mContext, makeDownloadCompleteIntent(contentId));
+
+        verify(mCertificateTransparencyInstaller, never()).install(any(), eq(version));
+        assertThat(mDataStore.getProperty(Config.VERSION)).isNull();
+        assertThat(mDataStore.getProperty(Config.CONTENT_URL)).isNull();
+        assertThat(mDataStore.getProperty(Config.METADATA_URL)).isNull();
     }
 
     @Test
