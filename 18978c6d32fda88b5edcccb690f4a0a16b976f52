@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebb16f23_e1f34b57",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-22T01:51:31Z",
+      "side": 1,
+      "message": "\u003e Maybe add comment about what is the key and values?\n\nDone\n\n\u003e It seems to me using a map is not a correct strcuture given that you don\u0027t access value by the key.\n\u003e If so, is it better to use ArrayList\u003cPair\u003cRunnable, Long\u003e\u003e?\n\nI don\u0027t think using ArrayList\u003cPair\u003cRunnable, Long\u003e\u003e is more suitable.",
+      "parentUuid": "f1926c51_838c4989",
+      "range": {
+        "startLine": 143,
+        "startChar": 50,
+        "endLine": 143,
+        "endChar": 54
+      },
+      "revId": "18978c6d32fda88b5edcccb690f4a0a16b976f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "579898a0_68dba0ab",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-20T08:42:54Z",
       "side": 1,
       "message": "nit: Maybe use TestableLooper and ComletableFuture to write unit?",
+      "range": {
+        "startLine": 183,
+        "startChar": 20,
+        "endLine": 183,
+        "endChar": 34
+      },
+      "revId": "18978c6d32fda88b5edcccb690f4a0a16b976f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1467ebb3_f427eb0e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-22T01:51:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "579898a0_68dba0ab",
       "range": {
         "startLine": 183,
         "startChar": 20,
@@ -94,6 +142,30 @@
           ]
         }
       ],
+      "revId": "18978c6d32fda88b5edcccb690f4a0a16b976f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f83bbefb_78cb872d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-22T01:51:31Z",
+      "side": 1,
+      "message": "No. The current design can execute the task as early as possible if the handler is ready. If we assign the handler before the synchronized block, the handler may still be null, and it could be assigned a new object a little bit later.",
+      "parentUuid": "c4d423fe_f89bc4a9",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 9
+      },
       "revId": "18978c6d32fda88b5edcccb690f4a0a16b976f52",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
