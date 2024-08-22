@@ -17,16 +17,26 @@ package com.android.server.net.ct;
 
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.VisibleForTesting;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.Signature;
+import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 
 /** Helper class to download certificate transparency log files. */
 class CertificateTransparencyDownloader extends BroadcastReceiver {
@@ -139,12 +149,26 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
 
-        // TODO: 1. verify file signature, 2. validate file content.
+        boolean success = false;
+        try {
+            success = verify(contentUri, metadataUri);
+        } catch (NoSuchAlgorithmException
+                | SignatureException
+                | IOException
+                | InvalidKeyException
+                | InvalidKeySpecException e) {
+            Log.e(TAG, "Could not verify new log list", e);
+        }
+        if (!success) {
+            Log.w(TAG, "Log list did not pass verification");
+            return;
+        }
+
+        // TODO: 2. validate file content.
 
         String version = mDataStore.getProperty(Config.VERSION_PENDING);
         String contentUrl = mDataStore.getProperty(Config.CONTENT_URL_PENDING);
         String metadataUrl = mDataStore.getProperty(Config.METADATA_URL_PENDING);
-        boolean success = false;
         try (InputStream inputStream = mContext.getContentResolver().openInputStream(contentUri)) {
             success = mInstaller.install(inputStream, version);
         } catch (IOException e) {
@@ -159,6 +183,43 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             mDataStore.setProperty(Config.METADATA_URL, metadataUrl);
             mDataStore.store();
         }
+    }
+
+    private boolean verify(Uri file, Uri signature)
+            throws NoSuchAlgorithmException,
+                    IOException,
+                    SignatureException,
+                    InvalidKeyException,
+                    InvalidKeySpecException {
+        ContentResolver contentResolver = mContext.getContentResolver();
+        Signature verifier = Signature.getInstance("SHA256withRSA");
+        verifier.initVerify(getKey());
+
+        try (InputStream fileStream = contentResolver.openInputStream(file);
+                InputStream signatureStream = contentResolver.openInputStream(signature)) {
+            verifier.update(fileStream.readAllBytes());
+            return verifier.verify(signatureStream.readAllBytes());
+        }
+    }
+
+    public static PublicKey getKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        String key =
+                ""
+                        + "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAsu0BHGnQ++W2CTdyZyxv"
+                        + "HHRALOZPlnu/VMVgo2m+JZ8MNbAOH2cgXb8mvOj8flsX/qPMuKIaauO+PwROMjiq"
+                        + "fUpcFm80Kl7i97ZQyBDYKm3MkEYYpGN+skAR2OebX9G2DfDqFY8+jUpOOWtBNr3L"
+                        + "rmVcwx+FcFdMjGDlrZ5JRmoJ/SeGKiORkbbu9eY1Wd0uVhz/xI5bQb0OgII7hEj+"
+                        + "i/IPbJqOHgB8xQ5zWAJJ0DmG+FM6o7gk403v6W3S8qRYiR84c50KppGwe4YqSMkF"
+                        + "bLDleGQWLoaDSpEWtESisb4JiLaY4H+Kk0EyAhPSb+49JfUozYl+lf7iFN3qRq/S"
+                        + "IXXTh6z0S7Qa8EYDhKGCrpI03/+qprwy+my6fpWHi6aUIk4holUCmWvFxZDfixox"
+                        + "K0RlqbFDl2JXMBquwlQpm8u5wrsic1ksIv9z8x9zh4PJqNpCah0ciemI3YGRQqSe"
+                        + "/mRRXBiSn9YQBUPcaeqCYan+snGADFwHuXCd9xIAdFBolw9R9HTedHGUfVXPJDiF"
+                        + "4VusfX6BRR/qaadB+bqEArF/TzuDUr6FvOR4o8lUUxgLuZ/7HO+bHnaPFKYHHSm+"
+                        + "+z1lVDhhYuSZ8ax3T0C3FZpb7HMjZtpEorSV5ElKJEJwrhrBCMOD8L01EoSPrGlS"
+                        + "1w22i9uGHMn/uGQKo28u7AsCAwEAAQ==";
+        return KeyFactory.getInstance("RSA")
+                .generatePublic(
+                        new X509EncodedKeySpec(Base64.decode(key.getBytes(), Base64.DEFAULT)));
     }
 
     private long download(String url) {
