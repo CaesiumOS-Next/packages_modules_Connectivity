@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cb6aac7_267ab4d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-22T08:49:47Z",
+      "side": 1,
+      "message": "LGTM but please remove the warning from the baseline file. In fact, I think that file can be removed from the CL altogether.",
+      "revId": "afb9af998fb42502c64084f403bd80c8a15fb562",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeec0b18_7329265f",
+        "filename": "framework-t/api/system-lint-baseline.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-22T08:49:47Z",
+      "side": 1,
+      "message": "Why are these in this CL?",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 17
+      },
+      "revId": "afb9af998fb42502c64084f403bd80c8a15fb562",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

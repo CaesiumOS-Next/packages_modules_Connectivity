@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f31940f_3b158ba3",
+        "filename": "framework-t/api/system-lint-baseline.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-22T08:49:47Z",
+      "side": 1,
+      "message": "If you added @SuppressLint, shouldn\u0027t the warning be removed from the baseline file?",
+      "parentUuid": "65eaf3df_bc8a768d",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 14
+      },
+      "revId": "157f95f1fee05ad48297dc61a3ead9d5ded6c65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fe83e29_71b7124b",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 9
