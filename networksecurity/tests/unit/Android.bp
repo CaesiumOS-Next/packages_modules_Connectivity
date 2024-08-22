@@ -36,6 +36,7 @@ android_test {
         "androidx.test.rules",
         "junit",
         "mockito-target-minus-junit4",
+        "networksecurity-testutils",
         "service-networksecurity-pre-jarjar",
         "truth",
     ],
