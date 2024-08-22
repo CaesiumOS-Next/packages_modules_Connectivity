@@ -17,7 +17,9 @@ package com.android.server.net.ct;
 
 import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 
+import android.annotation.RequiresApi;
 import android.content.Context;
+import android.os.Build;
 import android.provider.DeviceConfig;
 import android.provider.DeviceConfig.Properties;
 import android.text.TextUtils;
@@ -28,6 +30,7 @@ import com.android.modules.utils.build.SdkLevel;
 import java.util.concurrent.Executors;
 
 /** Listener class for the Certificate Transparency Phenotype flags. */
+@RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesChangedListener {
 
     private static final String TAG = "CertificateTransparencyFlagsListener";
