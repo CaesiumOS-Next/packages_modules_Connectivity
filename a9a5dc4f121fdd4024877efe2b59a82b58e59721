@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f93ab87_1df44242",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyInstaller.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-22T04:10:11Z",
+      "side": 1,
+      "message": "General comment: it\u0027s ok for now to still test how the file downloading works, but I expect changes to the paths and how the version is used in the future. Up to you if you want to just land this change for now.",
+      "revId": "a9a5dc4f121fdd4024877efe2b59a82b58e59721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c789c9d5_cc003287",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-22T04:10:11Z",
+      "side": 1,
+      "message": "nit: initially, it is not extremely obvious what the difference between version and version_stored is. Since the `version_stored` is what is effectively on the device, and the `version` is more pending, what about renaming:\n\nversion -\u003e version_pending\nversion_stored -\u003e version\n\nthe `_pending` suffix, makes it a bit clearer that its a \"temporary\" value.\n\n(and same for the other variables below)",
+      "revId": "a9a5dc4f121fdd4024877efe2b59a82b58e59721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
