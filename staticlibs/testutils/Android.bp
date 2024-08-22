@@ -29,19 +29,13 @@ java_library {
     ],
     libs: [
         "androidx.annotation_annotation",
-        "net-utils-device-common-bpf", // TestBpfMap extends IBpfMap.
     ],
     static_libs: [
         "androidx.test.ext.junit",
         "kotlin-reflect",
         "libnanohttpd",
-        "net-tests-utils-host-device-common",
-        "net-utils-device-common",
-        "net-utils-device-common-async",
-        "net-utils-device-common-netlink",
-        "net-utils-device-common-struct",
-        "net-utils-device-common-struct-base",
-        "net-utils-device-common-wear",
+        // net-utils-connectivity-apks is the largest util library that contains all utils
+        "net-utils-connectivity-apks",
         "modules-utils-build_system",
     ],
     lint: {
