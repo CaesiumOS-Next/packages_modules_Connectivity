@@ -12,20 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// 1. The "net-utils-framework-common" library is also compiled into the framework and placed on the
-//    boot classpath. It uses jarjar rules so that anything outside the framework can use this
-//    library directly.
-// 2. The "net-utils-services-common" library is for use by modules and frameworks/base/services.
-//    It does not need to be jarjared because it is not placed on the bootclasspath.
-// 3. The "net-utils-telephony-common-srcs" filegroup is for use specifically by telephony, which
-//    places many of its classes, even non-API service classes, on the boot classpath. Any file that
-//    is added to this filegroup *must* have a corresponding jarjar rule in the telephony jarjar
-//    rules file. Otherwise, it will end up on the boot classpath and other modules will not be able
-//    to provide their own copy.
+// Originally libraries defined in this file were thought to be separated into 2 libraries for
+// "framework" and "services", for "classes that needs to be in the bootclasspath and jarjared" and
+// "classes that don't need to be in the bootclasspath". This turned out to not work because
+// different modules need different classes in their bootclasspath.
 
-// Note: all filegroups here must have the right path attribute because otherwise, if they are
-// included in the bootclasspath, they could incorrectly be included in the SDK documentation even
-// though they are not in the current.txt files.
+// Then smaller libraries were created for more specific functionalities: netlink structs, IP
+// structs, BPF utils etc. This turned out not to work because they sometimes depended on common
+// classes (for example Struct) that may or may not be in the classpath of the user:
+// service-connectivity might already have it through framework-connectivity, but NetworkStack does
+// not. Also it created many build rules with unclear boundaries.
+
+// Then common dependency libraries were split out and comments were added to say "users of this
+// library must ensure they have this dependency included or in their classpath". At that point
+// there were too many libraries and everything is very messy.
+
+// The current plan is to define one library per user: one for framework-connectivity
+// (net-utils-framework-connectivity), one for service-connectivity
+// (net-utils-service-connectivity), one for framework-wifi (net-utils-framework-wifi)...
+// This is achieved by defining a *private* filegroup that lists classes that need to be in the
+// bootclasspath (net-utils-framework-connectivity-srcs), using it to build
+// net-utils-framework-connectivity, and building *all* the other classes in
+// the service jar (net-utils-service-connectivity) by using net-utils-all-srcs as "srcs" and
+// net-utils-framework-connectivity-srcs as "exclude-srcs". R8 should take care of stripping out
+// unused classes in service jars.
+// For APKs that do not have net-utils with matching jarjar rules in their bootclasspath like
+// NetworkStack, CaptivePortalLogin, tests, they can use net-utils-connectivity-apks that just
+// includes everything.
+// See TODO comments on remaining items for that migration.
 
 package {
     default_team: "trendy_team_fwk_core_networking",
@@ -58,10 +72,14 @@ java_library {
         "//apex_available:platform",
     ],
     visibility: [
-        "//packages/modules/Connectivity:__subpackages__",
-        "//packages/modules/Connectivity/framework:__subpackages__",
-        "//packages/modules/NetworkStack:__subpackages__",
-        "//packages/modules/CaptivePortalLogin",
+        // TODO: migrate thread to to net-utils-service-connectivity
+        "//packages/modules/Connectivity/thread/service",
+        "//packages/modules/Connectivity/thread/tests/integration",
+        "//packages/modules/Connectivity/thread/tests/utils",
+        // TODO: migrate Tethering tests to net-utils-connectivity-apks
+        "//packages/modules/Connectivity/Tethering/tests/integration",
+        // TODO: migrate NetworkStack to net-utils-connectivity-apks
+        "//packages/modules/NetworkStack",
     ],
     static_libs: [
         "modules-utils-statemachine",
@@ -88,6 +106,10 @@ java_defaults {
         "libdexmakerjvmtiagent",
         "libstaticjvmtiagent",
     ],
+    defaults_visibility: [
+        // TODO: apply contents to the tests directly, or better, migrate tests to standard mockito
+        "//packages/modules/Connectivity/staticlibs/testutils",
+    ],
 }
 
 java_library {
@@ -111,13 +133,27 @@ java_library {
     ],
 }
 
+// Utilities used by non-updatable framework in frameworks/base
 filegroup {
     name: "net-utils-framework-common-srcs",
-    srcs: ["framework/**/*.java"],
+    srcs: [
+        "framework/com/android/net/module/util/BinderUtils.java",
+        "framework/com/android/net/module/util/BitUtils.java",
+        "framework/com/android/net/module/util/CollectionUtils.java",
+        "framework/com/android/net/module/util/Inet4AddressUtils.java",
+        "framework/com/android/net/module/util/IpRange.java",
+        "framework/com/android/net/module/util/LinkPropertiesUtils.java",
+        "framework/com/android/net/module/util/LocationPermissionChecker.java",
+        "framework/com/android/net/module/util/NetworkIdentityUtils.java",
+        "framework/com/android/net/module/util/NetworkStackConstants.java",
+        "framework/com/android/net/module/util/NetworkStatsUtils.java",
+        "framework/com/android/net/module/util/NetworkCapabilitiesUtils.java",
+        "framework/com/android/net/module/util/PermissionUtils.java",
+        "framework/com/android/net/module/util/ProxyUtils.java",
+    ],
     path: "framework",
     visibility: [
         "//frameworks/base",
-        "//packages/modules/Connectivity:__subpackages__",
     ],
 }
 
@@ -138,8 +174,12 @@ java_library {
     sdk_version: "module_current",
     min_sdk_version: "30",
     visibility: [
-        "//packages/modules/Connectivity:__subpackages__",
-        "//packages/modules/NetworkStack:__subpackages__",
+        // TODO: migrate thread to to net-utils-service-connectivity
+        "//packages/modules/Connectivity/thread/tests/integration",
+        "//packages/modules/Connectivity/thread/tests/utils",
+        // TODO: migrate Tethering to net-utils-connectivity-apks
+        "//packages/modules/Connectivity/Tethering/tests/integration",
+        "//packages/modules/Connectivity/Tethering/tests/mts",
     ],
     libs: [
         "androidx.annotation_annotation",
@@ -156,6 +196,10 @@ java_library {
     },
 }
 
+// This is a common dependency for net-utils-device-common-bpf, net-utils-device-common-struct,
+// net-utils-device-common-netlink, net-utils-device-common-ip.
+// TODO: migrate users of these libraries to single per-module libraries that bundle all that the
+// module needs, and remove this library
 java_library {
     name: "net-utils-device-common-struct-base",
     srcs: [
@@ -164,8 +208,13 @@ java_library {
     sdk_version: "module_current",
     min_sdk_version: "30",
     visibility: [
-        "//packages/modules/Connectivity:__subpackages__",
-        "//packages/modules/NetworkStack:__subpackages__",
+        "//packages/modules/NetworkStack",
+        "//packages/modules/Connectivity/common",
+        "//packages/modules/Connectivity/Tethering/tests/integration",
+        "//packages/modules/Connectivity/Tethering/tests/mts",
+        "//packages/modules/Connectivity/thread/service",
+        "//packages/modules/Connectivity/thread/tests/integration",
+        "//packages/modules/Connectivity/thread/tests/utils",
     ],
     static_libs: [
         "net-utils-framework-common",
@@ -197,8 +246,10 @@ java_library {
     sdk_version: "module_current",
     min_sdk_version: "30",
     visibility: [
-        "//packages/modules/Connectivity:__subpackages__",
-        "//packages/modules/NetworkStack:__subpackages__",
+        // TODO: migrate thread to to net-utils-service-connectivity
+        "//packages/modules/Connectivity/thread/service",
+        // TODO: migrate NetworkStack to net-utils-connectivity-apks
+        "//packages/modules/NetworkStack",
     ],
     libs: [
         "androidx.annotation_annotation",
@@ -226,8 +277,10 @@ java_library {
     sdk_version: "module_current",
     min_sdk_version: "30",
     visibility: [
-        "//packages/modules/Connectivity:__subpackages__",
-        "//packages/modules/NetworkStack:__subpackages__",
+        // TODO: migrate thread to to net-utils-service-connectivity
+        "//packages/modules/Connectivity/thread/service",
+        // TODO: migrate NetworkStack to net-utils-connectivity-apks
+        "//packages/modules/NetworkStack",
     ],
     libs: [
         "androidx.annotation_annotation",
@@ -251,7 +304,6 @@ java_library {
 // The net-utils-device-common-ip library requires the callers to contain
 // net-utils-device-common-struct and net-utils-device-common-struct-base.
 java_library {
-    // TODO : this target should probably be folded into net-utils-device-common
     name: "net-utils-device-common-ip",
     srcs: [
         "device/com/android/net/module/util/ip/*.java",
@@ -259,8 +311,8 @@ java_library {
     sdk_version: "module_current",
     min_sdk_version: "30",
     visibility: [
-        "//packages/modules/Connectivity:__subpackages__",
-        "//packages/modules/NetworkStack:__subpackages__",
+        // TODO: migrate NetworkStack to net-utils-connectivity-apks
+        "//packages/modules/NetworkStack",
     ],
     libs: [
         "framework-annotations-lib",
@@ -285,7 +337,7 @@ java_library {
 java_library {
     name: "net-utils-framework-common",
     srcs: [
-        ":net-utils-framework-common-srcs",
+        "framework/**/*.java",
     ],
     sdk_version: "module_current",
     min_sdk_version: "30",
@@ -298,18 +350,20 @@ java_library {
     ],
     jarjar_rules: "jarjar-rules-shared.txt",
     visibility: [
-        "//cts/tests/tests/net",
+        // TODO: remove dependency on MacAddressUtils.isMulticastAddress and delete
         "//cts/tests/tests/wifi",
+        // TODO: migrate tests to net-utils-connectivity-apks
+        "//packages/modules/Connectivity/tests/common",
         "//packages/modules/Connectivity/tests/cts/net",
-        "//packages/modules/Connectivity/Tethering",
-        "//frameworks/base/tests:__subpackages__",
-        "//frameworks/opt/net/ike",
+        "//packages/modules/Connectivity/tests/cts/net/util",
+        // TODO: create a dedicated net-utils-telephony build rule
         "//frameworks/opt/telephony",
-        "//frameworks/base/wifi:__subpackages__",
-        "//packages/modules/Connectivity:__subpackages__",
-        "//packages/modules/NetworkStack:__subpackages__",
-        "//packages/modules/CaptivePortalLogin",
-        "//packages/modules/Wifi/framework/tests:__subpackages__",
+        // TODO: migrate NetworkStack to net-utils-connectivity-apks
+        "//packages/modules/NetworkStack",
+        "//packages/modules/NetworkStack/tests/unit",
+        // TODO: migrate to net-utils-framework-wifi, net-utils-service-wifi
+        "//packages/modules/Wifi/framework/tests",
+        // TODO: create a dedicated net-utils-settings build rule
         "//packages/apps/Settings",
     ],
     lint: {
@@ -353,63 +407,12 @@ java_library {
         "com.android.wifi",
     ],
     visibility: [
-        // TODO: remove after NetworkStatsService moves to the module.
+        // TODO: remove unused dependency and delete
         "//frameworks/base/services/net",
-        "//packages/modules/Connectivity/service",
-        "//packages/modules/Connectivity/tests:__subpackages__",
+        // TODO: migrate tests to net-utils-connectivity-apks
+        "//packages/modules/Connectivity/tests/unit",
+        // TODO: rename this build rule to net-utils-bluetooth
         "//packages/modules/Bluetooth/android/app",
-        "//packages/modules/Wifi/service:__subpackages__",
-    ],
-    lint: {
-        strict_updatability_linting: true,
-        error_checks: ["NewApi"],
-    },
-}
-
-java_library {
-    name: "net-utils-device-common-async",
-    srcs: [
-        "device/com/android/net/module/util/async/*.java",
-    ],
-    sdk_version: "module_current",
-    min_sdk_version: "30",
-    visibility: [
-        "//packages/modules/Connectivity:__subpackages__",
-    ],
-    libs: [
-        "framework-annotations-lib",
-    ],
-    static_libs: [
-    ],
-    apex_available: [
-        "com.android.tethering",
-        "//apex_available:platform",
-    ],
-    lint: {
-        strict_updatability_linting: true,
-        error_checks: ["NewApi"],
-    },
-}
-
-java_library {
-    name: "net-utils-device-common-wear",
-    srcs: [
-        "device/com/android/net/module/util/wear/*.java",
-    ],
-    sdk_version: "module_current",
-    min_sdk_version: "30",
-    visibility: [
-        "//packages/modules/Connectivity:__subpackages__",
-    ],
-    libs: [
-        "framework-annotations-lib",
-    ],
-    static_libs: [
-        "net-utils-device-common-async",
-    ],
-    apex_available: [
-        "com.android.tethering",
-        "//apex_available:platform",
     ],
     lint: {
         strict_updatability_linting: true,
@@ -532,10 +535,10 @@ java_library {
     ],
 }
 
-// net-utils-connectivity-apks is only for NetworkStack, CaptivePortalLogin and
-// Tethering.apk
+// net-utils-connectivity-apks is only for NetworkStack, CaptivePortalLogin, Tethering.apk, and
+// test APKs.
 // It includes all the static libraries in this directory, which is safe because
-// these APKs use R8 to strip out unused code, and they do not depend on
+// these APKs are tests or use R8 to strip out unused code, and they do not depend on
 // bootclasspath jars that may have duplicate copies of the included classes
 // with the same jarjaring.
 // Tethering.apk does depend on a bootclasspath jar (framework-tethering.jar),
@@ -556,6 +559,8 @@ java_library {
     visibility: [
         "//packages/modules/CaptivePortalLogin:__subpackages__",
         "//packages/modules/Connectivity/Tethering",
+        "//packages/modules/Connectivity/staticlibs/testutils",
+        "//packages/modules/Connectivity/staticlibs/tests/unit",
     ],
 }
 
@@ -595,6 +600,7 @@ aidl_interface {
 
 // Use a filegroup and not a library for telephony sources, as framework-annotations cannot be
 // included either (some annotations would be duplicated on the bootclasspath).
+// TODO: migrate to net-utils-telephony and delete
 filegroup {
     name: "net-utils-telephony-common-srcs",
     srcs: [
@@ -669,7 +675,7 @@ filegroup {
     name: "net-utils-all-srcs",
     srcs: [
         "device/**/*.java",
-        ":net-utils-framework-common-srcs",
+        "framework/**/*.java",
     ],
     visibility: ["//visibility:private"],
 }
