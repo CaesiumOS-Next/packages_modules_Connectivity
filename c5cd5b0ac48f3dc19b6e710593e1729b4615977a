@@ -26,6 +26,67 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "507bd9fa_32908381",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-22T08:30:24Z",
+      "side": 1,
+      "message": "IIUC a wrong implementation which delay execute() by 500ms can still pass the test.\nCan we verify the future is completed immediately without a timeout?\nAlso for l.430.",
+      "range": {
+        "startLine": 413,
+        "startChar": 35,
+        "endLine": 413,
+        "endChar": 39
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b41a8f06_4e9b1abe",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+              "range": {
+                "startLine": 407,
+                "startChar": 0,
+                "endLine": 408,
+                "endChar": 0
+              },
+              "replacement": "            assertTrue(future1.isDone());\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+              "range": {
+                "startLine": 413,
+                "startChar": 0,
+                "endLine": 414,
+                "endChar": 0
+              },
+              "replacement": "            assertTrue(future2.isDone());\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+              "range": {
+                "startLine": 430,
+                "startChar": 0,
+                "endLine": 431,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "c5cd5b0ac48f3dc19b6e710593e1729b4615977a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c1b303d3_549ab229",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
         "patchSetId": 2
