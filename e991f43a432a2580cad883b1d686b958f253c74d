@@ -22,6 +22,30 @@
       },
       "revId": "e991f43a432a2580cad883b1d686b958f253c74d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b68cfb9_5c8f606c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-22T09:35:19Z",
+      "side": 1,
+      "message": "mRandomPrefixBase looks like an experiment flag. Maybe you can work with Patrick, Mark or Junyu to find out if we are planning to push that flag? Even if we are, maybe we can read the flag. I think Remi is adding a way to read networkstack flags from tethering in aosp/3218005 .\n\nFor the resources it\u0027s a bit trickier because they might be set by OEMs. Maybe we can call getResourcesForApplication? You can try to guess the package name with code similar to DeviceConfigUtils#resolveNetworkStackModuleVersion (the APK name is com.android.networkstack.tethering or similar).",
+      "parentUuid": "21827af3_029f334b",
+      "range": {
+        "startLine": 2030,
+        "startChar": 0,
+        "endLine": 2036,
+        "endChar": 94
+      },
+      "revId": "e991f43a432a2580cad883b1d686b958f253c74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
