@@ -2613,6 +2613,62 @@ class NsdManagerTest {
         }
     }
 
+    @Test
+    fun testRemoveCachedServices() {
+        deviceConfigRule.setConfig(NAMESPACE_TETHERING, "test_nsd_cached_services_removal", "1")
+        deviceConfigRule.setConfig(NAMESPACE_TETHERING, "test_nsd_keep_cached_services_time", "199")
+
+        val si = makeTestServiceInfo(testNetwork1.network)
+        // Register service on testNetwork1
+        val registrationRecord = NsdRegistrationRecord()
+        registerService(registrationRecord, si)
+        // Register a discovery request.
+        val discoveryRecord = NsdDiscoveryRecord()
+        val packetReader = TapPacketReader(
+                Handler(handlerThread.looper),
+                testNetwork1.iface.fileDescriptor.fileDescriptor,
+                1500 /* maxPacketSize */
+        )
+        packetReader.startAsyncForTest()
+        handlerThread.waitForIdle(TIMEOUT_MS)
+
+        nsdManager.discoverServices(
+                serviceType,
+                NsdManager.PROTOCOL_DNS_SD,
+                testNetwork1.network,
+                { it.run() },
+                discoveryRecord
+        )
+
+        tryTest {
+            discoveryRecord.expectCallback<DiscoveryStarted>()
+            assertNotNull(packetReader.pollForQuery("$serviceType.local", DnsResolver.TYPE_PTR))
+            val foundInfo = discoveryRecord.waitForServiceDiscovered(
+                    serviceName, serviceType, testNetwork1.network)
+            assertEquals(testNetwork1.network, foundInfo.network)
+
+            // Stop discovery to trigger the cached services removal process.
+            nsdManager.stopServiceDiscovery(discoveryRecord)
+            discoveryRecord.expectCallback<DiscoveryStopped>()
+
+            // Verify the resolution query will not be sent because services are still cached after
+            // 100 ms have elapsed (still in keeping time).
+            Thread.sleep(100L)
+            resolveService(foundInfo)
+            val serviceFullName = "$serviceName.$serviceType.local"
+            assertNull(packetReader.pollForQuery(serviceFullName, DnsResolver.TYPE_ANY))
+
+            // Verify the resolution query will send because cached services are remove after
+            // exceeding the keeping time.
+            Thread.sleep(100L)
+            resolveService(foundInfo)
+            assertNotNull(packetReader.pollForQuery(serviceFullName, DnsResolver.TYPE_ANY))
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
+            registrationRecord.expectCallback<ServiceUnregistered>()
+        }
+    }
+
     private fun hasServiceTypeClientsForNetwork(clients: List<String>, network: Network): Boolean {
         return clients.any { client -> client.substring(
                 client.indexOf("network=") + "network=".length,
