@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dea50a51_60dc3217",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-22T09:22:23Z",
+      "side": 1,
+      "message": "That doesn\u0027t seem great. If there are two callers that call this at about the same time, one of them might call the method and get the key, then unregister the callback and assume that the key will work. But then right after that the second caller could cause the key to be changed again.\n\nIt seems better to say that if the device is already in ephemeral key mode, then it\u0027s an error to try to activate it again unless it\u0027s deactivated. In that case, even if two callers use the API at the same time, they will both be able to operate, because there will only be one key, and both of them can use it.",
+      "parentUuid": "38ab39d7_c191d75f",
+      "range": {
+        "startLine": 186,
+        "startChar": 55,
+        "endLine": 186,
+        "endChar": 61
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae2befe9_ee75c30e",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 11
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "I think the `@RequiresPermission` annotation at line 194 already documented this behavior.",
       "parentUuid": "85a0cd99_d9955125",
+      "range": {
+        "startLine": 191,
+        "startChar": 15,
+        "endLine": 191,
+        "endChar": 39
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a877859c_f9c0d359",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-22T09:22:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5d801fad_2fc54dbc",
       "range": {
         "startLine": 191,
         "startChar": 15,

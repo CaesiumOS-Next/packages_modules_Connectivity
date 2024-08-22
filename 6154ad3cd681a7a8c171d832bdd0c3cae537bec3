@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "967a7530_35b4024b",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-22T09:22:23Z",
+      "side": 1,
+      "message": "What is this string? The documentation doesn\u0027t say what it is. Is it the key? But if so, why pass it back in this method, when it\u0027s already in onEphemeralKeyChanged?\n\nThere is nothing preventing multiple callers calling this API at the same time, and any caller that wants to operate correctly in that scenario must listen to onEphemeralKeyChanged, otherwise it won\u0027t know what is going on.",
+      "range": {
+        "startLine": 211,
+        "startChar": 37,
+        "endLine": 211,
+        "endChar": 43
+      },
+      "revId": "6154ad3cd681a7a8c171d832bdd0c3cae537bec3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d32d321e_373a8c7f",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-22T09:22:23Z",
+      "side": 1,
+      "message": "Is this really a string? If so, what encoding is it in? For example, is it ASCII? Or UTF-8? Or is it a base64 encoded byte array? If it\u0027s a base64 encoded byte array, then why not just make it a byte[]?\n\nEven if it\u0027s a byte[], could the key be in different formats, now or in the future? If so, you might want a class instead of a key, or at least an enum that says what type the key is.",
+      "range": {
+        "startLine": 339,
+        "startChar": 26,
+        "endLine": 339,
+        "endChar": 32
+      },
+      "revId": "6154ad3cd681a7a8c171d832bdd0c3cae537bec3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
