@@ -22,6 +22,30 @@
       },
       "revId": "7f25a490d9e5391cc8c249b97d6f3c512d479469",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42792553_14c745f5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-22T01:55:41Z",
+      "side": 1,
+      "message": "This is to re-trigger validation for cell and wifi.\nSo we don\u0027t need to wait validation.",
+      "parentUuid": "e3e7b23f_c1a46b34",
+      "range": {
+        "startLine": 1081,
+        "startChar": 25,
+        "endLine": 1081,
+        "endChar": 49
+      },
+      "revId": "7f25a490d9e5391cc8c249b97d6f3c512d479469",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
