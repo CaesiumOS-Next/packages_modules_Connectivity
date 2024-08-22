@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05cb2a43_859832c5",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyInstaller.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-22T09:29:30Z",
+      "side": 1,
+      "message": "Yes, definitely, I think once we introduce versioning some parts will change, especially regarding the paths used. I still think it would be a good idea to submit this CL, as it would likely be a good starting point for when we add versions. And also I like the idea of having something submitted that is working end-to-end 😄",
+      "parentUuid": "4f93ab87_1df44242",
+      "revId": "a9a5dc4f121fdd4024877efe2b59a82b58e59721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c789c9d5_cc003287",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-08-22T04:10:11Z",
       "side": 1,
       "message": "nit: initially, it is not extremely obvious what the difference between version and version_stored is. Since the `version_stored` is what is effectively on the device, and the `version` is more pending, what about renaming:\n\nversion -\u003e version_pending\nversion_stored -\u003e version\n\nthe `_pending` suffix, makes it a bit clearer that its a \"temporary\" value.\n\n(and same for the other variables below)",
+      "revId": "a9a5dc4f121fdd4024877efe2b59a82b58e59721",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c59ddf9_072ad210",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-22T09:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c789c9d5_cc003287",
       "revId": "a9a5dc4f121fdd4024877efe2b59a82b58e59721",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
