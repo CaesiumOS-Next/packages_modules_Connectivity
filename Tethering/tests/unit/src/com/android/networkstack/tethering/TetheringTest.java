@@ -86,6 +86,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
@@ -3652,6 +3653,25 @@ public class TetheringTest {
         verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_ACTIVE_TETHER);
 
         verify(mUpstreamNetworkMonitor).setTryCell(true);
+    }
+
+    @Test
+    public void testEnforceValidCallingUser_doesNothingOnNonAutomotive() throws Exception {
+        initTetheringOnTestThread();
+        when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE))
+                .thenReturn(false);
+
+        mTethering.enforceValidCallingUser(UserHandle.of(123));
+    }
+
+    @Test
+    public void testEnforceValidCallingUser_throwsForInvalidUserOnAutomotive() throws Exception {
+        initTetheringOnTestThread();
+        when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE))
+                .thenReturn(true);
+
+        assertThrows(SecurityException.class,
+                () -> mTethering.enforceValidCallingUser(UserHandle.of(123)));
     }
 
     // TODO: Test that a request for hotspot mode doesn't interfere with an
