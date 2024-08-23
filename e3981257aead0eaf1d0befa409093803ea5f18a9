@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81252f36_4148a64c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-23T08:25:19Z",
+      "side": 1,
+      "message": "Hi Motomu,\n\nThanks for creating this change. I recently uploaded aosp/3236156 for the same reason 😊\n\nIf you think that\u0027s reasonable, would you mind adding per-file ownership to these flags to `file:platform/packages/modules/Connectivity:main:/networksecurity/OWNERS` like in aosp/3236156?\n\nThat would save us some time for when I do the same mistake again!",
+      "revId": "e3981257aead0eaf1d0befa409093803ea5f18a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
