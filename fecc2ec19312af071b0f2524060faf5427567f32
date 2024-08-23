@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9edbffb_ded2a8c7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-08-23T03:28:15Z",
+      "side": 1,
+      "message": "Removed whole function including javadoc in aosp/3235587",
+      "parentUuid": "56b6f930_b5879f2d",
+      "range": {
+        "startLine": 728,
+        "startChar": 0,
+        "endLine": 728,
+        "endChar": 18
+      },
+      "revId": "fecc2ec19312af071b0f2524060faf5427567f32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d75062c6_d866e4e2",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-22T08:28:37Z",
       "side": 1,
       "message": "Do we need this? It seems this is not used.",
+      "range": {
+        "startLine": 730,
+        "startChar": 0,
+        "endLine": 733,
+        "endChar": 9
+      },
+      "revId": "fecc2ec19312af071b0f2524060faf5427567f32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5594176_570ce22b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-08-23T03:28:15Z",
+      "side": 1,
+      "message": "Removed whole function including javadoc in aosp/3235587",
+      "parentUuid": "d75062c6_d866e4e2",
       "range": {
         "startLine": 730,
         "startChar": 0,
