@@ -1,0 +1,68 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47f82512_01e3c237",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-08-23T20:00:04Z",
+      "side": 1,
+      "message": "nit: suggest something like isMatchingEspPacket(). I could read this as:\n\nreturn (spi \u003d\u003d seqNum), which is obviously not the intention. :-) Besides, we could always add another parameter to this.",
+      "range": {
+        "startLine": 161,
+        "startChar": 27,
+        "endLine": 161,
+        "endChar": 47
+      },
+      "revId": "e16970f8bc5f205e79d1fd5d64a49c89a9b102a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a3bfce9_4e8de6ca",
+        "filename": "tests/cts/net/src/android/net/cts/TunUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-08-23T20:00:04Z",
+      "side": 1,
+      "message": "nit overflowed",
+      "range": {
+        "startLine": 169,
+        "startChar": 34,
+        "endLine": 169,
+        "endChar": 42
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4a634e40_71318617",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/TunUtils.java",
+              "range": {
+                "startLine": 169,
+                "startChar": 0,
+                "endLine": 170,
+                "endChar": 0
+              },
+              "replacement": "                    \"actualSeqNum overflowed and needs to be converted to an unsigned integer\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e16970f8bc5f205e79d1fd5d64a49c89a9b102a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
