@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01bdc265_55b9ebbf",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkPrefixMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-23T09:34:32Z",
+      "side": 1,
+      "message": "nits: I feel `mPreferredLifetime` and `mValidLifetime` are easier to understand.",
+      "range": {
+        "startLine": 50,
+        "startChar": 17,
+        "endLine": 50,
+        "endChar": 23
+      },
+      "revId": "663bbb9a097a82613f735dd3c723bd38d69b1182",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "994f7f39_bc5f1ea5",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkPrefixMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-23T09:34:32Z",
+      "side": 1,
+      "message": "Not for this CL but I feel it\u0027s a bit confusing that some struct throw `IllegalArgumentException` and some struct return null when the buffer.remaining() is smaller than struct size.",
+      "range": {
+        "startLine": 98,
+        "startChar": 45,
+        "endLine": 98,
+        "endChar": 63
+      },
+      "revId": "663bbb9a097a82613f735dd3c723bd38d69b1182",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c665cde2_6a960ab6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkPrefixMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-23T09:34:32Z",
+      "side": 1,
+      "message": "Is it guaranteed that this return Inet6Address? Or is it possible to be v4-mapped v6 address?",
+      "range": {
+        "startLine": 104,
+        "startChar": 83,
+        "endLine": 104,
+        "endChar": 84
+      },
+      "revId": "663bbb9a097a82613f735dd3c723bd38d69b1182",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6042da7_1ec05007",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkPrefixMessageTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-23T09:34:32Z",
+      "side": 1,
+      "message": "nits:Isn\u0027t it better to use range from documentation prefix?\nOr is this also a documentation prefix?\nhttps://datatracker.ietf.org/doc/html/rfc3849",
+      "range": {
+        "startLine": 43,
+        "startChar": 61,
+        "endLine": 43,
+        "endChar": 87
+      },
+      "revId": "663bbb9a097a82613f735dd3c723bd38d69b1182",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
