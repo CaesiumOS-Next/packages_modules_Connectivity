@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fe8b0e0_42fb478e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-23T05:51:41Z",
+      "side": 1,
+      "message": "nit: At least you will need to pass treehugger. If so you can put TH here.",
+      "revId": "05532e38d4f74877d7d129d950e98e6587350588",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89c85860_085192e0",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-23T05:51:41Z",
+      "side": 1,
+      "message": "Might need 1 blank line here since the above comment is only for the above line instead of the entire section.",
+      "revId": "05532e38d4f74877d7d129d950e98e6587350588",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
