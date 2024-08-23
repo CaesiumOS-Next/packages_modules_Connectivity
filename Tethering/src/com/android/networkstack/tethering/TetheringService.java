@@ -28,11 +28,13 @@ import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.dhcp.IDhcpServer.STATUS_UNKNOWN_ERROR;
 
+import android.app.ActivityManager;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.IIntResultListener;
 import android.net.INetworkStackConnector;
 import android.net.ITetheringConnector;
@@ -49,6 +51,8 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
+import android.os.UserHandle;
+import android.os.UserManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -71,6 +75,7 @@ public class TetheringService extends Service {
 
     private TetheringConnector mConnector;
     private SettingsShim mSettingsShim;
+    private UserManager mUserManager;
 
     @Override
     public void onCreate() {
@@ -80,6 +85,7 @@ public class TetheringService extends Service {
         mConnector = new TetheringConnector(makeTethering(deps), TetheringService.this);
 
         mSettingsShim = SettingsShimImpl.newInstance();
+        mUserManager = getSystemService(UserManager.class);
     }
 
     /**
@@ -238,8 +244,9 @@ public class TetheringService extends Service {
                 final String callingAttributionTag, final boolean onlyAllowPrivileged,
                 final IIntResultListener listener) {
             try {
-                if (!hasTetherChangePermission(callerPkg, callingAttributionTag,
-                        onlyAllowPrivileged)) {
+                if (!hasTetherChangePermission(
+                                callerPkg, callingAttributionTag, onlyAllowPrivileged)
+                        || !mService.isValidCallingUser()) {
                     listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
                     return true;
                 }
@@ -256,8 +263,9 @@ public class TetheringService extends Service {
 
         private boolean checkAndNotifyCommonError(final String callerPkg,
                 final String callingAttributionTag, final ResultReceiver receiver) {
-            if (!hasTetherChangePermission(callerPkg, callingAttributionTag,
-                    false /* onlyAllowPrivileged */)) {
+            if (!hasTetherChangePermission(
+                            callerPkg, callingAttributionTag, false /* onlyAllowPrivileged */)
+                    || !mService.isValidCallingUser()) {
                 receiver.send(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION, null);
                 return true;
             }
@@ -319,6 +327,52 @@ public class TetheringService extends Service {
             boolean throwException) {
         return mSettingsShim.checkAndNoteWriteSettingsOperation(context, uid, callingPackage,
                 callingAttributionTag, throwException);
+    }
+
+    /**
+     * Checks if the calling user is valid on Automotive devices.
+     *
+     * <p>This method returns {@code true} if any of the following conditions are true:
+     *     <li>The device is not an Automotive device.
+     *     <li>the calling user is the system user.
+     *     <li>the calling user is the current user.
+     *     <li>the calling user belongs to the same profile group as the current user.
+     * If none of the above is true, then returns {@code false}.
+     */
+    @VisibleForTesting
+    boolean isValidCallingUser() {
+        // TODO(b/360488316): Ideally UserManager#isVisibleBackgroundUsersEnabled() can be
+        // called but it is a hidden API. Only checking FEATURE_AUTOMOTIVE here, because the
+        // RRO config for R.bool.config_multiuserVisibleBackgroundUsers cannot be accessed here.
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE)) {
+            return true;
+        }
+
+        return isValidUserForAutomotive(UserHandle.getUserHandleForUid(Binder.getCallingUid()));
+    }
+
+    @VisibleForTesting
+    boolean isValidUserForAutomotive(UserHandle callingUser) {
+        final long ident = Binder.clearCallingIdentity();
+        try {
+            final UserHandle currentUser = UserHandle.of(ActivityManager.getCurrentUser());
+            if (!UserHandle.SYSTEM.equals(callingUser)
+                    && !callingUser.equals(currentUser)
+                    && !mUserManager.isSameProfileGroup(callingUser, currentUser)) {
+                Log.e(TAG, "Calling user " + callingUser + " is not the SYSTEM user, the current "
+                        + "user " + currentUser + ", or a profile of the current user, thus not "
+                        + " allowed to change tethering.");
+                return false;
+            }
+        } catch (Exception e) {
+            // Log the exception and return false when the check throws.
+            Log.w(TAG, "isValidUserForAutomotive failed with exception: " + e);
+            return false;
+        } finally {
+            Binder.restoreCallingIdentity(ident);
+        }
+
+        return true;
     }
 
     /**

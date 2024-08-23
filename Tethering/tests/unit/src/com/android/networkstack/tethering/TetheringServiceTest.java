@@ -17,6 +17,8 @@
 package com.android.networkstack.tethering;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
+import static android.Manifest.permission.INTERACT_ACROSS_USERS;
+import static android.Manifest.permission.MANAGE_USERS;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.Manifest.permission.WRITE_SETTINGS;
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
@@ -27,8 +29,10 @@ import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -41,6 +45,7 @@ import static org.mockito.Mockito.when;
 
 import android.app.UiAutomation;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.IIntResultListener;
 import android.net.ITetheringConnector;
 import android.net.ITetheringEventCallback;
@@ -53,6 +58,7 @@ import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.ResultReceiver;
+import android.os.UserHandle;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
@@ -81,9 +87,11 @@ public final class TetheringServiceTest {
     private static final String TEST_CALLER_PKG = "com.android.shell";
     private static final String TEST_ATTRIBUTION_TAG = null;
     @Mock private ITetheringEventCallback mITetheringEventCallback;
+    @Mock private PackageManager mMockPm;
     @Rule public ServiceTestRule mServiceTestRule;
     private Tethering mTethering;
     private Intent mMockServiceIntent;
+    private MockTetheringService mMockService;
     private MockTetheringConnector mMockConnector;
     private ITetheringConnector mTetheringConnector;
     private UiAutomation mUiAutomation;
@@ -126,8 +134,12 @@ public final class TetheringServiceTest {
                 MockTetheringService.class);
         mMockConnector = (MockTetheringConnector) mServiceTestRule.bindService(mMockServiceIntent);
         mTetheringConnector = ITetheringConnector.Stub.asInterface(mMockConnector.getIBinder());
-        final MockTetheringService service = mMockConnector.getService();
-        mTethering = service.getTethering();
+        mMockService = mMockConnector.getService();
+        mTethering = mMockService.getTethering();
+
+        mMockService.setMockPackageManager(mMockPm);
+        // Automotive feature is disabled by default.
+        when(mMockPm.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE)).thenReturn(false);
     }
 
     @After
@@ -602,6 +614,18 @@ public final class TetheringServiceTest {
             result.assertResult(TETHER_ERROR_UNSUPPORTED);
             verifyNoMoreInteractionsForTethering();
         });
+    }
+
+    @Test
+    public void testIsValidCallingUser_returnsTrueOnNonAutomotive() throws Exception {
+        assertTrue(mMockService.isValidCallingUser());
+    }
+
+    @Test
+    public void testIsValidUserForAutomotive_returnsFalseForInvalidUser() throws Exception {
+        mUiAutomation.adoptShellPermissionIdentity(INTERACT_ACROSS_USERS, MANAGE_USERS);
+
+        assertFalse(mMockService.isValidUserForAutomotive(UserHandle.of(123)));
     }
 
     private class ConnectorSupplier<T> implements Supplier<T> {
