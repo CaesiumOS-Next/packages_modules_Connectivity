@@ -22,6 +22,7 @@ import static org.mockito.Mockito.mock;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.ArrayMap;
@@ -32,10 +33,20 @@ import androidx.annotation.Nullable;
 public class MockTetheringService extends TetheringService {
     private final Tethering mTethering = mock(Tethering.class);
     private final ArrayMap<String, Integer> mMockedPermissions = new ArrayMap<>();
+    private PackageManager mPackageManager;
 
     @Override
     public IBinder onBind(Intent intent) {
         return new MockTetheringConnector(super.onBind(intent));
+    }
+
+    public void setMockPackageManager(PackageManager pm) {
+        mPackageManager = pm;
+    }
+
+    @Override
+    public PackageManager getPackageManager() {
+        return mPackageManager != null ? mPackageManager : super.getPackageManager();
     }
 
     @Override
