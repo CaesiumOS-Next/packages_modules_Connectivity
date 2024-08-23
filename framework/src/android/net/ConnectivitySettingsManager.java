@@ -354,22 +354,20 @@ public class ConnectivitySettingsManager {
     /**
      * One of the private DNS modes that indicates the private DNS mode is off.
      */
-    public static final int PRIVATE_DNS_MODE_OFF = ConnectivitySettingsUtils.PRIVATE_DNS_MODE_OFF;
+    public static final int PRIVATE_DNS_MODE_OFF = 1;
 
     /**
      * One of the private DNS modes that indicates the private DNS mode is automatic, which
      * will try to use the current DNS as private DNS.
      */
-    public static final int PRIVATE_DNS_MODE_OPPORTUNISTIC =
-            ConnectivitySettingsUtils.PRIVATE_DNS_MODE_OPPORTUNISTIC;
+    public static final int PRIVATE_DNS_MODE_OPPORTUNISTIC = 2;
 
     /**
      * One of the private DNS modes that indicates the private DNS mode is strict and the
      * {@link #PRIVATE_DNS_SPECIFIER} is required, which will try to use the value of
      * {@link #PRIVATE_DNS_SPECIFIER} as private DNS.
      */
-    public static final int PRIVATE_DNS_MODE_PROVIDER_HOSTNAME =
-            ConnectivitySettingsUtils.PRIVATE_DNS_MODE_PROVIDER_HOSTNAME;
+    public static final int PRIVATE_DNS_MODE_PROVIDER_HOSTNAME = 3;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)

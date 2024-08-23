@@ -29,6 +29,8 @@ import android.text.TextUtils;
  * @hide
  */
 public class ConnectivitySettingsUtils {
+    // TODO: use ConnectivitySettingsManager API constants once the minSDK is S
+    // The below values have been used since private DNS was introduced but were not APIs.
     public static final int PRIVATE_DNS_MODE_OFF = 1;
     public static final int PRIVATE_DNS_MODE_OPPORTUNISTIC = 2;
     public static final int PRIVATE_DNS_MODE_PROVIDER_HOSTNAME = 3;
