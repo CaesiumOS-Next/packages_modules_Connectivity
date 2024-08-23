@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30a615c_916bd7f3",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/StructTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-23T02:47:13Z",
+      "side": 1,
+      "message": "Could we add test case for writeToBytes(ByteOrder.BIG_ENDIAN) as well?",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 95
+      },
+      "revId": "8dc64b07c02efe0a6fdabd0e1a4c4273120ba6c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
