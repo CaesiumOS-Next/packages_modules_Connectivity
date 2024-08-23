@@ -224,7 +224,7 @@ public class LocationPermissionChecker {
         if (pkgName == null) {
             throw new SecurityException("Checking UID " + uid + " but Package Name is Null");
         }
-        mAppOpsManager.checkPackage(uid, pkgName);
+        PermissionUtils.enforcePackageNameMatchesUid(mContext, uid, pkgName);
     }
 
     @VisibleForTesting

@@ -67,7 +67,9 @@ public class LocationPermissionCheckerTest {
 
     // Mock objects for testing
     @Mock private Context mMockContext;
+    @Mock private Context mMockUserContext;
     @Mock private PackageManager mMockPkgMgr;
+    @Mock private PackageManager mMockUserPkgMgr;
     @Mock private ApplicationInfo mMockApplInfo;
     @Mock private AppOpsManager mMockAppOps;
     @Mock private UserManager mMockUserManager;
@@ -119,11 +121,16 @@ public class LocationPermissionCheckerTest {
         doReturn(mAllowFineLocationApps).when(mMockAppOps).noteOp(
                 eq(AppOpsManager.OPSTR_FINE_LOCATION), eq(mUid),
                 eq(TEST_PKG_NAME), eq(TEST_FEATURE_ID), nullable(String.class));
+
         if (mThrowSecurityException) {
-            doThrow(new SecurityException("Package " + TEST_PKG_NAME + " doesn't belong"
-                    + " to application bound to user " + mUid))
-                    .when(mMockAppOps).checkPackage(mUid, TEST_PKG_NAME);
+            doThrow(new PackageManager.NameNotFoundException("Package does not exist"))
+                    .when(mMockUserPkgMgr)
+                    .getPackageUid(eq(TEST_PKG_NAME), anyInt());
+        } else {
+            doReturn(mUid).when(mMockUserPkgMgr).getPackageUid(eq(TEST_PKG_NAME), anyInt());
         }
+        doReturn(mMockUserPkgMgr).when(mMockUserContext).getPackageManager();
+        doReturn(mMockUserContext).when(mMockContext).createContextAsUser(any(), anyInt());
         mockSystemService(Context.APP_OPS_SERVICE, AppOpsManager.class, mMockAppOps);
         mockSystemService(Context.USER_SERVICE, UserManager.class, mMockUserManager);
         mockSystemService(Context.LOCATION_SERVICE, LocationManager.class, mLocationManager);
