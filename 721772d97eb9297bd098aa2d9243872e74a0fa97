@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c17d3ad_736c6932",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-08-23T23:50:46Z",
+      "side": 1,
+      "message": "Hi Lorenzo, can you provide owner review?",
+      "revId": "721772d97eb9297bd098aa2d9243872e74a0fa97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
