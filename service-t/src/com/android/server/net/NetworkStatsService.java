@@ -481,7 +481,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private long mLastStatsSessionPoll;
 
     /**
-<<<<<<< HEAD
      * The timestamp of the most recent network stats broadcast.
      *
      * Note that this time could be in the past for completed broadcasts,
