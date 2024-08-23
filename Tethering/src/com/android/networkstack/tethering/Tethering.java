@@ -69,6 +69,7 @@ import static com.android.networkstack.tethering.TetheringNotificationUpdater.DO
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellular;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_MAIN_SM;
 
+import android.app.ActivityManager;
 import android.app.usage.NetworkStatsManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
@@ -657,6 +658,8 @@ public class Tethering {
 
     void startTethering(final TetheringRequest request, final String callerPkg,
             final IIntResultListener listener) {
+        enforceValidCallingUser(UserHandle.getUserHandleForUid(Binder.getCallingUid()));
+
         mHandler.post(() -> {
             final int type = request.getTetheringType();
             final TetheringRequest unfinishedRequest = mActiveTetheringRequests.get(type);
@@ -680,6 +683,8 @@ public class Tethering {
     }
 
     void stopTethering(int type) {
+        enforceValidCallingUser(UserHandle.getUserHandleForUid(Binder.getCallingUid()));
+
         mHandler.post(() -> {
             stopTetheringInternal(type);
         });
@@ -2793,6 +2798,41 @@ public class Tethering {
         }
 
         return type != TETHERING_INVALID;
+    }
+
+    /**
+     * Validates if the given {@code callingUser} is valid on Automotive devices.
+     *
+     * <p>This method does nothing if any of the following conditions are true:
+     *     <li>The device is not an Automotive device.
+     *     <li>the calling user is the system user.
+     *     <li>the calling user is the current user.
+     *     <li>the calling user belongs to the same profile group as the current user.
+     * If none of the above is true, it throws a {@link SecurityException}.
+     */
+    @VisibleForTesting
+    void enforceValidCallingUser(UserHandle callingUser) {
+        // TODO(b/360488316): Ideally UserManager#isVisibleBackgroundUsersEnabled() can be called
+        // but it is a hidden API. Only checking FEATURE_AUTOMOTIVE here, because the RRO config for
+        // R.bool.config_multiuserVisibleBackgroundUsers cannot be accessed here.
+        if (!mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE)) {
+            // Do nothing on a non-Automotive device.
+            return;
+        }
+
+        final long ident = Binder.clearCallingIdentity();
+        try {
+            UserHandle currentUser = UserHandle.of(ActivityManager.getCurrentUser());
+            if (!UserHandle.SYSTEM.equals(callingUser)
+                    && !callingUser.equals(currentUser)
+                    && !mUserManager.isSameProfileGroup(callingUser, currentUser)) {
+                throw new SecurityException(
+                        "Calling user " + callingUser + " is not the SYSTEM user or the current"
+                                + " user " + currentUser + ", thus cannot start/stop tethering.");
+            }
+        } finally {
+            Binder.restoreCallingIdentity(ident);
+        }
     }
 
     private void ensureIpServerStarted(final String iface) {
