@@ -22,6 +22,30 @@
       },
       "revId": "8dc64b07c02efe0a6fdabd0e1a4c4273120ba6c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f8c4b1b_61555c96",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/StructTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-23T19:18:07Z",
+      "side": 1,
+      "message": "Well, it\u0027s a single byte... so endianness doesn\u0027t matter... but sure.",
+      "parentUuid": "e30a615c_916bd7f3",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 95
+      },
+      "revId": "8dc64b07c02efe0a6fdabd0e1a4c4273120ba6c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
