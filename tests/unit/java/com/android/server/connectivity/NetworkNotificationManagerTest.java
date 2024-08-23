@@ -61,6 +61,7 @@ import android.os.PowerManager;
 import android.os.UserHandle;
 import android.telephony.TelephonyManager;
 import android.testing.PollingCheck;
+import android.text.BidiFormatter;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.TextView;
@@ -95,13 +96,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 public class NetworkNotificationManagerTest {
 
-    private static final String TEST_SSID = "Test SSID";
+    private static final String TEST_SSID = "?Test SSID+";
     private static final String TEST_EXTRA_INFO = "extra";
     private static final int TEST_NOTIF_ID = 101;
     private static final String TEST_NOTIF_TAG = NetworkNotificationManager.tagFor(TEST_NOTIF_ID);
@@ -166,6 +168,7 @@ public class NetworkNotificationManagerTest {
     @Mock NetworkAgentInfo mBluetoothNai;
     @Mock NetworkInfo mNetworkInfo;
     @Mock NetworkInfo mEmptyNetworkInfo;
+    @Mock NetworkNotificationManager.Dependencies mDependencies;
     ArgumentCaptor<Notification> mCaptor;
 
     NetworkNotificationManager mManager;
@@ -192,6 +195,7 @@ public class NetworkNotificationManagerTest {
         doReturn(asUserCtx).when(mCtx).createContextAsUser(eq(UserHandle.ALL), anyInt());
         doReturn(mNotificationManager).when(mCtx)
                 .getSystemService(eq(Context.NOTIFICATION_SERVICE));
+        doReturn(BidiFormatter.getInstance(Locale.US)).when(mDependencies).getBidiFormatter();
         doReturn(TEST_EXTRA_INFO).when(mNetworkInfo).getExtraInfo();
         ConnectivityResources.setResourcesContextForTest(mCtx);
         doReturn(0xFF607D8B).when(mResources).getColor(anyInt(), any());
@@ -531,6 +535,24 @@ public class NetworkNotificationManagerTest {
     public void testNotificationText_NoInternet() {
         doNotificationTextTest(NO_INTERNET,
                 R.string.wifi_no_internet, TEST_EXTRA_INFO,
+                R.string.wifi_no_internet_detailed);
+    }
+
+    @Test
+    public void testNotificationText_NoInternet_WithSsid() {
+        doReturn(null).when(mNetworkInfo).getExtraInfo();
+        doNotificationTextTest(NO_INTERNET,
+                R.string.wifi_no_internet, TEST_SSID,
+                R.string.wifi_no_internet_detailed);
+    }
+
+    @Test
+    public void testNotificationText_NoInternet_WithRtlSsid() {
+        doReturn(BidiFormatter.getInstance(Locale.forLanguageTag("ar")))
+                .when(mDependencies).getBidiFormatter();
+        doReturn(null).when(mNetworkInfo).getExtraInfo();
+        doNotificationTextTest(NO_INTERNET,
+                R.string.wifi_no_internet, TEST_SSID,
                 R.string.wifi_no_internet_detailed);
     }
 
