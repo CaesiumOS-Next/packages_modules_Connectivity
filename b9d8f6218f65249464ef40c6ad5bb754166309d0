@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25e9c65e_a23225b1",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-26T20:17:32Z",
+      "side": 1,
+      "message": "why these constants? what\u0027s the point? don\u0027t we now drop everything except a few ethertypes?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 55
+      },
+      "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7da584c_315f83fc",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-26T20:17:32Z",
+      "side": 1,
+      "message": "This packet doesn\u0027t look like a valid ethernet frame any more: it\u0027s too short:\n\nA runt frame is an Ethernet frame that is less than the IEEE 802.3\u0027s minimum length of 64 octets [note: includes 4 byte CRC, aka FCS]. Runt frames are most commonly caused by collisions; other possible causes are a malfunctioning network card, buffer underrun, duplex mismatch or software issues.\n\nIt may or may not be zero (or garbage) padded by the kernel and/or nic driver/fw/hardware, and it may or may not be dropped by the network...",
+      "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
