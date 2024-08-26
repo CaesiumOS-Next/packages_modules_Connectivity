@@ -96,6 +96,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd9f6a4f_0c0c8322",
+        "filename": "framework-t/api/system-lint-baseline.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2024-08-26T02:08:43Z",
+      "side": 1,
+      "message": "I have removed these info.",
+      "parentUuid": "2f31940f_3b158ba3",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 14
+      },
+      "revId": "157f95f1fee05ad48297dc61a3ead9d5ded6c65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fe83e29_71b7124b",
