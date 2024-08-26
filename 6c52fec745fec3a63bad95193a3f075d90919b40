@@ -1,0 +1,108 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2df61e9c_df6b1177",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-26T01:38:47Z",
+      "side": 1,
+      "message": "add `final` for the class",
+      "fixSuggestions": [
+        {
+          "fixId": "58377672_45fd23f8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+              "range": {
+                "startLine": 258,
+                "startChar": 0,
+                "endLine": 259,
+                "endChar": 0
+              },
+              "replacement": "    private static final class OtCtlOutputReceiver extends IOtCtlOutputReceiver.Stub {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "6c52fec745fec3a63bad95193a3f075d90919b40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c663cda6_a5192f3f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-26T01:38:47Z",
+      "side": 1,
+      "message": "final",
+      "fixSuggestions": [
+        {
+          "fixId": "ec3ab346_b002af61",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+              "range": {
+                "startLine": 273,
+                "startChar": 0,
+                "endLine": 274,
+                "endChar": 0
+              },
+              "replacement": "        final String subCommand \u003d String.join(\" \", peekRemainingArgs());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "6c52fec745fec3a63bad95193a3f075d90919b40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3dcebbf_a43c90f9",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-26T01:38:47Z",
+      "side": 1,
+      "message": "Please verify if this behavior/implementation is identical to ot-ctl\u0027s implementation",
+      "revId": "6c52fec745fec3a63bad95193a3f075d90919b40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97bed39f_a5c12636",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-26T01:38:47Z",
+      "side": 1,
+      "message": "maybe it\u0027s better to use the original case of `ot-ctl`. i.e. don\u0027t capitalize the intial.",
+      "revId": "6c52fec745fec3a63bad95193a3f075d90919b40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
