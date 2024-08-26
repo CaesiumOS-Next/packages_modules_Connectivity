@@ -107,26 +107,31 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, const boo
 
     RuleEntry* existing_rule = bpf_socket_policy_cache_map_lookup_elem(&cookie);
 
-    if (existing_rule &&
-        v6_equal(src_ip, existing_rule->src_ip) &&
-        v6_equal(dst_ip, existing_rule->dst_ip) &&
-        skb->ifindex == existing_rule->ifindex &&
-        sport == existing_rule->src_port &&
-        dport == existing_rule->dst_port &&
-        protocol == existing_rule->proto) {
-        if (existing_rule->dscp_val < 0) return;
-        if (ipv4) {
-            uint8_t newTos = UPDATE_TOS(existing_rule->dscp_val, tos);
-            bpf_l3_csum_replace(skb, l2_header_size + IP4_OFFSET(check), htons(tos), htons(newTos),
-                                sizeof(uint16_t));
-            bpf_skb_store_bytes(skb, l2_header_size + IP4_OFFSET(tos), &newTos, sizeof(newTos), 0);
-        } else {
-            __be32 new_first_be32 =
-                htonl(ntohl(old_first_be32) & 0xF03FFFFF | (existing_rule->dscp_val << 22));
-            bpf_skb_store_bytes(skb, l2_header_size, &new_first_be32, sizeof(__be32),
-                BPF_F_RECOMPUTE_CSUM);
+    if (existing_rule) {
+        uint64_t nomatch = 0;
+        nomatch |= v6_not_equal(src_ip, existing_rule->src_ip);
+        nomatch |= v6_not_equal(dst_ip, existing_rule->dst_ip);
+        nomatch |= (skb->ifindex ^ existing_rule->ifindex);
+        nomatch |= (sport ^ existing_rule->src_port);
+        nomatch |= (dport ^ existing_rule->dst_port);
+        nomatch |= (protocol ^ existing_rule->proto);
+
+        if (!nomatch) {
+            if (existing_rule->dscp_val < 0) return;
+            if (ipv4) {
+                uint8_t newTos = UPDATE_TOS(existing_rule->dscp_val, tos);
+                bpf_l3_csum_replace(skb, l2_header_size + IP4_OFFSET(check),
+                                    htons(tos), htons(newTos), sizeof(uint16_t));
+                bpf_skb_store_bytes(skb, l2_header_size + IP4_OFFSET(tos),
+                                    &newTos, sizeof(newTos), 0);
+            } else {
+                __be32 new_first_be32 =
+                    htonl(ntohl(old_first_be32) & 0xF03FFFFF | (existing_rule->dscp_val << 22));
+                bpf_skb_store_bytes(skb, l2_header_size, &new_first_be32, sizeof(__be32),
+                    BPF_F_RECOMPUTE_CSUM);
+            }
+            return;
         }
-        return;
     }
 
     // Linear scan ipv4_dscp_policies_map since no stored params match skb.
@@ -151,34 +156,40 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, const boo
         if (!policy) return;
 
         // If policy iface index does not match skb, then skip to next policy.
-        if (policy->ifindex != skb->ifindex) continue;
+        uint64_t nomatch = (policy->ifindex ^ skb->ifindex);
+        // condition/jump-less matching (ab)using the match_* booleans
+        nomatch |= policy->match_proto * (protocol ^ policy->proto);
+        nomatch |= policy->match_src_ip * v6_not_equal(src_ip, policy->src_ip);
+        nomatch |= policy->match_dst_ip * v6_not_equal(dst_ip, policy->dst_ip);
+        nomatch |= policy->match_src_port * (sport ^ policy->src_port);
 
-        int score = 0;
+        // condition/jump-less matching using uint64 underflow into top bit
+        uint64_t dport64 = dport;
+        volatile uint64_t a = (dport64 - policy->dst_port_start); // anti-optimizer
+        nomatch |= a >> 63;
+        volatile uint64_t b = (policy->dst_port_end - dport64); // anti-stupid-compiler-optimizer
+        nomatch |= b >> 63;
+        //asm volatile ("" : : "r" (nomatch));
+        //if (nomatch) continue;
 
-        if (policy->match_proto) {
-            if (protocol != policy->proto) continue;
-            score += 0xFFFF;
-        }
-        if (policy->match_src_ip) {
-            if (v6_not_equal(src_ip, policy->src_ip)) continue;
-            score += 0xFFFF;
-        }
-        if (policy->match_dst_ip) {
-            if (v6_not_equal(dst_ip, policy->dst_ip)) continue;
-            score += 0xFFFF;
-        }
-        if (policy->match_src_port) {
-            if (sport != policy->src_port) continue;
-            score += 0xFFFF;
-        }
-        if (dport < policy->dst_port_start) continue;
-        if (dport > policy->dst_port_end) continue;
-        score += 0xFFFF + policy->dst_port_start - policy->dst_port_end;
+        // score is 0x10000 for each matched field (proto, src_ip, dst_ip, src_port)
+        // plus 1..0x10000 for the dst_port range match (smaller for bigger ranges)
+        int score = 1;
+        score += policy->match_proto;
+        score += policy->match_src_ip;
+        score += policy->match_dst_ip;
+        score += policy->match_src_port;
+        score <<= 16;
+        score -= (policy->dst_port_end - policy->dst_port_start);
 
-        if (score > best_score) {
+        volatile uint64_t c = (score - best_score); //
+        nomatch |= c >> 63;
+        if (nomatch) continue;
+
+        //if (score > best_score) {
             best_score = score;
             new_dscp = policy->dscp_val;
-        }
+        //}
     }
 
     RuleEntry value = {
