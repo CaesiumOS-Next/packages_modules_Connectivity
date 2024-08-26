@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d736b76_fef46766",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-08-26T01:45:12Z",
+      "side": 1,
+      "message": "Add a test in the `ThreadNetworkShellCommandTest.java`?",
+      "revId": "6c52fec745fec3a63bad95193a3f075d90919b40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2df61e9c_df6b1177",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
         "patchSetId": 4
