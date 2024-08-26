@@ -118,6 +118,30 @@
       },
       "revId": "7272406a4f376d806fec5834dd164b314c2c295e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "917a9918_ab2782f9",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-08-26T04:47:07Z",
+      "side": 1,
+      "message": "I\u0027ve gotten rid of trunk stable things from the testing code. I think it should be okay, according to another change that adding test into `TetheringManagerTest.java` about `FLAG_TETHERING_REQUEST_WITH_SOFT_AP_CONFIG`. PLMK if there\u0027s a problem with this.",
+      "parentUuid": "e1752fac_a4af21a1",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 76
+      },
+      "revId": "7272406a4f376d806fec5834dd164b314c2c295e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
