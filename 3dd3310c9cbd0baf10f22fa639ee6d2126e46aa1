@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c53f03ca_8807e3b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-26T04:39:59Z",
+      "side": 1,
+      "message": "This is not accurate anymore. We can mention like\n\n```\n\nRefer to ApfFilter logic`\n\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 25,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "3dd3310c9cbd0baf10f22fa639ee6d2126e46aa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
