@@ -22,6 +22,30 @@
       },
       "revId": "3dd3310c9cbd0baf10f22fa639ee6d2126e46aa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91f127af_ae435354",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-26T06:45:15Z",
+      "side": 1,
+      "message": "The idea is leave trace to check what are the blocked types in the production code.\nIn case they are changed. Thus the above comment is not detailed enough.\nAnything we can reference to provide more detail?",
+      "parentUuid": "c53f03ca_8807e3b1",
+      "range": {
+        "startLine": 9,
+        "startChar": 25,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "3dd3310c9cbd0baf10f22fa639ee6d2126e46aa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
