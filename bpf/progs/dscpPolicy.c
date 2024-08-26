@@ -151,9 +151,9 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, const boo
         return;  // cached DSCP mutation
     }
 
-    // Linear scan ipv4_dscp_policies_map since no stored params match skb.
-    int best_score = 0;
-    int8_t new_dscp = -1;
+    // Linear scan ipv?_dscp_policies_map since stored params didn't match skb.
+    uint64_t best_score = 0;
+    int8_t new_dscp = -1;  // meaning no mutation
 
     for (register uint64_t i = 0; i < MAX_POLICIES; i++) {
         // Using a uint64 in for loop prevents infinite loop during BPF load,
@@ -173,34 +173,37 @@ static inline __always_inline void match_policy(struct __sk_buff* skb, const boo
         if (!policy) return;
 
         // If policy iface index does not match skb, then skip to next policy.
-        if (policy->ifindex != skb->ifindex) continue;
+        uint64_t nomatch = (policy->ifindex ^ skb->ifindex);
+        // condition/jump-less matching (ab)using the match_* booleans being 0/1
+        nomatch |= policy->match_proto * (protocol ^ policy->proto);
+        nomatch |= policy->match_src_ip * v6_not_equal(src_ip, policy->src_ip);
+        nomatch |= policy->match_dst_ip * v6_not_equal(dst_ip, policy->dst_ip);
+        nomatch |= policy->match_src_port * (sport ^ policy->src_port);
 
-        int score = 0;
+        // condition/jump-less matching using uint64 underflow into top bit
+        uint64_t dport64 = dport;
+        nomatch |= (dport64 - policy->dst_port_start) >> 63;
+        nomatch |= (policy->dst_port_end - dport64) >> 63;
 
-        if (policy->match_proto) {
-            if (protocol != policy->proto) continue;
-            score += 0xFFFF;
-        }
-        if (policy->match_src_ip) {
-            if (v6_not_equal(src_ip, policy->src_ip)) continue;
-            score += 0xFFFF;
-        }
-        if (policy->match_dst_ip) {
-            if (v6_not_equal(dst_ip, policy->dst_ip)) continue;
-            score += 0xFFFF;
-        }
-        if (policy->match_src_port) {
-            if (sport != policy->src_port) continue;
-            score += 0xFFFF;
-        }
-        if (dport < policy->dst_port_start) continue;
-        if (dport > policy->dst_port_end) continue;
-        score += 0xFFFF + policy->dst_port_start - policy->dst_port_end;
+        // score is 0xFFFF for each matched field (proto, src_ip, dst_ip, src_port)
+        // plus 0..0xFFFF for the dst_port range match (smaller for bigger ranges)
+        uint64_t score = 0;
+        score += policy->match_proto;
+        score += policy->match_src_ip;
+        score += policy->match_dst_ip;
+        score += policy->match_src_port;
+        score += 1;  // for a 1 element dst_port_range
+        score *= 0xFFFF;
+        score -= (policy->dst_port_end - policy->dst_port_start);  // -= 0..0xFFFF
 
-        if (score > best_score) {
-            best_score = score;
-            new_dscp = policy->dscp_val;
-        }
+        nomatch |= (score - best_score - 1) >> 63;
+
+        COMPILER_FORCE_CALCULATION(nomatch);
+        if (nomatch) continue;
+
+        // only reachable if (score > best_score)
+        best_score = score;
+        new_dscp = policy->dscp_val;
     }
 
     // Update cache with found policy.
