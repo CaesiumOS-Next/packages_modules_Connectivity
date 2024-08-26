@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90257a08_c3aa1041",
+        "filename": "staticlibs/framework/com/android/net/module/util/LocationPermissionChecker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-26T03:30:09Z",
+      "side": 1,
+      "message": "nit: (visibility \u003d PRIVATE) ?\nNo strong opinion.",
+      "range": {
+        "startLine": 115,
+        "startChar": 5,
+        "endLine": 115,
+        "endChar": 22
+      },
+      "revId": "be5ad5eb73b168f28b597b8d6aa161cd32038842",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
