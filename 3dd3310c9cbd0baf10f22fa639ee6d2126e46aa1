@@ -46,6 +46,30 @@
       },
       "revId": "3dd3310c9cbd0baf10f22fa639ee6d2126e46aa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eb8c7f6_ae3a8056",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-26T06:56:51Z",
+      "side": 1,
+      "message": "Refer to ApfCapabilities#getApfEtherTypeBlackList. is only used in R-\n\nIn Q+, its in the overlay\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/NetworkStack/src/android/net/ip/IpClient.java;l\u003d2652?q\u003dIpClient.java\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain\n\n\nAlso, in new ApfFilter we change the denylist from allow list\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/NetworkStack/src/android/net/apf/ApfFilter.java;l\u003d2345?q\u003dApfFilter.java\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain\n\n\nI think we should either put the full background or point to ApfFilter or just mention nothing...",
+      "parentUuid": "91f127af_ae435354",
+      "range": {
+        "startLine": 9,
+        "startChar": 25,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "3dd3310c9cbd0baf10f22fa639ee6d2126e46aa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
