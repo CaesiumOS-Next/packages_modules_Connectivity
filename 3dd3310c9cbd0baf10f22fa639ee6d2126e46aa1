@@ -70,6 +70,30 @@
       },
       "revId": "3dd3310c9cbd0baf10f22fa639ee6d2126e46aa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8021380_26e964e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-26T07:35:14Z",
+      "side": 1,
+      "message": "Removed.\nThanks for explain.",
+      "parentUuid": "1eb8c7f6_ae3a8056",
+      "range": {
+        "startLine": 9,
+        "startChar": 25,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "3dd3310c9cbd0baf10f22fa639ee6d2126e46aa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
