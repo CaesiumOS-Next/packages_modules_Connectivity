@@ -22,6 +22,30 @@
       },
       "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55cbb7a2_8ee58949",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-26T21:20:14Z",
+      "side": 1,
+      "message": "My understanding is that devices which don\u0027t correctly support APFv4 when upgraded to V should report APFv2 or APFv3.",
+      "parentUuid": "e839bc20_39ebf22a",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
