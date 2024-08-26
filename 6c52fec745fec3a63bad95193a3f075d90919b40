@@ -87,6 +87,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39a85430_33808f2c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-26T08:51:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2df61e9c_df6b1177",
+      "revId": "6c52fec745fec3a63bad95193a3f075d90919b40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c663cda6_a5192f3f",
@@ -122,6 +140,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63786cd4_f31158e5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-26T08:51:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c663cda6_a5192f3f",
+      "revId": "6c52fec745fec3a63bad95193a3f075d90919b40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3dcebbf_a43c90f9",
@@ -139,6 +175,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "135e4682_f7e6f868",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-26T08:51:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3dcebbf_a43c90f9",
+      "revId": "6c52fec745fec3a63bad95193a3f075d90919b40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97bed39f_a5c12636",
@@ -152,6 +206,24 @@
       "writtenOn": "2024-08-26T01:38:47Z",
       "side": 1,
       "message": "maybe it\u0027s better to use the original case of `ot-ctl`. i.e. don\u0027t capitalize the intial.",
+      "revId": "6c52fec745fec3a63bad95193a3f075d90919b40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b3c0c70_2d6c8d37",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-26T08:51:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97bed39f_a5c12636",
       "revId": "6c52fec745fec3a63bad95193a3f075d90919b40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
