@@ -16,6 +16,23 @@
       "message": "Failure due to bug elsewhere fixed by https://android-review.git.corp.google.com/c/platform/packages/apps/Nfc/+/3243346",
       "revId": "78fa86107b27045a76d5e7198edf8cab27823b66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28124b53_3ac9d73e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-27T17:57:44Z",
+      "side": 1,
+      "message": "The failing test was broken due to another already fixed failure (by revert)",
+      "revId": "78fa86107b27045a76d5e7198edf8cab27823b66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
