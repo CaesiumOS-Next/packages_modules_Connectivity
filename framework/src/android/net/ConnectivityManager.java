@@ -6734,4 +6734,29 @@ public class ConnectivityManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    /**
+     * Get the specified ConnectivityService feature status. This method allows test code to check
+     * whether the feature is enabled or not.
+     * If the ConnectivityManager needs to change behavior based on flag value, use
+     * {@link #isFeatureEnabled} with {@link ConnectivityManagerFeature} instead.
+     *
+     * @param featureFlag  target flag for feature
+     * @return {@code true} if the feature is enabled, {@code false} if the feature is disabled.
+     * @throws IllegalArgumentException if the flag is invalid
+     *
+     * @hide
+     */
+    @RequiresPermission(anyOf = {
+            android.Manifest.permission.NETWORK_SETTINGS,
+            android.Manifest.permission.NETWORK_STACK,
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK
+    })
+    public boolean isConnectivityServiceFeatureEnabled(final String featureFlag) {
+        try {
+            return mService.isConnectivityServiceFeatureEnabled(featureFlag);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }
