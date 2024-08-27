@@ -70,6 +70,30 @@
       },
       "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9af17a92_fefdd197",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-27T02:49:30Z",
+      "side": 1,
+      "message": "@junyulai@google.com, actually why some of they we use `asserts.abort_class_if` and those of them use \n\n```\n  asserts.skip_if(\n      caps.apf_version_supported \u003c expected_version,\n      f\"Supported apf version {caps.apf_version_supported} \u003c expected version\"\n      f\" {expected_version}\",\n  )\n```\n\nIs there a reason why we use different methods?",
+      "parentUuid": "3f2db133_40d435e1",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
