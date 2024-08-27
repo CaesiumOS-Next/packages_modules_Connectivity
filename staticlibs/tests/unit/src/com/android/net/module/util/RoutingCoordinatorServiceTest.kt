@@ -17,6 +17,7 @@
 package com.android.net.module.util
 
 import android.net.INetd
+import android.net.Network
 import android.os.Build
 import android.util.Log
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -34,7 +35,12 @@ import org.mockito.Mockito.mock
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class RoutingCoordinatorServiceTest {
     val mNetd = mock(INetd::class.java)
-    val mService = RoutingCoordinatorService(mNetd)
+    val mPrivateAddressCoordinatorDeps = object : PrivateAddressCoordinator.Dependencies() {
+        override fun getAllNetworks(): Array<Network> = emptyArray()
+        override fun isRandomPrefixBaseEnabled() = false
+        override fun shouldEnableWifiP2pDedicatedIp() = false
+    }
+    val mService = RoutingCoordinatorService(mNetd, mPrivateAddressCoordinatorDeps)
 
     @Test
     fun testInterfaceForward() {

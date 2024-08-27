@@ -62,6 +62,7 @@ import com.android.internal.app.IBatteryStats
 import com.android.internal.util.test.BroadcastInterceptingContext
 import com.android.modules.utils.build.SdkLevel
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.PrivateAddressCoordinator
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException
 import com.android.server.connectivity.AutomaticOnOffKeepaliveTracker
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator
@@ -363,6 +364,15 @@ open class CSTest {
         override fun isAtLeastT() = if (isSdkUnmocked) super.isAtLeastT() else sdkLevel >= VERSION_T
         override fun isAtLeastU() = if (isSdkUnmocked) super.isAtLeastU() else sdkLevel >= VERSION_U
         override fun isAtLeastV() = if (isSdkUnmocked) super.isAtLeastV() else sdkLevel >= VERSION_V
+
+        override fun makePrivateAddressCoordinatorDependencies(
+            context: Context?,
+            connectivityManager: ConnectivityManager?
+        ) = object : PrivateAddressCoordinator.Dependencies() {
+            override fun getAllNetworks() = connectivityManager?.allNetworks
+            override fun isRandomPrefixBaseEnabled() = false
+            override fun shouldEnableWifiP2pDedicatedIp() = false
+        }
 
         private var callingUid = CALLING_UID_UNMOCKED
 
