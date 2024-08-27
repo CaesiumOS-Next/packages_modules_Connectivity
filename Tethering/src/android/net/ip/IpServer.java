@@ -241,6 +241,8 @@ public class IpServer extends StateMachineShim {
     private final BpfCoordinator mBpfCoordinator;
     @NonNull
     private final RoutingCoordinatorManager mRoutingCoordinator;
+    @NonNull
+    private final IRoutingCoordinatorCallback mRoutingCoordinatorCallback;
     private final Callback mCallback;
     private final InterfaceController mInterfaceCtrl;
 
@@ -306,6 +308,7 @@ public class IpServer extends StateMachineShim {
         mNetd = netd;
         mBpfCoordinator = bpfCoordinator;
         mRoutingCoordinator = routingCoordinatorManager;
+        mRoutingCoordinatorCallback = new RoutingCoordinatorCallbackProxy(this);
         mCallback = callback;
         mInterfaceCtrl = new InterfaceController(ifaceName, mNetd, mLog);
         mIfaceName = ifaceName;
@@ -388,6 +391,11 @@ public class IpServer extends StateMachineShim {
     /** The interface parameters which IpServer is using */
     public InterfaceParams getInterfaceParams() {
         return mInterfaceParams;
+    }
+
+    @VisibleForTesting
+    public IRoutingCoordinatorCallback getRoutingCoordinatorCallback() {
+        return mRoutingCoordinatorCallback;
     }
 
     /**
@@ -638,7 +646,7 @@ public class IpServer extends StateMachineShim {
         // NOTE: All of configureIPv4() will be refactored out of existence
         // into calls to InterfaceController, shared with startIPv4().
         mInterfaceCtrl.clearIPv4Address();
-//        mPrivateAddressCoordinator.releaseDownstream(this);
+        mRoutingCoordinator.releaseDownstream(mRoutingCoordinatorCallback);
         mBpfCoordinator.tetherOffloadClientClear(this);
         mIpv4Address = null;
         mStaticIpv4ServerAddr = null;
@@ -706,7 +714,7 @@ public class IpServer extends StateMachineShim {
                 mInterfaceType,
                 scope,
                 useLastAddress,
-                new RoutingCoordinatorCallbackProxy(this));
+                mRoutingCoordinatorCallback);
         return addr;
     }
 
