@@ -240,6 +240,7 @@ public class TrafficStatsTest extends AndroidTestCase {
         final long maxExpExtraPktBytes = tcpPacketToIpBytes(maxExpectedExtraPackets, 0);
         final long deltaTxOtherPktBytes = tcpPacketToIpBytes(deltaTxOtherPackets, 0);
         final long deltaRxOtherPktBytes  = tcpPacketToIpBytes(deltaRxOtherPackets, 0);
+
         assertInRange("txPackets detail", entry.txPackets, packetCount + minExpectedExtraPackets,
                 uidTxDeltaPackets);
         assertInRange("rxPackets detail", entry.rxPackets, packetCount + minExpectedExtraPackets,
