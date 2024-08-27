@@ -99,6 +99,24 @@
       "parentUuid": "7bcb5ea0_796fb715",
       "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "702d923f_a6f0cf91",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-27T19:04:24Z",
+      "side": 1,
+      "message": "If you want to lower this, then please provide a link to the guaranteed to run (presumably core kernel) code (on all relevant kernel versions so likely 4.19+) which will guarantee the appropriate amount of zero padding.  Otherwise you\u0027re just potentially introducing flakiness dependent on things like driver/firwmare/hardware/AP/network type/etc...",
+      "parentUuid": "28185920_563c122d",
+      "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
