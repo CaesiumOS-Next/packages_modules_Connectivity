@@ -50,7 +50,7 @@ java_sdk_library {
         "//packages/modules/Wifi/service/tests/wifitests",
     ],
     stub_only_libs: [
-        "framework-connectivity.stubs.module_lib",
+        "sdk_module-lib_current_framework-connectivity",
         "sdk_module-lib_current_framework-wifi",
     ],
 
@@ -101,7 +101,7 @@ java_defaults {
         ":framework-tethering-srcs",
     ],
     libs: [
-        "framework-connectivity.stubs.module_lib",
+        "sdk_module-lib_current_framework-connectivity",
         "sdk_module-lib_current_framework-wifi",
     ],
     static_libs: [
