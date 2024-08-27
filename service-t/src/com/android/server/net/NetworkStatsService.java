@@ -693,8 +693,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             mEventLogger = null;
         }
 
-        mAlwaysUseTrafficStatsRateLimitCache =
-                mDeps.alwaysUseTrafficStatsRateLimitCache(mContext);
+        mAlwaysUseTrafficStatsRateLimitCache = false;
         mBroadcastNetworkStatsUpdatedRateLimitEnabled =
                 mDeps.enabledBroadcastNetworkStatsUpdatedRateLimiting(mContext);
         mTrafficStatsRateLimitCacheExpiryDuration =
@@ -2162,6 +2161,22 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return getEntryValueForType(mDeps.nativeGetUidStat(uid), type);
     }
 
+    @Override
+    public NetworkStats getTypelessUidStats(int uid) {
+        final int callingUid = Binder.getCallingUid();
+        if (callingUid != android.os.Process.SYSTEM_UID && callingUid != uid) {
+            return null;
+        }
+        NetworkStats.Entry entry = mDeps.nativeGetUidStat(uid);
+        NetworkStats stats = null;
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        }
+        return stats;
+    }
+
+
     @Nullable
     private NetworkStats.Entry getIfaceStatsInternal(@NonNull String iface) {
         final NetworkStats.Entry entry = mDeps.nativeGetIfaceStat(iface);
@@ -2190,6 +2205,18 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         return getEntryValueForType(getIfaceStatsInternal(iface), type);
+    }
+
+    @Override
+    public NetworkStats getTypelessIfaceStats(@NonNull String iface) {
+        Objects.requireNonNull(iface);
+        NetworkStats.Entry entry = getIfaceStatsInternal(iface);
+        NetworkStats stats = null;
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        }
+        return stats;
     }
 
     private long getEntryValueForType(@Nullable NetworkStats.Entry entry, int type) {
@@ -2244,6 +2271,16 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         return getEntryValueForType(getTotalStatsInternal(), type);
+    }
+    @Override
+    public NetworkStats getTypelessTotalStats() {
+        NetworkStats.Entry entry = getTotalStatsInternal();
+        NetworkStats stats = null;
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        }
+        return stats;
     }
 
     @Override
