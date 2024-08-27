@@ -377,9 +377,8 @@ public class PrivateAddressCoordinator {
     }
 
     /** Release downstream record for IpServer. */
-    public void releaseDownstream(int clientId) {
-//        mDownstreams.remove(ipServer);
-//        mDownstreams.remove(clientId);
+    public void releaseDownstream(IRoutingCoordinatorCallback callback) {
+        mDownstreams.remove(callback);
     }
 
     /** Clear current upstream prefixes records. */
