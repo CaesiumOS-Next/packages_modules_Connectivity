@@ -111,6 +111,7 @@ interface IRoutingCoordinator {
 
     void maybeRemoveDeprecatedUpstreams();
 
+    @nullable
     LinkAddress requestDownstreamAddress(
             in int interfaceType,
             in int scope,
