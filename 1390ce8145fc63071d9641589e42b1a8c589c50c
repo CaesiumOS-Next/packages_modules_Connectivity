@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e40d0e30_4dd59139",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-27T03:31:08Z",
+      "side": 1,
+      "message": "please either:\n- reject new incoming connections when there\u0027s already one active interactive session\n- support multiple interactive sessions",
+      "fixSuggestions": [
+        {
+          "fixId": "36b5b4b2_939b447c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+              "range": {
+                "startLine": 106,
+                "startChar": 0,
+                "endLine": 106,
+                "endChar": 0
+              },
+              "replacement": "import android.net.thread.ThreadNetworkException.ErrorCode;\n"
+            },
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+              "range": {
+                "startLine": 216,
+                "startChar": 0,
+                "endLine": 216,
+                "endChar": 0
+              },
+              "replacement": "    private boolean mOtCtlInteractiveSessionActive;\n"
+            },
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+              "range": {
+                "startLine": 1339,
+                "startChar": 0,
+                "endLine": 1340,
+                "endChar": 0
+              },
+              "replacement": "        mHandler.post(() -\u003e runOtCtlCommandInternal(command, receiver, false));\n"
+            },
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+              "range": {
+                "startLine": 1343,
+                "startChar": 0,
+                "endLine": 1344,
+                "endChar": 0
+              },
+              "replacement": "            String command, IOtCtlOutputReceiver receiver, boolean isInteractive) {\n"
+            },
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+              "range": {
+                "startLine": 1347,
+                "startChar": 0,
+                "endLine": 1348,
+                "endChar": 0
+              },
+              "replacement": "            getOtDaemon().runOtCtlCommand(command, receiver, isInteractive);\n"
+            },
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+              "range": {
+                "startLine": 1350,
+                "startChar": 0,
+                "endLine": 1350,
+                "endChar": 0
+              },
+              "replacement": "            receiver.onError(e);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "1390ce8145fc63071d9641589e42b1a8c589c50c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
