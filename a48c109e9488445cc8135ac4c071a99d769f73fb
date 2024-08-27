@@ -94,6 +94,30 @@
       },
       "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13ec2558_46afeca7",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-27T19:01:35Z",
+      "side": 1,
+      "message": "Sure but why?  Shouldn\u0027t this just be:\n\nif \u003c V skip\nif APFversion \u003c 4 skip\n\nAFAIK we *require* APFv4 on V to work.\nDevices cannot upgrade to V and claim to support APFv4 and have it not work.\nThat\u0027s exactly the seahawk xTS bug where they have to downgrade the HAL to report APFv\u003c4.",
+      "parentUuid": "9af17a92_fefdd197",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
