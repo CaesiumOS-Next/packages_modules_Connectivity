@@ -116,4 +116,6 @@ interface IRoutingCoordinator {
             in int scope,
             in boolean useLastAddress,
             in IRoutingCoordinatorCallback callback);
+
+    void releaseDownstream(in IRoutingCoordinatorCallback callback);
 }

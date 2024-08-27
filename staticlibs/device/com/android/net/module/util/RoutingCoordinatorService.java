@@ -273,4 +273,11 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
                     interfaceType, scope, useLastAddress, callback);
         }
     }
+
+    @Override
+    public void releaseDownstream(IRoutingCoordinatorCallback callback) {
+        synchronized (mPrivateAddressCoordinatorLock) {
+            mPrivateAddressCoordinator.releaseDownstream(callback);
+        }
+    }
 }

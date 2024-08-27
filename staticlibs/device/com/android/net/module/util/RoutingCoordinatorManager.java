@@ -197,4 +197,12 @@ public class RoutingCoordinatorManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    public void releaseDownstream(IRoutingCoordinatorCallback callback) {
+        try {
+            mService.releaseDownstream(callback);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }
