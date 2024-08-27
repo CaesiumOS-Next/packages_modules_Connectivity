@@ -136,7 +136,8 @@ public abstract class TetheringDependencies {
     public RoutingCoordinatorManager getRoutingCoordinator(Context context, SharedLog log) {
         IBinder binder;
         if (!SdkLevel.isAtLeastS()) {
-            binder = new RoutingCoordinatorService(getINetd(context, log));
+            ConnectivityManager cm = context.getSystemService(ConnectivityManager.class);
+            binder = new RoutingCoordinatorService(getINetd(context, log), cm);
         } else {
             binder = ConnectivityInternalApiUtil.getRoutingCoordinator(context);
         }
