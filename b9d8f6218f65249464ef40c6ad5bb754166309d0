@@ -81,6 +81,24 @@
       "parentUuid": "a7da584c_315f83fc",
       "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28185920_563c122d",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-27T03:03:22Z",
+      "side": 1,
+      "message": "@junyulai@google.com But I guess there is no harm to add more zero padding to make it 60 bytes.",
+      "parentUuid": "7bcb5ea0_796fb715",
+      "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
