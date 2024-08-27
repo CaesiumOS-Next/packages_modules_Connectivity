@@ -243,6 +243,7 @@ import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import static java.util.Arrays.asList;
 
@@ -404,6 +405,7 @@ import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.NetworkMonitorUtils;
+import com.android.net.module.util.PrivateAddressCoordinator;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.NetworkAgentConfigShimImpl;
 import com.android.networkstack.apishim.common.BroadcastOptionsShim;
@@ -650,6 +652,7 @@ public class ConnectivityServiceTest {
     @Mock SubscriptionManager mSubscriptionManager;
     @Mock KeepaliveTracker.Dependencies mMockKeepaliveTrackerDependencies;
     @Mock SatelliteAccessController mSatelliteAccessController;
+    @Mock PrivateAddressCoordinator.Dependencies mPrivateAddressCoordinatorDeps;
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
@@ -1928,6 +1931,10 @@ public class ConnectivityServiceTest {
                 .getSupportedKeepalives(mServiceContext);
         mAutoOnOffKeepaliveDependencies =
                 new AutomaticOnOffKeepaliveTrackerDependencies(mServiceContext);
+        when(mPrivateAddressCoordinatorDeps.getAllNetworks())
+                .thenAnswer(args -> mCm.getAllNetworks());
+        when(mPrivateAddressCoordinatorDeps.isRandomPrefixBaseEnabled()).thenReturn(false);
+        when(mPrivateAddressCoordinatorDeps.shouldEnableWifiP2pDedicatedIp()).thenReturn(false);
         mService = new ConnectivityService(mServiceContext,
                 mMockDnsResolver,
                 mock(IpConnectivityLog.class),
@@ -2368,6 +2375,12 @@ public class ConnectivityServiceTest {
                 @NonNull final Network network, final long delayMs) {
             mScheduledEvaluationTimeouts.add(new Pair<>(network.netId, delayMs));
             super.scheduleEvaluationTimeout(handler, network, delayMs);
+        }
+
+        @Override
+        public PrivateAddressCoordinator.Dependencies makePrivateAddressCoordinatorDependencies(
+                Context context, ConnectivityManager connectivityManager) {
+            return mPrivateAddressCoordinatorDeps;
         }
     }
 
