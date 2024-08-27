@@ -2074,7 +2074,9 @@ public class Tethering {
                     return;
                 }
 
-                ConnectivityManager cm = mContext.getSystemService(ConnectivityManager.class);
+                ConnectivityManager cm =
+                        (ConnectivityManager)
+                                mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
                 mRoutingCoordinator.maybeRemoveDeprecatedUpstreams(asList(cm.getAllNetworks()));
                 mUpstreamNetworkMonitor.startObserveAllNetworks();
 
