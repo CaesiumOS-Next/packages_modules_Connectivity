@@ -107,6 +107,7 @@ public final class PrivateAddressCoordinatorTest {
         final IRoutingCoordinatorCallback callback = mock(IRoutingCoordinatorCallback.class);
         when(ipServer.getRoutingCoordinatorCallback()).thenReturn(callback);
         when(callback.asBinder()).thenReturn(mock(IBinder.class));
+        when(callback.getAddress()).thenReturn(null);
         doAnswer(
                         invocation -> {
                             ipServer.sendMessage(CMD_NOTIFY_PREFIX_CONFLICT);
