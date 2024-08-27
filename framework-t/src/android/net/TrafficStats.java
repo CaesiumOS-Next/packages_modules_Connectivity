@@ -33,13 +33,16 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.RemoteException;
 import android.os.StrictMode;
+import android.os.SystemClock;
 import android.util.Log;
+import android.util.LruCache;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Iterator;
 
 /**
  * Class that provides network traffic statistics. These statistics include
@@ -176,6 +179,15 @@ public class TrafficStats {
 
     private static INetworkStatsService sStatsService;
 
+    private static LruCache<String, NetworkStats> sTrafficStatsIfaceCache;
+    private static NetworkStats sTrafficStatsUidCache;
+    private static NetworkStats sTrafficStatsTotalCache;
+
+    private static boolean sAlwaysUseTrafficStatsRateLimitCache;
+    private static int sTrafficStatsRateLimitCacheExpiryDuration;
+    private static int sTrafficStatsRateLimitCacheMaxEntries;
+
+
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P, trackingBug = 130143562)
     private synchronized static INetworkStatsService getStatsService() {
         if (sStatsService == null) {
@@ -223,6 +235,14 @@ public class TrafficStats {
             return;
         }
         sStatsService = statsManager.getBinder();
+        sTrafficStatsIfaceCache = new LruCache<String, NetworkStats>(
+                sTrafficStatsRateLimitCacheMaxEntries
+        );
+        sTrafficStatsUidCache = null;
+        sTrafficStatsTotalCache = null;
+        sAlwaysUseTrafficStatsRateLimitCache = true;
+        sTrafficStatsRateLimitCacheExpiryDuration = 1000;
+        sTrafficStatsRateLimitCacheMaxEntries = 100;
     }
 
     /**
@@ -730,11 +750,7 @@ public class TrafficStats {
      * @return The number of transmitted packets.
      */
     public static long getTxPackets(@NonNull String iface) {
-        try {
-            return getStatsService().getIfaceStats(iface, TYPE_TX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getCachedOrRealIfaceStats(iface, TYPE_TX_PACKETS);
     }
 
     /**
@@ -753,11 +769,7 @@ public class TrafficStats {
      * @return The number of received packets.
      */
     public static long getRxPackets(@NonNull String iface) {
-        try {
-            return getStatsService().getIfaceStats(iface, TYPE_RX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getCachedOrRealIfaceStats(iface, TYPE_RX_PACKETS);
     }
 
     /**
@@ -776,11 +788,7 @@ public class TrafficStats {
      * @return The number of transmitted bytes.
      */
     public static long getTxBytes(@NonNull String iface) {
-        try {
-            return getStatsService().getIfaceStats(iface, TYPE_TX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getCachedOrRealIfaceStats(iface, TYPE_TX_BYTES);
     }
 
     /**
@@ -799,11 +807,7 @@ public class TrafficStats {
      * @return The number of received bytes.
      */
     public static long getRxBytes(@NonNull String iface) {
-        try {
-            return getStatsService().getIfaceStats(iface, TYPE_RX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getCachedOrRealIfaceStats(iface, TYPE_RX_BYTES);
     }
 
     /** {@hide} */
@@ -856,11 +860,7 @@ public class TrafficStats {
      * return {@link #UNSUPPORTED} on devices where statistics aren't available.
      */
     public static long getTotalTxPackets() {
-        try {
-            return getStatsService().getTotalStats(TYPE_TX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getCachedOrRealTotalStats(TYPE_TX_PACKETS);
     }
 
     /**
@@ -873,11 +873,7 @@ public class TrafficStats {
      * return {@link #UNSUPPORTED} on devices where statistics aren't available.
      */
     public static long getTotalRxPackets() {
-        try {
-            return getStatsService().getTotalStats(TYPE_RX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getCachedOrRealTotalStats(TYPE_RX_PACKETS);
     }
 
     /**
@@ -890,11 +886,7 @@ public class TrafficStats {
      * return {@link #UNSUPPORTED} on devices where statistics aren't available.
      */
     public static long getTotalTxBytes() {
-        try {
-            return getStatsService().getTotalStats(TYPE_TX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getCachedOrRealTotalStats(TYPE_TX_BYTES);
     }
 
     /**
@@ -907,11 +899,92 @@ public class TrafficStats {
      * return {@link #UNSUPPORTED} on devices where statistics aren't available.
      */
     public static long getTotalRxBytes() {
-        try {
-            return getStatsService().getTotalStats(TYPE_RX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
+        return getCachedOrRealTotalStats(TYPE_RX_BYTES);
+    }
+
+    /**
+     * Retrieves either a cached value or a real-time uid statistic based on the feature switch.
+     *
+     * @param type The type of statistic to retrieve.
+     * @return The uid statistic since boot
+     * @hide
+     */
+    public static long getCachedOrRealUidStats(int uid, int type) {
+        if (!isEntryValueTypeValid(type)
+                || android.os.Process.myUid() != uid) { // how to deal with the sudo
+            return UNSUPPORTED;
         }
+        NetworkStats stats = sTrafficStatsUidCache;
+        if (!sAlwaysUseTrafficStatsRateLimitCache
+                || stats == null || SystemClock.uptimeMillis()
+                - stats.getElapsedRealtime() > sTrafficStatsRateLimitCacheExpiryDuration) {
+            try {
+                stats = getStatsService().getTypelessUidStats(uid);
+                if (stats != null && sAlwaysUseTrafficStatsRateLimitCache) {
+                    stats.setElapsedRealtime(SystemClock.elapsedRealtime());
+                    sTrafficStatsUidCache = stats;
+                }
+            } catch (RemoteException e) {
+                throw e.rethrowFromSystemServer();
+            }
+        }
+        return getEntryValueForTypeFromStats(stats, type);
+    }
+
+    /**
+     * Retrieves either a cached value or a real-time total statistic based on the feature switch.
+     *
+     * @param type The type of statistic to retrieve.
+     * @return The total statistic since boot
+     * @hide
+     */
+    public static long getCachedOrRealTotalStats(int type) {
+        if (!isEntryValueTypeValid(type)) {
+            return UNSUPPORTED;
+        }
+        NetworkStats stats = sTrafficStatsTotalCache;
+        if (!sAlwaysUseTrafficStatsRateLimitCache
+                || stats == null || SystemClock.uptimeMillis()
+                - stats.getElapsedRealtime() > sTrafficStatsRateLimitCacheExpiryDuration) {
+            try {
+                stats = getStatsService().getTypelessTotalStats();
+                if (stats != null && sAlwaysUseTrafficStatsRateLimitCache) {
+                    stats.setElapsedRealtime(SystemClock.elapsedRealtime());
+                    sTrafficStatsTotalCache = stats;
+                }
+            } catch (RemoteException e) {
+                throw e.rethrowFromSystemServer();
+            }
+        }
+        return getEntryValueForTypeFromStats(stats, type);
+    }
+
+    /**
+     * Retrieves either a cached value or a real-time Iface statistic based on the feature switch.
+     *
+     * @param type The type of statistic to retrieve.
+     * @return The iface statistic since boot
+     * @hide
+     */
+    public static long getCachedOrRealIfaceStats(String iface, int type) {
+        if (!isEntryValueTypeValid(type)) {
+            return UNSUPPORTED;
+        }
+        NetworkStats stats = sTrafficStatsIfaceCache.get(iface);
+        if (!sAlwaysUseTrafficStatsRateLimitCache
+                || stats == null || SystemClock.uptimeMillis()
+                - stats.getElapsedRealtime() > sTrafficStatsRateLimitCacheExpiryDuration) {
+            try {
+                stats = getStatsService().getTypelessIfaceStats(iface);
+                if (stats != null && sAlwaysUseTrafficStatsRateLimitCache) {
+                    stats.setElapsedRealtime(SystemClock.elapsedRealtime());
+                    sTrafficStatsIfaceCache.put(iface, stats);
+                }
+            } catch (RemoteException e) {
+                throw e.rethrowFromSystemServer();
+            }
+        }
+        return getEntryValueForTypeFromStats(stats, type);
     }
 
     /**
@@ -933,11 +1006,7 @@ public class TrafficStats {
      * @see android.content.pm.ApplicationInfo#uid
      */
     public static long getUidTxBytes(int uid) {
-        try {
-            return getStatsService().getUidStats(uid, TYPE_TX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getCachedOrRealUidStats(uid, TYPE_TX_BYTES);
     }
 
     /**
@@ -959,11 +1028,7 @@ public class TrafficStats {
      * @see android.content.pm.ApplicationInfo#uid
      */
     public static long getUidRxBytes(int uid) {
-        try {
-            return getStatsService().getUidStats(uid, TYPE_RX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getCachedOrRealUidStats(uid, TYPE_RX_BYTES);
     }
 
     /**
@@ -985,11 +1050,7 @@ public class TrafficStats {
      * @see android.content.pm.ApplicationInfo#uid
      */
     public static long getUidTxPackets(int uid) {
-        try {
-            return getStatsService().getUidStats(uid, TYPE_TX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getCachedOrRealUidStats(uid, TYPE_TX_PACKETS);
     }
 
     /**
@@ -1011,10 +1072,44 @@ public class TrafficStats {
      * @see android.content.pm.ApplicationInfo#uid
      */
     public static long getUidRxPackets(int uid) {
-        try {
-            return getStatsService().getUidStats(uid, TYPE_RX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
+        return getCachedOrRealUidStats(uid, TYPE_RX_PACKETS);
+    }
+
+    /** @hide
+     * yunchenc: return if entry type is valid
+     * @param type
+     * @return
+     */
+    public static boolean isEntryValueTypeValid(int type) {
+        switch (type) {
+            case TYPE_RX_BYTES:
+            case TYPE_RX_PACKETS:
+            case TYPE_TX_BYTES:
+            case TYPE_TX_PACKETS:
+                return true;
+            default :
+                return false;
+        }
+    }
+
+    /** @hide */
+    public static long getEntryValueForTypeFromStats(NetworkStats stats, int type) {
+        if (stats == null || stats.iterator() == null
+                || !isEntryValueTypeValid(type)) return UNSUPPORTED;
+        Iterator<android.net.NetworkStats.Entry> iter = stats.iterator();
+        android.net.NetworkStats.Entry entry = iter.next();
+        switch (type) {
+            case TYPE_RX_BYTES:
+                return entry.getRxBytes();
+            case TYPE_RX_PACKETS:
+                return entry.getRxPackets();
+            case TYPE_TX_BYTES:
+                return entry.getTxBytes();
+            case TYPE_TX_PACKETS:
+                return entry.getTxPackets();
+            default:
+                throw new IllegalStateException("Bug: Invalid type: "
+                        + type + " should not reach here.");
         }
     }
 
