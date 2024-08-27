@@ -180,12 +180,6 @@ public abstract class TetheringDependencies {
         return TextUtils.equals(SystemProperties.get("ro.tether.denied"), "true");
     }
 
-    /** Make PrivateAddressCoordinator to be used by Tethering. */
-    public PrivateAddressCoordinator makePrivateAddressCoordinator(TetheringConfiguration cfg) {
-        return new PrivateAddressCoordinator(
-                cfg.isRandomPrefixBaseEnabled(), cfg.shouldEnableWifiP2pDedicatedIp());
-    }
-
     /**
      * Make BluetoothPanShim object to enable/disable bluetooth tethering.
      *
