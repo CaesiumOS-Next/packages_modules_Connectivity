@@ -46,6 +46,30 @@
       },
       "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f2db133_40d435e1",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-27T02:47:47Z",
+      "side": 1,
+      "message": "There is assume check a couple line down\n\n```\n    apf_utils.assume_apf_version_support_at_least(\n        self.clientDevice, self.client_iface_name, 4\n    )\n```\n\nSo right now the logic is:\n\n\n```\nif not VSR 14+, then skip \nif not v, then skip\nIf APF version is not at least 4, then skip\n```",
+      "parentUuid": "55cbb7a2_8ee58949",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
