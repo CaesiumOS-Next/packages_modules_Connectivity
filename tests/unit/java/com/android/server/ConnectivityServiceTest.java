@@ -2369,6 +2369,16 @@ public class ConnectivityServiceTest {
             mScheduledEvaluationTimeouts.add(new Pair<>(network.netId, delayMs));
             super.scheduleEvaluationTimeout(handler, network, delayMs);
         }
+
+        @Override
+        public boolean isRandomPrefixBaseEnabled(Context context) {
+            return false;
+        }
+
+        @Override
+        public boolean isDedicatedWifiP2pEnabled(Context context) {
+            return false;
+        }
     }
 
     private class AutomaticOnOffKeepaliveTrackerDependencies
