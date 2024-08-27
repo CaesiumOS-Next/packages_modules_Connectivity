@@ -131,6 +131,7 @@ import android.net.UnderlyingNetworkInfo;
 import android.net.Uri;
 import android.net.netstats.IUsageCallback;
 import android.net.netstats.NetworkStatsDataMigrationUtils;
+import android.net.netstats.TrafficStatsConfig;
 import android.net.netstats.provider.INetworkStatsProvider;
 import android.net.netstats.provider.INetworkStatsProviderCallback;
 import android.net.netstats.provider.NetworkStatsProvider;
@@ -323,6 +324,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final AlarmManager mAlarmManager;
     private final Clock mClock;
     private final NetworkStatsSettings mSettings;
+    //yunchenc
+    private final TrafficStatsConfig mTrafficStatsConfig;
     private final NetworkStatsObservers mStatsObservers;
 
     private final File mStatsDir;
@@ -694,7 +697,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         mAlwaysUseTrafficStatsRateLimitCache =
-                mDeps.alwaysUseTrafficStatsRateLimitCache(mContext);
+                !mDeps.alwaysUseTrafficStatsRateLimitCache(mContext);
         mBroadcastNetworkStatsUpdatedRateLimitEnabled =
                 mDeps.enabledBroadcastNetworkStatsUpdatedRateLimiting(mContext);
         mTrafficStatsRateLimitCacheExpiryDuration =
@@ -707,6 +710,14 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 mTrafficStatsRateLimitCacheExpiryDuration, mTrafficStatsRateLimitCacheMaxEntries);
         mTrafficStatsUidCache = new TrafficStatsRateLimitCache(mClock,
                 mTrafficStatsRateLimitCacheExpiryDuration, mTrafficStatsRateLimitCacheMaxEntries);
+
+        mTrafficStatsConfig = new TrafficStatsConfig();
+        mTrafficStatsConfig.mAlwaysUseTrafficStatsRateLimitCache =
+                mDeps.alwaysUseTrafficStatsRateLimitCache(mContext);
+        mTrafficStatsConfig.mTrafficStatsRateLimitCacheExpiryDuration =
+                mDeps.getTrafficStatsRateLimitCacheExpiryDuration();
+        mTrafficStatsConfig.mTrafficStatsRateLimitCacheMaxEntries =
+                mDeps.getTrafficStatsRateLimitCacheMaxEntries();
 
         // TODO: Remove bpfNetMaps creation and always start SkDestroyListener
         // Following code is for the experiment to verify the SkDestroyListener refactoring. Based
@@ -2145,6 +2156,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     }
 
     @Override
+    public TrafficStatsConfig getTrafficStatsConfig() {
+        return mTrafficStatsConfig;
+    }
+
+    @Override
     public long getUidStats(int uid, int type) {
         final int callingUid = Binder.getCallingUid();
         if (callingUid != android.os.Process.SYSTEM_UID && callingUid != uid) {
@@ -2161,6 +2177,22 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
         return getEntryValueForType(mDeps.nativeGetUidStat(uid), type);
     }
+
+    @Override
+    public NetworkStats getTypelessUidStats(int uid) {
+        final int callingUid = Binder.getCallingUid();
+        if (callingUid != android.os.Process.SYSTEM_UID && callingUid != uid) {
+            return null;
+        }
+        NetworkStats.Entry entry = mDeps.nativeGetUidStat(uid);
+        NetworkStats stats = null;
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        }
+        return stats;
+    }
+
 
     @Nullable
     private NetworkStats.Entry getIfaceStatsInternal(@NonNull String iface) {
@@ -2190,6 +2222,18 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         return getEntryValueForType(getIfaceStatsInternal(iface), type);
+    }
+
+    @Override
+    public NetworkStats getTypelessIfaceStats(@NonNull String iface) {
+        Objects.requireNonNull(iface);
+        NetworkStats.Entry entry = getIfaceStatsInternal(iface);
+        NetworkStats stats = null;
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        }
+        return stats;
     }
 
     private long getEntryValueForType(@Nullable NetworkStats.Entry entry, int type) {
@@ -2244,6 +2288,16 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         return getEntryValueForType(getTotalStatsInternal(), type);
+    }
+    @Override
+    public NetworkStats getTypelessTotalStats() {
+        NetworkStats.Entry entry = getTotalStatsInternal();
+        NetworkStats stats = null;
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        }
+        return stats;
     }
 
     @Override

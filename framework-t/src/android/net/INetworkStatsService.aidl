@@ -25,6 +25,7 @@ import android.net.NetworkStatsHistory;
 import android.net.NetworkTemplate;
 import android.net.UnderlyingNetworkInfo;
 import android.net.netstats.IUsageCallback;
+import android.net.netstats.TrafficStatsConfig;
 import android.net.netstats.provider.INetworkStatsProvider;
 import android.net.netstats.provider.INetworkStatsProviderCallback;
 import android.os.IBinder;
@@ -86,6 +87,15 @@ interface INetworkStatsService {
     /** Get the total network stats information since boot */
     long getTotalStats(int type);
 
+    /** Get the typeless uid stats information since boot */
+    NetworkStats getTypelessUidStats(int uid);
+
+    /** Get the typeless total stats information since boot */
+    NetworkStats getTypelessTotalStats();
+
+    /** Get the typeless iface stats information since boot */
+    NetworkStats getTypelessIfaceStats(String iface);
+
     /** Registers a network stats provider */
     INetworkStatsProviderCallback registerNetworkStatsProvider(String tag,
             in INetworkStatsProvider provider);
@@ -104,4 +114,7 @@ interface INetworkStatsService {
 
      /** Clear TrafficStats rate-limit caches. */
      void clearTrafficStatsRateLimitCaches();
+
+     /** Get network stats client settings */
+     TrafficStatsConfig getTrafficStatsConfig();
 }
