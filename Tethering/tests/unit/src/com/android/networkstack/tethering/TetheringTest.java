@@ -91,12 +91,14 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.inOrder;
@@ -192,8 +194,8 @@ import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.InterfaceParams;
-import com.android.net.module.util.PrivateAddressCoordinator;
 import com.android.net.module.util.RoutingCoordinatorManager;
+import com.android.net.module.util.RoutingCoordinatorService;
 import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.ip.IpNeighborMonitor;
 import com.android.networkstack.apishim.common.BluetoothPanShim;
@@ -319,7 +321,6 @@ public class TetheringTest {
     private TetheringConfiguration mConfig;
     private EntitlementManager mEntitleMgr;
     private OffloadController mOffloadCtrl;
-    private PrivateAddressCoordinator mPrivateAddressCoordinator;
     private SoftApCallback mSoftApCallback;
     private SoftApCallback mLocalOnlyHotspotCallback;
     private UpstreamNetworkMonitor mUpstreamNetworkMonitor;
@@ -490,8 +491,13 @@ public class TetheringTest {
         }
 
         @Override
-        public RoutingCoordinatorManager getRoutingCoordinator(final Context context,
-                SharedLog log) {
+        public RoutingCoordinatorManager getRoutingCoordinator(
+                final Context context, SharedLog log, TetheringConfiguration tetheringConfig) {
+            RoutingCoordinatorService service =
+                    new RoutingCoordinatorService(
+                            getINetd(context, log),
+                            new PrivateAddressCoordinatorDeps(mCm, tetheringConfig));
+            mRoutingCoordinatorManager = spy(new RoutingCoordinatorManager(context, service));
             return mRoutingCoordinatorManager;
         }
 
@@ -535,17 +541,6 @@ public class TetheringTest {
         @Override
         public TetheringMetrics makeTetheringMetrics(Context ctx) {
             return mTetheringMetrics;
-        }
-
-        @Override
-        public PrivateAddressCoordinator makePrivateAddressCoordinator(Context ctx) {
-            when(mPrivateAddressCoordinatorDependencies.isFeatureEnabled(anyString()))
-                    .thenReturn(false);
-            ConnectivityManager cm = ctx.getSystemService(ConnectivityManager.class);
-            mPrivateAddressCoordinator =
-                    new PrivateAddressCoordinator(
-                            cm::getAllNetworks, mPrivateAddressCoordinatorDependencies);
-            return mPrivateAddressCoordinator;
         }
 
         @Override
@@ -688,6 +683,7 @@ public class TetheringTest {
                 new IntentFilter(ACTION_TETHER_STATE_CHANGED));
 
         mCm = spy(new TestConnectivityManager(mServiceContext, mock(IConnectivityManager.class)));
+        when(mCm.getAllNetworks()).thenReturn(new Network[] {});
 
         when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)).thenReturn(true);
         when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)).thenReturn(true);
@@ -870,6 +866,9 @@ public class TetheringTest {
                     any(NetworkCallback.class), any(Handler.class));
             assertTrue(TestConnectivityManager.looksLikeDefaultRequest(reqCaptor.getValue()));
         }
+
+        // Ignore calls to {@link ConnectivityManager#getallNetworks}.
+        verify(mCm, atLeast(0)).getAllNetworks();
 
         // The default network request is only ever filed once.
         verifyNoMoreInteractions(mCm);

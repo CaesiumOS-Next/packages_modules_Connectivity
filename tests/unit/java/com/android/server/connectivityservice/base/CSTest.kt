@@ -364,6 +364,9 @@ open class CSTest {
         override fun isAtLeastU() = if (isSdkUnmocked) super.isAtLeastU() else sdkLevel >= VERSION_U
         override fun isAtLeastV() = if (isSdkUnmocked) super.isAtLeastV() else sdkLevel >= VERSION_V
 
+        override fun isRandomPrefixBaseEnabled(context: Context?) = false
+        override fun shouldEnableWifiP2pDedicatedIp(context: Context?) = false
+
         private var callingUid = CALLING_UID_UNMOCKED
 
         fun unmockCallingUid() {
