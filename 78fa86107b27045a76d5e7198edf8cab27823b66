@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd222a7c_36333fec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-27T02:26:15Z",
+      "side": 1,
+      "message": "Failure due to bug elsewhere fixed by https://android-review.git.corp.google.com/c/platform/packages/apps/Nfc/+/3243346",
+      "revId": "78fa86107b27045a76d5e7198edf8cab27823b66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
