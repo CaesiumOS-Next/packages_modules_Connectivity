@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0c1a2901_90f3020e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-27T03:02:10Z",
+      "side": 1,
+      "message": "For DDR we went with aosp/3237918 instead. That approach ensures that the flag is only read exactly once for a given network.\n\nThis utility may still be useful for other code, but given the lack of a current use case it\u0027s probably best not to merge it for now.",
+      "revId": "c06b03ed507b4b841ba130fb8e78d672d4fc1e6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87624e03_e92c61b2",
         "filename": "staticlibs/tests/unit/src/com/android/net/module/util/DeviceConfigUtilsTest.java",
         "patchSetId": 4
