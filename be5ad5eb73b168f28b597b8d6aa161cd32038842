@@ -22,6 +22,30 @@
       },
       "revId": "be5ad5eb73b168f28b597b8d6aa161cd32038842",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f32ee17c_f706ee27",
+        "filename": "staticlibs/framework/com/android/net/module/util/LocationPermissionChecker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-27T06:27:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90257a08_c3aa1041",
+      "range": {
+        "startLine": 115,
+        "startChar": 5,
+        "endLine": 115,
+        "endChar": 22
+      },
+      "revId": "be5ad5eb73b168f28b597b8d6aa161cd32038842",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
