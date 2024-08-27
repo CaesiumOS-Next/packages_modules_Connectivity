@@ -243,6 +243,7 @@ import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import static java.util.Arrays.asList;
 
@@ -1928,6 +1929,8 @@ public class ConnectivityServiceTest {
                 .getSupportedKeepalives(mServiceContext);
         mAutoOnOffKeepaliveDependencies =
                 new AutomaticOnOffKeepaliveTrackerDependencies(mServiceContext);
+        when(mDeps.isRandomPrefixBaseEnabled(any())).thenReturn(false);
+        when(mDeps.shouldEnableWifiP2pDedicatedIp(any())).thenReturn(false);
         mService = new ConnectivityService(mServiceContext,
                 mMockDnsResolver,
                 mock(IpConnectivityLog.class),
@@ -2368,6 +2371,16 @@ public class ConnectivityServiceTest {
                 @NonNull final Network network, final long delayMs) {
             mScheduledEvaluationTimeouts.add(new Pair<>(network.netId, delayMs));
             super.scheduleEvaluationTimeout(handler, network, delayMs);
+        }
+
+        @Override
+        public boolean isRandomPrefixBaseEnabled(Context context) {
+            return false;
+        }
+
+        @Override
+        public boolean shouldEnableWifiP2pDedicatedIp(Context context) {
+            return false;
         }
     }
 
