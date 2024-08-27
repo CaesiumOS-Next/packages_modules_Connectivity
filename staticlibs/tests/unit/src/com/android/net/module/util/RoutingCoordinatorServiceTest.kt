@@ -34,7 +34,7 @@ import org.mockito.Mockito.mock
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class RoutingCoordinatorServiceTest {
     val mNetd = mock(INetd::class.java)
-    val mService = RoutingCoordinatorService(mNetd)
+    val mService = RoutingCoordinatorService(mNetd, false, false)
 
     @Test
     fun testInterfaceForward() {
