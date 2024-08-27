@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db74c37f_38fdc33e",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-27T03:03:05Z",
+      "side": 1,
+      "message": "I comment https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3235730/comment/c53f03ca_8807e3b1/ as well.\n\nI think the purpose here is try to cover both legacyApfFilter and ApfFilter.\n\nThe LegacyApfFilter is till using deny list. Those EtherType are on the deny-list.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/NetworkStack/res/values/config.xml;l\u003d119?q\u003ddenyList%2088a4\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
+      "parentUuid": "25e9c65e_a23225b1",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 55
+      },
+      "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7da584c_315f83fc",
         "filename": "tests/cts/multidevices/apfv4_test.py",
         "patchSetId": 5
@@ -37,6 +61,24 @@
       "writtenOn": "2024-08-26T20:17:32Z",
       "side": 1,
       "message": "This packet doesn\u0027t look like a valid ethernet frame any more: it\u0027s too short:\n\nA runt frame is an Ethernet frame that is less than the IEEE 802.3\u0027s minimum length of 64 octets [note: includes 4 byte CRC, aka FCS]. Runt frames are most commonly caused by collisions; other possible causes are a malfunctioning network card, buffer underrun, duplex mismatch or software issues.\n\nIt may or may not be zero (or garbage) padded by the kernel and/or nic driver/fw/hardware, and it may or may not be dropped by the network...",
+      "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bcb5ea0_796fb715",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-27T03:03:05Z",
+      "side": 1,
+      "message": "I tried those packet on the AP and looks like I can see the packet from tcpdump.\n\nIt seems kernel knows how to do the zero padding for it. Another similar example is I can see a lot of ARP packet with only 42 bytes. The one replied by APF is 60 bytes with zero padding.",
+      "parentUuid": "a7da584c_315f83fc",
       "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
