@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a61f09cc_bae69bd9",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-27T13:46:20Z",
+      "side": 1,
+      "message": "@handaw@google.com Is it okay to use `null` here? I remember you mentioned weird behavior when null is passed for a non-null AIDL member field.",
+      "range": {
+        "startLine": 244,
+        "startChar": 47,
+        "endLine": 244,
+        "endChar": 51
+      },
+      "revId": "ed24de9b64c471cb938fc367385e51cc1d84b027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
