@@ -182,15 +182,6 @@ public abstract class TetheringDependencies {
     }
 
     /**
-     * Make PrivateAddressCoordinator to be used by Tethering.
-     */
-    public PrivateAddressCoordinator makePrivateAddressCoordinator(
-            Context ctx, TetheringConfiguration cfg) {
-        final ConnectivityManager cm = ctx.getSystemService(ConnectivityManager.class);
-        return new PrivateAddressCoordinator(new PrivateAddressCoordinatorDeps(cm, cfg));
-    }
-
-    /**
      * Make BluetoothPanShim object to enable/disable bluetooth tethering.
      *
      * TODO: use BluetoothPan directly when mainline module is built with API 32.
