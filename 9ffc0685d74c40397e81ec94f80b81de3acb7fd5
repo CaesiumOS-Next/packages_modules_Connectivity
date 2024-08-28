@@ -1,5 +1,75 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f36d43f3_02e63369",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-28T02:32:06Z",
+      "side": 1,
+      "message": "Is there a reason to check both a runtime flag and a trunk-stable flag? That way, you will need to ramp up both flags and track two separate rollouts to run the code.",
+      "range": {
+        "startLine": 42,
+        "startChar": 19,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "9ffc0685d74c40397e81ec94f80b81de3acb7fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f634bcad_db38cd15",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-28T02:32:06Z",
+      "side": 1,
+      "message": "This check is superfluous, right? Since currently pre-V the service will be null anyway? Can you remove it?",
+      "range": {
+        "startLine": 118,
+        "startChar": 12,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "9ffc0685d74c40397e81ec94f80b81de3acb7fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a188cbf5_63005e06",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-28T02:32:06Z",
+      "side": 1,
+      "message": "Any reason to have this check here? V is going to be in production shortly, so checking for it will not prevent this code from running on production devices. Can we just drop it?",
+      "range": {
+        "startLine": 201,
+        "startChar": 15,
+        "endLine": 201,
+        "endChar": 36
+      },
+      "revId": "9ffc0685d74c40397e81ec94f80b81de3acb7fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
