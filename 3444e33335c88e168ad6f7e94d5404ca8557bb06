@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24272c9b_5e7a335f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1273,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-28T07:10:53Z",
+      "side": 1,
+      "message": "I thought we only need to change this one line to make everything work as well as they are today",
+      "range": {
+        "startLine": 1273,
+        "startChar": 20,
+        "endLine": 1273,
+        "endChar": 47
+      },
+      "revId": "3444e33335c88e168ad6f7e94d5404ca8557bb06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9ee193e_505d992c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-28T07:10:53Z",
+      "side": 1,
+      "message": "This can be simplified by creating a common receiver class which simply logs the success or error code.\n\nI am okay with this in this CL, but let me do a refactoring later to build a `OtStatusLogger` class for all ot-daemon APIs.",
+      "range": {
+        "startLine": 1427,
+        "startChar": 3,
+        "endLine": 1440,
+        "endChar": 5
+      },
+      "revId": "3444e33335c88e168ad6f7e94d5404ca8557bb06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d1fd36a_2046bbaa",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-28T07:10:53Z",
+      "side": 0,
+      "message": "I would prefer keeping those short methods as it is to make this CL as simple as a few lines change to get it merged faster.",
+      "range": {
+        "startLine": 1261,
+        "startChar": 0,
+        "endLine": 1271,
+        "endChar": 41
+      },
+      "revId": "e73285c62205eb4f85a4e7f227487e9e3b31a7b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
