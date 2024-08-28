@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6dd3383c_174421d5",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-28T09:31:04Z",
+      "side": 1,
+      "message": "I think for V6, we only need to check If APFversion \u003c 6000 skip.\n\nWe recommend APFv6 support in VSR-15, but we don\u0027t mandate anywhere.",
+      "parentUuid": "6fe09312_623f982a",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e1bf48d_9636e528",
         "filename": "staticlibs/testutils/host/python/apf_test_base.py",
         "patchSetId": 9
