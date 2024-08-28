@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d6340029_b7c37127",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1870696
+      },
+      "writtenOn": "2024-08-28T17:40:41Z",
+      "side": 1,
+      "message": "The platform APIs that are called by `enforceValidCallingUser()` are:\n\n- PackageManager#hasSystemFeature\n- UserHandle#getUserHandleForUid\n- ActivityManager#getCurrentUser\n- UserManager#isSameProfileGroup\n\nThere is no new API and I don\u0027t think we will have any version compatibility issues.",
+      "parentUuid": "42f21efc_fdbfa405",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 2
+      },
+      "revId": "61f72812ddcfdc55d97701e97c99ffb8a2702353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c2930e7b_7c25c80f",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0305b7c_9dff0e92",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2813,
+      "author": {
+        "id": 1870696
+      },
+      "writtenOn": "2024-08-28T17:40:41Z",
+      "side": 1,
+      "message": "Added unit tests.",
+      "parentUuid": "af58d2c7_0931d356",
+      "range": {
+        "startLine": 2813,
+        "startChar": 17,
+        "endLine": 2813,
+        "endChar": 40
+      },
+      "revId": "61f72812ddcfdc55d97701e97c99ffb8a2702353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed324916_f304b0c1",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-08-28T07:57:49Z",
       "side": 1,
       "message": "style: go/avoid-we",
+      "range": {
+        "startLine": 2815,
+        "startChar": 40,
+        "endLine": 2815,
+        "endChar": 42
+      },
+      "revId": "61f72812ddcfdc55d97701e97c99ffb8a2702353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a62ee4fd_53d2ad62",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2815,
+      "author": {
+        "id": 1870696
+      },
+      "writtenOn": "2024-08-28T17:40:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed324916_f304b0c1",
       "range": {
         "startLine": 2815,
         "startChar": 40,
