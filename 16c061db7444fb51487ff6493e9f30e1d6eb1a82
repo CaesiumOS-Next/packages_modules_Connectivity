@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acd2ce5b_86be9dc4",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-28T07:16:40Z",
+      "side": 1,
+      "message": "We can mention in R-, the denylist is provided in  ApfCapabilities.getApfDrop8023Frames().\n\nWe should also mentioned the following value is the default value in the denylist overlay.",
+      "range": {
+        "startLine": 30,
+        "startChar": 12,
+        "endLine": 30,
+        "endChar": 37
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "13845940_e32df96d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/apfv4_test.py",
+              "range": {
+                "startLine": 29,
+                "startChar": 0,
+                "endLine": 31,
+                "endChar": 0
+              },
+              "replacement": "  # For Android S through U, APF uses a denylist overlay at R.array.config_apfEthTypeDenyList.\n  # For Android R-, the denylist is provided in ApfCapabilities.getApfDrop8023Frames().\n"
+            }
+          ]
+        }
+      ],
+      "revId": "16c061db7444fb51487ff6493e9f30e1d6eb1a82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
