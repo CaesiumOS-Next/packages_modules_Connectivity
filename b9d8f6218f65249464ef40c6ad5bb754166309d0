@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5db3f88a_c623d846",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-28T05:23:42Z",
+      "side": 1,
+      "message": "Try to make it clear as possible.\nSee if it works for you.",
+      "parentUuid": "db74c37f_38fdc33e",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 55
+      },
+      "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7da584c_315f83fc",
@@ -150,6 +174,24 @@
       "writtenOn": "2024-08-28T04:10:22Z",
       "side": 1,
       "message": "fair point, agree its easier and safer to just add more zero bytes to make it follow what is required by IEEE 802.3",
+      "parentUuid": "f3a9fe87_e8c69536",
+      "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61b49e91_d9bfbfaa",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-28T05:23:42Z",
+      "side": 1,
+      "message": "Made it 60 bytes.\nSee if it works for you.",
       "parentUuid": "f3a9fe87_e8c69536",
       "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
