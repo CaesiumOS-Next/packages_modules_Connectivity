@@ -1,5 +1,75 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd594c65_49c98295",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-28T02:32:04Z",
+      "side": 1,
+      "message": "The linter is reporting the error below. Can you fix this? I think suppressing it is fine, based on the fact that this is a string constant that gets inlined at compile time.\n\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\nPlease fix this WARNING reported by AndroidLint: [InlinedApi] Field requires API level 33 (current min is 30): `android.provider.DeviceConfig#NAMESPACE_TETHERING`\nAnalyzer Description: Reports AndroidLint warnings.\nOwner: colefaust@google.com\n\n[InlinedApi] Field requires API level 33 (current min is 30): `android.provider.DeviceConfig#NAMESPACE_TETHERING`\n\n                    NAMESPACE_TETHERING, Executors.newSingleThreadExecutor(), this);\n                    ~~~~~~~~~~~~~~~~~~~\n\nThis check scans through all the Android API field references in the application and flags certain constants, such as static final integers and Strings, which were introduced in later versions. These will actually be copied into the class files rather than being referenced, which means that the value is available even when running on older devices. In some cases that\u0027s fine, and in other cases it can result in a runtime crash or incorrect behavior. It depends on the context, so consider the code carefully and decide whether it\u0027s safe and can be suppressed or whether the code needs to be guarded.\n\nIf you really want to use this API and don\u0027t need to support older devices just set the `minSdkVersion` in your `build.gradle` or `AndroidManifest.xml` files.\n\nIf your code is **deliberately** accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the `@TargetApi` annotation specifying the local minimum SDK to apply, such as `@TargetApi(11)`, such that this check considers 11 rather than your manifest file\u0027s minimum SDK as the required API level.\n\nSuppression and local reproduction steps: go/ayeaye-android-lint\n\nThis warning was found on the git_main branch",
+      "range": {
+        "startLine": 43,
+        "startChar": 17,
+        "endLine": 43,
+        "endChar": 80
+      },
+      "revId": "1f4ddd0cf7af5c1e76607703923ed89298fe9b9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32682f2a_0107c642",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-28T02:32:04Z",
+      "side": 1,
+      "message": "You might want to think about what the code should do if a previous download is already happening. I think the download will be queued, but every time the property changes, that will add a new download request to the queue.\n\nAlso you might want to think about what to do if there is no network connectivity when the property changes. At the moment I would assume the task will just fail, but you might want to instead schedule it when there is connectivity.\n\nIn general it seems like this code should use JobScheduler. Maybe you are already planning to do tthat.",
+      "range": {
+        "startLine": 43,
+        "startChar": 47,
+        "endLine": 43,
+        "endChar": 70
+      },
+      "revId": "1f4ddd0cf7af5c1e76607703923ed89298fe9b9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9f282c0_3cbcdf16",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-28T02:32:04Z",
+      "side": 1,
+      "message": "Per comment on other CL, why check for the SDK version in a callback method? If we don\u0027t want to run this code pre-V, then we should just not register the callback pre-V (and we are already not registering that callback, because the service is null).",
+      "range": {
+        "startLine": 49,
+        "startChar": 12,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "1f4ddd0cf7af5c1e76607703923ed89298fe9b9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
