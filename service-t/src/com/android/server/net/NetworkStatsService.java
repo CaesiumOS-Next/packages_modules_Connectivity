@@ -131,6 +131,7 @@ import android.net.UnderlyingNetworkInfo;
 import android.net.Uri;
 import android.net.netstats.IUsageCallback;
 import android.net.netstats.NetworkStatsDataMigrationUtils;
+import android.net.netstats.TrafficStatsConfig;
 import android.net.netstats.provider.INetworkStatsProvider;
 import android.net.netstats.provider.INetworkStatsProviderCallback;
 import android.net.netstats.provider.NetworkStatsProvider;
@@ -323,6 +324,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final AlarmManager mAlarmManager;
     private final Clock mClock;
     private final NetworkStatsSettings mSettings;
+    //yunchenc
+    private final TrafficStatsConfig mTrafficStatsConfig;
     private final NetworkStatsObservers mStatsObservers;
 
     private final File mStatsDir;
@@ -693,7 +696,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             mEventLogger = null;
         }
 
-        mAlwaysUseTrafficStatsRateLimitCache = false;
+        mAlwaysUseTrafficStatsRateLimitCache =
+                !mDeps.alwaysUseTrafficStatsRateLimitCache(mContext);
         mBroadcastNetworkStatsUpdatedRateLimitEnabled =
                 mDeps.enabledBroadcastNetworkStatsUpdatedRateLimiting(mContext);
         mTrafficStatsRateLimitCacheExpiryDuration =
@@ -706,6 +710,14 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 mTrafficStatsRateLimitCacheExpiryDuration, mTrafficStatsRateLimitCacheMaxEntries);
         mTrafficStatsUidCache = new TrafficStatsRateLimitCache(mClock,
                 mTrafficStatsRateLimitCacheExpiryDuration, mTrafficStatsRateLimitCacheMaxEntries);
+
+        mTrafficStatsConfig = new TrafficStatsConfig();
+        mTrafficStatsConfig.mAlwaysUseTrafficStatsRateLimitCache =
+                mDeps.alwaysUseTrafficStatsRateLimitCache(mContext);
+        mTrafficStatsConfig.mTrafficStatsRateLimitCacheExpiryDuration =
+                mDeps.getTrafficStatsRateLimitCacheExpiryDuration();
+        mTrafficStatsConfig.mTrafficStatsRateLimitCacheMaxEntries =
+                mDeps.getTrafficStatsRateLimitCacheMaxEntries();
 
         // TODO: Remove bpfNetMaps creation and always start SkDestroyListener
         // Following code is for the experiment to verify the SkDestroyListener refactoring. Based
@@ -2141,6 +2153,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         } finally {
             Binder.restoreCallingIdentity(token);
         }
+    }
+
+    @Override
+    public TrafficStatsConfig getTrafficStatsConfig() {
+        return mTrafficStatsConfig;
     }
 
     @Override
