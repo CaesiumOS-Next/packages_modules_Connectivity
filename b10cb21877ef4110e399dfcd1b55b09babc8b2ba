@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "024441b0_ca11db04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-28T03:41:19Z",
+      "side": 1,
+      "message": "Maybe give short exmple to show how the dump would look like?",
+      "revId": "b10cb21877ef4110e399dfcd1b55b09babc8b2ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "992dee8a_d30690bc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4443,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-28T03:41:19Z",
+      "side": 1,
+      "message": "nit: doesn\u0027t need to m but no strong opinion.",
+      "range": {
+        "startLine": 4443,
+        "startChar": 20,
+        "endLine": 4443,
+        "endChar": 21
+      },
+      "revId": "b10cb21877ef4110e399dfcd1b55b09babc8b2ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
