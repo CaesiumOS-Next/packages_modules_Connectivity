@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b90b9f90_158d610a",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-08-28T12:13:13Z",
+      "side": 1,
+      "message": "We are starting the polling only once, when size is 0.",
+      "revId": "e8482f813ef91a2daf650bccfc639b829bf36ef9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
