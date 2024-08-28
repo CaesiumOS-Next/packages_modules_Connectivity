@@ -192,6 +192,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6417fed1_3e2a690e",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-28T10:18:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dd3383c_174421d5",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e1bf48d_9636e528",
@@ -205,6 +229,30 @@
       "writtenOn": "2024-08-28T04:27:32Z",
       "side": 1,
       "message": "actually this shouldn\u0027t be skip, it should fails. \n\nIf the device runs V and support VSR-14, APFv4 must functioning properly.",
+      "range": {
+        "startLine": 59,
+        "startChar": 14,
+        "endLine": 59,
+        "endChar": 49
+      },
+      "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cdc2fe5_541ba111",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-28T10:18:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e1bf48d_9636e528",
       "range": {
         "startLine": 59,
         "startChar": 14,
