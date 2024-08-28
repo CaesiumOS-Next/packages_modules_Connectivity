@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6fe09312_623f982a",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-08-28T09:11:20Z",
+      "side": 1,
+      "message": "I feel like the APFv4 related precondition should be separated to another class.  \nAPFv6 tests will be added later, or other new version in the future.  \nTo have different APF version precondition seems more reasonable.  \n\nFor APFv6, it should be something like\n```\nif \u003c V skip\nif \u003e VSR 14 and APFversion \u003c 6 then fail the test\nif APFversion \u003c 6 skip\n```",
+      "parentUuid": "373f81b1_ec63ff97",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "a48c109e9488445cc8135ac4c071a99d769f73fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e1bf48d_9636e528",
         "filename": "staticlibs/testutils/host/python/apf_test_base.py",
         "patchSetId": 9
