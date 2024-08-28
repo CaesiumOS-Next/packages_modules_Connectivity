@@ -29,6 +29,7 @@ import android.app.usage.NetworkStatsManager;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.netstats.TrafficStatsConfig;
 import android.os.Binder;
 import android.os.Build;
 import android.os.RemoteException;
@@ -177,20 +178,15 @@ public class TrafficStats {
     /** @hide */
     public static final int TAG_SYSTEM_PROBE = 0xFFFFFF42;
 
-    private static final int TRAFFIC_STATS_RATE_LIMIT_CACHE_MAX_ENTRIES = 100;
-    private static final int TRAFFIC_STATS_RATE_LIMIT_CACHE_ENTRY_DURATION = 1000;
-
     private static INetworkStatsService sStatsService;
 
     private static LruCache<String, NetworkStats> sTrafficStatsIfaceCache;
     private static NetworkStats sTrafficStatsUidCache;
     private static NetworkStats sTrafficStatsTotalCache;
 
-    private static boolean sAlwaysUseTrafficStatsRateLimitCache = true;
-    private static int sTrafficStatsRateLimitCacheExpiryDuration =
-            TRAFFIC_STATS_RATE_LIMIT_CACHE_ENTRY_DURATION;
-    private static int sTrafficStatsRateLimitCacheMaxEntries =
-            TRAFFIC_STATS_RATE_LIMIT_CACHE_MAX_ENTRIES;
+    private static boolean sAlwaysUseTrafficStatsRateLimitCache;
+    private static int sTrafficStatsRateLimitCacheExpiryDuration;
+    private static int sTrafficStatsRateLimitCacheMaxEntries;
 
 
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P, trackingBug = 130143562)
@@ -246,6 +242,18 @@ public class TrafficStats {
         );
         sTrafficStatsUidCache = null;
         sTrafficStatsTotalCache = null;
+        TrafficStatsConfig sConfig;
+        try {
+            sConfig = getStatsService().getTrafficStatsConfig();
+
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+
+        sAlwaysUseTrafficStatsRateLimitCache = sConfig.isAlwaysUseTrafficStatsRateLimitCache();
+        sTrafficStatsRateLimitCacheExpiryDuration = sConfig.getTrafficStatsRateLimitCacheExpiryDuration();
+        sTrafficStatsRateLimitCacheMaxEntries = sConfig.getTrafficStatsRateLimitCacheMaxEntries();
+
     }
 
     /**
