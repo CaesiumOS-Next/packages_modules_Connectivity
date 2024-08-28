@@ -20,6 +20,7 @@
     <option name="config-descriptor:metadata" key="parameter" value="instant_app" />
     <option name="config-descriptor:metadata" key="parameter" value="not_multi_abi" />
     <option name="config-descriptor:metadata" key="parameter" value="secondary_user" />
+    <option name="config-descriptor:metadata" key="mainline-param" value="com.google.android.tethering.apex" />
 
     <target_preparer class="com.android.compatibility.common.tradefed.targetprep.LocationCheck" />
 
@@ -46,4 +47,8 @@
         <option name="directory-keys" value="/sdcard/CtsHostsideNetworkTests" />
         <option name="collect-on-run-ended-only" value="true" />
     </metrics_collector>
+
+    <object type="module_controller" class="com.android.tradefed.testtype.suite.module.MainlineTestModuleController">
+        <option name="mainline-module-package-name" value="com.google.android.tethering" />
+    </object>
 </configuration>
