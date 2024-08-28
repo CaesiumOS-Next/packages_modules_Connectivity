@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f97fa1_f8640274",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-08-28T12:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8cb0b50_6f867616",
+      "revId": "d7eb22803a3c44037bb86fef9bdf765f2bf7646d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8028121f_0025c893",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c107390_5544b0a4",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-08-28T12:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8028121f_0025c893",
+      "revId": "d7eb22803a3c44037bb86fef9bdf765f2bf7646d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50e300be_b01e1442",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-08-14T07:22:07Z",
       "side": 1,
       "message": "The polling shouldn\u0027t be started for each caller that needs the connector; it only needs to run once on initialization.\n\nI think you can revert this code to what it was, just changing `if (connector \u003d\u003d null)` to `if (connector \u003d\u003d null || !connector.isBinderAlive())`",
+      "revId": "d7eb22803a3c44037bb86fef9bdf765f2bf7646d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa302a6f_3d26ea89",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-08-28T12:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50e300be_b01e1442",
       "revId": "d7eb22803a3c44037bb86fef9bdf765f2bf7646d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
