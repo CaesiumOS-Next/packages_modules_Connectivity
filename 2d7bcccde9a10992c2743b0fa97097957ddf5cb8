@@ -16,6 +16,24 @@
       "message": "I don\u0027t really understand what you are trying to do and why. Why does Automotive need this? What is the use case? What about tethering entrypoints that do not go through startTethering (i.e. the legacy APIs, tethering, setUsbTethering, etc.)? Why do those APIs not require a user check?\n\nIn general, there is similar code inside TetheringService (permission checks). I think this code shouldn\u0027t live inside Tethering.java but directly in the implementation of the binder interface. That will also make it clearer that throw SecurityException is equivalent to \"return;\" as all of this lives behind a oneway binder interface.",
       "revId": "2d7bcccde9a10992c2743b0fa97097957ddf5cb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "739a712e_4d490538",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1870696
+      },
+      "writtenOn": "2024-08-28T21:15:21Z",
+      "side": 1,
+      "message": "Thanks @prohr@google.com for the comment. This is part of Automotive\u0027s effort to support concurrent multi-users on multi-displays. Passenger users are modeled as visible background users, and we want to block visible background users from calling some system services such as wifi, tethering, etc. More information can be found in go/audit-system-service-for-visible-background-user\n\nI will update the CL to move this logic to `TetheringService.java`. Thanks.",
+      "parentUuid": "94f0bb90_dc4bfd8f",
+      "revId": "2d7bcccde9a10992c2743b0fa97097957ddf5cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
