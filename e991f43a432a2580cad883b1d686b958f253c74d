@@ -46,6 +46,30 @@
       },
       "revId": "e991f43a432a2580cad883b1d686b958f253c74d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0e967c4_071e5938",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-28T04:47:34Z",
+      "side": 1,
+      "message": "Updated. PTAL. @lorenzo@google.com @junyulai@google.com",
+      "parentUuid": "2b68cfb9_5c8f606c",
+      "range": {
+        "startLine": 2030,
+        "startChar": 0,
+        "endLine": 2036,
+        "endChar": 94
+      },
+      "revId": "e991f43a432a2580cad883b1d686b958f253c74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
