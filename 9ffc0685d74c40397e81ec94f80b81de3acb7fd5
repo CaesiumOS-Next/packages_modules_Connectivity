@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6aa9d71a_9ea5e1ec",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-28T09:12:16Z",
+      "side": 1,
+      "message": "The way I understood it, Trunks stable flags only apply to Droidfood devices. On user builds, flags are completely removed. The runtime flag is then necessary as a kill-switch mechanism, and to allow rolling out the feature in a controlled way.",
+      "parentUuid": "f36d43f3_02e63369",
+      "range": {
+        "startLine": 42,
+        "startChar": 19,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "9ffc0685d74c40397e81ec94f80b81de3acb7fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f634bcad_db38cd15",
         "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
         "patchSetId": 14
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "083226a1_651ebd79",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-28T09:12:16Z",
+      "side": 1,
+      "message": "I\u0027m not sure about that, but maybe that\u0027s just my ignorance on how mainline is delivered to devices.\n\nThe way I understand it, a module compiled for V can be delivered say to a device with a U build. This check would prevent the feature from being enabled on that device. Is my understanding correct?",
+      "parentUuid": "f634bcad_db38cd15",
+      "range": {
+        "startLine": 118,
+        "startChar": 12,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "9ffc0685d74c40397e81ec94f80b81de3acb7fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a188cbf5_63005e06",
         "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
         "patchSetId": 14
@@ -60,6 +108,30 @@
       "writtenOn": "2024-08-28T02:32:06Z",
       "side": 1,
       "message": "Any reason to have this check here? V is going to be in production shortly, so checking for it will not prevent this code from running on production devices. Can we just drop it?",
+      "range": {
+        "startLine": 201,
+        "startChar": 15,
+        "endLine": 201,
+        "endChar": 36
+      },
+      "revId": "9ffc0685d74c40397e81ec94f80b81de3acb7fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3cd0773_1c224fd7",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-28T09:12:16Z",
+      "side": 1,
+      "message": "Same as above, the check is here to make sure the feature is not enabled accidentally on pre-V devices getting the V version of the module. Is that unnecessary? Would it be better to just remove the check altogether?",
+      "parentUuid": "a188cbf5_63005e06",
       "range": {
         "startLine": 201,
         "startChar": 15,
