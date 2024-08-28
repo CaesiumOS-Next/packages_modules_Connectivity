@@ -135,6 +135,24 @@
       "parentUuid": "702d923f_a6f0cf91",
       "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8606f7eb_dfbbdfd4",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-28T04:10:22Z",
+      "side": 1,
+      "message": "fair point, agree its easier and safer to just add more zero bytes to make it follow what is required by IEEE 802.3",
+      "parentUuid": "f3a9fe87_e8c69536",
+      "revId": "b9d8f6218f65249464ef40c6ad5bb754166309d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
