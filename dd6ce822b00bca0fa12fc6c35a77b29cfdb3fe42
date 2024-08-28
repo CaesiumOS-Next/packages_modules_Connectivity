@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c7403a0_4332d3a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-28T07:12:25Z",
+      "side": 1,
+      "message": "@motomuman@google.com I think we don\u0027t need this CL now. It\u0027s superseded by https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3243931",
+      "revId": "dd6ce822b00bca0fa12fc6c35a77b29cfdb3fe42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
