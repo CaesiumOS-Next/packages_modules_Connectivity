@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8db4364d_924f9bd4",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-28T09:28:40Z",
+      "side": 1,
+      "message": "In aosp/3236503 I am adding a [@RequiresApi annotation](https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3236503/7/networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java). That should take care of the lint error.",
+      "parentUuid": "dd594c65_49c98295",
+      "range": {
+        "startLine": 43,
+        "startChar": 17,
+        "endLine": 43,
+        "endChar": 80
+      },
+      "revId": "1f4ddd0cf7af5c1e76607703923ed89298fe9b9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "938ce75b_a61b74a8",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-28T09:28:40Z",
+      "side": 1,
+      "message": "The case when there is no network connectivity when the property changes should already be handled by the [DownloadManager](https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/app/DownloadManager.java;l\u003d1110-1117;drc\u003d2a21dd13be99be7c939b2c45b08656477055c562) that adds the download in pending status and resolves it when connectivity is available.\n\nThe handling of a new download a previous one is already happening/scheduled is missing, yes. I thought I added a TODO as a reminder, but I see it\u0027s not there. I\u0027ll fix that.",
+      "parentUuid": "32682f2a_0107c642",
+      "range": {
+        "startLine": 43,
+        "startChar": 47,
+        "endLine": 43,
+        "endChar": 70
+      },
+      "revId": "1f4ddd0cf7af5c1e76607703923ed89298fe9b9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9f282c0_3cbcdf16",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-08-28T02:32:04Z",
       "side": 1,
       "message": "Per comment on other CL, why check for the SDK version in a callback method? If we don\u0027t want to run this code pre-V, then we should just not register the callback pre-V (and we are already not registering that callback, because the service is null).",
+      "range": {
+        "startLine": 49,
+        "startChar": 12,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "1f4ddd0cf7af5c1e76607703923ed89298fe9b9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea4ab872_219fe60e",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-08-28T09:28:40Z",
+      "side": 1,
+      "message": "This check is unnecessary if the callback is not registered, I agree. I\u0027ll remove it in my next CL.",
+      "parentUuid": "f9f282c0_3cbcdf16",
       "range": {
         "startLine": 49,
         "startChar": 12,
