@@ -40,6 +40,30 @@
       ],
       "revId": "16c061db7444fb51487ff6493e9f30e1d6eb1a82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a15eba0_5f986d03",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-28T08:14:57Z",
+      "side": 1,
+      "message": "Try to mention everything but keep it as clear as possible.\nSee if it works for you.",
+      "parentUuid": "acd2ce5b_86be9dc4",
+      "range": {
+        "startLine": 30,
+        "startChar": 12,
+        "endLine": 30,
+        "endChar": 37
+      },
+      "revId": "16c061db7444fb51487ff6493e9f30e1d6eb1a82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
