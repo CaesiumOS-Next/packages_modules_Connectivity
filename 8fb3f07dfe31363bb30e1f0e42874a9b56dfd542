@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "417b37cc_02f54cb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-28T05:58:20Z",
+      "side": 1,
+      "message": "See https://yaqs.corp.google.com/eng/q/8174417053235544064 for background.",
+      "revId": "8fb3f07dfe31363bb30e1f0e42874a9b56dfd542",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
