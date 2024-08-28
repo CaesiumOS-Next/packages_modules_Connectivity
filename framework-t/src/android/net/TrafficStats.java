@@ -29,6 +29,7 @@ import android.app.usage.NetworkStatsManager;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.netstats.TrafficStatsConfig;
 import android.os.Binder;
 import android.os.Build;
 import android.os.RemoteException;
@@ -241,9 +242,18 @@ public class TrafficStats {
         );
         sTrafficStatsUidCache = null;
         sTrafficStatsTotalCache = null;
-        sAlwaysUseTrafficStatsRateLimitCache = true;
-        sTrafficStatsRateLimitCacheExpiryDuration = 1000;
-        sTrafficStatsRateLimitCacheMaxEntries = 100;
+        TrafficStatsConfig sConfig;
+        try {
+            sConfig = getStatsService().getTrafficStatsConfig();
+
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+
+        sAlwaysUseTrafficStatsRateLimitCache = sConfig.isAlwaysUseTrafficStatsRateLimitCache();
+        sTrafficStatsRateLimitCacheExpiryDuration =
+                sConfig.getTrafficStatsRateLimitCacheExpiryDuration();
+        sTrafficStatsRateLimitCacheMaxEntries = sConfig.getTrafficStatsRateLimitCacheMaxEntries();
     }
 
     /**
