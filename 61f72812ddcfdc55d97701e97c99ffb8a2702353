@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "42f21efc_fdbfa405",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-28T07:57:49Z",
+      "side": 1,
+      "message": "Stupid question:\nThe tethering code would run on different version of platform.\nWill this have backwards compatibility problem which rely on the current behavior but is going to crash on old platform once we merge this?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 2
+      },
+      "revId": "61f72812ddcfdc55d97701e97c99ffb8a2702353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c2930e7b_7c25c80f",
@@ -14,6 +37,52 @@
       "writtenOn": "2024-08-27T16:05:12Z",
       "side": 1,
       "message": "A friendly ping.",
+      "revId": "61f72812ddcfdc55d97701e97c99ffb8a2702353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af58d2c7_0931d356",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2813,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-28T07:57:49Z",
+      "side": 1,
+      "message": "Can we test this?",
+      "range": {
+        "startLine": 2813,
+        "startChar": 17,
+        "endLine": 2813,
+        "endChar": 40
+      },
+      "revId": "61f72812ddcfdc55d97701e97c99ffb8a2702353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed324916_f304b0c1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2815,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-28T07:57:49Z",
+      "side": 1,
+      "message": "style: go/avoid-we",
+      "range": {
+        "startLine": 2815,
+        "startChar": 40,
+        "endLine": 2815,
+        "endChar": 42
+      },
       "revId": "61f72812ddcfdc55d97701e97c99ffb8a2702353",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
