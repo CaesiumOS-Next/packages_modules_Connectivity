@@ -22,6 +22,30 @@
       },
       "revId": "ed24de9b64c471cb938fc367385e51cc1d84b027",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c04548c1_1848c306",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-28T13:35:20Z",
+      "side": 1,
+      "message": "resolved in aosp/3246012 by adding nullable annotation in AIDL",
+      "parentUuid": "a61f09cc_bae69bd9",
+      "range": {
+        "startLine": 244,
+        "startChar": 47,
+        "endLine": 244,
+        "endChar": 51
+      },
+      "revId": "ed24de9b64c471cb938fc367385e51cc1d84b027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
