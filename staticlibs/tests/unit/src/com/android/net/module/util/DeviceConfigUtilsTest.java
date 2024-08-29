@@ -24,6 +24,7 @@ import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
 import static com.android.dx.mockito.inline.extended.ExtendedMockito.doReturn;
 import static com.android.dx.mockito.inline.extended.ExtendedMockito.mockitoSession;
 import static com.android.net.module.util.FeatureVersions.CONNECTIVITY_MODULE_ID;
+import static com.android.net.module.util.FeatureVersions.DNS_RESOLVER_MODULE_ID;
 import static com.android.net.module.util.FeatureVersions.NETWORK_STACK_MODULE_ID;
 
 import static org.junit.Assert.assertEquals;
@@ -85,14 +86,17 @@ public class DeviceConfigUtilsTest {
     // that manifest, and is reflected in android.content.pm.ApplicationInfo. Contrary to the APEX
     // (module) name, different package names are typically used to identify the organization that
     // built and signed the APEX modules.
-    private static final String TEST_APEX_PACKAGE_NAME = "com.prefix.android.tethering";
-    private static final String TEST_GO_APEX_PACKAGE_NAME = "com.prefix.android.go.tethering";
+    private static final String TEST_TETHERING_PACKAGE_NAME = "com.prefix.android.tethering";
+    private static final String TEST_GO_TETHERING_PACKAGE_NAME = "com.prefix.android.go.tethering";
+    private static final String TEST_RESOLV_PACKAGE_NAME = "com.prefix.android.resolv";
+    private static final String TEST_GO_RESOLV_PACKAGE_NAME = "com.prefix.android.go.resolv";
     private static final String TEST_CONNRES_PACKAGE_NAME =
             "com.prefix.android.connectivity.resources";
     private static final String TEST_NETWORKSTACK_NAME = "com.prefix.android.networkstack";
     private static final String TEST_GO_NETWORKSTACK_NAME = "com.prefix.android.go.networkstack";
     private final PackageInfo mPackageInfo = new PackageInfo();
     private final PackageInfo mApexPackageInfo = new PackageInfo();
+    private final PackageInfo mApexResolvPackageInfo = new PackageInfo();
     private MockitoSession mSession;
 
     @Mock private Context mContext;
@@ -106,12 +110,16 @@ public class DeviceConfigUtilsTest {
 
         mPackageInfo.setLongVersionCode(TEST_PACKAGE_VERSION);
         mApexPackageInfo.setLongVersionCode(TEST_PACKAGE_VERSION);
+        mApexResolvPackageInfo.setLongVersionCode(TEST_PACKAGE_VERSION);
 
         doReturn(mPm).when(mContext).getPackageManager();
         doReturn(TEST_PACKAGE_NAME).when(mContext).getPackageName();
         doThrow(NameNotFoundException.class).when(mPm).getPackageInfo(anyString(), anyInt());
         doReturn(mPackageInfo).when(mPm).getPackageInfo(eq(TEST_PACKAGE_NAME), anyInt());
-        doReturn(mApexPackageInfo).when(mPm).getPackageInfo(eq(TEST_APEX_PACKAGE_NAME), anyInt());
+        doReturn(mApexPackageInfo).when(mPm).getPackageInfo(eq(TEST_TETHERING_PACKAGE_NAME),
+                anyInt());
+        doReturn(mApexResolvPackageInfo).when(mPm).getPackageInfo(eq(TEST_RESOLV_PACKAGE_NAME),
+                anyInt());
 
         doReturn(mResources).when(mContext).getResources();
 
@@ -342,9 +350,9 @@ public class DeviceConfigUtilsTest {
     @Test
     public void testFeatureIsEnabledOnGo() throws Exception {
         doThrow(NameNotFoundException.class).when(mPm).getPackageInfo(
-                eq(TEST_APEX_PACKAGE_NAME), anyInt());
+                eq(TEST_TETHERING_PACKAGE_NAME), anyInt());
         doReturn(mApexPackageInfo).when(mPm).getPackageInfo(
-                eq(TEST_GO_APEX_PACKAGE_NAME), anyInt());
+                eq(TEST_GO_TETHERING_PACKAGE_NAME), anyInt());
         doReturn("0").when(() -> DeviceConfig.getProperty(
                 NAMESPACE_CONNECTIVITY, TEST_EXPERIMENT_FLAG));
         doReturn("0").when(() -> DeviceConfig.getProperty(
@@ -481,6 +489,16 @@ public class DeviceConfigUtilsTest {
         // Return false because feature requires a future version.
         assertFalse(DeviceConfigUtils.isFeatureSupported(
                 mContext, 889900000L + CONNECTIVITY_MODULE_ID));
+    }
+
+
+    @Test
+    public void testIsFeatureSupported_resolvFeature() throws Exception {
+        assertTrue(DeviceConfigUtils.isFeatureSupported(
+                mContext, TEST_PACKAGE_VERSION + DNS_RESOLVER_MODULE_ID));
+        // Return false because feature requires a future version.
+        assertFalse(DeviceConfigUtils.isFeatureSupported(
+                mContext, 889900000L + DNS_RESOLVER_MODULE_ID));
     }
 
     @Test
