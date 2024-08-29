@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a10b4e40_67b21648",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-29T02:31:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27393a66_c47d371b",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 9
+      },
+      "revId": "ea615126884082d21593e1aa55caab42c44c4887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b26c0927_f436a32b",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3f24be3_9a124402",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-29T02:31:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b26c0927_f436a32b",
+      "range": {
+        "startLine": 185,
+        "startChar": 18,
+        "endLine": 185,
+        "endChar": 52
+      },
+      "revId": "ea615126884082d21593e1aa55caab42c44c4887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bda46ae4_7bfed36c",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-08-23T10:30:46Z",
       "side": 1,
       "message": "Stupid question:\n1. Why we need this?\nIs this because we want a baseline when the network is just connected?\nIf so, maybe name it more clear, e.g. initUpstreamUsageBaseline()?\n\nAfterT might not be a correct naming since we also check other conditions.",
+      "range": {
+        "startLine": 392,
+        "startChar": 16,
+        "endLine": 392,
+        "endChar": 49
+      },
+      "revId": "ea615126884082d21593e1aa55caab42c44c4887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3984e14b_aa5d1a1b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-29T02:31:38Z",
+      "side": 1,
+      "message": "\u003e Why we need this?\n\u003e Is this because we want a baseline when the network is just connected?\n\u003e If so, maybe name it more clear, e.g. initUpstreamUsageBaseline()?\n\nYes. Rename to initUpstreamUsageBaseline.",
+      "parentUuid": "bda46ae4_7bfed36c",
       "range": {
         "startLine": 392,
         "startChar": 16,
@@ -117,6 +189,30 @@
           ]
         }
       ],
+      "revId": "ea615126884082d21593e1aa55caab42c44c4887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "435f4ba2_3476dbd2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-08-29T02:31:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11102f28_659b21b8",
+      "range": {
+        "startLine": 405,
+        "startChar": 4,
+        "endLine": 405,
+        "endChar": 13
+      },
       "revId": "ea615126884082d21593e1aa55caab42c44c4887",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
