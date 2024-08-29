@@ -22,6 +22,23 @@
       },
       "revId": "cd202177c456547dbd0e730f2e5845ad445191ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47a6b365_92fc8dc0",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1954,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-29T02:40:38Z",
+      "side": 1,
+      "message": "If this is for CTS, is it better if we just parse from dumpsys instead of calling hidden API? What are our preferences?",
+      "revId": "cd202177c456547dbd0e730f2e5845ad445191ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
