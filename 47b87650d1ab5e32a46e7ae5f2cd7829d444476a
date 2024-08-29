@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b404910_57cbe14d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-29T16:05:52Z",
+      "side": 1,
+      "message": "Kangping, any concerns? Do the Thread APIs work on non-primary users?",
+      "revId": "47b87650d1ab5e32a46e7ae5f2cd7829d444476a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
