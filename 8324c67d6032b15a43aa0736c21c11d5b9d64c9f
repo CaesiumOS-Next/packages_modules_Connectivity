@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "408535f9_c94ac77f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-29T03:43:14Z",
+      "side": 1,
+      "message": "still LGTM. @maze@google.com do you have other comment related to this CL?",
+      "revId": "8324c67d6032b15a43aa0736c21c11d5b9d64c9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
