@@ -390,6 +390,11 @@ static unsigned long long (*bpf_get_smp_processor_id)(void) = (void*) BPF_FUNC_g
 static long (*bpf_get_stackid)(void* ctx, void* map, uint64_t flags) = (void*) BPF_FUNC_get_stackid;
 static long (*bpf_get_current_comm)(void* buf, uint32_t buf_size) = (void*) BPF_FUNC_get_current_comm;
 
+static int (*bpf_trace_printk)(const char* fmt, int fmt_size, ...) = (void*) BPF_FUNC_trace_printk;
+#define bpf_printf(s, n...) bpf_trace_printk(s, sizeof(s), ## n)
+// Note: bpf only supports up to 3 arguments, log via: bpf_printf("msg %d %d %d", 1, 2, 3);
+// and read via the blocking: sudo cat /sys/kernel/debug/tracing/trace_pipe
+
 #define DEFINE_BPF_PROG_EXT(SECTION_NAME, prog_uid, prog_gid, the_prog, min_kv, max_kv,  \
                             min_loader, max_loader, opt, selinux, pindir, ignore_eng,    \
                             ignore_user, ignore_userdebug)                               \
