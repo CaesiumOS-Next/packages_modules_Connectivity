@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f67dff0a_87026e3d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6742,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-29T02:39:00Z",
+      "side": 1,
+      "message": "Stupid question: why we need such special api for test but can\u0027t use the one in production?",
+      "range": {
+        "startLine": 6741,
+        "startChar": 7,
+        "endLine": 6742,
+        "endChar": 94
+      },
+      "revId": "cd202177c456547dbd0e730f2e5845ad445191ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
