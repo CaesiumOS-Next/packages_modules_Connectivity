@@ -156,6 +156,24 @@
       "parentUuid": "0d5d2be9_fccbfcc0",
       "revId": "1390ce8145fc63071d9641589e42b1a8c589c50c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "447590c5_1d76c86f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-29T08:39:26Z",
+      "side": 1,
+      "message": "\u003e Done\nadd support to multiple interactive sessions",
+      "parentUuid": "ba41067e_4b38b887",
+      "revId": "1390ce8145fc63071d9641589e42b1a8c589c50c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
