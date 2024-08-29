@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a491b1c_6620d57b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-29T04:15:14Z",
+      "side": 1,
+      "message": "The updated logic LGTM. @maze@google.com do you have any further suggestions?",
+      "revId": "b6dfe2aec4e54e3ea868cf0a6ad5ceed35582274",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
