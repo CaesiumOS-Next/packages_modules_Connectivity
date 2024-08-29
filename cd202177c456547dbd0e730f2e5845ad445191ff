@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "105fc906_64a8066b",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6742,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-29T05:56:13Z",
+      "side": 1,
+      "message": "ConnectivityManagerFeature was introduced to change ConnectivityManager behavior based on flag value for production use.  \nmEnabledConnectivityManagerFeatures is a bit mask for features and fetched from ConnectivityService only once for performance.  \n\nI can add INGRESS_TO_VPN_ADDRESS_FILTERING to ConnectivityManagerFeature but I felt it\u0027s a bit confusing that ConnectivityManagerFeature has the flags that ConnectivityManagerFeature does not care and that are used only for testing.",
+      "parentUuid": "f67dff0a_87026e3d",
+      "range": {
+        "startLine": 6741,
+        "startChar": 7,
+        "endLine": 6742,
+        "endChar": 94
+      },
+      "revId": "cd202177c456547dbd0e730f2e5845ad445191ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47a6b365_92fc8dc0",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
         "patchSetId": 3
@@ -37,6 +61,24 @@
       "writtenOn": "2024-08-29T02:40:38Z",
       "side": 1,
       "message": "If this is for CTS, is it better if we just parse from dumpsys instead of calling hidden API? What are our preferences?",
+      "revId": "cd202177c456547dbd0e730f2e5845ad445191ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d811234_6cb1b710",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1954,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-29T05:56:13Z",
+      "side": 1,
+      "message": "We can use dump and parse the string.  \nBut I feel it\u0027s easier to just call hidden APIs.",
+      "parentUuid": "47a6b365_92fc8dc0",
       "revId": "cd202177c456547dbd0e730f2e5845ad445191ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
