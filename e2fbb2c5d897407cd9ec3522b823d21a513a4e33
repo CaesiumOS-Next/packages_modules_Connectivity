@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9f8209f_bb6da124",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-08-29T21:13:03Z",
+      "side": 1,
+      "message": "It doesn\u0027t matter, but doesn\u0027t unique_fd have ok() defined (which does exactly that)?",
+      "range": {
+        "startLine": 788,
+        "startChar": 16,
+        "endLine": 788,
+        "endChar": 28
+      },
+      "revId": "e2fbb2c5d897407cd9ec3522b823d21a513a4e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
