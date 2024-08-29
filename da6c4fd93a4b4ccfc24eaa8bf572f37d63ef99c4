@@ -33,6 +33,23 @@
       "message": "@prohr@google.com please help to review the changes.",
       "revId": "da6c4fd93a4b4ccfc24eaa8bf572f37d63ef99c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4155bbb_0b493135",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-08-29T15:26:27Z",
+      "side": 1,
+      "message": "I don\u0027t understand this change. Can you add a commit message that includes the \"why\" as well as the \"what\"? Is assumeNoInterfaceForTetheringAvailable() not enough for you? Does this mean your device includes an (unrestricted) interface that was explicitly configured in a config overlay?\n\nOn a side note, you seem to be referencing the wrong bug. 357332207 mentions EthernetTetheringTest, not EthernetManagerTest.",
+      "revId": "da6c4fd93a4b4ccfc24eaa8bf572f37d63ef99c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
