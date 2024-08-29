@@ -1,0 +1,337 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a588021_80f2f84f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "add \u0027is\u0027",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c76144f_fa2e0fec",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "I\u0027d suggest to make it `isUserBuild`.\n\nThe `!\"user\".equals(Build.TYPE)` doesn\u0027t fully align with the name.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 5
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "951bd98e_791a44c9",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+              "range": {
+                "startLine": 90,
+                "startChar": 0,
+                "endLine": 92,
+                "endChar": 0
+              },
+              "replacement": "    private boolean isUserBuild() {\n        return \"user\".equals(Build.TYPE);\n"
+            },
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+              "range": {
+                "startLine": 157,
+                "startChar": 0,
+                "endLine": 158,
+                "endChar": 0
+              },
+              "replacement": "                if (isUserBuild()) {\n                    return handleDefaultCommands(cmd);\n                } else {\n"
+            },
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+              "range": {
+                "startLine": 159,
+                "startChar": 0,
+                "endLine": 161,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "644de4d5_eafc8a33",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "why not remove the else?",
+      "fixSuggestions": [
+        {
+          "fixId": "da1b5e87_a5fc99af",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+              "range": {
+                "startLine": 159,
+                "startChar": 0,
+                "endLine": 161,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+              "range": {
+                "startLine": 162,
+                "startChar": 0,
+                "endLine": 162,
+                "endChar": 0
+              },
+              "replacement": "                return handleDefaultCommands(cmd);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aec6d8a0_65aea7da",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3ce60bb_fd760ac3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "The variables don\u0027t seem very useful.",
+      "range": {
+        "startLine": 318,
+        "startChar": 6,
+        "endLine": 319,
+        "endChar": 51
+      },
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baf62c7c_82dd8351",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a401ef6_8474771f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "May document this is handling the EOF case (IIUC)",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca55bd7c_9ec0bdfe",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "You can trim the command and then follow up with other `if`s.",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33df50e2_1d13308c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "document what the boolean means",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99053a73_52c08a5e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "Could you explain why this is needed?",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e35a0e4_4048ee2a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "You didn\u0027t wait for the future to complete.",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af908dbb_71248cd4",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "Note there\u0027s also integration test you should add: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java;l\u003d49?q\u003dthread%20shellcommand%20test\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba54813a_0de0f314",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "```suggestion\n    public void handleOtCtlCommandsState_testingPermissionIsEnforced() {\n```",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c1b27af_867cbc01",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "I wonder how this could work? I think there isn\u0027t sufficient mock set up.",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "417c509a_8167eff3",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-08-29T08:43:45Z",
+      "side": 1,
+      "message": "Could there be cases for interactive mode?",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
