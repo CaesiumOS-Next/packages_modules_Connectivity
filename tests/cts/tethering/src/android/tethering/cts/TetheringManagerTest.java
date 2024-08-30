@@ -244,6 +244,8 @@ public class TetheringManagerTest {
         assertFalse(tr.isExemptFromEntitlementCheck());
         assertTrue(tr.getShouldShowEntitlementUi());
         assertEquals(softApConfiguration, tr.getSoftApConfiguration());
+        assertEquals(-1, tr.getUid());
+        assertNull(tr.getPackageName());
 
         final LinkAddress localAddr = new LinkAddress("192.168.24.5/24");
         final LinkAddress clientAddr = new LinkAddress("192.168.24.100/24");
@@ -304,6 +306,8 @@ public class TetheringManagerTest {
         }
         final LinkAddress localAddr = new LinkAddress("192.168.24.5/24");
         final LinkAddress clientAddr = new LinkAddress("192.168.24.100/24");
+        int uid = 1000;
+        String packageName = "package";
         final TetheringRequest withConfig = new TetheringRequest.Builder(TETHERING_WIFI)
                 .setSoftApConfiguration(softApConfiguration)
                 .setStaticIpv4Addresses(localAddr, clientAddr)
