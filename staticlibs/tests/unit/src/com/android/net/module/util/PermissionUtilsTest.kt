@@ -169,5 +169,11 @@ class PermissionUtilsTest {
 
         // Verify uid match passes.
         enforcePackageNameMatchesUid(mockContext, TEST_UID1, TEST_PACKAGE_NAME)
+
+        // Verify IllegalStateException throws.
+        doThrow(IllegalStateException()).`when`(mockContext).createContextAsUser(any(), anyInt())
+        assertFailsWith<SecurityException> {
+            enforcePackageNameMatchesUid(mockContext, TEST_UID1, TEST_PACKAGE_NAME)
+        }
     }
 }
