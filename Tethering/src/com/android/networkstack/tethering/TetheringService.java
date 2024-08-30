@@ -139,6 +139,9 @@ public class TetheringService extends Service {
                 return;
             }
             // TODO(b/216524590): Add UID/packageName of caller to TetheringRequest here
+            TetheringRequest external = new TetheringRequest(request);
+            external.setUid(Binder.getCallingUid());
+            external.setPackageName(callerPkg);
             mTethering.startTethering(new TetheringRequest(request), callerPkg, listener);
         }
 
