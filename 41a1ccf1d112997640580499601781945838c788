@@ -22,6 +22,30 @@
       },
       "revId": "41a1ccf1d112997640580499601781945838c788",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4c868eb_52d716c7",
+        "filename": "bpf/progs/dscpPolicy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-30T01:13:34Z",
+      "side": 1,
+      "message": "BPF_CALL_1(bpf_get_socket_cookie_sock_addr, struct bpf_sock_addr_kern *, ctx)\n{\n\treturn __sock_gen_cookie(ctx-\u003esk);\n}\n\n(etc)\nu64 __sock_gen_cookie(struct sock *sk)\n{\n\twhile (1) {\n\t\tu64 res \u003d atomic64_read(\u0026sk-\u003esk_cookie);\n\n\t\tif (res)\n\t\t\treturn res;\n\t\tres \u003d gen_cookie_next(\u0026sock_cookie);\n\t\tatomic64_cmpxchg(\u0026sk-\u003esk_cookie, 0, res);\n\t}\n}\n\nSo (a) it cannot return 0, and (b) gen_cookie_next() is complex...\n\nIt\u0027s a nesting capable per-cpu ++ operator.\nBasically each cpu, on demand get batches of 4096 numbers, then incrementally allocates from that batch, unless the few atomic operations that requires happens to get interrupted, in which case cookies are no longer per cpu and are globally allocated backward through an atomic -- (starting at -1)",
+      "parentUuid": "81666b6b_c3dd61ec",
+      "range": {
+        "startLine": 49,
+        "startChar": 23,
+        "endLine": 49,
+        "endChar": 29
+      },
+      "revId": "41a1ccf1d112997640580499601781945838c788",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
