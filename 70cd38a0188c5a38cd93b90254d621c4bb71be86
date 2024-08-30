@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ce2f19a_67d03c22",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-30T07:10:41Z",
+      "side": 1,
+      "message": "Per go/android-userdebug-policy:\n\n\u003e 2. No features enabled by default should be predicated on user vs userdebug\n\nI think it\u0027s probably better to require ROOT for the ot-ctl command.\n\n```\nif (uid !\u003d Process.ROOT_UID) {\n  // Returns error...\n}\n```",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 5
+      },
+      "revId": "70cd38a0188c5a38cd93b90254d621c4bb71be86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
