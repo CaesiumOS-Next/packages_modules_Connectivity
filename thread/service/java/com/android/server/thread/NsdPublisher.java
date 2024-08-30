@@ -31,10 +31,10 @@ import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.RemoteException;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.SharedLog;
 import com.android.server.thread.openthread.DnsTxtAttribute;
 import com.android.server.thread.openthread.INsdDiscoverServiceCallback;
 import com.android.server.thread.openthread.INsdPublisher;
@@ -69,23 +69,29 @@ public final class NsdPublisher extends INsdPublisher.Stub {
     private final DnsResolver mDnsResolver;
     private final Handler mHandler;
     private final Executor mExecutor;
+    private final SharedLog mLog;
     private final SparseArray<RegistrationListener> mRegistrationListeners = new SparseArray<>(0);
     private final SparseArray<DiscoveryListener> mDiscoveryListeners = new SparseArray<>(0);
     private final SparseArray<ServiceInfoListener> mServiceInfoListeners = new SparseArray<>(0);
     private final SparseArray<HostInfoListener> mHostInfoListeners = new SparseArray<>(0);
 
     @VisibleForTesting
-    public NsdPublisher(NsdManager nsdManager, DnsResolver dnsResolver, Handler handler) {
+    public NsdPublisher(
+            NsdManager nsdManager, DnsResolver dnsResolver, Handler handler, SharedLog parentLog) {
         mNetwork = null;
         mNsdManager = nsdManager;
         mDnsResolver = dnsResolver;
         mHandler = handler;
         mExecutor = runnable -> mHandler.post(runnable);
+        mLog = parentLog.forSubComponent(TAG);
     }
 
-    public static NsdPublisher newInstance(Context context, Handler handler) {
+    public static NsdPublisher newInstance(Context context, Handler handler, SharedLog log) {
         return new NsdPublisher(
-                context.getSystemService(NsdManager.class), DnsResolver.getInstance(), handler);
+                context.getSystemService(NsdManager.class),
+                DnsResolver.getInstance(),
+                handler,
+                log);
     }
 
     // TODO: b/321883491 - NsdPublisher should be disabled when mNetwork is null
@@ -158,8 +164,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
             int listenerId,
             String registrationType) {
         checkOnHandlerThread();
-        Log.i(
-                TAG,
+        mLog.i(
                 "Registering "
                         + registrationType
                         + ". Listener ID: "
@@ -171,7 +176,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
         try {
             mNsdManager.registerService(serviceInfo, PROTOCOL_DNS_SD, mExecutor, listener);
         } catch (IllegalArgumentException e) {
-            Log.i(TAG, "Failed to register service. serviceInfo: " + serviceInfo, e);
+            mLog.e("Failed to register service. serviceInfo: " + serviceInfo, e);
             listener.onRegistrationFailed(serviceInfo, NsdManager.FAILURE_INTERNAL_ERROR);
         }
     }
@@ -184,8 +189,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
         checkOnHandlerThread();
         RegistrationListener registrationListener = mRegistrationListeners.get(listenerId);
         if (registrationListener == null) {
-            Log.w(
-                    TAG,
+            mLog.w(
                     "Failed to unregister service."
                             + " Listener ID: "
                             + listenerId
@@ -193,8 +197,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
             return;
         }
-        Log.i(
-                TAG,
+        mLog.i(
                 "Unregistering service."
                         + " Listener ID: "
                         + listenerId
@@ -212,13 +215,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
     private void discoverServiceInternal(
             String type, INsdDiscoverServiceCallback callback, int listenerId) {
         checkOnHandlerThread();
-        Log.i(
-                TAG,
-                "Discovering services."
-                        + " Listener ID: "
-                        + listenerId
-                        + ", service type: "
-                        + type);
+        mLog.i("Discovering services." + " Listener ID: " + listenerId + ", service type: " + type);
 
         DiscoveryListener listener = new DiscoveryListener(listenerId, type, callback);
         mDiscoveryListeners.append(listenerId, listener);
@@ -237,15 +234,14 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
         DiscoveryListener listener = mDiscoveryListeners.get(listenerId);
         if (listener == null) {
-            Log.w(
-                    TAG,
+            mLog.w(
                     "Failed to stop service discovery. Listener ID "
                             + listenerId
                             + ". The listener is null.");
             return;
         }
 
-        Log.i(TAG, "Stopping service discovery. Listener: " + listener);
+        mLog.i("Stopping service discovery. Listener: " + listener);
         mNsdManager.stopServiceDiscovery(listener);
     }
 
@@ -263,8 +259,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
         serviceInfo.setServiceName(name);
         serviceInfo.setServiceType(type);
         serviceInfo.setNetwork(null);
-        Log.i(
-                TAG,
+        mLog.i(
                 "Resolving service."
                         + " Listener ID: "
                         + listenerId
@@ -288,21 +283,19 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
         ServiceInfoListener listener = mServiceInfoListeners.get(listenerId);
         if (listener == null) {
-            Log.w(
-                    TAG,
+            mLog.w(
                     "Failed to stop service resolution. Listener ID: "
                             + listenerId
                             + ". The listener is null.");
             return;
         }
 
-        Log.i(TAG, "Stopping service resolution. Listener: " + listener);
+        mLog.i("Stopping service resolution. Listener: " + listener);
 
         try {
             mNsdManager.unregisterServiceInfoCallback(listener);
         } catch (IllegalArgumentException e) {
-            Log.w(
-                    TAG,
+            mLog.w(
                     "Failed to stop the service resolution because it's already stopped. Listener: "
                             + listener);
         }
@@ -330,7 +323,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
                 listener);
         mHostInfoListeners.append(listenerId, listener);
 
-        Log.i(TAG, "Resolving host." + " Listener ID: " + listenerId + ", hostname: " + name);
+        mLog.i("Resolving host." + " Listener ID: " + listenerId + ", hostname: " + name);
     }
 
     @Override
@@ -343,14 +336,13 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
         HostInfoListener listener = mHostInfoListeners.get(listenerId);
         if (listener == null) {
-            Log.w(
-                    TAG,
+            mLog.w(
                     "Failed to stop host resolution. Listener ID: "
                             + listenerId
                             + ". The listener is null.");
             return;
         }
-        Log.i(TAG, "Stopping host resolution. Listener: " + listener);
+        mLog.i("Stopping host resolution. Listener: " + listener);
         listener.cancel();
         mHostInfoListeners.remove(listenerId);
     }
@@ -373,8 +365,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
             try {
                 mNsdManager.unregisterService(mRegistrationListeners.valueAt(i));
             } catch (IllegalArgumentException e) {
-                Log.i(
-                        TAG,
+                mLog.e(
                         "Failed to unregister."
                                 + " Listener ID: "
                                 + mRegistrationListeners.keyAt(i)
@@ -415,8 +406,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
         public void onRegistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {
             checkOnHandlerThread();
             mRegistrationListeners.remove(mListenerId);
-            Log.i(
-                    TAG,
+            mLog.i(
                     "Failed to register listener ID: "
                             + mListenerId
                             + " error code: "
@@ -434,8 +424,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
         public void onUnregistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {
             checkOnHandlerThread();
             for (INsdStatusReceiver receiver : mUnregistrationReceivers) {
-                Log.i(
-                        TAG,
+                mLog.i(
                         "Failed to unregister."
                                 + "Listener ID: "
                                 + mListenerId
@@ -454,8 +443,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
         @Override
         public void onServiceRegistered(NsdServiceInfo serviceInfo) {
             checkOnHandlerThread();
-            Log.i(
-                    TAG,
+            mLog.i(
                     "Registered successfully. "
                             + "Listener ID: "
                             + mListenerId
@@ -472,8 +460,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
         public void onServiceUnregistered(NsdServiceInfo serviceInfo) {
             checkOnHandlerThread();
             for (INsdStatusReceiver receiver : mUnregistrationReceivers) {
-                Log.i(
-                        TAG,
+                mLog.i(
                         "Unregistered successfully. "
                                 + "Listener ID: "
                                 + mListenerId
@@ -505,8 +492,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
         @Override
         public void onStartDiscoveryFailed(String serviceType, int errorCode) {
-            Log.e(
-                    TAG,
+            mLog.e(
                     "Failed to start service discovery."
                             + " Error code: "
                             + errorCode
@@ -517,8 +503,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
         @Override
         public void onStopDiscoveryFailed(String serviceType, int errorCode) {
-            Log.e(
-                    TAG,
+            mLog.e(
                     "Failed to stop service discovery."
                             + " Error code: "
                             + errorCode
@@ -529,18 +514,18 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
         @Override
         public void onDiscoveryStarted(String serviceType) {
-            Log.i(TAG, "Started service discovery. Listener: " + this);
+            mLog.i("Started service discovery. Listener: " + this);
         }
 
         @Override
         public void onDiscoveryStopped(String serviceType) {
-            Log.i(TAG, "Stopped service discovery. Listener: " + this);
+            mLog.i("Stopped service discovery. Listener: " + this);
             mDiscoveryListeners.remove(mListenerId);
         }
 
         @Override
         public void onServiceFound(NsdServiceInfo serviceInfo) {
-            Log.i(TAG, "Found service: " + serviceInfo);
+            mLog.i("Found service: " + serviceInfo);
             try {
                 mDiscoverServiceCallback.onServiceDiscovered(
                         serviceInfo.getServiceName(), mType, true);
@@ -551,7 +536,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
         @Override
         public void onServiceLost(NsdServiceInfo serviceInfo) {
-            Log.i(TAG, "Lost service: " + serviceInfo);
+            mLog.i("Lost service: " + serviceInfo);
             try {
                 mDiscoverServiceCallback.onServiceDiscovered(
                         serviceInfo.getServiceName(), mType, false);
@@ -584,8 +569,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
         @Override
         public void onServiceInfoCallbackRegistrationFailed(int errorCode) {
-            Log.e(
-                    TAG,
+            mLog.e(
                     "Failed to register service info callback."
                             + " Listener ID: "
                             + mListenerId
@@ -599,8 +583,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
         @Override
         public void onServiceUpdated(@NonNull NsdServiceInfo serviceInfo) {
-            Log.i(
-                    TAG,
+            mLog.i(
                     "Service is resolved. "
                             + " Listener ID: "
                             + mListenerId
@@ -640,7 +623,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
         @Override
         public void onServiceInfoCallbackUnregistered() {
-            Log.i(TAG, "The service info callback is unregistered. Listener: " + this);
+            mLog.i("The service info callback is unregistered. Listener: " + this);
             mServiceInfoListeners.remove(mListenerId);
         }
 
@@ -671,8 +654,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
         public void onAnswer(@NonNull List<InetAddress> answerList, int rcode) {
             checkOnHandlerThread();
 
-            Log.i(
-                    TAG,
+            mLog.i(
                     "Host is resolved."
                             + " Listener ID: "
                             + mListenerId
@@ -698,8 +680,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
         public void onError(@NonNull DnsResolver.DnsException error) {
             checkOnHandlerThread();
 
-            Log.i(
-                    TAG,
+            mLog.e(
                     "Failed to resolve host."
                             + " Listener ID: "
                             + mListenerId
