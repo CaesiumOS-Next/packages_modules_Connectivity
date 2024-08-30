@@ -34,6 +34,24 @@
       "parentUuid": "94f0bb90_dc4bfd8f",
       "revId": "2d7bcccde9a10992c2743b0fa97097957ddf5cb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7fa749a_69957020",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1870696
+      },
+      "writtenOn": "2024-08-30T18:34:03Z",
+      "side": 1,
+      "message": "I moved the logic to `TetheringService`. For now the checking is done only for `startTethering`, `stopTethering`, and `stopAllTethering`, which should be good enough for MVP aimed for 24Q4. PTAL again. Thank you.",
+      "parentUuid": "739a712e_4d490538",
+      "revId": "2d7bcccde9a10992c2743b0fa97097957ddf5cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
