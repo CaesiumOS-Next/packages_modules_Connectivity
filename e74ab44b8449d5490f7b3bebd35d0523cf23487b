@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32205f5c_643664ed",
+        "filename": "staticlibs/device/com/android/net/module/util/DeviceConfigUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-08-30T02:04:36Z",
+      "side": 1,
+      "message": "This should be moduleName.\nSame for go.tethering",
+      "range": {
+        "startLine": 257,
+        "startChar": 62,
+        "endLine": 257,
+        "endChar": 71
+      },
+      "revId": "e74ab44b8449d5490f7b3bebd35d0523cf23487b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
