@@ -34,6 +34,7 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.connectivity.resources.R;
+import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.ConnectivityResources;
 
 import org.junit.After;

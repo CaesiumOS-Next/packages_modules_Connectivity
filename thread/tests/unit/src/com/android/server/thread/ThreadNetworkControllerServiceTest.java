@@ -87,6 +87,7 @@ import androidx.test.filters.SmallTest;
 
 import com.android.connectivity.resources.R;
 import com.android.dx.mockito.inline.extended.ExtendedMockito;
+import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.thread.openthread.DnsTxtAttribute;
 import com.android.server.thread.openthread.MeshcopTxtAttributes;
@@ -216,7 +217,8 @@ public final class ThreadNetworkControllerServiceTest {
                 .thenReturn(new String[] {});
 
         final AtomicFile storageFile = new AtomicFile(tempFolder.newFile("thread_settings.xml"));
-        mPersistentSettings = new ThreadPersistentSettings(storageFile, mConnectivityResources);
+        mPersistentSettings =
+                new ThreadPersistentSettings(storageFile, mConnectivityResources);
         mPersistentSettings.initialize();
 
         mService =

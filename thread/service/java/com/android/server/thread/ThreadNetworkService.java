@@ -28,6 +28,7 @@ import android.net.thread.IThreadNetworkManager;
 import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 
+import com.android.net.module.util.SharedLog;
 import com.android.server.SystemService;
 
 import java.io.FileDescriptor;
@@ -61,7 +62,9 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
             mPersistentSettings.initialize();
             mControllerService =
                     ThreadNetworkControllerService.newInstance(
-                            mContext, mPersistentSettings, () -> mCountryCode.getCountryCode());
+                            mContext,
+                            mPersistentSettings,
+                            () -> mCountryCode.getCountryCode());
             mCountryCode =
                     ThreadNetworkCountryCode.newInstance(
                             mContext, mControllerService, mPersistentSettings);
