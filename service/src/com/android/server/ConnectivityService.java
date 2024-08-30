@@ -1805,7 +1805,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 null /* binder */, NetworkCallback.FLAG_INCLUDE_LOCATION_INFO,
                 null /* attributionTags */, DECLARED_METHODS_NONE);
         mNetworkRequests.put(defaultInternetRequest, mDefaultRequest);
-        mDefaultNetworkRequests.add(mDefaultRequest);
+        // This updates mDefaultNetworkRequests on non-handler thread but this is fine since
+        // handler thread is not started yet.
+        final ArraySet<NetworkRequestInfo> defaultNetworkRequests = new ArraySet<>();
+        defaultNetworkRequests.add(mDefaultRequest);
+        mDefaultNetworkRequests = defaultNetworkRequests;
         mNetworkRequestInfoLogs.log("REGISTER " + mDefaultRequest);
 
         mDefaultMobileDataRequest = createDefaultInternetRequestForTransport(
@@ -5993,7 +5997,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
         nri.unlinkDeathRecipient();
-        if (mDefaultNetworkRequests.remove(nri)) {
+        if (removeDefaultNetworkRequest(nri)) {
             // If this request was one of the defaults, then the UID rules need to be updated
             // WARNING : if the app(s) for which this network request is the default are doing
             // traffic, this will kill their connected sockets, even if an equivalent request
@@ -8933,9 +8937,32 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @NonNull
     final NetworkRequestInfo mDefaultRequest;
     // Collection of NetworkRequestInfo's used for default networks.
+    // This set is read and iterated on multiple threads with no locking so its contents must
+    // never be modified. When the set of network requests changes, replace with a new set, on the
+    // handler thread after handler thread started.
     @VisibleForTesting
     @NonNull
-    final ArraySet<NetworkRequestInfo> mDefaultNetworkRequests = new ArraySet<>();
+    volatile ArraySet<NetworkRequestInfo> mDefaultNetworkRequests;
+
+    private void addDefaultNetworkRequests(final Set<NetworkRequestInfo> nris) {
+        ensureRunningOnConnectivityServiceThread();
+        final ArraySet<NetworkRequestInfo> newRequests = new ArraySet<>(mDefaultNetworkRequests);
+        newRequests.addAll(nris);
+        mDefaultNetworkRequests = newRequests;
+
+    }
+
+    private boolean removeDefaultNetworkRequest(final NetworkRequestInfo nri) {
+        ensureRunningOnConnectivityServiceThread();
+        if (!mDefaultNetworkRequests.contains(nri)) {
+            return false;
+        }
+        final ArraySet<NetworkRequestInfo> newRequests = new ArraySet<>(mDefaultNetworkRequests);
+        newRequests.remove(nri);
+        mDefaultNetworkRequests = newRequests;
+        return true;
+    }
+
 
     private boolean isPerAppDefaultRequest(@NonNull final NetworkRequestInfo nri) {
         return (mDefaultNetworkRequests.contains(nri) && mDefaultRequest != nri);
@@ -13958,7 +13985,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void addPerAppDefaultNetworkRequests(@NonNull final Set<NetworkRequestInfo> nris) {
         ensureRunningOnConnectivityServiceThread();
-        mDefaultNetworkRequests.addAll(nris);
+        addDefaultNetworkRequests(nris);
         final ArraySet<NetworkRequestInfo> perAppCallbackRequestsToUpdate =
                 getPerAppCallbackRequestsToUpdate();
         final ArraySet<NetworkRequestInfo> nrisToRegister = new ArraySet<>(nris);
