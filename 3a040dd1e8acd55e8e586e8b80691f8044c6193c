@@ -81,6 +81,24 @@
       "parentUuid": "9b5edc22_904c330f",
       "revId": "3a040dd1e8acd55e8e586e8b80691f8044c6193c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da1d41e1_795d5f02",
+        "filename": "tests/cts/hostside/AndroidTest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2024-08-30T15:07:22Z",
+      "side": 1,
+      "message": "Just noticed your comments, thanks for update the change!",
+      "parentUuid": "ad2d2478_9ac24f0b",
+      "revId": "3a040dd1e8acd55e8e586e8b80691f8044c6193c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
