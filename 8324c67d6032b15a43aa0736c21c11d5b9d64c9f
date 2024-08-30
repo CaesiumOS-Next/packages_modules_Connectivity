@@ -16,6 +16,29 @@
       "message": "still LGTM. @maze@google.com do you have other comment related to this CL?",
       "revId": "8324c67d6032b15a43aa0736c21c11d5b9d64c9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c9f9f35_aad2818a",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-08-30T15:52:53Z",
+      "side": 1,
+      "message": "where is this 60 coming from?",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 46,
+        "endChar": 23
+      },
+      "revId": "8324c67d6032b15a43aa0736c21c11d5b9d64c9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
