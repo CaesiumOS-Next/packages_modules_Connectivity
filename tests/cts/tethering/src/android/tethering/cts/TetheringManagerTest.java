@@ -244,6 +244,8 @@ public class TetheringManagerTest {
         assertFalse(tr.isExemptFromEntitlementCheck());
         assertTrue(tr.getShouldShowEntitlementUi());
         assertEquals(softApConfiguration, tr.getSoftApConfiguration());
+        assertEquals(-1, tr.getUid());
+        assertNull(tr.getPackageName());
 
         final LinkAddress localAddr = new LinkAddress("192.168.24.5/24");
         final LinkAddress clientAddr = new LinkAddress("192.168.24.100/24");
