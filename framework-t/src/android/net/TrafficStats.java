@@ -187,6 +187,7 @@ public class TrafficStats {
     private static boolean sAlwaysUseTrafficStatsRateLimitCache;
     private static int sTrafficStatsRateLimitCacheExpiryDuration;
     private static int sTrafficStatsRateLimitCacheMaxEntries;
+    private static Dependencies sDeps;
 
 
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P, trackingBug = 130143562)
@@ -244,15 +245,17 @@ public class TrafficStats {
             throw e.rethrowFromSystemServer();
         }
 
+        setDefaultDependencies();
         sAlwaysUseTrafficStatsRateLimitCache = sConfig.mAlwaysUseTrafficStatsRateLimitCache;
         sTrafficStatsRateLimitCacheExpiryDuration =
                 sConfig.mTrafficStatsRateLimitCacheExpiryDuration;
         sTrafficStatsRateLimitCacheMaxEntries = sConfig.mTrafficStatsRateLimitCacheMaxEntries;
         sTrafficStatsIfaceCache = new LruCache<String, NetworkStats>(
-                sTrafficStatsRateLimitCacheMaxEntries
+                sDeps.getTrafficStatsRateLimitCacheMaxEntries()
         );
         sTrafficStatsUidCache = null;
         sTrafficStatsTotalCache = null;
+
     }
 
     /**
@@ -925,17 +928,14 @@ public class TrafficStats {
             return UNSUPPORTED;
         }
         NetworkStats stats = sTrafficStatsUidCache;
-        if (!sAlwaysUseTrafficStatsRateLimitCache
-                || stats == null || SystemClock.uptimeMillis()
-                - stats.getElapsedRealtime() > sTrafficStatsRateLimitCacheExpiryDuration) {
-            try {
-                stats = getStatsService().getTypelessUidStats(uid);
-                if (stats != null && sAlwaysUseTrafficStatsRateLimitCache) {
-                    stats.setElapsedRealtime(SystemClock.elapsedRealtime());
-                    sTrafficStatsUidCache = stats;
-                }
-            } catch (RemoteException e) {
-                throw e.rethrowFromSystemServer();
+        if (!sDeps.getAlwaysUseTrafficStatsRateLimitCache()
+                || stats == null || sDeps.getCurrentTimeMillis()
+                - stats.getElapsedRealtime()
+                >= sDeps.getTrafficStatsRateLimitCacheExpiryDuration()) {
+            stats = sDeps.getTypelessUidStatsFromService(uid);
+            if (stats != null && sDeps.getAlwaysUseTrafficStatsRateLimitCache()) {
+                stats.setElapsedRealtime(sDeps.getCurrentTimeMillis());
+                sTrafficStatsUidCache = stats;
             }
         }
         return getEntryValueForTypeFromStats(stats, type);
@@ -953,17 +953,14 @@ public class TrafficStats {
             return UNSUPPORTED;
         }
         NetworkStats stats = sTrafficStatsTotalCache;
-        if (!sAlwaysUseTrafficStatsRateLimitCache
-                || stats == null || SystemClock.uptimeMillis()
-                - stats.getElapsedRealtime() > sTrafficStatsRateLimitCacheExpiryDuration) {
-            try {
-                stats = getStatsService().getTypelessTotalStats();
-                if (stats != null && sAlwaysUseTrafficStatsRateLimitCache) {
-                    stats.setElapsedRealtime(SystemClock.elapsedRealtime());
-                    sTrafficStatsTotalCache = stats;
-                }
-            } catch (RemoteException e) {
-                throw e.rethrowFromSystemServer();
+        if (!sDeps.getAlwaysUseTrafficStatsRateLimitCache()
+                || stats == null || sDeps.getCurrentTimeMillis()
+                - stats.getElapsedRealtime()
+                >= sDeps.getTrafficStatsRateLimitCacheExpiryDuration()) {
+            stats = sDeps.getTypelessTotalStatsFromService();
+            if (stats != null && sDeps.getAlwaysUseTrafficStatsRateLimitCache()) {
+                stats.setElapsedRealtime(sDeps.getCurrentTimeMillis());
+                sTrafficStatsTotalCache = stats;
             }
         }
         return getEntryValueForTypeFromStats(stats, type);
@@ -981,17 +978,14 @@ public class TrafficStats {
             return UNSUPPORTED;
         }
         NetworkStats stats = sTrafficStatsIfaceCache.get(iface);
-        if (!sAlwaysUseTrafficStatsRateLimitCache
-                || stats == null || SystemClock.uptimeMillis()
-                - stats.getElapsedRealtime() > sTrafficStatsRateLimitCacheExpiryDuration) {
-            try {
-                stats = getStatsService().getTypelessIfaceStats(iface);
-                if (stats != null && sAlwaysUseTrafficStatsRateLimitCache) {
-                    stats.setElapsedRealtime(SystemClock.elapsedRealtime());
-                    sTrafficStatsIfaceCache.put(iface, stats);
-                }
-            } catch (RemoteException e) {
-                throw e.rethrowFromSystemServer();
+        if (!sDeps.getAlwaysUseTrafficStatsRateLimitCache()
+                || stats == null || sDeps.getCurrentTimeMillis()
+                - stats.getElapsedRealtime()
+                >= sDeps.getTrafficStatsRateLimitCacheExpiryDuration()) {
+            stats = sDeps.getTypelessIfaceStatsFromService(iface);
+            if (stats != null && sDeps.getAlwaysUseTrafficStatsRateLimitCache()) {
+                stats.setElapsedRealtime(sDeps.getCurrentTimeMillis());
+                sTrafficStatsIfaceCache.put(iface, stats);
             }
         }
         return getEntryValueForTypeFromStats(stats, type);
@@ -1248,4 +1242,58 @@ public class TrafficStats {
     public static final int TYPE_TX_BYTES = 2;
     /** {@hide} */
     public static final int TYPE_TX_PACKETS = 3;
+
+    /** {@hide} */
+    public static void setDependencies(Dependencies dep) {
+        sDeps = dep;
+    }
+
+    /** {@hide} */
+    public static void setDefaultDependencies() {
+        sDeps = new Dependencies();
+    }
+
+    /** {@hide} */
+    public static class Dependencies {
+        public long getCurrentTimeMillis() {
+            return SystemClock.uptimeMillis();
+        }
+
+        public boolean getAlwaysUseTrafficStatsRateLimitCache() {
+            return sAlwaysUseTrafficStatsRateLimitCache;
+        }
+
+        public int getTrafficStatsRateLimitCacheExpiryDuration() {
+            return sTrafficStatsRateLimitCacheExpiryDuration;
+        }
+
+        public int getTrafficStatsRateLimitCacheMaxEntries() {
+            return sTrafficStatsRateLimitCacheMaxEntries;
+        }
+
+        public NetworkStats getTypelessUidStatsFromService(int uid) {
+            try {
+                return getStatsService().getTypelessUidStats(uid);
+            } catch (RemoteException e) {
+                throw e.rethrowFromSystemServer();
+            }
+        }
+
+        public NetworkStats getTypelessTotalStatsFromService() {
+            try {
+                return getStatsService().getTypelessTotalStats();
+            } catch (RemoteException e) {
+                throw e.rethrowFromSystemServer();
+            }
+        }
+
+        public NetworkStats getTypelessIfaceStatsFromService(String iface) {
+            try {
+                return getStatsService().getTypelessIfaceStats(iface);
+            } catch (RemoteException e) {
+                throw e.rethrowFromSystemServer();
+            }
+        }
+
+    }
 }
