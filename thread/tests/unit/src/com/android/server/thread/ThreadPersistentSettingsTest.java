@@ -35,6 +35,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.connectivity.resources.R;
 import com.android.server.connectivity.ConnectivityResources;
+import com.android.net.module.util.SharedLog;
 
 import org.junit.After;
 import org.junit.Before;
@@ -63,6 +64,8 @@ public class ThreadPersistentSettingsTest {
     @Rule(order = 0)
     public final TemporaryFolder mTemporaryFolder = new TemporaryFolder();
 
+    private final SharedLog mParentLog = new SharedLog("ThreadNetwork");
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -72,7 +75,7 @@ public class ThreadPersistentSettingsTest {
 
         mAtomicFile = createAtomicFile();
         mThreadPersistentSettings =
-                new ThreadPersistentSettings(mAtomicFile, mConnectivityResources);
+                new ThreadPersistentSettings(mAtomicFile, mConnectivityResources, mParentLog);
     }
 
     /** Called after each test */

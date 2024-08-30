@@ -31,6 +31,7 @@ import com.android.connectivity.resources.R;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.connectivity.ConnectivityResources;
+import com.android.net.module.util.SharedLog;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -98,16 +99,21 @@ public class ThreadPersistentSettings {
 
     private final ConnectivityResources mResources;
 
-    public static ThreadPersistentSettings newInstance(Context context) {
+    private final SharedLog mLog;
+
+    public static ThreadPersistentSettings newInstance(Context context, SharedLog parentLog) {
         return new ThreadPersistentSettings(
                 new AtomicFile(new File(getOrCreateThreadNetworkDir(), FILE_NAME)),
-                new ConnectivityResources(context));
+                new ConnectivityResources(context),
+                parentLog);
     }
 
     @VisibleForTesting
-    ThreadPersistentSettings(AtomicFile atomicFile, ConnectivityResources resources) {
+    ThreadPersistentSettings(
+            AtomicFile atomicFile, ConnectivityResources resources, SharedLog parentLog) {
         mAtomicFile = atomicFile;
         mResources = resources;
+        mLog = parentLog.forSubComponent(TAG);
     }
 
     /** Initialize the settings by reading from the settings file. */
@@ -115,7 +121,7 @@ public class ThreadPersistentSettings {
         readFromStoreFile();
         synchronized (mLock) {
             if (!mSettings.containsKey(THREAD_ENABLED.key)) {
-                Log.i(TAG, "\"thread_enabled\" is missing in settings file, using default value");
+                mLog.i("\"thread_enabled\" is missing in settings file, using default value");
                 put(
                         THREAD_ENABLED.key,
                         mResources.get().getBoolean(R.bool.config_thread_default_enabled));
@@ -243,7 +249,7 @@ public class ThreadPersistentSettings {
                 writeToAtomicFile(mAtomicFile, outputStream.toByteArray());
             }
         } catch (IOException e) {
-            Log.wtf(TAG, "Write to store file failed", e);
+            mLog.wtf("Write to store file failed", e);
         }
     }
 
@@ -251,7 +257,7 @@ public class ThreadPersistentSettings {
         try {
             final byte[] readData;
             synchronized (mLock) {
-                Log.i(TAG, "Reading from store file: " + mAtomicFile.getBaseFile());
+                mLog.i("Reading from store file: " + mAtomicFile.getBaseFile());
                 readData = readFromAtomicFile(mAtomicFile);
             }
             final ByteArrayInputStream inputStream = new ByteArrayInputStream(readData);
@@ -262,9 +268,9 @@ public class ThreadPersistentSettings {
                 mSettings.putAll(bundleRead);
             }
         } catch (FileNotFoundException e) {
-            Log.w(TAG, "No store file to read", e);
+            mLog.e("No store file to read", e);
         } catch (IOException e) {
-            Log.e(TAG, "Read from store file failed", e);
+            mLog.e("Read from store file failed", e);
         }
     }
 

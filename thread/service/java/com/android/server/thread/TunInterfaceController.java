@@ -48,6 +48,7 @@ import com.android.net.module.util.netlink.StructNlAttr;
 import com.android.net.module.util.netlink.StructNlMsgHdr;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
 import com.android.server.thread.openthread.OnMeshPrefixConfig;
+import com.android.net.module.util.SharedLog;
 
 import java.io.IOException;
 import java.net.Inet6Address;
@@ -78,16 +79,18 @@ public class TunInterfaceController {
     private final MulticastSocket mMulticastSocket; // For join group and leave group
     private final List<InetAddress> mMulticastAddresses = new ArrayList<>();
     private final List<RouteInfo> mNetDataPrefixes = new ArrayList<>();
+    private final SharedLog mLog;
 
     private ParcelFileDescriptor mParcelTunFd;
     private NetworkInterface mNetworkInterface;
 
     /** Creates a new {@link TunInterfaceController} instance for given interface. */
-    public TunInterfaceController(String interfaceName) {
+    public TunInterfaceController(String interfaceName, SharedLog parentLog) {
         mIfName = interfaceName;
         mLinkProperties.setInterfaceName(mIfName);
         mLinkProperties.setMtu(MTU);
         mMulticastSocket = createMulticastSocket();
+        mLog = parentLog.forSubComponent(TAG);
     }
 
     /** Returns link properties of the Thread TUN interface. */
@@ -147,7 +150,7 @@ public class TunInterfaceController {
 
     /** Adds a new address to the interface. */
     public void addAddress(LinkAddress address) {
-        Log.d(TAG, "Adding address " + address + " with flags: " + address.getFlags());
+        mLog.v("Adding address " + address + " with flags: " + address.getFlags());
 
         long preferredLifetimeSeconds;
         long validLifetimeSeconds;
@@ -180,7 +183,7 @@ public class TunInterfaceController {
                 (byte) address.getScope(),
                 preferredLifetimeSeconds,
                 validLifetimeSeconds)) {
-            Log.w(TAG, "Failed to add address " + address.getAddress().getHostAddress());
+            mLog.w("Failed to add address " + address.getAddress().getHostAddress());
             return;
         }
         mLinkProperties.addLinkAddress(address);
@@ -189,7 +192,7 @@ public class TunInterfaceController {
 
     /** Removes an address from the interface. */
     public void removeAddress(LinkAddress address) {
-        Log.d(TAG, "Removing address " + address);
+        mLog.v("Removing address " + address);
 
         // Intentionally update the mLinkProperties before send netlink message because the
         // address is already removed from ot-daemon and apps can't reach to the address even
@@ -200,7 +203,7 @@ public class TunInterfaceController {
                 Os.if_nametoindex(mIfName),
                 (Inet6Address) address.getAddress(),
                 (short) address.getPrefixLength())) {
-            Log.w(TAG, "Failed to remove address " + address.getAddress().getHostAddress());
+            mLog.w("Failed to remove address " + address.getAddress().getHostAddress());
         }
     }
 
@@ -287,7 +290,7 @@ public class TunInterfaceController {
         try {
             setInterfaceUp(false);
         } catch (IOException e) {
-            Log.e(TAG, "Failed to set Thread TUN interface down");
+            mLog.e("Failed to set Thread TUN interface down");
         }
     }
 
@@ -347,11 +350,11 @@ public class TunInterfaceController {
             if (e.getCause() instanceof ErrnoException) {
                 ErrnoException ee = (ErrnoException) e.getCause();
                 if (ee.errno == EADDRINUSE) {
-                    Log.w(TAG, "Already joined group" + address.getHostAddress(), e);
+                    mLog.e("Already joined group" + address.getHostAddress(), e);
                     return;
                 }
             }
-            Log.e(TAG, "failed to join group " + address.getHostAddress(), e);
+            mLog.e("failed to join group " + address.getHostAddress(), e);
         }
     }
 
@@ -360,7 +363,7 @@ public class TunInterfaceController {
         try {
             mMulticastSocket.leaveGroup(socketAddress, mNetworkInterface);
         } catch (IOException e) {
-            Log.e(TAG, "failed to leave group " + address.getHostAddress(), e);
+            mLog.e("failed to leave group " + address.getHostAddress(), e);
         }
     }
 
@@ -415,14 +418,14 @@ public class TunInterfaceController {
         }
 
         if (DBG) {
-            Log.d(TAG, "ADDR_GEN_MODE message is:");
-            Log.d(TAG, HexDump.dumpHexString(msg));
+            mLog.v("ADDR_GEN_MODE message is:");
+            mLog.v(HexDump.dumpHexString(msg));
         }
 
         try {
             NetlinkUtils.sendOneShotKernelMessage(NETLINK_ROUTE, msg);
         } catch (ErrnoException e) {
-            Log.e(TAG, "Failed to set ADDR_GEN_MODE to NONE", e);
+            mLog.e("Failed to set ADDR_GEN_MODE to NONE", e);
         }
     }
 }

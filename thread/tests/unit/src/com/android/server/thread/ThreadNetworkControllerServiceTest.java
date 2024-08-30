@@ -91,6 +91,7 @@ import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.thread.openthread.DnsTxtAttribute;
 import com.android.server.thread.openthread.MeshcopTxtAttributes;
 import com.android.server.thread.openthread.testing.FakeOtDaemon;
+import com.android.net.module.util.SharedLog;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -177,6 +178,7 @@ public final class ThreadNetworkControllerServiceTest {
     private ThreadPersistentSettings mPersistentSettings;
     private ThreadNetworkControllerService mService;
     @Captor private ArgumentCaptor<ActiveOperationalDataset> mActiveDatasetCaptor;
+    private final SharedLog mParentLog = new SharedLog("ThreadNetwork");
 
     @Rule(order = 1)
     public final TemporaryFolder tempFolder = new TemporaryFolder();
@@ -216,7 +218,8 @@ public final class ThreadNetworkControllerServiceTest {
                 .thenReturn(new String[] {});
 
         final AtomicFile storageFile = new AtomicFile(tempFolder.newFile("thread_settings.xml"));
-        mPersistentSettings = new ThreadPersistentSettings(storageFile, mConnectivityResources);
+        mPersistentSettings =
+                new ThreadPersistentSettings(storageFile, mConnectivityResources, mParentLog);
         mPersistentSettings.initialize();
 
         mService =
@@ -232,7 +235,8 @@ public final class ThreadNetworkControllerServiceTest {
                         mMockNsdPublisher,
                         mMockUserManager,
                         mConnectivityResources,
-                        () -> DEFAULT_COUNTRY_CODE);
+                        () -> DEFAULT_COUNTRY_CODE,
+                        mParentLog);
         mService.setTestNetworkAgent(mMockNetworkAgent);
     }
 

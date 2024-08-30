@@ -29,6 +29,7 @@ import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 
 import com.android.server.SystemService;
+import com.android.net.module.util.SharedLog;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -39,6 +40,9 @@ import java.util.List;
  * Implementation of the Thread network service. This is the entry point of Android Thread feature.
  */
 public class ThreadNetworkService extends IThreadNetworkManager.Stub {
+    // The SharedLog for all subcomponents in ThreadNetworkService
+    private static final SharedLog LOGGER = new SharedLog("ThreadNetwork");
+
     private final Context mContext;
     @Nullable private ThreadNetworkCountryCode mCountryCode;
     @Nullable private ThreadNetworkControllerService mControllerService;
@@ -48,7 +52,7 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
     /** Creates a new {@link ThreadNetworkService} object. */
     public ThreadNetworkService(Context context) {
         mContext = context;
-        mPersistentSettings = ThreadPersistentSettings.newInstance(context);
+        mPersistentSettings = ThreadPersistentSettings.newInstance(context, LOGGER);
     }
 
     /**
@@ -61,10 +65,13 @@ public class ThreadNetworkService extends IThreadNetworkManager.Stub {
             mPersistentSettings.initialize();
             mControllerService =
                     ThreadNetworkControllerService.newInstance(
-                            mContext, mPersistentSettings, () -> mCountryCode.getCountryCode());
+                            mContext,
+                            mPersistentSettings,
+                            () -> mCountryCode.getCountryCode(),
+                            LOGGER);
             mCountryCode =
                     ThreadNetworkCountryCode.newInstance(
-                            mContext, mControllerService, mPersistentSettings);
+                            mContext, mControllerService, mPersistentSettings, LOGGER);
             mControllerService.initialize();
         } else if (phase == SystemService.PHASE_BOOT_COMPLETED) {
             // Country code initialization is delayed to the BOOT_COMPLETED phase because it will
