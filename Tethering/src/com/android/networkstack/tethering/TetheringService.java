@@ -33,6 +33,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.IIntResultListener;
 import android.net.INetworkStackConnector;
 import android.net.ITetheringConnector;
@@ -77,7 +78,8 @@ public class TetheringService extends Service {
         final TetheringDependencies deps = makeTetheringDependencies();
         // The Tethering object needs a fully functional context to start, so this can't be done
         // in the constructor.
-        mConnector = new TetheringConnector(makeTethering(deps), TetheringService.this);
+        mConnector = new TetheringConnector(makeTethering(deps), TetheringService.this,
+                deps.getContext().getPackageManager());
 
         mSettingsShim = SettingsShimImpl.newInstance();
     }
@@ -99,10 +101,13 @@ public class TetheringService extends Service {
     private static class TetheringConnector extends ITetheringConnector.Stub {
         private final TetheringService mService;
         private final Tethering mTethering;
+        private final PackageManager mPackageManager;
 
-        TetheringConnector(Tethering tether, TetheringService service) {
+        TetheringConnector(Tethering tether, TetheringService service,
+                PackageManager packageManager) {
             mTethering = tether;
             mService = service;
+            mPackageManager = packageManager;
         }
 
         @Override
@@ -138,8 +143,10 @@ public class TetheringService extends Service {
                     listener)) {
                 return;
             }
-            // TODO(b/216524590): Add UID/packageName of caller to TetheringRequest here
-            mTethering.startTethering(new TetheringRequest(request), callerPkg, listener);
+            TetheringRequest external = new TetheringRequest(request);
+            external.setUid(Binder.getCallingUid());
+            external.setPackageName(callerPkg);
+            mTethering.startTethering(external, callerPkg, listener);
         }
 
         @Override
@@ -236,7 +243,19 @@ public class TetheringService extends Service {
 
         private boolean checkAndNotifyCommonError(final String callerPkg,
                 final String callingAttributionTag, final boolean onlyAllowPrivileged,
-                final IIntResultListener listener) {
+                final IIntResultListener listener) throws SecurityException {
+            final int callerUid = Binder.getCallingUid();
+            final int packageUid;
+            try {
+                packageUid = mPackageManager.getPackageUid(callerPkg, /* flags */ 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                throw new SecurityException("Package " + callerPkg + " is not available to caller: "
+                        + e);
+            }
+            if (packageUid != callerUid) {
+                throw new SecurityException("UID " + callerUid + " does not belong to "
+                        + callerPkg);
+            }
             try {
                 if (!hasTetherChangePermission(callerPkg, callingAttributionTag,
                         onlyAllowPrivileged)) {
