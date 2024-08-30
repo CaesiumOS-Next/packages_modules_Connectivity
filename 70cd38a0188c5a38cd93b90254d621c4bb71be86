@@ -22,6 +22,30 @@
       },
       "revId": "70cd38a0188c5a38cd93b90254d621c4bb71be86",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23b152d9_2bcc00b3",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-30T07:12:13Z",
+      "side": 1,
+      "message": "Though checking the uid to decide the permission is also discourage https://groups.google.com/a/google.com/g/android-chatty-eng/c/3O6XcqDA_Nw, it should be better than checking the build type.",
+      "parentUuid": "0ce2f19a_67d03c22",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 5
+      },
+      "revId": "70cd38a0188c5a38cd93b90254d621c4bb71be86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
