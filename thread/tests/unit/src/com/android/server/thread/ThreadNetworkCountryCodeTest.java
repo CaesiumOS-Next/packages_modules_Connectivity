@@ -62,6 +62,7 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.connectivity.resources.R;
+import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.ConnectivityResources;
 
 import org.junit.Before;
@@ -109,6 +110,7 @@ public class ThreadNetworkCountryCodeTest {
 
     private ThreadNetworkCountryCode mThreadNetworkCountryCode;
     private boolean mErrorSetCountryCode;
+    private final SharedLog mParentLog = new SharedLog("ThreadNetwork");
 
     @Captor private ArgumentCaptor<LocationListener> mLocationListenerCaptor;
     @Captor private ArgumentCaptor<Geocoder.GeocodeListener> mGeocodeListenerCaptor;
@@ -167,7 +169,8 @@ public class ThreadNetworkCountryCodeTest {
                 mTelephonyManager,
                 mSubscriptionManager,
                 oemCountryCode,
-                mPersistentSettings);
+                mPersistentSettings,
+                mParentLog);
     }
 
     private static Address newAddress(String countryCode) {

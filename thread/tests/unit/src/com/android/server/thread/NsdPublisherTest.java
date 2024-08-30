@@ -45,6 +45,7 @@ import android.os.test.TestLooper;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
+import com.android.net.module.util.SharedLog;
 import com.android.server.thread.openthread.DnsTxtAttribute;
 import com.android.server.thread.openthread.INsdDiscoverServiceCallback;
 import com.android.server.thread.openthread.INsdResolveHostCallback;
@@ -86,6 +87,7 @@ public final class NsdPublisherTest {
 
     private TestLooper mTestLooper;
     private NsdPublisher mNsdPublisher;
+    private final SharedLog mParentLog = new SharedLog("ThreadNetwork");
 
     @Before
     public void setUp() {
@@ -811,7 +813,7 @@ public final class NsdPublisherTest {
     private void prepareTest() {
         mTestLooper = new TestLooper();
         Handler handler = new Handler(mTestLooper.getLooper());
-        mNsdPublisher = new NsdPublisher(mMockNsdManager, mMockDnsResolver, handler);
+        mNsdPublisher = new NsdPublisher(mMockNsdManager, mMockDnsResolver, handler, mParentLog);
         mNsdPublisher.setNetworkForHostResolution(mNetwork);
     }
 }
