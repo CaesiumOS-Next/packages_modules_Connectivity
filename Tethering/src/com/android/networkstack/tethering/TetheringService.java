@@ -22,6 +22,7 @@ import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
+import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
@@ -55,6 +56,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.PermissionUtils;
 import com.android.networkstack.apishim.SettingsShimImpl;
 import com.android.networkstack.apishim.common.SettingsShim;
 
@@ -77,7 +79,7 @@ public class TetheringService extends Service {
         final TetheringDependencies deps = makeTetheringDependencies();
         // The Tethering object needs a fully functional context to start, so this can't be done
         // in the constructor.
-        mConnector = new TetheringConnector(makeTethering(deps), TetheringService.this);
+        mConnector = new TetheringConnector(makeTethering(deps), TetheringService.this, deps);
 
         mSettingsShim = SettingsShimImpl.newInstance();
     }
@@ -99,10 +101,13 @@ public class TetheringService extends Service {
     private static class TetheringConnector extends ITetheringConnector.Stub {
         private final TetheringService mService;
         private final Tethering mTethering;
+        private final TetheringDependencies mDeps;
 
-        TetheringConnector(Tethering tether, TetheringService service) {
+        TetheringConnector(Tethering tether, TetheringService service,
+                TetheringDependencies deps) {
             mTethering = tether;
             mService = service;
+            mDeps = deps;
         }
 
         @Override
@@ -138,8 +143,10 @@ public class TetheringService extends Service {
                     listener)) {
                 return;
             }
-            // TODO(b/216524590): Add UID/packageName of caller to TetheringRequest here
-            mTethering.startTethering(new TetheringRequest(request), callerPkg, listener);
+            TetheringRequest external = new TetheringRequest(request);
+            external.setUid(mService.getBinderCallingUid());
+            external.setPackageName(callerPkg);
+            mTethering.startTethering(external, callerPkg, listener);
         }
 
         @Override
@@ -238,6 +245,12 @@ public class TetheringService extends Service {
                 final String callingAttributionTag, final boolean onlyAllowPrivileged,
                 final IIntResultListener listener) {
             try {
+                if (!checkPackageNameMatchesUid(mService.getBinderCallingUid(), callerPkg)) {
+                    Log.e(TAG, "Package name " + callerPkg + " does not match UID "
+                            + mService.getBinderCallingUid());
+                    listener.onResult(TETHER_ERROR_INTERNAL_ERROR);
+                    return true;
+                }
                 if (!hasTetherChangePermission(callerPkg, callingAttributionTag,
                         onlyAllowPrivileged)) {
                     listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
@@ -256,6 +269,11 @@ public class TetheringService extends Service {
 
         private boolean checkAndNotifyCommonError(final String callerPkg,
                 final String callingAttributionTag, final ResultReceiver receiver) {
+            if (!checkPackageNameMatchesUid(mService.getBinderCallingUid(), callerPkg)) {
+                Log.e(TAG, "Package name " + callerPkg + " does not match UID "
+                        + mService.getBinderCallingUid());
+                receiver.send(TETHER_ERROR_INTERNAL_ERROR, null);
+            }
             if (!hasTetherChangePermission(callerPkg, callingAttributionTag,
                     false /* onlyAllowPrivileged */)) {
                 receiver.send(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION, null);
@@ -290,9 +308,9 @@ public class TetheringService extends Service {
 
             if (mTethering.isTetherProvisioningRequired()) return false;
 
-            int uid = Binder.getCallingUid();
+            int uid = mService.getBinderCallingUid();
 
-            // If callerPkg's uid is not same as Binder.getCallingUid(),
+            // If callerPkg's uid is not same as getBinderCallingUid(),
             // checkAndNoteWriteSettingsOperation will return false and the operation will be
             // denied.
             return mService.checkAndNoteWriteSettingsOperation(mService, uid, callerPkg,
@@ -304,6 +322,10 @@ public class TetheringService extends Service {
 
             return mService.checkCallingOrSelfPermission(
                     ACCESS_NETWORK_STATE) == PERMISSION_GRANTED;
+        }
+
+        private boolean checkPackageNameMatchesUid(final int uid, final String callerPkg) {
+            return mService.checkPackageNameMatchesUid(mService, uid, callerPkg);
         }
     }
 
@@ -319,6 +341,28 @@ public class TetheringService extends Service {
             boolean throwException) {
         return mSettingsShim.checkAndNoteWriteSettingsOperation(context, uid, callingPackage,
                 callingAttributionTag, throwException);
+    }
+
+    /**
+     * Check if the package name matches the uid.
+     */
+    @VisibleForTesting
+    boolean checkPackageNameMatchesUid(@NonNull Context context, int uid,
+            @NonNull String callingPackage) {
+        try {
+            PermissionUtils.enforcePackageNameMatchesUid(context, uid, callingPackage);
+        } catch (SecurityException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Wrapper for the Binder calling UID, used for mocks.
+     */
+    @VisibleForTesting
+    int getBinderCallingUid() {
+        return Binder.getCallingUid();
     }
 
     /**
