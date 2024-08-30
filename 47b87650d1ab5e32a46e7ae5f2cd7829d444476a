@@ -16,6 +16,24 @@
       "message": "Kangping, any concerns? Do the Thread APIs work on non-primary users?",
       "revId": "47b87650d1ab5e32a46e7ae5f2cd7829d444476a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fae835c_c7a14cec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-08-30T01:49:52Z",
+      "side": 1,
+      "message": "I think it\u0027s okay, Thread APIs don\u0027t require specific user to work.",
+      "parentUuid": "9b404910_57cbe14d",
+      "revId": "47b87650d1ab5e32a46e7ae5f2cd7829d444476a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
