@@ -264,7 +264,7 @@ java_library {
     ],
     libs: [
         "framework-annotations-lib",
-        "framework-connectivity",
+        "framework-connectivity.stubs.module_lib",
     ],
     static_libs: [
         "net-utils-device-common",
@@ -342,7 +342,7 @@ java_library {
     min_sdk_version: "30",
     libs: [
         "framework-annotations-lib",
-        "framework-connectivity",
+        "framework-connectivity.stubs.module_lib",
         "modules-utils-build_system",
     ],
     // TODO: remove "apex_available:platform".
