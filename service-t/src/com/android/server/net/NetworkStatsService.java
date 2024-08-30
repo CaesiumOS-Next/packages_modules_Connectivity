@@ -2188,6 +2188,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         if (entry != null) {
             stats = new NetworkStats(0, 1);
             stats.insertEntry(entry);
+        } else { // To distinguish from no entry found and null entry
+           stats = new NetworkStats(0, 0);
         }
         return stats;
     }
@@ -2231,6 +2233,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         if (entry != null) {
             stats = new NetworkStats(0, 1);
             stats.insertEntry(entry);
+        } else { // To distinguish from no entry found and null entry
+            stats = new NetworkStats(0, 0);
         }
         return stats;
     }
@@ -2295,6 +2299,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         if (entry != null) {
             stats = new NetworkStats(0, 1);
             stats.insertEntry(entry);
+        } else {
+            stats = new NetworkStats(0, 0);
         }
         return stats;
     }
