@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39241b72_d916ab48",
+        "filename": "tests/cts/hostside/AndroidTest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-30T14:17:17Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is enough? Our other tests have more entries here. For example packages/modules/Connectivity/tests/cts/net/AndroidTestTemplate.xml has:\n\n    \u003coption name\u003d\"config-descriptor:metadata\" key\u003d\"mainline-param\" value\u003d\"CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex\" /\u003e\n    \u003coption name\u003d\"config-descriptor:metadata\" key\u003d\"mainline-param\" value\u003d\"CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk\" /\u003e\n    \u003coption name\u003d\"config-descriptor:metadata\" key\u003d\"mainline-param\" value\u003d\"com.google.android.tethering.apex\" /\u003e",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 111
+      },
+      "revId": "3a040dd1e8acd55e8e586e8b80691f8044c6193c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b5edc22_904c330f",
+        "filename": "tests/cts/hostside/AndroidTest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-08-30T14:17:17Z",
+      "side": 1,
+      "message": "Again our other tests have way more here. packages/modules/Connectivity/tests/cts/net/AndroidTestTemplate.xml has:\n\n    \u003c!-- When this test is run in a Mainline context (e.g. with `mts-tradefed`), only enable it if\n        one of the Mainline modules below is present on the device used for testing. --\u003e\n    \u003cobject type\u003d\"module_controller\" class\u003d\"com.android.tradefed.testtype.suite.module.MainlineTestModuleController\"\u003e\n        \u003c!-- Tethering Module (internal version). --\u003e\n        \u003coption name\u003d\"mainline-module-package-name\" value\u003d\"com.google.android.tethering\" /\u003e\n        \u003c!-- Tethering Module (AOSP version). --\u003e\n        \u003coption name\u003d\"mainline-module-package-name\" value\u003d\"com.android.tethering\" /\u003e\n        \u003c!-- NetworkStack Module (internal version). Should always be installed with CaptivePortalLogin. --\u003e\n        \u003coption name\u003d\"mainline-module-package-name\" value\u003d\"com.google.android.networkstack\" /\u003e\n        \u003c!-- NetworkStack Module (AOSP version). Should always be installed with CaptivePortalLogin. --\u003e\n        \u003coption name\u003d\"mainline-module-package-name\" value\u003d\"com.android.networkstack\" /\u003e\n        \u003c!-- Resolver Module (internal version). --\u003e\n        \u003coption name\u003d\"mainline-module-package-name\" value\u003d\"com.google.android.resolv\" /\u003e\n        \u003c!-- Resolver Module (AOSP version). --\u003e\n        \u003coption name\u003d\"mainline-module-package-name\" value\u003d\"com.android.resolv\" /\u003e\n    \u003c/object\u003e",
+      "revId": "3a040dd1e8acd55e8e586e8b80691f8044c6193c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
