@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14d9bad2_d5385e90",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-30T05:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a588021_80f2f84f",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c76144f_fa2e0fec",
@@ -79,6 +97,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c5563e_b462a040",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-30T05:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c76144f_fa2e0fec",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 5
+      },
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "644de4d5_eafc8a33",
@@ -124,6 +166,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da76562f_8292e7cb",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-30T05:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "644de4d5_eafc8a33",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aec6d8a0_65aea7da",
@@ -137,6 +197,24 @@
       "writtenOn": "2024-08-29T08:43:45Z",
       "side": 1,
       "message": "Do we need this?",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a573043f_bc1c5a62",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-30T05:32:56Z",
+      "side": 1,
+      "message": "Do you mean \"outputWriter.flush()\"? Under interactive mode, when using inputStream to read, we need to flush the output buffer manually to print the output timely.",
+      "parentUuid": "aec6d8a0_65aea7da",
       "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -164,6 +242,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f03336b6_acbaf01f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-30T05:32:56Z",
+      "side": 1,
+      "message": "Copy it outside of iteration to be able to support multiple sessions. Since getOutputWriter() will always returns the printer generated in latest thread_network session.",
+      "parentUuid": "e3ce60bb_fd760ac3",
+      "range": {
+        "startLine": 318,
+        "startChar": 6,
+        "endLine": 319,
+        "endChar": 51
+      },
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "baf62c7c_82dd8351",
@@ -177,6 +279,24 @@
       "writtenOn": "2024-08-29T08:43:45Z",
       "side": 1,
       "message": "Do we need this?",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e87bbc05_bb60eca4",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-30T05:32:56Z",
+      "side": 1,
+      "message": "Under interactive mode, when using inputStream to read, we need to flush the output buffer manually to print the output timely.",
+      "parentUuid": "baf62c7c_82dd8351",
       "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -198,6 +318,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59764de8_3e20090c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-30T05:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a401ef6_8474771f",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca55bd7c_9ec0bdfe",
@@ -211,6 +349,24 @@
       "writtenOn": "2024-08-29T08:43:45Z",
       "side": 1,
       "message": "You can trim the command and then follow up with other `if`s.",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "670b3ca6_4e2f5618",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-30T05:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca55bd7c_9ec0bdfe",
       "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -232,6 +388,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa3a7d41_d6198a86",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-30T05:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33df50e2_1d13308c",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99053a73_52c08a5e",
@@ -249,6 +423,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b41ce77_196a4e2a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-30T05:32:56Z",
+      "side": 1,
+      "message": "For interactive mode, there is no direct way for ot-daemon to know \"when\" to exit and redirect output. This is a way for thread_network to let ot-daemon to redirect output to default.",
+      "parentUuid": "99053a73_52c08a5e",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e35a0e4_4048ee2a",
@@ -262,6 +454,24 @@
       "writtenOn": "2024-08-29T08:43:45Z",
       "side": 1,
       "message": "You didn\u0027t wait for the future to complete.",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "078fe8bc_0df1c529",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-08-30T05:32:56Z",
+      "side": 1,
+      "message": "It\u0027s am empty command without real output.",
+      "parentUuid": "6e35a0e4_4048ee2a",
       "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
