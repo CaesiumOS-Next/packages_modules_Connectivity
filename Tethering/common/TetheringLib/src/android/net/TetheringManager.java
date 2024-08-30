@@ -746,6 +746,7 @@ public class TetheringManager {
                 mBuilderParcel.exemptFromEntitlementCheck = false;
                 mBuilderParcel.showProvisioningUi = true;
                 mBuilderParcel.connectivityScope = getDefaultConnectivityScope(type);
+                mBuilderParcel.uid = -1;
                 mBuilderParcel.softApConfig = null;
             }
 
@@ -920,6 +921,45 @@ public class TetheringManager {
         }
 
         /**
+         * Sets the UID of the app that sent this request. This should always be overridden when
+         * receiving TetheringRequest from an external source.
+         * @hide
+         */
+        public void setUid(int uid) {
+            mRequestParcel.uid = uid;
+        }
+
+        /**
+         * Sets the package name of the app that sent this request. This should always be overridden
+         * when receiving a TetheringRequest from an external source.
+         * @hide
+         */
+        public void setPackageName(String packageName) {
+            mRequestParcel.packageName = packageName;
+        }
+
+        /**
+         * Gets the UID of the app that sent this request.
+         * @hide
+         */
+        @FlaggedApi(Flags.FLAG_TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        @SystemApi(client = MODULE_LIBRARIES)
+        public int getUid() {
+            return mRequestParcel.uid;
+        }
+
+        /**
+         * Gets the package name of the app that sent this request.
+         * @hide
+         */
+        @FlaggedApi(Flags.FLAG_TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        @SystemApi(client = MODULE_LIBRARIES)
+        @Nullable
+        public String getPackageName() {
+            return mRequestParcel.packageName;
+        }
+
+        /**
          * Get a TetheringRequestParcel from the configuration
          * @hide
          */
@@ -935,6 +975,8 @@ public class TetheringManager {
                     + ", exemptFromEntitlementCheck= " + mRequestParcel.exemptFromEntitlementCheck
                     + ", showProvisioningUi= " + mRequestParcel.showProvisioningUi
                     + ", softApConfig= " + mRequestParcel.softApConfig
+                    + ", uid= " + mRequestParcel.uid
+                    + ", packageName= " + mRequestParcel.packageName
                     + " ]";
         }
 
@@ -950,7 +992,9 @@ public class TetheringManager {
                     && parcel.exemptFromEntitlementCheck == otherParcel.exemptFromEntitlementCheck
                     && parcel.showProvisioningUi == otherParcel.showProvisioningUi
                     && parcel.connectivityScope == otherParcel.connectivityScope
-                    && Objects.equals(parcel.softApConfig, otherParcel.softApConfig);
+                    && Objects.equals(parcel.softApConfig, otherParcel.softApConfig)
+                    && parcel.uid == otherParcel.uid
+                    && Objects.equals(parcel.packageName, otherParcel.packageName);
         }
 
         @Override
@@ -958,7 +1002,8 @@ public class TetheringManager {
             TetheringRequestParcel parcel = getParcel();
             return Objects.hash(parcel.tetheringType, parcel.localIPv4Address,
                     parcel.staticClientAddress, parcel.exemptFromEntitlementCheck,
-                    parcel.showProvisioningUi, parcel.connectivityScope, parcel.softApConfig);
+                    parcel.showProvisioningUi, parcel.connectivityScope, parcel.softApConfig,
+                    parcel.uid, parcel.packageName);
         }
     }
 
