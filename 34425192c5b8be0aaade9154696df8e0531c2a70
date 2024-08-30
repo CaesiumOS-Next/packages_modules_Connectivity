@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91990782_18ca0722",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-30T07:53:58Z",
+      "side": 1,
+      "message": "Stupid question:\n Sorry this is something new to me.\n Do we have somewhere describe the relationship between RoutingCoordinatorService, PrivateAddressCoordinator and ConnectivityService?\n it sounds slightly weird to me to have a service constructing another service.",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 29
+      },
+      "revId": "34425192c5b8be0aaade9154696df8e0531c2a70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3733a57d_f26bdef2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1800,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-08-30T07:53:58Z",
+      "side": 1,
+      "message": "Is there any constant for this?",
+      "range": {
+        "startLine": 1800,
+        "startChar": 42,
+        "endLine": 1800,
+        "endChar": 65
+      },
+      "revId": "34425192c5b8be0aaade9154696df8e0531c2a70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
