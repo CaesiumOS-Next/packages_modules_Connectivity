@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4fc7175e_e83126c6",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-08-31T00:01:59Z",
+      "side": 1,
+      "message": "\"just enough\" doesn\u0027t match the following code, just enough should means ether header + zero padding \u003d 60 bytes.",
+      "range": {
+        "startLine": 45,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 39
+      },
+      "revId": "8324c67d6032b15a43aa0736c21c11d5b9d64c9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c9f9f35_aad2818a",
         "filename": "tests/cts/multidevices/apfv4_test.py",
         "patchSetId": 8
