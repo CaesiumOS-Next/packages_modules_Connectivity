@@ -63,6 +63,30 @@
       ],
       "revId": "c987ca117d4fbdec03d2d2b6a50f3f0bace6d7d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "481bdee3_33b4df22",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-01T06:15:28Z",
+      "side": 1,
+      "message": "They are different.\n\n`LOG.getTag()` returns the top-level tag which is `ThreadNetwork` while `TAG` is the inner tag `ControllerService`. I think it should use `ThreadNetwork` here.",
+      "parentUuid": "b865ce2e_4c5812ae",
+      "range": {
+        "startLine": 809,
+        "startChar": 16,
+        "endLine": 809,
+        "endChar": 29
+      },
+      "revId": "c987ca117d4fbdec03d2d2b6a50f3f0bace6d7d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
