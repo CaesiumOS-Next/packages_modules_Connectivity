@@ -1246,9 +1246,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         try {
             getOtDaemon()
                     .setInfraLinkState(
-                            mInfraLinkState,
-                            infraIcmp6Socket,
-                            new setInfraLinkStateStatusReceiver());
+                            mInfraLinkState, infraIcmp6Socket, new SetInfraLinkStateReceiver());
         } catch (RemoteException | ThreadNetworkException e) {
             LOG.e("Failed to configure border router " + mOtDaemonConfig, e);
         }
@@ -1397,31 +1395,33 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
-    private static final class setOtDaemonConfigurationStatusReceiver extends IOtStatusReceiver.Stub {
-        public setOtDaemonConfigurationStatusReceiver() {}
-
-        @Override
-        public void onSuccess() {
-            LOG.i("Configured border router successfully");
-        }
-
-        @Override
-        public void onError(int i, String s) {
-            LOG.w(String.format("Failed to set configurations: %d %s", i, s));
+    private static final class SetOtDaemonConfigurationReceiver extends LoggingOtStatusReceiver {
+        SetOtDaemonConfigurationReceiver() {
+            super("setOtDaemonConfiguration");
         }
     }
 
-    private static final class setInfraLinkStateStatusReceiver extends IOtStatusReceiver.Stub {
-        public setInfraLinkStateStatusReceiver() {}
+    private static final class SetInfraLinkStateReceiver extends LoggingOtStatusReceiver {
+        SetInfraLinkStateReceiver() {
+            super("setInfraLinkState");
+        }
+    }
+
+    private static class LoggingOtStatusReceiver extends IOtStatusReceiver.Stub {
+        private final String mAction;
+
+        LoggingOtStatusReceiver(String action) {
+            mAction = action;
+        }
 
         @Override
         public void onSuccess() {
-            LOG.i("Set the infra link state successfully");
+            LOG.i("The action " + mAction + " succeeded");
         }
 
         @Override
         public void onError(int i, String s) {
-            LOG.w(String.format("Failed to set the infra link state: %d %s", i, s));
+            LOG.w("The action " + mAction + " failed: " + i + " " + s);
         }
     }
 
