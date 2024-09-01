@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3f7467e_0aab8dc5",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-01T06:15:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68bca803_c0c83973",
+      "range": {
+        "startLine": 65,
+        "startChar": 41,
+        "endLine": 65,
+        "endChar": 96
+      },
+      "revId": "c987ca117d4fbdec03d2d2b6a50f3f0bace6d7d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b865ce2e_4c5812ae",
