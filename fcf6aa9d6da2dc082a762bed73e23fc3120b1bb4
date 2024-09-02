@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a7f9d6f_0f7828ed",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-09-02T06:52:30Z",
+      "side": 1,
+      "message": "How should I satisfy `API test coverage` in lint check? I thought `TetheringManagerTest` is in CTS test?",
+      "revId": "fcf6aa9d6da2dc082a762bed73e23fc3120b1bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
