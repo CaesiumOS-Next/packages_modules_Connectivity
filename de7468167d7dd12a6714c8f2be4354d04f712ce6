@@ -22,6 +22,30 @@
       },
       "revId": "de7468167d7dd12a6714c8f2be4354d04f712ce6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c816916_132f213f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1408,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-02T02:57:23Z",
+      "side": 1,
+      "message": "I prefer making them separate classes for:\n- Better code auto-completion in code editor.\n- Less error-prone for typing/referring to the action string constant.",
+      "parentUuid": "300f8291_62c3c6c6",
+      "range": {
+        "startLine": 1404,
+        "startChar": 4,
+        "endLine": 1408,
+        "endChar": 5
+      },
+      "revId": "de7468167d7dd12a6714c8f2be4354d04f712ce6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
