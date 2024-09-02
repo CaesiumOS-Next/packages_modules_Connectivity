@@ -5532,7 +5532,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (nai.isCreated()) {
             try {
                 mNetd.networkSetPermissionForNetwork(nai.network.netId, INetd.PERMISSION_SYSTEM);
-            } catch (RemoteException e) {
+            } catch (RemoteException | ServiceSpecificException e) {
                 Log.d(TAG, "Error marking network restricted during teardown: ", e);
             }
         }
