@@ -39,6 +39,30 @@
       },
       "revId": "7b4e31888952fe11dcd1abcc5695d26f80ca38a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59c41623_2c9e6c4e",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-02T07:52:22Z",
+      "side": 1,
+      "message": "Unlikely.\nCurrently in BpfCoordinatorTest, we don\u0027t have shim related test.\nAlso in the production code, the shim takes a dep object to initialize.\nWhich makes mocking a shim in the test harder.\n```\npublic BpfCoordinatorShimImpl(@NonNull final Dependencies deps) {\n        mLog \u003d deps.getSharedLog().forSubComponent(TAG);\n        mNetd \u003d deps.getNetd();\n    }\n```\nFeel free to open if any idea to make it testable.\nOtherwise I\u0027ll prefer to proceed since change is trivial.",
+      "parentUuid": "be2b82f0_19f44495",
+      "range": {
+        "startLine": 362,
+        "startChar": 19,
+        "endLine": 362,
+        "endChar": 24
+      },
+      "revId": "7b4e31888952fe11dcd1abcc5695d26f80ca38a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
