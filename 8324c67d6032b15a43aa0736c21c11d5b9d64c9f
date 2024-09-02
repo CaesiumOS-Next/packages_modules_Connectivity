@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c61092a6_c1426da7",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-02T03:17:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fc7175e_e83126c6",
+      "range": {
+        "startLine": 45,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 39
+      },
+      "revId": "8324c67d6032b15a43aa0736c21c11d5b9d64c9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c9f9f35_aad2818a",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-08-30T15:52:53Z",
       "side": 1,
       "message": "where is this 60 coming from?",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 46,
+        "endChar": 23
+      },
+      "revId": "8324c67d6032b15a43aa0736c21c11d5b9d64c9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d231ecf_a079d1ec",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-02T03:17:39Z",
+      "side": 1,
+      "message": "Changed to make header + zero padding \u003d 60 bytes to address this one https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3235730/comment/25e9c65e_a23225b1/\nSee if it works for you.",
+      "parentUuid": "3c9f9f35_aad2818a",
       "range": {
         "startLine": 46,
         "startChar": 21,
