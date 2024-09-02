@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "300f8291_62c3c6c6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1408,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-02T02:35:38Z",
+      "side": 1,
+      "message": "This class doesn\u0027t seem necessary. We can use `new LoggingOtStatusReceiver(\"setInfraLinkState\")` for where it is needed.",
+      "range": {
+        "startLine": 1404,
+        "startChar": 4,
+        "endLine": 1408,
+        "endChar": 5
+      },
+      "revId": "de7468167d7dd12a6714c8f2be4354d04f712ce6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
