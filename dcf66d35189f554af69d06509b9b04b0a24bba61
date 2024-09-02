@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daed4baf_171d51aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-02T04:43:05Z",
+      "side": 1,
+      "message": "Question:\nThe method looks errorprone to me where it returns a general purpose string which allows the caller to do something more errorprone, e.g.\n assertEquals(getFlagValueForTest, \"False\")\n assertEquals(getFlagValueForTest, \"123\")\n\nIs it better to make this method more specific?\nWhat is the use case for it?",
+      "range": {
+        "startLine": 9,
+        "startChar": 37,
+        "endLine": 9,
+        "endChar": 56
+      },
+      "revId": "dcf66d35189f554af69d06509b9b04b0a24bba61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
