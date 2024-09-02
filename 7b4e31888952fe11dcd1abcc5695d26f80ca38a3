@@ -87,6 +87,30 @@
       },
       "revId": "7b4e31888952fe11dcd1abcc5695d26f80ca38a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21456584_7054d1b1",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-02T08:07:52Z",
+      "side": 1,
+      "message": "In order to test it, we need to write something like below, right?\n```\nassertTrue(mBpfCoordinatorShim.tetherOffloadRuleAdd(...))\n```\nThe problem is how do we verify BpfCoordinatorShim, given that we don\u0027t have a handle for it and we cannot inject a Shim instance into BpfCoordicator instance.",
+      "parentUuid": "6636df7e_5f500a53",
+      "range": {
+        "startLine": 362,
+        "startChar": 19,
+        "endLine": 362,
+        "endChar": 24
+      },
+      "revId": "7b4e31888952fe11dcd1abcc5695d26f80ca38a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
