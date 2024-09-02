@@ -215,6 +215,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb7ead44_01e6cde8",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-02T04:23:58Z",
+      "side": 1,
+      "message": "Ephemeral key is a temporary single-use code that can be used to establish secure session. It makes sense that only the first call to activate the mode succeeds, and the second call will fail with a `ERROR_BUSY` until the ephemeral key mode is deactivated. Updated the doc and code.",
+      "parentUuid": "dea50a51_60dc3217",
+      "range": {
+        "startLine": 186,
+        "startChar": 55,
+        "endLine": 186,
+        "endChar": 61
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae2befe9_ee75c30e",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 11

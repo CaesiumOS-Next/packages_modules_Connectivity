@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "932c2558_99982f94",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-02T04:23:58Z",
+      "side": 1,
+      "message": "Updated the doc to explain this string, and noted that caller needs to subscribe to the state. Returning the ephemeral key in this string means the ephemeral key mode is successfully activated, and can be used until it gets deactivated. Although caller can subscribe to get the key, returning the key in OutcomeReceiver makes the OutcomeReceiver more complete. Thoughts?",
+      "parentUuid": "967a7530_35b4024b",
+      "range": {
+        "startLine": 211,
+        "startChar": 37,
+        "endLine": 211,
+        "endChar": 43
+      },
+      "revId": "6154ad3cd681a7a8c171d832bdd0c3cae537bec3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d32d321e_373a8c7f",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 20
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-22T09:22:23Z",
       "side": 1,
       "message": "Is this really a string? If so, what encoding is it in? For example, is it ASCII? Or UTF-8? Or is it a base64 encoded byte array? If it\u0027s a base64 encoded byte array, then why not just make it a byte[]?\n\nEven if it\u0027s a byte[], could the key be in different formats, now or in the future? If so, you might want a class instead of a key, or at least an enum that says what type the key is.",
+      "range": {
+        "startLine": 339,
+        "startChar": 26,
+        "endLine": 339,
+        "endChar": 32
+      },
+      "revId": "6154ad3cd681a7a8c171d832bdd0c3cae537bec3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83317b54_0ec1390c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-02T04:23:58Z",
+      "side": 1,
+      "message": "It\u0027s a string for numeric code, updated the doc, PTAL.",
+      "parentUuid": "d32d321e_373a8c7f",
       "range": {
         "startLine": 339,
         "startChar": 26,
