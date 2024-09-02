@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0bec8ba_a06d0d21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-09-02T07:34:23Z",
+      "side": 1,
+      "message": "LGTM if yuyang\u0027s comment is fixed. This change is safe because no caller use tetherOffloadRuleAdd\u0027s return value.",
+      "revId": "7b4e31888952fe11dcd1abcc5695d26f80ca38a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be2b82f0_19f44495",
