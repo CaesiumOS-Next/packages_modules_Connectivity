@@ -86,6 +86,30 @@
       ],
       "revId": "91d8676e1e55689fc4bac8cc3efcd2e96db211f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6a296bc_49cc61de",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-02T02:43:39Z",
+      "side": 1,
+      "message": "As mentioned in CL description, the warning level log doesn\u0027t support exception as the argument.",
+      "parentUuid": "aaea5dcb_a884008a",
+      "range": {
+        "startLine": 266,
+        "startChar": 12,
+        "endLine": 266,
+        "endChar": 18
+      },
+      "revId": "91d8676e1e55689fc4bac8cc3efcd2e96db211f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
