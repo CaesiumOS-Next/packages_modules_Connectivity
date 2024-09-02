@@ -110,6 +110,30 @@
       },
       "revId": "91d8676e1e55689fc4bac8cc3efcd2e96db211f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39dd2459_8271ddab",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-02T02:58:01Z",
+      "side": 1,
+      "message": "I changed this from error to warning because the settings file is always missing for the first-time read. So I think it should be a warning.\n\nI am okay to log only the exception message with comment mention that it is because the SharedLog.w() doesn\u0027t support a exception:\n```\n// Logs only the exception message because SharedLog.w() doesn\u0027t support a direct exception\nLOG.w(\"No store file to read: \" + e.getMessage());\n```\n\n\u003e As mentioned in CL description, the warning level log doesn\u0027t support exception as the argument.\n\nI would rather prefer keeping log levels as it is, but reduce warning log stack trace for now",
+      "parentUuid": "a6a296bc_49cc61de",
+      "range": {
+        "startLine": 266,
+        "startChar": 12,
+        "endLine": 266,
+        "endChar": 18
+      },
+      "revId": "91d8676e1e55689fc4bac8cc3efcd2e96db211f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
