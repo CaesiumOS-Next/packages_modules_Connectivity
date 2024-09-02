@@ -46,6 +46,30 @@
       },
       "revId": "de7468167d7dd12a6714c8f2be4354d04f712ce6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "478c1d76_3aa326d1",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1408,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-02T07:35:23Z",
+      "side": 1,
+      "message": "Additional class means additional memory footprint in the system_server. I am not sure if the two reasons can justify the memory increase.\n\nBesides, I think the two new derived classes are both used only once and will be used for only once, so you won\u0027t be able to reuse code here. You only need to type the string constants for only once even with my proposal and you can just copy the name of the ot-daemon API that this callback is supplied to. In this case, the string constant and the ot-daemon API are closer to each other so it builds stronger relationship between what you see in the code and logcat.",
+      "parentUuid": "4c816916_132f213f",
+      "range": {
+        "startLine": 1404,
+        "startChar": 4,
+        "endLine": 1408,
+        "endChar": 5
+      },
+      "revId": "de7468167d7dd12a6714c8f2be4354d04f712ce6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
