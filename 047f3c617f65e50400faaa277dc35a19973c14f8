@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f815026d_67f31e4c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-02T04:33:15Z",
+      "side": 1,
+      "message": "style: public final members should not have m- prefix, right?",
+      "range": {
+        "startLine": 169,
+        "startChar": 26,
+        "endLine": 169,
+        "endChar": 34
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3ff25fdb_4f3be8fb",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+              "range": {
+                "startLine": 168,
+                "startChar": 0,
+                "endLine": 170,
+                "endChar": 0
+              },
+              "replacement": "        public final long txBytes;\n        public final long rxBytes;\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+              "range": {
+                "startLine": 172,
+                "startChar": 0,
+                "endLine": 174,
+                "endChar": 0
+              },
+              "replacement": "            this.txBytes \u003d txBytes;\n            this.rxBytes \u003d rxBytes;\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+              "range": {
+                "startLine": 178,
+                "startChar": 0,
+                "endLine": 182,
+                "endChar": 0
+              },
+              "replacement": "            return (int) (txBytes \u0026 0xFFFFFFFF)\n                    + ((int) (txBytes \u003e\u003e 32) * 3)\n                    + ((int) (rxBytes \u0026 0xFFFFFFFF) * 5)\n                    + ((int) (rxBytes \u003e\u003e 32) * 7);\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+              "range": {
+                "startLine": 192,
+                "startChar": 0,
+                "endLine": 194,
+                "endChar": 0
+              },
+              "replacement": "            return txBytes \u003d\u003d ((DataUsage) other).txBytes\n                    \u0026\u0026 rxBytes \u003d\u003d ((DataUsage) other).rxBytes;\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+              "range": {
+                "startLine": 320,
+                "startChar": 0,
+                "endLine": 321,
+                "endChar": 0
+              },
+              "replacement": "                    event.mUpstreamType, event.mDataUsage.txBytes, event.mDataUsage.rxBytes);\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+              "range": {
+                "startLine": 327,
+                "startChar": 0,
+                "endLine": 328,
+                "endChar": 0
+              },
+              "replacement": "                dataUsage.txBytes, dataUsage.rxBytes);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "047f3c617f65e50400faaa277dc35a19973c14f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d2a6849_e7b2f8db",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-02T04:33:15Z",
+      "side": 1,
+      "message": "nit: Could just be EMPTY and use it as DataUsage.EMPTY, but no strong opinion.",
+      "range": {
+        "startLine": 251,
+        "startChar": 19,
+        "endLine": 251,
+        "endChar": 30
+      },
+      "revId": "047f3c617f65e50400faaa277dc35a19973c14f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
