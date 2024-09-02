@@ -63,6 +63,30 @@
       },
       "revId": "7b4e31888952fe11dcd1abcc5695d26f80ca38a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6636df7e_5f500a53",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-02T07:59:31Z",
+      "side": 1,
+      "message": "Do we have to mock? Can we trigger the EEXIST in the following code path in BpfMap?\n\n```\n   @Override\n    public void insertEntry(K key, V value)\n            throws ErrnoException, IllegalStateException {\n        try {\n            nativeWriteToMapEntry(mMapFd.getFd(), key.writeToBytes(), value.writeToBytes(),\n                    BPF_NOEXIST);\n        } catch (ErrnoException e) {\n            if (e.errno \u003d\u003d EEXIST) throw new IllegalStateException(key + \" already exists\");\n\n            throw e;\n        }\n    }\n```",
+      "parentUuid": "59c41623_2c9e6c4e",
+      "range": {
+        "startLine": 362,
+        "startChar": 19,
+        "endLine": 362,
+        "endChar": 24
+      },
+      "revId": "7b4e31888952fe11dcd1abcc5695d26f80ca38a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
