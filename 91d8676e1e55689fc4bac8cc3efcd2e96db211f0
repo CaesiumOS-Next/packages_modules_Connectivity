@@ -1,0 +1,91 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6ecf587_0bcdc301",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1400,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-02T02:41:37Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 1400,
+        "startChar": 0,
+        "endLine": 1400,
+        "endChar": 102
+      },
+      "revId": "91d8676e1e55689fc4bac8cc3efcd2e96db211f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e320771_5317a429",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkLogger.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-02T02:41:37Z",
+      "side": 1,
+      "message": "Nit: For static utility class, consider adding a private constructor to prevent both instantiation and subclassing:\n\ngo/java-practices/utility-classes#subclassing-and-instantiating\n\ngo/ej3e-4",
+      "range": {
+        "startLine": 27,
+        "startChar": 19,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "91d8676e1e55689fc4bac8cc3efcd2e96db211f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaea5dcb_a884008a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-02T02:41:37Z",
+      "side": 1,
+      "message": "it was a warning.",
+      "range": {
+        "startLine": 266,
+        "startChar": 12,
+        "endLine": 266,
+        "endChar": 18
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "68b58c1f_47807a6e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+              "range": {
+                "startLine": 266,
+                "startChar": 0,
+                "endLine": 267,
+                "endChar": 0
+              },
+              "replacement": "            LOG.w(\"No store file to read\", e);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "91d8676e1e55689fc4bac8cc3efcd2e96db211f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
