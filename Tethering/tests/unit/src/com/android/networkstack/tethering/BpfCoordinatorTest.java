@@ -60,6 +60,7 @@ import static com.android.networkstack.tethering.BpfCoordinator.toIpv4MappedAddr
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
+import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_ACTIVE_SESSIONS_METRICS;
 import static com.android.testutils.MiscAsserts.assertSameElements;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -87,6 +88,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.net.INetd;
 import android.net.InetAddresses;
 import android.net.IpPrefix;
@@ -140,6 +142,8 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.TestBpfMap;
 import com.android.testutils.TestableNetworkStatsProviderCbBinder;
+import com.android.testutils.com.android.testutils.SetFeatureFlagsRule;
+import com.android.testutils.com.android.testutils.SetFeatureFlagsRule.FeatureFlag;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -170,6 +174,16 @@ import java.util.Set;
 public class BpfCoordinatorTest {
     @Rule
     public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
+
+    // This will set feature flags from @FeatureFlag annotations
+    // into the map before setUp() runs.
+    final HashMap<String, Boolean> mFeatureFlags = new HashMap<>();
+    @Rule
+    public final SetFeatureFlagsRule mSetFeatureFlagsRule =
+            new SetFeatureFlagsRule((name, enabled) -> {
+                mFeatureFlags.put(name, enabled);
+                return null;
+            }, (name) -> mFeatureFlags.getOrDefault(name, false));
 
     private static final boolean IPV4 = true;
     private static final boolean IPV6 = false;
@@ -451,6 +465,7 @@ public class BpfCoordinatorTest {
             ArgumentCaptor.forClass(ArrayList.class);
     private final TestLooper mTestLooper = new TestLooper();
     private final Handler mHandler = new Handler(mTestLooper.getLooper());
+    @Mock private Context mMockContext;
     private final IBpfMap<Tether4Key, Tether4Value> mBpfDownstream4Map =
             spy(new TestBpfMap<>(Tether4Key.class, Tether4Value.class));
     private final IBpfMap<Tether4Key, Tether4Value> mBpfUpstream4Map =
@@ -472,6 +487,11 @@ public class BpfCoordinatorTest {
                     @NonNull
                     public Handler getHandler() {
                         return mHandler;
+                    }
+
+                    @NonNull
+                    public Context getContext() {
+                        return mMockContext;
                     }
 
                     @NonNull
@@ -545,6 +565,11 @@ public class BpfCoordinatorTest {
                     @Nullable
                     public IBpfMap<S32, S32> getBpfErrorMap() {
                         return mBpfErrorMap;
+                    }
+
+                    @Override
+                    public void sendTetheringActiveSessionsReported(int lastMaxSessionCount) {
+                        // No-op.
                     }
             });
 
@@ -1975,6 +2000,67 @@ public class BpfCoordinatorTest {
                 .setProto(IPPROTO_UDP)
                 .build());
         verify(mBpfDevMap, never()).updateEntry(any(), any());
+    }
+
+    @Test
+
+    @FeatureFlag(name = TETHER_ACTIVE_SESSIONS_METRICS)
+    public void testGetLastMaxConnectionCount_featureEnabled() throws Exception {
+        doTestGetLastMaxConnectionCount(true);
+    }
+
+    @Test
+    @FeatureFlag(name = TETHER_ACTIVE_SESSIONS_METRICS)
+    public void testGetLastMaxConnectionCountf_eatureDisabled() throws Exception {
+        doTestGetLastMaxConnectionCount(false);
+    }
+
+    private void doTestGetLastMaxConnectionCount(final boolean supportActiveSessionsMetrics)
+            throws Exception {
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+        initBpfCoordinatorForRule4(coordinator);
+        assertEquals(0, mConsumer.getAndResetLastMaxConnectionCount());
+
+        // Prepare add/delete rule events.
+        final ArrayList<ConntrackEvent> addRuleEvents = new ArrayList<>();
+        final ArrayList<ConntrackEvent> delRuleEvents = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            final ConntrackEvent addEvent = new TestConntrackEvent.Builder().setMsgType(
+                    IPCTNL_MSG_CT_NEW).setProto(IPPROTO_TCP).setRemotePort(i).build();
+            addRuleEvents.add(addEvent);
+            final ConntrackEvent delEvent = new TestConntrackEvent.Builder().setMsgType(
+                    IPCTNL_MSG_CT_DELETE).setProto(IPPROTO_TCP).setRemotePort(i).build();
+            delRuleEvents.add(delEvent);
+        }
+
+        // Add rules, verify counter increases.
+        for (int i = 0; i < 5; i++) {
+            mConsumer.accept(addRuleEvents.get(i));
+            assertEquals(supportActiveSessionsMetrics ? i + 1 : 0,
+                    mConsumer.getAndResetLastMaxConnectionCount());
+        }
+
+        // Add the same events again should not increase the counter because
+        // all events are already exist.
+        for (final ConntrackEvent event : addRuleEvents) {
+            mConsumer.accept(event);
+            assertEquals(supportActiveSessionsMetrics ? 5 : 0,
+                    mConsumer.getAndResetLastMaxConnectionCount());
+        }
+
+        // Verify remove the rules decrease the counter.
+        // Note the counter returns the max, so it returns the count before deleting.
+        for (int i = 0; i < 5; i++) {
+            mConsumer.accept(delRuleEvents.get(i));
+            assertEquals(supportActiveSessionsMetrics ? 5 - i : 0,
+                    mConsumer.getAndResetLastMaxConnectionCount());
+        }
+
+        // Verify remove these rules again doesn't decrease the counter.
+        for (int i = 0; i < 5; i++) {
+            mConsumer.accept(delRuleEvents.get(i));
+            assertEquals(0, mConsumer.getAndResetLastMaxConnectionCount());
+        }
     }
 
     private void setElapsedRealtimeNanos(long nanoSec) {
