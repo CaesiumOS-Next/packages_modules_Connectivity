@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aadcb15_3098a98b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-03T10:30:39Z",
+      "side": 1,
+      "message": "Nit: the delay time in postDelayed() uses `long` instead of `int`",
+      "range": {
+        "startLine": 156,
+        "startChar": 17,
+        "endLine": 156,
+        "endChar": 20
+      },
+      "revId": "3bf15897e0ac702ccd0a7918ea5d9471c5865f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f413b50_2e7a98bb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-03T10:30:39Z",
+      "side": 1,
+      "message": "Super nit: fit for one line.",
+      "range": {
+        "startLine": 494,
+        "startChar": 8,
+        "endLine": 495,
+        "endChar": 42
+      },
+      "revId": "3bf15897e0ac702ccd0a7918ea5d9471c5865f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0ea949f_030df5b1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-03T10:30:39Z",
+      "side": 1,
+      "message": "Question: Why do you not also dump `mLastMaxConnectionCount`? Is it not useful information?",
+      "range": {
+        "startLine": 1354,
+        "startChar": 73,
+        "endLine": 1354,
+        "endChar": 74
+      },
+      "revId": "3bf15897e0ac702ccd0a7918ea5d9471c5865f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ec16289_ebdde4d3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2048,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-03T10:30:39Z",
+      "side": 1,
+      "message": "Can you have a check to ensure this?",
+      "range": {
+        "startLine": 2048,
+        "startChar": 11,
+        "endLine": 2048,
+        "endChar": 67
+      },
+      "revId": "3bf15897e0ac702ccd0a7918ea5d9471c5865f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ac867d3_a7f1aae2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2205,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-03T10:30:39Z",
+      "side": 1,
+      "message": "Question: Is it possible that upstream and downstream are added in separate ConntrackEvents? So that the connection count should be increased eventually.",
+      "range": {
+        "startLine": 2205,
+        "startChar": 49,
+        "endLine": 2205,
+        "endChar": 62
+      },
+      "revId": "3bf15897e0ac702ccd0a7918ea5d9471c5865f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52fb8eba_a174c5be",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-03T10:30:39Z",
+      "side": 1,
+      "message": "A feature flag to control whether the active sessions metrics should be enabled.",
+      "range": {
+        "startLine": 148,
+        "startChar": 7,
+        "endLine": 148,
+        "endChar": 77
+      },
+      "revId": "3bf15897e0ac702ccd0a7918ea5d9471c5865f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51b06df7_2e2f3267",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2068,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-03T10:30:39Z",
+      "side": 1,
+      "message": "IIUC, accepting a nonexistent delRuleEvents will not decrease the count; could you also verify this case?",
+      "range": {
+        "startLine": 2068,
+        "startChar": 8,
+        "endLine": 2068,
+        "endChar": 9
+      },
+      "revId": "3bf15897e0ac702ccd0a7918ea5d9471c5865f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "699d7e76_1e51103b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2106,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-03T10:30:39Z",
+      "side": 1,
+      "message": "Can you try to remove the rule and move to the next sending time to see if the sampling is truly scheduled again and uploads the correct count?",
+      "range": {
+        "startLine": 2106,
+        "startChar": 8,
+        "endLine": 2106,
+        "endChar": 9
+      },
+      "revId": "3bf15897e0ac702ccd0a7918ea5d9471c5865f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eea16866_2b454b93",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestBpfMap.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-03T10:30:39Z",
+      "side": 1,
+      "message": "Question: Is it possible that the key exists but the value is null? Then this case would pass this check incorrectly.",
+      "range": {
+        "startLine": 71,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 33
+      },
+      "revId": "3bf15897e0ac702ccd0a7918ea5d9471c5865f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
