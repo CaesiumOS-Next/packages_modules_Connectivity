@@ -1,0 +1,180 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7e5424f_6f009aa5",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-03T09:44:38Z",
+      "side": 1,
+      "message": "better keep this file unchanged because it\u0027s not related to the purpose of the CL",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc94183d_079d6012",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-03T09:44:38Z",
+      "side": 1,
+      "message": "static",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce37a3a_52f1a3c0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-03T09:44:38Z",
+      "side": 1,
+      "message": "Better to make the comment on the argument itself.",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "196f909e_81c54588",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-03T09:44:38Z",
+      "side": 1,
+      "message": "```suggestion\n    public void handleOtCtlCommand_state_getStateReturnsDone() {\n```",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6d8de4a_6606c9a6",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-03T09:44:38Z",
+      "side": 1,
+      "message": "I\u0027d suggest to verify a more specific behavior. E.g. verify that it returns `leader\\r\\nDone`.",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de281674_db7f9e5d",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-03T09:44:38Z",
+      "side": 1,
+      "message": "\u0027failed\u0027 is not very descriptive. You may clarify the behavior in the test case name.",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc84b172_b2ccedfd",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-03T09:44:38Z",
+      "side": 1,
+      "message": "So it has no output? Will that cause any confusion at the user\u0027s side?",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e417c649_662292e7",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-03T09:44:38Z",
+      "side": 1,
+      "message": "Is this at least once or exactly once?",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daf7d87e_e8e4f8e3",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-03T09:44:38Z",
+      "side": 1,
+      "message": "The name\u0027s style is kind of different from others that the first part ends with `State`. Better to make the names follow the same style.",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d57a6c3b_76b6ee12",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-03T09:44:38Z",
+      "side": 1,
+      "message": "nit: assert the command is `state`.",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 29
+      },
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
