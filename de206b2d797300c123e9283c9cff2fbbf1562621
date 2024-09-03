@@ -493,6 +493,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d0073b1_57ed0630",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-03T03:56:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af908dbb_71248cd4",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba54813a_0de0f314",
@@ -510,6 +528,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1ceb77d_60c9be13",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-03T03:56:59Z",
+      "side": 1,
+      "message": "Would like to stay the naming with getCountryCode_testingPermissionIsChecked, forceSetCountryCodeEnabled_testingPermissionIsChecked and forceStopOtDaemon_testingPermissionIsChecked",
+      "parentUuid": "ba54813a_0de0f314",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c1b27af_867cbc01",
@@ -523,6 +559,24 @@
       "writtenOn": "2024-08-29T08:43:45Z",
       "side": 1,
       "message": "I wonder how this could work? I think there isn\u0027t sufficient mock set up.",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d522900b_ec816ca7",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-03T03:56:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c1b27af_867cbc01",
       "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
