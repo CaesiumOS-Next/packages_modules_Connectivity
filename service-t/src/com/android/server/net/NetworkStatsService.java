@@ -2144,8 +2144,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
     }
 
+    /** Original getUidStats. kept for backward compatibility*/
     @Override
-    public long getUidStats(int uid, int type) {
+    public long getUidStatsWithType(int uid, int type) {
         final int callingUid = Binder.getCallingUid();
         if (callingUid != android.os.Process.SYSTEM_UID && callingUid != uid) {
             return UNSUPPORTED;
@@ -2160,6 +2161,31 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         return getEntryValueForType(mDeps.nativeGetUidStat(uid), type);
+    }
+
+    @Override
+    public NetworkStats getUidStats(int uid) {
+        final int callingUid = Binder.getCallingUid();
+        if (callingUid != android.os.Process.SYSTEM_UID && callingUid != uid) {
+            return null;
+        }
+        NetworkStats stats = null;
+        NetworkStats.Entry entry = null;
+        if (mAlwaysUseTrafficStatsRateLimitCache
+                || mDeps.isChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, callingUid)) {
+            entry = mTrafficStatsUidCache.getOrCompute(IFACE_ALL, uid,
+                    () -> mDeps.nativeGetUidStat(uid));
+        } else {
+            entry = mDeps.nativeGetUidStat(uid);
+        }
+
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        } else {
+            stats = new NetworkStats(0, 0);
+        }
+        return stats;
     }
 
     @Nullable
@@ -2177,19 +2203,27 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     }
 
     @Override
-    public long getIfaceStats(@NonNull String iface, int type) {
+    public NetworkStats getIfaceStats(@NonNull String iface) {
         Objects.requireNonNull(iface);
-        if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
 
+        NetworkStats stats = null;
+        NetworkStats.Entry entry = null;
         if (mAlwaysUseTrafficStatsRateLimitCache
                 || mDeps.isChangeEnabled(
                         ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
-            final NetworkStats.Entry entry = mTrafficStatsIfaceCache.getOrCompute(iface, UID_ALL,
+            entry = mTrafficStatsIfaceCache.getOrCompute(iface, UID_ALL,
                     () -> getIfaceStatsInternal(iface));
-            return getEntryValueForType(entry, type);
+        } else {
+            entry = getIfaceStatsInternal(iface);
         }
 
-        return getEntryValueForType(getIfaceStatsInternal(iface), type);
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        } else {
+            stats = new NetworkStats(0, 0);
+        }
+        return stats;
     }
 
     private long getEntryValueForType(@Nullable NetworkStats.Entry entry, int type) {
@@ -2233,17 +2267,25 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     }
 
     @Override
-    public long getTotalStats(int type) {
-        if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
+    public NetworkStats getTotalStats() {
+        NetworkStats stats = null;
+        NetworkStats.Entry entry = null;
         if (mAlwaysUseTrafficStatsRateLimitCache
                 || mDeps.isChangeEnabled(
                         ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
-            final NetworkStats.Entry entry = mTrafficStatsTotalCache.getOrCompute(
+            entry = mTrafficStatsTotalCache.getOrCompute(
                     IFACE_ALL, UID_ALL, () -> getTotalStatsInternal());
-            return getEntryValueForType(entry, type);
+        } else {
+            entry = getTotalStatsInternal();
         }
 
-        return getEntryValueForType(getTotalStatsInternal(), type);
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        } else {
+            stats = new NetworkStats(0, 0);
+        }
+        return stats;
     }
 
     @Override

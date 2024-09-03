@@ -30,7 +30,6 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
-import android.test.AndroidTestCase;
 import android.util.SparseArray;
 
 import androidx.test.InstrumentationRegistry;
@@ -78,7 +77,7 @@ public class NetworkStatsBinderTest {
                 .getDeclaredMethod("getService", new Class[]{String.class});
         IBinder binder = (IBinder) getServiceMethod.invoke(null, Context.NETWORK_STATS_SERVICE);
         INetworkStatsService nss = INetworkStatsService.Stub.asInterface(binder);
-        return nss.getUidStats(uid, type);
+        return nss.getUidStatsWithType(uid, type);
     }
 
     private int getFirstAppUidThat(@NonNull Predicate<Integer> predicate) {
