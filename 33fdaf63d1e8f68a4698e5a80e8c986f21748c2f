@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71519cc2_23343b41",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2044,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2024-09-03T07:28:28Z",
+      "side": 1,
+      "message": "BpfConntrackEventConsumer only init once when BpfCoordinator created. You need to find a way to clean up these two count when tethering stop.",
+      "range": {
+        "startLine": 2040,
+        "startChar": 0,
+        "endLine": 2044,
+        "endChar": 48
+      },
+      "revId": "33fdaf63d1e8f68a4698e5a80e8c986f21748c2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
