@@ -30,7 +30,6 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
-import android.test.AndroidTestCase;
 import android.util.SparseArray;
 
 import androidx.test.InstrumentationRegistry;
