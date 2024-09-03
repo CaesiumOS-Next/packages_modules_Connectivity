@@ -19,6 +19,7 @@ package android.net;
 import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Iterator;
 
 /**
  * Class that provides network traffic statistics. These statistics include
@@ -730,11 +732,7 @@ public class TrafficStats {
      * @return The number of transmitted packets.
      */
     public static long getTxPackets(@NonNull String iface) {
-        try {
-            return getStatsService().getIfaceStats(iface, TYPE_TX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getIfaceStats(iface, TYPE_TX_PACKETS);
     }
 
     /**
@@ -753,11 +751,7 @@ public class TrafficStats {
      * @return The number of received packets.
      */
     public static long getRxPackets(@NonNull String iface) {
-        try {
-            return getStatsService().getIfaceStats(iface, TYPE_RX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getIfaceStats(iface, TYPE_RX_PACKETS);
     }
 
     /**
@@ -776,11 +770,7 @@ public class TrafficStats {
      * @return The number of transmitted bytes.
      */
     public static long getTxBytes(@NonNull String iface) {
-        try {
-            return getStatsService().getIfaceStats(iface, TYPE_TX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getIfaceStats(iface, TYPE_TX_BYTES);
     }
 
     /**
@@ -799,51 +789,31 @@ public class TrafficStats {
      * @return The number of received bytes.
      */
     public static long getRxBytes(@NonNull String iface) {
-        try {
-            return getStatsService().getIfaceStats(iface, TYPE_RX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getIfaceStats(iface, TYPE_RX_BYTES);
     }
 
     /** {@hide} */
     @TestApi
     public static long getLoopbackTxPackets() {
-        try {
-            return getStatsService().getIfaceStats(LOOPBACK_IFACE, TYPE_TX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getIfaceStats(LOOPBACK_IFACE, TYPE_TX_PACKETS);
     }
 
     /** {@hide} */
     @TestApi
     public static long getLoopbackRxPackets() {
-        try {
-            return getStatsService().getIfaceStats(LOOPBACK_IFACE, TYPE_RX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getIfaceStats(LOOPBACK_IFACE, TYPE_RX_PACKETS);
     }
 
     /** {@hide} */
     @TestApi
     public static long getLoopbackTxBytes() {
-        try {
-            return getStatsService().getIfaceStats(LOOPBACK_IFACE, TYPE_TX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getIfaceStats(LOOPBACK_IFACE, TYPE_TX_BYTES);
     }
 
     /** {@hide} */
     @TestApi
     public static long getLoopbackRxBytes() {
-        try {
-            return getStatsService().getIfaceStats(LOOPBACK_IFACE, TYPE_RX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getIfaceStats(LOOPBACK_IFACE, TYPE_RX_BYTES);
     }
 
     /**
@@ -856,11 +826,7 @@ public class TrafficStats {
      * return {@link #UNSUPPORTED} on devices where statistics aren't available.
      */
     public static long getTotalTxPackets() {
-        try {
-            return getStatsService().getTotalStats(TYPE_TX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getTotalStats(TYPE_TX_PACKETS);
     }
 
     /**
@@ -873,11 +839,7 @@ public class TrafficStats {
      * return {@link #UNSUPPORTED} on devices where statistics aren't available.
      */
     public static long getTotalRxPackets() {
-        try {
-            return getStatsService().getTotalStats(TYPE_RX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getTotalStats(TYPE_RX_PACKETS);
     }
 
     /**
@@ -890,11 +852,7 @@ public class TrafficStats {
      * return {@link #UNSUPPORTED} on devices where statistics aren't available.
      */
     public static long getTotalTxBytes() {
-        try {
-            return getStatsService().getTotalStats(TYPE_TX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getTotalStats(TYPE_TX_BYTES);
     }
 
     /**
@@ -907,11 +865,7 @@ public class TrafficStats {
      * return {@link #UNSUPPORTED} on devices where statistics aren't available.
      */
     public static long getTotalRxBytes() {
-        try {
-            return getStatsService().getTotalStats(TYPE_RX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getTotalStats(TYPE_RX_BYTES);
     }
 
     /**
@@ -933,11 +887,7 @@ public class TrafficStats {
      * @see android.content.pm.ApplicationInfo#uid
      */
     public static long getUidTxBytes(int uid) {
-        try {
-            return getStatsService().getUidStats(uid, TYPE_TX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getUidStats(uid, TYPE_TX_BYTES);
     }
 
     /**
@@ -959,11 +909,7 @@ public class TrafficStats {
      * @see android.content.pm.ApplicationInfo#uid
      */
     public static long getUidRxBytes(int uid) {
-        try {
-            return getStatsService().getUidStats(uid, TYPE_RX_BYTES);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getUidStats(uid, TYPE_RX_BYTES);
     }
 
     /**
@@ -985,11 +931,7 @@ public class TrafficStats {
      * @see android.content.pm.ApplicationInfo#uid
      */
     public static long getUidTxPackets(int uid) {
-        try {
-            return getStatsService().getUidStats(uid, TYPE_TX_PACKETS);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+        return getUidStats(uid, TYPE_TX_PACKETS);
     }
 
     /**
@@ -1011,11 +953,50 @@ public class TrafficStats {
      * @see android.content.pm.ApplicationInfo#uid
      */
     public static long getUidRxPackets(int uid) {
+        return getUidStats(uid, TYPE_RX_PACKETS);
+    }
+
+    /** @hide */
+    public static long getUidStats(int uid, int type) {
+        if (!isEntryValueTypeValid(type)
+                || android.os.Process.myUid() != uid) {
+            return UNSUPPORTED;
+        }
+        final NetworkStats stats;
         try {
-            return getStatsService().getUidStats(uid, TYPE_RX_PACKETS);
+            stats = getStatsService().getTypelessUidStats(uid);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
+        return getValueForTypeFromFirstEntry(stats, type);
+    }
+
+    /** @hide */
+    public static long getTotalStats(int type) {
+        if (!isEntryValueTypeValid(type)) {
+            return UNSUPPORTED;
+        }
+        final NetworkStats stats;
+        try {
+            stats = getStatsService().getTypelessTotalStats();
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+        return getValueForTypeFromFirstEntry(stats, type);
+    }
+
+    /** @hide */
+    public static long getIfaceStats(String iface, int type) {
+        if (!isEntryValueTypeValid(type)) {
+            return UNSUPPORTED;
+        }
+        final NetworkStats stats;
+        try {
+            stats = getStatsService().getTypelessIfaceStats(iface);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+        return getValueForTypeFromFirstEntry(stats, type);
     }
 
     /**
@@ -1143,4 +1124,45 @@ public class TrafficStats {
     public static final int TYPE_TX_BYTES = 2;
     /** {@hide} */
     public static final int TYPE_TX_PACKETS = 3;
+
+    /** @hide */
+    public static long getEntryValueForType(@Nullable NetworkStats.Entry entry, int type) {
+        if (entry == null) return UNSUPPORTED;
+        if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
+        switch (type) {
+            case TYPE_RX_BYTES:
+                return entry.getRxBytes();
+            case TYPE_RX_PACKETS:
+                return entry.getRxPackets();
+            case TYPE_TX_BYTES:
+                return entry.getTxBytes();
+            case TYPE_TX_PACKETS:
+                return entry.getTxPackets();
+            default:
+                throw new IllegalStateException("Bug: Invalid type: "
+                        + type + " should not reach here.");
+        }
+    }
+
+    /** @hide */
+    public static boolean isEntryValueTypeValid(int type) {
+        switch (type) {
+            case TYPE_RX_BYTES:
+            case TYPE_RX_PACKETS:
+            case TYPE_TX_BYTES:
+            case TYPE_TX_PACKETS:
+                return true;
+            default :
+                return false;
+        }
+    }
+
+    /** @hide */
+    public static long getValueForTypeFromFirstEntry(NetworkStats stats, int type) {
+        if (stats == null) return UNSUPPORTED;
+        Iterator<NetworkStats.Entry> iter = stats.iterator();
+        if (!iter.hasNext()) return UNSUPPORTED;
+        return getEntryValueForType(iter.next(), type);
+    }
 }
+
