@@ -51,12 +51,8 @@ import static android.net.NetworkTemplate.MATCH_TEST;
 import static android.net.NetworkTemplate.MATCH_WIFI;
 import static android.net.TrafficStats.KB_IN_BYTES;
 import static android.net.TrafficStats.MB_IN_BYTES;
-import static android.net.TrafficStats.TYPE_RX_BYTES;
-import static android.net.TrafficStats.TYPE_RX_PACKETS;
-import static android.net.TrafficStats.TYPE_TX_BYTES;
-import static android.net.TrafficStats.TYPE_TX_PACKETS;
 import static android.net.TrafficStats.UID_TETHERING;
-import static android.net.TrafficStats.UNSUPPORTED;
+import static android.net.TrafficStats.getEntryValueForTypeFromStats;
 import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_UID;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_UID_TAG;
@@ -2144,22 +2140,35 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
     }
 
+    /** Original getUidStats. kept for backward compatibility*/
     @Override
-    public long getUidStats(int uid, int type) {
+    public long getUidStatsWithType(int uid, int type) {
+        return getEntryValueForTypeFromStats(getUidStats(uid), type);
+    }
+
+    @Override
+    public NetworkStats getUidStats(int uid) {
         final int callingUid = Binder.getCallingUid();
         if (callingUid != android.os.Process.SYSTEM_UID && callingUid != uid) {
-            return UNSUPPORTED;
+            return null;
         }
-        if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
-
+        NetworkStats stats = null;
+        NetworkStats.Entry entry = null;
         if (mAlwaysUseTrafficStatsRateLimitCache
                 || mDeps.isChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, callingUid)) {
-            final NetworkStats.Entry entry = mTrafficStatsUidCache.getOrCompute(IFACE_ALL, uid,
+            entry = mTrafficStatsUidCache.getOrCompute(IFACE_ALL, uid,
                     () -> mDeps.nativeGetUidStat(uid));
-            return getEntryValueForType(entry, type);
+        } else {
+            entry = mDeps.nativeGetUidStat(uid);
         }
 
-        return getEntryValueForType(mDeps.nativeGetUidStat(uid), type);
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        } else {
+            stats = new NetworkStats(0, 0);
+        }
+        return stats;
     }
 
     @Nullable
@@ -2177,49 +2186,27 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     }
 
     @Override
-    public long getIfaceStats(@NonNull String iface, int type) {
+    public NetworkStats getIfaceStats(@NonNull String iface) {
         Objects.requireNonNull(iface);
-        if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
 
+        NetworkStats stats = null;
+        NetworkStats.Entry entry = null;
         if (mAlwaysUseTrafficStatsRateLimitCache
                 || mDeps.isChangeEnabled(
                         ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
-            final NetworkStats.Entry entry = mTrafficStatsIfaceCache.getOrCompute(iface, UID_ALL,
+            entry = mTrafficStatsIfaceCache.getOrCompute(iface, UID_ALL,
                     () -> getIfaceStatsInternal(iface));
-            return getEntryValueForType(entry, type);
+        } else {
+            entry = getIfaceStatsInternal(iface);
         }
 
-        return getEntryValueForType(getIfaceStatsInternal(iface), type);
-    }
-
-    private long getEntryValueForType(@Nullable NetworkStats.Entry entry, int type) {
-        if (entry == null) return UNSUPPORTED;
-        if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
-        switch (type) {
-            case TYPE_RX_BYTES:
-                return entry.rxBytes;
-            case TYPE_RX_PACKETS:
-                return entry.rxPackets;
-            case TYPE_TX_BYTES:
-                return entry.txBytes;
-            case TYPE_TX_PACKETS:
-                return entry.txPackets;
-            default:
-                throw new IllegalStateException("Bug: Invalid type: "
-                        + type + " should not reach here.");
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        } else {
+            stats = new NetworkStats(0, 0);
         }
-    }
-
-    private boolean isEntryValueTypeValid(int type) {
-        switch (type) {
-            case TYPE_RX_BYTES:
-            case TYPE_RX_PACKETS:
-            case TYPE_TX_BYTES:
-            case TYPE_TX_PACKETS:
-                return true;
-            default :
-                return false;
-        }
+        return stats;
     }
 
     @Nullable
@@ -2233,17 +2220,23 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     }
 
     @Override
-    public long getTotalStats(int type) {
-        if (!isEntryValueTypeValid(type)) return UNSUPPORTED;
+    public NetworkStats getTotalStats() {
+        NetworkStats stats = null;
+        NetworkStats.Entry entry = null;
         if (mAlwaysUseTrafficStatsRateLimitCache
                 || mDeps.isChangeEnabled(
                         ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
-            final NetworkStats.Entry entry = mTrafficStatsTotalCache.getOrCompute(
+            entry = mTrafficStatsTotalCache.getOrCompute(
                     IFACE_ALL, UID_ALL, () -> getTotalStatsInternal());
-            return getEntryValueForType(entry, type);
-        }
+        } else entry = getTotalStatsInternal();
 
-        return getEntryValueForType(getTotalStatsInternal(), type);
+        if (entry != null) {
+            stats = new NetworkStats(0, 1);
+            stats.insertEntry(entry);
+        } else {
+            stats = new NetworkStats(0, 0);
+        }
+        return stats;
     }
 
     @Override
