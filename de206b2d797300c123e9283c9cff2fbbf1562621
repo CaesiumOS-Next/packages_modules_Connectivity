@@ -596,6 +596,24 @@
       "message": "Could there be cases for interactive mode?",
       "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8782fbcb_6b042e5b",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-03T06:05:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "417c509a_8167eff3",
+      "revId": "de206b2d797300c123e9283c9cff2fbbf1562621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
