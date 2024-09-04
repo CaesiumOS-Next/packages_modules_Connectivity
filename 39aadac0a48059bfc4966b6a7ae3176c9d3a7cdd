@@ -1,0 +1,91 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab355cdb_506fb6a3",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-04T00:27:17Z",
+      "side": 1,
+      "message": "which ones? I *think* there might be a change here wrt. new and legacy apf filter as well???\n\nI think the new one only does v4/v6/arp plus like 2 more....",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 64
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "7f8b1768_4d60a391",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/apfv4_test.py",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 27,
+                "endChar": 0
+              },
+              "replacement": "  #  - Android V+: Allowlist - only specified packet types pass. The allowlist\n  #  is defined in R.array.config_apfEthTypeAllowList.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "39aadac0a48059bfc4966b6a7ae3176c9d3a7cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45479a22_d3e0b50a",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-04T00:27:17Z",
+      "side": 1,
+      "message": "do we still care? does this test run on R/S/T/U ?\n\nis this mcts or cts? I\u0027m confused.",
+      "range": {
+        "startLine": 27,
+        "startChar": 1,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "39aadac0a48059bfc4966b6a7ae3176c9d3a7cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f73f4e5_09f7bb36",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-04T00:27:17Z",
+      "side": 1,
+      "message": "no \u0027s\u0027.\n\nOr perhaps even better as\n\n# Pad with zeroes to minimum ethernet frame length.",
+      "range": {
+        "startLine": 45,
+        "startChar": 19,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "39aadac0a48059bfc4966b6a7ae3176c9d3a7cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
