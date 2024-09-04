@@ -15,6 +15,9 @@
  */
 package android.net.thread.utils;
 
+import static android.net.DnsResolver.TYPE_A;
+import static android.net.DnsResolver.TYPE_AAAA;
+import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.thread.utils.IntegrationTestUtils.SERVICE_DISCOVERY_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.waitFor;
 
@@ -22,7 +25,6 @@ import static com.google.common.io.BaseEncoding.base16;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-import android.net.InetAddresses;
 import android.net.IpPrefix;
 import android.net.nsd.NsdServiceInfo;
 import android.net.thread.ActiveOperationalDataset;
@@ -120,7 +122,7 @@ public final class FullThreadDevice {
             if (address.startsWith("fe80:")) {
                 continue;
             }
-            Inet6Address addr = (Inet6Address) InetAddresses.parseNumericAddress(address);
+            Inet6Address addr = (Inet6Address) parseNumericAddress(address);
             if (!meshLocalPrefix.contains(addr)) {
                 return addr;
             }
@@ -131,7 +133,7 @@ public final class FullThreadDevice {
     /** Returns the Mesh-local EID address on this device if any. */
     public Inet6Address getMlEid() {
         List<String> addresses = executeCommand("ipaddr mleid");
-        return (Inet6Address) InetAddresses.parseNumericAddress(addresses.get(0));
+        return (Inet6Address) parseNumericAddress(addresses.get(0));
     }
 
     /**
@@ -143,7 +145,7 @@ public final class FullThreadDevice {
     public Inet6Address getLinkLocalAddress() {
         List<String> output = executeCommand("ipaddr linklocal");
         if (!output.isEmpty() && output.get(0).startsWith("fe80:")) {
-            return (Inet6Address) InetAddresses.parseNumericAddress(output.get(0));
+            return (Inet6Address) parseNumericAddress(output.get(0));
         }
         return null;
     }
@@ -159,7 +161,7 @@ public final class FullThreadDevice {
         List<Inet6Address> meshLocalAddresses = new ArrayList<>();
         IpPrefix meshLocalPrefix = mActiveOperationalDataset.getMeshLocalPrefix();
         for (String address : addresses) {
-            Inet6Address addr = (Inet6Address) InetAddresses.parseNumericAddress(address);
+            Inet6Address addr = (Inet6Address) parseNumericAddress(address);
             if (meshLocalPrefix.contains(addr)) {
                 meshLocalAddresses.add(addr);
             }
@@ -352,6 +354,25 @@ public final class FullThreadDevice {
     /** Sets the DNS server address. */
     public void setDnsServerAddress(String address) {
         executeCommand("dns config " + address);
+    }
+
+    public List<InetAddress> resolveHost(String hostname, int queryType) {
+        // CLI output:
+        // DNS response for hostname.com. - fd12::abc1 TTL:50 fd12::abc2 TTL:50 fd12::abc3 TTL:50
+
+        String command;
+        switch (queryType) {
+            case TYPE_A -> command = "resolve4";
+            case TYPE_AAAA -> command = "resolve";
+            default -> throw new IllegalArgumentException("Invalid query type: " + queryType);
+        }
+        String line = executeCommand("dns " + command + " " + hostname).get(0);
+        String[] addressTtlPairs = line.split("-")[1].strip().split(" ");
+        List<InetAddress> addresses = new ArrayList<>();
+        for (int i = 0; i < addressTtlPairs.length; i += 2) {
+            addresses.add(parseNumericAddress(addressTtlPairs[i]));
+        }
+        return addresses;
     }
 
     /** Returns the first browsed service instance of {@code serviceType}. */
@@ -607,8 +628,7 @@ public final class FullThreadDevice {
 
         // Example: "HostAddress:2001:0:0:0:0:0:0:1"
         private static InetAddress parseHostAddress(String line) {
-            return InetAddresses.parseNumericAddress(
-                    firstMatchOf(line, "HostAddress:([^ ]+)").group(1));
+            return parseNumericAddress(firstMatchOf(line, "HostAddress:([^ ]+)").group(1));
         }
 
         // Example: "TXT:[key1=0102, key2=03]"
