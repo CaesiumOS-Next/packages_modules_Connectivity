@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84cd836c_00f3a6e2",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-04T09:06:30Z",
+      "side": 0,
+      "message": "note: The total length of the message is 64 (0x40), instead of 0x34.",
+      "range": {
+        "startLine": 127,
+        "startChar": 13,
+        "endLine": 127,
+        "endChar": 15
+      },
+      "revId": "ba8631923dbc7462b1908349f2291423a741b6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
