@@ -46,6 +46,9 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
 
     public static final short IN6_ADDR_GEN_MODE_NONE = 1;
 
+    private static final int INT_SIZE = 4;
+    private static final int MAC_ADDRESS_SIZE = 6;
+
     private int mMtu;
     @NonNull
     private StructIfinfoMsg mIfinfomsg;
@@ -136,7 +139,10 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
      */
     @VisibleForTesting
     protected void pack(ByteBuffer byteBuffer) {
-        getHeader().pack(byteBuffer);
+        // Update the length of the header.
+        mHeader.nlmsg_len = calculateMessageLength();
+
+        mHeader.pack(byteBuffer);
         mIfinfomsg.pack(byteBuffer);
 
         if (mMtu != 0) {
@@ -151,6 +157,27 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
             final StructNlAttr ifname = new StructNlAttr(IFLA_IFNAME, mInterfaceName);
             ifname.pack(byteBuffer);
         }
+    }
+
+    /**
+     *  Calculates the byte length of the packed buffer.
+     *  The value should be the same as nlmsg_len of its header.
+     */
+    public int calculateMessageLength() {
+        int size = StructNlMsgHdr.STRUCT_SIZE + StructIfinfoMsg.STRUCT_SIZE;
+        if (mMtu != 0) {
+            size += NetlinkConstants.alignedLengthOf(StructNlAttr.NLA_HEADERLEN + INT_SIZE);
+        }
+        if (mHardwareAddress != null) {
+            size += NetlinkConstants.alignedLengthOf(StructNlAttr.NLA_HEADERLEN + MAC_ADDRESS_SIZE);
+        }
+        if (mInterfaceName != null) {
+            // The string should be end with '\0', so the required size should plus 1.
+            size += NetlinkConstants.alignedLengthOf(
+                    StructNlAttr.NLA_HEADERLEN + mInterfaceName.length() + 1);
+        }
+
+        return size;
     }
 
     @Override

@@ -124,7 +124,7 @@ public class RtNetlinkLinkMessageTest {
     }
 
     private static final String RTM_NEWLINK_PACK_HEX =
-            "34000000100000000000000000000000"   // struct nlmsghr
+            "40000000100000000000000000000000"   // struct nlmsghr
             + "000001001E0000000210000000000000" // struct ifinfo
             + "08000400DC050000"                 // IFLA_MTU
             + "0A00010092C3E3C9374E0000"         // IFLA_ADDRESS
@@ -139,7 +139,8 @@ public class RtNetlinkLinkMessageTest {
         assertTrue(msg instanceof RtNetlinkLinkMessage);
         final RtNetlinkLinkMessage linkMsg = (RtNetlinkLinkMessage) msg;
 
-        final ByteBuffer packBuffer = ByteBuffer.allocate(64);
+        assertEquals(byteBuffer.capacity(), linkMsg.getMessageSize());
+        final ByteBuffer packBuffer = ByteBuffer.allocate(linkMsg.getMessageSize());
         packBuffer.order(ByteOrder.LITTLE_ENDIAN);  // For testing.
         linkMsg.pack(packBuffer);
         assertEquals(RTM_NEWLINK_PACK_HEX, HexDump.toHexString(packBuffer.array()));
