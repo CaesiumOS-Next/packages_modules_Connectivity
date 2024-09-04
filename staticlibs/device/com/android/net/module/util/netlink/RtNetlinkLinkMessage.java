@@ -16,6 +16,8 @@
 
 package com.android.net.module.util.netlink;
 
+import static com.android.net.module.util.NetworkStackConstants.ETHER_ADDR_LEN;
+
 import android.net.MacAddress;
 import android.system.OsConstants;
 
@@ -24,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 /**
  * A NetlinkMessage subclass for rtnetlink link messages.
@@ -132,11 +135,24 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
     }
 
     /**
+     *  Write a rtnetlink link message to {@link byte} array.
+     */
+    public byte[] packToByteArray(ByteOrder order) {
+        byte[] bytes = new byte[calculateMessageLength()];
+        ByteBuffer buffer = ByteBuffer.wrap(bytes).order(order);
+        pack(buffer);
+        return bytes;
+    }
+
+    /**
      * Write a rtnetlink link message to {@link ByteBuffer}.
      */
     @VisibleForTesting
     protected void pack(ByteBuffer byteBuffer) {
-        getHeader().pack(byteBuffer);
+        // Update the length of the header.
+        mHeader.nlmsg_len = calculateMessageLength();
+
+        mHeader.pack(byteBuffer);
         mIfinfomsg.pack(byteBuffer);
 
         if (mMtu != 0) {
@@ -151,6 +167,28 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
             final StructNlAttr ifname = new StructNlAttr(IFLA_IFNAME, mInterfaceName);
             ifname.pack(byteBuffer);
         }
+    }
+
+    /**
+     *  Calculate the byte length of the packed buffer.
+     *  The value should be the same as nlmsg_len of its header.
+     */
+    private int calculateMessageLength() {
+        int length = StructNlMsgHdr.STRUCT_SIZE + StructIfinfoMsg.STRUCT_SIZE;
+        if (mMtu != 0) {
+            length += NetlinkConstants.alignedLengthOf(StructNlAttr.NLA_HEADERLEN + Integer.BYTES);
+        }
+        if (mHardwareAddress != null) {
+            length += NetlinkConstants.alignedLengthOf(
+                    StructNlAttr.NLA_HEADERLEN + ETHER_ADDR_LEN);
+        }
+        if (mInterfaceName != null) {
+            length += NetlinkConstants.alignedLengthOf(
+                    // The string should be end with '\0', so the length should plus 1.
+                    StructNlAttr.NLA_HEADERLEN + mInterfaceName.length() + 1);
+        }
+
+        return length;
     }
 
     @Override
