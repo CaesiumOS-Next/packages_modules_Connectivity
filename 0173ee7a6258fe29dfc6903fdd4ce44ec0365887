@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21387d58_381d5014",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-04T05:17:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7e5424f_6f009aa5",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc94183d_079d6012",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-09-03T09:44:38Z",
       "side": 1,
       "message": "static",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82044557_78817b87",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-04T05:17:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc94183d_079d6012",
       "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e9e3226_c44558a0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-04T05:17:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ce37a3a_52f1a3c0",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "196f909e_81c54588",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-09-03T09:44:38Z",
       "side": 1,
       "message": "```suggestion\n    public void handleOtCtlCommand_state_getStateReturnsDone() {\n```",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b38b81cd_b8c7bd1c",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-04T05:17:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "196f909e_81c54588",
       "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +158,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c42db9a_79669d30",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-04T05:17:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6d8de4a_6606c9a6",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de281674_db7f9e5d",
@@ -99,6 +189,24 @@
       "writtenOn": "2024-09-03T09:44:38Z",
       "side": 1,
       "message": "\u0027failed\u0027 is not very descriptive. You may clarify the behavior in the test case name.",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce2ea89c_e76d736b",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-04T05:17:52Z",
+      "side": 1,
+      "message": "It\u0027s just for general exception handling test, similar to forceStopOtDaemon_serviceThrows_failed",
+      "parentUuid": "de281674_db7f9e5d",
       "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -120,6 +228,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3db46dee_e2d932ca",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-04T05:17:52Z",
+      "side": 1,
+      "message": "Failed case will have output from outputWriter but errorWriter",
+      "parentUuid": "dc84b172_b2ccedfd",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e417c649_662292e7",
@@ -133,6 +259,24 @@
       "writtenOn": "2024-09-03T09:44:38Z",
       "side": 1,
       "message": "Is this at least once or exactly once?",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9663f9c7_8882e1f2",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-04T05:17:52Z",
+      "side": 1,
+      "message": "Better to use atLeastOnce in case more error message added, and it keeps the same with forceStopOtDaemon_serviceApiTimeout_failedWithTimeoutError",
+      "parentUuid": "e417c649_662292e7",
       "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -154,6 +298,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f159a4d5_1482f2e1",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-04T05:17:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "daf7d87e_e8e4f8e3",
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d57a6c3b_76b6ee12",
@@ -167,6 +329,30 @@
       "writtenOn": "2024-09-03T09:44:38Z",
       "side": 1,
       "message": "nit: assert the command is `state`.",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 29
+      },
+      "revId": "0173ee7a6258fe29dfc6903fdd4ce44ec0365887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2eff3d4_33f46db5",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-04T05:17:52Z",
+      "side": 1,
+      "message": "It\u0027s just a Answer mock for receiver, we eventually check the output",
+      "parentUuid": "d57a6c3b_76b6ee12",
       "range": {
         "startLine": 375,
         "startChar": 0,
