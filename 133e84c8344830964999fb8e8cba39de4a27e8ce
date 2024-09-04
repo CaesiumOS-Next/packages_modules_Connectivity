@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "949cbd79_be62118d",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-09-04T15:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eae923f3_48c05ce2",
+      "revId": "133e84c8344830964999fb8e8cba39de4a27e8ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c07adeb_a8112302",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-09-04T03:46:08Z",
       "side": 1,
       "message": "nit: this duplicates the mocking above. It makes it hard to spot if there is any difference. Maybe you could extract that mocking into a function to create a valid mock? That would make the test case easier to review.",
+      "range": {
+        "startLine": 179,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 71
+      },
+      "revId": "133e84c8344830964999fb8e8cba39de4a27e8ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59766cf9_6fc960d1",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-09-04T15:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c07adeb_a8112302",
       "range": {
         "startLine": 179,
         "startChar": 8,
