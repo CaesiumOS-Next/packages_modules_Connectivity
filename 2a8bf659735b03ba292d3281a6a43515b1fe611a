@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78011b58_45e9b11e",
+        "filename": "bpf/headers/include/bpf_helpers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-04T03:59:59Z",
+      "side": 1,
+      "message": "I vaguely recall that bpf_trace_printk requires the program to be GPL-licensed? If so, should that be mentioned in this comment?",
+      "range": {
+        "startLine": 394,
+        "startChar": 3,
+        "endLine": 394,
+        "endChar": 7
+      },
+      "revId": "2a8bf659735b03ba292d3281a6a43515b1fe611a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
