@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6dfb94ce_a3b0e0bb",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-04T09:00:55Z",
+      "side": 1,
+      "message": "I don\u0027t think we should pass the key to the outcomereceiver. This is because a correct caller must listen to the callback, otherwise it won\u0027t work correctly if the BR is already in ephemeral key mode. If we pass the key in the outcomereceiver as well well, the developer might only look at the key there, but wouldn\u0027t correctly handle the case where the device was already in ephemeral key mode.",
+      "parentUuid": "932c2558_99982f94",
+      "range": {
+        "startLine": 211,
+        "startChar": 37,
+        "endLine": 211,
+        "endChar": 43
+      },
+      "revId": "6154ad3cd681a7a8c171d832bdd0c3cae537bec3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d32d321e_373a8c7f",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 20
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "It\u0027s a string for numeric code, updated the doc, PTAL.",
       "parentUuid": "d32d321e_373a8c7f",
+      "range": {
+        "startLine": 339,
+        "startChar": 26,
+        "endLine": 339,
+        "endChar": 32
+      },
+      "revId": "6154ad3cd681a7a8c171d832bdd0c3cae537bec3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dfe2caf_4e14aa52",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-04T09:00:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83317b54_0ec1390c",
       "range": {
         "startLine": 339,
         "startChar": 26,

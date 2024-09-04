@@ -239,6 +239,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a21a5839_36dd14c8",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-04T09:00:55Z",
+      "side": 1,
+      "message": "ERROR_BUSY isn\u0027t the best, because it implies that other operations can\u0027t be used either. But I guess it\u0027s OK if we clearly document it.",
+      "parentUuid": "fb7ead44_01e6cde8",
+      "range": {
+        "startLine": 186,
+        "startChar": 55,
+        "endLine": 186,
+        "endChar": 61
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae2befe9_ee75c30e",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 11
@@ -392,6 +416,30 @@
       "side": 1,
       "message": "Currently there is no dependency between the callbacks in StateCallback, added text to say the order is not guaranteed.",
       "parentUuid": "7295f37a_c00b585d",
+      "range": {
+        "startLine": 286,
+        "startChar": 83,
+        "endLine": 286,
+        "endChar": 84
+      },
+      "revId": "b2cbdb1a7bf62c9647c3486288dd5d108febce32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22e8e453_f70b5ee0",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-04T09:00:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b48abd1a_bbc34f80",
       "range": {
         "startLine": 286,
         "startChar": 83,

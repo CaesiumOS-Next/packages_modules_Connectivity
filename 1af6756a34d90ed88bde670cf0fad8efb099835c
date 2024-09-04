@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a97dc609_c693e74b",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-04T09:00:55Z",
+      "side": 1,
+      "message": "when activating ephemeral key mode",
+      "range": {
+        "startLine": 180,
+        "startChar": 45,
+        "endLine": 180,
+        "endChar": 73
+      },
+      "revId": "1af6756a34d90ed88bde670cf0fad8efb099835c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f2a10dd_b4a05e48",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-04T09:00:55Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to say UTF-16. If these are digits from 0 to 9, there is no ambiguity.",
+      "range": {
+        "startLine": 196,
+        "startChar": 51,
+        "endLine": 196,
+        "endChar": 69
+      },
+      "revId": "1af6756a34d90ed88bde670cf0fad8efb099835c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3988f42d_9d61a4e0",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-04T09:00:55Z",
+      "side": 1,
+      "message": "Mention that the call will always succeed if the device is not in ephemeral key mode.",
+      "range": {
+        "startLine": 241,
+        "startChar": 84,
+        "endLine": 241,
+        "endChar": 85
+      },
+      "revId": "1af6756a34d90ed88bde670cf0fad8efb099835c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08f7fa46_4c84e28b",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-04T09:00:55Z",
+      "side": 1,
+      "message": "The other callbacks also get called when registerStateCallback is called - this one is no different. Also the documentation for registerStateCallback says that all the callback methods will be called. So we don\u0027t need to say that here. I think this should just say:\n\nThe ephemeral key state has changed.",
+      "range": {
+        "startLine": 343,
+        "startChar": 11,
+        "endLine": 343,
+        "endChar": 85
+      },
+      "revId": "1af6756a34d90ed88bde670cf0fad8efb099835c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
