@@ -92,6 +92,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b8c047c_36169db6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-04T03:32:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f815026d_67f31e4c",
+      "range": {
+        "startLine": 169,
+        "startChar": 26,
+        "endLine": 169,
+        "endChar": 34
+      },
+      "revId": "047f3c617f65e50400faaa277dc35a19973c14f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d2a6849_e7b2f8db",
@@ -105,6 +129,30 @@
       "writtenOn": "2024-09-02T04:33:15Z",
       "side": 1,
       "message": "nit: Could just be EMPTY and use it as DataUsage.EMPTY, but no strong opinion.",
+      "range": {
+        "startLine": 251,
+        "startChar": 19,
+        "endLine": 251,
+        "endChar": 30
+      },
+      "revId": "047f3c617f65e50400faaa277dc35a19973c14f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f27e915_c83c1b9c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-04T03:32:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d2a6849_e7b2f8db",
       "range": {
         "startLine": 251,
         "startChar": 19,
