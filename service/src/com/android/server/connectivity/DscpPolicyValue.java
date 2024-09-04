@@ -26,6 +26,7 @@ import com.android.net.module.util.Struct.Type;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
 /** Value type for DSCP setting and rewriting to DSCP policy BPF maps. */
 public class DscpPolicyValue extends Struct {
@@ -117,8 +118,8 @@ public class DscpPolicyValue extends Struct {
         this.proto = proto != -1 ? proto : 0;
 
         this.dscp = dscp;
-        this.match_src_ip = (this.src46 != EMPTY_ADDRESS_FIELD);
-        this.match_dst_ip = (this.dst46 != EMPTY_ADDRESS_FIELD);
+        this.match_src_ip = !Arrays.equals(EMPTY_ADDRESS_FIELD, this.src46);
+        this.match_dst_ip = !Arrays.equals(EMPTY_ADDRESS_FIELD, this.dst46);
         this.match_src_port = (srcPort != -1);
         this.match_proto = (proto != -1);
     }
