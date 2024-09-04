@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "901edfe9_10d885dc",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-04T03:53:13Z",
+      "side": 1,
+      "message": "In Java, \u003d\u003d and !\u003d in Java are almost always incorrect, because they only return true for the same object (i.e., pointer equality) and not for equal objects. This can catch out engineers who are accustomed to C++ and operator overloading.\n\nThe right thing to do is usually to call .equals (or, to avoid doing null checks, Objects.equals).\n\nIn this case the code is correct because toAddressField explicitly sets the field to EMPTY_ADDRESS_FIELD, and not to any other byte array object that has 16 zeros. But would suggest instead using .equals() or Objects.equals() or at least adding a comment that the comparison is using pointer equality and why that is OK.",
+      "range": {
+        "startLine": 120,
+        "startChar": 40,
+        "endLine": 120,
+        "endChar": 42
+      },
+      "revId": "d6c0db3b41a0b93d577b8841490f94ae59b1692d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
