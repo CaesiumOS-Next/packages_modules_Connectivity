@@ -1,0 +1,39 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea237bf_8428512f",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-04T05:35:51Z",
+      "side": 1,
+      "message": "add a test case using ping\n\nassert the result contains valid response and there\u0027s no packet loss.",
+      "fixSuggestions": [
+        {
+          "fixId": "6ebc49d4_08203c77",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 136,
+                "startChar": 0,
+                "endLine": 136,
+                "endChar": 0
+              },
+              "replacement": "\n    @Test\n    public void handleOtCtlCommand_ping_getValidResponse() {\n        final String result \u003d runThreadCommand(\"ot-ctl ping 11223344556677889900\");\n        assertThat(result).contains(\"Ping 11223344556677889900: 100% packet loss\");\n    }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "77b2ac288dfccac037a4d66307fa0fefe7481a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
