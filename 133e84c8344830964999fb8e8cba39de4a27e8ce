@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eae923f3_48c05ce2",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-09-04T03:46:08Z",
+      "side": 1,
+      "message": "Instead of having to rely on a fake, if you are able to replace the public key in CertificateTransparencyDownloader for the test, you could exercise the whole signature verification. Maybe you could add and use a setPublicKey method there? (This will also be useful for when populating the key from DeviceConfig).",
+      "revId": "133e84c8344830964999fb8e8cba39de4a27e8ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c07adeb_a8112302",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-09-04T03:46:08Z",
+      "side": 1,
+      "message": "nit: this duplicates the mocking above. It makes it hard to spot if there is any difference. Maybe you could extract that mocking into a function to create a valid mock? That would make the test case easier to review.",
+      "range": {
+        "startLine": 179,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 71
+      },
+      "revId": "133e84c8344830964999fb8e8cba39de4a27e8ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
