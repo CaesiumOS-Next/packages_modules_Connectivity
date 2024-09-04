@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b5fc9a1_feb734cd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-04T13:30:34Z",
+      "side": 1,
+      "message": "I see. Updated the design accordingly.",
+      "parentUuid": "d1aaa747_a11d994a",
+      "range": {
+        "startLine": 143,
+        "startChar": 50,
+        "endLine": 143,
+        "endChar": 54
+      },
+      "revId": "18978c6d32fda88b5edcccb690f4a0a16b976f52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "579898a0_68dba0ab",
