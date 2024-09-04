@@ -44,6 +44,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85e0b87f_e28348b3",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-04T00:29:12Z",
+      "side": 1,
+      "message": "note that *technically* the denylist could be overriden and not included the values you\u0027re testing... (do we care?)",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 74
+      },
+      "revId": "39aadac0a48059bfc4966b6a7ae3176c9d3a7cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45479a22_d3e0b50a",
         "filename": "tests/cts/multidevices/apfv4_test.py",
         "patchSetId": 9
