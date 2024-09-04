@@ -22,6 +22,30 @@
       },
       "revId": "d6c0db3b41a0b93d577b8841490f94ae59b1692d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbda9acf_42c7837b",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-04T19:59:33Z",
+      "side": 1,
+      "message": "ACK changes to .equals() in https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/3255777\n\nbut note this isn\u0027t new code it was just copied and was !\u003d previously as well.",
+      "parentUuid": "901edfe9_10d885dc",
+      "range": {
+        "startLine": 120,
+        "startChar": 40,
+        "endLine": 120,
+        "endChar": 42
+      },
+      "revId": "d6c0db3b41a0b93d577b8841490f94ae59b1692d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
