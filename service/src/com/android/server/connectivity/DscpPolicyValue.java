@@ -117,8 +117,8 @@ public class DscpPolicyValue extends Struct {
         this.proto = proto != -1 ? proto : 0;
 
         this.dscp = dscp;
-        this.match_src_ip = (this.src46 != EMPTY_ADDRESS_FIELD);
-        this.match_dst_ip = (this.dst46 != EMPTY_ADDRESS_FIELD);
+        this.match_src_ip = !Arrays.equals(EMPTY_ADDRESS_FIELD, this.src46);
+        this.match_dst_ip = !Arrays.equals(EMPTY_ADDRESS_FIELD, this.dst46);
         this.match_src_port = (srcPort != -1);
         this.match_proto = (proto != -1);
     }
