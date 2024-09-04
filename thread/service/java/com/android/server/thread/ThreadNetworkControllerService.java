@@ -141,11 +141,13 @@ import libcore.util.HexEncoding;
 
 import java.io.IOException;
 import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.security.SecureRandom;
 import java.time.Clock;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -214,7 +216,13 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private NetworkRequest mUpstreamNetworkRequest;
     private UpstreamNetworkCallback mUpstreamNetworkCallback;
     private TestNetworkSpecifier mUpstreamTestNetworkSpecifier;
+<<<<<<< PATCH SET (83d711 [Thread] tell ot-daemon about the DNS servers on the infra l)
+    private final HashMap<Network, LinkProperties> mNetworkToLinkProperties;
+||||||| BASE
+    private final HashMap<Network, String> mNetworkToInterface;
+=======
     private final Map<Network, LinkProperties> mNetworkToLinkProperties;
+>>>>>>> BASE      (7616fd [Thread] Mark ThreadConfiguration#isDhcpv6PdEnabled() as @hi)
     private final ThreadPersistentSettings mPersistentSettings;
     private final UserManager mUserManager;
     private boolean mUserRestricted;
@@ -245,9 +253,17 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mTunIfController = tunIfController;
         mInfraIfController = infraIfController;
         mUpstreamNetworkRequest = newUpstreamNetworkRequest();
+<<<<<<< PATCH SET (83d711 [Thread] tell ot-daemon about the DNS servers on the infra l)
+        mNetworkToLinkProperties = new HashMap<>();
+        mOtDaemonConfig = new OtDaemonConfiguration.Builder().build();
+||||||| BASE
+        mNetworkToInterface = new HashMap<Network, String>();
+        mOtDaemonConfig = new OtDaemonConfiguration.Builder().build();
+=======
         // TODO: networkToLinkProperties should be shared with NsdPublisher, add a test/assert to
         // verify they are the same.
         mNetworkToLinkProperties = networkToLinkProperties;
+>>>>>>> BASE      (7616fd [Thread] Mark ThreadConfiguration#isDhcpv6PdEnabled() as @hi)
         mInfraLinkState = new InfraLinkState.Builder().build();
         mPersistentSettings = persistentSettings;
         mNsdPublisher = nsdPublisher;
@@ -750,7 +766,15 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
             // TODO: disable border routing if netIfName is null
             if (network.equals(mUpstreamNetwork)) {
+<<<<<<< PATCH SET (83d711 [Thread] tell ot-daemon about the DNS servers on the infra l)
+                setInfraLinkState(
+                        newInfraLinkStateBuilder(mNetworkToLinkProperties.get(mUpstreamNetwork))
+                                .build());
+||||||| BASE
+                enableBorderRouting(mNetworkToInterface.get(mUpstreamNetwork));
+=======
                 setInfraLinkState(newInfraLinkStateBuilder(newLinkProperties).build());
+>>>>>>> BASE      (7616fd [Thread] Mark ThreadConfiguration#isDhcpv6PdEnabled() as @hi)
             }
         }
     }
@@ -779,15 +803,39 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                             + ", localNetworkInfo: "
                             + localNetworkInfo
                             + "}");
+<<<<<<< PATCH SET (83d711 [Thread] tell ot-daemon about the DNS servers on the infra l)
+            if (localNetworkInfo.getUpstreamNetwork() == null) {
+||||||| BASE
+            if (localNetworkInfo.getUpstreamNetwork() == null) {
+=======
             mUpstreamNetwork = localNetworkInfo.getUpstreamNetwork();
             if (mUpstreamNetwork == null) {
+>>>>>>> BASE      (7616fd [Thread] Mark ThreadConfiguration#isDhcpv6PdEnabled() as @hi)
                 setInfraLinkState(newInfraLinkStateBuilder().build());
                 return;
             }
+<<<<<<< PATCH SET (83d711 [Thread] tell ot-daemon about the DNS servers on the infra l)
+            if (!localNetworkInfo.getUpstreamNetwork().equals(mUpstreamNetwork)) {
+                mUpstreamNetwork = localNetworkInfo.getUpstreamNetwork();
+                if (mNetworkToLinkProperties.containsKey(mUpstreamNetwork)) {
+                    setInfraLinkState(
+                            newInfraLinkStateBuilder(mNetworkToLinkProperties.get(mUpstreamNetwork))
+                                    .build());
+                }
+                mNsdPublisher.setNetworkForHostResolution(mUpstreamNetwork);
+||||||| BASE
+            if (!localNetworkInfo.getUpstreamNetwork().equals(mUpstreamNetwork)) {
+                mUpstreamNetwork = localNetworkInfo.getUpstreamNetwork();
+                if (mNetworkToInterface.containsKey(mUpstreamNetwork)) {
+                    enableBorderRouting(mNetworkToInterface.get(mUpstreamNetwork));
+                }
+                mNsdPublisher.setNetworkForHostResolution(mUpstreamNetwork);
+=======
             if (mNetworkToLinkProperties.containsKey(mUpstreamNetwork)) {
                 setInfraLinkState(
                         newInfraLinkStateBuilder(mNetworkToLinkProperties.get(mUpstreamNetwork))
                                 .build());
+>>>>>>> BASE      (7616fd [Thread] Mark ThreadConfiguration#isDhcpv6PdEnabled() as @hi)
             }
             mNsdPublisher.setNetworkForHostResolution(mUpstreamNetwork);
         }
@@ -1321,19 +1369,52 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     private void setInfraLinkState(InfraLinkState newInfraLinkState) {
+<<<<<<< PATCH SET (83d711 [Thread] tell ot-daemon about the DNS servers on the infra l)
+        if (mInfraLinkState.equals(newInfraLinkState)) {
+            return;
+||||||| BASE
+        if (mInfraLinkState.equals(infraLinkState)) {
+            return;
+=======
         if (!Objects.equals(mInfraLinkState, newInfraLinkState)) {
             LOG.i("Infra link state changed: " + mInfraLinkState + " -> " + newInfraLinkState);
+>>>>>>> BASE      (7616fd [Thread] Mark ThreadConfiguration#isDhcpv6PdEnabled() as @hi)
         }
+<<<<<<< PATCH SET (83d711 [Thread] tell ot-daemon about the DNS servers on the infra l)
+        LOG.i("Infra link state changed: " + mInfraLinkState + " -> " + newInfraLinkState);
+
+        setInfraLinkInterfaceName(newInfraLinkState.interfaceName);
+        setInfraLinkDnsServers(newInfraLinkState.dnsServers);
+        mInfraLinkState = newInfraLinkState;
+    }
+
+    private void setInfraLinkInterfaceName(String newInfraLinkInterfaceName) {
+        if (Objects.equals(mInfraLinkState.interfaceName, newInfraLinkInterfaceName)) {
+            return;
+        }
+||||||| BASE
+        LOG.i("Infra link state changed: " + mInfraLinkState + " -> " + infraLinkState);
+        mInfraLinkState = infraLinkState;
+=======
         setInfraLinkInterfaceName(newInfraLinkState.interfaceName);
         setInfraLinkNat64Prefix(newInfraLinkState.nat64Prefix);
         mInfraLinkState = newInfraLinkState;
     }
 
     private void setInfraLinkInterfaceName(String newInfraLinkInterfaceName) {
+>>>>>>> BASE      (7616fd [Thread] Mark ThreadConfiguration#isDhcpv6PdEnabled() as @hi)
         ParcelFileDescriptor infraIcmp6Socket = null;
         if (newInfraLinkInterfaceName != null) {
             try {
+<<<<<<< PATCH SET (83d711 [Thread] tell ot-daemon about the DNS servers on the infra l)
+                infraIcmp6Socket =
+                        mInfraIfController.createIcmp6Socket(newInfraLinkInterfaceName);
+||||||| BASE
+                infraIcmp6Socket =
+                        mInfraIfController.createIcmp6Socket(mInfraLinkState.interfaceName);
+=======
                 infraIcmp6Socket = mInfraIfController.createIcmp6Socket(newInfraLinkInterfaceName);
+>>>>>>> BASE      (7616fd [Thread] Mark ThreadConfiguration#isDhcpv6PdEnabled() as @hi)
             } catch (IOException e) {
                 LOG.e("Failed to create ICMPv6 socket on infra network interface", e);
             }
@@ -1349,6 +1430,31 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
+<<<<<<< PATCH SET (83d711 [Thread] tell ot-daemon about the DNS servers on the infra l)
+    private void setInfraLinkDnsServers(List<String> newDnsServers) {
+        if (Objects.equals(mInfraLinkState.dnsServers, newDnsServers)) {
+            return;
+        }
+        try {
+            getOtDaemon()
+                    .setInfraLinkDnsServers(
+                            newDnsServers, new LoggingOtStatusReceiver("setInfraLinkDnsServers"));
+        } catch (RemoteException | ThreadNetworkException e) {
+            LOG.e("Failed to set infra link DNS servers " + newDnsServers, e);
+||||||| BASE
+    private void enableBorderRouting(String infraIfName) {
+        InfraLinkState infraLinkState =
+                newInfraLinkStateBuilder(mInfraLinkState).setInterfaceName(infraIfName).build();
+        LOG.i("Enable border routing on AIL: " + infraIfName);
+        setInfraLinkState(infraLinkState);
+    }
+
+    private void disableBorderRouting() {
+        mUpstreamNetwork = null;
+        InfraLinkState infraLinkState =
+                newInfraLinkStateBuilder(mInfraLinkState).setInterfaceName(null).build();
+        LOG.i("Disabling border routing");
+=======
     private void setInfraLinkNat64Prefix(@Nullable String newNat64Prefix) {
         try {
             getOtDaemon()
@@ -1356,6 +1462,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                             newNat64Prefix, new LoggingOtStatusReceiver("setInfraLinkNat64Prefix"));
         } catch (RemoteException | ThreadNetworkException e) {
             LOG.e("Failed to set infra link NAT64 prefix " + newNat64Prefix, e);
+>>>>>>> BASE      (7616fd [Thread] Mark ThreadConfiguration#isDhcpv6PdEnabled() as @hi)
         }
     }
 
@@ -1486,6 +1593,34 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         return new InfraLinkState.Builder().setInterfaceName("");
     }
 
+<<<<<<< PATCH SET (83d711 [Thread] tell ot-daemon about the DNS servers on the infra l)
+    private static InfraLinkState.Builder newInfraLinkStateBuilder() {
+        return new InfraLinkState.Builder()
+                .setInterfaceName("")
+                .setDnsServers(Collections.emptyList());
+    }
+
+    private static InfraLinkState.Builder newInfraLinkStateBuilder(
+            @Nullable LinkProperties linkProperties) {
+        if (linkProperties == null) {
+            return newInfraLinkStateBuilder();
+        }
+        return new InfraLinkState.Builder()
+                .setInterfaceName(linkProperties.getInterfaceName())
+                .setDnsServers(addressesToStrings(linkProperties.getDnsServers()));
+    }
+
+    private static List<String> addressesToStrings(List<InetAddress> addresses) {
+        List<String> strings = new ArrayList<>();
+
+        for (InetAddress address : addresses) {
+            strings.add(address.getHostAddress());
+        }
+        return strings;
+||||||| BASE
+    private static InfraLinkState.Builder newInfraLinkStateBuilder(InfraLinkState infraLinkState) {
+        return new InfraLinkState.Builder().setInterfaceName(infraLinkState.interfaceName);
+=======
     private static InfraLinkState.Builder newInfraLinkStateBuilder(
             @Nullable LinkProperties linkProperties) {
         if (linkProperties == null) {
@@ -1498,6 +1633,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         return new InfraLinkState.Builder()
                 .setInterfaceName(linkProperties.getInterfaceName())
                 .setNat64Prefix(nat64Prefix);
+>>>>>>> BASE      (7616fd [Thread] Mark ThreadConfiguration#isDhcpv6PdEnabled() as @hi)
     }
 
     private static final class CallbackMetadata {
