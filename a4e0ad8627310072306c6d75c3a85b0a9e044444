@@ -16,6 +16,23 @@
       "message": "```suggestion\n                false /* isInteractive */);\n```",
       "revId": "a4e0ad8627310072306c6d75c3a85b0a9e044444",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92d7b370_7ddca2d1",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-04T05:41:14Z",
+      "side": 1,
+      "message": "add a test case that returns error",
+      "revId": "a4e0ad8627310072306c6d75c3a85b0a9e044444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
