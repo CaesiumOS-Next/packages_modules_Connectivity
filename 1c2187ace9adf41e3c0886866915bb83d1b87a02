@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "505ca4f9_2faed1b6",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-04T11:33:19Z",
+      "side": 1,
+      "message": "nit: line over 100 chars.",
+      "range": {
+        "startLine": 1402,
+        "startChar": 82,
+        "endLine": 1402,
+        "endChar": 102
+      },
+      "revId": "1c2187ace9adf41e3c0886866915bb83d1b87a02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
