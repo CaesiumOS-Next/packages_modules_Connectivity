@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a86b6959_64c0a129",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-04T02:50:17Z",
+      "side": 1,
+      "message": "I don\u0027t fully understand how this check works.\n\nLooks like this check should be applied to sdk 36+, shouldn\u0027t it be wrapped in a if(isAtLeastW) block?",
+      "revId": "21b4a05c738f32410932ab41aed3bb363116eaaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
