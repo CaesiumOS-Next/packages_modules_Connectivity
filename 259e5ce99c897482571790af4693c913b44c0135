@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d9f715c_b25959ae",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2147,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-04T07:49:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a74a387f_aab8d789",
+      "range": {
+        "startLine": 2147,
+        "startChar": 48,
+        "endLine": 2147,
+        "endChar": 63
+      },
+      "revId": "259e5ce99c897482571790af4693c913b44c0135",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96914994_ba28061f",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2b59960_39b5675b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2204,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-04T07:49:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96914994_ba28061f",
+      "revId": "259e5ce99c897482571790af4693c913b44c0135",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88df77be_67c4c69c",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-09-04T03:29:58Z",
       "side": 1,
       "message": "Move the declaration to line 2219? and make it final",
+      "range": {
+        "startLine": 2209,
+        "startChar": 0,
+        "endLine": 2209,
+        "endChar": 34
+      },
+      "revId": "259e5ce99c897482571790af4693c913b44c0135",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6137fdc_947606da",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2209,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-04T07:49:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88df77be_67c4c69c",
       "range": {
         "startLine": 2209,
         "startChar": 0,
