@@ -22,6 +22,30 @@
       },
       "revId": "2a8bf659735b03ba292d3281a6a43515b1fe611a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "615c3f40_16fdb1f7",
+        "filename": "bpf/headers/include/bpf_helpers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-04T18:45:32Z",
+      "side": 1,
+      "message": "LOL, I actually hit this an hour or two before you wrote this comment in my own testing and had https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3255319 queued up (but not yet sent for review)",
+      "parentUuid": "78011b58_45e9b11e",
+      "range": {
+        "startLine": 394,
+        "startChar": 3,
+        "endLine": 394,
+        "endChar": 7
+      },
+      "revId": "2a8bf659735b03ba292d3281a6a43515b1fe611a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
