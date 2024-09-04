@@ -16,6 +16,24 @@
       "message": "I don\u0027t fully understand how this check works.\n\nLooks like this check should be applied to sdk 36+, shouldn\u0027t it be wrapped in a if(isAtLeastW) block?",
       "revId": "21b4a05c738f32410932ab41aed3bb363116eaaa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52b845e7_417db92a",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-04T03:51:54Z",
+      "side": 1,
+      "message": "It works by the fact that if you are on 6.7, you have to be on W+, because anything before it didn\u0027t support it.",
+      "parentUuid": "a86b6959_64c0a129",
+      "revId": "21b4a05c738f32410932ab41aed3bb363116eaaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
