@@ -1,0 +1,116 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e24cb833_3630f085",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-04T04:20:14Z",
+      "side": 1,
+      "message": "IIUC it is unlikely this can be fixed shortly.\nIs there any simple hack we can do now to exclude the usage if it exceed 15days?\nOr change the algorithm so it doesn\u0027t rely on the baseline 15days ago?",
+      "range": {
+        "startLine": 269,
+        "startChar": 22,
+        "endLine": 269,
+        "endChar": 31
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "8353d0f8_8528d04e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+              "range": {
+                "startLine": 269,
+                "startChar": 0,
+                "endLine": 271,
+                "endChar": 0
+              },
+              "replacement": "            // TODO(b/352537247): Fix data usage which might be incorrect if the device uses tethering\n            //  with the same upstream for over 15 days.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d80fe648_7f8ac917",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-04T04:20:14Z",
+      "side": 1,
+      "message": "nit: Maybe add some blank lines and comments to make it easier to follow?",
+      "range": {
+        "startLine": 567,
+        "startChar": 8,
+        "endLine": 567,
+        "endChar": 32
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "883bccd6_66900b04",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+              "range": {
+                "startLine": 553,
+                "startChar": 0,
+                "endLine": 553,
+                "endChar": 0
+              },
+              "replacement": "\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+              "range": {
+                "startLine": 557,
+                "startChar": 0,
+                "endLine": 557,
+                "endChar": 0
+              },
+              "replacement": "\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+              "range": {
+                "startLine": 562,
+                "startChar": 0,
+                "endLine": 562,
+                "endChar": 0
+              },
+              "replacement": "\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+              "range": {
+                "startLine": 567,
+                "startChar": 0,
+                "endLine": 567,
+                "endChar": 0
+              },
+              "replacement": "\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
