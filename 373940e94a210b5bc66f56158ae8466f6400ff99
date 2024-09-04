@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f4869a7_11714b09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-04T21:22:20Z",
+      "side": 1,
+      "message": "  Did you mean \u0027@Field(order \u003d 0, type \u003d Struct.Type.ByteArray, arraysize \u003d 16)\u0027?\n\u001b[1mpackages/modules/Connectivity/service/src/com/android/server/connectivity/DscpPolicyValue.java:120: \u001b[31merror:\u001b[0m\u001b[1m [ArrayEquals] Reference equality used to compare arrays\u001b[0m\n        this.match_src_ip \u003d !EMPTY_ADDRESS_FIELD.equals(this.src46);\n\u001b[1m                                                       \u001b[32m^\u001b[0m\u001b[1m\u001b[0m\n    (see https://errorprone.info/bugpattern/ArrayEquals)\n  Did you mean \u0027this.match_src_ip \u003d !Arrays.equals(EMPTY_ADDRESS_FIELD, this.src46);\u0027?\n\u001b[1mpackages/modules/Connectivity/service/src/com/android/server/connectivity/DscpPolicyValue.java:121: \u001b[31merror:\u001b[0m\u001b[1m [ArrayEquals] Reference equality used to compare arrays\u001b[0m\n        this.match_dst_ip \u003d !EMPTY_ADDRESS_FIELD.equals(this.dst46);\n\u001b[1m                                                       \u001b[32m^\u001b[0m\u001b[1m\u001b[0m\n    (see https://errorprone.info/bugpattern/ArrayEquals)\n  Did you mean \u0027this.match_dst_ip \u003d !Arrays.equals(EMPTY_ADDRESS_FIELD, this.dst46);\u0027?\n\u001b[1mpackages/modules/Connectivity/service/src/com/android/server/connectivity/KeepaliveTracker.java:732: \u001b[35mwarning:\u001b[0m\u001b[1m [EmptyCatch] Caught exceptions should not be ignored\u001b[0m\n        } catch(NullPointerException e) {}",
+      "revId": "373940e94a210b5bc66f56158ae8466f6400ff99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
