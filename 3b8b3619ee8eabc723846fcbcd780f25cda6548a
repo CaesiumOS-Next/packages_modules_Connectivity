@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7650d3d_797bfcd3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-04T03:32:59Z",
+      "side": 1,
+      "message": "After discussed with Mark, I can say it\u0027s possible,but we\u0027re unsure how many devices will use tethering for over 15 days. Therefore, let\u0027s add a TODO item here and figure out the number of devices with long-term tethering enabled first.",
+      "parentUuid": "670ef4bf_05398209",
+      "range": {
+        "startLine": 257,
+        "startChar": 39,
+        "endLine": 257,
+        "endChar": 73
+      },
+      "revId": "3b8b3619ee8eabc723846fcbcd780f25cda6548a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcf7f721_f8c8aee7",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "322bbbbb_403b007a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-04T03:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcf7f721_f8c8aee7",
+      "range": {
+        "startLine": 258,
+        "startChar": 81,
+        "endLine": 258,
+        "endChar": 92
+      },
+      "revId": "3b8b3619ee8eabc723846fcbcd780f25cda6548a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e856d1c9_fc725fa8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-04T03:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b607b856_2f5a3265",
+      "range": {
+        "startLine": 258,
+        "startChar": 39,
+        "endLine": 258,
+        "endChar": 57
+      },
+      "revId": "3b8b3619ee8eabc723846fcbcd780f25cda6548a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6673460a_6c7614de",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-09-02T04:30:34Z",
       "side": 1,
       "message": "nit: Maybe refactor this to a DataUsage.subtract(a,b) method?",
+      "range": {
+        "startLine": 259,
+        "startChar": 19,
+        "endLine": 261,
+        "endChar": 57
+      },
+      "revId": "3b8b3619ee8eabc723846fcbcd780f25cda6548a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f0761a3_b7c17b72",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-04T03:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6673460a_6c7614de",
       "range": {
         "startLine": 259,
         "startChar": 19,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a169524c_ff3feeb1",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-04T03:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82904b43_51843e24",
+      "range": {
+        "startLine": 123,
+        "startChar": 52,
+        "endLine": 123,
+        "endChar": 70
+      },
+      "revId": "3b8b3619ee8eabc723846fcbcd780f25cda6548a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d125a674_453bac14",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-09-02T04:30:34Z",
       "side": 1,
       "message": "Maybe rename this accordingly?",
+      "range": {
+        "startLine": 509,
+        "startChar": 17,
+        "endLine": 509,
+        "endChar": 44
+      },
+      "revId": "3b8b3619ee8eabc723846fcbcd780f25cda6548a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c91a96c_4f29d972",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-04T03:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d125a674_453bac14",
       "range": {
         "startLine": 509,
         "startChar": 17,
