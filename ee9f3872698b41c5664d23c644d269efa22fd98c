@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b86b5272_8f1644fb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-04T06:18:13Z",
+      "side": 1,
+      "message": "As discussed offline, we don\u0027t know how many devices use tethering for over 15 days. We should obtain this information first. Maybe only a few devices are in this case. Then we can skip this data on the server side.",
+      "parentUuid": "e24cb833_3630f085",
+      "range": {
+        "startLine": 269,
+        "startChar": 22,
+        "endLine": 269,
+        "endChar": 31
+      },
+      "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d80fe648_7f8ac917",
@@ -109,6 +133,30 @@
           ]
         }
       ],
+      "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b157a9d4_1e43028f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-04T06:18:13Z",
+      "side": 1,
+      "message": "Done in aosp/3249972.",
+      "parentUuid": "d80fe648_7f8ac917",
+      "range": {
+        "startLine": 567,
+        "startChar": 8,
+        "endLine": 567,
+        "endChar": 32
+      },
       "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
