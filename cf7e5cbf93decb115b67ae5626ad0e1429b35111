@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73655b65_efc815d8",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-05T15:33:23Z",
+      "side": 1,
+      "message": "not entirely sure why this checks reader then deref tracker in the next line... is this a bug?",
+      "range": {
+        "startLine": 978,
+        "startChar": 12,
+        "endLine": 978,
+        "endChar": 27
+      },
+      "revId": "cf7e5cbf93decb115b67ae5626ad0e1429b35111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
