@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a296da9_171e4bb5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-05T07:52:30Z",
+      "side": 1,
+      "message": "Oops.",
+      "parentUuid": "bf39b89f_68ae3fe1",
+      "range": {
+        "startLine": 562,
+        "startChar": 16,
+        "endLine": 562,
+        "endChar": 45
+      },
+      "revId": "ad6b052965fd035512d7240b540ead8cdb2fc25a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84196353_c5601724",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d87e2062_df492781",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2202,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-05T07:52:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84196353_c5601724",
+      "range": {
+        "startLine": 2202,
+        "startChar": 12,
+        "endLine": 2202,
+        "endChar": 13
+      },
+      "revId": "ad6b052965fd035512d7240b540ead8cdb2fc25a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b6cbed6_3c0fb8e7",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-09-05T06:27:39Z",
       "side": 1,
       "message": "Shouldn\u0027t you also reset the value to 0 if it becomes negative?",
+      "range": {
+        "startLine": 2227,
+        "startChar": 16,
+        "endLine": 2227,
+        "endChar": 43
+      },
+      "revId": "ad6b052965fd035512d7240b540ead8cdb2fc25a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8405e0f_cd2f9d18",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-05T07:52:30Z",
+      "side": 1,
+      "message": "Probably we want to see this on the metrics dashboard instead of hiding the error.\nIt will recover by re-enable tethering anyway I think it is fine here.\nReopen if feel strongly.",
+      "parentUuid": "2b6cbed6_3c0fb8e7",
       "range": {
         "startLine": 2227,
         "startChar": 16,
