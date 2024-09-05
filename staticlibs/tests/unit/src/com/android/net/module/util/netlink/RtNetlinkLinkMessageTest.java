@@ -186,6 +186,36 @@ public class RtNetlinkLinkMessageTest {
     }
 
     @Test
+    public void testCreateSetLinkUpMessage() {
+        final String expectedHexBytes =
+                "20000000100005006824000000000000"     // struct nlmsghdr
+                + "00000000080000000100000001000000";  // struct ifinfomsg
+        final int interfaceIndex = 8;
+        final int sequenceNumber = 0x2468;
+        final boolean isUp = true;
+
+        final RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createSetLinkUpMessage(
+                interfaceIndex, sequenceNumber, isUp);
+        final byte[] bytes = msg.packToByteArray(ByteOrder.LITTLE_ENDIAN);  // For testing.
+        assertEquals(expectedHexBytes, HexDump.toHexString(bytes));
+    }
+
+    @Test
+    public void testCreateSetLinkDownMessage() {
+        final String expectedHexBytes =
+                "20000000100005006824000000000000"     // struct nlmsghdr
+                + "00000000080000000000000001000000";  // struct ifinfomsg
+        final int interfaceIndex = 8;
+        final int sequenceNumber = 0x2468;
+        final boolean isUp = false;
+
+        final RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createSetLinkUpMessage(
+                interfaceIndex, sequenceNumber, isUp);
+        final byte[] bytes = msg.packToByteArray(ByteOrder.LITTLE_ENDIAN);  // For testing.
+        assertEquals(expectedHexBytes, HexDump.toHexString(bytes));
+    }
+
+    @Test
     public void testToString() {
         final ByteBuffer byteBuffer = toByteBuffer(RTM_NEWLINK_HEX);
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);  // For testing.
