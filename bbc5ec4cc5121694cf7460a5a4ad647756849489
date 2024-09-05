@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcfbbf1d_92d1595d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-05T08:20:09Z",
+      "side": 1,
+      "message": "(need to work on this more, but I\u0027ve made a bit of progress in the meantime)",
+      "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a616500_79c0aeb8",
@@ -24,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f7525d_4e69770d",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-05T08:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a616500_79c0aeb8",
+      "range": {
+        "startLine": 110,
+        "startChar": 40,
+        "endLine": 110,
+        "endChar": 45
+      },
+      "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2f6249c_38610a4f",
@@ -37,6 +78,30 @@
       "writtenOn": "2024-08-21T07:27:40Z",
       "side": 1,
       "message": "0040",
+      "range": {
+        "startLine": 111,
+        "startChar": 41,
+        "endLine": 111,
+        "endChar": 45
+      },
+      "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a26bbd6_a1a59742",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-05T08:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2f6249c_38610a4f",
       "range": {
         "startLine": 111,
         "startChar": 41,
@@ -83,6 +148,30 @@
       "writtenOn": "2024-08-21T07:33:09Z",
       "side": 1,
       "message": "do we need one more ifindex for v4- clat interface?",
+      "range": {
+        "startLine": 249,
+        "startChar": 13,
+        "endLine": 249,
+        "endChar": 20
+      },
+      "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37f90581_03bda8c5",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-05T08:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "866bc41f_c0bd7376",
       "range": {
         "startLine": 249,
         "startChar": 13,
