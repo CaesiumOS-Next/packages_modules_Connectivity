@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "296bc542_eee7ddcd",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2123,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-05T07:11:36Z",
+      "side": 1,
+      "message": "Acknowledged\nWill do if the number is not trivial.\nFor now it is just the number of different remote ports, \nwhich should be not very hard to follow?",
+      "parentUuid": "a5c496a0_da0d77f2",
+      "range": {
+        "startLine": 2123,
+        "startChar": 52,
+        "endLine": 2123,
+        "endChar": 53
+      },
+      "revId": "e13c28681c2159ea39a957a6dd16dcdcaeaaf165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b735f7c1_713c2592",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-09-05T06:39:46Z",
       "side": 1,
       "message": "Can you also test a client incresed case? Like\n```\nAdd 1, 2\nRemove 1\nAdd 3\nRemove 2\n```",
+      "range": {
+        "startLine": 2138,
+        "startChar": 4,
+        "endLine": 2138,
+        "endChar": 5
+      },
+      "revId": "e13c28681c2159ea39a957a6dd16dcdcaeaaf165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "056a11c3_a6d534b3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-05T07:11:36Z",
+      "side": 1,
+      "message": "Hmm.\nI don\u0027t see it really increase test coverage, given that:\n 1. add client does not add rules.\n 2. we already cover \n   a) remove client when others still there \n   b) remove client which make rule reach zero.\n\nThus test client increase does not really helpful I think.\nFeel free to reopen if feel strongly.",
+      "parentUuid": "b735f7c1_713c2592",
       "range": {
         "startLine": 2138,
         "startChar": 4,
