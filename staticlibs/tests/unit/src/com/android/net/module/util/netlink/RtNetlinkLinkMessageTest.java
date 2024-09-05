@@ -201,6 +201,34 @@ public class RtNetlinkLinkMessageTest {
     }
 
     @Test
+    public void testCreateSetLinkNameMessage() {
+        final String expectedHexBytes =
+                "2C000000100005006824000000000000"   // struct nlmsghdr
+                        + "00000000080000000000000000000000" // struct ifinfomsg
+                        + "0A000300776C616E31000000";        // IFLA_IFNAME(wlan1)
+        final int interfaceIndex = 8;
+        final int sequenceNumber = 0x2468;
+        final String newName = "wlan1";
+
+        final RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createSetLinkNameMessage(
+                interfaceIndex, sequenceNumber, newName);
+        assertNotNull(msg);
+        final byte[] bytes = msg.packToByteArray(ByteOrder.LITTLE_ENDIAN);  // For testing.
+        assertEquals(expectedHexBytes, HexDump.toHexString(bytes));
+    }
+
+    @Test
+    public void testCreateSetLinkNameMessage_NameTooLong() {
+        final int interfaceIndex = 8;
+        final int sequenceNumber = 0x2468;
+        final String newName = "interface_name_longer_than_limit";
+
+        final RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createSetLinkNameMessage(
+                interfaceIndex, sequenceNumber, newName);
+        assertNull(msg);
+    }
+
+    @Test
     public void testToString() {
         final ByteBuffer byteBuffer = toByteBuffer(RTM_NEWLINK_HEX);
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);  // For testing.
