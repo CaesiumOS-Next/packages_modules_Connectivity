@@ -16,6 +16,24 @@
       "message": "How much does this actually improve things? Are there no compiler options that could achieve similar improvements? This does make the code a lot harder to understand...",
       "revId": "d62fc806268a0a0c8c0aa200bd7c65c320c8a7c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86410c9a_215100a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-05T02:42:00Z",
+      "side": 1,
+      "message": "None that I\u0027m aware of.  I haven\u0027t tested the boot time perf optimization of this CL by itself (only correctness).  Together with the follow up it is ~2.5x faster.",
+      "parentUuid": "72d179b7_896a6efc",
+      "revId": "d62fc806268a0a0c8c0aa200bd7c65c320c8a7c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
