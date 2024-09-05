@@ -21,8 +21,7 @@ import static android.system.OsConstants.AF_UNSPEC;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_ADDR_LEN;
 import static com.android.net.module.util.netlink.NetlinkConstants.IFF_UP;
 import static com.android.net.module.util.netlink.NetlinkConstants.RTM_NEWLINK;
-import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_ACK;
-import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST_ACK;
 
 import android.net.MacAddress;
 import android.system.OsConstants;
@@ -236,10 +235,27 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
     public static RtNetlinkLinkMessage createSetLinkUpMessage(int interfaceIndex,
             int sequenceNumber, boolean isUp) {
         return RtNetlinkLinkMessage.create(
-                new StructNlMsgHdr(0, RTM_NEWLINK, (short) (NLM_F_REQUEST | NLM_F_ACK),
-                        sequenceNumber),
+                new StructNlMsgHdr(0, RTM_NEWLINK, NLM_F_REQUEST_ACK, sequenceNumber),
                 new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, interfaceIndex,
                                     isUp ? IFF_UP : 0, IFF_UP), DEFAULT_MTU, null, null);
+    }
+
+    /**
+     * Create a link message to change the name of a network interface.
+     *
+     * @param interfaceIndex The index of the network interface, obtained from
+     *                       {@code if_nametoindex()}.
+     * @param sequenceNumber The sequence number to use for the Netlink message.
+     * @param newName        The new name of the network interface.
+     * @return A `RtNetlinkLinkMessage` instance configured to set the link state.
+     */
+    @Nullable
+    public static RtNetlinkLinkMessage createSetLinkNameMessage(int interfaceIndex,
+            int sequenceNumber, @NonNull String newName) {
+        return RtNetlinkLinkMessage.create(
+                new StructNlMsgHdr(0, RTM_NEWLINK, NLM_F_REQUEST_ACK, sequenceNumber),
+                new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, interfaceIndex, 0, 0),
+                DEFAULT_MTU, null, newName);
     }
 
     @Override
