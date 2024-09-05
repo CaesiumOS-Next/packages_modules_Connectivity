@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72d179b7_896a6efc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-05T02:19:33Z",
+      "side": 1,
+      "message": "How much does this actually improve things? Are there no compiler options that could achieve similar improvements? This does make the code a lot harder to understand...",
+      "revId": "d62fc806268a0a0c8c0aa200bd7c65c320c8a7c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
