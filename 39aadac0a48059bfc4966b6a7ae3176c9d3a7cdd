@@ -44,6 +44,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf963d13_9a1a17d6",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-05T04:20:51Z",
+      "side": 1,
+      "message": "I think we are only talking about the new ApfFilter.\n@junyulai@google.com Maybe we can explicit put the allow list as follows:\n\n```\n            // IPv4, ARP, IPv6, EAPOL, WAPI\n            gen.addCountAndDropIfR0IsNoneOf(Set.of(0x0800L, 0x0806L, 0x86DDL, 0x888EL, 0x88B4L),\n                    Counter.DROPPED_ETHERTYPE_NOT_ALLOWED);\n``` \n\nFor the LegacyApfFilter, because it is a temporary status, I don\u0027t see the strong value of documenting it. It will increase the confusion.",
+      "parentUuid": "ab355cdb_506fb6a3",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 64
+      },
+      "revId": "39aadac0a48059bfc4966b6a7ae3176c9d3a7cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85e0b87f_e28348b3",
         "filename": "tests/cts/multidevices/apfv4_test.py",
         "patchSetId": 9
@@ -67,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd5d084f_5c793dba",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-05T04:20:51Z",
+      "side": 1,
+      "message": "Yeah, potentially the list can be overridden. Because we don\u0027t know what they actually did, If some OEM report CTS failure, we can update the test to fix it.",
+      "parentUuid": "85e0b87f_e28348b3",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 74
+      },
+      "revId": "39aadac0a48059bfc4966b6a7ae3176c9d3a7cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45479a22_d3e0b50a",
         "filename": "tests/cts/multidevices/apfv4_test.py",
         "patchSetId": 9
@@ -78,6 +126,30 @@
       "writtenOn": "2024-09-04T00:27:17Z",
       "side": 1,
       "message": "do we still care? does this test run on R/S/T/U ?\n\nis this mcts or cts? I\u0027m confused.",
+      "range": {
+        "startLine": 27,
+        "startChar": 1,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "39aadac0a48059bfc4966b6a7ae3176c9d3a7cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b838a5d_9e638307",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-05T04:20:51Z",
+      "side": 1,
+      "message": "@junyulai@google.com is this part of mcts? I guess no?",
+      "parentUuid": "45479a22_d3e0b50a",
       "range": {
         "startLine": 27,
         "startChar": 1,
