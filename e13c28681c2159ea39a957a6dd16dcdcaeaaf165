@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b53e09b4_f1cdd748",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-05T06:39:46Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "e13c28681c2159ea39a957a6dd16dcdcaeaaf165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5c496a0_da0d77f2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2123,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-05T06:39:46Z",
+      "side": 1,
+      "message": "Nit: Can you provide a way to calculate/update this value more easily? This would be helpful in case new rules are added in the future.",
+      "range": {
+        "startLine": 2123,
+        "startChar": 52,
+        "endLine": 2123,
+        "endChar": 53
+      },
+      "revId": "e13c28681c2159ea39a957a6dd16dcdcaeaaf165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b735f7c1_713c2592",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-05T06:39:46Z",
+      "side": 1,
+      "message": "Can you also test a client incresed case? Like\n```\nAdd 1, 2\nRemove 1\nAdd 3\nRemove 2\n```",
+      "range": {
+        "startLine": 2138,
+        "startChar": 4,
+        "endLine": 2138,
+        "endChar": 5
+      },
+      "revId": "e13c28681c2159ea39a957a6dd16dcdcaeaaf165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
