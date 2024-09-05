@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66b85ad1_612cd58c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-05T14:43:27Z",
+      "side": 1,
+      "message": "https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html#BYTES",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 42
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "933d602c_99dd0682",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 49,
+                "startChar": 0,
+                "endLine": 50,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 169,
+                "startChar": 0,
+                "endLine": 170,
+                "endChar": 0
+              },
+              "replacement": "            length +\u003d NetlinkConstants.alignedLengthOf(\n                    StructNlAttr.NLA_HEADERLEN + Integer.BYTES);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a383a24_1ab5c1e6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-05T14:43:27Z",
+      "side": 1,
+      "message": "There is also `ETHER_ADDR_LEN` in NetworkStackConstants.java but I don\u0027t know if this is a good idea to introduce lib dependency since the implication are much heavier than header inclusion.\n\nAt least we should try to keep the name consistent with NetworkStackConstants and reuse `ETHER_ADDR_LEN`",
+      "range": {
+        "startLine": 50,
+        "startChar": 29,
+        "endLine": 50,
+        "endChar": 50
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "64f95d63_5f9a2f2c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 50,
+                "startChar": 0,
+                "endLine": 51,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 173,
+                "startChar": 0,
+                "endLine": 174,
+                "endChar": 0
+              },
+              "replacement": "                    StructNlAttr.NLA_HEADERLEN + MacAddress.MAC_ADDRESS_LENGTH);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5929227f_91d9e51c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-05T14:43:27Z",
+      "side": 1,
+      "message": "private ? Do you need it to be public ?",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 10
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "917fd5b8_b7641a88",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 166,
+                "startChar": 0,
+                "endLine": 167,
+                "endChar": 0
+              },
+              "replacement": "    private int calculateMessageLength() {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdee1a5d_ef0f4346",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-05T14:43:27Z",
+      "side": 1,
+      "message": "I don\u0027t know the code well enough to know if `mInterfaceName` has been validated, but I would expect the kernel would reject the msg if `mInterfaceName + 1 \u003e IF_NAMESIZE`.\n\nShoudl we verify this somewhere ?",
+      "range": {
+        "startLine": 178,
+        "startChar": 49,
+        "endLine": 178,
+        "endChar": 63
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1350447f_36627deb",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 19,
+                "startChar": 0,
+                "endLine": 19,
+                "endChar": 0
+              },
+              "replacement": "import android.annotation.SystemApi;\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 39,
+                "startChar": 0,
+                "endLine": 39,
+                "endChar": 0
+              },
+              "replacement": " * @deprecated This class will be removed in the next release.\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 40,
+                "startChar": 0,
+                "endLine": 40,
+                "endChar": 0
+              },
+              "replacement": "@Deprecated\n@SystemApi\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
