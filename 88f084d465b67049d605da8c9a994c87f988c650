@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da83dc49_a110985b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 8953,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-05T06:11:53Z",
+      "side": 1,
+      "message": "1. IIUC you want people to call addDefaultNetworkRequests instead of mDefaultNetworkRequests.addAll because this is safer.\nIf so, is there anyway to enforce it?\n e.g. a wrapper class? or a immutable set?\nOtherwise people without context might still use mDefaultNetworkRequests.addAll\nand creating confusing code which is hard to remove.\n\n2. IIUC you are actually doing what CopyOnWriteArraySet does.\nIf so maybe just use it?\n\n3. IIUC the caller who saw the concurrent modifcation exception will now get a\nslightly stale copy when you are preparing the new object in the other thread.\nWould that be a problem?",
+      "range": {
+        "startLine": 8953,
+        "startChar": 17,
+        "endLine": 8953,
+        "endChar": 42
+      },
+      "revId": "88f084d465b67049d605da8c9a994c87f988c650",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
