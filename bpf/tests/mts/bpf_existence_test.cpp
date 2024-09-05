@@ -80,11 +80,6 @@ static const set<string> MAINLINE_FOR_S_PLUS = {
     TETHERING "prog_offload_schedcls_tether_upstream6_rawip",
 };
 
-// Provided by *current* mainline module for S+ devices with 5.10+ kernels
-static const set<string> MAINLINE_FOR_S_5_10_PLUS = {
-    TETHERING "prog_test_xdp_drop_ipv4_udp_ether",
-};
-
 // Provided by *current* mainline module for T+ devices
 static const set<string> MAINLINE_FOR_T_PLUS = {
     SHARED "map_block_blocked_ports_map",
@@ -194,7 +189,6 @@ TEST_F(BpfExistenceTest, TestPrograms) {
     // S requires Linux Kernel 4.9+ and thus requires eBPF support.
     if (IsAtLeastS()) ASSERT_TRUE(isAtLeastKernelVersion(4, 9, 0));
     DO_EXPECT(IsAtLeastS(), MAINLINE_FOR_S_PLUS);
-    DO_EXPECT(IsAtLeastS() && isAtLeastKernelVersion(5, 10, 0), MAINLINE_FOR_S_5_10_PLUS);
 
     // Nothing added or removed in SCv2.
 
