@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf39b89f_68ae3fe1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-05T06:27:39Z",
+      "side": 1,
+      "message": "Is this redundant?",
+      "range": {
+        "startLine": 562,
+        "startChar": 16,
+        "endLine": 562,
+        "endChar": 45
+      },
+      "revId": "ad6b052965fd035512d7240b540ead8cdb2fc25a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84196353_c5601724",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2202,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-05T06:27:39Z",
+      "side": 1,
+      "message": "You can return directly if `addedUpstream !\u003d addedDownstream`. The subsequent checks will not be satisfied.",
+      "range": {
+        "startLine": 2202,
+        "startChar": 12,
+        "endLine": 2202,
+        "endChar": 13
+      },
+      "revId": "ad6b052965fd035512d7240b540ead8cdb2fc25a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b6cbed6_3c0fb8e7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-05T06:27:39Z",
+      "side": 1,
+      "message": "Shouldn\u0027t you also reset the value to 0 if it becomes negative?",
+      "range": {
+        "startLine": 2227,
+        "startChar": 16,
+        "endLine": 2227,
+        "endChar": 43
+      },
+      "revId": "ad6b052965fd035512d7240b540ead8cdb2fc25a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
