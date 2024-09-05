@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "947aba15_900fe79e",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-05T02:20:39Z",
+      "side": 1,
+      "message": "Can this be added in the IntegrationTestUtils.java? There are no good reasons to separate one file into two...\n\nFor new files, you can use Kotlin, or it\u0027s also okay if you refactor IntegrationTestUtils.java to IntegrationTestutils.kt",
+      "revId": "f00d99c998cfd7de5603fc3d3403e6dcc0a8cf9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
