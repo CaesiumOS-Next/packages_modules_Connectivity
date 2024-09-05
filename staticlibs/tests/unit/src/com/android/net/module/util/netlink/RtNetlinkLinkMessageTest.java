@@ -135,8 +135,8 @@ public class RtNetlinkLinkMessageTest {
         final RtNetlinkLinkMessage linkMsg = new RtNetlinkLinkMessage(
                 // nlmsg_len will be updated after pack(), so it's ok to set 0 here.
                 new StructNlMsgHdr(/*nlmsg_len*/ 0, (short) 0x10, (short) 0, 0),
-                1500,
                 new StructIfinfoMsg((byte) 0, (short) 1, 0x1e, 0x1002, 0),
+                1500,
                 MacAddress.fromString("92:c3:e3:c9:37:4e"),
                 "wlan0");
 
@@ -169,6 +169,17 @@ public class RtNetlinkLinkMessageTest {
         assertNull(linkMsg.getHardwareAddress());
         assertEquals(ETHER_MTU, linkMsg.getMtu());
         assertTrue(linkMsg.getInterfaceName().equals("wlan0"));
+    }
+
+    @Test
+    public void testCreateSetLinkUpMessage() {
+        final String expectedHexBytes =
+                "20000000100005000000000000000000"     // struct nlmsghdr
+                + "00000000030000000100000001000000";  // struct ifinfomsg
+
+        final RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createSetLinkUpMessage(3, true);
+        final byte[] bytes = msg.packToByteArray(ByteOrder.LITTLE_ENDIAN);  // For testing.
+        assertEquals(expectedHexBytes, HexDump.toHexString(bytes));
     }
 
     @Test
