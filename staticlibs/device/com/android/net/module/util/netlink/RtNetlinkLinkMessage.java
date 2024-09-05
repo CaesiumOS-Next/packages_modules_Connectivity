@@ -16,6 +16,13 @@
 
 package com.android.net.module.util.netlink;
 
+import static android.system.OsConstants.AF_UNSPEC;
+
+import static com.android.net.module.util.netlink.NetlinkConstants.IFF_UP;
+import static com.android.net.module.util.netlink.NetlinkConstants.RTM_NEWLINK;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_ACK;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
+
 import android.net.MacAddress;
 import android.system.OsConstants;
 
@@ -24,6 +31,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 /**
  * A NetlinkMessage subclass for rtnetlink link messages.
@@ -67,11 +75,11 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
 
     @VisibleForTesting
     public RtNetlinkLinkMessage(@NonNull StructNlMsgHdr nlmsghdr,
-            int mtu, @NonNull StructIfinfoMsg ifinfomsg, @NonNull MacAddress hardwareAddress,
-            @NonNull String interfaceName) {
+            @NonNull StructIfinfoMsg ifinfomsg, int mtu, MacAddress hardwareAddress,
+            String interfaceName) {
         super(nlmsghdr);
-        mMtu = mtu;
         mIfinfomsg = ifinfomsg;
+        mMtu = mtu;
         mHardwareAddress = hardwareAddress;
         mInterfaceName = interfaceName;
     }
@@ -135,6 +143,16 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
     }
 
     /**
+     *  Write a rtnetlink link message to {@link byte} array.
+     */
+    public byte[] packToByteArray(ByteOrder order) {
+        byte[] bytes = new byte[calculateMessageLength()];
+        ByteBuffer buffer = ByteBuffer.wrap(bytes).order(order);
+        pack(buffer);
+        return bytes;
+    }
+
+    /**
      * Write a rtnetlink link message to {@link ByteBuffer}.
      */
     @VisibleForTesting
@@ -179,6 +197,27 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
         }
 
         return length;
+    }
+
+    /**
+     * Create a link message to set the operational state (up or down) of a network interface.
+     *
+     * @param interfaceIndex The index of the network interface, obtained from
+     *                       {@code if_nametoindex()}.
+     * @param sequenceNumber The sequence number to use for the Netlink message.
+     * @param isUp           {@code true} to set the interface up, {@code false} to set it down.
+     * @return A `RtNetlinkLinkMessage` instance configured to set the link state.
+     */
+    public static RtNetlinkLinkMessage createSetLinkUpMessage(int interfaceIndex,
+            int sequenceNumber, boolean isUp) {
+        return new RtNetlinkLinkMessage(
+                new StructNlMsgHdr(0, RTM_NEWLINK, (short) (NLM_F_REQUEST | NLM_F_ACK),
+                        sequenceNumber),
+                new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, interfaceIndex,
+                                    isUp ? IFF_UP : 0, IFF_UP),
+                0,
+                null,
+                null);
     }
 
     @Override
