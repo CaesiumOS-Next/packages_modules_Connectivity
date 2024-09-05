@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3d1cf3c_589a051d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-05T07:51:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08df8304_8961cb5a",
+      "range": {
+        "startLine": 579,
+        "startChar": 12,
+        "endLine": 581,
+        "endChar": 77
+      },
+      "revId": "bb430760d961f02153e88a28e37f31a9716f9695",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62f1e8b5_5d61c4f1",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-05T07:14:58Z",
       "side": 1,
       "message": "Can you also test that `stopStatsAndConntrackPolling` will remove the callback?",
+      "range": {
+        "startLine": 2201,
+        "startChar": 4,
+        "endLine": 2201,
+        "endChar": 5
+      },
+      "revId": "bb430760d961f02153e88a28e37f31a9716f9695",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f066b7ac_03c708cb",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2201,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-05T07:51:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62f1e8b5_5d61c4f1",
       "range": {
         "startLine": 2201,
         "startChar": 4,
