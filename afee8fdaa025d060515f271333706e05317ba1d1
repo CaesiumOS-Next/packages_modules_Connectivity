@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73300b50_0bbdb2c8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-05T09:11:45Z",
+      "side": 1,
+      "message": "Might want to document -1.\nOr provide a parameter to pass default value.",
+      "range": {
+        "startLine": 130,
+        "startChar": 57,
+        "endLine": 130,
+        "endChar": 58
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "41b96f90_66fda7fe",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+              "range": {
+                "startLine": 117,
+                "startChar": 0,
+                "endLine": 118,
+                "endChar": 0
+              },
+              "replacement": "         * Get the int value of the flag for testing purposes. If the flag is not set, returns -1.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "afee8fdaa025d060515f271333706e05317ba1d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
