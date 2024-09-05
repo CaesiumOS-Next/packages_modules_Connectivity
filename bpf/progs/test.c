@@ -43,3 +43,4 @@ DEFINE_BPF_MAP_GRW(tether3_downstream6_map, HASH, TetherDownstream6Key, Tether6V
 DEFINE_BPF_MAP_GRW(bitmap, ARRAY, int, uint64_t, 2, AID_NETWORK_STACK)
 
 LICENSE("Apache 2.0");
+CRITICAL("Networking xTS tests");
