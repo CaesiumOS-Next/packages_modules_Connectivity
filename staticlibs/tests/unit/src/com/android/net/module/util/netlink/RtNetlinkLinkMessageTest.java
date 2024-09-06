@@ -21,6 +21,7 @@ import static android.system.OsConstants.NETLINK_ROUTE;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_MTU;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -135,10 +136,10 @@ public class RtNetlinkLinkMessageTest {
         final RtNetlinkLinkMessage linkMsg = new RtNetlinkLinkMessage(
                 // nlmsg_len will be updated after pack(), so it's ok to set 0 here.
                 new StructNlMsgHdr(0 /*nlmsg_len*/, (short) 0x10, (short) 0, 0),
-                1500,
-                new StructIfinfoMsg((byte) 0, (short) 1, 0x1e, 0x1002, 0),
-                MacAddress.fromString("92:c3:e3:c9:37:4e"),
-                "wlan0");
+                new StructIfinfoMsg((byte) 0, (short) 1, 0x1e, 0x1002, 0));
+        assertTrue(linkMsg.setMtu(1500));
+        assertTrue(linkMsg.setHardwareAddress(MacAddress.fromString("92:c3:e3:c9:37:4e")));
+        assertTrue(linkMsg.setInterfaceName("wlan0"));
 
         byte[] packBytes = linkMsg.packToByteArray(ByteOrder.LITTLE_ENDIAN);
         assertEquals(RTM_NEWLINK_PACK_HEX, HexDump.toHexString(packBytes));
@@ -187,5 +188,54 @@ public class RtNetlinkLinkMessageTest {
                 + "Ifname{wlan0} "
                 + "}";
         assertEquals(expected, linkMsg.toString());
+    }
+
+    @Test
+    public void testSetMtu() {
+        final RtNetlinkLinkMessage linkMsg = new RtNetlinkLinkMessage(
+                new StructNlMsgHdr(0, (short) 0, (short) 0, 0),
+                new StructIfinfoMsg((byte) 0, (short) 0, 0, 0, 0));
+
+        // The setter modifies the value correctly.
+        assertTrue(linkMsg.setMtu(1500));
+        assertEquals(1500, linkMsg.getMtu());
+
+        // When the setter return false, the value is not modified.
+        assertFalse(linkMsg.setMtu(-10));
+        assertEquals(1500, linkMsg.getMtu());
+    }
+
+    @Test
+    public void testSetHardwareAddress() {
+        final RtNetlinkLinkMessage linkMsg = new RtNetlinkLinkMessage(
+                new StructNlMsgHdr(0, (short) 0, (short) 0, 0),
+                new StructIfinfoMsg((byte) 0, (short) 0, 0, 0, 0));
+        final MacAddress hardwareAddress = MacAddress.fromString("92:c3:e3:c9:37:4e");
+        assertNotNull(hardwareAddress);
+
+        // The setter modifies the value correctly.
+        assertTrue(linkMsg.setHardwareAddress(hardwareAddress));
+        assertEquals(hardwareAddress, linkMsg.getHardwareAddress());
+
+        // When the setter return false, the value is not modified.
+        assertFalse(linkMsg.setHardwareAddress(null));
+        assertEquals(hardwareAddress, linkMsg.getHardwareAddress());
+    }
+
+    @Test
+    public void testSetInterfaceName() {
+        final RtNetlinkLinkMessage linkMsg = new RtNetlinkLinkMessage(
+                new StructNlMsgHdr(0, (short) 0, (short) 0, 0),
+                new StructIfinfoMsg((byte) 0, (short) 0, 0, 0, 0));
+
+        // The setter modifies the value correctly.
+        assertTrue(linkMsg.setInterfaceName("wlan0"));
+        assertEquals("wlan0", linkMsg.getInterfaceName());
+
+        // When the setter return false, the value is not modified.
+        assertFalse(linkMsg.setInterfaceName(null));
+        assertFalse(linkMsg.setInterfaceName(""));
+        assertFalse(linkMsg.setInterfaceName("invalid_interface_name_too_long"));
+        assertEquals("wlan0", linkMsg.getInterfaceName());
     }
 }
