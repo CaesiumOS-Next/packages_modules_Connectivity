@@ -46,6 +46,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "187047a5_a9d298e6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-06T02:27:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a700d8_487a1955",
+      "revId": "030eec6989bbcdb6f12a933b5baefd061f3a71b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "257f368b_fa506ff1",
@@ -59,6 +77,30 @@
       "writtenOn": "2024-09-05T09:07:29Z",
       "side": 1,
       "message": "nit: Might want to add javadoc for this class.",
+      "range": {
+        "startLine": 138,
+        "startChar": 17,
+        "endLine": 138,
+        "endChar": 34
+      },
+      "revId": "030eec6989bbcdb6f12a933b5baefd061f3a71b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9c87601_597cf1eb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-06T02:27:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "257f368b_fa506ff1",
       "range": {
         "startLine": 138,
         "startChar": 17,
@@ -106,6 +148,30 @@
           ]
         }
       ],
+      "revId": "030eec6989bbcdb6f12a933b5baefd061f3a71b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9075f886_73806cea",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-06T02:27:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd5b1a20_379c6edb",
+      "range": {
+        "startLine": 144,
+        "startChar": 9,
+        "endLine": 145,
+        "endChar": 53
+      },
       "revId": "030eec6989bbcdb6f12a933b5baefd061f3a71b7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -181,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fd24b50_834bbb4f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-06T02:27:18Z",
+      "side": 1,
+      "message": "This class was migrated from gmscore, which has a different coding style, and we still share the code with them. Therefore, we decided to keep the current naming style for these migrated classes.",
+      "parentUuid": "8499b945_d15875a2",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 0
+      },
+      "revId": "030eec6989bbcdb6f12a933b5baefd061f3a71b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc0d9604_40640f9f",
@@ -194,6 +284,30 @@
       "writtenOn": "2024-09-05T09:07:29Z",
       "side": 1,
       "message": "nit: Would be good to have test case where the same task running twice and it doesn\u0027t get ignored.\nno strong opinion.",
+      "range": {
+        "startLine": 439,
+        "startChar": 4,
+        "endLine": 439,
+        "endChar": 5
+      },
+      "revId": "030eec6989bbcdb6f12a933b5baefd061f3a71b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c73ff41a_bed6161a",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsDiscoveryManagerTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-06T02:27:18Z",
+      "side": 1,
+      "message": "I think it\u0027s not very helpful to verify this behavior for the current MdnsDisoveryManager design.",
+      "parentUuid": "dc0d9604_40640f9f",
       "range": {
         "startLine": 439,
         "startChar": 4,
