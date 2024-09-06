@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95e119b1_2db61dcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T14:53:07Z",
+      "side": 1,
+      "message": "Merged the service implementation into the same CL.",
+      "parentUuid": "8e3266e2_c1765096",
+      "revId": "3b0b48d43502b6f2bc041dd3ca30f847d40eefb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4c86f4e_a28f0736",
         "filename": "staticlibs/device/com/android/net/module/util/RoutingCoordinatorManager.java",
         "patchSetId": 7
@@ -49,6 +67,30 @@
       "writtenOn": "2024-09-06T02:38:32Z",
       "side": 1,
       "message": "Can you expand the javadoc comment here to include the new functionality you are adding?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 8
+      },
+      "revId": "3b0b48d43502b6f2bc041dd3ca30f847d40eefb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ccb9037_441a9dbe",
+        "filename": "staticlibs/device/com/android/net/module/util/RoutingCoordinatorManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T14:53:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4c86f4e_a28f0736",
       "range": {
         "startLine": 32,
         "startChar": 0,
@@ -72,6 +114,24 @@
       "writtenOn": "2024-09-06T02:38:32Z",
       "side": 1,
       "message": "What kind of exception might it throw? Can you annotate the methods accordingly?",
+      "revId": "3b0b48d43502b6f2bc041dd3ca30f847d40eefb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f725f365_2ff698af",
+        "filename": "staticlibs/device/com/android/net/module/util/RoutingCoordinatorManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T14:53:07Z",
+      "side": 1,
+      "message": "There\u0027re no checked exceptions thrown from the service. Are there any other things I should annotate?",
+      "parentUuid": "5dcc9da9_a99969d0",
       "revId": "3b0b48d43502b6f2bc041dd3ca30f847d40eefb3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
