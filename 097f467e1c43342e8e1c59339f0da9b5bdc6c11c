@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d76cc21_e29e17d6",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:00:10Z",
+      "side": 1,
+      "message": "Please rebase onto the latest main to use `LOG`",
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "423418df_5838ce85",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:00:10Z",
+      "side": 1,
+      "message": "Ideally this should be a method in IntegrationTestUtils. However, this CL is already large enough. I\u0027m fine with keeping this part as-is and maybe we can do the refactor later.",
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c93d0b0_432a5be4",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:00:10Z",
+      "side": 1,
+      "message": "Could it be \u0027equals\u0027?",
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
