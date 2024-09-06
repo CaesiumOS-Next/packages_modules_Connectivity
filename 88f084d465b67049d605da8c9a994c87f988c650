@@ -22,6 +22,30 @@
       },
       "revId": "88f084d465b67049d605da8c9a994c87f988c650",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a93870d_fb090329",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 8953,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-09-06T01:42:43Z",
+      "side": 1,
+      "message": "\u003e1,2\n\nThank you for your suggestion, CopyOnWriteArraySet is doing what I wanted to do.\nI have updated to use CopyOnWriteArraySet.\n\n\u003e3\n\nI don\u0027t think this is an issue.\nNo caller of sync API can depends that mDefaultNetworkRequests is updated now or soon.\nAlso, previously, it was not guaranteed that binder thread see updated information imeediately since we did not acquire any locks and did not use volatile.",
+      "parentUuid": "da83dc49_a110985b",
+      "range": {
+        "startLine": 8953,
+        "startChar": 17,
+        "endLine": 8953,
+        "endChar": 42
+      },
+      "revId": "88f084d465b67049d605da8c9a994c87f988c650",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
