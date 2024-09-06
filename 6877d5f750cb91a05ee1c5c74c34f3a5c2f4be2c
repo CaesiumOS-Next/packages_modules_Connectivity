@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "676e694e_90d6b593",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5535,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2024-09-06T03:31:40Z",
+      "side": 1,
+      "message": "Do you know in which case ServiceSpecificException is thrown?\nIs the network already destroyed in netd?  \nCan we stop calling `networkSetPermissionForNetwork` when we know `networkSetPermissionForNetwork` throws `ServiceSpecificException`?\nFor example, does the following code fix the issue?\n```\n-        if (nai.isCreated()) {\n+        if (nai.isCreated() \u0026\u0026 nai.isDestroyed()) {\n```",
+      "range": {
+        "startLine": 5535,
+        "startChar": 39,
+        "endLine": 5535,
+        "endChar": 63
+      },
+      "revId": "6877d5f750cb91a05ee1c5c74c34f3a5c2f4be2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
