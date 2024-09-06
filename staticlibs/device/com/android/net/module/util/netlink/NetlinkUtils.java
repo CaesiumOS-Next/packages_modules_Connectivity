@@ -224,6 +224,47 @@ public class NetlinkUtils {
         }
     }
 
+    /** TODO(akahuang): fill Javadoc */
+    public static boolean sendRtmSetLinkUpRequest(String ifName, boolean isUp) {
+        final int ifIndex = Os.if_nametoindex(ifName);
+        if (ifIndex == 0) {
+            return false;
+        }
+
+        final byte[] msg = RtNetlinkLinkMessage.createSetLinkUpMessage(
+                ifIndex, 1 /*sequenceNumber*/, isUp).packToByteArray(ByteOrder.nativeOrder());
+        try {
+            NetlinkUtils.sendOneShotKernelMessage(NETLINK_ROUTE, msg);
+            return true;
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Fail to set the interface " + ifName + " " + (isUp ? "up" : "down"), e);
+            return false;
+        }
+    }
+
+    /** TODO(akahuang): fill Javadoc */
+    public static boolean sendRtmSetLinkNameRequest(String ifName, String newIfName) {
+        final int ifIndex = Os.if_nametoindex(ifName);
+        if (ifIndex == 0) {
+            return false;
+        }
+
+        RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createSetLinkNameMessage(
+                ifIndex, 1 /*sequenceNumber*/, newIfName);
+        if (msg == null) {
+            return false;
+        }
+
+        final byte[] bytes = msg.packToByteArray(ByteOrder.nativeOrder());
+        try {
+            NetlinkUtils.sendOneShotKernelMessage(NETLINK_ROUTE, bytes);
+            return true;
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Fail to rename the interface " + ifName + " to " + newIfName, e);
+            return false;
+        }
+    }
+
     /**
      * Create netlink socket with the given netlink protocol type and buffersize.
      *
