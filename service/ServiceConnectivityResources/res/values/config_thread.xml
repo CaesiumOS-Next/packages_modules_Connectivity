@@ -71,4 +71,11 @@
     -->
     <string-array name="config_thread_mdns_vendor_specific_txts">
     </string-array>
+
+    <!-- Specifies the UTF-8 radio url for the Thread radio. If this value is not an empty
+    string, the url must with the fixed domain and path "threadnetwork_hal://binder?", for
+    example "threadnetwork_hal://binder?bus-latency=100". Thread radio will set the radio
+    parameters based on this radio url. If empty, the Thread radio uses default parameters.
+    -->
+    <string translatable="false" name="config_thread_radio_url"></string>
 </resources>

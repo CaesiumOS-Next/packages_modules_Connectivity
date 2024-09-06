@@ -316,6 +316,10 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
+    private String getRadioUrl() {
+        return mResources.get().getString(R.string.config_thread_radio_url);
+    }
+
     private IOtDaemon getOtDaemon() throws RemoteException, ThreadNetworkException {
         checkOnHandlerThread();
 
@@ -339,7 +343,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 mNsdPublisher,
                 getMeshcopTxtAttributes(mResources.get()),
                 mOtDaemonCallbackProxy,
-                mCountryCodeSupplier.get());
+                mCountryCodeSupplier.get(),
+                getRadioUrl());
         otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         mOtDaemon = otDaemon;
         return mOtDaemon;
