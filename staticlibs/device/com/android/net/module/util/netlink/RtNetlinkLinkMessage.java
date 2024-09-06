@@ -48,41 +48,79 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
     public static final short IFLA_AF_SPEC = 26;
 
     public static final short IN6_ADDR_GEN_MODE_NONE = 1;
+    private static final int IFNAME_SIZE = 16;
 
-    private int mMtu;
     @NonNull
     private StructIfinfoMsg mIfinfomsg;
+    private int mMtu;
     @Nullable
     private MacAddress mHardwareAddress;
     @Nullable
     private String mInterfaceName;
 
-    private RtNetlinkLinkMessage(@NonNull StructNlMsgHdr header) {
+    public RtNetlinkLinkMessage(
+            @NonNull StructNlMsgHdr header,
+            @NonNull StructIfinfoMsg ifinfomsg) {
         super(header);
-        mIfinfomsg = null;
+        mIfinfomsg = ifinfomsg;
         mMtu = 0;
         mHardwareAddress = null;
         mInterfaceName = null;
     }
 
-    @VisibleForTesting
-    public RtNetlinkLinkMessage(@NonNull StructNlMsgHdr nlmsghdr,
-            int mtu, @NonNull StructIfinfoMsg ifinfomsg, @NonNull MacAddress hardwareAddress,
-            @NonNull String interfaceName) {
-        super(nlmsghdr);
+    /**
+     * Sets the MTU for this object.
+     *
+     * @param mtu The desired MTU value.
+     * @return {@code true} if the MTU was successfully set,
+     *         {@code false} if the provided MTU is invalid.
+     */
+    public boolean setMtu(int mtu) {
+        if (mtu <= 0) {
+            return false;
+        }
         mMtu = mtu;
-        mIfinfomsg = ifinfomsg;
-        mHardwareAddress = hardwareAddress;
-        mInterfaceName = interfaceName;
+        return true;
     }
 
-    public int getMtu() {
-        return mMtu;
+    /**
+     * Sets the hardware address (MAC address) for this object.
+     *
+     * @param hardwareAddress The new MAC address to set.
+     * @return {@code true} if the hardware address was successfully set,
+     *         {@code false} if the provided address is invalid.
+     */
+    public boolean setHardwareAddress(MacAddress hardwareAddress) {
+        if (hardwareAddress == null) {
+            return false;
+        }
+        mHardwareAddress = hardwareAddress;
+        return true;
+    }
+
+    /**
+     * Sets the network interface name for this object.
+     *
+     * @param interfaceName The interface name.
+     * @return {@code true} if the interface name was successfully set,
+     *         {@code false} if the provided name is invalid.
+     */
+    public boolean setInterfaceName(String interfaceName) {
+        if (interfaceName == null || interfaceName.isEmpty()
+                || interfaceName.length() + 1 > IFNAME_SIZE) {
+            return false;
+        }
+        mInterfaceName = interfaceName;
+        return true;
     }
 
     @NonNull
     public StructIfinfoMsg getIfinfoHeader() {
         return mIfinfomsg;
+    }
+
+    public int getMtu() {
+        return mMtu;
     }
 
     @Nullable
@@ -105,30 +143,31 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
     @Nullable
     public static RtNetlinkLinkMessage parse(@NonNull final StructNlMsgHdr header,
             @NonNull final ByteBuffer byteBuffer) {
-        final RtNetlinkLinkMessage linkMsg = new RtNetlinkLinkMessage(header);
-
-        linkMsg.mIfinfomsg = StructIfinfoMsg.parse(byteBuffer);
-        if (linkMsg.mIfinfomsg == null) return null;
+        StructIfinfoMsg ifinfoMsg = StructIfinfoMsg.parse(byteBuffer);
+        if (ifinfoMsg == null) {
+            return null;
+        }
+        final RtNetlinkLinkMessage linkMsg = new RtNetlinkLinkMessage(header, ifinfoMsg);
 
         // IFLA_MTU
         final int baseOffset = byteBuffer.position();
         StructNlAttr nlAttr = StructNlAttr.findNextAttrOfType(IFLA_MTU, byteBuffer);
         if (nlAttr != null) {
-            linkMsg.mMtu = nlAttr.getValueAsInt(0 /* default value */);
+            linkMsg.setMtu(nlAttr.getValueAsInt(0 /* default value */));
         }
 
         // IFLA_ADDRESS
         byteBuffer.position(baseOffset);
         nlAttr = StructNlAttr.findNextAttrOfType(IFLA_ADDRESS, byteBuffer);
         if (nlAttr != null) {
-            linkMsg.mHardwareAddress = nlAttr.getValueAsMacAddress();
+            linkMsg.setHardwareAddress(nlAttr.getValueAsMacAddress());
         }
 
         // IFLA_IFNAME
         byteBuffer.position(baseOffset);
         nlAttr = StructNlAttr.findNextAttrOfType(IFLA_IFNAME, byteBuffer);
         if (nlAttr != null) {
-            linkMsg.mInterfaceName = nlAttr.getValueAsString();
+            linkMsg.setInterfaceName(nlAttr.getValueAsString());
         }
 
         return linkMsg;
