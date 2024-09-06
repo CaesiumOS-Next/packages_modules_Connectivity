@@ -323,6 +323,30 @@
       },
       "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "856a2a39_da64c737",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-06T08:08:28Z",
+      "side": 1,
+      "message": "SG to have it on the setter. We also need to cover the ctors if ifname is exposed as an arg.",
+      "parentUuid": "1e0876b3_5f120eb6",
+      "range": {
+        "startLine": 178,
+        "startChar": 49,
+        "endLine": 178,
+        "endChar": 63
+      },
+      "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
