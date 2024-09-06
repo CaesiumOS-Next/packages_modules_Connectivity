@@ -52,6 +52,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eaec310_52ddcd0c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-06T04:26:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66b85ad1_612cd58c",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 42
+      },
+      "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a383a24_1ab5c1e6",
@@ -103,6 +127,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25d5de3c_88016a51",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-06T04:26:29Z",
+      "side": 1,
+      "message": "Looks like the code already depends on the library. I can import NetworkStackConstants without changing Android.bp.",
+      "parentUuid": "2a383a24_1ab5c1e6",
+      "range": {
+        "startLine": 50,
+        "startChar": 29,
+        "endLine": 50,
+        "endChar": 50
+      },
+      "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5929227f_91d9e51c",
@@ -140,6 +188,30 @@
           ]
         }
       ],
+      "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eccf9ede_2023cc43",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-06T04:26:29Z",
+      "side": 1,
+      "message": "When the caller packs a message, the caller should allocate a big enough buffer. Therefore I think we should expose this method.",
+      "parentUuid": "5929227f_91d9e51c",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 10
+      },
       "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -201,6 +273,30 @@
           ]
         }
       ],
+      "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e0876b3_5f120eb6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-06T04:26:29Z",
+      "side": 1,
+      "message": "Yeah looks like there is no check for this message. Let me add the check at the following CL.",
+      "parentUuid": "bdee1a5d_ef0f4346",
+      "range": {
+        "startLine": 178,
+        "startChar": 49,
+        "endLine": 178,
+        "endChar": 63
+      },
       "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
