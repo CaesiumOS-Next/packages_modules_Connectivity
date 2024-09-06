@@ -216,6 +216,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1778c502_9938a98b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-06T04:34:34Z",
+      "side": 1,
+      "message": "I changed my mind. I add the public packToByteArray() method to create the big enough byte array, then change the calculateMessageLength() to private.",
+      "parentUuid": "eccf9ede_2023cc43",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 10
+      },
+      "revId": "0e86351f8213f55516bc12e4bac5f8e91d3f82b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdee1a5d_ef0f4346",
