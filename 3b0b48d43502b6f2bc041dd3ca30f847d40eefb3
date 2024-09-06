@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a651192_e599e069",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-06T02:38:32Z",
+      "side": 1,
+      "message": "Where is the service implementation? Why is it not in this CL?",
+      "revId": "3b0b48d43502b6f2bc041dd3ca30f847d40eefb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4c86f4e_a28f0736",
+        "filename": "staticlibs/device/com/android/net/module/util/RoutingCoordinatorManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-06T02:38:32Z",
+      "side": 1,
+      "message": "Can you expand the javadoc comment here to include the new functionality you are adding?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 8
+      },
+      "revId": "3b0b48d43502b6f2bc041dd3ca30f847d40eefb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dcc9da9_a99969d0",
+        "filename": "staticlibs/device/com/android/net/module/util/RoutingCoordinatorManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-06T02:38:32Z",
+      "side": 1,
+      "message": "What kind of exception might it throw? Can you annotate the methods accordingly?",
+      "revId": "3b0b48d43502b6f2bc041dd3ca30f847d40eefb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
