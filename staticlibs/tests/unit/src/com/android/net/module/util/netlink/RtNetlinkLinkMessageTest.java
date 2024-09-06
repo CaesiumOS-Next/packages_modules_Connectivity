@@ -135,10 +135,10 @@ public class RtNetlinkLinkMessageTest {
         final RtNetlinkLinkMessage linkMsg = new RtNetlinkLinkMessage(
                 // nlmsg_len will be updated after pack(), so it's ok to set 0 here.
                 new StructNlMsgHdr(0 /*nlmsg_len*/, (short) 0x10, (short) 0, 0),
-                1500,
-                new StructIfinfoMsg((byte) 0, (short) 1, 0x1e, 0x1002, 0),
-                MacAddress.fromString("92:c3:e3:c9:37:4e"),
-                "wlan0");
+                new StructIfinfoMsg((byte) 0, (short) 1, 0x1e, 0x1002, 0));
+        assertTrue(linkMsg.setMtu(1500));
+        assertTrue(linkMsg.setHardwareAddress(MacAddress.fromString("92:c3:e3:c9:37:4e")));
+        assertTrue(linkMsg.setInterfaceName("wlan0"));
 
         byte[] packBytes = linkMsg.packToByteArray(ByteOrder.LITTLE_ENDIAN);
         assertEquals(RTM_NEWLINK_PACK_HEX, HexDump.toHexString(packBytes));
