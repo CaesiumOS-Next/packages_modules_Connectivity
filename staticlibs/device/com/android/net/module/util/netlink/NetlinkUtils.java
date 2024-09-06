@@ -225,6 +225,59 @@ public class NetlinkUtils {
     }
 
     /**
+     * Sends an RTM_NEWLINK message to kernel to set a network interface up or down.
+     *
+     * @param ifName  The name of the network interface to modify.
+     * @param isUp    {@code true} to set the interface up, {@code false} to set it down.
+     * @return {@code true} if the request was successfully sent, {@code false} otherwise.
+     */
+    public static boolean sendRtmSetLinkUpRequest(String ifName, boolean isUp) {
+        final int ifIndex = Os.if_nametoindex(ifName);
+        if (ifIndex == 0) {
+            return false;
+        }
+
+        final byte[] msg = RtNetlinkLinkMessage.createSetLinkUpMessage(
+                ifIndex, 1 /*sequenceNumber*/, isUp).packToByteArray(ByteOrder.nativeOrder());
+        try {
+            NetlinkUtils.sendOneShotKernelMessage(NETLINK_ROUTE, msg);
+            return true;
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Fail to set the interface " + ifName + " " + (isUp ? "up" : "down"), e);
+            return false;
+        }
+    }
+
+    /**
+     * Sends an RTM_NEWLINK message to kernel to rename a network interface.
+     *
+     * @param ifName     The current name of the network interface.
+     * @param newIfName  The new name to assign to the interface.
+     * @return {@code true} if the request was successfully sent, {@code false} otherwise.
+     */
+    public static boolean sendRtmSetLinkNameRequest(String ifName, String newIfName) {
+        final int ifIndex = Os.if_nametoindex(ifName);
+        if (ifIndex == 0) {
+            return false;
+        }
+
+        RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createSetLinkNameMessage(
+                ifIndex, 1 /*sequenceNumber*/, newIfName);
+        if (msg == null) {
+            return false;
+        }
+
+        final byte[] bytes = msg.packToByteArray(ByteOrder.nativeOrder());
+        try {
+            NetlinkUtils.sendOneShotKernelMessage(NETLINK_ROUTE, bytes);
+            return true;
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Fail to rename the interface " + ifName + " to " + newIfName, e);
+            return false;
+        }
+    }
+
+    /**
      * Create netlink socket with the given netlink protocol type and buffersize.
      *
      * @param nlProto the netlink protocol
