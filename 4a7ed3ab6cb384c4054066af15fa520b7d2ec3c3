@@ -1,0 +1,116 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53e6f44d_bd758565",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-06T08:06:44Z",
+      "side": 1,
+      "message": "This expression starts to be repeated now. This could be nice to have predefined as a Netlink constant, or otherwise have a way to do `|` with shorts.",
+      "range": {
+        "startLine": 270,
+        "startChar": 51,
+        "endLine": 270,
+        "endChar": 86
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "09c85b81_45c5839b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 251,
+                "startChar": 0,
+                "endLine": 253,
+                "endChar": 0
+              },
+              "replacement": "                new StructNlMsgHdr(0, RTM_NEWLINK,\n                        (short) (NLM_F_REQUEST | NLM_F_ACK), sequenceNumber),\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 270,
+                "startChar": 0,
+                "endLine": 272,
+                "endChar": 0
+              },
+              "replacement": "                new StructNlMsgHdr(0, RTM_NEWLINK,\n                        (short) (NLM_F_REQUEST | NLM_F_ACK), sequenceNumber),\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4a7ed3ab6cb384c4054066af15fa520b7d2ec3c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b94e1cfe_706905df",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-06T08:06:44Z",
+      "side": 1,
+      "message": "Could we try to cover the `null` anf `\"\"` cases ? You can just regroup all of them into `testCreateSetLinkNameMessage_InvalidNames()` and do a for loop over a string array.",
+      "range": {
+        "startLine": 221,
+        "startChar": 44,
+        "endLine": 221,
+        "endChar": 56
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3e67e8d2_ef8137c1",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+              "range": {
+                "startLine": 221,
+                "startChar": 0,
+                "endLine": 222,
+                "endChar": 0
+              },
+              "replacement": "    public void testCreateSetLinkNameMessage_InvalidNames() {\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+              "range": {
+                "startLine": 224,
+                "startChar": 0,
+                "endLine": 225,
+                "endChar": 0
+              },
+              "replacement": "        final String[] invalidNames \u003d {\n                null,\n                \"\",\n                \"interface_name_longer_than_limit\"\n        };\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+              "range": {
+                "startLine": 226,
+                "startChar": 0,
+                "endLine": 229,
+                "endChar": 0
+              },
+              "replacement": "        for (String invalidName : invalidNames) {\n            final RtNetlinkLinkMessage msg \u003d RtNetlinkLinkMessage.createSetLinkNameMessage(\n                    interfaceIndex, sequenceNumber, invalidName);\n            assertNull(msg);\n        }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4a7ed3ab6cb384c4054066af15fa520b7d2ec3c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
