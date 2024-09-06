@@ -22,6 +22,30 @@
       },
       "revId": "cf7e5cbf93decb115b67ae5626ad0e1429b35111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8b26a55_9a8c7445",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1961665
+      },
+      "writtenOn": "2024-09-06T06:39:13Z",
+      "side": 1,
+      "message": "Yes, it was a typo, fixed it in aosp/3258091.",
+      "parentUuid": "73655b65_efc815d8",
+      "range": {
+        "startLine": 978,
+        "startChar": 12,
+        "endLine": 978,
+        "endChar": 27
+      },
+      "revId": "cf7e5cbf93decb115b67ae5626ad0e1429b35111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
