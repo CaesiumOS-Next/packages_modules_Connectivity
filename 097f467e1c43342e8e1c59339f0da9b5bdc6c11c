@@ -50,6 +50,266 @@
       "message": "Could it be \u0027equals\u0027?",
       "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10038210_84eef98b",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:52:39Z",
+      "side": 1,
+      "message": "Could it be \u0027equals\u0027?",
+      "fixSuggestions": [
+        {
+          "fixId": "80d3f9f0_8ec0949c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 170,
+                "startChar": 0,
+                "endLine": 171,
+                "endChar": 0
+              },
+              "replacement": "        assertThat(result).isEqualTo(\"Error 13: InvalidState\\r\\n\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2787fa8b_39f58532",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:52:39Z",
+      "side": 1,
+      "message": "The test case name could be more precise. E.g. it can say pings an FTD\u0027s ML-EID and it gets response.",
+      "fixSuggestions": [
+        {
+          "fixId": "bad69a03_3c1960ec",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 174,
+                "startChar": 0,
+                "endLine": 175,
+                "endChar": 0
+              },
+              "replacement": "    public void handleOtCtlCommand_pingFtd_getValidResponse() throws Exception {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dead0aab_2431bdee",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:52:39Z",
+      "side": 1,
+      "message": "Better to use ML-EID. The ML-EID instead of link-local address should be used by mesh local communications.\n https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java;l\u003d132;drc\u003d09e71714fb496f17ca8a6b0f751d934f99e1d2f1",
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "994754d4_b4178166",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:52:39Z",
+      "side": 1,
+      "message": "It may also worth check if the `Done` is the last part of the output.",
+      "range": {
+        "startLine": 182,
+        "startChar": 1,
+        "endLine": 184,
+        "endChar": 44
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "cfca6929_3c92d071",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 184,
+                "startChar": 0,
+                "endLine": 185,
+                "endChar": 0
+              },
+              "replacement": "        assertThat(result).endsWith(\"Done\\r\\n\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3363faf_9123a221",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:52:39Z",
+      "side": 1,
+      "message": "nit: make this a helper method so you don\u0027t have to repeat the pattern.\n\nI\u0027m fine keep it as-is and we can improve it in a later CL.",
+      "range": {
+        "startLine": 324,
+        "startChar": 5,
+        "endLine": 329,
+        "endChar": 50
+      },
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8156fd4_7a49f7f7",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:52:39Z",
+      "side": 1,
+      "message": "Is this a real exception could happen in the workflow?",
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c313a5e2_fa26b378",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:52:39Z",
+      "side": 1,
+      "message": "It\u0027ll be better if the user can receive an error message.",
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9198d4c_890882fb",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:52:39Z",
+      "side": 1,
+      "message": "```suggestion\n    public void handleOtCtlCommand_nonInteractive_serviceTimeout_failsWithTimeoutError() {\n```",
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8daf3f34_94b69b28",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:52:39Z",
+      "side": 1,
+      "message": "Could this be simplified by passing `eq(\"state\")`?",
+      "range": {
+        "startLine": 376,
+        "startChar": 28,
+        "endLine": 376,
+        "endChar": 58
+      },
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16b884f2_3d300d8e",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-06T02:52:39Z",
+      "side": 1,
+      "message": "You\u0027re testing the non-interactive test case so you need to ensure the boolean is false.",
+      "fixSuggestions": [
+        {
+          "fixId": "28e6161d_b832d6e0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 322,
+                "startChar": 0,
+                "endLine": 323,
+                "endChar": 0
+              },
+              "replacement": "                .runOtCtlCommand(anyString(), any(), eq(false));\n"
+            }
+          ]
+        }
+      ],
+      "revId": "097f467e1c43342e8e1c59339f0da9b5bdc6c11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
