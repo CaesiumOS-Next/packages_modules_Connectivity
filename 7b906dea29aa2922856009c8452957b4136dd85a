@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d02c0f8c_6a6c515e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-06T02:08:18Z",
+      "side": 1,
+      "message": "LGTM but not sure whether lorenzo want to take a look.",
+      "revId": "7b906dea29aa2922856009c8452957b4136dd85a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
