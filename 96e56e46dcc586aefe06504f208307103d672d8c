@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bef7c45_3ee2db80",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-06T07:12:40Z",
+      "side": 1,
+      "message": "Could we clarify if `mMtu \u003d\u003d0` means no MTU is specified ?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d7f46749_50a4a352",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 55,
+                "startChar": 0,
+                "endLine": 55,
+                "endChar": 0
+              },
+              "replacement": "    // The default value of MTU is 0, which means no MTU is specified.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "96e56e46dcc586aefe06504f208307103d672d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "323c3567_fd5ecd69",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-06T07:12:40Z",
+      "side": 1,
+      "message": "Another nit about the default value: this should be a file constant (you could do the cleanup as a separate patch for the whole file).",
+      "range": {
+        "startLine": 156,
+        "startChar": 48,
+        "endLine": 156,
+        "endChar": 70
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4da1d2a5_a6ace13d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 51,
+                "startChar": 0,
+                "endLine": 51,
+                "endChar": 0
+              },
+              "replacement": "    private static final int DEFAULT_MTU \u003d 0;\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 156,
+                "startChar": 0,
+                "endLine": 157,
+                "endChar": 0
+              },
+              "replacement": "            linkMsg.setMtu(nlAttr.getValueAsInt(DEFAULT_MTU));\n"
+            }
+          ]
+        }
+      ],
+      "revId": "96e56e46dcc586aefe06504f208307103d672d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
