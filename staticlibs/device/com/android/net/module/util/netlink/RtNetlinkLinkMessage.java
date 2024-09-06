@@ -27,6 +27,7 @@ import androidx.annotation.VisibleForTesting;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Optional;
 
 /**
  * A NetlinkMessage subclass for rtnetlink link messages.
@@ -48,41 +49,82 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
     public static final short IFLA_AF_SPEC = 26;
 
     public static final short IN6_ADDR_GEN_MODE_NONE = 1;
+    // The maximum buffer size to hold an interface name including the null-terminator '\0'.
+    private static final int IFNAMSIZ = 16;
+    // The invalid value of MTU, which should be rejected by setMtu() method.
+    private static final int INVALID_MTU = -1;
 
-    private int mMtu;
     @NonNull
     private StructIfinfoMsg mIfinfomsg;
+    private Optional<Integer> mMtu;
     @Nullable
     private MacAddress mHardwareAddress;
     @Nullable
     private String mInterfaceName;
 
-    private RtNetlinkLinkMessage(@NonNull StructNlMsgHdr header) {
+    public RtNetlinkLinkMessage(
+            @NonNull StructNlMsgHdr header,
+            @NonNull StructIfinfoMsg ifinfomsg) {
         super(header);
-        mIfinfomsg = null;
-        mMtu = 0;
+        mIfinfomsg = ifinfomsg;
+        mMtu = Optional.empty();
         mHardwareAddress = null;
         mInterfaceName = null;
     }
 
-    @VisibleForTesting
-    public RtNetlinkLinkMessage(@NonNull StructNlMsgHdr nlmsghdr,
-            int mtu, @NonNull StructIfinfoMsg ifinfomsg, @NonNull MacAddress hardwareAddress,
-            @NonNull String interfaceName) {
-        super(nlmsghdr);
-        mMtu = mtu;
-        mIfinfomsg = ifinfomsg;
-        mHardwareAddress = hardwareAddress;
-        mInterfaceName = interfaceName;
+    /**
+     * Sets the MTU for this object.
+     *
+     * @param mtu The desired MTU value.
+     * @return {@code true} if the MTU was successfully set,
+     *         {@code false} if the provided MTU is invalid.
+     */
+    public boolean setMtu(int mtu) {
+        if (mtu <= 0) {
+            return false;
+        }
+        mMtu = Optional.of(mtu);
+        return true;
     }
 
-    public int getMtu() {
-        return mMtu;
+    /**
+     * Sets the hardware address (MAC address) for this object.
+     *
+     * @param hardwareAddress The new MAC address to set.
+     * @return {@code true} if the hardware address was successfully set,
+     *         {@code false} if the provided address is invalid.
+     */
+    public boolean setHardwareAddress(MacAddress hardwareAddress) {
+        if (hardwareAddress == null) {
+            return false;
+        }
+        mHardwareAddress = hardwareAddress;
+        return true;
+    }
+
+    /**
+     * Sets the network interface name for this object.
+     *
+     * @param interfaceName The interface name.
+     * @return {@code true} if the interface name was successfully set,
+     *         {@code false} if the provided name is invalid.
+     */
+    public boolean setInterfaceName(String interfaceName) {
+        if (interfaceName == null || interfaceName.isEmpty()
+                || interfaceName.length() + 1 > IFNAMSIZ) {
+            return false;
+        }
+        mInterfaceName = interfaceName;
+        return true;
     }
 
     @NonNull
     public StructIfinfoMsg getIfinfoHeader() {
         return mIfinfomsg;
+    }
+
+    public Optional<Integer> getMtu() {
+        return mMtu;
     }
 
     @Nullable
@@ -105,30 +147,31 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
     @Nullable
     public static RtNetlinkLinkMessage parse(@NonNull final StructNlMsgHdr header,
             @NonNull final ByteBuffer byteBuffer) {
-        final RtNetlinkLinkMessage linkMsg = new RtNetlinkLinkMessage(header);
-
-        linkMsg.mIfinfomsg = StructIfinfoMsg.parse(byteBuffer);
-        if (linkMsg.mIfinfomsg == null) return null;
+        StructIfinfoMsg ifinfoMsg = StructIfinfoMsg.parse(byteBuffer);
+        if (ifinfoMsg == null) {
+            return null;
+        }
+        final RtNetlinkLinkMessage linkMsg = new RtNetlinkLinkMessage(header, ifinfoMsg);
 
         // IFLA_MTU
         final int baseOffset = byteBuffer.position();
         StructNlAttr nlAttr = StructNlAttr.findNextAttrOfType(IFLA_MTU, byteBuffer);
         if (nlAttr != null) {
-            linkMsg.mMtu = nlAttr.getValueAsInt(0 /* default value */);
+            linkMsg.setMtu(nlAttr.getValueAsInt(INVALID_MTU));
         }
 
         // IFLA_ADDRESS
         byteBuffer.position(baseOffset);
         nlAttr = StructNlAttr.findNextAttrOfType(IFLA_ADDRESS, byteBuffer);
         if (nlAttr != null) {
-            linkMsg.mHardwareAddress = nlAttr.getValueAsMacAddress();
+            linkMsg.setHardwareAddress(nlAttr.getValueAsMacAddress());
         }
 
         // IFLA_IFNAME
         byteBuffer.position(baseOffset);
         nlAttr = StructNlAttr.findNextAttrOfType(IFLA_IFNAME, byteBuffer);
         if (nlAttr != null) {
-            linkMsg.mInterfaceName = nlAttr.getValueAsString();
+            linkMsg.setInterfaceName(nlAttr.getValueAsString());
         }
 
         return linkMsg;
@@ -155,10 +198,10 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
         mHeader.pack(byteBuffer);
         mIfinfomsg.pack(byteBuffer);
 
-        if (mMtu != 0) {
-            final StructNlAttr mtu = new StructNlAttr(IFLA_MTU, mMtu);
+        mMtu.ifPresent(value -> {
+            final StructNlAttr mtu = new StructNlAttr(IFLA_MTU, value);
             mtu.pack(byteBuffer);
-        }
+        });
         if (mHardwareAddress != null) {
             final StructNlAttr hardwareAddress = new StructNlAttr(IFLA_ADDRESS, mHardwareAddress);
             hardwareAddress.pack(byteBuffer);
@@ -175,7 +218,7 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
      */
     private int calculateMessageLength() {
         int length = StructNlMsgHdr.STRUCT_SIZE + StructIfinfoMsg.STRUCT_SIZE;
-        if (mMtu != 0) {
+        if (mMtu.isPresent()) {
             length += NetlinkConstants.alignedLengthOf(StructNlAttr.NLA_HEADERLEN + Integer.BYTES);
         }
         if (mHardwareAddress != null) {
