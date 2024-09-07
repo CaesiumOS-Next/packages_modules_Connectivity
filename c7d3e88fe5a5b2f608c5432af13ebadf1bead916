@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d7d15f4_d90241f6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-07T14:51:19Z",
+      "side": 1,
+      "message": "Do we already do this? I don\u0027t see where we do the stop polling and upload?",
+      "range": {
+        "startLine": 556,
+        "startChar": 11,
+        "endLine": 556,
+        "endChar": 60
+      },
+      "revId": "c7d3e88fe5a5b2f608c5432af13ebadf1bead916",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f419fb61_af96aa23",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-07T14:51:19Z",
+      "side": 1,
+      "message": "We know Log.wtf() do nothing on production. \n\nHere it seems we only do additional logging and we clean up the counter anyway on line 556, so it seems to me this two line is redundant.",
+      "range": {
+        "startLine": 562,
+        "startChar": 12,
+        "endLine": 565,
+        "endChar": 13
+      },
+      "revId": "c7d3e88fe5a5b2f608c5432af13ebadf1bead916",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19a2a803_6cd06a4e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2039,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-07T14:51:19Z",
+      "side": 1,
+      "message": "We better off to add more documentation for mLastMaxConnectionCount, e.g. what is used for, when it will be updated, when it will be cleaned/reset.",
+      "range": {
+        "startLine": 2039,
+        "startChar": 8,
+        "endLine": 2039,
+        "endChar": 48
+      },
+      "revId": "c7d3e88fe5a5b2f608c5432af13ebadf1bead916",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e10c150c_ad2384c5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-07T14:51:19Z",
+      "side": 1,
+      "message": "Can we check these two methods in the test case as well?",
+      "range": {
+        "startLine": 2216,
+        "startChar": 8,
+        "endLine": 2222,
+        "endChar": 9
+      },
+      "revId": "c7d3e88fe5a5b2f608c5432af13ebadf1bead916",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d186cc0e_db7c8380",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2229,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-07T14:51:19Z",
+      "side": 1,
+      "message": "for similar reason, this wtf seems not particular useful.",
+      "range": {
+        "startLine": 2226,
+        "startChar": 12,
+        "endLine": 2229,
+        "endChar": 13
+      },
+      "revId": "c7d3e88fe5a5b2f608c5432af13ebadf1bead916",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
