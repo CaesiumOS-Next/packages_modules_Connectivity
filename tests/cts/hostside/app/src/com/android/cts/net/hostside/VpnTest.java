@@ -115,7 +115,6 @@ import android.util.ArraySet;
 import android.util.Log;
 import android.util.Range;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiSelector;
@@ -129,6 +128,7 @@ import com.android.testutils.AutoReleaseNetworkCallbackRule;
 import com.android.testutils.ConnectUtil;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.RecorderCallback;
 import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.TestableNetworkCallback;
@@ -189,7 +189,8 @@ import java.util.concurrent.TimeUnit;
  *   https://source.android.com/devices/tech/config/kernel_network_tests.html
  *
  */
-@RunWith(AndroidJUnit4.class)
+@RunWith(DevSdkIgnoreRunner.class)
+@IgnoreUpTo(Build.VERSION_CODES.S_V2)
 public class VpnTest {
 
     // These are neither public nor @TestApi.
