@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c81f7432_2e4a331c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T04:31:38Z",
+      "side": 0,
+      "message": "It seems to me removing `timeout` could be in a separate CL for code health, we can merge that CL first so this CL can have less diff.",
+      "range": {
+        "startLine": 533,
+        "startChar": 55,
+        "endLine": 533,
+        "endChar": 62
+      },
+      "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
