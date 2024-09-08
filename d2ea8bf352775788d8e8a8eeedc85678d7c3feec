@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd99dbe_d90c5786",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2136,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T04:12:46Z",
+      "side": 1,
+      "message": "Is there a way for us to check getLastMaxConnectionCount() and getCurrentConnectionCount() in this test as well?",
+      "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ee0a2e3_f3a66f8c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2137,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T04:12:46Z",
+      "side": 1,
+      "message": "We better off to explain why here, e.g. the first poll will return the LastMaxCounter and update it to current....",
+      "range": {
+        "startLine": 2137,
+        "startChar": 28,
+        "endLine": 2137,
+        "endChar": 68
+      },
+      "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6547005e_f0e3d6e8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2148,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T04:12:46Z",
+      "side": 1,
+      "message": "after that, shall we also try to add a clientC to see if the getLastMaxConnectionCount is increased as expected?",
+      "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
