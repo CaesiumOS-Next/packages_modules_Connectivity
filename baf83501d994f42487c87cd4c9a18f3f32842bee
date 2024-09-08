@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd7b777d_b0c92795",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DnsSvcbUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T15:21:11Z",
+      "side": 1,
+      "message": "Add @NonNull annotation? Same for the rest of the methods.",
+      "range": {
+        "startLine": 45,
+        "startChar": 18,
+        "endLine": 45,
+        "endChar": 24
+      },
+      "revId": "baf83501d994f42487c87cd4c9a18f3f32842bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d374a10_c54f3224",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DnsSvcbUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T15:21:11Z",
+      "side": 1,
+      "message": "should use `final`. \n\nAlso in the rest of the code there are some variables can be `final` as well.",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 29
+      },
+      "revId": "baf83501d994f42487c87cd4c9a18f3f32842bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f201a041_aea704df",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DnsSvcbUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T15:21:11Z",
+      "side": 1,
+      "message": "Can we directly use DnsSvcbPacket.TYPE_SVCB?",
+      "range": {
+        "startLine": 64,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 26
+      },
+      "revId": "baf83501d994f42487c87cd4c9a18f3f32842bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bed5d78c_3b37ac09",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DnsSvcbUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T15:21:11Z",
+      "side": 1,
+      "message": "nit: I think the java style requires a line break between two different function.",
+      "range": {
+        "startLine": 72,
+        "startChar": 3,
+        "endLine": 72,
+        "endChar": 5
+      },
+      "revId": "baf83501d994f42487c87cd4c9a18f3f32842bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76633b23_2edc1e9c",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DnsSvcbUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T15:21:11Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 73,
+        "startChar": 19,
+        "endLine": 73,
+        "endChar": 23
+      },
+      "revId": "baf83501d994f42487c87cd4c9a18f3f32842bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a99bf001_13b0d04e",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DnsSvcbUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T15:21:11Z",
+      "side": 1,
+      "message": "DnsSvcbPacket.TYPE_SVCB",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 26
+      },
+      "revId": "baf83501d994f42487c87cd4c9a18f3f32842bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aabcb82a_2c14df46",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DnsSvcbUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T15:21:11Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 22
+      },
+      "revId": "baf83501d994f42487c87cd4c9a18f3f32842bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17f64681_19c5ed7c",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DnsSvcbUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T15:21:11Z",
+      "side": 1,
+      "message": "I thinknk we better off to use StandardCharsets.UTF_8?",
+      "range": {
+        "startLine": 125,
+        "startChar": 40,
+        "endLine": 125,
+        "endChar": 48
+      },
+      "revId": "baf83501d994f42487c87cd4c9a18f3f32842bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "836f66f2_cdfce5b6",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/DnsSvcbUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-08T15:21:11Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 147,
+        "startChar": 16,
+        "endLine": 147,
+        "endChar": 22
+      },
+      "revId": "baf83501d994f42487c87cd4c9a18f3f32842bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
