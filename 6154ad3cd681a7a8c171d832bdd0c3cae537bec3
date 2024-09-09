@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ffcc625_fcea209c",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-09T06:06:57Z",
+      "side": 1,
+      "message": "Removed the key from OutcomeReceiver, and also added enum of ephemeral key state to the `onEphemeralKeyStateChanged` callback (disabled, enabled, in-use).",
+      "parentUuid": "6dfb94ce_a3b0e0bb",
+      "range": {
+        "startLine": 211,
+        "startChar": 37,
+        "endLine": 211,
+        "endChar": 43
+      },
+      "revId": "6154ad3cd681a7a8c171d832bdd0c3cae537bec3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d32d321e_373a8c7f",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 20
