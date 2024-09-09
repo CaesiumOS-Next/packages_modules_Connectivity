@@ -18,6 +18,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31b3f241_2b58eca6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-09T03:24:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b85e20ca_00c583a7",
+      "revId": "05820e544fed635e24525055afd5a91866878e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b23e558_e57473a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-09T03:24:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b85e20ca_00c583a7",
+      "revId": "05820e544fed635e24525055afd5a91866878e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3599e37d_82fed262",
@@ -31,6 +67,30 @@
       "writtenOn": "2024-09-09T02:38:00Z",
       "side": 1,
       "message": "Please also run NetworkStatsServiceTest and\nNetworkStatsIntegrationTest",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 4
+      },
+      "revId": "05820e544fed635e24525055afd5a91866878e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2f49b3c_4a77bf17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-09T03:24:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3599e37d_82fed262",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -78,6 +138,30 @@
           ]
         }
       ],
+      "revId": "05820e544fed635e24525055afd5a91866878e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07064b1b_035d6086",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-09T03:24:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4bfb0a8_fc55e048",
+      "range": {
+        "startLine": 80,
+        "startChar": 42,
+        "endLine": 80,
+        "endChar": 63
+      },
       "revId": "05820e544fed635e24525055afd5a91866878e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
