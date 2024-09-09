@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c40445_490c62cd",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2136,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T08:38:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfd99dbe_d90c5786",
+      "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ee0a2e3_f3a66f8c",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07926ad7_7a99df4e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2137,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T08:38:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ee0a2e3_f3a66f8c",
+      "range": {
+        "startLine": 2137,
+        "startChar": 28,
+        "endLine": 2137,
+        "endChar": 68
+      },
+      "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6547005e_f0e3d6e8",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-09-08T04:12:46Z",
       "side": 1,
       "message": "after that, shall we also try to add a clientC to see if the getLastMaxConnectionCount is increased as expected?",
+      "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e44d7114_c26abc23",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2148,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T08:38:08Z",
+      "side": 1,
+      "message": "I think no.\nadd a client doesn\u0027t add forwarding rules.\nThe client create connection does, because that is when the forwarding rules shows up.\nThus add a client doesn\u0027t increase the test coverage.\nFeel free to reopen if feel strongly.",
+      "parentUuid": "6547005e_f0e3d6e8",
       "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
