@@ -22,6 +22,30 @@
       },
       "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd9dc6db_de3bb0d0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T08:36:09Z",
+      "side": 0,
+      "message": "This does not really remove anything but only change the naming to make it more generic. Since it includes ConntrackTimeout and ContrackSampling polling now.\n\nThus I think the renaming needs to be stayed in this CL.\nReopen if any idea.",
+      "parentUuid": "c81f7432_2e4a331c",
+      "range": {
+        "startLine": 533,
+        "startChar": 55,
+        "endLine": 533,
+        "endChar": 62
+      },
+      "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
