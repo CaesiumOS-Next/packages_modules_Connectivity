@@ -1,0 +1,85 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b85e20ca_00c583a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T02:38:00Z",
+      "side": 1,
+      "message": "1. This commit also move \ngetEntryValueForType to trafficStats, right?\nMaybe describe it in the commit message.\n\n2. Doesn\u0027t really need to mention all detail, you can briefly describe what was changed.\nBut the more important thing is why the modification is needed.",
+      "revId": "05820e544fed635e24525055afd5a91866878e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3599e37d_82fed262",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T02:38:00Z",
+      "side": 1,
+      "message": "Please also run NetworkStatsServiceTest and\nNetworkStatsIntegrationTest",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 4
+      },
+      "revId": "05820e544fed635e24525055afd5a91866878e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4bfb0a8_fc55e048",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T02:38:00Z",
+      "side": 1,
+      "message": "Remove debug comment?",
+      "range": {
+        "startLine": 80,
+        "startChar": 42,
+        "endLine": 80,
+        "endChar": 63
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "56c40c73_86b5abd5",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+              "range": {
+                "startLine": 80,
+                "startChar": 0,
+                "endLine": 81,
+                "endChar": 0
+              },
+              "replacement": "        return nss.getUidStats(uid, type);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "05820e544fed635e24525055afd5a91866878e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

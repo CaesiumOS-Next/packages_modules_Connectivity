@@ -1,0 +1,65 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d15b721b_d0747d32",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T02:38:00Z",
+      "side": 1,
+      "message": "final?\nalso for other places.",
+      "range": {
+        "startLine": 964,
+        "startChar": 8,
+        "endLine": 964,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "7539b401_86f5ddf2",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 964,
+                "startChar": 0,
+                "endLine": 965,
+                "endChar": 0
+              },
+              "replacement": "        final NetworkStats stats;\n"
+            },
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 978,
+                "startChar": 0,
+                "endLine": 979,
+                "endChar": 0
+              },
+              "replacement": "        final NetworkStats stats;\n"
+            },
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 992,
+                "startChar": 0,
+                "endLine": 993,
+                "endChar": 0
+              },
+              "replacement": "        final NetworkStats stats;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "335432ce46ae72dc78489cb565a47337c89ec4a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
