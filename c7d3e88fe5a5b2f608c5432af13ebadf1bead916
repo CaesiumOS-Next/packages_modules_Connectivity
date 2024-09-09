@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c5e5f17_8cd11001",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T08:38:37Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "2d7d15f4_d90241f6",
+      "range": {
+        "startLine": 556,
+        "startChar": 11,
+        "endLine": 556,
+        "endChar": 60
+      },
+      "revId": "c7d3e88fe5a5b2f608c5432af13ebadf1bead916",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f419fb61_af96aa23",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-07T14:51:19Z",
       "side": 1,
       "message": "We know Log.wtf() do nothing on production. \n\nHere it seems we only do additional logging and we clean up the counter anyway on line 556, so it seems to me this two line is redundant.",
+      "range": {
+        "startLine": 562,
+        "startChar": 12,
+        "endLine": 565,
+        "endChar": 13
+      },
+      "revId": "c7d3e88fe5a5b2f608c5432af13ebadf1bead916",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "862adf75_4ebc4e27",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T08:38:37Z",
+      "side": 1,
+      "message": "Yes it does nothing on the production build.\nThis is for eng build to record the event and callstack on the pitot system if happens.\nThus we can know this is actually happening in the field for some reason and try to debug.\nFeel free to reopen if you still think this is not useful.",
+      "parentUuid": "f419fb61_af96aa23",
       "range": {
         "startLine": 562,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6adac98e_543ea0e3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2039,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T08:38:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19a2a803_6cd06a4e",
+      "range": {
+        "startLine": 2039,
+        "startChar": 8,
+        "endLine": 2039,
+        "endChar": 48
+      },
+      "revId": "c7d3e88fe5a5b2f608c5432af13ebadf1bead916",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e10c150c_ad2384c5",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c1033a4_25be7bf6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T08:38:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e10c150c_ad2384c5",
+      "range": {
+        "startLine": 2216,
+        "startChar": 8,
+        "endLine": 2222,
+        "endChar": 9
+      },
+      "revId": "c7d3e88fe5a5b2f608c5432af13ebadf1bead916",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d186cc0e_db7c8380",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-09-07T14:51:19Z",
       "side": 1,
       "message": "for similar reason, this wtf seems not particular useful.",
+      "range": {
+        "startLine": 2226,
+        "startChar": 12,
+        "endLine": 2229,
+        "endChar": 13
+      },
+      "revId": "c7d3e88fe5a5b2f608c5432af13ebadf1bead916",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "225be14d_db6250bd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2229,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T08:38:37Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "d186cc0e_db7c8380",
       "range": {
         "startLine": 2226,
         "startChar": 12,
