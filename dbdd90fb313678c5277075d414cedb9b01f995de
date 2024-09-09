@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aa5c520_d7f372f6",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T04:37:03Z",
+      "side": 0,
+      "message": "Redundant change?",
+      "range": {
+        "startLine": 33,
+        "startChar": 20,
+        "endLine": 33,
+        "endChar": 35
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a9f73355_03b569b1",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+              "range": {
+                "startLine": 33,
+                "startChar": 0,
+                "endLine": 34,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+              "range": {
+                "startLine": 50,
+                "startChar": 0,
+                "endLine": 50,
+                "endChar": 0
+              },
+              "replacement": "import java.util.Map;\n"
+            },
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+              "range": {
+                "startLine": 65,
+                "startChar": 0,
+                "endLine": 66,
+                "endChar": 0
+              },
+              "replacement": "    private final Map\u003cInteger, Function\u003cInteger, Long\u003e\u003e mUidStatsQueryOpMap \u003d\n            CollectionUtils.mapOf();\n"
+            },
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+              "range": {
+                "startLine": 69,
+                "startChar": 0,
+                "endLine": 73,
+                "endChar": 0
+              },
+              "replacement": "        mUidStatsQueryOpMap.put(TYPE_RX_BYTES, uid -\u003e TrafficStats.getUidRxBytes(uid));\n        mUidStatsQueryOpMap.put(TYPE_RX_PACKETS, uid -\u003e TrafficStats.getUidRxPackets(uid));\n        mUidStatsQueryOpMap.put(TYPE_TX_BYTES, uid -\u003e TrafficStats.getUidTxBytes(uid));\n        mUidStatsQueryOpMap.put(TYPE_TX_PACKETS, uid -\u003e TrafficStats.getUidTxPackets(uid));\n"
+            },
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+              "range": {
+                "startLine": 110,
+                "startChar": 0,
+                "endLine": 112,
+                "endChar": 0
+              },
+              "replacement": "            for (int i \u003d 0; i \u003c mUidStatsQueryOpMap.size(); i++) {\n                final int type \u003d mUidStatsQueryOpMap.keyAt(i);\n"
+            },
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+              "range": {
+                "startLine": 114,
+                "startChar": 0,
+                "endLine": 115,
+                "endChar": 0
+              },
+              "replacement": "                    final long uidTrafficStats \u003d mUidStatsQueryOpMap.get(type).apply(uid);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "dbdd90fb313678c5277075d414cedb9b01f995de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

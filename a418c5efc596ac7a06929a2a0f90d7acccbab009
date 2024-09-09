@@ -1,0 +1,160 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfc8d0eb_88ebfc5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T04:37:03Z",
+      "side": 1,
+      "message": "1. Ne?\n\n2. Maybe describe why this is needed.\nMaybe: This is needed because in follow-up changes,\nthe NetworkStats instead of indiviual numbers will\nbe stored as a cache entry\u003e",
+      "range": {
+        "startLine": 14,
+        "startChar": 30,
+        "endLine": 14,
+        "endChar": 32
+      },
+      "revId": "a418c5efc596ac7a06929a2a0f90d7acccbab009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7790cdae_b1efd959",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T04:37:03Z",
+      "side": 1,
+      "message": "Need to update this?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "a418c5efc596ac7a06929a2a0f90d7acccbab009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d569d8b6_217e7117",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T04:37:03Z",
+      "side": 1,
+      "message": "Maybe also: this is needed because in the follow-up changes,\nthese utils would be both accessed by TrafficStats and NetworkStatsService.",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "a418c5efc596ac7a06929a2a0f90d7acccbab009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83a1d672_3f68944e",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T04:37:03Z",
+      "side": 1,
+      "message": "1. Maybe getValueForTypeFromStats\n2. Since this reads only the first entry.\nMaybe \ngetValueForTypeFromFirstEntry\n\n3. I think we\u0027ll unit test this.\nwhich might include:\n a. invalid type\n b. null stats object.\n c. empty stats object.\n d. valid stats object.",
+      "range": {
+        "startLine": 1160,
+        "startChar": 23,
+        "endLine": 1160,
+        "endChar": 52
+      },
+      "revId": "a418c5efc596ac7a06929a2a0f90d7acccbab009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db510511_92d6ccd1",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T04:37:03Z",
+      "side": 1,
+      "message": "IIUC this won\u0027t happen because iterator return value is @NonNull?\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework-t/src/android/net/NetworkStats.java;l\u003d717?ss\u003dandroid\u0026q\u003dNetworkStats",
+      "range": {
+        "startLine": 1161,
+        "startChar": 29,
+        "endLine": 1161,
+        "endChar": 53
+      },
+      "revId": "a418c5efc596ac7a06929a2a0f90d7acccbab009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90ce8510_5ccccb43",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-09T04:37:03Z",
+      "side": 1,
+      "message": "1. I think this changes the index?\nThus l.1163 would read nothing, right?\n\n\n2. Since getEntryValueForType handles null and invalid type.\nCan this be simplified to:\n\nif (stats \u003d\u003d null) return UNSUPPORTED;\nreturn getEntryValueForType(stats.iterator().next(), type);\n?",
+      "range": {
+        "startLine": 1161,
+        "startChar": 74,
+        "endLine": 1161,
+        "endChar": 81
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "6535c6b1_53e7ad94",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 1161,
+                "startChar": 0,
+                "endLine": 1163,
+                "endChar": 0
+              },
+              "replacement": "        if (stats \u003d\u003d null) return UNSUPPORTED;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a418c5efc596ac7a06929a2a0f90d7acccbab009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
