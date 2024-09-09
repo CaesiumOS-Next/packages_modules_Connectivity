@@ -16,6 +16,23 @@
       "message": "The change doesn\u0027t fix the issue",
       "revId": "c7bfa623f98bfa67bbd01986448beddb2f98d83c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10794ce0_d360002d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-09T07:17:01Z",
+      "side": 1,
+      "message": "I think we need this fix anyway to make it consist with other test app setup.",
+      "revId": "c7bfa623f98bfa67bbd01986448beddb2f98d83c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
