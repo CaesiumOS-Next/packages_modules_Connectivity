@@ -16,6 +16,24 @@
       "message": "Looks like some tests not passing on CF, \n\n```\n[15/35] com.android.cts.net.HostsideVpnTests#testAutomaticOnOffKeepaliveModeNoClose: FAILED (5.944s)\n[17/35] com.android.cts.net.HostsideVpnTests#testAutomaticOnOffKeepaliveModeClose: FAILED (5.617s)\n```\n\nI think we need to skip those test on CF before we put the test into postsubmit",
       "revId": "5f0ddbdf4e56ebd3bef9d981884c02cc16473228",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3452dd78_02ca1d3b",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-09T11:53:49Z",
+      "side": 1,
+      "message": "Nvm, we already add RequiresDevice",
+      "parentUuid": "a9e50182_f00c0aef",
+      "revId": "5f0ddbdf4e56ebd3bef9d981884c02cc16473228",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
