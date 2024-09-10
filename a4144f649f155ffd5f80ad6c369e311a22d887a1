@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "148f58fb_a4c10f8d",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:44:16Z",
+      "side": 1,
+      "message": "Does service side need to access this method?\nIf not, can it be private/package private with @VisibleForTesting(visiblity \u003d PRIVATE)",
+      "range": {
+        "startLine": 1160,
+        "startChar": 4,
+        "endLine": 1160,
+        "endChar": 10
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c0a03166_9c1fe9fe",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 27,
+                "startChar": 0,
+                "endLine": 27,
+                "endChar": 0
+              },
+              "replacement": "import android.annotation.VisibleForTesting;\n"
+            },
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 1160,
+                "startChar": 0,
+                "endLine": 1161,
+                "endChar": 0
+              },
+              "replacement": "    @VisibleForTesting(visibility \u003d VisibleForTesting.Visibility.PACKAGE_PRIVATE)\n    static long getValueForTypeFromFirstEntry(NetworkStats stats, int type) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33db12d1_45207500",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:44:16Z",
+      "side": 1,
+      "message": "nit: Since this will be frequently invoked, is it better if we store the iterator locally to prevent from creating iterator twice?",
+      "range": {
+        "startLine": 1161,
+        "startChar": 30,
+        "endLine": 1161,
+        "endChar": 56
+      },
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "537452b2_9c73bb1f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2150,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:44:16Z",
+      "side": 1,
+      "message": "1. IIUC the return value is not @NonNull?\n2. Question when will it return Null, when will it be empty.\nIt seems we\u0027ll need some documentation about that?\nAlternatively, should we unify them to return an empty object?\n3. Also for other methods.",
+      "range": {
+        "startLine": 2150,
+        "startChar": 24,
+        "endLine": 2150,
+        "endChar": 43
+      },
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6110ae0_e584320d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2155,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:44:16Z",
+      "side": 1,
+      "message": "can this be final?",
+      "range": {
+        "startLine": 2155,
+        "startChar": 8,
+        "endLine": 2155,
+        "endChar": 20
+      },
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21fc2261_d20484b7",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2162,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:44:16Z",
+      "side": 1,
+      "message": "can this be final?",
+      "range": {
+        "startLine": 2162,
+        "startChar": 8,
+        "endLine": 2162,
+        "endChar": 20
+      },
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ab4dac4_75694c95",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:44:16Z",
+      "side": 1,
+      "message": "Maybe define as top level constant\n\nprivate const val TEST_IFACE1 \u003d \"test_iface1\"",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 32
+      },
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
