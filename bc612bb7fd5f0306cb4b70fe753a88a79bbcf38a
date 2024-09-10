@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62728a35_b68c8646",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T07:48:01Z",
+      "side": 1,
+      "message": "You might need it to be public to access it from the test if you run\n```\natest ConnectivityCoverageTests:\u003ctest class\u003e\n```\n\nIf so, annotate it with @VisibleForTesting(visibility \u003d PRIVATE)",
+      "parentUuid": "8de6416a_58c33a09",
+      "range": {
+        "startLine": 1129,
+        "startChar": 4,
+        "endLine": 1129,
+        "endChar": 10
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26c024c7_d61a6fab",
         "filename": "framework-t/src/android/net/TrafficStats.java",
         "patchSetId": 11
