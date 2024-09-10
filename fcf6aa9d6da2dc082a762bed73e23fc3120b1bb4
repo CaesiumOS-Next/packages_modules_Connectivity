@@ -34,6 +34,24 @@
       "parentUuid": "2a7f9d6f_0f7828ed",
       "revId": "fcf6aa9d6da2dc082a762bed73e23fc3120b1bb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87baf276_64893df4",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2024-09-10T05:49:31Z",
+      "side": 1,
+      "message": "It seems they don\u0027t recognize CTS tests so much. Though I added a new test on TetheringTest as well, it couldn\u0027t find mine.",
+      "parentUuid": "07ecb21a_192291a6",
+      "revId": "fcf6aa9d6da2dc082a762bed73e23fc3120b1bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
