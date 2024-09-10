@@ -136,6 +136,7 @@ public class TetheringManager {
             TETHERING_WIFI_P2P,
             TETHERING_NCM,
             TETHERING_ETHERNET,
+            TETHERING_VIRTUAL,
     })
     public @interface TetheringType {
     }
@@ -253,6 +254,7 @@ public class TetheringManager {
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(value = {
             TETHER_ERROR_SERVICE_UNAVAIL,
+            TETHER_ERROR_UNSUPPORTED,
             TETHER_ERROR_INTERNAL_ERROR,
             TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION,
             TETHER_ERROR_UNKNOWN_TYPE,
@@ -775,6 +777,7 @@ public class TetheringManager {
                 mBuilderParcel.connectivityScope = getDefaultConnectivityScope(type);
                 mBuilderParcel.uid = Process.INVALID_UID;
                 mBuilderParcel.softApConfig = null;
+                mBuilderParcel.interfaceName = null;
             }
 
             /**
@@ -817,6 +820,29 @@ public class TetheringManager {
             @NonNull
             public Builder setShouldShowEntitlementUi(boolean showUi) {
                 mBuilderParcel.showProvisioningUi = showUi;
+                return this;
+            }
+
+            /**
+             * Sets the name of the interface. Currently supported only for {@link
+             * #TETHERING_VIRTUAL}.
+             * @hide
+             */
+            @FlaggedApi(Flags.FLAG_TETHERING_REQUEST_VIRTUAL)
+            @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+            @NonNull
+            @SystemApi(client = MODULE_LIBRARIES)
+            public Builder setInterfaceName(@NonNull final String interfaceName) {
+                switch (mBuilderParcel.tetheringType) {
+                    case TETHERING_VIRTUAL:
+                    case TETHERING_WIFI_P2P:
+                    case TETHERING_WIFI:
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Interface name cannot be set for"
+                                + " tethering type " + interfaceName);
+                }
+                mBuilderParcel.interfaceName = interfaceName;
                 return this;
             }
 
@@ -903,6 +929,13 @@ public class TetheringManager {
         /** Check if show entitlement ui.  */
         public boolean getShouldShowEntitlementUi() {
             return mRequestParcel.showProvisioningUi;
+        }
+
+        /** Get interface name.  */
+        @FlaggedApi(Flags.FLAG_TETHERING_REQUEST_VIRTUAL)
+        @Nullable
+        public String getInterfaceName() {
+            return mRequestParcel.interfaceName;
         }
 
         /**
@@ -1022,6 +1055,9 @@ public class TetheringManager {
             if (mRequestParcel.packageName != null) {
                 sj.add("packageName=" + mRequestParcel.packageName);
             }
+            if (mRequestParcel.interfaceName != null) {
+                sj.add("interfaceName=" + mRequestParcel.interfaceName);
+            }
             return sj.toString();
         }
 
@@ -1039,7 +1075,8 @@ public class TetheringManager {
                     && parcel.connectivityScope == otherParcel.connectivityScope
                     && Objects.equals(parcel.softApConfig, otherParcel.softApConfig)
                     && parcel.uid == otherParcel.uid
-                    && Objects.equals(parcel.packageName, otherParcel.packageName);
+                    && Objects.equals(parcel.packageName, otherParcel.packageName)
+                    && Objects.equals(parcel.interfaceName, otherParcel.interfaceName);
         }
 
         @Override
@@ -1048,7 +1085,7 @@ public class TetheringManager {
             return Objects.hash(parcel.tetheringType, parcel.localIPv4Address,
                     parcel.staticClientAddress, parcel.exemptFromEntitlementCheck,
                     parcel.showProvisioningUi, parcel.connectivityScope, parcel.softApConfig,
-                    parcel.uid, parcel.packageName);
+                    parcel.uid, parcel.packageName, parcel.interfaceName);
         }
     }
 
