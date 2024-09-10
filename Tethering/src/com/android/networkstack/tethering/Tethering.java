@@ -831,7 +831,7 @@ public class Tethering {
                 result = setEthernetTethering(request, enable);
                 break;
             case TETHERING_VIRTUAL:
-                result = setVirtualMachineTethering(enable);
+                result = setVirtualMachineTethering(request, enable);
                 break;
             default:
                 Log.w(TAG, "Invalid tether type.");
@@ -1151,10 +1151,14 @@ public class Tethering {
         }
     }
 
-    private int setVirtualMachineTethering(final boolean enable) {
-        // TODO(340377643): Use bridge ifname when it's introduced, not fixed TAP ifname.
+    private int setVirtualMachineTethering(final TetheringRequest request, final boolean enable) {
+        String iface = request.getInterfaceName();
         if (enable) {
-            mConfiguredVirtualIface = "avf_tap_fixed";
+            if (TextUtils.isEmpty(iface)) {
+                mConfiguredVirtualIface = "avf_tap_fixed";
+            } else {
+                mConfiguredVirtualIface = iface;
+            }
             enableIpServing(
                     findTetheringRequest(mConfiguredVirtualIface),
                     mConfiguredVirtualIface);
