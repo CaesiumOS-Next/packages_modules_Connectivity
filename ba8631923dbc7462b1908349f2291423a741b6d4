@@ -46,6 +46,30 @@
       },
       "revId": "ba8631923dbc7462b1908349f2291423a741b6d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0df52d4_69cae69b",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-10T05:33:53Z",
+      "side": 0,
+      "message": "Yes. Because the original pack() method doesn\u0027t calculate the length of the whole message, and the packed byte contains the same wrong value as the parsed byte.",
+      "parentUuid": "d1c4a615_3243459c",
+      "range": {
+        "startLine": 127,
+        "startChar": 13,
+        "endLine": 127,
+        "endChar": 15
+      },
+      "revId": "ba8631923dbc7462b1908349f2291423a741b6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
