@@ -52,6 +52,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98ba5cf7_f44411c5",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T03:25:17Z",
+      "side": 1,
+      "message": "yes it does, since the implementation of getUidStats is chained with getTypelessUidStats",
+      "parentUuid": "148f58fb_a4c10f8d",
+      "range": {
+        "startLine": 1160,
+        "startChar": 4,
+        "endLine": 1160,
+        "endChar": 10
+      },
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33db12d1_45207500",
@@ -65,6 +89,30 @@
       "writtenOn": "2024-09-10T02:44:16Z",
       "side": 1,
       "message": "nit: Since this will be frequently invoked, is it better if we store the iterator locally to prevent from creating iterator twice?",
+      "range": {
+        "startLine": 1161,
+        "startChar": 30,
+        "endLine": 1161,
+        "endChar": 56
+      },
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f674c3f3_c8585ce2",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T03:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33db12d1_45207500",
       "range": {
         "startLine": 1161,
         "startChar": 30,
@@ -98,6 +146,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03f076f6_cebd16ae",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2150,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T03:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "537452b2_9c73bb1f",
+      "range": {
+        "startLine": 2150,
+        "startChar": 24,
+        "endLine": 2150,
+        "endChar": 43
+      },
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6110ae0_e584320d",
@@ -111,6 +183,30 @@
       "writtenOn": "2024-09-10T02:44:16Z",
       "side": 1,
       "message": "can this be final?",
+      "range": {
+        "startLine": 2155,
+        "startChar": 8,
+        "endLine": 2155,
+        "endChar": 20
+      },
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91bfc563_84b3c6e5",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2155,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T03:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6110ae0_e584320d",
       "range": {
         "startLine": 2155,
         "startChar": 8,
@@ -144,6 +240,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a79d84cd_6d4447f0",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2162,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T03:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21fc2261_d20484b7",
+      "range": {
+        "startLine": 2162,
+        "startChar": 8,
+        "endLine": 2162,
+        "endChar": 20
+      },
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ab4dac4_75694c95",
@@ -157,6 +277,30 @@
       "writtenOn": "2024-09-10T02:44:16Z",
       "side": 1,
       "message": "Maybe define as top level constant\n\nprivate const val TEST_IFACE1 \u003d \"test_iface1\"",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 32
+      },
+      "revId": "a4144f649f155ffd5f80ad6c369e311a22d887a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "991061e7_9ca06aa6",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T03:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ab4dac4_75694c95",
       "range": {
         "startLine": 41,
         "startChar": 26,
