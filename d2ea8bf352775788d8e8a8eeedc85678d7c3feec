@@ -116,6 +116,24 @@
       "parentUuid": "6547005e_f0e3d6e8",
       "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e03c62_872114bc",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2148,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-10T02:25:53Z",
+      "side": 1,
+      "message": "Acked.",
+      "parentUuid": "e44d7114_c26abc23",
+      "revId": "d2ea8bf352775788d8e8a8eeedc85678d7c3feec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
