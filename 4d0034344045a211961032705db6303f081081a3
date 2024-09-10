@@ -1,0 +1,196 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ccf87f2_c67065d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:46:04Z",
+      "side": 1,
+      "message": "Can we name this more specific?\nAnd describe when will it be removed?\nRemove cached mDNS services when ...",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 22
+      },
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "340ddfe3_9210e6b5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:46:04Z",
+      "side": 1,
+      "message": "Not for this CL.\nThe naming of SocketKey is super confusing.\nPer discuss, SocketKey is used for identifying a network, if so, maybe rename to NetworkKey or something to reflect the fact.",
+      "range": {
+        "startLine": 402,
+        "startChar": 78,
+        "endLine": 402,
+        "endChar": 88
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "30e6676d_4269b1d6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+              "range": {
+                "startLine": 402,
+                "startChar": 0,
+                "endLine": 402,
+                "endChar": 0
+              },
+              "replacement": "        // TODO: rename SocketKey to NetworkKey\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bb0aec0_a2d27724",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:46:04Z",
+      "side": 1,
+      "message": "1. @NonNull?\n\n2. maybe ensureRunningOnHandlerThread?",
+      "range": {
+        "startLine": 414,
+        "startChar": 4,
+        "endLine": 414,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "2d85ae88_8d1795a9",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+              "range": {
+                "startLine": 414,
+                "startChar": 0,
+                "endLine": 415,
+                "endChar": 0
+              },
+              "replacement": "    @NonNull MdnsServiceCache getServiceCache() {\n        discoveryExecutor.ensureRunningOnHandlerThread();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "613a47cd_4788f698",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:46:04Z",
+      "side": 1,
+      "message": "The time is used after socket destroyed.\nMaybe rename it more specifically?",
+      "range": {
+        "startLine": 119,
+        "startChar": 22,
+        "endLine": 119,
+        "endChar": 45
+      },
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77d3dcef_35a261cf",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:46:04Z",
+      "side": 1,
+      "message": "Stupid Question: Do we have platform version dependency?",
+      "range": {
+        "startLine": 201,
+        "startChar": 19,
+        "endLine": 201,
+        "endChar": 49
+      },
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aff20869_e9169ba7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:46:04Z",
+      "side": 1,
+      "message": "Can this be package private?",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 10
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "0327171d_ad720532",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+              "range": {
+                "startLine": 52,
+                "startChar": 0,
+                "endLine": 53,
+                "endChar": 0
+              },
+              "replacement": "    static class CacheKey {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
