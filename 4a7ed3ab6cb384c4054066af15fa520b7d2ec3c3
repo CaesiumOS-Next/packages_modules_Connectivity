@@ -52,6 +52,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd0a41e6_229a9913",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-10T07:58:28Z",
+      "side": 1,
+      "message": "Done. Created NLM_F_REQUEST_ACK constants for this.",
+      "parentUuid": "53e6f44d_bd758565",
+      "range": {
+        "startLine": 270,
+        "startChar": 51,
+        "endLine": 270,
+        "endChar": 86
+      },
+      "revId": "4a7ed3ab6cb384c4054066af15fa520b7d2ec3c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b94e1cfe_706905df",
@@ -109,6 +133,30 @@
           ]
         }
       ],
+      "revId": "4a7ed3ab6cb384c4054066af15fa520b7d2ec3c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d07b3d8a_c51008f2",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-10T07:58:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b94e1cfe_706905df",
+      "range": {
+        "startLine": 221,
+        "startChar": 44,
+        "endLine": 221,
+        "endChar": 56
+      },
       "revId": "4a7ed3ab6cb384c4054066af15fa520b7d2ec3c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
