@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9df36bdf_fcb26295",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2598,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T02:53:39Z",
+      "side": 1,
+      "message": "Prefer keep it as is since \n this is more like a java syntax thing.\n and people will immediately get build error if they try to do it.",
+      "parentUuid": "a326ebf7_661c7098",
+      "range": {
+        "startLine": 2598,
+        "startChar": 17,
+        "endLine": 2598,
+        "endChar": 45
+      },
+      "revId": "eb302d938ed837cf5477dd086e052c35274e3794",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "585bf47b_39938810",
