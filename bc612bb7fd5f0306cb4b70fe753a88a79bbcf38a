@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "573c2f0e_372718ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T09:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8f8398a_1bdd00f4",
+      "range": {
+        "startLine": 24,
+        "startChar": 54,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf9b56e6_a9ccbca4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T09:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "979068ac_7a1b562d",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 4
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfbe16fa_c4d12fa4",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-09-10T07:51:53Z",
       "side": 1,
       "message": "nit: You might want to run ConnectivityCoverageTests if you change visibility of util methods.",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dd41cac_f3f2d3cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T09:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfbe16fa_c4d12fa4",
       "range": {
         "startLine": 28,
         "startChar": 6,
@@ -117,6 +189,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45496ae7_211818a4",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T09:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62728a35_b68c8646",
+      "range": {
+        "startLine": 1129,
+        "startChar": 4,
+        "endLine": 1129,
+        "endChar": 10
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89476a54_bf8a4dfc",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T09:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62728a35_b68c8646",
+      "range": {
+        "startLine": 1129,
+        "startChar": 4,
+        "endLine": 1129,
+        "endChar": 10
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26c024c7_d61a6fab",
@@ -140,6 +260,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e77ef714_05b34ce4",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T09:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26c024c7_d61a6fab",
+      "range": {
+        "startLine": 1130,
+        "startChar": 8,
+        "endLine": 1130,
+        "endChar": 60
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2317a6b3_eb5b09cd",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T09:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26c024c7_d61a6fab",
+      "range": {
+        "startLine": 1130,
+        "startChar": 8,
+        "endLine": 1130,
+        "endChar": 60
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41d1d1ad_2d56356c",
@@ -153,6 +321,30 @@
       "writtenOn": "2024-09-10T07:43:43Z",
       "side": 1,
       "message": "nit: ditto",
+      "range": {
+        "startLine": 1148,
+        "startChar": 4,
+        "endLine": 1148,
+        "endChar": 10
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40585f6c_1d4ab1df",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T09:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41d1d1ad_2d56356c",
       "range": {
         "startLine": 1148,
         "startChar": 4,
@@ -200,6 +392,30 @@
           ]
         }
       ],
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1718471_7a562297",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T09:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dd59e88_29049369",
+      "range": {
+        "startLine": 1161,
+        "startChar": 54,
+        "endLine": 1161,
+        "endChar": 62
+      },
       "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
