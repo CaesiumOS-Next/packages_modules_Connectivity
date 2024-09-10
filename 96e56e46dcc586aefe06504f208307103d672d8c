@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c74b2889_4e2f7dd9",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-10T05:43:16Z",
+      "side": 1,
+      "message": "Done, added the comment at DEFAULT_MTU constant.",
+      "parentUuid": "5bef7c45_3ee2db80",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "96e56e46dcc586aefe06504f208307103d672d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "323c3567_fd5ecd69",
@@ -89,6 +113,30 @@
           ]
         }
       ],
+      "revId": "96e56e46dcc586aefe06504f208307103d672d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84771ae_35495ad9",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-10T05:43:16Z",
+      "side": 1,
+      "message": "It\u0027s small change that is (slightly) related to this CL. Let me do it in this CL.",
+      "parentUuid": "323c3567_fd5ecd69",
+      "range": {
+        "startLine": 156,
+        "startChar": 48,
+        "endLine": 156,
+        "endChar": 70
+      },
       "revId": "96e56e46dcc586aefe06504f208307103d672d8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
