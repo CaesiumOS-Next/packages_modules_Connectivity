@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8f8398a_1bdd00f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T07:43:43Z",
+      "side": 1,
+      "message": "nit: remove \"\\\" since there is no line continuation here.\nalso for below.",
+      "range": {
+        "startLine": 24,
+        "startChar": 54,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "979068ac_7a1b562d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T07:43:43Z",
+      "side": 1,
+      "message": "Might want to document TrafficStats unit test as well.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 4
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8de6416a_58c33a09",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T07:43:43Z",
+      "side": 1,
+      "message": "nit: IIUC this can be private since service does not call this?",
+      "range": {
+        "startLine": 1129,
+        "startChar": 4,
+        "endLine": 1129,
+        "endChar": 10
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c024c7_d61a6fab",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T07:43:43Z",
+      "side": 1,
+      "message": "nit: Can use \nObjects.requiresNotNull(entry);\nFeel free to ignore.",
+      "range": {
+        "startLine": 1130,
+        "startChar": 8,
+        "endLine": 1130,
+        "endChar": 60
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41d1d1ad_2d56356c",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T07:43:43Z",
+      "side": 1,
+      "message": "nit: ditto",
+      "range": {
+        "startLine": 1148,
+        "startChar": 4,
+        "endLine": 1148,
+        "endChar": 10
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
