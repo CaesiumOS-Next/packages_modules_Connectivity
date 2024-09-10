@@ -51,5 +51,9 @@ package android.net {
     method @FlaggedApi("com.android.net.flags.tethering_with_soft_ap_config") public int getUid();
   }
 
+  public static class TetheringManager.TetheringRequest.Builder {
+    method @FlaggedApi("com.android.net.flags.tethering_with_soft_ap_config") @NonNull @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED) public android.net.TetheringManager.TetheringRequest.Builder setInterfaceName(@NonNull String);
+  }
+
 }
 
