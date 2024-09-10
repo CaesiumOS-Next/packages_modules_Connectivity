@@ -66,6 +66,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6485b350_7be8c2f3",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T10:07:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf963d13_9a1a17d6",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 64
+      },
+      "revId": "39aadac0a48059bfc4966b6a7ae3176c9d3a7cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85e0b87f_e28348b3",
@@ -103,6 +127,30 @@
       "side": 1,
       "message": "Yeah, potentially the list can be overridden. Because we don\u0027t know what they actually did, If some OEM report CTS failure, we can update the test to fix it.",
       "parentUuid": "85e0b87f_e28348b3",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 74
+      },
+      "revId": "39aadac0a48059bfc4966b6a7ae3176c9d3a7cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e88cc72_0a150d39",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T10:07:17Z",
+      "side": 1,
+      "message": "After check we only runs this test on V.\nSo removed because we don\u0027t even care.",
+      "parentUuid": "bd5d084f_5c793dba",
       "range": {
         "startLine": 27,
         "startChar": 0,
@@ -160,6 +208,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eba7469_e14da824",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T10:07:17Z",
+      "side": 1,
+      "message": "Removed.\nIt is cts so this test only runs on the next Android release unless we want to backport to older Android platform, which is unlikely.\n\nThis can be mcts if have new functionally which needs to be verified for new module (e.g. NSD). But for now it is cts and following the android V release.",
+      "parentUuid": "7b838a5d_9e638307",
+      "range": {
+        "startLine": 27,
+        "startChar": 1,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "39aadac0a48059bfc4966b6a7ae3176c9d3a7cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f73f4e5_09f7bb36",
@@ -173,6 +245,30 @@
       "writtenOn": "2024-09-04T00:27:17Z",
       "side": 1,
       "message": "no \u0027s\u0027.\n\nOr perhaps even better as\n\n# Pad with zeroes to minimum ethernet frame length.",
+      "range": {
+        "startLine": 45,
+        "startChar": 19,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "39aadac0a48059bfc4966b6a7ae3176c9d3a7cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc16737_02271be7",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T10:07:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f73f4e5_09f7bb36",
       "range": {
         "startLine": 45,
         "startChar": 19,
