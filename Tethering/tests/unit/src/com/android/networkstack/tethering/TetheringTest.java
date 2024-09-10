@@ -263,6 +263,7 @@ public class TetheringTest {
     private static final String TEST_P2P_IFNAME = "test_p2p-p2p0-0";
     private static final String TEST_NCM_IFNAME = "test_ncm0";
     private static final String TEST_ETH_IFNAME = "test_eth0";
+    private static final String TEST_VIRT_IFNAME = "test_virt0";
     private static final String TEST_BT_IFNAME = "test_pan0";
     private static final String TEST_VIRTUAL_IFNAME = "avf_tap_fixed";
     private static final String TETHERING_NAME = "Tethering";
@@ -697,7 +698,8 @@ public class TetheringTest {
         when(mNetd.interfaceGetList())
                 .thenReturn(new String[] {
                         TEST_MOBILE_IFNAME, TEST_WLAN_IFNAME, TEST_WLAN2_IFNAME, TEST_RNDIS_IFNAME,
-                        TEST_P2P_IFNAME, TEST_NCM_IFNAME, TEST_ETH_IFNAME, TEST_BT_IFNAME});
+                        TEST_P2P_IFNAME, TEST_NCM_IFNAME, TEST_ETH_IFNAME, TEST_BT_IFNAME,
+                        TEST_VIRT_IFNAME});
         when(mResources.getString(R.string.config_wifi_tether_enable)).thenReturn("");
         mInterfaceConfiguration = new InterfaceConfigurationParcel();
         mInterfaceConfiguration.flags = new String[0];
@@ -788,18 +790,21 @@ public class TetheringTest {
     }
 
     private TetheringRequest createTetheringRequest(final int type) {
-        return createTetheringRequest(type, null, null, false, CONNECTIVITY_SCOPE_GLOBAL);
+        return createTetheringRequest(type, null, null, false, CONNECTIVITY_SCOPE_GLOBAL, null);
     }
 
     private TetheringRequest createTetheringRequest(final int type,
             final LinkAddress localIPv4Address, final LinkAddress staticClientAddress,
-            final boolean exempt, final int scope) {
+            final boolean exempt, final int scope, final String interfaceName) {
         TetheringRequest.Builder builder = new TetheringRequest.Builder(type)
                 .setExemptFromEntitlementCheck(exempt)
                 .setConnectivityScope(scope)
                 .setShouldShowEntitlementUi(false);
         if (localIPv4Address != null && staticClientAddress != null) {
             builder.setStaticIpv4Addresses(localIPv4Address, staticClientAddress);
+        }
+        if (interfaceName != null) {
+            builder.setInterfaceName(interfaceName);
         }
         return builder.build();
     }
@@ -3047,7 +3052,7 @@ public class TetheringTest {
         // Enable USB tethering with a different request and expect that USB is stopped and
         // started.
         mTethering.startTethering(createTetheringRequest(TETHERING_USB,
-                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL),
+                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL, null),
                   TEST_CALLER_PKG, thirdResult);
         mLooper.dispatchAll();
         thirdResult.assertHasResult();
@@ -3078,7 +3083,7 @@ public class TetheringTest {
         final ArgumentCaptor<DhcpServingParamsParcel> dhcpParamsCaptor =
                 ArgumentCaptor.forClass(DhcpServingParamsParcel.class);
         mTethering.startTethering(createTetheringRequest(TETHERING_USB,
-                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL),
+                  serverLinkAddr, clientLinkAddr, false, CONNECTIVITY_SCOPE_GLOBAL, null),
                   TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NCM);
@@ -3208,7 +3213,7 @@ public class TetheringTest {
         when(mWifiManager.startTetheredHotspot(any())).thenReturn(true);
         final TetheringRequest wifiNotExemptRequest =
                 createTetheringRequest(TETHERING_WIFI, null, null, false,
-                        CONNECTIVITY_SCOPE_GLOBAL);
+                        CONNECTIVITY_SCOPE_GLOBAL, null);
         mTethering.startTethering(wifiNotExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr).startProvisioningIfNeeded(wifiNotExemptRequest, false);
@@ -3222,7 +3227,7 @@ public class TetheringTest {
         setupForRequiredProvisioning();
         final TetheringRequest wifiExemptRequest =
                 createTetheringRequest(TETHERING_WIFI, null, null, true,
-                        CONNECTIVITY_SCOPE_GLOBAL);
+                        CONNECTIVITY_SCOPE_GLOBAL, null);
         mTethering.startTethering(wifiExemptRequest, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
         verify(mEntitleMgr, never()).startProvisioningIfNeeded(wifiExemptRequest, false);
@@ -4076,4 +4081,18 @@ public class TetheringTest {
 
     // TODO: Test that a request for hotspot mode doesn't interfere with an
     // already operating tethering mode interface.
+
+    @Test
+    public void testVirtualTetheringWithInterfaceName() throws Exception {
+        initTetheringOnTestThread();
+        final TetheringRequest virtualTetheringRequest =
+                createTetheringRequest(TETHERING_VIRTUAL, null, null, false,
+                        CONNECTIVITY_SCOPE_GLOBAL, TEST_VIRT_IFNAME);
+        assertEquals(TEST_VIRT_IFNAME, virtualTetheringRequest.getInterfaceName());
+        mTethering.startTethering(virtualTetheringRequest, TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
+        assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_VIRT_IFNAME);
+        mTethering.stopTethering(TETHERING_VIRTUAL);
+        mLooper.dispatchAll();
+    }
 }
