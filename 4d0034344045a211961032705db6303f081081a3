@@ -26,6 +26,121 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a473a45_c584e6a3",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1890,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-10T04:06:59Z",
+      "side": 1,
+      "message": "can directly put MdnsFeatureFlags.DEFAULT_KEEP_CACHED_SERVICES_TIME_MILLISECONDS?",
+      "range": {
+        "startLine": 1890,
+        "startChar": 64,
+        "endLine": 1890,
+        "endChar": 67
+      },
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2923cfb2_3eb32118",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1892,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-10T04:06:59Z",
+      "side": 1,
+      "message": "We add a documentation to explain why we want to make it configuratiable, e.g. for testing.",
+      "range": {
+        "startLine": 1892,
+        "startChar": 35,
+        "endLine": 1892,
+        "endChar": 81
+      },
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "941fae3f_041e8355",
+        "filename": "service-t/src/com/android/server/NsdService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1951,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-10T04:06:59Z",
+      "side": 1,
+      "message": "Maybe we don\u0027t need a separate function here\n\n```\nmDeps.getDeviceConfigPropertyInt(\n                MdnsFeatureFlags.NSD_KEEP_CACHED_SERVICES_TIME, -1 /* defaultValue */);\n```",
+      "range": {
+        "startLine": 1951,
+        "startChar": 43,
+        "endLine": 1951,
+        "endChar": 68
+      },
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "848d4053_86e849dd",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-10T04:06:59Z",
+      "side": 1,
+      "message": "Could you confirm if `handleUnregisterListener` will always call onSocketDestroyed()? If yes, then we only need to clean up the socket at one place.",
+      "range": {
+        "startLine": 331,
+        "startChar": 17,
+        "endLine": 331,
+        "endChar": 41
+      },
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6337333c_4d64739d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-10T04:06:59Z",
+      "side": 1,
+      "message": "We need to add some documentation on why we do this. e.g. after x minus, if there is new serviceTypeClient created, we should reuse the same cache key etc.",
+      "range": {
+        "startLine": 349,
+        "startChar": 20,
+        "endLine": 349,
+        "endChar": 84
+      },
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "340ddfe3_9210e6b5",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
         "patchSetId": 4
@@ -147,6 +262,29 @@
         "startChar": 19,
         "endLine": 201,
         "endChar": 49
+      },
+      "revId": "4d0034344045a211961032705db6303f081081a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96e60b40_f282d537",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-10T04:06:59Z",
+      "side": 1,
+      "message": "we should get rid of the -1.",
+      "range": {
+        "startLine": 211,
+        "startChar": 28,
+        "endLine": 211,
+        "endChar": 31
       },
       "revId": "4d0034344045a211961032705db6303f081081a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
