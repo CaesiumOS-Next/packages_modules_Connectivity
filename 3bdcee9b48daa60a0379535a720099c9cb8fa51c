@@ -39,6 +39,30 @@
       },
       "revId": "3bdcee9b48daa60a0379535a720099c9cb8fa51c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "477489d0_7063a092",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T14:37:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c75ebb67_adf21569",
+      "range": {
+        "startLine": 1130,
+        "startChar": 4,
+        "endLine": 1130,
+        "endChar": 14
+      },
+      "revId": "3bdcee9b48daa60a0379535a720099c9cb8fa51c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

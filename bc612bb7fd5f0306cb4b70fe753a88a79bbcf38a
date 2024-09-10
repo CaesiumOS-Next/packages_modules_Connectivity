@@ -441,6 +441,54 @@
       },
       "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1701cbcd_c595d50a",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T14:37:32Z",
+      "side": 1,
+      "message": "this won\u0027t pass compilation",
+      "parentUuid": "d229f961_560c0445",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 50
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97a079fa_e890af27",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T14:37:32Z",
+      "side": 1,
+      "message": "this won\u0027t pass compilation, since compiler finds out that null is passed in.",
+      "parentUuid": "d229f961_560c0445",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 50
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
