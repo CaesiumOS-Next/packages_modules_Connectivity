@@ -114,6 +114,47 @@
       },
       "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dd59e88_29049369",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T07:45:11Z",
+      "side": 1,
+      "message": "it seems to me this can be @NonNull?\nIf so, maybe update it and throw NPE if null, and update unit test.",
+      "range": {
+        "startLine": 1161,
+        "startChar": 54,
+        "endLine": 1161,
+        "endChar": 62
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3c9e4c6a_3c9684cb",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 1161,
+                "startChar": 0,
+                "endLine": 1163,
+                "endChar": 0
+              },
+              "replacement": "    public static long getValueForTypeFromFirstEntry(@NonNull NetworkStats stats, int type) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
