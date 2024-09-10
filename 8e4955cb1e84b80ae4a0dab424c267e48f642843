@@ -1,0 +1,167 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b163089_a8e8fe09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T05:25:32Z",
+      "side": 1,
+      "message": "nit: maybe\nNo-op refactoring for TrafficStats APIs\nto describe this doesn\u0027t change any behavior at all.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 30
+      },
+      "revId": "8e4955cb1e84b80ae4a0dab424c267e48f642843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "116c3c02_52f44892",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T05:25:32Z",
+      "side": 1,
+      "message": "Who will pass null here?\nIf not, maybe change annotation and throw NPE to ensure this.",
+      "range": {
+        "startLine": 1129,
+        "startChar": 45,
+        "endLine": 1129,
+        "endChar": 53
+      },
+      "revId": "8e4955cb1e84b80ae4a0dab424c267e48f642843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e51656_583fb0a8",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T05:25:32Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1161,
+        "startChar": 53,
+        "endLine": 1161,
+        "endChar": 65
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ae5a8229_cb185a07",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 1161,
+                "startChar": 0,
+                "endLine": 1162,
+                "endChar": 0
+              },
+              "replacement": "    public static long getValueForTypeFromFirstEntry(@Nullable NetworkStats stats, int type) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8e4955cb1e84b80ae4a0dab424c267e48f642843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f444852_2a5418d6",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T05:25:32Z",
+      "side": 1,
+      "message": "2024",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "896b6fd7_281430bd",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/android/net/TrafficStatsTest.kt",
+              "range": {
+                "startLine": 2,
+                "startChar": 0,
+                "endLine": 3,
+                "endChar": 0
+              },
+              "replacement": "* Copyright (C) 2024 The Android Open Source Project\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8e4955cb1e84b80ae4a0dab424c267e48f642843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e8eb45b_e30ce931",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T05:25:32Z",
+      "side": 1,
+      "message": "nit: blank line before this?",
+      "fixSuggestions": [
+        {
+          "fixId": "ec96bbdf_64e388fc",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/android/net/TrafficStatsTest.kt",
+              "range": {
+                "startLine": 30,
+                "startChar": 0,
+                "endLine": 30,
+                "endChar": 0
+              },
+              "replacement": "\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8e4955cb1e84b80ae4a0dab424c267e48f642843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
