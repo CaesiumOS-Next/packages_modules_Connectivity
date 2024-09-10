@@ -134,6 +134,7 @@ public class TetheringManager {
             TETHERING_WIFI_P2P,
             TETHERING_NCM,
             TETHERING_ETHERNET,
+            TETHERING_VIRTUAL,
     })
     public @interface TetheringType {
     }
@@ -237,6 +238,7 @@ public class TetheringManager {
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(value = {
             TETHER_ERROR_SERVICE_UNAVAIL,
+            TETHER_ERROR_UNSUPPORTED,
             TETHER_ERROR_INTERNAL_ERROR,
             TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION,
             TETHER_ERROR_UNKNOWN_TYPE,
@@ -747,6 +749,7 @@ public class TetheringManager {
                 mBuilderParcel.showProvisioningUi = true;
                 mBuilderParcel.connectivityScope = getDefaultConnectivityScope(type);
                 mBuilderParcel.softApConfig = null;
+                mBuilderParcel.interfaceName = null;
             }
 
             /**
@@ -789,6 +792,22 @@ public class TetheringManager {
             @NonNull
             public Builder setShouldShowEntitlementUi(boolean showUi) {
                 mBuilderParcel.showProvisioningUi = showUi;
+                return this;
+            }
+
+            /**
+             * Sets the name of the interface. Currently supported only for {@link
+             * #TETHERING_VIRTUAL}.
+             */
+            @FlaggedApi(Flags.FLAG_TETHERING_REQUEST_VIRTUAL)
+            @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+            @NonNull
+            public Builder setInterfaceName(@NonNull final String interfaceName) {
+                mBuilderParcel.interfaceName = interfaceName;
+                if (mBuilderParcel.tetheringType != TETHERING_VIRTUAL) {
+                    throw new IllegalArgumentException(
+                            "interface name can only be set for TETHERING_VIRTUAL");
+                }
                 return this;
             }
 
@@ -877,6 +896,13 @@ public class TetheringManager {
             return mRequestParcel.showProvisioningUi;
         }
 
+        /** Get interface name.  */
+        @FlaggedApi(Flags.FLAG_TETHERING_REQUEST_VIRTUAL)
+        @Nullable
+        public String getInterfaceName() {
+            return mRequestParcel.interfaceName;
+        }
+
         /**
          * Check whether the two addresses are ipv4 and in the same prefix.
          * @hide
@@ -935,6 +961,7 @@ public class TetheringManager {
                     + ", exemptFromEntitlementCheck= " + mRequestParcel.exemptFromEntitlementCheck
                     + ", showProvisioningUi= " + mRequestParcel.showProvisioningUi
                     + ", softApConfig= " + mRequestParcel.softApConfig
+                    + ", interfaceName= " + mRequestParcel.interfaceName
                     + " ]";
         }
 
@@ -950,7 +977,8 @@ public class TetheringManager {
                     && parcel.exemptFromEntitlementCheck == otherParcel.exemptFromEntitlementCheck
                     && parcel.showProvisioningUi == otherParcel.showProvisioningUi
                     && parcel.connectivityScope == otherParcel.connectivityScope
-                    && Objects.equals(parcel.softApConfig, otherParcel.softApConfig);
+                    && Objects.equals(parcel.softApConfig, otherParcel.softApConfig)
+                    && Objects.equals(parcel.interfaceName, otherParcel.interfaceName);
         }
 
         @Override
@@ -958,7 +986,8 @@ public class TetheringManager {
             TetheringRequestParcel parcel = getParcel();
             return Objects.hash(parcel.tetheringType, parcel.localIPv4Address,
                     parcel.staticClientAddress, parcel.exemptFromEntitlementCheck,
-                    parcel.showProvisioningUi, parcel.connectivityScope, parcel.softApConfig);
+                    parcel.showProvisioningUi, parcel.connectivityScope, parcel.softApConfig,
+                    parcel.interfaceName);
         }
     }
 
