@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43ef6082_56a217ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T09:51:08Z",
+      "side": 1,
+      "message": "LGTM assuming TH will be happy.",
+      "revId": "3bdcee9b48daa60a0379535a720099c9cb8fa51c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c75ebb67_adf21569",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T09:51:08Z",
+      "side": 1,
+      "message": "remove this?",
+      "range": {
+        "startLine": 1130,
+        "startChar": 4,
+        "endLine": 1130,
+        "endChar": 14
+      },
+      "revId": "3bdcee9b48daa60a0379535a720099c9cb8fa51c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

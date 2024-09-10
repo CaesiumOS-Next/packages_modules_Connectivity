@@ -418,6 +418,29 @@
       },
       "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d229f961_560c0445",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-10T09:51:08Z",
+      "side": 1,
+      "message": "nit: IIUC this can be verified with\n            assertFailsWith\u003cNPE\u003e {\n                getValueForTypeFromFirstEntry(null, TYPE_RX_BYTES)\n            }\n            \nFeel free to ignore.",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 50
+      },
+      "revId": "bc612bb7fd5f0306cb4b70fe753a88a79bbcf38a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
