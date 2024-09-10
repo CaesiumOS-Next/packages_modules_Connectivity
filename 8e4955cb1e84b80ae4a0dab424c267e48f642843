@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fa1597a_b7eb7240",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T07:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b163089_a8e8fe09",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 30
+      },
+      "revId": "8e4955cb1e84b80ae4a0dab424c267e48f642843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "116c3c02_52f44892",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-10T05:25:32Z",
       "side": 1,
       "message": "Who will pass null here?\nIf not, maybe change annotation and throw NPE to ensure this.",
+      "range": {
+        "startLine": 1129,
+        "startChar": 45,
+        "endLine": 1129,
+        "endChar": 53
+      },
+      "revId": "8e4955cb1e84b80ae4a0dab424c267e48f642843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede97b84_29c20ff5",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T07:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "116c3c02_52f44892",
       "range": {
         "startLine": 1129,
         "startChar": 45,
@@ -88,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8125351d_a407b742",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T07:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98e51656_583fb0a8",
+      "range": {
+        "startLine": 1161,
+        "startChar": 53,
+        "endLine": 1161,
+        "endChar": 65
+      },
+      "revId": "8e4955cb1e84b80ae4a0dab424c267e48f642843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f444852_2a5418d6",
@@ -129,6 +201,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8da56e12_0da363cb",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T07:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f444852_2a5418d6",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "8e4955cb1e84b80ae4a0dab424c267e48f642843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e8eb45b_e30ce931",
@@ -160,6 +256,24 @@
           ]
         }
       ],
+      "revId": "8e4955cb1e84b80ae4a0dab424c267e48f642843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "368427eb_1f8eb940",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-10T07:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e8eb45b_e30ce931",
       "revId": "8e4955cb1e84b80ae4a0dab424c267e48f642843",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
