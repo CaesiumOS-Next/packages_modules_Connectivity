@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a91dcaf8_f5a1df38",
+        "filename": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-11T03:05:41Z",
+      "side": 1,
+      "message": "why do we need 2 ftds in this test? looks like only one is used.",
+      "range": {
+        "startLine": 60,
+        "startChar": 26,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "39639f8580052265f00a4c5f319e4271dd4e0e2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca8f51a5_9b7dfb4f",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-11T03:05:41Z",
+      "side": 1,
+      "message": "will the output always contain `-`? If it doesn\u0027t shall we return empty list?",
+      "range": {
+        "startLine": 371,
+        "startChar": 51,
+        "endLine": 371,
+        "endChar": 52
+      },
+      "revId": "39639f8580052265f00a4c5f319e4271dd4e0e2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
