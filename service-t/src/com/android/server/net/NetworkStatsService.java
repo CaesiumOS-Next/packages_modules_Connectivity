@@ -127,6 +127,7 @@ import android.net.UnderlyingNetworkInfo;
 import android.net.Uri;
 import android.net.netstats.IUsageCallback;
 import android.net.netstats.NetworkStatsDataMigrationUtils;
+import android.net.netstats.TrafficStatsConfig;
 import android.net.netstats.provider.INetworkStatsProvider;
 import android.net.netstats.provider.INetworkStatsProviderCallback;
 import android.net.netstats.provider.NetworkStatsProvider;
@@ -304,9 +305,13 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     static final String TRAFFIC_STATS_CACHE_EXPIRY_DURATION_NAME =
             "trafficstats_cache_expiry_duration_ms";
-    static final String TRAFFIC_STATS_CACHE_MAX_ENTRIES_NAME = "trafficstats_cache_max_entries";
+    static final String TRAFFIC_STATS_SERVER_CACHE_MAX_ENTRIES_NAME =
+            "trafficstats_server_cache_max_entries";
+    static final String TRAFFIC_STATS_CLIENT_CACHE_MAX_ENTRIES_NAME =
+            "trafficstats_client_cache_max_entries";
     static final int DEFAULT_TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS = 1000;
-    static final int DEFAULT_TRAFFIC_STATS_CACHE_MAX_ENTRIES = 400;
+    static final int DEFAULT_TRAFFIC_STATS_SERVER_CACHE_MAX_ENTRIES = 400;
+    static final int DEFAULT_TRAFFIC_STATS_CLIENT_CACHE_MAX_ENTRIES = 100;
     /**
      * The delay time between to network stats update intents.
      * Added to fix intent spams (b/343844995)
@@ -319,6 +324,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final AlarmManager mAlarmManager;
     private final Clock mClock;
     private final NetworkStatsSettings mSettings;
+    private final TrafficStatsConfig mTrafficStatsConfig;
     private final NetworkStatsObservers mStatsObservers;
 
     private final File mStatsDir;
@@ -487,13 +493,16 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final TrafficStatsRateLimitCache mTrafficStatsTotalCache;
     private final TrafficStatsRateLimitCache mTrafficStatsIfaceCache;
     private final TrafficStatsRateLimitCache mTrafficStatsUidCache;
-    static final String TRAFFICSTATS_RATE_LIMIT_CACHE_ENABLED_FLAG =
-            "trafficstats_rate_limit_cache_enabled_flag";
+    static final String TRAFFICSTATS_CLIENT_RATE_LIMIT_CACHE_ENABLED_FLAG =
+            "trafficstats_client_rate_limit_cache_enabled_flag";
+    static final String TRAFFICSTATS_SERVER_RATE_LIMIT_CACHE_ENABLED_FLAG =
+            "trafficstats_server_rate_limit_cache_enabled_flag";
     static final String BROADCAST_NETWORK_STATS_UPDATED_RATE_LIMIT_ENABLED_FLAG =
             "broadcast_network_stats_updated_rate_limit_enabled_flag";
-    private final boolean mAlwaysUseTrafficStatsRateLimitCache;
+    private final boolean mAlwaysUseTrafficStatsServerRateLimitCache;
+    private final int mTrafficStatsServerRateLimitCacheMaxEntries;
     private final int mTrafficStatsRateLimitCacheExpiryDuration;
-    private final int mTrafficStatsRateLimitCacheMaxEntries;
+
     private final boolean mBroadcastNetworkStatsUpdatedRateLimitEnabled;
 
 
@@ -687,20 +696,33 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             mEventLogger = null;
         }
 
-        mAlwaysUseTrafficStatsRateLimitCache =
-                mDeps.alwaysUseTrafficStatsRateLimitCache(mContext);
         mBroadcastNetworkStatsUpdatedRateLimitEnabled =
                 mDeps.enabledBroadcastNetworkStatsUpdatedRateLimiting(mContext);
+        mTrafficStatsConfig = new TrafficStatsConfig();
+        mTrafficStatsConfig.mAlwaysUseTrafficStatsRateLimitCache =
+                mDeps.alwaysUseTrafficStatsClientRateLimitCache(context);
+        mTrafficStatsConfig.mTrafficStatsRateLimitCacheExpiryDuration =
+                mDeps.getTrafficStatsRateLimitCacheExpiryDuration();
+        mTrafficStatsConfig.mTrafficStatsRateLimitCacheMaxEntries =
+                mDeps.getTrafficStatsClientRateLimitCacheMaxEntries();
         mTrafficStatsRateLimitCacheExpiryDuration =
                 mDeps.getTrafficStatsRateLimitCacheExpiryDuration();
-        mTrafficStatsRateLimitCacheMaxEntries =
-                mDeps.getTrafficStatsRateLimitCacheMaxEntries();
+        mAlwaysUseTrafficStatsServerRateLimitCache =
+                mDeps.alwaysUseTrafficStatsServerRateLimitCache(
+                        mContext,
+                        mTrafficStatsConfig.mAlwaysUseTrafficStatsRateLimitCache
+                );
+        mTrafficStatsServerRateLimitCacheMaxEntries =
+                mDeps.getTrafficStatsServerRateLimitCacheMaxEntries();
         mTrafficStatsTotalCache = new TrafficStatsRateLimitCache(mClock,
-                mTrafficStatsRateLimitCacheExpiryDuration, mTrafficStatsRateLimitCacheMaxEntries);
+                mTrafficStatsRateLimitCacheExpiryDuration,
+                mTrafficStatsServerRateLimitCacheMaxEntries);
         mTrafficStatsIfaceCache = new TrafficStatsRateLimitCache(mClock,
-                mTrafficStatsRateLimitCacheExpiryDuration, mTrafficStatsRateLimitCacheMaxEntries);
+                mTrafficStatsRateLimitCacheExpiryDuration,
+                mTrafficStatsServerRateLimitCacheMaxEntries);
         mTrafficStatsUidCache = new TrafficStatsRateLimitCache(mClock,
-                mTrafficStatsRateLimitCacheExpiryDuration, mTrafficStatsRateLimitCacheMaxEntries);
+                mTrafficStatsRateLimitCacheExpiryDuration,
+                mTrafficStatsServerRateLimitCacheMaxEntries);
 
         // TODO: Remove bpfNetMaps creation and always start SkDestroyListener
         // Following code is for the experiment to verify the SkDestroyListener refactoring. Based
@@ -960,14 +982,27 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         /**
-         * Get whether TrafficStats rate-limit cache is always applied.
+         * Get whether TrafficStats rate-limit cache is always applied on the server side.
          *
          * This method should only be called once in the constructor,
          * to ensure that the code does not need to deal with flag values changing at runtime.
          */
-        public boolean alwaysUseTrafficStatsRateLimitCache(@NonNull Context ctx) {
+        public boolean alwaysUseTrafficStatsServerRateLimitCache(
+                @NonNull Context ctx, boolean clientFlag) {
+            if (clientFlag) return false;
             return SdkLevel.isAtLeastV() && DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
-                    ctx, TRAFFICSTATS_RATE_LIMIT_CACHE_ENABLED_FLAG);
+                    ctx, TRAFFICSTATS_SERVER_RATE_LIMIT_CACHE_ENABLED_FLAG);
+        }
+
+        /**
+         * Get whether TrafficStats rate-limit cache is always applied on the client side.
+         *
+         * This method should only be called once in the constructor,
+         * to ensure that the code does not need to deal with flag values changing at runtime.
+         */
+        public boolean alwaysUseTrafficStatsClientRateLimitCache(@NonNull Context ctx) {
+            return SdkLevel.isAtLeastV() && DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
+                    ctx, TRAFFICSTATS_CLIENT_RATE_LIMIT_CACHE_ENABLED_FLAG);
         }
 
         /**
@@ -983,15 +1018,27 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         /**
-         * Get TrafficStats rate-limit cache max entries.
+         * Get TrafficStats server side rate-limit cache max entries.
          *
          * This method should only be called once in the constructor,
          * to ensure that the code does not need to deal with flag values changing at runtime.
          */
-        public int getTrafficStatsRateLimitCacheMaxEntries() {
+        public int getTrafficStatsServerRateLimitCacheMaxEntries() {
             return getDeviceConfigPropertyInt(
-                    NAMESPACE_TETHERING, TRAFFIC_STATS_CACHE_MAX_ENTRIES_NAME,
-                    DEFAULT_TRAFFIC_STATS_CACHE_MAX_ENTRIES);
+                    NAMESPACE_TETHERING, TRAFFIC_STATS_SERVER_CACHE_MAX_ENTRIES_NAME,
+                    DEFAULT_TRAFFIC_STATS_SERVER_CACHE_MAX_ENTRIES);
+        }
+
+        /**
+         * Get TrafficStats client side rate-limit cache max entries.
+         *
+         * This method should only be called once in the constructor,
+         * to ensure that the code does not need to deal with flag values changing at runtime.
+         */
+        public int getTrafficStatsClientRateLimitCacheMaxEntries() {
+            return getDeviceConfigPropertyInt(
+                    NAMESPACE_TETHERING, TRAFFIC_STATS_CLIENT_CACHE_MAX_ENTRIES_NAME,
+                    DEFAULT_TRAFFIC_STATS_CLIENT_CACHE_MAX_ENTRIES);
         }
 
         /**
@@ -2130,6 +2177,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     }
 
     @Override
+    public TrafficStatsConfig getTrafficStatsConfig() {
+        return mTrafficStatsConfig;
+    }
+
+    @Override
     public long getUidStats(int uid, int type) {
         return getValueForTypeFromFirstEntry(getTypelessUidStats(uid), type);
     }
@@ -2143,7 +2195,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             return stats;
         }
         final NetworkStats.Entry entry;
-        if (mAlwaysUseTrafficStatsRateLimitCache
+        if (mAlwaysUseTrafficStatsServerRateLimitCache
                 || mDeps.isChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, callingUid)) {
             entry = mTrafficStatsUidCache.getOrCompute(IFACE_ALL, uid,
                     () -> mDeps.nativeGetUidStat(uid));
@@ -2175,7 +2227,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         Objects.requireNonNull(iface);
 
         final NetworkStats.Entry entry;
-        if (mAlwaysUseTrafficStatsRateLimitCache
+        if (mAlwaysUseTrafficStatsServerRateLimitCache
                 || mDeps.isChangeEnabled(
                         ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
             entry = mTrafficStatsIfaceCache.getOrCompute(iface, UID_ALL,
@@ -2203,7 +2255,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @Override
     public NetworkStats getTypelessTotalStats() {
         final NetworkStats.Entry entry;
-        if (mAlwaysUseTrafficStatsRateLimitCache
+        if (mAlwaysUseTrafficStatsServerRateLimitCache
                 || mDeps.isChangeEnabled(
                         ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
             entry = mTrafficStatsTotalCache.getOrCompute(
@@ -2992,12 +3044,13 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             } catch (IOException e) {
                 pw.println("(failed to dump FastDataInput counters)");
             }
-            pw.print("trafficstats.cache.alwaysuse", mAlwaysUseTrafficStatsRateLimitCache);
+            pw.print("trafficstats.cache.alwaysuse", mAlwaysUseTrafficStatsServerRateLimitCache);
             pw.println();
             pw.print(TRAFFIC_STATS_CACHE_EXPIRY_DURATION_NAME,
                     mTrafficStatsRateLimitCacheExpiryDuration);
             pw.println();
-            pw.print(TRAFFIC_STATS_CACHE_MAX_ENTRIES_NAME, mTrafficStatsRateLimitCacheMaxEntries);
+            pw.print(TRAFFIC_STATS_SERVER_CACHE_MAX_ENTRIES_NAME,
+                    mTrafficStatsServerRateLimitCacheMaxEntries);
             pw.println();
 
             pw.decreaseIndent();
