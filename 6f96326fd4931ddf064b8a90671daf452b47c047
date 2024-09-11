@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e03aaf95_28374a0e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-11T09:29:24Z",
+      "side": 1,
+      "message": "\u003e nit: given the param validity check is simple, maybe we can just make it as void, e.g.\n\u003e ```\n\u003e public void setMtu(int mtu) {\n\u003e     if (mtu \u003c 0) {\n\u003e         Log.e(TAG, \"invalid mtu \" + mtu);\n          return;\n\u003e     }\n\u003e     mMtu \u003d mtu;\n\u003e }\n\u003e ```\n\u003e do we have any case where we need to check the return value is true or false?",
+      "parentUuid": "80b2eff1_a17d55f0",
+      "range": {
+        "startLine": 81,
+        "startChar": 11,
+        "endLine": 81,
+        "endChar": 18
+      },
+      "revId": "6f96326fd4931ddf064b8a90671daf452b47c047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac105e07_3ed2aacd",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
         "patchSetId": 3
