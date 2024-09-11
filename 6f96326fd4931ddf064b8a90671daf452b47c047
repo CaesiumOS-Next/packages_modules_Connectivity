@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bf3d1f0_0d5fd0e1",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-11T09:27:49Z",
+      "side": 1,
+      "message": "nit: maybe just IFNAMSIZ? keep consistent with kernel, add a comment e.g. indicates the maximum buffer size needed to hold an interface name including the \u0027\\0\u0027 at the end.",
+      "range": {
+        "startLine": 51,
+        "startChar": 29,
+        "endLine": 51,
+        "endChar": 40
+      },
+      "revId": "6f96326fd4931ddf064b8a90671daf452b47c047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80b2eff1_a17d55f0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-11T09:27:49Z",
+      "side": 1,
+      "message": "nit: given the param validity check is simple, maybe we can just make it as void, e.g.\n```\npublic void setMtu(int mtu) {\n    if (mtu \u003c 0) {\n        Log.e(TAG, \"invalid mtu \" + mtu);\n    }\n    mMtu \u003d mtu;\n}\n```\ndo we have any case where we need to check the return value is true or false?",
+      "range": {
+        "startLine": 81,
+        "startChar": 11,
+        "endLine": 81,
+        "endChar": 18
+      },
+      "revId": "6f96326fd4931ddf064b8a90671daf452b47c047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac105e07_3ed2aacd",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-11T09:27:49Z",
+      "side": 1,
+      "message": "nit: 0 should be still a valid MTU value?",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 20
+      },
+      "revId": "6f96326fd4931ddf064b8a90671daf452b47c047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
