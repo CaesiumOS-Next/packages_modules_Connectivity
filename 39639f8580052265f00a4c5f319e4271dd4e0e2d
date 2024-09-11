@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffe0982b_232fb76c",
+        "filename": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T05:29:48Z",
+      "side": 1,
+      "message": "No specific reason. Just a copy \u0026 paste from an existing test case.",
+      "parentUuid": "a91dcaf8_f5a1df38",
+      "range": {
+        "startLine": 60,
+        "startChar": 26,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "39639f8580052265f00a4c5f319e4271dd4e0e2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca8f51a5_9b7dfb4f",
         "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-11T03:05:41Z",
       "side": 1,
       "message": "will the output always contain `-`? If it doesn\u0027t shall we return empty list?",
+      "range": {
+        "startLine": 371,
+        "startChar": 51,
+        "endLine": 371,
+        "endChar": 52
+      },
+      "revId": "39639f8580052265f00a4c5f319e4271dd4e0e2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bb54c9c_910fe7a7",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T05:29:48Z",
+      "side": 1,
+      "message": "Yes it always has a `-`.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:external/openthread/src/cli/cli_dns.cpp;l\u003d533;drc\u003d6f6758f5d8516f9193459d6019e5dfb9fa762746",
+      "parentUuid": "ca8f51a5_9b7dfb4f",
       "range": {
         "startLine": 371,
         "startChar": 51,
