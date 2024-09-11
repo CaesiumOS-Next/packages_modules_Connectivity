@@ -16,6 +16,24 @@
       "message": "If only dns servers changed, I think we don\u0027t have to create the socket again here.",
       "revId": "86761002893962353afae61b1ff4bc519fde7151",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4df14077_20ceff32",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1243,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T15:00:03Z",
+      "side": 1,
+      "message": "Good point! I\u0027ve refactored the code to treat different dimensions with separate APIs.",
+      "parentUuid": "11fb33af_0543f18c",
+      "revId": "86761002893962353afae61b1ff4bc519fde7151",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
