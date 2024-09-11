@@ -1,0 +1,204 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79d27c34_8c3a2d22",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T09:50:08Z",
+      "side": 1,
+      "message": "Where\u0027s the name `create` from? Is it necessary to introduce such a method?",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8da9586_5d258471",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T09:50:08Z",
+      "side": 1,
+      "message": "Is the second reason possible?",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "365aad60_5d336160",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T09:50:08Z",
+      "side": 1,
+      "message": "document the public method",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa7f460f_63f34f91",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T09:50:08Z",
+      "side": 1,
+      "message": "why not use the IntegrationTestUtils? https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt;l\u003d99;drc\u003dd92b389c63246193ade415131a76156c9e02cf2f",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe785cc4_16b0baa9",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T09:50:08Z",
+      "side": 1,
+      "message": "static",
+      "fixSuggestions": [
+        {
+          "fixId": "2e70315d_e3e4e4d6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 96,
+                "startChar": 0,
+                "endLine": 97,
+                "endChar": 0
+              },
+              "replacement": "    private static void startFtdChild(FullThreadDevice ftd, ActiveOperationalDataset activeDataset)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "702bc61a_bb94656c",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T09:50:08Z",
+      "side": 1,
+      "message": "I think I\u0027ve asked about this before: could it be equals?",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "489c54dd_5e5b4b18",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T09:50:08Z",
+      "side": 1,
+      "message": "In general only 2 empty lines should be in the test cases:\n- One line to separate arrange and act.\n- One line to separate act and assert.",
+      "range": {
+        "startLine": 175,
+        "startChar": 1,
+        "endLine": 185,
+        "endChar": 5
+      },
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4cbaa4c_62d84420",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T09:50:08Z",
+      "side": 1,
+      "message": "Don\u0027t you need to set up the `isRootProcess` so it returns true for most cases?\n\nI wonder why this bug isn\u0027t detected by the existing test cases.",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d650c29_57821d10",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T09:50:08Z",
+      "side": 1,
+      "message": "In future CLs better to please the refactor a separate CL. Merging the refactor CL and the functionality CL will make the CL harder to review.",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34c36124_a0739b3a",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-11T09:50:08Z",
+      "side": 1,
+      "message": "Ditto. Please use empty lines with caution.",
+      "range": {
+        "startLine": 261,
+        "startChar": 4,
+        "endLine": 276,
+        "endChar": 86
+      },
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
