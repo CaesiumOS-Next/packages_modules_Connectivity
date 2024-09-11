@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "141a7df8_bac6a804",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-11T08:39:31Z",
+      "side": 1,
+      "message": "sorry, I don\u0027t have too much background for your usage here. But why do we need to update the nlmsg_len by calculating all potential TLVs explicitly?  Does `mHeader.pack(byteBuffer)` not update the nlmsg_len correctly? Take a look at the unit test(https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3253114/6/staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java#b145), it should pack the length correctly.\n\nIn general, pack() is called after parse(), it ends up that mHeader has been already initialized. Maybe what you would like to do is:\n- have a RtmNewLinkLinkMessage object via constructor (e.g. set all member to 0 there)\n- then pack the message to bytebuffer later? If so, please also describe your usage in the comment message as well, which would be clear to know why we need this change.",
+      "range": {
+        "startLine": 152,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 42
+      },
+      "revId": "dd0c4d2d88269d1807e890642cdf23bf960a6069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e35499f_f9685f64",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-11T08:39:31Z",
+      "side": 1,
+      "message": "Suggest to have a separate test case for the pack case from the RtNetlinkLinkMessage constructor. The original one does parsing first and then verify the pack function, which is also helpful.",
+      "range": {
+        "startLine": 135,
+        "startChar": 49,
+        "endLine": 135,
+        "endChar": 69
+      },
+      "revId": "dd0c4d2d88269d1807e890642cdf23bf960a6069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a446b474_577eefb1",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-11T08:39:31Z",
+      "side": 1,
+      "message": "nit: maybe just `new StructNlMsgHdr()` (https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/device/com/android/net/module/util/netlink/StructNlMsgHdr.java;l\u003d127?q\u003dStructNlMsgHdr\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain)",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 79
+      },
+      "revId": "dd0c4d2d88269d1807e890642cdf23bf960a6069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
