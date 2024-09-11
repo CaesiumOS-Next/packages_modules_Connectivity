@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11fb33af_0543f18c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1243,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-11T03:05:03Z",
+      "side": 1,
+      "message": "If only dns servers changed, I think we don\u0027t have to create the socket again here.",
+      "revId": "86761002893962353afae61b1ff4bc519fde7151",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
