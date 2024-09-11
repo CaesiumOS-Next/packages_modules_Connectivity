@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a186740_8de57684",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-11T05:51:11Z",
+      "side": 0,
+      "message": "For future reference:\nIIUC These API should be safe to rename since \nit is not on https://docs.google.com/spreadsheets/d/1R-BrGKkfMSbtXfVMKLKXXO8ey19i4e5YhRn3lbWFyxY/edit?gid\u003d996996812#gid\u003d996996812\n and we have HiddenNetApiUsageTest to ensure no hidden API is called on T+ devices.\n \n It is on hiddenapi-max-target-o-low-priority-tiramisu.txt but the mainlined NetworkStats are running on T+ devices only.",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 22
+      },
+      "revId": "dbdd90fb313678c5277075d414cedb9b01f995de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4aa5c520_d7f372f6",
