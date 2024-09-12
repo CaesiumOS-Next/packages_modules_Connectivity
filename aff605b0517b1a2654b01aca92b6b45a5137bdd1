@@ -351,6 +351,29 @@
       },
       "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36dfa74c_f1e166fa",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2199,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T06:36:45Z",
+      "side": 1,
+      "message": "We\u0027ll need to disable the feature if client cache is enabled, even if isChangeEnabled is true.",
+      "range": {
+        "startLine": 2199,
+        "startChar": 19,
+        "endLine": 2199,
+        "endChar": 90
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
