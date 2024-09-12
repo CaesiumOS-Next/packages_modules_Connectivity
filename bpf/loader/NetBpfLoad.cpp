@@ -1574,7 +1574,7 @@ static int doLoad(char** argv, char * const envp[]) {
     }
 
     // Ensure we can determine the Android build type.
-    if (!isEng() && !isUser() && !isUserdebug()) {
+    if (!isUser() && !isUserdebug()) {
         ALOGE("Failed to determine the build type: got %s, want 'eng', 'user', or 'userdebug'",
               getBuildType().c_str());
         return 1;
