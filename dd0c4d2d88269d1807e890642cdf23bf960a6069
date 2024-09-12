@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89f53855_c9c1ce66",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-12T02:27:14Z",
+      "side": 1,
+      "message": "Yes, my usage is creating the RtNetlinkLinkMessage instance by constructor, and setting the parameters if needed [1]. Then pack the instance into byte buffer. If we don\u0027t update the nlmsg_len inside pack(), the caller needs to calculate the length itself. That means the caller should know the details of packing. I feel it breaks the encapsulation.\n\nAlso, even the RtNetlinkLinkMessage instance is created from parse(), the nlmsg_len might be wrong in pack(). Because the parse() method only extracts MTU, MAC address, and interface name, and ignores other attributes. The bytes length of the packed buffer from RtNetlinkLinkMessage might be differernt from the original parsed buffer.\n\nTherefore, updating the nlmsg_len before packing is the easiest way to guarantee the value is correct.\n\nBTW, originally the RTM_NEWLINK_PACK_HEX in unit test contains the wrong nlmsg_len. The total length of the buffer is 0x40, not 0x34 [2]. That\u0027s why I updated the unit test as well. (That means the parse() method is wrong... It shouldn\u0027t access byte 0x35~0x40. We should fix it later.) \n\n[1] https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3256556/9/staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java#252\n\n[2] https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3253114/6/staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java#b127",
+      "parentUuid": "141a7df8_bac6a804",
+      "range": {
+        "startLine": 152,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 42
+      },
+      "revId": "dd0c4d2d88269d1807e890642cdf23bf960a6069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e35499f_f9685f64",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80c0c16e_bb992646",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-12T02:27:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e35499f_f9685f64",
+      "range": {
+        "startLine": 135,
+        "startChar": 49,
+        "endLine": 135,
+        "endChar": 69
+      },
+      "revId": "dd0c4d2d88269d1807e890642cdf23bf960a6069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a446b474_577eefb1",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-09-11T08:39:31Z",
       "side": 1,
       "message": "nit: maybe just `new StructNlMsgHdr()` (https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/device/com/android/net/module/util/netlink/StructNlMsgHdr.java;l\u003d127?q\u003dStructNlMsgHdr\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain)",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 79
+      },
+      "revId": "dd0c4d2d88269d1807e890642cdf23bf960a6069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef93f105_35f2dd10",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-12T02:27:14Z",
+      "side": 1,
+      "message": "The type if 0x10, not 0. So I need to use the constructor with parameters.",
+      "parentUuid": "a446b474_577eefb1",
       "range": {
         "startLine": 137,
         "startChar": 16,
