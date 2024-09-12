@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9c61334_dbfddf79",
+        "filename": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-12T09:11:10Z",
+      "side": 1,
+      "message": "Is it possible to test that resolve host fails without this feature?",
+      "revId": "7dd6e785e57c59243660505e1da8ddb5ba538950",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b760008_f6b049c0",
+        "filename": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-12T09:11:10Z",
+      "side": 1,
+      "message": "Maybe guard with feature flag.",
+      "revId": "7dd6e785e57c59243660505e1da8ddb5ba538950",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "892b7eb5_14b3360b",
+        "filename": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-12T09:11:10Z",
+      "side": 1,
+      "message": "can we test TYPE_AAAA too?",
+      "range": {
+        "startLine": 128,
+        "startChar": 49,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "528179a0_95d3eb9c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+              "range": {
+                "startLine": 21,
+                "startChar": 0,
+                "endLine": 21,
+                "endChar": 0
+              },
+              "replacement": "import android.net.DnsResolver.TYPE_AAAA\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+              "range": {
+                "startLine": 128,
+                "startChar": 0,
+                "endLine": 129,
+                "endChar": 0
+              },
+              "replacement": "        assertThat(ftd.resolveHost(\"google.com\", TYPE_A)).isEqualTo(IPV4_SERVER_ADDR)\n        assertThat(ftd.resolveHost(\"google.com\", TYPE_AAAA)).isEqualTo(IPV4_DNS_SERVER_ADDR)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "7dd6e785e57c59243660505e1da8ddb5ba538950",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
