@@ -191,6 +191,25 @@ public final class IpSecTransformState implements Parcelable {
         return mReplayBitmap.clone();
     }
 
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("IpSecTransformState{mTimestamp=")
+                .append(mTimestamp)
+                .append(", mTxHighestSequenceNumber=")
+                .append(mTxHighestSequenceNumber)
+                .append(", mRxHighestSequenceNumber=")
+                .append(mRxHighestSequenceNumber)
+                .append(", mPacketCount=")
+                .append(mPacketCount)
+                .append(", mByteCount=")
+                .append(mByteCount)
+                .append(", mReplayBitmap=")
+                .append(HexDump.dumpHexString(mReplayBitmap))
+                .append("}")
+                .toString();
+    }
+
     /**
      * Builder class for testing purposes
      *
