@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcf68dea_7c05c839",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-12T06:00:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b753d9c9_9e9922eb",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 13
+      },
+      "revId": "c1b3625edacd3acd7b40ac6ab03b66056994ba14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b17d6d3_c74306cd",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-12T05:57:38Z",
       "side": 1,
       "message": "variables",
+      "range": {
+        "startLine": 9,
+        "startChar": 42,
+        "endLine": 9,
+        "endChar": 50
+      },
+      "revId": "c1b3625edacd3acd7b40ac6ab03b66056994ba14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83088c10_915ada35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-12T06:00:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b17d6d3_c74306cd",
       "range": {
         "startLine": 9,
         "startChar": 42,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6416b49c_4e5a8e24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-12T06:00:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64014d53_f05918eb",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "c1b3625edacd3acd7b40ac6ab03b66056994ba14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "290e6fd9_ea52444f",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-09-12T05:57:38Z",
       "side": 1,
       "message": "remove?",
+      "range": {
+        "startLine": 11,
+        "startChar": 39,
+        "endLine": 11,
+        "endChar": 47
+      },
+      "revId": "c1b3625edacd3acd7b40ac6ab03b66056994ba14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "834cd5a1_3509e901",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-12T06:00:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "290e6fd9_ea52444f",
       "range": {
         "startLine": 11,
         "startChar": 39,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5417e23e_fc8b8df1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-12T06:00:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "808c984e_0a46048f",
+      "range": {
+        "startLine": 967,
+        "startChar": 35,
+        "endLine": 967,
+        "endChar": 36
+      },
+      "revId": "c1b3625edacd3acd7b40ac6ab03b66056994ba14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eec35919_ac6fe3f9",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-09-12T05:57:38Z",
       "side": 1,
       "message": "service side?",
+      "range": {
+        "startLine": 990,
+        "startChar": 27,
+        "endLine": 990,
+        "endChar": 28
+      },
+      "revId": "c1b3625edacd3acd7b40ac6ab03b66056994ba14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa3a41cf_b00a8e58",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-12T06:00:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eec35919_ac6fe3f9",
       "range": {
         "startLine": 990,
         "startChar": 27,
