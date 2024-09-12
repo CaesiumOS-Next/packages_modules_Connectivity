@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac424a70_8389458c",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-12T05:50:06Z",
+      "side": 1,
+      "message": "Please don\u0027t mark the comment as resolved when there isn\u0027t a clear consensus.\n\nFor this specific one, I think the copied value is just a tech debt and we should just refer to the value from the IntegrationTestUtils. There\u0027s no benefit to copy it when we already have it as part of the utils.",
+      "parentUuid": "157c6d1c_abceeb15",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe785cc4_16b0baa9",
         "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
         "patchSetId": 26
