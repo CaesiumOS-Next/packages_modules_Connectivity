@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4151619e_562e244d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-12T07:06:57Z",
+      "side": 1,
+      "message": "We also should document why we do the clean up in both\nhandleUnregisterListener() and onSocketDestroyed() and in which case, there clean up logic will be executed twice.",
+      "range": {
+        "startLine": 358,
+        "startChar": 20,
+        "endLine": 358,
+        "endChar": 53
+      },
+      "revId": "d3410389c7add901880fd9bab93eb43da71206b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
