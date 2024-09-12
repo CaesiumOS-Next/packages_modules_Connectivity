@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e082d1ae_12c9c64a",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-12T06:28:55Z",
+      "side": 1,
+      "message": "Better to have an empty line between act and assertion. Also for the test cases below.\n```suggestion\n        final String result \u003d runThreadCommand(\"ot-ctl ifconfig\");\n\n        assertThat(result).isEqualTo(\"up\\r\\nDone\\r\\n\");\n```",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 55
+      },
+      "revId": "ff45aca62f4573fc7200f166764d10df746ea4d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfc6e9ed_7febf6d0",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-12T06:28:55Z",
+      "side": 1,
+      "message": "Although the default mock behavior returns false, better to specify the mock behavior explicitly in the setUp().",
+      "revId": "ff45aca62f4573fc7200f166764d10df746ea4d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a11bd4_80d5100f",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-12T06:28:55Z",
+      "side": 1,
+      "message": "remove the unnecessary empty line between arrange and act",
+      "revId": "ff45aca62f4573fc7200f166764d10df746ea4d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
