@@ -188,6 +188,30 @@
       },
       "revId": "6f96326fd4931ddf064b8a90671daf452b47c047",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ae4daa_70724ed6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-12T05:22:53Z",
+      "side": 1,
+      "message": "Ah I might misunderstand the comment. I thought we should accept to send MTU\u003d0 to the netlink socket.\n\nUsing java.util.Optional sounds good to me. Now the mMtu can only store positive integer or Optional.empty().",
+      "parentUuid": "3dce38a9_0adde35e",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 20
+      },
+      "revId": "6f96326fd4931ddf064b8a90671daf452b47c047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
