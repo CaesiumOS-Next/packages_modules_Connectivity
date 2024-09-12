@@ -90,6 +90,93 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc5ba268_39e282d5",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T05:47:27Z",
+      "side": 1,
+      "message": "Maybe just stores the entire config object locally?",
+      "range": {
+        "startLine": 251,
+        "startChar": 8,
+        "endLine": 251,
+        "endChar": 45
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d919a67d_7e06ab83",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T05:47:27Z",
+      "side": 1,
+      "message": "It seems to me these will be accessed from multiple threads.\nThus maybe they need to be @GuardedBy(\"mRateLimitCacheLock\")?",
+      "range": {
+        "startLine": 252,
+        "startChar": 4,
+        "endLine": 256,
+        "endChar": 39
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c90c8b1d_08ac7fc4",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T05:47:27Z",
+      "side": 1,
+      "message": "IIUC you need to modify this.\n\nPlease run cts tests with feature enabled to ensure this works.",
+      "range": {
+        "startLine": 740,
+        "startChar": 23,
+        "endLine": 740,
+        "endChar": 43
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "83fe04d9_ca878572",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 742,
+                "startChar": 0,
+                "endLine": 743,
+                "endChar": 0
+              },
+              "replacement": "            getStatsService().clearTrafficStatsUidCaches();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebeb9006_02e62dff",
         "filename": "framework-t/src/android/net/TrafficStats.java",
         "patchSetId": 2
@@ -129,6 +216,29 @@
         "startChar": 18,
         "endLine": 991,
         "endChar": 52
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81de551b_daaae0ea",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T05:47:27Z",
+      "side": 1,
+      "message": "IIUC we\u0027ll also need to check\nmDeps.isChangeEnabled(xxxx, callingUid)",
+      "range": {
+        "startLine": 995,
+        "startChar": 49,
+        "endLine": 995,
+        "endChar": 50
       },
       "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
