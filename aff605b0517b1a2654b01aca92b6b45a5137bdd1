@@ -246,6 +246,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6e81174_fc9ad972",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T07:02:20Z",
+      "side": 1,
+      "message": "Maybe add comment \n// Use uptimeMillis() instead of elapsedRealtime() to avoid the time jump caused by\ntime change.",
+      "range": {
+        "startLine": 1216,
+        "startChar": 27,
+        "endLine": 1216,
+        "endChar": 39
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ee529aaf_5599fcc4",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 1216,
+                "startChar": 0,
+                "endLine": 1216,
+                "endChar": 0
+              },
+              "replacement": "        // Use uptimeMillis() instead of elapsedRealtime() to avoid the time jump\n        // caused by time change.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73ddd1b5_775ea62c",
         "filename": "framework-t/src/android/net/netstats/TrafficStatsConfig.aidl",
         "patchSetId": 2
