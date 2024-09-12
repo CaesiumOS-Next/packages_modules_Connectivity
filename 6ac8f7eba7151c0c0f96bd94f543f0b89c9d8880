@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a30185a6_11c75951",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T09:09:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8717619_94ed8a4b",
+      "revId": "6ac8f7eba7151c0c0f96bd94f543f0b89c9d8880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eed44d4a_762373e8",
@@ -49,6 +67,24 @@
       "writtenOn": "2024-09-12T07:22:50Z",
       "side": 1,
       "message": "Doesn\u0027t it check `THREAD_NETWORK_PRIVILEGED`?",
+      "revId": "6ac8f7eba7151c0c0f96bd94f543f0b89c9d8880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcd61a92_4aedfc79",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T09:09:41Z",
+      "side": 1,
+      "message": "No, THREAD_NETWORK_PRIVILEGED is checked inside runOtCtlCommand which is mocked",
+      "parentUuid": "eed44d4a_762373e8",
       "revId": "6ac8f7eba7151c0c0f96bd94f543f0b89c9d8880",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
