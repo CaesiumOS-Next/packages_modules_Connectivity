@@ -621,8 +621,8 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         }
 
         @Override
-        public boolean alwaysUseTrafficStatsServiceRateLimitCache(Context ctx) {
-            return mFeatureFlags.getOrDefault(
+        public boolean alwaysUseTrafficStatsServiceRateLimitCache(Context ctx, boolean flag) {
+            return !flag && mFeatureFlags.getOrDefault(
                     TRAFFICSTATS_SERVICE_RATE_LIMIT_CACHE_ENABLED_FLAG, false);
         }
 

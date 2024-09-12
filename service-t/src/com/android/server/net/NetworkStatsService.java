@@ -127,6 +127,7 @@ import android.net.UnderlyingNetworkInfo;
 import android.net.Uri;
 import android.net.netstats.IUsageCallback;
 import android.net.netstats.NetworkStatsDataMigrationUtils;
+import android.net.netstats.TrafficStatsConfig;
 import android.net.netstats.provider.INetworkStatsProvider;
 import android.net.netstats.provider.INetworkStatsProviderCallback;
 import android.net.netstats.provider.NetworkStatsProvider;
@@ -308,6 +309,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             "trafficstats_cache_max_entries";
     static final int DEFAULT_TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS = 1000;
     static final int DEFAULT_TRAFFIC_STATS_SERVICE_CACHE_MAX_ENTRIES = 400;
+    static final String TRAFFIC_STATS_CLIENT_CACHE_MAX_ENTRIES_NAME =
+            "trafficstats_client_cache_max_entries";
+    static final int DEFAULT_TRAFFIC_STATS_CLIENT_CACHE_MAX_ENTRIES = 100;
     /**
      * The delay time between to network stats update intents.
      * Added to fix intent spams (b/343844995)
@@ -320,6 +324,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final AlarmManager mAlarmManager;
     private final Clock mClock;
     private final NetworkStatsSettings mSettings;
+    private final TrafficStatsConfig mTrafficStatsConfig;
     private final NetworkStatsObservers mStatsObservers;
 
     private final File mStatsDir;
@@ -495,9 +500,10 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final boolean mAlwaysUseTrafficStatsServiceRateLimitCache;
     private final int mTrafficStatsRateLimitCacheExpiryDuration;
     private final int mTrafficStatsServiceRateLimitCacheMaxEntries;
+    static final String TRAFFICSTATS_CLIENT_RATE_LIMIT_CACHE_ENABLED_FLAG =
+            "trafficstats_client_rate_limit_cache_enabled_flag";
+
     private final boolean mBroadcastNetworkStatsUpdatedRateLimitEnabled;
-
-
 
     private final Object mOpenSessionCallsLock = new Object();
 
@@ -643,6 +649,18 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         return service;
     }
 
+    private TrafficStatsConfig createTrafficStatsConfig() {
+        final TrafficStatsConfig config = new TrafficStatsConfig();
+        config.mAlwaysUseRateLimitCache =
+                mDeps.alwaysUseTrafficStatsClientRateLimitCache(context);
+        config.mRateLimitCacheExpiryDuration =
+                mDeps.getTrafficStatsRateLimitCacheExpiryDuration();
+        config.mRateLimitCacheMaxEntries =
+                mDeps.getTrafficStatsClientRateLimitCacheMaxEntries();
+        return config;
+    }
+
+
     // This must not be called outside of tests, even within the same package, as this constructor
     // does not register the local service. Use the create() helper above.
     @VisibleForTesting
@@ -688,8 +706,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             mEventLogger = null;
         }
 
+
+        mTrafficStatsConfig = createTrafficStatsConfig();
         mAlwaysUseTrafficStatsServiceRateLimitCache =
-                mDeps.alwaysUseTrafficStatsServiceRateLimitCache(mContext);
+                mDeps.alwaysUseTrafficStatsServiceRateLimitCache(mContext,
+                        mTrafficStatsConfig.mAlwaysuseTrafficStatsClientRateLimitCache);
         mBroadcastNetworkStatsUpdatedRateLimitEnabled =
                 mDeps.enabledBroadcastNetworkStatsUpdatedRateLimiting(mContext);
         mTrafficStatsRateLimitCacheExpiryDuration =
@@ -705,7 +726,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         mTrafficStatsUidCache = new TrafficStatsRateLimitCache(mClock,
                 mTrafficStatsRateLimitCacheExpiryDuration,
                 mTrafficStatsServiceRateLimitCacheMaxEntries);
-
         // TODO: Remove bpfNetMaps creation and always start SkDestroyListener
         // Following code is for the experiment to verify the SkDestroyListener refactoring. Based
         // on the experiment flag, BpfNetMaps starts C SkDestroyListener (existing code) or
@@ -715,6 +735,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         mHandler.post(mSkDestroyListener::start);
     }
 
+}
     /**
      * Dependencies of NetworkStatsService, for injection in tests.
      */
@@ -969,9 +990,22 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
          * This method should only be called once in the constructor,
          * to ensure that the code does not need to deal with flag values changing at runtime.
          */
-        public boolean alwaysUseTrafficStatsServiceRateLimitCache(@NonNull Context ctx) {
-            return SdkLevel.isAtLeastV() && DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
+        public boolean alwaysUseTrafficStatsServiceRateLimitCache(
+                @NonNull Context ctx, boolean clientSideCacheFlag) {
+            return !clientSideCacheFlag && SdkLevel.isAtLeastV()
+                    && DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
                     ctx, TRAFFICSTATS_SERVICE_RATE_LIMIT_CACHE_ENABLED_FLAG);
+        }
+
+        /**
+         * Get whether TrafficStats rate-limit cache is always applied on the client side.
+         *
+         * This method should only be called once in the constructor,
+         * to ensure that the code does not need to deal with flag values changing at runtime.
+         */
+        public boolean alwaysUseTrafficStatsClientRateLimitCache(@NonNull Context ctx) {
+            return SdkLevel.isAtLeastV() && DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
+                    ctx, TRAFFICSTATS_CLIENT_RATE_LIMIT_CACHE_ENABLED_FLAG);
         }
 
         /**
@@ -996,6 +1030,18 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             return getDeviceConfigPropertyInt(
                     NAMESPACE_TETHERING, TRAFFIC_STATS_SERVICE_CACHE_MAX_ENTRIES_NAME,
                     DEFAULT_TRAFFIC_STATS_SERVICE_CACHE_MAX_ENTRIES);
+
+        /**
+         * Get TrafficStats client side rate-limit cache max entries.
+         *
+         * This method should only be called once in the constructor,
+         * to ensure that the code does not need to deal with flag values changing at runtime.
+         */
+        public int getTrafficStatsClientRateLimitCacheMaxEntries() {
+            return getDeviceConfigPropertyInt(
+                    NAMESPACE_TETHERING, TRAFFIC_STATS_CLIENT_CACHE_MAX_ENTRIES_NAME,
+                    DEFAULT_TRAFFIC_STATS_CLIENT_CACHE_MAX_ENTRIES);
+>>>>>>> aff605b051 (Rate limit cache for TrafficStats APIs)
         }
 
         /**
@@ -2131,6 +2177,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         } finally {
             Binder.restoreCallingIdentity(token);
         }
+    }
+
+    @Override
+    public TrafficStatsConfig getTrafficStatsConfig() {
+        return mTrafficStatsConfig;
     }
 
     @Override
