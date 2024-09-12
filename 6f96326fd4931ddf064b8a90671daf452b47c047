@@ -164,6 +164,30 @@
       },
       "revId": "6f96326fd4931ddf064b8a90671daf452b47c047",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dce38a9_0adde35e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-12T04:34:39Z",
+      "side": 1,
+      "message": "Are you sure you guys are discussing about the same thing ? Xiao, are you saying that \u00270\u0027 is a valid mtu value in itself, or are you saying it can be used to represent the default ?\n\n0 transmission bytes is not a valid value, so usually 0 means \"unspecified\" i.e use the standard 1500 value.\n\nIdeally instead of using a default value, we would want to use java.util.Optional to represent that correctly in the internal state.",
+      "parentUuid": "dcb975b4_fcff5eb9",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 20
+      },
+      "revId": "6f96326fd4931ddf064b8a90671daf452b47c047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
