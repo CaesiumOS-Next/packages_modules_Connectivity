@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1d2e3ec_7736cce0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T03:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79d27c34_8c3a2d22",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8da9586_5d258471",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-09-11T09:50:08Z",
       "side": 1,
       "message": "Is the second reason possible?",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "574cbd83_fe8dae27",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T03:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8da9586_5d258471",
       "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5d36547_d00b1e95",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T03:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "365aad60_5d336160",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa7f460f_63f34f91",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-09-11T09:50:08Z",
       "side": 1,
       "message": "why not use the IntegrationTestUtils? https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt;l\u003d99;drc\u003dd92b389c63246193ade415131a76156c9e02cf2f",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "157c6d1c_abceeb15",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T03:41:10Z",
+      "side": 1,
+      "message": "It\u0027s copied to every test file https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java?q\u003dsymbol%3A%5Cbandroid.net.thread.ServiceDiscoveryTest.DEFAULT_DATASET_TLVS%5Cb%20case%3Ayes",
+      "parentUuid": "aa7f460f_63f34f91",
       "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -104,6 +176,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98fcdd31_4ac35bc1",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T03:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe785cc4_16b0baa9",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "702bc61a_bb94656c",
@@ -117,6 +207,24 @@
       "writtenOn": "2024-09-11T09:50:08Z",
       "side": 1,
       "message": "I think I\u0027ve asked about this before: could it be equals?",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec5f3ee6_3a5d8370",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T03:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "702bc61a_bb94656c",
       "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -144,6 +252,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f319a963_fcef93dc",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T03:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "489c54dd_5e5b4b18",
+      "range": {
+        "startLine": 175,
+        "startChar": 1,
+        "endLine": 185,
+        "endChar": 5
+      },
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4cbaa4c_62d84420",
@@ -157,6 +289,24 @@
       "writtenOn": "2024-09-11T09:50:08Z",
       "side": 1,
       "message": "Don\u0027t you need to set up the `isRootProcess` so it returns true for most cases?\n\nI wonder why this bug isn\u0027t detected by the existing test cases.",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00f97ec6_ebd98cbe",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T03:41:10Z",
+      "side": 1,
+      "message": "We don\u0027t need it as other commands doesn\u0027t rely on the dependency. Only \"ot-ctl\" checks it",
+      "parentUuid": "e4cbaa4c_62d84420",
       "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -178,6 +328,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f5957e8_3126135e",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T03:41:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6d650c29_57821d10",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34c36124_a0739b3a",
@@ -191,6 +359,30 @@
       "writtenOn": "2024-09-11T09:50:08Z",
       "side": 1,
       "message": "Ditto. Please use empty lines with caution.",
+      "range": {
+        "startLine": 261,
+        "startChar": 4,
+        "endLine": 276,
+        "endChar": 86
+      },
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c483e4a8_88a3b09d",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T03:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34c36124_a0739b3a",
       "range": {
         "startLine": 261,
         "startChar": 4,
