@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "793f1406_bfc1355f",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T03:17:14Z",
+      "side": 0,
+      "message": "This string cannot be changed otherwise we\u0027ll have compatibility problem where\ndiffernt version of packages are in the field but they need different flag to control this feature.",
+      "range": {
+        "startLine": 491,
+        "startChar": 13,
+        "endLine": 491,
+        "endChar": 55
+      },
+      "revId": "05fb57ea976d0ab5737429684d733c9cd4248462",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

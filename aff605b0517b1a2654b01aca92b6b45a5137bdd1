@@ -1,0 +1,246 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0226a5dd_0de4b5c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T03:17:14Z",
+      "side": 1,
+      "message": "Maybe just say\nget[Iface|Total|Uid][Rx|Tx][Bytes/Packets] APIs.\n\n2. More important thing is to describe why we need to do this.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 33
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bcff2e2_0cadd30e",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T03:17:14Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 185,
+        "startChar": 18,
+        "endLine": 185,
+        "endChar": 19
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "22f24bb8_69cfa646",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 185,
+                "startChar": 0,
+                "endLine": 186,
+                "endChar": 0
+              },
+              "replacement": "    private static final LruCache\u003cString, NetworkStats\u003e sTrafficStatsIfaceCache;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "476f853c_156ee3b9",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T03:17:14Z",
+      "side": 1,
+      "message": "maybe sAlwaysUseClientSideRateLimitCache since we are in TrafficStats.java hence we don\u0027t need TrafficStats in the name to identify it.",
+      "range": {
+        "startLine": 248,
+        "startChar": 55,
+        "endLine": 248,
+        "endChar": 91
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebeb9006_02e62dff",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T03:17:14Z",
+      "side": 1,
+      "message": "IIUC these APIs can be either\nprivate \nor\n@VisibleForTesting(visiblity \u003d PRIVATE)\npublic\n?",
+      "range": {
+        "startLine": 984,
+        "startChar": 4,
+        "endLine": 984,
+        "endChar": 10
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "754236e7_87db9e8a",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T03:17:14Z",
+      "side": 1,
+      "message": "From service side it seems to me both SYSTEM_UID or self uid are legit.\nIf so it seems we\u0027ll still need LRU cache?",
+      "range": {
+        "startLine": 991,
+        "startChar": 18,
+        "endLine": 991,
+        "endChar": 52
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73ddd1b5_775ea62c",
+        "filename": "framework-t/src/android/net/netstats/TrafficStatsConfig.aidl",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T03:17:14Z",
+      "side": 1,
+      "message": "Style: since they are public fields, these should not have m- prefix.",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd8b054_fe80ef00",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T03:17:14Z",
+      "side": 1,
+      "message": "It seems to me this is only for iface cache.\nIf so maybe name it more specifically.",
+      "range": {
+        "startLine": 314,
+        "startChar": 21,
+        "endLine": 314,
+        "endChar": 67
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45d803d4_5f0d001a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T03:17:14Z",
+      "side": 1,
+      "message": "Rename server side cache could be in a separate CL if you want.\nIt could potientially make the review easier and faster for you.\nNo strong opinion.",
+      "range": {
+        "startLine": 503,
+        "startChar": 22,
+        "endLine": 503,
+        "endChar": 41
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7996210b_28c9bf7a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T03:17:14Z",
+      "side": 1,
+      "message": "Maybe name it more specifically. e.g.\nalwaysUseTrafficStatsClientRateLimitCache",
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a71b3d53_a82f808d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-12T03:17:14Z",
+      "side": 1,
+      "message": "Could be !clientSideCacheFlag \u0026\u0026",
+      "range": {
+        "startLine": 993,
+        "startChar": 18,
+        "endLine": 993,
+        "endChar": 19
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
