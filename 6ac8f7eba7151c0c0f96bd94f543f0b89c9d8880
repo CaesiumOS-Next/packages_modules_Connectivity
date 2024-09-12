@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8717619_94ed8a4b",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-12T08:34:27Z",
+      "side": 1,
+      "message": "Per offline discussion, ADB `ot-ctl` will result in a timeout error so it\u0027s not yet ready for replacing the legacy `ot-ctl`. Please add a TODO here and explain the reason.",
+      "parentUuid": "e643129d_f2758fb1",
+      "revId": "6ac8f7eba7151c0c0f96bd94f543f0b89c9d8880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eed44d4a_762373e8",
         "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
         "patchSetId": 29
