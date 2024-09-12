@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2997224_52902a2f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-12T04:29:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bf3d1f0_0d5fd0e1",
+      "range": {
+        "startLine": 51,
+        "startChar": 29,
+        "endLine": 51,
+        "endChar": 40
+      },
+      "revId": "6f96326fd4931ddf064b8a90671daf452b47c047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80b2eff1_a17d55f0",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7acb1af5_4e6fb8f4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-12T04:29:17Z",
+      "side": 1,
+      "message": "Since the setter method is public, I think it\u0027s better to let the caller know if the value is successfully set or not. Also it\u0027s more consistent with other setter methods.",
+      "parentUuid": "e03aaf95_28374a0e",
+      "range": {
+        "startLine": 81,
+        "startChar": 11,
+        "endLine": 81,
+        "endChar": 18
+      },
+      "revId": "6f96326fd4931ddf064b8a90671daf452b47c047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac105e07_3ed2aacd",
@@ -84,6 +132,30 @@
       "writtenOn": "2024-09-11T09:27:49Z",
       "side": 1,
       "message": "nit: 0 should be still a valid MTU value?",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 20
+      },
+      "revId": "6f96326fd4931ddf064b8a90671daf452b47c047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcb975b4_fcff5eb9",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-12T04:29:17Z",
+      "side": 1,
+      "message": "Sure, let me change DEFAULT_MTU to -1.",
+      "parentUuid": "ac105e07_3ed2aacd",
       "range": {
         "startLine": 82,
         "startChar": 12,
