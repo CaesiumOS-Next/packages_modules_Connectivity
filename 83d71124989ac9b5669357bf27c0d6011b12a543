@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "095d4366_09eb4905",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1243,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-12T09:02:21Z",
+      "side": 1,
+      "message": "Maybe we need to guard this feature with a feature flag?",
+      "revId": "83d71124989ac9b5669357bf27c0d6011b12a543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
