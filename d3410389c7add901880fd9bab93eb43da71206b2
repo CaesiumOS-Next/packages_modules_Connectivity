@@ -22,6 +22,30 @@
       },
       "revId": "d3410389c7add901880fd9bab93eb43da71206b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0bcd272_c2483c83",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-12T08:16:26Z",
+      "side": 1,
+      "message": "I tested the case we discussed this morning below. The cleanup still occurs only once because the service type client is removed if the socket is destroyed before checking for remaining service type clients in handleUnregisterListener().\n\n```\nRegister Listener A (service type X, requesting all networks (Y and Z))\n-\u003e Create service type clients X-Y and X-Z\n-\u003e Register Listener B (service type X, requesting network Y)\n-\u003e Reuse service type client X-Y\n-\u003e Unregister Listener A\n-\u003e Socket destroyed on network Z but network Y is still using\n-\u003e Remove cached services associated with network Z after 10s\n```",
+      "parentUuid": "4151619e_562e244d",
+      "range": {
+        "startLine": 358,
+        "startChar": 20,
+        "endLine": 358,
+        "endChar": 53
+      },
+      "revId": "d3410389c7add901880fd9bab93eb43da71206b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
