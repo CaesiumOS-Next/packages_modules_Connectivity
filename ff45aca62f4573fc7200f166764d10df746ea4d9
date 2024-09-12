@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6803c651_a22066d1",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T07:01:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e082d1ae_12c9c64a",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 55
+      },
+      "revId": "ff45aca62f4573fc7200f166764d10df746ea4d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfc6e9ed_7febf6d0",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bbdd93c_246b1e2a",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T07:01:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfc6e9ed_7febf6d0",
+      "revId": "ff45aca62f4573fc7200f166764d10df746ea4d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9a11bd4_80d5100f",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-09-12T06:28:55Z",
       "side": 1,
       "message": "remove the unnecessary empty line between arrange and act",
+      "revId": "ff45aca62f4573fc7200f166764d10df746ea4d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b48fac9_6542221b",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T07:01:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9a11bd4_80d5100f",
       "revId": "ff45aca62f4573fc7200f166764d10df746ea4d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

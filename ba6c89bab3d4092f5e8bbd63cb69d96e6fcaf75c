@@ -159,6 +159,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aa05f6f_6b3b4130",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-12T07:01:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac424a70_8389458c",
+      "revId": "ba6c89bab3d4092f5e8bbd63cb69d96e6fcaf75c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe785cc4_16b0baa9",
