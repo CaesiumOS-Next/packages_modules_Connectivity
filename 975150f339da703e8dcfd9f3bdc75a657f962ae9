@@ -178,6 +178,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "def2ea5a_dcbf1437",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T06:39:40Z",
+      "side": 1,
+      "message": "Might want to add comment to say init() must be called to make the configurations be adopted by TrafficStats.",
+      "parentUuid": "5c7f8611_4a4bab86",
+      "range": {
+        "startLine": 1226,
+        "startChar": 1,
+        "endLine": 1228,
+        "endChar": 5
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c27fb4cc_72904150",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T06:39:40Z",
+      "side": 1,
+      "message": "It seems to me these are not necessary.\nThe callers can just access them from the config.",
+      "range": {
+        "startLine": 1235,
+        "startChar": 0,
+        "endLine": 1246,
+        "endChar": 9
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "62e42844_3d6308f9",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 4
