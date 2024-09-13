@@ -85,7 +85,7 @@ def get_apf_counters_from_dumpsys(
 
 def get_ipv4_address(
     ad: android_device.AndroidDevice, iface_name: str
-) -> str:
+) -> list[str]:
   """Retrieves the IPv4 address of a given interface on an Android device.
 
   This function executes an ADB shell command (`ip -4 address show`) to get the
@@ -110,10 +110,10 @@ def get_ipv4_address(
   # valid_lft forever preferred_lft forever
   output = adb_utils.adb_shell(ad, f"ip -4 address show {iface_name}")
   pattern = r"inet\s+(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\/\d+"
-  match = re.search(pattern, output)
+  matches = re.findall(pattern, output)
 
-  if match:
-    return match.group(1)  # Extract the IPv4 address string.
+  if matches:
+    return matches
   else:
     raise PatternNotFoundException(
       "Cannot get hardware address for " + iface_name
@@ -121,7 +121,7 @@ def get_ipv4_address(
 
 def get_ipv6_address(
     ad: android_device.AndroidDevice, iface_name: str
-) -> str:
+) -> list[str]:
   """Retrieves the IPv6 address of a given interface on an Android device.
 
   This function executes an ADB shell command (`ip -6 address show`) to get the
@@ -150,9 +150,9 @@ def get_ipv6_address(
       "Cannot get ipv6 address for " + iface_name
     )
   pattern = r"inet6\s+([0-9a-fA-F:]+)\/\d+"
-  match = re.search(pattern, output)
-  if match:
-    return match.group(1)  # Extract the IPv6 address string.
+  matches = re.findall(pattern, output)
+  if matches:
+    return matches
   else:
     raise PatternNotFoundException(
       "Cannot get IPv6 address for " + iface_name
