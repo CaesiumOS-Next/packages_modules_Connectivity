@@ -188,6 +188,38 @@ def get_hardware_address(
         "Cannot get hardware address for " + iface_name
     )
 
+def is_packet_capture_supported(
+        ad: android_device.AndroidDevice,
+) -> bool:
+
+  # Invoke the shell command with empty argument and see how NetworkStack respond.
+  # If supported, an IllegalArgumentException with help page will be printed.
+  exceptions = []
+  functions_with_args = (
+    # list all functions and args with (func, *args) tuple
+    (start_capture_packets, (ad, "")),
+    (stop_capture_packets, (ad, "")),
+    (get_matched_packet_counts, (ad, "", ""))
+  )
+
+  for func, args in functions_with_args:
+    try:
+      func(*args)
+    except (assert_utils.UnexpectedBehaviorError, UnsupportedOperationException) as e:
+      exceptions.append(e)
+    except Exception as e:
+      raise assert_utils.UnexpectedException(f"Unexpected exception from {func.__name__}: {e}")
+
+  # Check if all exceptions are the same
+  if not exceptions:
+    return True
+
+  if all(isinstance(e, assert_utils.UnexpectedBehaviorError) for e in exceptions):
+    return True
+  elif all(isinstance(e, UnsupportedOperationException) for e in exceptions):
+    return False
+  else:
+    raise Exception(f"Inconsistent exceptions raised: {exceptions}")
 
 def is_send_raw_packet_downstream_supported(
     ad: android_device.AndroidDevice,
@@ -240,19 +272,94 @@ def send_raw_packet_downstream(
   )
 
   # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
-  try:
-    output = adb_utils.adb_shell(ad, cmd)
-  except AdbError as e:
-    output = str(e.stdout)
-  if output:
-    if "Unknown command" in output:
-      raise UnsupportedOperationException(
-          "send-raw-packet-downstream command is not supported."
-      )
+  adb_output = AdbOutputHandler(ad, cmd).get_output()
+  if adb_output:
     raise assert_utils.UnexpectedBehaviorError(
-        f"Got unexpected output: {output} for command: {cmd}."
+      f"Got unexpected output: {adb_output} for command: {cmd}."
     )
 
+def start_capture_packets(
+        ad: android_device.AndroidDevice,
+        iface_name: str
+) -> None:
+  """Starts packet capturing on a specified network interface.
+
+  This function initiates packet capture on the given network interface of an
+  Android device using an ADB shell command. It handles potential errors
+  related to unsupported commands or unexpected output.
+
+  Args:
+    ad: The Android device object.
+    iface_name: The name of the network interface (e.g., "wlan0").
+  """
+  cmd = (
+    f"cmd network_stack capture start {iface_name}"
+  )
+
+  # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
+  adb_output = AdbOutputHandler(ad, cmd).get_output()
+  if adb_output:
+    raise assert_utils.UnexpectedBehaviorError(
+      f"Got unexpected output: {adb_output} for command: {cmd}."
+    )
+
+def stop_capture_packets(
+        ad: android_device.AndroidDevice,
+        iface_name: str
+) -> None:
+  """Stops packet capturing on a specified network interface.
+
+  This function terminates packet capture on the given network interface of an
+  Android device using an ADB shell command. It handles potential errors
+  related to unsupported commands or unexpected output.
+
+  Args:
+    ad: The Android device object.
+    iface_name: The name of the network interface (e.g., "wlan0").
+  """
+  cmd = (
+    f"cmd network_stack capture stop {iface_name}"
+  )
+
+  # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
+  adb_output = AdbOutputHandler(ad, cmd).get_output()
+  if adb_output:
+    raise assert_utils.UnexpectedBehaviorError(
+      f"Got unexpected output: {adb_output} for command: {cmd}."
+    )
+
+def get_matched_packet_counts(
+        ad: android_device.AndroidDevice,
+        iface_name: str,
+        packet_in_hex: str
+) -> int:
+  """Gets the number of captured packets matching a specific hexadecimal pattern.
+
+  This function retrieves the count of captured packets on the specified
+  network interface that match a given hexadecimal pattern. It uses an ADB
+  shell command and handles potential errors related to unsupported commands,
+  unexpected output, or invalid output format.
+
+  Args:
+    ad: The Android device object.
+    iface_name: The name of the network interface (e.g., "wlan0").
+    packet_in_hex: The hexadecimal string representing the packet pattern.
+
+  Returns:
+    The number of matched packets as an integer.
+  """
+  cmd = (
+    f"cmd network_stack capture matched-packet-counts {iface_name} {packet_in_hex}"
+  )
+
+  # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
+  adb_output = AdbOutputHandler(ad, cmd).get_output()
+  try:
+    return int(adb_output)
+  except ValueError as e:
+    raise assert_utils.UnexpectedBehaviorError(
+      f"Got unexpected exception: {e} for command: {cmd}."
+    )
 
 @dataclass
 class ApfCapabilities:
@@ -314,3 +421,17 @@ def assume_apf_version_support_at_least(
       f"Supported apf version {caps.apf_version_supported} < expected version"
       f" {expected_version}",
   )
+
+class AdbOutputHandler:
+  def __init__(self, ad, cmd):
+    self._ad = ad
+    self._cmd = cmd
+
+  def get_output(self) -> str:
+    try:
+      return adb_utils.adb_shell(self._ad, self._cmd)
+    except AdbError as e:
+      if "Unknown command" in str(e.stdout):
+        raise UnsupportedOperationException(
+          f"{self._cmd} is not supported."
+        )
