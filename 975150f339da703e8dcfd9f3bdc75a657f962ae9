@@ -1,0 +1,242 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f63d430c_98488237",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T06:13:01Z",
+      "side": 1,
+      "message": "style: wrong order?",
+      "range": {
+        "startLine": 30,
+        "startChar": 28,
+        "endLine": 30,
+        "endChar": 46
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b489d89_a5289df3",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T06:13:01Z",
+      "side": 1,
+      "message": "Maybe add comment for this.\n// Only the current UID and the system UID need to cache the stats.",
+      "range": {
+        "startLine": 252,
+        "startChar": 69,
+        "endLine": 252,
+        "endChar": 70
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b8b82d2_33d022a7",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T06:13:01Z",
+      "side": 1,
+      "message": "Might want to add some comment to explain this is a security check, e.g.\n```\n// Note that the check is for performance consideration to reduce\n// possible useless binder call, instead of security checks since\n// the milicious caller might be able to bypass this check and\n// call the service anyway.\n```",
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82f7c2c7_a038212b",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T06:13:01Z",
+      "side": 1,
+      "message": "If the feature is not enabled IIUC we don\u0027t want to get it from the cache.",
+      "range": {
+        "startLine": 993,
+        "startChar": 29,
+        "endLine": 993,
+        "endChar": 70
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f006d4b4_4425ef6a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 993,
+                "startChar": 0,
+                "endLine": 994,
+                "endChar": 0
+              },
+              "replacement": "        NetworkStats stats \u003d sRateLimitUidCache.get(uid);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c7f8611_4a4bab86",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T06:13:01Z",
+      "side": 1,
+      "message": "Maybe: make the constructor uses\n1. sDeps \u003d new Dependencies();\n2. Rename setDependencies() to \n\n/** {@hide} */\n@VisibleForTesting(visibility \u003d PRIVATE)\npublic static void setDependenciesForTest(@NonNull Dependencies deps) \n\n3. Delete setDefaultDependencies",
+      "range": {
+        "startLine": 1226,
+        "startChar": 1,
+        "endLine": 1228,
+        "endChar": 5
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c2398bbe_dfab0bb8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 31,
+                "startChar": 0,
+                "endLine": 31,
+                "endChar": 0
+              },
+              "replacement": "import android.content.pm.PackageManager;\n"
+            },
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 39,
+                "startChar": 0,
+                "endLine": 39,
+                "endChar": 0
+              },
+              "replacement": "import android.support.annotation.VisibleForTesting;\n"
+            },
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 240,
+                "startChar": 0,
+                "endLine": 241,
+                "endChar": 0
+              },
+              "replacement": "        sDeps \u003d new Dependencies();\n"
+            },
+            {
+              "path": "framework-t/src/android/net/TrafficStats.java",
+              "range": {
+                "startLine": 1226,
+                "startChar": 0,
+                "endLine": 1228,
+                "endChar": 0
+              },
+              "replacement": "    @VisibleForTesting(visibility \u003d PRIVATE)\n    public static void setDependenciesForTest(@NonNull Dependencies dep) {\n        sDeps \u003d dep;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62e42844_3d6308f9",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T06:13:01Z",
+      "side": 1,
+      "message": "Might want to remeber to fix this.\nThese can be collected from dependency object.",
+      "range": {
+        "startLine": 694,
+        "startChar": 54,
+        "endLine": 694,
+        "endChar": 58
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7193a29c_1e9e6a66",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T06:13:01Z",
+      "side": 1,
+      "message": "nit: redundant change",
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62dfb192_17f01015",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2147,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T06:13:01Z",
+      "side": 1,
+      "message": "style: one blank line",
+      "range": {
+        "startLine": 2147,
+        "startChar": 4,
+        "endLine": 2147,
+        "endChar": 5
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
