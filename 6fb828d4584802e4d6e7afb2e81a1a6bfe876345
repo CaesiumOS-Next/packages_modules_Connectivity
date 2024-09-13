@@ -3,6 +3,121 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1976a465_2c548f57",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-13T05:24:59Z",
+      "side": 1,
+      "message": "What is the use case for this variable? It seems it always set to true",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d44d966b_4e1ec4ba",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-13T05:24:59Z",
+      "side": 1,
+      "message": "AFAIW, In kotlin, it will be better to use `mutableListOf\u003cDnsEntry\u003e()`",
+      "range": {
+        "startLine": 52,
+        "startChar": 26,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54ab2b02_83a29e1a",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-13T05:24:59Z",
+      "side": 1,
+      "message": "I feel the `AnswerSupplier` and `InstantAnswerSupplier` design is a little bit hard to understand. If the purpose is to indicate whether the getAnswer should return immediately or not. Will it be easier to add a boolean field in DnsEntry() to indicate whether the answer is already know or not and use that here?",
+      "range": {
+        "startLine": 83,
+        "startChar": 30,
+        "endLine": 83,
+        "endChar": 51
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5eedc8d_74f1ea2d",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-13T05:24:59Z",
+      "side": 1,
+      "message": "nit: spurious line break",
+      "range": {
+        "startLine": 86,
+        "startChar": 12,
+        "endLine": 86,
+        "endChar": 13
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8472ef54_ee7085d5",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-13T05:24:59Z",
+      "side": 1,
+      "message": "I think we should call the thread.join() somewhere as well? Will it be better off to create a handlerThread and use handler.post() here, and in the tearDown() we do the clean up?\n\n\n```\n    private val handlerThread by lazy {\n        HandlerThread(\"$TAG handler thread\").apply { start() }\n    }\n    private val handler by lazy { Handler(handlerThread.looper) }\n\n\n    @After\n    fun tearDown() {\n        handlerThread.quitSafely()\n        handlerThread.join()\n    } \n```",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 16
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a81d81c_29d4bb12",
         "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
         "patchSetId": 1
@@ -19,6 +134,29 @@
         "startChar": 20,
         "endLine": 194,
         "endChar": 49
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa6536f_5e6252ec",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-13T05:24:59Z",
+      "side": 1,
+      "message": "Will it be better off to create a handlerThread/handler for this test case and use it here instead?",
+      "range": {
+        "startLine": 196,
+        "startChar": 12,
+        "endLine": 196,
+        "endChar": 43
       },
       "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
