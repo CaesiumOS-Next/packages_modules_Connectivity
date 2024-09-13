@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "222ca399_0efdf8ac",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T09:16:54Z",
+      "side": 1,
+      "message": "Per offline discuss, this might not be OK since every app will need to call into the service.\nWhich might be not necessary also it could potientially increase app launch time.",
+      "range": {
+        "startLine": 242,
+        "startChar": 52,
+        "endLine": 242,
+        "endChar": 73
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b489d89_a5289df3",
         "filename": "framework-t/src/android/net/TrafficStats.java",
         "patchSetId": 4
@@ -101,6 +124,29 @@
           ]
         }
       ],
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bd9fdad_16ec7928",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-13T09:16:54Z",
+      "side": 1,
+      "message": "Might use Integer.valueOf(uid) which leverages integer caching for values between -128 and 127.",
+      "range": {
+        "startLine": 993,
+        "startChar": 52,
+        "endLine": 993,
+        "endChar": 68
+      },
       "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
