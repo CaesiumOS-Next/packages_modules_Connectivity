@@ -48,10 +48,8 @@ cc_test {
         "BpfMapTest.cpp",
         "BpfRingbufTest.cpp",
     ],
-    defaults: ["bpf_defaults"],
+    defaults: ["bpf_cc_defaults"],
     cflags: [
-        "-Wall",
-        "-Werror",
         "-Wno-error=unused-variable",
     ],
     header_libs: ["bpf_headers"],
