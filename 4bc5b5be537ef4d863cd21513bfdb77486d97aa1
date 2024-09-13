@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f43d3c4_034f1cbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-13T08:32:13Z",
+      "side": 1,
+      "message": "Could you please write unit tests for ThreadNetworkControllerService as well? For example, verify that correct permissions are required for the API and the receiver is guaranteed to be called for any exception cases",
+      "revId": "4bc5b5be537ef4d863cd21513bfdb77486d97aa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c24d0a6_116c6842",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-13T08:32:13Z",
+      "side": 1,
+      "message": "The controller service should hide the IOtDaemonXxxx Stuff from its API surface. What about using a OutComeReceiver\u003c\u003e for this receiver?",
+      "range": {
+        "startLine": 1327,
+        "startChar": 12,
+        "endLine": 1327,
+        "endChar": 51
+      },
+      "revId": "4bc5b5be537ef4d863cd21513bfdb77486d97aa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7d3fd56_fff47cd9",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 1342,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-13T08:32:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this exception be passed to receiver?",
+      "range": {
+        "startLine": 1342,
+        "startChar": 12,
+        "endLine": 1342,
+        "endChar": 56
+      },
+      "revId": "4bc5b5be537ef4d863cd21513bfdb77486d97aa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
