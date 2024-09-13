@@ -127,6 +127,7 @@ import android.net.UnderlyingNetworkInfo;
 import android.net.Uri;
 import android.net.netstats.IUsageCallback;
 import android.net.netstats.NetworkStatsDataMigrationUtils;
+import android.net.netstats.TrafficStatsConfig;
 import android.net.netstats.provider.INetworkStatsProvider;
 import android.net.netstats.provider.INetworkStatsProviderCallback;
 import android.net.netstats.provider.NetworkStatsProvider;
@@ -320,6 +321,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final AlarmManager mAlarmManager;
     private final Clock mClock;
     private final NetworkStatsSettings mSettings;
+    private final TrafficStatsConfig mTrafficStatsConfig;
     private final NetworkStatsObservers mStatsObservers;
 
     private final File mStatsDir;
@@ -688,6 +690,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             mEventLogger = null;
         }
 
+        mTrafficStatsConfig = new TrafficStatsConfig();
+        mTrafficStatsConfig.alwaysUseRateLimitCache = true;
+        mTrafficStatsConfig.rateLimitCacheExpiryDuration = 1000;
+        mTrafficStatsConfig.rateLimitIfaceCacheMaxEntries = 100;
+
         mAlwaysUseTrafficStatsServiceRateLimitCache =
                 mDeps.alwaysUseTrafficStatsServiceRateLimitCache(mContext);
         mBroadcastNetworkStatsUpdatedRateLimitEnabled =
@@ -714,6 +721,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         mSkDestroyListener = mDeps.makeSkDestroyListener(mCookieTagMap, mHandler);
         mHandler.post(mSkDestroyListener::start);
     }
+
 
     /**
      * Dependencies of NetworkStatsService, for injection in tests.
@@ -2133,6 +2141,10 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
     }
 
+    @Override
+    public TrafficStatsConfig getTrafficStatsConfig() {
+        return mTrafficStatsConfig;
+    }
     @Override
     public long getUidStats(int uid, int type) {
         return getValueForTypeFromFirstEntry(getTypelessUidStats(uid), type);
