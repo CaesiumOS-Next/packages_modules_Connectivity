@@ -118,7 +118,7 @@ IpClient.wlan1
       get_hardware_address(self.mock_ad, "wlan0")
 
   @patch("net_tests_utils.host.python.adb_utils.adb_shell")
-  def test_get_ipv4_addresses_success(
+  def test_get_ipv4_address_success(
       self, mock_adb_shell: MagicMock
   ) -> None:
     mock_adb_shell.return_value = """
