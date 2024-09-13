@@ -185,6 +185,19 @@ def get_hardware_address(
         "Cannot get hardware address for " + iface_name
     )
 
+def is_packet_capture_supported(
+        ad: android_device.AndroidDevice,
+) -> bool:
+  try:
+    # Invoke the shell command with empty argument and see how NetworkStack respond.
+    # If supported, an IllegalArgumentException with help page will be printed.
+    start_capture_packets(ad, "")
+    stop_capture_packets(ad, "")
+    get_matched_packet_counts(ad, "", "")
+  except assert_utils.UnexpectedBehaviorError:
+    return True
+  except UnsupportedOperationException:
+    return False
 
 def is_send_raw_packet_downstream_supported(
     ad: android_device.AndroidDevice,
@@ -250,6 +263,111 @@ def send_raw_packet_downstream(
         f"Got unexpected output: {output} for command: {cmd}."
     )
 
+def start_capture_packets(
+        ad: android_device.AndroidDevice,
+        iface_name: str
+) -> None:
+  """Starts packet capturing on a specified network interface.
+
+  This function initiates packet capture on the given network interface of an
+  Android device using an ADB shell command. It handles potential errors
+  related to unsupported commands or unexpected output.
+
+  Args:
+    ad: The Android device object.
+    iface_name: The name of the network interface (e.g., "wlan0").
+  """
+  cmd = (
+    f"cmd network_stack start-capture {iface_name}"
+  )
+
+  # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
+  try:
+    output = adb_utils.adb_shell(ad, cmd)
+  except AdbError as e:
+    output = str(e.stdout)
+  if output:
+    if "Unknown command" in output:
+      raise UnsupportedOperationException(
+        f"{cmd} command is not supported."
+      )
+    raise assert_utils.UnexpectedBehaviorError(
+      f"Got unexpected output: {output} for command: {cmd}."
+    )
+
+def stop_capture_packets(
+        ad: android_device.AndroidDevice,
+        iface_name: str
+) -> None:
+  """Stops packet capturing on a specified network interface.
+
+  This function terminates packet capture on the given network interface of an
+  Android device using an ADB shell command. It handles potential errors
+  related to unsupported commands or unexpected output.
+
+  Args:
+    ad: The Android device object.
+    iface_name: The name of the network interface (e.g., "wlan0").
+  """
+  cmd = (
+    f"cmd network_stack stop-capture {iface_name}"
+  )
+
+  # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
+  try:
+    output = adb_utils.adb_shell(ad, cmd)
+  except AdbError as e:
+    output = str(e.stdout)
+  if output:
+    if "Unknown command" in output:
+      raise UnsupportedOperationException(
+        f"{cmd} command is not supported."
+      )
+    raise assert_utils.UnexpectedBehaviorError(
+      f"Got unexpected output: {output} for command: {cmd}."
+    )
+
+def get_matched_packet_counts(
+        ad: android_device.AndroidDevice,
+        iface_name: str,
+        packet_in_hex: str
+) -> int:
+  """Gets the number of captured packets matching a specific hexadecimal pattern.
+
+  This function retrieves the count of captured packets on the specified
+  network interface that match a given hexadecimal pattern. It uses an ADB
+  shell command and handles potential errors related to unsupported commands,
+  unexpected output, or invalid output format.
+
+  Args:
+    ad: The Android device object.
+    iface_name: The name of the network interface (e.g., "wlan0").
+    packet_in_hex: The hexadecimal string representing the packet pattern.
+
+  Returns:
+    The number of matched packets as an integer.
+  """
+  cmd = (
+    f"cmd network_stack matched-packet-counts {iface_name} {packet_in_hex}"
+  )
+
+  # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
+  try:
+    return int(adb_utils.adb_shell(ad, cmd))
+  except AdbError as e:
+    output = str(e.stdout)
+    if output:
+      if "Unknown command" in output:
+        raise UnsupportedOperationException(
+          f"{cmd} is not supported."
+        )
+      raise assert_utils.UnexpectedBehaviorError(
+        f"Got unexpected output: {output} for command: {cmd}."
+      )
+  except ValueError as e:
+    raise assert_utils.UnexpectedBehaviorError(
+      f"Got unexpected exception: {e} for command: {cmd}."
+    )
 
 @dataclass
 class ApfCapabilities:
