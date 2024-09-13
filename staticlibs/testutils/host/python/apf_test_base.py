@@ -39,6 +39,7 @@ class ApfTestBase(multi_devices_test_base.MultiDevicesTestBase):
     )
 
     # Fetch device properties and storing them locally for later use.
+    # TODO: refactor to separate class for client and server device
     self.server_iface_name, client_network = (
         tether_utils.setup_hotspot_and_client_for_upstream_type(
             self.serverDevice, self.clientDevice, UpstreamType.NONE
@@ -49,6 +50,21 @@ class ApfTestBase(multi_devices_test_base.MultiDevicesTestBase):
     )
     self.server_mac_address = apf_utils.get_hardware_address(
         self.serverDevice, self.server_iface_name
+    )
+    self.client_mac_address = apf_utils.get_hardware_address(
+        self.clientDevice, self.client_iface_name
+    )
+    self.server_ipv4_address = apf_utils.get_ipv4_address(
+        self.serverDevice, self.server_iface_name
+    )
+    self.client_ipv4_address = apf_utils.get_ipv4_address(
+        self.clientDevice, self.client_iface_name
+    )
+    self.server_ipv6_address = apf_utils.get_ipv6_address(
+        self.serverDevice, self.server_iface_name
+    )
+    self.client_ipv6_address = apf_utils.get_ipv6_address(
+        self.clientDevice, self.client_iface_name
     )
 
     # Enable doze mode to activate APF.
