@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8677edc0_ad8eadf5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0226a5dd_0de4b5c2",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 33
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bcff2e2_0cadd30e",
@@ -65,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2b9ba3c_5a95fb34",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bcff2e2_0cadd30e",
+      "range": {
+        "startLine": 185,
+        "startChar": 18,
+        "endLine": 185,
+        "endChar": 19
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "476f853c_156ee3b9",
@@ -78,6 +126,30 @@
       "writtenOn": "2024-09-12T03:17:14Z",
       "side": 1,
       "message": "maybe sAlwaysUseClientSideRateLimitCache since we are in TrafficStats.java hence we don\u0027t need TrafficStats in the name to identify it.",
+      "range": {
+        "startLine": 248,
+        "startChar": 55,
+        "endLine": 248,
+        "endChar": 91
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d57c1559_8f5a3cf4",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "476f853c_156ee3b9",
       "range": {
         "startLine": 248,
         "startChar": 55,
@@ -111,6 +183,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff4f630e_e89eb7d8",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc5ba268_39e282d5",
+      "range": {
+        "startLine": 251,
+        "startChar": 8,
+        "endLine": 251,
+        "endChar": 45
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d919a67d_7e06ab83",
@@ -124,6 +220,30 @@
       "writtenOn": "2024-09-12T05:47:27Z",
       "side": 1,
       "message": "It seems to me these will be accessed from multiple threads.\nThus maybe they need to be @GuardedBy(\"mRateLimitCacheLock\")?",
+      "range": {
+        "startLine": 252,
+        "startChar": 4,
+        "endLine": 256,
+        "endChar": 39
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6acb1e39_94e48917",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d919a67d_7e06ab83",
       "range": {
         "startLine": 252,
         "startChar": 4,
@@ -221,6 +341,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6dcd3a_16af5375",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "754236e7_87db9e8a",
+      "range": {
+        "startLine": 991,
+        "startChar": 18,
+        "endLine": 991,
+        "endChar": 52
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81de551b_daaae0ea",
@@ -285,6 +429,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4af146f3_76eca684",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6e81174_fc9ad972",
+      "range": {
+        "startLine": 1216,
+        "startChar": 27,
+        "endLine": 1216,
+        "endChar": 39
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73ddd1b5_775ea62c",
@@ -298,6 +466,30 @@
       "writtenOn": "2024-09-12T03:17:14Z",
       "side": 1,
       "message": "Style: since they are public fields, these should not have m- prefix.",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f629834_2dd467ed",
+        "filename": "framework-t/src/android/net/netstats/TrafficStatsConfig.aidl",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73ddd1b5_775ea62c",
       "range": {
         "startLine": 21,
         "startChar": 12,
@@ -331,6 +523,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6ad4082_e191e2ba",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfd8b054_fe80ef00",
+      "range": {
+        "startLine": 314,
+        "startChar": 21,
+        "endLine": 314,
+        "endChar": 67
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45d803d4_5f0d001a",
@@ -344,6 +560,30 @@
       "writtenOn": "2024-09-12T03:17:14Z",
       "side": 1,
       "message": "Rename server side cache could be in a separate CL if you want.\nIt could potientially make the review easier and faster for you.\nNo strong opinion.",
+      "range": {
+        "startLine": 503,
+        "startChar": 22,
+        "endLine": 503,
+        "endChar": 41
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26da2949_f312638e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45d803d4_5f0d001a",
       "range": {
         "startLine": 503,
         "startChar": 22,
@@ -371,6 +611,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9781f6f_1d684a8d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7996210b_28c9bf7a",
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a71b3d53_a82f808d",
@@ -384,6 +642,30 @@
       "writtenOn": "2024-09-12T03:17:14Z",
       "side": 1,
       "message": "Could be !clientSideCacheFlag \u0026\u0026",
+      "range": {
+        "startLine": 993,
+        "startChar": 18,
+        "endLine": 993,
+        "endChar": 19
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac5c80d2_99d8a0c0",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 3506611
+      },
+      "writtenOn": "2024-09-13T03:46:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a71b3d53_a82f808d",
       "range": {
         "startLine": 993,
         "startChar": 18,
