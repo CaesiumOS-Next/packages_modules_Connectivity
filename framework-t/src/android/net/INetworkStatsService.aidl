@@ -27,6 +27,7 @@ import android.net.UnderlyingNetworkInfo;
 import android.net.netstats.IUsageCallback;
 import android.net.netstats.provider.INetworkStatsProvider;
 import android.net.netstats.provider.INetworkStatsProviderCallback;
+import android.net.netstats.TrafficStatsConfig;
 import android.os.IBinder;
 import android.os.Messenger;
 
@@ -107,4 +108,7 @@ interface INetworkStatsService {
 
      /** Clear TrafficStats rate-limit caches. */
      void clearTrafficStatsRateLimitCaches();
+
+     /** Get network stats client settings */
+     TrafficStatsConfig getTrafficStatsConfig();
 }
