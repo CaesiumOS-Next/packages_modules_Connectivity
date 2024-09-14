@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0cf2c90_918e3404",
+        "filename": "tests/cts/multidevices/apfv4_test.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-14T05:57:15Z",
+      "side": 1,
+      "message": "@junyulai@google.com\nFound an issue that if device\u0027s uptime \u003e\u003d 24 hr, the network stack capabilities command will failed.\n\nIt might be a problem if the devices running cts up for over 24 hrs.\n\n```\njimictw@jimictw:~$ adb -t 73 shell cmd network_stack apf wlan0 capabilities\n\nException occurred while executing \u0027apf\u0027:\njava.lang.IllegalStateException: Error: This test interface requires uptime \u003c 24h\n        at com.android.networkstack.android.net.ip.IpClient.apfShellCommand(IpClient.java:1577)\n        at com.android.server.NetworkStackService$NetworkStackConnector.apfShellCommand(NetworkStackService.java:521)\n        at com.android.server.NetworkStackService$NetworkStackConnector.-$$Nest$mapfShellCommand(NetworkStackService.java:0)\n        at com.android.server.NetworkStackService$NetworkStackConnector$ShellCmd.onCommand(NetworkStackService.java:626)\n        at com.android.networkstack.com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)\n        at com.android.server.NetworkStackService$NetworkStackConnector.handleShellCommand(NetworkStackService.java:507)\n        at android.os.Binder.onShellCommand(Binder.java:1290)\n        at android.os.Binder.shellCommand(Binder.java:1237)\n        at android.os.Binder.onTransact(Binder.java:1050)\n        at com.android.networkstack.android.net.INetworkStackConnector$Stub.onTransact(INetworkStackConnector.java:147)\n        at android.os.Binder.execTransactInternal(Binder.java:1512)\n        at android.os.Binder.execTransact(Binder.java:1451)\n\n```",
+      "revId": "73711f7b4161065aa32efd61dbfd475b03b3422f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
