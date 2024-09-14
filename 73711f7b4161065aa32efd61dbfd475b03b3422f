@@ -1,6 +1,24 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a473c52_0e072065",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-14T06:16:53Z",
+      "side": 1,
+      "message": "Maciej Żenczykowski, Kernel Networking Developer @ Google\n\nThat\u0027s WAI. Just reboot before running the test.\n\n--",
+      "tag": "mailMessageId\u003d\u003cCANP3RGd6ywRaOgCVD3S3bRWDcEuAix\u003d4wFJm_6yGAzUEq7ddcg@mail.gmail.com\u003e",
+      "revId": "73711f7b4161065aa32efd61dbfd475b03b3422f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0cf2c90_918e3404",
