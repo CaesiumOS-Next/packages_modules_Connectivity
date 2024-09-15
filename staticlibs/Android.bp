@@ -467,6 +467,7 @@ java_library {
     ],
     visibility: [
         "//packages/modules/Connectivity/framework",
+        "//packages/modules/Connectivity/staticlibs/tests/unit",
     ],
     libs: [
         "androidx.annotation_annotation",
@@ -669,6 +670,7 @@ filegroup {
         "device/com/android/net/module/util/Struct.java",
         "device/com/android/net/module/util/TcUtils.java",
         "device/com/android/net/module/util/TimerFdUtils.java",
+        "device/com/android/net/module/util/TimerFileDescriptor.java",
         "framework/com/android/net/module/util/HexDump.java",
     ],
     visibility: ["//visibility:private"],

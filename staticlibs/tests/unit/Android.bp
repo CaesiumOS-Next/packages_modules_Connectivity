@@ -21,6 +21,7 @@ android_library {
         "netd-client",
         "net-tests-utils",
         "net-utils-framework-common",
+        "net-utils-framework-connectivity",
         "net-utils-device-common",
         "net-utils-device-common-async",
         "net-utils-device-common-bpf",
@@ -55,6 +56,7 @@ android_test {
         // For mockito extended
         "libdexmakerjvmtiagent",
         "libstaticjvmtiagent",
+        "libcom_android_net_moduletests_util_jni",
     ],
     jarjar_rules: "jarjar-rules.txt",
     test_suites: ["device-tests"],
