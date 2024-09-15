@@ -1,0 +1,25 @@
+package {
+    default_team: "trendy_team_fwk_core_networking",
+    // See: http://go/android-license-faq
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+cc_library_shared {
+    name: "libcom_android_net_moduletests_util_jni",
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wthread-safety",
+    ],
+    srcs: [
+        "com_android_net_moduletests_util/onload.cpp",
+    ],
+    static_libs: [
+        "libnet_utils_device_common_timerfdjni",
+    ],
+    shared_libs: [
+        "liblog",
+        "libnativehelper",
+    ],
+}
