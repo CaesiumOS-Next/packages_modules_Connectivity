@@ -638,6 +638,8 @@ filegroup {
         "device/com/android/net/module/util/JniUtil.java",
         "device/com/android/net/module/util/SingleWriterBpfMap.java",
         "device/com/android/net/module/util/Struct.java",
+        "device/com/android/net/module/util/TimerFdUtils.java",
+        "device/com/android/net/module/util/TimerFileDescriptor.java",
         "device/com/android/net/module/util/TcUtils.java",
         "framework/com/android/net/module/util/HexDump.java",
     ],
@@ -695,4 +697,30 @@ java_library {
         "//packages/modules/Wifi/framework",
     ],
     apex_available: ["com.android.wifi"],
+}
+
+java_library {
+    name: "net-utils-device-common-timerfd",
+    srcs: [
+        "device/com/android/net/module/util/JniUtil.java",
+        "device/com/android/net/module/util/TimerFdUtils.java",
+        "device/com/android/net/module/util/TimerFileDescriptor.java",
+    ],
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    visibility: [
+        "//packages/modules/Connectivity:__subpackages__",
+    ],
+    libs: [
+        "androidx.annotation_annotation",
+        "framework-connectivity.stubs.module_lib",
+    ],
+    apex_available: [
+        "com.android.tethering",
+        "//apex_available:platform",
+    ],
+    lint: {
+        strict_updatability_linting: true,
+        error_checks: ["NewApi"],
+    },
 }
