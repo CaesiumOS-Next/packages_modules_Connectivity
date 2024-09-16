@@ -102,6 +102,13 @@ public class TimerFileDescriptor {
         public void post(Handler handler) {
             handler.sendMessage(mMessage);
         }
+
+        /**
+         * Get scheduled message
+         */
+        public Message getMessage() {
+            return mMessage;
+        }
     }
 
     /**
