@@ -36,6 +36,7 @@ import androidx.annotation.VisibleForTesting;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.DnsUtils;
 import com.android.net.module.util.SharedLog;
+import com.android.net.module.util.TimerFileDescriptor;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
 import java.io.IOException;
@@ -95,6 +96,9 @@ public class MdnsServiceTypeClient {
     private final boolean removeServiceAfterTtlExpires =
             MdnsConfigs.removeServiceAfterTtlExpires();
     private final Clock clock;
+    // Use TimerFileDescriptor for query scheduling, which allows for more accurate sending of
+    // queries.
+    private final TimerFileDescriptor timerFd;
 
     @Nullable private MdnsSearchOptions searchOptions;
 
@@ -186,10 +190,16 @@ public class MdnsServiceTypeClient {
                                     searchOptions.numOfQueriesBeforeBackoff(),
                                     false /* forceEnableBackoff */
                             );
-                    dependencies.sendMessageDelayed(
-                            handler,
-                            handler.obtainMessage(EVENT_START_QUERYTASK, args),
-                            calculateTimeToNextTask(args, now, sharedLog));
+                    if (featureFlags.isAccurateDelayCallbackEnabled()) {
+                        timerFd.setDelayedTask(() -> dependencies.sendMessage(handler,
+                                        handler.obtainMessage(EVENT_START_QUERYTASK, args)),
+                                calculateTimeToNextTask(args, now, sharedLog));
+                    } else {
+                        dependencies.sendMessageDelayed(
+                                handler,
+                                handler.obtainMessage(EVENT_START_QUERYTASK, args),
+                                calculateTimeToNextTask(args, now, sharedLog));
+                    }
                     break;
                 }
                 default:
@@ -251,6 +261,14 @@ public class MdnsServiceTypeClient {
                 return List.of(new DatagramPacket(queryBuffer, 0, queryBuffer.length, address));
             }
         }
+
+        /**
+         * @see TimerFileDescriptor
+         */
+        @NonNull
+        public TimerFileDescriptor createTimerFd(@NonNull Handler handler) {
+            return new TimerFileDescriptor(handler);
+        }
     }
 
     /**
@@ -298,6 +316,7 @@ public class MdnsServiceTypeClient {
         this.mdnsQueryScheduler = new MdnsQueryScheduler();
         this.cacheKey = new MdnsServiceCache.CacheKey(serviceType, socketKey);
         this.featureFlags = featureFlags;
+        this.timerFd = dependencies.createTimerFd(handler);
     }
 
     /**
@@ -422,10 +441,16 @@ public class MdnsServiceTypeClient {
                             searchOptions.numOfQueriesBeforeBackoff(),
                             forceEnableBackoff
                     );
-            dependencies.sendMessageDelayed(
-                    handler,
-                    handler.obtainMessage(EVENT_START_QUERYTASK, args),
-                    calculateTimeToNextTask(args, now, sharedLog));
+            if (featureFlags.isAccurateDelayCallbackEnabled()) {
+                timerFd.setDelayedTask(() -> dependencies.sendMessage(
+                                handler, handler.obtainMessage(EVENT_START_QUERYTASK, args)),
+                        calculateTimeToNextTask(args, now, sharedLog));
+            } else {
+                dependencies.sendMessageDelayed(
+                        handler,
+                        handler.obtainMessage(EVENT_START_QUERYTASK, args),
+                        calculateTimeToNextTask(args, now, sharedLog));
+            }
         } else {
             final List<MdnsResponse> servicesToResolve = makeResponsesForResolve(socketKey);
             final QueryTask queryTask = new QueryTask(
@@ -465,7 +490,11 @@ public class MdnsServiceTypeClient {
     }
 
     private void removeScheduledTask() {
-        dependencies.removeMessages(handler, EVENT_START_QUERYTASK);
+        if (featureFlags.isAccurateDelayCallbackEnabled()) {
+            timerFd.cancelTask();
+        } else {
+            dependencies.removeMessages(handler, EVENT_START_QUERYTASK);
+        }
         sharedLog.log("Remove EVENT_START_QUERYTASK"
                 + ", current session: " + currentSessionId);
         ++currentSessionId;
@@ -547,7 +576,10 @@ public class MdnsServiceTypeClient {
                 serviceCache.addOrUpdateService(cacheKey, response);
             }
         }
-        if (dependencies.hasMessages(handler, EVENT_START_QUERYTASK)) {
+        final boolean hasScheduledTask = featureFlags.isAccurateDelayCallbackEnabled()
+                ? timerFd.hasDelayedTask()
+                : dependencies.hasMessages(handler, EVENT_START_QUERYTASK);
+        if (hasScheduledTask) {
             final long now = clock.elapsedRealtime();
             final long minRemainingTtl = getMinRemainingTtl(now);
             MdnsQueryScheduler.ScheduledQueryTaskArgs args =
@@ -556,10 +588,16 @@ public class MdnsServiceTypeClient {
                             searchOptions.numOfQueriesBeforeBackoff());
             if (args != null) {
                 removeScheduledTask();
-                dependencies.sendMessageDelayed(
-                        handler,
-                        handler.obtainMessage(EVENT_START_QUERYTASK, args),
-                        calculateTimeToNextTask(args, now, sharedLog));
+                if (featureFlags.isAccurateDelayCallbackEnabled()) {
+                    timerFd.setDelayedTask(() -> dependencies.sendMessage(
+                                    handler, handler.obtainMessage(EVENT_START_QUERYTASK, args)),
+                            calculateTimeToNextTask(args, now, sharedLog));
+                } else {
+                    dependencies.sendMessageDelayed(
+                            handler,
+                            handler.obtainMessage(EVENT_START_QUERYTASK, args),
+                            calculateTimeToNextTask(args, now, sharedLog));
+                }
             }
         }
     }
