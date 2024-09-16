@@ -73,6 +73,11 @@ public class MdnsFeatureFlags {
     public static final String NSD_AVOID_ADVERTISING_EMPTY_TXT_RECORDS =
             "nsd_avoid_advertising_empty_txt_records";
 
+    /**
+     * A feature flag to control whether the accurate delay callback should be enabled.
+     */
+    public static final String NSD_ACCURATE_DELAY_CALLBACK = "nsd_accurate_delay_callback";
+
     // Flag for offload feature
     public final boolean mIsMdnsOffloadFeatureEnabled;
 
@@ -99,6 +104,9 @@ public class MdnsFeatureFlags {
 
     // Flag for avoiding advertising empty TXT records
     public final boolean mAvoidAdvertisingEmptyTxtRecords;
+
+    // Flag for accurate delay callback
+    public final boolean mIsAccurateDelayCallbackEnabled;
 
     @Nullable
     private final FlagOverrideProvider mOverrideProvider;
@@ -160,6 +168,14 @@ public class MdnsFeatureFlags {
     }
 
     /**
+     * Indicates whether {@link #NSD_ACCURATE_DELAY_CALLBACK} is enabled, including for testing.
+     */
+    public boolean isAccurateDelayCallbackEnabled() {
+        return mIsAccurateDelayCallbackEnabled
+                || isForceEnabledForTest(NSD_ACCURATE_DELAY_CALLBACK);
+    }
+
+    /**
      * The constructor for {@link MdnsFeatureFlags}.
      */
     public MdnsFeatureFlags(boolean isOffloadFeatureEnabled,
@@ -171,6 +187,7 @@ public class MdnsFeatureFlags {
             boolean isAggressiveQueryModeEnabled,
             boolean isQueryWithKnownAnswerEnabled,
             boolean avoidAdvertisingEmptyTxtRecords,
+            boolean isAccurateDelayCallbackEnabled,
             @Nullable FlagOverrideProvider overrideProvider) {
         mIsMdnsOffloadFeatureEnabled = isOffloadFeatureEnabled;
         mIncludeInetAddressRecordsInProbing = includeInetAddressRecordsInProbing;
@@ -181,6 +198,7 @@ public class MdnsFeatureFlags {
         mIsAggressiveQueryModeEnabled = isAggressiveQueryModeEnabled;
         mIsQueryWithKnownAnswerEnabled = isQueryWithKnownAnswerEnabled;
         mAvoidAdvertisingEmptyTxtRecords = avoidAdvertisingEmptyTxtRecords;
+        mIsAccurateDelayCallbackEnabled = isAccurateDelayCallbackEnabled;
         mOverrideProvider = overrideProvider;
     }
 
@@ -202,6 +220,7 @@ public class MdnsFeatureFlags {
         private boolean mIsAggressiveQueryModeEnabled;
         private boolean mIsQueryWithKnownAnswerEnabled;
         private boolean mAvoidAdvertisingEmptyTxtRecords;
+        private boolean mIsAccurateDelayCallbackEnabled;
         private FlagOverrideProvider mOverrideProvider;
 
         /**
@@ -217,6 +236,7 @@ public class MdnsFeatureFlags {
             mIsAggressiveQueryModeEnabled = false;
             mIsQueryWithKnownAnswerEnabled = false;
             mAvoidAdvertisingEmptyTxtRecords = true; // Default enabled.
+            mIsAccurateDelayCallbackEnabled = false;
             mOverrideProvider = null;
         }
 
@@ -323,6 +343,16 @@ public class MdnsFeatureFlags {
         }
 
         /**
+         * Set whether the accurate delay callback is enabled.
+         *
+         * @see #NSD_ACCURATE_DELAY_CALLBACK
+         */
+        public Builder setIsAccurateDelayCallbackEnabled(boolean isAccurateDelayCallbackEnabled) {
+            mIsAccurateDelayCallbackEnabled = isAccurateDelayCallbackEnabled;
+            return this;
+        }
+
+        /**
          * Builds a {@link MdnsFeatureFlags} with the arguments supplied to this builder.
          */
         public MdnsFeatureFlags build() {
@@ -335,6 +365,7 @@ public class MdnsFeatureFlags {
                     mIsAggressiveQueryModeEnabled,
                     mIsQueryWithKnownAnswerEnabled,
                     mAvoidAdvertisingEmptyTxtRecords,
+                    mIsAccurateDelayCallbackEnabled,
                     mOverrideProvider);
         }
     }
