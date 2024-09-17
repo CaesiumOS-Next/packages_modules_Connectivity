@@ -372,6 +372,7 @@ import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.SatelliteAccessController;
+import com.android.server.connectivity.SatelliteDataUsageController;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.VpnNetworkPreferenceInfo;
 import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
@@ -1009,6 +1010,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final NetworkNotificationManager mNotifier;
     private final LingerMonitor mLingerMonitor;
     private final SatelliteAccessController mSatelliteAccessController;
+    private final SatelliteDataUsageController mSatelliteDataUsageController;
 
     // sequence number of NetworkRequests
     private int mNextNetworkRequestId = NetworkRequest.FIRST_REQUEST_ID;
@@ -1611,6 +1613,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         /**
+         * @see SatelliteDataUsageController
+         */
+        @Nullable
+        public SatelliteDataUsageController makeSatelliteDataUsageController(
+                @NonNull final Context context,
+                Consumer<int[]> satelliteDataBlockedStatus,
+                @NonNull final Handler connectivityServiceInternalHandler) {
+            return new SatelliteDataUsageController(context, satelliteDataBlockedStatus,
+                    connectivityServiceInternalHandler);
+        }
+
+        /**
          * @see DeviceConfigUtils#isTetheringFeatureEnabled
          */
         public boolean isFeatureEnabled(Context context, String name) {
@@ -1895,6 +1909,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mSatelliteAccessController = null;
         }
 
+        if (mDeps.isAtLeastV()) {
+            mSatelliteDataUsageController = mDeps.makeSatelliteDataUsageController(
+                    mContext, this::satelliteDataBlockStatus, mHandler);
+        } else {
+            mSatelliteDataUsageController = null;
+        }
+
         // To ensure uid state is synchronized with Network Policy, register for
         // NetworkPolicyManagerService events must happen prior to NetworkPolicyManagerService
         // reading existing policy from disk.
@@ -2175,6 +2196,43 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     private void updateSatelliteNetworkPreferenceUids(Set<Integer> satelliteNetworkFallbackUids) {
         handleSetSatelliteNetworkPreference(satelliteNetworkFallbackUids);
+    }
+
+    private void satelliteDataBlockStatus(int[] uids) {
+        showNetworkNotificationForSatellite(uids, NotificationType.SATELLITE_DATA_BLOCKED);
+    }
+
+    private void showNetworkNotificationForSatellite(int[] blockedUids, NotificationType type) {
+        final String action;
+        final boolean highPriority;
+        switch (type) {
+            case SATELLITE_DATA_BLOCKED:
+                action = "android.net.action.PROMPT_SATELLITE_DATA_BLOCKED";
+                break;
+            default:
+                Log.wtf(TAG, "Unknown notification type " + type);
+                return;
+        }
+
+        Intent intent = new Intent(action);
+        intent.putExtra("satellite_blocked_uids", blockedUids);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // Some OEMs have their own Settings package. Thus, need to get the current using
+        // Settings package name instead of just use default name "com.android.settings".
+        final String settingsPkgName = getSettingsPackageName(mContext.getPackageManager());
+        //  intent.setClassName(settingsPkgName,
+        //         settingsPkgName + ".wifi.WifiNoInternetDialog");
+
+        intent.setClassName(settingsPkgName,
+                settingsPkgName + ".network.telephony.SatelliteLimitedDataDialog");
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                mContext.createContextAsUser(UserHandle.CURRENT, 0 /* flags */),
+                0 /* requestCode */,
+                intent,
+                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        mNotifier.showNotification(101/*test_id*/, type, null, null, pendingIntent, true/*highPriority*/);
     }
 
     private void handleAlwaysOnNetworkRequest(
@@ -4092,6 +4150,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (mSatelliteAccessController != null) {
             mSatelliteAccessController.start();
+        }
+
+        if (mSatelliteDataUsageController !=null) {
+            mSatelliteDataUsageController.registerForSatelliteNetwork();
         }
 
         if (mCarrierPrivilegeAuthenticator != null) {
