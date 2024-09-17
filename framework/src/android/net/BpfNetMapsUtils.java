@@ -21,6 +21,7 @@ import static android.net.BpfNetMapsConstants.BACKGROUND_MATCH;
 import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED;
 import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED_KEY;
 import static android.net.BpfNetMapsConstants.DENY_CHAINS;
+import static android.net.BpfNetMapsConstants.SATELLITE_FOREGROUND_MATCH;
 import static android.net.BpfNetMapsConstants.DOZABLE_MATCH;
 import static android.net.BpfNetMapsConstants.HAPPY_BOX_MATCH;
 import static android.net.BpfNetMapsConstants.LOW_POWER_STANDBY_MATCH;
@@ -44,12 +45,14 @@ import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRI
 import static android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND;
 import static android.net.ConnectivityManager.BLOCKED_REASON_APP_STANDBY;
 import static android.net.ConnectivityManager.BLOCKED_REASON_BATTERY_SAVER;
+import static android.net.ConnectivityManager.BLOCKED_REASON_SATELLITE_FOREGROUND;
 import static android.net.ConnectivityManager.BLOCKED_REASON_DOZE;
 import static android.net.ConnectivityManager.BLOCKED_REASON_LOW_POWER_STANDBY;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.BLOCKED_REASON_OEM_DENY;
 import static android.net.ConnectivityManager.BLOCKED_REASON_RESTRICTED_MODE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_SATELLITE_FOREGROUND;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_ALLOW;
@@ -147,6 +150,8 @@ public class BpfNetMapsUtils {
                 return PENALTY_BOX_USER_MATCH;
             case FIREWALL_CHAIN_METERED_DENY_ADMIN:
                 return PENALTY_BOX_ADMIN_MATCH;
+            case FIREWALL_CHAIN_SATELLITE_FOREGROUND:
+                return SATELLITE_FOREGROUND_MATCH;
             default:
                 throw new ServiceSpecificException(EINVAL, "Invalid firewall chain: " + chain);
         }
@@ -301,6 +306,9 @@ public class BpfNetMapsUtils {
         }
         if ((blockingMatches & (OEM_DENY_1_MATCH | OEM_DENY_2_MATCH | OEM_DENY_3_MATCH)) != 0) {
             blockedReasons |= BLOCKED_REASON_OEM_DENY;
+        }
+        if ((blockingMatches & SATELLITE_FOREGROUND_MATCH) != 0) {
+            blockedReasons |= BLOCKED_REASON_SATELLITE_FOREGROUND;
         }
 
         // Metered chains are not enabled by configuration map currently.
