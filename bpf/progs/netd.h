@@ -158,8 +158,6 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 
 #define CGROUP_INET_CREATE_PROG_PATH BPF_NETD_PATH "prog_netd_cgroupsock_inet_create"
 #define CGROUP_INET_RELEASE_PROG_PATH BPF_NETD_PATH "prog_netd_cgroupsockrelease_inet_release"
-#define CGROUP_BIND4_PROG_PATH BPF_NETD_PATH "prog_netd_bind4_inet4_bind"
-#define CGROUP_BIND6_PROG_PATH BPF_NETD_PATH "prog_netd_bind6_inet6_bind"
 #define CGROUP_CONNECT4_PROG_PATH BPF_NETD_PATH "prog_netd_connect4_inet4_connect"
 #define CGROUP_CONNECT6_PROG_PATH BPF_NETD_PATH "prog_netd_connect6_inet6_connect"
 #define CGROUP_UDP4_RECVMSG_PROG_PATH BPF_NETD_PATH "prog_netd_recvmsg4_udp4_recvmsg"
@@ -186,8 +184,7 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define PACKET_TRACE_RINGBUF_PATH BPF_NETD_PATH "map_netd_packet_trace_ringbuf"
 #define PACKET_TRACE_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_packet_trace_enabled_map"
 #define DATA_SAVER_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_data_saver_enabled_map"
-#define SATELLITE_EVENT_RINGBUF_PATH                                           \
-  BPF_NETD_PATH "map_netd_satellite_event_ringbuf"
+#define SATELLITE_EVENT_RINGBUF_PATH BPF_NETD_PATH "map_netd_satellite_event_ringbuf"
 #define SATELLITE_CONFIG_MAP_PATH BPF_NETD_PATH "map_netd_satellite_config_map"
 #define SATELLITE_CACHE_MAP_PATH BPF_NETD_PATH "map_netd_satellite_cache_map"
 
@@ -210,6 +207,7 @@ enum UidOwnerMatchType : uint32_t {
     OEM_DENY_3_MATCH = (1 << 11),
     BACKGROUND_MATCH = (1 << 12),
     PENALTY_BOX_ADMIN_MATCH = (1 << 13),
+    DENY_SATELLITE_NETWORK_MATCH = (1 << 14),
 };
 // LINT.ThenChange(../framework/src/android/net/BpfNetMapsConstants.java)
 
@@ -294,7 +292,8 @@ STRUCT_SIZE(SatelliteEvent, 4 + 2 * 2);  // 8
 #undef STRUCT_SIZE
 
 // DROP_IF_SET is set of rules that DROP if rule is globally enabled, and per-uid bit is set
-#define DROP_IF_SET (STANDBY_MATCH | OEM_DENY_1_MATCH | OEM_DENY_2_MATCH | OEM_DENY_3_MATCH)
+#define DROP_IF_SET (STANDBY_MATCH | OEM_DENY_1_MATCH | OEM_DENY_2_MATCH | OEM_DENY_3_MATCH \
+| DENY_SATELLITE_NETWORK_MATCH)
 // DROP_IF_UNSET is set of rules that should DROP if globally enabled, and per-uid bit is NOT set
 #define DROP_IF_UNSET (DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH \
                         | LOW_POWER_STANDBY_MATCH | BACKGROUND_MATCH)
