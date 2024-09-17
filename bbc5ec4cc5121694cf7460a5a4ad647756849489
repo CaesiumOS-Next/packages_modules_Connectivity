@@ -249,6 +249,30 @@
       },
       "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13220b6a_95249e67",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1002609
+      },
+      "writtenOn": "2024-09-17T18:29:09Z",
+      "side": 1,
+      "message": "why do we care about foreground?  We should have an external policy that prevent background apps using data, but for all the apps that are using data we should treat them equally, no?",
+      "parentUuid": "a52e5f16_ae2d0e45",
+      "range": {
+        "startLine": 267,
+        "startChar": 16,
+        "endLine": 267,
+        "endChar": 17
+      },
+      "revId": "bbc5ec4cc5121694cf7460a5a4ad647756849489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
