@@ -958,6 +958,14 @@ public class ConnectivityManager {
     public static final int BLOCKED_METERED_REASON_ADMIN_DISABLED = 1 << 18;
 
     /**
+     * Flag to indicate that an app is subject to restriction on satellite when in foreground, that
+     * would result in its Satellite network access being blocked.
+     *
+     * @hide
+     */
+    public static final int BLOCKED_REASON_SATELLITE_FOREGROUND = 1 << 19;
+
+    /**
      * @hide
      */
     @Retention(RetentionPolicy.SOURCE)
@@ -975,6 +983,7 @@ public class ConnectivityManager {
             BLOCKED_METERED_REASON_DATA_SAVER,
             BLOCKED_METERED_REASON_USER_RESTRICTED,
             BLOCKED_METERED_REASON_ADMIN_DISABLED,
+            BLOCKED_REASON_SATELLITE_FOREGROUND,
     })
     public @interface BlockedReason {}
 
@@ -1145,6 +1154,20 @@ public class ConnectivityManager {
     @SystemApi(client = MODULE_LIBRARIES)
     public static final int FIREWALL_CHAIN_METERED_DENY_ADMIN = 12;
 
+    /**
+     * Firewall chain for foreground app restriction on satellite network
+     *
+     * Foreground uids added to this chain do not have access to satellite network.
+     * These uids added to this chain is based on the max data usage allowed limit crossed by the
+     * uids during satellite network data usage.
+     * This chain corresponds to {@link #BLOCKED_REASON_SATELLITE_FOREGROUND}
+     *
+     * Note that this chain is used from a separate bpf program that is triggered by iptables and
+     * can not be controlled by {@link ConnectivityManager#setFirewallChainEnabled}.
+     *
+     * @hide */
+    public static final int FIREWALL_CHAIN_SATELLITE_FOREGROUND = 13;
+
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(flag = false, prefix = "FIREWALL_CHAIN_", value = {
@@ -1159,7 +1182,8 @@ public class ConnectivityManager {
         FIREWALL_CHAIN_OEM_DENY_3,
         FIREWALL_CHAIN_METERED_ALLOW,
         FIREWALL_CHAIN_METERED_DENY_USER,
-        FIREWALL_CHAIN_METERED_DENY_ADMIN
+        FIREWALL_CHAIN_METERED_DENY_ADMIN,
+        FIREWALL_CHAIN_SATELLITE_FOREGROUND
     })
     public @interface FirewallChain {}
 
