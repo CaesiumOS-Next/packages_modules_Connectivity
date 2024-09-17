@@ -226,4 +226,39 @@
       2 = compare on debuggable builds (default value)
       -->
     <integer translatable="false" name="config_netstats_validate_import">2</integer>
+
+    <!-- Array of satellite event config to generate satellite buffer event to a ring buffer.
+     Each of the index in the array refer to below fields.
+     0: poll count
+     1: max_data_usage_allowed*
+     2: time_threshold_ns
+     3: ifindex6
+     4: ifindex4
+     5: rx_threshold_bytes
+     6: tx_threshold_bytes
+     7: rx_threshold_packets
+     8: tx_threshold_packets
+     9: rx6_overhead_bytes
+     10: tx6_overhead_bytes
+     11: rx4_overhead_bytes
+     12: tx4_overhead_bytes
+     13: padding
+     -->
+    <integer-array translatable="false" name="config_satellite_event">
+        <item>30</item>
+        <item>1024000</item>
+        <item>500000000</item>
+        <item>0</item>
+        <item>0</item>
+        <item>51200</item>
+        <item>51200</item>
+        <item>500000000</item>
+        <item>10</item>
+        <item>10</item>
+        <item>40</item>
+        <item>40</item>
+        <item>20</item>
+        <item>20</item>
+        <item>0</item>
+    </integer-array>
 </resources>
