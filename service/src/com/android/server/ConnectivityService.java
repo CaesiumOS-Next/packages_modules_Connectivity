@@ -372,6 +372,7 @@ import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.SatelliteAccessController;
+import com.android.server.connectivity.SatelliteDataUsageController;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.VpnNetworkPreferenceInfo;
 import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
@@ -1009,6 +1010,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final NetworkNotificationManager mNotifier;
     private final LingerMonitor mLingerMonitor;
     private final SatelliteAccessController mSatelliteAccessController;
+    private final SatelliteDataUsageController mSatelliteDataUsageController;
 
     // sequence number of NetworkRequests
     private int mNextNetworkRequestId = NetworkRequest.FIRST_REQUEST_ID;
@@ -1611,6 +1613,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         /**
+         * @see SatelliteDataUsageController
+         */
+        @Nullable
+        public SatelliteDataUsageController makeSatelliteDataUsageController(
+                @NonNull final Context context,
+                @NonNull final Handler connectivityServiceInternalHandler) {
+            return new SatelliteDataUsageController(context, connectivityServiceInternalHandler);
+        }
+
+        /**
          * @see DeviceConfigUtils#isTetheringFeatureEnabled
          */
         public boolean isFeatureEnabled(Context context, String name) {
@@ -1893,6 +1905,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mContext, this::updateSatelliteNetworkPreferenceUids, mHandler);
         } else {
             mSatelliteAccessController = null;
+        }
+
+        if (mDeps.isAtLeastV()) {
+            mSatelliteDataUsageController = mDeps.makeSatelliteDataUsageController(
+                    mContext, mHandler);
+        } else {
+            mSatelliteDataUsageController = null;
         }
 
         // To ensure uid state is synchronized with Network Policy, register for
@@ -4092,6 +4111,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (mSatelliteAccessController != null) {
             mSatelliteAccessController.start();
+        }
+
+        if (mSatelliteDataUsageController !=null) {
+            mSatelliteDataUsageController.registerForSatelliteNetwork();
         }
 
         if (mCarrierPrivilegeAuthenticator != null) {
