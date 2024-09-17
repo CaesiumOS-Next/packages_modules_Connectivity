@@ -114,6 +114,7 @@ cc_library_shared {
         "jni/com_android_server_connectivity_ClatCoordinator.cpp",
         "jni/com_android_server_ServiceManagerWrapper.cpp",
         "jni/com_android_server_TestNetworkService.cpp",
+        "jni/com_android_server_connectivity_SatelliteDataUsageController.cpp",
         "jni/onload.cpp",
     ],
     header_libs: [
@@ -121,6 +122,7 @@ cc_library_shared {
     ],
     static_libs: [
         "libclat",
+        "libsatellitenetworkstats",
         "libip_checksum",
         "libmodules-utils-build",
         "libnetjniutils",
