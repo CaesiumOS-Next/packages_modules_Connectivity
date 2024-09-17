@@ -21,6 +21,7 @@ import android.net.BpfNetMapsConstants.METERED_DENY_CHAINS
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
 import android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_ALLOW
 import android.net.ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_USER
+import android.net.ConnectivityManager.FIREWALL_CHAIN_SATELLITE
 import android.net.ConnectivityManager.FIREWALL_RULE_ALLOW
 import android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT
 import android.net.ConnectivityManager.FIREWALL_RULE_DENY
@@ -194,5 +195,13 @@ class CSFirewallChainTest : CSTest() {
         val uid = 1001
         cm.removeUidFromMeteredNetworkDenyList(uid)
         verify(bpfNetMaps).setUidRule(FIREWALL_CHAIN_METERED_DENY_USER, uid, FIREWALL_RULE_ALLOW)
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    fun replaceFirewallChain_satelliteForegroundChainEnabled() {
+        val uids = intArrayOf(10000, 10213, 10155)
+        cm.replaceFirewallChain(FIREWALL_CHAIN_SATELLITE, uids)
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, uids)
     }
 }
