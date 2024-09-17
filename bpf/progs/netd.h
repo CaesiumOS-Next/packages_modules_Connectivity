@@ -186,6 +186,10 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define PACKET_TRACE_RINGBUF_PATH BPF_NETD_PATH "map_netd_packet_trace_ringbuf"
 #define PACKET_TRACE_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_packet_trace_enabled_map"
 #define DATA_SAVER_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_data_saver_enabled_map"
+#define SATELLITE_EVENT_RINGBUF_PATH                                           \
+  BPF_NETD_PATH "map_netd_satellite_event_ringbuf"
+#define SATELLITE_CONFIG_MAP_PATH BPF_NETD_PATH "map_netd_satellite_config_map"
+#define SATELLITE_CACHE_MAP_PATH BPF_NETD_PATH "map_netd_satellite_cache_map"
 
 #endif // __cplusplus
 
