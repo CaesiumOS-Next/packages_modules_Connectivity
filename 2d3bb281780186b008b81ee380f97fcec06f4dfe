@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd35b91a_b6c8d1e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-17T23:34:40Z",
+      "side": 1,
+      "message": "nit: this was done in the previous CL, remove it?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "2d3bb281780186b008b81ee380f97fcec06f4dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df33f69c_799d2c79",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-17T23:34:40Z",
+      "side": 1,
+      "message": "`setLinkStateMessage` or something similar, given isUp can be false, which is link down.",
+      "range": {
+        "startLine": 236,
+        "startChar": 39,
+        "endLine": 236,
+        "endChar": 61
+      },
+      "revId": "2d3bb281780186b008b81ee380f97fcec06f4dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b33d70a9_3fb2e93f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-17T23:34:40Z",
+      "side": 1,
+      "message": "maybe just `@NonNull final string ifname`? and we could do the if_nametoindex convert inside. if we cannot find the correct ifindex mapping to the ifname, then return null.",
+      "range": {
+        "startLine": 236,
+        "startChar": 62,
+        "endLine": 236,
+        "endChar": 80
+      },
+      "revId": "2d3bb281780186b008b81ee380f97fcec06f4dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
