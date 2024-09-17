@@ -39,18 +39,16 @@ void NetworkTracePoller::PollAndSchedule(perfetto::base::TaskRunner* runner,
                                          uint32_t poll_ms) {
   // Always schedule another run of ourselves to recursively poll periodically.
   // The task runner is sequential so these can't run on top of each other.
-  runner->PostDelayedTask([=, this]() { PollAndSchedule(runner, poll_ms); }, poll_ms);
+  runner->PostDelayedTask([=, this]() { PollAndSchedule(runner, poll_ms); },
+                          poll_ms);
 
-  if (mMutex.try_lock()) {
-    ConsumeAllLocked();
-    mMutex.unlock();
-  }
+  ConsumeAll();
 }
 
 bool NetworkTracePoller::Start(uint32_t pollMs) {
   ALOGD("Starting datasource");
 
-  std::scoped_lock<std::mutex> lock(mMutex);
+  std::scoped_lock<std::mutex> lock(mSetupMu);
   if (mSessionCount > 0) {
     if (mPollMs != pollMs) {
       // Nothing technical prevents mPollMs from changing, it's just unclear
@@ -76,7 +74,10 @@ bool NetworkTracePoller::Start(uint32_t pollMs) {
     return false;
   }
 
-  mRingBuffer = std::move(*rb);
+  {
+    std::scoped_lock<std::mutex> buff_lock(mBufferMu);
+    mRingBuffer = std::move(*rb);
+  }
 
   auto res = mConfigurationMap.writeValue(0, true, BPF_ANY);
   if (!res.ok()) {
@@ -96,11 +97,15 @@ bool NetworkTracePoller::Start(uint32_t pollMs) {
 bool NetworkTracePoller::Stop() {
   ALOGD("Stopping datasource");
 
-  std::scoped_lock<std::mutex> lock(mMutex);
+  std::scoped_lock<std::mutex> lock(mSetupMu);
   if (mSessionCount == 0) return false;  // This should never happen
 
   // If this isn't the last session, don't clean up yet.
   if (--mSessionCount > 0) return true;
+
+  // This blocks until any pending poll attempt completes. We must not be
+  // holding the mBufferMu here, else poll will deadlock.
+  mTaskRunner.reset();
 
   auto res = mConfigurationMap.writeValue(0, false, BPF_ANY);
   if (!res.ok()) {
@@ -114,10 +119,12 @@ bool NetworkTracePoller::Stop() {
   // Drain remaining events from the ring buffer now that tracing is disabled.
   // This prevents the next trace from seeing stale events and allows writing
   // the last batch of events to Perfetto.
-  ConsumeAllLocked();
+  ConsumeAll();
 
-  mTaskRunner.reset();
-  mRingBuffer.reset();
+  {
+    std::scoped_lock<std::mutex> block(mBufferMu);
+    mRingBuffer.reset();
+  }
 
   return res.ok();
 }
@@ -145,22 +152,21 @@ void NetworkTracePoller::TraceIfaces(const std::vector<PacketTrace>& packets) {
 }
 
 bool NetworkTracePoller::ConsumeAll() {
-  std::scoped_lock<std::mutex> lock(mMutex);
-  return ConsumeAllLocked();
-}
-
-bool NetworkTracePoller::ConsumeAllLocked() {
-  if (mRingBuffer == nullptr) {
-    ALOGW("Tracing is not active");
-    return false;
-  }
-
   std::vector<PacketTrace> packets;
-  base::Result<int> ret = mRingBuffer->ConsumeAll(
-      [&](const PacketTrace& pkt) { packets.push_back(pkt); });
-  if (!ret.ok()) {
-    ALOGW("Failed to poll ringbuf: %s", ret.error().message().c_str());
-    return false;
+
+  {
+    std::scoped_lock<std::mutex> lock(mBufferMu);
+    if (mRingBuffer == nullptr) {
+      ALOGW("Tracing is not active");
+      return false;
+    }
+
+    base::Result<int> ret = mRingBuffer->ConsumeAll(
+        [&](const PacketTrace &pkt) { packets.push_back(pkt); });
+    if (!ret.ok()) {
+      ALOGW("Failed to poll ringbuf: %s", ret.error().message().c_str());
+      return false;
+    }
   }
 
   ATRACE_INT("NetworkTracePackets", packets.size());
