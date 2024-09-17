@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32f30fc5_5064e714",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-17T07:07:54Z",
+      "side": 1,
+      "message": "It looks unused because it\u0027s a property and kotlin autogenerates getters and setter for it. It\u0027s used in NetworkMonitorTest. That said, I agree it\u0027s difficult to understand, so added a comment.",
+      "parentUuid": "1976a465_2c548f57",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d44d966b_4e1ec4ba",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-13T05:24:59Z",
       "side": 1,
       "message": "AFAIW, In kotlin, it will be better to use `mutableListOf\u003cDnsEntry\u003e()`",
+      "range": {
+        "startLine": 52,
+        "startChar": 26,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74ac5abd_a19a3645",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-17T07:07:54Z",
+      "side": 1,
+      "message": "Ah, didn\u0027t know about that. Done.",
+      "parentUuid": "d44d966b_4e1ec4ba",
       "range": {
         "startLine": 52,
         "startChar": 26,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac604bbb_31b311ff",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-17T07:07:54Z",
+      "side": 1,
+      "message": "I didn\u0027t write this, but I think that even though it might be a bit harder to understand, it\u0027s nice that the code behaves identically for sync and async DNS. If we added an \"instantAnswers\" list of answers, then the code would have run an if statement. I don\u0027t think that that would be much better than the code we have.",
+      "parentUuid": "54ab2b02_83a29e1a",
+      "range": {
+        "startLine": 83,
+        "startChar": 30,
+        "endLine": 83,
+        "endChar": 51
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5eedc8d_74f1ea2d",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-09-13T05:24:59Z",
       "side": 1,
       "message": "nit: spurious line break",
+      "range": {
+        "startLine": 86,
+        "startChar": 12,
+        "endLine": 86,
+        "endChar": 13
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "914ad690_7c6f0bdc",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-17T07:07:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5eedc8d_74f1ea2d",
       "range": {
         "startLine": 86,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a562c51c_a8cfae11",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-17T07:07:54Z",
+      "side": 1,
+      "message": "What sort of cleanup do you suggest? Are you concerned about the ThreadLeakMonitor?\n\nThis thread starts, completes the future, and then stops immediately, so it won\u0027t leak.  Also, ThreadLeakMonitor ignores these threads, which are all called something like \"Thread-19\", \"Thread-42\", etc., and which therefore are all groups of one.\n\nFWIW I think using multiple uncoordinated threads here is good because otherwise all queries would always complete in the order they were sent, which is not true on real networks.",
+      "parentUuid": "8472ef54_ee7085d5",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 16
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a81d81c_29d4bb12",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c0b549_340a1002",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-17T07:07:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a81d81c_29d4bb12",
+      "range": {
+        "startLine": 194,
+        "startChar": 20,
+        "endLine": 194,
+        "endChar": 49
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fa6536f_5e6252ec",
@@ -152,6 +296,30 @@
       "writtenOn": "2024-09-13T05:24:59Z",
       "side": 1,
       "message": "Will it be better off to create a handlerThread/handler for this test case and use it here instead?",
+      "range": {
+        "startLine": 196,
+        "startChar": 12,
+        "endLine": 196,
+        "endChar": 43
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "117513ba_3295d2bd",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-17T07:07:54Z",
+      "side": 1,
+      "message": "Added a comment to explain that this uses getMainLooper() because that\u0027s what DnsResolver currently uses.",
+      "parentUuid": "3fa6536f_5e6252ec",
       "range": {
         "startLine": 196,
         "startChar": 12,
