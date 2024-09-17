@@ -1,0 +1,92 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "761978bb_185de32f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-17T05:11:57Z",
+      "side": 1,
+      "message": "LG. Android owners should approve.",
+      "revId": "e2a77a7d75f21d59cde51d0a96fba360def08263",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0fa81a6_9aa97fcc",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-17T05:11:57Z",
+      "side": 1,
+      "message": "It does not seem safe to use hardcoded seq number for all requests. I am not completely sure of the semantics in the kernel tbh, so maybe if the seq numbers are kept tied to the userspace socket that\u0027s fine to use 1 for a \"1 shot\" socket. Do you know if that\u0027s the case ?",
+      "range": {
+        "startLine": 241,
+        "startChar": 25,
+        "endLine": 241,
+        "endChar": 26
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d2f6bd9c_a06d026f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 195,
+                "startChar": 0,
+                "endLine": 196,
+                "endChar": 0
+              },
+              "replacement": "        final byte[] msg \u003d RtNetlinkAddressMessage.newRtmNewAddressMessage(0 /* seqNo*/, ip,\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 216,
+                "startChar": 0,
+                "endLine": 217,
+                "endChar": 0
+              },
+              "replacement": "        final byte[] msg \u003d RtNetlinkAddressMessage.newRtmDelAddressMessage(0 /* seqNo*/, ip,\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 241,
+                "startChar": 0,
+                "endLine": 242,
+                "endChar": 0
+              },
+              "replacement": "                ifIndex, 0 /*sequenceNumber*/, isUp).packToByteArray(ByteOrder.nativeOrder());\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 265,
+                "startChar": 0,
+                "endLine": 266,
+                "endChar": 0
+              },
+              "replacement": "                ifIndex, 0 /*sequenceNumber*/, newIfName);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e2a77a7d75f21d59cde51d0a96fba360def08263",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
