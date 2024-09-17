@@ -960,6 +960,11 @@ public class ConnectivityManager {
     /**
      * @hide
      */
+    public static final int BLOCKED_REASON_DENY_SATELLITE_NETWORK = 1 << 19;
+
+    /**
+     * @hide
+     */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(flag = true, prefix = {"BLOCKED_"}, value = {
             BLOCKED_REASON_NONE,
@@ -975,6 +980,7 @@ public class ConnectivityManager {
             BLOCKED_METERED_REASON_DATA_SAVER,
             BLOCKED_METERED_REASON_USER_RESTRICTED,
             BLOCKED_METERED_REASON_ADMIN_DISABLED,
+            BLOCKED_REASON_DENY_SATELLITE_NETWORK,
     })
     public @interface BlockedReason {}
 
@@ -1146,6 +1152,9 @@ public class ConnectivityManager {
     public static final int FIREWALL_CHAIN_METERED_DENY_ADMIN = 12;
 
     /** @hide */
+    public static final int FIREWALL_CHAIN_DENY_SATELLITE_NETWORK = 13;
+
+    /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(flag = false, prefix = "FIREWALL_CHAIN_", value = {
         FIREWALL_CHAIN_DOZABLE,
@@ -1159,7 +1168,8 @@ public class ConnectivityManager {
         FIREWALL_CHAIN_OEM_DENY_3,
         FIREWALL_CHAIN_METERED_ALLOW,
         FIREWALL_CHAIN_METERED_DENY_USER,
-        FIREWALL_CHAIN_METERED_DENY_ADMIN
+        FIREWALL_CHAIN_METERED_DENY_ADMIN,
+        FIREWALL_CHAIN_DENY_SATELLITE_NETWORK
     })
     public @interface FirewallChain {}
 
