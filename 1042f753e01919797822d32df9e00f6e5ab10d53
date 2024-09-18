@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cd3fba7_c97ba38f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/OsAccess.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-18T22:37:48Z",
+      "side": 1,
+      "message": "not sure if Os.if_nametoindex can accept the null name? if not, maybe add annotation @NonNull? or `if (name \u003d\u003d null) return INVALID_INTERFACE_INDEX;`",
+      "range": {
+        "startLine": 33,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "1042f753e01919797822d32df9e00f6e5ab10d53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bede7367_311d5dc0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-18T22:37:48Z",
+      "side": 1,
+      "message": "is interfaceName attribute required in the nelink message to change the link state? or it just depends on the ifindex in the header?",
+      "range": {
+        "startLine": 252,
+        "startChar": 83,
+        "endLine": 252,
+        "endChar": 87
+      },
+      "revId": "1042f753e01919797822d32df9e00f6e5ab10d53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a17eca9a_51487699",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-18T22:37:48Z",
+      "side": 1,
+      "message": "is this required? is there any failure when running the test locally?",
+      "range": {
+        "startLine": 45,
+        "startChar": 1,
+        "endLine": 45,
+        "endChar": 13
+      },
+      "revId": "1042f753e01919797822d32df9e00f6e5ab10d53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
