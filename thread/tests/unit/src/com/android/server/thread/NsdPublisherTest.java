@@ -812,6 +812,6 @@ public final class NsdPublisherTest {
         mTestLooper = new TestLooper();
         Handler handler = new Handler(mTestLooper.getLooper());
         mNsdPublisher = new NsdPublisher(mMockNsdManager, mMockDnsResolver, handler);
-        mNsdPublisher.setNetworkForHostResolution(mNetwork);
+        mNsdPublisher.setNetworkForHostResolution(mNetwork, new HashMap<Network, String>());
     }
 }
