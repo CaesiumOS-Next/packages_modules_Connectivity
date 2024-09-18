@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f259106_b9e1dff2",
+        "filename": "service-t/native/libs/libnetworkstats/NetworkTracePoller.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-18T21:26:17Z",
+      "side": 1,
+      "message": "nit: arguably, this should be std::scoped_lock\u003cstd::mutex\u003e lock(mMutex, mBufferMutex)",
+      "range": {
+        "startLine": 53,
+        "startChar": 31,
+        "endLine": 54,
+        "endChar": 51
+      },
+      "revId": "52a8f3c275fa034012c163318b769289d5ecd277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
