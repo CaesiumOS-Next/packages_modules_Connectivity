@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3314575d_8f85da98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-18T22:05:22Z",
+      "side": 1,
+      "message": "could we also add some test in NetlinkUtilsTests for these two new methods? something like: https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/tests/unit/src/com/android/net/module/util/netlink/NetlinkUtilsTest.java;l\u003d75?q\u003dNetlinkUtilsT\n\ne.g. change the interface name and then query the kernel to see if the name is changed successfully, similarly, change the interface state to up/down to see if that changes.",
+      "revId": "c4256962cd3d20846f3f695ac2bfaef5043d1b03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f939f57_89d316d6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-18T22:05:22Z",
+      "side": 1,
+      "message": "nit: + \" from \" + ifName",
+      "range": {
+        "startLine": 271,
+        "startChar": 55,
+        "endLine": 271,
+        "endChar": 56
+      },
+      "revId": "c4256962cd3d20846f3f695ac2bfaef5043d1b03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
