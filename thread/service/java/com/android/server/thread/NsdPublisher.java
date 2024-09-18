@@ -30,6 +30,7 @@ import android.net.nsd.NsdServiceInfo;
 import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.RemoteException;
+import android.system.Os;
 import android.text.TextUtils;
 import android.util.SparseArray;
 
@@ -66,6 +67,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
 
     // TODO: b/321883491 - specify network for mDNS operations
     @Nullable private Network mNetwork;
+    private Map<Network, String> mNetworkToInterface;
     private final NsdManager mNsdManager;
     private final DnsResolver mDnsResolver;
     private final Handler mHandler;
@@ -90,8 +92,10 @@ public final class NsdPublisher extends INsdPublisher.Stub {
     }
 
     // TODO: b/321883491 - NsdPublisher should be disabled when mNetwork is null
-    public void setNetworkForHostResolution(@Nullable Network network) {
+    public void setNetworkForHostResolution(
+            @Nullable Network network, Map<Network, String> networkToInterface) {
         mNetwork = network;
+        mNetworkToInterface = networkToInterface;
     }
 
     @Override
@@ -586,6 +590,11 @@ public final class NsdPublisher extends INsdPublisher.Stub {
                             + ", serviceInfo: "
                             + serviceInfo);
             List<String> addresses = new ArrayList<>();
+            int interfaceIndex = 0;
+            if (mNetworkToInterface.containsKey(serviceInfo.getNetwork())) {
+                interfaceIndex =
+                        Os.if_nametoindex(mNetworkToInterface.get(serviceInfo.getNetwork()));
+            }
             for (InetAddress address : serviceInfo.getHostAddresses()) {
                 if (address instanceof Inet6Address) {
                     addresses.add(address.getHostAddress());
@@ -602,6 +611,7 @@ public final class NsdPublisher extends INsdPublisher.Stub {
             try {
                 mResolveServiceCallback.onServiceResolved(
                         serviceInfo.getHostname(),
+                        interfaceIndex,
                         serviceInfo.getServiceName(),
                         serviceInfo.getServiceType(),
                         serviceInfo.getPort(),
