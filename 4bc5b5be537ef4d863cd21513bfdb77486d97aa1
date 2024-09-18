@@ -133,6 +133,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c39f1102_62a90724",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-18T08:27:24Z",
+      "side": 1,
+      "message": "since there are async ot-ctl commands, using OutcomeReceiver doesn\u0027t meet with our requirement (we need to call onOutput right after receiving the output from otDaemon). I would like to move IOutputReceiver to android.net.thread, just like android.net.thread.IOperationReceiver. Any comment?",
+      "parentUuid": "5c5f8d84_c5b67742",
+      "range": {
+        "startLine": 1327,
+        "startChar": 12,
+        "endLine": 1327,
+        "endChar": 51
+      },
+      "revId": "4bc5b5be537ef4d863cd21513bfdb77486d97aa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7d3fd56_fff47cd9",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 32
