@@ -415,7 +415,7 @@ device/banana/orange/rro_overlays/ConnectivityOverlay/
   }
   ```
 - `AndroidManifest.xml`:
-  ```
+  ```xml
   <!-- Orange overlays for the Connectivity module -->
   <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.banana.android.connectivity.resources.orange"
@@ -435,7 +435,7 @@ device/banana/orange/rro_overlays/ConnectivityOverlay/
   </manifest>
   ```
 - `config_thread.xml`:
-  ```
+  ```xml
   <string translatable="false" name="config_thread_vendor_name">Banana Inc.</string>
   <string translatable="false" name="config_thread_vendor_oui">AC:DE:48</string>
   <string translatable="false" name="config_thread_model_name">Orange</string>
@@ -477,7 +477,7 @@ for troubleshooting instructions.
 Additionally, if you want to make your Border Router be used by the Google Home
 ecosystem, you can specify this configuration in `config_thread.xml`:
 
-```
+```xml
 <string-array name="config_thread_mdns_vendor_specific_txts">
   <item>vgh=1</item>
 </string-array>
