@@ -61,6 +61,7 @@ import org.mockito.MockitoAnnotations;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executor;
@@ -584,6 +585,7 @@ public final class NsdPublisherTest {
         verify(mResolveServiceCallback, times(1))
                 .onServiceResolved(
                         eq("test-host"),
+                        eq(0),
                         eq("test"),
                         eq("_test._tcp"),
                         eq(12345),
@@ -811,7 +813,8 @@ public final class NsdPublisherTest {
     private void prepareTest() {
         mTestLooper = new TestLooper();
         Handler handler = new Handler(mTestLooper.getLooper());
+        HashMap<Network, String> mNetworkToInterface = new HashMap<>();
         mNsdPublisher = new NsdPublisher(mMockNsdManager, mMockDnsResolver, handler);
-        mNsdPublisher.setNetworkForHostResolution(mNetwork);
+        mNsdPublisher.setNetworkForHostResolution(mNetwork, mNetworkToInterface);
     }
 }
