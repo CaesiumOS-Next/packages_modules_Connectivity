@@ -231,7 +231,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             NsdPublisher nsdPublisher,
             UserManager userManager,
             ConnectivityResources resources,
-            Supplier<String> countryCodeSupplier) {
+            Supplier<String> countryCodeSupplier,
+            HashMap<Network, String> networkToInterface) {
         mContext = context;
         mHandler = handler;
         mNetworkProvider = networkProvider;
@@ -240,7 +241,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mTunIfController = tunIfController;
         mInfraIfController = infraIfController;
         mUpstreamNetworkRequest = newUpstreamNetworkRequest();
-        mNetworkToInterface = new HashMap<Network, String>();
+        mNetworkToInterface = networkToInterface;
         mOtDaemonConfig = new OtDaemonConfiguration.Builder().build();
         mInfraLinkState = new InfraLinkState.Builder().build();
         mPersistentSettings = persistentSettings;
@@ -259,6 +260,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         Handler handler = new Handler(handlerThread.getLooper());
         NetworkProvider networkProvider =
                 new NetworkProvider(context, handlerThread.getLooper(), "ThreadNetworkProvider");
+        HashMap<Network, String> networkToInterface = new HashMap<Network, String>();
 
         return new ThreadNetworkControllerService(
                 context,
@@ -269,10 +271,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 new TunInterfaceController(TUN_IF_NAME),
                 new InfraInterfaceController(),
                 persistentSettings,
-                NsdPublisher.newInstance(context, handler),
+                NsdPublisher.newInstance(context, handler, networkToInterface),
                 context.getSystemService(UserManager.class),
                 new ConnectivityResources(context),
-                countryCodeSupplier);
+                countryCodeSupplier,
+                networkToInterface);
     }
 
     private NetworkRequest newUpstreamNetworkRequest() {

@@ -584,6 +584,7 @@ public final class NsdPublisherTest {
         verify(mResolveServiceCallback, times(1))
                 .onServiceResolved(
                         eq("test-host"),
+                        eq(0),
                         eq("test"),
                         eq("_test._tcp"),
                         eq(12345),
