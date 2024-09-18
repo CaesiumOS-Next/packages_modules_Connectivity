@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bba3eee_c29f91ae",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-18T10:16:44Z",
+      "side": 1,
+      "message": "You mean different instances to store client and server device addresses separately?",
+      "range": {
+        "startLine": 42,
+        "startChar": 24,
+        "endLine": 42,
+        "endChar": 38
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "373c5d4d_e6ab41f6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/testutils/host/python/apf_test_base.py",
+              "range": {
+                "startLine": 42,
+                "startChar": 0,
+                "endLine": 43,
+                "endChar": 0
+              },
+              "replacement": "    # TODO: refactor to separate instances to store client and server device\n    # addresses separately.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "5b016226f479360cc8b0af68a9ab5f1706af2569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
