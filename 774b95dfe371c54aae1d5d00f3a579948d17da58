@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1382e92_9a063ede",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkShellCommand.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-18T10:16:55Z",
+      "side": 1,
+      "message": "the [BinderUtil](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/thread/tests/unit/src/com/android/server/thread/BinderUtil.java;bpv\u003d1;bpt\u003d1;l\u003d22?q\u003dBinderUtil\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain:packages%2Fmodules%2FConnectivity%2Fthread%2F\u0026gsn\u003dBinderUtil\u0026gs\u003dKYTHE%3A%2F%2Fkythe%3A%2F%2Fandroid.googlesource.com%2Fplatform%2Fsuperproject%2Fmain%2F%2Fmain%3Flang%3Djava%3Fpath%3Dcom.android.server.thread.BinderUtil%233e3936485b35195bc926b1f3f2fa2a40be051cf444b910272979d0b71a946a2f) can be used for testing and this Dependencies class can be avoided. I generally discourage Dependencies class unless you put everything in the parameter list to the Dependencies class.",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "774b95dfe371c54aae1d5d00f3a579948d17da58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
