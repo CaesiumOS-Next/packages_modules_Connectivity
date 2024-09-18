@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9227f2bb_49e0cbcf",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-18T15:02:51Z",
+      "side": 1,
+      "message": "Ephemeral key mode is disabled",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 37
+      },
+      "revId": "c66e8f3338560e708d75ab96287763e2944779f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "685cc8f2_5d27f194",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-18T15:02:51Z",
+      "side": 1,
+      "message": "Maybe say what this means? AIUI it means that an app can then cause a device to join the network.",
+      "range": {
+        "startLine": 88,
+        "startChar": 36,
+        "endLine": 88,
+        "endChar": 37
+      },
+      "revId": "c66e8f3338560e708d75ab96287763e2944779f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17731511_1c6bebb7",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-18T15:02:51Z",
+      "side": 1,
+      "message": "... and this means that it\u0027s not possible to cause a device to join the network, because another app is already using the ephemeral key?",
+      "range": {
+        "startLine": 91,
+        "startChar": 35,
+        "endLine": 91,
+        "endChar": 36
+      },
+      "revId": "c66e8f3338560e708d75ab96287763e2944779f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "549b20c7_c0973fe2",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-18T15:02:51Z",
+      "side": 1,
+      "message": "Mention or link to the IN_USE constant above?",
+      "range": {
+        "startLine": 264,
+        "startChar": 73,
+        "endLine": 264,
+        "endChar": 98
+      },
+      "revId": "c66e8f3338560e708d75ab96287763e2944779f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdcbfbf7_e5969b7f",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-18T15:02:51Z",
+      "side": 1,
+      "message": "If in this state deactivateEphemeralKeyMode returns an error, then how does ephemeral key mode get deactivated? Will deactivateEphemeralKeyMode work if the border agent with the active session calls it, but fail if other clients call it? \n\nOr must the border agent deactivate ephemeral key mode by calling some other method? If so, which one?\n\nAlso what happens if the border agent crashes, must other callers wait until the timeout has elapsed?",
+      "range": {
+        "startLine": 264,
+        "startChar": 55,
+        "endLine": 265,
+        "endChar": 38
+      },
+      "revId": "c66e8f3338560e708d75ab96287763e2944779f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b0f1c5d_7cb1f184",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-18T15:02:51Z",
+      "side": 1,
+      "message": "Sorry for not noticing this earlier, but I think this should be \"Instant expiry\" instead of \"Duration lifetime\". Rationale: the duration becomes incorrect as time passes, but the expiry doesn\u0027t. Making it an Instant makes this callback easier to implement and easier to use for the developer.\n\nIn particular, we need to consider the case where a callback is registered some time after the device is put into ephemeral key mode. If the lifetime was 10 minutes, and the callback was registered 1 minute after ephemeral key mode starts, then the key expires 9 minutes from now; if you use Duration then it should be 9 minutes, right?\n\nLooking at the implementation CL in aosp/3140438 and the tests, I\u0027m not sure this is implemented correctly. Using Instant (or internally a \"long expiry\") would make this easier.",
+      "range": {
+        "startLine": 377,
+        "startChar": 26,
+        "endLine": 377,
+        "endChar": 43
+      },
+      "revId": "c66e8f3338560e708d75ab96287763e2944779f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ac7c926_25c89927",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-18T15:02:51Z",
+      "side": 1,
+      "message": "Can you also add a test where the callback is registered when ephemeral key mode is alerady active? The test should check that the expiry is correct (see comment about Instant vs. Duration).",
+      "revId": "c66e8f3338560e708d75ab96287763e2944779f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
