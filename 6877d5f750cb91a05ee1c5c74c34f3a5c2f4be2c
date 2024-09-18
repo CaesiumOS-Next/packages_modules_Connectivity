@@ -22,6 +22,30 @@
       },
       "revId": "6877d5f750cb91a05ee1c5c74c34f3a5c2f4be2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d65433b5_f2c05f34",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5535,
+      "author": {
+        "id": 1944626
+      },
+      "writtenOn": "2024-09-18T08:29:17Z",
+      "side": 1,
+      "message": "This exception comes from netd returning \"no such netId\" error, which looks common in netd as we can see such error many times in the log.  But when system_server call networkSetPermissionForNetwork, this error will throw as ServiceSpecificException and crash the system.",
+      "parentUuid": "676e694e_90d6b593",
+      "range": {
+        "startLine": 5535,
+        "startChar": 39,
+        "endLine": 5535,
+        "endChar": 63
+      },
+      "revId": "6877d5f750cb91a05ee1c5c74c34f3a5c2f4be2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
