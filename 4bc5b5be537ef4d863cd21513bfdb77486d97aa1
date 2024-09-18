@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9ab9d4f_ca62e9d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-18T04:33:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f43d3c4_034f1cbe",
+      "revId": "4bc5b5be537ef4d863cd21513bfdb77486d97aa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c24d0a6_116c6842",
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f90f5d8a_a877dbfc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-18T04:33:25Z",
+      "side": 1,
+      "message": "I am going to use OutputReceiver\u003c\u003e",
+      "parentUuid": "6c24d0a6_116c6842",
+      "range": {
+        "startLine": 1327,
+        "startChar": 12,
+        "endLine": 1327,
+        "endChar": 51
+      },
+      "revId": "4bc5b5be537ef4d863cd21513bfdb77486d97aa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7d3fd56_fff47cd9",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 32
@@ -54,6 +96,30 @@
       "writtenOn": "2024-09-13T08:32:13Z",
       "side": 1,
       "message": "Shouldn\u0027t this exception be passed to receiver?",
+      "range": {
+        "startLine": 1342,
+        "startChar": 12,
+        "endLine": 1342,
+        "endChar": 56
+      },
+      "revId": "4bc5b5be537ef4d863cd21513bfdb77486d97aa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce34590f_fc95aa72",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 1342,
+      "author": {
+        "id": 3536550
+      },
+      "writtenOn": "2024-09-18T04:33:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7d3fd56_fff47cd9",
       "range": {
         "startLine": 1342,
         "startChar": 12,
