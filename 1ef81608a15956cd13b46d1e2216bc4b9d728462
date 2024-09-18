@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29611267_669338e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2024-09-18T16:41:20Z",
+      "side": 1,
+      "message": "I split this into three and added more in commit messages. Let me know if it\u0027s still not making sense (this deadlock is a bit confusing...)",
+      "parentUuid": "af391f76_46166cbc",
+      "revId": "1ef81608a15956cd13b46d1e2216bc4b9d728462",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0321df52_aee08850",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-09-17T22:33:14Z",
       "side": 1,
       "message": "can we please just call this mBufferMutex",
+      "range": {
+        "startLine": 53,
+        "startChar": 29,
+        "endLine": 53,
+        "endChar": 38
+      },
+      "revId": "1ef81608a15956cd13b46d1e2216bc4b9d728462",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "594bfea6_a5154dee",
+        "filename": "service-t/native/libs/libnetworkstats/include/netdbpf/NetworkTracePoller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2024-09-18T16:41:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0321df52_aee08850",
       "range": {
         "startLine": 53,
         "startChar": 29,
