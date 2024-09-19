@@ -1,0 +1,105 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a7af8af_c8f5c213",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-19T07:23:43Z",
+      "side": 1,
+      "message": "Any scenario that a caller needs the returned address must be a link local address or global public address? In such case the test might flaky, but I\u0027m not sure if there is a case for that.",
+      "range": {
+        "startLine": 129,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 63
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d07bc8db_ce25a0c3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 86,
+                "startChar": 0,
+                "endLine": 86,
+                "endChar": 0
+              },
+              "replacement": "\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 108,
+                "startChar": 0,
+                "endLine": 109,
+                "endChar": 0
+              },
+              "replacement": "  # 54: wlan2: \u003cBROADCAST,MULTICAST,UP,LOWER_UP\u003e mtu 1500 qdisc pfifo_fast state\n  # UP group default qlen 1000\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 119,
+                "startChar": 0,
+                "endLine": 120,
+                "endChar": 0
+              },
+              "replacement": "        \"Cannot get hardware address for \" + iface_name\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 122,
+                "startChar": 0,
+                "endLine": 122,
+                "endChar": 0
+              },
+              "replacement": "\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 150,
+                "startChar": 0,
+                "endLine": 151,
+                "endChar": 0
+              },
+              "replacement": "        \"Cannot get ipv6 address for \" + iface_name\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 158,
+                "startChar": 0,
+                "endLine": 159,
+                "endChar": 0
+              },
+              "replacement": "        \"Cannot get IPv6 address for \" + iface_name\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 161,
+                "startChar": 0,
+                "endLine": 161,
+                "endChar": 0
+              },
+              "replacement": "\n"
+            }
+          ]
+        }
+      ],
+      "revId": "474d9f097981f2723af3fb8943f7356d75139d13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
