@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4f9f299_8293a497",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-19T21:52:49Z",
+      "side": 1,
+      "message": "Right, we use tap interface in most case for testing which is created by TestNetworkManager, something like:\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/NetworkStack/tests/integration/common/android/net/ip/IpClientIntegrationTestCommon.java;l\u003d907;drc\u003d2c9de53108d55b261ee18258a2c7ffce0e4560a7?q\u003dIpClientInte\u0026ss\u003dh%2Fgoogleplex-android%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Frefs%2Fheads%2Fmain\n\nAlternatively, we could also add some integration test in IpClientIntergationCommonTests instead (that might be easier), where it already creates the tap interface, we could call the new rtm link message to change the interface state or name.\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/NetworkStack/tests/integration/common/android/net/ip/IpClientIntegrationTestCommon.java;l\u003d5709?q\u003dIpClientInte\u0026ss\u003dh%2Fgoogleplex-android%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Frefs%2Fheads%2Fmain",
+      "parentUuid": "b4e4c096_99551c04",
+      "revId": "c4256962cd3d20846f3f695ac2bfaef5043d1b03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f939f57_89d316d6",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 13
