@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d3a8698_fd35a304",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1870696
+      },
+      "writtenOn": "2024-09-19T04:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0efff52_ace37d62",
+      "range": {
+        "startLine": 343,
+        "startChar": 12,
+        "endLine": 343,
+        "endChar": 30
+      },
+      "revId": "716cffdd4d131e317aa17a23d2141224973a6d9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52aaa2d4_e4b3efb2",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-19T02:44:11Z",
       "side": 1,
       "message": "mMockedPackageManager?",
+      "range": {
+        "startLine": 36,
+        "startChar": 27,
+        "endLine": 36,
+        "endChar": 42
+      },
+      "revId": "716cffdd4d131e317aa17a23d2141224973a6d9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0f016a8_3a4a5c0f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/MockTetheringService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1870696
+      },
+      "writtenOn": "2024-09-19T04:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52aaa2d4_e4b3efb2",
       "range": {
         "startLine": 36,
         "startChar": 27,
