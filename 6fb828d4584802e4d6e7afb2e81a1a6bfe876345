@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5b38f3d_569d1d61",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-19T03:52:40Z",
+      "side": 1,
+      "message": "The comment is in the checkQueryNetwork method. Added a comment here as well.",
+      "parentUuid": "e1268362_83f8bee7",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d44d966b_4e1ec4ba",
