@@ -22,6 +22,30 @@
       },
       "revId": "f286919f8039c6fb0ba57f2d000c64311e889ad7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe327046_49e4dcfd",
+        "filename": "thread/docs/build-an-android-border-router.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-19T02:44:20Z",
+      "side": 1,
+      "message": "Done in aosp/3273254",
+      "parentUuid": "32c4b904_d6437832",
+      "range": {
+        "startLine": 172,
+        "startChar": 52,
+        "endLine": 172,
+        "endChar": 61
+      },
+      "revId": "f286919f8039c6fb0ba57f2d000c64311e889ad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
