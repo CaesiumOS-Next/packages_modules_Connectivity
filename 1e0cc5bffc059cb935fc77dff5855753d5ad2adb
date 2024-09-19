@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b7dcc34a_f7780938",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-19T07:40:36Z",
+      "side": 1,
+      "message": "In such case the test should fail instead of ignored to catch the problem.\n\nThe current code would generate different result in different cases:\n1. return True if 1st call supported, but 2nd call unsupported\n2. return False if 1st call unsupported, but 2nd call supported.\n\nWhich is undeterministic and errorprone.\n\nTo address your concern, the suggested behavior would be:\n1. Return True if all 3 supported.\n2. Return False if all 3 unsupported.\n3. Throw if they have different answers.\n\ne.g.\n```\ndef is_packet_capture_supported(ad: android_device.AndroidDevice) -\u003e bool:\n  \"\"\"Checks if packet capture is supported on the device.\n\n  Args:\n    ad: The AndroidDevice object.\n\n  Returns:\n    True if all 3 methods raise UnexpectedBehaviorException.\n    False if all 3 methods raise UnsupportedOperationException.\n\n  Raises:\n    Exception: If the methods raise different exceptions.\n  \"\"\"\n\n  exceptions \u003d []\n  for func in (start_capture_packets, stop_capture_packets, get_matched_packet_counts):\n    try:\n      func(ad, \"\")  # Call the function with empty arguments\n    except assert_utils.UnexpectedBehaviorError:\n      exceptions.append(assert_utils.UnexpectedBehaviorError)\n    except UnsupportedOperationException:\n      exceptions.append(UnsupportedOperationException)\n    except Exception as e:\n      raise Exception(f\"Unexpected exception from {func.__name__}: {e}\")\n\n  # Check if all exceptions are the same\n  if all(isinstance(e, assert_utils.UnexpectedBehaviorError) for e in exceptions):\n    return True\n  elif all(isinstance(e, UnsupportedOperationException) for e in exceptions):\n    return False\n  else:\n    raise Exception(f\"Inconsistent exceptions raised: {exceptions}\")\n```",
+      "parentUuid": "90dea2e4_10ecd7c7",
+      "range": {
+        "startLine": 194,
+        "startChar": 4,
+        "endLine": 196,
+        "endChar": 41
+      },
+      "revId": "1e0cc5bffc059cb935fc77dff5855753d5ad2adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6429976_06535391",
         "filename": "staticlibs/testutils/host/python/apf_utils.py",
         "patchSetId": 6
