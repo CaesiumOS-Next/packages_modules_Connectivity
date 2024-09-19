@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1268362_83f8bee7",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-19T01:47:46Z",
+      "side": 1,
+      "message": "Acked. Btw, I don\u0027t see the comment in the latest patch.",
+      "parentUuid": "32f30fc5_5064e714",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d44d966b_4e1ec4ba",
         "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
         "patchSetId": 1
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "I didn\u0027t write this, but I think that even though it might be a bit harder to understand, it\u0027s nice that the code behaves identically for sync and async DNS. If we added an \"instantAnswers\" list of answers, then the code would have run an if statement. I don\u0027t think that that would be much better than the code we have.",
       "parentUuid": "54ab2b02_83a29e1a",
+      "range": {
+        "startLine": 83,
+        "startChar": 30,
+        "endLine": 83,
+        "endChar": 51
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d3adbf0_e47e8317",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-19T01:47:46Z",
+      "side": 1,
+      "message": "Acked.",
+      "parentUuid": "ac604bbb_31b311ff",
       "range": {
         "startLine": 83,
         "startChar": 30,
@@ -236,6 +284,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac19255e_1239a740",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-19T01:47:46Z",
+      "side": 1,
+      "message": "Ah, I don\u0027t know the ThreadLeakMonitor ignores all groups of count one.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRunner.kt;l\u003d169?q\u003dThreadLeakMonitor\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain\n\n\n\u003eI think using multiple uncoordinated threads here is good because otherwise all queries would always complete in the order they were sent, which is not true on real networks.\n\nAcked, the argument make sense.",
+      "parentUuid": "a562c51c_a8cfae11",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 16
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a81d81c_29d4bb12",
@@ -320,6 +392,30 @@
       "side": 1,
       "message": "Added a comment to explain that this uses getMainLooper() because that\u0027s what DnsResolver currently uses.",
       "parentUuid": "3fa6536f_5e6252ec",
+      "range": {
+        "startLine": 196,
+        "startChar": 12,
+        "endLine": 196,
+        "endChar": 43
+      },
+      "revId": "6fb828d4584802e4d6e7afb2e81a1a6bfe876345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19fec9c6_87af9057",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/FakeDns.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-19T01:47:46Z",
+      "side": 1,
+      "message": "Acked.",
+      "parentUuid": "117513ba_3295d2bd",
       "range": {
         "startLine": 196,
         "startChar": 12,
