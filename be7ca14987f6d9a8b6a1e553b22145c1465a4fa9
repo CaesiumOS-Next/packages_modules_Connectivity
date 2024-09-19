@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c957b227_11097dcf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T10:32:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8013c0a2_8ce51a29",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "be7ca14987f6d9a8b6a1e553b22145c1465a4fa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6a8a575_18318a81",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-18T10:13:40Z",
       "side": 1,
       "message": "Maybe just call send_packet_and_expect_counter_increased?",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 9
+      },
+      "revId": "be7ca14987f6d9a8b6a1e553b22145c1465a4fa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccebd6e2_37bb377b",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T10:32:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6a8a575_18318a81",
       "range": {
         "startLine": 97,
         "startChar": 8,
