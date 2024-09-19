@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73a9cabf_edf09613",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T05:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91fafa7b_7a4475d7",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 43
+      },
+      "revId": "dcbb3a8d23c88f78c4d48a707d23a3d58051360a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "748d531d_93887ce1",
@@ -81,6 +105,30 @@
           ]
         }
       ],
+      "revId": "dcbb3a8d23c88f78c4d48a707d23a3d58051360a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "688f0d49_aea5e80b",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T05:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "748d531d_93887ce1",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 20
+      },
       "revId": "dcbb3a8d23c88f78c4d48a707d23a3d58051360a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
