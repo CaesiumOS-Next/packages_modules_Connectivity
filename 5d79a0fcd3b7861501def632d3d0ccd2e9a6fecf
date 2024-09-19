@@ -34,6 +34,24 @@
       "parentUuid": "22118538_242cea44",
       "revId": "5d79a0fcd3b7861501def632d3d0ccd2e9a6fecf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f246945_1223db40",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-19T10:41:44Z",
+      "side": 1,
+      "message": "Passed the map so that NsdPublisher may use it for other future use cases.\n\nUpdated the code to share the map with NsdPublisher at construction, PTAL.",
+      "parentUuid": "fb52a7d2_95df6644",
+      "revId": "5d79a0fcd3b7861501def632d3d0ccd2e9a6fecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
