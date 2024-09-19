@@ -61,6 +61,7 @@ android_test {
     lint: {
         strict_updatability_linting: true,
     },
+    privileged: true,
 }
 
 python_test_host {
