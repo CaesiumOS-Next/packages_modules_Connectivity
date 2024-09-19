@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32c4b904_d6437832",
+        "filename": "thread/docs/build-an-android-border-router.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-19T02:24:21Z",
+      "side": 1,
+      "message": "```suggestion\nFor real RCP devices, it supports both SPI and UART interfaces and you can\n```",
+      "range": {
+        "startLine": 172,
+        "startChar": 52,
+        "endLine": 172,
+        "endChar": 61
+      },
+      "revId": "f286919f8039c6fb0ba57f2d000c64311e889ad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
