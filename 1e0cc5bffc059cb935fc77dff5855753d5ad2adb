@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c7cebe9_3bac4d0a",
+        "filename": "staticlibs/tests/unit/host/python/apf_utils_test.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T07:23:33Z",
+      "side": 1,
+      "message": "The same reason here, just to ensure if any of the needed command break, then we can cover the case.",
+      "parentUuid": "013e16b6_9d90162a",
+      "range": {
+        "startLine": 237,
+        "startChar": 6,
+        "endLine": 237,
+        "endChar": 36
+      },
+      "revId": "1e0cc5bffc059cb935fc77dff5855753d5ad2adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db73503a_b7669c53",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90dea2e4_10ecd7c7",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T07:23:33Z",
+      "side": 1,
+      "message": "These 3 commands are introduced in a single commit, we can just check if one of these commands is supported.  \nConsider if there\u0027s code change to break one of the commands, I think it\u0027s better to check them all, since these commands are needed during the APFv6 test.",
+      "parentUuid": "db73503a_b7669c53",
+      "range": {
+        "startLine": 194,
+        "startChar": 4,
+        "endLine": 196,
+        "endChar": 41
+      },
+      "revId": "1e0cc5bffc059cb935fc77dff5855753d5ad2adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6429976_06535391",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-09-18T10:09:34Z",
       "side": 1,
       "message": "Can we refactor this and apply to all methods with similar pattern?",
+      "range": {
+        "startLine": 321,
+        "startChar": 2,
+        "endLine": 329,
+        "endChar": 0
+      },
+      "revId": "1e0cc5bffc059cb935fc77dff5855753d5ad2adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "928c4b99_b9b2d2b1",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T07:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6429976_06535391",
       "range": {
         "startLine": 321,
         "startChar": 2,
