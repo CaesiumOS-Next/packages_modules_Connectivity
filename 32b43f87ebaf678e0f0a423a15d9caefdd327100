@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3df38722_a0ddec4f",
+        "filename": "staticlibs/testutils/host/python/packet_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T11:39:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b539ccf_d129f635",
+      "range": {
+        "startLine": 45,
+        "startChar": 41,
+        "endLine": 47,
+        "endChar": 25
+      },
+      "revId": "32b43f87ebaf678e0f0a423a15d9caefdd327100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6d1e71d_bc58fc1b",
@@ -65,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39179dba_5acd812a",
+        "filename": "staticlibs/testutils/host/python/packet_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T11:39:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6d1e71d_bc58fc1b",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 37
+      },
+      "revId": "32b43f87ebaf678e0f0a423a15d9caefdd327100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef0053c4_a0d40757",
@@ -78,6 +126,30 @@
       "writtenOn": "2024-09-19T06:46:42Z",
       "side": 1,
       "message": "It seems to me gemini uses socket.inet_aton, apply only if it is feasible.\n```\n\ndef construct_arp_packet(src_mac, dst_mac, src_ip, dst_ip, op) -\u003e str:\n  \"\"\"\n  Constructs an ARP packet as a hex string.\n\n  Args:\n    src_mac: Source MAC address (e.g., \"11:22:33:44:55:66\")\n    dst_mac: Destination MAC address (e.g., \"aa:bb:cc:dd:ee:ff\")\n    src_ip: Source IP address (e.g., \"192.168.1.100\")\n    dst_ip: Destination IP address (e.g., \"192.168.1.1\")\n    op: ARP operation code (1 for request, 2 for reply)\n\n  Returns:\n    A hex string representing the ARP packet.\n  \"\"\"\n\n  import struct\n  import socket\n\n  # Ethernet header\n  eth_header \u003d struct.pack(\n      \"!6s6sH\",\n      bytes.fromhex(dst_mac.replace(\":\", \"\")),\n      bytes.fromhex(src_mac.replace(\":\", \"\")),\n      0x0806,  # EtherType for ARP\n  )\n\n  # ARP header\n  arp_header \u003d struct.pack(\n      \"!HHBBH6s4s6s4s\",\n      1,  # Hardware type (Ethernet \u003d 1)\n      0x0800,  # Protocol type (IPv4 \u003d 0x0800)\n      6,  # Hardware address length (6 bytes for MAC)\n      4,  # Protocol address length (4 bytes for IPv4)\n      op,  # Operation code (1 for request, 2 for reply)\n      bytes.fromhex(src_mac.replace(\":\", \"\")),\n      socket.inet_aton(src_ip),\n      bytes.fromhex(dst_mac.replace(\":\", \"\")),\n      socket.inet_aton(dst_ip),\n  )\n\n  # Combine headers\n  arp_packet \u003d eth_header + arp_header\n\n  # Convert to hex string\n  hex_packet \u003d arp_packet.hex()\n\n  return hex_packet\n```",
+      "range": {
+        "startLine": 66,
+        "startChar": 16,
+        "endLine": 66,
+        "endChar": 40
+      },
+      "revId": "32b43f87ebaf678e0f0a423a15d9caefdd327100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "866bca64_679615e6",
+        "filename": "staticlibs/testutils/host/python/packet_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T11:39:19Z",
+      "side": 1,
+      "message": "`socket.inet_aton()` works, replaced with this.  \nI\u0027ll keep the original implementation to replace the needed fields from the packet template.",
+      "parentUuid": "ef0053c4_a0d40757",
       "range": {
         "startLine": 66,
         "startChar": 16,
