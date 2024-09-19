@@ -21,6 +21,8 @@ import static android.system.OsConstants.AF_UNSPEC;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_ADDR_LEN;
 import static com.android.net.module.util.netlink.NetlinkConstants.IFF_UP;
 import static com.android.net.module.util.netlink.NetlinkConstants.RTM_NEWLINK;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_CREATE;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_EXCL;
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST_ACK;
 
 import android.net.MacAddress;
@@ -50,7 +52,9 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
     public static final short IFLA_IFNAME    = 3;
     public static final short IFLA_MTU       = 4;
     public static final short IFLA_INET6_ADDR_GEN_MODE = 8;
+    public static final short IFLA_LINKINFO = 18;
     public static final short IFLA_AF_SPEC = 26;
+    public static final short IFLA_INFO_KIND = 1;
 
     public static final short IN6_ADDR_GEN_MODE_NONE = 1;
 
@@ -66,6 +70,8 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
     private final MacAddress mHardwareAddress;
     @Nullable
     private final String mInterfaceName;
+    @Nullable
+    private final StructNlAttr[] mExtraNlAttrs;
 
     /**
      * Creates an {@link RtNetlinkLinkMessage} instance.
@@ -84,7 +90,7 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
     @Nullable
     public static RtNetlinkLinkMessage build(@NonNull StructNlMsgHdr nlmsghdr,
             @NonNull StructIfinfoMsg ifinfomsg, int mtu, @Nullable MacAddress hardwareAddress,
-            @Nullable String interfaceName) {
+            @Nullable String interfaceName, @Nullable StructNlAttr[] extraNlAttrs) {
         if (mtu < 0) {
             return null;
         }
@@ -93,18 +99,21 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
             return null;
         }
 
-        nlmsghdr.nlmsg_len = calculateMessageLength(mtu, hardwareAddress, interfaceName);
-        return new RtNetlinkLinkMessage(nlmsghdr, ifinfomsg, mtu, hardwareAddress, interfaceName);
+        nlmsghdr.nlmsg_len = calculateMessageLength(mtu, hardwareAddress, interfaceName,
+                extraNlAttrs);
+        return new RtNetlinkLinkMessage(nlmsghdr, ifinfomsg, mtu, hardwareAddress, interfaceName,
+                extraNlAttrs);
     }
 
     private RtNetlinkLinkMessage(@NonNull StructNlMsgHdr nlmsghdr,
             @NonNull StructIfinfoMsg ifinfomsg, int mtu, @Nullable MacAddress hardwareAddress,
-            @Nullable String interfaceName) {
+            @Nullable String interfaceName, @Nullable StructNlAttr[] extraNlAttrs) {
         super(nlmsghdr);
         mIfinfomsg = ifinfomsg;
         mMtu = mtu;
         mHardwareAddress = hardwareAddress;
         mInterfaceName = interfaceName;
+        mExtraNlAttrs = extraNlAttrs;
     }
 
     public int getMtu() {
@@ -165,7 +174,8 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
             interfaceName = nlAttr.getValueAsString();
         }
 
-        return new RtNetlinkLinkMessage(header, ifinfoMsg, mtu, hardwareAddress, interfaceName);
+        return new RtNetlinkLinkMessage(header, ifinfoMsg, mtu, hardwareAddress, interfaceName,
+                null);
     }
 
     /**
@@ -198,13 +208,18 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
             final StructNlAttr ifname = new StructNlAttr(IFLA_IFNAME, mInterfaceName);
             ifname.pack(byteBuffer);
         }
+        if (mExtraNlAttrs != null) {
+            for (StructNlAttr attr : mExtraNlAttrs) {
+                attr.pack(byteBuffer);
+            }
+        }
     }
 
     /**
      *  Calculate the byte length of the packed buffer.
      */
     private static int calculateMessageLength(int mtu, MacAddress hardwareAddress,
-            String interfaceName) {
+            String interfaceName, @Nullable StructNlAttr[] extraNlAttrs) {
         int length = StructNlMsgHdr.STRUCT_SIZE + StructIfinfoMsg.STRUCT_SIZE;
 
         if (mtu != DEFAULT_MTU) {
@@ -220,6 +235,11 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
                     StructNlAttr.NLA_HEADERLEN + interfaceName.length() + 1);
         }
 
+        if (extraNlAttrs != null) {
+            for (StructNlAttr attr : extraNlAttrs) {
+                length += attr.getAlignedLength();
+            }
+        }
         return length;
     }
 
@@ -249,7 +269,7 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
         return RtNetlinkLinkMessage.build(
                 new StructNlMsgHdr(0, RTM_NEWLINK, NLM_F_REQUEST_ACK, sequenceNumber),
                 new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, interfaceIndex,
-                                    isUp ? IFF_UP : 0, IFF_UP), DEFAULT_MTU, null, null);
+                                    isUp ? IFF_UP : 0, IFF_UP), DEFAULT_MTU, null, null, null);
     }
 
     /**
@@ -278,7 +298,28 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
         return RtNetlinkLinkMessage.build(
                 new StructNlMsgHdr(0, RTM_NEWLINK, NLM_F_REQUEST_ACK, sequenceNumber),
                 new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, interfaceIndex, 0, 0),
-                DEFAULT_MTU, null, newName);
+                DEFAULT_MTU, null, newName, null);
+    }
+
+    /**
+     * Creates an {@link RtNetlinkLinkMessage} instance that can be used to add a dummy network
+     * interface.
+     *
+     * @param interfaceName The name of the dummy interface to be created.
+     * @param sequenceNumber The sequence number for the Netlink message.
+     * @return A `RtNetlinkLinkMessage` instance configured to add the dummy interface.
+     */
+    @Nullable
+    public static RtNetlinkLinkMessage createAddDummyLinkMessage(@NonNull String interfaceName,
+            int sequenceNumber) {
+        return RtNetlinkLinkMessage.build(
+                new StructNlMsgHdr(0, RTM_NEWLINK,
+                        (short) (NLM_F_REQUEST_ACK | NLM_F_CREATE | NLM_F_EXCL), sequenceNumber),
+                new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, 0, 0, 0),
+                DEFAULT_MTU, null, interfaceName,
+                new StructNlAttr[] {
+                        new StructNlAttr(IFLA_LINKINFO, new StructNlAttr(IFLA_INFO_KIND, "dummy"))
+                });
     }
 
     @Override

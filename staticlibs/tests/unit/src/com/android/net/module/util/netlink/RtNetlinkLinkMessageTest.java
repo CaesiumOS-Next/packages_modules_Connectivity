@@ -159,7 +159,7 @@ public class RtNetlinkLinkMessageTest {
                 new StructIfinfoMsg((byte) 0, (short) 1, 0x1e, 0x1002, 0),
                 1500,
                 MacAddress.fromString("92:c3:e3:c9:37:4e"),
-                "wlan0");
+                "wlan0", null);
         assertNotNull(linkMsg);
 
         final byte[] packBytes = linkMsg.pack(ByteOrder.LITTLE_ENDIAN);
@@ -287,6 +287,23 @@ public class RtNetlinkLinkMessageTest {
             assertNull(RtNetlinkLinkMessage.createSetLinkNameMessage(
                     interfaceName, sequenceNumber, invalidName, mOsAccess));
         }
+    }
+
+    @Test
+    public void testCreateAddDummyLinkMessage() {
+        final String interfaceName = "dummy0";
+        final int sequenceNumber = 0x2468;
+        final String expectedHexBytes =
+                "3C000000100005066824000000000000"    // struct nlmsghdr
+                + "00000000000000000000000000000000"  // struct ifinfomsg
+                + "0B00030064756D6D79300000"          // IFLA_IFNAME(dummy0)
+                + "100012800A00010064756D6D79000000"; // IFLA_LINKINFO(IFLA_INFO_KIND(dummy))
+
+        final RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createAddDummyLinkMessage(
+                interfaceName, sequenceNumber);
+        assertNotNull(msg);
+        final byte[] bytes = msg.pack(ByteOrder.LITTLE_ENDIAN);
+        assertEquals(expectedHexBytes, HexDump.toHexString(bytes));
     }
 
     @Test
