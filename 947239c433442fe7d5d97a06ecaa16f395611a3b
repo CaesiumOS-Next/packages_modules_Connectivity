@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eef0bea9_b7779146",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-19T02:01:41Z",
+      "side": 1,
+      "message": "Done. But the naming inside this class uses interfaceName/mInterfaceName instead of ifName. I want to keep the parameter name consistent here.",
+      "parentUuid": "788e2c3d_72cc89c6",
+      "range": {
+        "startLine": 256,
+        "startChar": 32,
+        "endLine": 256,
+        "endChar": 70
+      },
+      "revId": "947239c433442fe7d5d97a06ecaa16f395611a3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6d018bb_ab671923",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "997630d6_027219a4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-19T02:01:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6d018bb_ab671923",
+      "range": {
+        "startLine": 261,
+        "startChar": 63,
+        "endLine": 261,
+        "endChar": 81
+      },
+      "revId": "947239c433442fe7d5d97a06ecaa16f395611a3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24bb7308_bd7304db",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-09-18T22:38:17Z",
       "side": 1,
       "message": "nit: interfaceNotFound? or InvalidInterface?",
+      "range": {
+        "startLine": 266,
+        "startChar": 45,
+        "endLine": 266,
+        "endChar": 56
+      },
+      "revId": "947239c433442fe7d5d97a06ecaa16f395611a3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43a1ce89_8f20d689",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-19T02:01:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24bb7308_bd7304db",
       "range": {
         "startLine": 266,
         "startChar": 45,
