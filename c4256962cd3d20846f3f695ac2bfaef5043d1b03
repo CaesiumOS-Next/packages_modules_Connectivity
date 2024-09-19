@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b4e4c096_99551c04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-19T17:16:36Z",
+      "side": 1,
+      "message": "\u003e But we haven\u0027t supported adding/deleting a interface at RtNetlinkLinkMessage yet.\n\nThat capability should be specific to the type of interface created. Here the most natural thing would be a veth.\n\nAnother way to create an interface and test ifname renaming would be with a tap or tun device, which is done from `/dev/net/tun` and not through rtnetlink.",
+      "parentUuid": "a063b373_f04a19c2",
+      "revId": "c4256962cd3d20846f3f695ac2bfaef5043d1b03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f939f57_89d316d6",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 13
