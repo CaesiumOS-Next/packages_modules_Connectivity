@@ -40,6 +40,30 @@
       ],
       "revId": "5b016226f479360cc8b0af68a9ab5f1706af2569",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a5ffd15_78a51c49",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T10:38:58Z",
+      "side": 1,
+      "message": "Yes, plan to have maybe a class to hold needed info in the future CL.\nCorrected the comment",
+      "parentUuid": "2bba3eee_c29f91ae",
+      "range": {
+        "startLine": 42,
+        "startChar": 24,
+        "endLine": 42,
+        "endChar": 38
+      },
+      "revId": "5b016226f479360cc8b0af68a9ab5f1706af2569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
