@@ -16,6 +16,24 @@
       "message": "Why do you need to pass in the map instead of just the interface name?",
       "revId": "5d79a0fcd3b7861501def632d3d0ccd2e9a6fecf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb52a7d2_95df6644",
+        "filename": "thread/service/java/com/android/server/thread/NsdPublisher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-19T04:40:16Z",
+      "side": 1,
+      "message": "Also, maybe you can just let NsdPublisher share the same networkToInterface map with ThreadNetworkControllerService, so that you can make it a `final` member.",
+      "parentUuid": "22118538_242cea44",
+      "revId": "5d79a0fcd3b7861501def632d3d0ccd2e9a6fecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
