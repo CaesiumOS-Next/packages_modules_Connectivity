@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6582904_b5be3e44",
+        "filename": "staticlibs/testutils/host/python/packet_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T04:23:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7feceb93_8d3f007e",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "6fa18a211a3432a2c977f86cd2a7fb3bbfd5ea8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2be4f4a1_402eb697",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-18T10:00:18Z",
       "side": 1,
       "message": "Is it better if we have a\nconstruct_arp_packet(...) and called by the method?",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 25
+      },
+      "revId": "6fa18a211a3432a2c977f86cd2a7fb3bbfd5ea8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed2b4be5_7b59ac78",
+        "filename": "staticlibs/testutils/host/python/packet_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-19T04:23:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2be4f4a1_402eb697",
       "range": {
         "startLine": 37,
         "startChar": 4,
