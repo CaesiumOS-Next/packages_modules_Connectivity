@@ -224,6 +224,43 @@ public class NetlinkUtils {
         }
     }
 
+    public static boolean sendRtmAddDummyLinkRequest(@NonNull String ifName) throws Exception {
+        final RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createAddDummyLinkMessage(
+                ifName, 1 /*sequenceNumber*/);
+        if (msg == null) {
+            throw new Exception("msg == null");
+//          Log.e(TAG, "msg = null");
+//          return false;
+        }
+
+        final byte[] bytes = msg.pack(ByteOrder.nativeOrder());
+        try {
+            NetlinkUtils.sendOneShotKernelMessage(NETLINK_ROUTE, bytes);
+            return true;
+        } catch (ErrnoException e) {
+            throw new Exception("Fail to add a dummy interface " + e.getMessage());
+//          Log.e(TAG, "Fail to add a dummy interface " + ifName, e);
+//          return false;
+        }
+    }
+
+    public static boolean sendRtmDeleteLinkRequest(@NonNull String ifName) {
+        final RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createDeleteLinkMessage(
+                ifName, 1 /*sequenceNumber*/);
+        if (msg == null) {
+            return false;
+        }
+
+        final byte[] bytes = msg.pack(ByteOrder.nativeOrder());
+        try {
+            NetlinkUtils.sendOneShotKernelMessage(NETLINK_ROUTE, bytes);
+            return true;
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Fail to delete the interface " + ifName, e);
+            return false;
+        }
+    }
+
     /**
      * Sends an RTM_NEWLINK message to kernel to set a network interface up or down.
      *

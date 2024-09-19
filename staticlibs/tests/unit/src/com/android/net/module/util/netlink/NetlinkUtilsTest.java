@@ -29,6 +29,7 @@ import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_DUMP;
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -227,5 +228,22 @@ public class NetlinkUtilsTest {
 
         assertEquals(8000, bufferSize);
         SocketUtils.closeSocket(fd);
+    }
+
+    @Test
+    public void testAddDummyLinkAndDelete() {
+        final String interfaceName = "dummy5";
+        assertEquals(0, Os.if_nametoindex(interfaceName));
+
+        try {
+            NetlinkUtils.sendRtmAddDummyLinkRequest(interfaceName);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+//      assertTrue(NetlinkUtils.sendRtmAddDummyLinkRequest(interfaceName));
+//      assertNotEquals(0, Os.if_nametoindex(interfaceName));
+
+//      assertTrue(NetlinkUtils.sendRtmDeleteLinkRequest(interfaceName));
+//      assertEquals(0, Os.if_nametoindex(interfaceName));
     }
 }

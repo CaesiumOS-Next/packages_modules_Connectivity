@@ -18,6 +18,7 @@
         package="com.android.frameworks.libnet.tests">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.NET_ADMIN" />
 
     <application android:debuggable="true">
         <uses-library android:name="android.test.runner" />
