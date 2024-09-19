@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a063b373_f04a19c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-19T05:16:37Z",
+      "side": 1,
+      "message": "Changing the interface name or state of the existing interface at test is dangerous and unstable. The better way is creating a dummy interface and munipulating it. But we haven\u0027t supported adding/deleting a interface at RtNetlinkLinkMessage yet. Let me add it first.",
+      "parentUuid": "3314575d_8f85da98",
+      "revId": "c4256962cd3d20846f3f695ac2bfaef5043d1b03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f939f57_89d316d6",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 13
@@ -31,6 +49,30 @@
       "writtenOn": "2024-09-18T22:05:22Z",
       "side": 1,
       "message": "nit: + \" from \" + ifName",
+      "range": {
+        "startLine": 271,
+        "startChar": 55,
+        "endLine": 271,
+        "endChar": 56
+      },
+      "revId": "c4256962cd3d20846f3f695ac2bfaef5043d1b03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2aac89c_a90e2527",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-19T05:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f939f57_89d316d6",
       "range": {
         "startLine": 271,
         "startChar": 55,
