@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6427dfe7_98964450",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-20T08:32:48Z",
+      "side": 1,
+      "message": "Do we have SDK level dependency?",
+      "range": {
+        "startLine": 174,
+        "startChar": 14,
+        "endLine": 174,
+        "endChar": 15
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "38a4306f_d4efc13f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+              "range": {
+                "startLine": 20,
+                "startChar": 0,
+                "endLine": 20,
+                "endChar": 0
+              },
+              "replacement": "import android.os.Build;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+              "range": {
+                "startLine": 174,
+                "startChar": 0,
+                "endLine": 175,
+                "endChar": 0
+              },
+              "replacement": "        return Build.VERSION.SDK_INT \u003e\u003d Build.VERSION_CODES.TIRAMISU\n                \u0026\u0026 mIsAccurateDelayCallbackEnabled\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ae77fcf4f2bc26b14e8bd15cfa44a2c08c0fe111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "134179f3_3b034319",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-20T08:32:48Z",
+      "side": 1,
+      "message": "What does this variable do? is it better to add some comment or name it more specific? e.g. delayStartQueryTimerFd?",
+      "range": {
+        "startLine": 99,
+        "startChar": 38,
+        "endLine": 99,
+        "endChar": 45
+      },
+      "revId": "ae77fcf4f2bc26b14e8bd15cfa44a2c08c0fe111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "260a162f_2e2888e8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-20T08:32:48Z",
+      "side": 1,
+      "message": "It seems we might need some tests for both feature enable or disabled.",
+      "range": {
+        "startLine": 191,
+        "startChar": 71,
+        "endLine": 191,
+        "endChar": 72
+      },
+      "revId": "ae77fcf4f2bc26b14e8bd15cfa44a2c08c0fe111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6f669db_09f52de7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-20T08:32:48Z",
+      "side": 1,
+      "message": "Maybe Stupid question: How do we know this won\u0027t be called again before the task finished?",
+      "range": {
+        "startLine": 192,
+        "startChar": 32,
+        "endLine": 192,
+        "endChar": 46
+      },
+      "revId": "ae77fcf4f2bc26b14e8bd15cfa44a2c08c0fe111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2590554_e93183b9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-20T08:32:48Z",
+      "side": 1,
+      "message": "nit: @NonNull",
+      "range": {
+        "startLine": 266,
+        "startChar": 14,
+        "endLine": 266,
+        "endChar": 15
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "583f33d1_8ca944c5",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+              "range": {
+                "startLine": 266,
+                "startChar": 0,
+                "endLine": 267,
+                "endChar": 0
+              },
+              "replacement": "        public TimerFileDescriptor createTimerFd(@NonNull Handler handler) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ae77fcf4f2bc26b14e8bd15cfa44a2c08c0fe111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
