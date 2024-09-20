@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "56d28ec2_38741646",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-20T08:55:59Z",
+      "side": 1,
+      "message": "What is the rationale of this API behavior? Does this mean we can\u0027t offer the user a \"cancel\" button while he/she is waiting for the credentials sharing process? This is unacceptable.",
+      "range": {
+        "startLine": 272,
+        "startChar": 13,
+        "endLine": 273,
+        "endChar": 38
+      },
+      "revId": "5cc216f4b32aa9fcb7c66b12f9b7b9605d09f8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14f05a4c_8ea513f5",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 28
