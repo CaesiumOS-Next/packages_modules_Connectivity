@@ -34,6 +34,24 @@
       "parentUuid": "f7c8dcf4_529a0323",
       "revId": "caca9d34b97eb08665f6bcd83da1821a3ed8e1c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "170d57c1_446f77fe",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-20T04:57:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c61d81a_5bda29d4",
+      "revId": "caca9d34b97eb08665f6bcd83da1821a3ed8e1c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
