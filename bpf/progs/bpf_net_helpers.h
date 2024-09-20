@@ -132,11 +132,19 @@ static inline __always_inline __unused bool is_received_skb(struct __sk_buff* sk
            skb->pkt_type == PACKET_MULTICAST;
 }
 
-// try to make the first 'len' header bytes readable/writable via direct packet access
+// try to make the first 'len + len2' header bytes readable/writable via direct packet access
+// if that fails, retry with just 'len' bytes
 // (note: AFAIK there is no way to ask for only direct packet read without also getting write)
-static inline __always_inline void try_make_writable(struct __sk_buff* skb, unsigned len) {
+static inline __always_inline void try_make_writable(struct __sk_buff* skb, unsigned len, unsigned len2 = 0) {
+    len += len2;
     if (len > skb->len) len = skb->len;
-    if (skb->data_end - skb->data < len) bpf_skb_pull_data(skb, len);
+    if (skb->data_end - skb->data < len) {
+      if (bpf_skb_pull_data(skb, len) && len2) {
+        // possibly tried to pull too much (UDP GRO FRAGLIST)
+        len -= len2;
+        bpf_skb_pull_data(skb, len);
+      }
+    }
 }
 
 // anti-compiler-optimizer no-op: explicitly force full calculation of 'v'
