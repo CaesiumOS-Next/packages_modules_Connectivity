@@ -238,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3bb6986e_693bc7e0",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-20T07:54:54Z",
+      "side": 1,
+      "message": "Ack, thanks. I think the issue here though, is that if the external commissioner doesn\u0027t do anything, or doesn\u0027t cancel the operation, or if the user of that external commissioner walks away, the caller of this API can\u0027t do anything to unblock the user. It seems bad that this API can put the thread network into a state that can only be recovered by some other entity.\n\n Consider - if the user puts the device into ephemeral key mode, then touches their other device, and then changes their mind... there\u0027s nothing they can do on this device to cancel the operation and restart it. It would be much better if there were a way to cancel the operation on this device. Maybe you could add a forceDeactivateEphemeralKeyMode method? Or you could have the deactivate method succeed if it were called by the same app that enabled it, but not if called by another app?",
+      "parentUuid": "8c52c23b_28681263",
+      "range": {
+        "startLine": 264,
+        "startChar": 55,
+        "endLine": 265,
+        "endChar": 38
+      },
+      "revId": "c66e8f3338560e708d75ab96287763e2944779f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b0f1c5d_7cb1f184",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 27
