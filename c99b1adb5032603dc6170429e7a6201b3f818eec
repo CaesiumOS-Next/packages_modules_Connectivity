@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8dfa4ff_f217d0a0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-20T06:19:51Z",
+      "side": 1,
+      "message": "nit: could use `newLinkProperties` here instead of a lookup?",
+      "range": {
+        "startLine": 733,
+        "startChar": 49,
+        "endLine": 733,
+        "endChar": 95
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9e4d70bf_2e9e18ab",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+              "range": {
+                "startLine": 733,
+                "startChar": 0,
+                "endLine": 735,
+                "endChar": 0
+              },
+              "replacement": "                        newInfraLinkStateBuilder(newLinkProperties).build());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c99b1adb5032603dc6170429e7a6201b3f818eec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
