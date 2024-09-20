@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a27282b_c250facd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-20T09:39:16Z",
+      "side": 1,
+      "message": "@maze@google.com, could you take a look at this CTS fix?\n\nFor background, some chipset vendors have broadcast filers runs before they run APF, in order to get this multidevice CTS test case runs properly, we should use unicast instead of broadcast.",
+      "revId": "1a06606ddd97e25e52b215133cc25c04c4cfcf1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
