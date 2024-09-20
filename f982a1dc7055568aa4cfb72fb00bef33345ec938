@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1142762_feaa2204",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-20T08:57:12Z",
+      "side": 1,
+      "message": "It\u0027s not obvious that this is always flagged off. Could you rewrite this as follows?\n\n    if (!mDependencies.isUpstreamDataUsageMetricsEnabled(mContext)) {\n        return;\n    }\n\n    if (!mUpstreamDataUsage.isEmpty()) {\n        return;\n    }\n\nThat makes it very clear that the code will never run if the flag is off, and it\u0027s less likely that someone will enable this code by mistake in the future because they misread the if.",
+      "range": {
+        "startLine": 389,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 2
+      },
+      "revId": "f982a1dc7055568aa4cfb72fb00bef33345ec938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
