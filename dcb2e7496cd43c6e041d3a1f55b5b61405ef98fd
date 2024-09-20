@@ -1,5 +1,47 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4a74d6d_1d761f02",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-20T08:18:58Z",
+      "side": 1,
+      "message": "\u003e100 line warning.",
+      "range": {
+        "startLine": 785,
+        "startChar": 14,
+        "endLine": 785,
+        "endChar": 101
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "adc8ff2f_0927d30d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/loader/NetBpfLoad.cpp",
+              "range": {
+                "startLine": 785,
+                "startChar": 0,
+                "endLine": 786,
+                "endChar": 0
+              },
+              "replacement": "              .map_flags \u003d md[i].map_flags |\n                  (type \u003d\u003d BPF_MAP_TYPE_LPM_TRIE ? BPF_F_NO_PREALLOC : 0),\n"
+            }
+          ]
+        }
+      ],
+      "revId": "dcb2e7496cd43c6e041d3a1f55b5b61405ef98fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
