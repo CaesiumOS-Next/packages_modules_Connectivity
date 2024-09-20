@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f12dbb_95471f92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-20T09:32:27Z",
+      "side": 1,
+      "message": "@yangsongcn@google.com Congrats on your first CL to Android Thread!!",
+      "revId": "ffceaae1b891c5c9705ca3610f506fb3cde844bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
