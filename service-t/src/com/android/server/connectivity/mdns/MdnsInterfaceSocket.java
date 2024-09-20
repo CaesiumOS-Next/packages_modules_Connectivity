@@ -20,6 +20,7 @@ import static com.android.server.connectivity.mdns.MdnsSocket.MULTICAST_IPV4_ADD
 import static com.android.server.connectivity.mdns.MdnsSocket.MULTICAST_IPV6_ADDRESS;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.annotation.RequiresApi;
 import android.net.LinkAddress;
 import android.net.util.SocketUtils;
@@ -30,12 +31,15 @@ import android.os.ParcelFileDescriptor;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.system.OsConstants;
+import android.util.Log;
 
 import com.android.net.module.util.SharedLog;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.NetworkInterface;
@@ -54,7 +58,7 @@ import java.util.List;
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class MdnsInterfaceSocket {
     private static final String TAG = MdnsInterfaceSocket.class.getSimpleName();
-    @NonNull private final MulticastSocket mMulticastSocket;
+    @NonNull private final DatagramSocket mSocket;
     @NonNull private final NetworkInterface mNetworkInterface;
     @NonNull private final MulticastPacketReader mPacketReader;
     @NonNull private final ParcelFileDescriptor mFileDescriptor;
@@ -62,17 +66,25 @@ public class MdnsInterfaceSocket {
     private boolean mJoinedIpv4 = false;
     private boolean mJoinedIpv6 = false;
 
-    public MdnsInterfaceSocket(@NonNull NetworkInterface networkInterface, int port,
+    public MdnsInterfaceSocket(@NonNull NetworkInterface networkInterface,
+            @Nullable Integer multicastLocalPort, @Nullable InetAddress unicastDnsServerAddr,
             @NonNull Looper looper, @NonNull byte[] packetReadBuffer, @NonNull SharedLog sharedLog)
             throws IOException {
         mNetworkInterface = networkInterface;
-        mMulticastSocket = new MulticastSocket(port);
-        // RFC Spec: https://tools.ietf.org/html/rfc6762. Time to live is set 255
-        mMulticastSocket.setTimeToLive(255);
-        mMulticastSocket.setNetworkInterface(networkInterface);
+
+        if (multicastLocalPort != null) {
+            final MulticastSocket multicastSocket = new MulticastSocket(multicastLocalPort);
+            // RFC Spec: https://tools.ietf.org/html/rfc6762. Time to live is set 255
+            multicastSocket.setTimeToLive(255);
+            multicastSocket.setNetworkInterface(networkInterface);
+            mSocket = multicastSocket;
+        } else {
+            mSocket = new DatagramSocket();
+            mSocket.connect(unicastDnsServerAddr, MdnsConstants.UNICAST_DNS_PORT);
+        }
 
         // Bind socket to the interface for receiving from that interface only.
-        mFileDescriptor = ParcelFileDescriptor.fromDatagramSocket(mMulticastSocket);
+        mFileDescriptor = ParcelFileDescriptor.fromDatagramSocket(mSocket);
         try {
             final FileDescriptor fd = mFileDescriptor.getFileDescriptor();
             final int flags = Os.fcntlInt(fd, OsConstants.F_GETFL, 0);
@@ -95,7 +107,23 @@ public class MdnsInterfaceSocket {
      * <p>This method could be used on any thread.
      */
     public void send(@NonNull DatagramPacket packet) throws IOException {
-        mMulticastSocket.send(packet);
+        Log.e("wgtdkp", "sending mdns packets: " + packet.getLength() + " to " + mSocket.getRemoteSocketAddress() + ", on interface " + mNetworkInterface.getName());
+        Log.e("wgtdkp", "packets: " + packet.getAddress());
+        if (!(mSocket instanceof MulticastSocket)) {
+            // The peer address in DatagramPacket defaults to the mDNS multicast address and port,
+            // but we need to use specific DNS server address for unicast DNS-SD
+            packet = new DatagramPacket(packet.getData(), packet.getOffset(), packet.getLength(), mSocket.getRemoteSocketAddress());
+
+            Log.e("wgtdkp", "newPacket: " + packet.getAddress());
+        }
+        Log.e("wgtdkp", "my socket is " + mSocket);
+        Log.e("wgtdkp", "my socket remote address " + mSocket.getRemoteSocketAddress());
+        Log.e("wgtdkp", "my socket local address " + mSocket.getLocalSocketAddress());
+
+        Log.e("wgtdkp", "mSocket.isConnected: " + mSocket.isConnected());
+
+        packet.setAddress(null);
+        mSocket.send(packet);
     }
 
     private static boolean hasIpv4Address(@NonNull List<LinkAddress> addresses) {
@@ -119,8 +147,13 @@ public class MdnsInterfaceSocket {
     }
 
     private boolean joinGroup(@NonNull InetSocketAddress multicastAddress) {
+        // Unicast socket doesn't need to join the group
+        if (!(mSocket instanceof MulticastSocket)) {
+            return true;
+        }
+
         try {
-            mMulticastSocket.joinGroup(multicastAddress, mNetworkInterface);
+            ((MulticastSocket) mSocket).joinGroup(multicastAddress, mNetworkInterface);
             return true;
         } catch (IOException e) {
             // The address may have just been removed
@@ -157,7 +190,7 @@ public class MdnsInterfaceSocket {
         } catch (IOException e) {
             mSharedLog.e("Close file descriptor failed.");
         }
-        mMulticastSocket.close();
+        mSocket.close();
     }
 
     /**
@@ -192,6 +225,6 @@ public class MdnsInterfaceSocket {
 
     /*** Returns whether this socket has joined IPv6 group */
     public boolean hasJoinedIpv6() {
-        return mJoinedIpv6;
+        return mJoinedIpv6 || !(mSocket instanceof MulticastSocket);
     }
 }

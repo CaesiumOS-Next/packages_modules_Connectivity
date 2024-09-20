@@ -25,6 +25,8 @@ import com.android.net.module.util.SharedLog;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
@@ -42,10 +44,22 @@ public class MdnsSocket {
             new InetSocketAddress(MdnsConstants.getMdnsIPv4Address(), MdnsConstants.MDNS_PORT);
     public static final InetSocketAddress MULTICAST_IPV6_ADDRESS =
             new InetSocketAddress(MdnsConstants.getMdnsIPv6Address(), MdnsConstants.MDNS_PORT);
+    private static final int DNS_PORT = 53;
     private final MulticastNetworkInterfaceProvider multicastNetworkInterfaceProvider;
     private final MulticastSocket multicastSocket;
+    private final DatagramSocket unicastSocket;
     private boolean isOnIPv6OnlyNetwork;
     private final SharedLog sharedLog;
+
+    /**
+     * Creates a new unicast DNS-SD socket.
+     *
+     * We should use a new class for unicast socket, but for simplify here just reuse it for prototype.
+     *
+     */
+    public MdnsSocket(InetAddress dnsServerAddr, SharedLog sharedLog) throws IOException {
+        this(createUnicastSocket(dnsServerAddr), null, null, sharedLog);
+    }
 
     public MdnsSocket(
             @NonNull MulticastNetworkInterfaceProvider multicastNetworkInterfaceProvider, int port,
@@ -57,15 +71,36 @@ public class MdnsSocket {
     @VisibleForTesting
     MdnsSocket(@NonNull MulticastNetworkInterfaceProvider multicastNetworkInterfaceProvider,
             MulticastSocket multicastSocket, SharedLog sharedLog) throws IOException {
+        this(null /* unicastSocket */, multicastNetworkInterfaceProvider, multicastSocket, sharedLog);
+    }
+
+    private MdnsSocket(
+            @Nullable DatagramSocket unicastSocket,
+            @Nullable MulticastNetworkInterfaceProvider multicastNetworkInterfaceProvider,
+            @Nullable MulticastSocket multicastSocket,
+            SharedLog sharedLog) throws IOException {
+        this.unicastSocket = unicastSocket;
         this.multicastNetworkInterfaceProvider = multicastNetworkInterfaceProvider;
         this.multicastSocket = multicastSocket;
         this.sharedLog = sharedLog;
-        // RFC Spec: https://tools.ietf.org/html/rfc6762
-        // Time to live is set 255, which is similar to the jMDNS implementation.
-        multicastSocket.setTimeToLive(255);
+
+        if (multicastSocket != null) {
+            // RFC Spec: https://tools.ietf.org/html/rfc6762
+            // Time to live is set 255, which is similar to the jMDNS implementation.
+            multicastSocket.setTimeToLive(255);
+        }
 
         // TODO (changed when importing code): consider tagging the socket for data usage
         isOnIPv6OnlyNetwork = false;
+    }
+
+    /** Creates a new {@link DatagramSocket} which connects to the given DNS server address. */
+    @Nullable
+    private static DatagramSocket createUnicastSocket(InetAddress dnsServerAddr)
+            throws SocketException, SecurityException {
+        DatagramSocket socket = new DatagramSocket();
+        socket.connect(dnsServerAddr, DNS_PORT);
+        return socket;
     }
 
     public void send(DatagramPacket packet) throws IOException {

@@ -17,6 +17,7 @@
 package com.android.server.connectivity.mdns;
 
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_THREAD;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
@@ -47,6 +48,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -55,9 +57,11 @@ import com.android.net.module.util.LinkPropertiesUtils.CompareResult;
 import com.android.net.module.util.SharedLog;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -238,8 +242,16 @@ public class MdnsSocketProvider {
         public MdnsInterfaceSocket createMdnsInterfaceSocket(
                 @NonNull NetworkInterface networkInterface, int port, @NonNull Looper looper,
                 @NonNull byte[] packetReadBuffer, @NonNull SharedLog sharedLog) throws IOException {
-            return new MdnsInterfaceSocket(networkInterface, port, looper, packetReadBuffer,
-                    sharedLog);
+            return new MdnsInterfaceSocket(networkInterface, port, null /* unicastDnsServerAddr */,
+                    looper, packetReadBuffer, sharedLog);
+        }
+
+        public MdnsInterfaceSocket createUnicastInterfaceSocket(
+                @NonNull NetworkInterface networkInterface, @NonNull InetAddress dnsServerAddr,
+                @NonNull Looper looper, @NonNull byte[] packetReadBuffer,
+                @NonNull SharedLog sharedLog) throws IOException {
+            return new MdnsInterfaceSocket(networkInterface, null /* multicastLocalPort */,
+                    dnsServerAddr, looper, packetReadBuffer, sharedLog);
         }
 
         /*** Get network interface by given interface name */
@@ -526,15 +538,30 @@ public class MdnsSocketProvider {
                     transports = new int[0];
                 }
             }
-            if (networkInterface == null || !isMdnsCapableInterface(networkInterface, transports)) {
+
+            final boolean isMulticastInterface = isMdnsCapableInterface(networkInterface, transports);
+            if (networkInterface == null ||
+                    !(isMulticastInterface ||
+                      isUnicastCapableInterface(networkInterface, transports, lp))) {
                 return;
             }
 
             mSharedLog.log("Create socket on net:" + networkKey + ", ifName:" + interfaceName);
-            final MdnsInterfaceSocket socket = mDependencies.createMdnsInterfaceSocket(
+            MdnsInterfaceSocket socket;
+            if (isMulticastInterface) {
+                socket = mDependencies.createMdnsInterfaceSocket(
                     networkInterface.getNetworkInterface(), MdnsConstants.MDNS_PORT, mLooper,
                     mPacketReadBuffer, mSharedLog.forSubComponent(
                             MdnsInterfaceSocket.class.getSimpleName() + "/" + interfaceName));
+            } else {
+                Log.e("wgtdkp", "Creating mDNS socket on Thread interface: " + interfaceName);
+
+                socket = mDependencies.createUnicastInterfaceSocket(
+                    networkInterface.getNetworkInterface(), lp.getDnsServers().get(0), mLooper,
+                    mPacketReadBuffer, mSharedLog.forSubComponent(
+                            MdnsInterfaceSocket.class.getSimpleName() + "/" + interfaceName));
+            }
+            
             final List<LinkAddress> addresses = lp.getLinkAddresses();
             final Network network =
                     networkKey == LOCAL_NET ? null : ((NetworkAsKey) networkKey).mNetwork;
@@ -548,8 +575,11 @@ public class MdnsSocketProvider {
             } else {
                 mNetworkSockets.put(network, socketInfo);
             }
-            // Try to join IPv4/IPv6 group.
-            socket.joinGroup(addresses);
+
+            if (isMulticastInterface) {
+                // Try to join IPv4/IPv6 group.
+                socket.joinGroup(addresses);
+            }
 
             // Notify the listeners which need this socket.
             notifySocketCreated(network, socketInfo);
@@ -581,6 +611,31 @@ public class MdnsSocketProvider {
             // interfaces may have the BROADCAST or MULTICAST flags), so checks are done based on
             // transports above in priority.
             return iface.supportsMulticast();
+        } catch (SocketException e) {
+            mSharedLog.e("Error checking interface flags", e);
+            return false;
+        }
+    }
+
+    private boolean isUnicastCapableInterface(
+            @NonNull NetworkInterfaceWrapper iface, @NonNull int[] transports,
+            @NonNull LinkProperties lp) {
+        try {
+            // Never try unicast DNS-SD on cellular, or on interfaces with incompatible flags
+            if (CollectionUtils.contains(transports, TRANSPORT_CELLULAR)
+                    || iface.isLoopback()
+                    || iface.isVirtual()
+                    || !iface.isUp()) {
+                return false;
+            }
+
+            // Unicast DNS-SD doesn't work if there isn't a DNS server
+            if (lp.getDnsServers().isEmpty()) {
+                return false;
+            }
+
+            // Otherwise, always try with Thread network
+            return CollectionUtils.contains(transports, TRANSPORT_THREAD);
         } catch (SocketException e) {
             mSharedLog.e("Error checking interface flags", e);
             return false;

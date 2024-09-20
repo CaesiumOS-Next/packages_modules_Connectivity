@@ -102,6 +102,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
     private volatile boolean shouldStopSocketLoop;
     @Nullable private Callback callback;
     @Nullable private MdnsSocket multicastSocket;
+    @Nullable private MdnsSocket unicastRespSocket;
     @Nullable private MdnsSocket unicastSocket;
     private int receivedPacketNumber = 0;
     @Nullable private Timer logMdnsPacketTimer;
@@ -150,7 +151,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
             multicastSocket.joinGroup();
             if (useSeparateSocketForUnicast) {
                 // For unicast, use port 0 and the system will assign it with any available port.
-                unicastSocket = createMdnsSocket(0, sharedLog);
+                unicastRespSocket = createMdnsSocket(0, sharedLog);
             }
             multicastLock.acquire();
         } catch (IOException e) {
@@ -159,9 +160,9 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
                 multicastSocket.close();
                 multicastSocket = null;
             }
-            if (unicastSocket != null) {
-                unicastSocket.close();
-                unicastSocket = null;
+            if (unicastRespSocket != null) {
+                unicastRespSocket.close();
+                unicastRespSocket = null;
             }
             throw e;
         } finally {
@@ -175,7 +176,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
     @Override
     public void stopDiscovery() {
         sharedLog.log("Stop discovery.");
-        if (multicastSocket == null && unicastSocket == null) {
+        if (multicastSocket == null && unicastRespSocket == null) {
             return;
         }
 
@@ -197,7 +198,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
 
         synchronized (socketLock) {
             multicastSocket = null;
-            unicastSocket = null;
+            unicastRespSocket = null;
         }
 
         synchronized (timerObject) {
@@ -305,7 +306,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
                     new Thread(
                             () -> {
                                 if (unicastReceiverBuffer != null) {
-                                    receiveThreadMain(unicastReceiverBuffer, unicastSocket);
+                                    receiveThreadMain(unicastReceiverBuffer, unicastRespSocket);
                                 }
                             });
             unicastReceiveThread.setName("mdns-unicast-receive");
@@ -386,8 +387,8 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
                             unicastPacketsToSend.addAll(unicastPacketQueue);
                             unicastPacketQueue.clear();
                         }
-                        if (unicastSocket != null) {
-                            sendPackets(unicastPacketsToSend, unicastSocket);
+                        if (unicastRespSocket != null) {
+                            sendPackets(unicastPacketsToSend, unicastRespSocket);
                         }
                     }
 
@@ -427,8 +428,8 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
                 if (multicastSocket != null) {
                     multicastSocket.close();
                 }
-                if (unicastSocket != null) {
-                    unicastSocket.close();
+                if (unicastRespSocket != null) {
+                    unicastRespSocket.close();
                 }
             } catch (RuntimeException t) {
                 sharedLog.e("Failed to close the mdns socket.", t);
@@ -444,7 +445,7 @@ public class MdnsSocketClient implements MdnsSocketClientBase {
                 // This is a race with the use of the file descriptor (b/27403984).
                 synchronized (socketLock) {
                     // This checks is to make sure the socket was not set to null.
-                    if (socket != null && (socket == multicastSocket || socket == unicastSocket)) {
+                    if (socket != null && (socket == multicastSocket || socket == unicastRespSocket)) {
                         socket.receive(packet);
                     }
                 }
