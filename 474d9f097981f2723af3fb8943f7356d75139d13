@@ -124,6 +124,30 @@
       },
       "revId": "474d9f097981f2723af3fb8943f7356d75139d13",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc36234c_7aafdbab",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-21T14:34:34Z",
+      "side": 1,
+      "message": "Yeah, I think we should return all the IPv6 addresses",
+      "parentUuid": "7cfbbd47_b70a6f64",
+      "range": {
+        "startLine": 129,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 63
+      },
+      "revId": "474d9f097981f2723af3fb8943f7356d75139d13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
