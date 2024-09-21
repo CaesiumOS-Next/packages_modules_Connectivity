@@ -113,6 +113,7 @@ public final class CtsNetUtils {
     private final ConnectivityManager mCm;
     private final ContentResolver mCR;
     private final WifiManager mWifiManager;
+    private final ConnectUtil mConnectUtil;
     private TestNetworkCallback mCellNetworkCallback;
     private int mOldPrivateDnsMode = 0;
     private String mOldPrivateDnsSpecifier;
@@ -122,6 +123,7 @@ public final class CtsNetUtils {
         mCm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         mWifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         mCR = context.getContentResolver();
+        mConnectUtil = new ConnectUtil(mContext);
     }
 
     /** Checks if FEATURE_IPSEC_TUNNELS is enabled on the device */
@@ -267,7 +269,7 @@ public final class CtsNetUtils {
         mContext.registerReceiver(receiver, filter);
 
         try {
-            final Network network = new ConnectUtil(mContext).ensureWifiConnected();
+            final Network network = mConnectUtil.ensureWifiConnected();
             if (expectLegacyBroadcast) {
                 assertTrue("CONNECTIVITY_ACTION not received after connecting to " + network,
                         receiver.waitForState());
@@ -353,6 +355,7 @@ public final class CtsNetUtils {
                     wasWifiConnected);
             final NetworkCapabilities nc = mCm.getNetworkCapabilities(wifiNetworkToCheck);
             assertNotNull("Network " + wifiNetworkToCheck + " is not connected", nc);
+            mConnectUtil.ensureWifiValidated();
             try {
                 wifiBoundSocket = getBoundSocket(wifiNetworkToCheck, TEST_HOST, HTTP_PORT);
                 testHttpRequest(wifiBoundSocket);
