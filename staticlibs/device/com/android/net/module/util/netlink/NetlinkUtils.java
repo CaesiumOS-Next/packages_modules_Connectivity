@@ -30,6 +30,7 @@ import static android.system.OsConstants.SO_RCVBUF;
 import static android.system.OsConstants.SO_RCVTIMEO;
 import static android.system.OsConstants.SO_SNDTIMEO;
 
+import static com.android.net.module.util.netlink.NetlinkConstants.RTM_NEWLINK;
 import static com.android.net.module.util.netlink.NetlinkConstants.hexify;
 import static com.android.net.module.util.netlink.NetlinkConstants.NLMSG_DONE;
 import static com.android.net.module.util.netlink.NetlinkConstants.RTNL_FAMILY_IP6MR;
@@ -57,6 +58,7 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 /**
@@ -271,6 +273,40 @@ public class NetlinkUtils {
             Log.e(TAG, "Fail to rename the interface from " + ifName + " to " + newIfName, e);
             return false;
         }
+    }
+
+    @Nullable
+    public static RtNetlinkLinkMessage queryLinkRequest(@NonNull String ifName) {
+        final int ifIndex = Os.if_nametoindex(ifName);
+        Log.e(TAG, "AKA ifName=" + ifName + ", ifIndex=" + ifIndex);
+        if (ifIndex == OsAccess.INVALID_INTERFACE_INDEX) {
+            return null;
+        }
+
+        final AtomicReference<RtNetlinkLinkMessage> recvMsg = new AtomicReference<>();
+        Consumer<RtNetlinkLinkMessage> handleNlMsg = (msg) -> {
+            Log.e(TAG, "AKA Recieve msg: " + msg);
+            if (msg.getHeader().nlmsg_type == RTM_NEWLINK
+                    && msg.getIfinfoHeader().index == ifIndex) {
+                Log.e(TAG, "AKA get correct msg: " + msg);
+                recvMsg.set(msg);
+            }
+        };
+
+        final RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createQueryLinkMessage(
+                ifName, 1 /*sequenceNumber*/);
+        if (msg == null) {
+            return null;
+        }
+
+        final byte[] bytes = msg.pack(ByteOrder.nativeOrder());
+        try {
+            NetlinkUtils.getAndProcessNetlinkDumpMessages(
+                    bytes, NETLINK_ROUTE, RtNetlinkLinkMessage.class, handleNlMsg);
+        } catch (SocketException | InterruptedIOException | ErrnoException e) {
+            // Nothing we can do here.
+        }
+        return recvMsg.get();
     }
 
     /**
