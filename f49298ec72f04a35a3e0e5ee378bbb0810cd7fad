@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14aeb3b2_2fa91e12",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-21T14:30:22Z",
+      "side": 1,
+      "message": "What is the purpose of this separation, is there any style guide?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 79
+      },
+      "revId": "f49298ec72f04a35a3e0e5ee378bbb0810cd7fad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5d76931_10586e74",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-21T14:30:22Z",
+      "side": 1,
+      "message": "This will terminate the process? Is it expected? Shall we just throw exception and let Java layer handle it properly?",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 33
+      },
+      "revId": "f49298ec72f04a35a3e0e5ee378bbb0810cd7fad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "694b026f_46963d19",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-21T14:30:22Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 34
+      },
+      "revId": "f49298ec72f04a35a3e0e5ee378bbb0810cd7fad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
