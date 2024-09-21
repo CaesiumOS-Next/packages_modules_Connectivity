@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f534179_58c8caac",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-21T14:36:41Z",
+      "side": 1,
+      "message": "Why sleep(1)? will it result in flakiness? Shall we have a while loop and keep polling for 10 seconds? (sleep(1) 10 times)",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 21
+      },
+      "revId": "2e374ef4aea047900a269b1a08c1cf77aa28ec80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
