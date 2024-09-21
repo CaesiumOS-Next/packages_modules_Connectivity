@@ -20,7 +20,10 @@ import static android.system.OsConstants.AF_UNSPEC;
 
 import static com.android.net.module.util.NetworkStackConstants.ETHER_ADDR_LEN;
 import static com.android.net.module.util.netlink.NetlinkConstants.IFF_UP;
+import static com.android.net.module.util.netlink.NetlinkConstants.RTM_GETLINK;
 import static com.android.net.module.util.netlink.NetlinkConstants.RTM_NEWLINK;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_DUMP;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST_ACK;
 
 import android.net.MacAddress;
@@ -279,6 +282,27 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
                 new StructNlMsgHdr(0, RTM_NEWLINK, NLM_F_REQUEST_ACK, sequenceNumber),
                 new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, interfaceIndex, 0, 0),
                 DEFAULT_MTU, null, newName);
+    }
+
+    @Nullable
+    public static RtNetlinkLinkMessage createQueryLinkMessage(@NonNull String interfaceName,
+            int sequenceNumber) {
+        return createQueryLinkMessage(interfaceName, sequenceNumber, new OsAccess());
+    }
+
+    @VisibleForTesting
+    @Nullable
+    protected static RtNetlinkLinkMessage createQueryLinkMessage(@NonNull String interfaceName,
+            int sequenceNumber, OsAccess osAccess) {
+        final int interfaceIndex = osAccess.if_nametoindex(interfaceName);
+        if (interfaceIndex == OsAccess.INVALID_INTERFACE_INDEX) {
+            return null;
+        }
+
+        return RtNetlinkLinkMessage.build(
+                new StructNlMsgHdr(0, RTM_GETLINK, NLM_F_REQUEST, sequenceNumber),
+                new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, interfaceIndex, 0, 0),
+                DEFAULT_MTU, null, null);
     }
 
     @Override
