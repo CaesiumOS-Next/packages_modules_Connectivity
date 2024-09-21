@@ -289,6 +289,24 @@ public class RtNetlinkLinkMessageTest {
     }
 
     @Test
+    public void testcreateQueryLinkMessage() {
+        final String expectedHexBytes =
+                "20000000120001006824000000000000"    // struct nlmsghdr
+                + "00000000080000000000000000000000"; // struct ifinfomsg
+        final String interfaceName = "wlan0";
+        final int interfaceIndex = 8;
+        final int sequenceNumber = 0x2468;
+
+        when(mOsAccess.if_nametoindex(interfaceName)).thenReturn(interfaceIndex);
+
+        final RtNetlinkLinkMessage msg = RtNetlinkLinkMessage.createQueryLinkMessage(
+                interfaceName, sequenceNumber, mOsAccess);
+        assertNotNull(msg);
+        final byte[] bytes = msg.pack(ByteOrder.LITTLE_ENDIAN);  // For testing.
+        assertEquals(expectedHexBytes, HexDump.toHexString(bytes));
+    }
+
+    @Test
     public void testToString() {
         final ByteBuffer byteBuffer = toByteBuffer(RTM_NEWLINK_HEX);
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);  // For testing.
