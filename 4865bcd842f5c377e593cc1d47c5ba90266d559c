@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee7c4a09_c62c8a53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1137873
+      },
+      "writtenOn": "2024-09-21T09:26:42Z",
+      "side": 1,
+      "message": "Trouble is if bpf_skb_pull_data succeeds in pulling sizeof(tcphdr) bytes, but by doing this it pulls from the second segment.\n\nConsider the case of a fragment GSO packet with UDP packets with 1B payload.\n\nWith fraglist, that has one IP + UDP header, either in skb linear or skb frags[], as is true for the 1st byte of payload. Then followed by up to 44 frag_list[] skbs each of 1B.\n\nIf we pull sizeof(struct iphdr) + sizeof(struct tcphdr) then we pull the IP and UDP headers plus 12 payload bytes. This will succeed, but the first 11 frag_list skbs are now pulled in, corrupting the fraglist GSO skb.",
+      "revId": "4865bcd842f5c377e593cc1d47c5ba90266d559c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
