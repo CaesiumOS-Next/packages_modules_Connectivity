@@ -16,6 +16,23 @@
       "message": "https://github.com/bazelbuild/bazel/issues/23127#issue-2432786578",
       "revId": "c9764da57a2143589f11b7586f1467b84f6abd65",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2df3d48_9d5c1bb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3645743
+      },
+      "writtenOn": "2024-09-22T13:12:58Z",
+      "side": 1,
+      "message": "git shortlog [\u003chack\u003e] [\u003crevision-range\u003e] [[--] \u003cpath\u003e…​]\ngit log --pretty\u003dG19@357.task | git shortlog [\u003chead\u003e]",
+      "revId": "c9764da57a2143589f11b7586f1467b84f6abd65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
