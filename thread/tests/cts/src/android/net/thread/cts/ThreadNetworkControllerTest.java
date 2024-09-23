@@ -182,6 +182,7 @@ public class ThreadNetworkControllerTest {
     @After
     public void tearDown() throws Exception {
         dropAllPermissions();
+        setEnabledAndWait(mController, true);
         leaveAndWait(mController);
         tearDownTestNetwork();
         setConfigurationAndWait(mController, DEFAULT_CONFIG);
@@ -1117,6 +1118,20 @@ public class ThreadNetworkControllerTest {
                     mController.setConfiguration(
                             configuration, mExecutor, newOutcomeReceiver(setConfigFuture));
                 });
+    }
+
+    @Test
+    public void setConfiguration_threadDisabled_returnsError() throws Exception {
+        setEnabledAndWait(mController, false);
+        grantPermissions(THREAD_NETWORK_PRIVILEGED);
+
+        CompletableFuture<Void> setConfigFuture = new CompletableFuture<>();
+        ThreadConfiguration config = new ThreadConfiguration.Builder().build();
+        mController.setConfiguration(config, mExecutor, newOutcomeReceiver(setConfigFuture));
+
+        ExecutionException exception = assertThrows(ExecutionException.class, setConfigFuture::get);
+        ThreadNetworkException thrown = (ThreadNetworkException) exception.getCause();
+        assertThat(thrown.getErrorCode()).isEqualTo(ERROR_FAILED_PRECONDITION);
     }
 
     @Test
