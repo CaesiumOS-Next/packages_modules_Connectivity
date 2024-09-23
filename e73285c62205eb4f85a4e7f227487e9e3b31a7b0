@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90cc560e_4bc71dc8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-23T20:26:58Z",
+      "side": 0,
+      "message": "Spurious whitespace change",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 10
+      },
+      "revId": "e73285c62205eb4f85a4e7f227487e9e3b31a7b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

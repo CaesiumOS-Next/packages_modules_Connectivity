@@ -134,6 +134,24 @@
       "parentUuid": "5dcc9da9_a99969d0",
       "revId": "3b0b48d43502b6f2bc041dd3ca30f847d40eefb3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fa7bc4c_0ffab1b7",
+        "filename": "staticlibs/device/com/android/net/module/util/RoutingCoordinatorManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-23T20:26:58Z",
+      "side": 1,
+      "message": "I meant annotating in javadocs. Though the code doesn\u0027t explicitly throw any exceptions, so it might be okay.",
+      "parentUuid": "f725f365_2ff698af",
+      "revId": "3b0b48d43502b6f2bc041dd3ca30f847d40eefb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
