@@ -27,6 +27,7 @@ import static android.net.thread.ThreadNetworkController.STATE_DISABLED;
 import static android.net.thread.ThreadNetworkController.STATE_ENABLED;
 import static android.net.thread.ThreadNetworkException.ERROR_FAILED_PRECONDITION;
 import static android.net.thread.ThreadNetworkException.ERROR_INTERNAL_ERROR;
+import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_FEATURE;
 import static android.net.thread.ThreadNetworkException.ERROR_THREAD_DISABLED;
 import static android.net.thread.ThreadNetworkManager.DISALLOW_THREAD_NETWORK;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
@@ -730,7 +731,7 @@ public final class ThreadNetworkControllerServiceTest {
     }
 
     @Test
-    public void setConfiguration_configurationUpdated() throws Exception {
+    public void setConfiguration_supportedConfig_configurationUpdated() throws Exception {
         mService.initialize();
         final IOperationReceiver mockReceiver1 = mock(IOperationReceiver.class);
         final IOperationReceiver mockReceiver2 = mock(IOperationReceiver.class);
@@ -741,10 +742,7 @@ public final class ThreadNetworkControllerServiceTest {
                         .setDhcpv6PdEnabled(false)
                         .build();
         ThreadConfiguration config2 =
-                new ThreadConfiguration.Builder()
-                        .setNat64Enabled(true)
-                        .setDhcpv6PdEnabled(true)
-                        .build();
+                new ThreadConfiguration.Builder().setNat64Enabled(true).build();
         ThreadConfiguration config3 =
                 new ThreadConfiguration.Builder(config2).build(); // Same as config2
 
@@ -758,6 +756,32 @@ public final class ThreadNetworkControllerServiceTest {
         inOrder.verify(mockReceiver1).onSuccess();
         inOrder.verify(mockReceiver2).onSuccess();
         inOrder.verify(mockReceiver3).onSuccess();
+    }
+
+    @Test
+    public void setConfiguration_unsupportedConfig_configurationNotUpdated() throws Exception {
+        mService.initialize();
+        final IOperationReceiver mockReceiver1 = mock(IOperationReceiver.class);
+        final IOperationReceiver mockReceiver2 = mock(IOperationReceiver.class);
+        ThreadConfiguration config1 =
+                new ThreadConfiguration.Builder()
+                        .setNat64Enabled(true)
+                        .setDhcpv6PdEnabled(false)
+                        .build();
+        ThreadConfiguration config2 =
+                new ThreadConfiguration.Builder()
+                        .setNat64Enabled(true)
+                        .setDhcpv6PdEnabled(true)
+                        .build();
+
+        mService.setConfiguration(config1, mockReceiver1);
+        mService.setConfiguration(config2, mockReceiver2);
+        mTestLooper.dispatchAll();
+
+        assertThat(mPersistentSettings.getConfiguration()).isEqualTo(config1);
+        InOrder inOrder = Mockito.inOrder(mockReceiver1, mockReceiver2);
+        inOrder.verify(mockReceiver1).onSuccess();
+        inOrder.verify(mockReceiver2).onError(eq(ERROR_UNSUPPORTED_FEATURE), anyString());
     }
 
     @Test
