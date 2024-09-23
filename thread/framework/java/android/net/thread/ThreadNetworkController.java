@@ -742,7 +742,8 @@ public final class ThreadNetworkController {
     }
 
     /**
-     * Configures the Thread features for this device.
+     * Configures the Thread features for this device. The configuration will be persistent and
+     * survives device reboots.
      *
      * <p>This method sets the {@link ThreadConfiguration} for this device. On success, the {@link
      * OutcomeReceiver#onResult} will be called, and the {@code configuration} will be applied and
@@ -753,10 +754,9 @@ public final class ThreadNetworkController {
      * @param configuration the configuration to set
      * @param executor the executor to execute {@code receiver}
      * @param receiver the receiver to receive result of this operation
-     * @hide
      */
-    // @FlaggedApi(ThreadNetworkFlags.FLAG_CONFIGURATION_ENABLED)
-    // @RequiresPermission(permission.THREAD_NETWORK_PRIVILEGED)
+    @FlaggedApi(Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.THREAD_NETWORK_PRIVILEGED)
     public void setConfiguration(
             @NonNull ThreadConfiguration configuration,
             @NonNull @CallbackExecutor Executor executor,
