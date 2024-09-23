@@ -182,6 +182,7 @@ public class ThreadNetworkControllerTest {
     @After
     public void tearDown() throws Exception {
         dropAllPermissions();
+        setEnabledAndWait(mController, true);
         leaveAndWait(mController);
         tearDownTestNetwork();
         setConfigurationAndWait(mController, DEFAULT_CONFIG);
