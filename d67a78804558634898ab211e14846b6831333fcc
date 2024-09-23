@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd3cf9a_554d3d2a",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-23T02:19:37Z",
+      "side": 1,
+      "message": "nit: make this a constant?",
+      "range": {
+        "startLine": 667,
+        "startChar": 56,
+        "endLine": 667,
+        "endChar": 78
+      },
+      "revId": "d67a78804558634898ab211e14846b6831333fcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
