@@ -506,6 +506,13 @@ package android.net.thread {
     field @NonNull public static final android.os.Parcelable.Creator<android.net.thread.ThreadConfiguration> CREATOR;
   }
 
+  @FlaggedApi("com.android.net.thread.flags.set_nat64_configuration_enabled") public static final class ThreadConfiguration.Builder {
+    ctor @FlaggedApi("com.android.net.thread.flags.set_nat64_configuration_enabled") public ThreadConfiguration.Builder();
+    ctor @FlaggedApi("com.android.net.thread.flags.set_nat64_configuration_enabled") public ThreadConfiguration.Builder(@NonNull android.net.thread.ThreadConfiguration);
+    method @FlaggedApi("com.android.net.thread.flags.set_nat64_configuration_enabled") @NonNull public android.net.thread.ThreadConfiguration build();
+    method @FlaggedApi("com.android.net.thread.flags.set_nat64_configuration_enabled") @NonNull public android.net.thread.ThreadConfiguration.Builder setNat64Enabled(boolean);
+  }
+
   @FlaggedApi("com.android.net.thread.flags.thread_enabled") public final class ThreadNetworkController {
     method public void createRandomizedDataset(@NonNull String, @NonNull java.util.concurrent.Executor, @NonNull android.os.OutcomeReceiver<android.net.thread.ActiveOperationalDataset,android.net.thread.ThreadNetworkException>);
     method public int getThreadVersion();

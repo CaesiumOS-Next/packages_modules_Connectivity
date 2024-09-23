@@ -602,8 +602,8 @@ public final class ThreadNetworkController {
      * @param receiver the receiver to receive result of this operation
      * @hide
      */
-    // @FlaggedApi(ThreadNetworkFlags.FLAG_CONFIGURATION_ENABLED)
-    // @RequiresPermission(permission.THREAD_NETWORK_PRIVILEGED)
+    @FlaggedApi(Flags.FLAG_CONFIGURATION_ENABLED)
+    @RequiresPermission(permission.THREAD_NETWORK_PRIVILEGED)
     public void setConfiguration(
             @NonNull ThreadConfiguration configuration,
             @NonNull @CallbackExecutor Executor executor,
