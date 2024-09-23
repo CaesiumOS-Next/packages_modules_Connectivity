@@ -33,6 +33,7 @@ import static android.net.thread.ThreadNetworkController.STATE_ENABLED;
 import static android.net.thread.ThreadNetworkController.THREAD_VERSION_1_3;
 import static android.net.thread.ThreadNetworkException.ERROR_ABORTED;
 import static android.net.thread.ThreadNetworkException.ERROR_FAILED_PRECONDITION;
+import static android.net.thread.ThreadNetworkException.ERROR_INTERNAL_ERROR;
 import static android.net.thread.ThreadNetworkException.ERROR_REJECTED_BY_PEER;
 import static android.net.thread.ThreadNetworkException.ERROR_THREAD_DISABLED;
 import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_FEATURE;
@@ -169,6 +170,7 @@ public class ThreadNetworkControllerTest {
     @After
     public void tearDown() throws Exception {
         dropAllPermissions();
+        setEnabledAndWait(mController, true);
         leaveAndWait(mController);
         tearDownTestNetwork();
         setConfigurationAndWait(mController, DEFAULT_CONFIG);
@@ -888,6 +890,20 @@ public class ThreadNetworkControllerTest {
                     mController.setConfiguration(
                             configuration, mExecutor, newOutcomeReceiver(setConfigFuture));
                 });
+    }
+
+    @Test
+    public void setConfiguration_threadDisabled_returnsError() throws Exception {
+        setEnabledAndWait(mController, false);
+        grantPermissions(THREAD_NETWORK_PRIVILEGED);
+
+        CompletableFuture<Void> setConfigFuture = new CompletableFuture<>();
+        ThreadConfiguration config = new ThreadConfiguration.Builder().build();
+        mController.setConfiguration(config, mExecutor, newOutcomeReceiver(setConfigFuture));
+
+        ExecutionException exception = assertThrows(ExecutionException.class, setConfigFuture::get);
+        ThreadNetworkException thrown = (ThreadNetworkException) exception.getCause();
+        assertThat(thrown.getErrorCode()).isEqualTo(ERROR_INTERNAL_ERROR);
     }
 
     @Test
