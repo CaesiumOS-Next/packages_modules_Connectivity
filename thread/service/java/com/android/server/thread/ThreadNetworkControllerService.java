@@ -218,7 +218,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private boolean mUserRestricted;
     private boolean mForceStopOtDaemonEnabled;
 
-    private OtDaemonConfiguration mOtDaemonConfig;
     private InfraLinkState mInfraLinkState;
 
     @VisibleForTesting
@@ -247,7 +246,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         // TODO: networkToLinkProperties should be shared with NsdPublisher, add a test/assert to
         // verify they are the same.
         mNetworkToLinkProperties = networkToLinkProperties;
-        mOtDaemonConfig = new OtDaemonConfiguration.Builder().build();
         mInfraLinkState = new InfraLinkState.Builder().build();
         mPersistentSettings = persistentSettings;
         mNsdPublisher = nsdPublisher;
@@ -344,6 +342,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         otDaemon.initialize(
                 mTunIfController.getTunFd(),
                 shouldEnableThread(),
+                newOtDaemonConfig(mPersistentSettings.getConfiguration()),
                 mNsdPublisher,
                 getMeshcopTxtAttributes(mResources.get()),
                 mOtDaemonCallbackProxy,
@@ -552,9 +551,10 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     @Override
     public void setConfiguration(
-            @NonNull ThreadConfiguration configuration, @NonNull IOperationReceiver receiver) {
+            @NonNull ThreadConfiguration configuration,
+            @NonNull IOperationReceiver operationReceiver) {
         enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
-        mHandler.post(() -> setConfigurationInternal(configuration, receiver));
+        mHandler.post(() -> setConfigurationInternal(configuration, operationReceiver));
     }
 
     private void setConfigurationInternal(
@@ -564,22 +564,14 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         LOG.i("Set Thread configuration: " + configuration);
 
-        final boolean changed = mPersistentSettings.putConfiguration(configuration);
         try {
-            operationReceiver.onSuccess();
-        } catch (RemoteException e) {
-            // do nothing if the client is dead
+            getOtDaemon()
+                    .setConfiguration(
+                            new OtDaemonConfiguration.Builder().build(),
+                            new SetConfigurationReceiver(configuration, operationReceiver));
+        } catch (RemoteException | ThreadNetworkException e) {
+            LOG.e("otDaemon.setConfiguration failed. Config: " + configuration, e);
         }
-        if (changed) {
-            for (IConfigurationReceiver configReceiver : mConfigurationReceivers.keySet()) {
-                try {
-                    configReceiver.onConfigurationChanged(configuration);
-                } catch (RemoteException e) {
-                    // do nothing if the client is dead
-                }
-            }
-        }
-        // TODO: set the configuration at ot-daemon
     }
 
     @Override
@@ -1427,9 +1419,12 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         return builder.build();
     }
 
-    private static OtDaemonConfiguration.Builder newOtDaemonConfigBuilder(
-            OtDaemonConfiguration config) {
-        return new OtDaemonConfiguration.Builder();
+    private static OtDaemonConfiguration newOtDaemonConfig(
+            @NonNull ThreadConfiguration threadConfig) {
+        return new OtDaemonConfiguration.Builder()
+                .setNat64Enabled(threadConfig.isNat64Enabled())
+                .setDhcpv6PdEnabled(threadConfig.isDhcpv6PdEnabled())
+                .build();
     }
 
     private static InfraLinkState.Builder newInfraLinkStateBuilder() {
@@ -1468,6 +1463,56 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 gId = 0;
             }
             return gId++;
+        }
+    }
+
+    private final class SetConfigurationReceiver extends IOtStatusReceiver.Stub {
+        private final ThreadConfiguration mThreadConfig;
+        private final IOperationReceiver mOperationReceiver;
+
+        public SetConfigurationReceiver(
+                @NonNull ThreadConfiguration threadConfig,
+                @NonNull IOperationReceiver operationReceiver) {
+            mThreadConfig = threadConfig;
+            mOperationReceiver = operationReceiver;
+        }
+
+        @Override
+        public void onSuccess() {
+            LOG.i("Set configuration successfully. Config: " + mThreadConfig);
+            // When ThreadConfiguration is set at ot-daemon, we need to persist the configuration
+            // and trigger the callbacks
+            final boolean changed = mPersistentSettings.putConfiguration(mThreadConfig);
+            if (changed) {
+                for (IConfigurationReceiver configReceiver : mConfigurationReceivers.keySet()) {
+                    try {
+                        configReceiver.onConfigurationChanged(mThreadConfig);
+                    } catch (RemoteException e) {
+                        // do nothing if the client is dead
+                    }
+                }
+            }
+            try {
+                mOperationReceiver.onSuccess();
+            } catch (RemoteException ignored) {
+                // Do nothing if the client is dead
+            }
+        }
+
+        @Override
+        public void onError(int i, String s) {
+            LOG.w(
+                    "Failed to configure border router. Error: "
+                            + i
+                            + " "
+                            + s
+                            + ". Config: "
+                            + mThreadConfig);
+            try {
+                mOperationReceiver.onError(otErrorToAndroidError(i), s);
+            } catch (RemoteException ignored) {
+                // Do nothing if the client is dead
+            }
         }
     }
 
