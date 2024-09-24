@@ -110,7 +110,6 @@ public final class PrivateAddressCoordinatorTest {
         mPrivateAddressCoordinator =
                 spy(
                         new PrivateAddressCoordinator(
-                                mContext,
                                 mConfig.isRandomPrefixBaseEnabled(),
                                 mConfig.shouldEnableWifiP2pDedicatedIp()));
     }
@@ -615,7 +614,6 @@ public final class PrivateAddressCoordinatorTest {
         mPrivateAddressCoordinator =
                 spy(
                         new PrivateAddressCoordinator(
-                                mContext,
                                 mConfig.isRandomPrefixBaseEnabled(),
                                 mConfig.shouldEnableWifiP2pDedicatedIp()));
         when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(randomIntForPrefixBase);
