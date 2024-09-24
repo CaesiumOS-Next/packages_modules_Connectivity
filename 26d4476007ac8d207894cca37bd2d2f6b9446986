@@ -46,6 +46,29 @@
       },
       "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a60065d6_3a099da8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-24T04:31:09Z",
+      "side": 1,
+      "message": "Is this check necessary or helpful in other methods, such as noteDownstreamStopped calculateUsageDelta, addUpstreamEvent or others? If so, suggest factoring out to a helper method.",
+      "range": {
+        "startLine": 461,
+        "startChar": 12,
+        "endLine": 461,
+        "endChar": 70
+      },
+      "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
