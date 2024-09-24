@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34628790_51d47e91",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-24T04:50:37Z",
+      "side": 1,
+      "message": "This is quite hard to follow. Can you add a comment explaining what values it stores, and when it\u0027s populated, and when it\u0027s cleared? AFAICT it\u0027s initialized when tethering is enabled, and cleared when tethering is disabled. But I\u0027m not sure I\u0027m reading the code correctly.",
+      "range": {
+        "startLine": 107,
+        "startChar": 52,
+        "endLine": 107,
+        "endChar": 74
+      },
+      "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e24cb833_3630f085",
         "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
         "patchSetId": 9
@@ -62,6 +85,46 @@
         "endLine": 269,
         "endChar": 31
       },
+      "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fca9e9b0_53912c49",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-24T04:50:37Z",
+      "side": 1,
+      "message": "It looks like each UpstreamEvent will contain the data usage from the baseline, and not the data usage from the previous event.\n\nSo for example, if wifi tethering usage when tethering is turned on is 10MB, then we do 1MB on wifi, 1MB on cell, and 1MB on wifi, then we\u0027ll have three events, one for 1MB on wifu, one with 1MB on cell, and one with 2MB on wifi.\n\nThat seems difficult to deal with on the server side. Wouldn\u0027t it be clearer/easier if the events were 1MB on wifi, 1MB on cell, then 1MB on wifi?",
+      "range": {
+        "startLine": 271,
+        "startChar": 38,
+        "endLine": 271,
+        "endChar": 72
+      },
+      "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9948776d_c5167168",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-24T04:50:37Z",
+      "side": 1,
+      "message": "This method returns baseline usage, not current usage. I think that\u0027s confusing. Would it be clearer if you renamed the method to contain the word \"baseline\"?",
       "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
