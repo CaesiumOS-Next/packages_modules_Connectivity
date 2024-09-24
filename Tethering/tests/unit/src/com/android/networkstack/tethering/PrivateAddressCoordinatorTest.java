@@ -107,7 +107,12 @@ public final class PrivateAddressCoordinatorTest {
         when(mConfig.shouldEnableWifiP2pDedicatedIp()).thenReturn(false);
         when(mConfig.isRandomPrefixBaseEnabled()).thenReturn(false);
         setUpIpServers();
-        mPrivateAddressCoordinator = spy(new PrivateAddressCoordinator(mContext, mConfig));
+        mPrivateAddressCoordinator =
+                spy(
+                        new PrivateAddressCoordinator(
+                                mConnectivityMgr,
+                                mConfig.isRandomPrefixBaseEnabled(),
+                                mConfig.shouldEnableWifiP2pDedicatedIp()));
     }
 
     private LinkAddress requestDownstreamAddress(final IpServer ipServer, int scope,
@@ -602,7 +607,12 @@ public final class PrivateAddressCoordinatorTest {
 
     private void startedPrefixBaseTest(final String expected, final int randomIntForPrefixBase)
             throws Exception {
-        mPrivateAddressCoordinator = spy(new PrivateAddressCoordinator(mContext, mConfig));
+        mPrivateAddressCoordinator =
+                spy(
+                        new PrivateAddressCoordinator(
+                                mConnectivityMgr,
+                                mConfig.isRandomPrefixBaseEnabled(),
+                                mConfig.shouldEnableWifiP2pDedicatedIp()));
         when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(randomIntForPrefixBase);
         final LinkAddress address = requestDownstreamAddress(mHotspotIpServer,
                 CONNECTIVITY_SCOPE_GLOBAL, false /* useLastAddress */);
