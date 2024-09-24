@@ -21,6 +21,7 @@ import android.app.usage.NetworkStatsManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.INetd;
 import android.net.connectivity.ConnectivityInternalApiUtil;
 import android.net.ip.IpServer;
@@ -178,7 +179,10 @@ public abstract class TetheringDependencies {
      */
     public PrivateAddressCoordinator makePrivateAddressCoordinator(Context ctx,
             TetheringConfiguration cfg) {
-        return new PrivateAddressCoordinator(ctx, cfg);
+        ConnectivityManager cm =
+                (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return new PrivateAddressCoordinator(
+                cm, cfg.isRandomPrefixBaseEnabled(), cfg.shouldEnableWifiP2pDedicatedIp());
     }
 
     /**
