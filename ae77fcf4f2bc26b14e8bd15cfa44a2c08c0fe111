@@ -52,6 +52,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97710a73_94ba04e8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-24T07:03:13Z",
+      "side": 1,
+      "message": "The NSD/mdns has been in mainline since Android T, and the timerfd library has a minimum SDK of Android S. Therefore, it already satisfies the condition.",
+      "parentUuid": "6427dfe7_98964450",
+      "range": {
+        "startLine": 174,
+        "startChar": 14,
+        "endLine": 174,
+        "endChar": 15
+      },
+      "revId": "ae77fcf4f2bc26b14e8bd15cfa44a2c08c0fe111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "134179f3_3b034319",
