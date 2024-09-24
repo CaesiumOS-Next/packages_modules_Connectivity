@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa29e606_0ea52e6f",
+        "filename": "thread/framework/java/android/net/thread/IStateCallback.aidl",
+        "patchSetId": 28
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-24T06:43:05Z",
+      "side": 1,
+      "message": "You may need to make `ephemeralKey` @nullable.",
+      "revId": "5cc216f4b32aa9fcb7c66b12f9b7b9605d09f8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56d28ec2_38741646",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 28
