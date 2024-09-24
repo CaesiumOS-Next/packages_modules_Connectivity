@@ -22,6 +22,30 @@
       },
       "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71f32e82_6aead2c2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-24T04:07:27Z",
+      "side": 1,
+      "message": "It seems TetheringMetrics is private final field in the Tethering.java. Therefore, this class seems live forever, so it might OK to not call thread.stop()?",
+      "parentUuid": "0c4f89cf_fe73282c",
+      "range": {
+        "startLine": 181,
+        "startChar": 8,
+        "endLine": 181,
+        "endChar": 23
+      },
+      "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
