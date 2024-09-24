@@ -69,6 +69,8 @@ import static com.android.networkstack.tethering.TetheringNotificationUpdater.DO
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellular;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_MAIN_SM;
 
+import static java.util.Arrays.asList;
+
 import android.app.usage.NetworkStatsManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
@@ -362,7 +364,7 @@ public class Tethering {
         // It is OK for the configuration to be passed to the PrivateAddressCoordinator at
         // construction time because the only part of the configuration it uses is
         // shouldEnableWifiP2pDedicatedIp(), and currently do not support changing that.
-        mPrivateAddressCoordinator = mDeps.makePrivateAddressCoordinator(mContext, mConfig);
+        mPrivateAddressCoordinator = mDeps.makePrivateAddressCoordinator(mConfig);
 
         // Must be initialized after tethering configuration is loaded because BpfCoordinator
         // constructor needs to use the configuration.
@@ -2078,7 +2080,11 @@ public class Tethering {
                     return;
                 }
 
-                mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams();
+                ConnectivityManager cm =
+                        (ConnectivityManager)
+                                mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+                mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams(
+                        asList(cm.getAllNetworks()));
                 mUpstreamNetworkMonitor.startObserveAllNetworks();
 
                 // TODO: De-duplicate with updateUpstreamWanted() below.
