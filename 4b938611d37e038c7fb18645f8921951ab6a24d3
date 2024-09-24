@@ -1,0 +1,62 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2d110fa_95035ad3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-24T03:46:18Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "4b938611d37e038c7fb18645f8921951ab6a24d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80eea9ae_c4710c86",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-09-24T03:46:18Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 303,
+        "startChar": 32,
+        "endLine": 303,
+        "endChar": 49
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "29daa5eb_796cf58b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 303,
+                "startChar": 0,
+                "endLine": 304,
+                "endChar": 0
+              },
+              "replacement": "            int sequenceNumber, @NonNull OsAccess osAccess) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4b938611d37e038c7fb18645f8921951ab6a24d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
