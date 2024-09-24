@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e2b69d6_96c28721",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1505,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-24T05:46:43Z",
+      "side": 1,
+      "message": "There can be other configuration for non-BR cases and ot-daemon is not for border router only.\n\nProbably just \"Failed to set configuration to ot-daemon, error: \"",
+      "range": {
+        "startLine": 1505,
+        "startChar": 31,
+        "endLine": 1505,
+        "endChar": 54
+      },
+      "revId": "bfd37424fa280b5a2e30070b13c5dd0037e026c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
