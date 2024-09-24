@@ -22,6 +22,30 @@
       },
       "revId": "46a51233742ab3fc4eb81c49aa01b764d2945985",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33f632f6_206f7167",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-24T23:45:12Z",
+      "side": 0,
+      "message": "The ultimate target is to put PrivateAddressCoordinator in RoutingCoordinator. If we keep this PrivateAddressCoordinator -\u003e ConnectivityService dependency, then there will be a dependency cycle ConnectivityService -\u003e RoutingCoordinator -\u003e ConnectivityService. To break the dependency cycle I removed the dependency of ConnectivityService in the constructor.",
+      "parentUuid": "078643f5_b2bb2a60",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 46
+      },
+      "revId": "46a51233742ab3fc4eb81c49aa01b764d2945985",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
