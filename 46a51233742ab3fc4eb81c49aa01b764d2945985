@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "078643f5_b2bb2a60",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-24T18:54:20Z",
+      "side": 0,
+      "message": "why was this pulled out entirely? (You could have split this in its own CL as well, so your commit message would have included the why. It\u0027s not clear from context on why this is being done. Also, go/small-cls is a good read if you have time.)",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 46
+      },
+      "revId": "46a51233742ab3fc4eb81c49aa01b764d2945985",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
