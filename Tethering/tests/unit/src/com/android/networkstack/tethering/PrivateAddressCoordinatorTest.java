@@ -110,7 +110,6 @@ public final class PrivateAddressCoordinatorTest {
         mPrivateAddressCoordinator =
                 spy(
                         new PrivateAddressCoordinator(
-                                mContext,
                                 mConfig.isRandomPrefixBaseEnabled(),
                                 mConfig.shouldEnableWifiP2pDedicatedIp()));
     }
@@ -615,9 +614,8 @@ public final class PrivateAddressCoordinatorTest {
         mPrivateAddressCoordinator =
                 spy(
                         new PrivateAddressCoordinator(
-                                mContext,
                                 mConfig.isRandomPrefixBaseEnabled(),
-                                mConfig.shouldEnableWifiP2pDedicatedIp()));
+                                mConfig.shouldEnableWifiP2pDedicatedIp().shouldEnableWifiP2pDedicatedIp()));
         when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(randomIntForPrefixBase);
         final LinkAddress address = requestDownstreamAddress(mHotspotIpServer,
                 CONNECTIVITY_SCOPE_GLOBAL, false /* useLastAddress */);

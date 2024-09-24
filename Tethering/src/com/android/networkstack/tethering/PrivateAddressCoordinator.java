@@ -77,19 +77,16 @@ public class PrivateAddressCoordinator {
     private static final String LEGACY_WIFI_P2P_IFACE_ADDRESS = "192.168.49.1/24";
     private static final String LEGACY_BLUETOOTH_IFACE_ADDRESS = "192.168.44.1/24";
     private final List<IpPrefix> mTetheringPrefixes;
-    private final ConnectivityManager mConnectivityMgr;
     private final boolean mIsRandomPrefixBaseEnabled;
     private final boolean mShouldEnableWifiP2pDedicatedIp;
     // keyed by downstream type(TetheringManager.TETHERING_*).
     private final ArrayMap<AddressKey, LinkAddress> mCachedAddresses;
     private final Random mRandom;
 
-    public PrivateAddressCoordinator(Context context, boolean isRandomPrefixBase,
+    public PrivateAddressCoordinator(boolean isRandomPrefixBase,
                                      boolean shouldEnableWifiP2pDedicatedIp) {
         mDownstreams = new ArraySet<>();
         mUpstreamPrefixMap = new ArrayMap<>();
-        mConnectivityMgr = (ConnectivityManager) context.getSystemService(
-                Context.CONNECTIVITY_SERVICE);
         mIsRandomPrefixBaseEnabled = isRandomPrefixBase;
         mShouldEnableWifiP2pDedicatedIp = shouldEnableWifiP2pDedicatedIp;
         mCachedAddresses = new ArrayMap<AddressKey, LinkAddress>();
@@ -160,13 +157,15 @@ public class PrivateAddressCoordinator {
     /**
      * Maybe remove deprecated upstream records, this would be called once tethering started without
      * any exiting tethered downstream.
+     *
+     * @param networks the list of all networks
      */
-    public void maybeRemoveDeprecatedUpstreams() {
+    public void maybeRemoveDeprecatedUpstreams(List<Network> networks) {
         if (mUpstreamPrefixMap.isEmpty()) return;
 
         // Remove all upstreams that are no longer valid networks
         final Set<Network> toBeRemoved = new HashSet<>(mUpstreamPrefixMap.keySet());
-        toBeRemoved.removeAll(asList(mConnectivityMgr.getAllNetworks()));
+        toBeRemoved.removeAll(networks);
 
         mUpstreamPrefixMap.removeAll(toBeRemoved);
     }
