@@ -62,6 +62,7 @@ import android.system.OsConstants.SOCK_NONBLOCK
 import android.util.Log
 import androidx.test.filters.RequiresDevice
 import androidx.test.platform.app.InstrumentationRegistry
+import com.android.bedstead.multiuser.annotations.RequireNotVisibleBackgroundUsers
 import com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel
 import com.android.compatibility.common.util.PropertyUtil.getVsrApiLevel
 import com.android.compatibility.common.util.SystemUtil.runShellCommand
@@ -119,6 +120,8 @@ private const val PING_HEADER_LENGTH = 8
 @NetworkStackModuleTest
 // ByteArray.toHexString is experimental API
 @kotlin.ExperimentalStdlibApi
+@RequireNotVisibleBackgroundUsers(reason = "PowerManager#isInteractive is not supported for MUMD " +
+        "device. b/369415968")
 class ApfIntegrationTest {
     companion object {
         private val PING_DESTINATION = InetSocketAddress("2001:4860:4860::8888", 0)

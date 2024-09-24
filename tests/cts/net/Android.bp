@@ -60,6 +60,7 @@ java_defaults {
         "net-utils-framework-common",
         "truth",
         "TetheringIntegrationTestsBaseLib",
+        "Harrier",
     ],
 
     min_sdk_version: "30",
