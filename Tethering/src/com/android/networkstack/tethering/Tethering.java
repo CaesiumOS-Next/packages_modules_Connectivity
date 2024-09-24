@@ -362,7 +362,7 @@ public class Tethering {
         // It is OK for the configuration to be passed to the PrivateAddressCoordinator at
         // construction time because the only part of the configuration it uses is
         // shouldEnableWifiP2pDedicatedIp(), and currently do not support changing that.
-        mPrivateAddressCoordinator = mDeps.makePrivateAddressCoordinator(mContext, mConfig);
+        mPrivateAddressCoordinator = mDeps.makePrivateAddressCoordinator(mConfig);
 
         // Must be initialized after tethering configuration is loaded because BpfCoordinator
         // constructor needs to use the configuration.
@@ -2078,7 +2078,11 @@ public class Tethering {
                     return;
                 }
 
-                mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams();
+                ConnectivityManager cm =
+                        (ConnectivityManager)
+                                mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+                mPrivateAddressCoordinator.maybeRemoveDeprecatedUpstreams(
+                        asList(cm.getAllNetworks()));
                 mUpstreamNetworkMonitor.startObserveAllNetworks();
 
                 // TODO: De-duplicate with updateUpstreamWanted() below.
