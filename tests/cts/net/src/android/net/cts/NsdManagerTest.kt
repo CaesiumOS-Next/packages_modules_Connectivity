@@ -2613,6 +2613,52 @@ class NsdManagerTest {
         }
     }
 
+    @Test
+    fun testNsdManager_DiscoverWithAccurateDelayCallbck() {
+        deviceConfigRule.setConfig(NAMESPACE_TETHERING, "test_nsd_accurate_delay_callback", "1")
+
+        val si = makeTestServiceInfo(testNetwork1.network)
+        // Register service on testNetwork1
+        val registrationRecord = NsdRegistrationRecord()
+        registerService(registrationRecord, si)
+        // Register a discovery request.
+        val discoveryRecord = NsdDiscoveryRecord()
+        val packetReader = TapPacketReader(
+                Handler(handlerThread.looper),
+                testNetwork1.iface.fileDescriptor.fileDescriptor,
+                1500 /* maxPacketSize */
+        )
+        packetReader.startAsyncForTest()
+        handlerThread.waitForIdle(TIMEOUT_MS)
+
+        nsdManager.discoverServices(
+                serviceType,
+                NsdManager.PROTOCOL_DNS_SD,
+                testNetwork1.network,
+                { it.run() },
+                discoveryRecord
+        )
+
+        tryTest {
+            // Verify that the service is discovered
+            discoveryRecord.expectCallback<DiscoveryStarted>()
+            assertNotNull(packetReader.pollForQuery("$serviceType.local", DnsResolver.TYPE_PTR))
+            val foundInfo = discoveryRecord.waitForServiceDiscovered(
+                    serviceName, serviceType, testNetwork1.network)
+            assertEquals(testNetwork1.network, foundInfo.network)
+
+            // Verify that the remaining queries in the burst are scheduled and sent normally
+            assertNotNull(packetReader.pollForQuery("$serviceType.local", DnsResolver.TYPE_PTR))
+            assertNotNull(packetReader.pollForQuery("$serviceType.local", DnsResolver.TYPE_PTR))
+        } cleanupStep {
+            nsdManager.stopServiceDiscovery(discoveryRecord)
+            discoveryRecord.expectCallback<DiscoveryStopped>()
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
+            registrationRecord.expectCallback<ServiceUnregistered>()
+        }
+    }
+
     private fun hasServiceTypeClientsForNetwork(clients: List<String>, network: Network): Boolean {
         return clients.any { client -> client.substring(
                 client.indexOf("network=") + "network=".length,
