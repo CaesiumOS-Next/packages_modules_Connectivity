@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cca83c5_d620a4f4",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-24T06:44:37Z",
+      "side": 1,
+      "message": "I just removed this separation, it\u0027s redundant.",
+      "parentUuid": "14aeb3b2_2fa91e12",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 79
+      },
+      "revId": "f49298ec72f04a35a3e0e5ee378bbb0810cd7fad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5d76931_10586e74",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "132a3d75_f791b858",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-24T06:44:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5d76931_10586e74",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 33
+      },
+      "revId": "f49298ec72f04a35a3e0e5ee378bbb0810cd7fad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "694b026f_46963d19",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-09-21T14:30:22Z",
       "side": 1,
       "message": "Same here",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 34
+      },
+      "revId": "f49298ec72f04a35a3e0e5ee378bbb0810cd7fad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64a91740_f26c2290",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-24T06:44:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "694b026f_46963d19",
       "range": {
         "startLine": 67,
         "startChar": 4,
