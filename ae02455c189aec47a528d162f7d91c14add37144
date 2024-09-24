@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "534c2e93_09e462c7",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-24T09:48:55Z",
+      "side": 1,
+      "message": "nit: maybe use predefined NSEC_PER_MSEC/MSEC_PER_SEC in time.h",
+      "range": {
+        "startLine": 53,
+        "startChar": 55,
+        "endLine": 53,
+        "endChar": 62
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "6bd0f31c_fd5fbed0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+              "range": {
+                "startLine": 52,
+                "startChar": 0,
+                "endLine": 54,
+                "endChar": 0
+              },
+              "replacement": "  new_value.it_value.tv_sec \u003d milliseconds / MSEC_PER_SEC;\n  new_value.it_value.tv_nsec \u003d (milliseconds % MSEC_PER_SEC) * NSEC_PER_MSEC;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ae02455c189aec47a528d162f7d91c14add37144",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
