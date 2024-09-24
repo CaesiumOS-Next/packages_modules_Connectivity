@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3294495_771c0140",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-24T13:04:28Z",
+      "side": 1,
+      "message": "Extracted two smaller changes from the big changes. Please take a look:\n- aosp/3276792\n- aosp/3278351",
+      "parentUuid": "3825368b_746c5741",
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0dec927f_e1a9a844",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 9
