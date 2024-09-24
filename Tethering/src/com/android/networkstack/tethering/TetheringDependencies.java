@@ -176,9 +176,9 @@ public abstract class TetheringDependencies {
     /**
      * Make PrivateAddressCoordinator to be used by Tethering.
      */
-    public PrivateAddressCoordinator makePrivateAddressCoordinator(Context ctx,
-            TetheringConfiguration cfg) {
-        return new PrivateAddressCoordinator(ctx, cfg);
+    public PrivateAddressCoordinator makePrivateAddressCoordinator(TetheringConfiguration cfg) {
+        return new PrivateAddressCoordinator(cfg.isRandomPrefixBaseEnabled(),
+                cfg.shouldEnableWifiP2pDedicatedIp());
     }
 
     /**

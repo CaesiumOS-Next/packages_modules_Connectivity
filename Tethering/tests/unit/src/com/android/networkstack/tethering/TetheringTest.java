@@ -96,6 +96,7 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.inOrder;
@@ -533,9 +534,8 @@ public class TetheringTest {
         }
 
         @Override
-        public PrivateAddressCoordinator makePrivateAddressCoordinator(Context ctx,
-                TetheringConfiguration cfg) {
-            mPrivateAddressCoordinator = super.makePrivateAddressCoordinator(ctx, cfg);
+        public PrivateAddressCoordinator makePrivateAddressCoordinator(TetheringConfiguration cfg) {
+            mPrivateAddressCoordinator = super.makePrivateAddressCoordinator(cfg);
             return mPrivateAddressCoordinator;
         }
 
@@ -679,6 +679,7 @@ public class TetheringTest {
                 new IntentFilter(ACTION_TETHER_STATE_CHANGED));
 
         mCm = spy(new TestConnectivityManager(mServiceContext, mock(IConnectivityManager.class)));
+        when(mCm.getAllNetworks()).thenReturn(new Network[] {});
 
         when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)).thenReturn(true);
         when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)).thenReturn(true);
@@ -861,6 +862,9 @@ public class TetheringTest {
                     any(NetworkCallback.class), any(Handler.class));
             assertTrue(TestConnectivityManager.looksLikeDefaultRequest(reqCaptor.getValue()));
         }
+
+        // Ignore calls to {@link ConnectivityManager#getallNetworks}.
+        verify(mCm, atLeast(0)).getAllNetworks();
 
         // The default network request is only ever filed once.
         verifyNoMoreInteractions(mCm);
