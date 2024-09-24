@@ -131,6 +131,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29e0c55d_3d7f5812",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-24T13:48:56Z",
+      "side": 1,
+      "message": "\u003e this code does not do that.\n\nIf you\u0027re talking about reserving the static addresses, I think it\u0027s already done in the constructor of the [PrivateAddressCoordinator](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java;l\u003d92;drc\u003dd262a68a1e0c3b640274b094a7f1e3a5b75563e9). Also, for WiFi P2P there\u0027s a [special handling](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java;l\u003d178;drc\u003dd262a68a1e0c3b640274b094a7f1e3a5b75563e9) so I guess it could call `requestDownstream`.\n\nDo we still need a `reserveDownstreamLinkAddress`?\n\nBTW, do you think it\u0027s fine for Thread to use a static IP prefix?",
+      "parentUuid": "f3ad1e6f_00f75163",
+      "range": {
+        "startLine": 411,
+        "startChar": 56,
+        "endLine": 411,
+        "endChar": 98
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "080e8fad_57a9c59c",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 9
@@ -142,6 +166,30 @@
       "writtenOn": "2024-09-23T20:26:58Z",
       "side": 1,
       "message": "The LinkAddress in part of mDownstreams. What\u0027s the point of the callback?",
+      "range": {
+        "startLine": 424,
+        "startChar": 36,
+        "endLine": 424,
+        "endChar": 59
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2c8faca_7e6b92af",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-24T13:48:56Z",
+      "side": 1,
+      "message": "IIRC, I added this for handling the special case where the address isn\u0027t stored into the mDownstreams, like [WiFi P2P](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java;l\u003d176;drc\u003d78c0d088d74b061bcc6493d43c56870995b6f566).",
+      "parentUuid": "080e8fad_57a9c59c",
       "range": {
         "startLine": 424,
         "startChar": 36,
