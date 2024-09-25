@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "626beb06_8039950d",
+        "filename": "common/thread_flags.aconfig",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-25T03:12:48Z",
+      "side": 1,
+      "message": "```suggestion\n    description: \"Controls whether to enable/disable NAT64 feature via Configuration\"\n```",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 48
+      },
+      "revId": "0fbe11917e7c7513dec205c15fff40dd6e1b026e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
