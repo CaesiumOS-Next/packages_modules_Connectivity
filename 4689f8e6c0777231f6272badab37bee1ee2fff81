@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ed7ae76_76a0c327",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-25T04:43:38Z",
+      "side": 1,
+      "message": "nit: get the link information? (keep consistent with https://man7.org/linux/man-pages/man7/rtnetlink.7.html)",
+      "range": {
+        "startLine": 287,
+        "startChar": 76,
+        "endLine": 287,
+        "endChar": 92
+      },
+      "revId": "4689f8e6c0777231f6272badab37bee1ee2fff81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d82f150_211c2d0d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-25T04:43:38Z",
+      "side": 1,
+      "message": "nit: createGetLinkMessage?",
+      "range": {
+        "startLine": 295,
+        "startChar": 39,
+        "endLine": 295,
+        "endChar": 61
+      },
+      "revId": "4689f8e6c0777231f6272badab37bee1ee2fff81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6176d230_c6a9b7f8",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-09-25T04:43:38Z",
+      "side": 1,
+      "message": "nit: testCreateGetLinkMessage()",
+      "range": {
+        "startLine": 291,
+        "startChar": 16,
+        "endLine": 291,
+        "endChar": 42
+      },
+      "revId": "4689f8e6c0777231f6272badab37bee1ee2fff81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
