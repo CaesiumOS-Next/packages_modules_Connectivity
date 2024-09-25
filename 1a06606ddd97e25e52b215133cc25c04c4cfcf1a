@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5637c362_d0481e40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-25T19:42:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a83697c0_1e7a9ba8",
+      "range": {
+        "startLine": 7,
+        "startChar": 23,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "1a06606ddd97e25e52b215133cc25c04c4cfcf1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a27282b_c250facd",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-09-20T09:39:16Z",
       "side": 1,
       "message": "@maze@google.com, could you take a look at this CTS fix?\n\nFor background, some chipset vendors have broadcast filers runs before they run APF, in order to get this multidevice CTS test case runs properly, we should use unicast instead of broadcast.",
+      "revId": "1a06606ddd97e25e52b215133cc25c04c4cfcf1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "965c50ee_5fcff454",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-25T19:42:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2a27282b_c250facd",
       "revId": "1a06606ddd97e25e52b215133cc25c04c4cfcf1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
