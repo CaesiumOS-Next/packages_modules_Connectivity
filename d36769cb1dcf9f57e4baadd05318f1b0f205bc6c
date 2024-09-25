@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfd6b3f0_45491a94",
+        "filename": "service/jni/com_android_net_module_util/onload.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caf2de05_f30e7804",
+      "range": {
+        "startLine": 25,
+        "startChar": 53,
+        "endLine": 26,
+        "endChar": 55
+      },
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23b3f110_65edc63f",
@@ -59,6 +83,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "decef1ee_d2e77b9e",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFdUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23b3f110_65edc63f",
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad4a8fb4_739bac31",
@@ -72,6 +114,30 @@
       "writtenOn": "2024-09-20T07:16:49Z",
       "side": 1,
       "message": "Please fix this INFO reported by Tip Prediction: AI Readability\n\nAnalyzer Description: Runs go/tip-prediction tool on the commit.\nOwner: peeps-genai-team@google.com\n\nAI Readability\n\nReview [go/java-style#s7.1.3-javadoc-block-tags](http://go/java-style#s7.1.3-javadoc-block-tags) - it may improve this code:\n\nAny of the standard \"block tags\" that are used appear in the order `@param`, `@return`, `@throws`, `@deprecated`, and these four types never appear with an empty description. When a block tag doesn\u0027t fit on a single line, continuation lines are indented four (or more) spaces from the position of the `@`.\n\n\nWas this tip helpful? [Yes 👍](http://go/gerrit-tip-prediction-thumbs-up?title\u003d[Yes%20👍]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fpackages%2Fmodules%2FConnectivity%2F%2B%2F3268573%2F2) / [No 👎](http://go/gerrit-tip-prediction-thumbs-down?title\u003d[No%20👎]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fpackages%2Fmodules%2FConnectivity%2F%2B%2F3268573%2F2)\nWould you like to provide additional [feedback](http://go/gerrit-tip-prediction-feedback?title\u003d[Feedback]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fpackages%2Fmodules%2FConnectivity%2F%2B%2F3268573%2F2)?\nWant to opt out of Tip Predictions completely? [Opt out](http://go/gerrit-tip-prediction-optout)\nOther questions? Check out the [FAQs](http://go/gerrit-tip-prediction-faqs).",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f90bb13c_f3f01404",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFdUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad4a8fb4_739bac31",
       "range": {
         "startLine": 36,
         "startChar": 6,
@@ -123,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "516a4829_df253601",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fd62989_9950aaff",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c4c6a1f_b2cfbdf8",
@@ -136,6 +226,30 @@
       "writtenOn": "2024-09-20T07:16:49Z",
       "side": 1,
       "message": "repeat might confuse people which the timer will be repeatly fired.\nIIUC you might want to remove this,\nalso for repeatDelayTime",
+      "range": {
+        "startLine": 54,
+        "startChar": 84,
+        "endLine": 54,
+        "endChar": 90
+      },
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2c2ac2a_b3a1705b",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c4c6a1f_b2cfbdf8",
       "range": {
         "startLine": 54,
         "startChar": 84,
@@ -169,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65719ebd_ebe52118",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa68f28d_24829b16",
+      "range": {
+        "startLine": 70,
+        "startChar": 13,
+        "endLine": 70,
+        "endChar": 32
+      },
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42706fff_2e9be017",
@@ -182,6 +320,30 @@
       "writtenOn": "2024-09-20T07:16:49Z",
       "side": 1,
       "message": "Please fix this INFO reported by Tip Prediction: AI Readability\n\nAnalyzer Description: Runs go/tip-prediction tool on the commit.\nOwner: peeps-genai-team@google.com\n\nAI Readability\n\nReview [go/java-style#s6.2-caught-exceptions](http://go/java-style#s6.2-caught-exceptions) - it may improve this code:\n\nIt is very rarely correct to do nothing in response to a caught exception. Typical responses are to log it, or if it is considered \"impossible\", rethrow it as an `AssertionError`.\n\nIf it is truly appropriate to take no action, explain the reason this is justified in a comment.\n\nException: In tests, a caught exception may be ignored without comment *if* its name begins with `expected`.\n\nWas this tip helpful? [Yes 👍](http://go/gerrit-tip-prediction-thumbs-up?title\u003d[Yes%20👍]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fpackages%2Fmodules%2FConnectivity%2F%2B%2F3268573%2F2) / [No 👎](http://go/gerrit-tip-prediction-thumbs-down?title\u003d[No%20👎]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fpackages%2Fmodules%2FConnectivity%2F%2B%2F3268573%2F2)\nWould you like to provide additional [feedback](http://go/gerrit-tip-prediction-feedback?title\u003d[Feedback]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fpackages%2Fmodules%2FConnectivity%2F%2B%2F3268573%2F2)?\nWant to opt out of Tip Predictions completely? [Opt out](http://go/gerrit-tip-prediction-optout)\nOther questions? Check out the [FAQs](http://go/gerrit-tip-prediction-faqs).",
+      "range": {
+        "startLine": 200,
+        "startChar": 9,
+        "endLine": 200,
+        "endChar": 39
+      },
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9162d9c_762838de",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42706fff_2e9be017",
       "range": {
         "startLine": 200,
         "startChar": 9,
@@ -215,6 +377,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8f01efb_54f3b169",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0773ee9_7b1576e6",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 48
+      },
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90f05d88_c5c17821",
@@ -232,6 +418,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b4d34a2_5e763e62",
+        "filename": "staticlibs/tests/unit/jni/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f05d88_c5c17821",
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c2482f1_e7920469",
@@ -245,6 +449,30 @@
       "writtenOn": "2024-09-20T07:16:49Z",
       "side": 1,
       "message": "Please use SdkIgnoreRunner with ThreadLeakMonitor enabled since the test create threads.",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e35f0aae_76726340",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c2482f1_e7920469",
       "range": {
         "startLine": 37,
         "startChar": 9,
@@ -291,6 +519,30 @@
       "writtenOn": "2024-09-20T07:16:49Z",
       "side": 1,
       "message": "Do we want to wait for fd close to prevent from any possible flaky?\nIf so maybe use visibleOnHandlerThread instead?\nAlso for above.",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 20
+      },
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18c55ced_273d102f",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:42:34Z",
+      "side": 1,
+      "message": "Use `waitForIdle` to ensure the `close()` operation is completed.",
+      "parentUuid": "8bfc0c37_4944f747",
       "range": {
         "startLine": 78,
         "startChar": 16,
