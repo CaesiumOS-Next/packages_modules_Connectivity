@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "073e452e_637c64c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-25T21:02:30Z",
+      "side": 1,
+      "message": "This is a test only change.\nIt *cannot* cause a boot failure.\nThus the boot failure is a flake.",
+      "revId": "46102348e0c7a92bf2f232b59b633df5e9eb8a32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
