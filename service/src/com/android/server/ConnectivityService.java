@@ -11899,6 +11899,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (int i = 0; i < networkAgent.numNetworkRequests(); i++) {
             NetworkRequest nr = networkAgent.requestAt(i);
             NetworkRequestInfo nri = mNetworkRequests.get(nr);
+            if (nri == null) {
+                continue;
+            }
             if (VDBG) log(" sending notification for " + nr);
             if (nri.mPendingIntent == null) {
                 callCallbackForRequest(nri, networkAgent, notifyType, arg1);
