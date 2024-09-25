@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66c5556a_7127e402",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-25T09:12:41Z",
+      "side": 1,
+      "message": "In this test, is there any assert check to decide if this test passed or failed?",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 26
+      },
+      "revId": "1807f6805430b835f20df401274d14aec3606206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "579ee222_2c5c0026",
+        "filename": "tests/unit/jni/android_net_frameworktests_util/onload.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-09-25T09:12:41Z",
+      "side": 1,
+      "message": "Should this follow the same style of https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3268573/5/service/jni/com_android_net_module_util/onload.cpp to make it consistent?",
+      "range": {
+        "startLine": 27,
+        "startChar": 54,
+        "endLine": 28,
+        "endChar": 77
+      },
+      "revId": "1807f6805430b835f20df401274d14aec3606206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
