@@ -40,6 +40,30 @@
       ],
       "revId": "ae02455c189aec47a528d162f7d91c14add37144",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e0c8343_b95fcd84",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T05:40:18Z",
+      "side": 1,
+      "message": "As we discussed offline, the NSEC_PER_MSEC/MSEC_PER_SEC is not defined in time.h now.",
+      "parentUuid": "534c2e93_09e462c7",
+      "range": {
+        "startLine": 53,
+        "startChar": 55,
+        "endLine": 53,
+        "endChar": 62
+      },
+      "revId": "ae02455c189aec47a528d162f7d91c14add37144",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
