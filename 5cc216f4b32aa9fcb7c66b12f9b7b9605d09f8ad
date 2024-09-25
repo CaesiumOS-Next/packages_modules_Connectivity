@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ba19df0_9ee8441c",
+        "filename": "thread/framework/java/android/net/thread/IStateCallback.aidl",
+        "patchSetId": 28
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-25T01:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa29e606_0ea52e6f",
+      "revId": "5cc216f4b32aa9fcb7c66b12f9b7b9605d09f8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56d28ec2_38741646",
@@ -60,6 +78,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b6ccad4_f0bd0d70",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-25T01:43:24Z",
+      "side": 1,
+      "message": "Updated the doc, will update the implementation to terminate any active connection when deactivating ephemeral key once we have added an ot api for that.",
+      "parentUuid": "56d28ec2_38741646",
+      "range": {
+        "startLine": 272,
+        "startChar": 13,
+        "endLine": 273,
+        "endChar": 38
+      },
+      "revId": "5cc216f4b32aa9fcb7c66b12f9b7b9605d09f8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14f05a4c_8ea513f5",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 28
@@ -71,6 +113,30 @@
       "writtenOn": "2024-09-20T07:54:54Z",
       "side": 1,
       "message": "typo",
+      "range": {
+        "startLine": 275,
+        "startChar": 58,
+        "endLine": 275,
+        "endChar": 67
+      },
+      "revId": "5cc216f4b32aa9fcb7c66b12f9b7b9605d09f8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eada7bca_8c9be445",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-25T01:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14f05a4c_8ea513f5",
       "range": {
         "startLine": 275,
         "startChar": 58,

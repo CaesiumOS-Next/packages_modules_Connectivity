@@ -262,6 +262,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5930ca6_2ceef7fa",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-25T01:43:24Z",
+      "side": 1,
+      "message": "Updated the doc to say that `deactivateEphemeralKeyMode` will terminate active connection if any, the call will succeed in this case. PTAL.",
+      "parentUuid": "3bb6986e_693bc7e0",
+      "range": {
+        "startLine": 264,
+        "startChar": 55,
+        "endLine": 265,
+        "endChar": 38
+      },
+      "revId": "c66e8f3338560e708d75ab96287763e2944779f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b0f1c5d_7cb1f184",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
         "patchSetId": 27
@@ -297,6 +321,30 @@
       "side": 1,
       "message": "Nice catch! Updated this to Instant expiry and added a test in the next file, PTAL.",
       "parentUuid": "1b0f1c5d_7cb1f184",
+      "range": {
+        "startLine": 377,
+        "startChar": 26,
+        "endLine": 377,
+        "endChar": 43
+      },
+      "revId": "c66e8f3338560e708d75ab96287763e2944779f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdaa311f_9ab1d4f1",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-25T01:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d1d3870_0e5c2d65",
       "range": {
         "startLine": 377,
         "startChar": 26,
