@@ -99,6 +99,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e25141c_e54bb287",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:45:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "134179f3_3b034319",
+      "range": {
+        "startLine": 99,
+        "startChar": 38,
+        "endLine": 99,
+        "endChar": 45
+      },
+      "revId": "ae77fcf4f2bc26b14e8bd15cfa44a2c08c0fe111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "260a162f_2e2888e8",
@@ -122,6 +146,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aea8408_aedf6be6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:45:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "260a162f_2e2888e8",
+      "range": {
+        "startLine": 191,
+        "startChar": 71,
+        "endLine": 191,
+        "endChar": 72
+      },
+      "revId": "ae77fcf4f2bc26b14e8bd15cfa44a2c08c0fe111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6f669db_09f52de7",
@@ -135,6 +183,30 @@
       "writtenOn": "2024-09-20T08:32:48Z",
       "side": 1,
       "message": "Maybe Stupid question: How do we know this won\u0027t be called again before the task finished?",
+      "range": {
+        "startLine": 192,
+        "startChar": 32,
+        "endLine": 192,
+        "endChar": 46
+      },
+      "revId": "ae77fcf4f2bc26b14e8bd15cfa44a2c08c0fe111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd9252b9_7dc3fcd8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:45:57Z",
+      "side": 1,
+      "message": "The service type cleint will remove the scheduled task before scheduling a new task. See `removeScheduledTask()`",
+      "parentUuid": "d6f669db_09f52de7",
       "range": {
         "startLine": 192,
         "startChar": 32,
@@ -182,6 +254,30 @@
           ]
         }
       ],
+      "revId": "ae77fcf4f2bc26b14e8bd15cfa44a2c08c0fe111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1de6ea6f_cfbaf6bb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-09-25T06:45:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2590554_e93183b9",
+      "range": {
+        "startLine": 266,
+        "startChar": 14,
+        "endLine": 266,
+        "endChar": 15
+      },
       "revId": "ae77fcf4f2bc26b14e8bd15cfa44a2c08c0fe111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
