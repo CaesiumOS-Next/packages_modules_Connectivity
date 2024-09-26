@@ -33,6 +33,24 @@
       "message": "Can you provide some more context of when this happens? Possibly a stack trace?",
       "revId": "ed7cd3cc74e3f9511ebe9c29e5000d185c214872",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e84b28b_6799a90c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2034140
+      },
+      "writtenOn": "2024-09-26T18:35:25Z",
+      "side": 1,
+      "message": "Hi Patrick, I checked our backend to fetch more logs. This fix was done long time back and we don\u0027t have the full log anymore. Below is the error I could capture from the task.\nError: java.lang.NullPointerException: Attempt to read from field \u0027android.app.PendingIntent com.android.server.ConnectivityService$NetworkRequestInfo.mPendingIntent\u0027 on a null object reference",
+      "parentUuid": "6d9fc4ab_7b984d2b",
+      "revId": "ed7cd3cc74e3f9511ebe9c29e5000d185c214872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
