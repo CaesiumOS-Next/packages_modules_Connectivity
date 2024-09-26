@@ -81,6 +81,24 @@
       "parentUuid": "2a27282b_c250facd",
       "revId": "1a06606ddd97e25e52b215133cc25c04c4cfcf1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38319f8d_acf1bc85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-26T17:55:18Z",
+      "side": 1,
+      "message": "Could you provide more details on this?\n\nBroadcast should *NOT* actually be filtered...\nThe entire point of broadcast is for it to be delivered to everyone.\nIt\u0027s APFs job to filter it.\n\nI\u0027m wondering if we should revert this.\n\nOr at least revert this for V+ or W+",
+      "parentUuid": "965c50ee_5fcff454",
+      "revId": "1a06606ddd97e25e52b215133cc25c04c4cfcf1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
