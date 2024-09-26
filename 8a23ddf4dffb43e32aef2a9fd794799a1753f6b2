@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f88a8d75_7ab114f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-26T14:08:22Z",
+      "side": 1,
+      "message": "To be updated before another round of review.",
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3825368b_746c5741",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 9
@@ -85,6 +102,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9f7bfb9_43c69c8b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-26T14:08:22Z",
+      "side": 1,
+      "message": "Leave a comment why IRoutingCoordinatorCallback is the index.",
+      "parentUuid": "175b35d4_a981ca53",
+      "range": {
+        "startLine": 71,
+        "startChar": 27,
+        "endLine": 71,
+        "endChar": 67
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca83be5d_e199d3c2",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 9
@@ -101,6 +142,29 @@
         "startChar": 8,
         "endLine": 109,
         "endChar": 79
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ec85b57_72970e54",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-26T14:08:22Z",
+      "side": 1,
+      "message": "Could do this in the service implementation.\nOr implement this in another function.",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 188,
+        "endChar": 84
       },
       "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
