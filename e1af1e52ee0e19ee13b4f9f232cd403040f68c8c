@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05b7a8ff_ee3a41c3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-26T15:39:42Z",
+      "side": 1,
+      "message": "probably overkill, but no strong opinion.",
+      "range": {
+        "startLine": 91,
+        "startChar": 46,
+        "endLine": 92,
+        "endChar": 85
+      },
+      "revId": "e1af1e52ee0e19ee13b4f9f232cd403040f68c8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81112413_53eca182",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-26T15:39:42Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 182,
+        "startChar": 8,
+        "endLine": 182,
+        "endChar": 27
+      },
+      "revId": "e1af1e52ee0e19ee13b4f9f232cd403040f68c8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d80a5ef_350a80ec",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-26T15:39:42Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Check Contents: Prefer to use ctx.getSystemService(ConnectivityManager.class) instead to avoid the cast.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nPrefer to use ctx.getSystemService(ConnectivityManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 183,
+        "startChar": 16,
+        "endLine": 183,
+        "endChar": 59
+      },
+      "revId": "e1af1e52ee0e19ee13b4f9f232cd403040f68c8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
