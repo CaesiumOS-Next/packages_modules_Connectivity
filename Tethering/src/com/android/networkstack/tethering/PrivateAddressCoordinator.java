@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
@@ -84,12 +85,11 @@ public class PrivateAddressCoordinator {
     private final ArrayMap<AddressKey, LinkAddress> mCachedAddresses;
     private final Random mRandom;
 
-    public PrivateAddressCoordinator(Context context, boolean isRandomPrefixBase,
-                                     boolean shouldEnableWifiP2pDedicatedIp) {
+    public PrivateAddressCoordinator(ConnectivityManager cm, boolean isRandomPrefixBase,
+            boolean shouldEnableWifiP2pDedicatedIp) {
         mDownstreams = new ArraySet<>();
         mUpstreamPrefixMap = new ArrayMap<>();
-        mConnectivityMgr = (ConnectivityManager) context.getSystemService(
-                Context.CONNECTIVITY_SERVICE);
+        mConnectivityMgr = Objects.requireNonNull(cm, "missing ConnectivityManager");
         mIsRandomPrefixBaseEnabled = isRandomPrefixBase;
         mShouldEnableWifiP2pDedicatedIp = shouldEnableWifiP2pDedicatedIp;
         mCachedAddresses = new ArrayMap<AddressKey, LinkAddress>();
