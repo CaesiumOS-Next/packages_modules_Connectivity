@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b8dc3c8_31bf4ec5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3593122
+      },
+      "writtenOn": "2024-09-26T00:34:49Z",
+      "side": 1,
+      "message": "quitar todo developers por fa",
+      "revId": "2d52f8c1392e993758f8ddb595257e1bb37e5aaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
