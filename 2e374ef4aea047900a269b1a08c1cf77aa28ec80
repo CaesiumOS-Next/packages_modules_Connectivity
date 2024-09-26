@@ -22,6 +22,30 @@
       },
       "revId": "2e374ef4aea047900a269b1a08c1cf77aa28ec80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8e8c46c_637cdd04",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-26T02:47:53Z",
+      "side": 1,
+      "message": "+1.\nIf so you might want to use assert_utils#expect_with_retry",
+      "parentUuid": "7f534179_58c8caac",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 21
+      },
+      "revId": "2e374ef4aea047900a269b1a08c1cf77aa28ec80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
