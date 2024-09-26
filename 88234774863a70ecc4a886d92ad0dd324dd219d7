@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a41a30f9_4b877ec9",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-26T06:09:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e31d3363_7f9234b1",
+      "range": {
+        "startLine": 290,
+        "startChar": 28,
+        "endLine": 290,
+        "endChar": 45
+      },
+      "revId": "88234774863a70ecc4a886d92ad0dd324dd219d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7666603c_fc4a0fc5",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a7e1d7c_9f5be5f3",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-26T06:09:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7666603c_fc4a0fc5",
+      "range": {
+        "startLine": 296,
+        "startChar": 8,
+        "endLine": 296,
+        "endChar": 16
+      },
+      "revId": "88234774863a70ecc4a886d92ad0dd324dd219d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53338cff_d78b7680",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-09-26T05:58:13Z",
       "side": 1,
       "message": "Please fix this ERROR reported by Build Warnings: cannot find symbol\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    cannot find symbol\n            final RtNetlinkLinkMessage msg \u003d RtNetlinkLinkMessage.createGetLinkMessage(\n                                                                 ^\n      symbol:   method createGetLinkMessage(String,int)\n      location: class RtNetlinkLinkMessage\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P81531204/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 83
+      },
+      "revId": "88234774863a70ecc4a886d92ad0dd324dd219d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c3fa8f_b067b01c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1238042
+      },
+      "writtenOn": "2024-09-26T06:09:13Z",
+      "side": 1,
+      "message": "The method is added by the previous CL. I guess I need to wait for automerger propagate it to all the branches.",
+      "parentUuid": "53338cff_d78b7680",
       "range": {
         "startLine": 303,
         "startChar": 0,
