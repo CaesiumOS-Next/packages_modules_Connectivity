@@ -1,0 +1,75 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30a2a2d2_f405a674",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-26T08:35:42Z",
+      "side": 1,
+      "message": "Maybe return empty list instead?",
+      "range": {
+        "startLine": 93,
+        "startChar": 1,
+        "endLine": 93,
+        "endChar": 66
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b8a7cab1_6bee4d61",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 93,
+                "startChar": 0,
+                "endLine": 94,
+                "endChar": 0
+              },
+              "replacement": "  If devices have no IPv4 address, return empty list.\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 119,
+                "startChar": 0,
+                "endLine": 122,
+                "endChar": 0
+              },
+              "replacement": "    return []\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 130,
+                "startChar": 0,
+                "endLine": 131,
+                "endChar": 0
+              },
+              "replacement": "  If devices have no IPv6 address, return empty list.\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 151,
+                "startChar": 0,
+                "endLine": 154,
+                "endChar": 0
+              },
+              "replacement": "    return []\n"
+            }
+          ]
+        }
+      ],
+      "revId": "773cdbe4454dc8823206f6ad17b4af0074976af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
