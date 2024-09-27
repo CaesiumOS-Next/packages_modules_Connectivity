@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaaccdff_f914d40e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-27T05:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a5d2c90_f7c4e789",
+      "revId": "5cc216f4b32aa9fcb7c66b12f9b7b9605d09f8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa29e606_0ea52e6f",
@@ -90,6 +108,30 @@
       "side": 1,
       "message": "Updated the doc, will update the implementation to terminate any active connection when deactivating ephemeral key once we have added an ot api for that.",
       "parentUuid": "56d28ec2_38741646",
+      "range": {
+        "startLine": 272,
+        "startChar": 13,
+        "endLine": 273,
+        "endChar": 38
+      },
+      "revId": "5cc216f4b32aa9fcb7c66b12f9b7b9605d09f8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c02ba8_300078a1",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-27T05:55:49Z",
+      "side": 1,
+      "message": "The behavior update to always deactivate ephemeral key mode is in https://android-review.git.corp.google.com/q/topic:%22ba-disconnect%22",
+      "parentUuid": "5b6ccad4_f0bd0d70",
       "range": {
         "startLine": 272,
         "startChar": 13,
