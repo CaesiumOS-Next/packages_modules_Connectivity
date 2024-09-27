@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97116d06_664f8b54",
+        "filename": "staticlibs/testutils/host/python/apf_test_base.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-27T06:41:19Z",
+      "side": 1,
+      "message": "nit: this comment is pointless. The following line self-explain",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 31
+      },
+      "revId": "ff3ebacfc2d410c338ea0b55269b92a6371b54ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
