@@ -123,11 +123,8 @@ public class NearbyManager {
 
     private static final int POWERED_OFF_FINDING_EID_LENGTH = 20;
 
-    private static final String POWER_OFF_FINDING_SUPPORTED_PROPERTY_RO =
+    private static final String POWER_OFF_FINDING_SUPPORTED_PROPERTY =
             "ro.bluetooth.finder.supported";
-
-    private static final String POWER_OFF_FINDING_SUPPORTED_PROPERTY_PERSIST =
-            "persist.bluetooth.finder.supported";
 
     /**
      * TODO(b/286137024): Remove this when CTS R5 is rolled out.
@@ -621,9 +618,7 @@ public class NearbyManager {
     }
 
     private boolean isPoweredOffFindingSupported() {
-        return Boolean.parseBoolean(SystemProperties.get(POWER_OFF_FINDING_SUPPORTED_PROPERTY_RO))
-                || Boolean.parseBoolean(SystemProperties.get(
-                        POWER_OFF_FINDING_SUPPORTED_PROPERTY_PERSIST));
+        return Boolean.parseBoolean(SystemProperties.get(POWER_OFF_FINDING_SUPPORTED_PROPERTY));
     }
 
     private boolean areLocationAndBluetoothEnabled() {
