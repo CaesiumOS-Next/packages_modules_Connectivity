@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c60f68f_d544bb39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-09-27T23:13:55Z",
+      "side": 1,
+      "message": "Greg, FYI, this is coming in 25Q2/Android W.\n\nSo we\u0027ll merge in ~3 months after aosp/main stops merging into 25Q1.\n\nI believe there was some kernel uprev plan for mokey?",
+      "revId": "95fc4ad2a0b9e8f56ca82adbed5a59fa6e2c2403",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
