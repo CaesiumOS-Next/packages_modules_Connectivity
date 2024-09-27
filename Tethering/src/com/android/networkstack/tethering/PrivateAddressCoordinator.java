@@ -189,7 +189,7 @@ public class PrivateAddressCoordinator {
             return cachedAddress;
         }
 
-        final int prefixIndex = getStartedPrefixIndex();
+        final int prefixIndex = getRandomPrefixIndex();
         for (int i = 0; i < mTetheringPrefixes.size(); i++) {
             final IpPrefix prefixRange = mTetheringPrefixes.get(
                     (prefixIndex + i) % mTetheringPrefixes.size());
@@ -205,7 +205,7 @@ public class PrivateAddressCoordinator {
         return null;
     }
 
-    private int getStartedPrefixIndex() {
+    private int getRandomPrefixIndex() {
         if (!mConfig.isRandomPrefixBaseEnabled()) return 0;
 
         final int random = getRandomInt() & 0xffffff;
