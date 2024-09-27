@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5cc03dd_51e47e51",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadNetworkControllerTest.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-27T06:56:53Z",
+      "side": 1,
+      "message": "Better to only have empty lines between `arrange and act` and `act and assert`. My previous `setTestNetworkAsUpstream_*` test cases are not good examples.",
+      "range": {
+        "startLine": 458,
+        "startChar": 4,
+        "endLine": 474,
+        "endChar": 65
+      },
+      "revId": "81c58ecbbe1f4f95094b29700344b6e4d9b9b307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fe6782d_3bd34eba",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-27T06:56:53Z",
+      "side": 1,
+      "message": "Will there be more test cases like using a default timeout, using an invalid timeout, etc.?",
+      "revId": "81c58ecbbe1f4f95094b29700344b6e4d9b9b307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
