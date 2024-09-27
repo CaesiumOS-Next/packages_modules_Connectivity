@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4d40fed_e6f38988",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-27T06:52:50Z",
+      "side": 1,
+      "message": "LGTM overall",
+      "revId": "30177c3a3380541a0f556e7311a60c642af22982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e8e8668_45675610",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 1795,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-27T06:52:50Z",
+      "side": 1,
+      "message": "nit: static",
+      "revId": "30177c3a3380541a0f556e7311a60c642af22982",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
