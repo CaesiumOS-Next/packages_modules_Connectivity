@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "039b1636_a902c7d3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-28T03:48:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a69688e2_5a7973a8",
+      "range": {
+        "startLine": 261,
+        "startChar": 28,
+        "endLine": 261,
+        "endChar": 30
+      },
+      "revId": "981548b28f8ae4081d534fe4886828f1a9a1ed12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86d43dda_9ac1001c",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-27T23:07:23Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 265,
+        "startChar": 38,
+        "endLine": 265,
+        "endChar": 43
+      },
+      "revId": "981548b28f8ae4081d534fe4886828f1a9a1ed12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b508594b_989c0d24",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-09-28T03:48:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86d43dda_9ac1001c",
       "range": {
         "startLine": 265,
         "startChar": 38,
