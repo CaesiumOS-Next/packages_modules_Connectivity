@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54b2862d_df01ddf8",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadNetworkControllerTest.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-28T12:37:54Z",
+      "side": 1,
+      "message": "```suggestion\n        Duration lifetime \u003d mController.getMaxEphemeralKeyLifetime().plusMills(1);\n```",
+      "range": {
+        "startLine": 500,
+        "startChar": 81,
+        "endLine": 500,
+        "endChar": 83
+      },
+      "revId": "9d3244b6dbdb242286cf4000145bc2226d52d21e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6e6a8c4_d096e279",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadNetworkControllerTest.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-28T12:37:54Z",
+      "side": 1,
+      "message": "What about moving this two cases to CTS?",
+      "range": {
+        "startLine": 498,
+        "startChar": 0,
+        "endLine": 508,
+        "endChar": 93
+      },
+      "revId": "9d3244b6dbdb242286cf4000145bc2226d52d21e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba071d7e_82524d06",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-28T12:37:54Z",
+      "side": 1,
+      "message": "I think the happy path is already covered by the CTS tests, can you cover the failure cases like ot-daemon fails to do activation and check the error is really propagated to the client app.",
+      "range": {
+        "startLine": 843,
+        "startChar": 16,
+        "endLine": 843,
+        "endChar": 48
+      },
+      "revId": "9d3244b6dbdb242286cf4000145bc2226d52d21e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a16ffad_8860350f",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-09-28T12:37:54Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 854,
+        "startChar": 16,
+        "endLine": 854,
+        "endChar": 50
+      },
+      "revId": "9d3244b6dbdb242286cf4000145bc2226d52d21e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
