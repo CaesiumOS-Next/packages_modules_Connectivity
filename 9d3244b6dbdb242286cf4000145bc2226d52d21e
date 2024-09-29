@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eb6fc4c_bb56a021",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadNetworkControllerTest.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:25:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54b2862d_df01ddf8",
+      "range": {
+        "startLine": 500,
+        "startChar": 81,
+        "endLine": 500,
+        "endChar": 83
+      },
+      "revId": "9d3244b6dbdb242286cf4000145bc2226d52d21e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6e6a8c4_d096e279",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-28T12:37:54Z",
       "side": 1,
       "message": "What about moving this two cases to CTS?",
+      "range": {
+        "startLine": 498,
+        "startChar": 0,
+        "endLine": 508,
+        "endChar": 93
+      },
+      "revId": "9d3244b6dbdb242286cf4000145bc2226d52d21e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f4d0b1e_9ff7dc59",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadNetworkControllerTest.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:25:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6e6a8c4_d096e279",
       "range": {
         "startLine": 498,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c562c1c5_4aa3585c",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:25:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba071d7e_82524d06",
+      "range": {
+        "startLine": 843,
+        "startChar": 16,
+        "endLine": 843,
+        "endChar": 48
+      },
+      "revId": "9d3244b6dbdb242286cf4000145bc2226d52d21e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a16ffad_8860350f",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-09-28T12:37:54Z",
       "side": 1,
       "message": "Ditto",
+      "range": {
+        "startLine": 854,
+        "startChar": 16,
+        "endLine": 854,
+        "endChar": 50
+      },
+      "revId": "9d3244b6dbdb242286cf4000145bc2226d52d21e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "885fd981_18b1e7c4",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:25:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a16ffad_8860350f",
       "range": {
         "startLine": 854,
         "startChar": 16,
