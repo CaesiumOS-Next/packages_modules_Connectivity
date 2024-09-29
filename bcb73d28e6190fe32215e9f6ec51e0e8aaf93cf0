@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e15d28d2_a3c9d1ed",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95338569_8fc3d879",
+      "range": {
+        "startLine": 215,
+        "startChar": 43,
+        "endLine": 215,
+        "endChar": 71
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c284fbc0_f747d6b3",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-28T12:24:28Z",
       "side": 1,
       "message": "What is \"Thread Administration Sharing\"? Should it be just \"Thread Administration\"?",
+      "range": {
+        "startLine": 216,
+        "startChar": 59,
+        "endLine": 216,
+        "endChar": 88
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e10b369_f2f8cd64",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "\"Thread Administration Sharing\" is defined by the Thread Spec: The procedure to enabled administrative access to an existing Thread network by sharing the Network Credentials of this network to an authorized party: the commissioner candidate.",
+      "parentUuid": "c284fbc0_f747d6b3",
       "range": {
         "startLine": 216,
         "startChar": 59,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "356bc194_ec89a2e4",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "Removed from doc.",
+      "parentUuid": "4572feaa_fd4449e7",
+      "range": {
+        "startLine": 231,
+        "startChar": 39,
+        "endLine": 231,
+        "endChar": 79
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fecd2218_629e86f2",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-09-28T12:24:28Z",
       "side": 1,
       "message": "```suggestion\n     * @param lifetime valid lifetime of the generated ephemeral key, should be larger than {@link\n```",
+      "range": {
+        "startLine": 237,
+        "startChar": 23,
+        "endLine": 237,
+        "endChar": 62
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5d9e392_99171c90",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fecd2218_629e86f2",
       "range": {
         "startLine": 237,
         "startChar": 23,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fafffa7_dd0897d8",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17156e1a_07c5bf11",
+      "range": {
+        "startLine": 241,
+        "startChar": 40,
+        "endLine": 241,
+        "endChar": 54
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "030494eb_71b404a2",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-09-28T12:24:28Z",
       "side": 1,
       "message": "```suggestion\n         * @param ephemeralKey the ephemeral key string which contains a sequence of numeric digits\n         *     0-9 of user-input friendly length (typically 9), or {@code null} if {@code\n         *     ephemeralKeyState} is {@link #EPHEMERAL_KEY_DISABLED} or the caller doesn\u0027t have the permission {@link\n         *     android.permission.THREAD_NETWORK_PRIVILEGED}\n```",
+      "range": {
+        "startLine": 367,
+        "startChar": 31,
+        "endLine": 371,
+        "endChar": 60
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7014e54_1230cbc7",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "030494eb_71b404a2",
       "range": {
         "startLine": 367,
         "startChar": 31,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46c74c04_495dc54a",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d777d67f_22a77e4c",
+      "range": {
+        "startLine": 372,
+        "startChar": 76,
+        "endLine": 372,
+        "endChar": 81
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf4baed4_05d3e86f",
@@ -175,6 +343,30 @@
       "writtenOn": "2024-09-28T12:24:28Z",
       "side": 1,
       "message": "This is a dup of line 43.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 52
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1febf585_02117510",
+        "filename": "thread/tests/cts/Android.bp",
+        "patchSetId": 29
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf4baed4_05d3e86f",
       "range": {
         "startLine": 50,
         "startChar": 8,
@@ -210,6 +402,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d7d7d75_27fbf17f",
+        "filename": "thread/tests/cts/AndroidTest.xml",
+        "patchSetId": 29
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "It doesn\u0027t work for fixed flag, it\u0027s a convenient change for local testing where I can set the flag to is_fixed_read_only:false, and run tests with the flag enabled.\n\nWe can remove this after the flag is rolled out.",
+      "parentUuid": "ca5aa269_d29eec7c",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 88
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d0b9b797_391351cf",
         "filename": "thread/tests/cts/AndroidTest.xml",
         "patchSetId": 29
@@ -221,6 +437,30 @@
       "writtenOn": "2024-09-28T12:24:28Z",
       "side": 1,
       "message": "@handaw@google.com Doesn\u0027t the Thread Configuration flag need such a CTS preparer?",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 22
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3099952d_e9d587bc",
+        "filename": "thread/tests/cts/AndroidTest.xml",
+        "patchSetId": 29
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "Possibly it\u0027s ok as the Thread Configuration code doesn\u0027t do a runtime check of the flag.",
+      "parentUuid": "d0b9b797_391351cf",
       "range": {
         "startLine": 60,
         "startChar": 4,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86edaa00_458d4d18",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "The `onEphemralKeyStateChanged` callback has a runtime check for the flag value, and related test cases need to be filtered by this annotation. The activate/deactive ephemeral key mode apis don\u0027t check for runtime flag values, they run as if the flags are on.\n\nAdded the annotation to all ephemeral key test cases to be safe.",
+      "parentUuid": "5e890d16_e65bdebe",
+      "range": {
+        "startLine": 880,
+        "startChar": 4,
+        "endLine": 880,
+        "endChar": 53
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a6f7a66_0044982d",
@@ -267,6 +531,30 @@
       "writtenOn": "2024-09-28T12:24:28Z",
       "side": 1,
       "message": "To be clear about the exact output:\n```suggestion\n    public void subscribeEpskcState_withoutThreadPriviledgedPermission_returnsNullEphemeralKey()\n```",
+      "range": {
+        "startLine": 951,
+        "startChar": 71,
+        "endLine": 951,
+        "endChar": 94
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2a5b36d_3de53d46",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a6f7a66_0044982d",
       "range": {
         "startLine": 951,
         "startChar": 71,
@@ -300,6 +588,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e917cd77_bfd8b40e",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "Sounds good, updated.",
+      "parentUuid": "0682b92e_fc645a06",
+      "range": {
+        "startLine": 977,
+        "startChar": 82,
+        "endLine": 977,
+        "endChar": 89
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbad85cd_5f8e86a7",
@@ -323,6 +635,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c60624_ba174f77",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "The permission granted case was tested in the previous `subscribeEpskcState_permissionsGranted_returnsCurrentState`, this test case actually wants to test the case when ephemeral key state has changed, updated the test name.",
+      "parentUuid": "cbad85cd_5f8e86a7",
+      "range": {
+        "startLine": 986,
+        "startChar": 36,
+        "endLine": 986,
+        "endChar": 54
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75029d06_4b8bd5e3",
@@ -336,6 +672,30 @@
       "writtenOn": "2024-09-28T12:24:28Z",
       "side": 1,
       "message": "It looks like the callback will be leak if an exception is thrown before this line. What about unregistering the callback in `try {} finally {}`?",
+      "range": {
+        "startLine": 997,
+        "startChar": 8,
+        "endLine": 997,
+        "endChar": 43
+      },
+      "revId": "bcb73d28e6190fe32215e9f6ec51e0e8aaf93cf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b5be510_bad94c5c",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:23:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75029d06_4b8bd5e3",
       "range": {
         "startLine": 997,
         "startChar": 8,
