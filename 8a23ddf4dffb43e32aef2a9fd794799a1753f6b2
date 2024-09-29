@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e602be6_ec76d6c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-29T15:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f88a8d75_7ab114f2",
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3825368b_746c5741",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "Extracted two smaller changes from the big changes. Please take a look:\n- aosp/3276792\n- aosp/3278351",
       "parentUuid": "3825368b_746c5741",
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c4ccff2_79f20085",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-29T15:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3294495_771c0140",
       "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -124,6 +160,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4966ff59_74555440",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-29T15:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9f7bfb9_43c69c8b",
+      "range": {
+        "startLine": 71,
+        "startChar": 27,
+        "endLine": 71,
+        "endChar": 67
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca83be5d_e199d3c2",
@@ -147,6 +207,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b17a1571_9981faa0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-29T15:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca83be5d_e199d3c2",
+      "range": {
+        "startLine": 109,
+        "startChar": 8,
+        "endLine": 109,
+        "endChar": 79
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ec85b57_72970e54",
@@ -160,6 +244,30 @@
       "writtenOn": "2024-09-26T14:08:22Z",
       "side": 1,
       "message": "Could do this in the service implementation.\nOr implement this in another function.",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 188,
+        "endChar": 84
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aff1e4e7_6a5b067d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-29T15:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ec85b57_72970e54",
       "range": {
         "startLine": 187,
         "startChar": 2,
@@ -231,6 +339,30 @@
       "side": 1,
       "message": "How can the constructor of private address coordinator do that? tethering apis allow for passing in a static IP configuration.",
       "parentUuid": "29e0c55d_3d7f5812",
+      "range": {
+        "startLine": 411,
+        "startChar": 56,
+        "endLine": 411,
+        "endChar": 98
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5c369da_dd90b4de",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-29T15:27:46Z",
+      "side": 1,
+      "message": "Added a TODO for adding `reserveDownsreamAddress`.",
+      "parentUuid": "aae3646d_5418093d",
       "range": {
         "startLine": 411,
         "startChar": 56,
@@ -336,6 +468,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5b2f13b_d29045f9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-29T15:27:46Z",
+      "side": 1,
+      "message": "Resolved in offline discussion. We\u0027ll not have the `getAddress()` method.",
+      "parentUuid": "64149c1a_0c393479",
+      "range": {
+        "startLine": 424,
+        "startChar": 36,
+        "endLine": 424,
+        "endChar": 59
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "865ef031_44c59f0b",
@@ -349,6 +505,30 @@
       "writtenOn": "2024-09-23T20:26:58Z",
       "side": 1,
       "message": "wait, shouldn\u0027t this just be \"this\".",
+      "range": {
+        "startLine": 2033,
+        "startChar": 30,
+        "endLine": 2033,
+        "endChar": 82
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6263cd57_9ac861a1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2033,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-29T15:27:46Z",
+      "side": 1,
+      "message": "Obsolete comment. Marked as resolved.",
+      "parentUuid": "865ef031_44c59f0b",
       "range": {
         "startLine": 2033,
         "startChar": 30,
@@ -382,6 +562,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ffdcee0_04dd1803",
+        "filename": "staticlibs/device/com/android/net/module/util/IRoutingCoordinator.aidl",
+        "patchSetId": 9
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-29T15:27:46Z",
+      "side": 1,
+      "message": "Resolved via offline discussion. For better error tolerance we should use the callback object.",
+      "parentUuid": "c8b0eb34_5dcd9572",
+      "range": {
+        "startLine": 136,
+        "startChar": 27,
+        "endLine": 136,
+        "endChar": 66
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5b779ad_f747c851",
@@ -405,6 +609,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "929d4c61_2dfefc71",
+        "filename": "staticlibs/device/com/android/net/module/util/IRoutingCoordinatorCallback.aidl",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-29T15:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5b779ad_f747c851",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54f311f5_5358da83",
@@ -418,6 +646,30 @@
       "writtenOn": "2024-09-23T20:26:58Z",
       "side": 1,
       "message": "Leave a TODO: inject config values",
+      "range": {
+        "startLine": 65,
+        "startChar": 24,
+        "endLine": 66,
+        "endChar": 68
+      },
+      "revId": "8a23ddf4dffb43e32aef2a9fd794799a1753f6b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a81ff416_2438cff7",
+        "filename": "staticlibs/device/com/android/net/module/util/RoutingCoordinatorService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-09-29T15:27:46Z",
+      "side": 1,
+      "message": "Obsolete comment.",
+      "parentUuid": "54f311f5_5358da83",
       "range": {
         "startLine": 65,
         "startChar": 24,
