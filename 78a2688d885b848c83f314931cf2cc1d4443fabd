@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d91ec539_7a4aaf2a",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 1511,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:24:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c249259a_504ecebd",
+      "range": {
+        "startLine": 1511,
+        "startChar": 22,
+        "endLine": 1511,
+        "endChar": 41
+      },
+      "revId": "78a2688d885b848c83f314931cf2cc1d4443fabd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "252076e4_f3b21fb9",
@@ -61,6 +85,30 @@
           ]
         }
       ],
+      "revId": "78a2688d885b848c83f314931cf2cc1d4443fabd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b69d11a2_04487b84",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-09-29T02:24:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "252076e4_f3b21fb9",
+      "range": {
+        "startLine": 1601,
+        "startChar": 57,
+        "endLine": 1601,
+        "endChar": 62
+      },
       "revId": "78a2688d885b848c83f314931cf2cc1d4443fabd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
