@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "158a5978_c642dffc",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-30T06:23:15Z",
+      "side": 1,
+      "message": "Nit: should this be in the documentation below, not here?",
+      "range": {
+        "startLine": 592,
+        "startChar": 55,
+        "endLine": 593,
+        "endChar": 31
+      },
+      "revId": "3b2442b8660169628c65cb4fd1a5b5170e0333cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c31a0277_a05182c3",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-09-30T06:23:15Z",
+      "side": 1,
+      "message": "Please document what errors can occur.",
+      "range": {
+        "startLine": 599,
+        "startChar": 54,
+        "endLine": 599,
+        "endChar": 55
+      },
+      "revId": "3b2442b8660169628c65cb4fd1a5b5170e0333cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
