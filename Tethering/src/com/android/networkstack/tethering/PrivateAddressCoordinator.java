@@ -28,6 +28,9 @@ import static com.android.networkstack.tethering.util.PrefixUtils.asIpPrefix;
 
 import static java.util.Arrays.asList;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
@@ -42,6 +45,7 @@ import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.net.module.util.DeviceConfigUtils;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -67,6 +71,12 @@ public class PrivateAddressCoordinator {
     // WARNING: Keep in sync with chooseDownstreamAddress
     public static final int PREFIX_LENGTH = 24;
 
+    public static final String TETHER_FORCE_RANDOM_PREFIX_BASE_SELECTION =
+            "tether_force_random_prefix_base_selection";
+
+    private static final String CONFIG_TETHER_ENABLE_WIFI_P2P_DEDICATED_IP =
+            "config_tether_enable_legacy_wifi_p2p_dedicated_ip";
+
     // Upstream monitor would be stopped when tethering is down. When tethering restart, downstream
     // address may be requested before coordinator get current upstream notification. To ensure
     // coordinator do not select conflict downstream prefix, mUpstreamPrefixMap would not be cleared
@@ -79,20 +89,72 @@ public class PrivateAddressCoordinator {
     private final List<IpPrefix> mTetheringPrefixes;
     // A supplier that returns ConnectivityManager#getAllNetworks.
     private final Supplier<Network[]> mGetAllNetworksSupplier;
-    private final boolean mIsRandomPrefixBaseEnabled;
-    private final boolean mShouldEnableWifiP2pDedicatedIp;
+    private final Dependencies mDeps;
     // keyed by downstream type(TetheringManager.TETHERING_*).
     private final ArrayMap<AddressKey, LinkAddress> mCachedAddresses;
     private final Random mRandom;
 
+    /** Capture PrivateAddressCoordinator dependencies for injection. */
+    public static class Dependencies {
+        private static final String NETWORK_STACK_PKG_NAME_SUFFIX = "networkstack.tethering";
+        private final Context mContext;
+        private final ArrayMap<String, Boolean> mFeatureEnabledMap = new ArrayMap<>();
+
+        Dependencies(Context context) {
+            mContext = context;
+        }
+
+        /**
+         * Check whether or not one specific experimental feature is enabled according to {@link
+         * DeviceConfigUtils}.
+         *
+         * @param featureName The feature's name to look up.
+         * @return true if this feature is enabled, or false if disabled.
+         */
+        public boolean isFeatureEnabled(String featureName) {
+            if (mFeatureEnabledMap.containsKey(featureName)) {
+                return mFeatureEnabledMap.get(featureName);
+            }
+            final boolean value =
+                    DeviceConfigUtils.isTetheringFeatureEnabled(mContext, featureName);
+            mFeatureEnabledMap.put(featureName, value);
+            return value;
+        }
+
+        /** Whether the dedicated WiFi P2P address is enabled. */
+        public boolean isWifiP2pDedicatedIpEnabled() {
+            final String pkgNamePrefix = DeviceConfigUtils.resolvePkgPrefix(mContext);
+            final String pkgNameSuffix = NETWORK_STACK_PKG_NAME_SUFFIX;
+            final List<String> pkgNames =
+                    List.of(pkgNamePrefix + pkgNameSuffix, pkgNamePrefix + "go." + pkgNameSuffix);
+            boolean enabled = false; // Default value according to TetheringConfiguration
+            for (String pkgName : pkgNames) {
+                try {
+                    final Resources tetheringResources =
+                            mContext.getPackageManager().getResourcesForApplication(pkgName);
+                    final int id =
+                            tetheringResources.getIdentifier(
+                                    CONFIG_TETHER_ENABLE_WIFI_P2P_DEDICATED_IP, "bool", pkgName);
+                    return tetheringResources.getBoolean(id);
+                } catch (PackageManager.NameNotFoundException ignored) {
+                    // ignored
+                }
+            }
+            return enabled;
+        }
+    }
+
+    public PrivateAddressCoordinator(Supplier<Network[]> getAllNetworksSupplier, Context context) {
+        this(getAllNetworksSupplier, new Dependencies(context));
+    }
+
+    @VisibleForTesting
     public PrivateAddressCoordinator(Supplier<Network[]> getAllNetworksSupplier,
-            boolean isRandomPrefixBase,
-            boolean shouldEnableWifiP2pDedicatedIp) {
+                                     Dependencies deps) {
         mDownstreams = new ArraySet<>();
         mUpstreamPrefixMap = new ArrayMap<>();
         mGetAllNetworksSupplier = getAllNetworksSupplier;
-        mIsRandomPrefixBaseEnabled = isRandomPrefixBase;
-        mShouldEnableWifiP2pDedicatedIp = shouldEnableWifiP2pDedicatedIp;
+        mDeps = deps;
         mCachedAddresses = new ArrayMap<AddressKey, LinkAddress>();
         // Reserved static addresses for bluetooth and wifi p2p.
         mCachedAddresses.put(new AddressKey(TETHERING_BLUETOOTH, CONNECTIVITY_SCOPE_GLOBAL),
@@ -179,7 +241,7 @@ public class PrivateAddressCoordinator {
     @Nullable
     public LinkAddress requestDownstreamAddress(final IpServer ipServer, final int scope,
             boolean useLastAddress) {
-        if (mShouldEnableWifiP2pDedicatedIp
+        if (mDeps.isWifiP2pDedicatedIpEnabled()
                 && ipServer.interfaceType() == TETHERING_WIFI_P2P) {
             return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
         }
@@ -212,7 +274,7 @@ public class PrivateAddressCoordinator {
     }
 
     private int getRandomPrefixIndex() {
-        if (!mIsRandomPrefixBaseEnabled) return 0;
+        if (!mDeps.isFeatureEnabled(TETHER_FORCE_RANDOM_PREFIX_BASE_SELECTION)) return 0;
 
         final int random = getRandomInt() & 0xffffff;
         // This is to select the starting prefix range (/8, /12, or /16) instead of the actual
