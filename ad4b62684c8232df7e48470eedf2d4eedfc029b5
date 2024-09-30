@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "842b3397_459b4e46",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-30T07:26:40Z",
+      "side": 1,
+      "message": "Can we simplify this logic? Why we need to collect all the exceptions and do assessment at the end. Can we do the check in line 199?",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 212,
+        "endChar": 68
+      },
+      "revId": "ad4b62684c8232df7e48470eedf2d4eedfc029b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d764b060_08f1ebe8",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-30T07:26:40Z",
+      "side": 1,
+      "message": "We probably should document that this command only support downstream tethering interface as well.",
+      "range": {
+        "startLine": 279,
+        "startChar": 3,
+        "endLine": 279,
+        "endChar": 55
+      },
+      "revId": "ad4b62684c8232df7e48470eedf2d4eedfc029b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b1686c7_5bed2fd0",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-09-30T07:26:40Z",
+      "side": 1,
+      "message": "why the command should be tuple? Do we have use case to put multiple commands into that tuple? If not, can we let AdbOutputHandler convert the command to be tuple?",
+      "range": {
+        "startLine": 341,
+        "startChar": 2,
+        "endLine": 341,
+        "endChar": 5
+      },
+      "revId": "ad4b62684c8232df7e48470eedf2d4eedfc029b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
