@@ -1,5 +1,47 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebc63ce5_84998754",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2024-09-30T21:12:27Z",
+      "side": 1,
+      "message": "Nit: missing a space in the Javadocs here",
+      "range": {
+        "startLine": 371,
+        "startChar": 68,
+        "endLine": 371,
+        "endChar": 76
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "65de9340_3d33564c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+              "range": {
+                "startLine": 371,
+                "startChar": 0,
+                "endLine": 372,
+                "endChar": 0
+              },
+              "replacement": "         * @param expiry a timestamp of when the ephemeral key will expire or {@code null} if {@code\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b8aa8bb47ff23307e721a25cdc05e5c1c4e06c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
