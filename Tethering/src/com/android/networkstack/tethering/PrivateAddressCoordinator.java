@@ -51,7 +51,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.function.Supplier;
 
 /**
  * This class coordinate IP addresses conflict problem.
@@ -67,6 +66,7 @@ public class PrivateAddressCoordinator {
     // WARNING: Keep in sync with chooseDownstreamAddress
     public static final int PREFIX_LENGTH = 24;
 
+    private final Dependencies mDeps;
     // Upstream monitor would be stopped when tethering is down. When tethering restart, downstream
     // address may be requested before coordinator get current upstream notification. To ensure
     // coordinator do not select conflict downstream prefix, mUpstreamPrefixMap would not be cleared
@@ -77,22 +77,26 @@ public class PrivateAddressCoordinator {
     private static final String LEGACY_WIFI_P2P_IFACE_ADDRESS = "192.168.49.1/24";
     private static final String LEGACY_BLUETOOTH_IFACE_ADDRESS = "192.168.44.1/24";
     private final List<IpPrefix> mTetheringPrefixes;
-    // A supplier that returns ConnectivityManager#getAllNetworks.
-    private final Supplier<Network[]> mGetAllNetworksSupplier;
-    private final boolean mIsRandomPrefixBaseEnabled;
-    private final boolean mShouldEnableWifiP2pDedicatedIp;
     // keyed by downstream type(TetheringManager.TETHERING_*).
     private final ArrayMap<AddressKey, LinkAddress> mCachedAddresses;
     private final Random mRandom;
 
-    public PrivateAddressCoordinator(Supplier<Network[]> getAllNetworksSupplier,
-            boolean isRandomPrefixBase,
-            boolean shouldEnableWifiP2pDedicatedIp) {
+    /** Capture PrivateAddressCoordinator dependencies for injection. */
+    public abstract static class Dependencies {
+        /** Returns ConnectivityManager#getAllNetworks */
+        public abstract Network[] getAllNetworks();
+
+        /** Whether the random prefix base is enabled. */
+        public abstract boolean isRandomPrefixBaseEnabled();
+
+        /** Whether dedicated WiFi P2P address is enabled. */
+        public abstract boolean shouldEnableWifiP2pDedicatedIp();
+    }
+
+    public PrivateAddressCoordinator(Dependencies deps) {
+        mDeps = deps;
         mDownstreams = new ArraySet<>();
         mUpstreamPrefixMap = new ArrayMap<>();
-        mGetAllNetworksSupplier = getAllNetworksSupplier;
-        mIsRandomPrefixBaseEnabled = isRandomPrefixBase;
-        mShouldEnableWifiP2pDedicatedIp = shouldEnableWifiP2pDedicatedIp;
         mCachedAddresses = new ArrayMap<AddressKey, LinkAddress>();
         // Reserved static addresses for bluetooth and wifi p2p.
         mCachedAddresses.put(new AddressKey(TETHERING_BLUETOOTH, CONNECTIVITY_SCOPE_GLOBAL),
@@ -167,7 +171,7 @@ public class PrivateAddressCoordinator {
 
         // Remove all upstreams that are no longer valid networks
         final Set<Network> toBeRemoved = new HashSet<>(mUpstreamPrefixMap.keySet());
-        toBeRemoved.removeAll(asList(mGetAllNetworksSupplier.get()));
+        toBeRemoved.removeAll(asList(mDeps.getAllNetworks()));
 
         mUpstreamPrefixMap.removeAll(toBeRemoved);
     }
@@ -179,7 +183,7 @@ public class PrivateAddressCoordinator {
     @Nullable
     public LinkAddress requestDownstreamAddress(final IpServer ipServer, final int scope,
             boolean useLastAddress) {
-        if (mShouldEnableWifiP2pDedicatedIp
+        if (mDeps.shouldEnableWifiP2pDedicatedIp()
                 && ipServer.interfaceType() == TETHERING_WIFI_P2P) {
             return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
         }
@@ -212,7 +216,7 @@ public class PrivateAddressCoordinator {
     }
 
     private int getRandomPrefixIndex() {
-        if (!mIsRandomPrefixBaseEnabled) return 0;
+        if (!mDeps.isRandomPrefixBaseEnabled()) return 0;
 
         final int random = getRandomInt() & 0xffffff;
         // This is to select the starting prefix range (/8, /12, or /16) instead of the actual

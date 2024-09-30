@@ -71,7 +71,7 @@ public final class PrivateAddressCoordinatorTest {
     @Mock private IpServer mWifiP2pIpServer;
     @Mock private Context mContext;
     @Mock private ConnectivityManager mConnectivityMgr;
-    @Mock private TetheringConfiguration mConfig;
+    @Mock private PrivateAddressCoordinator.Dependencies mDeps;
 
     private PrivateAddressCoordinator mPrivateAddressCoordinator;
     private final LinkAddress mBluetoothAddress = new LinkAddress("192.168.44.1/24");
@@ -105,16 +105,11 @@ public final class PrivateAddressCoordinatorTest {
 
         when(mContext.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(mConnectivityMgr);
         when(mContext.getSystemService(ConnectivityManager.class)).thenReturn(mConnectivityMgr);
-        when(mConnectivityMgr.getAllNetworks()).thenReturn(mAllNetworks);
-        when(mConfig.shouldEnableWifiP2pDedicatedIp()).thenReturn(false);
-        when(mConfig.isRandomPrefixBaseEnabled()).thenReturn(false);
+        when(mDeps.getAllNetworks()).thenReturn(mAllNetworks);
+        when(mDeps.isRandomPrefixBaseEnabled()).thenReturn(false);
+        when(mDeps.shouldEnableWifiP2pDedicatedIp()).thenReturn(false);
         setUpIpServers();
-        mPrivateAddressCoordinator =
-                spy(
-                        new PrivateAddressCoordinator(
-                                mConnectivityMgr::getAllNetworks,
-                                mConfig.isRandomPrefixBaseEnabled(),
-                                mConfig.shouldEnableWifiP2pDedicatedIp()));
+        mPrivateAddressCoordinator = spy(new PrivateAddressCoordinator(mDeps));
     }
 
     private LinkAddress requestDownstreamAddress(final IpServer ipServer, int scope,
@@ -289,7 +284,7 @@ public final class PrivateAddressCoordinatorTest {
         // is resevered.
         assertReseveredWifiP2pPrefix();
 
-        when(mConfig.shouldEnableWifiP2pDedicatedIp()).thenReturn(true);
+        when(mDeps.shouldEnableWifiP2pDedicatedIp()).thenReturn(true);
         assertReseveredWifiP2pPrefix();
 
         // If #shouldEnableWifiP2pDedicatedIp() is enabled, wifi P2P gets the configured address.
@@ -317,7 +312,7 @@ public final class PrivateAddressCoordinatorTest {
 
     @Test
     public void testStartedPrefixRange() throws Exception {
-        when(mConfig.isRandomPrefixBaseEnabled()).thenReturn(true);
+        when(mDeps.isRandomPrefixBaseEnabled()).thenReturn(true);
 
         startedPrefixBaseTest("192.168.0.0/16", 0);
 
@@ -342,12 +337,7 @@ public final class PrivateAddressCoordinatorTest {
 
     private void startedPrefixBaseTest(final String expected, final int randomIntForPrefixBase)
             throws Exception {
-        mPrivateAddressCoordinator =
-                spy(
-                        new PrivateAddressCoordinator(
-                                mConnectivityMgr::getAllNetworks,
-                                mConfig.isRandomPrefixBaseEnabled(),
-                                mConfig.shouldEnableWifiP2pDedicatedIp()));
+        mPrivateAddressCoordinator = spy(new PrivateAddressCoordinator(mDeps));
         when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(randomIntForPrefixBase);
         final LinkAddress address = requestDownstreamAddress(mHotspotIpServer,
                 CONNECTIVITY_SCOPE_GLOBAL, false /* useLastAddress */);
