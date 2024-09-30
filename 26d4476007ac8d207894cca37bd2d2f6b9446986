@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "90ac6629_7b124aea",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-30T10:34:49Z",
+      "side": 1,
+      "message": "Also It seems to me these 2 lines should be inside createHandler.",
+      "parentUuid": "71f32e82_6aead2c2",
+      "range": {
+        "startLine": 181,
+        "startChar": 8,
+        "endLine": 181,
+        "endChar": 23
+      },
+      "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a60065d6_3a099da8",
         "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
         "patchSetId": 3
@@ -66,6 +90,29 @@
         "startChar": 12,
         "endLine": 461,
         "endChar": 70
+      },
+      "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c902c2fb_0f508330",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-09-30T10:34:49Z",
+      "side": 1,
+      "message": "Please use @MonitorThreadLeak",
+      "range": {
+        "startLine": 107,
+        "startChar": 1,
+        "endLine": 107,
+        "endChar": 8
       },
       "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
