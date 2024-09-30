@@ -79,20 +79,46 @@ public class PrivateAddressCoordinator {
     private final List<IpPrefix> mTetheringPrefixes;
     // A supplier that returns ConnectivityManager#getAllNetworks.
     private final Supplier<Network[]> mGetAllNetworksSupplier;
-    private final boolean mIsRandomPrefixBaseEnabled;
-    private final boolean mShouldEnableWifiP2pDedicatedIp;
+    private final Dependencies mDeps;
     // keyed by downstream type(TetheringManager.TETHERING_*).
     private final ArrayMap<AddressKey, LinkAddress> mCachedAddresses;
     private final Random mRandom;
 
+    /** Capture PrivateAddressCoordinator dependencies for injection. */
+    public static class Dependencies {
+        private final boolean mIsRandomPrefixBaseEnabled;
+        private final boolean mShouldEnableWifiP2pDedicatedIp;
+
+        Dependencies(boolean isRandomPrefixBaseEnabled, boolean shouldEnableWifiP2pDedicatedIp) {
+            mIsRandomPrefixBaseEnabled = isRandomPrefixBaseEnabled;
+            mShouldEnableWifiP2pDedicatedIp = shouldEnableWifiP2pDedicatedIp;
+        }
+
+        /** Whether the random prefix base is enabled. */
+        public boolean isRandomPrefixBaseEnabled() {
+            return mIsRandomPrefixBaseEnabled;
+        }
+
+        /** Whether dedicated WiFi P2P address is enabled. */
+        public boolean shouldEnableWifiP2pDedicatedIp() {
+            return mShouldEnableWifiP2pDedicatedIp;
+        }
+    }
+
     public PrivateAddressCoordinator(Supplier<Network[]> getAllNetworksSupplier,
             boolean isRandomPrefixBase,
             boolean shouldEnableWifiP2pDedicatedIp) {
+        this(getAllNetworksSupplier,
+                new Dependencies(isRandomPrefixBase, shouldEnableWifiP2pDedicatedIp));
+    }
+
+    @VisibleForTesting
+    public PrivateAddressCoordinator(Supplier<Network[]> getAllNetworksSupplier,
+                                     Dependencies deps) {
         mDownstreams = new ArraySet<>();
         mUpstreamPrefixMap = new ArrayMap<>();
         mGetAllNetworksSupplier = getAllNetworksSupplier;
-        mIsRandomPrefixBaseEnabled = isRandomPrefixBase;
-        mShouldEnableWifiP2pDedicatedIp = shouldEnableWifiP2pDedicatedIp;
+        mDeps = deps;
         mCachedAddresses = new ArrayMap<AddressKey, LinkAddress>();
         // Reserved static addresses for bluetooth and wifi p2p.
         mCachedAddresses.put(new AddressKey(TETHERING_BLUETOOTH, CONNECTIVITY_SCOPE_GLOBAL),
@@ -179,7 +205,7 @@ public class PrivateAddressCoordinator {
     @Nullable
     public LinkAddress requestDownstreamAddress(final IpServer ipServer, final int scope,
             boolean useLastAddress) {
-        if (mShouldEnableWifiP2pDedicatedIp
+        if (mDeps.shouldEnableWifiP2pDedicatedIp()
                 && ipServer.interfaceType() == TETHERING_WIFI_P2P) {
             return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
         }
@@ -212,7 +238,7 @@ public class PrivateAddressCoordinator {
     }
 
     private int getRandomPrefixIndex() {
-        if (!mIsRandomPrefixBaseEnabled) return 0;
+        if (!mDeps.isRandomPrefixBaseEnabled()) return 0;
 
         final int random = getRandomInt() & 0xffffff;
         // This is to select the starting prefix range (/8, /12, or /16) instead of the actual
