@@ -23,6 +23,7 @@ import android.bluetooth.BluetoothPan;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.INetd;
+import android.net.Network;
 import android.net.connectivity.ConnectivityInternalApiUtil;
 import android.net.ip.IpServer;
 import android.os.Build;
@@ -180,10 +181,7 @@ public abstract class TetheringDependencies {
     public PrivateAddressCoordinator makePrivateAddressCoordinator(
             Context ctx, TetheringConfiguration cfg) {
         final ConnectivityManager cm = ctx.getSystemService(ConnectivityManager.class);
-        return new PrivateAddressCoordinator(
-                cm::getAllNetworks,
-                cfg.isRandomPrefixBaseEnabled(),
-                cfg.shouldEnableWifiP2pDedicatedIp());
+        return new PrivateAddressCoordinator(new PrivateAddressCoordinatorDeps(cm, cfg));
     }
 
     /**
@@ -208,5 +206,30 @@ public abstract class TetheringDependencies {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public WearableConnectionManager makeWearableConnectionManager(Context ctx) {
         return new WearableConnectionManager(ctx);
+    }
+
+    static final class PrivateAddressCoordinatorDeps extends PrivateAddressCoordinator.Dependencies {
+        private final ConnectivityManager mConnectivityManager;
+        private final TetheringConfiguration mConfig;
+
+        PrivateAddressCoordinatorDeps(ConnectivityManager connectivityManager, TetheringConfiguration config) {
+            mConnectivityManager = connectivityManager;
+            mConfig = config;
+        }
+
+        @Override
+        public Network[] getAllNetworks() {
+            return mConnectivityManager.getAllNetworks();
+        }
+
+        @Override
+        public boolean isRandomPrefixBaseEnabled() {
+            return mConfig.isRandomPrefixBaseEnabled();
+        }
+
+        @Override
+        public boolean shouldEnableWifiP2pDedicatedIp() {
+            return mConfig.shouldEnableWifiP2pDedicatedIp();
+        }
     }
 }
