@@ -265,7 +265,13 @@ public final class DeviceConfigUtils {
                 PackageManager.MATCH_APEX).getLongVersionCode();
     }
 
-    private static String resolvePkgPrefix(Context context) {
+    /**
+     * Get the prefix of the connectivity resources package.
+     *
+     * <p>For example, return "com.android." when the package name is
+     * "com.android.connectivity.resources".
+     */
+    public static String resolvePkgPrefix(Context context) {
         final String connResourcesPackage = getConnectivityResourcesPackageName(context);
         final int pkgPrefixLen = connResourcesPackage.indexOf("connectivity");
         if (pkgPrefixLen < 0) {
