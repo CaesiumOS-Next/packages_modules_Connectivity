@@ -2032,7 +2032,7 @@ public class BpfCoordinatorTest {
         final BpfCoordinator coordinator = makeBpfCoordinator();
         initBpfCoordinatorForRule4(coordinator);
         resetNetdAndBpfMaps();
-        assertEquals(0, mConsumer.getLastMaxConnectionAndResetToCurrent());
+        assertEquals(0, coordinator.getLastMaxConnectionAndResetToCurrent());
 
         // Prepare add/delete rule events.
         final ArrayList<ConntrackEvent> addRuleEvents = new ArrayList<>();
@@ -2049,47 +2049,43 @@ public class BpfCoordinatorTest {
         // Add rules, verify counter increases.
         for (int i = 0; i < 5; i++) {
             mConsumer.accept(addRuleEvents.get(i));
-            assertConsumerCountersEquals(supportActiveSessionsMetrics ? i + 1 : 0);
+            assertConnectionCountCountersEquals(supportActiveSessionsMetrics ? i + 1 : 0,
+                    coordinator);
         }
 
         // Add the same events again should not increase the counter because
         // all events are already exist.
         for (final ConntrackEvent event : addRuleEvents) {
             mConsumer.accept(event);
-            assertConsumerCountersEquals(supportActiveSessionsMetrics ? 5 : 0);
+            assertConnectionCountCountersEquals(supportActiveSessionsMetrics ? 5 : 0, coordinator);
         }
 
         // Verify removing non-existent items won't change the counters.
         for (int i = 5; i < 8; i++) {
             mConsumer.accept(new TestConntrackEvent.Builder().setMsgType(
                     IPCTNL_MSG_CT_DELETE).setProto(IPPROTO_TCP).setRemotePort(i).build());
-            assertConsumerCountersEquals(supportActiveSessionsMetrics ? 5 : 0);
+            assertConnectionCountCountersEquals(supportActiveSessionsMetrics ? 5 : 0, coordinator);
         }
 
         // Verify remove the rules decrease the counter.
         // Note the max counter returns the max, so it returns the count before deleting.
         for (int i = 0; i < 5; i++) {
             mConsumer.accept(delRuleEvents.get(i));
-            assertEquals(supportActiveSessionsMetrics ? 4 - i : 0,
-                    mConsumer.getCurrentConnectionCount());
             assertEquals(supportActiveSessionsMetrics ? 5 - i : 0,
-                    mConsumer.getLastMaxConnectionCount());
-            assertEquals(supportActiveSessionsMetrics ? 5 - i : 0,
-                    mConsumer.getLastMaxConnectionAndResetToCurrent());
+                    coordinator.getLastMaxConnectionAndResetToCurrent());
         }
 
         // Verify remove these rules again doesn't decrease the counter.
         for (int i = 0; i < 5; i++) {
             mConsumer.accept(delRuleEvents.get(i));
-            assertConsumerCountersEquals(0);
+            assertConnectionCountCountersEquals(0, coordinator);
         }
     }
 
-    // Helper method to assert all counter values inside consumer.
-    private void assertConsumerCountersEquals(int expectedCount) {
-        assertEquals(expectedCount, mConsumer.getCurrentConnectionCount());
-        assertEquals(expectedCount, mConsumer.getLastMaxConnectionCount());
-        assertEquals(expectedCount, mConsumer.getLastMaxConnectionAndResetToCurrent());
+    // Helper method to assert all counter values inside coordinator.
+    private void assertConnectionCountCountersEquals(
+            int expectedCount, BpfCoordinator coordinator) {
+        assertEquals(expectedCount, coordinator.getLastMaxConnectionAndResetToCurrent());
     }
 
     @FeatureFlag(name = TETHER_ACTIVE_SESSIONS_METRICS)
@@ -2121,7 +2117,7 @@ public class BpfCoordinatorTest {
         coordinator.tetherOffloadClientAdd(mIpServer, clientB);
         assertClientInfoExists(mIpServer, clientA);
         assertClientInfoExists(mIpServer, clientB);
-        assertEquals(0, mConsumer.getLastMaxConnectionAndResetToCurrent());
+        assertEquals(0, coordinator.getLastMaxConnectionAndResetToCurrent());
 
         // Add some rules for both clients.
         final int addr1RuleCount = 5;
@@ -2145,31 +2141,25 @@ public class BpfCoordinatorTest {
                     .build());
         }
 
-        assertConsumerCountersEquals(
-                supportActiveSessionsMetrics ? addr1RuleCount + addr2RuleCount : 0);
+        assertConnectionCountCountersEquals(
+                supportActiveSessionsMetrics ? addr1RuleCount + addr2RuleCount : 0, coordinator);
 
         // Remove 1 client. Since the 1st poll will return the LastMaxCounter and
         // update it to the current, the max counter will be kept at 1st poll, while
         // the current counter reflect the rule decreasing.
         coordinator.tetherOffloadClientRemove(mIpServer, clientA);
-        assertEquals(supportActiveSessionsMetrics ? addr2RuleCount : 0,
-                mConsumer.getCurrentConnectionCount());
         assertEquals(supportActiveSessionsMetrics ? addr1RuleCount + addr2RuleCount : 0,
-                mConsumer.getLastMaxConnectionCount());
-        assertEquals(supportActiveSessionsMetrics ? addr1RuleCount + addr2RuleCount : 0,
-                mConsumer.getLastMaxConnectionAndResetToCurrent());
+                coordinator.getLastMaxConnectionAndResetToCurrent());
         // And all counters be updated at 2nd poll.
-        assertConsumerCountersEquals(supportActiveSessionsMetrics ? addr2RuleCount : 0);
+        assertConnectionCountCountersEquals(supportActiveSessionsMetrics ? addr2RuleCount : 0,
+                coordinator);
 
         // Remove other client.
         coordinator.tetherOffloadClientRemove(mIpServer, clientB);
-        assertEquals(0, mConsumer.getCurrentConnectionCount());
         assertEquals(supportActiveSessionsMetrics ? addr2RuleCount : 0,
-                mConsumer.getLastMaxConnectionCount());
-        assertEquals(supportActiveSessionsMetrics ? addr2RuleCount : 0,
-                mConsumer.getLastMaxConnectionAndResetToCurrent());
+                coordinator.getLastMaxConnectionAndResetToCurrent());
         // All counters reach zero at 2nd poll.
-        assertConsumerCountersEquals(0);
+        assertConnectionCountCountersEquals(0, coordinator);
     }
 
     @FeatureFlag(name = TETHER_ACTIVE_SESSIONS_METRICS)
@@ -2191,7 +2181,7 @@ public class BpfCoordinatorTest {
         final BpfCoordinator coordinator = makeBpfCoordinator();
         initBpfCoordinatorForRule4(coordinator);
         resetNetdAndBpfMaps();
-        assertConsumerCountersEquals(0);
+        assertConnectionCountCountersEquals(0, coordinator);
 
         // Prepare the counter value.
         for (int i = 0; i < 5; i++) {
