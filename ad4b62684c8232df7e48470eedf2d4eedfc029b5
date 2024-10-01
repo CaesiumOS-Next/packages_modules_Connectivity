@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4884fddc_b8249bf4",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-10-01T08:53:25Z",
+      "side": 1,
+      "message": "The original idea just check all command supported, and throw if any of the command is not supported \n\nin patch#6\n```\ntry:\n    # Invoke the shell command with empty argument and see how NetworkStack respond.\n    # If supported, an IllegalArgumentException with help page will be printed.\n    start_capture_packets(ad, \"\")\n    stop_capture_packets(ad, \"\")\n    get_matched_packet_counts(ad, \"\", \"\")\n  except assert_utils.UnexpectedBehaviorError:\n    return True\n  except UnsupportedOperationException:\n    return False\n```\n\nPer discussion with @junyulai@google.com, he thinks that it\u0027s better to identify the issue to collect individual command\u0027s result.\n\nFor code logic simplicity, the original version should be better.\n@yuyanghuang@google.com, @junyulai@google.com, any ideas?",
+      "parentUuid": "842b3397_459b4e46",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 212,
+        "endChar": 68
+      },
+      "revId": "ad4b62684c8232df7e48470eedf2d4eedfc029b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d764b060_08f1ebe8",
         "filename": "staticlibs/testutils/host/python/apf_utils.py",
         "patchSetId": 18
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-30T07:26:40Z",
       "side": 1,
       "message": "We probably should document that this command only support downstream tethering interface as well.",
+      "range": {
+        "startLine": 279,
+        "startChar": 3,
+        "endLine": 279,
+        "endChar": 55
+      },
+      "revId": "ad4b62684c8232df7e48470eedf2d4eedfc029b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a92daba5_39368172",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-10-01T08:53:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d764b060_08f1ebe8",
       "range": {
         "startLine": 279,
         "startChar": 3,
@@ -60,6 +108,30 @@
       "writtenOn": "2024-09-30T07:26:40Z",
       "side": 1,
       "message": "why the command should be tuple? Do we have use case to put multiple commands into that tuple? If not, can we let AdbOutputHandler convert the command to be tuple?",
+      "range": {
+        "startLine": 341,
+        "startChar": 2,
+        "endLine": 341,
+        "endChar": 5
+      },
+      "revId": "ad4b62684c8232df7e48470eedf2d4eedfc029b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d846c002_ca91364d",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-10-01T08:53:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b1686c7_5bed2fd0",
       "range": {
         "startLine": 341,
         "startChar": 2,
