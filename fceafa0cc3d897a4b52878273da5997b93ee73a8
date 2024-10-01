@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d01c578b_68154c47",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T14:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd586cf5_ba02d2cd",
+      "range": {
+        "startLine": 293,
+        "startChar": 22,
+        "endLine": 293,
+        "endChar": 45
+      },
+      "revId": "fceafa0cc3d897a4b52878273da5997b93ee73a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74b1b2ca_61b48804",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-01T09:45:27Z",
       "side": 1,
       "message": "Might need a new bug for this since this is for statsd.",
+      "range": {
+        "startLine": 301,
+        "startChar": 22,
+        "endLine": 301,
+        "endChar": 31
+      },
+      "revId": "fceafa0cc3d897a4b52878273da5997b93ee73a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bf2187c_64ef16c9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T14:17:11Z",
+      "side": 1,
+      "message": "Created an issue b/370724247 and updated the issue id accordingly.",
+      "parentUuid": "74b1b2ca_61b48804",
       "range": {
         "startLine": 301,
         "startChar": 22,
