@@ -19,6 +19,7 @@ package com.android.networkstack.tethering.apishim.api31;
 import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED;
 
 import static com.android.net.module.util.NetworkStackConstants.RFC7421_PREFIX_LENGTH;
+import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_ACTIVE_SESSIONS_METRICS;
 
 import android.system.ErrnoException;
 import android.system.Os;
@@ -108,6 +109,22 @@ public class BpfCoordinatorShimImpl
     // TODO: Add IPv6 rule count.
     private final SparseArray<Integer> mRule4CountOnUpstream = new SparseArray<>();
 
+    private final boolean mSupportActiveSessionsMetrics;
+    /**
+     * Tracks the current number of tethering connections and the maximum
+     * observed since the last metrics collection. Used to provide insights
+     * into the distribution of active tethering sessions for metrics reporting.
+
+     * These variables are accessed on the handler thread, which includes:
+     *  1. ConntrackEvents signaling the addition or removal of an IPv4 rule.
+     *  2. ConntrackEvents indicating the removal of a tethering client,
+     *     triggering the removal of associated rules.
+     *  3. Removal of the last IpServer, which resets counters to handle
+     *     potential synchronization issues.
+     */
+    private int mLastMaxConnectionCount = 0;
+    private int mCurrentConnectionCount = 0;
+
     public BpfCoordinatorShimImpl(@NonNull final Dependencies deps) {
         mLog = deps.getSharedLog().forSubComponent(TAG);
 
@@ -156,6 +173,9 @@ public class BpfCoordinatorShimImpl
         } catch (ErrnoException e) {
             mLog.e("Could not clear mBpfDevMap: " + e);
         }
+
+        mSupportActiveSessionsMetrics = deps.isFeatureEnabled(deps.getContext(),
+                TETHER_ACTIVE_SESSIONS_METRICS);
     }
 
     @Override
@@ -350,6 +370,12 @@ public class BpfCoordinatorShimImpl
                 final int upstreamIfindex = (int) key.iif;
                 int count = mRule4CountOnUpstream.get(upstreamIfindex, 0 /* default */);
                 mRule4CountOnUpstream.put(upstreamIfindex, ++count);
+
+                if (mSupportActiveSessionsMetrics) {
+                    mCurrentConnectionCount++;
+                    mLastMaxConnectionCount = Math.max(mCurrentConnectionCount,
+                            mLastMaxConnectionCount);
+                }
             } else {
                 mBpfUpstream4Map.insertEntry(key, value);
             }
@@ -384,6 +410,14 @@ public class BpfCoordinatorShimImpl
                     mRule4CountOnUpstream.remove(upstreamIfindex);
                 } else {
                     mRule4CountOnUpstream.put(upstreamIfindex, count);
+                }
+
+                if (mSupportActiveSessionsMetrics) {
+                    mCurrentConnectionCount--;
+                    if (mCurrentConnectionCount < 0) {
+                        Log.wtf(TAG, "Unexpected mCurrentConnectionCount: "
+                                + mCurrentConnectionCount);
+                    }
                 }
             } else {
                 if (!mBpfUpstream4Map.deleteEntry(key)) return false;  // Rule did not exist
@@ -506,5 +540,28 @@ public class BpfCoordinatorShimImpl
         }
 
         return 0;
+    }
+
+    /** Get last max connection count and reset to current count. */
+    public int getLastMaxConnectionAndResetToCurrent() {
+        final int ret = mLastMaxConnectionCount;
+        mLastMaxConnectionCount = mCurrentConnectionCount;
+        return ret;
+    }
+
+    /** Get last max connection count. */
+    public int getLastMaxConnectionCount() {
+        return mLastMaxConnectionCount;
+    }
+
+    /** Get current connection count. */
+    public int getCurrentConnectionCount() {
+        return mCurrentConnectionCount;
+    }
+
+    /** Clear current connection count. */
+    public void clearConnectionCounters() {
+        mCurrentConnectionCount = 0;
+        mLastMaxConnectionCount = 0;
     }
 }
