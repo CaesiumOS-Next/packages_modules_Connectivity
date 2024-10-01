@@ -20,6 +20,7 @@
 package android.net.cts
 
 import android.Manifest.permission.WRITE_DEVICE_CONFIG
+import android.content.pm.PackageManager
 import android.content.pm.PackageManager.FEATURE_WIFI
 import android.net.ConnectivityManager
 import android.net.Network
@@ -49,6 +50,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.PowerManager
+import android.os.UserManager
 import android.platform.test.annotations.AppModeFull
 import android.provider.DeviceConfig
 import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
@@ -155,6 +157,15 @@ class ApfIntegrationTest {
         @JvmStatic
         @Suppress("ktlint:standard:no-multi-spaces")
         fun setupOnce() {
+            // Background visible user devices (primarily Android auto) currently doesn't support
+            // per display interactiveness. So when the screen Off event is sent,
+            // PowerManager#IsInteractive is still true while driver screen is off as passenger
+            // screens are on. It also doesn't trigger the code path related to global
+            // wakefulness in power manager. The test will be enabled once per display
+            // interactiveness is supported.
+            // relevant bugs: b/330610015 b/366045308 b/366037029
+            assume().that(isAutomotiveWithVisibleBackgroundUser()).isFalse()
+
             // TODO: assertions thrown in @BeforeClass / @AfterClass are not well supported in the
             // test infrastructure. Consider saving excepion and throwing it in setUp().
             // APF must run when the screen is off and the device is not interactive.
@@ -179,6 +190,13 @@ class ApfIntegrationTest {
         @JvmStatic
         fun tearDownOnce() {
             turnScreenOn()
+        }
+
+        fun isAutomotiveWithVisibleBackgroundUser(): Boolean {
+            val packageManager = context.getPackageManager()
+            val userManager = context.getSystemService(UserManager::class.java)
+            return packageManager.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE)
+                    && userManager.isVisibleBackgroundUsersSupported()
         }
     }
 
