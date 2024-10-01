@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd586cf5_ba02d2cd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-01T09:45:27Z",
+      "side": 1,
+      "message": "Maybe add comment at caller since this is kind of errorprone.\ne.g.\n// This has to be called before update mCurrentUpstream when changing the upstream.",
+      "range": {
+        "startLine": 293,
+        "startChar": 22,
+        "endLine": 293,
+        "endChar": 45
+      },
+      "revId": "fceafa0cc3d897a4b52878273da5997b93ee73a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74b1b2ca_61b48804",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-01T09:45:27Z",
+      "side": 1,
+      "message": "Might need a new bug for this since this is for statsd.",
+      "range": {
+        "startLine": 301,
+        "startChar": 22,
+        "endLine": 301,
+        "endChar": 31
+      },
+      "revId": "fceafa0cc3d897a4b52878273da5997b93ee73a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
