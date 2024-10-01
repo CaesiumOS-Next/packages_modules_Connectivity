@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68e73414_63c5d5c3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T02:21:17Z",
+      "side": 1,
+      "message": "\u003e It seems TetheringMetrics is private final field in the Tethering.java. Therefore, this class seems live forever, so it might OK to not call thread.stop()?\n\nExactly. This class is intented to stay active alongside the Tethering service.\n\n\u003e Also It seems to me these 2 lines should be inside createHandler.\n\nI will address it in a follow up commit.",
+      "parentUuid": "71f32e82_6aead2c2",
+      "range": {
+        "startLine": 181,
+        "startChar": 8,
+        "endLine": 181,
+        "endChar": 23
+      },
+      "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a60065d6_3a099da8",
         "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
         "patchSetId": 3
@@ -85,6 +109,30 @@
       "writtenOn": "2024-09-24T04:31:09Z",
       "side": 1,
       "message": "Is this check necessary or helpful in other methods, such as noteDownstreamStopped calculateUsageDelta, addUpstreamEvent or others? If so, suggest factoring out to a helper method.",
+      "range": {
+        "startLine": 461,
+        "startChar": 12,
+        "endLine": 461,
+        "endChar": 70
+      },
+      "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92677987_44c4908b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T02:21:17Z",
+      "side": 1,
+      "message": "It\u0027s not necessary to do the thread check for those methods because all public method accesses are enforced to be running on the handler thread. Therefore, all private methods should run on the handler thread as well. This method is a getter and intended to be used for testing only; that\u0027s why it requires a thread check.",
+      "parentUuid": "a60065d6_3a099da8",
       "range": {
         "startLine": 461,
         "startChar": 12,
@@ -108,6 +156,30 @@
       "writtenOn": "2024-09-30T10:34:49Z",
       "side": 1,
       "message": "Please use @MonitorThreadLeak",
+      "range": {
+        "startLine": 107,
+        "startChar": 1,
+        "endLine": 107,
+        "endChar": 8
+      },
+      "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1cd0e41_7d5e8756",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T02:21:17Z",
+      "side": 1,
+      "message": "I will add @MonitorThreadLeak in a follow up commit.",
+      "parentUuid": "c902c2fb_0f508330",
       "range": {
         "startLine": 107,
         "startChar": 1,
