@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06e7df21_5259c5ab",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-01T13:18:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4dafb8d_c36f0d29",
+      "range": {
+        "startLine": 382,
+        "startChar": 8,
+        "endLine": 392,
+        "endChar": 9
+      },
+      "revId": "a0a816b2acf4734094450bdc8fae785edd18444d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d3aa2dc_dcb37add",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-01T10:17:22Z",
       "side": 1,
       "message": "Redundant?",
+      "range": {
+        "startLine": 399,
+        "startChar": 91,
+        "endLine": 399,
+        "endChar": 93
+      },
+      "revId": "a0a816b2acf4734094450bdc8fae785edd18444d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c4e13e1_3173f9dd",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-01T13:18:56Z",
+      "side": 1,
+      "message": "For people with no context I think it might be better to keep it as is.",
+      "parentUuid": "1d3aa2dc_dcb37add",
       "range": {
         "startLine": 399,
         "startChar": 91,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8543824_54f22c22",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-01T13:18:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28b7a43a_6a5cb77d",
+      "range": {
+        "startLine": 495,
+        "startChar": 12,
+        "endLine": 499,
+        "endChar": 90
+      },
+      "revId": "a0a816b2acf4734094450bdc8fae785edd18444d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a896f787_a049abad",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-10-01T10:17:22Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 572,
+        "startChar": 12,
+        "endLine": 572,
+        "endChar": 81
+      },
+      "revId": "a0a816b2acf4734094450bdc8fae785edd18444d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a84a77a_d73958c6",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-01T13:18:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a896f787_a049abad",
       "range": {
         "startLine": 572,
         "startChar": 12,
