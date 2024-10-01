@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2919675_cf10906d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-01T21:43:57Z",
+      "side": 1,
+      "message": "This is not the pattern we use for dependency injection. What we usually do is add a new constructor which is @VisibleForTesting public and takes the Dependencies object that gets instantiated in the public constructor. The interface of the public constructor shouldn\u0027t change. In this case, you should pass the two booleans to your Dependencies object during construction and just keep them in there. I think we should keep the previous API of\n```\npublic PrivateAddressCoordinator(Supplier\u003cNetwork[]\u003e getAllNetworksSupplier,\n            boolean isRandomPrefixBase,\n  boolean shouldEnableWifiP2pDedicatedIp) {\n```",
+      "revId": "8f276722e27b8d4e5ab67425da16802e7bd6f630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
