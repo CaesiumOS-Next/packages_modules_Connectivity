@@ -111,6 +111,11 @@ public class TetheringMetrics {
     private final SparseArray<NetworkTetheringReported.Builder> mBuilderMap = new SparseArray<>();
     private final SparseArray<Long> mDownstreamStartTime = new SparseArray<Long>();
     private final ArrayList<RecordUpstreamEvent> mUpstreamEventList = new ArrayList<>();
+    // Store baseline data usage for each upstream type to be used for the usage delta.
+    // Keys are upstream types. Values are tethering UID data usage for the corresponding type,
+    // retrieved when tethering is enabled.
+    // The data in this map will be updated when upstream is changed and cleared when tethering is
+    // disabled.
     private final ArrayMap<UpstreamType, DataUsage> mUpstreamUsageBaseline = new ArrayMap<>();
     private final Context mContext;
     private final Dependencies mDependencies;
@@ -282,6 +287,8 @@ public class TetheringMetrics {
      * Calculates the data usage difference between the current and previous usage for the
      * specified upstream type.
      *
+     * Note: This must be called before updating mCurrentUpstream when changing the upstream.
+     *
      * @return A DataUsage object containing the calculated difference in transmitted (tx) and
      *         received (rx) bytes.
      */
@@ -293,9 +300,14 @@ public class TetheringMetrics {
                 Log.d(TAG, "No usage baseline for the upstream=" + upstream);
                 return EMPTY;
             }
-            // TODO(b/352537247): Fix data usage which might be incorrect if the device uses
+            // TODO(b/370724247): Fix data usage which might be incorrect if the device uses
             //  tethering with the same upstream for over 15 days.
-            return DataUsage.subtract(getCurrentDataUsageForUpstreamType(upstream), oldUsage);
+            // Need to refresh the baseline usage data. If the network switches back to Wi-Fi after
+            // using cellular data (Wi-Fi -> Cellular -> Wi-Fi), the old baseline might be
+            // inaccurate, leading to incorrect delta calculations.
+            final DataUsage newUsage = getCurrentDataUsageForUpstreamType(upstream);
+            mUpstreamUsageBaseline.put(upstream, newUsage);
+            return DataUsage.subtract(newUsage, oldUsage);
         }
         return EMPTY;
     }
@@ -444,8 +456,11 @@ public class TetheringMetrics {
     }
 
     private void handleInitUpstreamUsageBaseline() {
-        if (!(mDependencies.isUpstreamDataUsageMetricsEnabled(mContext)
-                && mUpstreamUsageBaseline.isEmpty())) {
+        if (!mDependencies.isUpstreamDataUsageMetricsEnabled(mContext)) {
+            return;
+        }
+
+        if (!mUpstreamUsageBaseline.isEmpty()) {
             return;
         }
 
@@ -457,7 +472,7 @@ public class TetheringMetrics {
 
     @VisibleForTesting
     @NonNull
-    DataUsage getDataUsageFromUpstreamType(@NonNull UpstreamType type) {
+    DataUsage getUsageBaselineFromUpstreamType(@NonNull UpstreamType type) {
         if (mHandler.getLooper().getThread() != Thread.currentThread()) {
             throw new IllegalStateException(
                     "Not running on Handler thread: " + Thread.currentThread().getName());
