@@ -96,6 +96,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f67f101_caca74e7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T15:01:16Z",
+      "side": 1,
+      "message": "Done in aosp/3286873.",
+      "parentUuid": "68e73414_63c5d5c3",
+      "range": {
+        "startLine": 181,
+        "startChar": 8,
+        "endLine": 181,
+        "endChar": 23
+      },
+      "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a60065d6_3a099da8",
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "I will add @MonitorThreadLeak in a follow up commit.",
       "parentUuid": "c902c2fb_0f508330",
+      "range": {
+        "startLine": 107,
+        "startChar": 1,
+        "endLine": 107,
+        "endChar": 8
+      },
+      "revId": "26d4476007ac8d207894cca37bd2d2f6b9446986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1ae5f0b_86a897ee",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/metrics/TetheringMetricsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T15:01:16Z",
+      "side": 1,
+      "message": "Done in aosp/3286873.",
+      "parentUuid": "a1cd0e41_7d5e8756",
       "range": {
         "startLine": 107,
         "startChar": 1,
