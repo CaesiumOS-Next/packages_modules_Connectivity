@@ -62,7 +62,6 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkTemplate;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Looper;
 import android.stats.connectivity.DownstreamType;
 import android.stats.connectivity.ErrorCode;
 import android.stats.connectivity.UpstreamType;
@@ -163,8 +162,10 @@ public class TetheringMetrics {
          * @see Handler
          */
         @NonNull
-        public Handler createHandler(Looper looper) {
-            return new Handler(looper);
+        public Handler createHandler() {
+            final HandlerThread thread = new HandlerThread(TAG);
+            thread.start();
+            return new Handler(thread.getLooper());
         }
     }
 
@@ -181,9 +182,7 @@ public class TetheringMetrics {
         mContext = context;
         mDependencies = dependencies;
         mNetworkStatsManager = mContext.getSystemService(NetworkStatsManager.class);
-        final HandlerThread thread = new HandlerThread(TAG);
-        thread.start();
-        mHandler = dependencies.createHandler(thread.getLooper());
+        mHandler = dependencies.createHandler();
     }
 
     @VisibleForTesting
