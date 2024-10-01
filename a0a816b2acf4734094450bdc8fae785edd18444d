@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4dafb8d_c36f0d29",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T10:17:22Z",
+      "side": 1,
+      "message": "Consider use CompletableFuture to simplify this code.",
+      "range": {
+        "startLine": 382,
+        "startChar": 8,
+        "endLine": 392,
+        "endChar": 9
+      },
+      "revId": "a0a816b2acf4734094450bdc8fae785edd18444d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d3aa2dc_dcb37add",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T10:17:22Z",
+      "side": 1,
+      "message": "Redundant?",
+      "range": {
+        "startLine": 399,
+        "startChar": 91,
+        "endLine": 399,
+        "endChar": 93
+      },
+      "revId": "a0a816b2acf4734094450bdc8fae785edd18444d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28b7a43a_6a5cb77d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T10:17:22Z",
+      "side": 1,
+      "message": "Maybe put this comment above l.503, close to its usage.",
+      "range": {
+        "startLine": 495,
+        "startChar": 12,
+        "endLine": 499,
+        "endChar": 90
+      },
+      "revId": "a0a816b2acf4734094450bdc8fae785edd18444d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a896f787_a049abad",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T10:17:22Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 572,
+        "startChar": 12,
+        "endLine": 572,
+        "endChar": 81
+      },
+      "revId": "a0a816b2acf4734094450bdc8fae785edd18444d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
