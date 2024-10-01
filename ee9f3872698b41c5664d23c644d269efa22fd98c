@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b291d877_cecf5b4c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T09:19:02Z",
+      "side": 1,
+      "message": "Done in aosp/3288442.",
+      "parentUuid": "34628790_51d47e91",
+      "range": {
+        "startLine": 107,
+        "startChar": 52,
+        "endLine": 107,
+        "endChar": 74
+      },
+      "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e24cb833_3630f085",
@@ -112,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe243a7f_3aba7de5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T09:19:02Z",
+      "side": 1,
+      "message": "Acknowledged. Update the baseline when calculate the usage delta. Done in aosp/3288442.",
+      "parentUuid": "fca9e9b0_53912c49",
+      "range": {
+        "startLine": 271,
+        "startChar": 38,
+        "endLine": 271,
+        "endChar": 72
+      },
+      "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9948776d_c5167168",
@@ -125,6 +173,24 @@
       "writtenOn": "2024-09-24T04:50:37Z",
       "side": 1,
       "message": "This method returns baseline usage, not current usage. I think that\u0027s confusing. Would it be clearer if you renamed the method to contain the word \"baseline\"?",
+      "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f65ca69f_48f8f487",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-01T09:19:02Z",
+      "side": 1,
+      "message": "Done in aosp/3288442.",
+      "parentUuid": "9948776d_c5167168",
       "revId": "ee9f3872698b41c5664d23c644d269efa22fd98c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
