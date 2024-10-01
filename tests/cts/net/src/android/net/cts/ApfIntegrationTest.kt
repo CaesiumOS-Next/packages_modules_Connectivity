@@ -20,6 +20,7 @@
 package android.net.cts
 
 import android.Manifest.permission.WRITE_DEVICE_CONFIG
+import android.content.pm.PackageManager
 import android.content.pm.PackageManager.FEATURE_WIFI
 import android.net.ConnectivityManager
 import android.net.Network
@@ -49,6 +50,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.PowerManager
+import android.os.UserManager
 import android.platform.test.annotations.AppModeFull
 import android.provider.DeviceConfig
 import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
@@ -277,6 +279,7 @@ class ApfIntegrationTest {
     @Before
     fun setUp() {
         assume().that(pm.hasSystemFeature(FEATURE_WIFI)).isTrue()
+        assume().that(isAutomotiveWithVisibleBackgroundUser()).isFalse()
 
         networkCallback = TestableNetworkCallback()
         cm.requestNetwork(
@@ -728,5 +731,12 @@ class ApfIntegrationTest {
         Log.i(TAG, "counter map: ${apfCounterTracker.counters}")
 
         assertThat(replyPayload).isEqualTo(firstByte)
+    }
+
+    fun isAutomotiveWithVisibleBackgroundUser(): Boolean {
+        val packageManager = context.getPackageManager()
+        val userManager = context.getSystemService(UserManager::class.java)
+        return packageManager.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE)
+                && userManager.isVisibleBackgroundUsersSupported()
     }
 }
