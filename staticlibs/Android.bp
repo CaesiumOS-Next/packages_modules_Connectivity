@@ -303,10 +303,10 @@ java_library {
         "//packages/modules/Connectivity/tests/cts/net",
         "//packages/modules/Connectivity/Tethering",
         "//frameworks/base/tests:__subpackages__",
-        "//frameworks/opt/net/ike",
         "//frameworks/opt/telephony",
         "//frameworks/base/wifi:__subpackages__",
         "//packages/modules/Connectivity:__subpackages__",
+        "//packages/modules/IPsec:__subpackages__",
         "//packages/modules/NetworkStack:__subpackages__",
         "//packages/modules/CaptivePortalLogin",
         "//packages/modules/Wifi/framework/tests:__subpackages__",
@@ -327,6 +327,7 @@ java_library {
     apex_available: [
         "//apex_available:platform",
         "com.android.tethering",
+        "com.android.ipsec",
     ],
 }
 
