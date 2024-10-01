@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "651f55c2_d99b5ac2",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1962675
+      },
+      "writtenOn": "2024-10-01T00:18:15Z",
+      "side": 1,
+      "message": "Please add a comment explaining why.",
+      "range": {
+        "startLine": 282,
+        "startChar": 7,
+        "endLine": 282,
+        "endChar": 36
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "64e8a447_62550fb3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+              "range": {
+                "startLine": 282,
+                "startChar": 0,
+                "endLine": 282,
+                "endChar": 0
+              },
+              "replacement": "        // TODO(b/289131111): Remove this assumption once the bug is fixed.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "363b8387884ec57ac03fbe374965da4366ddd21d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
