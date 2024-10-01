@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbaac6a2_3068b81b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-01T17:37:13Z",
+      "side": 1,
+      "message": "Why doesn\u0027t this use AlarmManager which does the same thing?\n\nEven better, AlarmManager allows you to set inexact alarms by providing a wake window. (Though I seem to recall that those *may* not always trigger a wake up when they expire, you\u0027ll have to look into that.)",
+      "revId": "4a7270cceebe257bf0af0a8c70c56f4181b89305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
