@@ -724,3 +724,18 @@ java_library {
     ],
     apex_available: ["com.android.wifi"],
 }
+
+java_library {
+    name: "net-utils-framework-vcn",
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    srcs: [
+        "device/com/android/net/module/util/HandlerUtils.java",
+    ],
+    libs: [
+        "framework-annotations-lib",
+    ],
+    visibility: [
+        "//frameworks/base/packages/Vcn/service-b:__subpackages__",
+    ],
+}
