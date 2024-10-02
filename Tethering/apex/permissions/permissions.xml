@@ -24,5 +24,6 @@
         <permission name="android.permission.TETHER_PRIVILEGED"/>
         <permission name="android.permission.UPDATE_APP_OPS_STATS"/>
         <permission name="android.permission.UPDATE_DEVICE_STATS"/>
+        <permission name="android.permission.QUERY_USERS"/>
       </privapp-permissions>
 </permissions>
