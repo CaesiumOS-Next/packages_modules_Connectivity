@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d2af3d1_a43c5aa9",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-02T02:27:24Z",
+      "side": 1,
+      "message": "If adding upstream rules results in an exception, this logic should not be executed, consistent with the previous design.",
+      "range": {
+        "startLine": 374,
+        "startChar": 16,
+        "endLine": 378,
+        "endChar": 17
+      },
+      "revId": "dfa0cbb2925e7abcd6433ed373f2edfd21fa454c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92de6bf2_5215aa82",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-02T02:27:24Z",
+      "side": 1,
+      "message": "Same here. If the rule deletion results in an error, this logic should not be executed.",
+      "range": {
+        "startLine": 415,
+        "startChar": 16,
+        "endLine": 421,
+        "endChar": 17
+      },
+      "revId": "dfa0cbb2925e7abcd6433ed373f2edfd21fa454c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
