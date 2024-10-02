@@ -206,6 +206,7 @@ java_library {
 
     },
     visibility: [
+        "//frameworks/base/packages/Vcn:__subpackages__",
         "//packages/modules/Connectivity/service-t",
         "//packages/modules/Connectivity/networksecurity:__subpackages__",
         "//packages/modules/Connectivity/tests:__subpackages__",
