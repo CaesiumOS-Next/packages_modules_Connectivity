@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caf8be53_63e26b94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-02T17:07:28Z",
+      "side": 1,
+      "message": "FWIW, I find the wtf log useful. Having unhandled messages is leads to unexpected behavior, and without a Log.wtf() we will never find out about it as no one pays attention to error logs.",
+      "revId": "3e65cfee4097531ef648640ae345679bbb4ff9ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
