@@ -46,6 +46,30 @@
       },
       "revId": "8d825d9a3142d04740b17c719fe8b1627b407e0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb4d8fd2_6046365f",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-02T13:56:12Z",
+      "side": 1,
+      "message": "As discussed, using CompletableFuture may result in an op change. In this particular change, you intend to separate the check and data usage generation. Perhaps consider making a separate change to utilize CompletableFuture.",
+      "parentUuid": "f1edea3b_070a48c5",
+      "range": {
+        "startLine": 384,
+        "startChar": 17,
+        "endLine": 384,
+        "endChar": 33
+      },
+      "revId": "8d825d9a3142d04740b17c719fe8b1627b407e0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
