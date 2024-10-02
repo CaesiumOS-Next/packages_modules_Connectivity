@@ -71,6 +71,7 @@ import android.os.PersistableBundle;
 import android.os.ResultReceiver;
 import android.os.SystemProperties;
 import android.os.UserHandle;
+import android.os.UserManager;
 import android.os.test.TestLooper;
 import android.provider.DeviceConfig;
 import android.provider.Settings;
@@ -114,6 +115,7 @@ public final class EntitlementManagerTest {
     @Mock private EntitlementManager
             .OnTetherProvisioningFailedListener mTetherProvisioningFailedListener;
     @Mock private AlarmManager mAlarmManager;
+    @Mock private UserManager mUserManager;
     @Mock private PendingIntent mAlarmIntent;
 
     @Rule
@@ -143,8 +145,15 @@ public final class EntitlementManagerTest {
         @Override
         public Object getSystemService(String name) {
             if (Context.ALARM_SERVICE.equals(name)) return mAlarmManager;
+            if (Context.USER_SERVICE.equals(name)) return mUserManager;
 
             return super.getSystemService(name);
+        }
+
+        @Override
+        public String getSystemServiceName(Class<?> serviceClass) {
+            if (UserManager.class.equals(serviceClass)) return Context.USER_SERVICE;
+            return super.getSystemServiceName(serviceClass);
         }
     }
 

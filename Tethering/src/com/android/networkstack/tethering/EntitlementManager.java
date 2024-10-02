@@ -50,6 +50,8 @@ import android.os.Parcel;
 import android.os.ResultReceiver;
 import android.os.SystemClock;
 import android.os.SystemProperties;
+import android.os.UserHandle;
+import android.os.UserManager;
 import android.provider.Settings;
 import android.util.SparseIntArray;
 
@@ -423,9 +425,23 @@ public class EntitlementManager {
         intent.putExtra(EXTRA_PROVISION_CALLBACK, receiver);
         intent.putExtra(EXTRA_TETHER_SUBID, config.activeDataSubId);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        // Only launch entitlement UI for system user. Entitlement UI should not appear for other
-        // user because only admin user is allowed to change tethering.
-        mContext.startActivity(intent);
+
+        final UserManager um = mContext.getSystemService(UserManager.class);
+
+        // Only launch entitlement UI for the current user if it is allowed to
+        // change tethering. This usually means the system user or the main user in HSUM mode.
+        // TODO: Properly support T- HSUM mode devices, where the API to identify
+        //  the main user is not available. See go/hsum.
+        boolean isAllowed = um.isSystemUser() || (SdkLevel.isAtLeastT() && um.isAdminUser());
+
+        if (isAllowed) {
+            // Launch the activity as the current user. When called from the tethering
+            // UID, the current user will always be the system user.
+            mContext.startActivityAsUser(intent, UserHandle.CURRENT);
+        } else {
+            mLog.e("Current user (" + UserHandle.CURRENT
+                    + ") is not allowed to perform entitlement check.");
+        }
         return intent;
     }
 
