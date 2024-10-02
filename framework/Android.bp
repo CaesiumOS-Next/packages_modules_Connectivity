@@ -284,6 +284,8 @@ java_genrule {
         ":framework-connectivity.stubs.module_lib{.jar}",
         ":framework-connectivity-t.stubs.module_lib{.jar}",
         ":framework-connectivity-module-api-stubs-including-flagged{.jar}",
+        ":framework-vcn-pre-jarjar{.jar}",
+        ":framework-vcn.stubs.module_lib{.jar}",
         "jarjar-excludes.txt",
     ],
     tools: [
@@ -293,15 +295,18 @@ java_genrule {
     cmd: "$(location jarjar-rules-generator) " +
         "$(location :framework-connectivity-pre-jarjar{.jar}) " +
         "$(location :framework-connectivity-t-pre-jarjar{.jar}) " +
+        "$(location :framework-vcn-pre-jarjar{.jar}) " +
         "--prefix android.net.connectivity " +
         "--apistubs $(location :framework-connectivity.stubs.module_lib{.jar}) " +
         "--apistubs $(location :framework-connectivity-t.stubs.module_lib{.jar}) " +
         "--apistubs $(location :framework-connectivity-module-api-stubs-including-flagged{.jar}) " +
+        "--apistubs $(location :framework-vcn.stubs.module_lib{.jar}) " +
         // Make a ":"-separated list. There will be an extra ":" but empty items are ignored.
         "--unsupportedapi $$(printf ':%s' $(locations :connectivity-hiddenapi-files)) " +
         "--excludes $(location jarjar-excludes.txt) " +
         "--output $(out)",
     visibility: [
+        "//frameworks/base/packages/Vcn/framework-vcn:__subpackages__",
         "//packages/modules/Connectivity/framework:__subpackages__",
         "//packages/modules/Connectivity/framework-t:__subpackages__",
         "//packages/modules/Connectivity/service",

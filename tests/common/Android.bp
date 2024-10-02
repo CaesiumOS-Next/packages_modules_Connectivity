@@ -172,12 +172,16 @@ java_defaults {
         "framework-connectivity-pre-jarjar",
         "framework-connectivity-t-pre-jarjar",
         "framework-tethering.impl",
+        "framework-vcn-pre-jarjar",
         "framework",
 
         // if sdk_version="" this gets automatically included, but here we need to add manually.
         "framework-res",
     ],
-    defaults_visibility: ["//packages/modules/Connectivity/tests:__subpackages__"],
+    defaults_visibility: [
+        "//packages/modules/Connectivity/tests:__subpackages__",
+        "//frameworks/base/tests/vcn:__subpackages__",
+    ],
 }
 
 // Defaults for tests that want to run in mainline-presubmit.
