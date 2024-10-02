@@ -725,3 +725,27 @@ java_library {
     ],
     apex_available: ["com.android.wifi"],
 }
+
+java_library {
+    name: "net-utils-service-vcn",
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    srcs: [
+        "device/com/android/net/module/util/HandlerUtils.java",
+        ":framework-connectivity-shared-srcs",
+    ],
+    libs: [
+        "framework-annotations-lib",
+        "unsupportedappusage",
+    ],
+    visibility: [
+        "//frameworks/base/packages/Vcn/service-b",
+        "//packages/modules/Connectivity/service-b",
+    ],
+    apex_available: [
+        // TODO: b/374174952 Remove it when VCN modularization is released
+        "//apex_available:platform",
+
+        "com.android.tethering",
+    ],
+}
