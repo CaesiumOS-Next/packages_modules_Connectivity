@@ -65,6 +65,7 @@ open class NetworkCallbackHelper {
     }
     private val cbToCleanup = Collections.synchronizedSet(mutableSetOf<NetworkCallback>())
     private var cellRequestCb: TestableNetworkCallback? = null
+    private var wifiRequestCb: TestableNetworkCallback? = null
 
     /**
      * Convenience method to request a cell network, similarly to [requestNetwork].
@@ -90,12 +91,44 @@ open class NetworkCallbackHelper {
     }
 
     /**
+     * Convenience method to request a wifi network, similarly to [requestNetwork].
+     *
+     * The rule will keep tract of a single wifi network request, which can be unrequested manually
+     * using [unrequestWifi].
+     */
+    fun requestWifi(): Network {
+        if (wifiRequestCb != null) {
+            fail("Wifi network was already requested")
+        }
+        val cb = requestNetwork(
+                NetworkRequest.Builder()
+                        .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                        .build()
+        )
+        wifiRequestCb = cb
+        return cb.expect<CallbackEntry.Available>(
+                errorMsg = "Wifi network not available. " +
+                        "Please ensure the device has working wifi."
+        ).network
+    }
+
+    /**
      * Unrequest a cell network requested through [requestCell].
      */
     fun unrequestCell() {
         val cb = cellRequestCb ?: fail("Cell network was not requested")
         unregisterNetworkCallback(cb)
         cellRequestCb = null
+    }
+
+    /**
+     * Unrequest a wifi network requested through [requestWifi].
+     */
+    fun unrequestWifi() {
+        val cb = wifiRequestCb ?: fail("Wifi network was not requested")
+        unregisterNetworkCallback(cb)
+        wifiRequestCb = null
     }
 
     private fun addCallback(
@@ -223,5 +256,6 @@ open class NetworkCallbackHelper {
         cbToCleanup.forEach { cm.unregisterNetworkCallback(it) }
         cbToCleanup.clear()
         cellRequestCb = null
+        wifiRequestCb = null
     }
 }
