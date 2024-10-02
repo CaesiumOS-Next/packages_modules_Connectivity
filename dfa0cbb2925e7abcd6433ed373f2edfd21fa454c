@@ -45,6 +45,76 @@
       },
       "revId": "dfa0cbb2925e7abcd6433ed373f2edfd21fa454c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89eeadd4_b86dfdfc",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-02T06:22:56Z",
+      "side": 1,
+      "message": "Right. This can\u0027t happen, can it? If the delete was skipped because the rule didn\u0027t exist, then this code can never run.",
+      "parentUuid": "92de6bf2_5215aa82",
+      "range": {
+        "startLine": 415,
+        "startChar": 16,
+        "endLine": 421,
+        "endChar": 17
+      },
+      "revId": "dfa0cbb2925e7abcd6433ed373f2edfd21fa454c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18f36354_378bcf53",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-02T06:22:56Z",
+      "side": 1,
+      "message": "Per discussion, I\u0027d just remove these two methods from the shim and instead just add a dump method.\n\nAlso for clarity, I\u0027d suggest making the one remaining method (getLastMaxConnectionAndResetToCurrent) abstract like all the others, and explicitly adding a \"return 0;\" implementation in the 30 impl.",
+      "range": {
+        "startLine": 1367,
+        "startChar": 0,
+        "endLine": 1370,
+        "endChar": 67
+      },
+      "revId": "dfa0cbb2925e7abcd6433ed373f2edfd21fa454c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb3e4c07_65eb9d34",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-02T06:22:56Z",
+      "side": 1,
+      "message": "We don\u0027t need to test the behaviour of these two, do we? From a correctness perspective, the only thing we care about is that getLastMaxConnectionAndResetToCurrent behaves correctly?",
+      "range": {
+        "startLine": 2075,
+        "startChar": 32,
+        "endLine": 2075,
+        "endChar": 57
+      },
+      "revId": "dfa0cbb2925e7abcd6433ed373f2edfd21fa454c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
