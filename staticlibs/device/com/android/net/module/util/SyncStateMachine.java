@@ -224,9 +224,10 @@ public class SyncStateMachine {
             }
             consideredState = mStateInfo.get(consideredState.parent);
         }
+        // No parents left so it's not handled. Log this unhandled Message.
         if (null == consideredState) {
             final String state = mCurrentState == null ? "null" : mCurrentState.getName();
-            Log.wtf(mName, "Message " + msg.what + " was not handled. Current state: " + state);
+            Log.e(mName, "Message " + msg.what + " was not handled. Current state: " + state);
         }
 
         performTransitions();
