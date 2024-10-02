@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1cf23be_ac5ffd7a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-02T02:45:05Z",
+      "side": 0,
+      "message": "Miss unregistration on right side.",
+      "range": {
+        "startLine": 390,
+        "startChar": 8,
+        "endLine": 390,
+        "endChar": 48
+      },
+      "revId": "e7f5ac9d2ff4ff0122cb577bb062998656486a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
