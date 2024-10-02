@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3db029f3_3db7b5d6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-02T10:00:47Z",
+      "side": 1,
+      "message": "- According to the API documentation, the main user can be null. However, the user argument in startActivityAsUser() must not be null.\n\n- As described above, the activity should be launched with the system user in no-HSUM mode. However, you are launching the activity with the main user in all cases.",
+      "range": {
+        "startLine": 432,
+        "startChar": 52,
+        "endLine": 432,
+        "endChar": 63
+      },
+      "revId": "17a97136aa77518cdebabdfc8d1e4892c7196b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6266d3e8_15d9b48f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-02T10:00:47Z",
+      "side": 1,
+      "message": "Please verify the activity launches correctly (with or without user) in differnt android version.",
+      "revId": "17a97136aa77518cdebabdfc8d1e4892c7196b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
