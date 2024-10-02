@@ -42,6 +42,8 @@
     <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS"/>
+    <uses-permission android:name="android.permission.QUERY_USERS"/>
 
     <!-- Sending non-protected broadcast from system uid is not allowed. -->
     <protected-broadcast android:name="com.android.server.connectivity.tethering.DISABLE_TETHERING" />
