@@ -45,6 +45,30 @@
       },
       "revId": "b66fb25843ea9bc32d2e053bad80d9a2a41ce938",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27893853_550a8f99",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-02T09:08:14Z",
+      "side": 1,
+      "message": "Updated this based on the design doc to only include the SoftApConfiguration if the receiver is\n\n1) the same UID that sent the original request\n2) Settings (for future UI changes)",
+      "parentUuid": "b163f543_629c3843",
+      "range": {
+        "startLine": 1110,
+        "startChar": 46,
+        "endLine": 1110,
+        "endChar": 68
+      },
+      "revId": "b66fb25843ea9bc32d2e053bad80d9a2a41ce938",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
