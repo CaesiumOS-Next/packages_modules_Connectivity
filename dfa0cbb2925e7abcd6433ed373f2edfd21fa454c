@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb431931_bf03c132",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-02T12:53:07Z",
+      "side": 1,
+      "message": "Yes.\nIf the rule added successfuly, we increase the counter here.",
+      "parentUuid": "1d2af3d1_a43c5aa9",
+      "range": {
+        "startLine": 374,
+        "startChar": 16,
+        "endLine": 378,
+        "endChar": 17
+      },
+      "revId": "dfa0cbb2925e7abcd6433ed373f2edfd21fa454c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92de6bf2_5215aa82",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cdd569b_bed8762f",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-02T12:53:07Z",
+      "side": 1,
+      "message": "Removed error handling.",
+      "parentUuid": "89eeadd4_b86dfdfc",
+      "range": {
+        "startLine": 415,
+        "startChar": 16,
+        "endLine": 421,
+        "endChar": 17
+      },
+      "revId": "dfa0cbb2925e7abcd6433ed373f2edfd21fa454c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18f36354_378bcf53",
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90e2b1f1_326e83f7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-02T12:53:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18f36354_378bcf53",
+      "range": {
+        "startLine": 1367,
+        "startChar": 0,
+        "endLine": 1370,
+        "endChar": 67
+      },
+      "revId": "dfa0cbb2925e7abcd6433ed373f2edfd21fa454c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb3e4c07_65eb9d34",
@@ -107,6 +179,30 @@
       "writtenOn": "2024-10-02T06:22:56Z",
       "side": 1,
       "message": "We don\u0027t need to test the behaviour of these two, do we? From a correctness perspective, the only thing we care about is that getLastMaxConnectionAndResetToCurrent behaves correctly?",
+      "range": {
+        "startLine": 2075,
+        "startChar": 32,
+        "endLine": 2075,
+        "endChar": 57
+      },
+      "revId": "dfa0cbb2925e7abcd6433ed373f2edfd21fa454c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bc3ca9b_733c04f2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-02T12:53:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb3e4c07_65eb9d34",
       "range": {
         "startLine": 2075,
         "startChar": 32,
