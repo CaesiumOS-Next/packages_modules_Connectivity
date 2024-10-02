@@ -50,6 +50,7 @@ import android.os.Parcel;
 import android.os.ResultReceiver;
 import android.os.SystemClock;
 import android.os.SystemProperties;
+import android.os.UserManager;
 import android.provider.Settings;
 import android.util.SparseIntArray;
 
@@ -423,9 +424,17 @@ public class EntitlementManager {
         intent.putExtra(EXTRA_PROVISION_CALLBACK, receiver);
         intent.putExtra(EXTRA_TETHER_SUBID, config.activeDataSubId);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        // Only launch entitlement UI for system user. Entitlement UI should not appear for other
+        // Only launch entitlement UI for system user or the main user in HSUM mode.
+        // Entitlement UI should not appear for other
         // user because only admin user is allowed to change tethering.
-        mContext.startActivity(intent);
+        if (SdkLevel.isAtLeastU() && UserManager.isHeadlessSystemUserMode()) {
+            final UserManager um = mContext.getSystemService(UserManager.class);
+            mContext.startActivityAsUser(intent, um.getMainUser());
+        } else {
+            // TODO: Properly support U- HSUM mode devices, they are not visible to
+            //  testers and users but still can be enabled via adb commands. See go/hsum.
+            mContext.startActivity(intent);
+        }
         return intent;
     }
 
