@@ -205,6 +205,7 @@ java_library {
 
     },
     visibility: [
+        "//frameworks/base/packages/Vcn:__subpackages__",
         "//packages/modules/Connectivity/service-t",
         "//packages/modules/Connectivity/networksecurity:__subpackages__",
         "//packages/modules/Connectivity/tests:__subpackages__",
@@ -338,6 +339,7 @@ java_genrule {
     tool_files: [
         ":service-connectivity-pre-jarjar{.jar}",
         ":service-connectivity-tiramisu-pre-jarjar{.jar}",
+        ":service-vcn-pre-jarjar{.jar}",
         "jarjar-excludes.txt",
     ],
     tools: [
@@ -347,6 +349,7 @@ java_genrule {
     cmd: "$(location jarjar-rules-generator) " +
         "$(location :service-connectivity-pre-jarjar{.jar}) " +
         "$(location :service-connectivity-tiramisu-pre-jarjar{.jar}) " +
+        "$(location :service-vcn-pre-jarjar{.jar}) " +
         "--prefix android.net.connectivity " +
         "--excludes $(location jarjar-excludes.txt) " +
         "--output $(out)",

@@ -124,13 +124,17 @@ genrule {
         ":connectivity-jarjar-rules",
     ],
     out: ["frameworks-net-tests-jarjar-rules.txt"],
-    visibility: ["//packages/modules/Connectivity/tests:__subpackages__"],
+    visibility: [
+        "//packages/modules/Connectivity/tests:__subpackages__",
+        "//frameworks/base/tests/vcn:__subpackages__",
+    ],
 }
 
 java_genrule {
     name: "frameworks-net-tests-lib-jarjar-gen",
     tool_files: [
         ":ConnectivityUnitTestsLib{.jar}",
+        ":FrameworksVcnTestsLib{.jar}",
         "jarjar-excludes.txt",
     ],
     tools: [
@@ -139,6 +143,7 @@ java_genrule {
     out: ["frameworks-net-tests-lib-jarjar-rules.txt"],
     cmd: "$(location jarjar-rules-generator) " +
         "$(location :ConnectivityUnitTestsLib{.jar}) " +
+        "$(location :FrameworksVcnTestsLib{.jar}) " +
         "--prefix android.net.connectivity " +
         "--excludes $(location jarjar-excludes.txt) " +
         "--output $(out)",
