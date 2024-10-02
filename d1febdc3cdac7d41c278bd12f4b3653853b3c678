@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a563818_fc8eb959",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-02T06:04:09Z",
+      "side": 1,
+      "message": "This isn\u0027t really a baseline any more though, is it? It\u0027s the amount of data usage since the last report? Maybe we could rename it to mLastReportedUpstreamUsage?",
+      "range": {
+        "startLine": 119,
+        "startChar": 52,
+        "endLine": 119,
+        "endChar": 74
+      },
+      "revId": "d1febdc3cdac7d41c278bd12f4b3653853b3c678",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1d60345_7abbf4f3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-02T06:04:09Z",
+      "side": 1,
+      "message": "Suggest unindenting.\n\n    if (!mDependencies.isUpstreamDataUsageMetricsEnabled(mContext)) {\n        return EMPTY;\n    }\n\n    if (upstream \u003d\u003d null || !isUsageSupportedForUpstreamType(upstream)) {\n        return EMPTY;\n    }\n\n    final DataUsage oldUsage \u003d ...\n    ....",
+      "range": {
+        "startLine": 296,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 63
+      },
+      "revId": "d1febdc3cdac7d41c278bd12f4b3653853b3c678",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5093c77_4339fc9d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-02T06:04:09Z",
+      "side": 1,
+      "message": "This can never happen, right? Log.wtf?",
+      "range": {
+        "startLine": 464,
+        "startChar": 12,
+        "endLine": 464,
+        "endChar": 18
+      },
+      "revId": "d1febdc3cdac7d41c278bd12f4b3653853b3c678",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
