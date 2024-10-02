@@ -22,6 +22,30 @@
       },
       "revId": "8d825d9a3142d04740b17c719fe8b1627b407e0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1edea3b_070a48c5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-02T13:39:17Z",
+      "side": 1,
+      "message": "I think it might be better to let the test fail and see what\u0027s wrong, since they are not expected?\nAny idea?",
+      "parentUuid": "c3d09f33_a941eb55",
+      "range": {
+        "startLine": 384,
+        "startChar": 17,
+        "endLine": 384,
+        "endChar": 33
+      },
+      "revId": "8d825d9a3142d04740b17c719fe8b1627b407e0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
