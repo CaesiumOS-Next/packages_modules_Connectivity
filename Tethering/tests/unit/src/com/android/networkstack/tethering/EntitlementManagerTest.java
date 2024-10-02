@@ -57,6 +57,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -71,6 +72,7 @@ import android.os.PersistableBundle;
 import android.os.ResultReceiver;
 import android.os.SystemProperties;
 import android.os.UserHandle;
+import android.os.UserManager;
 import android.os.test.TestLooper;
 import android.provider.DeviceConfig;
 import android.provider.Settings;
@@ -114,6 +116,8 @@ public final class EntitlementManagerTest {
     @Mock private EntitlementManager
             .OnTetherProvisioningFailedListener mTetherProvisioningFailedListener;
     @Mock private AlarmManager mAlarmManager;
+    @Mock private UserManager mUserManager;
+    @Mock private ActivityManager mActivityManager;
     @Mock private PendingIntent mAlarmIntent;
 
     @Rule
@@ -143,8 +147,22 @@ public final class EntitlementManagerTest {
         @Override
         public Object getSystemService(String name) {
             if (Context.ALARM_SERVICE.equals(name)) return mAlarmManager;
+            if (Context.USER_SERVICE.equals(name)) return mUserManager;
+            if (Context.ACTIVITY_SERVICE.equals(name)) return mActivityManager;
 
             return super.getSystemService(name);
+        }
+
+        @Override
+        public String getSystemServiceName(Class<?> serviceClass) {
+            if (UserManager.class.equals(serviceClass)) return Context.USER_SERVICE;
+            if (ActivityManager.class.equals(serviceClass)) return Context.ACTIVITY_SERVICE;
+            return super.getSystemServiceName(serviceClass);
+        }
+
+        @Override
+        public Context createContextAsUser(UserHandle user, int flags) {
+            return mMockContext; // Return self for easier test assertions.
         }
     }
 
@@ -216,6 +234,13 @@ public final class EntitlementManagerTest {
         PendingIntent createRecheckAlarmIntent(final String pkgName) {
             assertEquals(TEST_PACKAGE_NAME, pkgName);
             return mAlarmIntent;
+        }
+
+        @Override
+        protected int getCurrentUser() {
+            // The result is not used, just override to bypass the need of accessing
+            // the static method.
+            return 0;
         }
     }
 
