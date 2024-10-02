@@ -149,6 +149,7 @@ java_defaults {
         "framework-connectivity.impl",
         "framework-connectivity-t.impl",
         "framework-tethering.impl",
+        "framework-vcn.impl",
         "framework",
 
         // if sdk_version="" this gets automatically included, but here we need to add manually.
