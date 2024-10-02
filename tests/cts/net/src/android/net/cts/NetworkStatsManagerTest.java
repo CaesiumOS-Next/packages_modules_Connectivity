@@ -41,6 +41,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import android.annotation.NonNull;
 import android.app.AppOpsManager;
 import android.app.Instrumentation;
 import android.app.usage.NetworkStats;
@@ -51,7 +52,6 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
-import android.net.NetworkRequest;
 import android.net.NetworkStatsCollection;
 import android.net.NetworkStatsHistory;
 import android.net.TrafficStats;
@@ -73,6 +73,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.android.compatibility.common.util.ShellIdentityUtils;
 import com.android.compatibility.common.util.SystemUtil;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.testutils.AutoReleaseNetworkCallbackRule;
 import com.android.testutils.ConnectivityModuleTest;
 import com.android.testutils.DevSdkIgnoreRule;
 
@@ -99,8 +100,12 @@ import java.util.concurrent.TimeUnit;
 @AppModeFull(reason = "instant apps cannot be granted USAGE_STATS")
 @RunWith(AndroidJUnit4.class)
 public class NetworkStatsManagerTest {
-    @Rule
+    @Rule(order = 1)
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule(Build.VERSION_CODES.Q);
+    @Rule(order = 2)
+    public final AutoReleaseNetworkCallbackRule
+            networkCallbackRule = new AutoReleaseNetworkCallbackRule();
+
 
     private static final String LOG_TAG = "NetworkStatsManagerTest";
     private static final String APPOPS_SET_SHELL_COMMAND = "appops set {0} {1} {2}";
@@ -124,7 +129,8 @@ public class NetworkStatsManagerTest {
         private boolean mIsDefault;
 
         abstract int getNetworkType();
-        abstract int getTransportType();
+        abstract Network requestNetwork();
+        abstract void unrequestNetwork();
 
         public boolean getMetered() {
             return mMetered;
@@ -163,8 +169,13 @@ public class NetworkStatsManagerTest {
                         }
 
                         @Override
-                        public int getTransportType() {
-                            return NetworkCapabilities.TRANSPORT_WIFI;
+                        public Network requestNetwork() {
+                            return networkCallbackRule.requestWifi();
+                        }
+
+                        @Override
+                        public void unrequestNetwork() {
+                            networkCallbackRule.unrequestWifi();
                         }
 
                         @Override
@@ -184,8 +195,13 @@ public class NetworkStatsManagerTest {
                         }
 
                         @Override
-                        public int getTransportType() {
-                            return NetworkCapabilities.TRANSPORT_CELLULAR;
+                        public Network requestNetwork() {
+                            return networkCallbackRule.requestCell();
+                        }
+
+                        @Override
+                        public void unrequestNetwork() {
+                            networkCallbackRule.unrequestCell();
                         }
 
                         @Override
@@ -215,7 +231,22 @@ public class NetworkStatsManagerTest {
     private String mWriteSettingsMode;
     private String mUsageStatsMode;
 
-    private void exerciseRemoteHost(Network network, URL url) throws Exception {
+    // The test host only has IPv4. So on a dual-stack network where IPv6 connects before IPv4,
+    // we need to wait until IPv4 is available or the test will spuriously fail.
+    private static void waitForHostResolution(@NonNull Network network, @NonNull URL url) {
+        for (int i = 0; i < HOST_RESOLUTION_RETRIES; i++) {
+            try {
+                network.getAllByName(url.getHost());
+                return;
+            } catch (UnknownHostException e) {
+                SystemClock.sleep(HOST_RESOLUTION_INTERVAL_MS);
+            }
+        }
+        fail(String.format("%s could not be resolved on network %s (%d attempts %dms apart)",
+                url.getHost(), network, HOST_RESOLUTION_RETRIES, HOST_RESOLUTION_INTERVAL_MS));
+    }
+
+    private void exerciseRemoteHost(@NonNull Network network, @NonNull URL url) throws Exception {
         NetworkInfo networkInfo = mCm.getNetworkInfo(network);
         if (networkInfo == null) {
             Log.w(LOG_TAG, "Network info is null");
@@ -311,61 +342,6 @@ public class NetworkStatsManagerTest {
         return result.contains("FOREGROUND");
     }
 
-    private class NetworkCallback extends ConnectivityManager.NetworkCallback {
-        private long mTolerance;
-        private URL mUrl;
-        public boolean success;
-        public boolean metered;
-        public boolean roaming;
-        public boolean isDefault;
-
-        NetworkCallback(long tolerance, URL url) {
-            mTolerance = tolerance;
-            mUrl = url;
-            success = false;
-            metered = false;
-            roaming = false;
-            isDefault = false;
-        }
-
-        // The test host only has IPv4. So on a dual-stack network where IPv6 connects before IPv4,
-        // we need to wait until IPv4 is available or the test will spuriously fail.
-        private void waitForHostResolution(Network network) {
-            for (int i = 0; i < HOST_RESOLUTION_RETRIES; i++) {
-                try {
-                    network.getAllByName(mUrl.getHost());
-                    return;
-                } catch (UnknownHostException e) {
-                    SystemClock.sleep(HOST_RESOLUTION_INTERVAL_MS);
-                }
-            }
-            fail(String.format("%s could not be resolved on network %s (%d attempts %dms apart)",
-                    mUrl.getHost(), network, HOST_RESOLUTION_RETRIES, HOST_RESOLUTION_INTERVAL_MS));
-        }
-
-        @Override
-        public void onAvailable(Network network) {
-            try {
-                mStartTime = System.currentTimeMillis() - mTolerance;
-                isDefault = network.equals(mCm.getActiveNetwork());
-                waitForHostResolution(network);
-                exerciseRemoteHost(network, mUrl);
-                mEndTime = System.currentTimeMillis() + mTolerance;
-                success = true;
-                metered = !mCm.getNetworkCapabilities(network)
-                        .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
-                roaming = !mCm.getNetworkCapabilities(network)
-                        .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
-                synchronized (NetworkStatsManagerTest.this) {
-                    NetworkStatsManagerTest.this.notify();
-                }
-            } catch (Exception e) {
-                Log.w(LOG_TAG, "exercising remote host failed.", e);
-                success = false;
-            }
-        }
-    }
-
     private boolean shouldTestThisNetworkType(int networkTypeIndex) {
         return mPm.hasSystemFeature(mNetworkInterfacesToTest[networkTypeIndex].getSystemFeature());
     }
@@ -373,35 +349,23 @@ public class NetworkStatsManagerTest {
     private void requestNetworkAndGenerateTraffic(int networkTypeIndex, final long tolerance)
             throws Exception {
         final NetworkInterfaceToTest networkInterface = mNetworkInterfacesToTest[networkTypeIndex];
-        final NetworkCallback callback = new NetworkCallback(tolerance,
-                new URL(CHECK_CONNECTIVITY_URL));
-        mCm.requestNetwork(new NetworkRequest.Builder()
-                .addTransportType(networkInterface.getTransportType())
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .build(), callback);
-        synchronized (this) {
-            long now = System.currentTimeMillis();
-            final long deadline = (long) (now + TIMEOUT_MILLIS * 2.4);
-            while (!callback.success && now < deadline) {
-                try {
-                    wait(deadline - now);
-                } catch (InterruptedException e) {
-                }
-                now = System.currentTimeMillis();
-            }
-        }
-        mCm.unregisterNetworkCallback(callback);
-        if (!callback.success) {
-            fail(networkInterface.getSystemFeature()
-                    + " is a reported system feature, however no corresponding "
-                    + "connected network interface was found or the attempt "
-                    + "to connect and read has timed out (timeout = " + (TIMEOUT_MILLIS * 2.4)
-                    + "ms)." + networkInterface.getErrorMessage());
-        }
+        final Network network = networkInterface.requestNetwork();
 
-        networkInterface.setMetered(callback.metered);
-        networkInterface.setRoaming(callback.roaming);
-        networkInterface.setIsDefault(callback.isDefault);
+        networkInterface.setMetered(!mCm.getNetworkCapabilities(network)
+                .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED));
+        networkInterface.setRoaming(!mCm.getNetworkCapabilities(network)
+                .hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING));
+        networkInterface.setIsDefault(network.equals(mCm.getActiveNetwork()));
+
+        mStartTime = System.currentTimeMillis() - tolerance;
+        waitForHostResolution(network, new URL(CHECK_CONNECTIVITY_URL));
+        exerciseRemoteHost(network, new URL(CHECK_CONNECTIVITY_URL));
+        mEndTime = System.currentTimeMillis() + tolerance;
+
+        // It is fine if the test fails and this line is not reached.
+        // The AutoReleaseNetworkCallbackRule will eventually release
+        // all unwanted callbacks.
+        networkInterface.unrequestNetwork();
     }
 
     private String getSubscriberId(int networkIndex) {
