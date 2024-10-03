@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29aa84e7_4b2eaed6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-03T06:20:32Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "fcb49279_e0e86d95",
+      "range": {
+        "startLine": 21,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 63
+      },
+      "revId": "51482f00291ed9afe3863bdc9f747975b55f25e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c94afbd_c5768595",
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "The first two are immutable so they will be the same.\nThe 3rd one will be changed at any moment regardless of host resolution.\nObtaining IPv4/Ipv6 address will not affect how CS rematch network.\nSo to me it is still no-op refactoring.\n\nWe need these attributes prior to generate network traffic in order to perform query. That is why move them eariler.\n\nReopen if any idea.",
       "parentUuid": "d93e9a16_c7dafeb5",
+      "range": {
+        "startLine": 354,
+        "startChar": 8,
+        "endLine": 358,
+        "endChar": 78
+      },
+      "revId": "51482f00291ed9afe3863bdc9f747975b55f25e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15c866be_2ffbed4b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-03T06:20:32Z",
+      "side": 1,
+      "message": "Maybe add a comment to this code explaining its purpose.",
+      "parentUuid": "b1d1b914_fb49de3d",
       "range": {
         "startLine": 354,
         "startChar": 8,
