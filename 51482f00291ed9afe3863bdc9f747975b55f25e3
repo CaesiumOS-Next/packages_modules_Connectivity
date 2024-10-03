@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcb49279_e0e86d95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-03T06:06:05Z",
+      "side": 1,
+      "message": "For the wait-notify model in the original code.\nWe are waiting for TIMEOUT * 2.4 to finish all works,\nwhich includes \n 1. setup network, \n 2. host resolution \n 3. make tcp connection.\n 4. download content.\n \nFor example if the first 2 steps takes almost 2 TIMEOUT.\nThen the last 2 steps can only have 0.4 TIMEOUT, otherwise\nthe test fails.\n\n```\n synchronized (this) {\n            long now \u003d System.currentTimeMillis();\n            final long deadline \u003d (long) (now + TIMEOUT_MILLIS * 2.4);\n            while (!callback.success \u0026\u0026 now \u003c deadline) {\n                try {\n                    wait(deadline - now);\n                } catch (InterruptedException e) {\n                }\n                now \u003d System.currentTimeMillis();\n            }\n        }\n        mCm.unregisterNetworkCallback(callback);\n        if (!callback.success) {\n            fail(networkInterface.getSystemFeature()\n                    + \" is a reported system feature, however no corresponding \"\n                    + \"connected network interface was found or the attempt \"\n                    + \"to connect and read has timed out (timeout \u003d \" + (TIMEOUT_MILLIS * 2.4)\n                    + \"ms).\" + networkInterface.getErrorMessage());\n        }\n```\n\nFor now they follow their own individual timeout,\nwhich could possibly make this test less flaky.",
+      "parentUuid": "72f3bb04_bd41a94e",
+      "range": {
+        "startLine": 21,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 63
+      },
+      "revId": "51482f00291ed9afe3863bdc9f747975b55f25e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c94afbd_c5768595",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-03T04:27:51Z",
       "side": 1,
       "message": "This is unnecessary now.",
+      "range": {
+        "startLine": 160,
+        "startChar": 24,
+        "endLine": 160,
+        "endChar": 39
+      },
+      "revId": "51482f00291ed9afe3863bdc9f747975b55f25e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8c7132a_e9ac21d8",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-03T06:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c94afbd_c5768595",
       "range": {
         "startLine": 160,
         "startChar": 24,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58399065_aadbff8a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-03T06:06:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "74bf4f06_f7432560",
+      "range": {
+        "startLine": 236,
+        "startChar": 24,
+        "endLine": 236,
+        "endChar": 45
+      },
+      "revId": "51482f00291ed9afe3863bdc9f747975b55f25e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d93e9a16_c7dafeb5",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-10-03T04:27:51Z",
       "side": 1,
       "message": "Question: Is there any reason why you moved the retrieval of these attributes earlier? Are these attributes the same before and after host resolution",
+      "range": {
+        "startLine": 354,
+        "startChar": 8,
+        "endLine": 358,
+        "endChar": 78
+      },
+      "revId": "51482f00291ed9afe3863bdc9f747975b55f25e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1d1b914_fb49de3d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-03T06:06:05Z",
+      "side": 1,
+      "message": "The first two are immutable so they will be the same.\nThe 3rd one will be changed at any moment regardless of host resolution.\nObtaining IPv4/Ipv6 address will not affect how CS rematch network.\nSo to me it is still no-op refactoring.\n\nWe need these attributes prior to generate network traffic in order to perform query. That is why move them eariler.\n\nReopen if any idea.",
+      "parentUuid": "d93e9a16_c7dafeb5",
       "range": {
         "startLine": 354,
         "startChar": 8,
