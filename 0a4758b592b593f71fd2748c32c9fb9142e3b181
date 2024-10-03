@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32fc9eb5_5e378c52",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-03T06:54:25Z",
+      "side": 1,
+      "message": "how does this not be captured by unit test?\ndo we want to add one?",
+      "range": {
+        "startLine": 1151,
+        "startChar": 20,
+        "endLine": 1151,
+        "endChar": 25
+      },
+      "revId": "0a4758b592b593f71fd2748c32c9fb9142e3b181",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
