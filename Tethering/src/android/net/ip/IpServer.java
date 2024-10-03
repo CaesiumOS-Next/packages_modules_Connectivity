@@ -1395,6 +1395,14 @@ public class IpServer extends StateMachineShim {
             mLastError = TETHER_ERROR_NO_ERROR;
             sendInterfaceState(STATE_UNAVAILABLE);
         }
+
+        @Override
+        public boolean processMessage(Message message) {
+            maybeLogMessage(this, message.what);
+            // Return true (indicating that messages were handled) for all messages sent to this
+            // state, as the UnavailableState is designed to ignore all messages.
+            return true;
+        }
     }
 
     class WaitingForRestartState extends State {
