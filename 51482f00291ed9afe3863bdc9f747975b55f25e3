@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72f3bb04_bd41a94e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-03T04:27:51Z",
+      "side": 1,
+      "message": "I don\u0027t see any timeout being removed. Did I misunderstand your description?",
+      "range": {
+        "startLine": 21,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 63
+      },
+      "revId": "51482f00291ed9afe3863bdc9f747975b55f25e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c94afbd_c5768595",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-03T04:27:51Z",
+      "side": 1,
+      "message": "This is unnecessary now.",
+      "range": {
+        "startLine": 160,
+        "startChar": 24,
+        "endLine": 160,
+        "endChar": 39
+      },
+      "revId": "51482f00291ed9afe3863bdc9f747975b55f25e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74bf4f06_f7432560",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-03T04:27:51Z",
+      "side": 1,
+      "message": "You can wait for the cap changes to ensure an IPv4 address is available instead of using four trials. This would eliminate the need for the test to sleep for 500ms in each trial. You can implement this in a follow-up change since this is a refactor change.",
+      "range": {
+        "startLine": 236,
+        "startChar": 24,
+        "endLine": 236,
+        "endChar": 45
+      },
+      "revId": "51482f00291ed9afe3863bdc9f747975b55f25e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d93e9a16_c7dafeb5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-03T04:27:51Z",
+      "side": 1,
+      "message": "Question: Is there any reason why you moved the retrieval of these attributes earlier? Are these attributes the same before and after host resolution",
+      "range": {
+        "startLine": 354,
+        "startChar": 8,
+        "endLine": 358,
+        "endChar": 78
+      },
+      "revId": "51482f00291ed9afe3863bdc9f747975b55f25e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
