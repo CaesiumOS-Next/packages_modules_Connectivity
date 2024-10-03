@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c2687c1_968d02f7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1381446
+      },
+      "writtenOn": "2024-10-03T03:41:03Z",
+      "side": 1,
+      "message": "Will this always be `true` as the process is always running as system?",
+      "range": {
+        "startLine": 435,
+        "startChar": 16,
+        "endLine": 435,
+        "endChar": 25
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
