@@ -141,6 +141,30 @@
       },
       "revId": "336ae2c4070deca51a64e720ae6f88135d75462c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e61d3301_2580378c",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-03T08:21:53Z",
+      "side": 1,
+      "message": "I think `equals()` implies the objects should be equal for all values. Hiding the assumption that some fields are exempt from the equality check seems error-prone. If we want more specialized comparisons, we should put them in a separate method.",
+      "parentUuid": "23894106_15e905a6",
+      "range": {
+        "startLine": 737,
+        "startChar": 23,
+        "endLine": 738,
+        "endChar": 88
+      },
+      "revId": "336ae2c4070deca51a64e720ae6f88135d75462c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
