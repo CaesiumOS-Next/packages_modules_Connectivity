@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80f2ed56_c4e593eb",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-03T09:59:09Z",
+      "side": 1,
+      "message": "Should you move these two lines to l.804 like requestNetworkAndGenerateTraffic()?",
+      "range": {
+        "startLine": 783,
+        "startChar": 0,
+        "endLine": 784,
+        "endChar": 67
+      },
+      "revId": "de8895b36677536bf0ea60114efbacd17676c44e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d977c4e8_756a735e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-03T09:59:09Z",
+      "side": 1,
+      "message": "Question: Can we fail the test if total is not empty, as we expect this value to be empty?",
+      "range": {
+        "startLine": 793,
+        "startChar": 24,
+        "endLine": 793,
+        "endChar": 33
+      },
+      "revId": "de8895b36677536bf0ea60114efbacd17676c44e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d78eb6d1_764c5569",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-03T09:59:09Z",
+      "side": 1,
+      "message": "Can you move this line to l.794 and remove this check?",
+      "range": {
+        "startLine": 801,
+        "startChar": 0,
+        "endLine": 801,
+        "endChar": 66
+      },
+      "revId": "de8895b36677536bf0ea60114efbacd17676c44e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
