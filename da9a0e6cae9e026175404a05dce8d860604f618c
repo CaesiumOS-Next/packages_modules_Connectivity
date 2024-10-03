@@ -46,6 +46,30 @@
       },
       "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b719ff8e_076e5da8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-03T13:37:47Z",
+      "side": 1,
+      "message": "It seems we might need to check the current user instead of context user.\nBut not sure how to do it.\nUserInfo.isMain() might be the answer but it is @hide, so cannot use it.\n+ @olilan@google.com Could you kindly help to input what is the correct way to do the check or forward to who might know this?",
+      "parentUuid": "ee9e9154_6e71c101",
+      "range": {
+        "startLine": 435,
+        "startChar": 16,
+        "endLine": 435,
+        "endChar": 25
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
