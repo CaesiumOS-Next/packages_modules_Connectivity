@@ -784,8 +784,6 @@ public class NetworkStatsManagerTest {
             if (!shouldTestThisNetworkType(i)) {
                 continue;
             }
-            // Relatively large tolerance to accommodate for history bucket size.
-            requestNetworkAndGenerateTraffic(i, LONG_TOLERANCE);
             setAppOpsMode(AppOpsManager.OPSTR_GET_USAGE_STATS, "allow");
 
             int currentState = isInForeground() ? STATE_FOREGROUND : STATE_DEFAULT;
@@ -803,14 +801,47 @@ public class NetworkStatsManagerTest {
             allTags.addAll(tagsWithTraffic);
             allTags.addAll(tagsWithNoTraffic);
 
-            QueryResults results = new QueryResults();
+            final NetworkInterfaceToTest networkInterface = mNetworkInterfacesToTest[i];
+            final Network network = requestNetworkAndSetAttributes(networkInterface);
 
+            // Relatively large tolerance to accommodate for history bucket size,
+            // and covering the entire test duration.
+            // These are needed before calling getTotalForTagState.
+            final long now = System.currentTimeMillis();
+            mStartTime = now - LONG_TOLERANCE;
+            mEndTime = now + LONG_TOLERANCE;
+
+            // Collect a baseline before generating network traffic.
+            QueryResults baseline = new QueryResults();
+            final ArrayList<String> logNonEmptyBaseline = new ArrayList<>();
+            for (int tag : allTags) {
+                for (int state : allStates) {
+                    final long total = getTotalForTagState(i, tag, state, false);
+                    baseline.put(tag, state, total);
+                    if (total > 0) {
+                        logNonEmptyBaseline.add(
+                                new QueryResults.QueryKey(tag, state) + "=" + total);
+                    }
+                }
+            }
+            // TODO: Remove debug log for b/368624224.
+            if (logNonEmptyBaseline.size() > 0) {
+                Log.v(LOG_TAG, "Baseline=" + logNonEmptyBaseline);
+            }
+
+            // Generate some traffic and release the network.
+            waitForHostResolution(network, new URL(CHECK_CONNECTIVITY_URL));
+            exerciseRemoteHost(network, new URL(CHECK_CONNECTIVITY_URL));
+            networkInterface.unrequestNetwork();
+
+            QueryResults results = new QueryResults();
             // Collect results for all combinations of tags and states.
             for (int tag : allTags) {
                 for (int state : allStates) {
                     final boolean assertNotEmpty = tagsWithTraffic.contains(tag)
                             && statesWithTraffic.contains(state);
-                    final long total = getTotalForTagState(i, tag, state, assertNotEmpty);
+                    final long total = getTotalForTagState(i, tag, state, assertNotEmpty)
+                            - baseline.get(tag, state);
                     results.put(tag, state, total);
                 }
             }
