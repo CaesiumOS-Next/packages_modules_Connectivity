@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95d6d9a6_3b8964e6",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-03T08:22:58Z",
+      "side": 1,
+      "message": "Removed the null-setting.",
+      "parentUuid": "1242a927_66fb4762",
+      "range": {
+        "startLine": 1125,
+        "startChar": 12,
+        "endLine": 1125,
+        "endChar": 37
+      },
+      "revId": "3797803e476bff605ef51c07fee419af6c05c9c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06f1c34f_1287d88d",
