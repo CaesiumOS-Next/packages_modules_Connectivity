@@ -37,5 +37,6 @@ cc_library_headers {
         "com.android.os.statsd",
         "com.android.resolv",
         "com.android.tethering",
+        "com.android.uprobestats",
     ],
 }
