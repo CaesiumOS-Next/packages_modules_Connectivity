@@ -19,12 +19,16 @@ package com.android.net.module.util
 import android.os.HandlerThread
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.DevSdkIgnoreRunner.MonitorThreadLeak
+import com.android.testutils.waitForIdle
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
 
+const val DEFAULT_TIMEOUT_MS = 2000L
 const val THREAD_BLOCK_TIMEOUT_MS = 1000L
 const val TEST_REPEAT_COUNT = 100
 
@@ -50,6 +54,24 @@ class HandlerUtilsTest {
             // the guarantee where the assignment happens-before the assertion.
             assertTrue(result)
         }
+    }
+
+    @Test
+    fun testIsRunningOnHandlerThread() {
+        assertFalse(HandlerUtils.isRunningOnHandlerThread(handler))
+        handler.post{
+            assertTrue(HandlerUtils.isRunningOnHandlerThread(handler))
+        }
+        handler.waitForIdle(DEFAULT_TIMEOUT_MS)
+    }
+
+    @Test
+    fun testEnsureRunningOnHandlerThread() {
+        assertFailsWith<IllegalStateException>{ HandlerUtils.ensureRunningOnHandlerThread(handler) }
+        handler.post{
+            HandlerUtils.ensureRunningOnHandlerThread(handler)
+        }
+        handler.waitForIdle(DEFAULT_TIMEOUT_MS)
     }
 
     @After
