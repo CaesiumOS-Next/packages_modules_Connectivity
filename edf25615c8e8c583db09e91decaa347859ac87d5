@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0b830c5_df87569c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-04T02:44:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae2c8cd1_1367a83b",
+      "range": {
+        "startLine": 690,
+        "startChar": 12,
+        "endLine": 690,
+        "endChar": 18
+      },
+      "revId": "edf25615c8e8c583db09e91decaa347859ac87d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4745ab74_6caf2146",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce19b2e8_c0d00020",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-04T02:44:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4745ab74_6caf2146",
+      "range": {
+        "startLine": 699,
+        "startChar": 0,
+        "endLine": 699,
+        "endChar": 45
+      },
+      "revId": "edf25615c8e8c583db09e91decaa347859ac87d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54946faf_4033c2d6",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-10-03T09:42:31Z",
       "side": 1,
       "message": "Nit: ISTM the `statesWithNoTraffic` list is unnecessary. If so, you can simplify this code:\n\n```\nfinal List\u003cInteger\u003e statesWithTraffic \u003d List.of(currentState, STATE_ALL);\nfinal ArrayList\u003cInteger\u003e allStates \u003d new ArrayList\u003c\u003e(statesWithTraffic);\nallStates.add(otherState);\n```",
+      "range": {
+        "startLine": 770,
+        "startChar": 32,
+        "endLine": 770,
+        "endChar": 51
+      },
+      "revId": "edf25615c8e8c583db09e91decaa347859ac87d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13ee5280_99d461c0",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-04T02:44:51Z",
+      "side": 1,
+      "message": "It would be needed to add comments explaining\nwhat otherState and NETWORK_TAG + 1 mean. \nBut, the names statesWithNoTraffic and tagsWithNoTraffic\nalready explain themselves, so comments aren\u0027t\nreally needed.  This approach is clearer and\neasier to read.\nThus, I prefer to\nkeep the current approach for better readability.",
+      "parentUuid": "54946faf_4033c2d6",
       "range": {
         "startLine": 770,
         "startChar": 32,
