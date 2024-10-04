@@ -9121,11 +9121,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void ensureRunningOnConnectivityServiceThread() {
-        if (mHandler.getLooper().getThread() != Thread.currentThread()) {
-            throw new IllegalStateException(
-                    "Not running on ConnectivityService thread: "
-                            + Thread.currentThread().getName());
-        }
+        HandlerUtils.ensureRunningOnHandlerThread(mHandler);
     }
 
     @VisibleForTesting
@@ -13050,10 +13046,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         private void ensureRunningOnConnectivityServiceThread() {
-            if (mHandler.getLooper().getThread() != Thread.currentThread()) {
-                throw new IllegalStateException("Not running on ConnectivityService thread: "
-                                + Thread.currentThread().getName());
-            }
+            HandlerUtils.ensureRunningOnHandlerThread(mHandler);
         }
 
         /**
