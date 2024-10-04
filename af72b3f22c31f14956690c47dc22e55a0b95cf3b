@@ -22,6 +22,30 @@
       },
       "revId": "af72b3f22c31f14956690c47dc22e55a0b95cf3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4115abb1_888cde1e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-04T07:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93cd4e40_37bb1601",
+      "range": {
+        "startLine": 394,
+        "startChar": 26,
+        "endLine": 394,
+        "endChar": 52
+      },
+      "revId": "af72b3f22c31f14956690c47dc22e55a0b95cf3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
