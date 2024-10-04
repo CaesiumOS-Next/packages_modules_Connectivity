@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbd6d33d_896ffcb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-04T19:06:53Z",
+      "side": 1,
+      "message": "(this only \u0027fixes\u0027 / works around ipv6.  IPv4 is harder...)",
+      "revId": "487f21e9bed2d78c7c896c15602115b762d87258",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
