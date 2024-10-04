@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1505f87_21553b68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-04T07:50:53Z",
+      "side": 1,
+      "message": "Address the leftover comments in aosp/3163778",
+      "revId": "4110b7dc7098ed94ddc67130b1ad78fcafbbb694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
