@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "002f5b7c_86b977cc",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-04T06:52:01Z",
+      "side": 1,
+      "message": "Done in aosp/3290323.",
+      "parentUuid": "2dabea70_a689f7d9",
+      "range": {
+        "startLine": 231,
+        "startChar": 16,
+        "endLine": 231,
+        "endChar": 50
+      },
+      "revId": "3e24dec82a95fe3d37518a6e7bcee43c152b3c54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08553273_954ce23e",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-14T08:08:00Z",
       "side": 1,
       "message": "nit: isGroupOwner?",
+      "range": {
+        "startLine": 233,
+        "startChar": 12,
+        "endLine": 233,
+        "endChar": 29
+      },
+      "revId": "3e24dec82a95fe3d37518a6e7bcee43c152b3c54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c720ffda_f8201b24",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-04T06:52:01Z",
+      "side": 1,
+      "message": "No, `isGroupInvitation` is more appropriate because it is used to determine whether the message is an invitation.",
+      "parentUuid": "08553273_954ce23e",
       "range": {
         "startLine": 233,
         "startChar": 12,
