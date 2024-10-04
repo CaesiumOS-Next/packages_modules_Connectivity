@@ -76,6 +76,7 @@ import androidx.annotation.VisibleForTesting;
 
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.DeviceConfigUtils;
+import com.android.net.module.util.HandlerUtils;
 import com.android.networkstack.tethering.UpstreamNetworkState;
 
 import java.util.ArrayList;
@@ -477,10 +478,7 @@ public class TetheringMetrics {
     @VisibleForTesting
     @NonNull
     DataUsage getLastReportedUsageFromUpstreamType(@NonNull UpstreamType type) {
-        if (mHandler.getLooper().getThread() != Thread.currentThread()) {
-            throw new IllegalStateException(
-                    "Not running on Handler thread: " + Thread.currentThread().getName());
-        }
+        HandlerUtils.ensureRunningOnHandlerThread(mHandler);
         return mLastReportedUpstreamUsage.getOrDefault(type, EMPTY);
     }
 

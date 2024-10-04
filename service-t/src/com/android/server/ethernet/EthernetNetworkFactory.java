@@ -48,6 +48,7 @@ import android.util.SparseArray;
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.net.module.util.HandlerUtils;
 import com.android.net.module.util.InterfaceParams;
 import com.android.server.connectivity.ConnectivityResources;
 
@@ -557,11 +558,7 @@ public class EthernetNetworkFactory {
         }
 
         private void ensureRunningOnEthernetHandlerThread() {
-            if (mHandler.getLooper().getThread() != Thread.currentThread()) {
-                throw new IllegalStateException(
-                        "Not running on the Ethernet thread: "
-                                + Thread.currentThread().getName());
-            }
+            HandlerUtils.ensureRunningOnHandlerThread(mHandler);
         }
 
         private void handleOnLinkPropertiesChange(LinkProperties linkProperties) {
