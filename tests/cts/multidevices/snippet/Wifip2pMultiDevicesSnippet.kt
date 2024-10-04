@@ -228,6 +228,9 @@ class Wifip2pMultiDevicesSnippet : Snippet {
         connectedFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
     }
 
+    // Use the externalApprover
+    // - For the client to approve group invitations sent from the server
+    // - For the server to approve join requests from the client.
     private fun runExternalApproverForGroupProcess(
             deviceAddress: String,
             isGroupInvitation: Boolean
