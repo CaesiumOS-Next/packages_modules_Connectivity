@@ -140,6 +140,30 @@
       },
       "revId": "edf25615c8e8c583db09e91decaa347859ac87d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c13e0f6_69172cb0",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-04T02:52:20Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "13ee5280_99d461c0",
+      "range": {
+        "startLine": 770,
+        "startChar": 32,
+        "endLine": 770,
+        "endChar": 51
+      },
+      "revId": "edf25615c8e8c583db09e91decaa347859ac87d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
