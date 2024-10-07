@@ -163,15 +163,31 @@ class CSSatelliteNetworkTest : CSTest() {
         doTestSatelliteNeverBecomeDefaultNetwork(restricted = false)
     }
 
-    private fun doTestUnregisterAfterReplacementSatisfier(destroyed: Boolean) {
+    private fun doTestUnregisterAfterReplacementSatisfier(destroyBeforeRequest: Boolean = false,
+                                                          destroyAfterRequest: Boolean = false) {
         val satelliteAgent = createSatelliteAgent("satellite0")
+        var destroyed = false
         satelliteAgent.connect()
+
+        if (destroyBeforeRequest) {
+            satelliteAgent.unregisterAfterReplacement(timeoutMs = 5000)
+            destroyed = true
+        }
 
         val uids = setOf(TEST_PACKAGE_UID)
         updateSatelliteNetworkFallbackUids(uids)
 
-        if (destroyed) {
+        verify(netd).networkAddUidRangesParcel(
+            NativeUidRangeConfig(
+                satelliteAgent.network.netId,
+                toUidRangeStableParcels(uidRangesForUids(uids)),
+                PREFERENCE_ORDER_SATELLITE_FALLBACK
+            )
+        )
+
+        if (destroyAfterRequest) {
             satelliteAgent.unregisterAfterReplacement(timeoutMs = 5000)
+            destroyed = true
         }
 
         updateSatelliteNetworkFallbackUids(setOf())
@@ -191,13 +207,18 @@ class CSSatelliteNetworkTest : CSTest() {
     }
 
     @Test
-    fun testUnregisterAfterReplacementSatisfier_destroyed() {
-        doTestUnregisterAfterReplacementSatisfier(destroyed = true)
+    fun testUnregisterAfterReplacementSatisfier_destroyBeforeRequest() {
+        doTestUnregisterAfterReplacementSatisfier(destroyBeforeRequest = true)
+    }
+
+    @Test
+    fun testUnregisterAfterReplacementSatisfier_destroyAfterRequest() {
+        doTestUnregisterAfterReplacementSatisfier(destroyAfterRequest = true)
     }
 
     @Test
     fun testUnregisterAfterReplacementSatisfier_notDestroyed() {
-        doTestUnregisterAfterReplacementSatisfier(destroyed = false)
+        doTestUnregisterAfterReplacementSatisfier()
     }
 
     private fun assertCreateMultiLayerNrisFromSatelliteNetworkPreferredUids(uids: Set<Int>) {
