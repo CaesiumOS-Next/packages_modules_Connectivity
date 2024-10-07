@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c10aa5d_5a3ee328",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-07T19:08:31Z",
+      "side": 1,
+      "message": "Can this just be:\n\n```\nreturn DeviceConfigUtils.isTetheringFeatureEnabled(mContext, featureName);\n```\n\nThis looks fine to enable at runtime when the experiment is rolling out. The DeviceConfig / Settings code also already does a lot of caching on its own.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 25
+      },
+      "revId": "405f07d6d93b5a2e977e701a8cda059ecf10fbeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be206878_3f710446",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-07T19:08:31Z",
+      "side": 1,
+      "message": "I am curious: do you have an idea what the difference is between using this vs.  `mContext.createPackageContext(pkgName, 0).getResources()`?",
+      "range": {
+        "startLine": 134,
+        "startChar": 29,
+        "endLine": 134,
+        "endChar": 93
+      },
+      "revId": "405f07d6d93b5a2e977e701a8cda059ecf10fbeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6858c32f_2eb50dd0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-07T19:08:31Z",
+      "side": 1,
+      "message": "A lot of this seems to be duplicated with code that already exists in DeviceConfigUtils.\n\nFor instance, could you split resolveApexModuleVersion into resolveApexModulePackageInfo() and resolveApexModuleVersion()? You could then add a public getTetheringResources() that uses a static cache, similar to other functions in that file.",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 27
+      },
+      "revId": "405f07d6d93b5a2e977e701a8cda059ecf10fbeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
