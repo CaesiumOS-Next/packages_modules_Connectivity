@@ -68,6 +68,30 @@
       },
       "revId": "405f07d6d93b5a2e977e701a8cda059ecf10fbeb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2896c4dd_49a68349",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-07T19:10:08Z",
+      "side": 1,
+      "message": "Also, wherever you are putting this code, leave a comment that this does not consider mcc-mnc resources.",
+      "parentUuid": "6858c32f_2eb50dd0",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 27
+      },
+      "revId": "405f07d6d93b5a2e977e701a8cda059ecf10fbeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
