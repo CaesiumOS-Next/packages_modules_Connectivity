@@ -16,6 +16,24 @@
       "message": "Test has only run once so far, but it did pass. We can\u0027t actually merge this CL until it has been running for a while, but in the meantime, let\u0027s see what TH has to say about this CL.",
       "revId": "1811edb633e48aea0f9ea7eed1441662255b4602",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67d50c9b_66f41691",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-07T02:36:59Z",
+      "side": 1,
+      "message": "Tests have been green in postsubmit since then.",
+      "parentUuid": "8f990d0c_f4f3782e",
+      "revId": "1811edb633e48aea0f9ea7eed1441662255b4602",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
