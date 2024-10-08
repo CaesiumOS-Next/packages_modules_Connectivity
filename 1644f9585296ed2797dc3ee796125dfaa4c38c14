@@ -1,5 +1,143 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c8cbedc_bad17a66",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-08T09:07:50Z",
+      "side": 1,
+      "message": "nit: maybe name it more specifically.\ne.g. send_packet_methods\nno strong opinion.",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 187,
+        "endChar": 21
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "13cff141_1a423f56",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 187,
+                "startChar": 0,
+                "endLine": 188,
+                "endChar": 0
+              },
+              "replacement": "  send_packet_methods \u003d (\n"
+            },
+            {
+              "path": "staticlibs/testutils/host/python/apf_utils.py",
+              "range": {
+                "startLine": 194,
+                "startChar": 0,
+                "endLine": 195,
+                "endChar": 0
+              },
+              "replacement": "  for func, args in send_packet_methods:\n"
+            }
+          ]
+        }
+      ],
+      "revId": "1644f9585296ed2797dc3ee796125dfaa4c38c14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df25518c_6361cd3b",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-08T09:07:50Z",
+      "side": 1,
+      "message": "nit: It seems to me this doesn\u0027t need to be initialized for every functions but can be a fixed value instead?\nno strong opinion.",
+      "range": {
+        "startLine": 189,
+        "startChar": 28,
+        "endLine": 189,
+        "endChar": 36
+      },
+      "revId": "1644f9585296ed2797dc3ee796125dfaa4c38c14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9afa3c1b_0e8ee113",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-08T09:07:50Z",
+      "side": 1,
+      "message": "Is it possible if we have a \n```\ndef expect_throws(runnable: callable, exception_class)\n```\nin assert_utils.\nIf so, the code here could be:\n```\ntry:\n    # Invoke the shell command with empty argument and see how NetworkStack respond.\n    # If supported, an IllegalArgumentException with help page will be printed.\n    expect_throws(lambda: start_capture_packets(ad, \"\"), UnexpectedBehaviorError)\n    expect_throws(lambda: stop_capture_packets(ad, \"\"), UnexpectedBehaviorError)\n    expect_throws(lambda: get_matched_packet_counts(ad, \"\", \"\"),UnexpectedBehaviorError)\n  except UnsupportedOperationException:\n    return False\n  return True\n```\n\nWhere the code would be simpler and explaining itself.",
+      "revId": "1644f9585296ed2797dc3ee796125dfaa4c38c14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb27b014_63be9e93",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-08T09:07:50Z",
+      "side": 1,
+      "message": "UnexpectedBehaviorError ?\n We might want to catch unexpected exceptions?",
+      "range": {
+        "startLine": 199,
+        "startChar": 11,
+        "endLine": 199,
+        "endChar": 20
+      },
+      "revId": "1644f9585296ed2797dc3ee796125dfaa4c38c14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a88d84c2_7b73bae4",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-08T09:07:50Z",
+      "side": 1,
+      "message": "1. Question: Not sure why we need a class when a method is enough?\nThe syntax seems weird to me.\nIs it better if we have a\nadb_utils#network_stack_adb_shell() which converts all unexpected output to exceptions?\nIf so, it seems to me the UnexpectedBehaviorError can be raised in the method as well, and all callers can be one line?\n\n2. I would suggest not to have \"success\" string.\nNo strong opinion.\nIn that way the error handling can be simpler.",
+      "range": {
+        "startLine": 278,
+        "startChar": 1,
+        "endLine": 278,
+        "endChar": 29
+      },
+      "revId": "1644f9585296ed2797dc3ee796125dfaa4c38c14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
