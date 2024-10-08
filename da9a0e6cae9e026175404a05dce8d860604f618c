@@ -70,6 +70,30 @@
       },
       "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03e16208_250fde40",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1060347
+      },
+      "writtenOn": "2024-10-08T09:44:39Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand exactly what the intention is here, so I have a few questions:\n\n- Where does this code run, is it within system server or a system component?\n- It it really only the main user that can modify tethering settings, or is it any admin user? (With HSUM, it is now possible for there to. be more than one admin user)\n- If the current user is not allowed to change tethering settings, is the intended behaviour that this method does nothing?",
+      "parentUuid": "b719ff8e_076e5da8",
+      "range": {
+        "startLine": 435,
+        "startChar": 16,
+        "endLine": 435,
+        "endChar": 25
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
