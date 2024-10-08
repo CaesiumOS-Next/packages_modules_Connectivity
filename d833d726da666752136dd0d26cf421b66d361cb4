@@ -16,6 +16,23 @@
       "message": "Looks reasonable to me. Remi?",
       "revId": "d833d726da666752136dd0d26cf421b66d361cb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2636f6d8_5f5cd442",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-08T15:38:14Z",
+      "side": 1,
+      "message": "LGTM but would like Remi to take a look.",
+      "revId": "d833d726da666752136dd0d26cf421b66d361cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
