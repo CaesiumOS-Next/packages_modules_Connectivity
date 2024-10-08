@@ -16,6 +16,24 @@
       "message": "It looks like the new configuration value is not saved in `PersistentSettings`?",
       "revId": "5a5073c21fd092cfd0134b2e5a0458f92e6edae5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "019399a9_09b81937",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-08T03:12:24Z",
+      "side": 1,
+      "message": "It\u0027s saved when `SetConfigurationReceiver#onSuccess` is called.",
+      "parentUuid": "063b64b7_16d12183",
+      "revId": "5a5073c21fd092cfd0134b2e5a0458f92e6edae5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
