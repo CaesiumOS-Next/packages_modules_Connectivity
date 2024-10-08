@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89df0eca_e4f84b7e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-08T13:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c10aa5d_5a3ee328",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 25
+      },
+      "revId": "405f07d6d93b5a2e977e701a8cda059ecf10fbeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be206878_3f710446",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-07T19:08:31Z",
       "side": 1,
       "message": "I am curious: do you have an idea what the difference is between using this vs.  `mContext.createPackageContext(pkgName, 0).getResources()`?",
+      "range": {
+        "startLine": 134,
+        "startChar": 29,
+        "endLine": 134,
+        "endChar": 93
+      },
+      "revId": "405f07d6d93b5a2e977e701a8cda059ecf10fbeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9324676a_eee91259",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-08T13:03:25Z",
+      "side": 1,
+      "message": "This CL no longer involves this issue. Marking as resolved.",
+      "parentUuid": "be206878_3f710446",
       "range": {
         "startLine": 134,
         "startChar": 29,
@@ -84,6 +132,30 @@
       "side": 1,
       "message": "Also, wherever you are putting this code, leave a comment that this does not consider mcc-mnc resources.",
       "parentUuid": "6858c32f_2eb50dd0",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 27
+      },
+      "revId": "405f07d6d93b5a2e977e701a8cda059ecf10fbeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16a8d96a_13d6b98d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-08T13:03:25Z",
+      "side": 1,
+      "message": "This CL no longer involves this issue. Marking as resolved.",
+      "parentUuid": "2896c4dd_49a68349",
       "range": {
         "startLine": 126,
         "startChar": 0,

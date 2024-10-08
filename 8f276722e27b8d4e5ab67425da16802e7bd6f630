@@ -70,6 +70,24 @@
       "parentUuid": "ddfa76f6_451cb45c",
       "revId": "8f276722e27b8d4e5ab67425da16802e7bd6f630",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0e76fca_cb69de99",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-08T13:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e01a6c1_74d216af",
+      "revId": "8f276722e27b8d4e5ab67425da16802e7bd6f630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
