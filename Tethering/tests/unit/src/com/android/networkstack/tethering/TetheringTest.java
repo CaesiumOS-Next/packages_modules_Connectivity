@@ -535,9 +535,13 @@ public class TetheringTest {
         }
 
         @Override
-        public PrivateAddressCoordinator makePrivateAddressCoordinator(Context ctx,
-                TetheringConfiguration cfg) {
-            mPrivateAddressCoordinator = super.makePrivateAddressCoordinator(ctx, cfg);
+        public PrivateAddressCoordinator makePrivateAddressCoordinator(Context ctx) {
+            when(mPrivateAddressCoordinatorDependencies.isFeatureEnabled(anyString()))
+                    .thenReturn(false);
+            ConnectivityManager cm = ctx.getSystemService(ConnectivityManager.class);
+            mPrivateAddressCoordinator =
+                    new PrivateAddressCoordinator(
+                            cm::getAllNetworks, mPrivateAddressCoordinatorDependencies);
             return mPrivateAddressCoordinator;
         }
 

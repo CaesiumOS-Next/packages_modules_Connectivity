@@ -106,8 +106,7 @@ public final class PrivateAddressCoordinatorTest {
         when(mContext.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(mConnectivityMgr);
         when(mContext.getSystemService(ConnectivityManager.class)).thenReturn(mConnectivityMgr);
         when(mConnectivityMgr.getAllNetworks()).thenReturn(mAllNetworks);
-        when(mConfig.shouldEnableWifiP2pDedicatedIp()).thenReturn(false);
-        when(mConfig.isRandomPrefixBaseEnabled()).thenReturn(false);
+        when(mDeps.isFeatureEnabled(TETHER_FORCE_RANDOM_PREFIX_BASE_SELECTION)).thenReturn(false);
         setUpIpServers();
         mPrivateAddressCoordinator =
                 spy(
@@ -279,24 +278,6 @@ public final class PrivateAddressCoordinatorTest {
         final IpPrefix legacyWifiP2pPrefix = asIpPrefix(mLegacyWifiP2pAddress);
         assertNotEquals(legacyWifiP2pPrefix, hotspotPrefix);
         mPrivateAddressCoordinator.releaseDownstream(mHotspotIpServer);
-    }
-
-    @Test
-    public void testEnableLegacyWifiP2PAddress() throws Exception {
-        when(mPrivateAddressCoordinator.getRandomInt()).thenReturn(
-                getSubAddress(mLegacyWifiP2pAddress.getAddress().getAddress()));
-        // No matter #shouldEnableWifiP2pDedicatedIp() is enabled or not, legacy wifi p2p prefix
-        // is resevered.
-        assertReseveredWifiP2pPrefix();
-
-        when(mConfig.shouldEnableWifiP2pDedicatedIp()).thenReturn(true);
-        assertReseveredWifiP2pPrefix();
-
-        // If #shouldEnableWifiP2pDedicatedIp() is enabled, wifi P2P gets the configured address.
-        LinkAddress address = requestDownstreamAddress(mWifiP2pIpServer,
-                CONNECTIVITY_SCOPE_LOCAL, true /* useLastAddress */);
-        assertEquals(mLegacyWifiP2pAddress, address);
-        mPrivateAddressCoordinator.releaseDownstream(mWifiP2pIpServer);
     }
 
     @Test
