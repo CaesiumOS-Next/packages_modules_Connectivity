@@ -45,6 +45,54 @@
       },
       "revId": "3ccec13ba83426eaa8785fe4567ba3c0c8589fac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aebbdc6_06d4892a",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-08T09:19:22Z",
+      "side": 1,
+      "message": "This use case sounds good to me. Changed this CL to allow setting configuration while Thread is disabled.",
+      "parentUuid": "1dc81ae6_4342fcc2",
+      "range": {
+        "startLine": 754,
+        "startChar": 43,
+        "endLine": 754,
+        "endChar": 68
+      },
+      "revId": "3ccec13ba83426eaa8785fe4567ba3c0c8589fac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a85894a_ad3388ea",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-08T09:19:22Z",
+      "side": 1,
+      "message": "Obsolete.",
+      "parentUuid": "6a38901c_b22fa840",
+      "range": {
+        "startLine": 754,
+        "startChar": 43,
+        "endLine": 754,
+        "endChar": 68
+      },
+      "revId": "3ccec13ba83426eaa8785fe4567ba3c0c8589fac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
