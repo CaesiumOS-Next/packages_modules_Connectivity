@@ -22,6 +22,29 @@
       },
       "revId": "3ccec13ba83426eaa8785fe4567ba3c0c8589fac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dc81ae6_4342fcc2",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-08T02:35:55Z",
+      "side": 1,
+      "message": "It\u0027s probably okay to allow change the configuration while Thread is disabled, this allows the user to put the device into a desired configuration before enabling Thread.",
+      "range": {
+        "startLine": 754,
+        "startChar": 43,
+        "endLine": 754,
+        "endChar": 68
+      },
+      "revId": "3ccec13ba83426eaa8785fe4567ba3c0c8589fac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
