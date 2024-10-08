@@ -40,6 +40,30 @@
       ],
       "revId": "b8aa8bb47ff23307e721a25cdc05e5c1c4e06c6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54d55286_ffee8590",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkController.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-08T06:03:24Z",
+      "side": 1,
+      "message": "Thanks Ian, uploaded aosp/3296452 for this.",
+      "parentUuid": "ebc63ce5_84998754",
+      "range": {
+        "startLine": 371,
+        "startChar": 68,
+        "endLine": 371,
+        "endChar": 76
+      },
+      "revId": "b8aa8bb47ff23307e721a25cdc05e5c1c4e06c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
