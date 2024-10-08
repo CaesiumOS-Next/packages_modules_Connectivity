@@ -120,18 +120,20 @@ static Status initPrograms(const char* cg2_path) {
     }
 
     if (modules::sdklevel::IsAtLeastV()) {
-        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_CONNECT4_PROG_PATH,
-                                    cg_fd, BPF_CGROUP_INET4_CONNECT));
-        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_CONNECT6_PROG_PATH,
-                                    cg_fd, BPF_CGROUP_INET6_CONNECT));
-        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP4_RECVMSG_PROG_PATH,
-                                    cg_fd, BPF_CGROUP_UDP4_RECVMSG));
-        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP6_RECVMSG_PROG_PATH,
-                                    cg_fd, BPF_CGROUP_UDP6_RECVMSG));
-        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP4_SENDMSG_PROG_PATH,
-                                    cg_fd, BPF_CGROUP_UDP4_SENDMSG));
-        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP6_SENDMSG_PROG_PATH,
-                                    cg_fd, BPF_CGROUP_UDP6_SENDMSG));
+        if (bpf::isAtLeastKernelVersion(4, 19, 0)) {
+            RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_CONNECT4_PROG_PATH,
+                                        cg_fd, BPF_CGROUP_INET4_CONNECT));
+            RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_CONNECT6_PROG_PATH,
+                                        cg_fd, BPF_CGROUP_INET6_CONNECT));
+            RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP4_RECVMSG_PROG_PATH,
+                                        cg_fd, BPF_CGROUP_UDP4_RECVMSG));
+            RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP6_RECVMSG_PROG_PATH,
+                                        cg_fd, BPF_CGROUP_UDP6_RECVMSG));
+            RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP4_SENDMSG_PROG_PATH,
+                                        cg_fd, BPF_CGROUP_UDP4_SENDMSG));
+            RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP6_SENDMSG_PROG_PATH,
+                                        cg_fd, BPF_CGROUP_UDP6_SENDMSG));
+        }
 
         if (bpf::isAtLeastKernelVersion(5, 4, 0)) {
             RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_GETSOCKOPT_PROG_PATH,
@@ -161,12 +163,14 @@ static Status initPrograms(const char* cg2_path) {
     }
 
     if (modules::sdklevel::IsAtLeastV()) {
-        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET4_CONNECT) <= 0) abort();
-        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET6_CONNECT) <= 0) abort();
-        if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP4_RECVMSG) <= 0) abort();
-        if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP6_RECVMSG) <= 0) abort();
-        if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP4_SENDMSG) <= 0) abort();
-        if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP6_SENDMSG) <= 0) abort();
+        if (bpf::isAtLeastKernelVersion(4, 19, 0)) {
+            if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET4_CONNECT) <= 0) abort();
+            if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET6_CONNECT) <= 0) abort();
+            if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP4_RECVMSG) <= 0) abort();
+            if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP6_RECVMSG) <= 0) abort();
+            if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP4_SENDMSG) <= 0) abort();
+            if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP6_SENDMSG) <= 0) abort();
+        }
 
         if (bpf::isAtLeastKernelVersion(5, 4, 0)) {
             if (bpf::queryProgram(cg_fd, BPF_CGROUP_GETSOCKOPT) <= 0) abort();
