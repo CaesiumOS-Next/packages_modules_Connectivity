@@ -536,7 +536,7 @@ public class TetheringTest {
 
         @Override
         public PrivateAddressCoordinator makePrivateAddressCoordinator(Context ctx,
-                TetheringConfiguration cfg) {
+                                                                       TetheringConfiguration cfg) {
             mPrivateAddressCoordinator = super.makePrivateAddressCoordinator(ctx, cfg);
             return mPrivateAddressCoordinator;
         }
