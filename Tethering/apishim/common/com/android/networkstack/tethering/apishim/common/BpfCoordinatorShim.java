@@ -202,11 +202,5 @@ public abstract class BpfCoordinatorShim {
      * Remove interface index mapping.
      */
     public abstract boolean removeDevMap(int ifIndex);
-
-    /** Get last max connection count and reset to current count. */
-    public abstract int getLastMaxConnectionAndResetToCurrent();
-
-    /** Clear current connection count. */
-    public abstract void clearConnectionCounters();
 }
 
