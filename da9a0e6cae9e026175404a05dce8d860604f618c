@@ -94,6 +94,30 @@
       },
       "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dca02f2d_8433b5c9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-08T10:00:21Z",
+      "side": 1,
+      "message": "1. NetworkStack(uid\u003d1073), which is a system component.\n2. Anyone who can modify tethering settings should be allowed for this. So I guess it is not just the main user?\n3. Yes I think so.\n\nI\u0027m trying to deal with the below scenario:\n1. An allowed user enabled tethering.\n2. Switch to another user who is not allowed to enable tethering.\n3. The activity launches. The expect behavior is the user should not be able to see the activitiy.\n\nNot sure whether this is a real issue. WDYT?\n\nAlso + @prohr@google.com to input if there is anything wrong.",
+      "parentUuid": "03e16208_250fde40",
+      "range": {
+        "startLine": 435,
+        "startChar": 16,
+        "endLine": 435,
+        "endChar": 25
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
