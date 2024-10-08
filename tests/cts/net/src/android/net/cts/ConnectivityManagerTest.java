@@ -361,11 +361,13 @@ public class ConnectivityManagerTest {
     private final List<Range<Integer>> mVpnRequiredUidRanges = new ArrayList<>();
 
     private final TestHttpServer mHttpServer = new TestHttpServer(LOCALHOST_HOSTNAME);
+    private ConnectUtil mConnectUtil;
 
     @Before
     public void setUp() throws Exception {
         mInstrumentation = InstrumentationRegistry.getInstrumentation();
         mContext = mInstrumentation.getContext();
+        mConnectUtil = new ConnectUtil(mContext);
         mCm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         mCmShim = ConnectivityManagerShimImpl.newInstance(mContext);
         mWifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
@@ -3061,6 +3063,7 @@ public class ConnectivityManagerTest {
 
         try {
             final Network cellNetwork = networkCallbackRule.requestCell();
+            mConnectUtil.ensureCellularValidated();
             final Network wifiNetwork = prepareValidatedNetwork();
 
             final TestableNetworkCallback defaultCb =
