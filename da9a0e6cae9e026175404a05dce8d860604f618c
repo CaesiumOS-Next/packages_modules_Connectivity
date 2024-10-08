@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b47d270_630c556a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1060347
+      },
+      "writtenOn": "2024-10-08T11:49:16Z",
+      "side": 1,
+      "message": "Note that pre-U, the only supported HSUM devices were Automotive, so if this feature is not relevant for T- Automotive, this is not necessary.",
+      "range": {
+        "startLine": 433,
+        "startChar": 9,
+        "endLine": 433,
+        "endChar": 54
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c2687c1_968d02f7",
         "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
         "patchSetId": 4
@@ -115,6 +138,53 @@
         "startChar": 16,
         "endLine": 435,
         "endChar": 25
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eb9b6d3_9b1e87a6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1060347
+      },
+      "writtenOn": "2024-10-08T11:49:16Z",
+      "side": 1,
+      "message": "Usually Settings should use `isAdminUser` to determine what users can do. Settings does not usually check for the main user.\n\nLooking at `TetherSettings.java`, I see it includes `setIfOnlyAvailableForAdmins(true)`, so an admin check seems right here?\n\nSo, perhaps you just want to get the current user and check if it is an admin user.",
+      "parentUuid": "dca02f2d_8433b5c9",
+      "range": {
+        "startLine": 435,
+        "startChar": 16,
+        "endLine": 435,
+        "endChar": 25
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "904ce05d_68361106",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1060347
+      },
+      "writtenOn": "2024-10-08T11:49:16Z",
+      "side": 1,
+      "message": "This is not correct. The current user is the user currently in the foreground. It does not mean \"the user this code is running as\".",
+      "range": {
+        "startLine": 438,
+        "startChar": 56,
+        "endLine": 439,
+        "endChar": 68
       },
       "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
