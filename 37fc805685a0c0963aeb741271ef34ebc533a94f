@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faf48d7d_8785c5f1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-09T07:34:25Z",
+      "side": 1,
+      "message": "Nit: runWithScissorsForDumpIfReady or similar ?",
+      "range": {
+        "startLine": 218,
+        "startChar": 20,
+        "endLine": 218,
+        "endChar": 42
+      },
+      "revId": "37fc805685a0c0963aeb741271ef34ebc533a94f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77705faa_ee2f3794",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsDiscoveryManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-09T07:34:25Z",
+      "side": 1,
+      "message": "Could you avoid holding the pendingTasks lock while doing the dump ? Basically write the handler to a final variable inside the synchronized block, and use it outside of the block.\n\nBasically the same as what executeDelayed does, where postDelayed is called outside of the synchronized block.",
+      "revId": "37fc805685a0c0963aeb741271ef34ebc533a94f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
