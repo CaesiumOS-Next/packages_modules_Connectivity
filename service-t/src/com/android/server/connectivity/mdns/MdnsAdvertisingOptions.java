@@ -32,14 +32,16 @@ public class MdnsAdvertisingOptions {
 
     private static MdnsAdvertisingOptions sDefaultOptions;
     private final boolean mIsOnlyUpdate;
+    private final boolean mIsShortHostname;
     @Nullable
     private final Duration mTtl;
 
     /**
      * Parcelable constructs for a {@link MdnsAdvertisingOptions}.
      */
-    MdnsAdvertisingOptions(boolean isOnlyUpdate, @Nullable Duration ttl) {
+    MdnsAdvertisingOptions(boolean isOnlyUpdate, boolean isShortHostname, @Nullable Duration ttl) {
         this.mIsOnlyUpdate = isOnlyUpdate;
+        this.mIsShortHostname = isShortHostname;
         this.mTtl = ttl;
     }
 
@@ -65,6 +67,13 @@ public class MdnsAdvertisingOptions {
      */
     public boolean isOnlyUpdate() {
         return mIsOnlyUpdate;
+    }
+
+    /**
+     * @return {@code true} if short hostname format should be used.
+     */
+    public boolean isShortHostname() {
+        return mIsShortHostname;
     }
 
     /**
@@ -104,6 +113,7 @@ public class MdnsAdvertisingOptions {
      */
     public static final class Builder {
         private boolean mIsOnlyUpdate = false;
+        private boolean mIsShortHostname = false;
         @Nullable
         private Duration mTtl;
 
@@ -119,6 +129,14 @@ public class MdnsAdvertisingOptions {
         }
 
         /**
+         * Sets whether to use a short hostname format.
+         */
+        public Builder setIsShortHostname(boolean isShortHostname) {
+            mIsShortHostname = isShortHostname;
+            return this;
+        }
+
+        /**
          * Sets the TTL duration for all records of the service.
          */
         public Builder setTtl(@Nullable Duration ttl) {
@@ -130,7 +148,7 @@ public class MdnsAdvertisingOptions {
          * Builds a {@link MdnsAdvertisingOptions} with the arguments supplied to this builder.
          */
         public MdnsAdvertisingOptions build() {
-            return new MdnsAdvertisingOptions(mIsOnlyUpdate, mTtl);
+            return new MdnsAdvertisingOptions(mIsOnlyUpdate, mIsShortHostname, mTtl);
         }
     }
 }

@@ -1046,9 +1046,12 @@ public class NsdService extends INsdManager.Stub {
 
                             serviceInfo.setSubtypes(subtypes);
                             maybeStartMonitoringSockets();
+                            final boolean shortHostname = (advertisingRequest.getAdvertisingConfig()
+                                    & AdvertisingRequest.NSD_ADVERTISING_UPDATE_ONLY) != 0;
                             final MdnsAdvertisingOptions mdnsAdvertisingOptions =
                                     MdnsAdvertisingOptions.newBuilder()
                                             .setIsOnlyUpdate(isUpdateOnly)
+                                            .setIsShortHostname(shortHostname)
                                             .setTtl(advertisingRequest.getTtl())
                                             .build();
                             mAdvertiser.addOrUpdateService(transactionId, serviceInfo,

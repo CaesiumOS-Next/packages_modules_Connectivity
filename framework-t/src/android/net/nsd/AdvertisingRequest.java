@@ -38,6 +38,11 @@ public final class AdvertisingRequest implements Parcelable {
      */
     public static final long NSD_ADVERTISING_UPDATE_ONLY = 1;
 
+    /**
+     * Use a short 16 character hostname format.
+     */
+    public static final long NSD_ADVERTISING_SHORT_HOSTNAME = 2;
+
 
     @NonNull
     public static final Creator<AdvertisingRequest> CREATOR =
@@ -73,6 +78,7 @@ public final class AdvertisingRequest implements Parcelable {
     @Retention(RetentionPolicy.SOURCE)
     @LongDef(flag = true, prefix = {"NSD_ADVERTISING"}, value = {
             NSD_ADVERTISING_UPDATE_ONLY,
+            NSD_ADVERTISING_SHORT_HOSTNAME,
     })
     @interface AdvertisingConfig {}
 

@@ -46,6 +46,7 @@ import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -87,6 +88,7 @@ public class MdnsAdvertiser {
     private final SparseArray<Registration> mRegistrations = new SparseArray<>();
     private final Dependencies mDeps;
     private String[] mDeviceHostName;
+    private String[] mShortHostname;
     @NonNull private final SharedLog mSharedLog;
     private final Map<String, List<OffloadServiceInfoWrapper>> mInterfaceOffloadServices =
             new ArrayMap<>();
@@ -106,18 +108,20 @@ public class MdnsAdvertiser {
                 @NonNull Looper looper, @NonNull byte[] packetCreationBuffer,
                 @NonNull MdnsInterfaceAdvertiser.Callback cb,
                 @NonNull String[] deviceHostName,
+                @NonNull String[] shortHostname,
                 @NonNull SharedLog sharedLog,
                 @NonNull MdnsFeatureFlags mdnsFeatureFlags) {
             // Note NetworkInterface is final and not mockable
             return new MdnsInterfaceAdvertiser(socket, initialAddresses, looper,
-                    packetCreationBuffer, cb, deviceHostName, sharedLog, mdnsFeatureFlags);
+                    packetCreationBuffer, cb, deviceHostName, shortHostname, sharedLog,
+                    mdnsFeatureFlags);
         }
 
         /**
          * Generates a unique hostname to be used by the device.
          */
         @NonNull
-        public String[] generateHostname() {
+        public String[] generateDeviceHostname() {
             // Generate a very-probably-unique hostname. This allows minimizing possible conflicts
             // to the point that probing for it is no longer necessary (as per RFC6762 8.1 last
             // paragraph), and does not leak more information than what could already be obtained by
@@ -131,6 +135,29 @@ public class MdnsAdvertiser {
             // (reusing the same privacy-protecting mechanics).
             return new String[] {
                     "Android_" + UUID.randomUUID().toString().replace("-", ""), LOCAL_TLD };
+        }
+
+        /**
+         * Generates a unique hostname to be used for services requiring short format.
+         *
+         * <p>This is useful for use-cases like Matter that have a maximum of 16 characters in
+         * the hostname.
+         */
+        @NonNull
+        public String[] generateShortHostname() {
+            final SecureRandom random = new SecureRandom();
+            final char[] hostname = new char[16];
+            final int numChars = 'Z' - 'A' + 1;
+            final int numDigits = '9' - '0' + 1;
+            for (int i = 0; i < hostname.length; i++) {
+                final int index = random.nextInt(numChars + numDigits);
+                if (index >= numChars) {
+                    hostname[i] = (char) ('0' + index - numChars);
+                } else {
+                    hostname[i] = (char) ('A' + index);
+                }
+            }
+            return new String[] { new String(hostname), LOCAL_TLD };
         }
     }
 
@@ -272,8 +299,9 @@ public class MdnsAdvertiser {
                                 && adv.hasHostConflict(newInfo, clientUid))) {
             return true;
         }
-        // Check if it conflicts with the default hostname.
-        return DnsUtils.equalsIgnoreDnsCase(newInfo.getHostname(), mDeviceHostName[0]);
+        // Check if it conflicts with the default hostnames.
+        return DnsUtils.equalsIgnoreDnsCase(newInfo.getHostname(), mDeviceHostName[0])
+                || DnsUtils.equalsIgnoreDnsCase(newInfo.getHostname(), mShortHostname[0]);
     }
 
     private void updateRegistrationUntilNoConflict(
@@ -544,7 +572,7 @@ public class MdnsAdvertiser {
             MdnsInterfaceAdvertiser advertiser = mAllAdvertisers.get(socket);
             if (advertiser == null) {
                 advertiser = mDeps.makeAdvertiser(socket, addresses, mLooper, mPacketCreationBuffer,
-                        mInterfaceAdvertiserCb, mDeviceHostName,
+                        mInterfaceAdvertiserCb, mDeviceHostName, mShortHostname,
                         mSharedLog.forSubComponent(socket.getInterface().getName()),
                         mMdnsFeatureFlags);
                 mAllAdvertisers.put(socket, advertiser);
@@ -825,7 +853,8 @@ public class MdnsAdvertiser {
         mCb = cb;
         mSocketProvider = socketProvider;
         mDeps = deps;
-        mDeviceHostName = deps.generateHostname();
+        mDeviceHostName = deps.generateDeviceHostname();
+        mShortHostname = deps.generateShortHostname();
         mSharedLog = sharedLog;
         mMdnsFeatureFlags = mDnsFeatureFlags;
         final ConnectivityResources res = new ConnectivityResources(context);
@@ -943,7 +972,8 @@ public class MdnsAdvertiser {
         mRegistrations.remove(id);
         // Regenerates host name when registrations removed.
         if (mRegistrations.size() == 0) {
-            mDeviceHostName = mDeps.generateHostname();
+            mDeviceHostName = mDeps.generateDeviceHostname();
+            mShortHostname = mDeps.generateShortHostname();
         }
     }
 
@@ -999,11 +1029,14 @@ public class MdnsAdvertiser {
                 DnsUtils.toDnsUpperCase(nsdServiceInfo.getServiceType()));
         // Higher values of priority are less prioritized
         final int priority = mapPriority == null ? Integer.MAX_VALUE : mapPriority;
+        // TODO: allow offloading services with a custom hostname
+        final String[] hostname = registration.mAdvertisingOptions.isShortHostname()
+                ? mShortHostname : mDeviceHostName;
         final OffloadServiceInfo offloadServiceInfo = new OffloadServiceInfo(
                 new OffloadServiceInfo.Key(nsdServiceInfo.getServiceName(),
                         nsdServiceInfo.getServiceType()),
                 new ArrayList<>(nsdServiceInfo.getSubtypes()),
-                String.join(".", mDeviceHostName),
+                String.join(".", hostname),
                 rawOffloadPacket,
                 priority,
                 // TODO: set the offloadType based on the callback timing.

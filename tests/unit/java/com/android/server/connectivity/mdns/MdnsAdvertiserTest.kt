@@ -185,7 +185,7 @@ class MdnsAdvertiserTest {
     @Before
     fun setUp() {
         thread.start()
-        doReturn(TEST_HOSTNAME).`when`(mockDeps).generateHostname()
+        doReturn(TEST_HOSTNAME).`when`(mockDeps).generateDeviceHostname()
         doReturn(mockInterfaceAdvertiser1).`when`(mockDeps).makeAdvertiser(eq(mockSocket1),
                 any(), any(), any(), any(), eq(TEST_HOSTNAME), any(), any()
         )
@@ -578,11 +578,11 @@ class MdnsAdvertiserTest {
     fun testRemoveService_whenAllServiceRemoved_thenUpdateHostName() {
         val advertiser =
             MdnsAdvertiser(thread.looper, socketProvider, cb, mockDeps, sharedlog, flags, context)
-        verify(mockDeps, times(1)).generateHostname()
+        verify(mockDeps, times(1)).generateDeviceHostname()
         postSync { advertiser.addOrUpdateService(SERVICE_ID_1, SERVICE_1,
                 DEFAULT_ADVERTISING_OPTION, TEST_CLIENT_UID_1) }
         postSync { advertiser.removeService(SERVICE_ID_1) }
-        verify(mockDeps, times(2)).generateHostname()
+        verify(mockDeps, times(2)).generateDeviceHostname()
     }
 
     private fun postSync(r: () -> Unit) {

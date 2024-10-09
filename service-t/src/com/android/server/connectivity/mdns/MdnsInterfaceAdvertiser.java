@@ -177,8 +177,10 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         /** @see MdnsRecordRepository */
         @NonNull
         public MdnsRecordRepository makeRecordRepository(@NonNull Looper looper,
-                @NonNull String[] deviceHostName, @NonNull MdnsFeatureFlags mdnsFeatureFlags) {
-            return new MdnsRecordRepository(looper, deviceHostName, mdnsFeatureFlags);
+                @NonNull String[] deviceHostName, @NonNull String[] shortHostname,
+                @NonNull MdnsFeatureFlags mdnsFeatureFlags) {
+            return new MdnsRecordRepository(looper, deviceHostName, shortHostname,
+                    mdnsFeatureFlags);
         }
 
         /** @see MdnsReplySender */
@@ -215,18 +217,19 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
     public MdnsInterfaceAdvertiser(@NonNull MdnsInterfaceSocket socket,
             @NonNull List<LinkAddress> initialAddresses, @NonNull Looper looper,
             @NonNull byte[] packetCreationBuffer, @NonNull Callback cb,
-            @NonNull String[] deviceHostName, @NonNull SharedLog sharedLog,
-            @NonNull MdnsFeatureFlags mdnsFeatureFlags) {
+            @NonNull String[] deviceHostName, @NonNull String[] shortHostname,
+            @NonNull SharedLog sharedLog, @NonNull MdnsFeatureFlags mdnsFeatureFlags) {
         this(socket, initialAddresses, looper, packetCreationBuffer, cb,
-                new Dependencies(), deviceHostName, sharedLog, mdnsFeatureFlags);
+                new Dependencies(), deviceHostName, shortHostname, sharedLog, mdnsFeatureFlags);
     }
 
     public MdnsInterfaceAdvertiser(@NonNull MdnsInterfaceSocket socket,
             @NonNull List<LinkAddress> initialAddresses, @NonNull Looper looper,
             @NonNull byte[] packetCreationBuffer, @NonNull Callback cb, @NonNull Dependencies deps,
-            @NonNull String[] deviceHostName, @NonNull SharedLog sharedLog,
-            @NonNull MdnsFeatureFlags mdnsFeatureFlags) {
-        mRecordRepository = deps.makeRecordRepository(looper, deviceHostName, mdnsFeatureFlags);
+            @NonNull String[] deviceHostName, @NonNull String[] shortHostname,
+            @NonNull SharedLog sharedLog, @NonNull MdnsFeatureFlags mdnsFeatureFlags) {
+        mRecordRepository = deps.makeRecordRepository(looper, deviceHostName, shortHostname,
+                mdnsFeatureFlags);
         mRecordRepository.updateAddresses(initialAddresses);
         mSocket = socket;
         mCb = cb;
@@ -272,7 +275,8 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
     public void addService(int id, NsdServiceInfo service,
             @NonNull MdnsAdvertisingOptions advertisingOptions) throws NameConflictException {
         final int replacedExitingService =
-                mRecordRepository.addService(id, service, advertisingOptions.getTtl());
+                mRecordRepository.addService(id, service, advertisingOptions.isShortHostname(),
+                        advertisingOptions.getTtl());
         // Cancel announcements for the existing service. This only happens for exiting services
         // (so cancelling exiting announcements), as per RecordRepository.addService.
         if (replacedExitingService >= 0) {
