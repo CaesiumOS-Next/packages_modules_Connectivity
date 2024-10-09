@@ -63,6 +63,24 @@
       "message": "Please verify the activity launches correctly (with or without user) in differnt android version.",
       "revId": "17a97136aa77518cdebabdfc8d1e4892c7196b84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ca5f5f7_eeeffd01",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-09T09:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6266d3e8_15d9b48f",
+      "revId": "17a97136aa77518cdebabdfc8d1e4892c7196b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
