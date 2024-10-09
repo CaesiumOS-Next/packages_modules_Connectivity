@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fe7c0b07_e2ca0d1a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-09T05:53:16Z",
+      "side": 1,
+      "message": "Not familiar with Automotive.\nAre they using the same code of any downstream of aosp?\nOr use the tethering mainline module?\nIf yes, I think this is still needed?",
+      "parentUuid": "7b47d270_630c556a",
+      "range": {
+        "startLine": 433,
+        "startChar": 9,
+        "endLine": 433,
+        "endChar": 54
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c2687c1_968d02f7",
         "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
         "patchSetId": 4
@@ -167,6 +191,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bd8c712_d85f1b0c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-09T05:53:16Z",
+      "side": 1,
+      "message": "Done, please see if it works for you.",
+      "parentUuid": "4eb9b6d3_9b1e87a6",
+      "range": {
+        "startLine": 435,
+        "startChar": 16,
+        "endLine": 435,
+        "endChar": 25
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "904ce05d_68361106",
@@ -180,6 +228,30 @@
       "writtenOn": "2024-10-08T11:49:16Z",
       "side": 1,
       "message": "This is not correct. The current user is the user currently in the foreground. It does not mean \"the user this code is running as\".",
+      "range": {
+        "startLine": 438,
+        "startChar": 56,
+        "endLine": 439,
+        "endChar": 68
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "880f1ec1_346020c8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-09T05:53:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "904ce05d_68361106",
       "range": {
         "startLine": 438,
         "startChar": 56,
