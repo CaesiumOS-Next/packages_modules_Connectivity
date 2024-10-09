@@ -23,6 +23,7 @@ import android.provider.DeviceConfig.Properties;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.security.GeneralSecurityException;
 import java.util.concurrent.Executors;
 
 /** Listener class for the Certificate Transparency Phenotype flags. */
@@ -57,6 +58,9 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
             return;
         }
 
+        String newPublicKey =
+                DeviceConfig.getString(
+                        Config.NAMESPACE_NETWORK_SECURITY, Config.FLAG_PUBLIC_KEY, "");
         String newVersion =
                 DeviceConfig.getString(Config.NAMESPACE_NETWORK_SECURITY, Config.FLAG_VERSION, "");
         String newContentUrl =
@@ -65,13 +69,15 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
         String newMetadataUrl =
                 DeviceConfig.getString(
                         Config.NAMESPACE_NETWORK_SECURITY, Config.FLAG_METADATA_URL, "");
-        if (TextUtils.isEmpty(newVersion)
+        if (TextUtils.isEmpty(newPublicKey)
+                || TextUtils.isEmpty(newVersion)
                 || TextUtils.isEmpty(newContentUrl)
                 || TextUtils.isEmpty(newMetadataUrl)) {
             return;
         }
 
         if (Config.DEBUG) {
+            Log.d(TAG, "newPublicKey=" + newPublicKey);
             Log.d(TAG, "newVersion=" + newVersion);
             Log.d(TAG, "newContentUrl=" + newContentUrl);
             Log.d(TAG, "newMetadataUrl=" + newMetadataUrl);
@@ -85,6 +91,13 @@ class CertificateTransparencyFlagsListener implements DeviceConfig.OnPropertiesC
                 && TextUtils.equals(newContentUrl, oldContentUrl)
                 && TextUtils.equals(newMetadataUrl, oldMetadataUrl)) {
             Log.i(TAG, "No flag changed, ignoring update");
+            return;
+        }
+
+        try {
+            mCertificateTransparencyDownloader.setPublicKey(newPublicKey);
+        } catch (GeneralSecurityException e) {
+            Log.e(TAG, "Error setting the public Key", e);
             return;
         }
 

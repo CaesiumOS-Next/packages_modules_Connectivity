@@ -48,9 +48,10 @@ import java.io.OutputStream;
 import java.security.GeneralSecurityException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.Signature;
+import java.util.Base64;
 
 /** Tests for the {@link CertificateTransparencyDownloader}. */
 @RunWith(JUnit4.class)
@@ -60,18 +61,20 @@ public class CertificateTransparencyDownloaderTest {
     @Mock private CertificateTransparencyInstaller mCertificateTransparencyInstaller;
 
     private PrivateKey mPrivateKey;
+    private PublicKey mPublicKey;
     private Context mContext;
     private File mTempFile;
     private DataStore mDataStore;
     private CertificateTransparencyDownloader mCertificateTransparencyDownloader;
 
     @Before
-    public void setUp() throws IOException, NoSuchAlgorithmException {
+    public void setUp() throws IOException, GeneralSecurityException {
         MockitoAnnotations.initMocks(this);
 
         KeyPairGenerator instance = KeyPairGenerator.getInstance("RSA");
         KeyPair keyPair = instance.generateKeyPair();
         mPrivateKey = keyPair.getPrivate();
+        mPublicKey = keyPair.getPublic();
 
         mContext = InstrumentationRegistry.getInstrumentation().getContext();
         mTempFile = File.createTempFile("datastore-test", ".properties");
@@ -80,11 +83,9 @@ public class CertificateTransparencyDownloaderTest {
 
         mCertificateTransparencyDownloader =
                 new CertificateTransparencyDownloader(
-                        mContext,
-                        mDataStore,
-                        mDownloadHelper,
-                        mCertificateTransparencyInstaller,
-                        keyPair.getPublic().getEncoded());
+                        mContext, mDataStore, mDownloadHelper, mCertificateTransparencyInstaller);
+        mCertificateTransparencyDownloader.setPublicKey(
+                Base64.getEncoder().encodeToString(mPublicKey.getEncoded()));
     }
 
     @After
