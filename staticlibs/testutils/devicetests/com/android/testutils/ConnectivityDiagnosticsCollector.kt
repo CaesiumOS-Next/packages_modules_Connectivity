@@ -197,6 +197,7 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
         buffer.reset()
         val fileKey = "${ConnectivityDiagnosticsCollector::class.qualifiedName}_$filename"
         testData.addFileMetric(fileKey, outFile)
+        testData.addStringMetric("conndiag_test", "Collected diagnostics at ${ZonedDateTime.now()}")
     }
 
     private fun maybeCollectFailureHeader() {
@@ -293,6 +294,13 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
     fun collectDumpsysConnectivity(exceptionContext: Throwable? = null) {
         Log.i(TAG, "Collecting dumpsys connectivity for test artifacts")
         PrintWriter(buffer).let {
+            val args = InstrumentationRegistry.getArguments().apply {
+                getString("Forcing deserialization")
+            }
+            it.println("Test args are: $args")
+            val instr = InstrumentationRegistry.getInstrumentation()
+            it.println("Instrumentation: ${instr.componentName} ${instr.processName}" +
+                    " ${instr.javaClass.name}")
             it.println("--- Dumpsys connectivity at ${ZonedDateTime.now()} ---")
             maybeWriteExceptionContext(it, exceptionContext)
             it.flush()
