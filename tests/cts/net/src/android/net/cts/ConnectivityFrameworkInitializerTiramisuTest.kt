@@ -37,6 +37,7 @@ class ConnectivityFrameworkInitializerTiramisuTest {
         val ctx = InstrumentationRegistry.getInstrumentation().context as android.content.Context
         assertNotNull(ctx.getSystemService(NsdManager::class.java),
                 "NsdManager not registered")
+        kotlin.test.fail("Test failure")
     }
 
     // registerServiceWrappers can only be called during initialization and should throw otherwise
