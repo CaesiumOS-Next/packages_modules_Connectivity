@@ -1,0 +1,68 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bab78ec_f7549b81",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-09T13:43:30Z",
+      "side": 1,
+      "message": "it seems we can simplify this with\n\n```\nthis(queryMode, 1, true);\n```",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 42
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c7982307_b31bebf3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+              "range": {
+                "startLine": 67,
+                "startChar": 0,
+                "endLine": 71,
+                "endChar": 0
+              },
+              "replacement": "        this(queryMode, 0, 1, true);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d645d4d9_aa27aad5",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-09T13:43:30Z",
+      "side": 1,
+      "message": "Will it be easier to just cap the `shift` value instead of doing the math?",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 5
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
