@@ -20,6 +20,7 @@ package com.android.testutils
 
 import com.android.testutils.FunctionalUtils.ThrowingRunnable
 import com.android.testutils.FunctionalUtils.ThrowingSupplier
+import java.util.function.Consumer
 import javax.annotation.CheckReturnValue
 
 /**
@@ -73,11 +74,25 @@ import javax.annotation.CheckReturnValue
  * });
  */
 
+object TryTestConfig {
+    internal var diagnosticsCollector: Consumer<Throwable>? = null
+
+    /**
+     * Set the diagnostics collector to be used in case of failure in [tryTest].
+     */
+    fun setDiagnosticsCollector(collector: Consumer<Throwable>) {
+        diagnosticsCollector = collector
+    }
+}
+
 @CheckReturnValue
-fun <T> tryTest(block: () -> T) = TryExpr(
+fun <T> tryTest(collectDiagnosticsOnFailure: Boolean = true, block: () -> T) = TryExpr(
         try {
             Result.success(block())
         } catch (e: Throwable) {
+            if (collectDiagnosticsOnFailure) {
+                TryTestConfig.diagnosticsCollector?.accept(e)
+            }
             Result.failure(e)
         })
 
@@ -115,11 +130,26 @@ inline class TryExpr<T>(val result: Result<T>) {
 }
 
 // Java support
-fun <T> testAndCleanup(tryBlock: ThrowingSupplier<T>, vararg cleanupBlock: ThrowingRunnable): T {
-    return cleanupBlock.fold(tryTest { tryBlock.get() }) { previousExpr, nextCleanup ->
+@JvmOverloads
+fun <T> testAndCleanup(
+    collectDiagnosticsOnFailure: Boolean = true,
+    tryBlock: ThrowingSupplier<T>,
+    vararg cleanupBlock: ThrowingRunnable
+): T {
+    return cleanupBlock.fold(tryTest(collectDiagnosticsOnFailure) { tryBlock.get() }) {
+            previousExpr, nextCleanup ->
         previousExpr.cleanupStep { nextCleanup.run() }
     }.cleanup {}
 }
-fun testAndCleanup(tryBlock: ThrowingRunnable, vararg cleanupBlock: ThrowingRunnable) {
-    return testAndCleanup(ThrowingSupplier { tryBlock.run() }, *cleanupBlock)
+@JvmOverloads
+fun testAndCleanup(
+    collectDiagnosticsOnFailure: Boolean = true,
+    tryBlock: ThrowingRunnable,
+    vararg cleanupBlock: ThrowingRunnable
+) {
+    return testAndCleanup(
+        collectDiagnosticsOnFailure,
+        ThrowingSupplier { tryBlock.run() },
+        *cleanupBlock
+    )
 }
