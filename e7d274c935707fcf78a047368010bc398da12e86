@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e5acf3f_7eb845af",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-09T08:11:50Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is really the right fix, waiting for validation doesn\u0027t increase chances that the wifi network will work, it just makes sure the system realizes that it is working for ranking purposes.\n\nWhere is the test flaking in this case and how does this fix the flake ?",
+      "revId": "e7d274c935707fcf78a047368010bc398da12e86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
