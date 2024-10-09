@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e768bd6d_16fcd819",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-09T07:38:22Z",
+      "side": 1,
+      "message": "LGTM assuming comment addressed",
+      "revId": "baa21764bd8a66f7601e09bec7dfe7a916a58955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a3da0d9_5822c0ac",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3066,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-09T07:38:22Z",
+      "side": 1,
+      "message": "If you\u0027re adding a mConnectUtil member, you should probably update ensureCellIsValidatedBeforeMockingValidationUrls to use it; otherwise you could avoid adding a member and doing the same thing that ensureCellIsValidatedBeforeMockingValidationUrls is doing here (`new ConnectUtil(mContext).ensureCellularValidated()`)\n\nOr you could rename ensureCellIsValidatedBeforeMockingValidationUrls to just ensureCellIsValidated and call it",
+      "revId": "baa21764bd8a66f7601e09bec7dfe7a916a58955",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
