@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ccdfc757_a91e6226",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1060347
+      },
+      "writtenOn": "2024-10-09T10:35:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure if Automotive use this (though I think it is quite possible that they do not). You may need to check with the Automotive team for confirmation.\n\nIn any case, note that before `isAdminUser` was made a public API in T, it was a SystemAPI callable with `MANAGE_USERS` permission.",
+      "parentUuid": "fe7c0b07_e2ca0d1a",
+      "range": {
+        "startLine": 433,
+        "startChar": 9,
+        "endLine": 433,
+        "endChar": 54
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c2687c1_968d02f7",
         "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
         "patchSetId": 4
