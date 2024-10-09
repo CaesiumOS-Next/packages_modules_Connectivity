@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13b4bb90_410ffc02",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1060347
+      },
+      "writtenOn": "2024-10-09T17:43:59Z",
+      "side": 1,
+      "message": "UserHandle.CURRENT cannot be used in this way.\n\nPlease note that UserHandle.CURRENT only works in certain methods that have been specifically written to accept it. CURRENT will not behave the way you expect in this method.",
+      "parentUuid": "335d2470_84ecefa3",
+      "range": {
+        "startLine": 442,
+        "startChar": 36,
+        "endLine": 442,
+        "endChar": 81
+      },
+      "revId": "598d495eeee6eca0363a15dc895c42f19ea09bd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4ea0470_54c658a2",
         "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
         "patchSetId": 6
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-09T14:56:56Z",
       "side": 1,
       "message": "It looks like the `userContext` isn\u0027t used before Android T, so this check will always be true even you switch to the other user.\n\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:frameworks/base/core/java/android/os/UserManager.java;l\u003d2542?q\u003dgetContextUserIfAppropriate\u0026sq\u003dgit:android%2Fplatform%2Fsuperproject%2Fmain@main",
+      "range": {
+        "startLine": 449,
+        "startChar": 28,
+        "endLine": 449,
+        "endChar": 56
+      },
+      "revId": "598d495eeee6eca0363a15dc895c42f19ea09bd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7082927c_ce3cc74e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1060347
+      },
+      "writtenOn": "2024-10-09T17:43:59Z",
+      "side": 1,
+      "message": "Good spot! Many methods changed to be context user aware in Android T.\n\nThis system user check isn\u0027t really necessary anyway, as the Admin user check should be sufficient.",
+      "parentUuid": "e4ea0470_54c658a2",
       "range": {
         "startLine": 449,
         "startChar": 28,
