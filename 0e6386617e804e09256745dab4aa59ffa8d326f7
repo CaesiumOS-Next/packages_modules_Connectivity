@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e41c3ae_2644cba7",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-10-10T12:37:44Z",
+      "side": 1,
+      "message": "Nit: would this make more sense in the tearDown() method?",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 174,
+        "endChar": 60
+      },
+      "revId": "0e6386617e804e09256745dab4aa59ffa8d326f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
