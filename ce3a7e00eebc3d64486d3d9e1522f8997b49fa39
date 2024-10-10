@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07f983e1_a7542b7e",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-10T14:22:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8adf3e7_25bdc173",
+      "range": {
+        "startLine": 277,
+        "startChar": 16,
+        "endLine": 277,
+        "endChar": 97
+      },
+      "revId": "ce3a7e00eebc3d64486d3d9e1522f8997b49fa39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9dc3624_9ac61958",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-10T13:30:02Z",
       "side": 1,
       "message": "```suggestion\n        FullThreadDevice ftd \u003d mFtds.get(0);\n        joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET);\n        \n        stopOtDaemon();\n        ftd.waitForStateAnyOf(List.of(\"leader\", \"router\", \"child\"), Duration.ofSeconds(40));\n\n        startInfraDeviceAndWaitForOnLinkAddr();\n        mInfraDevice.sendEchoRequest(ftd.getOmrAddress());\n        assertNotNull(pollForIcmpPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftd.getOmrAddress()));\n```",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 298,
+        "endChar": 100
+      },
+      "revId": "ce3a7e00eebc3d64486d3d9e1522f8997b49fa39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2876ec77_c2dad26b",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-10T14:22:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9dc3624_9ac61958",
       "range": {
         "startLine": 288,
         "startChar": 0,
