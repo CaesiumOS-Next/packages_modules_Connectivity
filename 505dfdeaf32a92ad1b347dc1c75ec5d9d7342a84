@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "476c77b1_b401e423",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-10T00:24:53Z",
+      "side": 1,
+      "message": "N/A for latest PS",
+      "parentUuid": "406c63e2_27db5cc0",
+      "range": {
+        "startLine": 666,
+        "startChar": 22,
+        "endLine": 666,
+        "endChar": 34
+      },
+      "revId": "505dfdeaf32a92ad1b347dc1c75ec5d9d7342a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e9601d5_47a7ee6e",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "We need to be consistent with previous behavior. Multiple requests aren\u0027t entirely supported at this stage, but once we do add it (I.e. allow multiple requests of the same type in mActiveTetheringRequests), then we need to put that behind an SDK check.",
       "parentUuid": "6e9601d5_47a7ee6e",
+      "range": {
+        "startLine": 670,
+        "startChar": 11,
+        "endLine": 670,
+        "endChar": 96
+      },
+      "revId": "505dfdeaf32a92ad1b347dc1c75ec5d9d7342a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc39c8dc_3b85692c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-10T00:24:53Z",
+      "side": 1,
+      "message": "Removed disable-before-enable once experimental flag is enabled.",
+      "parentUuid": "bbfa29a9_d7cca362",
       "range": {
         "startLine": 670,
         "startChar": 11,
