@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0eafdc1_41cdad5f",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-10T01:57:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fd6b7e00_7e877762",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 49
+      },
+      "revId": "1537aff2b27b396b5ea07f1db280125aa56c22cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c49d8944_394d0a00",
