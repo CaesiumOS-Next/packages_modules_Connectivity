@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54db6b70_fb42eeca",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-10T07:38:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d421ed1_b9e78c85",
+      "range": {
+        "startLine": 924,
+        "startChar": 81,
+        "endLine": 924,
+        "endChar": 84
+      },
+      "revId": "563dadabb9939c7ec87890ec5fad7188ba51a486",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2a79f1b_c03bc708",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-10-10T06:23:25Z",
       "side": 1,
       "message": "Why the @FlaggedApi annotation? None of these methods are actual APIs other than getUid and getPackageName.",
+      "range": {
+        "startLine": 928,
+        "startChar": 9,
+        "endLine": 928,
+        "endChar": 19
+      },
+      "revId": "563dadabb9939c7ec87890ec5fad7188ba51a486",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8949c3e4_ac0648c0",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-10T07:38:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2a79f1b_c03bc708",
       "range": {
         "startLine": 928,
         "startChar": 9,
