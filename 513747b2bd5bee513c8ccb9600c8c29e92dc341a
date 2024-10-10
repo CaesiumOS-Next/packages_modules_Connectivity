@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "629712e8_fcd5074d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-10T00:20:18Z",
+      "side": 1,
+      "message": "As discussed offline, we should just do the new behavior once the experimental flag is enabled.",
+      "parentUuid": "6d45baed_423cc4eb",
+      "range": {
+        "startLine": 682,
+        "startChar": 0,
+        "endLine": 686,
+        "endChar": 13
+      },
+      "revId": "513747b2bd5bee513c8ccb9600c8c29e92dc341a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "328e4c59_35049179",
