@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b364474e_9d9d51f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-10T03:54:27Z",
+      "side": 1,
+      "message": "Could you make sure the commit message follows the standard format ?\n\nhttps://source.android.com/docs/setup/contribute/submit-patches#commit-your-change\n\nLine 1 is 50 characters maximum, and additional details can be in a paragraph after a blank line",
+      "revId": "e8c2028a4cba5693b4a2e2bb02ebe82551160bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad500bb7_9a94e753",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-10T03:54:27Z",
+      "side": 1,
+      "message": "LGTM assuming commit message fixed but Lorenzo should +2 CTS changes",
+      "revId": "e8c2028a4cba5693b4a2e2bb02ebe82551160bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
