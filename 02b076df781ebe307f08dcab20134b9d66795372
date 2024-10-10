@@ -22,6 +22,30 @@
       },
       "revId": "02b076df781ebe307f08dcab20134b9d66795372",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd86e29b_c9217d16",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-10T09:27:26Z",
+      "side": 1,
+      "message": "Changed to PermissionUtils check (same as ConnectivityService)",
+      "parentUuid": "dbd2a335_e221c4ba",
+      "range": {
+        "startLine": 250,
+        "startChar": 45,
+        "endLine": 250,
+        "endChar": 58
+      },
+      "revId": "02b076df781ebe307f08dcab20134b9d66795372",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
