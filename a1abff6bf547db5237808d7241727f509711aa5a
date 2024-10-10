@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d1a9cb8_1096c0a8",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-10T03:31:29Z",
+      "side": 1,
+      "message": "It\u0027s generally not good to mix synchronous calls and callbacks, as there may be races between the two. Here you\u0027re calling getNetworkCapabilities immediately after getting onAvailable, which is prone to race conditions as per the API doc: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/ConnectivityManager.java;drc\u003d9d5d7d07793549a9c8a19d6277c498683cb7da3f;l\u003d4222\n\nI guess you could have the NetworkInterfaceToTest class store the TestableNetworkCallback, using that callback as argument when calling AutoReleaseNetworkCallbackRule#requestNetwork, so you could get the NetworkCapabilities from that callback.\n\nNow I see the logic was already that way, but this refactor that hides the NetworkCallback inside AutoReleaseNetworkCallbackRule would make it harder to fix the problem.",
+      "range": {
+        "startLine": 341,
+        "startChar": 41,
+        "endLine": 341,
+        "endChar": 63
+      },
+      "revId": "a1abff6bf547db5237808d7241727f509711aa5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
