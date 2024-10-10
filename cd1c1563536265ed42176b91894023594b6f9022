@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e1d8c85_d62a076b",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-10T03:21:49Z",
+      "side": 1,
+      "message": "nit: is this change necessary? Looks like other APIs are using just `receiver`",
+      "range": {
+        "startLine": 557,
+        "startChar": 40,
+        "endLine": 557,
+        "endChar": 50
+      },
+      "revId": "cd1c1563536265ed42176b91894023594b6f9022",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f7e7a72_7c5238b2",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1478,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-10T03:21:49Z",
+      "side": 1,
+      "message": "nit: move this close to `setConfigurationInternal()` as that\u0027s the only place this method is used.",
+      "range": {
+        "startLine": 1472,
+        "startChar": 3,
+        "endLine": 1478,
+        "endChar": 5
+      },
+      "revId": "cd1c1563536265ed42176b91894023594b6f9022",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
