@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5b5a4a7_31b29121",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-10-10T11:59:24Z",
+      "side": 1,
+      "message": "Done. I think `Optional` should be fine for a private field. In general, it is not allowed to use it for API surfaces go/android-api-guidelines#classes-avoid-optional.",
+      "parentUuid": "1f87a1a9_eaaf9dd1",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 40
+      },
+      "revId": "b3f7ba38cedda6076735e4a4f30acaf3271b4e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8562f0f5_f8072588",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-09T16:12:13Z",
       "side": 1,
       "message": "Optional suggestion: would it be useful to throw a more specific error, rather than a GeneralSecurityException?",
+      "range": {
+        "startLine": 83,
+        "startChar": 40,
+        "endLine": 83,
+        "endChar": 72
+      },
+      "revId": "b3f7ba38cedda6076735e4a4f30acaf3271b4e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ed3ebf9_568cecd6",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-10-10T11:59:24Z",
+      "side": 1,
+      "message": "At this stage I don\u0027t think the more specific error would make any difference for the caller, since we only log the error and the error and return.\n\nIf in the future we add some metric collection to the log list downloader code it might become more interesting to see the more specific, for example to determine whether the public key is propagated correctly to all devices.",
+      "parentUuid": "8562f0f5_f8072588",
       "range": {
         "startLine": 83,
         "startChar": 40,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93535f6c_d085fde0",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyFlagsListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-10-10T11:59:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da9adda0_d09b87be",
+      "range": {
+        "startLine": 63,
+        "startChar": 83,
+        "endLine": 63,
+        "endChar": 85
+      },
+      "revId": "b3f7ba38cedda6076735e4a4f30acaf3271b4e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "290af21c_8e400aa1",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-10-09T16:12:13Z",
       "side": 1,
       "message": "Would it be possible to add unit tests to 1) verify that the setPublicKey method works in a \"normal\" case, and 2) verify that a GeneralSecurityException gets thrown when setPublicKey fails?\n\nIf it\u0027s not possible to mock this behavior, than a test for #1 alone would already be appreciated.",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 77
+      },
+      "revId": "b3f7ba38cedda6076735e4a4f30acaf3271b4e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9632cee_6da685ba",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-10-10T11:59:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "290af21c_8e400aa1",
       "range": {
         "startLine": 87,
         "startChar": 8,
