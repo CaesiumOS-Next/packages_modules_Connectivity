@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4bdf61a_44f48466",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-10T04:19:12Z",
+      "side": 1,
+      "message": "Does this run even when running tests locally during development? If so, that could slow things down a bit. On cuttlefish, \"time adb shell dumpsys connectivity --dump-priority HIGH\" reports 100-200ms real time, which is probably fine. But on my physical device it took almost 6 seconds because it tried to test the IMS network which doeesn\u0027t respond to our probes, and because it attempted DoT to the carrier\u0027s DNS servers which don\u0027t support DoT.\n\nMaybe add a TODO somewhere to provide a way to pass a lower timeout to dumpsys, or to only run tests that we expect to succeed (e.g., only test INTERNET networks, don\u0027t test DoT unless in strict mode, etc.)?",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 37
+      },
+      "revId": "ce425a99140ba633ef0a9937b0500209fe0c1a6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
