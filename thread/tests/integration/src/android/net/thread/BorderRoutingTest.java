@@ -29,6 +29,7 @@ import static android.net.thread.utils.IntegrationTestUtils.joinNetworkAndWaitFo
 import static android.net.thread.utils.IntegrationTestUtils.newPacketReader;
 import static android.net.thread.utils.IntegrationTestUtils.pollForPacket;
 import static android.net.thread.utils.IntegrationTestUtils.sendUdpMessage;
+import static android.net.thread.utils.IntegrationTestUtils.stopOtDaemon;
 import static android.net.thread.utils.IntegrationTestUtils.waitFor;
 import static android.system.OsConstants.ICMP_ECHO;
 
@@ -271,6 +272,30 @@ public class BorderRoutingTest {
                 assertThat(address.isPreferred()).isFalse();
             }
         }
+    }
+
+    @Test
+    public void unicastRouting_afterOtDaemonRestarts_infraDevicePingThreadDeviceOmr_replyReceived()
+            throws Exception {
+        /*
+         * <pre>
+         * Topology:
+         *                 infra network                       Thread
+         * infra device -------------------- Border Router -------------- Full Thread device
+         *                                   (Cuttlefish)
+         * </pre>
+         */
+
+        FullThreadDevice ftd = mFtds.get(0);
+        joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET);
+        stopOtDaemon();
+        // Wait for the FTD to join the network again
+        joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET);
+
+        mInfraDevice.sendEchoRequest(ftd.getOmrAddress());
+
+        // Infra device receives an echo reply sent by FTD.
+        assertNotNull(pollForIcmpPacketOnInfraNetwork(ICMPV6_ECHO_REPLY_TYPE, ftd.getOmrAddress()));
     }
 
     @Test
