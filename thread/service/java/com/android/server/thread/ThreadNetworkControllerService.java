@@ -1308,20 +1308,15 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     private void setInfraLinkState(InfraLinkState newInfraLinkState) {
-        if (mInfraLinkState.equals(newInfraLinkState)) {
-            return;
+        if (!Objects.equals(mInfraLinkState, newInfraLinkState)) {
+            LOG.i("Infra link state changed: " + mInfraLinkState + " -> " + newInfraLinkState);
         }
-        LOG.i("Infra link state changed: " + mInfraLinkState + " -> " + newInfraLinkState);
-
         setInfraLinkInterfaceName(newInfraLinkState.interfaceName);
         setInfraLinkNat64Prefix(newInfraLinkState.nat64Prefix);
         mInfraLinkState = newInfraLinkState;
     }
 
     private void setInfraLinkInterfaceName(String newInfraLinkInterfaceName) {
-        if (Objects.equals(mInfraLinkState.interfaceName, newInfraLinkInterfaceName)) {
-            return;
-        }
         ParcelFileDescriptor infraIcmp6Socket = null;
         if (newInfraLinkInterfaceName != null) {
             try {
@@ -1342,9 +1337,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     private void setInfraLinkNat64Prefix(@Nullable String newNat64Prefix) {
-        if (Objects.equals(mInfraLinkState.nat64Prefix, newNat64Prefix)) {
-            return;
-        }
+
         try {
             getOtDaemon()
                     .setInfraLinkNat64Prefix(
