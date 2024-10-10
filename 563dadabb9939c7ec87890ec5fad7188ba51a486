@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d421ed1_b9e78c85",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-10T06:23:25Z",
+      "side": 1,
+      "message": "\"This should always be set when...\" is confusing: it might mean that when the request is coming from an external source, we can expect it to be set. I think that what you actually mean is something like \"This should always be overridden when...\"?",
+      "range": {
+        "startLine": 924,
+        "startChar": 81,
+        "endLine": 924,
+        "endChar": 84
+      },
+      "revId": "563dadabb9939c7ec87890ec5fad7188ba51a486",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2a79f1b_c03bc708",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-10T06:23:25Z",
+      "side": 1,
+      "message": "Why the @FlaggedApi annotation? None of these methods are actual APIs other than getUid and getPackageName.",
+      "range": {
+        "startLine": 928,
+        "startChar": 9,
+        "endLine": 928,
+        "endChar": 19
+      },
+      "revId": "563dadabb9939c7ec87890ec5fad7188ba51a486",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca1ca346_c589d155",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-10T06:23:25Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this code check that the calling package belongs to the calling UID, and if not, reject the operation (e.g., by throwing SecurityException)?",
+      "range": {
+        "startLine": 143,
+        "startChar": 21,
+        "endLine": 143,
+        "endChar": 35
+      },
+      "revId": "563dadabb9939c7ec87890ec5fad7188ba51a486",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
