@@ -22,6 +22,30 @@
       },
       "revId": "ce425a99140ba633ef0a9937b0500209fe0c1a6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8885dc6f_b7f1e9c5",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-10T07:04:31Z",
+      "side": 1,
+      "message": "Added a TODO to skip this on local runs, and posted a question in http://shortn/_TqnnCekoDH to ask how that could be achieved automatically",
+      "parentUuid": "a4bdf61a_44f48466",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 37
+      },
+      "revId": "ce425a99140ba633ef0a9937b0500209fe0c1a6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
