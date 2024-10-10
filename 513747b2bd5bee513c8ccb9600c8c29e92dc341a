@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e00f1fc7_58f52e3f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-10T00:18:55Z",
+      "side": 1,
+      "message": "Discussed offline: this can be simplified to a 1D list since we\u0027re already iterating through everything.",
+      "parentUuid": "a1f10ce9_e3fcfac5",
+      "range": {
+        "startLine": 234,
+        "startChar": 30,
+        "endLine": 234,
+        "endChar": 34
+      },
+      "revId": "513747b2bd5bee513c8ccb9600c8c29e92dc341a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cd579e7_90b98f36",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d45baed_423cc4eb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-10T00:18:55Z",
+      "side": 1,
+      "message": "aosp/2984278 introduces a fuzzy matching function, but I can bring that method to this CL for this behavior.\n\nHowever, do we want to keep using the old behavior of tearing down in-flight requests post V? Ideally we should be letting the downstream APIs deal with multiple requests (hence passing TetheringRequest down to enable tethering internal).",
+      "parentUuid": "6cd579e7_90b98f36",
+      "range": {
+        "startLine": 682,
+        "startChar": 0,
+        "endLine": 686,
+        "endChar": 13
+      },
+      "revId": "513747b2bd5bee513c8ccb9600c8c29e92dc341a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "328e4c59_35049179",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 17
@@ -60,6 +108,30 @@
       "writtenOn": "2024-07-10T21:49:41Z",
       "side": 1,
       "message": "you probably have to pass in the TetheringRequest. stopProvisioningIfNeeded() currently calls `mCurrentDownstreams.set(downstreamType, false);`, which does not work if there could be multiple requests per type.\n\n```\n   public void stopProvisioningIfNeeded(int downstreamType) {\n        if (!isValidDownstreamType(downstreamType)) return;\n\n        mCurrentDownstreams.set(downstreamType, false);\n        // There are lurking bugs where the notion of \"provisioning required\" or\n        // \"tethering supported\" may change without without tethering being notified properly.\n        // Remove the mapping all the time no matter provisioning is required or not.\n        removeDownstreamMapping(downstreamType);\n        mExemptedDownstreams.set(downstreamType, false);\n    }\n```",
+      "range": {
+        "startLine": 690,
+        "startChar": 57,
+        "endLine": 690,
+        "endChar": 61
+      },
+      "revId": "513747b2bd5bee513c8ccb9600c8c29e92dc341a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eb3d8ad_2a33bca7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-10T00:18:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "328e4c59_35049179",
       "range": {
         "startLine": 690,
         "startChar": 57,
