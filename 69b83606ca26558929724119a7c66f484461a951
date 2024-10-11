@@ -1,5 +1,98 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d089a6d4_03d835ed",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-11T03:35:06Z",
+      "side": 1,
+      "message": "This isn\u0027t a great name, since the stats are typed. Maybe just call this getUidStats?",
+      "range": {
+        "startLine": 81,
+        "startChar": 17,
+        "endLine": 81,
+        "endChar": 36
+      },
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5482858_771419cb",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-11T03:35:06Z",
+      "side": 1,
+      "message": "... and this could continue to be called getIfaceStats.",
+      "range": {
+        "startLine": 84,
+        "startChar": 17,
+        "endLine": 84,
+        "endChar": 38
+      },
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06153b07_3b0f9aa2",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-11T03:35:06Z",
+      "side": 1,
+      "message": "ditto, no need to rename this.",
+      "range": {
+        "startLine": 87,
+        "startChar": 17,
+        "endLine": 87,
+        "endChar": 38
+      },
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bb61af4_07660132",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-11T03:35:06Z",
+      "side": 1,
+      "message": "Why do we need this IPC as well as the one on line 81? The code that calls this IPC could simply call the IPC in line 41, and then take the one value that it needs.",
+      "range": {
+        "startLine": 90,
+        "startChar": 9,
+        "endLine": 90,
+        "endChar": 20
+      },
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
