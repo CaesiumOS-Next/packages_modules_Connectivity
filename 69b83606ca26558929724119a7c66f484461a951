@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6752c01c_30644ff4",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-11T03:37:11Z",
+      "side": 1,
+      "message": "It\u0027s not a great API to use NetworkStats with one or zero items; there\u0027s a lot of objects creation/boxing for creating it, it\u0027s more heavyweight than what we actually need, and the \"zero or one items\" guarantee isn\u0027t well enforced.\n\nCould this be a more lightweight item like a simplified class or just an array of  4 longs ?",
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5482858_771419cb",
         "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
         "patchSetId": 13
@@ -89,6 +106,23 @@
         "endLine": 90,
         "endChar": 20
       },
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eb0ce5b_5366df49",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-11T03:37:11Z",
+      "side": 1,
+      "message": "Is this still expected to be used ? It looks like getTypelessTotalStats would be enough ?",
       "revId": "69b83606ca26558929724119a7c66f484461a951",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
