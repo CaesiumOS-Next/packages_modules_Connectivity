@@ -22,6 +22,30 @@
       },
       "revId": "4278af57a52df5a1f8aaaa48128aa5117d031f54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "235c6cd9_bd3c5671",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-11T13:00:57Z",
+      "side": 1,
+      "message": "Permission checks for DO/unprivileged apps will be added in a future CL when we open up the API to public.",
+      "parentUuid": "e1b7b1c7_5e0d9e58",
+      "range": {
+        "startLine": 877,
+        "startChar": 32,
+        "endLine": 877,
+        "endChar": 52
+      },
+      "revId": "4278af57a52df5a1f8aaaa48128aa5117d031f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
