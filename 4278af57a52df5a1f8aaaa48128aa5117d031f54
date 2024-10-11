@@ -46,6 +46,30 @@
       },
       "revId": "4278af57a52df5a1f8aaaa48128aa5117d031f54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "796878fc_a816b659",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-11T13:23:42Z",
+      "side": 1,
+      "message": "I don\u0027t think we defined any extra permission needed for an app to specify the SoftApConfiguration of the TetheringRequest, so the current permission check (TETHER_PRIVILEGED, WRITE_SETTINGS) should still be sufficient. Is there a need to add extra permission checks on top of this?",
+      "parentUuid": "235c6cd9_bd3c5671",
+      "range": {
+        "startLine": 877,
+        "startChar": 32,
+        "endLine": 877,
+        "endChar": 52
+      },
+      "revId": "4278af57a52df5a1f8aaaa48128aa5117d031f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
