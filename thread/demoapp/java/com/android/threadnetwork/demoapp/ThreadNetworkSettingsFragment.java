@@ -59,11 +59,15 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
     private TextView mTextState;
     private TextView mTextNetworkInfo;
     private TextView mMigrateNetworkState;
+    private TextView mEphemeralKeyStateText;
     private Executor mMainExecutor;
 
     private int mDeviceRole;
     private long mPartitionId;
     private ActiveOperationalDataset mActiveDataset;
+    private int mEphemeralKeyState;
+    private String mEphemeralKey;
+    private Instant mEphemeralKeyExpiry;
 
     private static final byte[] DEFAULT_ACTIVE_DATASET_TLVS =
             base16().lowerCase()
@@ -84,6 +88,19 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
                 return "Router";
             case ThreadNetworkController.DEVICE_ROLE_LEADER:
                 return "Leader";
+            default:
+                return "Unknown";
+        }
+    }
+
+    private static String ephemeralKeyStateToString(int ephemeralKeyState) {
+        switch (ephemeralKeyState) {
+            case ThreadNetworkController.EPHEMERAL_KEY_DISABLED:
+                return "Disabled";
+            case ThreadNetworkController.EPHEMERAL_KEY_ENABLED:
+                return "Enabled";
+            case ThreadNetworkController.EPHEMERAL_KEY_IN_USE:
+                return "Connected";
             default:
                 return "Unknown";
         }
@@ -144,6 +161,15 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
                             ThreadNetworkSettingsFragment.this.mPartitionId = mPartitionId;
                             updateState();
                         }
+
+                        @Override
+                        public void onEphemeralKeyStateChanged(
+                                int state, String ephemeralKey, Instant expiry) {
+                            ThreadNetworkSettingsFragment.this.mEphemeralKeyState = state;
+                            ThreadNetworkSettingsFragment.this.mEphemeralKey = ephemeralKey;
+                            ThreadNetworkSettingsFragment.this.mEphemeralKeyExpiry = expiry;
+                            updateState();
+                        }
                     });
             mThreadController.registerOperationalDatasetCallback(
                     mMainExecutor,
@@ -155,6 +181,7 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
 
         mTextState = (TextView) view.findViewById(R.id.text_state);
         mTextNetworkInfo = (TextView) view.findViewById(R.id.text_network_info);
+        mEphemeralKeyStateText = (TextView) view.findViewById(R.id.text_ephemeral_key_state);
 
         if (mThreadController == null) {
             mTextState.setText("Thread not supported!");
@@ -167,6 +194,11 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
         mMigrateNetworkState = view.findViewById(R.id.text_migrate_network_state);
         ((Button) view.findViewById(R.id.button_migrate_network))
                 .setOnClickListener(v -> doMigration());
+
+        ((Button) view.findViewById(R.id.button_activate_ephemeral_key_mode))
+                .setOnClickListener(v -> doActivateEphemeralKeyMode());
+        ((Button) view.findViewById(R.id.button_deactivate_ephemeral_key_mode))
+                .setOnClickListener(v -> doDeactivateEphemeralKeyMode());
 
         updateState();
     }
@@ -234,12 +266,46 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
                 });
     }
 
+    private void doActivateEphemeralKeyMode() {
+        mThreadController.activateEphemeralKeyMode(
+                Duration.ofMinutes(2),
+                mMainExecutor,
+                new OutcomeReceiver<>() {
+                    @Override
+                    public void onError(ThreadNetworkException error) {
+                        Log.e(TAG, "Failed to activate ephemeral key", error);
+                    }
+
+                    @Override
+                    public void onResult(Void v) {
+                        Log.i(TAG, "Successfully activated ephemeral key mode");
+                    }
+                });
+    }
+
+    private void doDeactivateEphemeralKeyMode() {
+        mThreadController.deactivateEphemeralKeyMode(
+                mMainExecutor,
+                new OutcomeReceiver<>() {
+                    @Override
+                    public void onError(ThreadNetworkException error) {
+                        Log.e(TAG, "Failed to deactivate ephemeral key", error);
+                    }
+
+                    @Override
+                    public void onResult(Void v) {
+                        Log.i(TAG, "Successfully deactivated ephemeral key mode");
+                    }
+                });
+    }
+
     private void updateState() {
         Log.i(
                 TAG,
                 String.format(
-                        "Updating Thread states (mDeviceRole: %s)",
-                        deviceRoleToString(mDeviceRole)));
+                        "Updating Thread states (mDeviceRole: %s, mEphemeralKeyState: %s)",
+                        deviceRoleToString(mDeviceRole),
+                        ephemeralKeyStateToString(mEphemeralKeyState)));
 
         String state =
                 String.format(
@@ -254,6 +320,16 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
                                 ? base16().encode(mActiveDataset.getExtendedPanId())
                                 : null);
         mTextState.setText(state);
+
+        StringBuilder ephemeralKeyStateBuilder = new StringBuilder();
+        ephemeralKeyStateBuilder.append(ephemeralKeyStateToString(mEphemeralKeyState));
+        if (mEphemeralKeyState != ThreadNetworkController.EPHEMERAL_KEY_DISABLED) {
+            ephemeralKeyStateBuilder.append(", passcode: ");
+            ephemeralKeyStateBuilder.append(mEphemeralKey);
+            ephemeralKeyStateBuilder.append(", expires at ");
+            ephemeralKeyStateBuilder.append(mEphemeralKeyExpiry.toString());
+        }
+        mEphemeralKeyStateText.setText(ephemeralKeyStateBuilder.toString());
     }
 
     private void updateNetworkInfo(LinkProperties linProperties) {
