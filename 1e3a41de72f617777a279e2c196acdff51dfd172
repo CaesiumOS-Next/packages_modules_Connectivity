@@ -45,6 +45,54 @@
       },
       "revId": "1e3a41de72f617777a279e2c196acdff51dfd172",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b48e5bc_d497d596",
+        "filename": "thread/demoapp/java/com/android/threadnetwork/demoapp/ThreadNetworkSettingsFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-12T07:57:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebfff004_06755179",
+      "range": {
+        "startLine": 327,
+        "startChar": 12,
+        "endLine": 330,
+        "endChar": 76
+      },
+      "revId": "1e3a41de72f617777a279e2c196acdff51dfd172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "723533aa_56908287",
+        "filename": "thread/demoapp/java/com/android/threadnetwork/demoapp/ThreadNetworkSettingsFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-12T07:57:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73372d62_0ff231a7",
+      "range": {
+        "startLine": 329,
+        "startChar": 12,
+        "endLine": 330,
+        "endChar": 76
+      },
+      "revId": "1e3a41de72f617777a279e2c196acdff51dfd172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
