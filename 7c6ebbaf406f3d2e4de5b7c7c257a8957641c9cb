@@ -647,6 +647,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "849b500b_3bd1cdda",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-12T00:50:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4276a936_00bbac0d",
+      "range": {
+        "startLine": 498,
+        "startChar": 4,
+        "endLine": 498,
+        "endChar": 48
+      },
+      "revId": "7c6ebbaf406f3d2e4de5b7c7c257a8957641c9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8756d9ff_66e45e99",

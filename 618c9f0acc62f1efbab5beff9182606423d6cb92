@@ -16,6 +16,24 @@
       "message": "To Lorenzo to review changes we discussed in the last meeting (I.e. return SoftApConfiguration instead of TetheringRequest through TetheringInterface)",
       "revId": "618c9f0acc62f1efbab5beff9182606423d6cb92",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3fcc59b_ac244dd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-12T00:50:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5b17a89_f1509fd4",
+      "revId": "618c9f0acc62f1efbab5beff9182606423d6cb92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

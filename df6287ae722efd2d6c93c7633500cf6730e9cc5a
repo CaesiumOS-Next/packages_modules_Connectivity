@@ -16,6 +16,24 @@
       "message": "Fixed up the tests (removed a lot of test changes that involved the old TetheringInterface.getTetheringRequest() API), and added a specific test case for checking SoftApConfiguration in the TetheringInterface.",
       "revId": "df6287ae722efd2d6c93c7633500cf6730e9cc5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd68e15e_8729eeb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-12T00:50:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "def883ba_09c509d8",
+      "revId": "df6287ae722efd2d6c93c7633500cf6730e9cc5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
