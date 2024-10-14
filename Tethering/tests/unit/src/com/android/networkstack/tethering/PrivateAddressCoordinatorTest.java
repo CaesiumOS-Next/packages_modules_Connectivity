@@ -56,7 +56,7 @@ import android.os.IBinder;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.android.net.module.util.IIpv4AddressRequester;
+import com.android.net.module.util.IIpv4PrefixRequest;
 import com.android.net.module.util.PrivateAddressCoordinator;
 
 import org.junit.Before;
@@ -103,15 +103,15 @@ public final class PrivateAddressCoordinatorTest {
 
     private void setUpIpServer(IpServer ipServer, int interfaceType) throws Exception {
         when(ipServer.interfaceType()).thenReturn(interfaceType);
-        final IIpv4AddressRequester requester = mock(IIpv4AddressRequester.class);
-        when(ipServer.getIpv4AddressRequester()).thenReturn(requester);
-        when(requester.asBinder()).thenReturn(mock(IBinder.class));
+        final IIpv4PrefixRequest request = mock(IIpv4PrefixRequest.class);
+        when(ipServer.getIpv4PrefixRequest()).thenReturn(request);
+        when(request.asBinder()).thenReturn(mock(IBinder.class));
         doAnswer(
                         invocation -> {
                             ipServer.sendMessage(CMD_NOTIFY_PREFIX_CONFLICT);
                             return null;
                         })
-                .when(requester)
+                .when(request)
                 .onIpv4PrefixConflict(any());
     }
 
@@ -142,13 +142,13 @@ public final class PrivateAddressCoordinatorTest {
                         ipServer.interfaceType(),
                         scope,
                         useLastAddress,
-                        ipServer.getIpv4AddressRequester());
+                        ipServer.getIpv4PrefixRequest());
         when(ipServer.getAddress()).thenReturn(address);
         return address;
     }
 
     private void releaseDownstream(final IpServer ipServer) {
-        mPrivateAddressCoordinator.releaseDownstream(ipServer.getIpv4AddressRequester());
+        mPrivateAddressCoordinator.releaseDownstream(ipServer.getIpv4PrefixRequest());
     }
 
     private void updateUpstreamPrefix(UpstreamNetworkState ns) {
