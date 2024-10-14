@@ -379,6 +379,7 @@ import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.SatelliteAccessController;
+import com.android.server.connectivity.SatelliteDataUsageController;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.VpnNetworkPreferenceInfo;
 import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
@@ -1016,6 +1017,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final NetworkNotificationManager mNotifier;
     private final LingerMonitor mLingerMonitor;
     private final SatelliteAccessController mSatelliteAccessController;
+    private final SatelliteDataUsageController mSatelliteDataUsageController;
 
     // sequence number of NetworkRequests
     private int mNextNetworkRequestId = NetworkRequest.FIRST_REQUEST_ID;
@@ -1630,6 +1632,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         /**
+         * @see SatelliteDataUsageController
+         */
+        @Nullable
+        public SatelliteDataUsageController makeSatelliteDataUsageController(
+                @NonNull final Context context,
+                @NonNull final Handler connectivityServiceInternalHandler) {
+            return new SatelliteDataUsageController(context,
+                    connectivityServiceInternalHandler);
+        }
+
+        /**
          * @see DeviceConfigUtils#isTetheringFeatureEnabled
          */
         public boolean isFeatureEnabled(Context context, String name) {
@@ -1912,6 +1925,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mContext, this::updateSatelliteNetworkPreferenceUids, mHandler);
         } else {
             mSatelliteAccessController = null;
+        }
+
+        if (mDeps.isAtLeastV() && mDeps.isFeatureNotChickenedOut(
+                context, ConnectivityFlags.ALLOW_SATELLITE_DATA_USAGE_CHECK)) {
+            Log.d(TAG, "start satellite data usage check");
+            mSatelliteDataUsageController = mDeps.makeSatelliteDataUsageController(
+                    mContext, mHandler);
+        } else {
+            mSatelliteDataUsageController = null;
         }
 
         // To ensure uid state is synchronized with Network Policy, register for
@@ -5343,6 +5365,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         nai.updateInactivityTimer();
         if (nai.isInactive() && nai.numForegroundNetworkRequests() > 0) {
             if (DBG) log("Unsetting inactive " + nai.toShortString());
+            if (mSatelliteDataUsageController != null) {
+                updateTrackingStatusForIface(nai, false/*to add*/);
+            }
             nai.unsetInactive();
             logNetworkEvent(nai, NetworkEvent.NETWORK_UNLINGER);
         } else if (unneeded(nai, UnneededFor.LINGER) && nai.getInactivityExpiry() > 0) {
@@ -9624,6 +9649,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             final @NonNull NetworkAgentInfo nai) {
         final CompareResult<String> interfaceDiff = new CompareResult<>(
                 oldLp != null ? oldLp.getAllInterfaceNames() : null, newLp.getAllInterfaceNames());
+        boolean isSatelliteNetwork = false;
         if (!interfaceDiff.added.isEmpty()) {
             for (final String iface : interfaceDiff.added) {
                 try {
@@ -9632,6 +9658,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     wakeupModifyInterface(iface, nai, true);
                     mDeps.reportNetworkInterfaceForTransports(mContext, iface,
                             nai.networkCapabilities.getTransportTypes());
+                    if (mSatelliteDataUsageController != null) {
+                        isSatelliteNetwork = nai.networkCapabilities
+                                .hasTransport(NetworkCapabilities.TRANSPORT_SATELLITE)
+                                && !nai.networkCapabilities.hasCapability(
+                                        NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED);
+                        mSatelliteDataUsageController.createDataUsageTrackingForIface(iface,
+                                isSatelliteNetwork, nai);
+                    }
                 } catch (Exception e) {
                     logw("Exception adding interface: " + e);
                 }
@@ -9645,6 +9679,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } catch (Exception e) {
                 loge("Exception removing interface: " + e);
             }
+        }
+
+        // Start tracking data usage for satellite iface
+        if (mSatelliteDataUsageController != null && isSatelliteNetwork) {
+            mSatelliteDataUsageController.setMonitoringStatusForIface();
         }
     }
 
@@ -11634,6 +11673,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return newInfo;
     }
 
+    private void updateTrackingStatusForIface(NetworkAgentInfo networkAgent, boolean isRemoved) {
+        if (networkAgent.networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_SATELLITE)
+                && !networkAgent.networkCapabilities
+                .hasCapability(NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED)) {
+            Log.d(TAG, "satellite network , add/remove iface from data usage tracking");
+            mSatelliteDataUsageController
+                    .updateTrackingStatusForIface(getLinkProperties(networkAgent.network)
+                            .getInterfaceName(), isRemoved);
+        }
+    }
+
     private void updateNetworkInfo(NetworkAgentInfo networkAgent, NetworkInfo info) {
         final NetworkInfo newInfo = mixInInfo(networkAgent, info);
 
@@ -11647,6 +11697,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (DBG) {
             log(networkAgent.toShortString() + " EVENT_NETWORK_INFO_CHANGED, going from "
                     + oldInfo.getState() + " to " + state);
+        }
+
+        if (mSatelliteDataUsageController != null && state == NetworkInfo.State.DISCONNECTED) {
+            Log.d(TAG, "capabilities at disconnected state: "
+                    + Arrays.toString(networkAgent.networkCapabilities.getCapabilities()));
+            updateTrackingStatusForIface(networkAgent, true/*to remove*/);
         }
 
         if (shouldCreateNativeNetwork(networkAgent, state)) {
