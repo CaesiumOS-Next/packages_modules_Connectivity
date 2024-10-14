@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4e4df11_d8f533c7",
+        "filename": "thread/demoapp/res/layout/thread_network_settings_fragment.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-14T02:21:17Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "1865506c_9101e2e1",
+      "range": {
+        "startLine": 19,
+        "startChar": 24,
+        "endLine": 19,
+        "endChar": 35
+      },
+      "revId": "f31e35e54345374d8f2721df1ec10ee195fbcdb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dec430b5_426bb38e",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-12T13:09:59Z",
       "side": 1,
       "message": "Can you put those two buttons to the end of this page?",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 59
+      },
+      "revId": "f31e35e54345374d8f2721df1ec10ee195fbcdb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "620b1568_f0f7160c",
+        "filename": "thread/demoapp/res/layout/thread_network_settings_fragment.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-14T02:21:17Z",
+      "side": 1,
+      "message": "Done, also moved ephemeral key status text together with the buttons.",
+      "parentUuid": "dec430b5_426bb38e",
       "range": {
         "startLine": 66,
         "startChar": 0,
