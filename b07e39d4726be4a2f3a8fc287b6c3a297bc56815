@@ -1,0 +1,91 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b4ebf95_657b22d0",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-14T09:57:32Z",
+      "side": 1,
+      "message": "It is strange to me this is included in mdns lib instead of some common lib.\nIs it better to make the caller import net-utils-device-common instead of adding src here?",
+      "range": {
+        "startLine": 438,
+        "startChar": 44,
+        "endLine": 438,
+        "endChar": 56
+      },
+      "revId": "b07e39d4726be4a2f3a8fc287b6c3a297bc56815",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0e24046_bfb71587",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/HandlerUtilsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-14T09:57:32Z",
+      "side": 1,
+      "message": "Can we use the same timeout constant instead of creating new?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b93984c5_bab64451",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/net/module/util/HandlerUtilsTest.kt",
+              "range": {
+                "startLine": 31,
+                "startChar": 0,
+                "endLine": 33,
+                "endChar": 0
+              },
+              "replacement": "const val DEFAULT_TIMEOUT_MS \u003d 2000L // 2 seconds\nconst val THREAD_BLOCK_TIMEOUT_MS \u003d 1000L // 1 second\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b07e39d4726be4a2f3a8fc287b6c3a297bc56815",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91d73272_077cc429",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/HandlerUtilsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-14T09:57:32Z",
+      "side": 1,
+      "message": "It seems to me this line is useless?\nalso for below.",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 47
+      },
+      "revId": "b07e39d4726be4a2f3a8fc287b6c3a297bc56815",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
