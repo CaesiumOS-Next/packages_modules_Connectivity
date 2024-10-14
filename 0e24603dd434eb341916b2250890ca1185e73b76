@@ -16,6 +16,24 @@
       "message": "Please update the latest screenshot",
       "revId": "0e24603dd434eb341916b2250890ca1185e73b76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "914d09fb_1622e756",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-14T02:18:59Z",
+      "side": 1,
+      "message": "The screenshot in patchset 2 is already the latest.",
+      "parentUuid": "71a270a7_c0226132",
+      "revId": "0e24603dd434eb341916b2250890ca1185e73b76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
