@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34507b79_02229618",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-14T15:59:22Z",
+      "side": 1,
+      "message": "Patrick any opinions on naming?",
+      "revId": "c2a6e1d5ea80c84fc91cf7ac896381c778bb4a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d1c77ac_9947ffc0",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-14T15:59:22Z",
+      "side": 1,
+      "message": "this _network seems not needed, or even just SATELLITE_MATCH",
+      "range": {
+        "startLine": 210,
+        "startChar": 18,
+        "endLine": 210,
+        "endChar": 26
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d3707d5b_c6320a75",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 210,
+                "startChar": 0,
+                "endLine": 211,
+                "endChar": 0
+              },
+              "replacement": "    DENY_SATELLITE_MATCH \u003d (1 \u003c\u003c 14),\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c2a6e1d5ea80c84fc91cf7ac896381c778bb4a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccfd8145_18adffc6",
+        "filename": "framework/src/android/net/BpfNetMapsConstants.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-14T15:59:22Z",
+      "side": 1,
+      "message": "FIREWALL_CHAIN_SATELLITE",
+      "range": {
+        "startLine": 31,
+        "startChar": 46,
+        "endLine": 31,
+        "endChar": 83
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "effe5600_c4caeb36",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/BpfNetMapsConstants.java",
+              "range": {
+                "startLine": 31,
+                "startChar": 0,
+                "endLine": 32,
+                "endChar": 0
+              },
+              "replacement": "import static android.net.ConnectivityManager.FIREWALL_CHAIN_SAT;\n"
+            },
+            {
+              "path": "framework/src/android/net/BpfNetMapsConstants.java",
+              "range": {
+                "startLine": 132,
+                "startChar": 0,
+                "endLine": 133,
+                "endChar": 0
+              },
+              "replacement": "            FIREWALL_CHAIN_SAT\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c2a6e1d5ea80c84fc91cf7ac896381c778bb4a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
