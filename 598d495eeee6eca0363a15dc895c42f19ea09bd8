@@ -253,6 +253,30 @@
       },
       "revId": "598d495eeee6eca0363a15dc895c42f19ea09bd8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b4eba14_a4596eac",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1961685
+      },
+      "writtenOn": "2024-10-14T09:28:49Z",
+      "side": 1,
+      "message": "Hmm so the error is thrown in ActivityStarter.setInitialState() due to ActivityRecord.showToCurrentUser() returning false \n```\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:frameworks/base/services/core/java/com/android/server/wm/ActivityRecord.java;l\u003d10028-10031?q\u003dActivityRecord\u0026sq\u003drepo:googleplex-android%2Fplatform%2Fsuperproject%2Fmain%20b:main#:~:text\u003d10028-,10029,-10030\n```\nwhere they check is the user with userId \u003d UserHandle.getUserId(info.applicationInfo.uid) is visible. \n\nSo if your application is always running in user 0, this will fail every time you want to start the activity on any user other than 0. \n\nThanks for providing me with context.",
+      "parentUuid": "0f333d60_85e35d73",
+      "range": {
+        "startLine": 453,
+        "startChar": 12,
+        "endLine": 453,
+        "endChar": 20
+      },
+      "revId": "598d495eeee6eca0363a15dc895c42f19ea09bd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
