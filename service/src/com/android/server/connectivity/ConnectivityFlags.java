@@ -57,6 +57,9 @@ public final class ConnectivityFlags {
     public static final String QUEUE_CALLBACKS_FOR_FROZEN_APPS =
             "queue_callbacks_for_frozen_apps";
 
+    public static final String ALLOW_SATELLITE_DATA_USAGE_CHECK =
+            "allow_satellite_data_usage_check";
+
     private boolean mNoRematchAllRequestsOnRegister;
 
     /**
