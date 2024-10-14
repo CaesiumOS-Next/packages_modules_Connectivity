@@ -30,6 +30,15 @@ import android.util.Log;
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.InterfaceParams;
+import com.android.net.module.util.PacketReader;
+
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.Arrays;
 
 /**
  * Monitors the Satellite network data usage for each uid based on the satellite buffer event
@@ -52,6 +61,66 @@ public class SatelliteDataUsageController {
     // default satellite allowed data usage time measured interval
     private static final int DEFAULT_MEASURED_TIME_INTERVAL_SECS = 30;
     int mReadPipeFd = -1;
+    private final Handler mHandler;
+    private SatelliteBlockingUidDataListener mSatelliteBlockingUidDataListener;
+
+    private int findNonZeroLength(byte[] buffer) {
+        int length = 0;
+        for (int i = 0; i < buffer.length; i += 4 /*size of integer*/) {
+            int intValue = ByteBuffer.wrap(buffer, i, 4).order(ByteOrder.nativeOrder()).getInt();
+            if (intValue != 0) {
+                length++;
+            }
+        }
+        return length;
+    }
+
+    private class SatelliteBlockingUidDataListener extends PacketReader {
+        private final FileDescriptor mFd;
+
+        SatelliteBlockingUidDataListener(@NonNull Handler h, @NonNull FileDescriptor fd) {
+            super(h);
+            mFd = fd;
+        }
+
+        @Override
+        protected FileDescriptor createFd() {
+            return mFd;
+        }
+
+        @Override
+        protected int readPacket(@NonNull FileDescriptor fd, @NonNull byte[] buffer) {
+            try {
+                Arrays.fill(buffer, (byte) 0);
+                InputStream input = new FileInputStream(fd);
+                if (input.read(buffer) != -1) {
+                    return findNonZeroLength(buffer);
+                }
+            } catch (IOException e) {
+                Log.wtf(TAG, "Error reading from pipe: " + e.getMessage());
+            }
+            return 0;
+        }
+
+        @Override
+        protected void handlePacket(byte[] recvbuf, int length) {
+            int[] satelliteUidsBlockList = new int[0];
+            if (recvbuf != null && length > 0) {
+                final ByteBuffer buffer = ByteBuffer.wrap(recvbuf).order(ByteOrder.nativeOrder());
+
+                satelliteUidsBlockList = new int[length];
+                for (int i = 0; i < length; i++) {
+                    satelliteUidsBlockList[i] = buffer.getInt();
+                }
+                Log.i(
+                        TAG,
+                        "satellite uid received:"
+                                + length
+                                + ":"
+                                + Arrays.toString(satelliteUidsBlockList));
+            }
+        }
+    }
 
     private final ConnectivityManager.NetworkCallback mNetworkCallback =
             new ConnectivityManager.NetworkCallback() {
@@ -176,6 +245,13 @@ public class SatelliteDataUsageController {
         public void stopSatelliteBufferEvent() {
             nativeStopSatelliteBufferEvent();
         }
+
+        /** sets the int descriptor */
+        private static FileDescriptor createFileDescriptor(int fd) {
+            FileDescriptor fileDescriptor = new FileDescriptor();
+            fileDescriptor.setInt$(fd);
+            return fileDescriptor;
+        }
     }
 
     @VisibleForTesting
@@ -186,12 +262,27 @@ public class SatelliteDataUsageController {
         mContext = c;
         mDeps = deps;
         mConnectivityServiceHandler = connectivityServiceInternalHandler;
+        HandlerThread ht = new HandlerThread("");
+        ht.start();
+        mHandler = new Handler(ht.getLooper());
+    }
+
+    private void monitorPipeForSatelliteUidTobeBlockedUpdates() {
+        Log.i(TAG, "start monitoring");
+        mSatelliteBlockingUidDataListener =
+                new SatelliteBlockingUidDataListener(
+                        mHandler, Dependencies.createFileDescriptor(mReadPipeFd));
+        mHandler.post(() -> mSatelliteBlockingUidDataListener.start());
     }
 
     private void initialiseSatelliteBufferEvent() {
         if (mReadPipeFd == -1) {
             Log.i(TAG, "Initialise pipe");
             mReadPipeFd = mDeps.initSatelliteBufferEvent();
+        }
+
+        if (mReadPipeFd != -1) {
+            monitorPipeForSatelliteUidTobeBlockedUpdates();
         }
     }
 
