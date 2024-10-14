@@ -22,6 +22,30 @@
       },
       "revId": "a1abff6bf547db5237808d7241727f509711aa5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce272a37_58957bc2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-14T08:55:47Z",
+      "side": 1,
+      "message": "Done.\nBut for mCm.getActiveNetwork().\nIt seems to me it is independent so use synchronous call instead of registerSystemDefaultNetworkCallback.\nSee if it works for you.",
+      "parentUuid": "8d1a9cb8_1096c0a8",
+      "range": {
+        "startLine": 341,
+        "startChar": 41,
+        "endLine": 341,
+        "endChar": 63
+      },
+      "revId": "a1abff6bf547db5237808d7241727f509711aa5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
