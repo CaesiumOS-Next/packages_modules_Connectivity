@@ -22,6 +22,30 @@
       },
       "revId": "f33436962c4c3ac870433b5150521f353ba5caf3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b58ed06_496e0951",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1878,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-10-14T18:47:12Z",
+      "side": 1,
+      "message": "\u003e I can never remember: is this Ignore \u003cV or Ignore \u003c\u003dV\n\nIt ignored tests if sdk \u003c\u003d V ([code link](https://osscs.corp.google.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/testutils/devicetests/com/android/testutils/DevSdkIgnoreRule.kt;l\u003d119?q\u003dIgnoreUpTo))\n\n\u003e Does this depend on the netd fix?\nThat was just merged, so it\u0027ll only be in 25Q1 / V QPR2+ I think??\n\nYes this test depends on the netd fix, and thus it will pass on 25Q1 and above. I don\u0027t think we can add new CTS requirements in QPR release so I only enable this test on the next yearly release.",
+      "parentUuid": "0e6ce5ce_8859130c",
+      "range": {
+        "startLine": 1878,
+        "startChar": 0,
+        "endLine": 1878,
+        "endChar": 54
+      },
+      "revId": "f33436962c4c3ac870433b5150521f353ba5caf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
