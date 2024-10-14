@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "811b0c56_a2f68af6",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-14T15:17:45Z",
+      "side": 1,
+      "message": "To build the mDNS stack code into a standalone library for GMS Core, only the required files are listed. Importing net-utils-device-common would include many unnecessary files.",
+      "parentUuid": "9b4ebf95_657b22d0",
+      "range": {
+        "startLine": 438,
+        "startChar": 44,
+        "endLine": 438,
+        "endChar": 56
+      },
+      "revId": "b07e39d4726be4a2f3a8fc287b6c3a297bc56815",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0e24046_bfb71587",
@@ -65,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30e07ce2_8aa055b7",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/HandlerUtilsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-14T15:17:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0e24046_bfb71587",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "b07e39d4726be4a2f3a8fc287b6c3a297bc56815",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91d73272_077cc429",
@@ -78,6 +126,30 @@
       "writtenOn": "2024-10-14T09:57:32Z",
       "side": 1,
       "message": "It seems to me this line is useless?\nalso for below.",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 47
+      },
+      "revId": "b07e39d4726be4a2f3a8fc287b6c3a297bc56815",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d77c3b9_2b37ca7b",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/HandlerUtilsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-14T15:17:45Z",
+      "side": 1,
+      "message": "If we don\u0027t call waitForIdle(), it doesn\u0027t guarantee that the posted event has been processed. Feel free to reopen if you still have a concern.",
+      "parentUuid": "91d73272_077cc429",
       "range": {
         "startLine": 65,
         "startChar": 8,
