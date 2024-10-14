@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Title of the session showing device state -->
+  <string name="state_title">State</string>
+
+  <!-- Title of the session showing network information -->
+  <string name="network_info_title">Network Info</string>
+
+  <!-- Title of the session showing ephemeral key status -->
+  <string name="ephemeral_key_state_title">Ephemeral Key State</string>
+</resources>
