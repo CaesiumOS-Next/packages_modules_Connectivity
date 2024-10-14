@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec4a69ad_97a38efc",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadNetworkControllerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-14T02:06:58Z",
+      "side": 1,
+      "message": "also test when an error is returned in the OutcomeReceiver?",
+      "revId": "9b0bbd2d019dcc09950894f25e7f971e1a9bb387",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
