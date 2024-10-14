@@ -226,4 +226,7 @@
       2 = compare on debuggable builds (default value)
       -->
     <integer translatable="false" name="config_netstats_validate_import">2</integer>
+
+    <!-- Allowed Satellite data usage limit per uid. In Bytes -->
+    <integer name="config_satelliteDataUsageLimitAllowedPerUidBytes">0</integer>
 </resources>
