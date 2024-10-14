@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdc8b1c1_afa4d071",
+        "filename": "thread/demoapp/res/layout/thread_network_settings_fragment.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-14T02:25:35Z",
+      "side": 1,
+      "message": "We usually put the relevant state below the buttons, can you move this state text after `Button android:id\u003d\"@+id/button_deactivate_ephemeral_key_mode\"`?",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 87,
+        "endChar": 38
+      },
+      "revId": "91db7e0d2d24ad47ba78c0f54d6758ce6e3d7d0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
