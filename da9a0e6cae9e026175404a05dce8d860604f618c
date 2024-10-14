@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ccaa0f5_1d643264",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-14T05:11:51Z",
+      "side": 1,
+      "message": "+ @sunnymistry@google.com\n\nHi sunny,\n  Could you kindly help to input Automotive part for the above discussion?",
+      "parentUuid": "ccdfc757_a91e6226",
+      "range": {
+        "startLine": 433,
+        "startChar": 9,
+        "endLine": 433,
+        "endChar": 54
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c2687c1_968d02f7",
         "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
         "patchSetId": 4

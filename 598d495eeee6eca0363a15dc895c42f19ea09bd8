@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efc36980_debcb80e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-14T05:11:51Z",
+      "side": 1,
+      "message": "Acknowledged, keep it as is.",
+      "parentUuid": "13b4bb90_410ffc02",
+      "range": {
+        "startLine": 442,
+        "startChar": 36,
+        "endLine": 442,
+        "endChar": 81
+      },
+      "revId": "598d495eeee6eca0363a15dc895c42f19ea09bd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4ea0470_54c658a2",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Good spot! Many methods changed to be context user aware in Android T.\n\nThis system user check isn\u0027t really necessary anyway, as the Admin user check should be sufficient.",
       "parentUuid": "e4ea0470_54c658a2",
+      "range": {
+        "startLine": 449,
+        "startChar": 28,
+        "endLine": 449,
+        "endChar": 56
+      },
+      "revId": "598d495eeee6eca0363a15dc895c42f19ea09bd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9fd23b6_9ce92326",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-14T05:11:51Z",
+      "side": 1,
+      "message": "It seems to me there is no correct way to check T- device.\nIIUC isAdminUser is also not context user aware before Android T, since it also calls getContextUserIfAppropriate()?\nThus, make the activity for T- device launch on system user only,\nwhich is the original behavior.\nSee if it works for you.",
+      "parentUuid": "7082927c_ce3cc74e",
       "range": {
         "startLine": 449,
         "startChar": 28,
@@ -149,6 +197,54 @@
       "writtenOn": "2024-10-09T14:56:56Z",
       "side": 1,
       "message": "Use `currentUser`?",
+      "range": {
+        "startLine": 453,
+        "startChar": 49,
+        "endLine": 453,
+        "endChar": 67
+      },
+      "revId": "598d495eeee6eca0363a15dc895c42f19ea09bd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f333d60_85e35d73",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-14T05:11:51Z",
+      "side": 1,
+      "message": "It seems this is not working.\nThus keep the original code.\n```\n10-14 12:05:42.430  1252  3421 W ActivityTaskManager: Can\u0027t resume non-current user r\u003dActivityRecord{4ffe9e1 u0 com.android.settings/.network.TetherProvisioningActivity\n```\nReopen if any idea.",
+      "parentUuid": "14a29f41_4bbb462b",
+      "range": {
+        "startLine": 453,
+        "startChar": 12,
+        "endLine": 453,
+        "endChar": 20
+      },
+      "revId": "598d495eeee6eca0363a15dc895c42f19ea09bd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21a529b4_a49f9311",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-14T05:11:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64c78a9f_11dea19e",
       "range": {
         "startLine": 453,
         "startChar": 49,
