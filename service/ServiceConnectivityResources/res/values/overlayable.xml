@@ -44,6 +44,8 @@
             <item type="string" name="config_ethernet_iface_regex"/>
             <item type="integer" name="config_validationFailureAfterRoamIgnoreTimeMillis" />
             <item type="integer" name="config_netstats_validate_import" />
+            <item type="integer" name="config_satelliteDataUsageLimitAllowedPerUidBytes" />
+            <item type="integer" name="config_satelliteAllowedDataUsageTimeMeasuredIntervalSecs" />
 
             <!-- Configuration values for ThreadNetworkService -->
             <item type="bool" name="config_thread_default_enabled" />
