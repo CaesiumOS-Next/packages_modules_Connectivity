@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc45158c_805fa9d6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-14T18:43:35Z",
+      "side": 1,
+      "message": "Oh, I see. I wasn\u0027t aware of this. What is the commonly used pattern here?",
+      "parentUuid": "47d66a10_f45cd637",
+      "range": {
+        "startLine": 79,
+        "startChar": 27,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "5aed7cc506fd4e861e41fab085fb8cff1f21808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "635880aa_ecf3e9ac",
         "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
         "patchSetId": 30
@@ -177,6 +201,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7599fad0_250c7f0e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 2033,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-14T18:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "085e2a44_22add7df",
+      "revId": "5aed7cc506fd4e861e41fab085fb8cff1f21808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5d74680_61e23f43",
@@ -261,6 +303,30 @@
       "side": 1,
       "message": "I added a specific lock object because there\u0027s already another lock object `mIfacesLock` so I think this would be more clear. Locking on `this` also has the correct behavior but I\u0027m not sure if it\u0027s the suggested style.",
       "parentUuid": "13e6ebd6_bea2c9d3",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 71
+      },
+      "revId": "5aed7cc506fd4e861e41fab085fb8cff1f21808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fa78b28_3c35f37f",
+        "filename": "staticlibs/device/com/android/net/module/util/RoutingCoordinatorService.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-14T18:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5f11761_657d3d3f",
       "range": {
         "startLine": 55,
         "startChar": 8,
