@@ -177,6 +177,7 @@ import static com.android.server.ConnectivityService.makeNflogPrefix;
 import static com.android.server.ConnectivityServiceTestUtils.transportToLegacyType;
 import static com.android.server.NetworkAgentWrapper.CallbackType.OnQosCallbackRegister;
 import static com.android.server.NetworkAgentWrapper.CallbackType.OnQosCallbackUnregister;
+import static com.android.server.connectivity.ConnectivityFlags.ALLOW_SATELLITE_DATA_USAGE_CHECK;
 import static com.android.server.connectivity.ConnectivityFlags.BACKGROUND_FIREWALL_CHAIN;
 import static com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS;
 import static com.android.server.connectivity.ConnectivityFlags.INGRESS_TO_VPN_ADDRESS_FILTERING;
@@ -428,6 +429,7 @@ import com.android.server.connectivity.NetworkNotificationManager.NotificationTy
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.SatelliteAccessController;
+import com.android.server.connectivity.SatelliteDataUsageController;
 import com.android.server.connectivity.TcpKeepaliveController;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.net.NetworkPinner;
@@ -650,6 +652,7 @@ public class ConnectivityServiceTest {
     @Mock SubscriptionManager mSubscriptionManager;
     @Mock KeepaliveTracker.Dependencies mMockKeepaliveTrackerDependencies;
     @Mock SatelliteAccessController mSatelliteAccessController;
+    @Mock SatelliteDataUsageController mSatelliteDataUsageController;
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
@@ -2090,6 +2093,13 @@ public class ConnectivityServiceTest {
         }
 
         @Override
+        public SatelliteDataUsageController makeSatelliteDataUsageController(
+                @NonNull final Context context,
+                @NonNull final Handler connectivityServiceInternalHandler) {
+            return mSatelliteDataUsageController;
+        }
+
+        @Override
         public boolean intentFilterEquals(final PendingIntent a, final PendingIntent b) {
             return runAsShell(GET_INTENT_SENDER_INTENT, () -> a.intentFilterEquals(b));
         }
@@ -2200,6 +2210,8 @@ public class ConnectivityServiceTest {
                 case BACKGROUND_FIREWALL_CHAIN:
                     return true;
                 case DELAY_DESTROY_SOCKETS:
+                    return true;
+                case ALLOW_SATELLITE_DATA_USAGE_CHECK:
                     return true;
                 default:
                     return super.isFeatureNotChickenedOut(context, name);
