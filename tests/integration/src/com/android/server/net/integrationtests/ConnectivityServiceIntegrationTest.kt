@@ -62,6 +62,7 @@ import com.android.server.connectivity.MockableSystemProperties
 import com.android.server.connectivity.MultinetworkPolicyTracker
 import com.android.server.connectivity.ProxyTracker
 import com.android.server.connectivity.SatelliteAccessController
+import com.android.server.connectivity.SatelliteDataUsageController
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.DeviceInfoUtils
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
@@ -268,6 +269,12 @@ class ConnectivityServiceIntegrationTest {
             connectivityServiceInternalHandler: Handler
         ): SatelliteAccessController? = mock(
             SatelliteAccessController::class.java)
+
+        override fun makeSatelliteDataUsageController(
+            context: Context,
+            connectivityServiceInternalHandler: Handler
+        ): SatelliteDataUsageController? = mock(
+            SatelliteDataUsageController::class.java)
     }
 
     @After
