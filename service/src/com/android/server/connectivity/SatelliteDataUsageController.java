@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity;
 
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_DENY_SATELLITE_NETWORK;
+
 import android.annotation.NonNull;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -24,12 +26,22 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.InterfaceParams;
+import com.android.net.module.util.PacketReader;
 
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Monitors the Satellite network data usage for each uid based on the satellite buffer event
@@ -47,8 +59,82 @@ public class SatelliteDataUsageController {
     private boolean isSatelliteBufferEventActive;
     private boolean isRegistered;
     private ConnectivityManager mConnectivityManager;
+    private int[] mCurrentSatelliteUidBlockingArrayCache;
     private static final int INVALID_IFINDEX = 0;
+    private final Handler mHandler;
     int mReadPipeFd = -1;
+
+    private SatelliteBlockingUidDataListener mSatelliteBlockingUidDataListener;
+
+    private int findNonZeroLength(byte[] buffer) {
+        int length = 0;
+        for (int i = 0; i < buffer.length; i += 4 /*size of integer*/) {
+            int intValue = ByteBuffer.wrap(buffer, i, 4).order(ByteOrder.nativeOrder()).getInt();
+            if (intValue != 0) {
+                length++;
+            }
+        }
+        return length;
+    }
+
+    private class SatelliteBlockingUidDataListener extends PacketReader {
+        private final FileDescriptor mFd;
+
+        SatelliteBlockingUidDataListener(@NonNull Handler h, @NonNull FileDescriptor fd) {
+            super(h);
+            mFd = fd;
+        }
+
+        @Override
+        protected FileDescriptor createFd() {
+            return mFd;
+        }
+
+        @Override
+        protected int readPacket(@NonNull FileDescriptor fd, @NonNull byte[] buffer) {
+            try {
+                Arrays.fill(buffer, (byte) 0);
+                InputStream input = new FileInputStream(fd);
+                if (input.read(buffer) != -1) {
+                    return findNonZeroLength(buffer);
+                }
+            } catch (IOException e) {
+                Log.wtf(TAG, "Error reading from pipe: " + e.getMessage());
+            }
+            return 0;
+        }
+
+        @Override
+        protected void handlePacket(byte[] recvbuf, int length) {
+            int[] satelliteUidsBlockList = new int[0];
+            if (recvbuf != null && length > 0) {
+                final ByteBuffer buffer = ByteBuffer.wrap(recvbuf).order(ByteOrder.nativeOrder());
+
+                satelliteUidsBlockList = new int[length];
+                for (int i = 0; i < length; i++) {
+                    satelliteUidsBlockList[i] = buffer.getInt();
+                }
+                Log.i(
+                        TAG,
+                        "satellite uid received:"
+                                + length
+                                + ":"
+                                + Arrays.toString(satelliteUidsBlockList));
+            }
+            if (satelliteUidsBlockList.length > 0) {
+                onSatelliteUidBlockingListReceived(satelliteUidsBlockList);
+            }
+        }
+    }
+
+    private void onSatelliteUidBlockingListReceived(int[] satelliteUidsBlockList) {
+        final Runnable r =
+                () ->
+                        updateFirewallRuleOfSatelliteUids(
+                                satelliteUidsBlockList, satelliteUidsBlockList.length > 0);
+
+        mConnectivityServiceHandler.post(r);
+    }
 
     private final ConnectivityManager.NetworkCallback networkCallback =
             new ConnectivityManager.NetworkCallback() {
@@ -62,9 +148,10 @@ public class SatelliteDataUsageController {
                             if (capabilities != null) {
                                 isSatelliteNetworkConnected =
                                         capabilities.hasTransport(
-                                                NetworkCapabilities.TRANSPORT_SATELLITE);
-                                /*  && !capabilities.hasCapability(NetworkCapabilities
-                                .NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED);*/
+                                                        NetworkCapabilities.TRANSPORT_SATELLITE)
+                                                && !capabilities.hasCapability(
+                                                        NetworkCapabilities
+                                                                .NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED);
                                 boolean isWifiConnected =
                                         capabilities.hasTransport(
                                                 NetworkCapabilities.TRANSPORT_WIFI);
@@ -140,12 +227,27 @@ public class SatelliteDataUsageController {
         mContext = c;
         mDeps = deps;
         mConnectivityServiceHandler = connectivityServiceInternalHandler;
+        HandlerThread ht = new HandlerThread("");
+        ht.start();
+        mHandler = new Handler(ht.getLooper());
+    }
+
+    private void monitorPipeForSatelliteUidTobeBlockedUpdates() {
+        Log.i(TAG, "start monitoring");
+        mSatelliteBlockingUidDataListener =
+                new SatelliteBlockingUidDataListener(
+                        mHandler, Dependencies.createFileDescriptor(mReadPipeFd));
+        mHandler.post(() -> mSatelliteBlockingUidDataListener.start());
     }
 
     private void initialiseSatelliteBufferEvent() {
         if (mReadPipeFd == -1) {
             Log.i(TAG, "Initialise pipe");
             mReadPipeFd = nativeInitSatelliteBufferEvent();
+        }
+
+        if (mReadPipeFd != -1) {
+            monitorPipeForSatelliteUidTobeBlockedUpdates();
         }
     }
 
@@ -196,8 +298,10 @@ public class SatelliteDataUsageController {
                                     nativeStartSatelliteBufferEvent(SatelliteEventConfig);
 
                                 } else {
-                                    Log.wtf(TAG, "pipe fd not created,"
-                                            + " don't start satellite buffer event");
+                                    Log.wtf(
+                                            TAG,
+                                            "pipe fd not created,"
+                                                    + " don't start satellite buffer event");
                                 }
                             });
             nativeThread.start();
@@ -208,6 +312,10 @@ public class SatelliteDataUsageController {
         if (isSatelliteBufferEventActive) {
             Log.i(TAG, "stop satellite buffer event");
             isSatelliteBufferEventActive = false;
+            if (mCurrentSatelliteUidBlockingArrayCache != null
+                    && mCurrentSatelliteUidBlockingArrayCache.length > 0) {
+                onSatelliteUidBlockingListReceived(new int[0]);
+            }
             nativeStopSatelliteBufferEvent();
         }
     }
@@ -231,6 +339,83 @@ public class SatelliteDataUsageController {
             }
         }
         return -1;
+    }
+
+    // update firewall rule for satellie uids for blocking and unblocking network access.
+    // On Callback received from native code with uid list to block or on satellite network
+    // disconnected, call this method with uids to update firewall rule
+    private void updateFirewallRuleOfSatelliteUids(
+            int[] newSatelliteUidBlockingArray, boolean needBlocking) {
+
+        if (needBlocking) {
+            // update uid cache for enforcement
+            if (mCurrentSatelliteUidBlockingArrayCache != null
+                    && mCurrentSatelliteUidBlockingArrayCache.length > 0) {
+                updateSatelliteBlockingListCache(newSatelliteUidBlockingArray);
+            } else {
+                mCurrentSatelliteUidBlockingArrayCache =
+                        Arrays.copyOf(
+                                newSatelliteUidBlockingArray, newSatelliteUidBlockingArray.length);
+            }
+            Log.i(
+                    TAG,
+                    "enforce blocking rule for uids: "
+                            + Arrays.toString(mCurrentSatelliteUidBlockingArrayCache));
+
+            // enforce blocking rule for the uid cache
+            if (!mConnectivityManager.getFirewallChainEnabled(
+                    FIREWALL_CHAIN_DENY_SATELLITE_NETWORK)) {
+                Log.i(TAG, "firewall chain not enabled");
+                mConnectivityManager.setFirewallChainEnabled(
+                        FIREWALL_CHAIN_DENY_SATELLITE_NETWORK, true);
+            }
+            mConnectivityManager.replaceFirewallChain(
+                    FIREWALL_CHAIN_DENY_SATELLITE_NETWORK, mCurrentSatelliteUidBlockingArrayCache);
+        } else {
+            Log.i(
+                    TAG,
+                    "enforce unblock rule for uids : "
+                            + Arrays.toString(mCurrentSatelliteUidBlockingArrayCache));
+            mConnectivityManager.replaceFirewallChain(
+                    FIREWALL_CHAIN_DENY_SATELLITE_NETWORK, newSatelliteUidBlockingArray);
+            mCurrentSatelliteUidBlockingArrayCache = new int[0];
+        }
+    }
+
+    private void updateSatelliteBlockingListCache(int[] newUidsToBlock) {
+        // 1. Use a Set to track existing elements
+        Set<Integer> existingElements = new HashSet<>();
+        for (int num : mCurrentSatelliteUidBlockingArrayCache) {
+            existingElements.add(num);
+        }
+
+        // 2. Count the number of new elements to add
+        int newElementsCount = 0;
+        for (int num : newUidsToBlock) {
+            if (!existingElements.contains(num)) {
+                newElementsCount++;
+            }
+        }
+
+        // 3. Create a new array with the correct size
+        int[] temp = new int[mCurrentSatelliteUidBlockingArrayCache.length + newElementsCount];
+
+        // 4. Copy existing elements to the new array
+        System.arraycopy(
+                mCurrentSatelliteUidBlockingArrayCache,
+                0,
+                temp,
+                0,
+                mCurrentSatelliteUidBlockingArrayCache.length);
+
+        // 5. Add new, unique elements to the new array
+        int index = mCurrentSatelliteUidBlockingArrayCache.length;
+        for (int num : newUidsToBlock) {
+            if (!existingElements.contains(num)) {
+                temp[index++] = num;
+            }
+        }
+        mCurrentSatelliteUidBlockingArrayCache = temp;
     }
 
     /** Initialise Satellite Buffer Event interface for read and write file descriptors */
