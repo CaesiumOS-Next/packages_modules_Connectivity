@@ -73,6 +73,7 @@ import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies
 import com.android.server.connectivity.NetworkRequestStateStatsMetrics
 import com.android.server.connectivity.ProxyTracker
 import com.android.server.connectivity.SatelliteAccessController
+import com.android.server.connectivity.SatelliteDataUsageController
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
 import java.util.concurrent.Executors
@@ -166,6 +167,7 @@ open class CSTest {
         it[ConnectivityFlags.DELAY_DESTROY_SOCKETS] = true
         it[ConnectivityFlags.USE_DECLARED_METHODS_FOR_CALLBACKS] = true
         it[ConnectivityFlags.QUEUE_CALLBACKS_FOR_FROZEN_APPS] = true
+        it[ConnectivityFlags.ALLOW_SATELLITE_DATA_USAGE_CHECK] = true
     }
     fun setFeatureEnabled(flag: String, enabled: Boolean) = enabledFeatures.set(flag, enabled)
 
@@ -212,6 +214,7 @@ open class CSTest {
 
     val multicastRoutingCoordinatorService = mock<MulticastRoutingCoordinatorService>()
     val satelliteAccessController = mock<SatelliteAccessController>()
+    val satelliteDataUsageController = mock<SatelliteDataUsageController>()
     val destroySocketsWrapper = mock<DestroySocketsWrapper>()
 
     val deps = CSDeps()
@@ -298,6 +301,13 @@ open class CSTest {
         ): SatelliteAccessController? {
             satelliteNetworkFallbackUidUpdate = updateSatelliteNetworkFallackUid
             return satelliteAccessController
+        }
+
+        override fun makeSatelliteDataUsageController(
+            context: Context,
+            connectivityServiceInternalHandler: Handler
+        ): SatelliteDataUsageController? {
+            return satelliteDataUsageController
         }
 
         private inner class AOOKTDeps(c: Context) : AutomaticOnOffKeepaliveTracker.Dependencies(c) {
