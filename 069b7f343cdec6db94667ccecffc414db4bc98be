@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d3c035c_abc0d6d3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 2668,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-14T21:17:15Z",
+      "side": 0,
+      "message": "that one is interesting. Who is dumping RoutingCoordinatorService / PrivateAddressCoordinator now? (Doesn\u0027t have to happen in this CL).",
+      "range": {
+        "startLine": 2668,
+        "startChar": 35,
+        "endLine": 2668,
+        "endChar": 39
+      },
+      "revId": "069b7f343cdec6db94667ccecffc414db4bc98be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
