@@ -495,7 +495,13 @@ static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_
     }
 
     if (SDK_LEVEL_IS_AT_LEAST(lvl, 25Q2) && skb->ifindex == 1) {
-        // TODO: sdksandbox localhost restrictions
+        if (skb->ifindex == 1 && is_sdksandbox_uid(uid)) {
+            uint8_t *perms = bpf_uid_permission_map_lookup_elem(&uid);
+            // check if the UID is allowed localhost connection, default for
+            // BPF_PERMISSION_SDKSANDBOX_LOCALHOST = false
+            if (!perms) return DROP; // shouldn't happen
+            if (!(*perms & BPF_PERMISSION_SDKSANDBOX_LOCALHOST)) return DROP;
+        }
     }
 
     return PASS;

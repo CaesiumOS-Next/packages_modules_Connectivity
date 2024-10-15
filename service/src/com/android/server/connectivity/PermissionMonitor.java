@@ -28,6 +28,7 @@ import static android.net.INetd.PERMISSION_INTERNET;
 import static android.net.INetd.PERMISSION_NETWORK;
 import static android.net.INetd.PERMISSION_NONE;
 import static android.net.INetd.PERMISSION_SYSTEM;
+import static android.net.INetd.PERMISSION_SDKSANDBOX_LOCALHOST;
 import static android.net.INetd.PERMISSION_UNINSTALLED;
 import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
@@ -324,6 +325,15 @@ public class PermissionMonitor {
         return SdkLevel.isAtLeastT() && Process.isApplicationUid(uid);
     }
 
+    private static boolean isSdkSandboxLocalhostEnabled(String packagename) {
+        if (packagename == null) {
+            return false;
+        }
+        return packagename.startsWith("com.android.cts")
+                || packagename.startsWith("android.webkit.cts")
+                || packagename.startsWith("android.sdksandbox.webkit.cts");
+    }
+
     // Return the network permission for the passed list of apps. Note that this depends on the
     // current settings of the device (See isUidAllowedOnRestrictedNetworks).
     private SparseIntArray makeUidsNetworkPerm(final List<PackageInfo> apps) {
@@ -358,7 +368,15 @@ public class PermissionMonitor {
             final int permission = appIdsPerm.get(appId) | otherNetdPerms;
             appIdsPerm.put(appId, permission);
             if (hasSdkSandbox(appId)) {
-                appIdsPerm.put(sProcessShim.toSdkSandboxUid(appId), permission);
+                if (isSdkSandboxLocalhostEnabled(app.packageName)
+                        && (permission & PERMISSION_INTERNET) != 0) {
+                    log("granting localhost to sandbox for " + app.packageName
+                            + " with uid " + appId);
+                    appIdsPerm.put(sProcessShim.toSdkSandboxUid(appId),
+                            PERMISSION_INTERNET | PERMISSION_SDKSANDBOX_LOCALHOST);
+                } else {
+                    appIdsPerm.put(sProcessShim.toSdkSandboxUid(appId), permission);
+                }
             }
         }
         return appIdsPerm;
@@ -745,6 +763,8 @@ public class PermissionMonitor {
                 return "INTERNET";
             case PERMISSION_UPDATE_DEVICE_STATS:
                 return "UPDATE_DEVICE_STATS";
+            case PERMISSION_SDKSANDBOX_LOCALHOST:
+                return "SDKSANDBOX_LOCALHOST";
             case (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS):
                 return "ALL";
             case PERMISSION_UNINSTALLED:
@@ -802,7 +822,16 @@ public class PermissionMonitor {
         // Get the appId permission from all users then send the latest permission to netd.
         final int appId = UserHandle.getAppId(uid);
         final int appIdTrafficPerm = getAppIdTrafficPermission(appId);
+        final int sdkSandboxUid = hasSdkSandbox(uid) ? sProcessShim.toSdkSandboxUid(uid) : -1;
+
         sendPackagePermissionsForAppId(appId, appIdTrafficPerm);
+        if (sdkSandboxUid > 0
+                && (appIdTrafficPerm & PERMISSION_INTERNET) != 0
+                && isSdkSandboxLocalhostEnabled(packageName)) {
+            log("granting localhost to sandbox for " + packageName + " with uid " + sdkSandboxUid);
+            sendPackagePermissionsForAppId(
+                    sdkSandboxUid, PERMISSION_INTERNET | PERMISSION_SDKSANDBOX_LOCALHOST);
+        }
 
         final int currentPermission = mUidToNetworkPerm.get(uid, PERMISSION_NONE);
         final int permission = highestPermissionForUid(uid, currentPermission, packageName);
@@ -812,8 +841,7 @@ public class PermissionMonitor {
             SparseIntArray apps = new SparseIntArray();
             apps.put(uid, permission);
 
-            if (hasSdkSandbox(uid)) {
-                int sdkSandboxUid = sProcessShim.toSdkSandboxUid(uid);
+            if (sdkSandboxUid > 0) {
                 mUidToNetworkPerm.put(sdkSandboxUid, permission);
                 apps.put(sdkSandboxUid, permission);
             }
@@ -1158,6 +1186,7 @@ public class PermissionMonitor {
         ensureRunningOnHandlerThread();
         final ArrayList<Integer> allPermissionAppIds = new ArrayList<>();
         final ArrayList<Integer> internetPermissionAppIds = new ArrayList<>();
+        final ArrayList<Integer> localhostSandboxPermissionAppIds = new ArrayList<>();
         final ArrayList<Integer> updateStatsPermissionAppIds = new ArrayList<>();
         final ArrayList<Integer> noPermissionAppIds = new ArrayList<>();
         final ArrayList<Integer> uninstalledAppIds = new ArrayList<>();
@@ -1166,6 +1195,9 @@ public class PermissionMonitor {
             switch(permissions) {
                 case (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS):
                     allPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+                    break;
+                case (PERMISSION_INTERNET | PERMISSION_SDKSANDBOX_LOCALHOST):
+                    localhostSandboxPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
                     break;
                 case PERMISSION_INTERNET:
                     internetPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
@@ -1190,6 +1222,11 @@ public class PermissionMonitor {
                 mBpfNetMaps.setNetPermForUids(
                         PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
                         toIntArray(allPermissionAppIds));
+            }
+            if (localhostSandboxPermissionAppIds.size() != 0) {
+                mBpfNetMaps.setNetPermForUids(
+                        PERMISSION_INTERNET | PERMISSION_SDKSANDBOX_LOCALHOST,
+                        toIntArray(localhostSandboxPermissionAppIds));
             }
             if (internetPermissionAppIds.size() != 0) {
                 mBpfNetMaps.setNetPermForUids(PERMISSION_INTERNET,
