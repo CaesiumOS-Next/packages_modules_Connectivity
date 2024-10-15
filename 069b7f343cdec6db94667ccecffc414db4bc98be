@@ -22,6 +22,30 @@
       },
       "revId": "069b7f343cdec6db94667ccecffc414db4bc98be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57c98cc7_a9c1f282",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 2668,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-15T02:45:04Z",
+      "side": 0,
+      "message": "I don\u0027t think there\u0027s one dumping it. Filed b/373497703 to track this.",
+      "parentUuid": "2d3c035c_abc0d6d3",
+      "range": {
+        "startLine": 2668,
+        "startChar": 35,
+        "endLine": 2668,
+        "endChar": 39
+      },
+      "revId": "069b7f343cdec6db94667ccecffc414db4bc98be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
