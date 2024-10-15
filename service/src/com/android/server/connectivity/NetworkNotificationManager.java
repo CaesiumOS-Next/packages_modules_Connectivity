@@ -58,7 +58,8 @@ public class NetworkNotificationManager {
         NO_INTERNET(SystemMessage.NOTE_NETWORK_NO_INTERNET),
         PARTIAL_CONNECTIVITY(SystemMessage.NOTE_NETWORK_PARTIAL_CONNECTIVITY),
         SIGN_IN(SystemMessage.NOTE_NETWORK_SIGN_IN),
-        PRIVATE_DNS_BROKEN(SystemMessage.NOTE_NETWORK_PRIVATE_DNS_BROKEN);
+        PRIVATE_DNS_BROKEN(SystemMessage.NOTE_NETWORK_PRIVATE_DNS_BROKEN),
+        SATELLITE_DATA_BLOCKED(SystemMessage.NOTE_NETWORK_SATELLITE_DATA_BLOCKED);
 
         public final int eventId;
 
@@ -334,7 +335,8 @@ public class NetworkNotificationManager {
             PendingIntent intent) {
         if (notifyType != NotificationType.LOST_INTERNET
                 && notifyType != NotificationType.NO_INTERNET
-                && notifyType != NotificationType.PARTIAL_CONNECTIVITY) {
+                && notifyType != NotificationType.PARTIAL_CONNECTIVITY
+                && notifyType != NotificationType.SATELLITE_DATA_BLOCKED) {
             return false;
         }
         if (!res.getBoolean(R.bool.config_notifyNoInternetAsDialogWhenHighPriority)) {
@@ -449,6 +451,8 @@ public class NetworkNotificationManager {
             return 0;
         }
         switch (t) {
+            case SATELLITE_DATA_BLOCKED:
+                return 7;
             case SIGN_IN:
                 return 6;
             case PARTIAL_CONNECTIVITY:

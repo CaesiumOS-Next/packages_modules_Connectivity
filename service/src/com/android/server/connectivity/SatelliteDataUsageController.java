@@ -43,6 +43,7 @@ import java.nio.ByteOrder;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * Monitors the Satellite network data usage for each uid based on the satellite buffer event
@@ -67,6 +68,7 @@ public class SatelliteDataUsageController {
     int mReadPipeFd = -1;
 
     private SatelliteBlockingUidDataListener mSatelliteBlockingUidDataListener;
+    private final Consumer<int[]> mCallback;
 
     private int findNonZeroLength(byte[] buffer) {
         int length = 0;
@@ -183,8 +185,10 @@ public class SatelliteDataUsageController {
             };
 
     public SatelliteDataUsageController(
-            @NonNull final Context c, @NonNull final Handler connectivityServiceInternalHandler) {
-        this(c, new Dependencies(), connectivityServiceInternalHandler);
+            @NonNull final Context c,
+            Consumer<int[]> callback,
+            @NonNull final Handler connectivityServiceInternalHandler) {
+        this(c, callback, new Dependencies(), connectivityServiceInternalHandler);
     }
 
     /** Dependencies of SatelliteDataUsageController, */
@@ -241,11 +245,13 @@ public class SatelliteDataUsageController {
     @VisibleForTesting
     SatelliteDataUsageController(
             @NonNull final Context c,
+            Consumer<int[]> callback,
             @NonNull final Dependencies deps,
             @NonNull final Handler connectivityServiceInternalHandler) {
         mContext = c;
         mDeps = deps;
         mConnectivityServiceHandler = connectivityServiceInternalHandler;
+        mCallback = callback;
         HandlerThread ht = new HandlerThread("");
         ht.start();
         mHandler = new Handler(ht.getLooper());
@@ -393,6 +399,8 @@ public class SatelliteDataUsageController {
             }
             mConnectivityManager.replaceFirewallChain(
                     FIREWALL_CHAIN_DENY_SATELLITE_NETWORK, mCurrentSatelliteUidBlockingArrayCache);
+            // update dialog for the new uids added part of the cache
+            mCallback.accept(newSatelliteUidBlockingArray);
         } else {
             Log.i(
                     TAG,
