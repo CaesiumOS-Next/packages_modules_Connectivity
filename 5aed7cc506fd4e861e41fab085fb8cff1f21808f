@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bd894a5_854c0155",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-15T02:46:22Z",
+      "side": 1,
+      "message": "Per offline discussion, I\u0027ll keep it as is and follow it up in the future.",
+      "parentUuid": "cc45158c_805fa9d6",
+      "range": {
+        "startLine": 79,
+        "startChar": 27,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "5aed7cc506fd4e861e41fab085fb8cff1f21808f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "635880aa_ecf3e9ac",
