@@ -423,6 +423,12 @@ static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_
             return DROP_UNLESS_DNS;
         }
     }
+
+    // Restrict sdksandbox localhost traffic
+    if (is_sdksandbox_uid(uid) && skb->ifindex == 1) {
+      return DROP;
+    }
+
     return PASS;
 }
 
