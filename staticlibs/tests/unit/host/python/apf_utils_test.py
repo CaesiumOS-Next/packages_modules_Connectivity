@@ -18,10 +18,10 @@ from mobly import asserts
 from mobly import base_test
 from mobly import config_parser
 from mobly.controllers.android_device_lib.adb import AdbError
+from net_tests_utils.host.python.adb_utils import UnsupportedOperationException
 from net_tests_utils.host.python.apf_utils import (
     ApfCapabilities,
     PatternNotFoundException,
-    UnsupportedOperationException,
     get_apf_capabilities,
     get_apf_counter,
     get_apf_counters_from_dumpsys,

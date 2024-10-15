@@ -16,16 +16,10 @@ from dataclasses import dataclass
 import re
 from mobly import asserts
 from mobly.controllers import android_device
-from mobly.controllers.android_device_lib.adb import AdbError
 from net_tests_utils.host.python import adb_utils, assert_utils
-
 
 class PatternNotFoundException(Exception):
   """Raised when the given pattern cannot be found."""
-
-
-class UnsupportedOperationException(Exception):
-  pass
 
 
 def get_apf_counter(
@@ -212,7 +206,7 @@ def is_send_raw_packet_downstream_supported(
     send_raw_packet_downstream(ad, "", "")
   except assert_utils.UnexpectedBehaviorError:
     return True
-  except UnsupportedOperationException:
+  except adb_utils.UnsupportedOperationException:
     return False
 
 
@@ -248,10 +242,10 @@ def send_raw_packet_downstream(
         representation of a packet starting from L2 header.
   """
 
-  cmd = f"cmd network_stack send-raw-packet-downstream {iface_name} {packet_in_hex}"
+  cmd = f"send-raw-packet-downstream {iface_name} {packet_in_hex}"
 
   # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
-  adb_output = AdbOutputHandler(ad, cmd).get_output()
+  adb_output = adb_utils.run_network_stack_cmd(ad, cmd)
   if adb_output:
     raise assert_utils.UnexpectedBehaviorError(
       f"Got unexpected output: {adb_output} for command: {cmd}."
@@ -272,10 +266,10 @@ def start_capture_packets(
     ad: The Android device object.
     iface_name: The name of the network interface (e.g., "wlan0").
   """
-  cmd = f"cmd network_stack capture start {iface_name}"
+  cmd = f"capture start {iface_name}"
 
   # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
-  adb_output = AdbOutputHandler(ad, cmd).get_output()
+  adb_output = adb_utils.run_network_stack_cmd(ad, cmd)
   if adb_output != "success":
     raise assert_utils.UnexpectedBehaviorError(
       f"Got unexpected output: {adb_output} for command: {cmd}."
@@ -295,10 +289,10 @@ def stop_capture_packets(
     ad: The Android device object.
     iface_name: The name of the network interface (e.g., "wlan0").
   """
-  cmd = f"cmd network_stack capture stop {iface_name}"
+  cmd = f"capture stop {iface_name}"
 
   # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
-  adb_output = AdbOutputHandler(ad, cmd).get_output()
+  adb_output = adb_utils.run_network_stack_cmd(ad, cmd)
   if adb_output != "success":
     raise assert_utils.UnexpectedBehaviorError(
       f"Got unexpected output: {adb_output} for command: {cmd}."
@@ -324,10 +318,10 @@ def get_matched_packet_counts(
   Returns:
     The number of matched packets as an integer.
   """
-  cmd = f"cmd network_stack capture matched-packet-counts {iface_name} {packet_in_hex}"
+  cmd = f"capture matched-packet-counts {iface_name} {packet_in_hex}"
 
   # Expect no output or Unknown command if NetworkStack is too old. Throw otherwise.
-  adb_output = AdbOutputHandler(ad, cmd).get_output()
+  adb_output = adb_utils.run_network_stack_cmd(ad, cmd)
   try:
     return int(adb_output)
   except ValueError as e:
@@ -395,19 +389,3 @@ def assume_apf_version_support_at_least(
       f"Supported apf version {caps.apf_version_supported} < expected version"
       f" {expected_version}",
   )
-
-class AdbOutputHandler:
-  def __init__(self, ad, cmd):
-    self._ad = ad
-    self._cmd = cmd
-
-  def get_output(self) -> str:
-    try:
-      return adb_utils.adb_shell(self._ad, self._cmd)
-    except AdbError as e:
-      output = str(e.stdout)
-      if "Unknown command" in output:
-        raise UnsupportedOperationException(
-          f"{self._cmd} is not supported."
-        )
-      return output
