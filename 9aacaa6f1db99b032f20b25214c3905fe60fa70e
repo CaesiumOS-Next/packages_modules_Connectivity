@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a107eb6d_8a0002de",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-15T19:17:42Z",
+      "side": 1,
+      "message": "nit: update comment",
+      "range": {
+        "startLine": 79,
+        "startChar": 42,
+        "endLine": 79,
+        "endChar": 78
+      },
+      "revId": "9aacaa6f1db99b032f20b25214c3905fe60fa70e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a2beabf_8c2a26bc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-15T19:17:42Z",
+      "side": 1,
+      "message": "This is a change in behavior. Why is this being done? Doesn\u0027t the IpServer teardown path already call releaseDownstream()? Even if this is the correct thing to do, it doesn\u0027t belong in this CL.",
+      "range": {
+        "startLine": 187,
+        "startChar": 9,
+        "endLine": 188,
+        "endChar": 45
+      },
+      "revId": "9aacaa6f1db99b032f20b25214c3905fe60fa70e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "371e999b_febc7457",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-15T19:17:42Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 14
+      },
+      "revId": "9aacaa6f1db99b032f20b25214c3905fe60fa70e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
