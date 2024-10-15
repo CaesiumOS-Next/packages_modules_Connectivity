@@ -103,6 +103,10 @@ DEFINE_BPF_RINGBUF_EXT(packet_trace_ringbuf, PacketTrace, PACKET_TRACE_BUF_SIZE,
 DEFINE_BPF_MAP_RO_NETD(data_saver_enabled_map, ARRAY, uint32_t, bool,
                        DATA_SAVER_ENABLED_MAP_SIZE)
 
+// Single-element config array, SdkSandbox localhost restrictions are disabled
+// when value is true
+DEFINE_BPF_MAP_NO_NETD(sdksandbox_allow_localhost_map, ARRAY, uint32_t, bool, 1)
+
 // iptables xt_bpf programs need to be usable by both netd and netutils_wrappers
 // selinux contexts, because even non-xt_bpf iptables mutations are implemented as
 // a full table dump, followed by an update in userspace, and then a reload into the kernel,
@@ -423,6 +427,25 @@ static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_
             return DROP_UNLESS_DNS;
         }
     }
+
+    if (skb->ifindex == 1 && is_sdksandbox_uid(uid)) {
+        // check if the restriction is enabled
+        uint32_t mapKey = 0;
+        bool *sdksandboxAllowLocalhost =
+            bpf_sdksandbox_allow_localhost_map_lookup_elem(&mapKey);
+        // default behavior is restricting localhost
+        if (sdksandboxAllowLocalhost == NULL ||
+            *sdksandboxAllowLocalhost == false) {
+            uint8_t *permissions = bpf_uid_permission_map_lookup_elem(&uid);
+            // check if the UID is allowed localhost connection, default is
+            // BPF_PERMISSION_INTERNET_NO_LOCALHOST
+            if (permissions == NULL ||
+                *permissions & BPF_PERMISSION_INTERNET_NO_LOCALHOST) {
+            return DROP;
+            }
+        }
+    }
+
     return PASS;
 }
 

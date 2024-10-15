@@ -156,3 +156,12 @@ flag {
   bug: "354619988"
   is_fixed_read_only: true
 }
+
+flag {
+  name: "sdksandbox_localhost_restricted"
+  is_exported: true
+  namespace: "android_core_networking"
+  description: "Flag for restricting localhost connections from sdksandbox processes"
+  bug: "326383676"
+  is_fixed_read_only: true
+}

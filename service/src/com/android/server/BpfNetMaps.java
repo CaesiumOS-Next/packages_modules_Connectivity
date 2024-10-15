@@ -25,6 +25,10 @@ import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED_KEY;
 import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED_MAP_PATH;
 import static android.net.BpfNetMapsConstants.IIF_MATCH;
 import static android.net.BpfNetMapsConstants.INGRESS_DISCARD_MAP_PATH;
+import static android.net.BpfNetMapsConstants.SDKSANDBOX_ALLOW_LOCALHOST_MAP_PATH;
+import static android.net.BpfNetMapsConstants.SDKSANDBOX_ALLOW_LOCALHOST_KEY;
+import static android.net.BpfNetMapsConstants.SDKSANDBOX_RESTRICT_LOCALHOST;
+import static android.net.BpfNetMapsConstants.SDKSANDBOX_ALLOW_LOCALHOST;
 import static android.net.BpfNetMapsConstants.LOCKDOWN_VPN_MATCH;
 import static android.net.BpfNetMapsConstants.UID_OWNER_MAP_PATH;
 import static android.net.BpfNetMapsConstants.UID_PERMISSION_MAP_PATH;
@@ -45,6 +49,7 @@ import static android.system.OsConstants.ENODEV;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
 
+import static com.android.net.flags.Flags.sdksandboxLocalhostRestricted;
 import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
 
 import android.app.StatsManager;
@@ -130,6 +135,7 @@ public class BpfNetMaps {
     // TODO: Add BOOL class and replace U8?
     private static IBpfMap<S32, U8> sDataSaverEnabledMap = null;
     private static IBpfMap<IngressDiscardKey, IngressDiscardValue> sIngressDiscardMap = null;
+    private static IBpfMap<S32, U8> sSdkSandboxAllowLocalhostMap = null;
 
     private static final List<Pair<Integer, String>> PERMISSION_LIST = Arrays.asList(
             Pair.create(PERMISSION_INTERNET, "PERMISSION_INTERNET"),
@@ -248,6 +254,16 @@ public class BpfNetMaps {
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private static IBpfMap<S32, U8> getSdkSandboxAllowLocalhostMap() {
+        try {
+            return SingleWriterBpfMap.getSingleton(
+                SDKSANDBOX_ALLOW_LOCALHOST_MAP_PATH, S32.class, U8.class);
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Cannot open sandbox localhost enabled map", e);
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private static void initBpfMaps() {
         if (sConfigurationMap == null) {
             sConfigurationMap = getConfigurationMap();
@@ -298,6 +314,22 @@ public class BpfNetMaps {
             sIngressDiscardMap.clear();
         } catch (ErrnoException e) {
             throw new IllegalStateException("Failed to initialize ingress discard map", e);
+        }
+
+        if (sSdkSandboxAllowLocalhostMap == null) {
+            sSdkSandboxAllowLocalhostMap = getSdkSandboxAllowLocalhostMap();
+        }
+        try {
+            if (sdksandboxLocalhostRestricted()) {
+                sSdkSandboxAllowLocalhostMap.updateEntry(SDKSANDBOX_ALLOW_LOCALHOST_KEY,
+                        new U8(SDKSANDBOX_RESTRICT_LOCALHOST));
+            } else {
+                sSdkSandboxAllowLocalhostMap.updateEntry(SDKSANDBOX_ALLOW_LOCALHOST_KEY,
+                        new U8(SDKSANDBOX_ALLOW_LOCALHOST));
+            }
+        } catch (ErrnoException e) {
+            throw new IllegalStateException(
+                    "Failed to initialize sandbox localhost restriction configuration", e);
         }
     }
 
