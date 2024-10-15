@@ -1618,8 +1618,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         @Nullable
         public SatelliteDataUsageController makeSatelliteDataUsageController(
                 @NonNull final Context context,
+                Consumer<int[]> satelliteDataBlockedStatus,
                 @NonNull final Handler connectivityServiceInternalHandler) {
-            return new SatelliteDataUsageController(context,
+            return new SatelliteDataUsageController(context, satelliteDataBlockedStatus,
                     connectivityServiceInternalHandler);
         }
 
@@ -1912,7 +1913,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 context, ConnectivityFlags.ALLOW_SATELLITE_DATA_USAGE_CHECK)) {
             Log.d(TAG, "start satellite data usage check");
             mSatelliteDataUsageController = mDeps.makeSatelliteDataUsageController(
-                    mContext, mHandler);
+                    mContext, this::satelliteDataBlockStatus, mHandler);
         } else {
             mSatelliteDataUsageController = null;
         }
@@ -2197,6 +2198,40 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     private void updateSatelliteNetworkPreferenceUids(Set<Integer> satelliteNetworkFallbackUids) {
         handleSetSatelliteNetworkPreference(satelliteNetworkFallbackUids);
+    }
+
+    private void satelliteDataBlockStatus(int[] uids) {
+        showNetworkNotificationForSatellite(uids, NotificationType.SATELLITE_DATA_BLOCKED);
+    }
+
+    private void showNetworkNotificationForSatellite(int[] blockedUids, NotificationType type) {
+        final String action;
+        final boolean highPriority;
+        switch (type) {
+            case SATELLITE_DATA_BLOCKED:
+                action = "android.net.action.PROMPT_SATELLITE_DATA_BLOCKED";
+                break;
+            default:
+                Log.wtf(TAG, "Unknown notification type " + type);
+                return;
+        }
+
+        Intent intent = new Intent(action);
+        intent.putExtra("satellite_blocked_uids", blockedUids);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // Some OEMs have their own Settings package. Thus, need to get the current using
+        // Settings package name instead of just use default name "com.android.settings".
+        final String settingsPkgName = getSettingsPackageName(mContext.getPackageManager());
+        intent.setClassName(settingsPkgName,
+                settingsPkgName + ".network.telephony.SatelliteLimitedDataDialog");
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                mContext.createContextAsUser(UserHandle.CURRENT, 0 /* flags */),
+                0 /* requestCode */,
+                intent,
+                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        mNotifier.showNotification(101/*test_id*/, type, null, null, pendingIntent, true/*highPriority*/);
     }
 
     private void handleAlwaysOnNetworkRequest(
