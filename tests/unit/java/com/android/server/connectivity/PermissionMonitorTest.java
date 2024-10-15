@@ -40,10 +40,12 @@ import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.os.Process.SYSTEM_UID;
 
+import static com.android.server.connectivity.PermissionMonitor.PERMISSION_SDKSANDBOX_LOCALHOST;
 import static com.android.server.connectivity.PermissionMonitor.isHigherNetworkPermission;
 
 import static junit.framework.Assert.fail;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -149,6 +151,9 @@ public class PermissionMonitorTest {
     private static final String MOCK_PACKAGE1 = "appName1";
     private static final String MOCK_PACKAGE2 = "appName2";
     private static final String MOCK_PACKAGE3 = "appName3";
+    private static final String MOCK_CTS_PACKAGE1 = "com.android.cts.testpackage";
+    private static final String MOCK_CTS_PACKAGE2 = "com.android.cts.testpackage2";
+    private static final String MOCK_CTS_PACKAGE3 = "com.android.cts.testpackage3";
     private static final String SYSTEM_PACKAGE1 = "sysName1";
     private static final String SYSTEM_PACKAGE2 = "sysName2";
     private static final String PARTITION_SYSTEM = "system";
@@ -627,16 +632,31 @@ public class PermissionMonitorTest {
                     fail("appId " + appId + " has wrong permission: "
                             + mAppIdsTrafficPermission.get(appId));
                 }
-                if (hasSdkSandbox(appId)) {
-                    int sdkSandboxAppId = mProcessShim.toSdkSandboxUid(appId);
-                    if (mAppIdsTrafficPermission.get(sdkSandboxAppId, DOES_NOT_EXIST)
-                            == DOES_NOT_EXIST) {
-                        fail("SDK sandbox appId " + sdkSandboxAppId + " does not exist.");
-                    }
-                    if (mAppIdsTrafficPermission.get(sdkSandboxAppId) != permission) {
-                        fail("SDK sandbox appId " + sdkSandboxAppId + " has wrong permission: "
-                                + mAppIdsTrafficPermission.get(sdkSandboxAppId));
-                    }
+                expectSandboxTrafficPerm(permission, appId);
+            }
+        }
+
+        public void expectTrafficPermForAppId(int permission, int appId) {
+            if (mAppIdsTrafficPermission.get(appId, DOES_NOT_EXIST) == DOES_NOT_EXIST) {
+                fail("appId " + appId + " does not exist.");
+            }
+            if (mAppIdsTrafficPermission.get(appId) != permission) {
+                fail("appId " + appId + " has wrong permission: "
+                        + mAppIdsTrafficPermission.get(appId));
+            }
+        }
+
+        public void expectSandboxTrafficPerm(int permission, int appId) {
+            if (hasSdkSandbox(appId)) {
+                int sdkSandboxAppId = mProcessShim.toSdkSandboxUid(appId);
+                if (mAppIdsTrafficPermission.get(sdkSandboxAppId, DOES_NOT_EXIST)
+                        == DOES_NOT_EXIST) {
+                    fail("SDK sandbox appId " + sdkSandboxAppId + " does not exist.");
+                }
+                if (mAppIdsTrafficPermission.get(sdkSandboxAppId) != permission) {
+                    fail("SDK sandbox appId " + sdkSandboxAppId + " has wrong permission: "
+                            + mAppIdsTrafficPermission.get(sdkSandboxAppId)
+                            + " expected " + permission);
                 }
             }
         }
@@ -1183,6 +1203,25 @@ public class PermissionMonitorTest {
     }
 
     @Test
+    public void testSdkSandboxWithLocalhostInstall() throws Exception {
+        // CTS packages with PERMISSION_INTERNET will also get PERMISSION_SDKSANDBOX_LOCALHOST
+        // for their sdksandbox process
+        addPackage(MOCK_CTS_PACKAGE1, MOCK_UID11, INTERNET, UPDATE_DEVICE_STATS);
+        mBpfMapMonitor.expectTrafficPermForAppId(PERMISSION_TRAFFIC_ALL, MOCK_APPID1);
+        mBpfMapMonitor.expectSandboxTrafficPerm(
+                PERMISSION_INTERNET | PERMISSION_SDKSANDBOX_LOCALHOST, MOCK_APPID1);
+
+        addPackage(MOCK_CTS_PACKAGE2, MOCK_UID12, INTERNET);
+        mBpfMapMonitor.expectTrafficPermForAppId(PERMISSION_INTERNET, MOCK_APPID2);
+        mBpfMapMonitor.expectSandboxTrafficPerm(
+                PERMISSION_INTERNET | PERMISSION_SDKSANDBOX_LOCALHOST, MOCK_APPID2);
+
+        // If the CTS package has no permissions, PERMISSION_SDKSANDBOX_LOCALHOST won't be granted
+        addPackage(MOCK_CTS_PACKAGE3, MOCK_UID13);
+        mBpfMapMonitor.expectTrafficPerm(PERMISSION_NONE, MOCK_APPID3);
+    }
+
+    @Test
     public void testPackageUninstallBasic() throws Exception {
         addPackage(MOCK_PACKAGE1, MOCK_UID11, INTERNET, UPDATE_DEVICE_STATS);
         mBpfMapMonitor.expectTrafficPerm(PERMISSION_TRAFFIC_ALL, MOCK_APPID1);
@@ -1643,6 +1682,27 @@ public class PermissionMonitorTest {
         // Remove MOCK_USER3 and verify the permissions downgrade on MOCK_APPID2.
         removeUserAndVerifyAppIdsPermissions(MOCK_USER3, PERMISSION_UPDATE_DEVICE_STATS,
                 PERMISSION_UNINSTALLED, PERMISSION_INTERNET);
+    }
+
+    @Test
+    public void testSdkSandboxLocalhost_UserAdded() {
+        final List<PackageInfo> pkgs = List.of(
+                buildPackageInfo(MOCK_CTS_PACKAGE1, MOCK_UID11),
+                buildPackageInfo(MOCK_CTS_PACKAGE2, MOCK_UID12, INTERNET),
+                buildPackageInfo(MOCK_CTS_PACKAGE3, MOCK_UID13, INTERNET, UPDATE_DEVICE_STATS));
+
+        doReturn(pkgs).when(mPackageManager).getInstalledPackagesAsUser(eq(GET_PERMISSIONS),
+                eq(MOCK_USER_ID1));
+
+        processOnHandlerThread(() -> mPermissionMonitor.onUserAdded(MOCK_USER1));
+
+        mBpfMapMonitor.expectTrafficPerm(PERMISSION_NONE, MOCK_APPID1);
+        mBpfMapMonitor.expectTrafficPermForAppId(PERMISSION_INTERNET, MOCK_APPID2);
+        mBpfMapMonitor.expectSandboxTrafficPerm(
+                PERMISSION_INTERNET | PERMISSION_SDKSANDBOX_LOCALHOST, MOCK_APPID2);
+        mBpfMapMonitor.expectTrafficPermForAppId(PERMISSION_TRAFFIC_ALL, MOCK_APPID3);
+        mBpfMapMonitor.expectSandboxTrafficPerm(
+                PERMISSION_INTERNET | PERMISSION_SDKSANDBOX_LOCALHOST, MOCK_APPID3);
     }
 
     @Test
