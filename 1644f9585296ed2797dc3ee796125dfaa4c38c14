@@ -52,6 +52,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63c652d8_136f99b3",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-10-15T12:59:37Z",
+      "side": 1,
+      "message": "Already refactored by expect_throws().",
+      "parentUuid": "6c8cbedc_bad17a66",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 187,
+        "endChar": 21
+      },
+      "revId": "1644f9585296ed2797dc3ee796125dfaa4c38c14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df25518c_6361cd3b",
@@ -65,6 +89,30 @@
       "writtenOn": "2024-10-08T09:07:50Z",
       "side": 1,
       "message": "nit: It seems to me this doesn\u0027t need to be initialized for every functions but can be a fixed value instead?\nno strong opinion.",
+      "range": {
+        "startLine": 189,
+        "startChar": 28,
+        "endLine": 189,
+        "endChar": 36
+      },
+      "revId": "1644f9585296ed2797dc3ee796125dfaa4c38c14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71df9140_66042962",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-10-15T12:59:37Z",
+      "side": 1,
+      "message": "Do you mean have a variable for the empty argument?\n```\nempty_arg \u003d \"\"\n(start_capture_packets, (ad, empty_arg)),\n(stop_capture_packets, (ad, empty_arg)),\n(get_matched_packet_counts, (ad, empty_arg, empty_arg))\n```",
+      "parentUuid": "df25518c_6361cd3b",
       "range": {
         "startLine": 189,
         "startChar": 28,
@@ -92,6 +140,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7db1f04a_be2274c8",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-10-15T12:59:37Z",
+      "side": 1,
+      "message": "expect_throws() addressed in aosp/3307935, added related unit tests as well.\nrelated refactor addressed in aosp/3309576.",
+      "parentUuid": "9afa3c1b_0e8ee113",
+      "revId": "1644f9585296ed2797dc3ee796125dfaa4c38c14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb27b014_63be9e93",
@@ -105,6 +171,30 @@
       "writtenOn": "2024-10-08T09:07:50Z",
       "side": 1,
       "message": "UnexpectedBehaviorError ?\n We might want to catch unexpected exceptions?",
+      "range": {
+        "startLine": 199,
+        "startChar": 11,
+        "endLine": 199,
+        "endChar": 20
+      },
+      "revId": "1644f9585296ed2797dc3ee796125dfaa4c38c14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20f7337f_eb57550f",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-10-15T12:59:37Z",
+      "side": 1,
+      "message": "Already refactored by expect_throws()",
+      "parentUuid": "cb27b014_63be9e93",
       "range": {
         "startLine": 199,
         "startChar": 11,
@@ -152,6 +242,30 @@
       "side": 1,
       "message": "run_network_stack_cmd could be a better name.\nNo strong opinion.",
       "parentUuid": "a88d84c2_7b73bae4",
+      "range": {
+        "startLine": 278,
+        "startChar": 1,
+        "endLine": 278,
+        "endChar": 29
+      },
+      "revId": "1644f9585296ed2797dc3ee796125dfaa4c38c14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5efa48b_8f209c50",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-10-15T12:59:37Z",
+      "side": 1,
+      "message": "For network_stack command, the exception is wrapped as stdout.  \nSome command expect to have return, some are not. \nThis can be another CL to improve and unified these commands behavior.",
+      "parentUuid": "b0e4ba91_fd511a67",
       "range": {
         "startLine": 278,
         "startChar": 1,
