@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67cc907c_570f36d6",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-15T10:30:20Z",
+      "side": 1,
+      "message": "I use the `ConditionVariable` to perform the check. If open() is not called, block() will throw an exception when it times out.",
+      "parentUuid": "66c5556a_7127e402",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 26
+      },
+      "revId": "1807f6805430b835f20df401274d14aec3606206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "579ee222_2c5c0026",

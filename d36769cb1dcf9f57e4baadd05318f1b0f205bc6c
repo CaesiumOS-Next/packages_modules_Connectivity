@@ -506,6 +506,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57592418_c75344d9",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-15T10:30:20Z",
+      "side": 1,
+      "message": "As we discussed offline, I\u0027d like to do the integration test instead of the unit test. Therefore, it cannot use TestableLooper for testing.",
+      "parentUuid": "fe1ddb7d_dc9e08a4",
+      "range": {
+        "startLine": 62,
+        "startChar": 17,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "d36769cb1dcf9f57e4baadd05318f1b0f205bc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bfc0c37_4944f747",
