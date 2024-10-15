@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4dd248d_19228563",
+        "filename": "staticlibs/testutils/devicetests/NSResponder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-15T04:21:56Z",
+      "side": 1,
+      "message": "I\u0027m not sure which indentation is actually expected, did you run the preupload linter ? If yes and it\u0027s still happy, that sounds fine",
+      "revId": "0fe54703c04a667f397ae51e6238c2ac68cc7f79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6334a03_0a21b0b3",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-15T04:21:56Z",
+      "side": 1,
+      "message": "Nit: long line",
+      "revId": "0fe54703c04a667f397ae51e6238c2ac68cc7f79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
