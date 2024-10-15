@@ -176,6 +176,8 @@ public final class BpfNetMapsTest {
     private final IBpfMap<S32, U8> mDataSaverEnabledMap = new TestBpfMap<>(S32.class, U8.class);
     private final IBpfMap<IngressDiscardKey, IngressDiscardValue> mIngressDiscardMap =
             new TestBpfMap<>(IngressDiscardKey.class, IngressDiscardValue.class);
+    private final IBpfMap<S32, U8> mSdksandboxAllowLocalhostMap =
+            new TestBpfMap<>(S32.class, U8.class);
 
     @Before
     public void setUp() throws Exception {
