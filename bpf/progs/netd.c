@@ -423,6 +423,16 @@ static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_
             return DROP_UNLESS_DNS;
         }
     }
+
+    if (skb->ifindex == 1 && is_sdksandbox_uid(uid)) {
+        uint8_t *perms = bpf_uid_permission_map_lookup_elem(&uid);
+        // check if the UID is allowed localhost connection, default for
+        // BPF_PERMISSION_SDKSANDBOX_LOCALHOST is false
+        if (perms == NULL || !(*perms & BPF_PERMISSION_SDKSANDBOX_LOCALHOST)) {
+            return DROP;
+        }
+    }
+
     return PASS;
 }
 
