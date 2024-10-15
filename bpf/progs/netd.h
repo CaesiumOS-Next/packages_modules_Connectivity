@@ -211,6 +211,7 @@ enum UidOwnerMatchType : uint32_t {
 enum BpfPermissionMatch : uint8_t {
     BPF_PERMISSION_INTERNET = 1 << 2,
     BPF_PERMISSION_UPDATE_DEVICE_STATS = 1 << 3,
+    BPF_PERMISSION_SDKSANDBOX_LOCALHOST = 1 << 4,
 };
 // In production we use two identical stats maps to record per uid stats and
 // do swap and clean based on the configuration specified here. The statsMapType
@@ -273,4 +274,10 @@ static inline bool is_system_uid(uint32_t uid) {
     // MIN_SYSTEM_UID is AID_ROOT == 0, so uint32_t is *always* >= 0
     // MAX_SYSTEM_UID is AID_NOBODY == 9999, while AID_APP_START == 10000
     return ((uid % AID_USER_OFFSET) < AID_APP_START);
+}
+
+static inline bool is_sdksandbox_uid(uint32_t uid) {
+    // AID_SDK_SANDBOX_PROCESS_START = 20000 & AID_SDK_SANDBOX_PROCESS_END = 29999
+    return uid >= AID_SDK_SANDBOX_PROCESS_START &&
+            uid <= AID_SDK_SANDBOX_PROCESS_END;
 }

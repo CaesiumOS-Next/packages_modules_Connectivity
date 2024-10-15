@@ -15,6 +15,11 @@ cc_test {
     tidy: false,
     srcs: [
         "connectivity_native_test.cpp",
+        "SdkSandboxLocalhostRestrictedTest.cpp",
+    ],
+    data: [
+        ":SdkClientApp",
+        ":CtsSdkClientApp",
     ],
     header_libs: ["bpf_connectivity_headers"],
     version_script: ":connectivity_mainline_test_map",
@@ -31,6 +36,7 @@ cc_test {
         "libbase",
         "libcutils",
         "libmodules-utils-build",
+        "libnetd_test_utils",
         "libutils",
     ],
     compile_multilib: "both",
