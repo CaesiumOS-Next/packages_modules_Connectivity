@@ -176,6 +176,8 @@ public final class BpfNetMapsTest {
     private final IBpfMap<S32, U8> mDataSaverEnabledMap = new TestBpfMap<>(S32.class, U8.class);
     private final IBpfMap<IngressDiscardKey, IngressDiscardValue> mIngressDiscardMap =
             new TestBpfMap<>(IngressDiscardKey.class, IngressDiscardValue.class);
+    private final IBpfMap<S32, U8> mSdksandboxAllowLocalhostMap =
+            new TestBpfMap<>(S32.class, U8.class);
 
     @Before
     public void setUp() throws Exception {
@@ -193,6 +195,7 @@ public final class BpfNetMapsTest {
         BpfNetMaps.setDataSaverEnabledMapForTest(mDataSaverEnabledMap);
         mDataSaverEnabledMap.updateEntry(DATA_SAVER_ENABLED_KEY, new U8(DATA_SAVER_DISABLED));
         BpfNetMaps.setIngressDiscardMapForTest(mIngressDiscardMap);
+        BpfNetMaps.setSdksandboxAllowLocalhostMapForTest(mSdksandboxAllowLocalhostMap);
         mBpfNetMaps = new BpfNetMaps(mContext, mNetd, mDeps);
     }
 
