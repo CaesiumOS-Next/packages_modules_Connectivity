@@ -274,3 +274,9 @@ static inline bool is_system_uid(uint32_t uid) {
     // MAX_SYSTEM_UID is AID_NOBODY == 9999, while AID_APP_START == 10000
     return ((uid % AID_USER_OFFSET) < AID_APP_START);
 }
+
+static inline bool is_sdksandbox_uid(uint32_t uid) {
+    // AID_SDK_SANDBOX_PROCESS_START = 20000 & AID_SDK_SANDBOX_PROCESS_END = 29999
+    return uid >= AID_SDK_SANDBOX_PROCESS_START &&
+            uid <= AID_SDK_SANDBOX_PROCESS_END;
+}
