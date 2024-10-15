@@ -29,9 +29,7 @@
          of a snippet class -->
     <meta-data
         android:name="mobly-snippets"
-        android:value="com.google.snippet.connectivity.ConnectivityMultiDevicesSnippet,
-                       com.google.snippet.connectivity.MdnsMultiDevicesSnippet,
-                       com.google.snippet.connectivity.Wifip2pMultiDevicesSnippet" />
+        android:value="com.google.snippet.connectivity.ConnectivityMultiDevicesSnippet" />
   </application>
   <!-- Add an instrumentation tag so that the app can be launched through an
        instrument command. The runner `com.google.android.mobly.snippet.SnippetRunner`

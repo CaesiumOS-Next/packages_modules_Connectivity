@@ -61,29 +61,6 @@ class ConnectivityMultiDevicesTest(base_test.BaseTestClass):
           self.serverDevice, UpstreamType.CELLULAR
       )
 
-  def test_mdns_via_hotspot(self):
-    tether_utils.assume_hotspot_test_preconditions(
-        self.serverDevice, self.clientDevice, UpstreamType.NONE
-    )
-    mdns_utils.assume_mdns_test_preconditions(
-        self.clientDevice, self.serverDevice
-    )
-    try:
-      # Connectivity of the client verified by asserting the validated capability.
-      tether_utils.setup_hotspot_and_client_for_upstream_type(
-        self.serverDevice, self.clientDevice, UpstreamType.NONE
-      )
-      mdns_utils.register_mdns_service_and_discover_resolve(
-        self.clientDevice, self.serverDevice
-      )
-    finally:
-      mdns_utils.cleanup_mdns_service(
-        self.clientDevice, self.serverDevice
-      )
-      tether_utils.cleanup_tethering_for_upstream_type(
-        self.serverDevice, UpstreamType.NONE
-      )
-
 if __name__ == "__main__":
   # Take test args
   if "--" in sys.argv:
