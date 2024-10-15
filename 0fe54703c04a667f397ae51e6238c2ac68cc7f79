@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a4c7c53_05a40d05",
+        "filename": "staticlibs/testutils/devicetests/NSResponder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-15T04:42:47Z",
+      "side": 1,
+      "message": "Yes, I run the preload linter it is happy about this indentation. and the indent is done automatically by IDE...",
+      "parentUuid": "d4dd248d_19228563",
+      "revId": "0fe54703c04a667f397ae51e6238c2ac68cc7f79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6334a03_0a21b0b3",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-10-15T04:21:56Z",
       "side": 1,
       "message": "Nit: long line",
+      "revId": "0fe54703c04a667f397ae51e6238c2ac68cc7f79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfc171f7_b67538b1",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-15T04:42:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6334a03_0a21b0b3",
       "revId": "0fe54703c04a667f397ae51e6238c2ac68cc7f79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
