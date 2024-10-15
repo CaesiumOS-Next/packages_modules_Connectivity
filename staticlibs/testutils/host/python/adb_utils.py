@@ -14,10 +14,13 @@
 
 import re
 from mobly.controllers import android_device
-from net_tests_utils.host.python import assert_utils
+from mobly.controllers.android_device_lib.adb import AdbError
+from net_tests_utils.host.python import assert_utils, apf_utils
 
 BYTE_DECODE_UTF_8 = "utf-8"
 
+class UnsupportedOperationException(Exception):
+    pass
 
 def set_doze_mode(ad: android_device.AndroidDevice, enable: bool) -> None:
   if enable:
@@ -116,3 +119,15 @@ def adb_shell(ad: android_device.AndroidDevice, shell_cmd: str) -> str:
   ad.log.debug("Executing adb shell %s", shell_cmd)
   data = ad.adb.shell(shell_cmd)
   return data.decode(BYTE_DECODE_UTF_8).strip()
+
+def run_network_stack_cmd(ad: android_device.AndroidDevice, network_stack_cmd: str) -> str:
+    cmd = f"cmd network_stack {network_stack_cmd}"
+    try:
+        return adb_shell(ad, cmd)
+    except AdbError as e:
+        output = str(e.stdout)
+        if "Unknown command" in output:
+            raise UnsupportedOperationException(f"{cmd} is not supported.")
+        raise assert_utils.UnexpectedBehaviorError(
+            f"Got unexpected output: {output} for command {cmd}"
+        )
