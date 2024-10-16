@@ -22,6 +22,30 @@
       },
       "revId": "9c6ec4854548d4f7602ad948f9cd80e88082d420",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77316228_3f117c7c",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-10-16T06:43:04Z",
+      "side": 0,
+      "message": "There\u0027re still other test cases existed in this file, how can we just remove the entire test file? \nSince these 2 cases are added in the separated CL with different commit ID, just split CL for Merged-In commit ID for easier tracking.",
+      "parentUuid": "8089da9f_d2b6d4ab",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 88,
+        "endChar": 28
+      },
+      "revId": "9c6ec4854548d4f7602ad948f9cd80e88082d420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
