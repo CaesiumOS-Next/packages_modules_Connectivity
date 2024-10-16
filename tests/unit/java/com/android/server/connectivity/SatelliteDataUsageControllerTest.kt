@@ -41,6 +41,8 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 
+private const val DEFAULT_MESSAGING_APP1_UID = 10100
+private const val DEFAULT_MESSAGING_APP2_UID = 10200
 private const val APP_UID = 10000
 private const val APP1_UID = 10100
 private const val APP2_UID = 10200
@@ -57,19 +59,17 @@ class SatelliteDataUsageControllerTest : CSTest() {
         SatelliteDataUsageController(mContext, mDeps, mHandler)
     private val resources = mock(Resources::class.java).also {
         doReturn(0).`when`(it).getInteger(
-            R.integer.config_satelliteDataUsageLimitAllowedPerUidBytes
-        )
+            R.integer.config_satelliteDataUsageLimitAllowedPerUidBytes)
         doReturn(0).`when`(it).getInteger(
-            R.integer.config_satelliteAllowedDataUsageTimeMeasuredIntervalSecs
-        )
+            R.integer.config_satelliteAllowedDataUsageTimeMeasuredIntervalSecs)
     }
     private lateinit var connectivityManager: ConnectivityManager
 
     @Before
     fun setup() {
         connectivityManager = mock(ConnectivityManager::class.java)
-        `when`(context.getSystemService(Context.CONNECTIVITY_SERVICE))
-            .thenReturn(connectivityManager)
+        `when`(context.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(
+            connectivityManager)
     }
 
     @Test
@@ -83,8 +83,7 @@ class SatelliteDataUsageControllerTest : CSTest() {
             ArgumentCaptor.forClass(ConnectivityManager.NetworkCallback::class.java)
         verify(connectivityManager, times(1))
             .registerBestMatchingNetworkCallback(
-                any(NetworkRequest::class.java), callbackCaptor.capture(), handler
-            )
+                any(NetworkRequest::class.java), callbackCaptor.capture(), handler)
 
         val callback: ConnectivityManager.NetworkCallback = callbackCaptor.getValue()
         val testNetwork: Network = mock(Network::class.java)
@@ -104,18 +103,14 @@ class SatelliteDataUsageControllerTest : CSTest() {
         appUids = intArrayOf(APP3_UID)
         mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
         // verify firewall blocking trigger
-        verify(bpfNetMaps).replaceUidChain(
-            FIREWALL_CHAIN_SATELLITE,
-            intArrayOf(APP_UID, APP1_UID, APP3_UID)
-        )
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE,
+            intArrayOf(APP_UID, APP1_UID, APP3_UID))
 
         appUids = intArrayOf(APP2_UID)
         mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
         // verify firewall blocking trigger
-        verify(bpfNetMaps).replaceUidChain(
-            FIREWALL_CHAIN_SATELLITE,
-            intArrayOf(APP_UID, APP1_UID, APP3_UID, APP2_UID)
-        )
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE,
+            intArrayOf(APP_UID, APP1_UID, APP3_UID, APP2_UID))
     }
 
     @Test
@@ -128,14 +123,36 @@ class SatelliteDataUsageControllerTest : CSTest() {
         appUids = intArrayOf(APP3_UID)
         mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
         // verify firewall blocking trigger
-        verify(bpfNetMaps).replaceUidChain(
-            FIREWALL_CHAIN_SATELLITE,
-            intArrayOf(APP_UID, APP4_UID, APP3_UID)
-        )
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE,
+            intArrayOf(APP_UID, APP4_UID, APP3_UID))
 
         appUids = intArrayOf()
         mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
         // verify firewall unblocking trigger
         verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, appUids)
+    }
+
+    @Test
+    fun test_enforcement_on_Allowed_List_received() {
+        var appUids = intArrayOf(APP_UID, APP1_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        // verify firewall blocking trigger
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, appUids)
+
+        var allowedUid = setOf(DEFAULT_MESSAGING_APP1_UID)
+        mSatelliteDataUsageController.updateSatelliteDataUsageAllowedList(allowedUid)
+        // verify firewall blocking trigger
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, intArrayOf(APP_UID))
+
+        appUids = intArrayOf(APP2_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        // verify firewall blocking trigger
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE,
+            intArrayOf(APP_UID, APP2_UID))
+
+        allowedUid = setOf(DEFAULT_MESSAGING_APP1_UID, DEFAULT_MESSAGING_APP2_UID)
+        mSatelliteDataUsageController.updateSatelliteDataUsageAllowedList(allowedUid)
+        // verify firewall blocking trigger
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, intArrayOf(APP_UID))
     }
 }

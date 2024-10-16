@@ -2218,6 +2218,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     private void updateSatelliteNetworkPreferenceUids(Set<Integer> satelliteNetworkFallbackUids) {
         handleSetSatelliteNetworkPreference(satelliteNetworkFallbackUids);
+
+        // satellite fallback uids are the messaging uids. Exclude messaging uids from the
+        // satellite data enforcement list cache at satelliteDataUsageController, allowing these
+        // uids to have unlimited data usage.
+        if (mSatelliteDataUsageController != null) {
+            mSatelliteDataUsageController
+                    .updateSatelliteDataUsageAllowedList(satelliteNetworkFallbackUids);
+        }
     }
 
     private void handleAlwaysOnNetworkRequest(
