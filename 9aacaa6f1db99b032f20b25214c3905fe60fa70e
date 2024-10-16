@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a277e8b3_2fe9223b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-16T00:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a107eb6d_8a0002de",
+      "range": {
+        "startLine": 79,
+        "startChar": 42,
+        "endLine": 79,
+        "endChar": 78
+      },
+      "revId": "9aacaa6f1db99b032f20b25214c3905fe60fa70e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a2beabf_8c2a26bc",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01921029_24e87101",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-16T00:47:06Z",
+      "side": 1,
+      "message": "Sorry I misunderstood [this comment](https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3226922/comment/635880aa_ecf3e9ac/). I thought you suggested to remove the request from the map.\n\nUpdated.",
+      "parentUuid": "6a2beabf_8c2a26bc",
+      "range": {
+        "startLine": 187,
+        "startChar": 9,
+        "endLine": 188,
+        "endChar": 45
+      },
+      "revId": "9aacaa6f1db99b032f20b25214c3905fe60fa70e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "371e999b_febc7457",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-10-15T19:17:42Z",
       "side": 1,
       "message": "nit: final",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 14
+      },
+      "revId": "9aacaa6f1db99b032f20b25214c3905fe60fa70e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5f9b6e9_f15e49b0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java",
+        "patchSetId": 36
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-16T00:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "371e999b_febc7457",
       "range": {
         "startLine": 139,
         "startChar": 12,
