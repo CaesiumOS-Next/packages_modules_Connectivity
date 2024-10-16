@@ -29,6 +29,7 @@ import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_DENY_SATELLITE_NETWORK;
+import static android.net.ConnectivityManager.FIREWALL_CHAIN_SATELLITE_BACKGROUND;
 
 import android.util.Pair;
 
@@ -85,6 +86,7 @@ public class BpfNetMapsConstants {
     public static final long BACKGROUND_MATCH = (1 << 12);
     public static final long PENALTY_BOX_ADMIN_MATCH = (1 << 13);
     public static final long DENY_SATELLITE_NETWORK_MATCH = (1 << 14);
+    public static final long SATELLITE_BACKGROUND_MATCH = (1 << 15);
 
     public static final List<Pair<Long, String>> MATCH_LIST = Arrays.asList(
             Pair.create(HAPPY_BOX_MATCH, "HAPPY_BOX_MATCH"),
@@ -101,7 +103,8 @@ public class BpfNetMapsConstants {
             Pair.create(OEM_DENY_3_MATCH, "OEM_DENY_3_MATCH"),
             Pair.create(BACKGROUND_MATCH, "BACKGROUND_MATCH"),
             Pair.create(PENALTY_BOX_ADMIN_MATCH, "PENALTY_BOX_ADMIN_MATCH"),
-            Pair.create(DENY_SATELLITE_NETWORK_MATCH, "DENY_SATELLITE_NETWORK_MATCH")
+            Pair.create(DENY_SATELLITE_NETWORK_MATCH, "DENY_SATELLITE_NETWORK_MATCH"),
+            Pair.create(SATELLITE_BACKGROUND_MATCH, "SATELLITE_BACKGROUND_MATCH")
     );
 
     /**
@@ -129,7 +132,8 @@ public class BpfNetMapsConstants {
             FIREWALL_CHAIN_OEM_DENY_1,
             FIREWALL_CHAIN_OEM_DENY_2,
             FIREWALL_CHAIN_OEM_DENY_3,
-            FIREWALL_CHAIN_DENY_SATELLITE_NETWORK
+            FIREWALL_CHAIN_DENY_SATELLITE_NETWORK,
+            FIREWALL_CHAIN_SATELLITE_BACKGROUND
     );
 
     /**
