@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34fb7cf9_e9a39162",
+        "filename": "service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-16T04:35:13Z",
+      "side": 1,
+      "message": "Why is this necessary in 2 places ? Shouldn\u0027t this be only necessary in libandroid_net_connectivity_com_android_net_module_util_jni ?",
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06c8ebdf_11894895",
         "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
         "patchSetId": 5
@@ -89,6 +106,23 @@
         "endLine": 55,
         "endChar": 36
       },
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d94abbe_4639fabc",
+        "filename": "tests/unit/jni/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-16T04:35:13Z",
+      "side": 1,
+      "message": "Is this still necessary after aosp/3309936 ?",
       "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
