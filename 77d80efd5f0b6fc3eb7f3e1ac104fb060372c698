@@ -125,6 +125,24 @@
       "message": "Is this still necessary after aosp/3309936 ?",
       "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "710060ac_80936847",
+        "filename": "tests/unit/jni/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-16T04:36:34Z",
+      "side": 1,
+      "message": "I guess this is only necessary on ConnectivityCoverageTests, not on FrameworksNetTests, probably",
+      "parentUuid": "9d94abbe_4639fabc",
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
