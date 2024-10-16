@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4d67de9_8aebae2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-10-16T20:54:16Z",
+      "side": 1,
+      "message": "No objection to checking this in... let\u0027s think through the enforceability bit a little more though.",
+      "revId": "f33436962c4c3ac870433b5150521f353ba5caf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e6ce5ce_8859130c",
@@ -62,6 +79,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "1b58ed06_496e0951",
+      "range": {
+        "startLine": 1878,
+        "startChar": 0,
+        "endLine": 1878,
+        "endChar": 54
+      },
+      "revId": "f33436962c4c3ac870433b5150521f353ba5caf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77da7d2e_7dcac6ac",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1878,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2024-10-16T20:54:16Z",
+      "side": 1,
+      "message": "I suspect that we will be limited by the kernel versions, meaning the HAL versions... so let\u0027s be careful here. I\u0027ll ruminate. That said, can we add a VTS test that actually catches this rather than just a CTS test?",
+      "parentUuid": "60391795_83422c36",
       "range": {
         "startLine": 1878,
         "startChar": 0,
