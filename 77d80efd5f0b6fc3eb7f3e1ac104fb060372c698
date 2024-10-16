@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ab12fa5_c3cbc362",
+        "filename": "service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T07:31:50Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right. I just followed the `libnet_utils_device_common_bpfjni` rule to add the timerfdjni library, but it seems unnecessary. So looks like the `libnet_utils_device_common_bpfjni` can be removed as well.",
+      "parentUuid": "34fb7cf9_e9a39162",
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06c8ebdf_11894895",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a46f5cc9_7ab6ed54",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T07:31:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06c8ebdf_11894895",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 1
+      },
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "573af8b3_8f904f79",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-10-16T01:58:44Z",
       "side": 1,
       "message": "If we don\u0027t have standard definition in header, could we create a constant in this helper class for define NSEC_PER_MSEC \u0026 MSEC_PER_SEC? It will improve the readability.",
+      "range": {
+        "startLine": 53,
+        "startChar": 55,
+        "endLine": 53,
+        "endChar": 62
+      },
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4bc0f87_1d8fabe7",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T07:31:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "573af8b3_8f904f79",
       "range": {
         "startLine": 53,
         "startChar": 55,
@@ -110,6 +176,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5349686b_86471ebf",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T07:31:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee35c1b9_2b42128f",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79de96db_4962fee8",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T07:31:50Z",
+      "side": 1,
+      "message": "No, it doesn\u0027t work.",
+      "parentUuid": "823863fd_1ad72bab",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d94abbe_4639fabc",
@@ -141,6 +255,24 @@
       "side": 1,
       "message": "I guess this is only necessary on ConnectivityCoverageTests, not on FrameworksNetTests, probably",
       "parentUuid": "9d94abbe_4639fabc",
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "226f8e50_5b06c588",
+        "filename": "tests/unit/jni/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T07:31:50Z",
+      "side": 1,
+      "message": "Yes, ConnectivityCoverageTests includes NetworkStaticLibTests which requires this jni lib.",
+      "parentUuid": "710060ac_80936847",
       "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
