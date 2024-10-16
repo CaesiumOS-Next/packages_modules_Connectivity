@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8089da9f_d2b6d4ab",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-16T06:31:06Z",
+      "side": 0,
+      "message": "1. Disable would make more sense given that there is no any test in this file.\nAlternatively you might want to remove the entire file.\n2. IIUC you could merge mdns CL into this CL since this is a new CL instead of reverting.",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 88,
+        "endChar": 28
+      },
+      "revId": "9c6ec4854548d4f7602ad948f9cd80e88082d420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
