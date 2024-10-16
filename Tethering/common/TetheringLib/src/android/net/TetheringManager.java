@@ -202,10 +202,20 @@ public class TetheringManager {
     public static final int TETHERING_VIRTUAL = 7;
 
     /**
+     * Thread tethering type.
+     *
+     * <p>This tethering type is used for allcoating an IPv4 prefix to Thread network via {@link
+     * RoutingCoordinatorManager#requestDownstreamAddress}. This tethering type must not be used in
+     * any other cases.
+     * @hide
+     */
+    public static final int TETHERING_THREAD = 8;
+
+    /**
      * The int value of last tethering type.
      * @hide
      */
-    public static final int MAX_TETHERING_TYPE = TETHERING_VIRTUAL;
+    public static final int MAX_TETHERING_TYPE = TETHERING_THREAD;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
