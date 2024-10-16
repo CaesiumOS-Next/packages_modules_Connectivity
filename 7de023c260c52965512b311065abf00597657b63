@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eab60715_a7deb727",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-16T22:02:15Z",
+      "side": 1,
+      "message": "nit: Comment should say: \"Create a user context for the current foreground user as UserManager#isAdmin() operates on the context user.\"",
+      "range": {
+        "startLine": 443,
+        "startChar": 15,
+        "endLine": 443,
+        "endChar": 40
+      },
+      "revId": "7de023c260c52965512b311065abf00597657b63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
