@@ -922,6 +922,24 @@ public class ThreadNetworkControllerTest {
 
     @Test
     @RequiresFlagsEnabled({Flags.FLAG_EPSKC_ENABLED})
+    public void activateEphemeralKeyMode_notBorderRouter_failsWithFailedPrecondition()
+            throws Exception {
+        grantPermissions(THREAD_NETWORK_PRIVILEGED);
+        setConfigurationAndWait(
+                mController,
+                new ThreadConfiguration.Builder().setBorderRouterEnabled(false).build());
+
+        ThreadNetworkException thrown =
+                assertThrows(
+                        ThreadNetworkException.class,
+                        () ->
+                                mController.activateEphemeralKeyMode(
+                                        Duration.ofSeconds(1), mExecutor, v -> {}));
+        assertThat(thrown.getErrorCode()).isEqualTo(ERROR_FAILED_PRECONDITION);
+    }
+
+    @Test
+    @RequiresFlagsEnabled({Flags.FLAG_EPSKC_ENABLED})
     public void deactivateEphemeralKeyMode_withoutPrivilegedPermission_throwsSecurityException()
             throws Exception {
         dropAllPermissions();
@@ -929,6 +947,22 @@ public class ThreadNetworkControllerTest {
         assertThrows(
                 SecurityException.class,
                 () -> mController.deactivateEphemeralKeyMode(mExecutor, v -> {}));
+    }
+
+    @Test
+    @RequiresFlagsEnabled({Flags.FLAG_EPSKC_ENABLED})
+    public void deactivateEphemeralKeyMode_notBorderRouter_failsWithFailedPrecondition()
+            throws Exception {
+        grantPermissions(THREAD_NETWORK_PRIVILEGED);
+        setConfigurationAndWait(
+                mController,
+                new ThreadConfiguration.Builder().setBorderRouterEnabled(false).build());
+
+        ThreadNetworkException thrown =
+                assertThrows(
+                        ThreadNetworkException.class,
+                        () -> mController.deactivateEphemeralKeyMode(mExecutor, v -> {}));
+        assertThat(thrown.getErrorCode()).isEqualTo(ERROR_FAILED_PRECONDITION);
     }
 
     @Test
@@ -1151,9 +1185,15 @@ public class ThreadNetworkControllerTest {
         CompletableFuture<Void> setFuture2 = new CompletableFuture<>();
         ConfigurationListener listener = new ConfigurationListener(mController);
         ThreadConfiguration config1 =
-                new ThreadConfiguration.Builder().setNat64Enabled(true).build();
+                new ThreadConfiguration.Builder()
+                        .setBorderRouterEnabled(true)
+                        .setNat64Enabled(true)
+                        .build();
         ThreadConfiguration config2 =
-                new ThreadConfiguration.Builder().setNat64Enabled(false).build();
+                new ThreadConfiguration.Builder()
+                        .setBorderRouterEnabled(false)
+                        .setNat64Enabled(false)
+                        .build();
 
         try {
             runAsShell(
