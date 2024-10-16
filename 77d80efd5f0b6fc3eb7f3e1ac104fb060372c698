@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06c8ebdf_11894895",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-16T01:58:44Z",
+      "side": 1,
+      "message": "Not used anymore. Please remove.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 1
+      },
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "573af8b3_8f904f79",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-16T01:58:44Z",
+      "side": 1,
+      "message": "If we don\u0027t have standard definition in header, could we create a constant in this helper class for define NSEC_PER_MSEC \u0026 MSEC_PER_SEC? It will improve the readability.",
+      "range": {
+        "startLine": 53,
+        "startChar": 55,
+        "endLine": 53,
+        "endChar": 62
+      },
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "823863fd_1ad72bab",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-16T01:58:44Z",
+      "side": 1,
+      "message": "Will the following code snip works? In C99+ we should able to use it but I am not sure if this works in c++.\n\n\n```\nstruct itimerspec new_value \u003d {\n    .it_value \u003d { .tv_sec \u003d milliseconds / 1000, .tv_nsec \u003d (milliseconds % 1000) * 1000000 },\n    .it_interval \u003d { .tv_sec \u003d 0, .tv_nsec \u003d 0 }\n};\n```",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee35c1b9_2b42128f",
+        "filename": "staticlibs/native/timerfdutils/com_android_net_module_util_TimerFdUtils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-16T01:58:44Z",
+      "side": 1,
+      "message": "It will be nice if we can also add some document to mention why those two value are always set to zero.",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "77d80efd5f0b6fc3eb7f3e1ac104fb060372c698",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
