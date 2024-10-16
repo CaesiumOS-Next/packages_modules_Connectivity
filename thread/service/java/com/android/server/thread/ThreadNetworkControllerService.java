@@ -19,6 +19,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.MulticastRoutingConfig.CONFIG_FORWARD_NONE;
 import static android.net.MulticastRoutingConfig.FORWARD_SELECTED;
 import static android.net.MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE;
+import static android.net.NetworkCapabilities.TRANSPORT_THREAD;
 import static android.net.thread.ActiveOperationalDataset.CHANNEL_PAGE_24_GHZ;
 import static android.net.thread.ActiveOperationalDataset.LENGTH_EXTENDED_PAN_ID;
 import static android.net.thread.ActiveOperationalDataset.LENGTH_MESH_LOCAL_PREFIX_BITS;
@@ -299,14 +300,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 .build();
     }
 
-    private LocalNetworkConfig newLocalNetworkConfig() {
-        return new LocalNetworkConfig.Builder()
-                .setUpstreamMulticastRoutingConfig(mUpstreamMulticastRoutingConfig)
-                .setDownstreamMulticastRoutingConfig(mDownstreamMulticastRoutingConfig)
-                .setUpstreamSelector(mUpstreamNetworkRequest)
-                .build();
-    }
-
     private void maybeInitializeOtDaemon() {
         if (!shouldEnableThread()) {
             return;
@@ -342,13 +335,13 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
 
         otDaemon.initialize(
-                mTunIfController.getTunFd(),
                 shouldEnableThread(),
                 newOtDaemonConfig(mPersistentSettings.getConfiguration()),
+                mTunIfController.getTunFd(),
                 mNsdPublisher,
                 getMeshcopTxtAttributes(mResources.get()),
-                mOtDaemonCallbackProxy,
-                mCountryCodeSupplier.get());
+                mCountryCodeSupplier.get(),
+                mOtDaemonCallbackProxy);
         otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         mOtDaemon = otDaemon;
         return mOtDaemon;
@@ -456,10 +449,13 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                                 "Failed to create Thread tunnel interface", e);
                     }
                     mConnectivityManager.registerNetworkProvider(mNetworkProvider);
-                    requestUpstreamNetwork();
-                    registerThreadNetworkCallback();
                     mUserRestricted = isThreadUserRestricted();
                     registerUserRestrictionsReceiver();
+
+                    if (isBorderRouterMode()) {
+                        requestUpstreamNetwork();
+                        registerThreadNetworkCallback();
+                    }
                     maybeInitializeOtDaemon();
                 });
     }
@@ -569,7 +565,16 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         LOG.i("Set Thread configuration: " + configuration);
 
         final boolean changed = mPersistentSettings.putConfiguration(configuration);
+
+        if (isBorderRouterMode()) {
+            requestUpstreamNetwork();
+        } else {
+            cancelRequestUpstreamNetwork();
+            disableBorderRouting();
+        }
+
         receiver.onSuccess();
+
         if (changed) {
             for (IConfigurationReceiver configReceiver : mConfigurationReceivers.keySet()) {
                 try {
@@ -579,6 +584,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 }
             }
         }
+
         try {
             getOtDaemon()
                     .setConfiguration(
@@ -592,9 +598,15 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private static OtDaemonConfiguration newOtDaemonConfig(
             @NonNull ThreadConfiguration threadConfig) {
         return new OtDaemonConfiguration.Builder()
+                .setBorderRouterEnabled(threadConfig.isBorderRouterEnabled())
                 .setNat64Enabled(threadConfig.isNat64Enabled())
                 .setDhcpv6PdEnabled(threadConfig.isDhcpv6PdEnabled())
                 .build();
+    }
+
+    /** Returns {@code true} if this device is operating as a border router. */
+    private boolean isBorderRouterMode() {
+        return mPersistentSettings.getConfiguration().isBorderRouterEnabled();
     }
 
     @Override
@@ -703,7 +715,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void requestUpstreamNetwork() {
         if (mUpstreamNetworkCallback != null) {
-            throw new AssertionError("The upstream network request is already there.");
+            return;
         }
         mUpstreamNetworkCallback = new UpstreamNetworkCallback();
         mConnectivityManager.registerNetworkCallback(
@@ -712,7 +724,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void cancelRequestUpstreamNetwork() {
         if (mUpstreamNetworkCallback == null) {
-            throw new AssertionError("The upstream network request null.");
+            return;
         }
         mNetworkToLinkProperties.clear();
         mConnectivityManager.unregisterNetworkCallback(mUpstreamNetworkCallback);
@@ -797,7 +809,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                         // clearCapabilities() is needed to remove forbidden capabilities and UID
                         // requirement.
                         .clearCapabilities()
-                        .addTransportType(NetworkCapabilities.TRANSPORT_THREAD)
+                        .addTransportType(TRANSPORT_THREAD)
                         .addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
                         .build(),
                 new ThreadNetworkCallback(),
@@ -815,27 +827,50 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             return mTestNetworkAgent;
         }
 
-        final NetworkCapabilities netCaps =
+        final var netCapsBuilder =
                 new NetworkCapabilities.Builder()
-                        .addTransportType(NetworkCapabilities.TRANSPORT_THREAD)
-                        .addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
+                        .addTransportType(TRANSPORT_THREAD)
                         .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
-                        .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
-                        .build();
-        final NetworkScore score =
-                new NetworkScore.Builder()
-                        .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK)
-                        .build();
+                        .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED);
+        if (isBorderRouterMode()) {
+            netCapsBuilder.addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK);
+        }
+
+        final var scoreBuilder = new NetworkScore.Builder();
+        if (isBorderRouterMode()) {
+            scoreBuilder.setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK);
+        }
+
+        LOG.i("Registering Thread network with capabilities: " + netCapsBuilder.build());
+
         return new NetworkAgent(
                 mContext,
                 mHandler.getLooper(),
                 LOG.getTag(),
-                netCaps,
+                netCapsBuilder.build(),
                 mTunIfController.getLinkProperties(),
-                newLocalNetworkConfig(),
-                score,
+                isBorderRouterMode() ? newLocalNetworkConfig() : null,
+                scoreBuilder.build(),
                 new NetworkAgentConfig.Builder().build(),
-                mNetworkProvider) {};
+                mNetworkProvider) {
+
+            // TODO(b/374037595): use NetworkFactory to handle dynamic network requests
+            @Override
+            public void onNetworkUnwanted() {
+                LOG.i("Thread network is unwanted by ConnectivityService");
+                if (!isBorderRouterMode()) {
+                    leave(false /* eraseDataset */, new LoggingOperationReceiver("leave"));
+                }
+            }
+        };
+    }
+
+    private LocalNetworkConfig newLocalNetworkConfig() {
+        return new LocalNetworkConfig.Builder()
+                .setUpstreamMulticastRoutingConfig(mUpstreamMulticastRoutingConfig)
+                .setDownstreamMulticastRoutingConfig(mDownstreamMulticastRoutingConfig)
+                .setUpstreamSelector(mUpstreamNetworkRequest)
+                .build();
     }
 
     private void registerThreadNetwork() {
@@ -1213,16 +1248,20 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     @Override
     public void leave(@NonNull IOperationReceiver receiver) {
-        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
-
-        mHandler.post(() -> leaveInternal(new OperationReceiverWrapper(receiver)));
+        leave(true /* eraseDataset */, receiver);
     }
 
-    private void leaveInternal(@NonNull OperationReceiverWrapper receiver) {
+    private void leave(boolean eraseDataset, @NonNull IOperationReceiver receiver) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        mHandler.post(() -> leaveInternal(eraseDataset, new OperationReceiverWrapper(receiver)));
+    }
+
+    private void leaveInternal(boolean eraseDataset, @NonNull OperationReceiverWrapper receiver) {
         checkOnHandlerThread();
 
         try {
-            getOtDaemon().leave(newOtStatusReceiver(receiver));
+            getOtDaemon().leave(eraseDataset, newOtStatusReceiver(receiver));
         } catch (RemoteException | ThreadNetworkException e) {
             LOG.e("otDaemon.leave failed", e);
             receiver.onError(e);
@@ -1355,6 +1394,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         } catch (RemoteException | ThreadNetworkException e) {
             LOG.e("Failed to set infra link NAT64 prefix " + newNat64Prefix, e);
         }
+    }
+
+    private void disableBorderRouting() {
+        LOG.i("Disabling border routing");
+        setInfraLinkState(newInfraLinkStateBuilder().build());
     }
 
     private void handleThreadInterfaceStateChanged(boolean isUp) {
@@ -1520,6 +1564,25 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 gId = 0;
             }
             return gId++;
+        }
+    }
+
+    /** An implementation of {@link IOperationReceiver} that simply logs the operation result. */
+    private static class LoggingOperationReceiver extends IOperationReceiver.Stub {
+        private final String mOperation;
+
+        LoggingOperationReceiver(String operation) {
+            mOperation = operation;
+        }
+
+        @Override
+        public void onSuccess() {
+            LOG.i("The operation " + mOperation + " succeeded");
+        }
+
+        @Override
+        public void onError(int errorCode, String errorMessage) {
+            LOG.w("The operation " + mOperation + " failed: " + errorCode + " " + errorMessage);
         }
     }
 
