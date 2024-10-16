@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0b0678a_1c528d40",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-16T01:50:07Z",
+      "side": 1,
+      "message": "This setup is super useful, but it might not be easy to find out this trick without looking at the code. Is it possible to dump some instructions to the stdout when run the `atest`? For example, we have sth. dump to stdout to advise how to run the test by skipping sim card check. It will be nice if we can have sth. similar to advise how to skip the log collection.",
+      "revId": "9f928a0263024167ec1d08c5000cee812ebcf0ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
