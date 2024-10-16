@@ -28,6 +28,7 @@ import android.annotation.RequiresPermission;
 import android.annotation.Size;
 import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
+import android.net.ConnectivityManager;
 import android.os.Binder;
 import android.os.OutcomeReceiver;
 import android.os.RemoteException;
@@ -641,6 +642,12 @@ public final class ThreadNetworkController {
      *   <li>{@link ThreadNetworkException#ERROR_ABORTED} this operation is aborted by another
      *       {@code join} or {@code leave} operation
      * </ul>
+     *
+     * <p>If this device is configured as a Border Router (see {@link
+     * ThreadConfiguration#isBorderRouterEnabled}), the system will keep Thread network connected
+     * and automatically re-connect after reboots. Otherwise, the client app needs to request for
+     * Thread network via the {@link ConnectivityManager#requestNetwork} API to maintain the
+     * connection.
      *
      * @param activeDataset the Active Operational Dataset represents the Thread network to join
      * @param executor the executor to execute {@code receiver}
