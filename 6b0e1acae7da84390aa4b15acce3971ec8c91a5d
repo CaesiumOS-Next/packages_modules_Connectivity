@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8522e11d_87328bc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 37
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-16T21:56:49Z",
+      "side": 1,
+      "message": "Do you know what\u0027s going on with the errorprone warning? I can\u0027t tell whether that\u0027s a bug in the tooling or actual errors.",
+      "revId": "6b0e1acae7da84390aa4b15acce3971ec8c91a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
