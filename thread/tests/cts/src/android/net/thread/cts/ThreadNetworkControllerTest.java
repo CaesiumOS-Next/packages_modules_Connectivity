@@ -1151,9 +1151,15 @@ public class ThreadNetworkControllerTest {
         CompletableFuture<Void> setFuture2 = new CompletableFuture<>();
         ConfigurationListener listener = new ConfigurationListener(mController);
         ThreadConfiguration config1 =
-                new ThreadConfiguration.Builder().setNat64Enabled(true).build();
+                new ThreadConfiguration.Builder()
+                        .setBorderRouterEnabled(true)
+                        .setNat64Enabled(true)
+                        .build();
         ThreadConfiguration config2 =
-                new ThreadConfiguration.Builder().setNat64Enabled(false).build();
+                new ThreadConfiguration.Builder()
+                        .setBorderRouterEnabled(false)
+                        .setNat64Enabled(false)
+                        .build();
 
         try {
             runAsShell(
