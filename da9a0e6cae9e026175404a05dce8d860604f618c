@@ -120,6 +120,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb6327a4_e94411ad",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-16T02:55:41Z",
+      "side": 1,
+      "message": "Done, todo removed.\nThanks for the input.",
+      "parentUuid": "927c1f48_6b327980",
+      "range": {
+        "startLine": 433,
+        "startChar": 9,
+        "endLine": 433,
+        "endChar": 54
+      },
+      "revId": "da9a0e6cae9e026175404a05dce8d860604f618c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c2687c1_968d02f7",
