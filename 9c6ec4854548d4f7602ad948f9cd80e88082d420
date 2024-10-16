@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "356ea115_86b5b057",
+        "filename": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-16T05:47:41Z",
+      "side": 0,
+      "message": "It seems to me it might be better to disable the test instead of reverting code.\nSince we have a lot of fixes after this CL.",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 88,
+        "endChar": 28
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1297f918_3c60a877",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/connectivity_multi_devices_test.py",
+              "range": {
+                "startLine": 88,
+                "startChar": 0,
+                "endLine": 89,
+                "endChar": 0
+              },
+              "replacement": "  # Take test args from command line.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "9c6ec4854548d4f7602ad948f9cd80e88082d420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
