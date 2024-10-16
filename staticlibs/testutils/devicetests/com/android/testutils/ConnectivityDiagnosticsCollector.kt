@@ -27,6 +27,7 @@ import java.io.File
 import java.io.PrintWriter
 import java.time.ZonedDateTime
 import kotlin.test.assertNull
+import org.junit.AssumptionViolatedException
 import org.junit.runner.Description
 import org.junit.runner.notification.Failure
 
@@ -74,6 +75,8 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
         // when iterating on failing tests.
         if (!runOnFailure()) return
         if (outputFiles.size >= MAX_DUMPS) return
+        // Assumption failures (assumeTrue/assumeFalse) are not actual failures
+        if (failure.exception is AssumptionViolatedException) return
         Log.i(TAG, "Collecting diagnostics for test failure. Disable by running tests with: " +
                 "atest MyModule -- " +
                 "--module-arg MyModule:instrumentation-arg:$ARG_RUN_ON_FAILURE:=false")
