@@ -16,6 +16,24 @@
       "message": "This is unused in this CL, it\u0027s probably best moved to another CL since the CL description won\u0027t match.\n\nBut I added the cellRequestCb originally to migrate users of an equivalent method in CtsNetUtils, it\u0027s not a great mechanism as it uses one global request for the test. I\u0027m not sure it\u0027s great to introduce the same concept with wifi. If there\u0027s no current use-case for requestWifi you could just not add this until it\u0027s actually necessary.",
       "revId": "939bececb5c5c6082303a031d9aab1c9bba4c9c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d71bbf46_eca89f34",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/AutoReleaseNetworkCallbackRule.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-16T08:51:30Z",
+      "side": 1,
+      "message": "Ah, yes.\nRemoved.",
+      "parentUuid": "d2e45129_d1e03e61",
+      "revId": "939bececb5c5c6082303a031d9aab1c9bba4c9c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
