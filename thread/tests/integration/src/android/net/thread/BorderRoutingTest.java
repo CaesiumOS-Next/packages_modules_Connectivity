@@ -650,9 +650,9 @@ public class BorderRoutingTest {
     public void nat64_threadDevicePingIpv4InfraDevice_outboundPacketIsForwarded() throws Exception {
         FullThreadDevice ftd = mFtds.get(0);
         joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET);
-        // TODO: enable NAT64 via ThreadNetworkController API instead of ot-ctl
         mOtCtl.setNat64Cidr(NAT64_CIDR);
-        mOtCtl.setNat64Enabled(true);
+        mController.setConfigurationAndWait(
+                new ThreadConfiguration.Builder().setNat64Enabled(true).build());
         waitFor(() -> mOtCtl.hasNat64PrefixInNetdata(), UPDATE_NAT64_PREFIX_TIMEOUT);
 
         ftd.ping(IPV4_SERVER_ADDR);
@@ -685,8 +685,8 @@ public class BorderRoutingTest {
         mInfraNetworkReader = newPacketReader(mInfraNetworkTracker.getTestIface(), mHandler);
         FullThreadDevice ftd = mFtds.get(0);
         joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET);
-        // TODO: enable NAT64 via ThreadNetworkController API instead of ot-ctl
-        mOtCtl.setNat64Enabled(true);
+        mController.setConfigurationAndWait(
+                new ThreadConfiguration.Builder().setNat64Enabled(true).build());
         mOtCtl.addPrefixInNetworkData(DHCP6_PD_PREFIX, "paros", "med");
         waitFor(() -> mOtCtl.hasNat64PrefixInNetdata(), UPDATE_NAT64_PREFIX_TIMEOUT);
 
