@@ -16,6 +16,24 @@
       "message": "See comments in aosp/3239255, I was trying to reduce the number of libraries here. Could you just have the class in net-utils-device-common ?",
       "revId": "9e43c04cc7292de751d131159d221a111a90fef5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48e76cea_b5ca98e0",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T07:31:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7654dd62_0f538ef9",
+      "revId": "9e43c04cc7292de751d131159d221a111a90fef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
