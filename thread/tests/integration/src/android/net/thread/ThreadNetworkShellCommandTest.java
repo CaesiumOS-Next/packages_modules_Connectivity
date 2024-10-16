@@ -179,6 +179,27 @@ public class ThreadNetworkShellCommandTest {
         assertThat(result).endsWith("Done\r\n");
     }
 
+    @Test
+    public void config_getConfig_configIsPrinted() throws Exception {
+        ThreadConfiguration config =
+                new ThreadConfiguration.Builder().setNat64Enabled(true).build();
+        mController.setConfigurationAndWait(config);
+
+        final String result = runThreadCommand("config");
+
+        assertThat(result).contains("Nat64Enabled=true");
+    }
+
+    @Test
+    public void config_setConfig_configIsSet() throws Exception {
+        ThreadConfiguration config = new ThreadConfiguration.Builder().build();
+        mController.setConfigurationAndWait(config);
+
+        runThreadCommand("config nat64 enabled");
+
+        assertThat(mController.getConfiguration().isNat64Enabled()).isTrue();
+    }
+
     private static String runThreadCommand(String cmd) {
         return runShellCommandOrThrow("cmd thread_network " + cmd);
     }
