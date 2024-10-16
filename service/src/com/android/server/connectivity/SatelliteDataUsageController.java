@@ -66,6 +66,7 @@ public class SatelliteDataUsageController {
     private final Handler mHandler;
     int mReadPipeFd = -1;
     private SatelliteBlockingUidDataListener mSatelliteBlockingUidDataListener;
+    int[] mSatelliteDataUsageDataUsageExemptedUidArray;
 
     private int findNonZeroLength(byte[] buffer) {
         int length = 0;
@@ -367,33 +368,40 @@ public class SatelliteDataUsageController {
             int[] newSatelliteUidBlockingArray, boolean needBlocking) {
 
         if (needBlocking) {
-            // update uid cache for enforcement
-            if (mCurrentSatelliteUidBlockingArrayCache != null
-                    && mCurrentSatelliteUidBlockingArrayCache.length > 0) {
-                updateSatelliteBlockingListCache(newSatelliteUidBlockingArray);
+            int[] satelliteUidBlockingArray;
+            // filter out the uids part of unlimited satellite data usage allowed cache
+            if (mSatelliteDataUsageDataUsageExemptedUidArray.length > 0) {
+                satelliteUidBlockingArray =
+                        exemptAllowedListUids(
+                                mSatelliteDataUsageDataUsageExemptedUidArray,
+                                newSatelliteUidBlockingArray);
             } else {
-                mCurrentSatelliteUidBlockingArrayCache =
-                        Arrays.copyOf(
-                                newSatelliteUidBlockingArray, newSatelliteUidBlockingArray.length);
+                satelliteUidBlockingArray = newSatelliteUidBlockingArray;
             }
             Log.i(
                     TAG,
-                    "enforce blocking rule for uids: "
-                            + Arrays.toString(mCurrentSatelliteUidBlockingArrayCache));
+                    "uid list after allow list exception: "
+                            + Arrays.toString(satelliteUidBlockingArray));
 
-            // enforce blocking of current uid cache
-            if (!mConnectivityManager.getFirewallChainEnabled(
-                    FIREWALL_CHAIN_SATELLITE_FOREGROUND)) {
-                Log.i(TAG, "firewall chain not enabled");
-                mConnectivityManager.setFirewallChainEnabled(
-                        FIREWALL_CHAIN_SATELLITE_FOREGROUND, true);
+            if (satelliteUidBlockingArray.length > 0) {
+                buildUidCacheArrayForFirewallEnforcement(satelliteUidBlockingArray);
+
+                // enforce blocking of current uid cache
+                if (!mConnectivityManager.getFirewallChainEnabled(
+                        FIREWALL_CHAIN_SATELLITE_FOREGROUND)) {
+                    Log.i(TAG, "firewall chain not enabled");
+                    mConnectivityManager.setFirewallChainEnabled(
+                            FIREWALL_CHAIN_SATELLITE_FOREGROUND, true);
+                }
+
+                mConnectivityManager.replaceFirewallChain(
+                        FIREWALL_CHAIN_SATELLITE_FOREGROUND,
+                        mCurrentSatelliteUidBlockingArrayCache);
             }
-            mConnectivityManager.replaceFirewallChain(
-                    FIREWALL_CHAIN_SATELLITE_FOREGROUND, mCurrentSatelliteUidBlockingArrayCache);
         } else {
             Log.i(
                     TAG,
-                    "enforce unblock rule for uids : "
+                    "enforce unblock rule for uids: "
                             + Arrays.toString(mCurrentSatelliteUidBlockingArrayCache));
             // enforce unblocking of current uid cache
             mConnectivityManager.replaceFirewallChain(
@@ -402,7 +410,29 @@ public class SatelliteDataUsageController {
         }
     }
 
-    private void updateSatelliteBlockingListCache(int[] newUidsToBlock) {
+    public static int[] exemptAllowedListUids(int[] unlimitedDataAllowedUids, int[] satelliteUids) {
+        Set<Integer> set1 = new HashSet<>();
+        for (int num : unlimitedDataAllowedUids) {
+            set1.add(num);
+        }
+
+        Set<Integer> set2 = new HashSet<>();
+        for (int num : satelliteUids) {
+            set2.add(num);
+        }
+
+        set2.removeAll(set1);
+
+        int[] satelliteUidEnforcementList = new int[set2.size()];
+        int i = 0;
+        for (int num : set2) {
+            satelliteUidEnforcementList[i++] = num;
+        }
+
+        return satelliteUidEnforcementList;
+    }
+
+    private void updateSatelliteUidBlockingArrayCache(int[] newUidsToBlock) {
         // 1. Use a Set to track existing elements
         Set<Integer> existingElements = new HashSet<>();
         for (int num : mCurrentSatelliteUidBlockingArrayCache) {
@@ -436,6 +466,39 @@ public class SatelliteDataUsageController {
             }
         }
         mCurrentSatelliteUidBlockingArrayCache = temp;
+    }
+
+    private void buildUidCacheArrayForFirewallEnforcement(int[] uidBlockingArray) {
+        // update uid cache for enforcement
+        if (mCurrentSatelliteUidBlockingArrayCache != null
+                && mCurrentSatelliteUidBlockingArrayCache.length > 0) {
+            updateSatelliteUidBlockingArrayCache(uidBlockingArray);
+        } else {
+            mCurrentSatelliteUidBlockingArrayCache =
+                    Arrays.copyOf(uidBlockingArray, uidBlockingArray.length);
+        }
+        Log.i(
+                TAG,
+                "enforce blocking rule for uids: "
+                        + Arrays.toString(mCurrentSatelliteUidBlockingArrayCache));
+    }
+
+    public static int[] convertSatelliteDataUsageAllowedListToArray(Set<Integer> uidList) {
+        int[] activeMessagingUidsOverSatellite = new int[uidList.size()];
+        int i = 0;
+        for (Integer value : uidList) {
+            activeMessagingUidsOverSatellite[i++] = value;
+        }
+        return activeMessagingUidsOverSatellite;
+    }
+
+    public void updateSatelliteDataUsageAllowedList(Set<Integer> satelliteDataUsageAllowedList) {
+        mSatelliteDataUsageDataUsageExemptedUidArray =
+                convertSatelliteDataUsageAllowedListToArray(satelliteDataUsageAllowedList);
+        Log.i(
+                TAG,
+                "received uid at exception list:"
+                        + Arrays.toString(mSatelliteDataUsageDataUsageExemptedUidArray));
     }
 
     /** Initialise Satellite Buffer Event interface for read and write file descriptors */
