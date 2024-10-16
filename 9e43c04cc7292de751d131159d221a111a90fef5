@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7654dd62_0f538ef9",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-16T05:29:42Z",
+      "side": 1,
+      "message": "See comments in aosp/3239255, I was trying to reduce the number of libraries here. Could you just have the class in net-utils-device-common ?",
+      "revId": "9e43c04cc7292de751d131159d221a111a90fef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
