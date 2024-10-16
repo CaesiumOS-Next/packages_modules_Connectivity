@@ -124,7 +124,6 @@ cc_library_shared {
         "libip_checksum",
         "libmodules-utils-build",
         "libnetjniutils",
-        "libnet_utils_device_common_bpfjni",
         "netd_aidl_interface-lateststable-ndk",
     ],
     shared_libs: [
