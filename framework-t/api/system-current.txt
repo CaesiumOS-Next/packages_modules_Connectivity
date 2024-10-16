@@ -500,6 +500,7 @@ package android.net.thread {
 
   @FlaggedApi("com.android.net.thread.flags.configuration_enabled") public final class ThreadConfiguration implements android.os.Parcelable {
     method public int describeContents();
+    method @FlaggedApi("com.android.net.thread.flags.thread_mobile_enabled") public boolean isBorderRouterDisabled();
     method public boolean isDhcpv6PdEnabled();
     method public boolean isNat64Enabled();
     method public void writeToParcel(@NonNull android.os.Parcel, int);
@@ -510,6 +511,7 @@ package android.net.thread {
     ctor @FlaggedApi("com.android.net.thread.flags.set_nat64_configuration_enabled") public ThreadConfiguration.Builder();
     ctor @FlaggedApi("com.android.net.thread.flags.set_nat64_configuration_enabled") public ThreadConfiguration.Builder(@NonNull android.net.thread.ThreadConfiguration);
     method @FlaggedApi("com.android.net.thread.flags.set_nat64_configuration_enabled") @NonNull public android.net.thread.ThreadConfiguration build();
+    method @FlaggedApi("com.android.net.thread.flags.thread_mobile_enabled") @NonNull public android.net.thread.ThreadConfiguration.Builder setBorderRouterDisabled(boolean);
     method @FlaggedApi("com.android.net.thread.flags.set_nat64_configuration_enabled") @NonNull public android.net.thread.ThreadConfiguration.Builder setNat64Enabled(boolean);
   }
 
