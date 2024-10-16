@@ -19,10 +19,12 @@ package com.android.server.thread;
 import android.annotation.Nullable;
 import android.content.Context;
 import android.net.thread.ActiveOperationalDataset;
+import android.net.thread.IConfigurationReceiver;
 import android.net.thread.IOperationReceiver;
 import android.net.thread.IOutputReceiver;
 import android.net.thread.OperationalDatasetTimestamp;
 import android.net.thread.PendingOperationalDataset;
+import android.net.thread.ThreadConfiguration;
 import android.net.thread.ThreadNetworkException;
 import android.os.Binder;
 import android.os.Process;
@@ -35,6 +37,7 @@ import com.android.net.module.util.HexDump;
 import java.io.PrintWriter;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -56,6 +59,7 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
     private static final Duration MIGRATE_TIMEOUT = Duration.ofSeconds(2);
     private static final Duration FORCE_STOP_TIMEOUT = Duration.ofSeconds(1);
     private static final Duration OT_CTL_COMMAND_TIMEOUT = Duration.ofSeconds(5);
+    private static final Duration SET_CONFIG_TIMEOUT = Duration.ofSeconds(1);
     private static final String PERMISSION_THREAD_NETWORK_TESTING =
             "android.permission.THREAD_NETWORK_TESTING";
 
@@ -132,6 +136,8 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
                 return setThreadEnabled(true);
             case "disable":
                 return setThreadEnabled(false);
+            case "config":
+                return handleConfigCommand();
             case "join":
                 return join();
             case "leave":
@@ -161,6 +167,67 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         CompletableFuture<Void> setEnabledFuture = new CompletableFuture<>();
         mControllerService.setEnabled(enabled, newOperationReceiver(setEnabledFuture));
         return waitForFuture(setEnabledFuture, SET_ENABLED_TIMEOUT, getErrorWriter());
+    }
+
+    private int handleConfigCommand() {
+        String[] args = peekRemainingArgs();
+
+        if (args.length == 0) {
+            return getConfig(null /* configParam */);
+        } else if (args.length == 1) {
+            return getConfig(args[0]);
+        } else if (args.length == 2) {
+            return setConfig(args[0], args[1]);
+        } else {
+            getErrorWriter().println("Invalid argument: " + Arrays.toString(args));
+            return -1;
+        }
+    }
+
+    private int getConfig(@Nullable String configParam) {
+        ThreadConfiguration config = getConfig();
+        if (configParam == null) {
+            getOutputWriter().println(config);
+        } else {
+            // TODO: output only specific param
+            getOutputWriter().println(config);
+        }
+        return 0;
+    }
+
+    private ThreadConfiguration getConfig() {
+        CompletableFuture<ThreadConfiguration> configFuture = new CompletableFuture<>();
+        IConfigurationReceiver callback =
+                new IConfigurationReceiver.Stub() {
+                    @Override
+                    public void onConfigurationChanged(ThreadConfiguration config) {
+                        configFuture.complete(config);
+                    }
+                };
+        mControllerService.registerConfigurationCallback(callback);
+        try {
+            return configFuture.get(1, TimeUnit.SECONDS);
+        } catch (ExecutionException | InterruptedException | TimeoutException e) {
+            throw new IllegalStateException("Failed to get config", e);
+        } finally {
+            mControllerService.unregisterConfigurationCallback(callback);
+        }
+    }
+
+    private int setConfig(String paramName, String paramValue) {
+        ThreadConfiguration.Builder configBuilder = new ThreadConfiguration.Builder(getConfig());
+        switch (paramName.toLowerCase()) {
+            case "borderrouter":
+                configBuilder.setBorderRouterDisabled("disabled".equalsIgnoreCase(paramValue));
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown config param: " + paramName);
+        }
+
+        CompletableFuture<Void> setConfigFuture = new CompletableFuture<>();
+        mControllerService.setConfiguration(
+                configBuilder.build(), newOperationReceiver(setConfigFuture));
+        return waitForFuture(setConfigFuture, SET_CONFIG_TIMEOUT, getErrorWriter());
     }
 
     private int join() {
