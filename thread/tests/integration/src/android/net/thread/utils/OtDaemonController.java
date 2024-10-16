@@ -54,6 +54,21 @@ public final class OtDaemonController {
         SystemClock.sleep(500);
     }
 
+    /** Returns the output string of the "ot-ctl br state" command. */
+    public String getBrState() {
+        return executeCommandAndParse("br state").getFirst();
+    }
+
+    /** Returns the output string of the "ot-ctl ba state" command. */
+    public String getBaState() {
+        return executeCommandAndParse("ba state").getFirst();
+    }
+
+    /** Returns the output string of the "ot-ctl srp server state" command. */
+    public String getSrpServerState() {
+        return executeCommandAndParse("srp server state").getFirst();
+    }
+
     /** Returns the list of IPv6 addresses on ot-daemon. */
     public List<Inet6Address> getAddresses() {
         return executeCommandAndParse("ipaddr").stream()
