@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ae01c69_c8da53a7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T08:04:41Z",
+      "side": 1,
+      "message": "Nit: the current user is not allowed to perform entitlement check?",
+      "range": {
+        "startLine": 424,
+        "startChar": 48,
+        "endLine": 424,
+        "endChar": 54
+      },
+      "revId": "ebf43776778ed1e7896fd2b46eb9419dd5f38c99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acc6a51b_9852d7ce",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T08:04:41Z",
+      "side": 1,
+      "message": "I believe this is unnecessary because you\u0027re only calling a static method in ActivityManager",
+      "range": {
+        "startLine": 121,
+        "startChar": 34,
+        "endLine": 121,
+        "endChar": 50
+      },
+      "revId": "ebf43776778ed1e7896fd2b46eb9419dd5f38c99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff0529b4_b0f0967b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T08:04:41Z",
+      "side": 1,
+      "message": "Nit: I think it\u0027s better to mock SdkLevel.isAtLeastT() instead of creating two tests that are limited to a specific Android version. You\u0027ve created a Dependency class in a subsequent change, maybe you can change it there.",
+      "range": {
+        "startLine": 651,
+        "startChar": 4,
+        "endLine": 651,
+        "endChar": 22
+      },
+      "revId": "ebf43776778ed1e7896fd2b46eb9419dd5f38c99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
