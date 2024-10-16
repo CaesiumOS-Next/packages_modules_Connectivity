@@ -209,6 +209,7 @@ enum UidOwnerMatchType : uint32_t {
     BACKGROUND_MATCH = (1 << 12),
     PENALTY_BOX_ADMIN_MATCH = (1 << 13),
     SATELLITE_FOREGROUND_MATCH = (1 << 14),
+    SATELLITE_BACKGROUND_MATCH = (1 << 15),
 };
 // LINT.ThenChange(../framework/src/android/net/BpfNetMapsConstants.java)
 
@@ -260,7 +261,7 @@ STRUCT_SIZE(IngressDiscardValue, 2 * 4);  // 8
 
 // DROP_IF_SET is set of rules that DROP if rule is globally enabled, and per-uid bit is set
 #define DROP_IF_SET (STANDBY_MATCH | OEM_DENY_1_MATCH | OEM_DENY_2_MATCH | OEM_DENY_3_MATCH \
-                     | SATELLITE_FOREGROUND_MATCH)
+                     | SATELLITE_FOREGROUND_MATCH | SATELLITE_BACKGROUND_MATCH)
 // DROP_IF_UNSET is set of rules that should DROP if globally enabled, and per-uid bit is NOT set
 #define DROP_IF_UNSET (DOZABLE_MATCH | POWERSAVE_MATCH | RESTRICTED_MATCH \
                         | LOW_POWER_STANDBY_MATCH | BACKGROUND_MATCH)

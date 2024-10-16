@@ -966,6 +966,14 @@ public class ConnectivityManager {
     public static final int BLOCKED_REASON_SATELLITE_FOREGROUND = 1 << 19;
 
     /**
+     * Flag to indicate that an app is subject to restriction when in background, that would result
+     * in its Satellite network access being blocked.
+     *
+     * @hide
+     */
+    public static final int BLOCKED_REASON_SATELLITE_BACKGROUND = 1 << 20;
+
+    /**
      * @hide
      */
     @Retention(RetentionPolicy.SOURCE)
@@ -984,6 +992,7 @@ public class ConnectivityManager {
             BLOCKED_METERED_REASON_USER_RESTRICTED,
             BLOCKED_METERED_REASON_ADMIN_DISABLED,
             BLOCKED_REASON_SATELLITE_FOREGROUND,
+            BLOCKED_REASON_SATELLITE_BACKGROUND,
     })
     public @interface BlockedReason {}
 
@@ -1165,8 +1174,23 @@ public class ConnectivityManager {
      * Note that this chain is used from a separate bpf program that is triggered by iptables and
      * can not be controlled by {@link ConnectivityManager#setFirewallChainEnabled}.
      *
-     * @hide */
+     * @hide
+     */
     public static final int FIREWALL_CHAIN_SATELLITE_FOREGROUND = 13;
+
+    /**
+     * Firewall chain for background app restriction on satellite network
+     *
+     * Background uids added to this chain do not have access to satellite network.
+     * These uids added to this chain when camped to satellite network.
+     * This chain corresponds to {@link #BLOCKED_REASON_SATELLITE_BACKGROUND}
+     *
+     * Note that this chain is used from a separate bpf program that is triggered by iptables and
+     * can not be controlled by {@link ConnectivityManager#setFirewallChainEnabled}.
+     *
+     * @hide
+     */
+    public static final int FIREWALL_CHAIN_SATELLITE_BACKGROUND = 14;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
@@ -1183,7 +1207,8 @@ public class ConnectivityManager {
         FIREWALL_CHAIN_METERED_ALLOW,
         FIREWALL_CHAIN_METERED_DENY_USER,
         FIREWALL_CHAIN_METERED_DENY_ADMIN,
-        FIREWALL_CHAIN_SATELLITE_FOREGROUND
+        FIREWALL_CHAIN_SATELLITE_FOREGROUND,
+        FIREWALL_CHAIN_SATELLITE_BACKGROUND
     })
     public @interface FirewallChain {}
 
