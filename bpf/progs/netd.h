@@ -211,6 +211,7 @@ enum UidOwnerMatchType : uint32_t {
     BACKGROUND_MATCH = (1 << 12),
     PENALTY_BOX_ADMIN_MATCH = (1 << 13),
     DENY_SATELLITE_NETWORK_MATCH = (1 << 14),
+    SATELLITE_BACKGROUND_MATCH = (1 << 15),
 };
 // LINT.ThenChange(../framework/src/android/net/BpfNetMapsConstants.java)
 
