@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f3f7826_f4a67bb4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T16:52:39Z",
+      "side": 1,
+      "message": "ISTM the `transactionId` is almost the same as the `queryIndex` but has a different initial value. The `transactionId` only needs to be populated in the query packet. Could you replace `transactionId` with `queryIndex` and remove it?",
+      "range": {
+        "startLine": 52,
+        "startChar": 14,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8bab78ec_f7549b81",
         "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
         "patchSetId": 2
@@ -44,6 +67,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a588506_bb818b21",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T16:52:39Z",
+      "side": 1,
+      "message": "IIUC, this check is unnecessary because `getExpectUnicastResponse()` is only called from `getConfigForNextRun()`, and queryIndex is always at least 1.",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 9
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0719083f_b1a2323f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T16:52:39Z",
+      "side": 1,
+      "message": "You could create a method to determine if the query index represents the last query in the burst. This would improve code clarity compared to directly comparing against a value. e.g.\n```\nprivate static boolean isLastQueryInBurst(int queryIndex, int queryMode) {\n    return getQueryIndexInBurst(queryIndex, queryMode) \u003d\u003d 0;\n}\n```",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 118,
+        "endChar": 41
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d645d4d9_aa27aad5",
         "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
         "patchSetId": 2
@@ -60,6 +129,75 @@
         "startChar": 4,
         "endLine": 138,
         "endChar": 5
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20fea7ef_bffb6d0c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T16:52:39Z",
+      "side": 1,
+      "message": "Nit: final",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 163,
+        "endChar": 11
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ea8416e_c37f7a13",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T16:52:39Z",
+      "side": 1,
+      "message": "Does the `newQueryIndex` also require this check?",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 9
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbb82bcf_26642f3f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-16T16:52:39Z",
+      "side": 1,
+      "message": "Ditto. Maybe have a method to check if it\u0027s the first bust.",
+      "range": {
+        "startLine": 180,
+        "startChar": 38,
+        "endLine": 180,
+        "endChar": 53
       },
       "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
