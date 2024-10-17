@@ -16,6 +16,24 @@
       "message": "Does this need to be recut into M-2024-11?",
       "revId": "68a760a273aa8daee721c95b03141991800a3b1e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "229eb586_e1804ab6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952030
+      },
+      "writtenOn": "2024-10-17T17:19:58Z",
+      "side": 1,
+      "message": "It should be fine to wait until M-2025-01. The incidence rate of this is very low and has been present since Nettrace launched.\n\nOn internal devices (which run more traces, and have more chances to hit this), about 0.5% of devices are affected after one week. Elsewhere, the incidence rate is \u003c 0.05% per week.",
+      "parentUuid": "81a57400_e8de18f1",
+      "revId": "68a760a273aa8daee721c95b03141991800a3b1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
