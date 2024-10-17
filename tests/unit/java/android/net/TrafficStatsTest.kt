@@ -16,9 +16,13 @@
 
 package android.net
 
-import android.net.TrafficStats.getValueForTypeFromFirstEntry
+import android.net.TrafficStats.getEntryValueForType
 import android.net.TrafficStats.TYPE_RX_BYTES
+import android.net.TrafficStats.TYPE_RX_PACKETS
+import android.net.TrafficStats.TYPE_TX_BYTES
+import android.net.TrafficStats.TYPE_TX_PACKETS
 import android.net.TrafficStats.UNSUPPORTED
+import android.net.netstats.StatsResult
 import android.os.Build
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
@@ -33,14 +37,16 @@ private const val TEST_IFACE1 = "test_iface1"
 class TrafficStatsTest {
 
     @Test
-    fun testGetValueForTypeFromFirstEntry() {
-        var stats: NetworkStats = NetworkStats(0, 0)
+    fun testGetEntryValueForType() {
+        var stats = StatsResult(1, 2, 3, 4)
         // empty stats
-        assertEquals(getValueForTypeFromFirstEntry(stats, TYPE_RX_BYTES), UNSUPPORTED.toLong())
+        assertEquals(getEntryValueForType(null, TYPE_RX_BYTES), UNSUPPORTED.toLong())
         // invalid type
-        stats.insertEntry(TEST_IFACE1, 1, 2, 3, 4)
-        assertEquals(getValueForTypeFromFirstEntry(stats, 1000), UNSUPPORTED.toLong())
+        assertEquals(getEntryValueForType(stats, 1000), UNSUPPORTED.toLong())
         // valid type
-        assertEquals(getValueForTypeFromFirstEntry(stats, TYPE_RX_BYTES), 1)
+        assertEquals(getEntryValueForType(stats, TYPE_RX_BYTES), 1)
+        assertEquals(getEntryValueForType(stats, TYPE_RX_PACKETS), 2)
+        assertEquals(getEntryValueForType(stats, TYPE_TX_BYTES), 3)
+        assertEquals(getEntryValueForType(stats, TYPE_TX_PACKETS), 4)
     }
 }

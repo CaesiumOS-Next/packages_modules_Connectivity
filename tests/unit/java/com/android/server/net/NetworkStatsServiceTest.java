@@ -56,7 +56,7 @@ import static android.net.NetworkTemplate.OEM_MANAGED_YES;
 import static android.net.TrafficStats.MB_IN_BYTES;
 import static android.net.TrafficStats.UID_REMOVED;
 import static android.net.TrafficStats.UID_TETHERING;
-import static android.net.TrafficStats.getValueForTypeFromFirstEntry;
+import static android.net.TrafficStats.getEntryValueForType;
 import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_UID;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_UID_TAG;
@@ -2516,13 +2516,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private void assertTrafficStatsValues(String iface, int uid, long rxBytes, long rxPackets,
             long txBytes, long txPackets) {
         assertTrafficStatsValuesThat(rxBytes, rxPackets, txBytes, txPackets,
-                (type) -> getValueForTypeFromFirstEntry(mService.getTypelessTotalStats(), type));
+                (type) -> getEntryValueForType(mService.getTotalStats(), type));
         assertTrafficStatsValuesThat(rxBytes, rxPackets, txBytes, txPackets,
-                (type) -> getValueForTypeFromFirstEntry(
-                        mService.getTypelessIfaceStats(iface), type)
-        );
+                (type) -> getEntryValueForType(mService.getIfaceStats(iface), type));
         assertTrafficStatsValuesThat(rxBytes, rxPackets, txBytes, txPackets,
-                (type) -> getValueForTypeFromFirstEntry(mService.getTypelessUidStats(uid), type));
+                (type) -> getEntryValueForType(mService.getUidStats(uid), type));
     }
 
     private void assertTrafficStatsValuesThat(long rxBytes, long rxPackets, long txBytes,
