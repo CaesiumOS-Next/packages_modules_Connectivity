@@ -16,6 +16,7 @@
 
 package android.net.cts;
 
+import static android.net.TrafficStats.getEntryValueForType;
 import static android.os.Process.INVALID_UID;
 
 import static org.junit.Assert.assertEquals;
@@ -30,13 +31,14 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
-import android.test.AndroidTestCase;
 import android.util.SparseArray;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.CollectionUtils;
+import com.android.modules.utils.build.SdkLevel;
+import com.android.testutils.ConnectivityModuleTest;
 import com.android.testutils.DevSdkIgnoreRule;
 
 import org.junit.Before;
@@ -51,6 +53,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+@ConnectivityModuleTest
 @RunWith(AndroidJUnit4.class)
 public class NetworkStatsBinderTest {
     // NOTE: These are shamelessly copied from TrafficStats.
@@ -74,11 +77,22 @@ public class NetworkStatsBinderTest {
     }
 
     private long getUidStatsFromBinder(int uid, int type) throws Exception {
-        Method getServiceMethod = Class.forName("android.os.ServiceManager")
+        final Method getServiceMethod = Class.forName("android.os.ServiceManager")
                 .getDeclaredMethod("getService", new Class[]{String.class});
-        IBinder binder = (IBinder) getServiceMethod.invoke(null, Context.NETWORK_STATS_SERVICE);
-        INetworkStatsService nss = INetworkStatsService.Stub.asInterface(binder);
-        return nss.getUidStats(uid, type);
+        final IBinder binder = (IBinder) getServiceMethod.invoke(
+                null, Context.NETWORK_STATS_SERVICE);
+        final INetworkStatsService nss = INetworkStatsService.Stub.asInterface(binder);
+        if (SdkLevel.isAtLeastT()) {
+            return getEntryValueForType(nss.getUidStats(uid), type);
+        }
+
+        // For T- devices, get the result by using reflection, since the
+        // long getUidStats(uid, type) binder interface is no longer in the aidl,
+        // and the devices are not running mainlined NetworkStatsService.
+        final Method getUidStatsMethod = nss.getClass().getDeclaredMethod(
+                "getUidStats", int.class, int.class);
+        getUidStatsMethod.setAccessible(true);
+        return (long) getUidStatsMethod.invoke(nss, uid, type);
     }
 
     private int getFirstAppUidThat(@NonNull Predicate<Integer> predicate) {
