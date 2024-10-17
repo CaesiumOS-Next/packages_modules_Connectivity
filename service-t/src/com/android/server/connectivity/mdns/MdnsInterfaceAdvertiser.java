@@ -416,8 +416,10 @@ public class MdnsInterfaceAdvertiser implements MulticastPacketReader.PacketHand
         // recvbuf and src are reused after this returns; ensure references to src are not kept.
         final InetSocketAddress srcCopy = new InetSocketAddress(src.getAddress(), src.getPort());
 
-        if (DBG) {
-            mSharedLog.v("Parsed packet with " + packet.questions.size() + " questions, "
+        // Dump the query packet that is filtered by the transaction ID.
+        if (DBG || packet.transactionId != 0) {
+            mSharedLog.v("Parsed packet with transactionId(" + packet.transactionId + "): "
+                    + packet.questions.size() + " questions, "
                     + packet.answers.size() + " answers, "
                     + packet.authorityRecords.size() + " authority, "
                     + packet.additionalRecords.size() + " additional from " + srcCopy);
