@@ -16,6 +16,29 @@
       "message": "LGTM",
       "revId": "659a046f453a14600a54756fddf50ae81120a1b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e309e0_09a2752c",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1054468
+      },
+      "writtenOn": "2024-10-17T12:41:52Z",
+      "side": 1,
+      "message": "Can you explain why QUERY_USERS isn\u0027t sufficient for this?",
+      "range": {
+        "startLine": 37,
+        "startChar": 54,
+        "endLine": 37,
+        "endChar": 66
+      },
+      "revId": "659a046f453a14600a54756fddf50ae81120a1b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
