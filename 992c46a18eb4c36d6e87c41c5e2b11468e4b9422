@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a61219a_c21cd7a2",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2024-10-17T15:44:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e294b86d_80d3099c",
+      "range": {
+        "startLine": 428,
+        "startChar": 34,
+        "endLine": 428,
+        "endChar": 51
+      },
+      "revId": "992c46a18eb4c36d6e87c41c5e2b11468e4b9422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86316ae8_f93b6890",
@@ -84,6 +108,30 @@
           ]
         }
       ],
+      "revId": "992c46a18eb4c36d6e87c41c5e2b11468e4b9422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b193312_1b07096a",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2024-10-17T15:44:51Z",
+      "side": 1,
+      "message": "Done. But I had to skip the repo upload hooks because the linter prefers indent to be 2.",
+      "parentUuid": "adad4c67_16a46ff0",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 2
+      },
       "revId": "992c46a18eb4c36d6e87c41c5e2b11468e4b9422",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
