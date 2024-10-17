@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb424ae0_300244e9",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-17T16:11:22Z",
+      "side": 1,
+      "message": "perhaps you\u0027d want a:\n\nDEFINE_BPF_MAP_NO_NETD(sdksandbox_restrict_localhost_map, ARRAY, uint32_t, bool, 1)\n\nand then read it and do the drop only if true?",
+      "revId": "994f73708978b951ed6ad44f6b2046d78094593f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
