@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50821538_0fa33aef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-17T23:35:47Z",
+      "side": 1,
+      "message": "Your code in CertificateTransparencyService is running in the system_server process, which always has all permissions. Here you\u0027re trying to add permissions to the Tethering APK inside the APEX, which is another APK that runs different code in another process (it\u0027s the actual connection sharing setup code).\n\nYou shouldn\u0027t need this change to use the permission in CertificateTransparencyService.",
+      "revId": "4ce75456693b52bb74dad76446fbee537853211c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
