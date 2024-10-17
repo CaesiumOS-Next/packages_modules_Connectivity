@@ -46,6 +46,30 @@
       },
       "revId": "5869032755089fb89e66866b1e783d990ea994be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30cb30c3_542fc498",
+        "filename": "staticlibs/testutils/host/python/assert_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-17T07:15:09Z",
+      "side": 1,
+      "message": "It might be better if all goes to UnexpectedBehaviorError.\nNo strong opinion.",
+      "parentUuid": "b2b9cdf9_1a870d23",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 16
+      },
+      "revId": "5869032755089fb89e66866b1e783d990ea994be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
