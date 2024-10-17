@@ -81,6 +81,7 @@ DEFINE_BPF_MAP_RO_NETD(uid_owner_map, HASH, uint32_t, UidOwnerValue, UID_OWNER_M
 DEFINE_BPF_MAP_RO_NETD(uid_permission_map, HASH, uint32_t, uint8_t, UID_OWNER_MAP_SIZE)
 DEFINE_BPF_MAP_NO_NETD(ingress_discard_map, HASH, IngressDiscardKey, IngressDiscardValue,
                        INGRESS_DISCARD_MAP_SIZE)
+DEFINE_BPF_MAP_RW_NETD(trie_map, LPM_TRIE, LPM_TRIE_KEY, enum LPMTrieValueType, 1000)
 
 DEFINE_BPF_MAP_RW_NETD(lock_array_test_map, ARRAY, uint32_t, bool, 1)
 DEFINE_BPF_MAP_RW_NETD(lock_hash_test_map, HASH, uint32_t, bool, 1)
@@ -298,12 +299,71 @@ static __always_inline inline void do_packet_tracing(
       }
     }
 
+    uint32_t custom_tag = 0;
+    LPM_TRIE_KEY key = {
+            .prefix_length = 128,
+            .if_index = 1,
+            .address = {{{0x3f, 0x3f, 0x3f, 0x01, 0x00, 0x08, 0x00, 0x00, 0x02, 0x60, 0x97, 0xff, 0xfe, 0x40, 0xef, 0xab}}}
+            //{192,65,193,100}
+    };
+
+    LPM_TRIE_KEY key2 = {
+                .prefix_length = 128,
+                .if_index = 1048576,
+                .address = {{{0x3f, 0x3f, 0x05, 0x01, 0x00, 0x08, 0x00, 0x00,
+                           0x02, 0x60, 0x97, 0xff, 0xfe, 0x40, 0xef, 0xab}}}
+                //{192,65,129,0}
+        };
+
+     LPM_TRIE_KEY key3 = {
+                    .prefix_length = 128,
+                    .if_index = 1,
+                    .address = {{{0xff, 0xff, 0xff, 0xff, 0x00, 0x08, 0x00, 0x00, 0x02, 0x60, 0x97, 0xff, 0xfe, 0x40, 0xef, 0xab}}}
+                    //{192,65,129,0}
+            };
+
+//    LPM_TRIE_KEY subnet_key = {
+//                .prefix_length = 17,
+//                .address = {192,65,192,0}
+//        };
+//    uint32_t subnet_value = 1;
+
+    uint32_t* trie_value = bpf_trie_map_lookup_elem(&key);
+
+    if(trie_value && *trie_value == LOCAL_IP) {
+      custom_tag +=1;
+    } else {
+       custom_tag +=0;
+    }
+
+//    if(bpf_trie_map_update_elem(&subnet_key, &subnet_value, BPF_ANY))
+//       custom_tag += 2;
+
+    trie_value = bpf_trie_map_lookup_elem(&key2);
+
+    if(trie_value && *trie_value == LOCAL_IP) {
+      custom_tag +=4;
+    } else {
+       custom_tag +=0;
+    }
+
+    trie_value = bpf_trie_map_lookup_elem(&key3);
+
+        if(trie_value && *trie_value == LOCAL_IP) {
+          custom_tag +=8;
+        } else {
+           custom_tag +=0;
+        }
+
+    //bpf_trie_map_delete_elem(&subnet_key);
+
     pkt->timestampNs = bpf_ktime_get_boot_ns();
     pkt->ifindex = skb->ifindex;
     pkt->length = skb->len;
 
     pkt->uid = uid;
     pkt->tag = tag;
+    pkt->tag = custom_tag;
     pkt->sport = sport;
     pkt->dport = dport;
 

@@ -187,6 +187,8 @@ import com.android.net.module.util.Struct.S32;
 import com.android.net.module.util.Struct.U8;
 import com.android.net.module.util.bpf.CookieTagMapKey;
 import com.android.net.module.util.bpf.CookieTagMapValue;
+import com.android.net.module.util.bpf.TrieMapKey;
+import com.android.net.module.util.bpf.TrieMapValue;
 import com.android.networkstack.apishim.BroadcastOptionsShimImpl;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
@@ -198,6 +200,9 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.time.Clock;
 import java.time.Instant;
@@ -278,6 +283,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private static final String IFACE_STATS_MAP_PATH =
             "/sys/fs/bpf/netd_shared/map_netd_iface_stats_map";
 
+    private static final String TRIE_MAP_PATH =
+            "/sys/fs/bpf/netd_shared/map_netd_trie_map";
     /**
      * DeviceConfig flag used to indicate whether the files should be stored in the apex data
      * directory.
@@ -452,6 +459,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private SparseIntArray mActiveUidCounterSet = new SparseIntArray();
     private final IBpfMap<S32, U8> mUidCounterSetMap;
     private final IBpfMap<CookieTagMapKey, CookieTagMapValue> mCookieTagMap;
+    private final IBpfMap<TrieMapKey, TrieMapValue> mTrieMap;
     private final IBpfMap<StatsMapKey, StatsMapValue> mStatsMapA;
     private final IBpfMap<StatsMapKey, StatsMapValue> mStatsMapB;
     private final IBpfMap<UidStatsMapKey, StatsMapValue> mAppUidStatsMap;
@@ -676,6 +684,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         mInterfaceMapHelper = mDeps.makeBpfInterfaceMapHelper();
         mUidCounterSetMap = mDeps.getUidCounterSetMap();
         mCookieTagMap = mDeps.getCookieTagMap();
+        mTrieMap = mDeps.getTrieMap();
         mStatsMapA = mDeps.getStatsMapA();
         mStatsMapB = mDeps.getStatsMapB();
         mAppUidStatsMap = mDeps.getAppUidStatsMap();
@@ -883,6 +892,16 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                         CookieTagMapKey.class, CookieTagMapValue.class);
             } catch (ErrnoException e) {
                 Log.wtf(TAG, "Cannot open cookie tag map: " + e);
+                return null;
+            }
+        }
+
+        public IBpfMap<TrieMapKey, TrieMapValue> getTrieMap() {
+            try {
+                return new BpfMap<>(TRIE_MAP_PATH,
+                        TrieMapKey.class, TrieMapValue.class);
+            } catch (ErrnoException e) {
+                Log.wtf(TAG, "Cannot open trie map: " + e);
                 return null;
             }
         }
@@ -3137,6 +3156,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             pw.println("BPF map content:");
             pw.increaseIndent();
             dumpCookieTagMapLocked(pw);
+            dumpTrieMapLocked(pw);
             dumpUidCounterSetMapLocked(pw);
             dumpAppUidStatsMapLocked(pw);
             dumpStatsMapLocked(mStatsMapA, pw, "mStatsMapA");
@@ -3222,6 +3242,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         BpfDump.dumpMapStatus(mStatsMapB, pw, "mStatsMapB", STATS_MAP_B_PATH);
         // mIfaceStatsMap is always not null but dump status to be consistent with other maps.
         BpfDump.dumpMapStatus(mIfaceStatsMap, pw, "mIfaceStatsMap", IFACE_STATS_MAP_PATH);
+        BpfDump.dumpMapStatus(mTrieMap, pw, "mTrieMap", TRIE_MAP_PATH);
     }
 
     @GuardedBy("mStatsLock")
@@ -3233,6 +3254,35 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 (key, value) -> "cookie=" + key.socketCookie
                         + " tag=0x" + Long.toHexString(value.tag)
                         + " uid=" + value.uid);
+    }
+
+    @GuardedBy("mStatsLock")
+    private void dumpTrieMapLocked(final IndentingPrintWriter pw) {
+        if (mTrieMap == null) {
+            return;
+        }
+
+        byte add[] = {0x3f, 0x3f, 0x3f, 0x3f, 0x00, 0x08, 0x00, 0x00, 0x02, 0x60, 0x3f, 0x3f, 0x3f, 0x40, 0x3f, 0x3f};
+        TrieMapKey trieMapKey = null;
+        try {
+             trieMapKey = new TrieMapKey(32+17, 1, Inet6Address.getByAddress(null, add, 6));
+        } catch (UnknownHostException unknownHostException) {
+
+        }
+
+        try {
+            mTrieMap.updateEntry(trieMapKey, new TrieMapValue(2));
+        } catch (ErrnoException e) {
+            throw new RuntimeException(e);
+        }
+        BpfDump.dumpMap(mTrieMap, pw, "mTrieMap",
+                (key, value) -> {
+                    return "trie= (prefixLength= " + key.prefixLength
+                                + ", ifIndex= "+ key.ifIndex
+                                + ", address= "+ key.address +")"
+                                + " value=" + Long.toHexString(value.value);
+
+                });
     }
 
     @GuardedBy("mStatsLock")
