@@ -16,6 +16,23 @@
       "message": "LGTM",
       "revId": "51f46332dae0cc97a35273ca868d5ced81419f6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c7dd961_4874ac50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-17T02:25:14Z",
+      "side": 1,
+      "message": "CTS changes in our project outside of no-ops, cherry-picks and additional mDNS coverage should be approved by Lorenzo, adding as reviewer",
+      "revId": "51f46332dae0cc97a35273ca868d5ced81419f6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
