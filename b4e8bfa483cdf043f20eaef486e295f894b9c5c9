@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6e3ac26_6f8e4912",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-17T02:32:00Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "b4e8bfa483cdf043f20eaef486e295f894b9c5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b4a370e_11b59e06",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-17T02:32:00Z",
+      "side": 1,
+      "message": "Nit: You don\u0027t need to specify the private visibility as java doc description.\n\n```\nIf not specified, one should assume the element originally intended to be private.\n```",
+      "range": {
+        "startLine": 120,
+        "startChar": 22,
+        "endLine": 120,
+        "endChar": 44
+      },
+      "revId": "b4e8bfa483cdf043f20eaef486e295f894b9c5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f801b776_0aad5b73",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-17T02:32:00Z",
+      "side": 1,
+      "message": "Nit: Write the java doc for this and below methods.",
+      "fixSuggestions": [
+        {
+          "fixId": "b302177d_e94056aa",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+              "range": {
+                "startLine": 200,
+                "startChar": 0,
+                "endLine": 200,
+                "endChar": 0
+              },
+              "replacement": "        /**\n         * Create a PendingIntent for the provisioning recheck alarm.\n         * @param pkgName the package name of the PendingIntent.\n         */\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+              "range": {
+                "startLine": 206,
+                "startChar": 0,
+                "endLine": 206,
+                "endChar": 0
+              },
+              "replacement": "        /**\n         * Get the current user id.\n         */\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b4e8bfa483cdf043f20eaef486e295f894b9c5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
