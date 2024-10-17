@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "132c4ef8_2c2855d0",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-17T07:07:52Z",
+      "side": 1,
+      "message": "You might want to refactor this as well.\nAlso for other places parse \"success\"",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 5
+      },
+      "revId": "fc31ab3e71af26c2e678695ec89e9fe4137326b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
