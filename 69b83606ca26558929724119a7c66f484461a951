@@ -41,6 +41,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "196adcf8_0e99860a",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-17T05:54:17Z",
+      "side": 1,
+      "message": "Done at aosp/3313055",
+      "parentUuid": "d089a6d4_03d835ed",
+      "range": {
+        "startLine": 81,
+        "startChar": 17,
+        "endLine": 81,
+        "endChar": 36
+      },
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "588649dd_48236a5d",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-17T05:54:17Z",
+      "side": 1,
+      "message": "1. We can enforce 0 or 1 items to address your concern.\n2. From experiments by using benchmark test (looping for creation), there is no siginificant performance difference from using NetworkStats or a newly created dedicated class.\n3. It is also not great to maintain another new NetworkStats-like class.\n\nThus we think reuse existing class instead of creating new NetworkStats-like class would be better.\n\nWDYT?",
+      "parentUuid": "6752c01c_30644ff4",
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5482858_771419cb",
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e238d72_59f86518",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-17T05:54:17Z",
+      "side": 1,
+      "message": "Done at aosp/3313055",
+      "parentUuid": "e5482858_771419cb",
+      "range": {
+        "startLine": 84,
+        "startChar": 17,
+        "endLine": 84,
+        "endChar": 38
+      },
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06153b07_3b0f9aa2",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-10-11T03:35:06Z",
       "side": 1,
       "message": "ditto, no need to rename this.",
+      "range": {
+        "startLine": 87,
+        "startChar": 17,
+        "endLine": 87,
+        "endChar": 38
+      },
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deaa880c_0ef8b50a",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-17T05:54:17Z",
+      "side": 1,
+      "message": "Done at aosp/3313055",
+      "parentUuid": "06153b07_3b0f9aa2",
       "range": {
         "startLine": 87,
         "startChar": 17,
@@ -123,6 +213,48 @@
       "writtenOn": "2024-10-11T03:37:11Z",
       "side": 1,
       "message": "Is this still expected to be used ? It looks like getTypelessTotalStats would be enough ?",
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fee9f624_23f71b07",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-17T05:54:17Z",
+      "side": 1,
+      "message": "Removed at aosp/3313055",
+      "parentUuid": "7bb61af4_07660132",
+      "range": {
+        "startLine": 90,
+        "startChar": 9,
+        "endLine": 90,
+        "endChar": 20
+      },
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f44baaa_04559577",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-17T05:54:17Z",
+      "side": 1,
+      "message": "Done at aosp/3313055",
+      "parentUuid": "0eb0ce5b_5366df49",
       "revId": "69b83606ca26558929724119a7c66f484461a951",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
