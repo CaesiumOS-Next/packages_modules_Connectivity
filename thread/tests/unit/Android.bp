@@ -48,6 +48,7 @@ android_test {
         "service-thread-pre-jarjar",
         "truth",
         "service-thread-pre-jarjar",
+        "ThreadNetworkTestUtils",
     ],
     libs: [
         "android.test.base.stubs.system",
