@@ -965,7 +965,7 @@ public class TrafficStats {
         }
         final NetworkStats stats;
         try {
-            stats = getStatsService().getTypelessUidStats(uid);
+            stats = getStatsService().getUidStats(uid);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -979,7 +979,7 @@ public class TrafficStats {
         }
         final NetworkStats stats;
         try {
-            stats = getStatsService().getTypelessTotalStats();
+            stats = getStatsService().getTotalStats();
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -993,7 +993,7 @@ public class TrafficStats {
         }
         final NetworkStats stats;
         try {
-            stats = getStatsService().getTypelessIfaceStats(iface);
+            stats = getStatsService().getIfaceStats(iface);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }

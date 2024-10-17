@@ -52,7 +52,6 @@ import static android.net.NetworkTemplate.MATCH_WIFI;
 import static android.net.TrafficStats.KB_IN_BYTES;
 import static android.net.TrafficStats.MB_IN_BYTES;
 import static android.net.TrafficStats.UID_TETHERING;
-import static android.net.TrafficStats.getValueForTypeFromFirstEntry;
 import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_UID;
 import static android.net.netstats.NetworkStatsDataMigrationUtils.PREFIX_UID_TAG;
@@ -2133,14 +2132,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
     }
 
-    @Override
-    public long getUidStats(int uid, int type) {
-        return getValueForTypeFromFirstEntry(getTypelessUidStats(uid), type);
-    }
-
     @NonNull
     @Override
-    public NetworkStats getTypelessUidStats(int uid) {
+    public NetworkStats getUidStats(int uid) {
         final NetworkStats stats = new NetworkStats(0, 0);
         final int callingUid = Binder.getCallingUid();
         if (callingUid != android.os.Process.SYSTEM_UID && callingUid != uid) {
@@ -2175,7 +2169,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     @NonNull
     @Override
-    public NetworkStats getTypelessIfaceStats(@NonNull String iface) {
+    public NetworkStats getIfaceStats(@NonNull String iface) {
         Objects.requireNonNull(iface);
 
         final NetworkStats.Entry entry;
@@ -2205,7 +2199,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
 
     @NonNull
     @Override
-    public NetworkStats getTypelessTotalStats() {
+    public NetworkStats getTotalStats() {
         final NetworkStats.Entry entry;
         if (mAlwaysUseTrafficStatsServiceRateLimitCache
                 || mDeps.isChangeEnabled(

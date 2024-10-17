@@ -78,16 +78,13 @@ interface INetworkStatsService {
     void unregisterUsageRequest(in DataUsageRequest request);
 
     /** Get the uid stats information since boot */
-    NetworkStats getTypelessUidStats(int uid);
+    NetworkStats getUidStats(int uid);
 
     /** Get the iface stats information since boot */
-    NetworkStats getTypelessIfaceStats(String iface);
+    NetworkStats getIfaceStats(String iface);
 
     /** Get the total network stats information since boot */
-    NetworkStats getTypelessTotalStats();
-
-    /** Get the uid stats information (with specified type) since boot */
-    long getUidStats(int uid, int type);
+    NetworkStats getTotalStats();
 
     /** Registers a network stats provider */
     INetworkStatsProviderCallback registerNetworkStatsProvider(String tag,
