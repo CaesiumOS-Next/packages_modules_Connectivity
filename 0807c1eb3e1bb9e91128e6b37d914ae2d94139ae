@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba6a1062_36c6be9a",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-17T03:41:55Z",
+      "side": 1,
+      "message": "Seriously, the controller should read the existing configuration out and merge the nat64 value into it and then set it back to the service. I would suggest providing a specific setNat64EnabledAndWait() method to make this code shorter and clearer. Thoughts?",
+      "range": {
+        "startLine": 654,
+        "startChar": 8,
+        "endLine": 655,
+        "endChar": 81
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1ad9eadc_09e6ca82",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+              "range": {
+                "startLine": 654,
+                "startChar": 0,
+                "endLine": 656,
+                "endChar": 0
+              },
+              "replacement": "        mController.setNat64EnabledAndWait(true);\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+              "range": {
+                "startLine": 688,
+                "startChar": 0,
+                "endLine": 690,
+                "endChar": 0
+              },
+              "replacement": "        mController.setNat64EnabledAndWait(true);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0807c1eb3e1bb9e91128e6b37d914ae2d94139ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
