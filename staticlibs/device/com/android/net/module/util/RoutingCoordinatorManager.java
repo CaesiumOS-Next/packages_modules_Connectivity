@@ -204,14 +204,26 @@ public class RoutingCoordinatorManager {
      * @return an IPv4 address allocated for the downstream, could be null
      */
     @Nullable
-    public LinkAddress requestDownstreamAddress(
+    public LinkAddress requestStickyDownstreamAddress(
             int interfaceType,
             int scope,
-            boolean useLastAddress,
             IIpv4PrefixRequest request) {
         try {
-            return mService.requestDownstreamAddress(
-                    interfaceType, scope, useLastAddress, request);
+            return mService.requestStickyDownstreamAddress(interfaceType, scope, request);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Request an IPv4 address for the downstream.
+     *
+     * @param request a {@link IIpv4PrefixRequest} to report conflicts
+     * @return an IPv4 address allocated for the downstream, could be null
+     */
+    public LinkAddress requestDownstreamAddress(IIpv4PrefixRequest request) {
+        try {
+            return mService.requestDownstreamAddress(request);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
