@@ -39,7 +39,6 @@ import java.util.Objects;
  * @see PendingOperationalDataset
  * @hide
  */
-@FlaggedApi(Flags.FLAG_THREAD_ENABLED)
 @SystemApi
 public final class OperationalDatasetTimestamp {
     /** @hide */
