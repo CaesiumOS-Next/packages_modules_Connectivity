@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5306f51d_fbb66dac",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-17T02:57:39Z",
+      "side": 1,
+      "message": "Prefer to keep it as is to be clearer.",
+      "parentUuid": "3b4a370e_11b59e06",
+      "range": {
+        "startLine": 120,
+        "startChar": 22,
+        "endLine": 120,
+        "endChar": 44
+      },
+      "revId": "b4e8bfa483cdf043f20eaef486e295f894b9c5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f801b776_0aad5b73",
@@ -82,6 +106,24 @@
           ]
         }
       ],
+      "revId": "b4e8bfa483cdf043f20eaef486e295f894b9c5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f1cffef_6f3f723e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-17T02:57:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f801b776_0aad5b73",
       "revId": "b4e8bfa483cdf043f20eaef486e295f894b9c5c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
