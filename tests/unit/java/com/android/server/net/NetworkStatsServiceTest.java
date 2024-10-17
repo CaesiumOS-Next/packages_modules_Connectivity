@@ -2516,13 +2516,13 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private void assertTrafficStatsValues(String iface, int uid, long rxBytes, long rxPackets,
             long txBytes, long txPackets) {
         assertTrafficStatsValuesThat(rxBytes, rxPackets, txBytes, txPackets,
-                (type) -> getValueForTypeFromFirstEntry(mService.getTypelessTotalStats(), type));
+                (type) -> getValueForTypeFromFirstEntry(mService.getTotalStats(), type));
         assertTrafficStatsValuesThat(rxBytes, rxPackets, txBytes, txPackets,
                 (type) -> getValueForTypeFromFirstEntry(
-                        mService.getTypelessIfaceStats(iface), type)
+                        mService.getIfaceStats(iface), type)
         );
         assertTrafficStatsValuesThat(rxBytes, rxPackets, txBytes, txPackets,
-                (type) -> getValueForTypeFromFirstEntry(mService.getTypelessUidStats(uid), type));
+                (type) -> getValueForTypeFromFirstEntry(mService.getUidStats(uid), type));
     }
 
     private void assertTrafficStatsValuesThat(long rxBytes, long rxPackets, long txBytes,
