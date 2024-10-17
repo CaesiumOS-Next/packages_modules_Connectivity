@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c15fb25f_39c58c50",
+        "filename": "staticlibs/device/com/android/net/module/util/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-17T15:18:55Z",
+      "side": 1,
+      "message": "why can\u0027t this call requestDownstreamAddress and cache the address here?\n```\nfinal LinkAddress newAddress \u003d requestDownstreamAddress(request);\nif (newAddress !\u003d null) {\n    mCachedAddresses.put(addrKey, newAddress);\n}\nreturn newAddress;\n```",
+      "range": {
+        "startLine": 232,
+        "startChar": 8,
+        "endLine": 232,
+        "endChar": 66
+      },
+      "revId": "852aae79688da55dc2c95a3b046c934c61deb370",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
