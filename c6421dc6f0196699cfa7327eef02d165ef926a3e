@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac95b745_ae9270b0",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 2645,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-17T08:30:23Z",
+      "side": 1,
+      "message": "Nit: add a comment saying this is to verify the service is not in cache (queried)",
+      "revId": "c6421dc6f0196699cfa7327eef02d165ef926a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d9af66c_d1375615",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 2656,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-17T08:30:23Z",
+      "side": 1,
+      "message": "This may be a bit tricky because if the test is a bit too slow, it may get above the 200ms threshold and the service expired. Also this test will be very slow because it waits for 100ms twice.\n\nMaybe just resolveService immediately ? There\u0027s no good reason to try after 100ms (and not any other duration below 200ms), so 0 should be OK too",
+      "revId": "c6421dc6f0196699cfa7327eef02d165ef926a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01969e8e_645e7922",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 2659,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-17T08:30:23Z",
+      "side": 1,
+      "message": "Use timeout 0 (also on other usages)",
+      "range": {
+        "startLine": 2659,
+        "startChar": 36,
+        "endLine": 2659,
+        "endChar": 48
+      },
+      "revId": "c6421dc6f0196699cfa7327eef02d165ef926a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3f16484_a8e4d9fe",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 2663,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-17T08:30:23Z",
+      "side": 1,
+      "message": "Having to sleep for hundreds of milliseconds for the test is unfortunate,\n\nMaybe you could have 2 separate tests: one that with the default timeout the first query is from cache, and one that with a short timeout the query eventually is not from cache\n\nBasically, that means removing the check that the first query is in cache here, and then you can make the timeout very small. And have another method where the timeout is large, but you just do that first query and check you get results from cache",
+      "revId": "c6421dc6f0196699cfa7327eef02d165ef926a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
