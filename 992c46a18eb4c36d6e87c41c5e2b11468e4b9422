@@ -1,0 +1,91 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e294b86d_80d3099c",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-17T14:02:19Z",
+      "side": 1,
+      "message": "this test looks cheaper - put it first",
+      "range": {
+        "startLine": 428,
+        "startChar": 34,
+        "endLine": 428,
+        "endChar": 51
+      },
+      "revId": "992c46a18eb4c36d6e87c41c5e2b11468e4b9422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86316ae8_f93b6890",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-17T14:02:19Z",
+      "side": 1,
+      "message": "deeper indent (or just no {} and put it on previous line)",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 6
+      },
+      "revId": "992c46a18eb4c36d6e87c41c5e2b11468e4b9422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adad4c67_16a46ff0",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-17T14:02:19Z",
+      "side": 1,
+      "message": "indent style seems to be 4",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 2
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "2cefc168_8f4349a7",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 279,
+                "startChar": 0,
+                "endLine": 282,
+                "endChar": 0
+              },
+              "replacement": "    // AID_SDK_SANDBOX_PROCESS_START \u003d 20000 \u0026 AID_SDK_SANDBOX_PROCESS_END \u003d 29999\n    return uid \u003e\u003d AID_SDK_SANDBOX_PROCESS_START \u0026\u0026\n           uid \u003c\u003d AID_SDK_SANDBOX_PROCESS_END;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "992c46a18eb4c36d6e87c41c5e2b11468e4b9422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
