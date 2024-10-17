@@ -441,6 +441,16 @@ public class ServiceDiscoveryTest {
                 .containsExactly("key1", bytes(0x01, 0x02), "key2", bytes(3));
     }
 
+    @Test
+    public void ephemeralKeyFeatureEnabled_meshcopStateBit11IsSet() throws Exception {
+        NsdServiceInfo discoveredService = discoverService(mNsdManager, "_meshcop._udp");
+        assertThat(discoveredService).isNotNull();
+        NsdServiceInfo meshcopService = resolveService(mNsdManager, discoveredService);
+
+        Map<String, byte[]> txtMap = meshcopService.getAttributes();
+        assertThat(txtMap.get("sb")[2] & 8).isEqualTo(8);
+    }
+
     private void registerService(NsdServiceInfo serviceInfo, RegistrationListener listener)
             throws InterruptedException, ExecutionException, TimeoutException {
         mNsdManager.registerService(serviceInfo, PROTOCOL_DNS_SD, listener);
