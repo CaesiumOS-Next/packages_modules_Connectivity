@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ec1206b_1ba3bb14",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-18T00:42:43Z",
+      "side": 1,
+      "message": "The code doesn\u0027t use stuff that can change right now but that could easily change - removed, thanks",
+      "parentUuid": "ef354646_946220e1",
+      "range": {
+        "startLine": 96,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 13
+      },
+      "revId": "e12cc38a5e0cf7d48d9f545ce5709df9e315f56a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "546a25ca_84c82e55",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-17T07:06:05Z",
       "side": 1,
       "message": "I feel we should track VPN network separately, I vaguely remember I see some flaky related to VPN network.",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 103,
+        "endChar": 13
+      },
+      "revId": "e12cc38a5e0cf7d48d9f545ce5709df9e315f56a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5d63bad_e0966788",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-18T00:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "546a25ca_84c82e55",
       "range": {
         "startLine": 100,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a446770_9644ee3a",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-18T00:42:43Z",
+      "side": 1,
+      "message": "Yes, added a comment",
+      "parentUuid": "a55a6d9a_6be52ccd",
+      "range": {
+        "startLine": 138,
+        "startChar": 17,
+        "endLine": 138,
+        "endChar": 29
+      },
+      "revId": "e12cc38a5e0cf7d48d9f545ce5709df9e315f56a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b38b3969_f88faeae",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-10-17T07:06:05Z",
       "side": 1,
       "message": "can we put bssid as well?",
+      "range": {
+        "startLine": 224,
+        "startChar": 25,
+        "endLine": 224,
+        "endChar": 29
+      },
+      "revId": "e12cc38a5e0cf7d48d9f545ce5709df9e315f56a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11785b06_2281cef7",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-18T00:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b38b3969_f88faeae",
       "range": {
         "startLine": 224,
         "startChar": 25,
