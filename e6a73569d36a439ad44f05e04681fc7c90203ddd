@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfe1c2a5_acfadaa9",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-18T08:06:32Z",
+      "side": 1,
+      "message": "Moved the check to `android.net.thread.cts.ThreadNetworkControllerTest#meshcopService_threadEnabledButNotJoined_discoveredButNoNetwork` and `meshcopService_joinedNetwork_discoveredHasNetwork`",
+      "parentUuid": "f85fe8ec_210f7f21",
+      "revId": "e6a73569d36a439ad44f05e04681fc7c90203ddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99d824a3_f6b4eb46",
@@ -49,6 +67,24 @@
           ]
         }
       ],
+      "revId": "e6a73569d36a439ad44f05e04681fc7c90203ddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae04e83b_99c29478",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-18T08:06:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99d824a3_f6b4eb46",
       "revId": "e6a73569d36a439ad44f05e04681fc7c90203ddd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
