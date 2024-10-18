@@ -22,6 +22,30 @@
       },
       "revId": "21dcfa5a8c06cddf44a5f50372d4eb506a09a2b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae57e0ae_334f458a",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 5
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1885298
+      },
+      "writtenOn": "2024-10-18T23:25:51Z",
+      "side": 1,
+      "message": "that will be configured in the test infrastructure separately\n\ndriver / passenger can use the same TEST_MAPPING group, be there will be 2 separate tests on top of it one driver, one passenger",
+      "parentUuid": "2df19d0f_9387c03d",
+      "range": {
+        "startLine": 427,
+        "startChar": 3,
+        "endLine": 427,
+        "endChar": 32
+      },
+      "revId": "21dcfa5a8c06cddf44a5f50372d4eb506a09a2b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
