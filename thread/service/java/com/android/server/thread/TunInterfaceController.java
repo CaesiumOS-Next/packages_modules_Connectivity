@@ -82,6 +82,7 @@ public class TunInterfaceController {
 
     private ParcelFileDescriptor mParcelTunFd;
     private NetworkInterface mNetworkInterface;
+    private LinkAddress mNat64CidrAddress;
 
     /** Creates a new {@link TunInterfaceController} instance for given interface. */
     public TunInterfaceController(String interfaceName) {
@@ -145,6 +146,10 @@ public class TunInterfaceController {
     }
 
     private native void nativeSetInterfaceUp(String interfaceName, boolean isUp) throws IOException;
+
+    public void setNat64CidrAddress(@Nullable LinkAddress nat64CidrAddress) {
+        mNat64CidrAddress = nat64CidrAddress;
+    }
 
     /** Adds a new address to the interface. */
     public void addAddress(LinkAddress address) {
@@ -224,6 +229,10 @@ public class TunInterfaceController {
             } else {
                 newLinkAddresses.add(newLinkAddress(addressInfo, hasActiveOmrAddress));
             }
+        }
+
+        if (mNat64CidrAddress != null) {
+            newLinkAddresses.add(mNat64CidrAddress);
         }
 
         final CompareResult<LinkAddress> addressDiff =
