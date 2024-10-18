@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bb60e07_f2564d38",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-18T03:31:05Z",
+      "side": 1,
+      "message": "Per API guidelines, it\u0027s suggested to use positive naming for properties.",
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f9ff3d6_15e21055",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-18T03:31:05Z",
+      "side": 1,
+      "message": "```suggestion\n        sb.append(\"BorderRouterDisabled\u003d\").append(mBorderRouterDisabled);\n```",
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d0746ec_ffbe5aad",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-18T03:31:05Z",
+      "side": 1,
+      "message": "The reorder of parameters seems not necessary to implement this new feature. Can we put it in a separate CL?",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 344,
+        "endChar": 40
+      },
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48bf0e37_510f5a73",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-18T03:31:05Z",
+      "side": 1,
+      "message": "nit: I wonder if it would be more clear if you group the two `if` statement together?\n```suggestion\n        final var scoreBuilder \u003d new NetworkScore.Builder();\n        if (isBorderRouterMode()) {\n            netCapsBuilder.addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK);\n            scoreBuilder.setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK);\n        }\n```",
+      "range": {
+        "startLine": 835,
+        "startChar": 0,
+        "endLine": 842,
+        "endChar": 9
+      },
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bb2536c_40db1a81",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-18T03:31:05Z",
+      "side": 1,
+      "message": "The change to `leave()` seems better to be in a separate CL.",
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
