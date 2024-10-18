@@ -22,6 +22,30 @@
       },
       "revId": "852aae79688da55dc2c95a3b046c934c61deb370",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84d2969_5c8efed1",
+        "filename": "staticlibs/device/com/android/net/module/util/PrivateAddressCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-18T01:43:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c15fb25f_39c58c50",
+      "range": {
+        "startLine": 232,
+        "startChar": 8,
+        "endLine": 232,
+        "endChar": 66
+      },
+      "revId": "852aae79688da55dc2c95a3b046c934c61deb370",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
