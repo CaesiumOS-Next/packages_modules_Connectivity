@@ -83,6 +83,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05957d73_9ccbe885",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-18T08:33:00Z",
+      "side": 1,
+      "message": "By conduting the experiments in the integration test,\nwhich execrise the binder boxing/unboxing as well.\nThe dedicated object option takes 25% faster than NetworkStats solution.\nThus use a dedicated object instead, done in aosp/3313055.\n\nCode: https://paste.googleplex.com/5463006153801728\n[2/3] com.android.server.net.integrationtests.NetworkStatsIntegrationTest#testGetTestObject1: PASSED (4.456s)\n[3/3] com.android.server.net.integrationtests.NetworkStatsIntegrationTest#testGetTestObject2: PASSED (3.297s)",
+      "parentUuid": "588649dd_48236a5d",
+      "revId": "69b83606ca26558929724119a7c66f484461a951",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5482858_771419cb",
