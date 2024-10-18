@@ -50,6 +50,30 @@
       ],
       "revId": "0807c1eb3e1bb9e91128e6b37d914ae2d94139ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10e8a8d4_333ce7ab",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-18T05:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba6a1062_36c6be9a",
+      "range": {
+        "startLine": 654,
+        "startChar": 8,
+        "endLine": 655,
+        "endChar": 81
+      },
+      "revId": "0807c1eb3e1bb9e91128e6b37d914ae2d94139ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
