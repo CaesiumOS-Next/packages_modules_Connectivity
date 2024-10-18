@@ -114,6 +114,24 @@
       "message": "The change to `leave()` seems better to be in a separate CL.",
       "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f8d460c_0c3286e7",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-18T04:14:28Z",
+      "side": 1,
+      "message": "Resolved offline that this is necessary for the mobile\u0027s behavior.",
+      "parentUuid": "4bb2536c_40db1a81",
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
