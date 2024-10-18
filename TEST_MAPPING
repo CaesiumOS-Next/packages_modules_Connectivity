@@ -443,5 +443,10 @@
     {
       "path": "vendor/xts/gts-tests/hostsidetests/networkstack"
     }
+  ],
+  "visible-background-user-cts-presubmit": [
+    {
+      "name": "CtsNetTestCases"
+    }
   ]
 }
