@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4317fa5_446ae02a",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 3
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1630008
+      },
+      "writtenOn": "2024-10-18T23:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d9861e2_a42ca2bd",
+      "range": {
+        "startLine": 426,
+        "startChar": 1,
+        "endLine": 426,
+        "endChar": 4
+      },
+      "revId": "d9371e909cc995064aae2ca146d3e75e431bdaf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28dae95e_a21849c4",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-18T21:09:49Z",
       "side": 1,
       "message": "nit: visible-background-user-presubmit?",
+      "range": {
+        "startLine": 447,
+        "startChar": 3,
+        "endLine": 447,
+        "endChar": 40
+      },
+      "revId": "d9371e909cc995064aae2ca146d3e75e431bdaf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "358a28a4_a39ef93d",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 3
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1630008
+      },
+      "writtenOn": "2024-10-18T23:03:14Z",
+      "side": 1,
+      "message": "Renamed to `automotive-mumd-cts-presubmit`, but feel free to suggest another name.",
+      "parentUuid": "28dae95e_a21849c4",
       "range": {
         "startLine": 447,
         "startChar": 3,
