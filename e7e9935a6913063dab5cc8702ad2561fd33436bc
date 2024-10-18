@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49d4b4ea_78b226e6",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-18T03:52:12Z",
+      "side": 1,
+      "message": "Could you help link to the API guideline rule? Thanks",
+      "parentUuid": "1bb60e07_f2564d38",
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f9ff3d6_15e21055",
         "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
         "patchSetId": 7
