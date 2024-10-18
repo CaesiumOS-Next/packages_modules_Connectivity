@@ -152,10 +152,10 @@ public class SatelliteDataUsageController {
                             if (capabilities != null) {
                                 isSatelliteNetworkConnected =
                                         capabilities.hasTransport(
-                                                        NetworkCapabilities.TRANSPORT_SATELLITE)
-                                                && !capabilities.hasCapability(
+                                                        NetworkCapabilities.TRANSPORT_SATELLITE);
+                                           /*     && !capabilities.hasCapability(
                                                         NetworkCapabilities
-                                                                .NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED);
+                                                                .NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED);*/
                                 boolean isWifiConnected =
                                         capabilities.hasTransport(
                                                 NetworkCapabilities.TRANSPORT_WIFI);
