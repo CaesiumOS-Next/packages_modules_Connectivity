@@ -78,6 +78,8 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.InetAddresses;
+import android.net.IpPrefix;
+import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
 import android.net.LocalNetworkInfo;
@@ -120,6 +122,8 @@ import android.util.SparseArray;
 
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.RoutingCoordinatorManager;
+import com.android.net.module.util.IIpv4PrefixRequest;
 import com.android.net.module.util.SharedLog;
 import com.android.server.ServiceManagerWrapper;
 import com.android.server.connectivity.ConnectivityResources;
@@ -137,6 +141,7 @@ import com.android.server.thread.openthread.OnMeshPrefixConfig;
 import com.android.server.thread.openthread.OtDaemonConfiguration;
 import com.android.server.thread.openthread.OtDaemonState;
 
+import java.net.InetAddress;
 import libcore.util.HexEncoding;
 
 import java.io.IOException;
@@ -193,10 +198,12 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final NetworkProvider mNetworkProvider;
     private final Supplier<IOtDaemon> mOtDaemonSupplier;
     private final ConnectivityManager mConnectivityManager;
+    private final RoutingCoordinatorManager mRoutingCoordinatorManager;
     private final TunInterfaceController mTunIfController;
     private final InfraInterfaceController mInfraIfController;
     private final NsdPublisher mNsdPublisher;
     private final OtDaemonCallbackProxy mOtDaemonCallbackProxy = new OtDaemonCallbackProxy();
+    private final Nat64CidrController mNat64CidrController = new Nat64CidrController();
     private final ConnectivityResources mResources;
     private final Supplier<String> mCountryCodeSupplier;
     private final Map<IConfigurationReceiver, IBinder.DeathRecipient> mConfigurationReceivers =
@@ -229,6 +236,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             NetworkProvider networkProvider,
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
+            RoutingCoordinatorManager routingCoordinatorManager,
             TunInterfaceController tunIfController,
             InfraInterfaceController infraIfController,
             ThreadPersistentSettings persistentSettings,
@@ -242,6 +250,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mNetworkProvider = networkProvider;
         mOtDaemonSupplier = otDaemonSupplier;
         mConnectivityManager = connectivityManager;
+        mRoutingCoordinatorManager = routingCoordinatorManager;
         mTunIfController = tunIfController;
         mInfraIfController = infraIfController;
         mUpstreamNetworkRequest = newUpstreamNetworkRequest();
@@ -266,13 +275,19 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         NetworkProvider networkProvider =
                 new NetworkProvider(context, handlerThread.getLooper(), "ThreadNetworkProvider");
         Map<Network, LinkProperties> networkToLinkProperties = new HashMap<>();
+        final ConnectivityManager connectivityManager =
+                context.getSystemService(ConnectivityManager.class);
+        final RoutingCoordinatorManager routingCoordinatorManager =
+                new RoutingCoordinatorManager(
+                        context, connectivityManager.getRoutingCoordinatorService());
 
         return new ThreadNetworkControllerService(
                 context,
                 handler,
                 networkProvider,
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
-                context.getSystemService(ConnectivityManager.class),
+                connectivityManager,
+                routingCoordinatorManager,
                 new TunInterfaceController(TUN_IF_NAME),
                 new InfraInterfaceController(),
                 persistentSettings,
@@ -444,6 +459,46 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     public void initialize() {
+<<<<<<< PATCH SET (3aacb9 DO NOT REVIEW)
+        mHandler.post(
+                () -> {
+                    LOG.v(
+                            "Initializing Thread system service: Thread is "
+                                    + (shouldEnableThread() ? "enabled" : "disabled"));
+                    try {
+                        mTunIfController.createTunInterface();
+                    } catch (IOException e) {
+                        throw new IllegalStateException(
+                                "Failed to create Thread tunnel interface", e);
+                    }
+                    mConnectivityManager.registerNetworkProvider(mNetworkProvider);
+                    requestUpstreamNetwork();
+                    registerThreadNetworkCallback();
+                    mNat64CidrController.maybeUpdateNat64Cidr();
+                    mUserRestricted = isThreadUserRestricted();
+                    registerUserRestrictionsReceiver();
+                    maybeInitializeOtDaemon();
+                });
+||||||| BASE
+        mHandler.post(
+                () -> {
+                    LOG.v(
+                            "Initializing Thread system service: Thread is "
+                                    + (shouldEnableThread() ? "enabled" : "disabled"));
+                    try {
+                        mTunIfController.createTunInterface();
+                    } catch (IOException e) {
+                        throw new IllegalStateException(
+                                "Failed to create Thread tunnel interface", e);
+                    }
+                    mConnectivityManager.registerNetworkProvider(mNetworkProvider);
+                    requestUpstreamNetwork();
+                    registerThreadNetworkCallback();
+                    mUserRestricted = isThreadUserRestricted();
+                    registerUserRestrictionsReceiver();
+                    maybeInitializeOtDaemon();
+                });
+=======
         mHandler.post(() -> initializeInternal());
     }
 
@@ -464,6 +519,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mUserRestricted = isThreadUserRestricted();
         registerUserRestrictionsReceiver();
         maybeInitializeOtDaemon();
+>>>>>>> BASE      (6d42cd [Thread] use setConfiguration API in NAT64 tests)
     }
 
     /**
@@ -589,6 +645,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         } catch (RemoteException | ThreadNetworkException e) {
             LOG.e("otDaemon.setConfiguration failed. Config: " + configuration, e);
         }
+        mNat64CidrController.maybeUpdateNat64Cidr();
     }
 
     private static OtDaemonConfiguration newOtDaemonConfig(
@@ -1391,9 +1448,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         // The OT daemon can send link property updates before the networkAgent is
         // registered
-        if (mNetworkAgent != null) {
-            mNetworkAgent.sendLinkProperties(mTunIfController.getLinkProperties());
-        }
+        maybeSendLinkProperties();
     }
 
     private void handlePrefixChanged(List<OnMeshPrefixConfig> onMeshPrefixConfigList) {
@@ -1403,9 +1458,22 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
         // The OT daemon can send link property updates before the networkAgent is
         // registered
-        if (mNetworkAgent != null) {
-            mNetworkAgent.sendLinkProperties(mTunIfController.getLinkProperties());
+        maybeSendLinkProperties();
+    }
+
+    private void maybeSendLinkProperties() {
+        if (mNetworkAgent == null) {
+            return;
         }
+        final LinkProperties lp = mTunIfController.getLinkProperties();
+
+        // TODO: Maintain the NAT64 CIDR in mTunIfController so we don't need to add it here.
+        if (mNat64CidrController.mNat64Cidr != null) {
+            lp.addLinkAddress(mNat64CidrController.mNat64Cidr);
+        }
+
+        LOG.i("Sending link properties: " + lp);
+        mNetworkAgent.sendLinkProperties(lp);
     }
 
     @RequiresPermission(
@@ -1849,6 +1917,63 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         @Override
         public void onPrefixChanged(List<OnMeshPrefixConfig> onMeshPrefixConfigList) {
             mHandler.post(() -> handlePrefixChanged(onMeshPrefixConfigList));
+        }
+    }
+
+    private final class Nat64CidrController extends IIpv4PrefixRequest.Stub {
+        private static final int RETRY_DELAY_ON_FAILURE = 60_000;
+
+        @Nullable private LinkAddress mNat64Cidr;
+
+        @Override
+        public void onIpv4PrefixConflict(IpPrefix prefix) {
+            mHandler.post(() -> maybeUpdateNat64Cidr());
+        }
+
+        private void onIpv4PrefixConflictInternal(IpPrefix prefix) {
+            checkOnHandlerThread();
+
+            releaseNat64Cidr();
+            maybeUpdateNat64Cidr();
+        }
+
+        public void maybeUpdateNat64Cidr() {
+            checkOnHandlerThread();
+
+            if (mPersistentSettings.getConfiguration().isNat64Enabled()) {
+                if (mNat64Cidr != null) {
+                    return;
+                }
+                final LinkAddress downstreamAddress =
+                        mRoutingCoordinatorManager.requestDownstreamAddress(this);
+                if (downstreamAddress == null) {
+                    mHandler.postDelayed(() -> maybeUpdateNat64Cidr(), RETRY_DELAY_ON_FAILURE);
+                    return;
+                }
+                mNat64Cidr = downstreamAddress;
+                try {
+                    getOtDaemon()
+                            .setNat64Cidr(
+                                    mNat64Cidr.toString(),
+                                    new LoggingOtStatusReceiver("setNat64Cidr"));
+                } catch (RemoteException | ThreadNetworkException e) {
+                    LOG.e("Failed to set NAT64 CIDR at otd-daemon", e);
+                }
+            } else {
+                releaseNat64Cidr();
+            }
+            maybeSendLinkProperties();
+        }
+
+        private void releaseNat64Cidr() {
+            if (mNat64Cidr != null) {
+                mRoutingCoordinatorManager.releaseDownstream(this);
+                mNat64Cidr = null;
+            }
+        }
+
+        private static IpPrefix asIpPrefix(LinkAddress linkAddress) {
+            return new IpPrefix(linkAddress.getAddress(), linkAddress.getPrefixLength());
         }
     }
 }
