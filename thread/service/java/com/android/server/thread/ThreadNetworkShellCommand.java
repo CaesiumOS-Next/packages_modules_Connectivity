@@ -69,6 +69,23 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
     @Nullable private PrintWriter mOutputWriter;
     @Nullable private PrintWriter mErrorWriter;
 
+    /**
+     * Represents any exceptions thrown during handling a Thread shell command.
+     *
+     * <p>This is intended to be a runtime exception to make the error handling easier. Because the
+     * only thing to do for any exceptions is to print out the exception and the binder shell
+     * command infra has already taken care of it.
+     */
+    private static final class ShellCommandException extends RuntimeException {
+        public ShellCommandException(String message) {
+            super(message);
+        }
+
+        public ShellCommandException(String message, Throwable cause) {
+            super(message, cause);
+        }
+    }
+
     @VisibleForTesting
     ThreadNetworkShellCommand(
             Context context,
@@ -273,29 +290,19 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
 
         // Get config
         if (peekNextArg() == null) {
-            try {
-                final ThreadConfiguration config = getConfig();
-                getOutputWriter().println("Thread configuration = " + config);
-            } catch (AssertionError e) {
-                getErrorWriter().println("Failed: " + e.getMessage());
-                return -1;
-            }
+            final ThreadConfiguration config = getConfig();
+            getOutputWriter().println("Thread configuration = " + config);
             return 0;
         }
 
         // Set config
         final String name = getNextArg();
         final String value = getNextArg();
-        try {
-            setConfig(name, value);
-        } catch (AssertionError | IllegalArgumentException e) {
-            getErrorWriter().println(e.getMessage());
-            return -1;
-        }
+        setConfig(name, value);
         return 0;
     }
 
-    private ThreadConfiguration getConfig() throws AssertionError {
+    private ThreadConfiguration getConfig() {
         final CompletableFuture<ThreadConfiguration> future = new CompletableFuture<>();
         mControllerService.registerConfigurationCallback(
                 new IConfigurationReceiver.Stub() {
@@ -307,15 +314,14 @@ public final class ThreadNetworkShellCommand extends BasicShellCommandHandler {
         try {
             return future.get(CONFIG_TIMEOUT.toSeconds(), TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            throw new AssertionError("Failed to get config within timeout", e);
+            throw new ShellCommandException("Failed to read configuration", e);
         }
     }
 
-    private void setConfig(String name, String value)
-            throws IllegalArgumentException, AssertionError {
+    private void setConfig(String name, String value) {
         if (name == null || value == null) {
             throw new IllegalArgumentException(
-                    "Invalid config name = " + name + ", value=" + value);
+                    "Invalid config: name = " + name + ", value=" + value);
         }
         final ThreadConfiguration oldConfig = getConfig();
         final ThreadConfiguration.Builder newConfigBuilder =
