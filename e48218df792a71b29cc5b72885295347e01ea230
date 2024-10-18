@@ -16,6 +16,24 @@
       "message": "I\u0027m actually trying to refactor these libraries to reduce the number of users of the \"generic\" ones; instead having one library dedicated to each user.\n\nSee comments in: https://r.android.com/3239255\n\nCould you define a new net-utils-framework-ipsec similarly to net-utils-framework-wifi instead ?",
       "revId": "e48218df792a71b29cc5b72885295347e01ea230",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d2e8f97_98498cc4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-10-18T23:41:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0f5d8b0_66d80074",
+      "revId": "e48218df792a71b29cc5b72885295347e01ea230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
