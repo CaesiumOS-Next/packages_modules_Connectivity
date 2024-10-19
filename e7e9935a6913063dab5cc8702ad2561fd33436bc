@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1150bb4_2dc124f8",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-19T09:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49d4b4ea_78b226e6",
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f9ff3d6_15e21055",
@@ -49,6 +67,24 @@
       "writtenOn": "2024-10-18T03:31:05Z",
       "side": 1,
       "message": "```suggestion\n        sb.append(\"BorderRouterDisabled\u003d\").append(mBorderRouterDisabled);\n```",
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "529870fc_46645269",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-19T09:34:02Z",
+      "side": 1,
+      "message": "We use lowercase in ActiveOperationalDataset and PendingOperationalDataset classes. Better keep consistent with existing code. I changed all fields here to lowercase. PTAL",
+      "parentUuid": "0f9ff3d6_15e21055",
       "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -76,6 +112,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2e78227_5e670bb9",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-19T09:34:02Z",
+      "side": 1,
+      "message": "reverted",
+      "parentUuid": "0d0746ec_ffbe5aad",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 344,
+        "endChar": 40
+      },
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48bf0e37_510f5a73",
@@ -89,6 +149,30 @@
       "writtenOn": "2024-10-18T03:31:05Z",
       "side": 1,
       "message": "nit: I wonder if it would be more clear if you group the two `if` statement together?\n```suggestion\n        final var scoreBuilder \u003d new NetworkScore.Builder();\n        if (isBorderRouterMode()) {\n            netCapsBuilder.addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK);\n            scoreBuilder.setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK);\n        }\n```",
+      "range": {
+        "startLine": 835,
+        "startChar": 0,
+        "endLine": 842,
+        "endChar": 9
+      },
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e19deb2_e09d8ab0",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-19T09:34:02Z",
+      "side": 1,
+      "message": "Sounds good, done.",
+      "parentUuid": "48bf0e37_510f5a73",
       "range": {
         "startLine": 835,
         "startChar": 0,
