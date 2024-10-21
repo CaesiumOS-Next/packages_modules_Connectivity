@@ -16,6 +16,7 @@
 
 package com.android.server
 
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.IpPrefix
 import android.net.INetd
 import android.net.LinkAddress
@@ -50,6 +51,7 @@ import com.android.testutils.visibleOnHandlerThread
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.inOrder
@@ -67,6 +69,9 @@ private const val TEST_PACKAGE_UID2 = 321
 @RunWith(DevSdkIgnoreRunner::class)
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSSatelliteNetworkTest : CSTest() {
+    @JvmField @field:Rule
+    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+
     @get:Rule
     val ignoreRule = DevSdkIgnoreRule()
 

@@ -19,6 +19,7 @@ package com.android.server
 import android.app.ActivityManager.UidFrozenStateChangedCallback
 import android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_FROZEN
 import android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_UNFROZEN
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND
 import android.net.ConnectivityManager.BLOCKED_REASON_NONE
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
@@ -31,7 +32,9 @@ import com.android.net.module.util.BaseNetdUnsolicitedEventListener
 import com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.any
@@ -59,6 +62,9 @@ private fun cellLp() = LinkProperties().also{
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 class CSDestroySocketTest : CSTest() {
+    @JvmField @field:Rule
+    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+
     private fun getRegisteredNetdUnsolicitedEventListener(): BaseNetdUnsolicitedEventListener {
         val captor = ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener::class.java)
         verify(netd).registerUnsolicitedEventListener(captor.capture())
