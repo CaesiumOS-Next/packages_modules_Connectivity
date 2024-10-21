@@ -31,13 +31,16 @@ import static android.net.INetd.PERMISSION_SYSTEM;
 import static android.net.INetd.PERMISSION_UNINSTALLED;
 import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
+import static android.net.connectivity.ConnectivityCompatChanges.RESTRICT_LOCAL_NETWORK;
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.SYSTEM_UID;
 
 import static com.android.net.module.util.CollectionUtils.toIntArray;
 
+import android.Manifest;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.app.compat.CompatChanges;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -51,6 +54,7 @@ import android.net.ConnectivitySettingsManager;
 import android.net.INetd;
 import android.net.UidRange;
 import android.net.Uri;
+import android.net.http.internal.com.android.net.flags.Flags;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -60,6 +64,7 @@ import android.os.ServiceSpecificException;
 import android.os.SystemConfigManager;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.permission.PermissionManager;
 import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.ArraySet;
@@ -88,7 +93,7 @@ import java.util.Set;
  *
  * @hide
  */
-public class PermissionMonitor {
+public class PermissionMonitor implements PackageManager.OnPermissionsChangedListener {
     private static final String TAG = "PermissionMonitor";
     private static final boolean DBG = true;
     private static final int VERSION_Q = Build.VERSION_CODES.Q;
@@ -96,6 +101,7 @@ public class PermissionMonitor {
     private final PackageManager mPackageManager;
     private final UserManager mUserManager;
     private final SystemConfigManager mSystemConfigManager;
+    private final PermissionManager mPermissionManager;
     private final INetd mNetd;
     private final Dependencies mDeps;
     private final Context mContext;
@@ -279,6 +285,27 @@ public class PermissionMonitor {
         mContext = context;
         mBpfNetMaps = bpfNetMaps;
         mThread = thread;
+        if (shouldRestrictLocalNetwork()) {
+            mPermissionManager = context.getSystemService(PermissionManager.class);
+            mPackageManager.addOnPermissionsChangeListener(this);
+        }
+    }
+
+    @Override
+    public void onPermissionsChanged(int uid) {
+        if (shouldRestrictLocalNetwork()
+                && SdkLevel.isAtLeastT()) { // SDK level needed for min API requirements
+            // TODO(b/375236298): Update to new permission when available
+            log("Eligible for local network restrictions");
+            mPermissionManager.checkPermissionForPreflight(
+                    Manifest.permission.NEARBY_WIFI_DEVICES, mContext.getAttributionSource());
+            // TODO(b/369817453): Populate BPF with permission state
+        }
+    }
+
+    private boolean shouldRestrictLocalNetwork() {
+        return Flags.restrictLocalNetwork()
+                && CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid);
     }
 
     private void ensureRunningOnHandlerThread() {
