@@ -19,6 +19,7 @@ package com.android.server.connectivity;
 import static android.Manifest.permission.CHANGE_NETWORK_STATE;
 import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
 import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.NEARBY_WIFI_DEVICES;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.PackageInfo.REQUESTED_PERMISSION_GRANTED;
@@ -40,6 +41,7 @@ import static com.android.net.module.util.CollectionUtils.toIntArray;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.app.compat.CompatChanges;
+import android.content.AttributionSource;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -53,6 +55,7 @@ import android.net.ConnectivitySettingsManager;
 import android.net.INetd;
 import android.net.UidRange;
 import android.net.Uri;
+import android.net.connectivity.ConnectivityCompatChanges;
 import android.net.http.internal.com.android.net.flags.Flags;
 import android.os.Build;
 import android.os.Handler;
@@ -99,6 +102,7 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
 
     private final PackageManager mPackageManager;
     private final UserManager mUserManager;
+    private final PermissionManager mPermissionManager;
     private final SystemConfigManager mSystemConfigManager;
     private final INetd mNetd;
     private final Dependencies mDeps;
@@ -277,6 +281,7 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
             @NonNull final HandlerThread thread) {
         mPackageManager = context.getPackageManager();
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
+        mPermissionManager = context.getSystemService(PermissionManager.class);
         mSystemConfigManager = context.getSystemService(SystemConfigManager.class);
         mNetd = netd;
         mDeps = deps;
@@ -290,9 +295,25 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
 
     @Override
     public void onPermissionsChanged(int uid) {
-        if (CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid)) {
-            mPermissionUpdateLogs.i("Permissions state changed for uid=" + uid);
-            // TODO(b/388803658): Update network permissions
+        setLocalNetworkPermissions(uid, null);
+    }
+
+    private void setLocalNetworkPermissions(int uid, @Nullable String packageName) {
+        if (Flags.restrictLocalNetwork()
+                && CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid)
+                && SdkLevel.isAtLeastV() // Needed for min API requirements
+        ) {
+            AttributionSource attributionSource =
+                    new AttributionSource.Builder(uid).setPackageName(packageName).build();
+            int permissionState = mPermissionManager.checkPermissionForDataDelivery(
+                    NEARBY_WIFI_DEVICES, attributionSource, null);
+            if (permissionState == PermissionManager.PERMISSION_GRANTED) {
+                log("localnet permissions granted for uid=" + attributionSource.getUid());
+                mBpfNetMaps.removeUidFromLocalNetBlockMap(attributionSource.getUid());
+            } else {
+                log("localnet permissions denied for uid=" + attributionSource.getUid());
+                mBpfNetMaps.addUidToLocalNetBlockMap(attributionSource.getUid());
+            }
         }
     }
 
@@ -343,8 +364,9 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
     // current settings of the device (See isUidAllowedOnRestrictedNetworks).
     private SparseIntArray makeUidsNetworkPerm(final List<PackageInfo> apps) {
         final SparseIntArray uidsPerm = new SparseIntArray();
+        log("number of apps=" + apps.size());
         for (PackageInfo app : apps) {
-            final int uid = app.applicationInfo != null ? app.applicationInfo.uid : INVALID_UID;
+            int uid = app.applicationInfo != null ? app.applicationInfo.uid : INVALID_UID;
             if (uid < 0) {
                 continue;
             }
@@ -353,9 +375,12 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
                 uidsPerm.put(uid, permission);
                 if (hasSdkSandbox(uid)) {
                     int sdkSandboxUid = sProcessShim.toSdkSandboxUid(uid);
+                    log("setting sandbox uid, from " + uid + " to " + sdkSandboxUid);
                     uidsPerm.put(sdkSandboxUid, permission);
+                    uid = sdkSandboxUid;
                 }
             }
+            setLocalNetworkPermissions(uid, app.packageName);
         }
         return uidsPerm;
     }
@@ -599,11 +624,12 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
      */
     @VisibleForTesting
     synchronized void onUserAdded(@NonNull UserHandle user) {
+        log("calling onUserAdded");
         mUsers.add(user);
 
         final List<PackageInfo> apps = getInstalledPackagesAsUser(user);
 
-        // Save all apps
+        // Save all apps in mAllApps
         updateAllApps(apps);
 
         // Uids network permissions
@@ -641,9 +667,11 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
             if (user.equals(UserHandle.getUserHandleForUid(uid))) {
                 mUidToNetworkPerm.delete(uid);
                 removedUids.put(uid, allUids.valueAt(i));
+                mBpfNetMaps.removeUidFromLocalNetBlockMap(uid);
             }
         }
         sendUidsNetworkPermission(removedUids, false /* add */);
+        // remove local network permissions for removedUids
 
         // Remove appIds traffic permission that belongs to the user
         final SparseIntArray removedUserAppIds = mUsersTrafficPermissions.remove(user);
@@ -834,6 +862,7 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
             }
             sendUidsNetworkPermission(apps, true /* add */);
         }
+        setLocalNetworkPermissions(uid, packageName);
 
         // If the newly-installed package falls within some VPN's uid range, update Netd with it.
         // This needs to happen after the mUidToNetworkPerm update above, since
@@ -878,6 +907,7 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
     synchronized void onPackageRemoved(@NonNull final String packageName, final int uid) {
         // Update uid permission.
         updateAppIdTrafficPermission(uid);
+        mBpfNetMaps.removeUidFromLocalNetBlockMap(uid);
         // Get the appId permission from all users then send the latest permission to netd.
         final int appId = UserHandle.getAppId(uid);
         final int appIdTrafficPerm = getAppIdTrafficPermission(appId);
