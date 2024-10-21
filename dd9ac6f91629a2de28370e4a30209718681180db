@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17c1c8e7_8a3a98c7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1617,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-10-21T23:02:25Z",
+      "side": 1,
+      "message": "Using a value \u003c 2 can be actively harmful - 0 can just disarm the timer, which may cause some indefinite behavior. For the upper limit I can use a larger value if you like (say 20) but there is definitely a point after which it is non-sensical.",
+      "parentUuid": "88939e7d_047cba09",
+      "range": {
+        "startLine": 1617,
+        "startChar": 54,
+        "endLine": 1617,
+        "endChar": 60
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecbc4cf5_6af4a5b1",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-21T18:15:41Z",
       "side": 1,
       "message": "Do you know if this setting is used and who sets it and on what devices? If it isn\u0027t used, can it be deprecated / removed and use the phenotype-configurable value instead? (it was added a long time ago: ag/216256).",
+      "range": {
+        "startLine": 13256,
+        "startChar": 26,
+        "endLine": 13257,
+        "endChar": 80
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df4fdaff_1aa22a8b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 13257,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-10-21T23:02:25Z",
+      "side": 1,
+      "message": "This is not used in aosp code, but OEMs may be using this. I want to be safe and continue honoring the value that they set. E.g. an OEM in Brazil may have a clear deal with their carrier to pull the best timeout is from their special carrier app.\n\nIf you\u0027re sure about this -  I am fine with removing it. Just didn\u0027t think it was necessary.",
+      "parentUuid": "ecbc4cf5_6af4a5b1",
       "range": {
         "startLine": 13256,
         "startChar": 26,
