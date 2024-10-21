@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a770c2e3_c3db943d",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/ThreadNetworkControllerWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-21T05:10:57Z",
+      "side": 1,
+      "message": "the current config is not loaded",
+      "range": {
+        "startLine": 223,
+        "startChar": 47,
+        "endLine": 223,
+        "endChar": 49
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "93016390_c2972822",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/utils/ThreadNetworkControllerWrapper.java",
+              "range": {
+                "startLine": 223,
+                "startChar": 0,
+                "endLine": 224,
+                "endChar": 0
+              },
+              "replacement": "                new ThreadConfiguration.Builder(config).setNat64Enabled(enabled).build();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "05d052859487e25c0c9dad2a7089ce7098a0df00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
