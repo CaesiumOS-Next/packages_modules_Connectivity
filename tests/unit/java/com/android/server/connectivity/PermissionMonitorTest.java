@@ -21,7 +21,10 @@ import static android.Manifest.permission.CHANGE_WIFI_STATE;
 import static android.Manifest.permission.CONNECTIVITY_INTERNAL;
 import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
 import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.LOG_COMPAT_CHANGE;
 import static android.Manifest.permission.NETWORK_STACK;
+import static android.Manifest.permission.OBSERVE_GRANT_REVOKE_PERMISSIONS;
+import static android.Manifest.permission.READ_COMPAT_CHANGE_CONFIG;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.ApplicationInfo.PRIVATE_FLAG_OEM;
 import static android.content.pm.ApplicationInfo.PRIVATE_FLAG_PRODUCT;
@@ -40,12 +43,15 @@ import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.os.Process.SYSTEM_UID;
 
+import static com.android.compatibility.common.util.SystemUtil.runShellCommand;
 import static com.android.server.connectivity.PermissionMonitor.isHigherNetworkPermission;
+import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static junit.framework.Assert.fail;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.AdditionalMatchers.aryEq;
 import static org.mockito.ArgumentMatchers.any;
@@ -83,7 +89,9 @@ import android.os.Process;
 import android.os.SystemConfigManager;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.platform.test.annotations.RequiresFlagsEnabled;
 import android.provider.Settings;
+import android.util.Log;
 import android.util.SparseIntArray;
 
 import androidx.annotation.NonNull;
@@ -93,6 +101,7 @@ import androidx.test.filters.SmallTest;
 
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
+import com.android.net.module.util.SharedLog;
 import com.android.networkstack.apishim.ProcessShimImpl;
 import com.android.networkstack.apishim.common.ProcessShim;
 import com.android.server.BpfNetMaps;
@@ -110,10 +119,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
@@ -174,6 +186,8 @@ public class PermissionMonitorTest {
     private BpfMapMonitor mBpfMapMonitor;
     private HandlerThread mHandlerThread;
     private ProcessShim mProcessShim = ProcessShimImpl.newInstance();
+    private  SharedLog mPermissionUpdateLogs;// = new SharedLog(MAX_PERMISSION_UPDATE_LOGS, TAG);
+
 
     @Before
     public void setUp() throws Exception {
@@ -311,6 +325,7 @@ public class PermissionMonitorTest {
     private void startMonitoring() {
         processOnHandlerThread(() -> mPermissionMonitor.startMonitoring());
     }
+
 
     private void onUserAdded(UserHandle user) {
         processOnHandlerThread(() -> mPermissionMonitor.onUserAdded(user));
@@ -1235,8 +1250,10 @@ public class PermissionMonitorTest {
         // Use the real context as this test must ensure the *real* system package holds the
         // necessary permission.
         final Context realContext = InstrumentationRegistry.getContext();
-        final PermissionMonitor monitor = new PermissionMonitor(
-                realContext, mNetdService, mBpfNetMaps, mHandlerThread);
+        final PermissionMonitor monitor = runAsShell(
+                OBSERVE_GRANT_REVOKE_PERMISSIONS,
+                () -> new PermissionMonitor(realContext, mNetdService, mBpfNetMaps, mHandlerThread)
+        );
         final PackageManager manager = realContext.getPackageManager();
         final PackageInfo systemInfo = manager.getPackageInfo(REAL_SYSTEM_PACKAGE_NAME,
                 GET_PERMISSIONS | MATCH_ANY_USER);
@@ -1692,6 +1709,27 @@ public class PermissionMonitorTest {
                 num++;
             }
         }
+    }
+
+    @Test
+    @RequiresFlagsEnabled("com.android.net.flags.restrict_local_network")
+    public void testSetsPermissionListener() throws Exception {
+        runAsShell(LOG_COMPAT_CHANGE, READ_COMPAT_CHANGE_CONFIG,
+                () -> mPermissionMonitor.onPermissionsChanged(MOCK_UID12));
+        String dumpsys = getSharedLogString(
+                pw -> mPermissionMonitor.mPermissionUpdateLogs.dump(null, pw, null));
+        assertTrue(dumpsys.contains("Eligible for local network restrictions: uid=" + MOCK_UID12));
+    }
+
+    private static String getSharedLogString(Consumer<PrintWriter> functor) {
+        final ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+        final PrintWriter pw = new PrintWriter(ostream, true);
+        functor.accept(pw);
+
+        final String dumpOutput = ostream.toString();
+        assertNotNull(dumpOutput);
+        assertFalse("".equals(dumpOutput));
+        return dumpOutput;
     }
 
     private void verifyAppIdPermissionsAfterPackageRemoved(int appId, int expectedPerm,
