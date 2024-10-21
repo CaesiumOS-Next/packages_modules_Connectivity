@@ -22,6 +22,7 @@ import static android.Manifest.permission.CONNECTIVITY_INTERNAL;
 import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.NETWORK_STACK;
+import static android.Manifest.permission.OBSERVE_GRANT_REVOKE_PERMISSIONS;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.ApplicationInfo.PRIVATE_FLAG_OEM;
 import static android.content.pm.ApplicationInfo.PRIVATE_FLAG_PRODUCT;
@@ -41,6 +42,7 @@ import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.os.Process.SYSTEM_UID;
 
 import static com.android.server.connectivity.PermissionMonitor.isHigherNetworkPermission;
+import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static junit.framework.Assert.fail;
 
@@ -83,6 +85,7 @@ import android.os.Process;
 import android.os.SystemConfigManager;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.platform.test.annotations.RequiresFlagsEnabled;
 import android.provider.Settings;
 import android.util.SparseIntArray;
 
@@ -162,7 +165,7 @@ public class PermissionMonitorTest {
     private static final int TIMEOUT_MS = 2_000;
 
     @Mock private Context mContext;
-    @Mock private PackageManager mPackageManager;
+    @Mock private PackageManager  ;
     @Mock private INetd mNetdService;
     @Mock private UserManager mUserManager;
     @Mock private PermissionMonitor.Dependencies mDeps;
@@ -311,6 +314,7 @@ public class PermissionMonitorTest {
     private void startMonitoring() {
         processOnHandlerThread(() -> mPermissionMonitor.startMonitoring());
     }
+
 
     private void onUserAdded(UserHandle user) {
         processOnHandlerThread(() -> mPermissionMonitor.onUserAdded(user));
@@ -1235,8 +1239,10 @@ public class PermissionMonitorTest {
         // Use the real context as this test must ensure the *real* system package holds the
         // necessary permission.
         final Context realContext = InstrumentationRegistry.getContext();
-        final PermissionMonitor monitor = new PermissionMonitor(
-                realContext, mNetdService, mBpfNetMaps, mHandlerThread);
+        final PermissionMonitor monitor = runAsShell(
+                OBSERVE_GRANT_REVOKE_PERMISSIONS,
+                () -> new PermissionMonitor(realContext, mNetdService, mBpfNetMaps, mHandlerThread)
+        );
         final PackageManager manager = realContext.getPackageManager();
         final PackageInfo systemInfo = manager.getPackageInfo(REAL_SYSTEM_PACKAGE_NAME,
                 GET_PERMISSIONS | MATCH_ANY_USER);
@@ -1692,6 +1698,19 @@ public class PermissionMonitorTest {
                 num++;
             }
         }
+    }
+
+    @Test
+    @RequiresFlagsEnabled("com.android.net.flags.restrict_local_network")
+    public void testSetsPermissionListener() throws Exception {
+        addPackage(MOCK_PACKAGE1, MOCK_UID11);
+        onPermissionChanged();
+        // permission listener logs
+//        assertBackgroundPermission(true, MOCK_PACKAGE2, MOCK_UID12, NETWORK_STACK);
+    }
+
+    private void onPermissionChanged() {
+        mPermissionMonitor.onPermissionsChanged(MOCK_UID11);
     }
 
     private void verifyAppIdPermissionsAfterPackageRemoved(int appId, int expectedPerm,
