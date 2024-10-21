@@ -21,6 +21,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager.FEATURE_WIFI_DIRECT
 import android.net.MacAddress
 import android.net.wifi.WifiManager
 import android.net.wifi.p2p.WifiP2pConfig
@@ -84,7 +85,8 @@ class Wifip2pMultiDevicesSnippet : Snippet {
     }
 
     @Rpc(description = "Check whether the device supports Wi-Fi P2P.")
-    fun isP2pSupported() = wifiManager.isP2pSupported()
+    fun isP2pSupported() = wifiManager.isP2pSupported() &&
+            context.packageManager.hasSystemFeature(FEATURE_WIFI_DIRECT)
 
     @Rpc(description = "Start Wi-Fi P2P")
     fun startWifiP2p() {
