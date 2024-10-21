@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "515f987f_7ed5645e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2976,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-21T02:12:13Z",
+      "side": 1,
+      "message": "This will print hex address instead of content.",
+      "range": {
+        "startLine": 2976,
+        "startChar": 20,
+        "endLine": 2976,
+        "endChar": 54
+      },
+      "revId": "ded6b3d5356e340da96174cc1c77e2655a356894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
