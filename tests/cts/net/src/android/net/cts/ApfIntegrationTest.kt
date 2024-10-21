@@ -20,6 +20,7 @@
 package android.net.cts
 
 import android.Manifest.permission.WRITE_DEVICE_CONFIG
+import android.content.pm.PackageManager.FEATURE_AUTOMOTIVE
 import android.content.pm.PackageManager.FEATURE_WIFI
 import android.net.ConnectivityManager
 import android.net.Network
@@ -49,6 +50,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.PowerManager
+import android.os.UserManager
 import android.platform.test.annotations.AppModeFull
 import android.provider.DeviceConfig
 import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
@@ -100,6 +102,7 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 import org.junit.After
 import org.junit.AfterClass
+import org.junit.Assume.assumeFalse
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Rule
@@ -155,6 +158,12 @@ class ApfIntegrationTest {
         @JvmStatic
         @Suppress("ktlint:standard:no-multi-spaces")
         fun setupOnce() {
+            // TODO(b/330610015): This test should be re-enabled once PowerManager#isInteractive
+            //  is fixed on form factors with visible background user.
+            assumeFalse(
+                "This test is currently disabled on Automotive with visible " +
+                        "background user enabled", isAutomotiveWithVisibleBackgroundUser()
+            )
             // TODO: assertions thrown in @BeforeClass / @AfterClass are not well supported in the
             // test infrastructure. Consider saving excepion and throwing it in setUp().
             // APF must run when the screen is off and the device is not interactive.
@@ -173,6 +182,13 @@ class ApfIntegrationTest {
                         false // makeDefault
                 )
             }
+        }
+
+        private fun isAutomotiveWithVisibleBackgroundUser(): Boolean {
+            val packageManager: PackageManager = context.getPackageManager()
+            val userManager: UserManager = context.getSystemService(UserManager::class.java)
+            return (packageManager.hasSystemFeature(FEATURE_AUTOMOTIVE)
+                    && userManager.isVisibleBackgroundUsersSupported)
         }
 
         @AfterClass
