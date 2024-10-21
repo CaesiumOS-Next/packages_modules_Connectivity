@@ -40,6 +40,30 @@
       ],
       "revId": "05d052859487e25c0c9dad2a7089ce7098a0df00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e083eb7_a0c2224f",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/ThreadNetworkControllerWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-21T05:13:29Z",
+      "side": 1,
+      "message": "Good catch! Sorry I missed this one.",
+      "parentUuid": "a770c2e3_c3db943d",
+      "range": {
+        "startLine": 223,
+        "startChar": 47,
+        "endLine": 223,
+        "endChar": 49
+      },
+      "revId": "05d052859487e25c0c9dad2a7089ce7098a0df00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
