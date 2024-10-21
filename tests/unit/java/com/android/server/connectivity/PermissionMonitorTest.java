@@ -21,8 +21,10 @@ import static android.Manifest.permission.CHANGE_WIFI_STATE;
 import static android.Manifest.permission.CONNECTIVITY_INTERNAL;
 import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
 import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.LOG_COMPAT_CHANGE;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.OBSERVE_GRANT_REVOKE_PERMISSIONS;
+import static android.Manifest.permission.READ_COMPAT_CHANGE_CONFIG;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.ApplicationInfo.PRIVATE_FLAG_OEM;
 import static android.content.pm.ApplicationInfo.PRIVATE_FLAG_PRODUCT;
@@ -39,8 +41,11 @@ import static android.net.INetd.PERMISSION_SYSTEM;
 import static android.net.INetd.PERMISSION_UNINSTALLED;
 import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
+import static android.net.connectivity.ConnectivityCompatChanges.RESTRICT_LOCAL_NETWORK;
+import static android.os.Build.VERSION_CODES.CUR_DEVELOPMENT;
 import static android.os.Process.SYSTEM_UID;
 
+import static com.android.dx.mockito.inline.extended.ExtendedMockito.mockitoSession;
 import static com.android.server.connectivity.PermissionMonitor.isHigherNetworkPermission;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
@@ -49,6 +54,7 @@ import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 import static org.mockito.AdditionalMatchers.aryEq;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -61,6 +67,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
@@ -68,6 +75,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import android.app.compat.CompatChanges;
+import android.compat.testing.PlatformCompatChangeRule;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -85,6 +94,7 @@ import android.os.Process;
 import android.os.SystemConfigManager;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.permission.PermissionManager;
 import android.provider.Settings;
 import android.util.SparseIntArray;
 
@@ -102,14 +112,19 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
 
+import libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.mockito.AdditionalAnswers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.MockitoSession;
 import org.mockito.invocation.InvocationOnMock;
 
 import java.lang.reflect.Array;
@@ -121,6 +136,8 @@ import java.util.Set;
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 public class PermissionMonitorTest {
+    @Rule
+    public TestRule compatChangeRule = new PlatformCompatChangeRule();
     private static final int MOCK_USER_ID1 = 0;
     private static final int MOCK_USER_ID2 = 1;
     private static final int MOCK_USER_ID3 = 2;
@@ -165,6 +182,7 @@ public class PermissionMonitorTest {
 
     @Mock private Context mContext;
     @Mock private PackageManager mPackageManager;
+    @Mock private PermissionManager mPermissionManager;
     @Mock private INetd mNetdService;
     @Mock private UserManager mUserManager;
     @Mock private PermissionMonitor.Dependencies mDeps;
@@ -176,12 +194,15 @@ public class PermissionMonitorTest {
     private BpfMapMonitor mBpfMapMonitor;
     private HandlerThread mHandlerThread;
     private ProcessShim mProcessShim = ProcessShimImpl.newInstance();
+    private MockitoSession mMockitoSession;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        mMockitoSession = mockitoSession().mockStatic(CompatChanges.class).startMocking();
         when(mContext.getPackageManager()).thenReturn(mPackageManager);
         when(mContext.getSystemService(eq(Context.USER_SERVICE))).thenReturn(mUserManager);
+        when(mContext.getSystemService(eq(PermissionManager.class))).thenReturn(mPermissionManager);
         doReturn(List.of(MOCK_USER1)).when(mUserManager).getUserHandles(eq(true));
         when(mContext.getSystemServiceName(SystemConfigManager.class))
                 .thenReturn(Context.SYSTEM_CONFIG_SERVICE);
@@ -223,6 +244,7 @@ public class PermissionMonitorTest {
             mHandlerThread.quitSafely();
             mHandlerThread.join();
         }
+        mMockitoSession.finishMocking();
     }
 
     private boolean hasRestrictedNetworkPermission(String partition, int targetSdkVersion,
@@ -342,7 +364,7 @@ public class PermissionMonitorTest {
 
     private void addPackage(String packageName, int uid, String... permissions) throws Exception {
         buildAndMockPackageInfoWithPermissions(packageName, uid, permissions);
-        processOnHandlerThread(() -> mPermissionMonitor.onPackageAdded(packageName, uid));
+        onPackageAdded(packageName, uid);
     }
 
     private void removePackage(String packageName, int uid) {
@@ -354,7 +376,7 @@ public class PermissionMonitorTest {
         final String[] newPackages = Arrays.stream(oldPackages).filter(e -> !e.equals(packageName))
                 .toArray(String[]::new);
         doReturn(newPackages).when(mPackageManager).getPackagesForUid(eq(uid));
-        processOnHandlerThread(() -> mPermissionMonitor.onPackageRemoved(packageName, uid));
+        onPackageRemoved(packageName, uid);
     }
 
     @Test
@@ -1109,15 +1131,13 @@ public class PermissionMonitorTest {
     // called multiple times with the uid corresponding to each user.
     private void addPackageForUsers(UserHandle[] users, String packageName, int appId) {
         for (final UserHandle user : users) {
-            processOnHandlerThread(() ->
-                    mPermissionMonitor.onPackageAdded(packageName, user.getUid(appId)));
+            onPackageAdded(packageName, user.getUid(appId));
         }
     }
 
     private void removePackageForUsers(UserHandle[] users, String packageName, int appId) {
         for (final UserHandle user : users) {
-            processOnHandlerThread(() ->
-                    mPermissionMonitor.onPackageRemoved(packageName, user.getUid(appId)));
+            onPackageRemoved(packageName, user.getUid(appId));
         }
     }
 
@@ -1166,6 +1186,19 @@ public class PermissionMonitorTest {
 
     @Test
     public void testPackageInstall() throws Exception {
+        addPackage(MOCK_PACKAGE1, MOCK_UID11, INTERNET, UPDATE_DEVICE_STATS);
+        mBpfMapMonitor.expectTrafficPerm(PERMISSION_TRAFFIC_ALL, MOCK_APPID1);
+
+        addPackage(MOCK_PACKAGE2, MOCK_UID12, INTERNET);
+        mBpfMapMonitor.expectTrafficPerm(PERMISSION_INTERNET, MOCK_APPID2);
+    }
+
+    @Test
+//    @EnableCompatChanges({RESTRICT_LOCAL_NETWORK}) // not compatible with handler thread
+    public void testPackageInstallLocalNetRestrictionsEnabled() throws Exception {
+        assumeTrue(SdkLevel.isAtLeastB());
+        lenient().when(CompatChanges.isChangeEnabled(eq(RESTRICT_LOCAL_NETWORK), anyInt())).thenReturn(true);
+
         addPackage(MOCK_PACKAGE1, MOCK_UID11, INTERNET, UPDATE_DEVICE_STATS);
         mBpfMapMonitor.expectTrafficPerm(PERMISSION_TRAFFIC_ALL, MOCK_APPID1);
 
@@ -1602,7 +1635,7 @@ public class PermissionMonitorTest {
 
     private void addUserAndVerifyAppIdsPermissions(UserHandle user, int appId1Perm,
             int appId2Perm, int appId3Perm) {
-        processOnHandlerThread(() -> mPermissionMonitor.onUserAdded(user));
+        onUserAdded(user);
         mBpfMapMonitor.expectTrafficPerm(appId1Perm, MOCK_APPID1);
         mBpfMapMonitor.expectTrafficPerm(appId2Perm, MOCK_APPID2);
         mBpfMapMonitor.expectTrafficPerm(appId3Perm, MOCK_APPID3);
@@ -1610,7 +1643,7 @@ public class PermissionMonitorTest {
 
     private void removeUserAndVerifyAppIdsPermissions(UserHandle user, int appId1Perm,
             int appId2Perm, int appId3Perm) {
-        processOnHandlerThread(() -> mPermissionMonitor.onUserRemoved(user));
+        onUserRemoved(user);
         mBpfMapMonitor.expectTrafficPerm(appId1Perm, MOCK_APPID1);
         mBpfMapMonitor.expectTrafficPerm(appId2Perm, MOCK_APPID2);
         mBpfMapMonitor.expectTrafficPerm(appId3Perm, MOCK_APPID3);
