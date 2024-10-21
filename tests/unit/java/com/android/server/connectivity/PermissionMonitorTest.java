@@ -22,6 +22,7 @@ import static android.Manifest.permission.CONNECTIVITY_INTERNAL;
 import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.NETWORK_STACK;
+import static android.Manifest.permission.OBSERVE_GRANT_REVOKE_PERMISSIONS;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.ApplicationInfo.PRIVATE_FLAG_OEM;
 import static android.content.pm.ApplicationInfo.PRIVATE_FLAG_PRODUCT;
@@ -41,11 +42,13 @@ import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.os.Process.SYSTEM_UID;
 
 import static com.android.server.connectivity.PermissionMonitor.isHigherNetworkPermission;
+import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static junit.framework.Assert.fail;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.AdditionalMatchers.aryEq;
 import static org.mockito.ArgumentMatchers.any;
@@ -66,6 +69,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import android.compat.testing.PlatformCompatChangeRule;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -76,6 +80,7 @@ import android.database.ContentObserver;
 import android.net.INetd;
 import android.net.UidRange;
 import android.net.Uri;
+import android.net.connectivity.ConnectivityCompatChanges;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -83,6 +88,7 @@ import android.os.Process;
 import android.os.SystemConfigManager;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.platform.test.annotations.RequiresFlagsEnabled;
 import android.provider.Settings;
 import android.util.SparseIntArray;
 
@@ -100,9 +106,13 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
 
+import libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.mockito.AdditionalAnswers;
 import org.mockito.ArgumentCaptor;
@@ -110,15 +120,19 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 public class PermissionMonitorTest {
+    @Rule public TestRule compatChangeRule = new PlatformCompatChangeRule();
     private static final int MOCK_USER_ID1 = 0;
     private static final int MOCK_USER_ID2 = 1;
     private static final int MOCK_USER_ID3 = 2;
@@ -1235,8 +1249,10 @@ public class PermissionMonitorTest {
         // Use the real context as this test must ensure the *real* system package holds the
         // necessary permission.
         final Context realContext = InstrumentationRegistry.getContext();
-        final PermissionMonitor monitor = new PermissionMonitor(
-                realContext, mNetdService, mBpfNetMaps, mHandlerThread);
+        final PermissionMonitor monitor = runAsShell(
+                OBSERVE_GRANT_REVOKE_PERMISSIONS,
+                () -> new PermissionMonitor(realContext, mNetdService, mBpfNetMaps, mHandlerThread)
+        );
         final PackageManager manager = realContext.getPackageManager();
         final PackageInfo systemInfo = manager.getPackageInfo(REAL_SYSTEM_PACKAGE_NAME,
                 GET_PERMISSIONS | MATCH_ANY_USER);
