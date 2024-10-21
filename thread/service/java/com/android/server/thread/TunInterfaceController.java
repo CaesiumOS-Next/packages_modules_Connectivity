@@ -92,8 +92,27 @@ public class TunInterfaceController {
     }
 
     /** Returns link properties of the Thread TUN interface. */
+<<<<<<< PATCH SET (941898 DO NOT REVIEW)
+    private LinkProperties getLinkProperties() {
+        return new LinkProperties(mLinkProperties);
+    }
+
+    /** Returns link properties of the Thread TUN interface with the given NAT64 CIDR. */
+    // TODO: manage the NAT64 CIDR in the TunInterfaceController
+    public LinkProperties getLinkPropertiesWithNat64Cidr(@Nullable LinkAddress nat64Cidr) {
+        final LinkProperties lp = getLinkProperties();
+        if (nat64Cidr != null) {
+            lp.addLinkAddress(nat64Cidr);
+            lp.addRoute(getRouteForAddress(nat64Cidr));
+        }
+        return lp;
+||||||| BASE
+    public LinkProperties getLinkProperties() {
+        return mLinkProperties;
+=======
     public LinkProperties getLinkProperties() {
         return new LinkProperties(mLinkProperties);
+>>>>>>> BASE      (52c72a [Thread] use setConfiguration API in NAT64 tests)
     }
 
     /**
@@ -197,11 +216,13 @@ public class TunInterfaceController {
         // when the netlink request below fails
         mLinkProperties.removeLinkAddress(address);
         mLinkProperties.removeRoute(getRouteForAddress(address));
-        if (!NetlinkUtils.sendRtmDelAddressRequest(
-                Os.if_nametoindex(mIfName),
-                (Inet6Address) address.getAddress(),
-                (short) address.getPrefixLength())) {
-            LOG.w("Failed to remove address " + address.getAddress().getHostAddress());
+        if (address.getAddress() instanceof Inet6Address) {
+            if (!NetlinkUtils.sendRtmDelAddressRequest(
+                    Os.if_nametoindex(mIfName),
+                    (Inet6Address) address.getAddress(),
+                    (short) address.getPrefixLength())) {
+                LOG.w("Failed to remove address " + address.getAddress().getHostAddress());
+            }
         }
     }
 
