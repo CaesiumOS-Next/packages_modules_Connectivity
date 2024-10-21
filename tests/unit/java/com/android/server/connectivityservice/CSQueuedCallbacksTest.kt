@@ -19,6 +19,7 @@ package com.android.server.connectivityservice
 import android.app.ActivityManager.UidFrozenStateChangedCallback
 import android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_FROZEN
 import android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_UNFROZEN
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.ConnectivityManager.BLOCKED_METERED_REASON_DATA_SAVER
 import android.net.ConnectivityManager.BLOCKED_REASON_NONE
 import android.net.ConnectivitySettingsManager
@@ -69,6 +70,7 @@ import kotlin.test.fail
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import org.mockito.ArgumentCaptor
@@ -81,6 +83,9 @@ private const val TEST_UID = 42
 @DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner::class)
 class CSQueuedCallbacksTest(freezingBehavior: FreezingBehavior) : CSTest() {
+    @JvmField @field:Rule
+    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+
     companion object {
         enum class FreezingBehavior {
             UID_FROZEN,

@@ -16,6 +16,7 @@
 
 package com.android.server
 
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.BpfNetMapsConstants.METERED_ALLOW_CHAINS
 import android.net.BpfNetMapsConstants.METERED_DENY_CHAINS
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
@@ -34,6 +35,7 @@ import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.assertThrows
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyBoolean
 import org.mockito.ArgumentMatchers.anyInt
@@ -46,6 +48,9 @@ import org.mockito.Mockito.verify
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class CSFirewallChainTest : CSTest() {
+    @JvmField @field:Rule
+    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+
     @get:Rule
     val ignoreRule = DevSdkIgnoreRule()
 

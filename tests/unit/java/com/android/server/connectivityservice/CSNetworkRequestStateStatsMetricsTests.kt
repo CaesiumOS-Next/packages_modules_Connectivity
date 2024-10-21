@@ -16,6 +16,7 @@
 
 package com.android.server
 
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
@@ -24,7 +25,9 @@ import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.TestableNetworkCallback
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.Mockito.argThat
 import org.mockito.Mockito.clearInvocations
@@ -34,6 +37,9 @@ import org.mockito.Mockito.verify
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 class CSNetworkRequestStateStatsMetricsTests : CSTest() {
+    @JvmField @field:Rule
+    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+
     private val CELL_INTERNET_NOT_METERED_NC = NetworkCapabilities.Builder()
             .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)

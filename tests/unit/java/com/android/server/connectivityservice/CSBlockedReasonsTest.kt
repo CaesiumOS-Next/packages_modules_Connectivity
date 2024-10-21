@@ -16,6 +16,7 @@
 
 package com.android.server
 
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.ConnectivityManager.BLOCKED_METERED_REASON_DATA_SAVER
 import android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRICTED
 import android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND
@@ -45,7 +46,9 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.BlockedStatusInt
 import com.android.testutils.TestableNetworkCallback
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyBoolean
 import org.mockito.Mockito.doReturn
@@ -72,6 +75,8 @@ private fun wifiRequest() = NetworkRequest.Builder()
 @RunWith(DevSdkIgnoreRunner::class)
 @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 class CSBlockedReasonsTest : CSTest() {
+    @JvmField @field:Rule
+    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     inner class DetailedBlockedStatusCallback : TestableNetworkCallback() {
         override fun onBlockedStatusChanged(network: Network, blockedReasons: Int) {

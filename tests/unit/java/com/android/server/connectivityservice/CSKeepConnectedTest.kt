@@ -16,6 +16,7 @@
 
 package com.android.server
 
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.LocalNetworkConfig
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK
@@ -30,7 +31,9 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 
 @DevSdkIgnoreRunner.MonitorThreadLeak
@@ -38,6 +41,9 @@ import org.junit.runner.RunWith
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSKeepConnectedTest : CSTest() {
+    @JvmField @field:Rule
+    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+
     @Test
     fun testKeepConnectedLocalAgent() {
         deps.setBuildSdk(VERSION_V)

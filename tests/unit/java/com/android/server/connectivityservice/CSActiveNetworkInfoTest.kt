@@ -16,6 +16,7 @@
 
 package com.android.server
 
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.INetd.PERMISSION_INTERNET
 import android.net.INetd.PERMISSION_NONE
 import android.net.NetworkCapabilities
@@ -29,9 +30,11 @@ import android.os.Build
 import androidx.test.filters.SmallTest
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
+import org.junit.Rule
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyBoolean
 import org.mockito.ArgumentMatchers.anyInt
@@ -47,6 +50,8 @@ private fun nc() = NetworkCapabilities.Builder()
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 class CSActiveNetworkInfoTest : CSTest() {
+    @JvmField @field:Rule
+    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     fun doTestGetActiveNetworkInfo(
             changeEnabled: Boolean,
