@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88939e7d_047cba09",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1617,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-21T18:15:41Z",
+      "side": 1,
+      "message": "Why even specify a boundary? Doesn\u0027t that just needlessly limit you?",
+      "range": {
+        "startLine": 1617,
+        "startChar": 54,
+        "endLine": 1617,
+        "endChar": 60
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecbc4cf5_6af4a5b1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 13257,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-21T18:15:41Z",
+      "side": 1,
+      "message": "Do you know if this setting is used and who sets it and on what devices? If it isn\u0027t used, can it be deprecated / removed and use the phenotype-configurable value instead? (it was added a long time ago: ag/216256).",
+      "range": {
+        "startLine": 13256,
+        "startChar": 26,
+        "endLine": 13257,
+        "endChar": 80
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
