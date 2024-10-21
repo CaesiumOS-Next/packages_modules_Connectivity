@@ -186,6 +186,7 @@ java_library {
         // Do not add libs here if they are already included
         // in framework-connectivity
         "androidx.annotation_annotation",
+       // "androidx.core_core",
         "connectivity-net-module-utils-bpf",
         "connectivity_native_aidl_interface-lateststable-java",
         "dnsresolver_aidl_interface-V15-java",
