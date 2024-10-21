@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de838c87_821b3608",
+        "filename": "framework-t/src/android/net/netstats/TrafficStatsRateLimitCacheConfig.aidl",
+        "patchSetId": 11
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-21T09:17:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff40e5b3_cb72c637",
+      "revId": "ded6b3d5356e340da96174cc1c77e2655a356894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41c7ec42_27dab757",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-10-21T07:04:04Z",
       "side": 1,
       "message": "If you add `@JavaOnlyImmutable` to aidl, you can use a builder to simplify this.",
+      "range": {
+        "startLine": 970,
+        "startChar": 12,
+        "endLine": 970,
+        "endChar": 98
+      },
+      "revId": "ded6b3d5356e340da96174cc1c77e2655a356894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaf0ff51_60a9e024",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-21T09:17:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41c7ec42_27dab757",
       "range": {
         "startLine": 970,
         "startChar": 12,
@@ -88,6 +130,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24bcba7d_9a648154",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2976,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-21T09:17:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15fc4996_13287909",
+      "range": {
+        "startLine": 2976,
+        "startChar": 20,
+        "endLine": 2976,
+        "endChar": 54
+      },
+      "revId": "ded6b3d5356e340da96174cc1c77e2655a356894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b93ecfe_5835f983",
@@ -101,6 +167,30 @@
       "writtenOn": "2024-10-21T07:04:04Z",
       "side": 1,
       "message": "Ditto. Add `@JavaOnlyImmutable` and then use the builder.",
+      "range": {
+        "startLine": 634,
+        "startChar": 12,
+        "endLine": 638,
+        "endChar": 80
+      },
+      "revId": "ded6b3d5356e340da96174cc1c77e2655a356894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "502ef55b_932fa5da",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-21T09:17:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b93ecfe_5835f983",
       "range": {
         "startLine": 634,
         "startChar": 12,
