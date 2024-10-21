@@ -647,7 +647,8 @@ public class BorderRoutingTest {
     }
 
     @Test
-    public void nat64_threadDevicePingIpv4InfraDevice_outboundPacketIsForwarded() throws Exception {
+    public void nat64_threadDevicePingIpv4InfraDevice_outboundPacketIsForwardedAndReplyIsReceived()
+            throws Exception {
         FullThreadDevice ftd = mFtds.get(0);
         joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET);
         mOtCtl.setNat64Cidr(NAT64_CIDR);
@@ -657,6 +658,7 @@ public class BorderRoutingTest {
         ftd.ping(IPV4_SERVER_ADDR);
 
         assertNotNull(pollForIcmpPacketOnInfraNetwork(ICMP_ECHO, null, IPV4_SERVER_ADDR));
+        mInfraNetworkReader.sendResponse(new Icmpv4);
     }
 
     @Test
