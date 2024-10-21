@@ -16,11 +16,14 @@
 
 package com.google.snippet.connectivity
 
+import static org.junit.Assume.assumeTrue;
+
 import android.Manifest.permission.MANAGE_WIFI_NETWORK_SELECTION
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager.FEATURE_WIFI_DIRECT
 import android.net.MacAddress
 import android.net.wifi.WifiManager
 import android.net.wifi.p2p.WifiP2pConfig
@@ -89,6 +92,9 @@ class Wifip2pMultiDevicesSnippet : Snippet {
     @Rpc(description = "Start Wi-Fi P2P")
     fun startWifiP2p() {
         // Initialize Wi-Fi P2P
+        assumeTrue("Device does not support Wi-Fi Direct",
+            context.packageManager.hasSystemFeature(FEATURE_WIFI_DIRECT));
+
         wifip2pChannel = wifip2pManager.initialize(context, context.mainLooper, null)
 
         // Ensure the Wi-Fi P2P channel is available
