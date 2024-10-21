@@ -31,6 +31,7 @@ import static android.net.INetd.PERMISSION_SYSTEM;
 import static android.net.INetd.PERMISSION_UNINSTALLED;
 import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
+import static android.net.connectivity.ConnectivityCompatChanges.RESTRICT_LOCAL_NETWORK;
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.SYSTEM_UID;
 
@@ -38,6 +39,7 @@ import static com.android.net.module.util.CollectionUtils.toIntArray;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.app.compat.CompatChanges;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -88,7 +90,7 @@ import java.util.Set;
  *
  * @hide
  */
-public class PermissionMonitor {
+public class PermissionMonitor implements PackageManager.OnPermissionsChangedListener {
     private static final String TAG = "PermissionMonitor";
     private static final boolean DBG = true;
     private static final int VERSION_Q = Build.VERSION_CODES.Q;
@@ -279,6 +281,14 @@ public class PermissionMonitor {
         mContext = context;
         mBpfNetMaps = bpfNetMaps;
         mThread = thread;
+        mPackageManager.addOnPermissionsChangeListener(this);
+    }
+
+    @Override
+    public void onPermissionsChanged(int uid) {
+        if (CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid)) {
+            // TODO(b/369406815): Check permissions for local network access
+        }
     }
 
     private void ensureRunningOnHandlerThread() {

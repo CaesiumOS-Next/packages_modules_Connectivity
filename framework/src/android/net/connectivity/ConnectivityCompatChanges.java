@@ -135,6 +135,18 @@ public final class ConnectivityCompatChanges {
     @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     public static final long ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE = 74210811L;
 
+
+    /**
+     * Restrict local network access.
+     *
+     * Apps targeting Android 16 will require permissions to access the local network.
+     *
+     * @hide
+     */
+    @ChangeId
+    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    public static final long RESTRICT_LOCAL_NETWORK = 365139289L;
+
     private ConnectivityCompatChanges() {
     }
 }
