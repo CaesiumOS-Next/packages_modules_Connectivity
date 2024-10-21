@@ -16,6 +16,7 @@
 
 package com.android.server.connectivityservice
 
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.CALLBACK_AVAILABLE
 import android.net.ConnectivityManager.CALLBACK_BLK_CHANGED
@@ -42,7 +43,9 @@ import java.lang.reflect.Modifier
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.test.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.Mockito.any
 import org.mockito.Mockito.anyInt
@@ -53,6 +56,9 @@ import org.mockito.Mockito.spy
 @DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner::class)
 class CSDeclaredMethodsForCallbacksTest : CSTest() {
+    @JvmField @field:Rule
+    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+
     private val mockedCallbackFlags = AtomicInteger(DECLARED_METHODS_ALL)
     private lateinit var wrappedService: ConnectivityService
 
