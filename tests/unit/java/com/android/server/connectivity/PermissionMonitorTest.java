@@ -22,7 +22,6 @@ import static android.Manifest.permission.CONNECTIVITY_INTERNAL;
 import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.NETWORK_STACK;
-import static android.Manifest.permission.OBSERVE_GRANT_REVOKE_PERMISSIONS;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.ApplicationInfo.PRIVATE_FLAG_OEM;
 import static android.content.pm.ApplicationInfo.PRIVATE_FLAG_PRODUCT;
