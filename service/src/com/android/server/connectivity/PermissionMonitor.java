@@ -19,6 +19,7 @@ package com.android.server.connectivity;
 import static android.Manifest.permission.CHANGE_NETWORK_STATE;
 import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
 import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.NEARBY_WIFI_DEVICES;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.PackageInfo.REQUESTED_PERMISSION_GRANTED;
@@ -40,6 +41,7 @@ import static com.android.net.module.util.CollectionUtils.toIntArray;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.app.compat.CompatChanges;
+import android.content.AttributionSource;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -99,6 +101,7 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
 
     private final PackageManager mPackageManager;
     private final UserManager mUserManager;
+    private final PermissionManager mPermissionManager;
     private final SystemConfigManager mSystemConfigManager;
     private final INetd mNetd;
     private final Dependencies mDeps;
@@ -277,6 +280,7 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
             @NonNull final HandlerThread thread) {
         mPackageManager = context.getPackageManager();
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
+        mPermissionManager = (PermissionManager) context.getSystemService(Context.PERMISSION_SERVICE);
         mSystemConfigManager = context.getSystemService(SystemConfigManager.class);
         mNetd = netd;
         mDeps = deps;
@@ -291,7 +295,14 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
     @Override
     public void onPermissionsChanged(int uid) {
         if (CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid)) {
-            mPermissionUpdateLogs.i("Permissions state changed for uid=" + uid);
+            updateLocalNetworkPermissions(new AttributionSource.Builder(uid).build());
+        }
+    }
+
+    private void updateLocalNetworkPermissions(AttributionSource attributionSource) {
+        int permission = mPermissionManager.checkPermissionForDataDelivery(
+                NEARBY_WIFI_DEVICES, attributionSource, null);
+        if (permission != PermissionManager.PERMISSION_GRANTED) {
             // TODO(b/388803658): Update network permissions
         }
     }
@@ -834,6 +845,9 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
             }
             sendUidsNetworkPermission(apps, true /* add */);
         }
+
+        updateLocalNetworkPermissions(
+                new AttributionSource.Builder(uid).setPackageName(packageName).build());
 
         // If the newly-installed package falls within some VPN's uid range, update Netd with it.
         // This needs to happen after the mUidToNetworkPerm update above, since
