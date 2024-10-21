@@ -16,12 +16,17 @@
 
 package com.google.snippet.connectivity
 
+<<<<<<< HEAD   (bdeff0 Merge "Add log when resetting DeviceConfig" into main)
 import android.Manifest.permission.MANAGE_WIFI_NETWORK_SELECTION
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.MacAddress
+||||||| BASE
+=======
+import android.content.pm.PackageManager.FEATURE_WIFI_DIRECT
+>>>>>>> CHANGE (3c6688 ConnectivityMultiDevicesTest#test_mdns_via_wifip2p)
 import android.net.wifi.WifiManager
 import android.net.wifi.p2p.WifiP2pConfig
 import android.net.wifi.p2p.WifiP2pDevice
@@ -89,20 +94,28 @@ class Wifip2pMultiDevicesSnippet : Snippet {
     @Rpc(description = "Start Wi-Fi P2P")
     fun startWifiP2p() {
         // Initialize Wi-Fi P2P
-        wifip2pChannel = wifip2pManager.initialize(context, context.mainLooper, null)
+        if (context.packageManager.hasSystemFeature(FEATURE_WIFI_DIRECT)) {
+             wifip2pChannel = wifip2pManager.initialize(context, context.mainLooper, null)
 
-        // Ensure the Wi-Fi P2P channel is available
-        val p2pStateEnabledFuture = CompletableFuture<Boolean>()
-        wifip2pManager.requestP2pState(wifip2pChannel) { state ->
-            if (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) {
-                p2pStateEnabledFuture.complete(true)
+            // Ensure the Wi-Fi P2P channel is available
+            val p2pStateEnabledFuture = CompletableFuture<Boolean>()
+            wifip2pManager.requestP2pState(wifip2pChannel) { state ->
+                if (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) {
+                    p2pStateEnabledFuture.complete(true)
+                }
             }
+            p2pStateEnabledFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
         }
+<<<<<<< HEAD   (bdeff0 Merge "Add log when resetting DeviceConfig" into main)
         p2pStateEnabledFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
         // Register an intent filter to receive Wi-Fi P2P intents
         val filter = IntentFilter(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)
         filter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION)
         context.registerReceiver(wifip2pIntentReceiver, filter)
+||||||| BASE
+        p2pStateEnabledFuture.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+=======
+>>>>>>> CHANGE (3c6688 ConnectivityMultiDevicesTest#test_mdns_via_wifip2p)
     }
 
     @Rpc(description = "Stop Wi-Fi P2P")
