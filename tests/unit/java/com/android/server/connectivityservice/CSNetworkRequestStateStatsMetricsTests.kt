@@ -34,6 +34,7 @@ import org.mockito.Mockito.verify
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 class CSNetworkRequestStateStatsMetricsTests : CSTest() {
+
     private val CELL_INTERNET_NOT_METERED_NC = NetworkCapabilities.Builder()
             .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)

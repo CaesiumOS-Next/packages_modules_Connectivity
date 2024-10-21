@@ -18,6 +18,7 @@
 
 package com.android.server
 
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.ConnectivityManager
 import android.os.Build
 import androidx.test.filters.SmallTest
@@ -33,6 +34,7 @@ import org.junit.runner.RunWith
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.R)
 class CSBasicMethodsTest : CSTest() {
+
     @Test
     fun testNetworkTypes() {
         // Ensure that mocks for the networkAttributes config variable work as expected. If they

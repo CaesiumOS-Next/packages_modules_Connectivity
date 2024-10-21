@@ -67,6 +67,7 @@ private const val TEST_PACKAGE_UID2 = 321
 @RunWith(DevSdkIgnoreRunner::class)
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSSatelliteNetworkTest : CSTest() {
+
     @get:Rule
     val ignoreRule = DevSdkIgnoreRule()
 

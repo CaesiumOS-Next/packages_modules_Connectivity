@@ -52,6 +52,7 @@ private val REQUEST = NetworkRequest.Builder()
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 class CSDestroyedNetworkTests : CSTest() {
+
     @Test
     fun testDestroyNetworkNotKeptWhenUnvalidated() {
         val cbRequest = TestableNetworkCallback()

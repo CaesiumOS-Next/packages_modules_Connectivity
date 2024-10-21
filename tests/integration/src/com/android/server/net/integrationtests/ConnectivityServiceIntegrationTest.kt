@@ -61,6 +61,7 @@ import com.android.server.connectivity.CarrierPrivilegeAuthenticator
 import com.android.server.connectivity.ConnectivityResources
 import com.android.server.connectivity.MockableSystemProperties
 import com.android.server.connectivity.MultinetworkPolicyTracker
+import com.android.server.connectivity.PermissionMonitor
 import com.android.server.connectivity.ProxyTracker
 import com.android.server.connectivity.SatelliteAccessController
 import com.android.testutils.DevSdkIgnoreRunner
@@ -103,6 +104,7 @@ const val TEST_TIMEOUT_MS = 10_000L
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRunner.MonitorThreadLeak
 class ConnectivityServiceIntegrationTest {
+
     // lateinit used here for mocks as they need to be reinitialized between each test and the test
     // should crash if they are used before being initialized.
     @Mock
@@ -221,7 +223,7 @@ class ConnectivityServiceIntegrationTest {
     }
 
     private inner class TestConnectivityService(deps: Dependencies) : ConnectivityService(
-            context, dnsResolver, log, netd, deps)
+            context, dnsResolver, log, netd, deps, PermissionMonitorDependencies())
 
     private inner class TestDependencies : ConnectivityService.Dependencies() {
         override fun getNetworkStack() = networkStackClient
@@ -272,6 +274,12 @@ class ConnectivityServiceIntegrationTest {
             connectivityServiceInternalHandler: Handler
         ): SatelliteAccessController? = mock(
             SatelliteAccessController::class.java)
+    }
+
+    private inner class PermissionMonitorDependencies : PermissionMonitor.Dependencies() {
+        override fun shouldEnforceLocalNetRestrictions(uid: Int): Boolean {
+            return false
+        }
     }
 
     @After

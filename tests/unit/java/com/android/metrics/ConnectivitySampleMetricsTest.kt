@@ -89,6 +89,7 @@ private val NetworkCapabilities.validatedState get() = when {
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class ConnectivitySampleMetricsTest : CSTest() {
+
     @Test
     fun testSampleConnectivityState_Network() {
         val wifi1Caps = NetworkCapabilities.Builder()

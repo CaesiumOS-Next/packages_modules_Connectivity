@@ -72,6 +72,7 @@ private fun nr(transport: Int) = NetworkRequest.Builder()
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 class CSLocalNetworkProtectionTest : CSTest() {
+
     private val LOCAL_IPV6_IP_ADDRESS_PREFIX = IpPrefix("fe80::1cf1:35ff:fe8c:db87/64")
     private val LOCAL_IPV6_LINK_ADDRESS = LinkAddress(
         LOCAL_IPV6_IP_ADDRESS_PREFIX.getAddress(),

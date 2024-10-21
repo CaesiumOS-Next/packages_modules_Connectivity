@@ -81,6 +81,7 @@ private fun lp(iface: String) = LinkProperties().apply {
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.R)
 class CSCaptivePortalAppTest : CSTest() {
+
     private val WIFI_IFACE = "wifi0"
     private val TEST_REDIRECT_URL = "http://example.com/firstPath"
     private val TIMEOUT_MS = 2_000L

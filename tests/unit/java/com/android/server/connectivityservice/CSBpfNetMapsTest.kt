@@ -67,6 +67,7 @@ private val lpWithLocalDns = LinkProperties().apply {
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.S_V2) // Bpf only supports in T+.
 class CSBpfNetMapsTest : CSTest() {
+
     @get:Rule
     val ignoreRule = DevSdkIgnoreRule()
 

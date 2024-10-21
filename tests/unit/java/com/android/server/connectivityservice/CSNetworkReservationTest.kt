@@ -67,6 +67,7 @@ private const val NO_CB_TIMEOUT_MS = 200L
 @RunWith(DevSdkIgnoreRunner::class)
 @IgnoreUpTo(Build.VERSION_CODES.R)
 class CSNetworkReservationTest : CSTest() {
+
     private lateinit var provider: NetworkProvider
     private val blanketOffer = TestableNetworkOfferCallback(TIMEOUT_MS, NO_CB_TIMEOUT_MS)
 

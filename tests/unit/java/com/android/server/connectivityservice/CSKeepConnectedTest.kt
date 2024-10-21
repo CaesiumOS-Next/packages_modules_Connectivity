@@ -38,6 +38,7 @@ import org.junit.runner.RunWith
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSKeepConnectedTest : CSTest() {
+
     @Test
     fun testKeepConnectedLocalAgent() {
         deps.setBuildSdk(VERSION_V)

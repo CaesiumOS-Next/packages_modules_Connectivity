@@ -53,6 +53,7 @@ import org.mockito.Mockito.spy
 @DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner::class)
 class CSDeclaredMethodsForCallbacksTest : CSTest() {
+
     private val mockedCallbackFlags = AtomicInteger(DECLARED_METHODS_ALL)
     private lateinit var wrappedService: ConnectivityService
 

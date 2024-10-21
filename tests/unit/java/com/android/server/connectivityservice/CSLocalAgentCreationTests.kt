@@ -56,6 +56,7 @@ private fun defaultLnc() = FromS(LocalNetworkConfig.Builder().build())
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.R)
 class CSLocalAgentCreationTests : CSTest() {
+
     @Parameterized.Parameter(0) lateinit var params: TestParams
 
     data class TestParams(

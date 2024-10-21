@@ -46,6 +46,7 @@ import org.mockito.Mockito.verify
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class CSFirewallChainTest : CSTest() {
+
     @get:Rule
     val ignoreRule = DevSdkIgnoreRule()
 

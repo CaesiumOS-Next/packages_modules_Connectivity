@@ -16,6 +16,7 @@
 
 package com.android.server
 
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.ConnectivityManager.BLOCKED_METERED_REASON_DATA_SAVER
 import android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRICTED
 import android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND

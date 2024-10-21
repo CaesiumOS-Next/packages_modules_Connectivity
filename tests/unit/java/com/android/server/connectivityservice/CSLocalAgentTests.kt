@@ -54,9 +54,7 @@ import org.mockito.Mockito.eq
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.never
 import org.mockito.Mockito.timeout
-import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoMoreInteractions
 
 private const val TIMEOUT_MS = 200L
 private const val MEDIUM_TIMEOUT_MS = 1_000L
@@ -90,6 +88,7 @@ private fun keepScore() = FromS(
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSLocalAgentTests : CSTest() {
+
     val multicastRoutingConfigMinScope =
                 MulticastRoutingConfig.Builder(MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE, 4)
                 .build()
