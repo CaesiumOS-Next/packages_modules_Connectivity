@@ -88,7 +88,7 @@ import java.util.Set;
  *
  * @hide
  */
-public class PermissionMonitor {
+public class PermissionMonitor implements PackageManager.OnPermissionsChangedListener {
     private static final String TAG = "PermissionMonitor";
     private static final boolean DBG = true;
     private static final int VERSION_Q = Build.VERSION_CODES.Q;
@@ -279,6 +279,14 @@ public class PermissionMonitor {
         mContext = context;
         mBpfNetMaps = bpfNetMaps;
         mThread = thread;
+        mPackageManager.addOnPermissionsChangeListener(this);
+    }
+
+    @Override
+    public void onPermissionsChanged(int uid) {
+        if (CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid)) {
+            // TODO(b/369406815): Check permissions for local network access
+        }
     }
 
     private void ensureRunningOnHandlerThread() {
