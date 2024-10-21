@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39cc03e8_fff6d79a",
+        "filename": "framework-t/src/android/net/netstats/StatsResult.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-21T09:17:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c6e1028_8624f605",
+      "revId": "edee8e94c214f9581d12daa3d97043662d5a83ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52c3de24_e8c05f1c",
@@ -59,6 +77,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6386b7b_8c1e77b1",
+        "filename": "framework-t/src/android/net/netstats/StatsResult.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-21T09:17:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52c3de24_e8c05f1c",
+      "range": {
+        "startLine": 25,
+        "startChar": 9,
+        "endLine": 25,
+        "endChar": 12
+      },
+      "revId": "edee8e94c214f9581d12daa3d97043662d5a83ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f068a8ab_52a88e4f",
@@ -72,6 +114,30 @@
       "writtenOn": "2024-10-21T05:43:50Z",
       "side": 1,
       "message": "If you add @JavaOnlyImmutable to aidl, this can be simplified to\n```\nfinal StatsResult result \u003d new StatsResult(entry.txBytes, entry.txPackets, entry.rxBytes, entry.rxPackets);\n```",
+      "range": {
+        "startLine": 2186,
+        "startChar": 8,
+        "endLine": 2190,
+        "endChar": 37
+      },
+      "revId": "edee8e94c214f9581d12daa3d97043662d5a83ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55055b7c_1a2b9e58",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2190,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-21T09:17:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f068a8ab_52a88e4f",
       "range": {
         "startLine": 2186,
         "startChar": 8,
