@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1c184bb_791f6013",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-21T09:37:24Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "c6b0b1d10a5f1337062673a57145238d38b98c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df6c4a0a_e8468142",
+        "filename": "framework-t/src/android/net/netstats/TrafficStatsRateLimitCacheConfig.aidl",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-21T09:37:24Z",
+      "side": 1,
+      "message": "Add java doc.",
+      "revId": "c6b0b1d10a5f1337062673a57145238d38b98c93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
