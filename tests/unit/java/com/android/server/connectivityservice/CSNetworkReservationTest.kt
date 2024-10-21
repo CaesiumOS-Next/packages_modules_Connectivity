@@ -16,6 +16,7 @@
 
 package com.android.server
 
+import android.compat.testing.PlatformCompatChangeRule
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED
@@ -40,7 +41,9 @@ import com.android.testutils.TestableNetworkOfferCallback.CallbackEntry.OnNetwor
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 
 private val ETHERNET_SCORE = NetworkScore.Builder().build()
@@ -67,6 +70,9 @@ private const val NO_CB_TIMEOUT_MS = 200L
 @RunWith(DevSdkIgnoreRunner::class)
 @IgnoreUpTo(Build.VERSION_CODES.R)
 class CSNetworkReservationTest : CSTest() {
+    @JvmField @field:Rule
+    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+
     private lateinit var provider: NetworkProvider
     private val blanketOffer = TestableNetworkOfferCallback(TIMEOUT_MS, NO_CB_TIMEOUT_MS)
 
