@@ -92,8 +92,19 @@ public class TunInterfaceController {
     }
 
     /** Returns link properties of the Thread TUN interface. */
-    public LinkProperties getLinkProperties() {
+    private LinkProperties getLinkProperties() {
         return new LinkProperties(mLinkProperties);
+    }
+
+    /** Returns link properties of the Thread TUN interface with the given NAT64 CIDR. */
+    // TODO: manage the NAT64 CIDR in the TunInterfaceController
+    public LinkProperties getLinkPropertiesWithNat64Cidr(@Nullable LinkAddress nat64Cidr) {
+        final LinkProperties lp = getLinkProperties();
+        if (nat64Cidr != null) {
+            lp.addLinkAddress(nat64Cidr);
+            lp.addRoute(getRouteForAddress(nat64Cidr));
+        }
+        return lp;
     }
 
     /**
@@ -172,17 +183,19 @@ public class TunInterfaceController {
                             (address.getExpirationTime() - SystemClock.elapsedRealtime()) / 1000L,
                             0L);
         }
-
-        if (!NetlinkUtils.sendRtmNewAddressRequest(
-                Os.if_nametoindex(mIfName),
-                address.getAddress(),
-                (short) address.getPrefixLength(),
-                address.getFlags(),
-                (byte) address.getScope(),
-                preferredLifetimeSeconds,
-                validLifetimeSeconds)) {
-            LOG.w("Failed to add address " + address.getAddress().getHostAddress());
-            return;
+        // Only apply to Ipv6 address
+        if (address.getAddress() instanceof Inet6Address) {
+            if (!NetlinkUtils.sendRtmNewAddressRequest(
+                    Os.if_nametoindex(mIfName),
+                    address.getAddress(),
+                    (short) address.getPrefixLength(),
+                    address.getFlags(),
+                    (byte) address.getScope(),
+                    preferredLifetimeSeconds,
+                    validLifetimeSeconds)) {
+                LOG.w("Failed to add address " + address.getAddress().getHostAddress());
+                return;
+            }
         }
         mLinkProperties.addLinkAddress(address);
         mLinkProperties.addRoute(getRouteForAddress(address));
@@ -197,11 +210,14 @@ public class TunInterfaceController {
         // when the netlink request below fails
         mLinkProperties.removeLinkAddress(address);
         mLinkProperties.removeRoute(getRouteForAddress(address));
-        if (!NetlinkUtils.sendRtmDelAddressRequest(
-                Os.if_nametoindex(mIfName),
-                (Inet6Address) address.getAddress(),
-                (short) address.getPrefixLength())) {
-            LOG.w("Failed to remove address " + address.getAddress().getHostAddress());
+        // Only apply to Ipv6 address
+        if (address.getAddress() instanceof Inet6Address) {
+            if (!NetlinkUtils.sendRtmDelAddressRequest(
+                    Os.if_nametoindex(mIfName),
+                    (Inet6Address) address.getAddress(),
+                    (short) address.getPrefixLength())) {
+                LOG.w("Failed to remove address " + address.getAddress().getHostAddress());
+            }
         }
     }
 
