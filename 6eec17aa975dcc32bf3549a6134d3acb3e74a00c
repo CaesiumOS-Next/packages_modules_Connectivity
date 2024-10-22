@@ -16,6 +16,24 @@
       "message": "The flags in this config are actually supposed to only be used for flagging APIs exposed by the tethering module; is this correct ? Looking at the doc maybe \"apex\" would make more sense ?\n\nThe commit doesn\u0027t explain why/how this value is set so I don\u0027t have much context",
       "revId": "6eec17aa975dcc32bf3549a6134d3acb3e74a00c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f1fc782_4cba6d7a",
+        "filename": "common/FlaggedApi.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1890055
+      },
+      "writtenOn": "2024-10-22T13:35:49Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right! I see that this has now changed to \"com.android.tethering\", which is correct. Resolving.",
+      "parentUuid": "2a9030c9_7293346f",
+      "revId": "6eec17aa975dcc32bf3549a6134d3acb3e74a00c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
