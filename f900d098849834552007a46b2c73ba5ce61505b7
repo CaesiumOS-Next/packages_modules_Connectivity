@@ -16,6 +16,24 @@
       "message": "There was some back and forth but since this is an Android-specific version, we decided to start at version 1 (see atom discussion). Thanks.",
       "revId": "f900d098849834552007a46b2c73ba5ce61505b7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19eb8437_b4e43289",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-10-22T12:36:44Z",
+      "side": 1,
+      "message": "Thanks for pointing that out Thiébaud, I was using the design doc as reference and that one still mentions v3. Done.",
+      "parentUuid": "06d27850_8a88beb6",
+      "revId": "f900d098849834552007a46b2c73ba5ce61505b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
