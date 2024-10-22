@@ -489,10 +489,13 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     private final TrafficStatsRateLimitCache mTrafficStatsTotalCache;
     private final TrafficStatsRateLimitCache mTrafficStatsIfaceCache;
     private final TrafficStatsRateLimitCache mTrafficStatsUidCache;
+    static final String TRAFFICSTATS_CLIENT_RATE_LIMIT_CACHE_ENABLED_FLAG =
+            "trafficstats_client_rate_limit_cache_enabled_flag";
     static final String TRAFFICSTATS_SERVICE_RATE_LIMIT_CACHE_ENABLED_FLAG =
             "trafficstats_rate_limit_cache_enabled_flag";
     static final String BROADCAST_NETWORK_STATS_UPDATED_RATE_LIMIT_ENABLED_FLAG =
             "broadcast_network_stats_updated_rate_limit_enabled_flag";
+    private final TrafficStatsRateLimitCacheConfig mTrafficStatsRateLimitCacheClientSideConfig;
     private final TrafficStatsRateLimitCacheConfig mTrafficStatsRateLimitCacheServiceSideConfig;
     private final boolean mBroadcastNetworkStatsUpdatedRateLimitEnabled;
 
@@ -687,8 +690,13 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             mEventLogger = null;
         }
 
+        mTrafficStatsRateLimitCacheClientSideConfig =
+                mDeps.getTrafficStatsRateLimitCacheClientSideConfig(mContext);
+        // If the client side cache feature is enabled, disable the service side
+        // cache unconditionally.
         mTrafficStatsRateLimitCacheServiceSideConfig =
-                mDeps.getTrafficStatsRateLimitCacheServiceSideConfig(mContext);
+                mDeps.getTrafficStatsRateLimitCacheServiceSideConfig(mContext,
+                        mTrafficStatsRateLimitCacheClientSideConfig.featureEnabled);
         mBroadcastNetworkStatsUpdatedRateLimitEnabled =
                 mDeps.enabledBroadcastNetworkStatsUpdatedRateLimiting(mContext);
         mTrafficStatsTotalCache = new TrafficStatsRateLimitCache(mClock,
@@ -959,6 +967,30 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         /**
+         * Get client side traffic stats rate-limit cache config.
+         *
+         * This method should only be called once in the constructor,
+         * to ensure that the code does not need to deal with flag values changing at runtime.
+         */
+        @NonNull
+        public TrafficStatsRateLimitCacheConfig getTrafficStatsRateLimitCacheClientSideConfig(
+                @NonNull Context ctx) {
+            final TrafficStatsRateLimitCacheConfig config =
+                    new TrafficStatsRateLimitCacheConfig.Builder()
+                            .setFeatureEnabled(DeviceConfigUtils.isTetheringFeatureEnabled(
+                                    ctx, TRAFFICSTATS_CLIENT_RATE_LIMIT_CACHE_ENABLED_FLAG))
+                            .setExpiryDurationMs(getDeviceConfigPropertyInt(
+                                    NAMESPACE_TETHERING, TRAFFIC_STATS_CACHE_EXPIRY_DURATION_NAME,
+                                    DEFAULT_TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS))
+                            .setMaxEntries(getDeviceConfigPropertyInt(
+                                    NAMESPACE_TETHERING,
+                                    TRAFFIC_STATS_SERVICE_CACHE_MAX_ENTRIES_NAME,
+                                    DEFAULT_TRAFFIC_STATS_SERVICE_CACHE_MAX_ENTRIES))
+                            .build();
+            return config;
+        }
+
+        /**
          * Get service side traffic stats rate-limit cache config.
          *
          * This method should only be called once in the constructor,
@@ -966,10 +998,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
          */
         @NonNull
         public TrafficStatsRateLimitCacheConfig getTrafficStatsRateLimitCacheServiceSideConfig(
-                @NonNull Context ctx) {
+                @NonNull Context ctx, boolean clientCacheEnabled) {
             final TrafficStatsRateLimitCacheConfig config =
                     new TrafficStatsRateLimitCacheConfig.Builder()
-                            .setFeatureEnabled(DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
+                            .setFeatureEnabled(!clientCacheEnabled
+                                    && DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
                                     ctx, TRAFFICSTATS_SERVICE_RATE_LIMIT_CACHE_ENABLED_FLAG))
                             .setExpiryDurationMs(getDeviceConfigPropertyInt(
                                     NAMESPACE_TETHERING, TRAFFIC_STATS_CACHE_EXPIRY_DURATION_NAME,
@@ -2117,7 +2150,16 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
     }
 
+    private boolean useClientSideCache(int callingUid) {
+        return mTrafficStatsRateLimitCacheClientSideConfig.featureEnabled && (SdkLevel.isAtLeastV()
+                || mDeps.isChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, callingUid));
+    }
+
     private boolean useServiceSideCache(int callingUid) {
+        // If the feature is enabled, the service side cache mechanism applies to V+ devices,
+        // or apps which target sdk are V+.
+        // Note the service side feature flag would be disabled if the client side feature is
+        // enabled.
         return mTrafficStatsRateLimitCacheServiceSideConfig.featureEnabled && (SdkLevel.isAtLeastV()
                 || mDeps.isChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, callingUid));
     }
@@ -2200,6 +2242,19 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         mTrafficStatsUidCache.clear();
         mTrafficStatsIfaceCache.clear();
         mTrafficStatsTotalCache.clear();
+    }
+
+    @Override
+    public TrafficStatsRateLimitCacheConfig getRateLimitCacheConfigForCallingUid() {
+        // Build a per uid config for the client based on the checking result.
+        final TrafficStatsRateLimitCacheConfig config =
+                new TrafficStatsRateLimitCacheConfig.Builder()
+                        .setFeatureEnabled(useClientSideCache(Binder.getCallingUid()))
+                        .setExpiryDurationMs(
+                                mTrafficStatsRateLimitCacheClientSideConfig.expiryDurationMs)
+                        .setMaxEntries(mTrafficStatsRateLimitCacheClientSideConfig.maxEntries)
+                        .build();
+        return config;
     }
 
     private NetworkStats.Entry getProviderIfaceStats(@Nullable String iface) {
@@ -2971,6 +3026,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             }
             pw.print("trafficstats.service.cache.config",
                     mTrafficStatsRateLimitCacheServiceSideConfig);
+            pw.println();
+            pw.print("trafficstats.client.cache.config",
+                    mTrafficStatsRateLimitCacheClientSideConfig);
             pw.println();
 
             pw.decreaseIndent();
