@@ -633,7 +633,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 @NonNull Context ctx) {
             final TrafficStatsRateLimitCacheConfig config =
                     new TrafficStatsRateLimitCacheConfig.Builder()
-                            .setAlwaysUseCache(mFeatureFlags.getOrDefault(
+                            .setFeatureEnabled(mFeatureFlags.getOrDefault(
                                     TRAFFICSTATS_SERVICE_RATE_LIMIT_CACHE_ENABLED_FLAG, false))
                             .setExpiryDurationMs(DEFAULT_TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS)
                             .setMaxEntries(DEFAULT_TRAFFIC_STATS_SERVICE_CACHE_MAX_ENTRIES)
@@ -2456,7 +2456,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     @Test
     public void testTrafficStatsRateLimitCache_disabledWithCompatChangeEnabled() throws Exception {
         mDeps.setChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, true);
-        doTestTrafficStatsRateLimitCache(true /* expectCached */);
+        doTestTrafficStatsRateLimitCache(false /* expectCached */);
     }
 
     @FeatureFlag(name = TRAFFICSTATS_SERVICE_RATE_LIMIT_CACHE_ENABLED_FLAG)
