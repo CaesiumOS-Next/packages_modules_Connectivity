@@ -141,11 +141,13 @@ import libcore.util.HexEncoding;
 
 import java.io.IOException;
 import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.security.SecureRandom;
 import java.time.Clock;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -750,7 +752,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
             // TODO: disable border routing if netIfName is null
             if (network.equals(mUpstreamNetwork)) {
-                setInfraLinkState(newInfraLinkStateBuilder(newLinkProperties).build());
+                enableBorderRouting(mNetworkToInterface.get(mUpstreamNetwork));
             }
         }
     }
@@ -779,17 +781,17 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                             + ", localNetworkInfo: "
                             + localNetworkInfo
                             + "}");
-            mUpstreamNetwork = localNetworkInfo.getUpstreamNetwork();
-            if (mUpstreamNetwork == null) {
-                setInfraLinkState(newInfraLinkStateBuilder().build());
+            if (localNetworkInfo.getUpstreamNetwork() == null) {
+                disableBorderRouting();
                 return;
             }
-            if (mNetworkToLinkProperties.containsKey(mUpstreamNetwork)) {
-                setInfraLinkState(
-                        newInfraLinkStateBuilder(mNetworkToLinkProperties.get(mUpstreamNetwork))
-                                .build());
+            if (!localNetworkInfo.getUpstreamNetwork().equals(mUpstreamNetwork)) {
+                mUpstreamNetwork = localNetworkInfo.getUpstreamNetwork();
+                if (mNetworkToInterface.containsKey(mUpstreamNetwork)) {
+                    enableBorderRouting(mNetworkToInterface.get(mUpstreamNetwork));
+                }
+                mNsdPublisher.setNetworkForHostResolution(mUpstreamNetwork);
             }
-            mNsdPublisher.setNetworkForHostResolution(mUpstreamNetwork);
         }
     }
 
@@ -1320,20 +1322,17 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
-    private void setInfraLinkState(InfraLinkState newInfraLinkState) {
-        if (!Objects.equals(mInfraLinkState, newInfraLinkState)) {
-            LOG.i("Infra link state changed: " + mInfraLinkState + " -> " + newInfraLinkState);
+    private void setInfraLinkState(InfraLinkState infraLinkState) {
+        if (mInfraLinkState.equals(infraLinkState)) {
+            return;
         }
-        setInfraLinkInterfaceName(newInfraLinkState.interfaceName);
-        setInfraLinkNat64Prefix(newInfraLinkState.nat64Prefix);
-        mInfraLinkState = newInfraLinkState;
-    }
-
-    private void setInfraLinkInterfaceName(String newInfraLinkInterfaceName) {
+        LOG.i("Infra link state changed: " + mInfraLinkState + " -> " + infraLinkState);
+        mInfraLinkState = infraLinkState;
         ParcelFileDescriptor infraIcmp6Socket = null;
         if (newInfraLinkInterfaceName != null) {
             try {
-                infraIcmp6Socket = mInfraIfController.createIcmp6Socket(newInfraLinkInterfaceName);
+                infraIcmp6Socket =
+                        mInfraIfController.createIcmp6Socket(mInfraLinkState.interfaceName);
             } catch (IOException e) {
                 LOG.e("Failed to create ICMPv6 socket on infra network interface", e);
             }
@@ -1349,14 +1348,19 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
-    private void setInfraLinkNat64Prefix(@Nullable String newNat64Prefix) {
-        try {
-            getOtDaemon()
-                    .setInfraLinkNat64Prefix(
-                            newNat64Prefix, new LoggingOtStatusReceiver("setInfraLinkNat64Prefix"));
-        } catch (RemoteException | ThreadNetworkException e) {
-            LOG.e("Failed to set infra link NAT64 prefix " + newNat64Prefix, e);
-        }
+    private void enableBorderRouting(String infraIfName) {
+        InfraLinkState infraLinkState =
+                newInfraLinkStateBuilder(mInfraLinkState).setInterfaceName(infraIfName).build();
+        LOG.i("Enable border routing on AIL: " + infraIfName);
+        setInfraLinkState(infraLinkState);
+    }
+
+    private void disableBorderRouting() {
+        mUpstreamNetwork = null;
+        InfraLinkState infraLinkState =
+                newInfraLinkStateBuilder(mInfraLinkState).setInterfaceName(null).build();
+        LOG.i("Disabling border routing");
+        setInfraLinkState(infraLinkState);
     }
 
     private void handleThreadInterfaceStateChanged(boolean isUp) {
@@ -1497,7 +1501,17 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
         return new InfraLinkState.Builder()
                 .setInterfaceName(linkProperties.getInterfaceName())
-                .setNat64Prefix(nat64Prefix);
+                .setNat64Prefix(nat64Prefix)
+                .setDnsServers(addressesToStrings(linkProperties.getDnsServers()));
+    }
+
+    private static List<String> addressesToStrings(List<InetAddress> addresses) {
+        List<String> strings = new ArrayList<>();
+
+        for (InetAddress address : addresses) {
+            strings.add(address.getHostAddress());
+        }
+        return strings;
     }
 
     private static final class CallbackMetadata {
