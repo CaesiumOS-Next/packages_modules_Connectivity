@@ -127,6 +127,7 @@ static const int UID_OWNER_MAP_SIZE = 4000;
 static const int INGRESS_DISCARD_MAP_SIZE = 100;
 static const int PACKET_TRACE_BUF_SIZE = 32 * 1024;
 static const int DATA_SAVER_ENABLED_MAP_SIZE = 1;
+static const int LOCAL_NETWORK_ACCESS_MAP_SIZE = 1000;
 
 #ifdef __cplusplus
 
@@ -185,6 +186,7 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define PACKET_TRACE_RINGBUF_PATH BPF_NETD_PATH "map_netd_packet_trace_ringbuf"
 #define PACKET_TRACE_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_packet_trace_enabled_map"
 #define DATA_SAVER_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_data_saver_enabled_map"
+#define LOCAL_NETWORK_ACCESS_MAP_PATH BPF_NETD_PATH "map_netd_local_network_access_map"
 
 #endif // __cplusplus
 
@@ -220,6 +222,13 @@ enum StatsMapType : uint32_t {
     SELECT_MAP_B,
 };
 
+// Type for local network address to be allowed/disallowed.
+enum LocalNetworkAccessValue : uint8_t {
+    UNKNOWN = 0,
+    DISALLOWED = 1,
+    ALLOWED = 2,
+};
+
 // TODO: change the configuration object from a bitmask to an object with clearer
 // semantics, like a struct.
 typedef uint32_t BpfConfig;
@@ -244,6 +253,27 @@ typedef struct {
     uint32_t iif[2];
 } IngressDiscardValue;
 STRUCT_SIZE(IngressDiscardValue, 2 * 4);  // 8
+
+typedef struct {
+  /* Prefix bit length required for longest prefix matching. The length is
+   * number of bits that would be matched for if_index + ip address. The value
+   * for lpm_bitlen will range from 0 to 160. For example
+   * 1. If key is (lpm_bitlen=32, if_index = 47, addr=::), it will match all
+   * ip addresses which have if_index as 47.
+   * 2. If key is (lpm_bitlen=160, if_index = 47, addr=::1), it will match only
+   * one ip address ::1 having if_index as 47.
+   */
+  uint32_t lpm_bitlen;
+  // Interface index.
+  uint32_t if_index;
+  // IP address for lookup. IPv4 uses IPv4-mapped IPv6 address format.
+  struct in6_addr addr;
+  // Port number for lookup.
+  __be16 port;
+  // Protocol number for lookup.
+  uint16_t protocol;
+} LocalNetworkAccessKey;
+STRUCT_SIZE(LocalNetworkAccessKey, 4 + 4 + 16 + 2 + 2); // 28
 
 // Entry in the configuration map that stores which UID rules are enabled.
 #define UID_RULES_CONFIGURATION_KEY 0

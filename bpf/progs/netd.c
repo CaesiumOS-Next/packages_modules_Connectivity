@@ -84,6 +84,8 @@ DEFINE_BPF_MAP_NO_NETD(ingress_discard_map, HASH, IngressDiscardKey, IngressDisc
 
 DEFINE_BPF_MAP_RW_NETD(lock_array_test_map, ARRAY, uint32_t, bool, 1)
 DEFINE_BPF_MAP_RW_NETD(lock_hash_test_map, HASH, uint32_t, bool, 1)
+DEFINE_BPF_MAP_RO_NETD(local_network_access_map, LPM_TRIE, LocalNetworkAccessKey,
+                       enum LocalNetworkAccessValue, LOCAL_NETWORK_ACCESS_MAP_SIZE)
 
 /* never actually used from ebpf */
 DEFINE_BPF_MAP_NO_NETD(iface_index_name_map, HASH, uint32_t, IfaceValue, IFACE_INDEX_NAME_MAP_SIZE)
@@ -229,6 +231,24 @@ static __always_inline inline int bpf_skb_load_bytes_net(const struct __sk_buff*
     return KVER_IS_AT_LEAST(kver, 4, 19, 0)
         ? bpf_skb_load_bytes_relative(skb, L3_off, to, len, BPF_HDR_START_NET)
         : bpf_skb_load_bytes(skb, L3_off, to, len);
+}
+
+/*
+ * Returns the local network access for given interface index, ip address, port and protocol
+ * combination. The lookup is performing a longest prefix match in map local_network_access_map.
+ * Returns UNKNOWN if the combination is not found in map otherwise it return ALLOWED/DISALLOWED.
+ */
+static inline __always_inline __unused enum LocalNetworkAccessValue get_local_network_access(
+        const uint32_t if_index, const struct in6_addr* addr, const __be16 port,
+        const uint16_t protocol) {
+    LocalNetworkAccessKey query_key = {.lpm_bitlen = (sizeof(if_index) + sizeof(addr)
+                                    + sizeof(port) + sizeof(protocol)) * 8,
+                                .if_index = if_index,
+                                .addr = *addr,
+                                .port = port,
+                                .protocol = protocol};
+    enum LocalNetworkAccessValue *query_value = bpf_local_network_access_map_lookup_elem(&query_key);
+    return query_value ? *query_value : UNKNOWN;
 }
 
 static __always_inline inline void do_packet_tracing(
