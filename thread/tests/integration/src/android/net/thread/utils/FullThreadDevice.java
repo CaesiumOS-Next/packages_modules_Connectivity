@@ -29,6 +29,7 @@ import android.net.thread.ActiveOperationalDataset;
 import android.os.Handler;
 import android.os.HandlerThread;
 
+import android.util.Log;
 import com.google.errorprone.annotations.FormatMethod;
 
 import java.io.BufferedReader;
@@ -483,6 +484,7 @@ public final class FullThreadDevice {
         Pattern pattern = Pattern.compile("([\\d]+) packets received");
 
         for (String message : stringList) {
+            Log.i("111111 ", "message: " + message);
             Matcher matcher = pattern.matcher(message);
             if (matcher.find()) {
                 String packetCountStr = matcher.group(1);
