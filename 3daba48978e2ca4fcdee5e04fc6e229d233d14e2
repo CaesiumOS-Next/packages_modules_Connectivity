@@ -1,0 +1,102 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f735846_d7d85b15",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1885,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-22T09:08:27Z",
+      "side": 1,
+      "message": "should this be calling `onIpv4PrefixConflictInternal`?",
+      "range": {
+        "startLine": 1885,
+        "startChar": 32,
+        "endLine": 1885,
+        "endChar": 52
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "334ad62c_3463afcc",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+              "range": {
+                "startLine": 1885,
+                "startChar": 0,
+                "endLine": 1886,
+                "endChar": 0
+              },
+              "replacement": "            mHandler.post(() -\u003e onIpv4PrefixConflictInternal(prefix));\n"
+            }
+          ]
+        }
+      ],
+      "revId": "3daba48978e2ca4fcdee5e04fc6e229d233d14e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d0322c5_fab76861",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1904,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-22T09:08:27Z",
+      "side": 1,
+      "message": "nit: maybe we can skip notifying ot-daemon if the CIDR didn\u0027t change? This is only done at initialization and setConfiguration, I\u0027m also fine to keep as is.",
+      "revId": "3daba48978e2ca4fcdee5e04fc6e229d233d14e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f22c17c3_ea80777f",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-22T09:08:27Z",
+      "side": 1,
+      "message": "should we do the same check for `addAddress` too?",
+      "revId": "3daba48978e2ca4fcdee5e04fc6e229d233d14e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e1257a1_1ecaa5e0",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-22T09:08:27Z",
+      "side": 1,
+      "message": "nit: comment the params",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 35
+      },
+      "revId": "3daba48978e2ca4fcdee5e04fc6e229d233d14e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
