@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d15b382e_298cb1d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-22T11:33:28Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "a71bf04ec07730f2ba874d6cf3a694f7e822d520",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56b23e98_b1677d9f",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-22T11:33:28Z",
+      "side": 1,
+      "message": "Say that this defaults to Process.INVALID_UID if unset.",
+      "range": {
+        "startLine": 942,
+        "startChar": 57,
+        "endLine": 942,
+        "endChar": 58
+      },
+      "revId": "a71bf04ec07730f2ba874d6cf3a694f7e822d520",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0489555_4b214fae",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-22T11:33:28Z",
+      "side": 1,
+      "message": "Say that this defaults to null if unset.",
+      "range": {
+        "startLine": 952,
+        "startChar": 66,
+        "endLine": 952,
+        "endChar": 67
+      },
+      "revId": "a71bf04ec07730f2ba874d6cf3a694f7e822d520",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4416e438_f73f4683",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-22T11:33:28Z",
+      "side": 1,
+      "message": "These tests are useful because they test the defaults, but can you also add tests that when Builder#setUid and Builder#setPackageName are calledthat the result is as expected?",
+      "revId": "a71bf04ec07730f2ba874d6cf3a694f7e822d520",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
