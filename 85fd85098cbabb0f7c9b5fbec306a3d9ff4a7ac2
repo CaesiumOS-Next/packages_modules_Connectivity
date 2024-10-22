@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b096b96_3882fb8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-10-22T23:30:09Z",
+      "side": 1,
+      "message": "Add commit text paragraph detailing change.",
+      "revId": "85fd85098cbabb0f7c9b5fbec306a3d9ff4a7ac2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79aee63e_2865644e",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-10-22T23:30:09Z",
+      "side": 1,
+      "message": "nit: period at end.",
+      "revId": "85fd85098cbabb0f7c9b5fbec306a3d9ff4a7ac2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9e0bbfd_f9b35c7a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2024-10-22T23:30:09Z",
+      "side": 1,
+      "message": "nit: whitespace",
+      "range": {
+        "startLine": 235,
+        "startChar": 86,
+        "endLine": 235,
+        "endChar": 90
+      },
+      "revId": "85fd85098cbabb0f7c9b5fbec306a3d9ff4a7ac2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
