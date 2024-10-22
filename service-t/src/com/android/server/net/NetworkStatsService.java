@@ -687,19 +687,25 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             mEventLogger = null;
         }
 
-        mTrafficStatsRateLimitCacheServiceSideConfig =
-                mDeps.getTrafficStatsRateLimitCacheServiceSideConfig(mContext);
         mBroadcastNetworkStatsUpdatedRateLimitEnabled =
                 mDeps.enabledBroadcastNetworkStatsUpdatedRateLimiting(mContext);
-        mTrafficStatsTotalCache = new TrafficStatsRateLimitCache(mClock,
-                mTrafficStatsRateLimitCacheServiceSideConfig.expiryDurationMs,
-                mTrafficStatsRateLimitCacheServiceSideConfig.maxEntries);
-        mTrafficStatsIfaceCache = new TrafficStatsRateLimitCache(mClock,
-                mTrafficStatsRateLimitCacheServiceSideConfig.expiryDurationMs,
-                mTrafficStatsRateLimitCacheServiceSideConfig.maxEntries);
-        mTrafficStatsUidCache = new TrafficStatsRateLimitCache(mClock,
-                mTrafficStatsRateLimitCacheServiceSideConfig.expiryDurationMs,
-                mTrafficStatsRateLimitCacheServiceSideConfig.maxEntries);
+        mTrafficStatsRateLimitCacheServiceSideConfig =
+                mDeps.getTrafficStatsRateLimitCacheServiceSideConfig(mContext);
+        if (mTrafficStatsRateLimitCacheServiceSideConfig.isCacheEnabled) {
+            mTrafficStatsTotalCache = new TrafficStatsRateLimitCache(mClock,
+                    mTrafficStatsRateLimitCacheServiceSideConfig.expiryDurationMs,
+                    mTrafficStatsRateLimitCacheServiceSideConfig.maxEntries);
+            mTrafficStatsIfaceCache = new TrafficStatsRateLimitCache(mClock,
+                    mTrafficStatsRateLimitCacheServiceSideConfig.expiryDurationMs,
+                    mTrafficStatsRateLimitCacheServiceSideConfig.maxEntries);
+            mTrafficStatsUidCache = new TrafficStatsRateLimitCache(mClock,
+                    mTrafficStatsRateLimitCacheServiceSideConfig.expiryDurationMs,
+                    mTrafficStatsRateLimitCacheServiceSideConfig.maxEntries);
+        } else {
+            mTrafficStatsTotalCache = null;
+            mTrafficStatsIfaceCache = null;
+            mTrafficStatsUidCache = null;
+        }
 
         // TODO: Remove bpfNetMaps creation and always start SkDestroyListener
         // Following code is for the experiment to verify the SkDestroyListener refactoring. Based
@@ -969,8 +975,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 @NonNull Context ctx) {
             final TrafficStatsRateLimitCacheConfig config =
                     new TrafficStatsRateLimitCacheConfig.Builder()
-                            .setAlwaysUseCache(SdkLevel.isAtLeastV()
-                                    && DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
+                            .setIsCacheEnabled(DeviceConfigUtils.isTetheringFeatureNotChickenedOut(
                                     ctx, TRAFFICSTATS_SERVICE_RATE_LIMIT_CACHE_ENABLED_FLAG))
                             .setExpiryDurationMs(getDeviceConfigPropertyInt(
                                     NAMESPACE_TETHERING, TRAFFIC_STATS_CACHE_EXPIRY_DURATION_NAME,
@@ -2118,6 +2123,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
     }
 
+    private boolean useServiceSideCache(int callingUid) {
+        return mTrafficStatsRateLimitCacheServiceSideConfig.isCacheEnabled && (SdkLevel.isAtLeastV()
+                || mDeps.isChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, callingUid));
+    }
+
     @Nullable
     @Override
     public StatsResult getUidStats(int uid) {
@@ -2126,8 +2136,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             return null;
         }
         final NetworkStats.Entry entry;
-        if (mTrafficStatsRateLimitCacheServiceSideConfig.alwaysUseCache
-                || mDeps.isChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, callingUid)) {
+        if (useServiceSideCache(callingUid)) {
             entry = mTrafficStatsUidCache.getOrCompute(IFACE_ALL, uid,
                     () -> mDeps.nativeGetUidStat(uid));
         } else entry = mDeps.nativeGetUidStat(uid);
@@ -2155,9 +2164,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         Objects.requireNonNull(iface);
 
         final NetworkStats.Entry entry;
-        if (mTrafficStatsRateLimitCacheServiceSideConfig.alwaysUseCache
-                || mDeps.isChangeEnabled(
-                        ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
+        if (useServiceSideCache(Binder.getCallingUid())) {
             entry = mTrafficStatsIfaceCache.getOrCompute(iface, UID_ALL,
                     () -> getIfaceStatsInternal(iface));
         } else entry = getIfaceStatsInternal(iface);
@@ -2185,9 +2192,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @Override
     public StatsResult getTotalStats() {
         final NetworkStats.Entry entry;
-        if (mTrafficStatsRateLimitCacheServiceSideConfig.alwaysUseCache
-                || mDeps.isChangeEnabled(
-                        ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, Binder.getCallingUid())) {
+        if (useServiceSideCache(Binder.getCallingUid())) {
             entry = mTrafficStatsTotalCache.getOrCompute(
                     IFACE_ALL, UID_ALL, () -> getTotalStatsInternal());
         } else entry = getTotalStatsInternal();
@@ -2198,9 +2203,11 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @Override
     public void clearTrafficStatsRateLimitCaches() {
         PermissionUtils.enforceNetworkStackPermissionOr(mContext, NETWORK_SETTINGS);
-        mTrafficStatsUidCache.clear();
-        mTrafficStatsIfaceCache.clear();
-        mTrafficStatsTotalCache.clear();
+        if (mTrafficStatsRateLimitCacheServiceSideConfig.isCacheEnabled) {
+            mTrafficStatsUidCache.clear();
+            mTrafficStatsIfaceCache.clear();
+            mTrafficStatsTotalCache.clear();
+        }
     }
 
     private NetworkStats.Entry getProviderIfaceStats(@Nullable String iface) {
