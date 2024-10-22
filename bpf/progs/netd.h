@@ -127,6 +127,7 @@ static const int UID_OWNER_MAP_SIZE = 4000;
 static const int INGRESS_DISCARD_MAP_SIZE = 100;
 static const int PACKET_TRACE_BUF_SIZE = 32 * 1024;
 static const int DATA_SAVER_ENABLED_MAP_SIZE = 1;
+static const int IP_ADDRESS_TYPE_MAP_SIZE = 200;
 
 #ifdef __cplusplus
 
@@ -185,6 +186,7 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define PACKET_TRACE_RINGBUF_PATH BPF_NETD_PATH "map_netd_packet_trace_ringbuf"
 #define PACKET_TRACE_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_packet_trace_enabled_map"
 #define DATA_SAVER_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_data_saver_enabled_map"
+#define IP_ADDRESS_TYPE_MAP_PATH BPF_NETD_PATH "map_netd_ip_address_type_map"
 
 #endif // __cplusplus
 
@@ -220,6 +222,18 @@ enum StatsMapType : uint32_t {
     SELECT_MAP_B,
 };
 
+// Type for classification of the ip addresses.
+enum IpAddressType : uint8_t {
+  UNKNOWN = 0,
+  LOCAL_IP_ADDRESS = 1,
+  LINK_LOCAL_IP_ADDRESS = 2,
+  LOCAL_NETWORK_IP_ADDRESS = 3,
+  ULA_SITE_IP_ADDRESS = 4,
+  GLOBAL_IP_ADDRESS = 5,
+  MULTICAST_IP_ADDRESS = 6,
+  BROADCAST_IP_ADDRESS = 7,
+};
+
 // TODO: change the configuration object from a bitmask to an object with clearer
 // semantics, like a struct.
 typedef uint32_t BpfConfig;
@@ -244,6 +258,23 @@ typedef struct {
     uint32_t iif[2];
 } IngressDiscardValue;
 STRUCT_SIZE(IngressDiscardValue, 2 * 4);  // 8
+
+typedef struct {
+  /* Prefix bit length required for longest prefix matching. The length is
+   * number of bits that would be matched for if_index + ip address. The value
+   * for lpm_bitlen will range from 0 to 160. For example
+   * 1. If key is (lpm_bitlen=32, if_index = 47,  addr=::0), it will match all
+   * ip addresses which have if_index as 47.
+   * 2. If key is (lpm_bitlen=160, if_index = 47,  addr=::0), it will match only
+   * one ip addresse ::0 having if_index as 47.
+   */
+  uint32_t lpm_bitlen;
+  // Interface index.
+  uint32_t if_index;
+  // IP address for lookup. IPv4 uses IPv4-mapped IPv6 address format.
+  struct in6_addr addr;
+} IpAddressTypeKey;
+STRUCT_SIZE(IpAddressTypeKey, 2 * 4 + 16); // 24
 
 // Entry in the configuration map that stores which UID rules are enabled.
 #define UID_RULES_CONFIGURATION_KEY 0

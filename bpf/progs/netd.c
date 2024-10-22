@@ -84,6 +84,8 @@ DEFINE_BPF_MAP_NO_NETD(ingress_discard_map, HASH, IngressDiscardKey, IngressDisc
 
 DEFINE_BPF_MAP_RW_NETD(lock_array_test_map, ARRAY, uint32_t, bool, 1)
 DEFINE_BPF_MAP_RW_NETD(lock_hash_test_map, HASH, uint32_t, bool, 1)
+DEFINE_BPF_MAP_RO_NETD(ip_address_type_map, LPM_TRIE, IpAddressTypeKey,
+                       enum IpAddressType, IP_ADDRESS_TYPE_MAP_SIZE)
 
 /* never actually used from ebpf */
 DEFINE_BPF_MAP_NO_NETD(iface_index_name_map, HASH, uint32_t, IfaceValue, IFACE_INDEX_NAME_MAP_SIZE)
@@ -229,6 +231,32 @@ static __always_inline inline int bpf_skb_load_bytes_net(const struct __sk_buff*
     return KVER_IS_AT_LEAST(kver, 4, 19, 0)
         ? bpf_skb_load_bytes_relative(skb, L3_off, to, len, BPF_HDR_START_NET)
         : bpf_skb_load_bytes(skb, L3_off, to, len);
+}
+
+/*
+ * Returns the ip address type for given interface index and ip address. The
+ * lookup is performing a longest prefix match in map ip_address_type_map.
+ * Returns UNKNOWN if the if_index + ip is not found in map.
+ */
+static inline __always_inline enum IpAddressType
+get_ip_address_type(uint32_t if_index, struct in6_addr addr) {
+  IpAddressTypeKey query_key = {.lpm_bitlen =
+                                    (sizeof(if_index) + sizeof(addr)) * 8,
+                                .if_index = if_index,
+                                .addr = addr};
+  enum IpAddressType *query_value =
+      bpf_ip_address_type_map_lookup_elem(&query_key);
+
+  return query_value ? *query_value : UNKNOWN;
+}
+
+/*
+ * Returns true if the given interface index and ip address is of type
+ * LOCAL_NETWORK_IP_ADDRESS.
+ */
+static inline __always_inline __unused bool
+is_local_network_address(uint32_t if_index, struct in6_addr address) {
+  return get_ip_address_type(if_index, address) == LOCAL_NETWORK_IP_ADDRESS;
 }
 
 static __always_inline inline void do_packet_tracing(
