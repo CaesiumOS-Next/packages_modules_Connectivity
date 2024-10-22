@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06d27850_8a88beb6",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-10-22T00:34:37Z",
+      "side": 1,
+      "message": "There was some back and forth but since this is an Android-specific version, we decided to start at version 1 (see atom discussion). Thanks.",
+      "revId": "f900d098849834552007a46b2c73ba5ce61505b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
