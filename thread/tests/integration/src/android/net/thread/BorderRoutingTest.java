@@ -16,9 +16,12 @@
 
 package android.net.thread;
 
+import android.util.Log;
+
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.thread.utils.IntegrationTestUtils.DEFAULT_DATASET;
+import static android.net.thread.utils.IntegrationTestUtils.buildIcmpv4EchoReply;
 import static android.net.thread.utils.IntegrationTestUtils.getIpv6LinkAddresses;
 import static android.net.thread.utils.IntegrationTestUtils.isExpectedIcmpv4Packet;
 import static android.net.thread.utils.IntegrationTestUtils.isExpectedIcmpv6Packet;
@@ -77,9 +80,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -647,16 +652,33 @@ public class BorderRoutingTest {
     }
 
     @Test
-    public void nat64_threadDevicePingIpv4InfraDevice_outboundPacketIsForwarded() throws Exception {
+    public void nat64_threadDevicePingIpv4InfraDevice_outboundPacketIsForwardedAndReplyIsReceived()
+            throws Exception {
         FullThreadDevice ftd = mFtds.get(0);
         joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET);
         mOtCtl.setNat64Cidr(NAT64_CIDR);
         mController.setNat64EnabledAndWait(true);
         waitFor(() -> mOtCtl.hasNat64PrefixInNetdata(), UPDATE_NAT64_PREFIX_TIMEOUT);
+        Thread echoReplyThread =
+                new Thread(
+                        () -> {
+                            byte[] echoRequest =
+                                    pollForIcmpPacketOnInfraNetwork(
+                                            ICMP_ECHO, null, IPV4_SERVER_ADDR);
+                            Log.i("11111", "echoRequest: " + echoRequest);
+                            assertNotNull(echoRequest);
+                            try {
+                                mInfraNetworkReader.sendResponse(
+                                        buildIcmpv4EchoReply(ByteBuffer.wrap(echoRequest)));
+                            } catch (IOException ignored) {
+                            Log.i("11111", "sent response: " + echoRequest);
+                            }
+                        });
+        echoReplyThread.start();
 
-        ftd.ping(IPV4_SERVER_ADDR);
+        assertThat(ftd.ping(IPV4_SERVER_ADDR, 1 /* count */)).isEqualTo(1);
 
-        assertNotNull(pollForIcmpPacketOnInfraNetwork(ICMP_ECHO, null, IPV4_SERVER_ADDR));
+        echoReplyThread.join();
     }
 
     @Test
