@@ -22,6 +22,30 @@
       },
       "revId": "34ea8c7ad9f7905ae297a23713f9e3069baf46b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5694a800_8964c413",
+        "filename": "staticlibs/testutils/host/python/assert_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2024-10-22T03:08:59Z",
+      "side": 1,
+      "message": "It make sense, updated to throw UnexpectedBehaviorError, and re-throw to the caller.",
+      "parentUuid": "f1a2dcf6_23c274dd",
+      "range": {
+        "startLine": 50,
+        "startChar": 10,
+        "endLine": 50,
+        "endChar": 34
+      },
+      "revId": "34ea8c7ad9f7905ae297a23713f9e3069baf46b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
