@@ -26,9 +26,9 @@ package android.net.netstats;
 parcelable TrafficStatsRateLimitCacheConfig {
 
     /**
-     * Whether to always use the cache.
+     * Whether the cache feature is enabled for V+ device or target Sdk V+ apps.
      */
-    boolean alwaysUseCache;
+    boolean featureEnabled;
 
     /**
      * The duration for which cache entries are valid, in milliseconds.
