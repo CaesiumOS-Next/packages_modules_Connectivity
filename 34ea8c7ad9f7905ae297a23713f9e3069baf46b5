@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1a2dcf6_23c274dd",
+        "filename": "staticlibs/testutils/host/python/assert_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-22T02:44:21Z",
+      "side": 1,
+      "message": "nit: While this is not really an unexpected exception, this could be confusing.\nno strong opinion.",
+      "range": {
+        "startLine": 50,
+        "startChar": 10,
+        "endLine": 50,
+        "endChar": 34
+      },
+      "revId": "34ea8c7ad9f7905ae297a23713f9e3069baf46b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
