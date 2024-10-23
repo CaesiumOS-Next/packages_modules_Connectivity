@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ca780d7_c76c33a9",
+        "filename": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-23T10:22:16Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we revert to 1? This is going to continue causing confusion for people in the future.",
+      "parentUuid": "776fc6dd_54b03026",
+      "range": {
+        "startLine": 60,
+        "startChar": 26,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "39639f8580052265f00a4c5f319e4271dd4e0e2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca8f51a5_9b7dfb4f",
         "filename": "thread/tests/integration/src/android/net/thread/utils/FullThreadDevice.java",
         "patchSetId": 2
