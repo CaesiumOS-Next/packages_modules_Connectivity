@@ -585,6 +585,35 @@ public class NetworkRequest implements Parcelable {
         }
 
         /**
+         * Sets the optional network specifier for direct network or stub network link.
+         *
+         * <p>A stub network is a network attaches to an Adjacent Infrastructure Link (AIL, e.g.
+         * Wi-Fi or Ethernet) and has IPv6 connectivity between the AIL and stub network. A device
+         * can have two routes to the stub network - through the AIL link or through direct stub
+         * network link.
+         *
+         * @param networkSpecifier indicates the capability that the network can provide
+         *      reachability to the stub network through either direct stub network link or AIL
+         *      network which the stub network attaches to
+         * @return this builder
+         * @hide
+         */
+        @NonNull
+        @SystemApi
+        @FlaggedApi(Flags.FLAG_REQUEST_STUB_NETWORK_ENABLED)
+        public Builder setNetworkOrStubNetworkSpecifier(
+                @Nullable NetworkSpecifier networkSpecifier) {
+            if (networkSpecifier instanceof MatchAllNetworkSpecifier) {
+                throw new IllegalArgumentException("A MatchAllNetworkSpecifier is not permitted");
+            }
+            mNetworkCapabilities.setNetworkOrStubNetworkSpecifier(networkSpecifier);
+            // Do not touch NOT_VCN_MANAGED if the caller needs to access to a very specific
+            // Network.
+            mShouldDeduceNotVcnManaged = false;
+            return this;
+        }
+
+        /**
          * Sets the signal strength. This is a signed integer, with higher values indicating a
          * stronger signal. The exact units are bearer-dependent. For example, Wi-Fi uses the same
          * RSSI units reported by WifiManager.
@@ -780,6 +809,17 @@ public class NetworkRequest implements Parcelable {
     @Nullable
     public NetworkSpecifier getNetworkSpecifier() {
         return networkCapabilities.getNetworkSpecifier();
+    }
+
+    /**
+     * @see Builder#setNetworkOrStubNetworkSpecifier(NetworkSpecifier)
+     * @hide
+     */
+    @Nullable
+    @SystemApi
+    @FlaggedApi(Flags.FLAG_REQUEST_STUB_NETWORK_ENABLED)
+    public NetworkSpecifier getNetworkOrStubNetworkSpecifier() {
+        return networkCapabilities.getNetworkOrStubNetworkSpecifier();
     }
 
     /**

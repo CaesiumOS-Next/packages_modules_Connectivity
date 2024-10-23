@@ -268,6 +268,7 @@ import android.net.netd.aidl.NativeUidRangeConfig;
 import android.net.networkstack.ModuleNetworkStackClient;
 import android.net.networkstack.NetworkStackClientBase;
 import android.net.networkstack.aidl.NetworkMonitorParameters;
+import android.net.nsd.NsdManager;
 import android.net.resolv.aidl.DnsHealthEventParcel;
 import android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener;
 import android.net.resolv.aidl.Nat64PrefixEventParcel;
@@ -385,6 +386,7 @@ import com.android.server.connectivity.ProfileNetworkPreferenceInfo;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 import com.android.server.connectivity.SatelliteAccessController;
+import com.android.server.connectivity.StubNetworkTracker;
 import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.VpnNetworkPreferenceInfo;
 import com.android.server.connectivity.wear.CompanionDeviceManagerProxyService;
@@ -1095,6 +1097,9 @@ public class ConnectivityService extends IConnectivityManager.Stub {
 
     // Flag to drop packets to VPN addresses ingressing via non-VPN interfaces.
     private final boolean mIngressToVpnAddressFiltering;
+
+    // Tracks stub network capabilities for Wi-Fi and Ethernet networks.
+    private final StubNetworkTracker mStubNetworkTracker;
 
     /**
      * Implements support for the legacy "one network per network type" model.
@@ -2108,6 +2113,30 @@ public class ConnectivityService extends IConnectivityManager.Stub {
                 && mDeps.isFeatureNotChickenedOut(mContext, INGRESS_TO_VPN_ADDRESS_FILTERING);
 
         mL2capNetworkProvider = mDeps.makeL2capNetworkProvider(mContext);
+        mStubNetworkTracker = new StubNetworkTracker(mHandler);
+    }
+
+    /**
+     * Receives Stub network changes for on AIL network and updates the capabilities accordingly.
+     */
+    private final class StubNetworkHandler implements StubNetworkTracker.StubNetworkCallback {
+        @Override
+        public void onStubNetworkChanged(
+                Network ailNetwork, Set<NetworkSpecifier> stubNetworkSpecifiers) {
+            if (DBG) {
+                log("Stub networks are updated for AIL network: " + ailNetwork + ", StubNetworks: "
+                        + stubNetworkSpecifiers);
+            }
+
+            NetworkAgentInfo nai = getNetworkAgentInfoForNetId(ailNetwork.getNetId());
+            if (nai == null) {
+                return;
+            }
+
+            NetworkCapabilities nc = new NetworkCapabilities(nai.networkCapabilities);
+            nc.setStubNetworkSpecifiers(stubNetworkSpecifiers);
+            updateCapabilities(nai.getScore(), nai, nai.networkCapabilities);
+        }
     }
 
     /**
@@ -5392,6 +5421,10 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         } else {
             loge("Error connecting NetworkAgent");
             mNetworkAgentInfos.remove(nai);
+            if (mNetworkAgentInfos.isEmpty()) {
+                Log.e(TAG, "StubNetworkTracker: stopped");
+                mStubNetworkTracker.stop();
+            }
             if (nai != null) {
                 final boolean wasDefault = isDefaultNetwork(nai);
                 synchronized (mNetworkForNetId) {
@@ -5517,6 +5550,10 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         nai.networkMonitor().notifyNetworkDisconnected();
         mNetworkAgentInfos.remove(nai);
         nai.clatd.update();
+        if (mNetworkAgentInfos.isEmpty()) {
+            Log.e(TAG, "StubNetworkTracker: stopped");
+            mStubNetworkTracker.stop();
+        }
         synchronized (mNetworkForNetId) {
             // Remove the NetworkAgent, but don't mark the netId as
             // available until we've told netd to delete it below.
@@ -9406,6 +9443,13 @@ public class ConnectivityService extends IConnectivityManager.Stub {
 
         nai.onNetworkMonitorCreated(networkMonitor);
 
+        if (mNetworkAgentInfos.isEmpty()) {
+            Log.e(TAG, "StubNetworkTracker: started");
+            mStubNetworkTracker.start(
+                    mContext.getSystemService(ConnectivityManager.class),
+                    mContext.getSystemService(NsdManager.class),
+                    new StubNetworkHandler());
+        }
         mNetworkAgentInfos.add(nai);
         synchronized (mNetworkForNetId) {
             mNetworkForNetId.put(nai.network.getNetId(), nai);

@@ -73,6 +73,7 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkAgent;
+import android.net.NetworkFactory;
 import android.net.NetworkProvider;
 import android.net.NetworkRequest;
 import android.net.thread.ActiveOperationalDataset;
@@ -176,7 +177,10 @@ public final class ThreadNetworkControllerServiceTest {
     private static final String TEST_VENDOR_NAME = "test vendor";
     private static final String TEST_MODEL_NAME = "test model";
     private static final LinkAddress TEST_NAT64_CIDR = new LinkAddress("192.168.255.0/24");
+    private static final int THREAD_NETWORK_PROVIDER_ID = 1;
 
+    @Mock private NetworkFactory mMockNetworkFactory;
+    @Mock private NetworkProvider mMockNetworkProvider;
     @Mock private ConnectivityManager mMockConnectivityManager;
     @Mock private RoutingCoordinatorManager mMockRoutingCoordinatorManager;
     @Mock private NetworkAgent mMockNetworkAgent;
@@ -218,8 +222,12 @@ public final class ThreadNetworkControllerServiceTest {
 
         mTestLooper = new TestLooper();
         final Handler handler = new Handler(mTestLooper.getLooper());
-        NetworkProvider networkProvider =
-                new NetworkProvider(mContext, mTestLooper.getLooper(), "ThreadNetworkProvider");
+
+        when(mMockNetworkFactory.getProvider()).thenReturn(mMockNetworkProvider);
+        doNothing().when(mMockNetworkFactory).register();
+
+        when(mMockConnectivityManager.registerNetworkProvider(any(NetworkProvider.class)))
+                .thenReturn(THREAD_NETWORK_PROVIDER_ID);
 
         when(mMockRoutingCoordinatorManager.requestDownstreamAddress(any()))
                 .thenReturn(TEST_NAT64_CIDR);
@@ -253,7 +261,7 @@ public final class ThreadNetworkControllerServiceTest {
                 new ThreadNetworkControllerService(
                         mContext,
                         handler,
-                        networkProvider,
+                        mMockNetworkFactory,
                         () -> mFakeOtDaemon,
                         mMockConnectivityManager,
                         mMockRoutingCoordinatorManager,

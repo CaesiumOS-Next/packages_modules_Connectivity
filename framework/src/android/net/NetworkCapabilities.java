@@ -345,6 +345,8 @@ public final class NetworkCapabilities implements Parcelable {
     public void clearAll() {
         mNetworkCapabilities = mTransportTypes = mForbiddenNetworkCapabilities = 0;
         mLinkUpBandwidthKbps = mLinkDownBandwidthKbps = LINK_BANDWIDTH_UNSPECIFIED;
+        mStubNetworkSpecifiers.clear();
+        mNetworkOrStubNetworkSpecifier = null;
         mNetworkSpecifier = null;
         mTransportInfo = null;
         mSignalStrength = SIGNAL_STRENGTH_UNSPECIFIED;
@@ -373,6 +375,9 @@ public final class NetworkCapabilities implements Parcelable {
         mTransportTypes = nc.mTransportTypes;
         mLinkUpBandwidthKbps = nc.mLinkUpBandwidthKbps;
         mLinkDownBandwidthKbps = nc.mLinkDownBandwidthKbps;
+        mStubNetworkSpecifiers.clear();
+        mStubNetworkSpecifiers.addAll(nc.getStubNetworkSpecifiers());
+        mNetworkOrStubNetworkSpecifier = nc.mNetworkOrStubNetworkSpecifier;
         mNetworkSpecifier = nc.mNetworkSpecifier;
         if (nc.getTransportInfo() != null) {
             setTransportInfo(nc.getTransportInfo());
@@ -1784,6 +1789,8 @@ public final class NetworkCapabilities implements Parcelable {
         return Math.max(a, b);
     }
 
+    private ArraySet<NetworkSpecifier> mStubNetworkSpecifiers = new ArraySet<>();
+    private NetworkSpecifier mNetworkOrStubNetworkSpecifier = null;
     private NetworkSpecifier mNetworkSpecifier = null;
     private TransportInfo mTransportInfo = null;
 
@@ -1817,6 +1824,36 @@ public final class NetworkCapabilities implements Parcelable {
         return this;
     }
 
+    /**
+     * Sets the optional network specifier for direct network or stub network link.
+     *
+     * @see #getNetworkOrStubNetworkSpecifier
+     * @see NetworkRequest#setNetworkOrStubNetworkSpecifier
+     * @hide
+     */
+    public @NonNull NetworkCapabilities setNetworkOrStubNetworkSpecifier(
+            @Nullable NetworkSpecifier networkSpecifier) {
+        mNetworkOrStubNetworkSpecifier = networkSpecifier;
+        return this;
+    }
+
+    /**
+     * Sets the specifier of the stub networks which are currently attached to this network.
+     *
+     * @param specifies the specifier of the stub networks which are currently attached to this
+     * network
+     * @return this NetworkCapabilities instance, to facilitate chaining
+     *
+     * @see {@link Builder#setStubNetworkSpecifiers(Set<NetworkSpecifier>)}
+     * @hide
+     */
+    public @NonNull NetworkCapabilities setStubNetworkSpecifiers(
+            @NonNull Set<NetworkSpecifier> specifiers) {
+        mStubNetworkSpecifiers.clear();
+        mStubNetworkSpecifiers.addAll(specifiers);
+        return this;
+    }
+
     private boolean specifierAcceptableForMultipleTransports(long transportTypes) {
         return (transportTypes & ~(1L << TRANSPORT_TEST))
                 // Cellular and satellite use the same NetworkSpecifier.
@@ -1847,6 +1884,26 @@ public final class NetworkCapabilities implements Parcelable {
     }
 
     /**
+     * @see #setNetworkOrStubNetworkSpecifier(NetworkSpecifier)
+     * @hide
+     */
+    public @Nullable NetworkSpecifier getNetworkOrStubNetworkSpecifier() {
+        return mNetworkOrStubNetworkSpecifier;
+    }
+
+    /**
+     * Returns the set of specifiers of the stub networks which are currently attached to this
+     * network.
+     *
+     * @hide
+     */
+    @SystemApi
+    @FlaggedApi(Flags.FLAG_REQUEST_STUB_NETWORK_ENABLED)
+    public @NonNull Set<NetworkSpecifier> getStubNetworkSpecifiers() {
+        return Collections.unmodifiableSet(mStubNetworkSpecifiers);
+    }
+
+    /**
      * Returns a transport-specific information container. The application may cast this
      * container to a concrete sub-class based on its knowledge of the network request. The
      * application should be able to deal with a {@code null} return value or an invalid case,
@@ -1862,6 +1919,47 @@ public final class NetworkCapabilities implements Parcelable {
     private boolean satisfiedBySpecifier(NetworkCapabilities nc) {
         return mNetworkSpecifier == null || mNetworkSpecifier.canBeSatisfiedBy(nc.mNetworkSpecifier)
                 || nc.mNetworkSpecifier instanceof MatchAllNetworkSpecifier;
+    }
+
+    /**
+     * Returns {@code true} if all the requested stub networks in this {@link NetworkCapabilities}
+     * can be satisfied by {@code nc}.
+     */
+    private boolean satisfiedByStubNetworks(NetworkCapabilities nc) {
+        for (NetworkSpecifier request : mStubNetworkSpecifiers) {
+            if (!stubNetworkSatisfiedBy(request, nc.mStubNetworkSpecifiers)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean stubNetworkSatisfiedBy(
+            NetworkSpecifier request, Set<NetworkSpecifier> stubNetworks) {
+        for (NetworkSpecifier stubNetwork : stubNetworks) {
+            if (request.canBeSatisfiedBy(stubNetwork)
+                    || stubNetwork instanceof MatchAllNetworkSpecifier) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean satisfiedBySpecifierOrStubSpecifier(NetworkCapabilities nc) {
+        if (mNetworkOrStubNetworkSpecifier == null) {
+            return true;
+        }
+
+        if (mNetworkOrStubNetworkSpecifier.canBeSatisfiedBy(nc.mNetworkSpecifier)
+                || nc.mNetworkSpecifier instanceof MatchAllNetworkSpecifier) {
+            return true;
+        }
+
+        if (stubNetworkSatisfiedBy(mNetworkOrStubNetworkSpecifier, nc.mStubNetworkSpecifiers)) {
+            return true;
+        }
+
+        return false;
     }
 
     private boolean equalsSpecifier(NetworkCapabilities nc) {
@@ -2229,7 +2327,9 @@ public final class NetworkCapabilities implements Parcelable {
                 && satisfiedByNetCapabilities(nc, onlyImmutable)
                 && satisfiedByTransportTypes(nc)
                 && (onlyImmutable || satisfiedByLinkBandwidths(nc))
-                && satisfiedBySpecifier(nc)
+                && (onlyImmutable || satisfiedByStubNetworks(nc))
+                && (mNetworkOrStubNetworkSpecifier != null ?
+                        satisfiedBySpecifierOrStubSpecifier(nc) : satisfiedBySpecifier(nc))
                 && satisfiedByEnterpriseCapabilitiesId(nc)
                 && (onlyImmutable || satisfiedBySignalStrength(nc))
                 && (onlyImmutable || satisfiedByUids(nc))
@@ -2339,6 +2439,9 @@ public final class NetworkCapabilities implements Parcelable {
                 && equalsTransportTypes(that)
                 && equalsLinkBandwidths(that)
                 && equalsSignalStrength(that)
+                && Objects.equals(mStubNetworkSpecifiers, that.mStubNetworkSpecifiers)
+                && Objects.equals(
+                        mNetworkOrStubNetworkSpecifier, that.mNetworkOrStubNetworkSpecifier)
                 && equalsSpecifier(that)
                 && equalsTransportInfo(that)
                 && equalsUids(that)
@@ -2387,12 +2490,11 @@ public final class NetworkCapabilities implements Parcelable {
         return 0;
     }
 
-    private <T extends Parcelable> void writeParcelableArraySet(Parcel in,
-            @Nullable ArraySet<T> val, int flags) {
+    private <T> void writeParcelableArraySet(Parcel in, @Nullable ArraySet<T> val, int flags) {
         final int size = (val != null) ? val.size() : -1;
         in.writeInt(size);
         for (int i = 0; i < size; i++) {
-            in.writeParcelable(val.valueAt(i), flags);
+            in.writeParcelable((Parcelable)val.valueAt(i), flags);
         }
     }
 
@@ -2403,6 +2505,8 @@ public final class NetworkCapabilities implements Parcelable {
         dest.writeLong(mTransportTypes & ALL_VALID_TRANSPORTS);
         dest.writeInt(mLinkUpBandwidthKbps);
         dest.writeInt(mLinkDownBandwidthKbps);
+        writeParcelableArraySet(dest, mStubNetworkSpecifiers, flags);
+        dest.writeParcelable((Parcelable) mNetworkOrStubNetworkSpecifier, flags);
         dest.writeParcelable((Parcelable) mNetworkSpecifier, flags);
         dest.writeParcelable((Parcelable) mTransportInfo, flags);
         dest.writeInt(mSignalStrength);
@@ -2431,6 +2535,9 @@ public final class NetworkCapabilities implements Parcelable {
                 netCap.mTransportTypes = in.readLong() & ALL_VALID_TRANSPORTS;
                 netCap.mLinkUpBandwidthKbps = in.readInt();
                 netCap.mLinkDownBandwidthKbps = in.readInt();
+                netCap.mStubNetworkSpecifiers =
+                        readParcelableArraySet(in, null /* ClassLoader, null for default */);
+                netCap.mNetworkOrStubNetworkSpecifier = in.readParcelable(null);
                 netCap.mNetworkSpecifier = in.readParcelable(null);
                 netCap.mTransportInfo = in.readParcelable(null);
                 netCap.mSignalStrength = in.readInt();
@@ -2461,7 +2568,7 @@ public final class NetworkCapabilities implements Parcelable {
                 return new NetworkCapabilities[size];
             }
 
-            private @Nullable <T extends Parcelable> ArraySet<T> readParcelableArraySet(Parcel in,
+            private @Nullable <T> ArraySet<T> readParcelableArraySet(Parcel in,
                     @Nullable ClassLoader loader) {
                 final int size = in.readInt();
                 if (size < 0) {
@@ -2502,6 +2609,14 @@ public final class NetworkCapabilities implements Parcelable {
         }
         if (mNetworkSpecifier != null) {
             sb.append(" Specifier: <").append(mNetworkSpecifier).append(">");
+        }
+        if (mNetworkOrStubNetworkSpecifier != null) {
+            sb.append(" NetworkOrStubNetworkSpecifier: <")
+                    .append(mNetworkOrStubNetworkSpecifier)
+                    .append(">");
+        }
+        if (!mStubNetworkSpecifiers.isEmpty()) {
+            sb.append(" StubNetworkSpecifiers: <").append(mStubNetworkSpecifiers).append(">");
         }
         if (mTransportInfo != null) {
             sb.append(" TransportInfo: <").append(mTransportInfo).append(">");
@@ -3253,6 +3368,44 @@ public final class NetworkCapabilities implements Parcelable {
         @NonNull
         public Builder setNetworkSpecifier(@Nullable final NetworkSpecifier specifier) {
             mCaps.setNetworkSpecifier(specifier);
+            return this;
+        }
+
+        /**
+         * Sets the optional network specifier for direct network or stub network link.
+         *
+         * <p>A stub network is a network attaches to an Adjacent Infrastructure Link (AIL, e.g.
+         * Wi-Fi or Ethernet) and has IPv6 connectivity between the AIL and stub network. A device
+         * can have two routes to the stub network - through the AIL link or through direct stub
+         * network link.
+         *
+         * @param specifier indicates the capability that the network can provide reachability to
+         *      the stub network through either direct stub network link or AIL network which the
+         *      stub network attaches to
+         * @return this builder
+         * @hide
+         */
+        @NonNull
+        public Builder setNetworkOrStubNetworkSpecifier(
+                @Nullable final NetworkSpecifier specifier) {
+            mCaps.setNetworkOrStubNetworkSpecifier(specifier);
+            return this;
+        }
+
+        /**
+         * Sets the specifier of the stub networks which are currently attached to this network.
+         *
+         * @param specifies the specifier of the stub networks which are currently attached to this
+         * network
+         * @return this builder
+         *
+         * @hide
+         */
+        @SystemApi
+        @FlaggedApi(Flags.FLAG_REQUEST_STUB_NETWORK_ENABLED)
+        @NonNull
+        public Builder setStubNetworkSpecifiers(@NonNull Set<NetworkSpecifier> specifiers) {
+            mCaps.setStubNetworkSpecifiers(specifiers);
             return this;
         }
 

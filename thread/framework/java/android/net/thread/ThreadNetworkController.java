@@ -662,6 +662,33 @@ public final class ThreadNetworkController {
     }
 
     /**
+     * Joins the network indicated by {@code specifier} or any available network if {@code
+     * specifier} is {@code null}.
+     *
+     * <p>This operation will fail with error code {@link
+     * ThreadNetworkException#ERROR_FAILED_PRECONDITION} if this device is not provisioned with an
+     * {@link ActiveOperationalDataset}, or the {@code specifier} is not {@code null} and the
+     * provisioned dataset doesn't match {@code specifier}.
+     *
+     * @hide
+     */
+    @RequiresPermission("android.permission.THREAD_NETWORK_PRIVILEGED")
+    public void join(
+            @Nullable ThreadNetworkSpecifier specifier,
+            @NonNull @CallbackExecutor Executor executor,
+            @NonNull OutcomeReceiver<Void, ThreadNetworkException> receiver) {
+        requireNonNull(specifier, "specifier cannot be null");
+        requireNonNull(executor, "executor cannot be null");
+        requireNonNull(receiver, "receiver cannot be null");
+        try {
+            mControllerService.joinWithSpecifier(
+                    specifier, new OperationReceiverProxy(executor, receiver));
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Schedules a network migration which moves all devices in the current connected network to a
      * new network or updates parameters of the current connected network.
      *
