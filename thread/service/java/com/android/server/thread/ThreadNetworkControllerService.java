@@ -89,7 +89,7 @@ import android.net.Network;
 import android.net.NetworkAgent;
 import android.net.NetworkAgentConfig;
 import android.net.NetworkCapabilities;
-import android.net.NetworkProvider;
+import android.net.NetworkFactory;
 import android.net.NetworkRequest;
 import android.net.NetworkScore;
 import android.net.TestNetworkSpecifier;
@@ -110,6 +110,7 @@ import android.net.thread.ThreadNetworkController;
 import android.net.thread.ThreadNetworkController.DeviceRole;
 import android.net.thread.ThreadNetworkException;
 import android.net.thread.ThreadNetworkException.ErrorCode;
+import android.net.thread.ThreadNetworkSpecifier;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -140,7 +141,9 @@ import com.android.server.thread.openthread.Ipv6AddressInfo;
 import com.android.server.thread.openthread.MeshcopTxtAttributes;
 import com.android.server.thread.openthread.OnMeshPrefixConfig;
 import com.android.server.thread.openthread.OtDaemonConfiguration;
+import com.android.server.thread.openthread.OtDaemonNetworkSpecifier;
 import com.android.server.thread.openthread.OtDaemonState;
+import com.android.server.thread.openthread.OtTimestamp;
 
 import libcore.util.HexEncoding;
 
@@ -196,7 +199,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     // particular, the constructor does not run on the handler thread, so it must not touch any of
     // the non-final fields, nor must it mutate any of the non-final fields inside these objects.
 
-    private final NetworkProvider mNetworkProvider;
+    private final NetworkFactory mNetworkFactory;
     private final Supplier<IOtDaemon> mOtDaemonSupplier;
     private final ConnectivityManager mConnectivityManager;
     private final RoutingCoordinatorManager mRoutingCoordinatorManager;
@@ -235,7 +238,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     ThreadNetworkControllerService(
             Context context,
             Handler handler,
-            NetworkProvider networkProvider,
+            NetworkFactory networkFactory,
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
             RoutingCoordinatorManager routingCoordinatorManager,
@@ -249,7 +252,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             Map<Network, LinkProperties> networkToLinkProperties) {
         mContext = context;
         mHandler = handler;
-        mNetworkProvider = networkProvider;
+        mNetworkFactory = networkFactory;
         mOtDaemonSupplier = otDaemonSupplier;
         mConnectivityManager = connectivityManager;
         mRoutingCoordinatorManager = routingCoordinatorManager;
@@ -274,8 +277,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         HandlerThread handlerThread = new HandlerThread("ThreadHandlerThread");
         handlerThread.start();
         Handler handler = new Handler(handlerThread.getLooper());
-        NetworkProvider networkProvider =
-                new NetworkProvider(context, handlerThread.getLooper(), "ThreadNetworkProvider");
         Map<Network, LinkProperties> networkToLinkProperties = new HashMap<>();
         final ConnectivityManager connectivityManager =
                 context.getSystemService(ConnectivityManager.class);
@@ -286,7 +287,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         return new ThreadNetworkControllerService(
                 context,
                 handler,
-                networkProvider,
+                ThreadNetworkFactory.newInstance(context, handler.getLooper()),
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
                 connectivityManager,
                 routingCoordinatorManager,
@@ -468,7 +469,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         } catch (IOException e) {
             throw new IllegalStateException("Failed to create Thread tunnel interface", e);
         }
-        mConnectivityManager.registerNetworkProvider(mNetworkProvider);
+        mNetworkFactory.register();
         mUserRestricted = isThreadUserRestricted();
         registerUserRestrictionsReceiver();
 
@@ -887,7 +888,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 isBorderRouterMode() ? newLocalNetworkConfig() : null,
                 scoreBuilder.build(),
                 new NetworkAgentConfig.Builder().build(),
-                mNetworkProvider) {
+                mNetworkFactory.getProvider()) {
 
             // TODO(b/374037595): use NetworkFactory to handle dynamic network requests
             @Override
@@ -1259,13 +1260,74 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             @NonNull OperationReceiverWrapper receiver) {
         checkOnHandlerThread();
 
+        // Skip the ot-daemon joining process if this device is already attached to the same network
+        // TOOD: this should be offloaded to ot-daemon to let it decide if it still needs to change
+        // the device mode in this case
+        if (mOtDaemonCallbackProxy.mState != null
+                && ThreadNetworkController.isAttached(mOtDaemonCallbackProxy.mState.deviceRole)
+                && activeDataset.equals(mOtDaemonCallbackProxy.mActiveDataset)) {
+            LOG.i("Skipping join(): already joined the same network");
+            receiver.onSuccess();
+            return;
+        }
+
         try {
             // The otDaemon.join() will leave first if this device is currently attached
-            getOtDaemon().join(activeDataset.toThreadTlvs(), newOtStatusReceiver(receiver));
+            getOtDaemon()
+                    .join(
+                            activeDataset.toThreadTlvs(),
+                            true /* routerEligibleForLeader */,
+                            newOtStatusReceiver(receiver));
         } catch (RemoteException | ThreadNetworkException e) {
             LOG.e("otDaemon.join failed", e);
             receiver.onError(e);
         }
+    }
+
+    @Override
+    public void joinWithSpecifier(
+            @Nullable ThreadNetworkSpecifier specifier, @NonNull IOperationReceiver receiver) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
+
+        OperationReceiverWrapper receiverWrapper = new OperationReceiverWrapper(receiver);
+        mHandler.post(() -> joinWithSpecifierInternal(specifier, receiverWrapper));
+    }
+
+    private void joinWithSpecifierInternal(
+            @Nullable ThreadNetworkSpecifier specifier,
+            @NonNull OperationReceiverWrapper receiver) {
+        checkOnHandlerThread();
+
+        try {
+            getOtDaemon()
+                    .joinWithSpecifier(
+                            (specifier == null ? null : newOtDaemonNetworkSpecifier(specifier)),
+                            newOtStatusReceiver(receiver));
+        } catch (RemoteException | ThreadNetworkException e) {
+            LOG.e("otDaemon.joinWithSpecifier failed", e);
+            receiver.onError(e);
+        }
+    }
+
+    private static OtDaemonNetworkSpecifier newOtDaemonNetworkSpecifier(
+            ThreadNetworkSpecifier specifier) {
+        OperationalDatasetTimestamp activeTimestamp = specifier.getActiveTimestamp();
+
+        OtTimestamp otActiveTimestamp = null;
+        if (activeTimestamp != null) {
+            otActiveTimestamp =
+                    new OtTimestamp.Builder()
+                            .setSeconds(activeTimestamp.getSeconds())
+                            .setTicks(activeTimestamp.getTicks())
+                            .setAuthoritative(activeTimestamp.isAuthoritativeSource())
+                            .build();
+        }
+
+        return new OtDaemonNetworkSpecifier.Builder()
+                .setExtendedPanId(specifier.getExtendedPanId())
+                .setActiveTimestamp(otActiveTimestamp)
+                .setRouterEligibleForLeader(specifier.isRouterEligibleForLeader())
+                .build();
     }
 
     @Override
