@@ -1,0 +1,148 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0c71451_ff640191",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1888,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-23T01:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "928d1b6c_a00b6e54",
+      "range": {
+        "startLine": 1888,
+        "startChar": 0,
+        "endLine": 1888,
+        "endChar": 68
+      },
+      "revId": "329f3bde5645bf3e3576aca32331ca64c174324c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1131686c_721a4f8c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1888,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-23T01:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "928d1b6c_a00b6e54",
+      "range": {
+        "startLine": 1888,
+        "startChar": 0,
+        "endLine": 1888,
+        "endChar": 68
+      },
+      "revId": "329f3bde5645bf3e3576aca32331ca64c174324c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ae074fa_0ae939d1",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1888,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-23T01:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "928d1b6c_a00b6e54",
+      "range": {
+        "startLine": 1888,
+        "startChar": 0,
+        "endLine": 1888,
+        "endChar": 68
+      },
+      "revId": "329f3bde5645bf3e3576aca32331ca64c174324c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6faf7b71_a36ab41f",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-23T01:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b99b126_bb31ff73",
+      "revId": "329f3bde5645bf3e3576aca32331ca64c174324c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "277796a9_6d839f6d",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-23T01:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b99b126_bb31ff73",
+      "revId": "329f3bde5645bf3e3576aca32331ca64c174324c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c86daa6e_69b2eee1",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-23T01:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93398d65_ae740d26",
+      "revId": "329f3bde5645bf3e3576aca32331ca64c174324c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc09a3f4_c6b6c719",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-23T01:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93398d65_ae740d26",
+      "revId": "329f3bde5645bf3e3576aca32331ca64c174324c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
