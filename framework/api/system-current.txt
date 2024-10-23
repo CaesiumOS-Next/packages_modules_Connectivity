@@ -307,6 +307,7 @@ package android.net {
     method @NonNull public int[] getAdministratorUids();
     method @Nullable public static String getCapabilityCarrierName(int);
     method @Nullable public String getSsid();
+    method @FlaggedApi("com.android.net.flags.request_stub_network_enabled") @NonNull public java.util.Set<android.net.NetworkSpecifier> getStubNetworkSpecifiers();
     method @NonNull public int[] getTransportTypes();
     method @Nullable public java.util.List<android.net.Network> getUnderlyingNetworks();
     method public boolean isPrivateDnsBroken();
@@ -339,6 +340,7 @@ package android.net {
     method @NonNull @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY) public android.net.NetworkCapabilities.Builder setRequestorUid(int);
     method @NonNull @RequiresPermission(android.Manifest.permission.NETWORK_SIGNAL_STRENGTH_WAKEUP) public android.net.NetworkCapabilities.Builder setSignalStrength(int);
     method @NonNull @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY) public android.net.NetworkCapabilities.Builder setSsid(@Nullable String);
+    method @FlaggedApi("com.android.net.flags.request_stub_network_enabled") @NonNull public android.net.NetworkCapabilities.Builder setStubNetworkSpecifiers(@NonNull java.util.Set<android.net.NetworkSpecifier>);
     method @NonNull public android.net.NetworkCapabilities.Builder setSubscriptionIds(@NonNull java.util.Set<java.lang.Integer>);
     method @NonNull public android.net.NetworkCapabilities.Builder setTransportInfo(@Nullable android.net.TransportInfo);
     method @NonNull @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY) public android.net.NetworkCapabilities.Builder setUnderlyingNetworks(@Nullable java.util.List<android.net.Network>);
@@ -366,11 +368,13 @@ package android.net {
   }
 
   public class NetworkRequest implements android.os.Parcelable {
+    method @FlaggedApi("com.android.net.flags.request_stub_network_enabled") @Nullable public android.net.NetworkSpecifier getNetworkOrStubNetworkSpecifier();
     method @Nullable public String getRequestorPackageName();
     method public int getRequestorUid();
   }
 
   public static class NetworkRequest.Builder {
+    method @FlaggedApi("com.android.net.flags.request_stub_network_enabled") @NonNull public android.net.NetworkRequest.Builder setNetworkOrStubNetworkSpecifier(@Nullable android.net.NetworkSpecifier);
     method @NonNull @RequiresPermission(android.Manifest.permission.NETWORK_SIGNAL_STRENGTH_WAKEUP) public android.net.NetworkRequest.Builder setSignalStrength(int);
   }
 
