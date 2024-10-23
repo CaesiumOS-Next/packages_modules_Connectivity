@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c6e9d2d_9cd4d79a",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-23T06:54:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56b23e98_b1677d9f",
+      "range": {
+        "startLine": 942,
+        "startChar": 57,
+        "endLine": 942,
+        "endChar": 58
+      },
+      "revId": "a71bf04ec07730f2ba874d6cf3a694f7e822d520",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0489555_4b214fae",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d457b996_dac53bed",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-23T06:54:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0489555_4b214fae",
+      "range": {
+        "startLine": 952,
+        "startChar": 66,
+        "endLine": 952,
+        "endChar": 67
+      },
+      "revId": "a71bf04ec07730f2ba874d6cf3a694f7e822d520",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4416e438_f73f4683",
@@ -77,6 +125,24 @@
       "writtenOn": "2024-10-22T11:33:28Z",
       "side": 1,
       "message": "These tests are useful because they test the defaults, but can you also add tests that when Builder#setUid and Builder#setPackageName are calledthat the result is as expected?",
+      "revId": "a71bf04ec07730f2ba874d6cf3a694f7e822d520",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "232a1745_54cc7980",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-10-23T06:54:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4416e438_f73f4683",
       "revId": "a71bf04ec07730f2ba874d6cf3a694f7e822d520",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
