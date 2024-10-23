@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c7e4d2e_2ecd3b5e",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 53
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-23T18:55:55Z",
+      "side": 1,
+      "message": "I don\u0027t think we can / should be using trunk stable flags for anything that isn\u0027t an API annotation. It looks like there are lint-baseline.xml files that prevent the FlaggedApi warning. Is there an annotation you could use to silence the warning?",
+      "range": {
+        "startLine": 113,
+        "startChar": 22,
+        "endLine": 113,
+        "endChar": 54
+      },
+      "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c818a39_4c2455f2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 53
+      },
+      "lineNbr": 2508,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-23T18:55:55Z",
+      "side": 1,
+      "message": "instead of debug logs, is it possible to write an integration test to make sure unauthorized UIDs do not get a hold of the SoftApConfig?",
+      "range": {
+        "startLine": 2508,
+        "startChar": 12,
+        "endLine": 2508,
+        "endChar": 15
+      },
+      "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
