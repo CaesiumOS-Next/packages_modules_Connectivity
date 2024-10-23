@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bca96c5e_fd4dde37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-23T02:02:31Z",
+      "side": 1,
+      "message": "Is there any reason we split the NetlinkUtils change and the test change in two difference CLs?",
+      "revId": "c515f888c76e5d8175e5d0b503c23481fe01fda0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
