@@ -183,6 +183,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dd6ef7a_0c4b0079",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 13257,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-23T18:08:04Z",
+      "side": 1,
+      "message": "Would it make sense to add a metric to figure out the actual value? So you can actually evaluate your experiment?",
+      "parentUuid": "c12e6d9a_68dd46e1",
+      "range": {
+        "startLine": 13256,
+        "startChar": 26,
+        "endLine": 13257,
+        "endChar": 80
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa3dab36_371f56e0",
