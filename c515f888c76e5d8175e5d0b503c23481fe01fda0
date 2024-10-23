@@ -34,6 +34,24 @@
       "parentUuid": "bca96c5e_fd4dde37",
       "revId": "c515f888c76e5d8175e5d0b503c23481fe01fda0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43eab185_5ec8480c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-10-23T04:43:21Z",
+      "side": 1,
+      "message": "Why we have to put the test for this utils int he IpClient IpClientIntegrationTestCommon? Can we just put the test case in unit test?",
+      "parentUuid": "3fd36dea_a7b0b408",
+      "revId": "c515f888c76e5d8175e5d0b503c23481fe01fda0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
