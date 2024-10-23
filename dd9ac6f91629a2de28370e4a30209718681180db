@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b269983_3676dab6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-23T07:09:17Z",
+      "side": 1,
+      "message": "I think it\u0027s reasonable to make this tunable and run experiments on it. Please see inline comments though. In particular I think we should try to make this API work well on wifi as well as well as cellular.",
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88939e7d_047cba09",
@@ -50,6 +67,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d17e4d43_6efb7d9f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1617,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-23T07:09:17Z",
+      "side": 1,
+      "message": "+1 for simplicity here. Other than invalid or values such as 0, we should probably accept whatever is pushed.",
+      "parentUuid": "17c1c8e7_8a3a98c7",
+      "range": {
+        "startLine": 1617,
+        "startChar": 54,
+        "endLine": 1617,
+        "endChar": 60
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de4b0c8e_846af045",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1968,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-23T07:09:17Z",
+      "side": 1,
+      "message": "Can we make this tunable for wifi as well? If we want developers (or the OS) to rely on OnNetworkActiveListener or isDefaultNetworkActive, then we should probably make it work well for wifi too, since in many places devices are on wifi for the majority of the time.\n\nI think the wifi default is 15 seconds, which is both too long (wifi goes back to sleep really quickly after sending a packet) and too short (sending new packets is super cheap).",
+      "range": {
+        "startLine": 1968,
+        "startChar": 18,
+        "endLine": 1968,
+        "endChar": 54
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecbc4cf5_6af4a5b1",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 4
@@ -90,6 +154,53 @@
         "startChar": 26,
         "endLine": 13257,
         "endChar": 80
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c12e6d9a_68dd46e1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 13257,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-23T07:09:17Z",
+      "side": 1,
+      "message": "Right, I don\u0027t think we can remove this, in case OEMs are using it.",
+      "parentUuid": "df4fdaff_1aa22a8b",
+      "range": {
+        "startLine": 13256,
+        "startChar": 26,
+        "endLine": 13257,
+        "endChar": 80
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa3dab36_371f56e0",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-23T07:09:17Z",
+      "side": 1,
+      "message": "AFAIK this actually sets the setting on the device, which is not something we should be doing in a test.",
+      "range": {
+        "startLine": 76,
+        "startChar": 36,
+        "endLine": 76,
+        "endChar": 64
       },
       "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
