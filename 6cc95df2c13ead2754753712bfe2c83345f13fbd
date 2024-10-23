@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2e1e819_d4269814",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1888,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-23T01:34:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "928d1b6c_a00b6e54",
+      "range": {
+        "startLine": 1888,
+        "startChar": 0,
+        "endLine": 1888,
+        "endChar": 68
+      },
+      "revId": "6cc95df2c13ead2754753712bfe2c83345f13fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b99b126_bb31ff73",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4a2cdee_ff01c2d5",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-23T01:34:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b99b126_bb31ff73",
+      "revId": "6cc95df2c13ead2754753712bfe2c83345f13fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93398d65_ae740d26",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-10-23T01:14:22Z",
       "side": 1,
       "message": "nit: return early to reduce indentation",
+      "revId": "6cc95df2c13ead2754753712bfe2c83345f13fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "698429fa_d4c8c4c8",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-23T01:34:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93398d65_ae740d26",
       "revId": "6cc95df2c13ead2754753712bfe2c83345f13fbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
