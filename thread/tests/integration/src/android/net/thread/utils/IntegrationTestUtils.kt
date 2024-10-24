@@ -87,36 +87,32 @@ object IntegrationTestUtils {
     // The timeout of join() after restarting ot-daemon. The device needs to send 6 Link Request
     // every 5 seconds, followed by 4 Parent Request every second. So this value needs to be 40
     // seconds to be safe
-    @JvmField
-    val RESTART_JOIN_TIMEOUT: Duration = Duration.ofSeconds(40)
+    @JvmField val RESTART_JOIN_TIMEOUT: Duration = Duration.ofSeconds(40)
 
-    @JvmField
-    val JOIN_TIMEOUT: Duration = Duration.ofSeconds(30)
+    @JvmField val JOIN_TIMEOUT: Duration = Duration.ofSeconds(30)
 
-    @JvmField
-    val LEAVE_TIMEOUT: Duration = Duration.ofSeconds(2)
+    @JvmField val LEAVE_TIMEOUT: Duration = Duration.ofSeconds(2)
 
-    @JvmField
-    val CALLBACK_TIMEOUT: Duration = Duration.ofSeconds(1)
+    @JvmField val CALLBACK_TIMEOUT: Duration = Duration.ofSeconds(1)
 
-    @JvmField
-    val SERVICE_DISCOVERY_TIMEOUT: Duration = Duration.ofSeconds(20)
+    @JvmField val SERVICE_DISCOVERY_TIMEOUT: Duration = Duration.ofSeconds(20)
 
     // A valid Thread Active Operational Dataset generated from OpenThread CLI "dataset init new".
-    private val DEFAULT_DATASET_TLVS: ByteArray = BaseEncoding.base16().decode(
-        ("0E080000000000010000000300001335060004001FFFE002"
-                + "08ACC214689BC40BDF0708FD64DB1225F47E0B0510F26B31"
-                + "53760F519A63BAFDDFFC80D2AF030F4F70656E5468726561"
-                + "642D643961300102D9A00410A245479C836D551B9CA557F7"
-                + "B9D351B40C0402A0FFF8")
-    )
+    private val DEFAULT_DATASET_TLVS: ByteArray =
+        BaseEncoding.base16()
+            .decode(
+                ("0E080000000000010000000300001335060004001FFFE002" +
+                    "08ACC214689BC40BDF0708FD64DB1225F47E0B0510F26B31" +
+                    "53760F519A63BAFDDFFC80D2AF030F4F70656E5468726561" +
+                    "642D643961300102D9A00410A245479C836D551B9CA557F7" +
+                    "B9D351B40C0402A0FFF8")
+            )
 
     @JvmField
     val DEFAULT_DATASET: ActiveOperationalDataset =
         ActiveOperationalDataset.fromThreadTlvs(DEFAULT_DATASET_TLVS)
 
-    @JvmField
-    val DEFAULT_CONFIG = ThreadConfiguration.Builder().build()
+    @JvmField val DEFAULT_CONFIG = ThreadConfiguration.Builder().build()
 
     /**
      * Waits for the given [Supplier] to be true until given timeout.
@@ -154,7 +150,8 @@ object IntegrationTestUtils {
      */
     @JvmStatic
     fun newPacketReader(
-        testNetworkInterface: TestNetworkInterface, handler: Handler
+        testNetworkInterface: TestNetworkInterface,
+        handler: Handler,
     ): PollPacketReader {
         val fd = testNetworkInterface.fileDescriptor.fileDescriptor
         val reader = PollPacketReader(handler, fd, testNetworkInterface.mtu)
@@ -167,23 +164,26 @@ object IntegrationTestUtils {
      * Waits for the Thread module to enter any state of the given `deviceRoles`.
      *
      * @param controller the [ThreadNetworkController]
-     * @param deviceRoles the desired device roles. See also [     ]
+     * @param deviceRoles the desired device roles. See also [ ]
      * @param timeout the time to wait for the expected state before throwing
      * @return the [ThreadNetworkController.DeviceRole] after waiting
      * @throws TimeoutException if the device hasn't become any of expected roles until the timeout
-     * expires
+     *   expires
      */
     @JvmStatic
     @Throws(TimeoutException::class)
     fun waitForStateAnyOf(
-        controller: ThreadNetworkController, deviceRoles: List<Int>, timeout: Duration
+        controller: ThreadNetworkController,
+        deviceRoles: List<Int>,
+        timeout: Duration,
     ): Int {
         val future = SettableFuture.create<Int>()
-        val callback = ThreadNetworkController.StateCallback { newRole: Int ->
-            if (deviceRoles.contains(newRole)) {
-                future.set(newRole)
+        val callback =
+            ThreadNetworkController.StateCallback { newRole: Int ->
+                if (deviceRoles.contains(newRole)) {
+                    future.set(newRole)
+                }
             }
-        }
         controller.registerStateCallback(MoreExecutors.directExecutor(), callback)
         try {
             return future[timeout.toMillis(), TimeUnit.MILLISECONDS]
@@ -205,8 +205,8 @@ object IntegrationTestUtils {
      *
      * @param packetReader a TUN packet reader
      * @param filter the filter to be applied on the packet
-     * @return the first IPv6 packet that satisfies the `filter`. If it has waited for more
-     * than 3000ms to read the next packet, the method will return null
+     * @return the first IPv6 packet that satisfies the `filter`. If it has waited for more than
+     *   3000ms to read the next packet, the method will return null
      */
     @JvmStatic
     fun pollForPacket(packetReader: PollPacketReader, filter: Predicate<ByteArray>): ByteArray? {
@@ -217,7 +217,7 @@ object IntegrationTestUtils {
         return null
     }
 
-    /** Returns `true` if `packet` is an ICMPv4 packet of given `type`.  */
+    /** Returns `true` if `packet` is an ICMPv4 packet of given `type`. */
     @JvmStatic
     fun isExpectedIcmpv4Packet(packet: ByteArray, type: Int): Boolean {
         val buf = makeByteBuffer(packet)
@@ -234,7 +234,7 @@ object IntegrationTestUtils {
         return false
     }
 
-    /** Returns `true` if `packet` is an ICMPv6 packet of given `type`.  */
+    /** Returns `true` if `packet` is an ICMPv6 packet of given `type`. */
     @JvmStatic
     fun isExpectedIcmpv6Packet(packet: ByteArray, type: Int): Boolean {
         val buf = makeByteBuffer(packet)
@@ -330,30 +330,32 @@ object IntegrationTestUtils {
 
         val ipv4HeaderLen = Struct.getSize(Ipv4Header::class.java)
         val Icmpv4HeaderLen = Struct.getSize(Icmpv4Header::class.java)
-        val payloadLen = payload.limit();
+        val payloadLen = payload.limit()
 
         val reply = ByteBuffer.allocate(ipv4HeaderLen + Icmpv4HeaderLen + payloadLen)
 
         // IPv4 header
-        val replyIpv4Header = Ipv4Header(
-            0 /* TYPE OF SERVICE */,
-            0.toShort().toInt()/* totalLength, calculate later */,
-            requestIpv4Header.id,
-            requestIpv4Header.flagsAndFragmentOffset,
-            0x40 /* ttl */,
-            IPPROTO_ICMP.toByte(),
-            0.toShort()/* checksum, calculate later */,
-            requestIpv4Header.dstIp /* srcIp */,
-            requestIpv4Header.srcIp /* dstIp */
-        )
+        val replyIpv4Header =
+            Ipv4Header(
+                0 /* TYPE OF SERVICE */,
+                0.toShort().toInt() /* totalLength, calculate later */,
+                requestIpv4Header.id,
+                requestIpv4Header.flagsAndFragmentOffset,
+                0x40 /* ttl */,
+                IPPROTO_ICMP.toByte(),
+                0.toShort() /* checksum, calculate later */,
+                requestIpv4Header.dstIp /* srcIp */,
+                requestIpv4Header.srcIp, /* dstIp */
+            )
         replyIpv4Header.writeToByteBuffer(reply)
 
         // ICMPv4 header
-        val replyIcmpv4Header = Icmpv4Header(
-            0 /* type, ICMP_ECHOREPLY */,
-            requestIcmpv4Header.code,
-            0.toShort() /* checksum, calculate later */
-        )
+        val replyIcmpv4Header =
+            Icmpv4Header(
+                0 /* type, ICMP_ECHOREPLY */,
+                requestIcmpv4Header.code,
+                0.toShort(), /* checksum, calculate later */
+            )
         replyIcmpv4Header.writeToByteBuffer(reply)
 
         // Payload
@@ -361,26 +363,21 @@ object IntegrationTestUtils {
         reply.flip()
 
         // Populate the IPv4 totalLength field.
-        reply.putShort(
-            IPV4_LENGTH_OFFSET, (ipv4HeaderLen + Icmpv4HeaderLen + payloadLen).toShort()
-        )
+        reply.putShort(IPV4_LENGTH_OFFSET, (ipv4HeaderLen + Icmpv4HeaderLen + payloadLen).toShort())
 
         // Populate the IPv4 header checksum field.
-        reply.putShort(
-            IPV4_CHECKSUM_OFFSET, IpUtils.ipChecksum(reply, 0 /* headerOffset */)
-        )
+        reply.putShort(IPV4_CHECKSUM_OFFSET, IpUtils.ipChecksum(reply, 0 /* headerOffset */))
 
         // Populate the ICMP checksum field.
         reply.putShort(
-            IPV4_HEADER_MIN_LEN + ICMP_CHECKSUM_OFFSET, IpUtils.icmpChecksum(
-                reply, IPV4_HEADER_MIN_LEN, Icmpv4HeaderLen + payloadLen
-            )
+            IPV4_HEADER_MIN_LEN + ICMP_CHECKSUM_OFFSET,
+            IpUtils.icmpChecksum(reply, IPV4_HEADER_MIN_LEN, Icmpv4HeaderLen + payloadLen),
         )
 
         return reply
     }
 
-    /** Returns the Prefix Information Options (PIO) extracted from an ICMPv6 RA message.  */
+    /** Returns the Prefix Information Options (PIO) extracted from an ICMPv6 RA message. */
     @JvmStatic
     fun getRaPios(raMsg: ByteArray?): List<PrefixInformationOption> {
         val pioList = ArrayList<PrefixInformationOption>()
@@ -404,16 +401,17 @@ object IntegrationTestUtils {
             val type = toUnsignedInt(buf.get())
             val length = toUnsignedInt(buf.get())
             if (type == NetworkStackConstants.ICMPV6_ND_OPTION_PIO) {
-                val pioBuf = ByteBuffer.wrap(
-                    buf.array(), currentPos, Struct.getSize(PrefixInformationOption::class.java)
-                )
+                val pioBuf =
+                    ByteBuffer.wrap(
+                        buf.array(),
+                        currentPos,
+                        Struct.getSize(PrefixInformationOption::class.java),
+                    )
                 val pio = Struct.parse(PrefixInformationOption::class.java, pioBuf)
                 pioList.add(pio)
 
                 // Move ByteBuffer position to the next option.
-                buf.position(
-                    currentPos + Struct.getSize(PrefixInformationOption::class.java)
-                )
+                buf.position(currentPos + Struct.getSize(PrefixInformationOption::class.java))
             } else {
                 // The length is in units of 8 octets.
                 buf.position(currentPos + (length * 8))
@@ -471,16 +469,17 @@ object IntegrationTestUtils {
         return addresses
     }
 
-    /** Return the first discovered service of `serviceType`.  */
+    /** Return the first discovered service of `serviceType`. */
     @JvmStatic
     @Throws(Exception::class)
     fun discoverService(nsdManager: NsdManager, serviceType: String): NsdServiceInfo {
         val serviceInfoFuture = CompletableFuture<NsdServiceInfo>()
-        val listener: NsdManager.DiscoveryListener = object : DefaultDiscoveryListener() {
-            override fun onServiceFound(serviceInfo: NsdServiceInfo) {
-                serviceInfoFuture.complete(serviceInfo)
+        val listener: NsdManager.DiscoveryListener =
+            object : DefaultDiscoveryListener() {
+                override fun onServiceFound(serviceInfo: NsdServiceInfo) {
+                    serviceInfoFuture.complete(serviceInfo)
+                }
             }
-        }
         nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, listener)
         try {
             serviceInfoFuture[SERVICE_DISCOVERY_TIMEOUT.toMillis(), TimeUnit.MILLISECONDS]
@@ -491,50 +490,51 @@ object IntegrationTestUtils {
         return serviceInfoFuture.get()
     }
 
-    /**
-     * Returns the [NsdServiceInfo] when a service instance of `serviceType` gets lost.
-     */
+    /** Returns the [NsdServiceInfo] when a service instance of `serviceType` gets lost. */
     @JvmStatic
     fun discoverForServiceLost(
         nsdManager: NsdManager,
         serviceType: String?,
-        serviceInfoFuture: CompletableFuture<NsdServiceInfo?>
+        serviceInfoFuture: CompletableFuture<NsdServiceInfo?>,
     ): NsdManager.DiscoveryListener {
-        val listener: NsdManager.DiscoveryListener = object : DefaultDiscoveryListener() {
-            override fun onServiceLost(serviceInfo: NsdServiceInfo): Unit {
-                serviceInfoFuture.complete(serviceInfo)
+        val listener: NsdManager.DiscoveryListener =
+            object : DefaultDiscoveryListener() {
+                override fun onServiceLost(serviceInfo: NsdServiceInfo): Unit {
+                    serviceInfoFuture.complete(serviceInfo)
+                }
             }
-        }
         nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, listener)
         return listener
     }
 
-    /** Resolves the service.  */
+    /** Resolves the service. */
     @JvmStatic
     @Throws(Exception::class)
     fun resolveService(nsdManager: NsdManager, serviceInfo: NsdServiceInfo): NsdServiceInfo {
         return resolveServiceUntil(nsdManager, serviceInfo) { true }
     }
 
-    /** Returns the first resolved service that satisfies the `predicate`.  */
+    /** Returns the first resolved service that satisfies the `predicate`. */
     @JvmStatic
     @Throws(Exception::class)
     fun resolveServiceUntil(
-        nsdManager: NsdManager, serviceInfo: NsdServiceInfo, predicate: Predicate<NsdServiceInfo>
+        nsdManager: NsdManager,
+        serviceInfo: NsdServiceInfo,
+        predicate: Predicate<NsdServiceInfo>,
     ): NsdServiceInfo {
         val resolvedServiceInfoFuture = CompletableFuture<NsdServiceInfo>()
-        val callback: NsdManager.ServiceInfoCallback = object : DefaultServiceInfoCallback() {
-            override fun onServiceUpdated(serviceInfo: NsdServiceInfo) {
-                if (predicate.test(serviceInfo)) {
-                    resolvedServiceInfoFuture.complete(serviceInfo)
+        val callback: NsdManager.ServiceInfoCallback =
+            object : DefaultServiceInfoCallback() {
+                override fun onServiceUpdated(serviceInfo: NsdServiceInfo) {
+                    if (predicate.test(serviceInfo)) {
+                        resolvedServiceInfoFuture.complete(serviceInfo)
+                    }
                 }
             }
-        }
         nsdManager.registerServiceInfoCallback(serviceInfo, directExecutor(), callback)
         try {
             return resolvedServiceInfoFuture[
-                SERVICE_DISCOVERY_TIMEOUT.toMillis(),
-                TimeUnit.MILLISECONDS]
+                SERVICE_DISCOVERY_TIMEOUT.toMillis(), TimeUnit.MILLISECONDS]
         } finally {
             nsdManager.unregisterServiceInfoCallback(callback)
         }
@@ -580,7 +580,8 @@ object IntegrationTestUtils {
     @JvmStatic
     @Throws(Exception::class)
     fun joinNetworkAndWaitForOmr(
-        ftd: FullThreadDevice, dataset: ActiveOperationalDataset
+        ftd: FullThreadDevice,
+        dataset: ActiveOperationalDataset,
     ): Inet6Address {
         ftd.factoryReset()
         ftd.joinNetwork(dataset)
@@ -592,17 +593,25 @@ object IntegrationTestUtils {
 
     private open class DefaultDiscoveryListener : NsdManager.DiscoveryListener {
         override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {}
+
         override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {}
+
         override fun onDiscoveryStarted(serviceType: String) {}
+
         override fun onDiscoveryStopped(serviceType: String) {}
+
         override fun onServiceFound(serviceInfo: NsdServiceInfo) {}
+
         override fun onServiceLost(serviceInfo: NsdServiceInfo) {}
     }
 
     private open class DefaultServiceInfoCallback : NsdManager.ServiceInfoCallback {
         override fun onServiceInfoCallbackRegistrationFailed(errorCode: Int) {}
+
         override fun onServiceUpdated(serviceInfo: NsdServiceInfo) {}
+
         override fun onServiceLost(): Unit {}
+
         override fun onServiceInfoCallbackUnregistered() {}
     }
 
@@ -622,9 +631,12 @@ object IntegrationTestUtils {
             else LinkAddress.LIFETIME_PERMANENT
 
         return LinkAddress(
-            address, prefixLength,
-            0 /* flags */, 0 /* scope */,
-            deprecationTimeMillis, LinkAddress.LIFETIME_PERMANENT /* expirationTime */
+            address,
+            prefixLength,
+            0 /* flags */,
+            0 /* scope */,
+            deprecationTimeMillis,
+            LinkAddress.LIFETIME_PERMANENT, /* expirationTime */
         )
     }
 
@@ -638,7 +650,8 @@ object IntegrationTestUtils {
                 IpPrefix("0.0.0.0/0") /* destination */,
                 null /* gateway */,
                 null /* iface */,
-                RouteInfo.RTN_UNICAST, 1500 /* mtu */
+                RouteInfo.RTN_UNICAST,
+                1500, /* mtu */
             )
         )
         return lp
@@ -647,8 +660,8 @@ object IntegrationTestUtils {
     @JvmStatic
     @JvmOverloads
     fun startInfraDeviceAndWaitForOnLinkAddr(
-            pollPacketReader: PollPacketReader,
-            macAddress: MacAddress = MacAddress.fromString("1:2:3:4:5:6")
+        pollPacketReader: PollPacketReader,
+        macAddress: MacAddress = MacAddress.fromString("1:2:3:4:5:6"),
     ): InfraNetworkDevice {
         val infraDevice = InfraNetworkDevice(macAddress, pollPacketReader)
         infraDevice.runSlaac(Duration.ofSeconds(60))
@@ -662,12 +675,13 @@ object IntegrationTestUtils {
     fun setUpInfraNetwork(
         context: Context,
         controller: ThreadNetworkControllerWrapper,
-        lp: LinkProperties = defaultLinkProperties()
+        lp: LinkProperties = defaultLinkProperties(),
     ): TestNetworkTracker {
         val infraNetworkTracker: TestNetworkTracker =
             runAsShell(
                 MANAGE_TEST_NETWORKS,
-                supplier = { initTestNetwork(context, lp, setupTimeoutMs = 5000) })
+                supplier = { initTestNetwork(context, lp, setupTimeoutMs = 5000) },
+            )
         val infraNetworkName: String = infraNetworkTracker.testIface.getInterfaceName()
         controller.setTestNetworkAsUpstreamAndWait(infraNetworkName)
 
@@ -679,9 +693,7 @@ object IntegrationTestUtils {
         runAsShell(MANAGE_TEST_NETWORKS) { testNetworkTracker.teardown() }
     }
 
-    /**
-     * Stop the ot-daemon by shell command.
-     */
+    /** Stop the ot-daemon by shell command. */
     @JvmStatic
     fun stopOtDaemon() {
         runShellCommandOrThrow("stop ot-daemon")
