@@ -64,6 +64,30 @@
       },
       "revId": "0fa2440e80ef12b8943d2fa8ce5fd4e36ef78406",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66b793ab_b001b0ee",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-24T21:54:58Z",
+      "side": 1,
+      "message": "Additionally,\n- If App is Blocked due to BW Constraint(Foreground apps), it can never have the data access until Network lost and regained.\n- If app is blocked due to background restriction at satellite, it provides a chance to the user to allow for data access when app is launched (i.e moved from background to foreground), If not blocked previously due to BW constraint.",
+      "parentUuid": "7eea566a_cbdf9fb2",
+      "range": {
+        "startLine": 212,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 30
+      },
+      "revId": "0fa2440e80ef12b8943d2fa8ce5fd4e36ef78406",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
