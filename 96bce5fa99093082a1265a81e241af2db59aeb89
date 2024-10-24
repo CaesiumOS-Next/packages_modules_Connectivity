@@ -22,6 +22,30 @@
       },
       "revId": "96bce5fa99093082a1265a81e241af2db59aeb89",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6bb8820_47b9b5c7",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-24T15:49:01Z",
+      "side": 1,
+      "message": "I removed this sentence and added description for service discovery. PTAL",
+      "parentUuid": "a778a646_13b874e7",
+      "range": {
+        "startLine": 66,
+        "startChar": 17,
+        "endLine": 67,
+        "endChar": 29
+      },
+      "revId": "96bce5fa99093082a1265a81e241af2db59aeb89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
