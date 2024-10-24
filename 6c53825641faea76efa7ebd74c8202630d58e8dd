@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8047decf_c319cb97",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsInterfaceAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-24T08:36:06Z",
+      "side": 1,
+      "message": "Some non-Android implementations set the transactionId to non-zero in replies I think, so this may be a bit too much logs\n\nYou could log only if answers !\u003d null to limit to stuff we reply to",
+      "range": {
+        "startLine": 420,
+        "startChar": 26,
+        "endLine": 420,
+        "endChar": 39
+      },
+      "revId": "6c53825641faea76efa7ebd74c8202630d58e8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
