@@ -1,0 +1,28 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13c27d18_e1dbc1ea",
+        "filename": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-24T08:21:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ca780d7_c76c33a9",
+      "range": {
+        "startLine": 60,
+        "startChar": 26,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "17c1edf1aa981a58fa7a8b7c7e91930388bca255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
