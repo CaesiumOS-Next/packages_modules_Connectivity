@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ad99081_a8eec348",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-24T15:06:14Z",
+      "side": 1,
+      "message": "Should the method name be `getRateLimitCacheConfig()`?  Like the CS example, the caller doesn\u0027t need to know the answer is based on the calling UID.",
+      "range": {
+        "startLine": 110,
+        "startChar": 38,
+        "endLine": 110,
+        "endChar": 74
+      },
+      "revId": "e28a5afd863fd0b9fdb610d02daa56f5d835d606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d1dd5e3_16554ffb",
         "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
         "patchSetId": 4
