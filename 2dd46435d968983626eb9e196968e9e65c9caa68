@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f148dd6d_d213ca33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-24T08:34:27Z",
+      "side": 1,
+      "message": "Test: atest ThreadNetworkIntegrationTests:android.net.thread.InternetAccessTest\n\n\nUpdated in CL description.",
+      "parentUuid": "5f6e7e90_d0510171",
+      "range": {
+        "startLine": 17,
+        "startChar": 12,
+        "endLine": 17,
+        "endChar": 41
+      },
+      "revId": "2dd46435d968983626eb9e196968e9e65c9caa68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54374423_002ca0b8",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 12
@@ -37,6 +61,24 @@
       "writtenOn": "2024-10-23T10:28:31Z",
       "side": 1,
       "message": "Not ready for review",
+      "revId": "2dd46435d968983626eb9e196968e9e65c9caa68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34ccb099_ff3103fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-24T08:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54374423_002ca0b8",
       "revId": "2dd46435d968983626eb9e196968e9e65c9caa68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

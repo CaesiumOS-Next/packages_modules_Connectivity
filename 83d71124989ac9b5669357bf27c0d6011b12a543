@@ -16,6 +16,24 @@
       "message": "Maybe we need to guard this feature with a feature flag?",
       "revId": "83d71124989ac9b5669357bf27c0d6011b12a543",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61551f39_7632ebcf",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1243,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-24T08:34:27Z",
+      "side": 1,
+      "message": "Guarded in ot-daemon.",
+      "parentUuid": "095d4366_09eb4905",
+      "revId": "83d71124989ac9b5669357bf27c0d6011b12a543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
