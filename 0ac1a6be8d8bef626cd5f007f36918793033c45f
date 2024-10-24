@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d0f4cb6_2977c105",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-24T14:27:11Z",
+      "side": 1,
+      "message": "Add @Nullable annotation.",
+      "range": {
+        "startLine": 489,
+        "startChar": 45,
+        "endLine": 489,
+        "endChar": 68
+      },
+      "revId": "0ac1a6be8d8bef626cd5f007f36918793033c45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
