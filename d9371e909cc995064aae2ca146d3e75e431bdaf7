@@ -117,6 +117,30 @@
       },
       "revId": "d9371e909cc995064aae2ca146d3e75e431bdaf7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efd2464c_7f7ac9e2",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 3
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1630008
+      },
+      "writtenOn": "2024-10-24T22:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af34cbe7_b37be417",
+      "range": {
+        "startLine": 447,
+        "startChar": 3,
+        "endLine": 447,
+        "endChar": 40
+      },
+      "revId": "d9371e909cc995064aae2ca146d3e75e431bdaf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
