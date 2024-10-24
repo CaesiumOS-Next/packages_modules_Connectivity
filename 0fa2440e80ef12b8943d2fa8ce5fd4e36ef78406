@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a26cb5d0_348af4d8",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-10-24T20:48:55Z",
+      "side": 1,
+      "message": "Just curious why don\u0027t you merge the two firewall chains?\n\nBoth of these are about restricting satellite network. BPF doesn\u0027t need to know whether it is blocked due to bandwidth or being in the background.",
+      "range": {
+        "startLine": 212,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 30
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "8b2b6069_19a42081",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 211,
+                "startChar": 0,
+                "endLine": 213,
+                "endChar": 0
+              },
+              "replacement": "    SATELLITE_FOREGROUND_MATCH \u003d (1 \u003c\u003c 15),\n    SATELLITE_BACKGROUND_MATCH \u003d (1 \u003c\u003c 16),\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0fa2440e80ef12b8943d2fa8ce5fd4e36ef78406",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
