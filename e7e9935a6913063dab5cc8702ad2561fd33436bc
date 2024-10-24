@@ -89,6 +89,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f6a130_251c9f7d",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-24T15:15:09Z",
+      "side": 1,
+      "message": "@handaw@google.com I am resolving this comment as per our offline discussion, we are okay to keep consistent with existing ActiveOperationalDataset and OpendingOperationalDataset classes.",
+      "parentUuid": "529870fc_46645269",
+      "revId": "e7e9935a6913063dab5cc8702ad2561fd33436bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d0746ec_ffbe5aad",
