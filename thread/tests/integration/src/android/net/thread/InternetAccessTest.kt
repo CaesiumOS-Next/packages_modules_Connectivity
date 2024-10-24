@@ -1,0 +1,171 @@
+/*
+ * Copyright (C) 2024 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package android.net.thread
+
+import android.content.Context
+import android.net.DnsResolver.CLASS_IN
+import android.net.DnsResolver.TYPE_A
+import android.net.InetAddresses.parseNumericAddress
+import android.net.thread.utils.FullThreadDevice
+import android.net.thread.utils.InfraNetworkDevice
+import android.net.thread.utils.IntegrationTestUtils.DEFAULT_DATASET
+import android.net.thread.utils.IntegrationTestUtils.buildDnsResponse
+import android.net.thread.utils.IntegrationTestUtils.joinNetworkAndWaitForOmr
+import android.net.thread.utils.IntegrationTestUtils.newPacketReader
+import android.net.thread.utils.IntegrationTestUtils.pollForPacket
+import android.net.thread.utils.IntegrationTestUtils.setUpInfraNetwork
+import android.net.thread.utils.IntegrationTestUtils.startInfraDeviceAndWaitForOnLinkAddr
+import android.net.thread.utils.IntegrationTestUtils.tearDownInfraNetwork
+import android.net.thread.utils.IntegrationTestUtils.waitFor
+import android.net.thread.utils.OtDaemonController
+import android.net.thread.utils.ThreadFeatureCheckerRule
+import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresSimulationThreadDevice
+import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresThreadFeature
+import android.net.thread.utils.ThreadNetworkControllerWrapper
+import android.os.Handler
+import android.os.HandlerThread
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
+import com.android.net.module.util.DnsPacket
+import com.android.net.module.util.Struct
+import com.android.net.module.util.structs.Ipv4Header
+import com.android.net.module.util.structs.UdpHeader
+import com.android.testutils.PollPacketReader
+import com.android.testutils.TestNetworkTracker
+import com.google.common.truth.Truth.assertThat
+import java.net.Inet4Address
+import java.nio.ByteBuffer
+import java.time.Duration
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+
+/** Integration test cases for Thread Internet Access features. */
+@RunWith(AndroidJUnit4::class)
+@RequiresThreadFeature
+@RequiresSimulationThreadDevice
+@LargeTest
+class InternetAccessTest {
+  private val TAG = BorderRoutingTest::class.java.simpleName
+  private val NUM_FTD = 2
+  private val IPV4_SERVER_ADDR = parseNumericAddress("8.8.8.8") as Inet4Address
+  private val NAT64_CIDR = "192.168.255.0/24"
+  private val IPV4_DNS_SERVER_ADDR = parseNumericAddress("192.0.2.1") as Inet4Address
+  private val DNS_UDP_PORT = 53
+
+  @get:Rule val mThreadRule = ThreadFeatureCheckerRule()
+
+  private val mContext: Context = ApplicationProvider.getApplicationContext()
+  private val mController = requireNotNull(ThreadNetworkControllerWrapper.newInstance(mContext))
+  private lateinit var mOtCtl: OtDaemonController
+  private lateinit var mHandlerThread: HandlerThread
+  private lateinit var mHandler: Handler
+  private lateinit var mInfraNetworkTracker: TestNetworkTracker
+  private lateinit var mFtds: ArrayList<FullThreadDevice>
+  private lateinit var mInfraNetworkReader: PollPacketReader
+  private lateinit var mInfraDevice: InfraNetworkDevice
+
+  @Before
+  @Throws(Exception::class)
+  fun setUp() {
+    // TODO: b/323301831 - This is a workaround to avoid unnecessary delay to re-form a network
+    mOtCtl = OtDaemonController()
+    mOtCtl.factoryReset()
+
+    mHandlerThread = HandlerThread(javaClass.simpleName)
+    mHandlerThread.start()
+    mHandler = Handler(mHandlerThread.looper)
+    mFtds = ArrayList()
+
+    mInfraNetworkTracker = setUpInfraNetwork(mContext, mController)
+    mController.setEnabledAndWait(true)
+    mController.joinAndWait(DEFAULT_DATASET)
+
+    // Creates a infra network device.
+    mInfraNetworkReader = newPacketReader(mInfraNetworkTracker.testIface, mHandler)
+    mInfraDevice = startInfraDeviceAndWaitForOnLinkAddr(mInfraNetworkReader)
+
+    mController.setNat64EnabledAndWait(true)
+    waitFor({ mOtCtl.hasNat64PrefixInNetdata() }, Duration.ofSeconds(10))
+
+    // Create Ftds
+    for (i in 0 until NUM_FTD) {
+      mFtds.add(FullThreadDevice(15 + i /* node ID */))
+    }
+  }
+
+  @After
+  @Throws(Exception::class)
+  fun tearDown() {
+    mController.setTestNetworkAsUpstreamAndWait(null)
+    mController.leaveAndWait()
+    tearDownInfraNetwork(mInfraNetworkTracker)
+
+    mHandlerThread.quitSafely()
+    mHandlerThread.join()
+
+    mFtds.forEach { it.destroy() }
+    mFtds.clear()
+  }
+
+  @Test
+  fun dnsRecursiveResolver_threadDeviceResolvesIpv4Host_hostIsResolved() {
+    val ANSWER_RECORDS =
+      listOf(
+        DnsPacket.DnsRecord.makeAOrAAAARecord(
+          TYPE_A,
+          "google.com",
+          CLASS_IN,
+          30 /* ttl */,
+          parseNumericAddress("1.2.3.4"),
+        )
+      )
+
+    val ftd = mFtds[0]
+    joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET)
+    // Thread echoReplyThread = new Thread(() -> respondToEchoRequestOnce(IPV4_SERVER_ADDR));
+    runBlocking {
+      launch { respondToDnsRequestOnce(IPV4_SERVER_ADDR, ANSWER_RECORDS) }
+      assertThat(ftd.resolveHost("google.com", TYPE_A)).isNotEmpty()
+    }
+  }
+
+  private suspend fun respondToDnsRequestOnce(
+    serverAddress: Inet4Address,
+    answerRecords: List<DnsPacket.DnsRecord>,
+  ) {
+    val requestPacket = pollForDnsPacketOnInfraNetwork(serverAddress) ?: return
+    val buf = ByteBuffer.wrap(requestPacket)
+    mInfraNetworkReader.sendResponse(buildDnsResponse(buf, answerRecords))
+  }
+
+  private suspend fun pollForDnsPacketOnInfraNetwork(serverAddress: Inet4Address): ByteArray? {
+    val filter =
+      fun(packet: ByteArray): Boolean {
+        val buf = ByteBuffer.wrap(packet)
+        val ipv4Header = Struct.parse(Ipv4Header::class.java, buf) ?: return false
+        val udpHeader = Struct.parse(UdpHeader::class.java, buf) ?: return false
+        return ipv4Header.dstIp == serverAddress && udpHeader.dstPort == DNS_UDP_PORT
+      }
+    return pollForPacket(mInfraNetworkReader, filter)
+  }
+}
