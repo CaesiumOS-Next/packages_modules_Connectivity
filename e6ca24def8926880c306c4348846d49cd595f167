@@ -46,6 +46,76 @@
       },
       "revId": "e6ca24def8926880c306c4348846d49cd595f167",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b78ad16_0ec73a81",
+        "filename": "framework-t/src/android/net/netstats/TrafficStatsRateLimitCacheConfig.aidl",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-24T07:20:18Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "4eae16d0_3bf76f76",
+      "range": {
+        "startLine": 31,
+        "startChar": 12,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "e6ca24def8926880c306c4348846d49cd595f167",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1f20e67_66b03702",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2120,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-24T07:20:18Z",
+      "side": 1,
+      "message": "It\u0027s better to have Javadoc to describe this check method.",
+      "range": {
+        "startLine": 2120,
+        "startChar": 20,
+        "endLine": 2120,
+        "endChar": 39
+      },
+      "revId": "e6ca24def8926880c306c4348846d49cd595f167",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "116f619b_d1bfc8b9",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2461,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-24T07:20:18Z",
+      "side": 1,
+      "message": "Not for this change. I think you can use the `@EnableCompatChanges` and `@DisableCompatChanges` to enable/disable the change.",
+      "range": {
+        "startLine": 2461,
+        "startChar": 14,
+        "endLine": 2461,
+        "endChar": 30
+      },
+      "revId": "e6ca24def8926880c306c4348846d49cd595f167",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
