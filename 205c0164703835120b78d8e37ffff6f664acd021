@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0666555_a43d98ef",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 2560,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-24T08:27:22Z",
+      "side": 1,
+      "message": "This may be a bit flaky because it may take more than 10ms for the cache expiry message to be processed.\nMaybe use a bit larger delay like 100ms, but only sleep if isCachedServiceRemoved\u003dtrue ?",
+      "revId": "205c0164703835120b78d8e37ffff6f664acd021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0db721c_a6d89b36",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 2585,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-24T08:27:22Z",
+      "side": 1,
+      "message": "Nit: `isCachedServiceRemoved \u003d`",
+      "range": {
+        "startLine": 2585,
+        "startChar": 36,
+        "endLine": 2585,
+        "endChar": 41
+      },
+      "revId": "205c0164703835120b78d8e37ffff6f664acd021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4b2331e_063803a5",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 2596,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-24T08:27:22Z",
+      "side": 1,
+      "message": "Nit: `isCachedServiceRemoved \u003d`",
+      "range": {
+        "startLine": 2596,
+        "startChar": 36,
+        "endLine": 2596,
+        "endChar": 40
+      },
+      "revId": "205c0164703835120b78d8e37ffff6f664acd021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
