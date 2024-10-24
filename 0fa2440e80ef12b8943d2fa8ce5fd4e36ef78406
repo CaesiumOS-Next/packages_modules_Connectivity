@@ -40,6 +40,30 @@
       ],
       "revId": "0fa2440e80ef12b8943d2fa8ce5fd4e36ef78406",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eea566a_cbdf9fb2",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-24T21:10:23Z",
+      "side": 1,
+      "message": "Thanks for the feedback. As understand every time any firewall chain is called it needs full intended list of uids to be blocked. \n\nSay:\n@NPMS: \nRestricted uids: uid1 , uid2 , uid3\n\n@ Connectivity : \nOn data usage limit met, Connectivity decides to block certain foreground uids say uid4\n\ndo we have any api @ connectivity, which gives the current list of uids which is already under this firewall rule, So when connectivity assuming decides to call the same chain, can use list of uids already blocked (For Ex: in this case uid1,uid2, uid3)along with the new uid intended to be blocked i.e. uid4.",
+      "parentUuid": "a26cb5d0_348af4d8",
+      "range": {
+        "startLine": 212,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 30
+      },
+      "revId": "0fa2440e80ef12b8943d2fa8ce5fd4e36ef78406",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
