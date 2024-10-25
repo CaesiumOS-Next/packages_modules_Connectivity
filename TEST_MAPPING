@@ -426,7 +426,21 @@
   ],
   "automotive-mumd-presubmit": [
     {
-      "name": "CtsNetTestCases"
+      "name": "CtsNetTestCases",
+      "options": [
+        {
+          "exclude-annotation": "com.android.interactive.annotations.Interactive"
+        },
+        {
+          "exclude-annotation": "com.android.testutils.SkipPresubmit"
+        },
+        {
+          "exclude-annotation": "com.android.testutils.SkipMainlinePresubmit"
+        },
+        {
+          "exclude-annotation": "androidx.test.filters.RequiresDevice"
+        }
+      ]
     }
   ],
   "imports": [
