@@ -1,0 +1,262 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a55833_2df7e4f7",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T16:53:46Z",
+      "side": 1,
+      "message": "call out the time frame and corresponding configuration here",
+      "range": {
+        "startLine": 230,
+        "startChar": 4,
+        "endLine": 230,
+        "endChar": 65
+      },
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fab18124_694a87a7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T16:53:46Z",
+      "side": 1,
+      "message": "need confirmation from samsung that whether the launch is on U or not",
+      "range": {
+        "startLine": 1911,
+        "startChar": 18,
+        "endLine": 1911,
+        "endChar": 28
+      },
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5c2d631_1b5b3795",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T16:53:46Z",
+      "side": 1,
+      "message": "it should be the same logic as selecting best network",
+      "range": {
+        "startLine": 63,
+        "startChar": 49,
+        "endLine": 71,
+        "endChar": 84
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "13882d7a_f2fafff7",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+              "range": {
+                "startLine": 63,
+                "startChar": 0,
+                "endLine": 75,
+                "endChar": 0
+              },
+              "replacement": "                                if (capabilities.hasTransport(\n                                        NetworkCapabilities.TRANSPORT_SATELLITE)) {\n                                    mSatelliteNetworkConnected \u003d true;\n"
+            },
+            {
+              "path": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+              "range": {
+                "startLine": 79,
+                "startChar": 0,
+                "endLine": 79,
+                "endChar": 0
+              },
+              "replacement": "                                    mSatelliteNetworkConnected \u003d false;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42211447_23cdc467",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T16:53:46Z",
+      "side": 1,
+      "message": "mSatelliteBufferEventActive check can be done inside the function",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 77
+      },
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7a5a8d2_1ba12c0a",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T16:53:46Z",
+      "side": 1,
+      "message": "confirm",
+      "range": {
+        "startLine": 113,
+        "startChar": 36,
+        "endLine": 113,
+        "endChar": 42
+      },
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0f1aab4_2c25b378",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T16:53:46Z",
+      "side": 1,
+      "message": "this validity should be checked",
+      "range": {
+        "startLine": 165,
+        "startChar": 12,
+        "endLine": 165,
+        "endChar": 59
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "95debbf0_b6592789",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+              "range": {
+                "startLine": 165,
+                "startChar": 0,
+                "endLine": 166,
+                "endChar": 0
+              },
+              "replacement": "            this.mReadPipeFd \u003d nativeInitSatelliteBufferEvent();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c5de611_51098f4d",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T16:53:46Z",
+      "side": 1,
+      "message": "move it down",
+      "range": {
+        "startLine": 223,
+        "startChar": 12,
+        "endLine": 223,
+        "endChar": 39
+      },
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2463444_d721c317",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T16:53:46Z",
+      "side": 1,
+      "message": "nativeStartSatelliteBufferEventMonitoring",
+      "range": {
+        "startLine": 230,
+        "startChar": 36,
+        "endLine": 230,
+        "endChar": 67
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9c8b73db_a0d6012e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+              "range": {
+                "startLine": 230,
+                "startChar": 0,
+                "endLine": 231,
+                "endChar": 0
+              },
+              "replacement": "                                    nativeStartSatelliteBufferEvent(mReadPipeFd,\n                                            SatelliteEventConfig);\n"
+            },
+            {
+              "path": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+              "range": {
+                "startLine": 254,
+                "startChar": 0,
+                "endLine": 255,
+                "endChar": 0
+              },
+              "replacement": "    public static native void nativeStartSatelliteBufferEvent(int readPipeFd, int[] config);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
