@@ -16,6 +16,24 @@
       "message": "nit: to keep it consistent, this should be moved to the new \"switch_nat64\"",
       "revId": "bdeff0e8e6814145bc3ab3ef80d6aa06fbf5036c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "590255ac_8766d344",
+        "filename": "thread/demoapp/res/layout/thread_network_settings_fragment.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-25T12:52:53Z",
+      "side": 0,
+      "message": "This was added to solve the problem that the element to the bottom was hidden underneath the navigation bar. Probably this is solved by the `android:fitsSystemWindows\u003d\"true\"` instead, so we can remove this. @handaw@google.com to confirm.",
+      "parentUuid": "5fb4aa80_3c28d350",
+      "revId": "bdeff0e8e6814145bc3ab3ef80d6aa06fbf5036c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
