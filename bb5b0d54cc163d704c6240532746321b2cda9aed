@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3adf9c33_0cef2007",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-25T07:04:45Z",
+      "side": 1,
+      "message": "There\u0027s a number of release review bugs from Lorenzo at the moment about removing the server side cache, can we avoid introducing this if it\u0027s going to be removed afterwards ?",
+      "range": {
+        "startLine": 632,
+        "startChar": 77,
+        "endLine": 632,
+        "endChar": 93
+      },
+      "revId": "bb5b0d54cc163d704c6240532746321b2cda9aed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
