@@ -111,6 +111,30 @@
       },
       "revId": "f33436962c4c3ac870433b5150521f353ba5caf3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7266dc3d_11c61f6f",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1878,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-10-25T20:57:06Z",
+      "side": 1,
+      "message": "The test only depends on the platform version since the fix is in netd. Also old kernels are not affected by the upstream changes. Thus from Android perspective whether kernel supports migration without if_id does not matter. At the same time, we have VTS to verify migration with if_id and with multiple established tunnels. So I think we should be good now.",
+      "parentUuid": "77da7d2e_7dcac6ac",
+      "range": {
+        "startLine": 1878,
+        "startChar": 0,
+        "endLine": 1878,
+        "endChar": 54
+      },
+      "revId": "f33436962c4c3ac870433b5150521f353ba5caf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
