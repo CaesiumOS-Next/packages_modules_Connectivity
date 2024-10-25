@@ -61,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b1e8316_e33cf0f4",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-25T16:20:28Z",
+      "side": 1,
+      "message": "Based on Latest Patchset , @Satellite network this chain is used to block access for foreground apps only . Naming convention changed inline with the same\n\nNote: Background App Restriction will be done from NPMS at satellite network",
+      "parentUuid": "7d1c77ac_9947ffc0",
+      "range": {
+        "startLine": 210,
+        "startChar": 18,
+        "endLine": 210,
+        "endChar": 26
+      },
+      "revId": "c2a6e1d5ea80c84fc91cf7ac896381c778bb4a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ccfd8145_18adffc6",
         "filename": "framework/src/android/net/BpfNetMapsConstants.java",
         "patchSetId": 4
@@ -106,6 +130,30 @@
           ]
         }
       ],
+      "revId": "c2a6e1d5ea80c84fc91cf7ac896381c778bb4a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77be7c1a_1d5d23b8",
+        "filename": "framework/src/android/net/BpfNetMapsConstants.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-25T16:20:28Z",
+      "side": 1,
+      "message": "Based on Latest Patchset , @Satellite network this chain is used to block access for foreground apps only . Naming convention changed inline with the same\n\nNote: Background App Restriction will be done from NPMS at satellite network",
+      "parentUuid": "ccfd8145_18adffc6",
+      "range": {
+        "startLine": 31,
+        "startChar": 46,
+        "endLine": 31,
+        "endChar": 83
+      },
       "revId": "c2a6e1d5ea80c84fc91cf7ac896381c778bb4a6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
