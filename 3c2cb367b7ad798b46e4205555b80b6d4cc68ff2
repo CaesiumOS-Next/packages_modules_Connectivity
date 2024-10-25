@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e3b5b66_29427962",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T23:11:47Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 188,
+        "startChar": 19,
+        "endLine": 190,
+        "endChar": 77
+      },
+      "revId": "3c2cb367b7ad798b46e4205555b80b6d4cc68ff2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dfd427d_0e270561",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T23:11:47Z",
+      "side": 1,
+      "message": "on satellite",
+      "range": {
+        "startLine": 961,
+        "startChar": 61,
+        "endLine": 961,
+        "endChar": 62
+      },
+      "revId": "3c2cb367b7ad798b46e4205555b80b6d4cc68ff2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
