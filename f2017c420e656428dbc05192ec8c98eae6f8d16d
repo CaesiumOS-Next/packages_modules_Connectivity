@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be2796de_037a0090",
+        "filename": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-25T08:32:20Z",
+      "side": 1,
+      "message": "Good catch that I created DNS server twice. I\u0027m kind of surprised this didn\u0027t fail the compilation. \n\nWe cannot start the DNS server so early because it automatically stops when it times out (3 seconds) polling the incoming DNS query.",
+      "parentUuid": "108cb6cf_37a6e530",
+      "revId": "f2017c420e656428dbc05192ec8c98eae6f8d16d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55feb4b8_ba8c7ca9",
         "filename": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
         "patchSetId": 16
@@ -31,6 +49,24 @@
       "writtenOn": "2024-10-25T06:32:48Z",
       "side": 1,
       "message": "same as above",
+      "revId": "f2017c420e656428dbc05192ec8c98eae6f8d16d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "426fefd2_a72e604a",
+        "filename": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-25T08:32:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55feb4b8_ba8c7ca9",
       "revId": "f2017c420e656428dbc05192ec8c98eae6f8d16d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
