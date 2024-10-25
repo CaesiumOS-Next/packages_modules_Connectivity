@@ -1,0 +1,168 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "613e41f5_3eb274e8",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T23:23:09Z",
+      "side": 1,
+      "message": "there should be a max check for the data that is read",
+      "range": {
+        "startLine": 99,
+        "startChar": 19,
+        "endLine": 99,
+        "endChar": 47
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "fdfbd3ee_97395534",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+              "range": {
+                "startLine": 99,
+                "startChar": 0,
+                "endLine": 100,
+                "endChar": 0
+              },
+              "replacement": "                if (input.read(buffer) !\u003d -1 \u0026\u0026 length \u003e 0) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "35878e3f5e81fd8d346e16c64792481e1bac556e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa32a848_7fd37eb1",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T23:23:09Z",
+      "side": 1,
+      "message": "how does it get the length of the array",
+      "range": {
+        "startLine": 112,
+        "startChar": 50,
+        "endLine": 112,
+        "endChar": 66
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "5c14477c_a18befb3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+              "range": {
+                "startLine": 112,
+                "startChar": 0,
+                "endLine": 113,
+                "endChar": 0
+              },
+              "replacement": "                final ByteBuffer buffer \u003d\n                        ByteBuffer.wrap(recvbuf, 0, length).order(ByteOrder.nativeOrder());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "35878e3f5e81fd8d346e16c64792481e1bac556e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29137703_a39a9abc",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T23:23:09Z",
+      "side": 1,
+      "message": "this for loop assuming it has length number of ints. How does the caller know that. It is likely it is buffer size",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 17
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "5b1a249c_7d2d60e0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+              "range": {
+                "startLine": 114,
+                "startChar": 0,
+                "endLine": 117,
+                "endChar": 0
+              },
+              "replacement": "                satelliteUidsBlockList \u003d new int[buffer.remaining() / 4];\n                for (int i \u003d 0; i \u003c buffer.remaining() / 4; i++) {\n                    satelliteUidsBlockList[i] \u003d buffer.getInt(i * 4);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "35878e3f5e81fd8d346e16c64792481e1bac556e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13b06191_6e3753d4",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T23:23:09Z",
+      "side": 1,
+      "message": "why dont you pass empty list",
+      "range": {
+        "startLine": 400,
+        "startChar": 57,
+        "endLine": 400,
+        "endChar": 85
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d9675891_05e17c0c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+              "range": {
+                "startLine": 400,
+                "startChar": 0,
+                "endLine": 401,
+                "endChar": 0
+              },
+              "replacement": "                    FIREWALL_CHAIN_SATELLITE_FOREGROUND, new int[0]);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "35878e3f5e81fd8d346e16c64792481e1bac556e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
