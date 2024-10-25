@@ -21,6 +21,7 @@ import android.content.pm.PackageManager.FEATURE_WIFI
 import android.telephony.TelephonyManager
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.android.interactive.annotations.Interactive
 import com.android.testutils.ConnectUtil
 import kotlin.test.assertTrue
 import kotlin.test.fail
@@ -34,6 +35,7 @@ class ConnectivityCheckTest {
     private val connectUtil by lazy { ConnectUtil(context) }
 
     @Test
+    @Interactive
     fun testCheckWifiSetup() {
         if (!pm.hasSystemFeature(FEATURE_WIFI)) return
         connectUtil.ensureWifiValidated()
