@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fb4aa80_3c28d350",
+        "filename": "thread/demoapp/res/layout/thread_network_settings_fragment.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-25T09:38:48Z",
+      "side": 0,
+      "message": "nit: to keep it consistent, this should be moved to the new \"switch_nat64\"",
+      "revId": "bdeff0e8e6814145bc3ab3ef80d6aa06fbf5036c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

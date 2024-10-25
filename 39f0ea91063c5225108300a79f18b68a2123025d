@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8989138_78919aff",
+        "filename": "thread/demoapp/res/layout/thread_network_settings_fragment.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-25T09:38:48Z",
+      "side": 1,
+      "message": "nit: is this necessary? Or it is suggested by the IDE?",
+      "revId": "39f0ea91063c5225108300a79f18b68a2123025d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
