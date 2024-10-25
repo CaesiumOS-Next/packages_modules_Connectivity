@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "964a27f0_1efaa894",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-10-25T23:58:39Z",
+      "side": 1,
+      "message": "Sorry, sent the comments prematurely. Uploading the patch now.",
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88939e7d_047cba09",
