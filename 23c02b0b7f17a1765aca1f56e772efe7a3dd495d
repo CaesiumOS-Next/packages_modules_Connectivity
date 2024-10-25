@@ -22,6 +22,30 @@
       },
       "revId": "23c02b0b7f17a1765aca1f56e772efe7a3dd495d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9835ae7_a5546228",
+        "filename": "bpf/netd/BpfHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-25T08:46:55Z",
+      "side": 1,
+      "message": "That seemed like too dangerous a change to make post V FRC (ie. post M-2024-08), so I erred on the side of post V only.",
+      "parentUuid": "e29dee3f_9b080929",
+      "range": {
+        "startLine": 246,
+        "startChar": 39,
+        "endLine": 246,
+        "endChar": 41
+      },
+      "revId": "23c02b0b7f17a1765aca1f56e772efe7a3dd495d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
