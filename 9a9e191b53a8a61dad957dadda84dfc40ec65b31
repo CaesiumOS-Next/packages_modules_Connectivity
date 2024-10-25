@@ -1,0 +1,215 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c78f0e4_e405e614",
+        "filename": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T17:15:20Z",
+      "side": 1,
+      "message": "you may want to cleanup mSatelliteConfigurationMap",
+      "fixSuggestions": [
+        {
+          "fixId": "fc063285_b7e61a9d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+              "range": {
+                "startLine": 63,
+                "startChar": 0,
+                "endLine": 64,
+                "endChar": 0
+              },
+              "replacement": "    return true;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "9a9e191b53a8a61dad957dadda84dfc40ec65b31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "709c5590_2ec0f193",
+        "filename": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T17:15:20Z",
+      "side": 1,
+      "message": "would be good to check satelliteConfig and writeFd are valid before accessing",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 15
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "07c3eb17_fa934476",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+              "range": {
+                "startLine": 99,
+                "startChar": 0,
+                "endLine": 103,
+                "endChar": 0
+              },
+              "replacement": "    if (!initSatelliteBpfMap()) {\n      ALOGW(\"Failed to initialise satellite bpf map\");\n"
+            },
+            {
+              "path": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+              "range": {
+                "startLine": 104,
+                "startChar": 0,
+                "endLine": 105,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "9a9e191b53a8a61dad957dadda84dfc40ec65b31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c93f9f_aaeab67f",
+        "filename": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T17:15:20Z",
+      "side": 1,
+      "message": "nit: seems like not needed",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 44
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3f0aaab9_8f77e2ca",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+              "range": {
+                "startLine": 167,
+                "startChar": 0,
+                "endLine": 168,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "9a9e191b53a8a61dad957dadda84dfc40ec65b31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f27b97a5_9192b121",
+        "filename": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T17:15:20Z",
+      "side": 1,
+      "message": "i think you should have either a different class variable or a local variable to track the diff so that it is easy to read code",
+      "range": {
+        "startLine": 196,
+        "startChar": 6,
+        "endLine": 205,
+        "endChar": 7
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "af39c76e_03b9a00e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+              "range": {
+                "startLine": 196,
+                "startChar": 0,
+                "endLine": 197,
+                "endChar": 0
+              },
+              "replacement": "      bool found \u003d true;\n"
+            },
+            {
+              "path": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+              "range": {
+                "startLine": 199,
+                "startChar": 0,
+                "endLine": 200,
+                "endChar": 0
+              },
+              "replacement": "          found \u003d false;\n"
+            },
+            {
+              "path": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+              "range": {
+                "startLine": 203,
+                "startChar": 0,
+                "endLine": 204,
+                "endChar": 0
+              },
+              "replacement": "      if (found) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "9a9e191b53a8a61dad957dadda84dfc40ec65b31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcb02b65_b7101164",
+        "filename": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T17:15:20Z",
+      "side": 1,
+      "message": "reconfirm no memory needs to be freed",
+      "range": {
+        "startLine": 283,
+        "startChar": 10,
+        "endLine": 289,
+        "endChar": 36
+      },
+      "revId": "9a9e191b53a8a61dad957dadda84dfc40ec65b31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
