@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcb8fb61_73d391f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1870251
+      },
+      "writtenOn": "2024-10-25T08:17:46Z",
+      "side": 1,
+      "message": "Dear Yeabkal,\nPlease review the changes",
+      "revId": "2e42438c61f46683670635fae1fcc3f86789b466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
