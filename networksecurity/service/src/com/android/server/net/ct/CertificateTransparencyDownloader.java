@@ -73,9 +73,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
                 new CertificateTransparencyInstaller());
     }
 
-    void initialize() {
-        mInstaller.addCompatibilityVersion(Config.COMPATIBILITY_VERSION);
-
+    void registerReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
         mContext.registerReceiver(this, intentFilter, Context.RECEIVER_EXPORTED);
@@ -187,7 +185,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         String contentUrl = mDataStore.getProperty(Config.CONTENT_URL_PENDING);
         String metadataUrl = mDataStore.getProperty(Config.METADATA_URL_PENDING);
         try (InputStream inputStream = mContext.getContentResolver().openInputStream(contentUri)) {
-            success = mInstaller.install(Config.COMPATIBILITY_VERSION, inputStream, version);
+            success = mInstaller.install(inputStream, version);
         } catch (IOException e) {
             Log.e(TAG, "Could not install new content", e);
             return;

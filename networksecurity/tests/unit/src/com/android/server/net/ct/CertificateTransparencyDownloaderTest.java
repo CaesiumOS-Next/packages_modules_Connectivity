@@ -159,9 +159,7 @@ public class CertificateTransparencyDownloaderTest {
                 Base64.getEncoder().encodeToString(mPublicKey.getEncoded()));
 
         setUpDownloadComplete(version, metadataId, metadataUri, contentId, contentUri);
-        when(mCertificateTransparencyInstaller.install(
-                        eq(Config.COMPATIBILITY_VERSION), any(), eq(version)))
-                .thenReturn(true);
+        when(mCertificateTransparencyInstaller.install(any(), eq(version))).thenReturn(true);
 
         assertThat(mDataStore.getProperty(Config.VERSION)).isNull();
         assertThat(mDataStore.getProperty(Config.CONTENT_URL)).isNull();
@@ -170,8 +168,7 @@ public class CertificateTransparencyDownloaderTest {
         mCertificateTransparencyDownloader.onReceive(
                 mContext, makeDownloadCompleteIntent(contentId));
 
-        verify(mCertificateTransparencyInstaller, times(1))
-                .install(eq(Config.COMPATIBILITY_VERSION), any(), eq(version));
+        verify(mCertificateTransparencyInstaller, times(1)).install(any(), eq(version));
         assertThat(mDataStore.getProperty(Config.VERSION)).isEqualTo(version);
         assertThat(mDataStore.getProperty(Config.CONTENT_URL)).isEqualTo(contentUri.toString());
         assertThat(mDataStore.getProperty(Config.METADATA_URL)).isEqualTo(metadataUri.toString());
@@ -188,9 +185,7 @@ public class CertificateTransparencyDownloaderTest {
         Uri metadataUri = Uri.fromFile(metadataFile);
 
         setUpDownloadComplete(version, metadataId, metadataUri, contentId, contentUri);
-        when(mCertificateTransparencyInstaller.install(
-                        eq(Config.COMPATIBILITY_VERSION), any(), eq(version)))
-                .thenReturn(false);
+        when(mCertificateTransparencyInstaller.install(any(), eq(version))).thenReturn(false);
 
         mCertificateTransparencyDownloader.onReceive(
                 mContext, makeDownloadCompleteIntent(contentId));
@@ -213,8 +208,7 @@ public class CertificateTransparencyDownloaderTest {
         mCertificateTransparencyDownloader.onReceive(
                 mContext, makeDownloadCompleteIntent(contentId));
 
-        verify(mCertificateTransparencyInstaller, never())
-                .install(eq(Config.COMPATIBILITY_VERSION), any(), eq(version));
+        verify(mCertificateTransparencyInstaller, never()).install(any(), eq(version));
         assertThat(mDataStore.getProperty(Config.VERSION)).isNull();
         assertThat(mDataStore.getProperty(Config.CONTENT_URL)).isNull();
         assertThat(mDataStore.getProperty(Config.METADATA_URL)).isNull();
@@ -236,8 +230,7 @@ public class CertificateTransparencyDownloaderTest {
         mCertificateTransparencyDownloader.onReceive(
                 mContext, makeDownloadCompleteIntent(contentId));
 
-        verify(mCertificateTransparencyInstaller, never())
-                .install(eq(Config.COMPATIBILITY_VERSION), any(), eq(version));
+        verify(mCertificateTransparencyInstaller, never()).install(any(), eq(version));
         assertThat(mDataStore.getProperty(Config.VERSION)).isNull();
         assertThat(mDataStore.getProperty(Config.CONTENT_URL)).isNull();
         assertThat(mDataStore.getProperty(Config.METADATA_URL)).isNull();
