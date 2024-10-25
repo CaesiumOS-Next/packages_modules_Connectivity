@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7909c09_e16e9363",
+        "filename": "thread/tests/integration/src/android/net/thread/InternetAccessTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-25T08:53:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "be2796de_037a0090",
+      "revId": "f2017c420e656428dbc05192ec8c98eae6f8d16d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55feb4b8_ba8c7ca9",
