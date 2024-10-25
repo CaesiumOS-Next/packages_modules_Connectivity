@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eedfc1c8_bafbd22f",
+        "filename": "thread/demoapp/res/layout/thread_network_settings_fragment.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-25T09:02:02Z",
+      "side": 1,
+      "message": "This was added to leave some space in the bottom, could you remove this?",
+      "range": {
+        "startLine": 96,
+        "startChar": 12,
+        "endLine": 96,
+        "endChar": 46
+      },
+      "revId": "53c2f297ff8319dad78f5cac9b823288dbcf4cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
