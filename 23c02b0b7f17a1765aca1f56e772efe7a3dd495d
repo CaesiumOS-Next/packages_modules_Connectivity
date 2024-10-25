@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e29dee3f_9b080929",
+        "filename": "bpf/netd/BpfHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-25T02:57:15Z",
+      "side": 1,
+      "message": "Why is this not \"\u003c\" instead of \"\u003c\u003d\"? The comment above says that waiting is a no-op  on U QPR3 and newer, and that includes V. If waiting is a no-op on V, then why does the code wait on V?",
+      "range": {
+        "startLine": 246,
+        "startChar": 39,
+        "endLine": 246,
+        "endChar": 41
+      },
+      "revId": "23c02b0b7f17a1765aca1f56e772efe7a3dd495d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
