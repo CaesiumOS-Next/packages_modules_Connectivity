@@ -89,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c87926e4_42d89de7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1617,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-10-25T23:56:41Z",
+      "side": 1,
+      "message": "Done. In that case, we should accept whatever value there is \u003d\u003e non-positive valeus will just disable the timer.",
+      "parentUuid": "d17e4d43_6efb7d9f",
+      "range": {
+        "startLine": 1617,
+        "startChar": 54,
+        "endLine": 1617,
+        "endChar": 60
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de4b0c8e_846af045",
@@ -102,6 +126,30 @@
       "writtenOn": "2024-10-23T07:09:17Z",
       "side": 1,
       "message": "Can we make this tunable for wifi as well? If we want developers (or the OS) to rely on OnNetworkActiveListener or isDefaultNetworkActive, then we should probably make it work well for wifi too, since in many places devices are on wifi for the majority of the time.\n\nI think the wifi default is 15 seconds, which is both too long (wifi goes back to sleep really quickly after sending a packet) and too short (sending new packets is super cheap).",
+      "range": {
+        "startLine": 1968,
+        "startChar": 18,
+        "endLine": 1968,
+        "endChar": 54
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b404697_3a64b782",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1968,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-10-25T23:56:41Z",
+      "side": 1,
+      "message": "I added a separate config for Wifi. I think we should just experiment with disabling it (setting it to 0).",
+      "parentUuid": "de4b0c8e_846af045",
       "range": {
         "startLine": 1968,
         "startChar": 18,
@@ -207,6 +255,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eda634d9_d99f5fd7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 13257,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-10-25T23:56:41Z",
+      "side": 1,
+      "message": "It would make sense but I\u0027m not too keen because typically I\u0027d focus on the data for Pixel devices for efficacy as there may be a lot of unknowns on OEM devices.\n\nAlso perhaps using an EDI collector is more appropriate for this signal?",
+      "parentUuid": "4dd6ef7a_0c4b0079",
+      "range": {
+        "startLine": 13256,
+        "startChar": 26,
+        "endLine": 13257,
+        "endChar": 80
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa3dab36_371f56e0",
@@ -220,6 +292,30 @@
       "writtenOn": "2024-10-23T07:09:17Z",
       "side": 1,
       "message": "AFAIK this actually sets the setting on the device, which is not something we should be doing in a test.",
+      "range": {
+        "startLine": 76,
+        "startChar": 36,
+        "endLine": 76,
+        "endChar": 64
+      },
+      "revId": "dd9ac6f91629a2de28370e4a30209718681180db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf0945ec_ad93ab43",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkActivityTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-10-25T23:56:41Z",
+      "side": 1,
+      "message": "The context and hence the contentResolver is mocked. So AFAICT this should be writing to FakeSettingsProvider.\n\nThis is supposed to be a unit test so why does this apk even have the permission to write to the real Settings Provider?",
+      "parentUuid": "fa3dab36_371f56e0",
       "range": {
         "startLine": 76,
         "startChar": 36,
