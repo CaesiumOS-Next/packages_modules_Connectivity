@@ -1,0 +1,68 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47a81e47_a79dc950",
+        "filename": "service/jni/com_android_server_connectivity_SatelliteDataUsageController.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T16:55:54Z",
+      "side": 1,
+      "message": "would be good to have the function headers",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "3778031192303079381bcec0eb378398ca616cfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76fb91b9_06997802",
+        "filename": "service/jni/com_android_server_connectivity_SatelliteDataUsageController.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-25T16:55:54Z",
+      "side": 1,
+      "message": "here if it fails you need to close the pipe",
+      "range": {
+        "startLine": 57,
+        "startChar": 11,
+        "endLine": 57,
+        "endChar": 12
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "76f37cf4_07953dba",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/jni/com_android_server_connectivity_SatelliteDataUsageController.cpp",
+              "range": {
+                "startLine": 58,
+                "startChar": 0,
+                "endLine": 58,
+                "endChar": 0
+              },
+              "replacement": "    jniThrowErrnoException(env, \"resNetworkQuery\", -read_fd);\n    return -1;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "3778031192303079381bcec0eb378398ca616cfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
