@@ -16,6 +16,74 @@
       "message": "LGTM",
       "revId": "f3567db7d35ff49c6a9f5873f6542cc19822fe69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "918b08f6_6297418e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-25T07:02:42Z",
+      "side": 1,
+      "message": "That\u0027s R/S devices running MCTS with a newer tethering module preloaded I guess ?\n\nIf it makes it easier, I\u0027m not sure it\u0027s very important to test that case at this point: the changes of an OEM breaking this on a newly launched S device today with recent modules are likely low.",
+      "revId": "f3567db7d35ff49c6a9f5873f6542cc19822fe69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b03f278c_e3a3ec50",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-25T07:02:42Z",
+      "side": 1,
+      "message": "This iterates on Rx/Tx bytes/packets (mUidStatsQueryOpArray) to call getUidStats every time, then use getEntryValueForType to verify each entry.\n\nIt would be more simple to call it once, and verify that all members of the returned StatsResult are TrafficStats.UNSUPPORTED.\n\nSomething like:\n```\nStatsResult stats \u003d nss.getUidStats(uid);\nassertEquals(UNSUPPORTED, stats,rxBytes);\nassertEquals(UNSUPPORTED, stats.rxPackets);\n...\n```\n\nThen you can avoid having getEntryValueForType public just for this test",
+      "revId": "f3567db7d35ff49c6a9f5873f6542cc19822fe69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "132e4b20_38561a52",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-25T07:02:42Z",
+      "side": 1,
+      "message": "I\u0027m not sure this test is very valuable at this point if there\u0027s already tests for all of its callers, especially considering that it forces an internal method (getEntryValueForType) to be public  - tests for getUidStats, getTotalStats, ... would already cover it",
+      "revId": "f3567db7d35ff49c6a9f5873f6542cc19822fe69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7aed099_bed4483f",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2519,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-25T07:02:42Z",
+      "side": 1,
+      "message": "This logic with a fetcher seems overcomplicated now, I guess all we need is something like\n\n```\nassertEquals(getTotalStats(), rxBytes, rxPackets, txBytes, txPackets);\nassertEquals(getIfaceStats(iface), rxBytes, rxPackets, txBytes, txPackets);\nassertEquals(getUidStats(iface), rxBytes, rxPackets, txBytes, txPackets);\n\nvoid assertEquals(StatsResult, long, long, long, long) {\n    assertEquals(rxBytes, stats.rxBytes);\n    ...\n}\n```",
+      "revId": "f3567db7d35ff49c6a9f5873f6542cc19822fe69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
