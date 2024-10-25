@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3356a973_8b2caedb",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-25T10:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3f54363_7d5bcfa7",
+      "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c18148d9_04a9f1f1",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-10-25T09:04:34Z",
       "side": 1,
       "message": "```suggestion\n     * only enabled for corded Android devices (e.g. TV or display).\n```",
+      "range": {
+        "startLine": 69,
+        "startChar": 24,
+        "endLine": 69,
+        "endChar": 36
+      },
+      "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09a4ae47_ab63d3db",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-25T10:47:46Z",
+      "side": 1,
+      "message": "I changed to use \"wired\" which seems to be more commonly used word in the codebase. PTAL",
+      "parentUuid": "c18148d9_04a9f1f1",
       "range": {
         "startLine": 69,
         "startChar": 24,
@@ -78,6 +120,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a3a5821_bdd3899b",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-25T10:47:46Z",
+      "side": 1,
+      "message": "I intended to add this to make it clearer that the comments is for only `private boolean mBorderRouterEnabled \u003d true;` but not the three lines.\n\nIs there a specific reason you prefer this empty line removed? Otherwise, I inclined to keep it as is",
+      "parentUuid": "fa81d5ff_5618c5e0",
+      "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31909f8a_fbe87365",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 18
@@ -89,6 +149,24 @@
       "writtenOn": "2024-10-25T09:04:34Z",
       "side": 1,
       "message": "return",
+      "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b01dde8d_3eea2612",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-25T10:47:46Z",
+      "side": 1,
+      "message": "Good catch! updated.",
+      "parentUuid": "31909f8a_fbe87365",
       "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -106,6 +184,24 @@
       "writtenOn": "2024-10-25T09:04:34Z",
       "side": 1,
       "message": "return",
+      "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0ee1fff_4b88eedd",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-25T10:47:46Z",
+      "side": 1,
+      "message": "Thanks for catching this!",
+      "parentUuid": "783bbbf8_59572b16",
       "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
