@@ -69,9 +69,8 @@ public final class ThreadConfiguration implements Parcelable {
      *
      * <p>Note it costs significantly more power to operate as a Border Router, so this is typically
      * only enabled for wired Android devices (e.g. TV or display).
-     *
-     * @hide
      */
+    @FlaggedApi(Flags.FLAG_THREAD_MOBILE_ENABLED)
     public boolean isBorderRouterEnabled() {
         return mBorderRouterEnabled;
     }
@@ -195,8 +194,8 @@ public final class ThreadConfiguration implements Parcelable {
          * <p>Defaults to {@code true} if this method is not called.
          *
          * @see ThreadConfiguration#isBorderRouterEnabled
-         * @hide
          */
+        @FlaggedApi(Flags.FLAG_THREAD_MOBILE_ENABLED)
         @NonNull
         public Builder setBorderRouterEnabled(boolean enabled) {
             this.mBorderRouterEnabled = enabled;
