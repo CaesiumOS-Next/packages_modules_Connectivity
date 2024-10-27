@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c933c7d4_64ee94eb",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:56:57Z",
+      "side": 1,
+      "message": "When you call ByteBuffer.wrap(recvbuf), the following happens:\n\nByteBuffer creation: A new ByteBuffer object is created.\nBacking array: The recvbuf array is set as the backing array for the ByteBuffer.\nlimit: The limit of the ByteBuffer are set to the length of the recvbuf array. This is how the ByteBuffer knows the length of the array.",
+      "parentUuid": "fa32a848_7fd37eb1",
+      "range": {
+        "startLine": 112,
+        "startChar": 50,
+        "endLine": 112,
+        "endChar": 66
+      },
+      "revId": "35878e3f5e81fd8d346e16c64792481e1bac556e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29137703_a39a9abc",
         "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
         "patchSetId": 6
@@ -126,6 +150,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4397533_a81cea9b",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:56:57Z",
+      "side": 1,
+      "message": "length is nothing but , buffer.remaining() / 4",
+      "parentUuid": "29137703_a39a9abc",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 17
+      },
+      "revId": "35878e3f5e81fd8d346e16c64792481e1bac556e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13b06191_6e3753d4",
         "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
         "patchSetId": 6
@@ -161,6 +209,30 @@
           ]
         }
       ],
+      "revId": "35878e3f5e81fd8d346e16c64792481e1bac556e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5004b1d8_ee6e191d",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:56:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "13b06191_6e3753d4",
+      "range": {
+        "startLine": 400,
+        "startChar": 57,
+        "endLine": 400,
+        "endChar": 85
+      },
       "revId": "35878e3f5e81fd8d346e16c64792481e1bac556e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
