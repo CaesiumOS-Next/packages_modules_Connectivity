@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "BpfHandler"
+#define LOG_TAG "NetdUpdatable"
 
 #include "BpfHandler.h"
 
 #include <linux/bpf.h>
+#include <inttypes.h>
 
 #include <android-base/unique_fd.h>
 #include <android-modules-utils/sdk_level.h>
@@ -33,6 +34,7 @@ namespace android {
 namespace net {
 
 using base::unique_fd;
+using base::WaitForProperty;
 using bpf::getSocketCookie;
 using bpf::retrieveProgram;
 using netdutils::Status;
@@ -51,37 +53,49 @@ static_assert(STATS_MAP_SIZE - TOTAL_UID_STATS_ENTRIES_LIMIT > 100,
 static Status attachProgramToCgroup(const char* programPath, const unique_fd& cgroupFd,
                                     bpf_attach_type type) {
     unique_fd cgroupProg(retrieveProgram(programPath));
-    if (cgroupProg == -1) {
-        int ret = errno;
-        ALOGE("Failed to get program from %s: %s", programPath, strerror(ret));
-        return statusFromErrno(ret, "cgroup program get failed");
+    if (!cgroupProg.ok()) {
+        return statusFromErrno(errno, fmt::format("Failed to get program from {}", programPath));
     }
     if (android::bpf::attachProgram(type, cgroupProg, cgroupFd)) {
-        int ret = errno;
-        ALOGE("Program from %s attach failed: %s", programPath, strerror(ret));
-        return statusFromErrno(ret, "program attach failed");
+        return statusFromErrno(errno, fmt::format("Program {} attach failed", programPath));
     }
     return netdutils::status::ok;
 }
 
 static Status checkProgramAccessible(const char* programPath) {
     unique_fd prog(retrieveProgram(programPath));
-    if (prog == -1) {
-        int ret = errno;
-        ALOGE("Failed to get program from %s: %s", programPath, strerror(ret));
-        return statusFromErrno(ret, "program retrieve failed");
+    if (!prog.ok()) {
+        return statusFromErrno(errno, fmt::format("Failed to get program from {}", programPath));
     }
     return netdutils::status::ok;
 }
 
 static Status initPrograms(const char* cg2_path) {
-    if (modules::sdklevel::IsAtLeastU() && !!strcmp(cg2_path, "/sys/fs/cgroup")) abort();
+    if (!cg2_path) return Status("cg2_path is NULL");
+
+    // This code was mainlined in T, so this should be trivially satisfied.
+    if (!modules::sdklevel::IsAtLeastT()) return Status("S- platform is unsupported");
+
+    // S requires eBPF support which was only added in 4.9, so this should be satisfied.
+    if (!bpf::isAtLeastKernelVersion(4, 9, 0)) {
+        return Status("kernel version < 4.9.0 is unsupported");
+    }
+
+    // U bumps the kernel requirement up to 4.14
+    if (modules::sdklevel::IsAtLeastU() && !bpf::isAtLeastKernelVersion(4, 14, 0)) {
+        return Status("U+ platform with kernel version < 4.14.0 is unsupported");
+    }
+
+    // U mandates this mount point (though it should also be the case on T)
+    if (modules::sdklevel::IsAtLeastU() && !!strcmp(cg2_path, "/sys/fs/cgroup")) {
+        return Status("U+ platform with cg2_path != /sys/fs/cgroup is unsupported");
+    }
 
     unique_fd cg_fd(open(cg2_path, O_DIRECTORY | O_RDONLY | O_CLOEXEC));
-    if (cg_fd == -1) {
-        const int ret = errno;
-        ALOGE("Failed to open the cgroup directory: %s", strerror(ret));
-        return statusFromErrno(ret, "Open the cgroup directory failed");
+    if (!cg_fd.ok()) {
+        const int err = errno;
+        ALOGE("Failed to open the cgroup directory: %s", strerror(err));
+        return statusFromErrno(err, "Open the cgroup directory failed");
     }
     RETURN_IF_NOT_OK(checkProgramAccessible(XT_BPF_ALLOWLIST_PROG_PATH));
     RETURN_IF_NOT_OK(checkProgramAccessible(XT_BPF_DENYLIST_PROG_PATH));
@@ -96,9 +110,72 @@ static Status initPrograms(const char* cg2_path) {
     // TODO: delete the if statement once all devices should support cgroup
     // socket filter (ie. the minimum kernel version required is 4.14).
     if (bpf::isAtLeastKernelVersion(4, 14, 0)) {
-        RETURN_IF_NOT_OK(
-                attachProgramToCgroup(CGROUP_SOCKET_PROG_PATH, cg_fd, BPF_CGROUP_INET_SOCK_CREATE));
+        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_INET_CREATE_PROG_PATH,
+                                    cg_fd, BPF_CGROUP_INET_SOCK_CREATE));
     }
+
+    if (modules::sdklevel::IsAtLeastV()) {
+        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_CONNECT4_PROG_PATH,
+                                    cg_fd, BPF_CGROUP_INET4_CONNECT));
+        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_CONNECT6_PROG_PATH,
+                                    cg_fd, BPF_CGROUP_INET6_CONNECT));
+        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP4_RECVMSG_PROG_PATH,
+                                    cg_fd, BPF_CGROUP_UDP4_RECVMSG));
+        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP6_RECVMSG_PROG_PATH,
+                                    cg_fd, BPF_CGROUP_UDP6_RECVMSG));
+        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP4_SENDMSG_PROG_PATH,
+                                    cg_fd, BPF_CGROUP_UDP4_SENDMSG));
+        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_UDP6_SENDMSG_PROG_PATH,
+                                    cg_fd, BPF_CGROUP_UDP6_SENDMSG));
+
+        if (bpf::isAtLeastKernelVersion(5, 4, 0)) {
+            RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_GETSOCKOPT_PROG_PATH,
+                                        cg_fd, BPF_CGROUP_GETSOCKOPT));
+            RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_SETSOCKOPT_PROG_PATH,
+                                        cg_fd, BPF_CGROUP_SETSOCKOPT));
+        }
+
+        if (bpf::isAtLeastKernelVersion(5, 10, 0)) {
+            RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_INET_RELEASE_PROG_PATH,
+                                        cg_fd, BPF_CGROUP_INET_SOCK_RELEASE));
+        }
+    }
+
+    if (bpf::isAtLeastKernelVersion(4, 19, 0)) {
+        RETURN_IF_NOT_OK(attachProgramToCgroup(
+                "/sys/fs/bpf/netd_readonly/prog_block_bind4_block_port",
+                cg_fd, BPF_CGROUP_INET4_BIND));
+        RETURN_IF_NOT_OK(attachProgramToCgroup(
+                "/sys/fs/bpf/netd_readonly/prog_block_bind6_block_port",
+                cg_fd, BPF_CGROUP_INET6_BIND));
+
+        // This should trivially pass, since we just attached up above,
+        // but BPF_PROG_QUERY is only implemented on 4.19+ kernels.
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET_EGRESS) <= 0) abort();
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET_INGRESS) <= 0) abort();
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET_SOCK_CREATE) <= 0) abort();
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET4_BIND) <= 0) abort();
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET6_BIND) <= 0) abort();
+    }
+
+    if (modules::sdklevel::IsAtLeastV()) {
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET4_CONNECT) <= 0) abort();
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET6_CONNECT) <= 0) abort();
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP4_RECVMSG) <= 0) abort();
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP6_RECVMSG) <= 0) abort();
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP4_SENDMSG) <= 0) abort();
+        if (bpf::queryProgram(cg_fd, BPF_CGROUP_UDP6_SENDMSG) <= 0) abort();
+
+        if (bpf::isAtLeastKernelVersion(5, 4, 0)) {
+            if (bpf::queryProgram(cg_fd, BPF_CGROUP_GETSOCKOPT) <= 0) abort();
+            if (bpf::queryProgram(cg_fd, BPF_CGROUP_SETSOCKOPT) <= 0) abort();
+        }
+
+        if (bpf::isAtLeastKernelVersion(5, 10, 0)) {
+            if (bpf::queryProgram(cg_fd, BPF_CGROUP_INET_SOCK_RELEASE) <= 0) abort();
+        }
+    }
+
     return netdutils::status::ok;
 }
 
@@ -109,9 +186,50 @@ BpfHandler::BpfHandler()
 BpfHandler::BpfHandler(uint32_t perUidLimit, uint32_t totalLimit)
     : mPerUidStatsEntriesLimit(perUidLimit), mTotalUidStatsEntriesLimit(totalLimit) {}
 
+static bool mainlineNetBpfLoadDone() {
+    return !access("/sys/fs/bpf/netd_shared/mainline_done", F_OK);
+}
+
+// copied with minor changes from waitForProgsLoaded()
+// p/m/C's staticlibs/native/bpf_headers/include/bpf/WaitForProgsLoaded.h
+static inline void waitForNetProgsLoaded() {
+    // infinite loop until success with 5/10/20/40/60/60/60... delay
+    for (int delay = 5;; delay *= 2) {
+        if (delay > 60) delay = 60;
+        if (WaitForProperty("init.svc.mdnsd_netbpfload", "stopped", std::chrono::seconds(delay))
+            && mainlineNetBpfLoadDone())
+            return;
+        ALOGW("Waited %ds for init.svc.mdnsd_netbpfload=stopped, still waiting...", delay);
+    }
+}
+
 Status BpfHandler::init(const char* cg2_path) {
-    // Make sure BPF programs are loaded before doing anything
-    android::bpf::waitForProgsLoaded();
+    // Note: netd *can* be restarted, so this might get called a second time after boot is complete
+    // at which point we don't need to (and shouldn't) wait for (more importantly start) loading bpf
+
+    if (base::GetProperty("bpf.progs_loaded", "") != "1") {
+        // AOSP platform netd & mainline don't need this (at least prior to U QPR3),
+        // but there could be platform provided (xt_)bpf programs that oem/vendor
+        // modified netd (which calls us during init) depends on...
+        ALOGI("Waiting for platform BPF programs");
+        android::bpf::waitForProgsLoaded();
+    }
+
+    if (!mainlineNetBpfLoadDone()) {
+        // We're on < U QPR3 & it's the first time netd is starting up (unless crashlooping)
+        //
+        // On U QPR3+ netbpfload is guaranteed to run before the platform bpfloader,
+        // so waitForProgsLoaded() implies mainlineNetBpfLoadDone().
+        if (!base::SetProperty("ctl.start", "mdnsd_netbpfload")) {
+            ALOGE("Failed to set property ctl.start=mdnsd_netbpfload, see dmesg for reason.");
+            abort();
+        }
+
+        ALOGI("Waiting for Networking BPF programs");
+        waitForNetProgsLoaded();
+        ALOGI("Networking BPF programs are loaded");
+    }
+
     ALOGI("BPF programs are loaded");
 
     RETURN_IF_NOT_OK(initPrograms(cg2_path));
@@ -120,7 +238,33 @@ Status BpfHandler::init(const char* cg2_path) {
     return netdutils::status::ok;
 }
 
+static void mapLockTest(void) {
+    // The maps must be R/W, and as yet unopened (or more specifically not yet lock'ed).
+    const char * const m1 = BPF_NETD_PATH "map_netd_lock_array_test_map";
+    const char * const m2 = BPF_NETD_PATH "map_netd_lock_hash_test_map";
+
+    unique_fd fd0(bpf::mapRetrieveExclusiveRW(m1)); if (!fd0.ok()) abort();  // grabs exclusive lock
+
+    unique_fd fd1(bpf::mapRetrieveExclusiveRW(m2)); if (!fd1.ok()) abort();  // no conflict with fd0
+    unique_fd fd2(bpf::mapRetrieveExclusiveRW(m2)); if ( fd2.ok()) abort();  // busy due to fd1
+    unique_fd fd3(bpf::mapRetrieveRO(m2));          if (!fd3.ok()) abort();  // no lock taken
+    unique_fd fd4(bpf::mapRetrieveRW(m2));          if ( fd4.ok()) abort();  // busy due to fd1
+    fd1.reset();  // releases exclusive lock
+    unique_fd fd5(bpf::mapRetrieveRO(m2));          if (!fd5.ok()) abort();  // no lock taken
+    unique_fd fd6(bpf::mapRetrieveRW(m2));          if (!fd6.ok()) abort();  // now ok
+    unique_fd fd7(bpf::mapRetrieveRO(m2));          if (!fd7.ok()) abort();  // no lock taken
+    unique_fd fd8(bpf::mapRetrieveExclusiveRW(m2)); if ( fd8.ok()) abort();  // busy due to fd6
+
+    fd0.reset();  // releases exclusive lock
+    unique_fd fd9(bpf::mapRetrieveWO(m1));          if (!fd9.ok()) abort();  // grabs exclusive lock
+}
+
 Status BpfHandler::initMaps() {
+    // bpfLock() requires bpfGetFdMapId which is only available on 4.14+ kernels.
+    if (bpf::isAtLeastKernelVersion(4, 14, 0)) {
+        mapLockTest();
+    }
+
     RETURN_IF_NOT_OK(mStatsMapA.init(STATS_MAP_A_PATH));
     RETURN_IF_NOT_OK(mStatsMapB.init(STATS_MAP_B_PATH));
     RETURN_IF_NOT_OK(mConfigurationMap.init(CONFIGURATION_MAP_PATH));
@@ -200,7 +344,7 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
     // which might toggle the live stats map and clean it.
     const auto countUidStatsEntries = [chargeUid, &totalEntryCount, &perUidEntryCount](
                                               const StatsKey& key,
-                                              const BpfMap<StatsKey, StatsValue>&) {
+                                              const BpfMapRO<StatsKey, StatsValue>&) {
         if (key.uid == chargeUid) {
             perUidEntryCount++;
         }
@@ -209,8 +353,8 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
     };
     auto configuration = mConfigurationMap.readValue(CURRENT_STATS_MAP_CONFIGURATION_KEY);
     if (!configuration.ok()) {
-        ALOGE("Failed to get current configuration: %s, fd: %d",
-              strerror(configuration.error().code()), mConfigurationMap.getMap().get());
+        ALOGE("Failed to get current configuration: %s",
+              strerror(configuration.error().code()));
         return -configuration.error().code();
     }
     if (configuration.value() != SELECT_MAP_A && configuration.value() != SELECT_MAP_B) {
@@ -218,12 +362,11 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
         return -EINVAL;
     }
 
-    BpfMap<StatsKey, StatsValue>& currentMap =
+    BpfMapRO<StatsKey, StatsValue>& currentMap =
             (configuration.value() == SELECT_MAP_A) ? mStatsMapA : mStatsMapB;
-    // HACK: mStatsMapB becomes RW BpfMap here, but countUidStatsEntries doesn't modify so it works
     base::Result<void> res = currentMap.iterate(countUidStatsEntries);
     if (!res.ok()) {
-        ALOGE("Failed to count the stats entry in map %d: %s", currentMap.getMap().get(),
+        ALOGE("Failed to count the stats entry in map: %s",
               strerror(res.error().code()));
         return -res.error().code();
     }
@@ -242,10 +385,11 @@ int BpfHandler::tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realU
     // should be fine to concurrently update the map while eBPF program is running.
     res = mCookieTagMap.writeValue(sock_cookie, newKey, BPF_ANY);
     if (!res.ok()) {
-        ALOGE("Failed to tag the socket: %s, fd: %d", strerror(res.error().code()),
-              mCookieTagMap.getMap().get());
+        ALOGE("Failed to tag the socket: %s", strerror(res.error().code()));
         return -res.error().code();
     }
+    ALOGD("Socket with cookie %" PRIu64 " tagged successfully with tag %" PRIu32 " uid %u "
+              "and real uid %u", sock_cookie, tag, chargeUid, realUid);
     return 0;
 }
 
@@ -259,6 +403,7 @@ int BpfHandler::untagSocket(int sockFd) {
         ALOGE("Failed to untag socket: %s", strerror(res.error().code()));
         return -res.error().code();
     }
+    ALOGD("Socket with cookie %" PRIu64 " untagged successfully.", sock_cookie);
     return 0;
 }
 

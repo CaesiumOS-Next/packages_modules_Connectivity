@@ -16,11 +16,13 @@
 
 package com.android.networkstack.tethering;
 
+import android.annotation.Nullable;
 import android.app.usage.NetworkStatsManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
 import android.content.Context;
 import android.net.INetd;
+import android.net.connectivity.ConnectivityInternalApiUtil;
 import android.net.ip.IpServer;
 import android.os.Build;
 import android.os.Handler;
@@ -32,7 +34,9 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
-import com.android.internal.util.StateMachine;
+import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.RoutingCoordinatorManager;
+import com.android.net.module.util.RoutingCoordinatorService;
 import com.android.net.module.util.SharedLog;
 import com.android.networkstack.apishim.BluetoothPanShimImpl;
 import com.android.networkstack.apishim.common.BluetoothPanShim;
@@ -49,58 +53,58 @@ import java.util.ArrayList;
  */
 public abstract class TetheringDependencies {
     /**
-     * Get a reference to the BpfCoordinator to be used by tethering.
+     * Make the BpfCoordinator to be used by tethering.
      */
-    public @NonNull BpfCoordinator getBpfCoordinator(
+    public @NonNull BpfCoordinator makeBpfCoordinator(
             @NonNull BpfCoordinator.Dependencies deps) {
         return new BpfCoordinator(deps);
     }
 
     /**
-     * Get a reference to the offload hardware interface to be used by tethering.
+     * Make the offload hardware interface to be used by tethering.
      */
-    public OffloadHardwareInterface getOffloadHardwareInterface(Handler h, SharedLog log) {
+    public OffloadHardwareInterface makeOffloadHardwareInterface(Handler h, SharedLog log) {
         return new OffloadHardwareInterface(h, log);
     }
 
     /**
-     * Get a reference to the offload controller to be used by tethering.
+     * Make the offload controller to be used by tethering.
      */
     @NonNull
-    public OffloadController getOffloadController(@NonNull Handler h,
+    public OffloadController makeOffloadController(@NonNull Handler h,
             @NonNull SharedLog log, @NonNull OffloadController.Dependencies deps) {
         final NetworkStatsManager statsManager =
                 (NetworkStatsManager) getContext().getSystemService(Context.NETWORK_STATS_SERVICE);
-        return new OffloadController(h, getOffloadHardwareInterface(h, log),
+        return new OffloadController(h, makeOffloadHardwareInterface(h, log),
                 getContext().getContentResolver(), statsManager, log, deps);
     }
 
 
     /**
-     * Get a reference to the UpstreamNetworkMonitor to be used by tethering.
+     * Make the UpstreamNetworkMonitor to be used by tethering.
      */
-    public UpstreamNetworkMonitor getUpstreamNetworkMonitor(Context ctx, StateMachine target,
-            SharedLog log, int what) {
-        return new UpstreamNetworkMonitor(ctx, target, log, what);
+    public UpstreamNetworkMonitor makeUpstreamNetworkMonitor(Context ctx, Handler h,
+            SharedLog log, UpstreamNetworkMonitor.EventListener listener) {
+        return new UpstreamNetworkMonitor(ctx, h, log, listener);
     }
 
     /**
-     * Get a reference to the IPv6TetheringCoordinator to be used by tethering.
+     * Make the IPv6TetheringCoordinator to be used by tethering.
      */
-    public IPv6TetheringCoordinator getIPv6TetheringCoordinator(
+    public IPv6TetheringCoordinator makeIPv6TetheringCoordinator(
             ArrayList<IpServer> notifyList, SharedLog log) {
         return new IPv6TetheringCoordinator(notifyList, log);
     }
 
     /**
-     * Get dependencies to be used by IpServer.
+     * Make dependencies to be used by IpServer.
      */
-    public abstract IpServer.Dependencies getIpServerDependencies();
+    public abstract IpServer.Dependencies makeIpServerDependencies();
 
     /**
-     * Get a reference to the EntitlementManager to be used by tethering.
+     * Make the EntitlementManager to be used by tethering.
      */
-    public EntitlementManager getEntitlementManager(Context ctx, Handler h, SharedLog log,
+    public EntitlementManager makeEntitlementManager(Context ctx, Handler h, SharedLog log,
             Runnable callback) {
         return new EntitlementManager(ctx, h, log, callback);
     }
@@ -116,32 +120,50 @@ public abstract class TetheringDependencies {
     /**
      * Get a reference to INetd to be used by tethering.
      */
-    public INetd getINetd(Context context) {
-        return INetd.Stub.asInterface(
-                (IBinder) context.getSystemService(Context.NETD_SERVICE));
+    public INetd getINetd(Context context, SharedLog log) {
+        final INetd netd =
+                INetd.Stub.asInterface((IBinder) context.getSystemService(Context.NETD_SERVICE));
+        if (netd == null) {
+            log.wtf("INetd is null");
+        }
+        return netd;
     }
 
     /**
-     * Get a reference to the TetheringNotificationUpdater to be used by tethering.
+     * Get the routing coordinator.
      */
-    public TetheringNotificationUpdater getNotificationUpdater(@NonNull final Context ctx,
+    public RoutingCoordinatorManager getRoutingCoordinator(Context context, SharedLog log) {
+        IBinder binder;
+        if (!SdkLevel.isAtLeastS()) {
+            binder = new RoutingCoordinatorService(getINetd(context, log));
+        } else {
+            binder = ConnectivityInternalApiUtil.getRoutingCoordinator(context);
+        }
+        return new RoutingCoordinatorManager(context, binder);
+    }
+
+    /**
+     * Make the TetheringNotificationUpdater to be used by tethering.
+     */
+    public TetheringNotificationUpdater makeNotificationUpdater(@NonNull final Context ctx,
             @NonNull final Looper looper) {
         return new TetheringNotificationUpdater(ctx, looper);
     }
 
     /**
-     * Get tethering thread looper.
+     * Make tethering thread looper.
      */
-    public abstract Looper getTetheringLooper();
+    public abstract Looper makeTetheringLooper();
 
     /**
-     *  Get Context of TetheringSerice.
+     *  Get Context of TetheringService.
      */
     public abstract Context getContext();
 
     /**
      * Get a reference to BluetoothAdapter to be used by tethering.
      */
+    @Nullable
     public abstract BluetoothAdapter getBluetoothAdapter();
 
     /**
@@ -152,34 +174,34 @@ public abstract class TetheringDependencies {
     }
 
     /**
-     * Get a reference to PrivateAddressCoordinator to be used by Tethering.
+     * Make PrivateAddressCoordinator to be used by Tethering.
      */
-    public PrivateAddressCoordinator getPrivateAddressCoordinator(Context ctx,
+    public PrivateAddressCoordinator makePrivateAddressCoordinator(Context ctx,
             TetheringConfiguration cfg) {
         return new PrivateAddressCoordinator(ctx, cfg);
     }
 
     /**
-     * Get BluetoothPanShim object to enable/disable bluetooth tethering.
+     * Make BluetoothPanShim object to enable/disable bluetooth tethering.
      *
      * TODO: use BluetoothPan directly when mainline module is built with API 32.
      */
-    public BluetoothPanShim getBluetoothPanShim(BluetoothPan pan) {
+    public BluetoothPanShim makeBluetoothPanShim(BluetoothPan pan) {
         return BluetoothPanShimImpl.newInstance(pan);
     }
 
     /**
-     * Get a reference to the TetheringMetrics to be used by tethering.
+     * Make the TetheringMetrics to be used by tethering.
      */
-    public TetheringMetrics getTetheringMetrics() {
-        return new TetheringMetrics();
+    public TetheringMetrics makeTetheringMetrics(Context ctx) {
+        return new TetheringMetrics(ctx);
     }
 
     /**
      * Returns the implementation of WearableConnectionManager.
      */
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    public WearableConnectionManager getWearableConnectionManager(Context ctx) {
+    public WearableConnectionManager makeWearableConnectionManager(Context ctx) {
         return new WearableConnectionManager(ctx);
     }
 }

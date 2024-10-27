@@ -20,13 +20,19 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOTA;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_SUPL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
+
+import static com.google.common.truth.Truth.assertThat;
 
 import static junit.framework.Assert.fail;
 
@@ -58,7 +64,9 @@ import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.NetworkRequestShimImpl;
 import com.android.networkstack.apishim.common.NetworkRequestShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
+import com.android.testutils.ConnectivityModuleTest;
 import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 
 import org.junit.Rule;
@@ -68,6 +76,7 @@ import org.junit.runner.RunWith;
 import java.util.Set;
 
 @RunWith(AndroidJUnit4.class)
+@ConnectivityModuleTest
 public class NetworkRequestTest {
     @Rule
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
@@ -102,6 +111,23 @@ public class NetworkRequestTest {
         final NetworkRequest nr = new NetworkRequest.Builder().clearCapabilities().build();
         // Verify request has no capabilities
         verifyNoCapabilities(nr);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testForbiddenCapabilities() {
+        final NetworkRequest.Builder builder = new NetworkRequest.Builder();
+        builder.addForbiddenCapability(NET_CAPABILITY_MMS);
+        assertTrue(builder.build().hasForbiddenCapability(NET_CAPABILITY_MMS));
+        builder.removeForbiddenCapability(NET_CAPABILITY_MMS);
+        assertFalse(builder.build().hasCapability(NET_CAPABILITY_MMS));
+        builder.addCapability(NET_CAPABILITY_MMS);
+        assertFalse(builder.build().hasForbiddenCapability(NET_CAPABILITY_MMS));
+        assertTrue(builder.build().hasCapability(NET_CAPABILITY_MMS));
+        builder.addForbiddenCapability(NET_CAPABILITY_MMS);
+        assertTrue(builder.build().hasForbiddenCapability(NET_CAPABILITY_MMS));
+        assertFalse(builder.build().hasCapability(NET_CAPABILITY_MMS));
+        builder.clearCapabilities();
+        verifyNoCapabilities(builder.build());
     }
 
     @Test @IgnoreUpTo(Build.VERSION_CODES.Q)
@@ -149,6 +175,20 @@ public class NetworkRequestTest {
                 .clearCapabilities()
                 .build()
                 .getNetworkSpecifier());
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S)
+    public void testSubscriptionIds() {
+        int[] subIds = {1, 2};
+        assertTrue(
+                new NetworkRequest.Builder().build()
+                        .getSubscriptionIds().isEmpty());
+        assertThat(new NetworkRequest.Builder()
+                .setSubscriptionIds(Set.of(subIds[0], subIds[1]))
+                .build()
+                .getSubscriptionIds())
+                .containsExactly(subIds[0], subIds[1]);
     }
 
     @Test
@@ -470,6 +510,22 @@ public class NetworkRequestTest {
                 .setCapabilities(builder.build())
                 .build();
         assertArrayEquals(netCapabilities, nr.getCapabilities());
+    }
+
+    // Default capabilities and default forbidden capabilities must not be changed on U- because
+    // this could cause the system server crash when there is a module rollback (b/313030307)
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R) @IgnoreAfter(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    public void testDefaultCapabilities() {
+        final NetworkRequest defaultNR = new NetworkRequest.Builder().build();
+
+        assertEquals(4, defaultNR.getCapabilities().length);
+        assertTrue(defaultNR.hasCapability(NET_CAPABILITY_NOT_RESTRICTED));
+        assertTrue(defaultNR.hasCapability(NET_CAPABILITY_TRUSTED));
+        assertTrue(defaultNR.hasCapability(NET_CAPABILITY_NOT_VPN));
+        assertTrue(defaultNR.hasCapability(NET_CAPABILITY_NOT_VCN_MANAGED));
+
+        assertEquals(0, defaultNR.getForbiddenCapabilities().length);
     }
 
     @Test

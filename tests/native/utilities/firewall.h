@@ -18,6 +18,7 @@
 #pragma once
 
 #include <android-base/thread_annotations.h>
+#define BPF_MAP_LOCKLESS_FOR_TEST
 #include <bpf/BpfMap.h>
 #include "netd.h"
 
@@ -33,9 +34,11 @@ class Firewall {
     Result<void> removeRule(uint32_t uid, UidOwnerMatchType match) EXCLUDES(mMutex);
     Result<void> addUidInterfaceRules(const std::string& ifName, const std::vector<int32_t>& uids);
     Result<void> removeUidInterfaceRules(const std::vector<int32_t>& uids);
-
+    Result<bool> getDataSaverSetting();
+    Result<void> setDataSaver(bool enabled);
   private:
     BpfMap<uint32_t, uint32_t> mConfigurationMap GUARDED_BY(mMutex);
     BpfMap<uint32_t, UidOwnerValue> mUidOwnerMap GUARDED_BY(mMutex);
+    BpfMap<uint32_t, bool> mDataSaverEnabledMap GUARDED_BY(mMutex);
     std::mutex mMutex;
 };

@@ -26,6 +26,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_EIMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
@@ -53,6 +54,7 @@ import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.SIGNAL_STRENGTH_UNSPECIFIED;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_SATELLITE;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_USB;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
@@ -60,9 +62,9 @@ import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
 import static android.os.Process.INVALID_UID;
 
-import static com.android.modules.utils.build.SdkLevel.isAtLeastR;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastS;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
+import static com.android.modules.utils.build.SdkLevel.isAtLeastV;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.MiscAsserts.assertEmpty;
 import static com.android.testutils.MiscAsserts.assertThrows;
@@ -81,9 +83,10 @@ import android.net.wifi.aware.DiscoverySession;
 import android.net.wifi.aware.PeerHandle;
 import android.net.wifi.aware.WifiAwareNetworkSpecifier;
 import android.os.Build;
-import android.test.suitebuilder.annotation.SmallTest;
 import android.util.ArraySet;
 import android.util.Range;
+
+import androidx.test.filters.SmallTest;
 
 import com.android.testutils.CompatUtil;
 import com.android.testutils.ConnectivityModuleTest;
@@ -369,6 +372,9 @@ public class NetworkCapabilitiesTest {
             .addCapability(NET_CAPABILITY_INTERNET)
             .addCapability(NET_CAPABILITY_EIMS)
             .addCapability(NET_CAPABILITY_NOT_METERED);
+        if (isAtLeastV()) {
+            netCap.addCapability(NET_CAPABILITY_LOCAL_NETWORK);
+        }
         if (isAtLeastS()) {
             final ArraySet<Integer> allowedUids = new ArraySet<>();
             allowedUids.add(4);
@@ -377,10 +383,9 @@ public class NetworkCapabilitiesTest {
             netCap.setSubscriptionIds(Set.of(TEST_SUBID1, TEST_SUBID2));
             netCap.setUids(uids);
         }
-        if (isAtLeastR()) {
-            netCap.setOwnerUid(123);
-            netCap.setAdministratorUids(new int[] {5, 11});
-        }
+
+        netCap.setOwnerUid(123);
+        netCap.setAdministratorUids(new int[] {5, 11});
         assertParcelingIsLossless(netCap);
         netCap.setSSID(TEST_SSID);
         testParcelSane(netCap);
@@ -392,10 +397,8 @@ public class NetworkCapabilitiesTest {
                 .addCapability(NET_CAPABILITY_INTERNET)
                 .addCapability(NET_CAPABILITY_EIMS)
                 .addCapability(NET_CAPABILITY_NOT_METERED);
-        if (isAtLeastR()) {
-            netCap.setRequestorPackageName("com.android.test");
-            netCap.setRequestorUid(9304);
-        }
+        netCap.setRequestorPackageName("com.android.test");
+        netCap.setRequestorUid(9304);
         assertParcelingIsLossless(netCap);
         netCap.setSSID(TEST_SSID);
         testParcelSane(netCap);
@@ -760,6 +763,47 @@ public class NetworkCapabilitiesTest {
     }
 
     @Test
+    public void testSetNetworkSpecifierWithCellularAndSatelliteMultiTransportNc() {
+        final TelephonyNetworkSpecifier specifier = new TelephonyNetworkSpecifier(1);
+        NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addTransportType(TRANSPORT_SATELLITE)
+                .setNetworkSpecifier(specifier)
+                .build();
+        // Adding a specifier did not crash with 2 transports if it is cellular + satellite
+        assertEquals(specifier, nc.getNetworkSpecifier());
+    }
+
+    @Test
+    public void testSetNetworkSpecifierWithWifiAndSatelliteMultiTransportNc() {
+        final TelephonyNetworkSpecifier specifier = new TelephonyNetworkSpecifier(1);
+        NetworkCapabilities.Builder nc1 = new NetworkCapabilities.Builder();
+        nc1.addTransportType(TRANSPORT_SATELLITE).addTransportType(TRANSPORT_WIFI);
+        // Adding multiple transports specifier to crash, apart from cellular + satellite
+        // combination
+        assertThrows("Cannot set NetworkSpecifier on a NetworkCapability with multiple transports!",
+                IllegalStateException.class,
+                () -> nc1.build().setNetworkSpecifier(specifier));
+        assertThrows("Cannot set NetworkSpecifier on a NetworkCapability with multiple transports!",
+                IllegalStateException.class,
+                () -> nc1.setNetworkSpecifier(specifier));
+    }
+
+    @Test
+    public void testSetNetworkSpecifierOnTestWithCellularAndSatelliteMultiTransportNc() {
+        final TelephonyNetworkSpecifier specifier = new TelephonyNetworkSpecifier(1);
+        NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_TEST)
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addTransportType(TRANSPORT_SATELLITE)
+                .setNetworkSpecifier(specifier)
+                .build();
+        // Adding a specifier did not crash with 3 transports , TEST + CELLULAR + SATELLITE and if
+        // one is test
+        assertEquals(specifier, nc.getNetworkSpecifier());
+    }
+
+    @Test
     public void testSetNetworkSpecifierOnTestMultiTransportNc() {
         final NetworkSpecifier specifier = CompatUtil.makeEthernetNetworkSpecifier("eth0");
         NetworkCapabilities nc = new NetworkCapabilities.Builder()
@@ -815,16 +859,12 @@ public class NetworkCapabilitiesTest {
             assertTrue(nc2.hasForbiddenCapability(NET_CAPABILITY_NOT_ROAMING));
         }
 
-        if (isAtLeastR()) {
-            assertTrue(TEST_SSID.equals(nc2.getSsid()));
-        }
-
+        assertTrue(TEST_SSID.equals(nc2.getSsid()));
         nc1.setSSID(DIFFERENT_TEST_SSID);
         nc2.set(nc1);
         assertEquals(nc1, nc2);
-        if (isAtLeastR()) {
-            assertTrue(DIFFERENT_TEST_SSID.equals(nc2.getSsid()));
-        }
+        assertTrue(DIFFERENT_TEST_SSID.equals(nc2.getSsid()));
+
         if (isAtLeastS()) {
             nc1.setUids(uidRanges(10, 13));
         } else {
@@ -1430,5 +1470,27 @@ public class NetworkCapabilitiesTest {
                 nc2.describeCapsDifferencesFrom(nc1));
         assertEquals("-SUPL-VALIDATED-CAPTIVE_PORTAL+MMS+OEM_PAID",
                 nc1.describeCapsDifferencesFrom(nc2));
+    }
+
+    @Test
+    public void testInvalidCapability() {
+        final int invalidCapability = Integer.MAX_VALUE;
+        // Passing invalid capability does not throw
+        final NetworkCapabilities nc1 = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addForbiddenCapability(NET_CAPABILITY_NOT_ROAMING)
+                .removeCapability(invalidCapability)
+                .removeForbiddenCapability(invalidCapability)
+                .addCapability(invalidCapability)
+                .addForbiddenCapability(invalidCapability)
+                .build();
+
+        final NetworkCapabilities nc2 = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addForbiddenCapability(NET_CAPABILITY_NOT_ROAMING)
+                .build();
+
+        // nc1 and nc2 are the same since invalid capability is ignored
+        assertEquals(nc1, nc2);
     }
 }

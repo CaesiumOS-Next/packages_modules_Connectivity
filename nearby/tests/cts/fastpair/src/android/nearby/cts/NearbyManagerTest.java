@@ -25,12 +25,12 @@ import static android.nearby.ScanCallback.ERROR_UNSUPPORTED;
 import static com.google.common.truth.Truth.assertThat;
 
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assume.assumeTrue;
 
 import android.app.UiAutomation;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
-import android.bluetooth.cts.BTAdapterUtils;
+import android.bluetooth.test_utils.EnableBluetoothRule;
 import android.content.Context;
+import android.location.LocationManager;
 import android.nearby.BroadcastCallback;
 import android.nearby.BroadcastRequest;
 import android.nearby.NearbyDevice;
@@ -42,6 +42,8 @@ import android.nearby.PrivateCredential;
 import android.nearby.ScanCallback;
 import android.nearby.ScanRequest;
 import android.os.Build;
+import android.os.Process;
+import android.os.UserHandle;
 import android.provider.DeviceConfig;
 
 import androidx.annotation.NonNull;
@@ -50,13 +52,16 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 
+import com.android.compatibility.common.util.SystemUtil;
 import com.android.modules.utils.build.SdkLevel;
 
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -70,6 +75,9 @@ import java.util.function.Consumer;
 @RunWith(AndroidJUnit4.class)
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class NearbyManagerTest {
+
+    @ClassRule public static final EnableBluetoothRule sEnableBluetooth = new EnableBluetoothRule();
+
     private static final byte[] SALT = new byte[]{1, 2};
     private static final byte[] SECRET_ID = new byte[]{1, 2, 3, 4};
     private static final byte[] META_DATA_ENCRYPTION_KEY = new byte[14];
@@ -122,8 +130,6 @@ public class NearbyManagerTest {
 
         mContext = InstrumentationRegistry.getContext();
         mNearbyManager = mContext.getSystemService(NearbyManager.class);
-
-        enableBluetooth();
     }
 
     @Test
@@ -189,12 +195,97 @@ public class NearbyManagerTest {
         mScanCallback.onError(ERROR_UNSUPPORTED);
     }
 
-    private void enableBluetooth() {
-        BluetoothManager manager = mContext.getSystemService(BluetoothManager.class);
-        BluetoothAdapter bluetoothAdapter = manager.getAdapter();
-        if (!bluetoothAdapter.isEnabled()) {
-            assertThat(BTAdapterUtils.enableAdapter(bluetoothAdapter, mContext)).isTrue();
-        }
+    @Test
+    public void testsetPoweredOffFindingEphemeralIds() {
+        // Replace with minSdkVersion when Build.VERSION_CODES.VANILLA_ICE_CREAM can be used.
+        assumeTrue(SdkLevel.isAtLeastV());
+        // Only test supporting devices.
+        if (mNearbyManager.getPoweredOffFindingMode()
+                == NearbyManager.POWERED_OFF_FINDING_MODE_UNSUPPORTED) return;
+
+        mNearbyManager.setPoweredOffFindingEphemeralIds(List.of(new byte[20], new byte[20]));
+    }
+
+    @Test
+    public void testsetPoweredOffFindingEphemeralIds_noPrivilegedPermission() {
+        // Replace with minSdkVersion when Build.VERSION_CODES.VANILLA_ICE_CREAM can be used.
+        assumeTrue(SdkLevel.isAtLeastV());
+        // Only test supporting devices.
+        if (mNearbyManager.getPoweredOffFindingMode()
+                == NearbyManager.POWERED_OFF_FINDING_MODE_UNSUPPORTED) return;
+
+        mUiAutomation.dropShellPermissionIdentity();
+
+        assertThrows(SecurityException.class,
+                () -> mNearbyManager.setPoweredOffFindingEphemeralIds(List.of(new byte[20])));
+    }
+
+
+    @Test
+    public void testSetAndGetPoweredOffFindingMode_enabled() {
+        // Replace with minSdkVersion when Build.VERSION_CODES.VANILLA_ICE_CREAM can be used.
+        assumeTrue(SdkLevel.isAtLeastV());
+        // Only test supporting devices.
+        if (mNearbyManager.getPoweredOffFindingMode()
+                == NearbyManager.POWERED_OFF_FINDING_MODE_UNSUPPORTED) return;
+
+        enableLocation();
+        // enableLocation() has dropped shell permission identity.
+        mUiAutomation.adoptShellPermissionIdentity(BLUETOOTH_PRIVILEGED);
+
+        mNearbyManager.setPoweredOffFindingMode(
+                NearbyManager.POWERED_OFF_FINDING_MODE_ENABLED);
+        assertThat(mNearbyManager.getPoweredOffFindingMode())
+                .isEqualTo(NearbyManager.POWERED_OFF_FINDING_MODE_ENABLED);
+    }
+
+    @Test
+    public void testSetAndGetPoweredOffFindingMode_disabled() {
+        // Replace with minSdkVersion when Build.VERSION_CODES.VANILLA_ICE_CREAM can be used.
+        assumeTrue(SdkLevel.isAtLeastV());
+        // Only test supporting devices.
+        if (mNearbyManager.getPoweredOffFindingMode()
+                == NearbyManager.POWERED_OFF_FINDING_MODE_UNSUPPORTED) return;
+
+        mNearbyManager.setPoweredOffFindingMode(
+                NearbyManager.POWERED_OFF_FINDING_MODE_DISABLED);
+        assertThat(mNearbyManager.getPoweredOffFindingMode())
+                .isEqualTo(NearbyManager.POWERED_OFF_FINDING_MODE_DISABLED);
+    }
+
+    @Test
+    public void testSetPoweredOffFindingMode_noPrivilegedPermission() {
+        // Replace with minSdkVersion when Build.VERSION_CODES.VANILLA_ICE_CREAM can be used.
+        assumeTrue(SdkLevel.isAtLeastV());
+        // Only test supporting devices.
+        if (mNearbyManager.getPoweredOffFindingMode()
+                == NearbyManager.POWERED_OFF_FINDING_MODE_UNSUPPORTED) return;
+
+        enableLocation();
+        mUiAutomation.dropShellPermissionIdentity();
+
+        assertThrows(SecurityException.class, () -> mNearbyManager
+                .setPoweredOffFindingMode(NearbyManager.POWERED_OFF_FINDING_MODE_ENABLED));
+    }
+
+    @Test
+    public void testGetPoweredOffFindingMode_noPrivilegedPermission() {
+        // Replace with minSdkVersion when Build.VERSION_CODES.VANILLA_ICE_CREAM can be used.
+        assumeTrue(SdkLevel.isAtLeastV());
+        // Only test supporting devices.
+        if (mNearbyManager.getPoweredOffFindingMode()
+                == NearbyManager.POWERED_OFF_FINDING_MODE_UNSUPPORTED) return;
+
+        mUiAutomation.dropShellPermissionIdentity();
+
+        assertThrows(SecurityException.class, () -> mNearbyManager.getPoweredOffFindingMode());
+    }
+
+    private void enableLocation() {
+        LocationManager locationManager = mContext.getSystemService(LocationManager.class);
+        UserHandle user = Process.myUserHandle();
+        SystemUtil.runWithShellPermissionIdentity(
+                mUiAutomation, () -> locationManager.setLocationEnabledForUser(true, user));
     }
 
     private static class OffloadCallback implements Consumer<OffloadCapability> {

@@ -71,6 +71,8 @@ import android.telephony.TelephonyManager;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.ParcelUtils;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -233,6 +235,24 @@ public class TetheringManagerTest {
         assertEquals(TETHERING_USB, tr2.getTetheringType());
         assertTrue(tr2.isExemptFromEntitlementCheck());
         assertFalse(tr2.getShouldShowEntitlementUi());
+
+        final TetheringRequest tr3 = new TetheringRequest.Builder(TETHERING_USB)
+                .setStaticIpv4Addresses(localAddr, clientAddr)
+                .setExemptFromEntitlementCheck(true)
+                .setShouldShowEntitlementUi(false).build();
+        assertEquals(tr2, tr3);
+    }
+
+    @Test
+    public void testTetheringRequestParcelable() {
+        final LinkAddress localAddr = new LinkAddress("192.168.24.5/24");
+        final LinkAddress clientAddr = new LinkAddress("192.168.24.100/24");
+        final TetheringRequest unparceled = new TetheringRequest.Builder(TETHERING_USB)
+                .setStaticIpv4Addresses(localAddr, clientAddr)
+                .setExemptFromEntitlementCheck(true)
+                .setShouldShowEntitlementUi(false).build();
+        final TetheringRequest parceled = ParcelUtils.parcelingRoundTrip(unparceled);
+        assertEquals(unparceled, parceled);
     }
 
     @Test

@@ -15,6 +15,7 @@
 //
 
 package {
+    default_team: "trendy_team_fwk_core_networking",
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
@@ -39,27 +40,30 @@ java_defaults {
 android_test_helper_app {
     name: "CtsHostsideNetworkCapTestsAppWithoutProperty",
     defaults: [
-           "cts_support_defaults",
-           "CtsHostsideNetworkCapTestsAppDefaults"
+        "cts_support_defaults",
+        "CtsHostsideNetworkCapTestsAppDefaults",
     ],
     manifest: "AndroidManifestWithoutProperty.xml",
+    sdk_version: "test_current",
 }
 
 android_test_helper_app {
     name: "CtsHostsideNetworkCapTestsAppWithProperty",
     defaults: [
-           "cts_support_defaults",
-           "CtsHostsideNetworkCapTestsAppDefaults"
+        "cts_support_defaults",
+        "CtsHostsideNetworkCapTestsAppDefaults",
     ],
     manifest: "AndroidManifestWithProperty.xml",
+    sdk_version: "test_current",
 }
 
 android_test_helper_app {
     name: "CtsHostsideNetworkCapTestsAppSdk33",
     defaults: [
-           "cts_support_defaults",
-           "CtsHostsideNetworkCapTestsAppDefaults"
+        "cts_support_defaults",
+        "CtsHostsideNetworkCapTestsAppDefaults",
     ],
     target_sdk_version: "33",
     manifest: "AndroidManifestWithoutProperty.xml",
+    sdk_version: "test_current",
 }

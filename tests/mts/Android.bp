@@ -14,6 +14,7 @@
 //
 
 package {
+    default_team: "trendy_team_fwk_core_networking",
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
@@ -30,6 +31,8 @@ cc_test {
     header_libs: [
         "bpf_headers",
     ],
+    version_script: ":connectivity_mainline_test_map",
+    stl: "libc++_static",
     static_libs: [
         "libbase",
         "libmodules-utils-build",
@@ -38,5 +41,5 @@ cc_test {
         "bpf_existence_test.cpp",
     ],
     compile_multilib: "first",
-    min_sdk_version: "29",  // Ensure test runs on Q and above.
+    min_sdk_version: "30", // Ensure test runs on R and above.
 }

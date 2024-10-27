@@ -169,13 +169,13 @@ public class ProcNetTest extends BaseHostJUnit4Test implements IBuildReceiver, I
         for (String interfaceDir : mSysctlDirs) {
             String path = IPV6_SYSCTL_DIR + "/" + interfaceDir + "/" + "router_solicitations";
             int value = readIntFromPath(path);
-            assertEquals(IPV6_WIFI_ROUTER_SOLICITATIONS, value);
+            assertEquals(path, IPV6_WIFI_ROUTER_SOLICITATIONS, value);
             path = IPV6_SYSCTL_DIR + "/" + interfaceDir + "/" + "router_solicitation_max_interval";
             int interval = readIntFromPath(path);
             final int lowerBoundSec = 15 * 60;
             final int upperBoundSec = 60 * 60;
-            assertTrue(lowerBoundSec <= interval);
-            assertTrue(interval <= upperBoundSec);
+            assertTrue(path, lowerBoundSec <= interval);
+            assertTrue(path, interval <= upperBoundSec);
         }
     }
 
@@ -191,6 +191,6 @@ public class ProcNetTest extends BaseHostJUnit4Test implements IBuildReceiver, I
 
         String path = "/proc/sys/net/ipv4/tcp_congestion_control";
         String value = mDevice.executeAdbCommand("shell", "cat", path).trim();
-        assertEquals(value, "cubic");
+        assertEquals("cubic", value);
     }
 }

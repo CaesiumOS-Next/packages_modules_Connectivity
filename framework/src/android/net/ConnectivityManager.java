@@ -26,9 +26,12 @@ import static android.net.NetworkRequest.Type.TRACK_SYSTEM_DEFAULT;
 import static android.net.QosCallback.QosCallbackRegistrationException;
 
 import android.annotation.CallbackExecutor;
+import android.annotation.FlaggedApi;
 import android.annotation.IntDef;
+import android.annotation.LongDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.RequiresApi;
 import android.annotation.RequiresPermission;
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
@@ -68,22 +71,29 @@ import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.ArrayMap;
 import android.util.Log;
+import android.util.LruCache;
 import android.util.Range;
 import android.util.SparseIntArray;
 
 import com.android.internal.annotations.GuardedBy;
+import com.android.internal.annotations.VisibleForTesting;
+import com.android.modules.utils.build.SdkLevel;
 
 import libcore.net.event.NetworkEventDispatcher;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Method;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -114,6 +124,24 @@ import java.util.concurrent.RejectedExecutionException;
 public class ConnectivityManager {
     private static final String TAG = "ConnectivityManager";
     private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
+
+    // TODO : remove this class when udc-mainline-prod is abandoned and android.net.flags.Flags is
+    // available here
+    /** @hide */
+    public static class Flags {
+        static final String SET_DATA_SAVER_VIA_CM =
+                "com.android.net.flags.set_data_saver_via_cm";
+        static final String SUPPORT_IS_UID_NETWORKING_BLOCKED =
+                "com.android.net.flags.support_is_uid_networking_blocked";
+        static final String BASIC_BACKGROUND_RESTRICTIONS_ENABLED =
+                "com.android.net.flags.basic_background_restrictions_enabled";
+        static final String METERED_NETWORK_FIREWALL_CHAINS =
+                "com.android.net.flags.metered_network_firewall_chains";
+        static final String BLOCKED_REASON_OEM_DENY_CHAINS =
+                "com.android.net.flags.blocked_reason_oem_deny_chains";
+        static final String BLOCKED_REASON_NETWORK_RESTRICTED =
+                "com.android.net.flags.blocked_reason_network_restricted";
+    }
 
     /**
      * A change in network connectivity has occurred. A default connection has either
@@ -886,6 +914,40 @@ public class ConnectivityManager {
     public static final int BLOCKED_REASON_LOW_POWER_STANDBY = 1 << 5;
 
     /**
+     * Flag to indicate that an app is subject to default background restrictions that would
+     * result in its network access being blocked.
+     *
+     * @hide
+     */
+    @FlaggedApi(Flags.BASIC_BACKGROUND_RESTRICTIONS_ENABLED)
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final int BLOCKED_REASON_APP_BACKGROUND = 1 << 6;
+
+    /**
+     * Flag to indicate that an app is subject to OEM-specific application restrictions that would
+     * result in its network access being blocked.
+     *
+     * @see #FIREWALL_CHAIN_OEM_DENY_1
+     * @see #FIREWALL_CHAIN_OEM_DENY_2
+     * @see #FIREWALL_CHAIN_OEM_DENY_3
+     * @hide
+     */
+    @FlaggedApi(Flags.BLOCKED_REASON_OEM_DENY_CHAINS)
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final int BLOCKED_REASON_OEM_DENY = 1 << 7;
+
+    /**
+     * Flag to indicate that an app does not have permission to access the specified network,
+     * for example, because it does not have the {@link android.Manifest.permission#INTERNET}
+     * permission.
+     *
+     * @hide
+     */
+    @FlaggedApi(Flags.BLOCKED_REASON_NETWORK_RESTRICTED)
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final int BLOCKED_REASON_NETWORK_RESTRICTED = 1 << 8;
+
+    /**
      * Flag to indicate that an app is subject to Data saver restrictions that would
      * result in its metered network access being blocked.
      *
@@ -924,6 +986,9 @@ public class ConnectivityManager {
             BLOCKED_REASON_RESTRICTED_MODE,
             BLOCKED_REASON_LOCKDOWN_VPN,
             BLOCKED_REASON_LOW_POWER_STANDBY,
+            BLOCKED_REASON_APP_BACKGROUND,
+            BLOCKED_REASON_OEM_DENY,
+            BLOCKED_REASON_NETWORK_RESTRICTED,
             BLOCKED_METERED_REASON_DATA_SAVER,
             BLOCKED_METERED_REASON_USER_RESTRICTED,
             BLOCKED_METERED_REASON_ADMIN_DISABLED,
@@ -941,7 +1006,6 @@ public class ConnectivityManager {
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P, trackingBug = 130143562)
     private final IConnectivityManager mService;
 
-    // LINT.IfChange(firewall_chain)
     /**
      * Firewall chain for device idle (doze mode).
      * Allowlist of apps that have network access in device idle.
@@ -981,6 +1045,16 @@ public class ConnectivityManager {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public static final int FIREWALL_CHAIN_LOW_POWER_STANDBY = 5;
+
+    /**
+     * Firewall chain used for always-on default background restrictions.
+     * Allowlist of apps that have access because either they are in the foreground or they are
+     * exempted for specific situations while in the background.
+     * @hide
+     */
+    @FlaggedApi(Flags.BASIC_BACKGROUND_RESTRICTIONS_ENABLED)
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int FIREWALL_CHAIN_BACKGROUND = 6;
 
     /**
      * Firewall chain used for OEM-specific application restrictions.
@@ -1033,6 +1107,61 @@ public class ConnectivityManager {
     @SystemApi(client = MODULE_LIBRARIES)
     public static final int FIREWALL_CHAIN_OEM_DENY_3 = 9;
 
+    /**
+     * Firewall chain for allow list on metered networks
+     *
+     * UIDs added to this chain have access to metered networks, unless they're also in one of the
+     * denylist, {@link #FIREWALL_CHAIN_METERED_DENY_USER},
+     * {@link #FIREWALL_CHAIN_METERED_DENY_ADMIN}
+     *
+     * Note that this chain is used from a separate bpf program that is triggered by iptables and
+     * can not be controlled by {@link ConnectivityManager#setFirewallChainEnabled}.
+     *
+     * @hide
+     */
+    // TODO: Merge this chain with data saver and support setFirewallChainEnabled
+    @FlaggedApi(Flags.METERED_NETWORK_FIREWALL_CHAINS)
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int FIREWALL_CHAIN_METERED_ALLOW = 10;
+
+    /**
+     * Firewall chain for user-set restrictions on metered networks
+     *
+     * UIDs added to this chain do not have access to metered networks.
+     * UIDs should be added to this chain based on user settings.
+     * To restrict metered network based on admin configuration (e.g. enterprise policies),
+     * {@link #FIREWALL_CHAIN_METERED_DENY_ADMIN} should be used.
+     * This chain corresponds to {@link #BLOCKED_METERED_REASON_USER_RESTRICTED}
+     *
+     * Note that this chain is used from a separate bpf program that is triggered by iptables and
+     * can not be controlled by {@link ConnectivityManager#setFirewallChainEnabled}.
+     *
+     * @hide
+     */
+    // TODO: Support setFirewallChainEnabled to control this chain
+    @FlaggedApi(Flags.METERED_NETWORK_FIREWALL_CHAINS)
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int FIREWALL_CHAIN_METERED_DENY_USER = 11;
+
+    /**
+     * Firewall chain for admin-set restrictions on metered networks
+     *
+     * UIDs added to this chain do not have access to metered networks.
+     * UIDs should be added to this chain based on admin configuration (e.g. enterprise policies).
+     * To restrict metered network based on user settings, {@link #FIREWALL_CHAIN_METERED_DENY_USER}
+     * should be used.
+     * This chain corresponds to {@link #BLOCKED_METERED_REASON_ADMIN_DISABLED}
+     *
+     * Note that this chain is used from a separate bpf program that is triggered by iptables and
+     * can not be controlled by {@link ConnectivityManager#setFirewallChainEnabled}.
+     *
+     * @hide
+     */
+    // TODO: Support setFirewallChainEnabled to control this chain
+    @FlaggedApi(Flags.METERED_NETWORK_FIREWALL_CHAINS)
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int FIREWALL_CHAIN_METERED_DENY_ADMIN = 12;
+
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(flag = false, prefix = "FIREWALL_CHAIN_", value = {
@@ -1041,12 +1170,15 @@ public class ConnectivityManager {
         FIREWALL_CHAIN_POWERSAVE,
         FIREWALL_CHAIN_RESTRICTED,
         FIREWALL_CHAIN_LOW_POWER_STANDBY,
+        FIREWALL_CHAIN_BACKGROUND,
         FIREWALL_CHAIN_OEM_DENY_1,
         FIREWALL_CHAIN_OEM_DENY_2,
-        FIREWALL_CHAIN_OEM_DENY_3
+        FIREWALL_CHAIN_OEM_DENY_3,
+        FIREWALL_CHAIN_METERED_ALLOW,
+        FIREWALL_CHAIN_METERED_DENY_USER,
+        FIREWALL_CHAIN_METERED_DENY_ADMIN
     })
     public @interface FirewallChain {}
-    // LINT.ThenChange(packages/modules/Connectivity/service/native/include/Common.h)
 
     /**
      * A firewall rule which allows or drops packets depending on existing policy.
@@ -1082,6 +1214,16 @@ public class ConnectivityManager {
     })
     public @interface FirewallRule {}
 
+    /** @hide */
+    public static final long FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS = 1L;
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @LongDef(flag = true, prefix = "FEATURE_", value = {
+            FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS
+    })
+    public @interface ConnectivityManagerFeature {}
+
     /**
      * A kludge to facilitate static access where a Context pointer isn't available, like in the
      * case of the static set/getProcessDefaultNetwork methods and from the Network class.
@@ -1094,6 +1236,27 @@ public class ConnectivityManager {
 
     @GuardedBy("mTetheringEventCallbacks")
     private TetheringManager mTetheringManager;
+
+    // Cache of the most recently used NetworkCallback classes (not instances) -> method flags.
+    // 100 is chosen kind arbitrarily as an unlikely number of different types of NetworkCallback
+    // overrides that a process may have, and should generally not be reached (for example, the
+    // system server services.jar has been observed with dexdump to have only 16 when this was
+    // added, and a very large system services app only had 18).
+    // If this number is exceeded, the code will still function correctly, but re-registering
+    // using a network callback class that was used before, but 100+ other classes have been used in
+    // the meantime, will be a bit slower (as slow as the first registration) because
+    // getDeclaredMethodsFlag must re-examine the callback class to determine what methods it
+    // overrides.
+    private static final LruCache<Class<? extends NetworkCallback>, Integer> sMethodFlagsCache =
+            new LruCache<>(100);
+
+    private final Object mEnabledConnectivityManagerFeaturesLock = new Object();
+    // mEnabledConnectivityManagerFeatures is lazy-loaded in this ConnectivityManager instance, but
+    // fetched from ConnectivityService, where it is loaded in ConnectivityService startup, so it
+    // should have consistent values.
+    @GuardedBy("sEnabledConnectivityManagerFeaturesLock")
+    @ConnectivityManagerFeature
+    private Long mEnabledConnectivityManagerFeatures = null;
 
     private TetheringManager getTetheringManager() {
         synchronized (mTetheringEventCallbacks) {
@@ -3811,11 +3974,28 @@ public class ConnectivityManager {
     @RequiresPermission(anyOf = {
             NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
             android.Manifest.permission.NETWORK_FACTORY})
-    public Network registerNetworkAgent(INetworkAgent na, NetworkInfo ni, LinkProperties lp,
-            NetworkCapabilities nc, @NonNull NetworkScore score, NetworkAgentConfig config,
-            int providerId) {
+    public Network registerNetworkAgent(@NonNull INetworkAgent na, @NonNull NetworkInfo ni,
+            @NonNull LinkProperties lp, @NonNull NetworkCapabilities nc,
+            @NonNull NetworkScore score, @NonNull NetworkAgentConfig config, int providerId) {
+        return registerNetworkAgent(na, ni, lp, nc, null /* localNetworkConfig */, score, config,
+                providerId);
+    }
+
+    /**
+     * @hide
+     * Register a NetworkAgent with ConnectivityService.
+     * @return Network corresponding to NetworkAgent.
+     */
+    @RequiresPermission(anyOf = {
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
+            android.Manifest.permission.NETWORK_FACTORY})
+    public Network registerNetworkAgent(@NonNull INetworkAgent na, @NonNull NetworkInfo ni,
+            @NonNull LinkProperties lp, @NonNull NetworkCapabilities nc,
+            @Nullable LocalNetworkConfig localNetworkConfig, @NonNull NetworkScore score,
+            @NonNull NetworkAgentConfig config, int providerId) {
         try {
-            return mService.registerNetworkAgent(na, ni, lp, nc, score, config, providerId);
+            return mService.registerNetworkAgent(na, ni, lp, nc, score, localNetworkConfig, config,
+                    providerId);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -3834,6 +4014,55 @@ public class ConnectivityManager {
      * A {@code NetworkCallback} that has been unregistered can be registered again.
      */
     public static class NetworkCallback {
+        /**
+         * Bitmask of method flags with all flags set.
+         * @hide
+         */
+        public static final int DECLARED_METHODS_ALL = ~0;
+
+        /**
+         * Bitmask of method flags with no flag set.
+         * @hide
+         */
+        public static final int DECLARED_METHODS_NONE = 0;
+
+        // Tracks whether an instance was created via reflection without calling the constructor.
+        private final boolean mConstructorWasCalled;
+
+        /**
+         * Annotation for NetworkCallback methods to verify filtering is configured properly.
+         *
+         * This is only used in tests to ensure that tests fail when a new callback is added, or
+         * callbacks are modified, without updating
+         * {@link NetworkCallbackMethodsHolder#NETWORK_CB_METHODS} properly.
+         * @hide
+         */
+        @Retention(RetentionPolicy.RUNTIME)
+        @Target(ElementType.METHOD)
+        @VisibleForTesting
+        public @interface FilteredCallback {
+            /**
+             * The NetworkCallback.METHOD_* ID of this method.
+             */
+            int methodId();
+
+            /**
+             * The ConnectivityManager.CALLBACK_* message that this method is directly called by.
+             *
+             * If this method is not called by any message, this should be
+             * {@link #CALLBACK_TRANSITIVE_CALLS_ONLY}.
+             */
+            int calledByCallbackId();
+
+            /**
+             * If this method may call other NetworkCallback methods, an array of methods it calls.
+             *
+             * Only direct calls (not transitive calls) should be included. The IDs must be
+             * NetworkCallback.METHOD_* IDs.
+             */
+            int[] mayCall() default {};
+        }
+
         /**
          * No flags associated with this callback.
          * @hide
@@ -3897,6 +4126,7 @@ public class ConnectivityManager {
                 throw new IllegalArgumentException("Invalid flags");
             }
             mFlags = flags;
+            mConstructorWasCalled = true;
         }
 
         /**
@@ -3914,7 +4144,9 @@ public class ConnectivityManager {
          *
          * @hide
          */
+        @FilteredCallback(methodId = METHOD_ONPRECHECK, calledByCallbackId = CALLBACK_PRECHECK)
         public void onPreCheck(@NonNull Network network) {}
+        private static final int METHOD_ONPRECHECK = 1;
 
         /**
          * Called when the framework connects and has declared a new network ready for use.
@@ -3924,18 +4156,29 @@ public class ConnectivityManager {
          * @param network The {@link Network} of the satisfying network.
          * @param networkCapabilities The {@link NetworkCapabilities} of the satisfying network.
          * @param linkProperties The {@link LinkProperties} of the satisfying network.
+         * @param localInfo The {@link LocalNetworkInfo} of the satisfying network, or null
+         *                  if this network is not a local network.
          * @param blocked Whether access to the {@link Network} is blocked due to system policy.
          * @hide
          */
+        @FilteredCallback(methodId = METHOD_ONAVAILABLE_5ARGS,
+                calledByCallbackId = CALLBACK_AVAILABLE,
+                mayCall = { METHOD_ONAVAILABLE_4ARGS,
+                        METHOD_ONLOCALNETWORKINFOCHANGED,
+                        METHOD_ONBLOCKEDSTATUSCHANGED_INT })
         public final void onAvailable(@NonNull Network network,
                 @NonNull NetworkCapabilities networkCapabilities,
-                @NonNull LinkProperties linkProperties, @BlockedReason int blocked) {
+                @NonNull LinkProperties linkProperties,
+                @Nullable LocalNetworkInfo localInfo,
+                @BlockedReason int blocked) {
             // Internally only this method is called when a new network is available, and
             // it calls the callback in the same way and order that older versions used
             // to call so as not to change the behavior.
             onAvailable(network, networkCapabilities, linkProperties, blocked != 0);
+            if (null != localInfo) onLocalNetworkInfoChanged(network, localInfo);
             onBlockedStatusChanged(network, blocked);
         }
+        private static final int METHOD_ONAVAILABLE_5ARGS = 2;
 
         /**
          * Legacy variant of onAvailable that takes a boolean blocked reason.
@@ -3948,9 +4191,17 @@ public class ConnectivityManager {
          *
          * @hide
          */
+        @FilteredCallback(methodId = METHOD_ONAVAILABLE_4ARGS,
+                calledByCallbackId = CALLBACK_TRANSITIVE_CALLS_ONLY,
+                mayCall = { METHOD_ONAVAILABLE_1ARG,
+                        METHOD_ONNETWORKSUSPENDED,
+                        METHOD_ONCAPABILITIESCHANGED,
+                        METHOD_ONLINKPROPERTIESCHANGED
+                })
         public void onAvailable(@NonNull Network network,
                 @NonNull NetworkCapabilities networkCapabilities,
-                @NonNull LinkProperties linkProperties, boolean blocked) {
+                @NonNull LinkProperties linkProperties,
+                boolean blocked) {
             onAvailable(network);
             if (!networkCapabilities.hasCapability(
                     NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)) {
@@ -3960,6 +4211,7 @@ public class ConnectivityManager {
             onLinkPropertiesChanged(network, linkProperties);
             // No call to onBlockedStatusChanged here. That is done by the caller.
         }
+        private static final int METHOD_ONAVAILABLE_4ARGS = 3;
 
         /**
          * Called when the framework connects and has declared a new network ready for use.
@@ -3990,7 +4242,10 @@ public class ConnectivityManager {
          *
          * @param network The {@link Network} of the satisfying network.
          */
+        @FilteredCallback(methodId = METHOD_ONAVAILABLE_1ARG,
+                calledByCallbackId = CALLBACK_TRANSITIVE_CALLS_ONLY)
         public void onAvailable(@NonNull Network network) {}
+        private static final int METHOD_ONAVAILABLE_1ARG = 4;
 
         /**
          * Called when the network is about to be lost, typically because there are no outstanding
@@ -4009,7 +4264,9 @@ public class ConnectivityManager {
          *                    connected for graceful handover; note that the network may still
          *                    suffer a hard loss at any time.
          */
+        @FilteredCallback(methodId = METHOD_ONLOSING, calledByCallbackId = CALLBACK_LOSING)
         public void onLosing(@NonNull Network network, int maxMsToLive) {}
+        private static final int METHOD_ONLOSING = 5;
 
         /**
          * Called when a network disconnects or otherwise no longer satisfies this request or
@@ -4030,7 +4287,9 @@ public class ConnectivityManager {
          *
          * @param network The {@link Network} lost.
          */
+        @FilteredCallback(methodId = METHOD_ONLOST, calledByCallbackId = CALLBACK_LOST)
         public void onLost(@NonNull Network network) {}
+        private static final int METHOD_ONLOST = 6;
 
         /**
          * Called if no network is found within the timeout time specified in
@@ -4040,7 +4299,9 @@ public class ConnectivityManager {
          * {@link NetworkRequest} will have already been removed and released, as if
          * {@link #unregisterNetworkCallback(NetworkCallback)} had been called.
          */
+        @FilteredCallback(methodId = METHOD_ONUNAVAILABLE, calledByCallbackId = CALLBACK_UNAVAIL)
         public void onUnavailable() {}
+        private static final int METHOD_ONUNAVAILABLE = 7;
 
         /**
          * Called when the network corresponding to this request changes capabilities but still
@@ -4057,8 +4318,11 @@ public class ConnectivityManager {
          * @param networkCapabilities The new {@link NetworkCapabilities} for this
          *                            network.
          */
+        @FilteredCallback(methodId = METHOD_ONCAPABILITIESCHANGED,
+                calledByCallbackId = CALLBACK_CAP_CHANGED)
         public void onCapabilitiesChanged(@NonNull Network network,
                 @NonNull NetworkCapabilities networkCapabilities) {}
+        private static final int METHOD_ONCAPABILITIESCHANGED = 8;
 
         /**
          * Called when the network corresponding to this request changes {@link LinkProperties}.
@@ -4073,8 +4337,27 @@ public class ConnectivityManager {
          * @param network The {@link Network} whose link properties have changed.
          * @param linkProperties The new {@link LinkProperties} for this network.
          */
+        @FilteredCallback(methodId = METHOD_ONLINKPROPERTIESCHANGED,
+                calledByCallbackId = CALLBACK_IP_CHANGED)
         public void onLinkPropertiesChanged(@NonNull Network network,
                 @NonNull LinkProperties linkProperties) {}
+        private static final int METHOD_ONLINKPROPERTIESCHANGED = 9;
+
+        /**
+         * Called when there is a change in the {@link LocalNetworkInfo} for this network.
+         *
+         * This is only called for local networks, that is those with the
+         * NET_CAPABILITY_LOCAL_NETWORK network capability.
+         *
+         * @param network the {@link Network} whose local network info has changed.
+         * @param localNetworkInfo the new {@link LocalNetworkInfo} for this network.
+         * @hide
+         */
+        @FilteredCallback(methodId = METHOD_ONLOCALNETWORKINFOCHANGED,
+                calledByCallbackId = CALLBACK_LOCAL_NETWORK_INFO_CHANGED)
+        public void onLocalNetworkInfoChanged(@NonNull Network network,
+                @NonNull LocalNetworkInfo localNetworkInfo) {}
+        private static final int METHOD_ONLOCALNETWORKINFOCHANGED = 10;
 
         /**
          * Called when the network the framework connected to for this request suspends data
@@ -4093,7 +4376,10 @@ public class ConnectivityManager {
          *
          * @hide
          */
+        @FilteredCallback(methodId = METHOD_ONNETWORKSUSPENDED,
+                calledByCallbackId = CALLBACK_SUSPENDED)
         public void onNetworkSuspended(@NonNull Network network) {}
+        private static final int METHOD_ONNETWORKSUSPENDED = 11;
 
         /**
          * Called when the network the framework connected to for this request
@@ -4107,7 +4393,9 @@ public class ConnectivityManager {
          *
          * @hide
          */
+        @FilteredCallback(methodId = METHOD_ONNETWORKRESUMED, calledByCallbackId = CALLBACK_RESUMED)
         public void onNetworkResumed(@NonNull Network network) {}
+        private static final int METHOD_ONNETWORKRESUMED = 12;
 
         /**
          * Called when access to the specified network is blocked or unblocked.
@@ -4120,7 +4408,10 @@ public class ConnectivityManager {
          * @param network The {@link Network} whose blocked status has changed.
          * @param blocked The blocked status of this {@link Network}.
          */
+        @FilteredCallback(methodId = METHOD_ONBLOCKEDSTATUSCHANGED_BOOL,
+                calledByCallbackId = CALLBACK_TRANSITIVE_CALLS_ONLY)
         public void onBlockedStatusChanged(@NonNull Network network, boolean blocked) {}
+        private static final int METHOD_ONBLOCKEDSTATUSCHANGED_BOOL = 13;
 
         /**
          * Called when access to the specified network is blocked or unblocked, or the reason for
@@ -4138,10 +4429,14 @@ public class ConnectivityManager {
          * @param blocked The blocked status of this {@link Network}.
          * @hide
          */
+        @FilteredCallback(methodId = METHOD_ONBLOCKEDSTATUSCHANGED_INT,
+                calledByCallbackId = CALLBACK_BLK_CHANGED,
+                mayCall = { METHOD_ONBLOCKEDSTATUSCHANGED_BOOL })
         @SystemApi(client = MODULE_LIBRARIES)
         public void onBlockedStatusChanged(@NonNull Network network, @BlockedReason int blocked) {
             onBlockedStatusChanged(network, blocked != 0);
         }
+        private static final int METHOD_ONBLOCKEDSTATUSCHANGED_INT = 14;
 
         private NetworkRequest networkRequest;
         private final int mFlags;
@@ -4169,32 +4464,38 @@ public class ConnectivityManager {
         }
     }
 
+    private static final int CALLBACK_TRANSITIVE_CALLS_ONLY     = 0;
     /** @hide */
-    public static final int CALLBACK_PRECHECK            = 1;
+    public static final int CALLBACK_PRECHECK                   = 1;
     /** @hide */
-    public static final int CALLBACK_AVAILABLE           = 2;
+    public static final int CALLBACK_AVAILABLE                  = 2;
     /** @hide arg1 = TTL */
-    public static final int CALLBACK_LOSING              = 3;
+    public static final int CALLBACK_LOSING                     = 3;
     /** @hide */
-    public static final int CALLBACK_LOST                = 4;
+    public static final int CALLBACK_LOST                       = 4;
     /** @hide */
-    public static final int CALLBACK_UNAVAIL             = 5;
+    public static final int CALLBACK_UNAVAIL                    = 5;
     /** @hide */
-    public static final int CALLBACK_CAP_CHANGED         = 6;
+    public static final int CALLBACK_CAP_CHANGED                = 6;
     /** @hide */
-    public static final int CALLBACK_IP_CHANGED          = 7;
+    public static final int CALLBACK_IP_CHANGED                 = 7;
     /** @hide obj = NetworkCapabilities, arg1 = seq number */
-    private static final int EXPIRE_LEGACY_REQUEST       = 8;
+    private static final int EXPIRE_LEGACY_REQUEST              = 8;
     /** @hide */
-    public static final int CALLBACK_SUSPENDED           = 9;
+    public static final int CALLBACK_SUSPENDED                  = 9;
     /** @hide */
-    public static final int CALLBACK_RESUMED             = 10;
+    public static final int CALLBACK_RESUMED                    = 10;
     /** @hide */
-    public static final int CALLBACK_BLK_CHANGED         = 11;
+    public static final int CALLBACK_BLK_CHANGED                = 11;
+    /** @hide */
+    public static final int CALLBACK_LOCAL_NETWORK_INFO_CHANGED = 12;
+    // When adding new IDs, note CallbackQueue assumes callback IDs are at most 16 bits.
+
 
     /** @hide */
     public static String getCallbackName(int whichCallback) {
         switch (whichCallback) {
+            case CALLBACK_TRANSITIVE_CALLS_ONLY: return "CALLBACK_TRANSITIVE_CALLS_ONLY";
             case CALLBACK_PRECHECK:     return "CALLBACK_PRECHECK";
             case CALLBACK_AVAILABLE:    return "CALLBACK_AVAILABLE";
             case CALLBACK_LOSING:       return "CALLBACK_LOSING";
@@ -4206,8 +4507,71 @@ public class ConnectivityManager {
             case CALLBACK_SUSPENDED:    return "CALLBACK_SUSPENDED";
             case CALLBACK_RESUMED:      return "CALLBACK_RESUMED";
             case CALLBACK_BLK_CHANGED:  return "CALLBACK_BLK_CHANGED";
+            case CALLBACK_LOCAL_NETWORK_INFO_CHANGED: return "CALLBACK_LOCAL_NETWORK_INFO_CHANGED";
             default:
                 return Integer.toString(whichCallback);
+        }
+    }
+
+    /** @hide */
+    @VisibleForTesting
+    public static class NetworkCallbackMethod {
+        @NonNull
+        public final String mName;
+        @NonNull
+        public final Class<?>[] mParameterTypes;
+        // Bitmask of CALLBACK_* that may transitively call this method.
+        public final int mCallbacksCallingThisMethod;
+
+        public NetworkCallbackMethod(@NonNull String name, @NonNull Class<?>[] parameterTypes,
+                int callbacksCallingThisMethod) {
+            mName = name;
+            mParameterTypes = parameterTypes;
+            mCallbacksCallingThisMethod = callbacksCallingThisMethod;
+        }
+    }
+
+    // Holder class for the list of NetworkCallbackMethod. This ensures the list is only created
+    // once on first usage, and not just on ConnectivityManager class initialization.
+    /** @hide */
+    @VisibleForTesting
+    public static class NetworkCallbackMethodsHolder {
+        public static final NetworkCallbackMethod[] NETWORK_CB_METHODS =
+                new NetworkCallbackMethod[] {
+                        method("onPreCheck", 1 << CALLBACK_PRECHECK, Network.class),
+                        // Note the final overload of onAvailable is not included, since it cannot
+                        // match any overridden method.
+                        method("onAvailable", 1 << CALLBACK_AVAILABLE, Network.class),
+                        method("onAvailable", 1 << CALLBACK_AVAILABLE,
+                                Network.class, NetworkCapabilities.class,
+                                LinkProperties.class, boolean.class),
+                        method("onLosing", 1 << CALLBACK_LOSING, Network.class, int.class),
+                        method("onLost", 1 << CALLBACK_LOST, Network.class),
+                        method("onUnavailable", 1 << CALLBACK_UNAVAIL),
+                        method("onCapabilitiesChanged",
+                                1 << CALLBACK_CAP_CHANGED | 1 << CALLBACK_AVAILABLE,
+                                Network.class, NetworkCapabilities.class),
+                        method("onLinkPropertiesChanged",
+                                1 << CALLBACK_IP_CHANGED | 1 << CALLBACK_AVAILABLE,
+                                Network.class, LinkProperties.class),
+                        method("onLocalNetworkInfoChanged",
+                                1 << CALLBACK_LOCAL_NETWORK_INFO_CHANGED | 1 << CALLBACK_AVAILABLE,
+                                Network.class, LocalNetworkInfo.class),
+                        method("onNetworkSuspended",
+                                1 << CALLBACK_SUSPENDED | 1 << CALLBACK_AVAILABLE, Network.class),
+                        method("onNetworkResumed",
+                                1 << CALLBACK_RESUMED, Network.class),
+                        method("onBlockedStatusChanged",
+                                1 << CALLBACK_BLK_CHANGED | 1 << CALLBACK_AVAILABLE,
+                                Network.class, boolean.class),
+                        method("onBlockedStatusChanged",
+                                1 << CALLBACK_BLK_CHANGED | 1 << CALLBACK_AVAILABLE,
+                                Network.class, int.class),
+                };
+
+        private static NetworkCallbackMethod method(
+                String name, int callbacksCallingThisMethod, Class<?>... args) {
+            return new NetworkCallbackMethod(name, args, callbacksCallingThisMethod);
         }
     }
 
@@ -4260,7 +4624,8 @@ public class ConnectivityManager {
                 case CALLBACK_AVAILABLE: {
                     NetworkCapabilities cap = getObject(message, NetworkCapabilities.class);
                     LinkProperties lp = getObject(message, LinkProperties.class);
-                    callback.onAvailable(network, cap, lp, message.arg1);
+                    LocalNetworkInfo lni = getObject(message, LocalNetworkInfo.class);
+                    callback.onAvailable(network, cap, lp, lni, message.arg1);
                     break;
                 }
                 case CALLBACK_LOSING: {
@@ -4283,6 +4648,11 @@ public class ConnectivityManager {
                 case CALLBACK_IP_CHANGED: {
                     LinkProperties lp = getObject(message, LinkProperties.class);
                     callback.onLinkPropertiesChanged(network, lp);
+                    break;
+                }
+                case CALLBACK_LOCAL_NETWORK_INFO_CHANGED: {
+                    final LocalNetworkInfo info = getObject(message, LocalNetworkInfo.class);
+                    callback.onLocalNetworkInfoChanged(network, info);
                     break;
                 }
                 case CALLBACK_SUSPENDED: {
@@ -4324,6 +4694,14 @@ public class ConnectivityManager {
         if (reqType != TRACK_DEFAULT && reqType != TRACK_SYSTEM_DEFAULT && need == null) {
             throw new IllegalArgumentException("null NetworkCapabilities");
         }
+
+
+        final boolean useDeclaredMethods = isFeatureEnabled(
+                FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS);
+        // Set all bits if the feature is disabled
+        int declaredMethodsFlag = useDeclaredMethods
+                ? tryGetDeclaredMethodsFlag(callback)
+                : NetworkCallback.DECLARED_METHODS_ALL;
         final NetworkRequest request;
         final String callingPackageName = mContext.getOpPackageName();
         try {
@@ -4340,11 +4718,12 @@ public class ConnectivityManager {
                 if (reqType == LISTEN) {
                     request = mService.listenForNetwork(
                             need, messenger, binder, callbackFlags, callingPackageName,
-                            getAttributionTag());
+                            getAttributionTag(), declaredMethodsFlag);
                 } else {
                     request = mService.requestNetwork(
                             asUid, need, reqType.ordinal(), messenger, timeoutMs, binder,
-                            legacyType, callbackFlags, callingPackageName, getAttributionTag());
+                            legacyType, callbackFlags, callingPackageName, getAttributionTag(),
+                            declaredMethodsFlag);
                 }
                 if (request != null) {
                     sCallbacks.put(request, callback);
@@ -4357,6 +4736,122 @@ public class ConnectivityManager {
             throw convertServiceException(e);
         }
         return request;
+    }
+
+    private int tryGetDeclaredMethodsFlag(@NonNull NetworkCallback cb) {
+        if (!cb.mConstructorWasCalled) {
+            // Do not use the optimization if the callback was created via reflection or mocking,
+            // as for example with dexmaker-mockito-inline methods will be instrumented without
+            // using subclasses. This does not catch all cases as it is still possible to call the
+            // constructor when creating mocks, but by default constructors are not called in that
+            // case.
+            return NetworkCallback.DECLARED_METHODS_ALL;
+        }
+        try {
+            return getDeclaredMethodsFlag(cb.getClass());
+        } catch (LinkageError e) {
+            // This may happen if some methods reference inaccessible classes in their arguments
+            // (for example b/261807130).
+            Log.w(TAG, "Could not get methods from NetworkCallback class", e);
+            // Fall through
+        } catch (Throwable e) {
+            // Log.wtf would be best but this is in app process, so the TerribleFailureHandler may
+            // have unknown effects, possibly crashing the app (default behavior on eng builds or
+            // if the WTF_IS_FATAL setting is set).
+            Log.e(TAG, "Unexpected error while getting methods from NetworkCallback class", e);
+            // Fall through
+        }
+        return NetworkCallback.DECLARED_METHODS_ALL;
+    }
+
+    private static int getDeclaredMethodsFlag(@NonNull Class<? extends NetworkCallback> clazz) {
+        final Integer cachedFlags = sMethodFlagsCache.get(clazz);
+        // As this is not synchronized, it is possible that this method will calculate the
+        // flags for a given class multiple times, but that is fine. LruCache itself is thread-safe.
+        if (cachedFlags != null) {
+            return cachedFlags;
+        }
+
+        int flag = 0;
+        // This uses getMethods instead of getDeclaredMethods, to make sure that if A overrides B
+        // that overrides NetworkCallback, A.getMethods also returns methods declared by B.
+        for (Method classMethod : clazz.getMethods()) {
+            final Class<?> declaringClass = classMethod.getDeclaringClass();
+            if (declaringClass == NetworkCallback.class) {
+                // The callback is as defined by NetworkCallback and not overridden
+                continue;
+            }
+            if (declaringClass == Object.class) {
+                // Optimization: no need to try to match callbacks for methods declared by Object
+                continue;
+            }
+            flag |= getCallbackIdsCallingThisMethod(classMethod);
+        }
+
+        if (flag == 0) {
+            // dexmaker-mockito-inline (InlineDexmakerMockMaker), for example for mockito-extended,
+            // modifies bytecode of classes in-place to add hooks instead of creating subclasses,
+            // which would not be detected. When no method is found, fall back to enabling callbacks
+            // for all methods.
+            // This will not catch the case where both NetworkCallback bytecode is modified and a
+            // subclass of NetworkCallback that has some overridden methods are used. But this kind
+            // of bytecode injection is only possible in debuggable processes, with a JVMTI debug
+            // agent attached, so it should not cause real issues.
+            // There may be legitimate cases where an empty callback is filed with no method
+            // overridden, for example requestNetwork(requestForCell, new NetworkCallback()) which
+            // would ensure that one cell network stays up. But there is no way to differentiate
+            // such NetworkCallbacks from a mock that called the constructor, so this code will
+            // register the callback with DECLARED_METHODS_ALL and turn off the optimization in that
+            // case. Apps are not expected to do this often anyway since the usefulness is very
+            // limited.
+            flag = NetworkCallback.DECLARED_METHODS_ALL;
+        }
+        sMethodFlagsCache.put(clazz, flag);
+        return flag;
+    }
+
+    /**
+     * Find out which of the base methods in NetworkCallback will call this method.
+     *
+     * For example, in the case of onLinkPropertiesChanged, this will be
+     * (1 << CALLBACK_IP_CHANGED) | (1 << CALLBACK_AVAILABLE).
+     */
+    private static int getCallbackIdsCallingThisMethod(@NonNull Method method) {
+        for (NetworkCallbackMethod baseMethod : NetworkCallbackMethodsHolder.NETWORK_CB_METHODS) {
+            if (!baseMethod.mName.equals(method.getName())) {
+                continue;
+            }
+            Class<?>[] methodParams = method.getParameterTypes();
+
+            // As per JLS 8.4.8.1., a method m1 must have a subsignature of method m2 to override
+            // it. And as per JLS 8.4.2, this means the erasure of the signature of m2 must be the
+            // same as the signature of m1. Since type erasure is done at compile time, with
+            // reflection the erased types are already observed, so the (erased) parameter types
+            // must be equal.
+            // So for example a method that is identical to a NetworkCallback method, except with
+            // one parameter being a subclass of the parameter in the original method, will never
+            // be called since it is not an override (the erasure of the arguments are not the same)
+            // Therefore, the method is an override only if methodParams is exactly equal to
+            // the base method's parameter types.
+            if (Arrays.equals(baseMethod.mParameterTypes, methodParams)) {
+                return baseMethod.mCallbacksCallingThisMethod;
+            }
+        }
+        return 0;
+    }
+
+    private boolean isFeatureEnabled(@ConnectivityManagerFeature long connectivityManagerFeature) {
+        synchronized (mEnabledConnectivityManagerFeaturesLock) {
+            if (mEnabledConnectivityManagerFeatures == null) {
+                try {
+                    mEnabledConnectivityManagerFeatures =
+                            mService.getEnabledConnectivityManagerFeatures();
+                } catch (RemoteException e) {
+                    e.rethrowFromSystemServer();
+                }
+            }
+            return (mEnabledConnectivityManagerFeatures & connectivityManagerFeature) != 0;
+        }
     }
 
     private NetworkRequest sendRequestForNetwork(NetworkCapabilities need, NetworkCallback callback,
@@ -5941,6 +6436,35 @@ public class ConnectivityManager {
     }
 
     /**
+     * Sets data saver switch.
+     *
+     * <p>This API configures the bandwidth control, and filling data saver status in BpfMap,
+     * which is intended for internal use by the network stack to optimize performance
+     * when frequently checking data saver status for multiple uids without doing IPC.
+     * It does not directly control the global data saver mode that users manage in settings.
+     * To query the comprehensive data saver status for a specific UID, including allowlist
+     * considerations, use {@link #getRestrictBackgroundStatus}.
+     *
+     * @param enable True if enable.
+     * @throws IllegalStateException if failed.
+     * @hide
+     */
+    @FlaggedApi(Flags.SET_DATA_SAVER_VIA_CM)
+    @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresPermission(anyOf = {
+            android.Manifest.permission.NETWORK_SETTINGS,
+            android.Manifest.permission.NETWORK_STACK,
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK
+    })
+    public void setDataSaverEnabled(final boolean enable) {
+        try {
+            mService.setDataSaverEnabled(enable);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Adds the specified UID to the list of UIds that are allowed to use data on metered networks
      * even when background data is restricted. The deny list takes precedence over the allow list.
      *
@@ -5956,7 +6480,7 @@ public class ConnectivityManager {
     })
     public void addUidToMeteredNetworkAllowList(final int uid) {
         try {
-            mService.updateMeteredNetworkAllowList(uid, true /* add */);
+            mService.setUidFirewallRule(FIREWALL_CHAIN_METERED_ALLOW, uid, FIREWALL_RULE_ALLOW);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -5979,7 +6503,7 @@ public class ConnectivityManager {
     })
     public void removeUidFromMeteredNetworkAllowList(final int uid) {
         try {
-            mService.updateMeteredNetworkAllowList(uid, false /* remove */);
+            mService.setUidFirewallRule(FIREWALL_CHAIN_METERED_ALLOW, uid, FIREWALL_RULE_DENY);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -5989,10 +6513,17 @@ public class ConnectivityManager {
      * Adds the specified UID to the list of UIDs that are not allowed to use background data on
      * metered networks. Takes precedence over {@link #addUidToMeteredNetworkAllowList}.
      *
+     * On V+, {@link #setUidFirewallRule} should be used with
+     * {@link #FIREWALL_CHAIN_METERED_DENY_USER} or {@link #FIREWALL_CHAIN_METERED_DENY_ADMIN}
+     * based on the reason so that users can receive {@link #BLOCKED_METERED_REASON_USER_RESTRICTED}
+     * or {@link #BLOCKED_METERED_REASON_ADMIN_DISABLED}, respectively.
+     * This API always uses {@link #FIREWALL_CHAIN_METERED_DENY_USER}.
+     *
      * @param uid uid of target app
      * @throws IllegalStateException if updating deny list failed.
      * @hide
      */
+    // TODO(b/332649177): Deprecate this API after V
     @SystemApi(client = MODULE_LIBRARIES)
     @RequiresPermission(anyOf = {
             android.Manifest.permission.NETWORK_SETTINGS,
@@ -6001,7 +6532,7 @@ public class ConnectivityManager {
     })
     public void addUidToMeteredNetworkDenyList(final int uid) {
         try {
-            mService.updateMeteredNetworkDenyList(uid, true /* add */);
+            mService.setUidFirewallRule(FIREWALL_CHAIN_METERED_DENY_USER, uid, FIREWALL_RULE_DENY);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -6012,10 +6543,17 @@ public class ConnectivityManager {
      * networks if background data is not restricted. The deny list takes precedence over the
      * allow list.
      *
+     * On V+, {@link #setUidFirewallRule} should be used with
+     * {@link #FIREWALL_CHAIN_METERED_DENY_USER} or {@link #FIREWALL_CHAIN_METERED_DENY_ADMIN}
+     * based on the reason so that users can receive {@link #BLOCKED_METERED_REASON_USER_RESTRICTED}
+     * or {@link #BLOCKED_METERED_REASON_ADMIN_DISABLED}, respectively.
+     * This API always uses {@link #FIREWALL_CHAIN_METERED_DENY_USER}.
+     *
      * @param uid uid of target app
      * @throws IllegalStateException if updating deny list failed.
      * @hide
      */
+    // TODO(b/332649177): Deprecate this API after V
     @SystemApi(client = MODULE_LIBRARIES)
     @RequiresPermission(anyOf = {
             android.Manifest.permission.NETWORK_SETTINGS,
@@ -6024,7 +6562,7 @@ public class ConnectivityManager {
     })
     public void removeUidFromMeteredNetworkDenyList(final int uid) {
         try {
-            mService.updateMeteredNetworkDenyList(uid, false /* remove */);
+            mService.setUidFirewallRule(FIREWALL_CHAIN_METERED_DENY_USER, uid, FIREWALL_RULE_ALLOW);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -6081,6 +6619,10 @@ public class ConnectivityManager {
 
     /**
      * Enables or disables the specified firewall chain.
+     *
+     * Note that metered firewall chains can not be controlled by this API.
+     * See {@link #FIREWALL_CHAIN_METERED_ALLOW}, {@link #FIREWALL_CHAIN_METERED_DENY_USER}, and
+     * {@link #FIREWALL_CHAIN_METERED_DENY_ADMIN} for more detail.
      *
      * @param chain target chain.
      * @param enable whether the chain should be enabled.
@@ -6149,10 +6691,58 @@ public class ConnectivityManager {
         }
     }
 
+    /**
+     * Return whether the network is blocked for the given uid and metered condition.
+     *
+     * Similar to {@link NetworkPolicyManager#isUidNetworkingBlocked}, but directly reads the BPF
+     * maps and therefore considerably faster. For use by the NetworkStack process only.
+     *
+     * @param uid The target uid.
+     * @param isNetworkMetered Whether the target network is metered.
+     *
+     * @return True if all networking with the given condition is blocked. Otherwise, false.
+     * @throws IllegalStateException if the map cannot be opened.
+     * @throws ServiceSpecificException if the read fails.
+     * @hide
+     */
+    // This isn't protected by a standard Android permission since it can't
+    // afford to do IPC for performance reasons. Instead, the access control
+    // is provided by linux file group permission AID_NET_BW_ACCT and the
+    // selinux context fs_bpf_net*.
+    // Only the system server process and the network stack have access.
+    @FlaggedApi(Flags.SUPPORT_IS_UID_NETWORKING_BLOCKED)
+    @SystemApi(client = MODULE_LIBRARIES)
+    // Note b/326143935 kernel bug can trigger crash on some T device.
+    @RequiresApi(VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @RequiresPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)
+    public boolean isUidNetworkingBlocked(int uid, boolean isNetworkMetered) {
+        if (!SdkLevel.isAtLeastU()) {
+            throw new IllegalStateException(
+                    "isUidNetworkingBlocked is not supported on pre-U devices");
+        }
+        final NetworkStackBpfNetMaps reader = NetworkStackBpfNetMaps.getInstance();
+        // Note that before V, the data saver status in bpf is written by ConnectivityService
+        // when receiving {@link #ACTION_RESTRICT_BACKGROUND_CHANGED}. Thus,
+        // the status is not synchronized.
+        // On V+, the data saver status is set by platform code when enabling/disabling
+        // data saver, which is synchronized.
+        return reader.isUidNetworkingBlocked(uid, isNetworkMetered);
+    }
+
     /** @hide */
     public IBinder getCompanionDeviceManagerProxyService() {
         try {
             return mService.getCompanionDeviceManagerProxyService();
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /** @hide */
+    @RequiresApi(Build.VERSION_CODES.S)
+    public IBinder getRoutingCoordinatorService() {
+        try {
+            return mService.getRoutingCoordinatorService();
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }

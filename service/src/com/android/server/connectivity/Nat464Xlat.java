@@ -44,7 +44,9 @@ import com.android.net.module.util.NetworkStackConstants;
 import com.android.server.ConnectivityService;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.Inet6Address;
+import java.net.UnknownHostException;
 import java.util.Objects;
 
 /**
@@ -99,11 +101,12 @@ public class Nat464Xlat {
     private IpPrefix mNat64PrefixFromRa;
     private String mBaseIface;
     private String mIface;
-    private Inet6Address mIPv6Address;
+    @VisibleForTesting
+    Inet6Address mIPv6Address;
     private State mState = State.IDLE;
-    private ClatCoordinator mClatCoordinator;
+    private final ClatCoordinator mClatCoordinator;  // non-null iff T+
 
-    private boolean mEnableClatOnCellular;
+    private final boolean mEnableClatOnCellular;
     private boolean mPrefixDiscoveryRunning;
 
     public Nat464Xlat(NetworkAgentInfo nai, INetd netd, IDnsResolver dnsResolver,
@@ -112,7 +115,11 @@ public class Nat464Xlat {
         mNetd = netd;
         mNetwork = nai;
         mEnableClatOnCellular = deps.getCellular464XlatEnabled();
-        mClatCoordinator = deps.getClatCoordinator(mNetd);
+        if (SdkLevel.isAtLeastT()) {
+            mClatCoordinator = deps.getClatCoordinator(mNetd);
+        } else {
+            mClatCoordinator = null;
+        }
     }
 
     /**
@@ -195,13 +202,13 @@ public class Nat464Xlat {
             try {
                 addrStr = mClatCoordinator.clatStart(baseIface, getNetId(), mNat64PrefixInUse);
             } catch (IOException e) {
-                Log.e(TAG, "Error starting clatd on " + baseIface + ": " + e);
+                Log.e(TAG, "Error starting clatd on " + baseIface, e);
             }
         } else {
             try {
                 addrStr = mNetd.clatdStart(baseIface, mNat64PrefixInUse.toString());
             } catch (RemoteException | ServiceSpecificException e) {
-                Log.e(TAG, "Error starting clatd on " + baseIface + ": " + e);
+                Log.e(TAG, "Error starting clatd on " + baseIface, e);
             }
         }
         mIface = CLAT_PREFIX + baseIface;
@@ -210,7 +217,7 @@ public class Nat464Xlat {
         try {
             mIPv6Address = (Inet6Address) InetAddresses.parseNumericAddress(addrStr);
         } catch (ClassCastException | IllegalArgumentException | NullPointerException e) {
-            Log.e(TAG, "Invalid IPv6 address " + addrStr);
+            Log.e(TAG, "Invalid IPv6 address " + addrStr , e);
         }
         if (mPrefixDiscoveryRunning && !isPrefixDiscoveryNeeded()) {
             stopPrefixDiscovery();
@@ -235,6 +242,7 @@ public class Nat464Xlat {
         mNat64PrefixInUse = null;
         mIface = null;
         mBaseIface = null;
+        mIPv6Address = null;
 
         if (!mPrefixDiscoveryRunning) {
             setPrefix64(null);
@@ -475,8 +483,9 @@ public class Nat464Xlat {
 
     /**
      * Adds stacked link on base link and transitions to RUNNING state.
+     * Must be called on the handler thread.
      */
-    private void handleInterfaceLinkStateChanged(String iface, boolean up) {
+    public void handleInterfaceLinkStateChanged(String iface, boolean up) {
         // TODO: if we call start(), then stop(), then start() again, and the
         // interfaceLinkStateChanged notification for the first start is delayed past the first
         // stop, then the code becomes out of sync with system state and will behave incorrectly.
@@ -491,6 +500,7 @@ public class Nat464Xlat {
         // Once this code is converted to StateMachine, it will be possible to use deferMessage to
         // ensure it stays in STARTING state until the interfaceLinkStateChanged notification fires,
         // and possibly use a timeout (or provide some guarantees at the lower layer) to address #1.
+        ensureRunningOnHandlerThread();
         if (!isStarting() || !up || !Objects.equals(mIface, iface)) {
             return;
         }
@@ -511,8 +521,10 @@ public class Nat464Xlat {
 
     /**
      * Removes stacked link on base link and transitions to IDLE state.
+     * Must be called on the handler thread.
      */
-    private void handleInterfaceRemoved(String iface) {
+    public void handleInterfaceRemoved(String iface) {
+        ensureRunningOnHandlerThread();
         if (!Objects.equals(mIface, iface)) {
             return;
         }
@@ -528,12 +540,65 @@ public class Nat464Xlat {
         stop();
     }
 
-    public void interfaceLinkStateChanged(String iface, boolean up) {
-        mNetwork.handler().post(() -> { handleInterfaceLinkStateChanged(iface, up); });
+    /**
+     * Translate the input v4 address to v6 clat address.
+     */
+    @Nullable
+    public Inet6Address translateV4toV6(@NonNull Inet4Address addr) {
+        // Variables in Nat464Xlat should only be accessed from handler thread.
+        ensureRunningOnHandlerThread();
+        if (!isStarted()) return null;
+
+        return convertv4ToClatv6(mNat64PrefixInUse, addr);
     }
 
-    public void interfaceRemoved(String iface) {
-        mNetwork.handler().post(() -> handleInterfaceRemoved(iface));
+    @Nullable
+    private static Inet6Address convertv4ToClatv6(
+            @NonNull IpPrefix prefix, @NonNull Inet4Address addr) {
+        final byte[] v6Addr = new byte[16];
+        // Generate a v6 address from Nat64 prefix. Prefix should be 12 bytes long.
+        System.arraycopy(prefix.getAddress().getAddress(), 0, v6Addr, 0, 12);
+        System.arraycopy(addr.getAddress(), 0, v6Addr, 12, 4);
+
+        try {
+            return (Inet6Address) Inet6Address.getByAddress(v6Addr);
+        } catch (UnknownHostException e) {
+            Log.wtf(TAG, "getByAddress should never throw for a numeric address", e);
+            return null;
+        }
+    }
+
+    /**
+     * Get the generated v6 address of clat.
+     */
+    @Nullable
+    public Inet6Address getClatv6SrcAddress() {
+        // Variables in Nat464Xlat should only be accessed from handler thread.
+        ensureRunningOnHandlerThread();
+
+        return mIPv6Address;
+    }
+
+    /**
+     * Get the generated v4 address of clat.
+     */
+    @Nullable
+    public Inet4Address getClatv4SrcAddress() {
+        // Variables in Nat464Xlat should only be accessed from handler thread.
+        ensureRunningOnHandlerThread();
+        if (!isStarted()) return null;
+
+        final LinkAddress v4Addr = getLinkAddress(mIface);
+        if (v4Addr == null) return null;
+
+        return (Inet4Address) v4Addr.getAddress();
+    }
+
+    private void ensureRunningOnHandlerThread() {
+        if (mNetwork.handler().getLooper().getThread() != Thread.currentThread()) {
+            throw new IllegalStateException(
+                    "Not running on handler thread: " + Thread.currentThread().getName());
+        }
     }
 
     /**
@@ -554,6 +619,18 @@ public class Nat464Xlat {
             } else {
                 pw.println("<not started>");
             }
+        }
+    }
+
+    /**
+     * Dump the raw BPF maps in 464XLAT
+     *
+     * @param pw print writer.
+     * @param isEgress4Map whether to dump the egress4 map (true) or the ingress6 map (false).
+     */
+    public void dumpRawBpfMap(IndentingPrintWriter pw, boolean isEgress4Map) {
+        if (SdkLevel.isAtLeastT()) {
+            mClatCoordinator.dumpRawMap(pw, isEgress4Map);
         }
     }
 

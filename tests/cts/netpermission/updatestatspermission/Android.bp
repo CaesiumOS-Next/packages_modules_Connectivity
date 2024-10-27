@@ -13,21 +13,28 @@
 // limitations under the License.
 
 package {
+    default_team: "trendy_team_fwk_core_networking",
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
 android_test {
     name: "CtsNetTestCasesUpdateStatsPermission",
-    defaults: ["cts_defaults"],
+    defaults: [
+        "cts_defaults",
+        "framework-connectivity-test-defaults",
+    ],
 
     srcs: ["src/**/*.java"],
-
-    static_libs: ["ctstestrunner-axt"],
+    platform_apis: true,
+    static_libs: [
+        "ctstestrunner-axt",
+        "net-tests-utils",
+    ],
 
     // Tag this module as a cts test artifact
     test_suites: [
         "cts",
         "general-tests",
     ],
-
+    host_required: ["net-tests-utils-host-common"],
 }

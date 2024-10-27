@@ -170,9 +170,11 @@ public class NetworkNotificationManager {
                     && !TextUtils.isEmpty(nai.linkProperties.getCaptivePortalData()
                     .getVenueFriendlyName())) {
                 name = nai.linkProperties.getCaptivePortalData().getVenueFriendlyName();
+            } else if (!TextUtils.isEmpty(extraInfo)) {
+                name = extraInfo;
             } else {
-                name = TextUtils.isEmpty(extraInfo)
-                        ? WifiInfo.sanitizeSsid(nai.networkCapabilities.getSsid()) : extraInfo;
+                final String ssid = WifiInfo.sanitizeSsid(nai.networkCapabilities.getSsid());
+                name = ssid == null ? "" : ssid;
             }
             // Only notify for Internet-capable networks.
             if (!nai.networkCapabilities.hasCapability(NET_CAPABILITY_INTERNET)) return;
@@ -243,7 +245,7 @@ public class NetworkNotificationManager {
                     details = r.getString(R.string.network_available_sign_in_detailed, name);
                     break;
                 case TRANSPORT_CELLULAR:
-                    title = r.getString(R.string.network_available_sign_in, 0);
+                    title = r.getString(R.string.mobile_network_available_no_internet);
                     // TODO: Change this to pull from NetworkInfo once a printable
                     // name has been added to it
                     NetworkSpecifier specifier = nai.networkCapabilities.getNetworkSpecifier();
@@ -252,8 +254,16 @@ public class NetworkNotificationManager {
                         subId = ((TelephonyNetworkSpecifier) specifier).getSubscriptionId();
                     }
 
-                    details = mTelephonyManager.createForSubscriptionId(subId)
+                    final String operatorName = mTelephonyManager.createForSubscriptionId(subId)
                             .getNetworkOperatorName();
+                    if (TextUtils.isEmpty(operatorName)) {
+                        details = r.getString(R.string
+                                .mobile_network_available_no_internet_detailed_unknown_carrier);
+                    } else {
+                        details = r.getString(
+                                R.string.mobile_network_available_no_internet_detailed,
+                                operatorName);
+                    }
                     break;
                 default:
                     title = r.getString(R.string.network_available_sign_in, 0);
@@ -322,7 +332,8 @@ public class NetworkNotificationManager {
 
     private boolean maybeNotifyViaDialog(Resources res, NotificationType notifyType,
             PendingIntent intent) {
-        if (notifyType != NotificationType.NO_INTERNET
+        if (notifyType != NotificationType.LOST_INTERNET
+                && notifyType != NotificationType.NO_INTERNET
                 && notifyType != NotificationType.PARTIAL_CONNECTIVITY) {
             return false;
         }
@@ -432,7 +443,8 @@ public class NetworkNotificationManager {
      * A notification with a higher number will take priority over a notification with a lower
      * number.
      */
-    private static int priority(NotificationType t) {
+    @VisibleForTesting
+    public static int priority(NotificationType t) {
         if (t == null) {
             return 0;
         }
