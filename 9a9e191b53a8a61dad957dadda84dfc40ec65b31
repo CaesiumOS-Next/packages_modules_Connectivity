@@ -87,6 +87,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7286ac42_5868679c",
+        "filename": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:31:02Z",
+      "side": 1,
+      "message": "Added write fd validity check as suggested\n\nsatellite event config is validated for interface index before this method at native code being called @ Java Side.",
+      "parentUuid": "709c5590_2ec0f193",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 15
+      },
+      "revId": "9a9e191b53a8a61dad957dadda84dfc40ec65b31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36c93f9f_aaeab67f",
@@ -124,6 +148,30 @@
           ]
         }
       ],
+      "revId": "9a9e191b53a8a61dad957dadda84dfc40ec65b31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44c44573_47bf4bfe",
+        "filename": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:31:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "36c93f9f_aaeab67f",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 44
+      },
       "revId": "9a9e191b53a8a61dad957dadda84dfc40ec65b31",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -189,6 +237,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4ff9c58_968a6145",
+        "filename": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:31:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f27b97a5_9192b121",
+      "range": {
+        "startLine": 196,
+        "startChar": 6,
+        "endLine": 205,
+        "endChar": 7
+      },
+      "revId": "9a9e191b53a8a61dad957dadda84dfc40ec65b31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcb02b65_b7101164",
@@ -202,6 +274,30 @@
       "writtenOn": "2024-10-25T17:15:20Z",
       "side": 1,
       "message": "reconfirm no memory needs to be freed",
+      "range": {
+        "startLine": 283,
+        "startChar": 10,
+        "endLine": 289,
+        "endChar": 36
+      },
+      "revId": "9a9e191b53a8a61dad957dadda84dfc40ec65b31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88add8ab_f967c7cb",
+        "filename": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:31:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bcb02b65_b7101164",
       "range": {
         "startLine": 283,
         "startChar": 10,
