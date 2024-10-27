@@ -98,6 +98,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a76459d_d731ce78",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:25:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d5c2d631_1b5b3795",
+      "range": {
+        "startLine": 63,
+        "startChar": 49,
+        "endLine": 71,
+        "endChar": 84
+      },
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42211447_23cdc467",
@@ -111,6 +135,30 @@
       "writtenOn": "2024-10-25T16:53:46Z",
       "side": 1,
       "message": "mSatelliteBufferEventActive check can be done inside the function",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 77
+      },
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0e4ede8_7cc9a220",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:25:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "42211447_23cdc467",
       "range": {
         "startLine": 76,
         "startChar": 0,
@@ -185,6 +233,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c05ee681_de0ccbd5",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:25:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a0f1aab4_2c25b378",
+      "range": {
+        "startLine": 165,
+        "startChar": 12,
+        "endLine": 165,
+        "endChar": 59
+      },
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c5de611_51098f4d",
@@ -198,6 +270,30 @@
       "writtenOn": "2024-10-25T16:53:46Z",
       "side": 1,
       "message": "move it down",
+      "range": {
+        "startLine": 223,
+        "startChar": 12,
+        "endLine": 223,
+        "endChar": 39
+      },
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1333aab_5f3a293a",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:25:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5c5de611_51098f4d",
       "range": {
         "startLine": 223,
         "startChar": 12,
@@ -255,6 +351,30 @@
           ]
         }
       ],
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05bb0332_fad97832",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:25:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c2463444_d721c317",
+      "range": {
+        "startLine": 230,
+        "startChar": 36,
+        "endLine": 230,
+        "endChar": 67
+      },
       "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
