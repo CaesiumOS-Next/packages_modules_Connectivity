@@ -63,6 +63,30 @@
       ],
       "revId": "3778031192303079381bcec0eb378398ca616cfa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eb568a6_2bfb03c4",
+        "filename": "service/jni/com_android_server_connectivity_SatelliteDataUsageController.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-27T15:25:12Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "76fb91b9_06997802",
+      "range": {
+        "startLine": 57,
+        "startChar": 11,
+        "endLine": 57,
+        "endChar": 12
+      },
+      "revId": "3778031192303079381bcec0eb378398ca616cfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
