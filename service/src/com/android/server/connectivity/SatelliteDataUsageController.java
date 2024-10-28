@@ -26,7 +26,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 
+import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.InterfaceParams;
 
 /**
  * Monitors the Satellite network data usage for each uid based on the satellite buffer event
@@ -43,6 +45,10 @@ public class SatelliteDataUsageController {
     private boolean mSatelliteNetworkConnected;
     private boolean mRegistered;
     private ConnectivityManager mConnectivityManager;
+    private static final int INVALID_IFINDEX = 0;
+    private static final int UNLIMITED_DATA_USAGE_LIMIT = 0; // Unlimited data usage
+    // default satellite allowed data usage time measured interval
+    private static final int DEFAULT_MEASURED_TIME_INTERVAL_SECS = 30;
 
     private final ConnectivityManager.NetworkCallback mNetworkCallback =
             new ConnectivityManager.NetworkCallback() {
@@ -81,7 +87,67 @@ public class SatelliteDataUsageController {
 
     /** Dependencies of SatelliteDataUsageController, */
     @VisibleForTesting
-    public static class Dependencies {}
+    public static class Dependencies {
+        /** Get the {@link ConnectivityResources} to use in SatelliteDataUsageController. */
+        public ConnectivityResources getResources(@NonNull Context ctx) {
+            return new ConnectivityResources(ctx);
+        }
+
+        /** Set up satellite event config to generate ring buffer at native code. */
+        private int[] setupSatelliteEventConfig() {
+            return new int[] {
+                0, /*polling time, note: read from overlay config*/
+                0, /*max_data_usage_allowed, note: read from overlay config*/
+                500000000, /*time_threshold_ns*/
+                0, /*ifindex6, note: set runtime*/
+                0, /*ifindex4, note: set runtime*/
+                51200, /*rx_threshold_bytes*/
+                51200, /*tx_threshold_bytes*/
+                10, /*rx_threshold_packets*/
+                10, /*tx_threshold_packets*/
+                40, /*rx6_overhead_bytes*/
+                40, /*tx6_overhead_bytes*/
+                20, /*rx4_overhead_bytes*/
+                20, /*tx4_overhead_bytes*/
+                0 /*padding*/
+            };
+        }
+
+        /**
+         * Get max satellite data usage limit per uid from overlay.(Can differ for each operator)
+         */
+        private int getSatelliteDataUsageLimitPerUid(@NonNull Context context) {
+            if (getResources(context) != null) {
+                return getResources(context)
+                        .get()
+                        .getInteger(R.integer.config_satelliteDataUsageLimitAllowedPerUidBytes);
+
+            } else {
+                Log.wtf(TAG, "failed to get max satellite data usage limit per uid");
+            }
+            return UNLIMITED_DATA_USAGE_LIMIT;
+        }
+
+        /** Get satellite allowed data usage time measured interval in seconds */
+        private int getSatelliteAllowedDataUsageTimeMeasuredInterval(@NonNull Context context) {
+            if (getResources(context) != null) {
+                return getResources(context)
+                        .get()
+                        .getInteger(
+                                R.integer.config_satelliteAllowedDataUsageTimeMeasuredIntervalSecs);
+
+            } else {
+                Log.wtf(TAG, "failed to get max satellite data usage limit per uid");
+            }
+            return DEFAULT_MEASURED_TIME_INTERVAL_SECS;
+        }
+
+        /** get the interface index */
+        private int getInterfaceIndex(@NonNull String ifaceName) {
+            final InterfaceParams params = InterfaceParams.getByName(ifaceName);
+            return params != null ? params.index : INVALID_IFINDEX;
+        }
+    }
 
     @VisibleForTesting
     SatelliteDataUsageController(
