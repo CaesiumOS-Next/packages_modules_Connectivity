@@ -84,7 +84,6 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
 import android.net.LocalNetworkInfo;
-import android.net.MatchAllNetworkSpecifier;
 import android.net.MulticastRoutingConfig;
 import android.net.Network;
 import android.net.NetworkAgent;
@@ -142,12 +141,13 @@ import com.android.server.thread.openthread.Ipv6AddressInfo;
 import com.android.server.thread.openthread.MeshcopTxtAttributes;
 import com.android.server.thread.openthread.OnMeshPrefixConfig;
 import com.android.server.thread.openthread.OtDaemonConfiguration;
+import com.android.server.thread.openthread.OtDaemonNetworkSpecifier;
 import com.android.server.thread.openthread.OtDaemonState;
+import com.android.server.thread.openthread.OtTimestamp;
 
 import libcore.util.HexEncoding;
 
 import java.io.IOException;
-import java.net.DatagramSocket;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.security.SecureRandom;
@@ -155,8 +155,6 @@ import java.time.Clock;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -201,7 +199,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     // particular, the constructor does not run on the handler thread, so it must not touch any of
     // the non-final fields, nor must it mutate any of the non-final fields inside these objects.
 
-    private final ThreadNetworkFactory mNetworkFactory;
+    private final NetworkFactory mNetworkFactory;
     private final Supplier<IOtDaemon> mOtDaemonSupplier;
     private final ConnectivityManager mConnectivityManager;
     private final RoutingCoordinatorManager mRoutingCoordinatorManager;
@@ -219,7 +217,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     // {@code mOtDaemon} will be set to {@code null}. Instead, use {@code getOtDaemon()}
     @Nullable private IOtDaemon mOtDaemon;
     @Nullable private NetworkAgent mNetworkAgent;
-    private boolean mNetworkAgentConnected;
     @Nullable private NetworkAgent mTestNetworkAgent;
 
     private MulticastRoutingConfig mUpstreamMulticastRoutingConfig = CONFIG_FORWARD_NONE;
@@ -236,12 +233,12 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private boolean mForceStopOtDaemonEnabled;
 
     private InfraLinkState mInfraLinkState;
-    private DatagramSocket socket53;
 
     @VisibleForTesting
     ThreadNetworkControllerService(
             Context context,
             Handler handler,
+            NetworkFactory networkFactory,
             Supplier<IOtDaemon> otDaemonSupplier,
             ConnectivityManager connectivityManager,
             RoutingCoordinatorManager routingCoordinatorManager,
@@ -255,7 +252,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             Map<Network, LinkProperties> networkToLinkProperties) {
         mContext = context;
         mHandler = handler;
-        mNetworkFactory = new ThreadNetworkFactory(context, handler.getLooper());
+        mNetworkFactory = networkFactory;
         mOtDaemonSupplier = otDaemonSupplier;
         mConnectivityManager = connectivityManager;
         mRoutingCoordinatorManager = routingCoordinatorManager;
@@ -290,6 +287,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         return new ThreadNetworkControllerService(
                 context,
                 handler,
+                new ThreadNetworkFactory(context, handler.getLooper()),
                 () -> IOtDaemon.Stub.asInterface(ServiceManagerWrapper.waitForService("ot_daemon")),
                 connectivityManager,
                 routingCoordinatorManager,
@@ -301,65 +299,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 new ConnectivityResources(context),
                 countryCodeSupplier,
                 networkToLinkProperties);
-    }
-
-    /**
-     * Serves network requests initiated from apps via the {@link
-     * ConnectivityManager#requestNetwork} API.
-     */
-    public final class ThreadNetworkFactory extends NetworkFactory {
-        public ThreadNetworkFactory(Context context, Looper looper) {
-            super(looper, context, LOG.getTag(), createBaseCapabilities());
-        }
-
-        /** Returns the basic capabilities that all Thread networks initially have. */
-        private static NetworkCapabilities createBaseCapabilities() {
-            return new NetworkCapabilities.Builder()
-                    .addTransportType(TRANSPORT_THREAD)
-                    .addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK)
-                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
-                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING)
-                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED)
-                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
-                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
-                    .setLinkUpstreamBandwidthKbps(100)
-                    .setLinkDownstreamBandwidthKbps(100)
-                    // By default accepts all network requests with a specifier
-                    .setNetworkSpecifier(new MatchAllNetworkSpecifier())
-                    .build();
-        }
-
-        @Override
-        public boolean acceptRequest(@NonNull final NetworkRequest request) {
-            // the filtering is done in {@link #needNetworkFor}
-            return true;
-        }
-
-        @Override
-        public void needNetworkFor(@NonNull final NetworkRequest request) {
-            LOG.i("network request is received for " + request);
-            if (request.getNetworkOrStubNetworkSpecifier()
-                    instanceof ThreadNetworkSpecifier specifier) {
-                maybeJoinNetwork(specifier);
-            } else if (request.getNetworkOrStubNetworkSpecifier() != null) {
-                LOG.w(
-                        "Unrecognized network specifier: "
-                                + request.getNetworkOrStubNetworkSpecifier());
-            } else if (request.getNetworkSpecifier() instanceof ThreadNetworkSpecifier specifier) {
-                maybeJoinNetwork(specifier);
-            } else if (request.getNetworkSpecifier() != null
-                    || !request.hasTransport(TRANSPORT_THREAD)) {
-                // Can do nothing if the client isn't requesting for a Thread network
-                return;
-            } else {
-                maybeJoinNetwork(null /* specifier */);
-            }
-        }
-
-        @Override
-        public void releaseNetworkFor(@NonNull final NetworkRequest request) {
-            LOG.i("network release request is received for " + request);
-        }
     }
 
     private NetworkRequest newUpstreamNetworkRequest() {
@@ -917,21 +856,6 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mThreadNetworkCallback = null;
     }
 
-    /**
-     * Requests for Thread network to keep the network in Connectivity Service. Just for testing.
-     */
-    private void requestThreadNetwork() {
-        mConnectivityManager.requestNetwork(
-                new NetworkRequest.Builder()
-                        // clearCapabilities() is needed to remove forbidden capabilities and UID
-                        // requirement.
-                        .clearCapabilities()
-                        .addTransportType(TRANSPORT_THREAD)
-                        .build(),
-                new ConnectivityManager.NetworkCallback() {},
-                mHandler);
-    }
-
     /** Injects a {@link NetworkAgent} for testing. */
     @VisibleForTesting
     void setTestNetworkAgent(@Nullable NetworkAgent testNetworkAgent) {
@@ -1360,51 +1284,52 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         }
     }
 
-    private void maybeJoinNetwork(@Nullable ThreadNetworkSpecifier specifier) {
-        // TODO: permission check, should we enforce THREAD_NETWORK_PRIVILEGED permission?
-        ActiveOperationalDataset activeDataset = null;
-        if (mOtDaemonCallbackProxy.mState != null
-                && mOtDaemonCallbackProxy.mState.activeDatasetTlvs.length != 0) {
-            activeDataset =
-                    ActiveOperationalDataset.fromThreadTlvs(
-                            mOtDaemonCallbackProxy.mState.activeDatasetTlvs);
-        }
-        if (activeDataset == null) {
-            LOG.i(
-                    "Can't join Thread network (specifier = "
-                            + specifier
-                            + ") because no network is provisioned");
-            return;
-        }
+    @Override
+    public void joinWithSpecifier(
+            @Nullable ThreadNetworkSpecifier specifier, @NonNull IOperationReceiver receiver) {
+        enforceAllPermissionsGranted(PERMISSION_THREAD_NETWORK_PRIVILEGED);
 
-        if (specifier != null
-                && !Arrays.equals(activeDataset.getExtendedPanId(), specifier.getExtendedPanId())) {
-            LOG.i(
-                    "Can't join Thread network because this device is not provisioned with the"
-                            + " requested network: "
-                            + specifier);
-            return;
-        }
+        OperationReceiverWrapper receiverWrapper = new OperationReceiverWrapper(receiver);
+        mHandler.post(() -> joinWithSpecifierInternal(specifier, receiverWrapper));
+    }
 
-        boolean routerEligibleForLeader =
-                isBorderRouterMode()
-                        || (specifier != null && specifier.isRouterEligibleForLeader());
-
-        LOG.i(
-                "Joining Thread network: routerEligibleForLeader="
-                        + routerEligibleForLeader
-                        + ", activeDataset="
-                        + activeDataset);
+    private void joinWithSpecifierInternal(
+            @Nullable ThreadNetworkSpecifier specifier,
+            @NonNull OperationReceiverWrapper receiver) {
+        checkOnHandlerThread();
 
         try {
+            // The otDaemon.join() will leave first if this device is currently attached
             getOtDaemon()
-                    .join(
-                            activeDataset.toThreadTlvs(),
-                            routerEligibleForLeader,
-                            new LoggingOtStatusReceiver("join"));
+                    .joinWithSpecifier(
+                            (specifier == null ? null : newOtDaemonNetworkSpecifier(specifier)),
+                            true /* routerEligibleForLeader */,
+                            newOtStatusReceiver(receiver));
         } catch (RemoteException | ThreadNetworkException e) {
-            LOG.e("Failed to join Thread network " + activeDataset, e);
+            LOG.e("otDaemon.join failed", e);
+            receiver.onError(e);
         }
+    }
+
+    private static OtDaemonNetworkSpecifier newOtDaemonNetworkSpecifier(
+            ThreadNetworkSpecifier specifier) {
+        OperationalDatasetTimestamp activeTimestamp = specifier.getActiveTimestamp();
+        OtTimestamp otActiveTimestamp;
+
+        if (activeTimestamp != null) {
+            otActiveTimestamp =
+                    new OtTimestamp.Builder()
+                            .setSeconds(activeTimestamp.getSeconds())
+                            .setTicks(activeTimestamp.getTicks())
+                            .setAuthoritative(activeTimestamp.isAuthoritativeSource())
+                            .build();
+        }
+
+        return new OtDaemonNetworkSpecifier.Builder()
+                .setExtendedPanId(specifier.getExtendedPanId())
+                .setActiveTimestamp(otActiveTimestamp)
+                .setRouterEligibleForLeader(specifier.isRouterEligibleForLeader())
+                .build();
     }
 
     @Override

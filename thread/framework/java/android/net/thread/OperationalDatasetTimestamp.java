@@ -140,9 +140,18 @@ public final class OperationalDatasetTimestamp {
     public byte[] toTlvValue() {
         byte[] tlv = new byte[LENGTH_TIMESTAMP];
         ByteBuffer buffer = ByteBuffer.wrap(tlv);
-        long encodedValue = (mSeconds << 16) | (mTicks << 1) | (mIsAuthoritativeSource ? 1 : 0);
-        buffer.putLong(encodedValue);
+        buffer.putLong(toLongValue());
         return tlv;
+    }
+
+    /**
+     * Converts this {@link OperationalDatasetTimestamp} object to a {@code long} integer.
+     *
+     * @hide
+     */
+    @NonNull
+    public long toLongValue() {
+        return (mSeconds << 16) | (mTicks << 1) | (mIsAuthoritativeSource ? 1 : 0);
     }
 
     /**
