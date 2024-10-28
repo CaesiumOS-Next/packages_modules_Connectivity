@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c51744c_a748cb1b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-28T03:10:12Z",
+      "side": 1,
+      "message": "Ack.\nSkip the test before T.",
+      "parentUuid": "918b08f6_6297418e",
+      "revId": "f3567db7d35ff49c6a9f5873f6542cc19822fe69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b03f278c_e3a3ec50",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-10-25T07:02:42Z",
       "side": 1,
       "message": "This iterates on Rx/Tx bytes/packets (mUidStatsQueryOpArray) to call getUidStats every time, then use getEntryValueForType to verify each entry.\n\nIt would be more simple to call it once, and verify that all members of the returned StatsResult are TrafficStats.UNSUPPORTED.\n\nSomething like:\n```\nStatsResult stats \u003d nss.getUidStats(uid);\nassertEquals(UNSUPPORTED, stats,rxBytes);\nassertEquals(UNSUPPORTED, stats.rxPackets);\n...\n```\n\nThen you can avoid having getEntryValueForType public just for this test",
+      "revId": "f3567db7d35ff49c6a9f5873f6542cc19822fe69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51ce9379_917d3a25",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsBinderTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-28T03:10:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b03f278c_e3a3ec50",
       "revId": "f3567db7d35ff49c6a9f5873f6542cc19822fe69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -69,6 +105,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00bda03d_4782fdc8",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-28T03:10:12Z",
+      "side": 1,
+      "message": "Done.\nDelete the entire file.",
+      "parentUuid": "132e4b20_38561a52",
+      "revId": "f3567db7d35ff49c6a9f5873f6542cc19822fe69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7aed099_bed4483f",
@@ -82,6 +136,24 @@
       "writtenOn": "2024-10-25T07:02:42Z",
       "side": 1,
       "message": "This logic with a fetcher seems overcomplicated now, I guess all we need is something like\n\n```\nassertEquals(getTotalStats(), rxBytes, rxPackets, txBytes, txPackets);\nassertEquals(getIfaceStats(iface), rxBytes, rxPackets, txBytes, txPackets);\nassertEquals(getUidStats(iface), rxBytes, rxPackets, txBytes, txPackets);\n\nvoid assertEquals(StatsResult, long, long, long, long) {\n    assertEquals(rxBytes, stats.rxBytes);\n    ...\n}\n```",
+      "revId": "f3567db7d35ff49c6a9f5873f6542cc19822fe69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed1056d2_db874fb4",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2519,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-28T03:10:12Z",
+      "side": 1,
+      "message": "Done.\nYes agreed.",
+      "parentUuid": "e7aed099_bed4483f",
       "revId": "f3567db7d35ff49c6a9f5873f6542cc19822fe69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
