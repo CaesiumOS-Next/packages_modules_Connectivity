@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97a919f8_cb716521",
+        "filename": "common/thread_flags.aconfig",
+        "patchSetId": 22
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-28T05:21:10Z",
+      "side": 1,
+      "message": "Maybe remove the change to `.aconfig` file or add comment in new APIs referring to this flag.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 1
+      },
+      "revId": "1a46b298b636ad46674bd459cf1eda676d147cf9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

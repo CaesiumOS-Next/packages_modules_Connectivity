@@ -83,6 +83,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e18f9ae_e9a975a4",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-28T05:21:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09a4ae47_ab63d3db",
+      "range": {
+        "startLine": 69,
+        "startChar": 24,
+        "endLine": 69,
+        "endChar": 36
+      },
+      "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa81d5ff_5618c5e0",
@@ -132,6 +156,24 @@
       "side": 1,
       "message": "I intended to add this to make it clearer that the comments is for only `private boolean mBorderRouterEnabled \u003d true;` but not the three lines.\n\nIs there a specific reason you prefer this empty line removed? Otherwise, I inclined to keep it as is",
       "parentUuid": "fa81d5ff_5618c5e0",
+      "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f20c2f5b_7b303d89",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-28T05:21:10Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "4a3a5821_bdd3899b",
       "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -202,6 +244,24 @@
       "side": 1,
       "message": "Thanks for catching this!",
       "parentUuid": "783bbbf8_59572b16",
+      "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f567c71a_ed70cf43",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-28T05:21:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0ee1fff_4b88eedd",
       "revId": "a8c251cc27545af0fcbe8486d5c9ee6672e6c325",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
