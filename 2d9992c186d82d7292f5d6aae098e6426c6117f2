@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f50404ba_86cb8b7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-28T14:16:15Z",
+      "side": 1,
+      "message": "Bypassing due to omg/77179",
+      "revId": "2d9992c186d82d7292f5d6aae098e6426c6117f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
