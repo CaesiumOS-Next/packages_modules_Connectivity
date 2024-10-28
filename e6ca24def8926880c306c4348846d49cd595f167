@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44655094_48edc248",
+        "filename": "framework-t/src/android/net/netstats/TrafficStatsRateLimitCacheConfig.aidl",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-28T06:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b78ad16_0ec73a81",
+      "range": {
+        "startLine": 31,
+        "startChar": 12,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "e6ca24def8926880c306c4348846d49cd595f167",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1f20e67_66b03702",
@@ -95,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d04f7695_2339afb4",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2120,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-28T06:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1f20e67_66b03702",
+      "range": {
+        "startLine": 2120,
+        "startChar": 20,
+        "endLine": 2120,
+        "endChar": 39
+      },
+      "revId": "e6ca24def8926880c306c4348846d49cd595f167",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "116f619b_d1bfc8b9",
@@ -108,6 +156,30 @@
       "writtenOn": "2024-10-24T07:20:18Z",
       "side": 1,
       "message": "Not for this change. I think you can use the `@EnableCompatChanges` and `@DisableCompatChanges` to enable/disable the change.",
+      "range": {
+        "startLine": 2461,
+        "startChar": 14,
+        "endLine": 2461,
+        "endChar": 30
+      },
+      "revId": "e6ca24def8926880c306c4348846d49cd595f167",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cb015e1_9b8d8dd3",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2461,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-28T06:31:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "116f619b_d1bfc8b9",
       "range": {
         "startLine": 2461,
         "startChar": 14,
