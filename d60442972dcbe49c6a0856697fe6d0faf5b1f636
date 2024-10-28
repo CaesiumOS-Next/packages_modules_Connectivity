@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e0c26ae_9b30e78c",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-28T09:22:19Z",
+      "side": 1,
+      "message": "You should add comments to describe why `MANAGE_USERS` is necessary instead of `QUERY_USERS`.",
+      "range": {
+        "startLine": 37,
+        "startChar": 54,
+        "endLine": 37,
+        "endChar": 66
+      },
+      "revId": "d60442972dcbe49c6a0856697fe6d0faf5b1f636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
