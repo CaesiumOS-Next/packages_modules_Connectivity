@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "573cc23e_5e30fcf4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-28T19:52:37Z",
+      "side": 1,
+      "message": "Device test results are part of mentioned buganiser at commit message Ref : b/364194942. Unit tests deliverables in progress . Request to start code review",
+      "revId": "4c00750d171d6e029c0a63ed33f2cdf654909b13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
