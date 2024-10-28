@@ -44,6 +44,7 @@ java_library {
         "net-utils-device-common-struct-base",
         "net-utils-device-common-wear",
         "modules-utils-build_system",
+        "InteractiveCommon",
     ],
     lint: {
         strict_updatability_linting: true,
