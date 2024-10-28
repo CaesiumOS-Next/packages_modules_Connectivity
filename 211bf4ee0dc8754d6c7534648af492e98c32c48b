@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f098819c_53cdd21d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-28T00:58:10Z",
+      "side": 1,
+      "message": "Done in aosp/3321754",
+      "parentUuid": "0f3f7826_f4a67bb4",
+      "range": {
+        "startLine": 52,
+        "startChar": 14,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bab78ec_f7549b81",
@@ -65,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fdca587_61b137a9",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-28T00:58:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bab78ec_f7549b81",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 42
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a588506_bb818b21",
@@ -88,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f649ea58_18673896",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-28T00:58:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a588506_bb818b21",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 9
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0719083f_b1a2323f",
@@ -101,6 +173,30 @@
       "writtenOn": "2024-10-16T16:52:39Z",
       "side": 1,
       "message": "You could create a method to determine if the query index represents the last query in the burst. This would improve code clarity compared to directly comparing against a value. e.g.\n```\nprivate static boolean isLastQueryInBurst(int queryIndex, int queryMode) {\n    return getQueryIndexInBurst(queryIndex, queryMode) \u003d\u003d 0;\n}\n```",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 118,
+        "endChar": 41
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b47eabd_574b59a8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-28T00:58:10Z",
+      "side": 1,
+      "message": "Done, but here index \u003d\u003d 0 should be the first query in burst (not last)",
+      "parentUuid": "0719083f_b1a2323f",
       "range": {
         "startLine": 117,
         "startChar": 12,
@@ -136,6 +232,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86e25ce8_82ff5d68",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-28T00:58:10Z",
+      "side": 1,
+      "message": "This is what this method is doing by capping the shift to Integer.numberOfLeadingZeros - 1 (the max shift without overflow). Would you suggest to cap it differently ?",
+      "parentUuid": "d645d4d9_aa27aad5",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 5
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20fea7ef_bffb6d0c",
         "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
         "patchSetId": 2
@@ -147,6 +267,30 @@
       "writtenOn": "2024-10-16T16:52:39Z",
       "side": 1,
       "message": "Nit: final",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 163,
+        "endChar": 11
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90362189_ea09504f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-28T00:58:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20fea7ef_bffb6d0c",
       "range": {
         "startLine": 163,
         "startChar": 8,
@@ -180,6 +324,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6d6200_64aca4b1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-28T00:58:10Z",
+      "side": 1,
+      "message": "No because the query index is an int, while the transaction ID needs to be at most a short to fit in the DNS packet. newQueryIndex can\u0027t realistically go over Integer.MAX_VALUE",
+      "parentUuid": "2ea8416e_c37f7a13",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 9
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbb82bcf_26642f3f",
@@ -193,6 +361,30 @@
       "writtenOn": "2024-10-16T16:52:39Z",
       "side": 1,
       "message": "Ditto. Maybe have a method to check if it\u0027s the first bust.",
+      "range": {
+        "startLine": 180,
+        "startChar": 38,
+        "endLine": 180,
+        "endChar": 53
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd6fa275_babd5de7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-28T00:58:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbb82bcf_26642f3f",
       "range": {
         "startLine": 180,
         "startChar": 38,
