@@ -4138,7 +4138,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         if (mSatelliteDataUsageController != null) {
-            mSatelliteDataUsageController.registerForSatelliteNetwork();
+            mSatelliteDataUsageController.start();
         }
 
         if (mCarrierPrivilegeAuthenticator != null) {
