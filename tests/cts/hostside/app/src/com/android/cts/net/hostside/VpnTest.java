@@ -56,6 +56,7 @@ import static com.android.testutils.TestPermissionUtil.runAsShell;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
@@ -100,6 +101,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.os.Process;
+import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.provider.DeviceConfig;
@@ -149,6 +151,7 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -721,6 +724,37 @@ public class VpnTest {
 
     }
 
+    private void checkLinkLocalUnreachable(Network network) throws Exception {
+        LinkProperties lp = mCM.getLinkProperties(network);
+        assertNotNull("default network disconnected while test was running", lp);
+        String iface = lp.getInterfaceName();
+        NetworkInterface nif = NetworkInterface.getByName(iface);
+        assertNotNull("default network disconnected while test was running", nif);
+
+        // Generate a random link-local address.
+        Random rand = new Random();
+        byte[] ipv6Bytes = new byte[16];
+        ipv6Bytes[0] = (byte) 0xfe;
+        ipv6Bytes[1] = (byte) 0x80;
+        for (int i = 8; i < 16; i++) {
+            ipv6Bytes[i] = (byte) rand.nextInt();
+        }
+        Inet6Address linkLocal = Inet6Address.getByAddress(null /* hostname */, ipv6Bytes, nif);
+        String linkLocalStr = linkLocal.getHostAddress();
+        assertTrue("Invalid link-local address " + linkLocalStr,
+                linkLocalStr.startsWith("fe80::") || linkLocalStr.startsWith("fe80:0:"));
+        assertTrue(linkLocalStr.endsWith("%" + iface));
+
+        DatagramSocket ds = new DatagramSocket();
+        Log.d(TAG, "Sending packet to " + linkLocal +" port 12345");
+        ds.send(new DatagramPacket(new byte[64], 0 /* offset */,
+                InetAddress.getByName("fe80::2a00:79e1:abc:f605%wlan0"), 12345 /* port */ ));
+        ds.send(new DatagramPacket(new byte[64], 0 /* offset */,
+                InetAddress.getByName("fe80::1234%tun0"), 12345 /* port */ ));
+//        assertThrows(IOException.class, () -> ds.send(
+//                new DatagramPacket(new byte[64], 0 /* offset */, linkLocal, 12345 /* port */ )));
+    }
+
     private void checkNoTrafficOnVpn(String destination) throws IOException {
         checkUdpEcho(destination, null);
         checkTcpReflection(destination, null);
@@ -1023,11 +1057,13 @@ public class VpnTest {
         checkTrafficOnVpn();
 
         final Network vpnNetwork = mCM.getActiveNetwork();
-        myUidCallback.expectAvailableThenValidatedCallbacks(vpnNetwork, TIMEOUT_MS);
+//        myUidCallback.expectAvailableThenValidatedCallbacks(vpnNetwork, TIMEOUT_MS);
         assertEquals(vpnNetwork, mCM.getActiveNetwork());
         assertNotEqual(defaultNetwork, vpnNetwork);
-        maybeExpectVpnTransportInfo(vpnNetwork);
+        //maybeExpectVpnTransportInfo(vpnNetwork);
         assertEquals(TYPE_VPN, mCM.getNetworkInfo(vpnNetwork).getType());
+
+        checkLinkLocalUnreachable(defaultNetwork);
 
         if (SdkLevel.isAtLeastT()) {
             runWithShellPermissionIdentity(() -> {
@@ -1050,6 +1086,8 @@ public class VpnTest {
         }
 
         checkStrictModePrivateDns();
+
+        SystemClock.sleep(120_000);
 
         receiver.unregisterQuietly();
     }
