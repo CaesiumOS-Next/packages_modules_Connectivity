@@ -16,14 +16,16 @@
 
 package com.android.server.connectivity
 
+import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.res.Resources
+import android.content.Intent
+import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.net.ConnectivityManager.FIREWALL_CHAIN_SATELLITE
 import android.net.Network
 import android.net.NetworkRequest
 import android.os.Build
 import android.os.Handler
-import android.os.HandlerThread
 import android.os.Looper
 import com.android.connectivity.resources.R
 import com.android.server.CSTest
@@ -34,11 +36,18 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
+
+private const val APP_UID = 10000
+private const val APP1_UID = 10100
+private const val APP2_UID = 10200
+private const val APP3_UID = 10300
+private const val APP4_UID = 10400
 
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
@@ -49,16 +58,18 @@ class SatelliteDataUsageControllerTest : CSTest() {
     private var mSatelliteDataUsageController =
         SatelliteDataUsageController(mContext, mDeps, mHandler)
     private lateinit var connectivityManager: ConnectivityManager
+    private lateinit var mAirplaneModeReceiver: BroadcastReceiver
 
     @Before
     fun setup() {
         connectivityManager = mock(ConnectivityManager::class.java)
-        doReturn(connectivityManager).`when`(mContext).getSystemService(Context.CONNECTIVITY_SERVICE)
+        doReturn(connectivityManager).`when`(mContext)
+            .getSystemService(Context.CONNECTIVITY_SERVICE)
     }
 
     @Test
     fun testRegisterSatelliteNetwork() {
-        mSatelliteDataUsageController.registerForSatelliteNetwork()
+        mSatelliteDataUsageController.start()
         val callbackCaptor: ArgumentCaptor<ConnectivityManager.NetworkCallback> =
             ArgumentCaptor.forClass(ConnectivityManager.NetworkCallback::class.java)
         verify(connectivityManager, times(1))
@@ -66,7 +77,84 @@ class SatelliteDataUsageControllerTest : CSTest() {
                 any(NetworkRequest::class.java), callbackCaptor.capture(), any(Handler::class.java))
         val callback: ConnectivityManager.NetworkCallback = callbackCaptor.getValue()
         val testNetwork: Network = mock(Network::class.java)
+
         // Simulate network available.
-        callback.onAvailable(testNetwork)
+        callback.onAvailable(testNetwork);
+    }
+
+    @Test
+    fun test_enforcement_With_Block_Chain_onUidBlockingListUpdate() {
+        var appUids = intArrayOf(APP_UID, APP1_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        // verify firewall blocking trigger
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, appUids)
+
+        // verify firewall blocking trigger
+        appUids = intArrayOf(APP3_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        verify(bpfNetMaps).replaceUidChain(
+            FIREWALL_CHAIN_SATELLITE,
+            intArrayOf(APP_UID, APP1_UID, APP3_UID)
+        )
+
+        // verify firewall blocking trigger
+        appUids = intArrayOf(APP2_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        verify(bpfNetMaps).replaceUidChain(
+            FIREWALL_CHAIN_SATELLITE,
+            intArrayOf(APP_UID, APP1_UID, APP3_UID, APP2_UID)
+        )
+    }
+
+    @Test
+    fun test_enforcement_with_Unblock_Chain() {
+        var appUids = intArrayOf(APP_UID, APP4_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        // verify firewall blocking trigger
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, appUids)
+
+        // verify firewall blocking trigger
+        appUids = intArrayOf(APP3_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        verify(bpfNetMaps).replaceUidChain(
+            FIREWALL_CHAIN_SATELLITE,
+            intArrayOf(APP_UID, APP4_UID, APP3_UID)
+        )
+
+        // verify firewall unblocking trigger
+        appUids = intArrayOf()
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, appUids)
+    }
+
+    @Test
+    fun testUnblockSatelliteUids_OnAirplaneModeOn() {
+        // register for satellite network and airplane mode change broadcast receiver
+        mSatelliteDataUsageController.start()
+
+        //Get Airplane Mode receiver using captor
+        val airplaneModeReceiverCaptor = ArgumentCaptor.forClass(BroadcastReceiver::class.java)
+        verify(mContext).registerReceiver(
+            airplaneModeReceiverCaptor.capture(),
+            any(IntentFilter::class.java),
+            anyInt())
+        mAirplaneModeReceiver = airplaneModeReceiverCaptor.value
+
+        // verify firewall blocking trigger
+        var appUids = intArrayOf(APP_UID, APP4_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, appUids)
+
+        // verify firewall blocking trigger
+        appUids = intArrayOf(APP3_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE,
+            intArrayOf(APP_UID, APP4_UID, APP3_UID))
+
+        // verify firewall unblocking trigger
+        val airplaneModeIntent = Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED)
+        airplaneModeIntent.putExtra("state", true)
+        mAirplaneModeReceiver.onReceive(mContext, airplaneModeIntent)
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, appUids)
     }
 }
