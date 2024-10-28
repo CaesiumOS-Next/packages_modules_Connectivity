@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a099f811_add49a13",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2024-10-28T14:19:45Z",
+      "side": 1,
+      "message": "From the description, isBorderRoutingEnabled() looks better?",
+      "fixSuggestions": [
+        {
+          "fixId": "9845531f_1e1dd625",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 36,
+                "startChar": 0,
+                "endLine": 37,
+                "endChar": 0
+              },
+              "replacement": " *     new ThreadConfiguration.Builder(existingConfig).setNat64Enabled(true).build(); // NAT64\n * ThreadConfiguration config \u003d\n *     new ThreadConfiguration.Builder(existingConfig).setDhcpv6PdEnabled(true).build(); // DHCPv6\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 47,
+                "startChar": 0,
+                "endLine": 48,
+                "endChar": 0
+              },
+              "replacement": "    private final boolean mBorderRoutingEnabled;\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 52,
+                "startChar": 0,
+                "endLine": 53,
+                "endChar": 0
+              },
+              "replacement": "        this(builder.mBorderRoutingEnabled, builder.mNat64Enabled, builder.mDhcpv6PdEnabled);\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 56,
+                "startChar": 0,
+                "endLine": 58,
+                "endChar": 0
+              },
+              "replacement": "            boolean borderRoutingEnabled, boolean nat64Enabled, boolean dhcpv6PdEnabled) {\n        this.mBorderRoutingEnabled \u003d borderRoutingEnabled;\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 73,
+                "startChar": 0,
+                "endLine": 75,
+                "endChar": 0
+              },
+              "replacement": "    public boolean isBorderRoutingEnabled() {\n        return mBorderRoutingEnabled;\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 99,
+                "startChar": 0,
+                "endLine": 100,
+                "endChar": 0
+              },
+              "replacement": "            return mBorderRoutingEnabled \u003d\u003d otherConfig.mBorderRoutingEnabled\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 107,
+                "startChar": 0,
+                "endLine": 108,
+                "endChar": 0
+              },
+              "replacement": "        return Objects.hash(mBorderRoutingEnabled, mNat64Enabled, mDhcpv6PdEnabled);\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 114,
+                "startChar": 0,
+                "endLine": 115,
+                "endChar": 0
+              },
+              "replacement": "        sb.append(\"borderRoutingEnabled\u003d\").append(mBorderRoutingEnabled);\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 128,
+                "startChar": 0,
+                "endLine": 129,
+                "endChar": 0
+              },
+              "replacement": "        dest.writeBoolean(mBorderRoutingEnabled);\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 138,
+                "startChar": 0,
+                "endLine": 139,
+                "endChar": 0
+              },
+              "replacement": "                    builder.setBorderRoutingEnabled(in.readBoolean());\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 160,
+                "startChar": 0,
+                "endLine": 161,
+                "endChar": 0
+              },
+              "replacement": "        private boolean mBorderRoutingEnabled \u003d true;\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 185,
+                "startChar": 0,
+                "endLine": 186,
+                "endChar": 0
+              },
+              "replacement": "            mBorderRoutingEnabled \u003d config.mBorderRoutingEnabled;\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 195,
+                "startChar": 0,
+                "endLine": 196,
+                "endChar": 0
+              },
+              "replacement": "         * @see ThreadConfiguration#isBorderRoutingEnabled\n"
+            },
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+              "range": {
+                "startLine": 199,
+                "startChar": 0,
+                "endLine": 201,
+                "endChar": 0
+              },
+              "replacement": "        public Builder setBorderRoutingEnabled(boolean enabled) {\n            this.mBorderRoutingEnabled \u003d enabled;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "3793cc12e04e876190f7815fd0237758978f9286",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
