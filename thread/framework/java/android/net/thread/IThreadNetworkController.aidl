@@ -26,6 +26,7 @@ import android.net.thread.IScheduleMigrationReceiver;
 import android.net.thread.IStateCallback;
 import android.net.thread.PendingOperationalDataset;
 import android.net.thread.ThreadConfiguration;
+import android.net.thread.ThreadNetworkSpecifier;
 
 /**
  * Interface for communicating with ThreadNetworkControllerService.
@@ -38,6 +39,8 @@ interface IThreadNetworkController {
     void unregisterOperationalDatasetCallback(in IOperationalDatasetCallback callback);
 
     void join(in ActiveOperationalDataset activeOpDataset, in IOperationReceiver receiver);
+    void join(
+            in @nullable ThreadNetworkSpecifier specifier, in IOperationReceiver receiver);
     void scheduleMigration(
             in PendingOperationalDataset pendingOpDataset, in IOperationReceiver receiver);
     void leave(in IOperationReceiver receiver);
