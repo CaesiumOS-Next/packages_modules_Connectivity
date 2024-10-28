@@ -19,6 +19,7 @@ package com.android.server.connectivity;
 import android.annotation.NonNull;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
@@ -43,12 +44,14 @@ public class SatelliteDataUsageController {
     private final Dependencies mDeps;
     private final Handler mConnectivityServiceHandler;
     private boolean mSatelliteNetworkConnected;
+    private boolean mSatelliteBufferEventActive;
     private boolean mRegistered;
     private ConnectivityManager mConnectivityManager;
     private static final int INVALID_IFINDEX = 0;
     private static final int UNLIMITED_DATA_USAGE_LIMIT = 0; // Unlimited data usage
     // default satellite allowed data usage time measured interval
     private static final int DEFAULT_MEASURED_TIME_INTERVAL_SECS = 30;
+    int mReadPipeFd = -1;
 
     private final ConnectivityManager.NetworkCallback mNetworkCallback =
             new ConnectivityManager.NetworkCallback() {
@@ -65,7 +68,9 @@ public class SatelliteDataUsageController {
                                                 NetworkCapabilities.TRANSPORT_SATELLITE);
                                 if (mSatelliteNetworkConnected) {
                                     Log.i(TAG, "satellite network connected");
+                                    registerNativeSatelliteBufferEvent();
                                 } else {
+                                    unregisterNativeSatelliteBufferEvent();
                                 }
                             }
                         }
@@ -77,6 +82,9 @@ public class SatelliteDataUsageController {
                 @Override
                 public void onLost(Network network) {
                     Log.i(TAG, "Network Lost");
+                    if (mSatelliteNetworkConnected) {
+                        unregisterNativeSatelliteBufferEvent();
+                    }
                 }
             };
 
@@ -147,6 +155,27 @@ public class SatelliteDataUsageController {
             final InterfaceParams params = InterfaceParams.getByName(ifaceName);
             return params != null ? params.index : INVALID_IFINDEX;
         }
+
+        /**
+         * Start satellite buffer event monitoring
+         */
+        public void startSatelliteBufferEventMonitoring(int[] configs) {
+            nativeStartSatelliteBufferEventMonitoring(configs);
+        }
+
+        /**
+         * initialise satellite buffer event
+         */
+        public int initSatelliteBufferEvent() {
+            return nativeInitSatelliteBufferEvent();
+        }
+
+        /**
+         * stop satellite buffer event
+         */
+        public void stopSatelliteBufferEvent() {
+            nativeStopSatelliteBufferEvent();
+        }
     }
 
     @VisibleForTesting
@@ -157,6 +186,13 @@ public class SatelliteDataUsageController {
         mContext = c;
         mDeps = deps;
         mConnectivityServiceHandler = connectivityServiceInternalHandler;
+    }
+
+    private void initialiseSatelliteBufferEvent() {
+        if (mReadPipeFd == -1) {
+            Log.i(TAG, "Initialise pipe");
+            mReadPipeFd = mDeps.initSatelliteBufferEvent();
+        }
     }
 
     public synchronized void registerForSatelliteNetwork() {
@@ -179,4 +215,81 @@ public class SatelliteDataUsageController {
             }
         }
     }
+
+    private int getInterfaceIndexOfActiveNetwork() {
+        if (mConnectivityManager != null) {
+            Network activeNetwork = mConnectivityManager.getActiveNetwork();
+            if (activeNetwork != null) {
+                LinkProperties linkProperties =
+                        mConnectivityManager.getLinkProperties(activeNetwork);
+                if (linkProperties != null) {
+                    String interfaceName = linkProperties.getInterfaceName();
+                    Log.i(TAG, "active interface name: " + interfaceName);
+                    return mDeps.getInterfaceIndex(interfaceName);
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Initialise pipe at native code and start FDEventsReader using read fd for monitoring blocking
+     * updates of satellite uids. Start satellite events to ring buffer at native code with
+     * different thread, monitor and update pipe using write fd the uids to be blocked, on crossing
+     * data usage limits at native code with different thread.
+     */
+    private void registerNativeSatelliteBufferEvent() {
+        if (!mSatelliteBufferEventActive) {
+            int ifaceIndex = getInterfaceIndexOfActiveNetwork();
+            int maxDataUsageLimitPerUid = mDeps.getSatelliteDataUsageLimitPerUid(mContext);
+
+            if (ifaceIndex > 0 && maxDataUsageLimitPerUid > UNLIMITED_DATA_USAGE_LIMIT) {
+                // build other satellite event configs to generate satellite buffer event to a ring
+                // buffer
+                int[] SatelliteEventConfig = mDeps.setupSatelliteEventConfig();
+                // time interval for which max usage check measured for
+                SatelliteEventConfig[0] =
+                        mDeps.getSatelliteAllowedDataUsageTimeMeasuredInterval(mContext);
+                // Update max satellite data usage limit per uid
+                SatelliteEventConfig[1] = maxDataUsageLimitPerUid;
+                // update ifindex4 index as per current network
+                SatelliteEventConfig[4] = ifaceIndex;
+                // ifindex6 set same as ifindex4 (Used at satellite event config to generate ring
+                // buffer
+                // at native code. To check the required reason.
+                SatelliteEventConfig[3] = SatelliteEventConfig[4];
+                Log.i(TAG, "interface index: " + SatelliteEventConfig[4]);
+
+                initialiseSatelliteBufferEvent();
+                if (mReadPipeFd != -1) {
+                    mSatelliteBufferEventActive = true;
+                    Thread nativeThread =
+                            new Thread(
+                                    () ->
+                                            mDeps.startSatelliteBufferEventMonitoring(
+                                                    SatelliteEventConfig));
+                    nativeThread.start();
+                } else {
+                    Log.wtf(TAG, "pipe fd not created," + " don't start satellite buffer event");
+                }
+            }
+        }
+    }
+
+    private void unregisterNativeSatelliteBufferEvent() {
+        if (mSatelliteBufferEventActive) {
+            Log.i(TAG, "stop satellite buffer event");
+            mSatelliteBufferEventActive = false;
+            mDeps.stopSatelliteBufferEvent();
+        }
+    }
+
+    /** Initialise Satellite Buffer Event interface for read and write file descriptors */
+    public static native int nativeInitSatelliteBufferEvent();
+
+    /** Start Satellite Buffer Event */
+    public static native void nativeStartSatelliteBufferEventMonitoring(int[] config);
+
+    /** Stop Satellite Buffer Event */
+    public static native void nativeStopSatelliteBufferEvent();
 }
