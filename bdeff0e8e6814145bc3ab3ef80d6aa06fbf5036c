@@ -34,6 +34,24 @@
       "parentUuid": "5fb4aa80_3c28d350",
       "revId": "bdeff0e8e6814145bc3ab3ef80d6aa06fbf5036c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ac996ea_ffd93d5f",
+        "filename": "thread/demoapp/res/layout/thread_network_settings_fragment.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-28T02:01:46Z",
+      "side": 0,
+      "message": "Yes. The overlap issue is resolved by `android:fitsSystemWindows\u003d\"true\"`.",
+      "parentUuid": "590255ac_8766d344",
+      "revId": "bdeff0e8e6814145bc3ab3ef80d6aa06fbf5036c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

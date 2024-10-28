@@ -16,6 +16,42 @@
       "message": "nit: is this necessary? Or it is suggested by the IDE?",
       "revId": "39f0ea91063c5225108300a79f18b68a2123025d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d231a61_bc15882b",
+        "filename": "thread/demoapp/res/layout/thread_network_settings_fragment.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-28T02:01:46Z",
+      "side": 1,
+      "message": "This is necessary. Without this option, the elements at the bottom of the app will overlap with the navigation bar of the system.",
+      "parentUuid": "a8989138_78919aff",
+      "revId": "39f0ea91063c5225108300a79f18b68a2123025d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f9a0bd7_8b4c97a3",
+        "filename": "thread/demoapp/res/layout/thread_network_settings_fragment.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-28T02:01:46Z",
+      "side": 1,
+      "message": "This is necessary. Without this option, the elements at the bottom of the app will overlap with the navigation bar of the system.",
+      "parentUuid": "a8989138_78919aff",
+      "revId": "39f0ea91063c5225108300a79f18b68a2123025d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
