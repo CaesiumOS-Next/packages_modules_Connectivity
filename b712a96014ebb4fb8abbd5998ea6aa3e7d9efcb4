@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4227795_048da5f6",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-28T16:46:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f4a55833_2df7e4f7",
+      "range": {
+        "startLine": 230,
+        "startChar": 4,
+        "endLine": 230,
+        "endChar": 65
+      },
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fab18124_694a87a7",
