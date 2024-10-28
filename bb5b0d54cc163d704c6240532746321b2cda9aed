@@ -22,6 +22,30 @@
       },
       "revId": "bb5b0d54cc163d704c6240532746321b2cda9aed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50965726_fbb42118",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-28T07:07:49Z",
+      "side": 1,
+      "message": "ack.\nAbandon this CL and moving the parcelable to follow-up CL.",
+      "parentUuid": "3adf9c33_0cef2007",
+      "range": {
+        "startLine": 632,
+        "startChar": 77,
+        "endLine": 632,
+        "endChar": 93
+      },
+      "revId": "bb5b0d54cc163d704c6240532746321b2cda9aed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
