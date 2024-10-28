@@ -226,4 +226,10 @@
       2 = compare on debuggable builds (default value)
       -->
     <integer translatable="false" name="config_netstats_validate_import">2</integer>
+
+    <!-- Allowed Satellite data usage limit per uid. In Bytes -->
+    <integer name="config_satelliteDataUsageLimitAllowedPerUidBytes">1048576</integer>
+
+    <!-- Satellite allowed data usage time measured interval in seconds. -->
+    <integer name="config_satelliteAllowedDataUsageTimeMeasuredIntervalSecs">30</integer>
 </resources>
