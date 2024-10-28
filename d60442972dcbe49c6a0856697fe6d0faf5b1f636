@@ -22,6 +22,30 @@
       },
       "revId": "d60442972dcbe49c6a0856697fe6d0faf5b1f636",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f80d01ad_7da46b24",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-28T09:32:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e0c26ae_9b30e78c",
+      "range": {
+        "startLine": 37,
+        "startChar": 54,
+        "endLine": 37,
+        "endChar": 66
+      },
+      "revId": "d60442972dcbe49c6a0856697fe6d0faf5b1f636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
