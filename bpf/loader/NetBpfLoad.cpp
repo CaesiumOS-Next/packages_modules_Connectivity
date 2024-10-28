@@ -1288,6 +1288,8 @@ static int writeProcSysFile(const char *filename, const char *value) {
 
 #define APEX_MOUNT_POINT "/apex/com.android.tethering"
 const char * const platformBpfLoader = "/system/bin/bpfloader";
+const char *const uprobestatsBpfLoader =
+    "/apex/com.android.uprobestats/bin/uprobestatsbpfload";
 
 static int logTetheringApexVersion(void) {
     char * found_blockdev = NULL;
@@ -1657,8 +1659,21 @@ static int doLoad(char** argv, char * const envp[]) {
     }
 
     // unreachable before U QPR3
-    ALOGI("done, transferring control to platform bpfloader.");
 
+#ifdef UPROBESTATSBPFLOAD
+    {
+      ALOGI("done, transferring control to uprobestatsbpfload.");
+      const char *args[] = {
+          uprobestatsBpfLoader,
+          NULL,
+      };
+      execve(args[0], (char **)args, envp);
+      ALOGE("ERROR: execve('%s'): %d[%s]", uprobestatsBpfLoader, errno,
+            strerror(errno));
+    }
+#endif
+
+    ALOGI("done, transferring control to platform bpfloader.");
     // platform BpfLoader *needs* to run as root
     const char * args[] = { platformBpfLoader, NULL, };
     execve(args[0], (char**)args, envp);
