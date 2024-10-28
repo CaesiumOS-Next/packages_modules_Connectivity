@@ -30,7 +30,31 @@ install_symlink {
     required: ["bpfloader"],
 }
 
-cc_binary {
+soong_config_module_type {
+    name: "netbpfload_cc_binary",
+    module_type: "cc_binary",
+    config_namespace: "ANDROID",
+    bool_variables: [
+        "release_uprobestats_module",
+    ],
+    properties: [
+        "cflags",
+    ],
+}
+
+soong_config_bool_variable {
+    name: "release_uprobestats_module",
+}
+
+netbpfload_cc_binary {
+    soong_config_variables: {
+        release_uprobestats_module: {
+            cflags: [
+                "-DUPROBESTATSBPFLOAD=1",
+            ],
+        },
+    },
+
     name: "netbpfload",
 
     defaults: ["bpf_cc_defaults"],
