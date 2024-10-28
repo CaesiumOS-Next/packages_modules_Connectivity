@@ -19,6 +19,7 @@ package com.android.server.connectivity
 import android.content.Context
 import android.content.res.Resources
 import android.net.ConnectivityManager
+import android.net.ConnectivityManager.FIREWALL_CHAIN_SATELLITE
 import android.net.Network
 import android.net.NetworkRequest
 import android.os.Build
@@ -39,6 +40,12 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
+
+private const val APP_UID = 10000
+private const val APP1_UID = 10100
+private const val APP2_UID = 10200
+private const val APP3_UID = 10300
+private const val APP4_UID = 10400
 
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
@@ -70,16 +77,65 @@ class SatelliteDataUsageControllerTest : CSTest() {
         val handlerThread = HandlerThread("SatelliteDataUsageThread")
         handlerThread.start()
         val handler = Handler(handlerThread.looper)
-        mSatelliteDataUsageController.registerForSatelliteNetwork()
+
+        mSatelliteDataUsageController.start()
         val callbackCaptor: ArgumentCaptor<ConnectivityManager.NetworkCallback> =
             ArgumentCaptor.forClass(ConnectivityManager.NetworkCallback::class.java)
         verify(connectivityManager, times(1))
             .registerBestMatchingNetworkCallback(
                 any(NetworkRequest::class.java), callbackCaptor.capture(), handler
             )
+
         val callback: ConnectivityManager.NetworkCallback = callbackCaptor.getValue()
         val testNetwork: Network = mock(Network::class.java)
+
         // Simulate network available.
-        callback.onAvailable(testNetwork)
+        callback.onAvailable(testNetwork);
+
+    }
+
+    @Test
+    fun test_enforcement_With_Block_Chain_onUidBlockingListUpdate() {
+        var appUids = intArrayOf(APP_UID, APP1_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        // verify firewall blocking trigger
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, appUids)
+
+        appUids = intArrayOf(APP3_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        // verify firewall blocking trigger
+        verify(bpfNetMaps).replaceUidChain(
+            FIREWALL_CHAIN_SATELLITE,
+            intArrayOf(APP_UID, APP1_UID, APP3_UID)
+        )
+
+        appUids = intArrayOf(APP2_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        // verify firewall blocking trigger
+        verify(bpfNetMaps).replaceUidChain(
+            FIREWALL_CHAIN_SATELLITE,
+            intArrayOf(APP_UID, APP1_UID, APP3_UID, APP2_UID)
+        )
+    }
+
+    @Test
+    fun test_enforcement_with_Unblock_Chain() {
+        var appUids = intArrayOf(APP_UID, APP4_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        // verify firewall blocking trigger
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, appUids)
+
+        appUids = intArrayOf(APP3_UID)
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        // verify firewall blocking trigger
+        verify(bpfNetMaps).replaceUidChain(
+            FIREWALL_CHAIN_SATELLITE,
+            intArrayOf(APP_UID, APP4_UID, APP3_UID)
+        )
+
+        appUids = intArrayOf()
+        mSatelliteDataUsageController.onSatelliteUidBlockingListReceived(appUids)
+        // verify firewall unblocking trigger
+        verify(bpfNetMaps).replaceUidChain(FIREWALL_CHAIN_SATELLITE, appUids)
     }
 }
