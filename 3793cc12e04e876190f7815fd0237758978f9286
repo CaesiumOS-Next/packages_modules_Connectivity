@@ -164,6 +164,24 @@
       ],
       "revId": "3793cc12e04e876190f7815fd0237758978f9286",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5051b8_82fdaacc",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-29T02:49:42Z",
+      "side": 1,
+      "message": "The intention is to disable / enable border router, the API doc was describing the most import 1/2 features of border router. I updated it a bit to avoid the impression that it is controlling only border routing. PTAL",
+      "parentUuid": "a099f811_add49a13",
+      "revId": "3793cc12e04e876190f7815fd0237758978f9286",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
