@@ -50,6 +50,30 @@
       ],
       "revId": "4b6806f136d8e1934226ec7134f8e17639b254ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3a41d23_f5a15314",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-29T17:47:49Z",
+      "side": 1,
+      "message": "This is triggered based on best matching network found and callback received here : Ref :\n https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3322495/1/service/src/com/android/server/connectivity/SatelliteDataUsageController.java#71 \n \nand this api always returns default (Internet capability network)\nRef : https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/ConnectivityManager.java;l\u003d1522;drc\u003d5fda970b9b4a3ffee7f282ed7e332c96989962e3?q\u003dgetActiveNetwork\u0026ss\u003dh%2Fgoogleplex-android%2Fplatform%2Fsuperproject%2Fmain%2F%2B%2Frefs%2Fheads%2Fmain\n\nWith this ensuring , \ngetActiveNetwork() is called only when registerNativeSatelliteBufferEvent() is called. This registerNativeSatelliteBufferEvent() is inturn called only when satellite transport is found @ best network match callback.",
+      "parentUuid": "acd73eb5_adad5ffe",
+      "range": {
+        "startLine": 186,
+        "startChar": 37,
+        "endLine": 186,
+        "endChar": 76
+      },
+      "revId": "4b6806f136d8e1934226ec7134f8e17639b254ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
