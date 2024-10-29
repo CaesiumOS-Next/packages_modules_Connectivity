@@ -22,6 +22,30 @@
       },
       "revId": "1193f08d69db3b3f1180aa892d098926cb973b60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1d46d1d_7c9fb931",
+        "filename": "Tethering/apex/permissions/permissions.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-29T07:31:39Z",
+      "side": 0,
+      "message": "1. For R and S, there is no need to support HSUM. Also, there is no proper API to check for admin users. Thus, the logic for T- remains untouched. Discussed here\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3289821/comment/7b47d270_630c556a/\n\n2. The high level automated test is doable, but it requires some effort, which cannot be done shortly:\n   a. Currently, there is no real test for entitlement checks, given that the need for an entitlement check depends on carrier customization, which is different for each SIM. The result of enabling cellular tethering in CTS is not predictable.\n   b. Currently, there is no way to override the need for an entitlement check for testing (discussed with markchien@). This is caused by security concerns, where we don\u0027t want to have a backdoor that potentially allows users to bypass the need for an entitlement check. See more context at b/237338640.\n   c. One way forward is to adopt ideas in b/237338640 but only allow that when the upstream has TRANSPORT_TEST, which would takes some amount of time to complete.\n  \nThus, prefer to keep it as is for now. And arrange\nresources for implementing high level automated tests next\nquarter if we think this is important.\nWDYT?",
+      "parentUuid": "65c8fb5d_94d3b991",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "1193f08d69db3b3f1180aa892d098926cb973b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
