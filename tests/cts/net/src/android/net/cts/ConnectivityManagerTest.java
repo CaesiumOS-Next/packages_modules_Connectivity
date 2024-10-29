@@ -145,6 +145,7 @@ import android.net.CaptivePortalData;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.net.ConnectivitySettingsManager;
+import android.net.DnsResolver;
 import android.net.InetAddresses;
 import android.net.IpSecManager;
 import android.net.IpSecManager.UdpEncapsulationSocket;
@@ -201,6 +202,7 @@ import com.android.compatibility.common.util.DynamicConfigDeviceSide;
 import com.android.internal.util.ArrayUtils;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
+import com.android.net.module.util.DnsPacket;
 import com.android.networkstack.apishim.ConnectivityManagerShimImpl;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.NetworkInformationShimImpl;
@@ -307,6 +309,7 @@ public class ConnectivityManagerTest {
     private static final int NO_CALLBACK_TIMEOUT_MS = 100;
     private static final int NETWORK_REQUEST_TIMEOUT_MS = 3000;
     private static final int SOCKET_TIMEOUT_MS = 100;
+    private static final int DNS_QUERY_TIMEOUT_MS = 2000;
     private static final int NUM_TRIES_MULTIPATH_PREF_CHECK = 20;
     private static final long INTERVAL_MULTIPATH_PREF_CHECK_MS = 500;
     // device could have only one interface: data, wifi.
@@ -861,6 +864,39 @@ public class ConnectivityManagerTest {
         });
     }
 
+    @NonNull
+    private static String getDeviceIpThroughDnsQuery(Network network) throws Exception {
+        final InetAddress dnsIp = getAddrByName("ns1.google.com", AF_INET6);
+        assertNotNull("IPv6 address for ns1.google.com should not be null", dnsIp);
+
+        try (DatagramSocket udpSocket = new DatagramSocket()) {
+            network.bindSocket(udpSocket);
+
+            final DnsPacket queryDnsPkt = new DnsPacket(
+                    new DnsPacket.DnsHeader(0x3001 /* id */, DnsResolver.FLAG_EMPTY,
+                            1 /* qdcount */,
+                            0 /* ancount */),
+                    List.of(DnsPacket.DnsRecord.makeQuestion("o-o.myaddr.l.google.com",
+                            DnsResolver.TYPE_TXT, DnsResolver.CLASS_IN)),
+                    List.of()
+            );
+            final byte[] queryDnsRawBytes = queryDnsPkt.getBytes();
+            final DatagramPacket queryUdpPkt = new DatagramPacket(queryDnsRawBytes,
+                    queryDnsRawBytes.length, dnsIp, 53 /* port */);
+            udpSocket.send(queryUdpPkt);
+
+            final byte[] receiveBuffer = new byte[1500];
+            final DatagramPacket replyUdpPkt = new DatagramPacket(receiveBuffer,
+                    receiveBuffer.length);
+            udpSocket.setSoTimeout(DNS_QUERY_TIMEOUT_MS);
+            udpSocket.receive(replyUdpPkt);
+
+            final DnsPacket replyDnsPkt = new DnsPacket(receiveBuffer);
+            final byte[] txtReplyRecord = replyDnsPkt.mRecords[1].get(0).getRR();
+            return new String(Arrays.copyOfRange(txtReplyRecord, 1, txtReplyRecord.length));
+        }
+    }
+
     /**
      * Tests that connections can be opened on WiFi and cellphone networks,
      * and that they are made from different IP addresses.
@@ -886,8 +922,16 @@ public class ConnectivityManagerTest {
 
         // Verify that the IP addresses that the requests appeared to come from are actually on the
         // respective networks.
-        assertOnNetwork(wifiAddressString, wifiNetwork);
-        assertOnNetwork(cellAddressString, cellNetwork);
+        checkOnNetwork(wifiAddressString, wifiNetwork, true /* enforce */);
+
+        // In userdebug build, on celluer network, if the onNetwork check failed, we also try to
+        // re-verify it by obtaining the IP address through DNS query.
+        boolean isUserDebug = Build.isDebuggable();
+        boolean isOnNetwork = checkOnNetwork(cellAddressString, cellNetwork, false /* false */);
+        if (!isOnNetwork && isUserDebug) {
+            final String cellAddressStringFromDns = getDeviceIpThroughDnsQuery(cellNetwork);
+            checkOnNetwork(cellAddressStringFromDns, cellNetwork, true /* enforce */);
+        }
 
         assertFalse("Unexpectedly equal: " + wifiNetwork, wifiNetwork.equals(cellNetwork));
     }
@@ -919,7 +963,8 @@ public class ConnectivityManagerTest {
         }
     }
 
-    private void assertOnNetwork(String adressString, Network network) throws UnknownHostException {
+    private boolean checkOnNetwork(String adressString, Network network, boolean enforce)
+            throws UnknownHostException {
         InetAddress address = InetAddress.getByName(adressString);
         LinkProperties linkProperties = mCm.getLinkProperties(network);
         // To make sure that the request went out on the right network, check that
@@ -927,9 +972,15 @@ public class ConnectivityManagerTest {
         // We can only do this for IPv6 addresses, because in IPv4 we will likely
         // have a private IPv4 address, and that won't match what the server sees.
         if (address instanceof Inet6Address) {
-            assertContains(linkProperties.getAddresses(), address);
+            if (enforce) {
+                assertContains(linkProperties.getAddresses(), address);
+            }
+            return linkProperties.getAddresses().contains(address);
+        } else {
+            return false;
         }
     }
+
 
     private static<T> void assertContains(Collection<T> collection, T element) {
         assertTrue(element + " not found in " + collection, collection.contains(element));
@@ -1713,7 +1764,8 @@ public class ConnectivityManagerTest {
         }
     }
 
-    private InetAddress getAddrByName(final String hostname, final int family) throws Exception {
+    private static InetAddress getAddrByName(final String hostname, final int family)
+            throws Exception {
         final InetAddress[] allAddrs = InetAddress.getAllByName(hostname);
         for (InetAddress addr : allAddrs) {
             if (family == AF_INET && addr instanceof Inet4Address) return addr;
