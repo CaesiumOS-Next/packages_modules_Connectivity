@@ -29,6 +29,9 @@ static const int DROP_UNLESS_DNS = 2;  // internal to our program
 static const bool TRACE_ON = true;
 static const bool TRACE_OFF = false;
 
+static const uint32_t NET_ID_MASK = 0xFFFF;
+static const uint32_t PROTECTED_FROM_VPN_MASK = 0x00020000;
+
 // offsetof(struct iphdr, ihl) -- but that's a bitfield
 #define IPPROTO_IHL_OFF 0
 
@@ -391,6 +394,22 @@ static __always_inline inline bool ingress_should_discard(struct __sk_buff* skb,
     return true;  // disallowed interface
 }
 
+static __always_inline inline bool is_socket_protected_from_vpn(struct __sk_buff* skb,
+                                                                const struct kver_uint kver) {
+    if (!KVER_IS_AT_LEAST(kver, 5, 4, 0)) return false;
+
+    struct bpf_sock* sk = skb->sk;
+    if (!sk) return false;
+
+    sk = bpf_sk_fullsock(sk);
+    if (!sk) return false;
+
+    // If socket netid != skb netid -> return false
+    if ((sk->mark ^ skb->mark) & NET_ID_MASK) return false;
+
+    return sk->mark & PROTECTED_FROM_VPN_MASK;
+}
+
 static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_t uid,
                                                   const struct egress_bool egress,
                                                   const struct kver_uint kver) {
@@ -411,6 +430,10 @@ static __always_inline inline int bpf_owner_match(struct __sk_buff* skb, uint32_
 
     if (!egress.egress && skb->ifindex != 1) {
         if (ingress_should_discard(skb, kver)) return DROP;
+        // If the listening socket is protected from VPN, and the packet is received on
+        // the corresponding network, skip IIF_MATCH and LOCKDOWN_VPN_MATCH rules.
+        if (is_socket_protected_from_vpn(skb, kver)) return PASS;
+
         if (uidRules & IIF_MATCH) {
             if (allowed_iif && skb->ifindex != allowed_iif) {
                 // Drops packets not coming from lo nor the allowed interface
