@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acd73eb5_adad5ffe",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-29T17:38:29Z",
+      "side": 1,
+      "message": "Why are you just getting active network...how do you make sure it is satellite",
+      "range": {
+        "startLine": 186,
+        "startChar": 37,
+        "endLine": 186,
+        "endChar": 76
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "e7f70278_bb313bb0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+              "range": {
+                "startLine": 185,
+                "startChar": 0,
+                "endLine": 195,
+                "endChar": 0
+              },
+              "replacement": "        if (mConnectivityManager \u003d\u003d null) {\n            return -1;\n        }\n        Network activeNetwork \u003d mConnectivityManager.getActiveNetwork();\n        if (activeNetwork \u003d\u003d null) {\n            return -1;\n        }\n        LinkProperties linkProperties \u003d mConnectivityManager.getLinkProperties(activeNetwork);\n        if (linkProperties \u003d\u003d null) {\n            return -1;\n        }\n        String interfaceName \u003d linkProperties.getInterfaceName();\n        Log.i(TAG, \"active interface name: \" + interfaceName);\n        return mDeps.getInterfaceIndex(interfaceName);\n    }\n\n    private int getInterfaceIndexOfSatelliteNetwork() {\n        if (mConnectivityManager \u003d\u003d null) {\n            return -1;\n        }\n        Network activeNetwork \u003d mConnectivityManager.getActiveNetwork();\n        if (activeNetwork \u003d\u003d null) {\n            return -1;\n        }\n        NetworkCapabilities networkCapabilities \u003d\n                mConnectivityManager.getNetworkCapabilities(activeNetwork);\n        if (networkCapabilities \u003d\u003d null) {\n            return -1;\n        }\n        if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_SATELLITE)) {\n            LinkProperties linkProperties \u003d mConnectivityManager.getLinkProperties(activeNetwork);\n            if (linkProperties \u003d\u003d null) {\n                return -1;\n"
+            },
+            {
+              "path": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+              "range": {
+                "startLine": 196,
+                "startChar": 0,
+                "endLine": 196,
+                "endChar": 0
+              },
+              "replacement": "            String interfaceName \u003d linkProperties.getInterfaceName();\n            Log.i(TAG, \"satellite interface name: \" + interfaceName);\n            return mDeps.getInterfaceIndex(interfaceName);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4b6806f136d8e1934226ec7134f8e17639b254ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
