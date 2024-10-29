@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65c8fb5d_94d3b991",
+        "filename": "Tethering/apex/permissions/permissions.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-29T02:58:31Z",
+      "side": 0,
+      "message": "Don\u0027t we still need this on R and S, where we cannot get MANAGE_USERS?\n\nDo we have automated tests for this functionality that check that it works on all releases? If not, can you add some?",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "1193f08d69db3b3f1180aa892d098926cb973b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
