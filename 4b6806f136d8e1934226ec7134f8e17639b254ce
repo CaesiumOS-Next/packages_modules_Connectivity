@@ -74,6 +74,30 @@
       },
       "revId": "4b6806f136d8e1934226ec7134f8e17639b254ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8255c2ae_fdea8d12",
+        "filename": "service/src/com/android/server/connectivity/SatelliteDataUsageController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2024-10-29T17:55:39Z",
+      "side": 1,
+      "message": "I think you should keep this cl along with original cl. Not able to understnd how you are going to use it when you separate cls like this",
+      "parentUuid": "f3a41d23_f5a15314",
+      "range": {
+        "startLine": 186,
+        "startChar": 37,
+        "endLine": 186,
+        "endChar": 76
+      },
+      "revId": "4b6806f136d8e1934226ec7134f8e17639b254ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
