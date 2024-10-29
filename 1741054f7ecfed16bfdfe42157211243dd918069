@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4faf2855_0c219bdb",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-29T07:47:10Z",
+      "side": 1,
+      "message": "While you\u0027re at it, could you add a comment to say this shouldn\u0027t be used anymore (no class should be added), and per-user libraires like net-utils-service-connectivity or net-utils-framework-wifi should be used instead ?",
+      "revId": "1741054f7ecfed16bfdfe42157211243dd918069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91b11167_4fe29cfa",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-29T07:47:10Z",
+      "side": 1,
+      "message": "You shouldn\u0027t need to add classes here, since they should already be in net-utils-service-connectivity for service-connectivity, and in net-utils-connectivity-apk for tethering.",
+      "revId": "1741054f7ecfed16bfdfe42157211243dd918069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66c9567d_209fcd88",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-29T07:47:10Z",
+      "side": 1,
+      "message": "This shouldnt\u0027 be necessary as long as no framework-connectivity class uses this file",
+      "revId": "1741054f7ecfed16bfdfe42157211243dd918069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
