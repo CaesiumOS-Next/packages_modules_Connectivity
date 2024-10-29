@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa2c6d8e_177f5d75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-10-29T08:05:15Z",
+      "side": 1,
+      "message": "nit: add `Test`",
+      "revId": "74ee8aede477f5fcfb005b33b0e8cc644ec61083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
