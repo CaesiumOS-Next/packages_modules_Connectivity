@@ -16,6 +16,52 @@
       "message": "reading a bit more about tcp_fwmark_accept.\n\nIt says that \"if set, incoming connections to listening sockets that do not have a socket mark will set the mark of the accepting socket to the fwmark of the incoming SYN packet.\"\n\nIf there is an IID_MATCH rule (non-split tunnel VPN) active then there are three scenarios:\n1) the listening socket does not set the mark / select a network: I believe in this case, the connection is established (and the fwmark is reflected into the connected socket), but all subsequent data packets are dropped on ingress by the IID_MATCH rule.\n2) the listening socket explicitly selects the network without ability to bypass VPNs: This prevents the fwmark from being reflected into the connected socket, but the listening socket mark is used instead. In that case, is_socket_protected_from_vpn does not trigger and regular IID_MATCHing rules apply, which effectively allow the connection on the VPN network but nowhere else.\n3) the listening socket explicitly selects the network and has the ability to bypass VPNs on it: This also prevents the fwmark from being reflected into the connected socket. The listening socket mark is allowed to bypass VPNs, so if a connection is established, is_socket_protected_from_vpn triggers when a packet is being delivered to the accepted socket. Since protectedFromVpn can be configured per network, is_socket_protected_from_vpn only triggers if the packet is received on the selected network.",
       "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d497f25c_811fd62a",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-30T17:58:39Z",
+      "side": 1,
+      "message": "this should go in netd.h and there should be static_assert\u0027s in some C++ code that it matches the actual struct",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 0
+      },
+      "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b49263e_70819c72",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-30T17:58:39Z",
+      "side": 1,
+      "message": "sure, but why?\nthe function is about socket... why do we care about skb?",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 51
+      },
+      "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
