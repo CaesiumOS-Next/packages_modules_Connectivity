@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf83a684_16dd96ed",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-30T08:12:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ad99081_a8eec348",
+      "range": {
+        "startLine": 110,
+        "startChar": 38,
+        "endLine": 110,
+        "endChar": 74
+      },
+      "revId": "e28a5afd863fd0b9fdb610d02daa56f5d835d606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d1dd5e3_16554ffb",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b21440e_73709c2a",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-30T08:12:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d1dd5e3_16554ffb",
+      "revId": "e28a5afd863fd0b9fdb610d02daa56f5d835d606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b280fa16_cfac1f10",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-10-24T14:54:08Z",
       "side": 1,
       "message": "These are same in getTrafficStatsRateLimitCacheServiceSideConfig(). Can you have a common function to avoid duplication?",
+      "range": {
+        "startLine": 988,
+        "startChar": 28,
+        "endLine": 994,
+        "endChar": 85
+      },
+      "revId": "e28a5afd863fd0b9fdb610d02daa56f5d835d606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c4fe450_359e8fcb",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-30T08:12:54Z",
+      "side": 1,
+      "message": "Removed.\n\nAvoid modifying service side cache code based on the review comment here:\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3241565/comment/3adf9c33_0cef2007/\nReopen if disagreed.",
+      "parentUuid": "b280fa16_cfac1f10",
       "range": {
         "startLine": 988,
         "startChar": 28,
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da8fb263_bc2edf43",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-30T08:12:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e3815fe_361f0a93",
+      "range": {
+        "startLine": 1010,
+        "startChar": 47,
+        "endLine": 1012,
+        "endChar": 93
+      },
+      "revId": "e28a5afd863fd0b9fdb610d02daa56f5d835d606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6938ad55_67d4754b",
@@ -100,6 +190,30 @@
       "writtenOn": "2024-10-24T14:54:08Z",
       "side": 1,
       "message": "Nit: This is also very similar to useServiceSideCache(). Perhaps you could put the server/client configuration as an argument to avoid duplication. Like\n\n```\n    private boolean useClientSideCache(int callingUid, TrafficStatsRateLimitCacheConfig config) {\n        return config.isCacheEnabled \u0026\u0026 (SdkLevel.isAtLeastV()\n                || mDeps.isChangeEnabled(ENABLE_TRAFFICSTATS_RATE_LIMIT_CACHE, callingUid));\n    }\n```",
+      "range": {
+        "startLine": 2159,
+        "startChar": 4,
+        "endLine": 2162,
+        "endChar": 5
+      },
+      "revId": "e28a5afd863fd0b9fdb610d02daa56f5d835d606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d95616af_375aa191",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2162,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-30T08:12:54Z",
+      "side": 1,
+      "message": "Avoid modifying service side cache code based on the review comment here:\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3241565/comment/3adf9c33_0cef2007/\nReopen if disagreed.",
+      "parentUuid": "6938ad55_67d4754b",
       "range": {
         "startLine": 2159,
         "startChar": 4,
