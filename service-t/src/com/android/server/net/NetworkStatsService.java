@@ -993,8 +993,9 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
                 @NonNull Context ctx) {
             final TrafficStatsRateLimitCacheConfig config =
                     new TrafficStatsRateLimitCacheConfig.Builder()
-                            .setIsCacheEnabled(DeviceConfigUtils.isTetheringFeatureEnabled(
-                                    ctx, TRAFFICSTATS_CLIENT_RATE_LIMIT_CACHE_ENABLED_FLAG))
+                            .setIsCacheEnabled(true) // DEBUGGING
+                            // .setIsCacheEnabled(DeviceConfigUtils.isTetheringFeatureEnabled(
+                            //        ctx, TRAFFICSTATS_CLIENT_RATE_LIMIT_CACHE_ENABLED_FLAG))
                             .setExpiryDurationMs(getDeviceConfigPropertyInt(
                                     NAMESPACE_TETHERING, TRAFFIC_STATS_CACHE_EXPIRY_DURATION_NAME,
                                     DEFAULT_TRAFFIC_STATS_CACHE_EXPIRY_DURATION_MS))
