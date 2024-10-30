@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39c4fbeb_a52d7c7a",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-30T15:11:06Z",
+      "side": 1,
+      "message": "1. No.\nSTACKTRACE:\njava.lang.IllegalAccessError: Method \u0027void android.net.TrafficStats.setServiceForTest(android.net.INetworkStatsService)\u0027 is inaccessible to class \u0027android.net.connectivity.android.net.TrafficStatsTest\u0027 (declaration of \u0027android.net.connectivity.android.net.TrafficStatsTest\u0027 appears in /data/app/~~D390S2uWDZZjX4Z5wHD-qw\u003d\u003d/com.android.connectivity.tests.coverage-82k4Y32Kbaoct5Q0FxxdSw\u003d\u003d/base.apk)\n\tat android.net.connectivity.android.net.TrafficStatsTest.tearDown(TrafficStatsTest.kt:60)\n\t\n2. Done",
+      "parentUuid": "44e14559_bb7aa179",
+      "range": {
+        "startLine": 216,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 10
+      },
+      "revId": "5aac849362e61e63f7ade0120eb1c64cc83eee29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08f7d34e_b20019fc",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-30T13:42:52Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 10
+      },
+      "revId": "5aac849362e61e63f7ade0120eb1c64cc83eee29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73062bda_4c7ab7eb",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-30T15:11:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08f7d34e_b20019fc",
       "range": {
         "startLine": 227,
         "startChar": 4,
