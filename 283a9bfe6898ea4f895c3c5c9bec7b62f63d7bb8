@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71e4c879_2120ad45",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-30T00:20:34Z",
+      "side": 1,
+      "message": "If APF CDD requirements apply to auto (I believe they do), I think it\u0027s important we keep this test on automotive as well, otherwise we lose coverage for the APF functionality. IIUC the problem is just about PowerManager#isInteractive.\n\nHere PowerManager#isInteractive is used to detect whether the screen is on, to match VSR-5.3.12-005. If that\u0027s not actually what PowerManager#isInteractive indicates, then the test should be fixed to properly detect the screen state instead.\nHowever if the usage is correct but it\u0027s automotive that has a bug in PowerManager#isInteractive, maybe this test should be kept failing until the bug is fixed ?",
+      "revId": "283a9bfe6898ea4f895c3c5c9bec7b62f63d7bb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
