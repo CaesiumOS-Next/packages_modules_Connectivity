@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5352279d_7e88b85b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101726
+      },
+      "writtenOn": "2024-10-30T02:09:17Z",
+      "side": 1,
+      "message": "PTAL. \nIf we need to change how the callbacks work when the timer is disabled, I can file a bug and follow-up.",
+      "revId": "c623c946f51daf9c589d80381a440684d8a7a871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
