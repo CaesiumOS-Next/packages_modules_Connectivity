@@ -493,7 +493,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
     @Nullable
     private final TrafficStatsRateLimitCache mTrafficStatsUidCache;
     // A feature flag to control whether the client-side rate limit cache should be enabled.
-    static final String TRAFFICSTATS_CLIENT_RATE_LIMIT_CACHE_ENABLED_FLAG =
+    @VisibleForTesting
+    public static final String TRAFFICSTATS_CLIENT_RATE_LIMIT_CACHE_ENABLED_FLAG =
             "trafficstats_client_rate_limit_cache_enabled_flag";
     static final String TRAFFICSTATS_SERVICE_RATE_LIMIT_CACHE_ENABLED_FLAG =
             "trafficstats_rate_limit_cache_enabled_flag";
@@ -2221,7 +2222,6 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             entry = mTrafficStatsUidCache.getOrCompute(IFACE_ALL, uid,
                     () -> mDeps.nativeGetUidStat(uid));
         } else entry = mDeps.nativeGetUidStat(uid);
-
         return getStatsResultFromEntryOrNull(entry);
     }
 
