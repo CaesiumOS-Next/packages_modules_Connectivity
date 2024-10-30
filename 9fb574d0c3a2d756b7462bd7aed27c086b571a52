@@ -16,6 +16,23 @@
       "message": "LGTM",
       "revId": "9fb574d0c3a2d756b7462bd7aed27c086b571a52",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90914470_c45579ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-30T07:58:55Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo should +1 the CTS changes (he also had most of the review comments)",
+      "revId": "9fb574d0c3a2d756b7462bd7aed27c086b571a52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
