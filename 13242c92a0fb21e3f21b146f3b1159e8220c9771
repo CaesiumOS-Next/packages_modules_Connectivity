@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c65b4df1_d48ad4c1",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 8
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-30T00:11:43Z",
+      "side": 1,
+      "message": "This is not a mainline test, so I don\u0027t think tests with this annotation should be skipped",
+      "revId": "13242c92a0fb21e3f21b146f3b1159e8220c9771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb4fee2f_e03d9484",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 8
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-30T00:11:43Z",
+      "side": 1,
+      "message": "Does automotive-mumd-presubmit run on virtual hardware (cuttlefish) ? If yes a comment to justify the RequiresDevice would help (it\u0027s not as well known as the other configs)",
+      "revId": "13242c92a0fb21e3f21b146f3b1159e8220c9771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2704a188_bf356799",
+        "filename": "staticlibs/testutils/app/connectivitychecker/src/com/android/testutils/connectivitypreparer/ConnectivityCheckTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-10-30T00:11:43Z",
+      "side": 1,
+      "message": "This test is very important for us in presubmit, it ensures that tests don\u0027t run on bad configurations that don\u0027t have properly configured wifi. Generally it should not be a problem on phones, so is there some missing configuration for the automotive presubmit ?\n\nNote that on cuttlefish ensureWifiValidated will take care of connecting to the virtual networks with SSID \"VirtWifi\" or \"AndroidWifi\" if they were not configured beforehand (which ideally they should be).",
+      "revId": "13242c92a0fb21e3f21b146f3b1159e8220c9771",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
