@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44e14559_bb7aa179",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-30T13:42:52Z",
+      "side": 1,
+      "message": "Can this method be package-private or protected and add @VisableForTesting?",
+      "range": {
+        "startLine": 216,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 10
+      },
+      "revId": "5aac849362e61e63f7ade0120eb1c64cc83eee29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08f7d34e_b20019fc",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-30T13:42:52Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 10
+      },
+      "revId": "5aac849362e61e63f7ade0120eb1c64cc83eee29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
