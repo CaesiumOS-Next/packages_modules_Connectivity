@@ -27,6 +27,13 @@ import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.argThat
+import org.mockito.ArgumentMatchers.eq
+import org.mockito.Mockito.inOrder
+import org.mockito.Mockito.never
+import org.mockito.Mockito.reset
+import org.mockito.Mockito.verify
 
 private const val LONG_TIMEOUT_MS = 5_000
 
@@ -35,20 +42,27 @@ private const val LONG_TIMEOUT_MS = 5_000
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 class CSDestroyedNetworkTests : CSTest() {
-    @Test
-    fun testDestroyNetworkNotKeptWhenUnvalidated() {
+
+    private fun makeRequests(): Pair<NetworkCapabilities, TestableNetworkCallback> {
         val nc = NetworkCapabilities.Builder()
-                .addTransportType(TRANSPORT_WIFI)
-                .build()
+            .addTransportType(TRANSPORT_WIFI)
+            .build()
 
         val nr = NetworkRequest.Builder()
-                .clearCapabilities()
-                .addTransportType(TRANSPORT_WIFI)
-                .build()
+            .clearCapabilities()
+            .addTransportType(TRANSPORT_WIFI)
+            .build()
         val cbRequest = TestableNetworkCallback()
         val cbCallback = TestableNetworkCallback()
         cm.requestNetwork(nr, cbRequest)
         cm.registerNetworkCallback(nr, cbCallback)
+
+        return nc to cbCallback
+    }
+
+    @Test
+    fun testDestroyNetworkNotKeptWhenUnvalidated() {
+        val (nc, cbCallback) = makeRequests()
 
         val firstAgent = Agent(nc = nc)
         firstAgent.connect()
@@ -61,5 +75,34 @@ class CSDestroyedNetworkTests : CSTest() {
         cbCallback.expectAvailableCallbacks(secondAgent.network, validated = false)
 
         cbCallback.expect<Lost>(timeoutMs = 500) { it.network == firstAgent.network }
+    }
+
+    @Test
+    fun testDestroyNetworkWithDelayedTeardown() {
+        val (nc, cbCallback) = makeRequests()
+
+        val firstAgent = Agent(nc = nc)
+        firstAgent.connect()
+        firstAgent.setTeardownDelayMillis(1)
+        cbCallback.expectAvailableCallbacks(firstAgent.network, validated = false)
+
+        reset(netd)
+        val inOrder = inOrder(netd)
+        firstAgent.unregisterAfterReplacement(LONG_TIMEOUT_MS)
+
+        val secondAgent = Agent(nc = nc)
+        secondAgent.connect()
+        cbCallback.expectAvailableCallbacks(secondAgent.network, validated = false)
+        secondAgent.disconnect()
+
+        cbCallback.expect<Lost>(timeoutMs = 500) { it.network == firstAgent.network }
+        cbCallback.expect<Lost>(timeoutMs = 500) { it.network == secondAgent.network }
+        // onLost is fired before the network is destroyed.
+        waitForIdle()
+
+        inOrder.verify(netd).networkDestroy(eq(firstAgent.network.netId))
+        inOrder.verify(netd).networkCreate(argThat{ it.netId == secondAgent.network.netId })
+        inOrder.verify(netd).networkDestroy(eq(secondAgent.network.netId))
+        verify(netd, never()).networkSetPermissionForNetwork(anyInt(), anyInt())
     }
 }
