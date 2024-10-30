@@ -40,6 +40,30 @@
       ],
       "revId": "98666f02b6444a8c8e1bd002da99db0bad122b9a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4643bb2_c56de726",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1630008
+      },
+      "writtenOn": "2024-10-30T00:00:34Z",
+      "side": 1,
+      "message": "Sure, I\u0027ve replaced by b/366037029, which is the bug used to track the task of re-enabling bugs.",
+      "parentUuid": "34e9de35_739f4ffd",
+      "range": {
+        "startLine": 162,
+        "startChar": 15,
+        "endLine": 162,
+        "endChar": 32
+      },
+      "revId": "98666f02b6444a8c8e1bd002da99db0bad122b9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
