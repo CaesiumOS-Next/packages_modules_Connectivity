@@ -17,6 +17,8 @@
 package android.net;
 
 import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
+import static android.net.NetworkStats.UID_ALL;
+import static android.os.Process.SYSTEM_UID;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -36,6 +38,8 @@ import android.os.Build;
 import android.os.RemoteException;
 import android.os.StrictMode;
 import android.util.Log;
+
+import com.android.internal.annotations.GuardedBy;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -177,7 +181,10 @@ public class TrafficStats {
     /** @hide */
     public static final int TAG_SYSTEM_PROBE = 0xFFFFFF42;
 
+    @GuardedBy("TrafficStats.class")
     private static INetworkStatsService sStatsService;
+    @GuardedBy("TrafficStats.class")
+    private static int sMyUidForTest = UID_ALL;
 
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P, trackingBug = 130143562)
     private synchronized static INetworkStatsService getStatsService() {
@@ -186,6 +193,41 @@ public class TrafficStats {
                     + Binder.getCallingUid());
         }
         return sStatsService;
+    }
+
+    /** @hide */
+    protected static int getMyUid() {
+        synchronized (TrafficStats.class) {
+            if (sMyUidForTest != UID_ALL) {
+                return sMyUidForTest;
+            }
+        }
+        return android.os.Process.myUid();
+    }
+
+    /**
+     * Replace the network stats service for testing and return the original service.
+     *
+     * @hide
+     */
+    public static INetworkStatsService replaceServiceForTest(INetworkStatsService statsService) {
+        final INetworkStatsService oldService;
+        synchronized (TrafficStats.class) {
+            oldService = sStatsService;
+            sStatsService = statsService;
+        }
+        return oldService;
+    }
+
+    /**
+     * Replace myUid for test, or UID_ALL to reset.
+     *
+     * @hide
+     */
+    public static void replaceMyUidForTest(int myUid) {
+        synchronized (TrafficStats.class) {
+            sMyUidForTest = myUid;
+        }
     }
 
     /**
@@ -450,7 +492,7 @@ public class TrafficStats {
      */
     @Deprecated
     public static void setThreadStatsUidSelf() {
-        setThreadStatsUid(android.os.Process.myUid());
+        setThreadStatsUid(getMyUid());
     }
 
     /**
@@ -591,7 +633,7 @@ public class TrafficStats {
      * @param operationCount Number of operations to increment count by.
      */
     public static void incrementOperationCount(int tag, int operationCount) {
-        final int uid = android.os.Process.myUid();
+        final int uid = getMyUid();
         try {
             getStatsService().incrementOperationCount(uid, tag, operationCount);
         } catch (RemoteException e) {
@@ -959,8 +1001,11 @@ public class TrafficStats {
 
     /** @hide */
     public static long getUidStats(int uid, int type) {
-        if (!isEntryValueTypeValid(type)
-                || android.os.Process.myUid() != uid) {
+        // Perform a quick check on the UID to avoid unnecessary work.
+        // This mirrors a similar check on the service side, but is primarily for
+        // efficiency rather than security, as user-space checks can be bypassed.
+        final int myUid = getMyUid();
+        if (!isEntryValueTypeValid(type) || (myUid != SYSTEM_UID && myUid != uid)) {
             return UNSUPPORTED;
         }
         final StatsResult stats;
@@ -1094,7 +1139,7 @@ public class TrafficStats {
      */
     private static NetworkStats getDataLayerSnapshotForUid(Context context) {
         // TODO: take snapshot locally, since proc file is now visible
-        final int uid = android.os.Process.myUid();
+        final int uid = getMyUid();
         try {
             return getStatsService().getDataLayerSnapshotForUid(uid);
         } catch (RemoteException e) {
