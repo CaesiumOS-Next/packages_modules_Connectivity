@@ -17,6 +17,7 @@
 package android.net;
 
 import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
+import static android.net.NetworkStats.UID_ALL;
 
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIVATE;
 
@@ -33,20 +34,30 @@ import android.compat.annotation.UnsupportedAppUsage;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.netstats.StatsResult;
+import android.net.netstats.TrafficStatsRateLimitCacheConfig;
 import android.os.Binder;
 import android.os.Build;
 import android.os.RemoteException;
 import android.os.StrictMode;
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.BinderUtils;
+import com.android.net.module.util.LruCacheWithExpiry;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 
 /**
@@ -183,9 +194,62 @@ public class TrafficStats {
     public static final int TAG_SYSTEM_PROBE = 0xFFFFFF42;
 
     @GuardedBy("TrafficStats.class")
+    private static final Object sRateLimitCacheLock = new Object();
+
+    @GuardedBy("TrafficStats.class")
+    @Nullable
     private static INetworkStatsService sStatsService;
     @GuardedBy("TrafficStats.class")
+    @Nullable
     private static INetworkStatsService sStatsServiceForTest = null;
+
+    // This holds the configuration for the TrafficStats rate limit caches.
+    // It will be filled with the result of a query to the service the first time
+    // the caller invokes get*Stats APIs.
+    // This can be accessed from any thread.
+    @GuardedBy("sRateLimitCacheLock")
+    @Nullable
+    private static TrafficStatsRateLimitCacheConfig sRateLimitCacheConfig;
+
+    // Cache for getIfaceStats and getTotalStats binder interfaces.
+    // This can be accessed from any thread.
+    @GuardedBy("sRateLimitCacheLock")
+    @Nullable
+    private static LruCacheWithExpiry<String, StatsResult> sRateLimitIfaceCache;
+
+    // Cache for getUidStats binder interface.
+    // This can be accessed from any thread.
+    @GuardedBy("sRateLimitCacheLock")
+    @Nullable
+    private static LruCacheWithExpiry<Integer, StatsResult> sRateLimitUidCache;
+
+    // A clock which is monotonic until device reboots, and counts time spent in sleep.
+    // This is needed to ensure the get*Stats caller won't get stale value after system
+    // time adjustment or waking up from sleep.
+    private static final Clock sRealtimeClock = new Clock() {
+        @Override
+        public ZoneId getZone() {
+            return ZoneOffset.UTC;
+        }
+
+        @Override
+        public Clock withZone(ZoneId zone) {
+            return null;
+        }
+
+        @Override
+        public long millis() {
+            return SystemClock.elapsedRealtime();
+        }
+
+        @Override
+        public Instant instant() {
+            return null;
+        }
+    };
+
+    @GuardedBy("sRateLimitCacheLock")
+    private static Clock sClockForTest = null;
 
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P, trackingBug = 130143562)
     private synchronized static INetworkStatsService getStatsService() {
@@ -212,6 +276,30 @@ public class TrafficStats {
         synchronized (TrafficStats.class) {
             sStatsServiceForTest = statsService;
         }
+    }
+
+    /**
+     * Set Clock for test, or null to reset.
+     *
+     * @hide
+     */
+    @VisibleForTesting(visibility = PRIVATE)
+    public static void setClockForTest(Clock clock) {
+        synchronized (sRateLimitCacheLock) {
+            sClockForTest = clock;
+        }
+    }
+
+    /**
+     * Trigger query rate-limit cache config and initializing the caches.
+     *
+     * This is for test purpose.
+     *
+     * @hide
+     */
+    @VisibleForTesting(visibility = PRIVATE)
+    public static void reinitRateLimitCacheForTest() {
+        maybeGetConfigAndInitRateLimitCache(true /* forceReinit */);
     }
 
     /**
@@ -252,6 +340,71 @@ public class TrafficStats {
             return;
         }
         sStatsService = statsManager.getBinder();
+    }
+
+    /**
+     * Gets the rate limit cache configuration and init caches if null.
+     *
+     * Gets the configuration from the service as the configuration
+     * is not expected to change dynamically. And use it to initialize
+     * rate-limit cache if not yet initialized.
+     *
+     * @return whether the rate-limit cache is enabled.
+     *
+     * @hide
+     */
+    private static boolean maybeGetConfigAndInitRateLimitCache(boolean forceReinit) {
+        // Access the service outside the lock to avoid potential deadlocks. This is
+        // especially important when the caller is a system component (e.g.,
+        // NetworkPolicyManagerService) that might hold other locks that the service
+        // also needs.
+        // Although this introduces a race condition where multiple threads might
+        // query the service concurrently, it's acceptable in this case because the
+        // configuration doesn't change dynamically. The configuration only needs to
+        // be fetched once before initializing the cache.
+        synchronized (sRateLimitCacheLock) {
+            if (sRateLimitCacheConfig != null && !forceReinit) {
+                return sRateLimitCacheConfig.isCacheEnabled;
+            }
+        }
+
+        final TrafficStatsRateLimitCacheConfig config;
+        try {
+            config = getStatsService().getRateLimitCacheConfig();
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+
+        synchronized (sRateLimitCacheLock) {
+            if (sRateLimitCacheConfig == null || forceReinit) {
+                sRateLimitCacheConfig = config;
+                initRateLimitCacheLocked();
+            }
+        }
+        return config.isCacheEnabled;
+    }
+
+    @GuardedBy("sRateLimitCacheLock")
+    private static void initRateLimitCacheLocked() {
+        // Set up rate limiting caches.
+        // Use uid cache with UID_ALL to cache total stats.
+        if (sRateLimitCacheConfig.isCacheEnabled) {
+            sRateLimitIfaceCache = new LruCacheWithExpiry<String, StatsResult>(
+                    sClockForTest != null ? sClockForTest : sRealtimeClock,
+                    sRateLimitCacheConfig.expiryDurationMs,
+                    sRateLimitCacheConfig.maxEntries,
+                    (statsResult) -> !isEmpty(statsResult)
+            );
+            sRateLimitUidCache = new LruCacheWithExpiry<Integer, StatsResult>(
+                    sClockForTest != null ? sClockForTest : sRealtimeClock,
+                    sRateLimitCacheConfig.expiryDurationMs,
+                    sRateLimitCacheConfig.maxEntries,
+                    (statsResult) -> !isEmpty(statsResult)
+            );
+        } else {
+            sRateLimitIfaceCache = null;
+            sRateLimitUidCache = null;
+        }
     }
 
     /**
@@ -736,6 +889,12 @@ public class TrafficStats {
             android.Manifest.permission.NETWORK_STACK,
             android.Manifest.permission.NETWORK_SETTINGS})
     public static void clearRateLimitCaches() {
+        if (maybeGetConfigAndInitRateLimitCache(false /* forceReinit */)) {
+            synchronized (sRateLimitCacheLock) {
+                sRateLimitIfaceCache.clear();
+                sRateLimitUidCache.clear();
+            }
+        }
         try {
             getStatsService().clearTrafficStatsRateLimitCaches();
         } catch (RemoteException e) {
@@ -985,35 +1144,106 @@ public class TrafficStats {
 
     /** @hide */
     public static long getUidStats(int uid, int type) {
-        final StatsResult stats;
         try {
-            stats = getStatsService().getUidStats(uid);
+            final StatsResult stats;
+            if (maybeGetConfigAndInitRateLimitCache(false /* forceReinit */)) {
+                stats = fetchStatsWithCache(() -> {
+                    synchronized (sRateLimitCacheLock) {
+                        return sRateLimitUidCache.get(uid);
+                    }
+                }, (statsResult) -> {
+                    synchronized (sRateLimitCacheLock) {
+                        sRateLimitUidCache.put(uid, statsResult);
+                    }
+                }, () -> getStatsService().getUidStats(uid));
+            } else {
+                // Cache is not enabled, fetch directly from service.
+                stats = getStatsService().getUidStats(uid);
+            }
+            return getEntryValueForType(stats, type);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
-        return getEntryValueForType(stats, type);
+    }
+
+    @Nullable
+    private static StatsResult fetchStatsWithCache(Supplier<StatsResult> cacheReader,
+            Consumer<StatsResult> cacheWriter,
+            BinderUtils.ThrowingSupplier<StatsResult, RemoteException> statsFetcher)
+            throws RemoteException {
+        // Attempt to retrieve from the cache first.
+        StatsResult stats = cacheReader.get();
+
+        // Accessing the service outside the lock to prevent deadlock.
+        // This introduces a race condition between threads of the same process,
+        // potentially returning non-monotonic results. This is considered
+        // acceptable because different thread delays can also cause
+        // non-monotonic results, even with locking.
+        if (stats == null) {
+            // Cache miss, fetch from the service.
+            stats = statsFetcher.get();
+
+            // Update the cache with the fetched result if valid.
+            if (stats != null && !isEmpty(stats)) {
+                cacheWriter.accept(stats);
+            }
+        }
+        return stats;
+    }
+
+    private static boolean isEmpty(StatsResult stats) {
+        return stats.rxBytes == 0 && stats.rxPackets == 0
+                && stats.txBytes == 0 && stats.txPackets == 0;
     }
 
     /** @hide */
     public static long getTotalStats(int type) {
-        final StatsResult stats;
         try {
-            stats = getStatsService().getTotalStats();
+            final StatsResult stats;
+            // In practice, Bpf doesn't use UID_ALL for storing per-UID stats.
+            // Use uid cache with UID_ALL to cache total stats.
+            if (maybeGetConfigAndInitRateLimitCache(false /* forceReinit */)) {
+                stats = fetchStatsWithCache(() -> {
+                    synchronized (sRateLimitCacheLock) {
+                        return sRateLimitUidCache.get(UID_ALL);
+                    }
+                }, (statsResult) -> {
+                    synchronized (sRateLimitCacheLock) {
+                        sRateLimitUidCache.put(UID_ALL, statsResult);
+                    }
+                }, () -> getStatsService().getTotalStats());
+            } else {
+                // Cache is not enabled, fetch directly from service.
+                stats = getStatsService().getTotalStats();
+            }
+            return getEntryValueForType(stats, type);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
-        return getEntryValueForType(stats, type);
     }
 
     /** @hide */
     public static long getIfaceStats(String iface, int type) {
-        final StatsResult stats;
         try {
-            stats = getStatsService().getIfaceStats(iface);
+            final StatsResult stats;
+            if (maybeGetConfigAndInitRateLimitCache(false /* forceReinit */)) {
+                stats = fetchStatsWithCache(() -> {
+                    synchronized (sRateLimitCacheLock) {
+                        return sRateLimitIfaceCache.get(iface);
+                    }
+                }, (statsResult) -> {
+                    synchronized (sRateLimitCacheLock) {
+                        sRateLimitIfaceCache.put(iface, statsResult);
+                    }
+                }, () -> getStatsService().getIfaceStats(iface));
+            } else {
+                // Cache is not enabled, fetch directly from service.
+                stats = getStatsService().getIfaceStats(iface);
+            }
+            return getEntryValueForType(stats, type);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
-        return getEntryValueForType(stats, type);
     }
 
     /**
