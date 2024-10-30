@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0808478d_1e35444b",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-30T09:33:00Z",
+      "side": 1,
+      "message": "Per our conversation, perhaps create an sTestStatsService object and return it if it\u0027s not null. That way, you wouldn\u0027t need to keep the original stats service.",
+      "revId": "31a7577f388aa53726fa2df5275c849d16128694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "557cd446_0b6bb25a",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-30T09:33:00Z",
+      "side": 1,
+      "message": "Redundant?",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "31a7577f388aa53726fa2df5275c849d16128694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "169bfbe6_fbdef745",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-30T09:33:00Z",
+      "side": 1,
+      "message": "Just create a mock INetworkStatsService object instead of init lately in setup().\n\n```\nprivate val binder \u003d mock(INetworkStatsService::class.java)\n```",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "31a7577f388aa53726fa2df5275c849d16128694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afa3b816_fb1d5a13",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-30T09:33:00Z",
+      "side": 1,
+      "message": "Nit: `assertUidStats(uid \u003d SYSTEM_UID, rxBytes \u003d UNSUPPORTED, rxPackets \u003d UNSUPPORTED, txBytes \u003d UNSUPPORTED, txPackets \u003d UNSUPPORTED)`",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 86
+      },
+      "revId": "31a7577f388aa53726fa2df5275c849d16128694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f730bf1_48a24412",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-30T09:33:00Z",
+      "side": 1,
+      "message": "Nit: Perhaps create a `StatsResult` object with the retrieved data in `assertUidStats` for comparison. This would allow you to pass `mockStatsResult` directly.",
+      "range": {
+        "startLine": 79,
+        "startChar": 30,
+        "endLine": 79,
+        "endChar": 40
+      },
+      "revId": "31a7577f388aa53726fa2df5275c849d16128694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ad08429_085db694",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-30T09:33:00Z",
+      "side": 1,
+      "message": "Could you have different StatsResult values for different UIDs?",
+      "range": {
+        "startLine": 89,
+        "startChar": 35,
+        "endLine": 89,
+        "endChar": 45
+      },
+      "revId": "31a7577f388aa53726fa2df5275c849d16128694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
