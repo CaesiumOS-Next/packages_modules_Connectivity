@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76b22245_ddd2c944",
+        "filename": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-31T00:11:17Z",
+      "side": 1,
+      "message": "initSatelliteBpfMap() from native code called once when first time device connects to satellite network with bw constrained data. \n\nSo subsequent calling of this initSatelliteBpfMap() is not intended until next power cycle and again device meeting the satellite network match. Hence it is intended there is no clean up code related to it",
+      "parentUuid": "5c78f0e4_e405e614",
+      "revId": "9a9e191b53a8a61dad957dadda84dfc40ec65b31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "709c5590_2ec0f193",
         "filename": "service/native/libs/libsatellitenetworkstats/SatelliteBufferEventPoller.cpp",
         "patchSetId": 13
