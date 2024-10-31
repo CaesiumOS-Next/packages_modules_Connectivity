@@ -86,6 +86,30 @@
       },
       "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1086d97_592d8609",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-31T15:27:19Z",
+      "side": 1,
+      "message": "Alternatively, I wonder whether we should do this check on all incoming packets: if a network is explicitly selected, drop it if the netids do not match. That way the synack will succeed, but the accepting socket will not be able to receive any packets.",
+      "parentUuid": "583f58d5_d77c95ee",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 51
+      },
+      "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
