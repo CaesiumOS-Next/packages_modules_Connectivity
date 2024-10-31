@@ -62,6 +62,30 @@
       },
       "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "583f58d5_d77c95ee",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-31T15:24:54Z",
+      "side": 1,
+      "message": "Well, we have support for protecting your sockets from VPN on a given network. Let\u0027s say you protect your sockets from VPN on network A, do you really want to receive packets from network B?\n\nAs I am writing this, I also notice that fwmark_reflect does not seem to take into account the listening sockets mark. I think a correct implementation should not reflect the incoming packets mark into the packet if the listening socket has set a mark, but should use the mark of the listening socket instead. So I think in this scenario, a listening socket could successfully receive (and acknowledge) tcp packets from a network it is not allowed to access.",
+      "parentUuid": "3b49263e_70819c72",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 51
+      },
+      "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
