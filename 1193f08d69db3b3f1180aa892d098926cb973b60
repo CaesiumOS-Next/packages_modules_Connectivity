@@ -70,6 +70,30 @@
       },
       "revId": "1193f08d69db3b3f1180aa892d098926cb973b60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e5ee3a_13d35d6d",
+        "filename": "Tethering/apex/permissions/permissions.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-10-31T06:42:56Z",
+      "side": 0,
+      "message": "If what you are asking is a CTS that simply enable tethering on mobile, but does not necessary run entitlement check.\nYes we have that: ConnectivityMultiDevicesTest#test_hotspot_upstream_cellular\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/multidevices/connectivity_multi_devices_test.py;l\u003d38",
+      "parentUuid": "31e020c2_08d3689d",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "1193f08d69db3b3f1180aa892d098926cb973b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
