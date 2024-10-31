@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71933f07_e7f5552e",
+        "filename": "service-t/src/com/android/server/net/TrafficStatsRateLimitCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-31T03:30:23Z",
+      "side": 1,
+      "message": "Can this be private?",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 14
+      },
+      "revId": "6a8c2256504256547d7c7c58d5934ababebbd3e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a2bc7fc_2dc876f8",
+        "filename": "service-t/src/com/android/server/net/TrafficStatsRateLimitCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-31T03:30:23Z",
+      "side": 1,
+      "message": "super.getOrComput?",
+      "range": {
+        "startLine": 98,
+        "startChar": 15,
+        "endLine": 98,
+        "endChar": 27
+      },
+      "revId": "6a8c2256504256547d7c7c58d5934ababebbd3e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eae30dbe_07adcac6",
+        "filename": "service-t/src/com/android/server/net/TrafficStatsRateLimitCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-31T03:30:23Z",
+      "side": 1,
+      "message": "This is redundant because the LruCacheWithExpiry#put also has this check.",
+      "range": {
+        "startLine": 109,
+        "startChar": 8,
+        "endLine": 109,
+        "endChar": 38
+      },
+      "revId": "6a8c2256504256547d7c7c58d5934ababebbd3e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2637bfb_8c79ffb8",
+        "filename": "staticlibs/framework/com/android/net/module/util/LruCacheWithExpiry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-10-31T03:30:23Z",
+      "side": 1,
+      "message": "Do you want to ensure that the key is not NULL too?",
+      "range": {
+        "startLine": 120,
+        "startChar": 16,
+        "endLine": 120,
+        "endChar": 30
+      },
+      "revId": "6a8c2256504256547d7c7c58d5934ababebbd3e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
