@@ -46,6 +46,30 @@
       },
       "revId": "1193f08d69db3b3f1180aa892d098926cb973b60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31e020c2_08d3689d",
+        "filename": "Tethering/apex/permissions/permissions.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-31T05:58:36Z",
+      "side": 0,
+      "message": "Ah, I see. The module never did have QUERY_USERS - you introduced it in the prior CL, but that never shipped and you are changing it now.\n\nAs for tests: ISTM that if we had CTS tests that start tethering on mobile - even if all they do is start it, wait, and stop it again - those tests would have crashed the system on some carriers. Do we have such tests? If not, can we add some?",
+      "parentUuid": "e1d46d1d_7c9fb931",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "1193f08d69db3b3f1180aa892d098926cb973b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
