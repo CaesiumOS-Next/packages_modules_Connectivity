@@ -110,6 +110,30 @@
       },
       "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9276b69f_ed54a7df",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-31T19:51:27Z",
+      "side": 1,
+      "message": "protect from vpn, isn\u0027t imho actually protecting from vpn.\n\nIt should be read more as a privileged \u0027allow bypassing non-bypassable vpn\u0027",
+      "parentUuid": "c1086d97_592d8609",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 51
+      },
+      "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
