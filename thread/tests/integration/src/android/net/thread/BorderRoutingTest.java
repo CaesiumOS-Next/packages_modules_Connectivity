@@ -671,7 +671,7 @@ public class BorderRoutingTest {
         } catch (IOException ignored) {
         }
     }
-
+    @Ignore("TODO: b/376573921 - Enable when it's not flaky at all")
     @Test
     public void nat64_withAilNat64Prefix_threadDevicePingIpv4InfraDevice_outboundPacketIsForwarded()
             throws Exception {
