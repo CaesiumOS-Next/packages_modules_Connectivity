@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81566aff_ab862212",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-31T05:50:32Z",
+      "side": 1,
+      "message": "nit\n\n```suggestion\n        // TODO: b/376217403 - enables / disables Border Agent at runtime\n```",
+      "revId": "978b67b8c0246fcb77b79ea523f0b60753ecaf2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "733243cb_1c64fe92",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/OtDaemonController.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-10-31T05:50:32Z",
+      "side": 1,
+      "message": "I feel it more clear to use full names instead of \u0027BA\u0027 and \u0027BR\u0027.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 5
+      },
+      "revId": "978b67b8c0246fcb77b79ea523f0b60753ecaf2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
