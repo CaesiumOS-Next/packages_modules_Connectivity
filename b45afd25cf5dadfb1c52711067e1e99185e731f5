@@ -254,6 +254,30 @@
       },
       "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13ed7b04_d0e6e190",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-31T21:01:21Z",
+      "side": 1,
+      "message": "ie.\n\nstatic inline u32 inet_request_mark(const struct sock *sk, struct sk_buff *skb) {\n  u32 mask \u003d -READ_ONCE(sock_net(sk)-\u003eipv4.sysctl_tcp_fwmark_accept);\n  return (READ_ONCE(sk-\u003esk_mark) \u0026 ~mask) | (skb-\u003emark \u0026 mask);\n}",
+      "parentUuid": "53d4d216_e06386b7",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 51
+      },
+      "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
