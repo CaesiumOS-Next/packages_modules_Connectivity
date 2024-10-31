@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ca74c3c_838cd2aa",
+        "filename": "service/jni/com_android_server_connectivity_SatelliteDataUsageController.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-10-31T00:09:52Z",
+      "side": 1,
+      "message": "Need to Confirm ok with this ask, since neither of the methods at JNI folder in connectivity module follow this coding style \nEx: Few references\ncom_android_server_net_NetworkStatsService.cpp\ncom_android_server_connectivity_ClatCoordinator.cpp",
+      "parentUuid": "47a81e47_a79dc950",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "3778031192303079381bcec0eb378398ca616cfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76fb91b9_06997802",
         "filename": "service/jni/com_android_server_connectivity_SatelliteDataUsageController.cpp",
         "patchSetId": 3
