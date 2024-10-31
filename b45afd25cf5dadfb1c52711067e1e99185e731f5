@@ -18,6 +18,46 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b46f2cf7_72a7812f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-31T23:49:22Z",
+      "side": 1,
+      "message": "LGTM once it actually works.\n\nIt\u0027s true that for TCP it might have been better if fwmark_reflect had looked at the socket mark, but on the other hand, that would have made the behaviour inconsistent with other reflected packets, like RST or ICMP errors or PMTUD. I guess that\u0027s sort of moot now because we can\u0027t really change the behaviour without adding a new sysctl or moving it to BPF.",
+      "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d6dde11_0aca8feb",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-31T23:49:22Z",
+      "side": 1,
+      "message": "Technically on existing devices it would be more correct to call getFwmarkForNetwork in the code that configures these map entries (since in theory the internal structure of the fwmark is not an API that mainline code can rely on). That won\u0027t define the protect from VPN bit but it will at least define this value.\n\nWe could add field metrics to detect if anyone has changed it - whenever a network connects, some percentage of the time we could call getFwmarkForNetwork and see if the mask is not exactly 0xffff.\n\nFor new releases, it\u0027s probably time we make it possible to actually rely on this. Perhaps not make it a formal API, but at least test it in CTS so we don\u0027t have to guess/detect/measure.",
+      "range": {
+        "startLine": 32,
+        "startChar": 22,
+        "endLine": 32,
+        "endChar": 33
+      },
+      "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d497f25c_811fd62a",
@@ -31,6 +71,30 @@
       "writtenOn": "2024-10-30T17:58:39Z",
       "side": 1,
       "message": "this should go in netd.h and there should be static_assert\u0027s in some C++ code that it matches the actual struct",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 0
+      },
+      "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d663ca86_87a9e69f",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-31T23:49:22Z",
+      "side": 1,
+      "message": "Again in theory, this could be incorrect and we could try to detect it by protecting a socket and getting its fwmark. I very much doubt that anyone has changed it; maybe we can just add metrics to see if any device in the field has modified this.",
+      "parentUuid": "d497f25c_811fd62a",
       "range": {
         "startLine": 31,
         "startChar": 0,
