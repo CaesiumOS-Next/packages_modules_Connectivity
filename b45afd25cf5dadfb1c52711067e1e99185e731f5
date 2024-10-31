@@ -206,6 +206,30 @@
       },
       "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ce361cd_b34fb52a",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-10-31T20:46:46Z",
+      "side": 1,
+      "message": "Yeah, exactly, that\u0027s what I am wondering too.\n\nIn particular:\n```\nstatic void tcp_v6_send_response(const struct sock *sk, struct sk_buff *skb, u32 seq,\n\t\t\t\t u32 ack, u32 win, u32 tsval, u32 tsecr,\n\t\t\t\t int oif, int rst, u8 tclass, __be32 label,\n\t\t\t\t u32 priority, u32 txhash, struct tcp_key *key)\n{\n...\n\n\tfl6.flowi6_mark \u003d IP6_REPLY_MARK(net, skb-\u003emark) ?: mark;\n```\n\nwhere\n``` \n#define IP6_REPLY_MARK(net, mark) \\\n\t((net)-\u003eipv6.sysctl.fwmark_reflect ? (mark) : 0)\n```\n\nShouldn\u0027t that look at the listening socket mark rather than blindly reflect?",
+      "parentUuid": "cd090ca0_06d978dc",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 51
+      },
+      "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
