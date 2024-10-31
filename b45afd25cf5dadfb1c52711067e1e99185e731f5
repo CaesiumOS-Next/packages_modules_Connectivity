@@ -230,6 +230,30 @@
       },
       "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53d4d216_e06386b7",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-10-31T20:57:53Z",
+      "side": 1,
+      "message": "yeah, I was also talking to Lorenzo earlier today, and I mentioned in prod we had a use case where we wanted to reflect only *some* bits.\n\nIdeally these 0/1 booleans would actually be treated as masks...\n\nto maintain compat, it would probably need to be the negation of the mask actually.\n\nsince -0 is 0, and -1 is 0xFFFFFFFF",
+      "parentUuid": "2ce361cd_b34fb52a",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 51
+      },
+      "revId": "b45afd25cf5dadfb1c52711067e1e99185e731f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
