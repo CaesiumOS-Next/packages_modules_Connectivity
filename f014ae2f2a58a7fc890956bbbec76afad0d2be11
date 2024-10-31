@@ -33,6 +33,24 @@
       "message": "Permission change LGTM because",
       "revId": "f014ae2f2a58a7fc890956bbbec76afad0d2be11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "387ecacd_edb9d206",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-31T06:12:03Z",
+      "side": 1,
+      "message": "... you\u0027re not actually removing QUERY_USERS - the code has actually never had it.",
+      "parentUuid": "9284089e_5f8835a1",
+      "revId": "f014ae2f2a58a7fc890956bbbec76afad0d2be11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
