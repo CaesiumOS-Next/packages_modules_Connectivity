@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "744d85ea_bd9cac3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-31T07:27:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54fcdba2_5199d024",
+      "revId": "361fd68e47b5e698d826d991df9bd00b03d77799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dc0929c_18b0428b",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a1170b3_6436520a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1547,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-31T07:27:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dc0929c_18b0428b",
+      "range": {
+        "startLine": 1547,
+        "startChar": 66,
+        "endLine": 1547,
+        "endChar": 67
+      },
+      "revId": "361fd68e47b5e698d826d991df9bd00b03d77799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48fb868c_da2a0a98",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-10-30T08:16:25Z",
       "side": 1,
       "message": "I think this is trying to do the same thing as HandlerUtils.waitForIdle, which would be clearer and avoid using @hide APIs",
+      "revId": "361fd68e47b5e698d826d991df9bd00b03d77799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4c9e6b_42ce0701",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1565,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-31T07:27:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48fb868c_da2a0a98",
       "revId": "361fd68e47b5e698d826d991df9bd00b03d77799",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
