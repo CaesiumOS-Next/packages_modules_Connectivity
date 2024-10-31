@@ -16,6 +16,24 @@
       "message": "nit: add `Test`",
       "revId": "74ee8aede477f5fcfb005b33b0e8cc644ec61083",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2f55cf4_d560573f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-31T06:31:09Z",
+      "side": 1,
+      "message": "I think we offline discussed and agreed that a \"Test\" tag is not always necessary for CLs which do include test case changes under tests/.\n\nResolving this comment now, feel free to open if have concerns",
+      "parentUuid": "aa2c6d8e_177f5d75",
+      "revId": "74ee8aede477f5fcfb005b33b0e8cc644ec61083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

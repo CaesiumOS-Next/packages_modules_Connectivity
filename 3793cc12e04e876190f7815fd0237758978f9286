@@ -182,6 +182,24 @@
       "parentUuid": "a099f811_add49a13",
       "revId": "3793cc12e04e876190f7815fd0237758978f9286",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20043767_0fdc7026",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-10-31T06:31:09Z",
+      "side": 1,
+      "message": "Offline discussed that the current API design looks good. I am resolving this comment now to get the code it.",
+      "parentUuid": "fb5051b8_82fdaacc",
+      "revId": "3793cc12e04e876190f7815fd0237758978f9286",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
