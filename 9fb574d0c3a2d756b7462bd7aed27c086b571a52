@@ -33,6 +33,29 @@
       "message": "LGTM but Lorenzo should +1 the CTS changes (he also had most of the review comments)",
       "revId": "9fb574d0c3a2d756b7462bd7aed27c086b571a52",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "194c3c76_7b29553e",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-10-31T06:21:54Z",
+      "side": 1,
+      "message": "AFAICT you don\u0027t need this UID check. If the UID doesn\u0027t match, NetworkStatsService#getUidStats will return null, and getEntryValueForType will turn null into UNSUPPORTED.\n\nI think you don\u0027t need any of the isEntryValueTypeValid checks either, since getStatsResultFromEntryOrNull will return UNSUPPORTED. It\u0027s true that if you drop this check, the code will fetch the stats from the service even though the type is not valid. But it seems unlikely that apps will do this, since there is no reason to - they\u0027ll just get UNSUPPORTED. So it seems better to drop the check.\n\nAlso elsewhere (e.g., line 977, line 991, ...)",
+      "range": {
+        "startLine": 963,
+        "startChar": 16,
+        "endLine": 963,
+        "endChar": 52
+      },
+      "revId": "9fb574d0c3a2d756b7462bd7aed27c086b571a52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
