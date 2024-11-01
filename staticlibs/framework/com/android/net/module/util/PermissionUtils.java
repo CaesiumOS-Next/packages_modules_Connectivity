@@ -30,7 +30,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Binder;
-import android.os.UserHandle;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -200,22 +199,20 @@ public final class PermissionUtils {
      */
     public static void enforcePackageNameMatchesUid(
             @NonNull Context context, int uid, @Nullable String packageName) {
-        final UserHandle user = UserHandle.getUserHandleForUid(uid);
-        if (getAppUid(context, packageName, user) != uid) {
-            throw new SecurityException(packageName + " does not belong to uid " + uid);
+        if (packageName == null) {
+            throw new SecurityException("packageName is null");
         }
-    }
-
-    private static int getAppUid(Context context, final String app, final UserHandle user) {
-        final PackageManager pm =
-                context.createContextAsUser(user, 0 /* flags */).getPackageManager();
-        final long token = Binder.clearCallingIdentity();
-        try {
-            return pm.getPackageUid(app, 0 /* flags */);
-        } catch (PackageManager.NameNotFoundException e) {
-            return -1;
-        } finally {
-            Binder.restoreCallingIdentity(token);
+        final PackageManager pm = context.getPackageManager();
+        String[] packages = pm.getPackagesForUid(uid);
+        if (packages == null) {
+            throw new SecurityException("getPackagesForUid returned null for " + packageName
+                + " and " + uid);
         }
+        for (String p : packages) {
+            if (packageName.equals(p)) {
+                return;
+            }
+        }
+        throw new SecurityException(packageName + " does not belong to uid " + uid);
     }
 }
