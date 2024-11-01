@@ -34,6 +34,24 @@
       "parentUuid": "612cda45_16584552",
       "revId": "7fea5fa6a2a863c356425ac6a036a8392b5d0259",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc2c04ad_ca0b5b6f",
+        "filename": "thread/tests/unit/Android.bp",
+        "patchSetId": 40
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-01T05:02:20Z",
+      "side": 1,
+      "message": "Close this comment as this is resolved in aosp/2804893",
+      "parentUuid": "fd70d883_d672f6da",
+      "revId": "7fea5fa6a2a863c356425ac6a036a8392b5d0259",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
