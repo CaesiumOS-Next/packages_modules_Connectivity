@@ -24,6 +24,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ac2f06c_929b2903",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 53
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-01T09:38:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c7e4d2e_2ecd3b5e",
+      "range": {
+        "startLine": 113,
+        "startChar": 22,
+        "endLine": 113,
+        "endChar": 54
+      },
+      "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e6d1817_c5b62ef1",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 53
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-01T09:38:31Z",
+      "side": 1,
+      "message": "Added a SuppressLint for this",
+      "parentUuid": "1c7e4d2e_2ecd3b5e",
+      "range": {
+        "startLine": 113,
+        "startChar": 22,
+        "endLine": 113,
+        "endChar": 54
+      },
+      "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c818a39_4c2455f2",
@@ -37,6 +85,30 @@
       "writtenOn": "2024-10-23T18:55:55Z",
       "side": 1,
       "message": "instead of debug logs, is it possible to write an integration test to make sure unauthorized UIDs do not get a hold of the SoftApConfig?",
+      "range": {
+        "startLine": 2508,
+        "startChar": 12,
+        "endLine": 2508,
+        "endChar": 15
+      },
+      "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72c7f72c_b86459e6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 53
+      },
+      "lineNbr": 2508,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-01T09:38:31Z",
+      "side": 1,
+      "message": "To test the UID-matching behavior in a CTS requires the ability to arbitrarily change the CTS UID during the test, which I\u0027m not sure is possible. Do you know if there\u0027s a way to do this?",
+      "parentUuid": "2c818a39_4c2455f2",
       "range": {
         "startLine": 2508,
         "startChar": 12,
