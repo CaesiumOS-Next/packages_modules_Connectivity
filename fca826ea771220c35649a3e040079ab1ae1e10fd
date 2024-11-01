@@ -22,6 +22,30 @@
       },
       "revId": "fca826ea771220c35649a3e040079ab1ae1e10fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3f3b25b_bb2f504c",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1240997
+      },
+      "writtenOn": "2024-11-01T21:36:44Z",
+      "side": 1,
+      "message": "I created a separate try-catch block for this because I feel it would be cleaner. To preserve the same calling order, we still need PackageManger to be created before \u0027final long token\u0027. Also the token needs to be created outside the try catch block so it can be accessed in the finally block.",
+      "parentUuid": "ef33399c_60252b94",
+      "range": {
+        "startLine": 214,
+        "startChar": 14,
+        "endLine": 215,
+        "endChar": 85
+      },
+      "revId": "fca826ea771220c35649a3e040079ab1ae1e10fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
