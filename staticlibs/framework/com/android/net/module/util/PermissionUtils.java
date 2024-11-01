@@ -207,12 +207,16 @@ public final class PermissionUtils {
     }
 
     private static int getAppUid(Context context, final String app, final UserHandle user) {
-        final PackageManager pm =
-                context.createContextAsUser(user, 0 /* flags */).getPackageManager();
+        final PackageManager pm;
+        try {
+            pm = context.createContextAsUser(user, 0 /* flags */).getPackageManager();
+        } catch (Exception e) {
+            return -1;
+        }
         final long token = Binder.clearCallingIdentity();
         try {
             return pm.getPackageUid(app, 0 /* flags */);
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             return -1;
         } finally {
             Binder.restoreCallingIdentity(token);
