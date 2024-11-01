@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeb1a566_d14f5005",
+        "filename": "framework-t/src/android/net/INetworkStatsService.aidl",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f63d430c_98488237",
+      "range": {
+        "startLine": 30,
+        "startChar": 28,
+        "endLine": 30,
+        "endChar": 46
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "222ca399_0efdf8ac",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-13T09:16:54Z",
       "side": 1,
       "message": "Per offline discuss, this might not be OK since every app will need to call into the service.\nWhich might be not necessary also it could potientially increase app launch time.",
+      "range": {
+        "startLine": 242,
+        "startChar": 52,
+        "endLine": 242,
+        "endChar": 73
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd7f4e73_b902e5d0",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "222ca399_0efdf8ac",
       "range": {
         "startLine": 242,
         "startChar": 52,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a6c15f0_71dd8b90",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "4b489d89_a5289df3",
+      "range": {
+        "startLine": 252,
+        "startChar": 69,
+        "endLine": 252,
+        "endChar": 70
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b8b82d2_33d022a7",
@@ -83,6 +155,24 @@
       "writtenOn": "2024-09-13T06:13:01Z",
       "side": 1,
       "message": "Might want to add some comment to explain this is a security check, e.g.\n```\n// Note that the check is for performance consideration to reduce\n// possible useless binder call, instead of security checks since\n// the milicious caller might be able to bypass this check and\n// call the service anyway.\n```",
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2504c4b4_1fe9fc99",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b8b82d2_33d022a7",
       "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -141,6 +231,54 @@
       "writtenOn": "2024-09-13T09:16:54Z",
       "side": 1,
       "message": "Might use Integer.valueOf(uid) which leverages integer caching for values between -128 and 127.",
+      "range": {
+        "startLine": 993,
+        "startChar": 52,
+        "endLine": 993,
+        "endChar": 68
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa25578b_12fc9c83",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82f7c2c7_a038212b",
+      "range": {
+        "startLine": 993,
+        "startChar": 29,
+        "endLine": 993,
+        "endChar": 70
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "823cd38e_729090d1",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bd9fdad_16ec7928",
       "range": {
         "startLine": 993,
         "startChar": 52,
@@ -246,6 +384,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "476862df_37e868db",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "def2ea5a_dcbf1437",
+      "range": {
+        "startLine": 1226,
+        "startChar": 1,
+        "endLine": 1228,
+        "endChar": 5
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c27fb4cc_72904150",
@@ -259,6 +421,30 @@
       "writtenOn": "2024-09-13T06:39:40Z",
       "side": 1,
       "message": "It seems to me these are not necessary.\nThe callers can just access them from the config.",
+      "range": {
+        "startLine": 1235,
+        "startChar": 0,
+        "endLine": 1246,
+        "endChar": 9
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ef6e10f_4a9431eb",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "c27fb4cc_72904150",
       "range": {
         "startLine": 1235,
         "startChar": 0,
@@ -292,6 +478,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "404f190c_33240b9d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62e42844_3d6308f9",
+      "range": {
+        "startLine": 694,
+        "startChar": 54,
+        "endLine": 694,
+        "endChar": 58
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7193a29c_1e9e6a66",
@@ -309,6 +519,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3936f1c_0b12b14e",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7193a29c_1e9e6a66",
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62dfb192_17f01015",
@@ -322,6 +550,30 @@
       "writtenOn": "2024-09-13T06:13:01Z",
       "side": 1,
       "message": "style: one blank line",
+      "range": {
+        "startLine": 2147,
+        "startChar": 4,
+        "endLine": 2147,
+        "endChar": 5
+      },
+      "revId": "975150f339da703e8dcfd9f3bdc75a657f962ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7985b206_e7ab86ce",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2147,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "62dfb192_17f01015",
       "range": {
         "startLine": 2147,
         "startChar": 4,

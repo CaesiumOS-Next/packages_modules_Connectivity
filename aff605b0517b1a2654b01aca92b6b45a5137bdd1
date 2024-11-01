@@ -295,6 +295,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "570c6625_7796eefc",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c90c8b1d_08ac7fc4",
+      "range": {
+        "startLine": 740,
+        "startChar": 23,
+        "endLine": 740,
+        "endChar": 43
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebeb9006_02e62dff",
@@ -308,6 +332,30 @@
       "writtenOn": "2024-09-12T03:17:14Z",
       "side": 1,
       "message": "IIUC these APIs can be either\nprivate \nor\n@VisibleForTesting(visiblity \u003d PRIVATE)\npublic\n?",
+      "range": {
+        "startLine": 984,
+        "startChar": 4,
+        "endLine": 984,
+        "endChar": 10
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a57a5287_312d2983",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Can\u0027t change these public APIs.",
+      "parentUuid": "ebeb9006_02e62dff",
       "range": {
         "startLine": 984,
         "startChar": 4,
@@ -378,6 +426,30 @@
       "writtenOn": "2024-09-12T05:47:27Z",
       "side": 1,
       "message": "IIUC we\u0027ll also need to check\nmDeps.isChangeEnabled(xxxx, callingUid)",
+      "range": {
+        "startLine": 995,
+        "startChar": 49,
+        "endLine": 995,
+        "endChar": 50
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fc8713b_e57565a0",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81de551b_daaae0ea",
       "range": {
         "startLine": 995,
         "startChar": 49,
@@ -689,6 +761,30 @@
       "writtenOn": "2024-09-12T06:36:45Z",
       "side": 1,
       "message": "We\u0027ll need to disable the feature if client cache is enabled, even if isChangeEnabled is true.",
+      "range": {
+        "startLine": 2199,
+        "startChar": 19,
+        "endLine": 2199,
+        "endChar": 90
+      },
+      "revId": "aff605b0517b1a2654b01aca92b6b45a5137bdd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cb39a3d_1cae7dfc",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2199,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-01T16:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36dfa74c_f1e166fa",
       "range": {
         "startLine": 2199,
         "startChar": 19,
