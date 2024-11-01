@@ -35,12 +35,12 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.RemoteException;
 import android.util.ArrayMap;
-import android.util.IndentingPrintWriter;
 
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
 
+import java.io.PrintWriter;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -56,11 +56,12 @@ import java.util.function.Supplier;
 /**
  * This class coordinate IP addresses conflict problem.
  *
- * Tethering downstream IP addresses may conflict with network assigned addresses. This
- * coordinator is responsible for recording all of network assigned addresses and dispatched
- * free address to downstream interfaces.
+ * <p>Tethering downstream IP addresses may conflict with network assigned addresses. This
+ * coordinator is responsible for recording all of network assigned addresses and dispatched free
+ * address to downstream interfaces.
  *
- * This class is not thread-safe.
+ * <p>This class is not thread-safe.
+ *
  * @hide
  */
 public class PrivateAddressCoordinator {
@@ -114,21 +115,27 @@ public class PrivateAddressCoordinator {
     }
 
     @VisibleForTesting
-    public PrivateAddressCoordinator(Supplier<Network[]> getAllNetworksSupplier,
-                                     Dependencies deps) {
+    public PrivateAddressCoordinator(
+            Supplier<Network[]> getAllNetworksSupplier, Dependencies deps) {
         mDownstreams = new ArrayMap<>();
         mUpstreamPrefixMap = new ArrayMap<>();
         mGetAllNetworksSupplier = getAllNetworksSupplier;
         mDeps = deps;
         mCachedAddresses = new ArrayMap<AddressKey, LinkAddress>();
         // Reserved static addresses for bluetooth and wifi p2p.
-        mCachedAddresses.put(new AddressKey(TETHERING_BLUETOOTH, CONNECTIVITY_SCOPE_GLOBAL),
+        mCachedAddresses.put(
+                new AddressKey(TETHERING_BLUETOOTH, CONNECTIVITY_SCOPE_GLOBAL),
                 new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));
-        mCachedAddresses.put(new AddressKey(TETHERING_WIFI_P2P, CONNECTIVITY_SCOPE_LOCAL),
+        mCachedAddresses.put(
+                new AddressKey(TETHERING_WIFI_P2P, CONNECTIVITY_SCOPE_LOCAL),
                 new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
 
-        mTetheringPrefixes = new ArrayList<>(Arrays.asList(new IpPrefix("192.168.0.0/16"),
-            new IpPrefix("172.16.0.0/12"), new IpPrefix("10.0.0.0/8")));
+        mTetheringPrefixes =
+                new ArrayList<>(
+                        Arrays.asList(
+                                new IpPrefix("192.168.0.0/16"),
+                                new IpPrefix("172.16.0.0/12"),
+                                new IpPrefix("10.0.0.0/8")));
         mRandom = new Random();
     }
 
@@ -211,13 +218,13 @@ public class PrivateAddressCoordinator {
     /**
      * Request a downstream address for the provided IIpv4PrefixRequest.
      *
-     * This method will first try to return the last time used address for the provided
+     * <p>This method will first try to return the last time used address for the provided
      * (interfaceType, scope) pair if possible. If not, it will pick a random available address and
      * mark its prefix as in use for the provided IIpv4PrefixRequest.
      */
     @Nullable
-    public LinkAddress requestStickyDownstreamAddress(int interfaceType, final int scope,
-            IIpv4PrefixRequest request) {
+    public LinkAddress requestStickyDownstreamAddress(
+            int interfaceType, final int scope, IIpv4PrefixRequest request) {
         final Ipv4PrefixRequest wrappedRequest = new Ipv4PrefixRequest(request);
         final AddressKey addrKey = new AddressKey(interfaceType, scope);
         // This ensures that tethering isn't started on 2 different interfaces with the same type.
@@ -245,8 +252,8 @@ public class PrivateAddressCoordinator {
         final Ipv4PrefixRequest wrappedRequest = new Ipv4PrefixRequest(request);
         final int prefixIndex = getRandomPrefixIndex();
         for (int i = 0; i < mTetheringPrefixes.size(); i++) {
-            final IpPrefix prefixRange = mTetheringPrefixes.get(
-                    (prefixIndex + i) % mTetheringPrefixes.size());
+            final IpPrefix prefixRange =
+                    mTetheringPrefixes.get((prefixIndex + i) % mTetheringPrefixes.size());
             final LinkAddress newAddress = chooseDownstreamAddress(prefixRange);
             if (newAddress != null) {
                 mDownstreams.put(wrappedRequest, newAddress);
@@ -285,8 +292,8 @@ public class PrivateAddressCoordinator {
     }
 
     /**
-     * Check whether input prefix conflict with upstream prefixes or in-use downstream prefixes.
-     * If yes, return one of them.
+     * Check whether input prefix conflict with upstream prefixes or in-use downstream prefixes. If
+     * yes, return one of them.
      */
     private IpPrefix getConflictPrefix(final IpPrefix prefix) {
         final IpPrefix upstream = getConflictWithUpstream(prefix);
@@ -459,34 +466,27 @@ public class PrivateAddressCoordinator {
         }
     }
 
-    // TODO: dump PrivateAddressCoordinator when dumping RoutingCoordinatorService.
-    void dump(final IndentingPrintWriter pw) {
+    // TODO: dump PrivateAddressCoordinator when dumping RoutingCoordinatorService and apply
+    // indentation.
+    void dump(final PrintWriter pw) {
         pw.println("mTetheringPrefixes:");
-        pw.increaseIndent();
         for (IpPrefix prefix : mTetheringPrefixes) {
             pw.println(prefix);
         }
-        pw.decreaseIndent();
 
         pw.println("mUpstreamPrefixMap:");
-        pw.increaseIndent();
         for (int i = 0; i < mUpstreamPrefixMap.size(); i++) {
             pw.println(mUpstreamPrefixMap.keyAt(i) + " - " + mUpstreamPrefixMap.valueAt(i));
         }
-        pw.decreaseIndent();
 
         pw.println("mDownstreams:");
-        pw.increaseIndent();
         for (LinkAddress downstream : mDownstreams.values()) {
             pw.println(downstream);
         }
-        pw.decreaseIndent();
 
         pw.println("mCachedAddresses:");
-        pw.increaseIndent();
         for (int i = 0; i < mCachedAddresses.size(); i++) {
             pw.println(mCachedAddresses.keyAt(i) + " - " + mCachedAddresses.valueAt(i));
         }
-        pw.decreaseIndent();
     }
 }
