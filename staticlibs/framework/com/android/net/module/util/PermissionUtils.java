@@ -207,8 +207,16 @@ public final class PermissionUtils {
     }
 
     private static int getAppUid(Context context, final String app, final UserHandle user) {
-        final PackageManager pm =
-                context.createContextAsUser(user, 0 /* flags */).getPackageManager();
+        final PackageManager pm;
+        try {
+            pm = context.createContextAsUser(user, 0 /* flags */).getPackageManager();
+        } catch (IllegalStateException e) {
+            // IllegalStateException will be thrown when the package invoking the
+            // context.createContextAsUser call doesn't exist for the user.
+            // This issue is currently only observed when a secondary user calls this from the
+            // Tethering module.
+            return -1;
+        }
         final long token = Binder.clearCallingIdentity();
         try {
             return pm.getPackageUid(app, 0 /* flags */);
