@@ -201,7 +201,11 @@ public final class PermissionUtils {
     public static void enforcePackageNameMatchesUid(
             @NonNull Context context, int uid, @Nullable String packageName) {
         final UserHandle user = UserHandle.getUserHandleForUid(uid);
-        if (getAppUid(context, packageName, user) != uid) {
+        try {
+            if (getAppUid(context, packageName, user) != uid) {
+                throw new SecurityException(packageName + " does not belong to uid " + uid);
+            }
+        } catch (Exception e) {
             throw new SecurityException(packageName + " does not belong to uid " + uid);
         }
     }
