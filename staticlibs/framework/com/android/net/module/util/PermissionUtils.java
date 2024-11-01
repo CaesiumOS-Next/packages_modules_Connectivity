@@ -192,6 +192,8 @@ public final class PermissionUtils {
 
     /**
      * Enforces that the given package name belongs to the given uid.
+     * Note: Do not use this when calling from networking stack because context.createContextAsUser
+     * will fail when called on secondary user.
      *
      * @param context {@link android.content.Context} for the process.
      * @param uid User ID to check the package ownership for.
