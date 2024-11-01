@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef33399c_60252b94",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-01T20:49:43Z",
+      "side": 1,
+      "message": "Couldn\u0027t this just move to line 218 and the catch to be changed to catch any exception (which is probably better anyways)?",
+      "range": {
+        "startLine": 214,
+        "startChar": 14,
+        "endLine": 215,
+        "endChar": 85
+      },
+      "revId": "fca826ea771220c35649a3e040079ab1ae1e10fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
