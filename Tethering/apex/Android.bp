@@ -56,11 +56,36 @@ apex_defaults {
     ],
 }
 
+soong_config_module_type {
+    name: "connectivity_b_platform_compat_apex_defaults_soong_config",
+    module_type: "apex_defaults",
+    config_namespace: "ANDROID",
+    bool_variables: [
+        "is_vcn_in_mainline",
+    ],
+    properties: [
+        "compat_configs",
+    ],
+}
+
+connectivity_b_platform_compat_apex_defaults_soong_config {
+    name: "connectivity-b-platform-compat-apex-defaults",
+    soong_config_variables: {
+        is_vcn_in_mainline: {
+            compat_configs: ["connectivity-b-platform-compat-config"],
+            conditions_default: {
+                compat_configs: [],
+            },
+        },
+    },
+}
+
 apex {
     name: "com.android.tethering",
     defaults: [
         "ConnectivityApexDefaults",
         "CronetInTetheringApexDefaults",
+        "connectivity-b-platform-compat-apex-defaults",
         "r-launched-apex-module",
     ],
     compile_multilib: "both",
@@ -155,7 +180,10 @@ bootclasspath_fragment {
         "framework-connectivity",
         "framework-connectivity-t",
         "framework-tethering",
-    ],
+    ] + select(release_flag("RELEASE_MOVE_VCN_TO_MAINLINE"), {
+        true: ["framework-connectivity-b"],
+        default: [],
+    }),
     apex_available: ["com.android.tethering"],
 
     // The bootclasspath_fragments that provide APIs on which this depends.
@@ -195,6 +223,7 @@ bootclasspath_fragment {
             "android.net.http",
             "android.net.netstats",
             "android.net.util",
+            "android.net.vcn",
         ],
 
         // The following packages and all their subpackages currently only
