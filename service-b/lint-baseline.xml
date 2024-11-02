@@ -1,0 +1,2039 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.4.0-alpha08" type="baseline" client="" dependencies="true" name="" variant="all" version="8.4.0-alpha08">
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_MANAGEMENT_SERVICE_STRING`"
+        errorLine1="            Log.i(TAG, &quot;Registering &quot; + VcnManager.VCN_MANAGEMENT_SERVICE_STRING);"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/ConnectivityServiceInitializerB.java"
+            line="46"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_MANAGEMENT_SERVICE_STRING`"
+        errorLine1="                    VcnManager.VCN_MANAGEMENT_SERVICE_STRING,"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/ConnectivityServiceInitializerB.java"
+            line="48"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_MANAGEMENT_SERVICE_STRING`"
+        errorLine1="            Log.i(TAG, &quot;Starting &quot; + VcnManager.VCN_MANAGEMENT_SERVICE_STRING);"
+        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/ConnectivityServiceInitializerB.java"
+            line="57"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_NETWORK_SELECTION_POLL_IPSEC_STATE_INTERVAL_SECONDS_KEY`"
+        errorLine1="                            VcnManager.VCN_NETWORK_SELECTION_POLL_IPSEC_STATE_INTERVAL_SECONDS_KEY,"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/IpSecPacketLossDetector.java"
+            line="208"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_NETWORK_SELECTION_IPSEC_PACKET_LOSS_PERCENT_THRESHOLD_KEY`"
+        errorLine1="                    VcnManager.VCN_NETWORK_SELECTION_IPSEC_PACKET_LOSS_PERCENT_THRESHOLD_KEY,"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/IpSecPacketLossDetector.java"
+            line="221"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_NETWORK_SELECTION_MAX_SEQ_NUM_INCREASE_PER_SECOND_KEY`"
+        errorLine1="                            VcnManager.VCN_NETWORK_SELECTION_MAX_SEQ_NUM_INCREASE_PER_SECOND_KEY,"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/IpSecPacketLossDetector.java"
+            line="233"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_NETWORK_SELECTION_WIFI_ENTRY_RSSI_THRESHOLD_KEY`"
+        errorLine1="                    VcnManager.VCN_NETWORK_SELECTION_WIFI_ENTRY_RSSI_THRESHOLD_KEY,"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="345"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_NETWORK_SELECTION_WIFI_EXIT_RSSI_THRESHOLD_KEY`"
+        errorLine1="                    VcnManager.VCN_NETWORK_SELECTION_WIFI_EXIT_RSSI_THRESHOLD_KEY,"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="354"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 33 (current min is 30): `android.net.vcn.VcnUnderlyingNetworkTemplate#MATCH_REQUIRED`"
+        errorLine1="                                NetworkCapabilities.NET_CAPABILITY_INTERNET, MATCH_REQUIRED)));"
+        errorLine2="                                                                             ~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="195"
+            column="78"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_NETWORK_SELECTION_PENALTY_TIMEOUT_MINUTES_LIST_KEY`"
+        errorLine1="                            VcnManager.VCN_NETWORK_SELECTION_PENALTY_TIMEOUT_MINUTES_LIST_KEY,"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkEvaluator.java"
+            line="223"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_ACTIVE`"
+        errorLine1="    private volatile int mCurrentStatus = VCN_STATUS_CODE_ACTIVE;"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="195"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_INACTIVE`"
+        errorLine1="        mCurrentStatus = VCN_STATUS_CODE_INACTIVE;"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="375"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_ACTIVE`"
+        errorLine1="                hasSafeModeGatewayConnection ? VCN_STATUS_CODE_SAFE_MODE : VCN_STATUS_CODE_ACTIVE;"
+        errorLine2="                                                                           ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="392"
+            column="76"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_SAFE_MODE`"
+        errorLine1="                hasSafeModeGatewayConnection ? VCN_STATUS_CODE_SAFE_MODE : VCN_STATUS_CODE_ACTIVE;"
+        errorLine2="                                               ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="392"
+            column="48"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_SAFE_MODE_TIMEOUT_SECONDS_KEY`"
+        errorLine1="                            VcnManager.VCN_SAFE_MODE_TIMEOUT_SECONDS_KEY, defaultSeconds);"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="1269"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_ERROR_CODE_INTERNAL_ERROR`"
+        errorLine1="                    VCN_ERROR_CODE_INTERNAL_ERROR,"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="1298"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_ERROR_CODE_CONFIG_ERROR`"
+        errorLine1="            errorCode = VCN_ERROR_CODE_CONFIG_ERROR;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="1324"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_ERROR_CODE_NETWORK_ERROR`"
+        errorLine1="            errorCode = VCN_ERROR_CODE_NETWORK_ERROR;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="1329"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_ERROR_CODE_INTERNAL_ERROR`"
+        errorLine1="            errorCode = VCN_ERROR_CODE_INTERNAL_ERROR;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="1333"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_TUNNEL_AGGREGATION_SA_COUNT_MAX_KEY`"
+        errorLine1="                                VcnManager.VCN_TUNNEL_AGGREGATION_SA_COUNT_MAX_KEY,"
+        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2840"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_RESTRICTED_TRANSPORTS_INT_ARRAY_KEY`"
+        errorLine1="                            VCN_RESTRICTED_TRANSPORTS_INT_ARRAY_KEY,"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="405"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.Manifest.permission#MANAGE_TEST_NETWORKS`"
+        errorLine1="                    android.Manifest.permission.MANAGE_TEST_NETWORKS,"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="512"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_INACTIVE`"
+        errorLine1="                                            uuidToTeardown, VCN_STATUS_CODE_INACTIVE);"
+        errorLine2="                                                            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="649"
+            column="61"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_ACTIVE`"
+        errorLine1="        notifyAllPermissionedStatusCallbacksLocked(subscriptionGroup, VCN_STATUS_CODE_ACTIVE);"
+        errorLine2="                                                                      ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="762"
+            column="71"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_NOT_CONFIGURED`"
+        errorLine1="                    subscriptionGroup, VCN_STATUS_CODE_NOT_CONFIGURED);"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="881"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.Manifest.permission#MANAGE_TEST_NETWORKS`"
+        errorLine1="                android.Manifest.permission.MANAGE_TEST_NETWORKS);"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1000"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.Manifest.permission#MANAGE_TEST_NETWORKS`"
+        errorLine1="                android.Manifest.permission.MANAGE_TEST_NETWORKS);"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1027"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.Manifest.permission#MANAGE_TEST_NETWORKS`"
+        errorLine1="                android.Manifest.permission.MANAGE_TEST_NETWORKS);"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1081"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_ACTIVE`"
+        errorLine1="                                isRestricted |= (vcn.getStatus() == VCN_STATUS_CODE_ACTIVE);"
+        errorLine2="                                                                    ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1117"
+            column="69"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_NOT_CONFIGURED`"
+        errorLine1="                        vcn == null ? VCN_STATUS_CODE_NOT_CONFIGURED : vcn.getStatus();"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1232"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_NOT_CONFIGURED`"
+        errorLine1="                    resultStatus = VCN_STATUS_CODE_NOT_CONFIGURED;"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1235"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_INACTIVE`"
+        errorLine1="                    resultStatus = VCN_STATUS_CODE_INACTIVE;"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1237"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_NOT_CONFIGURED`"
+        errorLine1="                    resultStatus = VCN_STATUS_CODE_NOT_CONFIGURED;"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1243"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_ACTIVE`"
+        errorLine1="                        isInSafeMode ? VCN_STATUS_CODE_SAFE_MODE : VCN_STATUS_CODE_ACTIVE;"
+        errorLine2="                                                                   ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1511"
+            column="68"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_STATUS_CODE_SAFE_MODE`"
+        errorLine1="                        isInSafeMode ? VCN_STATUS_CODE_SAFE_MODE : VCN_STATUS_CODE_ACTIVE;"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1511"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 31 (current min is 30): `android.os.OutcomeReceiver`"
+        errorLine1="            implements OutcomeReceiver&lt;IpSecTransformState, RuntimeException> {"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/IpSecPacketLossDetector.java"
+            line="372"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#v`"
+        errorLine1="            Slog.v(getClassName(), getLogPrefix() + msg);"
+        errorLine2="                 ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkMetricMonitor.java"
+            line="243"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#i`"
+        errorLine1="        Slog.i(getClassName(), getLogPrefix() + msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkMetricMonitor.java"
+            line="249"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#w`"
+        errorLine1="        Slog.w(getClassName(), getLogPrefix() + msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkMetricMonitor.java"
+            line="254"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(getClassName(), getLogPrefix() + msg);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkMetricMonitor.java"
+            line="259"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="            Slog.wtf(className, msgWithPrefix);"
+        errorLine2="                 ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkMetricMonitor.java"
+            line="265"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#w`"
+        errorLine1="        Slog.w(className, msgWithPrefix);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkMetricMonitor.java"
+            line="271"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(className, msgWithPrefix);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkMetricMonitor.java"
+            line="276"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnUnderlyingNetworkTemplate#getMetered`"
+        errorLine1="        final int meteredMatch = networkPriority.getMetered();"
+        errorLine2="                                                 ~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="145"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnUnderlyingNetworkTemplate#getMinExitUpstreamBandwidthKbps`"
+        errorLine1="        if (caps.getLinkUpstreamBandwidthKbps() &lt; networkPriority.getMinExitUpstreamBandwidthKbps()"
+        errorLine2="                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="154"
+            column="67"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnUnderlyingNetworkTemplate#getMinEntryUpstreamBandwidthKbps`"
+        errorLine1="                                &lt; networkPriority.getMinEntryUpstreamBandwidthKbps()"
+        errorLine2="                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="156"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnUnderlyingNetworkTemplate#getMinExitDownstreamBandwidthKbps`"
+        errorLine1="                        &lt; networkPriority.getMinExitDownstreamBandwidthKbps()"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="162"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnUnderlyingNetworkTemplate#getMinEntryDownstreamBandwidthKbps`"
+        errorLine1="                                &lt; networkPriority.getMinEntryDownstreamBandwidthKbps()"
+        errorLine2="                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="164"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnUnderlyingNetworkTemplate#getCapabilitiesMatchCriteria`"
+        errorLine1="                networkPriority.getCapabilitiesMatchCriteria().entrySet()) {"
+        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="170"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 33 (current min is 30): `android.net.vcn.VcnWifiUnderlyingNetworkTemplate`"
+        errorLine1="        if (networkPriority instanceof VcnWifiUnderlyingNetworkTemplate) {"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="185"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 33 (current min is 30): `android.net.vcn.VcnWifiUnderlyingNetworkTemplate`"
+        errorLine1="                    (VcnWifiUnderlyingNetworkTemplate) networkPriority,"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="187"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 33 (current min is 30): `android.net.vcn.VcnCellUnderlyingNetworkTemplate`"
+        errorLine1="        if (networkPriority instanceof VcnCellUnderlyingNetworkTemplate) {"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="193"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 33 (current min is 30): `android.net.vcn.VcnCellUnderlyingNetworkTemplate`"
+        errorLine1="                    (VcnCellUnderlyingNetworkTemplate) networkPriority,"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="196"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnWifiUnderlyingNetworkTemplate#getSsids`"
+        errorLine1="        if (!networkPriority.getSsids().isEmpty()"
+        errorLine2="                             ~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="225"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnWifiUnderlyingNetworkTemplate#getSsids`"
+        errorLine1="                &amp;&amp; !networkPriority.getSsids().contains(caps.getSsid())) {"
+        errorLine2="                                    ~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="226"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnCellUnderlyingNetworkTemplate#getOperatorPlmnIds`"
+        errorLine1="        if (!networkPriority.getOperatorPlmnIds().isEmpty()) {"
+        errorLine2="                             ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="277"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnCellUnderlyingNetworkTemplate#getOperatorPlmnIds`"
+        errorLine1="            if (!networkPriority.getOperatorPlmnIds().contains(plmnId)) {"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="279"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnCellUnderlyingNetworkTemplate#getSimSpecificCarrierIds`"
+        errorLine1="        if (!networkPriority.getSimSpecificCarrierIds().isEmpty()) {"
+        errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="284"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnCellUnderlyingNetworkTemplate#getSimSpecificCarrierIds`"
+        errorLine1="            if (!networkPriority.getSimSpecificCarrierIds().contains(carrierId)) {"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="286"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnCellUnderlyingNetworkTemplate#getRoaming`"
+        errorLine1="        final int roamingMatch = networkPriority.getRoaming();"
+        errorLine2="                                                 ~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="291"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnCellUnderlyingNetworkTemplate#getOpportunistic`"
+        errorLine1="        final int opportunisticMatch = networkPriority.getOpportunistic();"
+        errorLine2="                                                       ~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="298"
+            column="56"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(TAG, msg);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/NetworkPriorityClassifier.java"
+            line="361"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.telephony.TelephonyManager#registerTelephonyCallback`"
+        errorLine1="        mTelephonyManager.registerTelephonyCallback(executor, mActiveDataSubIdListener);"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="159"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 30): `android.telephony.CarrierConfigManager#registerCarrierConfigChangeListener`"
+        errorLine1="            mCarrierConfigManager.registerCarrierConfigChangeListener(executor,"
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="161"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Cast to `CarrierPrivilegesCallback` requires API level 33 (current min is 30)"
+        errorLine1="                        new CarrierPrivilegesCallback() {"
+        errorLine2="                        ^">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="174"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 33 (current min is 30): `android.telephony.TelephonyManager.CarrierPrivilegesCallback`"
+        errorLine1="                        new CarrierPrivilegesCallback() {"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="174"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.telephony.TelephonyManager#registerCarrierPrivilegesCallback`"
+        errorLine1="                mTelephonyManager.registerCarrierPrivilegesCallback("
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="186"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="            Slog.wtf(TAG, &quot;Encounted exception registering carrier privileges listeners&quot;, e);"
+        errorLine2="                 ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="191"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.telephony.TelephonyManager#unregisterTelephonyCallback`"
+        errorLine1="        mTelephonyManager.unregisterTelephonyCallback(mActiveDataSubIdListener);"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="203"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 30): `android.telephony.CarrierConfigManager#unregisterCarrierConfigChangeListener`"
+        errorLine1="            mCarrierConfigManager.unregisterCarrierConfigChangeListener("
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="205"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.telephony.TelephonyManager#unregisterCarrierPrivilegesCallback`"
+        errorLine1="            mTelephonyManager.unregisterCarrierPrivilegesCallback(carrierPrivilegesCallback);"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="215"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 30): `android.telephony.SubscriptionManager#getAllSubscriptionInfoList`"
+        errorLine1="        final List&lt;SubscriptionInfo> allSubs = mSubscriptionManager.getAllSubscriptionInfoList();"
+        errorLine2="                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="230"
+            column="69"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#v`"
+        errorLine1="                Slog.v(TAG, &quot;Unknown intent received with action: &quot; + intent.getAction());"
+        errorLine2="                     ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="296"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 30): `android.telephony.CarrierConfigManager#getConfigForSubId`"
+        errorLine1="                        mCarrierConfigManager.getConfigForSubId("
+        errorLine2="                                              ~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="328"
+            column="47"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnManager#VCN_RELATED_CARRIER_CONFIG_KEYS`"
+        errorLine1="                                subId, VcnManager.VCN_RELATED_CARRIER_CONFIG_KEYS);"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="329"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#w`"
+        errorLine1="                Slog.w(TAG, &quot;CarrierConfigLoader is not available.&quot;);"
+        errorLine2="                     ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="332"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 31 (current min is 30): `android.telephony.TelephonyCallback`"
+        errorLine1="    private class ActiveDataSubscriptionIdListener extends TelephonyCallback"
+        errorLine2="                                                           ~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="578"
+            column="60"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 31 (current min is 30): `android.telephony.TelephonyCallback.ActiveDataSubscriptionIdListener`"
+        errorLine1="            implements TelephonyCallback.ActiveDataSubscriptionIdListener {"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/TelephonySubscriptionTracker.java"
+            line="579"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.telephony.TelephonyManager#registerTelephonyCallback`"
+        errorLine1="                .registerTelephonyCallback(new HandlerExecutor(mHandler), mActiveDataSubIdListener);"
+        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="135"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getVcnUnderlyingNetworkPriorities`"
+        errorLine1="                connectionConfig.getVcnUnderlyingNetworkPriorities()) {"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="172"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 33 (current min is 30): `android.net.vcn.VcnCellUnderlyingNetworkTemplate`"
+        errorLine1="            if (template instanceof VcnCellUnderlyingNetworkTemplate) {"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="173"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 33 (current min is 30): `android.net.vcn.VcnCellUnderlyingNetworkTemplate`"
+        errorLine1="                        ((VcnCellUnderlyingNetworkTemplate) template)"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="177"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnCellUnderlyingNetworkTemplate#getCapabilitiesMatchCriteria`"
+        errorLine1="                                .getCapabilitiesMatchCriteria()"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="178"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getVcnUnderlyingNetworkPriorities`"
+        errorLine1="                    mConnectionConfig.getVcnUnderlyingNetworkPriorities(),"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="420"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.telephony.TelephonyManager#unregisterTelephonyCallback`"
+        errorLine1="                .unregisterTelephonyCallback(mActiveDataSubIdListener);"
+        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="467"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getVcnUnderlyingNetworkPriorities`"
+        errorLine1="                    mConnectionConfig.getVcnUnderlyingNetworkPriorities(),"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="521"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getVcnUnderlyingNetworkPriorities`"
+        errorLine1="                            mConnectionConfig.getVcnUnderlyingNetworkPriorities(),"
+        errorLine2="                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="556"
+            column="47"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getVcnUnderlyingNetworkPriorities`"
+        errorLine1="                    mConnectionConfig.getVcnUnderlyingNetworkPriorities(),"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="582"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getVcnUnderlyingNetworkPriorities`"
+        errorLine1="                    mConnectionConfig.getVcnUnderlyingNetworkPriorities(),"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="603"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getVcnUnderlyingNetworkPriorities`"
+        errorLine1="                    mConnectionConfig.getVcnUnderlyingNetworkPriorities(),"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="623"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getGatewayConnectionName`"
+        errorLine1="                + mConnectionConfig.getGatewayConnectionName()"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="647"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#i`"
+        errorLine1="        Slog.i(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="658"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#i`"
+        errorLine1="        Slog.i(TAG, getLogPrefix() + msg, tr);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="663"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(TAG, msg);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="668"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(TAG, msg, tr);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="673"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getVcnUnderlyingNetworkPriorities`"
+        errorLine1="                mConnectionConfig.getVcnUnderlyingNetworkPriorities()) {"
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="691"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.net.vcn.VcnUnderlyingNetworkTemplate#dump`"
+        errorLine1="            priority.dump(pw);"
+        errorLine2="                     ~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="693"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 31 (current min is 30): `android.telephony.TelephonyCallback`"
+        errorLine1="    private class VcnActiveDataSubscriptionIdListener extends TelephonyCallback"
+        errorLine2="                                                              ~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="712"
+            column="63"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 31 (current min is 30): `android.telephony.TelephonyCallback.ActiveDataSubscriptionIdListener`"
+        errorLine1="            implements ActiveDataSubscriptionIdListener {"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkController.java"
+            line="713"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#i`"
+        errorLine1="        Slog.i(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkEvaluator.java"
+            line="430"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/routeselection/UnderlyingNetworkEvaluator.java"
+            line="435"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 31 (current min is 30): `android.net.vcn.VcnConfig`"
+        errorLine1="                handleConfigUpdated((VcnConfig) msg.obj);"
+        errorLine2="                                     ~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="304"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig`"
+        errorLine1="                handleGatewayConnectionQuit((VcnGatewayConnectionConfig) msg.obj);"
+        errorLine2="                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="313"
+            column="46"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnConfig#getGatewayConnectionConfigs`"
+        errorLine1="            if (!mConfig.getGatewayConnectionConfigs().contains(gatewayConnectionConfig)) {"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="344"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.telephony.TelephonyManager#unregisterTelephonyCallback`"
+        errorLine1="            getTelephonyManager().unregisterTelephonyCallback(listener);"
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="371"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnConfig#getGatewayConnectionConfigs`"
+        errorLine1="                mConfig.getGatewayConnectionConfigs()) {"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="415"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getAllExposedCapabilities`"
+        errorLine1="            return gatewayConnectionConfig.getAllExposedCapabilities();"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="453"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getAllExposedCapabilities`"
+        errorLine1="                new ArraySet&lt;>(gatewayConnectionConfig.getAllExposedCapabilities());"
+        errorLine2="                                                       ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="457"
+            column="56"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.telephony.TelephonyManager#registerTelephonyCallback`"
+        errorLine1="                getTelephonyManagerForSubid(subId).registerTelephonyCallback(executor, listener);"
+        errorLine2="                                                   ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="497"
+            column="52"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.telephony.TelephonyManager#unregisterTelephonyCallback`"
+        errorLine1="                getTelephonyManager().unregisterTelephonyCallback(entry.getValue());"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="508"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getAllExposedCapabilities`"
+        errorLine1="                        gatewayConnectionConfig.getAllExposedCapabilities();"
+        errorLine2="                                                ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="528"
+            column="49"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#v`"
+        errorLine1="            Slog.v(TAG, getLogPrefix() + msg);"
+        errorLine2="                 ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="587"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#d`"
+        errorLine1="        Slog.d(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="592"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#d`"
+        errorLine1="        Slog.d(TAG, getLogPrefix() + msg, tr);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="596"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#i`"
+        errorLine1="        Slog.i(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="600"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#i`"
+        errorLine1="        Slog.i(TAG, getLogPrefix() + msg, tr);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="605"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#e`"
+        errorLine1="        Slog.e(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="610"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#e`"
+        errorLine1="        Slog.e(TAG, getLogPrefix() + msg, tr);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="615"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="620"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(TAG, getLogPrefix() + msg, tr);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="625"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 31 (current min is 30): `android.telephony.TelephonyCallback`"
+        errorLine1="    class VcnUserMobileDataStateListener extends TelephonyCallback"
+        errorLine2="                                                 ~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="735"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Class requires API level 31 (current min is 30): `android.telephony.TelephonyCallback.UserMobileDataStateListener`"
+        errorLine1="            implements TelephonyCallback.UserMobileDataStateListener {"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/Vcn.java"
+            line="736"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#hasGatewayOption`"
+        errorLine1="        if (mConnectionConfig.hasGatewayOption("
+        errorLine2="                              ~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="808"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 35 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#isSafeModeEnabled`"
+        errorLine1="        if (isFlagSafeModeConfigEnabled &amp;&amp; !mConnectionConfig.isSafeModeEnabled()) {"
+        errorLine2="                                                              ~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="1234"
+            column="63"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getGatewayConnectionName`"
+        errorLine1="                    mConnectionConfig.getGatewayConnectionName(),"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="1297"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getGatewayConnectionName`"
+        errorLine1="                mConnectionConfig.getGatewayConnectionName(),"
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="1351"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.IpSecManager.IpSecTunnelInterface#setUnderlyingNetwork`"
+        errorLine1="                tunnelIface.setUnderlyingNetwork(underlyingNetwork);"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="1910"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getAllExposedCapabilities`"
+        errorLine1="                final Set&lt;Integer> exposedCaps = mConnectionConfig.getAllExposedCapabilities();"
+        errorLine2="                                                                   ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="1921"
+            column="68"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getRetryIntervalsMillis`"
+        errorLine1="            final long[] retryIntervalsMs = mConnectionConfig.getRetryIntervalsMillis();"
+        errorLine2="                                                              ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2221"
+            column="63"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getAllExposedCapabilities`"
+        errorLine1="        for (int cap : gatewayConnectionConfig.getAllExposedCapabilities()) {"
+        errorLine2="                                               ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2245"
+            column="48"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getMinUdpPort4500NatTimeoutSeconds`"
+        errorLine1="                                gatewayConnectionConfig.getMinUdpPort4500NatTimeoutSeconds()));"
+        errorLine2="                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2296"
+            column="57"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getMinUdpPort4500NatTimeoutSeconds`"
+        errorLine1="                                gatewayConnectionConfig.getMinUdpPort4500NatTimeoutSeconds()));"
+        errorLine2="                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2304"
+            column="57"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="                Slog.wtf("
+        errorLine2="                     ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2306"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="            Slog.wtf("
+        errorLine2="                 ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2313"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getTunnelConnectionParams`"
+        errorLine1="                gatewayConnectionConfig.getTunnelConnectionParams();"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2330"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Field requires API level 31 (current min is 30): `java.net.Inet4Address#ANY`"
+        errorLine1="        lp.addRoute(new RouteInfo(new IpPrefix(Inet4Address.ANY, 0), null /*gateway*/,"
+        errorLine2="                                               ~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2341"
+            column="48"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Field requires API level 31 (current min is 30): `java.net.Inet6Address#ANY`"
+        errorLine1="        lp.addRoute(new RouteInfo(new IpPrefix(Inet6Address.ANY, 0), null /*gateway*/,"
+        errorLine2="                                               ~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2343"
+            column="48"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="            Slog.wtf("
+        errorLine2="                 ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2360"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getMaxMtu`"
+        errorLine1="                        gatewayConnectionConfig.getMaxMtu(),"
+        errorLine2="                                                ~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2368"
+            column="49"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getGatewayConnectionName`"
+        errorLine1="                + mConnectionConfig.getGatewayConnectionName()"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2515"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#v`"
+        errorLine1="            Slog.v(TAG, getLogPrefix() + msg);"
+        errorLine2="                 ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2527"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#d`"
+        errorLine1="        Slog.d(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2532"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#d`"
+        errorLine1="        Slog.d(TAG, getLogPrefix() + msg, tr);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2536"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#i`"
+        errorLine1="        Slog.i(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2540"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#i`"
+        errorLine1="        Slog.i(TAG, getLogPrefix() + msg, tr);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2545"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#w`"
+        errorLine1="        Slog.w(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2550"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#w`"
+        errorLine1="        Slog.w(TAG, getLogPrefix() + msg, tr);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2555"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#e`"
+        errorLine1="        Slog.e(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2560"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#e`"
+        errorLine1="        Slog.e(TAG, getLogPrefix() + msg, tr);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2565"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(TAG, getLogPrefix() + msg);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2570"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(TAG, getLogPrefix() + msg, tr);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2575"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getGatewayConnectionName`"
+        errorLine1="        pw.println(&quot;VcnGatewayConnection (&quot; + mConnectionConfig.getGatewayConnectionName() + &quot;):&quot;);"
+        errorLine2="                                                                ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2589"
+            column="65"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="                Slog.wtf(TAG, &quot;Failed to dump IkeSession: &quot; + e);"
+        errorLine2="                     ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2618"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getTunnelConnectionParams`"
+        errorLine1="                mConnectionConfig.getTunnelConnectionParams();"
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2695"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getTunnelConnectionParams`"
+        errorLine1="        return mConnectionConfig.getTunnelConnectionParams().getTunnelModeChildSessionParams();"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2703"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#getTunnelConnectionParams`"
+        errorLine1="                mConnectionConfig.getTunnelConnectionParams().getTunnelModeChildSessionParams();"
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2708"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#d`"
+        errorLine1="                Slog.d(TAG, &quot;Could not get MTU of underlying network&quot;, e);"
+        errorLine2="                     ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnGatewayConnection.java"
+            line="2826"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Method reference requires API level 31 (current min is 30): `VcnConfig::new`"
+        errorLine1="                                VcnConfig::new);"
+        errorLine2="                                ~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="281"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.os.Build#isDebuggable`"
+        errorLine1="            if (!Build.isDebuggable()) {"
+        errorLine2="                       ~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="391"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 30): `android.net.vcn.VcnConfig#getRestrictedUnderlyingNetworkTransports`"
+        errorLine1="            restrictedTransports.addAll(vcnConfig.getRestrictedUnderlyingNetworkTransports());"
+        errorLine2="                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="422"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 30): `android.os.UserManager#getMainUser`"
+        errorLine1="                    if (!Objects.equals(userManager.getMainUser(), userHandle)) {"
+        errorLine2="                                                    ~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="457"
+            column="53"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnConfig#isTestModeProfile`"
+        errorLine1="        if (vcnConfig.isTestModeProfile()) {"
+        errorLine2="                      ~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="510"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnConfig#getProvisioningPackageName`"
+        errorLine1="                            if (pkgName.equals(entry.getValue().getProvisioningPackageName())) {"
+        errorLine2="                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="555"
+            column="65"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="                    Slog.wtf(TAG, &quot;received unexpected intent: &quot; + action);"
+        errorLine2="                         ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="571"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnConfig#getProvisioningPackageName`"
+        errorLine1="                                    subGrp, entry.getValue().getProvisioningPackageName())"
+        errorLine2="                                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="597"
+            column="62"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnConfig#getProvisioningPackageName`"
+        errorLine1="                                    subGrp, config.getProvisioningPackageName())"
+        errorLine2="                                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="623"
+            column="52"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnConfig#isTestModeProfile`"
+        errorLine1="                        mContext, mLooper, mNetworkProvider, config.isTestModeProfile());"
+        errorLine2="                                                                    ~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="752"
+            column="69"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnConfig#getProvisioningPackageName`"
+        errorLine1="        if (!config.getProvisioningPackageName().equals(opPkgName)) {"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="795"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnConfig#getProvisioningPackageName`"
+        errorLine1="                .checkPackage(mDeps.getBinderCallingUid(), config.getProvisioningPackageName());"
+        errorLine2="                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="801"
+            column="67"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnConfig#getProvisioningPackageName`"
+        errorLine1="                if (config != null &amp;&amp; pkg.equals(config.getProvisioningPackageName())) {"
+        errorLine2="                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="837"
+            column="57"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Method reference requires API level 31 (current min is 30): `VcnConfig::toPersistableBundle`"
+        errorLine1="                            VcnConfig::toPersistableBundle);"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="944"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#v`"
+        errorLine1="            Slog.v(TAG, msg);"
+        errorLine2="                 ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1284"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#d`"
+        errorLine1="        Slog.d(TAG, msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1289"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#d`"
+        errorLine1="        Slog.d(TAG, msg, tr);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1293"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#i`"
+        errorLine1="        Slog.i(TAG, msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1297"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#i`"
+        errorLine1="        Slog.i(TAG, msg, tr);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1302"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#e`"
+        errorLine1="        Slog.e(TAG, msg);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1307"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#e`"
+        errorLine1="        Slog.e(TAG, msg, tr);"
+        errorLine2="             ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1312"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(TAG, msg);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1317"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#wtf`"
+        errorLine1="        Slog.wtf(TAG, msg, tr);"
+        errorLine2="             ~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1322"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 31 (current min is 30): `android.net.vcn.VcnConfig#getProvisioningPackageName`"
+        errorLine1="                                            + entry.getValue().getProvisioningPackageName());"
+        errorLine2="                                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1357"
+            column="64"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#ALLOWED_CAPABILITIES`"
+        errorLine1="            for (int capability : ALLOWED_CAPABILITIES) {"
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/VcnManagementService.java"
+            line="1442"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Field requires API level 31 (current min is 30): `android.net.vcn.VcnGatewayConnectionConfig#ALLOWED_CAPABILITIES`"
+        errorLine1="        for (int cap : VcnGatewayConnectionConfig.ALLOWED_CAPABILITIES) {"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnNetworkProvider.java"
+            line="121"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#v`"
+        errorLine1="            Slog.v(TAG, &quot;Network requested: Request = &quot; + request);"
+        errorLine2="                 ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnNetworkProvider.java"
+            line="162"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 33 (current min is 30): `android.util.Slog#v`"
+        errorLine1="            Slog.v(TAG, &quot;Network request withdrawn: Request = &quot; + request);"
+        errorLine2="                 ~">
+        <location
+            file="frameworks/base/packages/Vcn/service-b/src/com/android/server/vcn/VcnNetworkProvider.java"
+            line="176"
+            column="18"/>
+    </issue>
+
+</issues>
