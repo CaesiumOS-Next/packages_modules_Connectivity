@@ -287,8 +287,10 @@ java_genrule {
         ":connectivity-hiddenapi-files",
         ":framework-connectivity-pre-jarjar{.jar}",
         ":framework-connectivity-t-pre-jarjar{.jar}",
+        ":framework-connectivity-b-pre-jarjar{.jar}",
         ":framework-connectivity.stubs.module_lib{.jar}",
         ":framework-connectivity-t.stubs.module_lib{.jar}",
+        ":framework-connectivity-b.stubs.module_lib{.jar}",
         ":framework-connectivity-module-api-stubs-including-flagged{.jar}",
         "jarjar-excludes.txt",
     ],
@@ -302,14 +304,17 @@ java_genrule {
         "--prefix android.net.connectivity " +
         "--apistubs $(location :framework-connectivity.stubs.module_lib{.jar}) " +
         "--apistubs $(location :framework-connectivity-t.stubs.module_lib{.jar}) " +
+        "--apistubs $(location :framework-connectivity-b.stubs.module_lib{.jar}) " +
         "--apistubs $(location :framework-connectivity-module-api-stubs-including-flagged{.jar}) " +
         // Make a ":"-separated list. There will be an extra ":" but empty items are ignored.
         "--unsupportedapi $$(printf ':%s' $(locations :connectivity-hiddenapi-files)) " +
         "--excludes $(location jarjar-excludes.txt) " +
         "--output $(out)",
     visibility: [
+        "//frameworks/base/packages/Vcn/framework-b",
         "//packages/modules/Connectivity/framework:__subpackages__",
         "//packages/modules/Connectivity/framework-t:__subpackages__",
+        "//packages/modules/Connectivity/framework-b:__subpackages__",
         "//packages/modules/Connectivity/service",
     ],
 }
@@ -319,6 +324,7 @@ droidstubs {
     srcs: [
         ":framework-connectivity-sources",
         ":framework-connectivity-tiramisu-updatable-sources",
+        ":framework-connectivity-b-sources",
         ":framework-networksecurity-sources",
         ":framework-nearby-java-sources",
         ":framework-thread-sources",
