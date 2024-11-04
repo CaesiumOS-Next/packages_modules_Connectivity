@@ -117,6 +117,30 @@
       },
       "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53befc03_79721677",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 53
+      },
+      "lineNbr": 2508,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-04T19:36:01Z",
+      "side": 1,
+      "message": "For this case, you should be able to use adoptShellPermissions to adopt / drop the network settings permission.",
+      "parentUuid": "72c7f72c_b86459e6",
+      "range": {
+        "startLine": 2508,
+        "startChar": 12,
+        "endLine": 2508,
+        "endChar": 15
+      },
+      "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
