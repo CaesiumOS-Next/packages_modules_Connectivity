@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d4d5fc7_b352e952",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-04T21:23:20Z",
+      "side": 1,
+      "message": "btw. I believe this missed the boat for M-2025-01 (unless a cherrypick is requested), and as such will be in the M-2025-02 tethering apex.  That *should* roll out to the world around the end of February (fingers crossed) or beginning of March.  The 100% rolled out prebuilts should land in the internal tree soon after, call it mid-March.\n\nCherrypicking to Jan would accelerate things by a month (ie. mid-February).\n[There is no December module due to holidays, and it\u0027s way too late for November]\n\nThere\u0027s also a quite likely possibility that 25Q2 development will switch to building all mainline modules from source for some time (that\u0027s what happened with 24Q3/V and M-2024-08 the V FRC)... but this likely won\u0027t happen until 25Q1 branches (which I *think* happens in approximately a month, early-to-mid December).  But it\u0027s hard to predict as I think the trunk stable timelines / development modes for mainline modules / etc are still very much in a state of flux.\n\nEither way it *will* make it into 25Q2.\nBut you\u0027ll have to build mainline modules from source in the mean time.",
+      "revId": "9b15fa040f06b23c373d8ef16ef17e5122b21d46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
