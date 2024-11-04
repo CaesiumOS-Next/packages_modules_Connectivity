@@ -53,25 +53,21 @@ public class DownloadHelper {
     }
 
     /**
-     * Returns true if the specified download completed successfully.
+     * Returns the status of the provided download id.
      *
      * @param downloadId the download.
-     * @return true if the download completed successfully.
+     * @return {@link DownloadStatus} of the download.
      */
-    public boolean isSuccessful(long downloadId) {
+    public DownloadStatus getDownloadStatus(long downloadId) {
         try (Cursor cursor = mDownloadManager.query(new Query().setFilterById(downloadId))) {
-            if (cursor == null) {
-                return false;
-            }
-            if (cursor.moveToFirst()) {
-                int status =
-                        cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-                if (DownloadManager.STATUS_SUCCESSFUL == status) {
-                    return true;
-                }
+            if (cursor != null && cursor.moveToFirst()) {
+                return new DownloadStatus(
+                        downloadId,
+                        cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS)),
+                        cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_REASON)));
             }
         }
-        return false;
+        return new DownloadStatus(downloadId);
     }
 
     /**
@@ -86,5 +82,59 @@ public class DownloadHelper {
             return null;
         }
         return mDownloadManager.getUriForDownloadedFile(downloadId);
+    }
+
+    // A wrapper around the status and reason Ids returned by the {@link DownloadManager}.
+    public static class DownloadStatus {
+        private final long mDownloadId;
+        private final int mStatus;
+        private final int mReason;
+
+        DownloadStatus(long downloadId, int status, int reason) {
+            mDownloadId = downloadId;
+            mStatus = status;
+            mReason = reason;
+        }
+
+        DownloadStatus(long downloadId, int status) {
+            this(downloadId, status, /* reason= */ -1);
+        }
+
+        DownloadStatus(long downloadId) {
+            this(downloadId, /* status= */ -1, /* reason= */ -1);
+        }
+
+        public long getDownloadId() {
+            return mDownloadId;
+        }
+
+        public int getStatus() {
+            return mStatus;
+        }
+
+        public int getReason() {
+            return mReason;
+        }
+
+        public boolean isSuccessful() {
+            return mStatus == DownloadManager.STATUS_SUCCESSFUL;
+        }
+
+        public boolean isStorageError() {
+            return mStatus == DownloadManager.STATUS_FAILED
+                    && (mReason == DownloadManager.ERROR_DEVICE_NOT_FOUND
+                            || mReason == DownloadManager.ERROR_FILE_ERROR
+                            || mReason == DownloadManager.ERROR_FILE_ALREADY_EXISTS
+                            || mReason == DownloadManager.ERROR_INSUFFICIENT_SPACE);
+        }
+
+        public boolean isHttpError() {
+            return mStatus == DownloadManager.STATUS_FAILED
+                    && (mReason == DownloadManager.ERROR_HTTP_DATA_ERROR
+                            || mReason == DownloadManager.ERROR_TOO_MANY_REDIRECTS
+                            || mReason == DownloadManager.ERROR_UNHANDLED_HTTP_CODE
+                            // If an HTTP error occurred, reason will hold the HTTP status code.
+                            || (400 <= mReason && mReason < 600));
+        }
     }
 }
