@@ -64,6 +64,30 @@
       },
       "revId": "dfce1685d05a4b8fb1fdd0f2bc47b1c8f8f2c06b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d865e85e_25ca5c27",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-04T17:58:46Z",
+      "side": 1,
+      "message": "Ah, good to know, I wasn\u0027t aware of that, maybe the annotation is only for unit tests and not CTS tests. It might be better to remove the `@VisibleForTesting` annotation completely then, as it is unnecessary. Feel free to first submit this CL, though, if you want to have it ready for tomorrow.",
+      "parentUuid": "548b4b20_9c0c6bb7",
+      "range": {
+        "startLine": 39,
+        "startChar": 3,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "dfce1685d05a4b8fb1fdd0f2bc47b1c8f8f2c06b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
