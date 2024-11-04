@@ -22,6 +22,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.EthernetManager;
 import android.net.EthernetNetworkSpecifier;
+import android.net.INetd;
 import android.net.IpConfiguration;
 import android.net.IpConfiguration.IpAssignment;
 import android.net.IpConfiguration.ProxySettings;
@@ -38,6 +39,7 @@ import android.net.ip.IpClientUtil;
 import android.net.shared.ProvisioningConfiguration;
 import android.os.ConditionVariable;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
@@ -49,6 +51,7 @@ import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.net.module.util.InterfaceParams;
+import com.android.net.module.util.NetdUtils;
 import com.android.server.connectivity.ConnectivityResources;
 
 import java.io.FileDescriptor;
@@ -270,6 +273,7 @@ public class EthernetNetworkFactory {
         private final Context mContext;
         private final NetworkProvider mNetworkProvider;
         private final Dependencies mDeps;
+        private final INetd mNetd;
         private NetworkProvider.NetworkOfferCallback mNetworkOfferCallback;
 
         private static String sTcpBufferSizes = null;  // Lazy initialized.
@@ -421,6 +425,8 @@ public class EthernetNetworkFactory {
             mNetworkProvider = networkProvider;
             mDeps = deps;
             mHwAddress = hwAddress;
+            mNetd = INetd.Stub.asInterface((IBinder) context.getSystemService(Context.NETD_SERVICE));
+            Objects.requireNonNull(mNetd, "could not get netd instance");
         }
 
         /**
@@ -582,11 +588,18 @@ public class EthernetNetworkFactory {
             }
             // Reachability lost will be seen only if the gateway is not reachable.
             // Since ethernet FW doesn't have the mechanism to scan for new networks
-            // like WiFi, simply restart.
+            // like WiFi, we toggle the ethernet state to ensure both ipv4 and ipv6
+            // stacks are reset.
             // If there is a better network, that will become default and apps
             // will be able to use internet. If ethernet gets connected again,
             // and has backhaul connectivity, it will become default.
-            maybeRestart();
+            Log.i(TAG, "Resetting interface : " + name);
+            NetdUtils.setInterfaceDown(mNetd, name);
+            Log.i(TAG, "Turning down iface: " + name);
+            mHandler.postDelayed(() -> {
+                NetdUtils.setInterfaceUp(mNetd, name);
+                Log.i(TAG, "Turning up iface: " + name);
+            }, 3000);
         }
 
         /** Returns true if state has been modified */
