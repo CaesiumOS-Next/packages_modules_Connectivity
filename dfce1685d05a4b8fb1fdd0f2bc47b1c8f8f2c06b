@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a5e8c0b_2e5ff1f3",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-04T17:46:15Z",
+      "side": 1,
+      "message": "Nit: I think \"public\" is not necessary if you are adding the `@VisibleForTesting` tag (please verify before submitting, though).",
+      "range": {
+        "startLine": 39,
+        "startChar": 3,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "bb8d93dc_edd5a84f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+              "range": {
+                "startLine": 39,
+                "startChar": 0,
+                "endLine": 41,
+                "endChar": 0
+              },
+              "replacement": "    @VisibleForTesting static final String CT_ROOT_DIRECTORY_PATH \u003d \"/data/misc/keychain/ct/\";\n"
+            }
+          ]
+        }
+      ],
+      "revId": "dfce1685d05a4b8fb1fdd0f2bc47b1c8f8f2c06b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
