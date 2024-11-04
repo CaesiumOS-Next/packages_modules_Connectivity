@@ -141,6 +141,30 @@
       },
       "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "890985a1_0c1c2c8d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 53
+      },
+      "lineNbr": 2508,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-04T19:37:25Z",
+      "side": 1,
+      "message": "Search for \"runAsShell\": https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/testutils/devicetests/com/android/testutils/TestPermissionUtil.kt;l\u003d33?q\u003drunAsShell\u0026sq\u003drepo:android%2Fplatform%2Fsuperproject%2Fmain%20b:main%20(f:packages%2Fmodules%2F(Connectivity%7CNetworkStack%7CDnsResolver)%20OR%20f:system%2Fnetd)",
+      "parentUuid": "53befc03_79721677",
+      "range": {
+        "startLine": 2508,
+        "startChar": 12,
+        "endLine": 2508,
+        "endChar": 15
+      },
+      "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
