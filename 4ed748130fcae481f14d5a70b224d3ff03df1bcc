@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60775547_f76450ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-04T05:19:29Z",
+      "side": 1,
+      "message": "m",
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f50340f0_95834149",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-04T05:19:29Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Bpfmt: This file is not formatted.\n\nAnalyzer Description: Formats Android.bp files.\nOwner: soong-team@google.com\n\nThis file is not formatted.\n\nRun `prebuilts/build-tools/linux-x86/bin/bpfmt -w {filename}` to format the file, or apply the suggested fix. You may also want to add `bpfmt \u003d true` to `PREUPLOAD.cfg`",
+      "range": {
+        "startLine": 0,
+        "startChar": 0,
+        "endLine": 0,
+        "endChar": 0
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c7902ce_d51f9abb",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-04T05:19:29Z",
+      "side": 1,
+      "message": "Similar to the comment in previous CL, is it the right place to add this class?",
+      "range": {
+        "startLine": 646,
+        "startChar": 8,
+        "endLine": 646,
+        "endChar": 70
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5799e0e_d037bce5",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-04T05:19:29Z",
+      "side": 1,
+      "message": "It seems to me mFd is better. as it is file descriptor.\n\nAlso is there any reason why this variable couldn\u0027t be `private`?",
+      "range": {
+        "startLine": 84,
+        "startChar": 14,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abfc0bbd_08f1af12",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-04T05:19:29Z",
+      "side": 1,
+      "message": "If `mId` is final, I think this mFileDescriptor should also be final. We can have a separate variable to track whether the unregisterAndDestroyFd() has be called or not instead of do the `mFileDescriptor \u003d null` check.",
+      "range": {
+        "startLine": 86,
+        "startChar": 27,
+        "endLine": 86,
+        "endChar": 42
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0debf000_a1eab65c",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-04T05:19:29Z",
+      "side": 1,
+      "message": "I don\u0027t remember if we have discussed this or not. \n\nI feel like we should follow the handler API behavior If delayMs \u003c 0, we should execute the task immediately.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/os/Handler.java;l\u003d704;drc\u003d0a293aabaef57434b7cde9f431bacf6dc3ee7fe2",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 19
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a03de01_19cc898b",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-04T05:19:29Z",
+      "side": 1,
+      "message": "For kotlin, I think we can do start directly like follows:\n\n```\n private val handlerThread by lazy {\n        HandlerThread(\"$TAG handler thread\").apply { start() }\n    }\n private val handler by lazy { Handler(handlerThread.looper) }\n```",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 14
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30f35ac5_3f4a708b",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-04T05:19:29Z",
+      "side": 1,
+      "message": "I am not fully follow what we are trying to test here. It seems to me that if the cv.open() is executed immediately, the test will still pass?",
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
