@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af1100ff_ee11c2a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-04T09:27:32Z",
+      "side": 1,
+      "message": "Explain to me please how these flags work with mainline modules.",
+      "revId": "10bb7d887bd13576ad749ac46ede6b31c8741dda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
