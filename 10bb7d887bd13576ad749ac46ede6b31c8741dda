@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4b18786_e822395f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952023
+      },
+      "writtenOn": "2024-11-04T19:28:37Z",
+      "side": 1,
+      "message": "Removed the use of flags. Realized that build-time flag guarding wouldn\u0027t provide much protection anyway.",
+      "parentUuid": "af1100ff_ee11c2a8",
+      "revId": "10bb7d887bd13576ad749ac46ede6b31c8741dda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a1e9f8e_3bb69300",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-11-04T09:29:07Z",
       "side": 1,
       "message": "why can\u0027t this be guarded by if exists() or just be unconditional with no log on failure?",
+      "range": {
+        "startLine": 1664,
+        "startChar": 0,
+        "endLine": 1664,
+        "endChar": 4
+      },
+      "revId": "10bb7d887bd13576ad749ac46ede6b31c8741dda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ebe75fd_e825ffb7",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1664,
+      "author": {
+        "id": 1952023
+      },
+      "writtenOn": "2024-11-04T19:28:37Z",
+      "side": 1,
+      "message": "Updated the change to be unconditional with no log on failure.",
+      "parentUuid": "6a1e9f8e_3bb69300",
       "range": {
         "startLine": 1664,
         "startChar": 0,
