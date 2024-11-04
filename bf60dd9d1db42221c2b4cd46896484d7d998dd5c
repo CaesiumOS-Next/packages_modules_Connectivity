@@ -16,6 +16,24 @@
       "message": "bump?",
       "revId": "bf60dd9d1db42221c2b4cd46896484d7d998dd5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a93afdd6_8da42153",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-04T15:55:15Z",
+      "side": 1,
+      "message": "I didn\u0027t (somehow) see this patch till now...\n\nFrom what I recall this stuff did exist in the 4.14 tree I was looking at... However now I indeed can\u0027t find it.  Maybe I mixed things up...\n\nTechnically speaking, V requires 4.19+ so this shouldn\u0027t matter.  I know various AOSP forks (incl. Lineage) do make older kernels work - and I\u0027m a bit on the fence whether I should take these sorts of changes or not.\n\n(We should definitely merge the KVER_4_14 -\u003e 4_19 portion as that\u0027s simply incorrect, but perhaps that should be all we merge, or it should be split into two patches...)",
+      "parentUuid": "ba1bf557_c61dc889",
+      "revId": "bf60dd9d1db42221c2b4cd46896484d7d998dd5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
