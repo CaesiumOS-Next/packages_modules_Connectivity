@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b419b19_c612d13a",
+        "filename": "bpf/netd/BpfHandler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-04T17:48:31Z",
+      "side": 1,
+      "message": "spurious \u0027is\u0027",
+      "range": {
+        "startLine": 123,
+        "startChar": 49,
+        "endLine": 123,
+        "endChar": 51
+      },
+      "revId": "07ec998e2c3eb322144f68d0c494c1d8e40d02e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3286b1c_f79ab74d",
+        "filename": "bpf/netd/BpfHandler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-04T17:48:31Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 168,
+        "startChar": 49,
+        "endLine": 168,
+        "endChar": 51
+      },
+      "revId": "07ec998e2c3eb322144f68d0c494c1d8e40d02e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
