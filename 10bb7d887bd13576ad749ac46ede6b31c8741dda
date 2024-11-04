@@ -16,6 +16,29 @@
       "message": "Explain to me please how these flags work with mainline modules.",
       "revId": "10bb7d887bd13576ad749ac46ede6b31c8741dda",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a1e9f8e_3bb69300",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1664,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-04T09:29:07Z",
+      "side": 1,
+      "message": "why can\u0027t this be guarded by if exists() or just be unconditional with no log on failure?",
+      "range": {
+        "startLine": 1664,
+        "startChar": 0,
+        "endLine": 1664,
+        "endChar": 4
+      },
+      "revId": "10bb7d887bd13576ad749ac46ede6b31c8741dda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
