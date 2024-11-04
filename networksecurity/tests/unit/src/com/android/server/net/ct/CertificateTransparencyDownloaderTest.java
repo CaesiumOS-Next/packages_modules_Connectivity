@@ -31,6 +31,8 @@ import android.net.Uri;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.android.server.net.ct.DownloadHelper.DownloadStatus;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -118,7 +120,7 @@ public class CertificateTransparencyDownloaderTest {
     public void testDownloader_handleMetadataCompleteSuccessful() {
         long metadataId = 123;
         mDataStore.setPropertyLong(Config.METADATA_URL_KEY, metadataId);
-        when(mDownloadHelper.isSuccessful(metadataId)).thenReturn(true);
+        when(mDownloadHelper.getDownloadStatus(metadataId)).thenReturn(DownloadStatus.SUCCESS);
 
         long contentId = 666;
         String contentUrl = "http://test-content.org";
@@ -135,7 +137,8 @@ public class CertificateTransparencyDownloaderTest {
     public void testDownloader_handleMetadataCompleteFailed() {
         long metadataId = 123;
         mDataStore.setPropertyLong(Config.METADATA_URL_KEY, metadataId);
-        when(mDownloadHelper.isSuccessful(metadataId)).thenReturn(false);
+        when(mDownloadHelper.getDownloadStatus(metadataId))
+                .thenReturn(DownloadStatus.FAILURE_UNKNOWN);
 
         String contentUrl = "http://test-content.org";
         mDataStore.setProperty(Config.CONTENT_URL_PENDING, contentUrl);
@@ -259,7 +262,7 @@ public class CertificateTransparencyDownloaderTest {
 
         mDataStore.setPropertyLong(Config.CONTENT_URL_KEY, contentId);
         mDataStore.setProperty(Config.CONTENT_URL_PENDING, contentUri.toString());
-        when(mDownloadHelper.isSuccessful(contentId)).thenReturn(true);
+        when(mDownloadHelper.getDownloadStatus(contentId)).thenReturn(DownloadStatus.SUCCESS);
         when(mDownloadHelper.getUri(contentId)).thenReturn(contentUri);
     }
 
