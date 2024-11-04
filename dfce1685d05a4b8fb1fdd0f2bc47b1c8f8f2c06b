@@ -40,6 +40,30 @@
       ],
       "revId": "dfce1685d05a4b8fb1fdd0f2bc47b1c8f8f2c06b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "548b4b20_9c0c6bb7",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-11-04T17:53:08Z",
+      "side": 1,
+      "message": "Thanks! I actually wasn\u0027t able to access it from cts/ without also specifying public. I think this is because it\u0027s just an annotation to mark that the visibility has been expanded to allow for testing and doesn\u0027t actually do anything itself (https://developer.android.com/reference/androidx/annotation/VisibleForTesting).\n\nhttps://yaqs.corp.google.com/eng/q/4850641538383872",
+      "parentUuid": "8a5e8c0b_2e5ff1f3",
+      "range": {
+        "startLine": 39,
+        "startChar": 3,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "dfce1685d05a4b8fb1fdd0f2bc47b1c8f8f2c06b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
