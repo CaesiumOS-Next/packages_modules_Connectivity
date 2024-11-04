@@ -52,6 +52,24 @@
       "parentUuid": "a93afdd6_8da42153",
       "revId": "bf60dd9d1db42221c2b4cd46896484d7d998dd5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd72e0d_88dfdbbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-04T17:39:12Z",
+      "side": 1,
+      "message": "Ok, so let\u0027s do this:\n\nSplit it into the \u0027obvious\u0027 fix, and the \u0027if V if 4.19+\u0027 logic.\n\nAdd comments of *some* sort...\n\nI\u0027m not sure what you should write, but perhaps something along the lines of:\n\nif (V) {\n  // V requires 4.19+, so technically this is 2nd \u0027if\u0027 is not required, but it\n  // doesn\u0027t hurt us to try to support AOSP forks that try to support older kernels.\n  if (4.19+) {\n    ...\n\nside note: at some point around the end of 2025 (25Q4?) or beginning of 2026 (26Q2?) we\u0027ll start requiring 5.10+ and, perhaps more importantly bpf ringbuffers (which requires Linux ~5.8)",
+      "parentUuid": "e0f9ee79_c959a73a",
+      "revId": "bf60dd9d1db42221c2b4cd46896484d7d998dd5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
