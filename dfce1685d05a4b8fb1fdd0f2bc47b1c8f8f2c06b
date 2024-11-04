@@ -88,6 +88,30 @@
       },
       "revId": "dfce1685d05a4b8fb1fdd0f2bc47b1c8f8f2c06b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b33a5a1f_dfdc0b41",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-11-04T18:08:05Z",
+      "side": 1,
+      "message": "No worries, I removed the @VisibleForTesting annotation now :)",
+      "parentUuid": "d865e85e_25ca5c27",
+      "range": {
+        "startLine": 39,
+        "startChar": 3,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "dfce1685d05a4b8fb1fdd0f2bc47b1c8f8f2c06b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
