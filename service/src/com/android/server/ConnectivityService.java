@@ -1036,6 +1036,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private long mMaxWakelockDurationMs = 0;
     private long mLastWakeLockAcquireTimestamp = 0;
 
+    @Nullable
     private final IpConnectivityLog mMetricsLog;
 
     @Nullable private final NetworkRequestStateStatsMetrics mNetworkRequestStateStatsMetrics;
@@ -1796,7 +1797,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     @VisibleForTesting
     protected ConnectivityService(Context context, IDnsResolver dnsresolver,
-            IpConnectivityLog logger, INetd netd, Dependencies deps) {
+            @Nullable IpConnectivityLog logger, INetd netd, Dependencies deps) {
         if (DBG) log("ConnectivityService starting up");
 
         mDeps = Objects.requireNonNull(deps, "missing Dependencies");
@@ -12111,7 +12112,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void logNetworkEvent(NetworkAgentInfo nai, int evtype) {
         int[] transports = nai.networkCapabilities.getTransportTypes();
-        mMetricsLog.log(nai.network.getNetId(), transports, new NetworkEvent(evtype));
+        if (mMetricsLog != null) {
+            mMetricsLog.log(nai.network.getNetId(), transports, new NetworkEvent(evtype));
+        }
     }
 
     private static boolean toBool(int encodedBoolean) {
