@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10192a49_889e65a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-04T08:36:40Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "5c4f356f419b25134d6ba6471967ad1fecefaeaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4bfe63b_b9a5b6e7",
+        "filename": "service-t/src/com/android/server/net/TrafficStatsRateLimitCache.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-04T08:36:40Z",
+      "side": 1,
+      "message": "Nit: Is it sufficient to use `entry -\u003e !entry.isEmpty()`?",
+      "range": {
+        "startLine": 44,
+        "startChar": 48,
+        "endLine": 44,
+        "endChar": 88
+      },
+      "revId": "5c4f356f419b25134d6ba6471967ad1fecefaeaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
