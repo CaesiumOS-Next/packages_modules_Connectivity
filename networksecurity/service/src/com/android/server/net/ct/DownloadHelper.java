@@ -38,6 +38,16 @@ public class DownloadHelper {
         this(context.getSystemService(DownloadManager.class));
     }
 
+    public enum DownloadStatus {
+        SUCCESS,
+        PENDING,
+        FAILURE_TRANSIENT,
+        FAILURE_STORAGE,
+        FAILURE_HTTP,
+        FAILURE_UNKNOWN,
+        UNKNOWN
+    }
+
     /**
      * Sends a request to start the download of a provided url.
      *
@@ -53,25 +63,59 @@ public class DownloadHelper {
     }
 
     /**
-     * Returns true if the specified download completed successfully.
+     * Returns the status of the provided download id.
      *
      * @param downloadId the download.
-     * @return true if the download completed successfully.
+     * @return {@link DownloadStatus} of the download.
      */
-    public boolean isSuccessful(long downloadId) {
+    public DownloadStatus getDownloadStatus(long downloadId) {
         try (Cursor cursor = mDownloadManager.query(new Query().setFilterById(downloadId))) {
             if (cursor == null) {
-                return false;
+                return DownloadStatus.UNKNOWN;
             }
             if (cursor.moveToFirst()) {
                 int status =
                         cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-                if (DownloadManager.STATUS_SUCCESSFUL == status) {
-                    return true;
+                switch (status) {
+                    case DownloadManager.STATUS_SUCCESSFUL:
+                        return DownloadStatus.SUCCESS;
+                    case DownloadManager.STATUS_FAILED:
+                        return errorToDownloadStatus(
+                                cursor.getInt(
+                                        cursor.getColumnIndexOrThrow(
+                                                DownloadManager.COLUMN_REASON)));
+                    case DownloadManager.STATUS_RUNNING:
+                    case DownloadManager.STATUS_PAUSED:
+                    case DownloadManager.STATUS_PENDING:
+                        return DownloadStatus.PENDING;
+                    default:
                 }
             }
         }
-        return false;
+        return DownloadStatus.UNKNOWN;
+    }
+
+    private DownloadStatus errorToDownloadStatus(int error) {
+        switch (error) {
+            case DownloadManager.ERROR_CANNOT_RESUME:
+                return DownloadStatus.FAILURE_TRANSIENT;
+            case DownloadManager.ERROR_DEVICE_NOT_FOUND:
+            case DownloadManager.ERROR_FILE_ERROR:
+            case DownloadManager.ERROR_INSUFFICIENT_SPACE:
+            case DownloadManager.ERROR_FILE_ALREADY_EXISTS:
+                return DownloadStatus.FAILURE_STORAGE;
+            case DownloadManager.ERROR_UNKNOWN:
+                return DownloadStatus.FAILURE_UNKNOWN;
+            case DownloadManager.ERROR_HTTP_DATA_ERROR:
+            case DownloadManager.ERROR_TOO_MANY_REDIRECTS:
+            case DownloadManager.ERROR_UNHANDLED_HTTP_CODE:
+                return DownloadStatus.FAILURE_HTTP;
+            default: // If an HTTP error occurred, error will hold the HTTP status code
+                if (400 <= error && error < 600) {
+                    return DownloadStatus.FAILURE_HTTP;
+                }
+        }
+        return DownloadStatus.FAILURE_UNKNOWN;
     }
 
     /**
