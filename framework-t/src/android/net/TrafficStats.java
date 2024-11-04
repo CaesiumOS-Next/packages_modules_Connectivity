@@ -1010,7 +1010,7 @@ public class TrafficStats {
         // This mirrors a similar check on the service side, but is primarily for
         // efficiency rather than security, as user-space checks can be bypassed.
         final int myUid = getMyUid();
-        if (!isEntryValueTypeValid(type) || (myUid != SYSTEM_UID && myUid != uid)) {
+        if (myUid != SYSTEM_UID && myUid != uid) {
             return UNSUPPORTED;
         }
         final StatsResult stats;
@@ -1024,9 +1024,6 @@ public class TrafficStats {
 
     /** @hide */
     public static long getTotalStats(int type) {
-        if (!isEntryValueTypeValid(type)) {
-            return UNSUPPORTED;
-        }
         final StatsResult stats;
         try {
             stats = getStatsService().getTotalStats();
@@ -1038,9 +1035,6 @@ public class TrafficStats {
 
     /** @hide */
     public static long getIfaceStats(String iface, int type) {
-        if (!isEntryValueTypeValid(type)) {
-            return UNSUPPORTED;
-        }
         final StatsResult stats;
         try {
             stats = getStatsService().getIfaceStats(iface);
