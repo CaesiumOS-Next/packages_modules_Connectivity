@@ -580,5 +580,22 @@ package android.net.thread {
     method @NonNull public java.util.List<android.net.thread.ThreadNetworkController> getAllThreadNetworkControllers();
   }
 
+  @FlaggedApi("com.android.net.thread.flags.thread_mobile_enabled") public final class ThreadNetworkSpecifier extends android.net.NetworkSpecifier implements android.os.Parcelable {
+    method public int describeContents();
+    method @Nullable public android.net.thread.OperationalDatasetTimestamp getActiveTimestamp();
+    method @NonNull public byte[] getExtendedPanId();
+    method public boolean isRouterEligibleForLeader();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.thread.ThreadNetworkSpecifier> CREATOR;
+  }
+
+  public static final class ThreadNetworkSpecifier.Builder {
+    ctor public ThreadNetworkSpecifier.Builder(@NonNull byte[]);
+    ctor public ThreadNetworkSpecifier.Builder(@NonNull android.net.thread.ThreadNetworkSpecifier);
+    method @NonNull public android.net.thread.ThreadNetworkSpecifier build();
+    method @NonNull public android.net.thread.ThreadNetworkSpecifier.Builder setActiveTimestamp(@Nullable android.net.thread.OperationalDatasetTimestamp);
+    method @NonNull public android.net.thread.ThreadNetworkSpecifier.Builder setRouterEligibleForLeader(boolean);
+  }
+
 }
 
