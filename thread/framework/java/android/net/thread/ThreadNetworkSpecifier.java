@@ -18,13 +18,16 @@ package android.net.thread;
 
 import static android.net.thread.ActiveOperationalDataset.LENGTH_EXTENDED_PAN_ID;
 
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.SystemApi;
 import android.net.NetworkSpecifier;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.android.net.module.util.HexDump;
+import com.android.net.thread.flags.Flags;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -34,6 +37,8 @@ import java.util.Objects;
  *
  * @hide
  */
+@FlaggedApi(Flags.FLAG_THREAD_MOBILE_ENABLED)
+@SystemApi
 public final class ThreadNetworkSpecifier extends NetworkSpecifier implements Parcelable {
     /** The Extended PAN ID of a Thread network. */
     @NonNull private final byte[] mExtendedPanId;
