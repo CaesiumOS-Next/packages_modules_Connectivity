@@ -12,10 +12,32 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+<<<<<<< HEAD   (8479d7 Merge "Enable error-prone checking for CtsNetTestCasesDefaul)
 from net_tests_utils.host.python import mdns_utils, multi_devices_test_base, tether_utils
 from net_tests_utils.host.python import wifip2p_utils
+||||||| BASE
+from mobly import asserts
+from mobly import base_test
+from mobly import test_runner
+from mobly import utils
+from mobly.controllers import android_device
+from net_tests_utils.host.python import adb_utils, apf_utils, assert_utils, mdns_utils, tether_utils
+=======
+from mobly import base_test
+from mobly import test_runner
+from mobly import utils
+from mobly.controllers import android_device
+from net_tests_utils.host.python import adb_utils, apf_utils, assert_utils, mdns_utils, tether_utils
+>>>>>>> BRANCH (33f875 Remove `test_apf_drop_ethercat` multi-devices test)
 from net_tests_utils.host.python.tether_utils import UpstreamType
 
+<<<<<<< HEAD   (8479d7 Merge "Enable error-prone checking for CtsNetTestCasesDefaul)
+||||||| BASE
+CONNECTIVITY_MULTI_DEVICES_SNIPPET_PACKAGE = "com.google.snippet.connectivity"
+COUNTER_DROPPED_ETHERTYPE_NOT_ALLOWED = "DROPPED_ETHERTYPE_NOT_ALLOWED"
+=======
+CONNECTIVITY_MULTI_DEVICES_SNIPPET_PACKAGE = "com.google.snippet.connectivity"
+>>>>>>> BRANCH (33f875 Remove `test_apf_drop_ethercat` multi-devices test)
 
 class ConnectivityMultiDevicesTest(
     multi_devices_test_base.MultiDevicesTestBase
@@ -70,6 +92,7 @@ class ConnectivityMultiDevicesTest(
           self.serverDevice, UpstreamType.NONE
       )
 
+<<<<<<< HEAD   (8479d7 Merge "Enable error-prone checking for CtsNetTestCasesDefaul)
   def test_mdns_via_wifip2p(self):
     wifip2p_utils.assume_wifi_p2p_test_preconditions(
         self.serverDevice, self.clientDevice
@@ -87,3 +110,62 @@ class ConnectivityMultiDevicesTest(
     finally:
       mdns_utils.cleanup_mdns_service(self.clientDevice, self.serverDevice)
       wifip2p_utils.cleanup_wifi_p2p(self.serverDevice, self.clientDevice)
+||||||| BASE
+  def test_apf_drop_ethercat(self):
+    tether_utils.assume_hotspot_test_preconditions(
+        self.serverDevice, self.clientDevice, UpstreamType.NONE
+    )
+    client = self.clientDevice.connectivity_multi_devices_snippet
+    try:
+      server_iface_name, client_network = (
+          tether_utils.setup_hotspot_and_client_for_upstream_type(
+              self.serverDevice, self.clientDevice, UpstreamType.NONE
+          )
+      )
+      client_iface_name = client.getInterfaceNameFromNetworkHandle(client_network)
+
+      adb_utils.set_doze_mode(self.clientDevice, True)
+
+      count_before_test = apf_utils.get_apf_counter(
+          self.clientDevice,
+          client_iface_name,
+          COUNTER_DROPPED_ETHERTYPE_NOT_ALLOWED,
+      )
+      try:
+        apf_utils.send_broadcast_empty_ethercat_packet(
+            self.serverDevice, server_iface_name
+        )
+      except apf_utils.UnsupportedOperationException:
+        asserts.skip(
+            "NetworkStack is too old to support send raw packet, skip test."
+        )
+
+      assert_utils.expect_with_retry(
+          lambda: apf_utils.get_apf_counter(
+              self.clientDevice,
+              client_iface_name,
+              COUNTER_DROPPED_ETHERTYPE_NOT_ALLOWED,
+          )
+          > count_before_test
+      )
+    finally:
+      adb_utils.set_doze_mode(self.clientDevice, False)
+      tether_utils.cleanup_tethering_for_upstream_type(
+          self.serverDevice, UpstreamType.NONE
+      )
+
+
+if __name__ == "__main__":
+  # Take test args
+  if "--" in sys.argv:
+    index = sys.argv.index("--")
+    sys.argv = sys.argv[:1] + sys.argv[index + 1 :]
+  test_runner.main()
+=======
+if __name__ == "__main__":
+  # Take test args
+  if "--" in sys.argv:
+    index = sys.argv.index("--")
+    sys.argv = sys.argv[:1] + sys.argv[index + 1 :]
+  test_runner.main()
+>>>>>>> BRANCH (33f875 Remove `test_apf_drop_ethercat` multi-devices test)
