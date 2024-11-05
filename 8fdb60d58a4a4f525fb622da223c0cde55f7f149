@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0c0b0f4_e64dda0b",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-05T17:46:02Z",
+      "side": 1,
+      "message": "Hve you tried #1 and #2? I think they are meaningfully better. For #1, just because an API is deprecated doesn\u0027t mean we shouldn\u0027t use it if the replacement is not adequate. And for #2, I don\u0027t think we\u0027d need to get the packagemanager in another user\u0027s context, so hopefully it won\u0027t throw. I would try these two options first because they seem strictly better than #3 or what you have now.\n\nAs for my suggestion: yes, you\u0027re right that we shouldn\u0027t break those callsites. The lesson from this bug is that PermissionUtils#enforcePackageNameMatchesUid isn\u0027t correct when called in networkstack, and shouldn\u0027t be used there. But - catching the exception like this code doesn\u0027t make the code correct, it just prevents a crash by returning an incorrect result. If we can\u0027t make the code correct, then we should not use it in places (like networkstack) where it is not correct. Instead, we should annotate the method as \"do not use this in networkstack\", and possibly change its source code to clearly throw an exception if not running in the system server.",
+      "parentUuid": "0fdf9f96_731732ec",
+      "range": {
+        "startLine": 213,
+        "startChar": 17,
+        "endLine": 213,
+        "endChar": 26
+      },
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "197f79f5_89631317",
         "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
         "patchSetId": 4
