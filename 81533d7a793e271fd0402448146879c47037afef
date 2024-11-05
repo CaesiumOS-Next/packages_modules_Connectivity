@@ -41,6 +41,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf4f71f2_dbe54dad",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-05T03:35:49Z",
+      "side": 1,
+      "message": "Yes, this is inherited from the parent class, `canBeSatisfiedBy` is not an API",
+      "parentUuid": "b3ed510e_7ec709c3",
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf54d5d6_9871dc60",
@@ -58,6 +76,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48a3d0ec_3442ff86",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-05T03:35:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf54d5d6_9871dc60",
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f05453e_7af70caf",
@@ -71,6 +107,24 @@
       "writtenOn": "2024-11-05T03:14:23Z",
       "side": 1,
       "message": "nit: final",
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69aae319_9807970e",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-05T03:35:49Z",
+      "side": 1,
+      "message": "In the Thread codebase, we generally don\u0027t enforce `final` for variables as it\u0027s too tedious",
+      "parentUuid": "4f05453e_7af70caf",
       "revId": "81533d7a793e271fd0402448146879c47037afef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -110,6 +164,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff074875_13bc502d",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-05T03:35:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dcc27cb_9a51d2c0",
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90b0e935_3a79251e",
@@ -127,6 +199,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dae11b42_2e03b6a8",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-05T03:35:49Z",
+      "side": 1,
+      "message": "In the Thread codebase, we generally don\u0027t enforce final for variables as it\u0027s too tedious",
+      "parentUuid": "90b0e935_3a79251e",
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be37337f_763a04f5",
@@ -140,6 +230,24 @@
       "writtenOn": "2024-11-05T03:14:23Z",
       "side": 1,
       "message": "Isn\u0027t extended PAN ID always 8 bytes? Should you only allow arrays whose length is 8?",
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19e22dbd_a62b741e",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-05T03:35:49Z",
+      "side": 1,
+      "message": "This is for forward compatibility. But I don\u0027t feel strongly necessary here. done",
+      "parentUuid": "be37337f_763a04f5",
       "revId": "81533d7a793e271fd0402448146879c47037afef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
