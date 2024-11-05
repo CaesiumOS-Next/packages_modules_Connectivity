@@ -16,6 +16,29 @@
       "message": "Upstream from Meta 😊",
       "revId": "e70174f326e0a8a710f090028841ec5a6df6d273",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd531f94_e2a4197f",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-05T18:34:05Z",
+      "side": 1,
+      "message": "Thanks for submitting this. I agree this change is headed in the right direction (particularly on ethernet, where there is no roaming), though this approach does not seem particularly bulletproof. Instead of waiting for 3s, this should wait on the netlink event and bring the interface back up. There is probably no good way to do this right now, but I have been thinking about rearchitecting this piece of code for a long time (by using a sort of state machine). Once that is done, we should add a state transitions that brings down the interface, waits on the netlink event, and brings it back up.",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 602,
+        "endChar": 21
+      },
+      "revId": "e70174f326e0a8a710f090028841ec5a6df6d273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
