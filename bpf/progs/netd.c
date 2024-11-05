@@ -254,9 +254,34 @@ get_ip_address_type(uint32_t if_index, struct in6_addr addr) {
  * Returns true if the given interface index and ip address is of type
  * LOCAL_NETWORK_IP_ADDRESS.
  */
-static inline __always_inline __unused bool
+static inline __always_inline bool
 is_local_network_address(uint32_t if_index, struct in6_addr address) {
   return get_ip_address_type(if_index, address) == LOCAL_NETWORK_IP_ADDRESS;
+}
+
+/*
+ * The method performs lookup on ip_address_type_map using if_index + ip address
+ * from socket buffer as key. This method would be used to block packets if the
+ * destination address on packet is of type LOCAL_NETWORK_IP_ADDRESS.
+ */
+static __always_inline inline bool
+should_block_local_network_packets(struct __sk_buff *skb,
+                                   const struct kver_uint kver) {
+  if (!KVER_IS_AT_LEAST(kver, 5, 4, 0))
+    return false;
+  struct in6_addr addr = {};
+  if (skb->protocol == htons(ETH_P_IP)) {
+    addr.s6_addr32[2] = htonl(0xFFFF);
+    (void)bpf_skb_load_bytes_net(skb, IP4_OFFSET(daddr), &addr.s6_addr32[3], 4,
+                                 kver);
+  } else if (skb->protocol == htons(ETH_P_IPV6)) {
+    (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(daddr), &addr, sizeof(addr),
+                                 kver);
+  } else {
+    return false;
+  }
+
+  return is_local_network_address(skb->ifindex, addr);
 }
 
 static __always_inline inline void do_packet_tracing(
@@ -511,8 +536,13 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
         if (match == DROP_UNLESS_DNS) match = DROP;
     }
 
-    // If an outbound packet is going to be dropped, we do not count that traffic.
-    if (egress.egress && (match == DROP)) return DROP;
+    if (egress.egress) {
+      if ((match != DROP) && should_block_local_network_packets(skb, kver)) {
+        match = DROP;
+      }
+      if (match == DROP)
+        return DROP;
+    }
 
     StatsKey key = {.uid = uid, .tag = tag, .counterSet = 0, .ifaceIndex = skb->ifindex};
 
