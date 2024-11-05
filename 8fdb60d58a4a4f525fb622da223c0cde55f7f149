@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "11e85929_c454106b",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1240997
+      },
+      "writtenOn": "2024-11-05T23:40:58Z",
+      "side": 1,
+      "message": "I tried 2 first but it seemed to have broke existing CTS test for other parts of connectivity.\n\nThus, this latest patch set now tries approach #1, and limits the usage to networkstack only.",
+      "parentUuid": "c0c0b0f4_e64dda0b",
+      "range": {
+        "startLine": 213,
+        "startChar": 17,
+        "endLine": 213,
+        "endChar": 26
+      },
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "197f79f5_89631317",
         "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
         "patchSetId": 4
