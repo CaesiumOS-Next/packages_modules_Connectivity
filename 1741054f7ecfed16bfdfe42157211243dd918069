@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b6cbdab_d95ad7f6",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-05T10:10:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4faf2855_0c219bdb",
+      "revId": "1741054f7ecfed16bfdfe42157211243dd918069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91b11167_4fe29cfa",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d9ca74b_e472dd9d",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-05T10:10:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91b11167_4fe29cfa",
+      "revId": "1741054f7ecfed16bfdfe42157211243dd918069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66c9567d_209fcd88",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-10-29T07:47:10Z",
       "side": 1,
       "message": "This shouldnt\u0027 be necessary as long as no framework-connectivity class uses this file",
+      "revId": "1741054f7ecfed16bfdfe42157211243dd918069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82145c51_f3b5031f",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-05T10:10:51Z",
+      "side": 1,
+      "message": "I tried removing the TimerFdUtils class, but the phone crashed due to a missing JNI library. I also tried modifying the path to `com/android/net/module/util/TimerFdUtils`, thinking it might not be jarred, but that didn\u0027t work either.\n\n```\n11-05 18:03:30.055  4122  4122 F JNIHelp : Native registration unable to find class \u0027android/net/connectivity/com/android/net/module/util/TimerFdUtils\u0027; aborting...\n\n```",
+      "parentUuid": "66c9567d_209fcd88",
       "revId": "1741054f7ecfed16bfdfe42157211243dd918069",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
