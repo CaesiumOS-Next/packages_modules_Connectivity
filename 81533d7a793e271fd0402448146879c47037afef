@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccdeaed0_b4fdf5e9",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T03:14:23Z",
+      "side": 1,
+      "message": "I failed to infer the semantic from the name. Maybe call it `isRouterEligibleWhenNoOthers`",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 48
+      },
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3ed510e_7ec709c3",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T03:14:23Z",
+      "side": 1,
+      "message": "Is this `@hide` needed?",
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf54d5d6_9871dc60",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T03:14:23Z",
+      "side": 1,
+      "message": "May document the behavior.",
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f05453e_7af70caf",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T03:14:23Z",
+      "side": 1,
+      "message": "nit: final",
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dcc27cb_9a51d2c0",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T03:14:23Z",
+      "side": 1,
+      "message": "I think the common `equals` idiom also compares if the objects have the same address so it can quit early.",
+      "fixSuggestions": [
+        {
+          "fixId": "d767bd03_e3926e21",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+              "range": {
+                "startLine": 92,
+                "startChar": 0,
+                "endLine": 92,
+                "endChar": 0
+              },
+              "replacement": "        if (this \u003d\u003d other) {\n            return true;\n        }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90b0e935_3a79251e",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T03:14:23Z",
+      "side": 1,
+      "message": "nit: final",
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be37337f_763a04f5",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T03:14:23Z",
+      "side": 1,
+      "message": "Isn\u0027t extended PAN ID always 8 bytes? Should you only allow arrays whose length is 8?",
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60605b69_b513c37a",
+        "filename": "thread/tests/unit/src/android/net/thread/ThreadNetworkSpecifierTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T03:14:23Z",
+      "side": 1,
+      "message": "Please fix this INFO reported by Tip Prediction: AI Readability\n\nAnalyzer Description: Runs go/tip-prediction tool on the commit.\nOwner: peeps-genai-team@google.com\n\nAI Readability\n\nReview [go/java-style#s3.3.3-import-ordering-and-spacing](http://go/java-style#s3.3.3-import-ordering-and-spacing) - it may improve this code:\n\nImports are ordered as follows:\n\n1. All static imports in a single block.\n2. All non-static imports in a single block.\n\nWas this tip helpful? [Yes 👍](http://go/gerrit-tip-prediction-thumbs-up?title\u003d[Yes%20👍]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fpackages%2Fmodules%2FConnectivity%2F%2B%2F3313064%2F32) / [No 👎](http://go/gerrit-tip-prediction-thumbs-down?title\u003d[No%20👎]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fpackages%2Fmodules%2FConnectivity%2F%2B%2F3313064%2F32)\nWould you like to provide additional [feedback](http://go/gerrit-tip-prediction-feedback?title\u003d[Feedback]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fpackages%2Fmodules%2FConnectivity%2F%2B%2F3313064%2F32)?\nWant to opt out of Tip Predictions completely? [Opt out](http://go/gerrit-tip-prediction-optout)\nOther questions? Check out the [FAQs](http://go/gerrit-tip-prediction-faqs).",
+      "range": {
+        "startLine": 19,
+        "startChar": 1,
+        "endLine": 19,
+        "endChar": 74
+      },
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
