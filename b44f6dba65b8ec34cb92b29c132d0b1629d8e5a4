@@ -16,6 +16,24 @@
       "message": "I am fine merging this, but this will cause isTetheringSupported() to return false, while previously it returned true. It also seems wrong that enforcePackageNameMatchesUid() fails when isTetheringSupported() is called without an argument (i.e. the package name is filled in by the TetheringManager).",
       "revId": "b44f6dba65b8ec34cb92b29c132d0b1629d8e5a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17aa0acf_a5cb87ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-05T04:22:40Z",
+      "side": 1,
+      "message": "[unresolving comment]",
+      "parentUuid": "b31237b5_382d47d9",
+      "revId": "b44f6dba65b8ec34cb92b29c132d0b1629d8e5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
