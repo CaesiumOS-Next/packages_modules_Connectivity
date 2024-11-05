@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee8738f8_4e563d14",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-05T14:53:58Z",
+      "side": 1,
+      "message": "As the review comment in aosp/3313055, this check should be removed too.",
+      "range": {
+        "startLine": 1013,
+        "startChar": 12,
+        "endLine": 1013,
+        "endChar": 48
+      },
+      "revId": "670ba33059f93945f52dfd414a43f8a9014f9df1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
