@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
-package android.net.thread;
+package android.net.thread.cts;
 
 import static com.android.testutils.ParcelUtils.assertParcelingIsLossless;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import android.net.thread.OperationalDatasetTimestamp;
+import android.net.thread.ThreadNetworkSpecifier;
+import android.net.thread.utils.ThreadFeatureCheckerRule;
+import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresThreadFeature;
+
 import androidx.test.filters.SmallTest;
 
 import com.google.common.testing.EqualsTester;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -34,8 +40,11 @@ import java.util.Collection;
 
 /** Tests for {@link ThreadNetworkSpecifier}. */
 @SmallTest
+@RequiresThreadFeature
 @RunWith(Parameterized.class)
 public final class ThreadNetworkSpecifierTest {
+    @Rule public final ThreadFeatureCheckerRule mThreadRule = new ThreadFeatureCheckerRule();
+
     public final byte[] mExtendedPanId;
     public final OperationalDatasetTimestamp mActiveTimestamp;
     public final boolean mRouterEligibleForLeader;
