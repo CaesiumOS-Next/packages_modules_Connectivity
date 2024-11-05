@@ -22,6 +22,30 @@
       },
       "revId": "445d160993900d4dcdb078d28edd36440904af20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f11b6056_bfb08476",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 2132,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-05T20:44:55Z",
+      "side": 1,
+      "message": "I think some duplication in test code makes sense, as per go/tott/643. So maybe this plugin should just exclude test code altogether. (Not to say these tests are great and couldn\u0027t be improved.)",
+      "parentUuid": "789cde3c_b915692c",
+      "range": {
+        "startLine": 2100,
+        "startChar": 0,
+        "endLine": 2132,
+        "endChar": 68
+      },
+      "revId": "445d160993900d4dcdb078d28edd36440904af20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
