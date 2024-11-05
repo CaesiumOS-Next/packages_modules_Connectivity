@@ -1,0 +1,114 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "507aa87e_020e6377",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/TestDnsServer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-11-05T08:53:03Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Build Warnings: the corresponding parameter in the supertype \u0027TestUdpServer\u0027 is named \u0027ipv4Header\u0027. This may cause problems when calling this function with named arguments.\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    the corresponding parameter in the supertype \u0027TestUdpServer\u0027 is named \u0027ipv4Header\u0027. This may cause problems when calling this function with named arguments.\n            requestIpv4Header: Ipv4Header,\n            ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P84091765/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 38
+      },
+      "revId": "0b6dcb6e6587d2509786279816329ef062b94689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eacd9bfb_ccc27ddb",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/TestDnsServer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-11-05T08:53:03Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Build Warnings: the corresponding parameter in the supertype \u0027TestUdpServer\u0027 is named \u0027udpHeader\u0027. This may cause problems when calling this function with named arguments.\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    the corresponding parameter in the supertype \u0027TestUdpServer\u0027 is named \u0027udpHeader\u0027. This may cause problems when calling this function with named arguments.\n            requestUdpHeader: UdpHeader,\n            ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P84091765/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 36
+      },
+      "revId": "0b6dcb6e6587d2509786279816329ef062b94689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6986bec8_9eae77e5",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/TestDnsServer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-11-05T08:53:03Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Build Warnings: the corresponding parameter in the supertype \u0027TestUdpServer\u0027 is named \u0027udpPayload\u0027. This may cause problems when calling this function with named arguments.\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    the corresponding parameter in the supertype \u0027TestUdpServer\u0027 is named \u0027udpPayload\u0027. This may cause problems when calling this function with named arguments.\n            requestUdpPayload: ByteArray,\n            ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P84091765/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 37
+      },
+      "revId": "0b6dcb6e6587d2509786279816329ef062b94689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e4a3df5_f5404af8",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/TestUdpServer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-11-05T08:53:03Z",
+      "side": 1,
+      "message": "-\u003e \"built\"",
+      "range": {
+        "startLine": 45,
+        "startChar": 15,
+        "endLine": 45,
+        "endChar": 21
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3eca785b_d5fc9f12",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/utils/TestUdpServer.kt",
+              "range": {
+                "startLine": 45,
+                "startChar": 0,
+                "endLine": 46,
+                "endChar": 0
+              },
+              "replacement": "     * message built by {@code buildResponse}. The server will automatically stop when it fails to\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0b6dcb6e6587d2509786279816329ef062b94689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
