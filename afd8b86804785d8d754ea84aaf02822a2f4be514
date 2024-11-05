@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42402dfd_40473066",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-05T23:57:06Z",
+      "side": 1,
+      "message": "Can we avoid this separate boolean? ISTM that the conditions should be the same - NETWORK_SETTINGS or NETWORK_STACK or MAINLINE_NETWORK_STACK (the code in this CL at line 2408 doesn\u0027t check for NETWORK_STACK or MAINLINE_NETWORK_STACK, but it should). We could just rename this to hasSystemPrivilege or something.",
+      "range": {
+        "startLine": 227,
+        "startChar": 41,
+        "endLine": 227,
+        "endChar": 62
+      },
+      "revId": "afd8b86804785d8d754ea84aaf02822a2f4be514",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8c3fa95_7dd93b6e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-05T23:57:06Z",
+      "side": 1,
+      "message": "Prefer unindenting via:\n\n    if (tetherState.lastState !\u003d IpServer.STATE_TETHERED) continue;",
+      "range": {
+        "startLine": 1109,
+        "startChar": 12,
+        "endLine": 1109,
+        "endChar": 40
+      },
+      "revId": "afd8b86804785d8d754ea84aaf02822a2f4be514",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85fc4df0_2e7102c7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-05T23:57:06Z",
+      "side": 1,
+      "message": "break;",
+      "range": {
+        "startLine": 1117,
+        "startChar": 24,
+        "endLine": 1117,
+        "endChar": 38
+      },
+      "revId": "afd8b86804785d8d754ea84aaf02822a2f4be514",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
