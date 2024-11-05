@@ -141,6 +141,7 @@ public class ThreadIntegrationTest {
         mController.setTestNetworkAsUpstreamAndWait(null);
         mController.leaveAndWait();
         mController.setConfigurationAndWait(DEFAULT_CONFIG);
+        mController.stopAllSubscribers();
 
         mFtd.destroy();
         mExecutor.shutdownNow();
@@ -265,6 +266,16 @@ public class ThreadIntegrationTest {
         mController.joinAndWait(DEFAULT_DATASET);
 
         assertTunInterfaceMemberOfGroup(GROUP_ADDR_ALL_ROUTERS);
+    }
+
+    @Test
+    public void joinNetwork_joinTheSameNetworkTwice_noDeviceRoleChanges() throws Exception {
+        mController.joinAndWait(DEFAULT_DATASET);
+
+        mController.startSubscribeStateUpdates();
+        mController.joinAndWait(DEFAULT_DATASET);
+
+        assertThat(mController.consumeDeviceRoleUpdates()).isEqualTo(List.of(DEVICE_ROLE_LEADER));
     }
 
     @Test
