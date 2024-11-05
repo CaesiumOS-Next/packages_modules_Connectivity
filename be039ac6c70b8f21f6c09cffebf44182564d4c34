@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f661be66_8eeb1f02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1240997
+      },
+      "writtenOn": "2024-11-05T16:57:03Z",
+      "side": 1,
+      "message": "Hi Lorenzo PTAL",
+      "revId": "be039ac6c70b8f21f6c09cffebf44182564d4c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

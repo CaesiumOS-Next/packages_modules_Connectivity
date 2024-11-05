@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0fdf9f96_731732ec",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1240997
+      },
+      "writtenOn": "2024-11-05T16:57:03Z",
+      "side": 1,
+      "message": "Hi Lorenzo, thanks for the review. I analyzed the different options and chose what I think is the safest approach. Regarding your suggestions:\n\n1. AppOpsManager#checkPackage -\u003e doc says this is deprecated and use PackageManager#getPackageUid (which the code is already using) instead.\n\n2. PackageManager#getPackagesForUid -\u003e I think this still requires getting the PackageManager, which may throw an exception when called as secondary user from the Tethering module. So we still need to add the catch. Also this approach feels riskier because PermissionUtils#enforcePackageNameMatchesUid is already used in existing code in NetworkStatsService and ConnectivityService, and I don\u0027t want to accidentally cause a behavior change in those.\n\n3. \n```\nif (!UserHandle.getUserHandleForUid(Process.myUid()).equals(user)) {\n    return -1;\n}\n```\nPermissionUtils#enforcePackageNameMatchesUid is already called at a couple of other places in NetworkStatsService and ConnectivityService, and I believe the exception is not being thrown when called from those places. I\u0027m worried that checking for UserHandle match might break the check from those modules since calling from a different user might be allowed there.\n\nFinally, we discussed with @qal yesterday. He mentions that when a secondary user calls isTetheringSupported, the expected result even after the revert should be \"false\". So there should be no behavior change",
+      "parentUuid": "cb643e95_6208b668",
+      "range": {
+        "startLine": 213,
+        "startChar": 17,
+        "endLine": 213,
+        "endChar": 26
+      },
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "197f79f5_89631317",
         "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2024-11-05T09:55:39Z",
       "side": 1,
       "message": "Can this code throw anything other than NameNotFoundException? If so, can we go back to catching only NameNotFoundException?",
+      "range": {
+        "startLine": 219,
+        "startChar": 17,
+        "endLine": 219,
+        "endChar": 26
+      },
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "431f64f8_7d518eb2",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1240997
+      },
+      "writtenOn": "2024-11-05T16:57:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "197f79f5_89631317",
       "range": {
         "startLine": 219,
         "startChar": 17,
