@@ -32,6 +32,7 @@ import android.net.thread.utils.IntegrationTestUtils.tearDownInfraNetwork
 import android.net.thread.utils.IntegrationTestUtils.waitFor
 import android.net.thread.utils.OtDaemonController
 import android.net.thread.utils.TestDnsServer
+import android.net.thread.utils.TestUdpEchoServer
 import android.net.thread.utils.ThreadFeatureCheckerRule
 import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresSimulationThreadDevice
 import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresThreadFeature
@@ -48,6 +49,7 @@ import com.android.testutils.TestNetworkTracker
 import com.google.common.truth.Truth.assertThat
 import java.net.Inet4Address
 import java.net.InetAddress
+import java.net.InetSocketAddress
 import java.time.Duration
 import org.junit.After
 import org.junit.Before
@@ -61,113 +63,133 @@ import org.junit.runner.RunWith
 @RequiresSimulationThreadDevice
 @LargeTest
 class InternetAccessTest {
-    private val TAG = BorderRoutingTest::class.java.simpleName
-    private val NUM_FTD = 1
-    private val DNS_SERVER_ADDR = parseNumericAddress("8.8.8.8") as Inet4Address
-    private val ANSWER_RECORDS =
-        listOf(
-            DnsPacket.DnsRecord.makeAOrAAAARecord(
-                ANSECTION,
-                "google.com",
-                CLASS_IN,
-                30 /* ttl */,
-                parseNumericAddress("1.2.3.4"),
-            ),
-            DnsPacket.DnsRecord.makeAOrAAAARecord(
-                ANSECTION,
-                "google.com",
-                CLASS_IN,
-                30 /* ttl */,
-                parseNumericAddress("2001::234"),
-            ),
-        )
+  private val TAG = BorderRoutingTest::class.java.simpleName
+  private val NUM_FTD = 1
+  private val DNS_SERVER_ADDR = parseNumericAddress("8.8.8.8") as Inet4Address
+  private val UDP_ECHO_SERVER_ADDRESS = InetSocketAddress(parseNumericAddress("1.2.3.4"), 12345)
+  private val ANSWER_RECORDS =
+    listOf(
+      DnsPacket.DnsRecord.makeAOrAAAARecord(
+        ANSECTION,
+        "google.com",
+        CLASS_IN,
+        30 /* ttl */,
+        parseNumericAddress("1.2.3.4"),
+      ),
+      DnsPacket.DnsRecord.makeAOrAAAARecord(
+        ANSECTION,
+        "google.com",
+        CLASS_IN,
+        30 /* ttl */,
+        parseNumericAddress("2001::234"),
+      ),
+    )
 
-    @get:Rule val threadRule = ThreadFeatureCheckerRule()
+  @get:Rule val threadRule = ThreadFeatureCheckerRule()
 
-    private val context: Context = ApplicationProvider.getApplicationContext()
-    private val controller = requireNotNull(ThreadNetworkControllerWrapper.newInstance(context))
-    private lateinit var otCtl: OtDaemonController
-    private lateinit var handlerThread: HandlerThread
-    private lateinit var handler: Handler
-    private lateinit var infraNetworkTracker: TestNetworkTracker
-    private lateinit var ftds: ArrayList<FullThreadDevice>
-    private lateinit var infraNetworkReader: PollPacketReader
-    private lateinit var infraDevice: InfraNetworkDevice
-    private lateinit var dnsServer: TestDnsServer
+  private val context: Context = ApplicationProvider.getApplicationContext()
+  private val controller = requireNotNull(ThreadNetworkControllerWrapper.newInstance(context))
+  private lateinit var otCtl: OtDaemonController
+  private lateinit var handlerThread: HandlerThread
+  private lateinit var handler: Handler
+  private lateinit var infraNetworkTracker: TestNetworkTracker
+  private lateinit var ftds: ArrayList<FullThreadDevice>
+  private lateinit var infraNetworkReader: PollPacketReader
+  private lateinit var infraDevice: InfraNetworkDevice
+  private lateinit var dnsServer: TestDnsServer
+  private lateinit var udpEchoServer: TestUdpEchoServer
 
-    @Before
-    @Throws(Exception::class)
-    fun setUp() {
-        // TODO: b/323301831 - This is a workaround to avoid unnecessary delay to re-form a network
-        otCtl = OtDaemonController()
-        otCtl.factoryReset()
+  @Before
+  @Throws(Exception::class)
+  fun setUp() {
+    // TODO: b/323301831 - This is a workaround to avoid unnecessary delay to re-form a network
+    otCtl = OtDaemonController()
+    otCtl.factoryReset()
 
-        handlerThread = HandlerThread(javaClass.simpleName)
-        handlerThread.start()
-        handler = Handler(handlerThread.looper)
-        ftds = ArrayList()
+    handlerThread = HandlerThread(javaClass.simpleName)
+    handlerThread.start()
+    handler = Handler(handlerThread.looper)
+    ftds = ArrayList()
 
-        infraNetworkTracker = setUpInfraNetwork(context, controller)
-        controller.setEnabledAndWait(true)
-        controller.joinAndWait(DEFAULT_DATASET)
+    infraNetworkTracker = setUpInfraNetwork(context, controller)
+    controller.setEnabledAndWait(true)
+    controller.joinAndWait(DEFAULT_DATASET)
 
-        // Creates a infra network device.
-        infraNetworkReader = newPacketReader(infraNetworkTracker.testIface, handler)
-        infraDevice = startInfraDeviceAndWaitForOnLinkAddr(infraNetworkReader)
+    // Create an infra network device.
+    infraNetworkReader = newPacketReader(infraNetworkTracker.testIface, handler)
+    infraDevice = startInfraDeviceAndWaitForOnLinkAddr(infraNetworkReader)
 
-        // Create a DNS server
-        dnsServer = TestDnsServer(infraNetworkReader, DNS_SERVER_ADDR, ANSWER_RECORDS)
+    // Create a DNS server
+    dnsServer = TestDnsServer(infraNetworkReader, DNS_SERVER_ADDR, ANSWER_RECORDS)
 
-        // Create Ftds
-        for (i in 0 until NUM_FTD) {
-            ftds.add(FullThreadDevice(15 + i /* node ID */))
-        }
+    // Create a UDP echo server
+    udpEchoServer = TestUdpEchoServer(infraNetworkReader, UDP_ECHO_SERVER_ADDRESS)
+
+    // Create Ftds
+    for (i in 0 until NUM_FTD) {
+      ftds.add(FullThreadDevice(15 + i /* node ID */))
     }
+  }
 
-    @After
-    @Throws(Exception::class)
-    fun tearDown() {
-        controller.setTestNetworkAsUpstreamAndWait(null)
-        controller.leaveAndWait()
-        tearDownInfraNetwork(infraNetworkTracker)
+  @After
+  @Throws(Exception::class)
+  fun tearDown() {
+    controller.setTestNetworkAsUpstreamAndWait(null)
+    controller.leaveAndWait()
+    tearDownInfraNetwork(infraNetworkTracker)
 
-        dnsServer.stop()
+    dnsServer.stop()
+    udpEchoServer.stop()
 
-        handlerThread.quitSafely()
-        handlerThread.join()
+    handlerThread.quitSafely()
+    handlerThread.join()
 
-        ftds.forEach { it.destroy() }
-        ftds.clear()
-    }
+    ftds.forEach { it.destroy() }
+    ftds.clear()
+  }
 
-    @Test
-    fun nat64Enabled_threadDeviceResolvesHost_hostIsResolved() {
-        controller.setNat64EnabledAndWait(true)
-        waitFor({ otCtl.hasNat64PrefixInNetdata() }, Duration.ofSeconds(10))
-        val ftd = ftds[0]
-        joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET)
-        dnsServer.start()
+  @Test
+  fun nat64Enabled_threadDeviceResolvesHost_hostIsResolved() {
+    controller.setNat64EnabledAndWait(true)
+    waitFor({ otCtl.hasNat64PrefixInNetdata() }, Duration.ofSeconds(10))
+    val ftd = ftds[0]
+    joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET)
+    dnsServer.start()
 
-        val ipv4Addresses =
-            ftd.resolveHost("google.com", TYPE_A).map { extractIpv4AddressFromMappedAddress(it) }
-        assertThat(ipv4Addresses).isEqualTo(listOf(parseNumericAddress("1.2.3.4")))
-        val ipv6Addresses = ftd.resolveHost("google.com", TYPE_AAAA)
-        assertThat(ipv6Addresses).isEqualTo(listOf(parseNumericAddress("2001::234")))
-    }
+    val ipv4Addresses =
+      ftd.resolveHost("google.com", TYPE_A).map { extractIpv4AddressFromMappedAddress(it) }
+    assertThat(ipv4Addresses).isEqualTo(listOf(parseNumericAddress("1.2.3.4")))
+    val ipv6Addresses = ftd.resolveHost("google.com", TYPE_AAAA)
+    assertThat(ipv6Addresses).isEqualTo(listOf(parseNumericAddress("2001::234")))
+  }
 
-    @Test
-    fun nat64Disabled_threadDeviceResolvesHost_hostIsNotResolved() {
-        controller.setNat64EnabledAndWait(false)
-        val ftd = ftds[0]
-        joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET)
-        dnsServer.start()
+  @Test
+  fun nat64Disabled_threadDeviceResolvesHost_hostIsNotResolved() {
+    controller.setNat64EnabledAndWait(false)
+    val ftd = ftds[0]
+    joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET)
+    dnsServer.start()
 
-        assertThat(ftd.resolveHost("google.com", TYPE_A)).isEmpty()
-        assertThat(ftd.resolveHost("google.com", TYPE_AAAA)).isEmpty()
-    }
+    assertThat(ftd.resolveHost("google.com", TYPE_A)).isEmpty()
+    assertThat(ftd.resolveHost("google.com", TYPE_AAAA)).isEmpty()
+  }
 
-    private fun extractIpv4AddressFromMappedAddress(address: InetAddress): Inet4Address {
-        return InetAddress.getByAddress(address.address.slice(12 until 16).toByteArray())
-            as Inet4Address
-    }
+  @Test
+  fun nat64Enabled_threadDeviceSendsUdpToEchoServer_replyIsReceived() {
+    controller.setNat64EnabledAndWait(true)
+    waitFor({ otCtl.hasNat64PrefixInNetdata() }, Duration.ofSeconds(10))
+    val ftd = ftds[0]
+    joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET)
+    udpEchoServer.start()
+
+    ftd.udpOpen()
+    ftd.udpSend("Hello,Thread", UDP_ECHO_SERVER_ADDRESS.address, UDP_ECHO_SERVER_ADDRESS.port)
+    val reply = ftd.udpReceive()
+    assertThat(reply).isEqualTo("Hello,Thread")
+  }
+
+  private fun extractIpv4AddressFromMappedAddress(address: InetAddress): Inet4Address {
+    return InetAddress.getByAddress(address.address.slice(12 until 16).toByteArray())
+      as Inet4Address
+  }
 }
