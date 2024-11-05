@@ -1,0 +1,375 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47991104_19ad1790",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "in",
+      "range": {
+        "startLine": 238,
+        "startChar": 37,
+        "endLine": 238,
+        "endChar": 39
+      },
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "743944aa_a3b5ba64",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "performing a",
+      "range": {
+        "startLine": 238,
+        "startChar": 12,
+        "endLine": 238,
+        "endChar": 13
+      },
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1833328_76eff62b",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "match",
+      "range": {
+        "startLine": 238,
+        "startChar": 28,
+        "endLine": 238,
+        "endChar": 36
+      },
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19b1cd1f_88a35ffa",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "shouldn\u0027t we return UNKNOWN/0 ?",
+      "range": {
+        "startLine": 239,
+        "startChar": 3,
+        "endLine": 239,
+        "endChar": 20
+      },
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7111cea_0b0feced",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "you may want a helper that takes a v4 addr and calls this post conversion to v4-mapped-v6 format",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 65
+      },
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "237dc4eb_006d5e2f",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "addr",
+      "range": {
+        "startLine": 242,
+        "startChar": 55,
+        "endLine": 242,
+        "endChar": 62
+      },
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "840d6e3c_8dedd7ec",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "newline before .",
+      "range": {
+        "startLine": 243,
+        "startChar": 32,
+        "endLine": 243,
+        "endChar": 33
+      },
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7125befa_5f148621",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "you probably want to set if_index\u003d0 and repeat the lookup ?",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 21
+      },
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08f3348d_b9ec8186",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "this { isn\u0027t required, you can write the return on the same line.\nor even just do\nreturn query_value ? *query_value : UNKNOWN;",
+      "range": {
+        "startLine": 249,
+        "startChar": 20,
+        "endLine": 249,
+        "endChar": 21
+      },
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a65b93fa_625b093f",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "you should be able to use uint8_t here",
+      "range": {
+        "startLine": 227,
+        "startChar": 21,
+        "endLine": 227,
+        "endChar": 29
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4a973303_cca5b684",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 227,
+                "startChar": 0,
+                "endLine": 228,
+                "endChar": 0
+              },
+              "replacement": "enum IpAddressType : uint8_t {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "683ed788_b403f1a5",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "spaces around the +",
+      "range": {
+        "startLine": 264,
+        "startChar": 44,
+        "endLine": 264,
+        "endChar": 45
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "bc46abef_6ffde10d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 264,
+                "startChar": 0,
+                "endLine": 265,
+                "endChar": 0
+              },
+              "replacement": "   * bits that would be matched for if_index + ip address\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b20def2_060705fe",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "prefix_len should be enough, but you may also consider something like lpm_bitlen,\nprefix_len(gth) does sort of make it seem like it might be talking about *only* the ipv4/6 subnet length and not including the 32-bit ifindex",
+      "range": {
+        "startLine": 266,
+        "startChar": 11,
+        "endLine": 266,
+        "endChar": 24
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d354ae1d_cfaaa3dd",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 266,
+                "startChar": 0,
+                "endLine": 267,
+                "endChar": 0
+              },
+              "replacement": "  uint32_t lpm_bitlen;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98301556_2edff239",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-05T16:28:34Z",
+      "side": 1,
+      "message": "just use \u0027addr\u0027",
+      "range": {
+        "startLine": 271,
+        "startChar": 18,
+        "endLine": 271,
+        "endChar": 25
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "231966e0_50f419f9",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 271,
+                "startChar": 0,
+                "endLine": 272,
+                "endChar": 0
+              },
+              "replacement": "  struct in6_addr addr;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
