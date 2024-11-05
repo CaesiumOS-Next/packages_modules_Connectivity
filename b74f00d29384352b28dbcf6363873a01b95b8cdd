@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cca46d9_85aec65e",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-11-05T18:40:42Z",
+      "side": 1,
+      "message": "Could you add some documentation to explain when each status would be returned? e.g. is FAILURE_HTTP meant to be anytime there\u0027s an HTTP error code or a non-200 response code returned? Likewise, is storage for when there\u0027s no disk space or when there might be incorrect permissions on the directory, etc.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b16038d5_48f9e14a",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-11-05T18:40:42Z",
+      "side": 1,
+      "message": "I think it might make sense to keep this DownloadStatus enum somewhat similar/in-sync with the LogListUpdateStatus in ag/29792068. \n\ne.g. FAILURE_STORAGE could be FAILURE_NO_DISK_SPACE instead. WDYT?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f40997e8_c2c1c696",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-11-05T18:40:42Z",
+      "side": 1,
+      "message": "Uber uber nit: could you put this as the first value of DownloadStatus? This guidance is for protobufs, but I still think it\u0027s good practice to have UNKNOWN as the first value in an enum.\n\ngo/protodosdonts#unspecified-enum",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb386090_e5387ab2",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-11-05T18:40:42Z",
+      "side": 1,
+      "message": "Nice, I think rogerng@ specifically requested this. Do you think it\u0027s worthwhile to add another field to the atom to track this error code? If so, I can send out a CL (once I resolve the current CTS issues) to do this.",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 17
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea5dbfba_48dab5f6",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-11-05T18:40:42Z",
+      "side": 1,
+      "message": "Nit: could you update the test names to include the expected outcome? e.g. in this case, testDownloader_handleMetadataCompleteFailed_doesNotDownloadContent\n\nOne common pattern of test names is as follows:\n\n```\n\u003csubjectUnderTest\u003e_\u003ccondition\u003e_\u003cexpectedOutcome\u003e\n\u003cbehaviorAcrossManyMethods\u003e_\u003ccondition1\u003e_\u003ccondition2\u003e_\u003cexpectedOutcome\u003e\n```\n\n\u003e A test\u0027s name should fully describe what a test does, including not only the state and details of the method being tested but also its expected outcome.\n\ngo/unit-test-practices#naming\n\nPlease apply where relevant.",
+      "range": {
+        "startLine": 137,
+        "startChar": 31,
+        "endLine": 137,
+        "endChar": 59
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e434baae_03cc6c51",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-11-05T18:40:42Z",
+      "side": 1,
+      "message": "Nit: is the contentId meant to be the same as the VERSION_PENDING property? If so, it might be worth instead doing something like the following to show the relationship clearer:\n\nlong contentId \u003d 666;\nmDataStore.setProperty(Config.VERSION_PENDING, Long.toString(contentId));\n\nIf they\u0027re not related, could you change it so they\u0027re totally unrelated numbers as right now I can\u0027t tell if they\u0027re meant to be the same value, but just a string vs a long.",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 210,
+        "endChar": 29
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
