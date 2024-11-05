@@ -252,6 +252,65 @@ static inline __always_inline __unused bool get_local_network_access(const uint3
     return v ? *v : false;
 }
 
+
+/*
+ * The method performs lookup on local_network_access_map using if_index, ip address, port and
+ * protocol from socket buffer as key. This method would be used to block packets if the
+ * address on packet is DISALLOWED.
+ */
+static __always_inline inline bool should_block_local_network_packets(struct __sk_buff *skb,
+                                   const struct kver_uint kver) {
+   if (!KVER_IS_AT_LEAST(kver, 5, 4, 0)) return false;
+   struct in6_addr addr = {};
+   uint8_t proto = 0;
+   uint8_t L4_off = 0;
+   uint8_t ihl = 0;
+   if (skb->protocol == htons(ETH_P_IP)) {
+       addr.s6_addr32[2] = htonl(0xFFFF);
+       (void)bpf_skb_load_bytes_net(skb, IP4_OFFSET(daddr), &addr.s6_addr32[3], 4, kver);
+       (void)bpf_skb_load_bytes_net(skb, IP4_OFFSET(protocol), &proto, sizeof(proto), kver);
+       (void)bpf_skb_load_bytes_net(skb, IPPROTO_IHL_OFF, &ihl, sizeof(ihl), kver);
+       L4_off = (ihl & 0x0F) * 4;  // IHL calculation.
+   } else if (skb->protocol == htons(ETH_P_IPV6)) {
+       (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(daddr), &addr, sizeof(addr), kver);
+       (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(nexthdr), &proto, sizeof(proto), kver);
+       L4_off = sizeof(struct ipv6hdr);
+       if (proto == IPPROTO_HOPOPTS || proto == IPPROTO_DSTOPTS) {
+           struct {
+               uint8_t proto, len;
+           } ext_hdr;
+           if (!bpf_skb_load_bytes_net(skb, L4_off, &ext_hdr, sizeof(ext_hdr), kver)) {
+               proto = ext_hdr.proto;
+               L4_off += (ext_hdr.len + 1) * 8;
+           }
+       }
+   } else {
+       return false;
+   }
+
+   __be16 port = 0;
+   if (L4_off >= 20) {
+     switch (proto) {
+       case IPPROTO_TCP:
+       case IPPROTO_DCCP:
+       case IPPROTO_UDP:
+       case IPPROTO_UDPLITE:
+       case IPPROTO_SCTP:
+         // all of these L4 protocols start with be16 src & dst port
+         (void)bpf_skb_load_bytes_net(skb, L4_off + 2, &port, sizeof(port), kver);
+         break;
+       case IPPROTO_ICMP:
+       case IPPROTO_ICMPV6:
+         // Both IPv4 and IPv6 icmp start with u8 type & code, which we store in the bottom
+         // (ie. second) byte of sport/dport (which are be16s), the top byte is already zero.
+         (void)bpf_skb_load_bytes_net(skb, L4_off + 1, (char *)&port + 1, 1, kver);
+         break;
+     }
+   }
+
+   return get_local_network_access(skb->ifindex, &addr, port, proto);
+}
+
 static __always_inline inline void do_packet_tracing(
         const struct __sk_buff* const skb, const struct egress_bool egress, const uint32_t uid,
         const uint32_t tag, const bool enable_tracing, const struct kver_uint kver) {
@@ -504,8 +563,10 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
         if (match == DROP_UNLESS_DNS) match = DROP;
     }
 
-    // If an outbound packet is going to be dropped, we do not count that traffic.
-    if (egress.egress && (match == DROP)) return DROP;
+    if (egress.egress) {
+        if ((match != DROP) && should_block_local_network_packets(skb, kver)) match = DROP;
+        if (match == DROP) return DROP;
+    }
 
     StatsKey key = {.uid = uid, .tag = tag, .counterSet = 0, .ifaceIndex = skb->ifindex};
 
