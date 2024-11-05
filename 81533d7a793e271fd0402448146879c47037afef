@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e0f4ad1_40b980d4",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-05T03:45:21Z",
+      "side": 1,
+      "message": "@xyk@google.com @sunytt@google.com Any concerns on the name? Maybe we can just call it isEligibleForLeader() since being a leader already implies being a router. The feature we are asking for is \"forming a network if the network indicated by the Extended PAN ID can\u0027t be found\".\n\nName condidates:\n1. isRouterEligibleForLeader\n2. isEligibleForLeader\n3. isRouterEligibleWhenNoOthers\n4. isAlwaysCreateNetwork\n5. isCreateNetworkWhenNotFound",
+      "parentUuid": "ccdeaed0_b4fdf5e9",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 48
+      },
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3ed510e_7ec709c3",
         "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
         "patchSetId": 32
