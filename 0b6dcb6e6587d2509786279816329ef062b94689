@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ef422bb_e330e6c4",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/TestDnsServer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T09:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "507aa87e_020e6377",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 38
+      },
+      "revId": "0b6dcb6e6587d2509786279816329ef062b94689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eacd9bfb_ccc27ddb",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3227571_a322483f",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/TestDnsServer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T09:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eacd9bfb_ccc27ddb",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 36
+      },
+      "revId": "0b6dcb6e6587d2509786279816329ef062b94689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6986bec8_9eae77e5",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-11-05T08:53:03Z",
       "side": 1,
       "message": "Please fix this WARNING reported by Build Warnings: the corresponding parameter in the supertype \u0027TestUdpServer\u0027 is named \u0027udpPayload\u0027. This may cause problems when calling this function with named arguments.\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    the corresponding parameter in the supertype \u0027TestUdpServer\u0027 is named \u0027udpPayload\u0027. This may cause problems when calling this function with named arguments.\n            requestUdpPayload: ByteArray,\n            ^\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P84091765/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 37
+      },
+      "revId": "0b6dcb6e6587d2509786279816329ef062b94689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65b10eff_d6d05b66",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/TestDnsServer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T09:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6986bec8_9eae77e5",
       "range": {
         "startLine": 66,
         "startChar": 8,
@@ -107,6 +179,30 @@
           ]
         }
       ],
+      "revId": "0b6dcb6e6587d2509786279816329ef062b94689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b82f50f_16ec5b28",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/TestUdpServer.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-05T09:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e4a3df5_f5404af8",
+      "range": {
+        "startLine": 45,
+        "startChar": 15,
+        "endLine": 45,
+        "endChar": 21
+      },
       "revId": "0b6dcb6e6587d2509786279816329ef062b94689",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
