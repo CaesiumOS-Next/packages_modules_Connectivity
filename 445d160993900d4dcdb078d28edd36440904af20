@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "789cde3c_b915692c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 2132,
+      "author": {
+        "id": 1944152
+      },
+      "writtenOn": "2024-11-05T20:39:24Z",
+      "side": 1,
+      "message": "Code duplication detection.\n\nThis block appears to duplicate lines 2027 to 2060 in Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java (same file)\n\nPlease review for potential refactoring.\n\n-------------\n\nYou are getting this finding as part of early testing of Code duplication detection plugin in Gerrit.\nWas this useful?",
+      "range": {
+        "startLine": 2100,
+        "startChar": 0,
+        "endLine": 2132,
+        "endChar": 68
+      },
+      "revId": "445d160993900d4dcdb078d28edd36440904af20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
