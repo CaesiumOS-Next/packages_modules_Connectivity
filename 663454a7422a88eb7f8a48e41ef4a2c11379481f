@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d663dfd3_72a66c3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-05T06:13:34Z",
+      "side": 1,
+      "message": "I will delegate +2 to @sunytt@google.com",
+      "revId": "663454a7422a88eb7f8a48e41ef4a2c11379481f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
