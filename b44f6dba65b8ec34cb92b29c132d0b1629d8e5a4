@@ -70,6 +70,24 @@
       "parentUuid": "35c604c0_05670954",
       "revId": "b44f6dba65b8ec34cb92b29c132d0b1629d8e5a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dac441d7_06d55f8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-05T17:05:22Z",
+      "side": 1,
+      "message": "Tethering is only \"unsupported\" on a secondary user by virtue of Settings not exposing it (because b/146993983 was never fixed). There is nothing else that prevents it from being used on the non-system user. In fact, tablets and cars use some headless system user, where the admin user is not uid 0. We have just recently fixed an issue in EntitlementManager because of that.\n\nIf GMSCore has been calling this API on a non-system user, they might be relying on the return value to take some action. It seems isTetheringSupported() used to return true for all users, but now returns false for some users.\n\n\u003e This simply follows the pattern that the rest of the APIs use by getting the package name from mContext.getOpPackageName()\n\nRight. Wouldn\u0027t you expect that to always succeed?",
+      "parentUuid": "59e311e7_7eaa17d4",
+      "revId": "b44f6dba65b8ec34cb92b29c132d0b1629d8e5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
