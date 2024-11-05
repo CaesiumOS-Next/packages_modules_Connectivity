@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9de9e2f6_344b5ebb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-05T09:55:39Z",
+      "side": 1,
+      "message": "Not sure whether this is the right way forward.",
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb643e95_6208b668",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-05T09:55:39Z",
+      "side": 1,
+      "message": "This seems like wallpapering over a problem, not fixing it.\n\nHave we tried other approaches? For example, looks like we could call AppOpsManager#checkPackage and see if it returns an error or throws. Or we could call PackageManager#getPackagesForUid and checked if the passed-in package name is in the list.\n\nAlso, as Patrick says, won\u0027t this CL change the behaviour in production of calling isTetheringSupported on from a non-system user? That doesn\u0027t seem like something we can safely do.\n\nAlso, what\u0027s the point of try/catching here? AFAICT we know that this code:\n- Will never throw if the passed-in user is the same as the current user.\n- Will always throw if the passed-in user is not the same as the current user.\n\nIf we can\u0027t fix this problem, then at least we should do something that\u0027s easier to understand, such as:\n\n    // TODO: figure out how to get the uid for a package in another user.\n    // - PackageManager#createContextAsUser will throw IAE because networkstack only\n    //   runs in the system user and not necessarily in the passed-in user.\n    // - PackageManager#getPackageUidAsUser requires INTERACT_ACROSS_USERS_FULL\n    //   which networkstack does not have.\n    if (!UserHandle.getUserHandleForUid(Process.myUid()).equals(user)) {\n        return -1;\n    }\n\nand leave the rest of the code as is.\n\nIf we do need to try/catch, then can we at least catch the right type of Exception here instead of blanket-catching everything? Even if you don\u0027t change this, please add a comment to explain why we need to catch an ecxception here.",
+      "range": {
+        "startLine": 213,
+        "startChar": 17,
+        "endLine": 213,
+        "endChar": 26
+      },
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "197f79f5_89631317",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-05T09:55:39Z",
+      "side": 1,
+      "message": "Can this code throw anything other than NameNotFoundException? If so, can we go back to catching only NameNotFoundException?",
+      "range": {
+        "startLine": 219,
+        "startChar": 17,
+        "endLine": 219,
+        "endChar": 26
+      },
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
