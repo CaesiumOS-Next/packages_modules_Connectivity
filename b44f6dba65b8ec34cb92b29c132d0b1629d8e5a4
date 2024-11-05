@@ -52,6 +52,24 @@
       "parentUuid": "17aa0acf_a5cb87ac",
       "revId": "b44f6dba65b8ec34cb92b29c132d0b1629d8e5a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59e311e7_7eaa17d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-05T05:50:53Z",
+      "side": 1,
+      "message": "\u003e  It also seems wrong that enforcePackageNameMatchesUid() fails when isTetheringSupported() is called without an argument (i.e. the package name is filled in by the TetheringManager).\n\nI\u0027m not sure what the concern is here -- do you mean that it seems wrong that TetheringManager fills in the package name manually instead of the app? This simply follows the pattern that the rest of the APIs use by getting the package name from mContext.getOpPackageName(). Otherwise, there\u0027s no way isTetheringSupported() could be called without an argument. Is there a better way to do this?",
+      "parentUuid": "35c604c0_05670954",
+      "revId": "b44f6dba65b8ec34cb92b29c132d0b1629d8e5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
