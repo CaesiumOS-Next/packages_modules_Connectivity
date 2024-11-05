@@ -37,6 +37,8 @@ import android.net.thread.ThreadNetworkManager;
 import android.os.OutcomeReceiver;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -52,6 +54,9 @@ public final class ThreadNetworkControllerWrapper {
     private static final Duration CONFIG_TIMEOUT = Duration.ofSeconds(1);
 
     private final ThreadNetworkController mController;
+
+    private final List<Integer> mDeviceRoleUpdates = new ArrayList<>();
+    @Nullable private StateCallback mStateCallback;
 
     /**
      * Returns a new {@link ThreadNetworkControllerWrapper} instance or {@code null} if Thread
@@ -117,6 +122,57 @@ public final class ThreadNetworkControllerWrapper {
         } finally {
             runAsShell(ACCESS_NETWORK_STATE, () -> mController.unregisterStateCallback(callback));
         }
+    }
+
+    /** Starts subscribing to state updates such as Device Role etc. */
+    public void startSubscribeStateUpdates() {
+        if (mStateCallback != null) {
+            return;
+        }
+
+        StateCallback callback =
+                new StateCallback() {
+                    @Override
+                    public void onDeviceRoleChanged(int newRole) {
+                        mDeviceRoleUpdates.add(newRole);
+                    }
+                    // Add more states tracker here
+                };
+        runAsShell(
+                ACCESS_NETWORK_STATE,
+                () -> mController.registerStateCallback(directExecutor(), callback));
+        mStateCallback = callback;
+    }
+
+    /**
+     * @sa startSubscribeStateUpdates
+     */
+    private void stopSubscribeStateUpdates() {
+        if (mStateCallback == null) {
+            return;
+        }
+
+        runAsShell(ACCESS_NETWORK_STATE, () -> mController.unregisterStateCallback(mStateCallback));
+        mStateCallback = null;
+    }
+
+    /**
+     * Stops all subscribers started by {@link #startSubscribeXxxx} to avoid resource leak.
+     *
+     * <p>This should be called in the {@code @After} method of tests.
+     */
+    public void stopAllSubscribers() {
+        stopSubscribeStateUpdates();
+    }
+
+    /**
+     * Returns the list of device role updates received starting after the first call to {@link
+     * #startSubscribeStateUpdates} or last call to {@link #consumeDeviceRoleUpdates}.
+     */
+    public List<Integer> consumeDeviceRoleUpdates() {
+        List<Integer> currentUpdates = Collections.unmodifiableList(mDeviceRoleUpdates);
+        mDeviceRoleUpdates.clear();
+        return currentUpdates;
     }
 
     /** An synchronous variant of {@link ThreadNetworkController#setEnabled}. */
