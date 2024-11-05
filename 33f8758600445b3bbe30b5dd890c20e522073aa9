@@ -16,6 +16,24 @@
       "message": "CTS changes in our project outside of no-ops, cherry-picks and additional mDNS coverage should be approved by Lorenzo, adding as reviewer",
       "revId": "33f8758600445b3bbe30b5dd890c20e522073aa9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41396735_7e939287",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-05T10:04:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2962c68_4cd26e46",
+      "revId": "33f8758600445b3bbe30b5dd890c20e522073aa9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
