@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f1eacb8_da4aca12",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T10:06:43Z",
+      "side": 1,
+      "message": "Perhaps throw a `NotImplementedError()` since this method shouldn\u0027t be used in this test.\n\n```\noverride fun withZone(zone: ZoneId?): Clock \u003d throw NotImplementedError()\n```",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 23
+      },
+      "revId": "ac8b62def4bd57a7be7cc534feecb0792cef3bcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "748adc9c_21a2b859",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T10:06:43Z",
+      "side": 1,
+      "message": "Ditto. Throw a `NotImplementedError()`.",
+      "range": {
+        "startLine": 99,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 23
+      },
+      "revId": "ac8b62def4bd57a7be7cc534feecb0792cef3bcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65371b14_2592ad75",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T10:06:43Z",
+      "side": 1,
+      "message": "Nit: `override fun millis(): Long \u003d currentTimeMillis`",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 104,
+        "endChar": 9
+      },
+      "revId": "ac8b62def4bd57a7be7cc534feecb0792cef3bcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f57f323_709a1524",
+        "filename": "tests/unit/java/android/net/TrafficStatsTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T10:06:43Z",
+      "side": 1,
+      "message": "Can you move this line to l.192 to prove that the returned value is actually from the cache?",
+      "range": {
+        "startLine": 197,
+        "startChar": 8,
+        "endLine": 197,
+        "endChar": 87
+      },
+      "revId": "ac8b62def4bd57a7be7cc534feecb0792cef3bcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
