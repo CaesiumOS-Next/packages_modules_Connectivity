@@ -237,6 +237,30 @@
       },
       "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06b57c19_44f47c1d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 53
+      },
+      "lineNbr": 2508,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-06T07:32:46Z",
+      "side": 1,
+      "message": "Added a test in CtsHostsideNetworkTests that starts tethering with one UID and tries to get the SoftApConfigurartion from another, PTAL",
+      "parentUuid": "4d267cd4_9789e303",
+      "range": {
+        "startLine": 2508,
+        "startChar": 12,
+        "endLine": 2508,
+        "endChar": 15
+      },
+      "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
