@@ -88,6 +88,24 @@
       "parentUuid": "59e311e7_7eaa17d4",
       "revId": "b44f6dba65b8ec34cb92b29c132d0b1629d8e5a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc998c89_f2d6848c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-06T00:59:24Z",
+      "side": 1,
+      "message": "\u003e If GMSCore has been calling this API on a non-system user, they might be relying on the return value to take some action. It seems isTetheringSupported() used to return true for all users, but now returns false for some users.\n\nMakes sense. I think the current patch set using mAppOppsManager.checkPackage should allow for non-system users to call this too, and should provide the correct return value for enforcePackageNameMatchesUid()",
+      "parentUuid": "dac441d7_06d55f8a",
+      "revId": "b44f6dba65b8ec34cb92b29c132d0b1629d8e5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
