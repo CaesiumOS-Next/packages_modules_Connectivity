@@ -39,6 +39,30 @@
       },
       "revId": "e70174f326e0a8a710f090028841ec5a6df6d273",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce9332b8_c933b52d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 3524514
+      },
+      "writtenOn": "2024-11-06T12:52:52Z",
+      "side": 1,
+      "message": "Hi, thank you for the quick review. Agreed that this approach is not bullet proof, and there is definitely a better way of doing this. However, in the meantime, would it still be a good idea to have this change landed until you get around to rearchitecting this so that we can wait on the netlink event and then change it accordingly when that is implemented?",
+      "parentUuid": "cd531f94_e2a4197f",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 602,
+        "endChar": 21
+      },
+      "revId": "e70174f326e0a8a710f090028841ec5a6df6d273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
