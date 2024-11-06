@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fced45d_3d07e3fb",
+        "filename": "thread/framework/java/android/net/thread/ThreadNetworkSpecifier.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-06T07:01:47Z",
+      "side": 1,
+      "message": "I am going to resolve this comment and merge this CL to make things continue running. Let\u0027s continue the discussion on the names in the design doc.",
+      "parentUuid": "9e0f4ad1_40b980d4",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 48
+      },
+      "revId": "81533d7a793e271fd0402448146879c47037afef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3ed510e_7ec709c3",
