@@ -62,6 +62,29 @@
       },
       "revId": "42b9a69d5daff7450e3d3e5bf61e637dd8013e9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6c27218_be041e5f",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T09:17:59Z",
+      "side": 1,
+      "message": "Nit: Is it sufficient to use `stats.equals(new StatsResult(0, 0, 0, 0))`",
+      "range": {
+        "startLine": 1185,
+        "startChar": 8,
+        "endLine": 1186,
+        "endChar": 62
+      },
+      "revId": "42b9a69d5daff7450e3d3e5bf61e637dd8013e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
