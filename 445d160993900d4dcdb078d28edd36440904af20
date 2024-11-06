@@ -46,6 +46,30 @@
       },
       "revId": "445d160993900d4dcdb078d28edd36440904af20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "def289b0_c6fc5f2f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 2132,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-06T07:38:32Z",
+      "side": 1,
+      "message": "I agree with keeping the test code DAMP -- I\u0027ve definitely run into multiple cases where common test code was spaghetti-refactored to accommodate more and more new features.",
+      "parentUuid": "f11b6056_bfb08476",
+      "range": {
+        "startLine": 2100,
+        "startChar": 0,
+        "endLine": 2132,
+        "endChar": 68
+      },
+      "revId": "445d160993900d4dcdb078d28edd36440904af20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
