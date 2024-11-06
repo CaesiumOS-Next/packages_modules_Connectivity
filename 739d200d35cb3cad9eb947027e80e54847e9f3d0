@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa51ab2f_98e54aa7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T08:57:32Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "739d200d35cb3cad9eb947027e80e54847e9f3d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99041908_a1cebfad",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T08:57:32Z",
+      "side": 1,
+      "message": "This was unnecessary since the test class was removed. However, I see the test class was added back in a subsequent change, so it\u0027s likely fine to keep it.",
+      "range": {
+        "startLine": 188,
+        "startChar": 40,
+        "endLine": 188,
+        "endChar": 60
+      },
+      "revId": "739d200d35cb3cad9eb947027e80e54847e9f3d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
