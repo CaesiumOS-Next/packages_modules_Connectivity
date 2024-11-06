@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "170dafd4_0fe6a29f",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T03:14:45Z",
+      "side": 1,
+      "message": "Add nullability.",
+      "range": {
+        "startLine": 210,
+        "startChar": 59,
+        "endLine": 210,
+        "endChar": 79
+      },
+      "revId": "292052c9dc1ac9fd2bc6602ce00f81da4bf78d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3df1e9ee_5aed3092",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T03:14:45Z",
+      "side": 1,
+      "message": "Nit: Per our conversation, I suggest a quick return, as shown below, to avoid locking twice each time.\n\n```\n        synchronized (sRateLimitCacheLock) {\n            if (sRateLimitCacheConfig !\u003d null \u0026\u0026 !forceReinit) {\n                return sRateLimitCacheConfig.isCacheEnabled;\n            }\n        }\n\n        TrafficStatsRateLimitCacheConfig config;\n        try {\n            config \u003d getStatsService().getRateLimitCacheConfig();\n        } catch (RemoteException e) {\n            throw e.rethrowFromSystemServer();\n        }\n        synchronized (sRateLimitCacheLock) {\n            if (sRateLimitCacheConfig \u003d\u003d null || forceReinit) {\n                sRateLimitCacheConfig \u003d config;\n                initRateLimitCacheLocked();\n            }\n        }\n        return config.isCacheEnabled;\n```",
+      "range": {
+        "startLine": 372,
+        "startChar": 8,
+        "endLine": 388,
+        "endChar": 37
+      },
+      "revId": "292052c9dc1ac9fd2bc6602ce00f81da4bf78d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c89e65bc_5145e441",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T03:14:45Z",
+      "side": 1,
+      "message": "Nit: statsResult",
+      "range": {
+        "startLine": 400,
+        "startChar": 21,
+        "endLine": 400,
+        "endChar": 23
+      },
+      "revId": "292052c9dc1ac9fd2bc6602ce00f81da4bf78d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a0b8af8_8b794910",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T03:14:45Z",
+      "side": 1,
+      "message": "Nit: Can we always initialize these two caches, regardless of whether the cache feature is enabled?",
+      "range": {
+        "startLine": 409,
+        "startChar": 12,
+        "endLine": 410,
+        "endChar": 38
+      },
+      "revId": "292052c9dc1ac9fd2bc6602ce00f81da4bf78d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e78fab29_bdc3a54b",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T03:14:45Z",
+      "side": 1,
+      "message": "Nit: If you always initialize the caches as suggested above, this check becomes unnecessary.",
+      "range": {
+        "startLine": 896,
+        "startChar": 8,
+        "endLine": 896,
+        "endChar": 75
+      },
+      "revId": "292052c9dc1ac9fd2bc6602ce00f81da4bf78d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a1d2166_4d08a376",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T03:14:45Z",
+      "side": 1,
+      "message": "Nit: statsResult",
+      "range": {
+        "startLine": 1165,
+        "startChar": 20,
+        "endLine": 1165,
+        "endChar": 22
+      },
+      "revId": "292052c9dc1ac9fd2bc6602ce00f81da4bf78d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
