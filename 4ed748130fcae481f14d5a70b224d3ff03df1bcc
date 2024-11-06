@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b1b7064_f4f6ebf1",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T08:11:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f50340f0_95834149",
+      "range": {
+        "startLine": 0,
+        "startChar": 0,
+        "endLine": 0,
+        "endChar": 0
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c7902ce_d51f9abb",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-11-04T05:19:29Z",
       "side": 1,
       "message": "Similar to the comment in previous CL, is it the right place to add this class?",
+      "range": {
+        "startLine": 646,
+        "startChar": 8,
+        "endLine": 646,
+        "endChar": 70
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5ab7d4a_e49a4e2b",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T08:11:00Z",
+      "side": 1,
+      "message": "As I commented in the previous CL, this appears to be the only place to add this class.",
+      "parentUuid": "9c7902ce_d51f9abb",
       "range": {
         "startLine": 646,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a11b3f80_e88e24a6",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T08:11:00Z",
+      "side": 1,
+      "message": "- Change to `private`\n- I think mFd might be confusing since we already have mFileDescriptor below.",
+      "parentUuid": "a5799e0e_d037bce5",
+      "range": {
+        "startLine": 84,
+        "startChar": 14,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abfc0bbd_08f1af12",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-11-04T05:19:29Z",
       "side": 1,
       "message": "If `mId` is final, I think this mFileDescriptor should also be final. We can have a separate variable to track whether the unregisterAndDestroyFd() has be called or not instead of do the `mFileDescriptor \u003d null` check.",
+      "range": {
+        "startLine": 86,
+        "startChar": 27,
+        "endLine": 86,
+        "endChar": 42
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5c878f2_ed424ed8",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T08:11:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abfc0bbd_08f1af12",
       "range": {
         "startLine": 86,
         "startChar": 27,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "802f7b8b_0d9ce4ac",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T08:11:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0debf000_a1eab65c",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 19
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a03de01_19cc898b",
@@ -156,6 +276,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eb51591_3d7e3120",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T08:11:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a03de01_19cc898b",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 14
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30f35ac5_3f4a708b",
@@ -169,6 +313,24 @@
       "writtenOn": "2024-11-04T05:19:29Z",
       "side": 1,
       "message": "I am not fully follow what we are trying to test here. It seems to me that if the cv.open() is executed immediately, the test will still pass?",
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c28649d_bd1e9070",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T08:11:00Z",
+      "side": 1,
+      "message": "The `ConditionVariable` will be unblocked if `cv.open()` is called. Therefore, if cv.open() is executed, the test definitely passes. However, `cv.open()` will be executed after the delay time elapses in this test, not immediately.",
+      "parentUuid": "30f35ac5_3f4a708b",
       "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
