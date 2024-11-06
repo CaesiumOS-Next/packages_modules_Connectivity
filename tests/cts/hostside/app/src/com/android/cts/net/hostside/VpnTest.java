@@ -1957,6 +1957,163 @@ public class VpnTest {
             });
     }
 
+<<<<<<< HEAD   (962c1b Merge empty history for sparse-12454383-L32100030007383980)
+||||||| BASE
+    /**
+     * Check if packets to a VPN interface's IP arriving on a non-VPN interface are dropped or not.
+     * If the test interface has a different address from the VPN interface, packets must be dropped
+     * If the test interface has the same address as the VPN interface, packets must not be
+     * dropped
+     *
+     * @param duplicatedAddress true to bring up the test interface with the same address as the VPN
+     *                          interface
+     */
+    private void doTestDropPacketToVpnAddress(final boolean duplicatedAddress)
+            throws Exception {
+        assumeTrue(mCM.isConnectivityServiceFeatureEnabledForTesting(
+                INGRESS_TO_VPN_ADDRESS_FILTERING));
+
+        final NetworkRequest request = new NetworkRequest.Builder()
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
+                .addTransportType(TRANSPORT_TEST)
+                .build();
+        final CtsNetUtils.TestNetworkCallback callback = new CtsNetUtils.TestNetworkCallback();
+        mCM.requestNetwork(request, callback);
+        final ParcelFileDescriptor srcTunFd = runWithShellPermissionIdentity(() -> {
+            final TestNetworkManager tnm = mTestContext.getSystemService(TestNetworkManager.class);
+            List<LinkAddress> linkAddresses = duplicatedAddress
+                    ? List.of(new LinkAddress("192.0.2.2/24"),
+                            new LinkAddress("2001:db8:1:2::ffe/64")) :
+                    List.of(new LinkAddress("198.51.100.2/24"),
+                            new LinkAddress("2001:db8:3:4::ffe/64"));
+            final TestNetworkInterface iface = tnm.createTunInterface(linkAddresses);
+            tnm.setupTestNetwork(iface.getInterfaceName(), new Binder());
+            return iface.getFileDescriptor();
+        }, MANAGE_TEST_NETWORKS);
+        final Network testNetwork = callback.waitForAvailable();
+        assertNotNull(testNetwork);
+        final DatagramSocket dstSock = new DatagramSocket();
+
+        testAndCleanup(() -> {
+            startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"} /* addresses */,
+                    new String[]{"0.0.0.0/0", "::/0"} /* routes */,
+                    "" /* allowedApplications */, "" /* disallowedApplications */,
+                    null /* proxyInfo */, null /* underlyingNetworks */,
+                    false /* isAlwaysMetered */);
+
+            final FileDescriptor dstUdpFd = dstSock.getFileDescriptor$();
+            checkBlockUdp(srcTunFd.getFileDescriptor(), dstUdpFd,
+                    InetAddresses.parseNumericAddress("192.0.2.2") /* dstAddress */,
+                    InetAddresses.parseNumericAddress("192.0.2.1") /* srcAddress */,
+                    duplicatedAddress ? EXPECT_PASS : EXPECT_BLOCK);
+            checkBlockUdp(srcTunFd.getFileDescriptor(), dstUdpFd,
+                    InetAddresses.parseNumericAddress("2001:db8:1:2::ffe") /* dstAddress */,
+                    InetAddresses.parseNumericAddress("2001:db8:1:2::ffa") /* srcAddress */,
+                    duplicatedAddress ? EXPECT_PASS : EXPECT_BLOCK);
+
+            // Traffic on VPN should not be affected
+            checkTrafficOnVpn();
+        }, /* cleanup */ () -> {
+                srcTunFd.close();
+                dstSock.close();
+            }, /* cleanup */ () -> {
+                runWithShellPermissionIdentity(() -> {
+                    mTestContext.getSystemService(TestNetworkManager.class)
+                            .teardownTestNetwork(testNetwork);
+                }, MANAGE_TEST_NETWORKS);
+            }, /* cleanup */ () -> {
+                mCM.unregisterNetworkCallback(callback);
+            });
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDropPacketToVpnAddress_WithoutDuplicatedAddress() throws Exception {
+        doTestDropPacketToVpnAddress(false /* duplicatedAddress */);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDropPacketToVpnAddress_WithDuplicatedAddress() throws Exception {
+        doTestDropPacketToVpnAddress(true /* duplicatedAddress */);
+    }
+
+=======
+    /**
+     * Check if packets to a VPN interface's IP arriving on a non-VPN interface are dropped or not.
+     * If the test interface has a different address from the VPN interface, packets must be dropped
+     * If the test interface has the same address as the VPN interface, packets must not be
+     * dropped
+     *
+     * @param duplicatedAddress true to bring up the test interface with the same address as the VPN
+     *                          interface
+     */
+    private void doTestDropPacketToVpnAddress(final boolean duplicatedAddress)
+            throws Exception {
+        final NetworkRequest request = new NetworkRequest.Builder()
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
+                .addTransportType(TRANSPORT_TEST)
+                .build();
+        final CtsNetUtils.TestNetworkCallback callback = new CtsNetUtils.TestNetworkCallback();
+        mCM.requestNetwork(request, callback);
+        final ParcelFileDescriptor srcTunFd = runWithShellPermissionIdentity(() -> {
+            final TestNetworkManager tnm = mTestContext.getSystemService(TestNetworkManager.class);
+            List<LinkAddress> linkAddresses = duplicatedAddress
+                    ? List.of(new LinkAddress("192.0.2.2/24"),
+                            new LinkAddress("2001:db8:1:2::ffe/64")) :
+                    List.of(new LinkAddress("198.51.100.2/24"),
+                            new LinkAddress("2001:db8:3:4::ffe/64"));
+            final TestNetworkInterface iface = tnm.createTunInterface(linkAddresses);
+            tnm.setupTestNetwork(iface.getInterfaceName(), new Binder());
+            return iface.getFileDescriptor();
+        }, MANAGE_TEST_NETWORKS);
+        final Network testNetwork = callback.waitForAvailable();
+        assertNotNull(testNetwork);
+        final DatagramSocket dstSock = new DatagramSocket();
+
+        testAndCleanup(() -> {
+            startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"} /* addresses */,
+                    new String[]{"0.0.0.0/0", "::/0"} /* routes */,
+                    "" /* allowedApplications */, "" /* disallowedApplications */,
+                    null /* proxyInfo */, null /* underlyingNetworks */,
+                    false /* isAlwaysMetered */);
+
+            final FileDescriptor dstUdpFd = dstSock.getFileDescriptor$();
+            checkBlockUdp(srcTunFd.getFileDescriptor(), dstUdpFd,
+                    InetAddresses.parseNumericAddress("192.0.2.2") /* dstAddress */,
+                    InetAddresses.parseNumericAddress("192.0.2.1") /* srcAddress */,
+                    duplicatedAddress ? EXPECT_PASS : EXPECT_BLOCK);
+            checkBlockUdp(srcTunFd.getFileDescriptor(), dstUdpFd,
+                    InetAddresses.parseNumericAddress("2001:db8:1:2::ffe") /* dstAddress */,
+                    InetAddresses.parseNumericAddress("2001:db8:1:2::ffa") /* srcAddress */,
+                    duplicatedAddress ? EXPECT_PASS : EXPECT_BLOCK);
+
+            // Traffic on VPN should not be affected
+            checkTrafficOnVpn();
+        }, /* cleanup */ () -> {
+                srcTunFd.close();
+                dstSock.close();
+            }, /* cleanup */ () -> {
+                runWithShellPermissionIdentity(() -> {
+                    mTestContext.getSystemService(TestNetworkManager.class)
+                            .teardownTestNetwork(testNetwork);
+                }, MANAGE_TEST_NETWORKS);
+            }, /* cleanup */ () -> {
+                mCM.unregisterNetworkCallback(callback);
+            });
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDropPacketToVpnAddress_WithoutDuplicatedAddress() throws Exception {
+        doTestDropPacketToVpnAddress(false /* duplicatedAddress */);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    public void testDropPacketToVpnAddress_WithDuplicatedAddress() throws Exception {
+        doTestDropPacketToVpnAddress(true /* duplicatedAddress */);
+    }
+
+>>>>>>> BRANCH (931f6c Merge cherrypicks of ['android-review.googlesource.com/33079)
     private ByteBuffer buildIpv4UdpPacket(final Inet4Address dstAddr, final Inet4Address srcAddr,
             final short dstPort, final short srcPort, final byte[] payload) throws IOException {
 

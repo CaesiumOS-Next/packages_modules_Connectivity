@@ -257,4 +257,18 @@ interface IConnectivityManager
     void setVpnNetworkPreference(String session, in UidRange[] ranges);
 
     void setTestLowTcpPollingTimerForKeepalive(long timeMs);
+<<<<<<< HEAD   (962c1b Merge empty history for sparse-12454383-L32100030007383980)
+||||||| BASE
+
+    IBinder getRoutingCoordinatorService();
+
+    long getEnabledConnectivityManagerFeatures();
+
+    boolean isConnectivityServiceFeatureEnabledForTesting(String featureFlag);
+=======
+
+    IBinder getRoutingCoordinatorService();
+
+    long getEnabledConnectivityManagerFeatures();
+>>>>>>> BRANCH (931f6c Merge cherrypicks of ['android-review.googlesource.com/33079)
 }

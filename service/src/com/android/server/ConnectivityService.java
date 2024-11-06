@@ -12226,4 +12226,54 @@ public class ConnectivityService extends IConnectivityManager.Stub
         enforceNetworkStackPermission(mContext);
         return mCdmps;
     }
+<<<<<<< HEAD   (962c1b Merge empty history for sparse-12454383-L32100030007383980)
+||||||| BASE
+
+    @Override
+    public IBinder getRoutingCoordinatorService() {
+        enforceNetworkStackPermission(mContext);
+        return mRoutingCoordinatorService;
+    }
+
+    @Override
+    public long getEnabledConnectivityManagerFeatures() {
+        long features = 0;
+        // The bitmask must be built based on final properties initialized in the constructor, to
+        // ensure that it does not change over time and is always consistent between
+        // ConnectivityManager and ConnectivityService.
+        if (mUseDeclaredMethodsForCallbacksEnabled) {
+            features |= ConnectivityManager.FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS;
+        }
+        return features;
+    }
+
+    @Override
+    public boolean isConnectivityServiceFeatureEnabledForTesting(String featureFlag) {
+        switch (featureFlag) {
+            case INGRESS_TO_VPN_ADDRESS_FILTERING:
+                return mIngressToVpnAddressFiltering;
+            default:
+                throw new IllegalArgumentException("Unknown flag: " + featureFlag);
+        }
+    }
+=======
+
+    @Override
+    public IBinder getRoutingCoordinatorService() {
+        enforceNetworkStackPermission(mContext);
+        return mRoutingCoordinatorService;
+    }
+
+    @Override
+    public long getEnabledConnectivityManagerFeatures() {
+        long features = 0;
+        // The bitmask must be built based on final properties initialized in the constructor, to
+        // ensure that it does not change over time and is always consistent between
+        // ConnectivityManager and ConnectivityService.
+        if (mUseDeclaredMethodsForCallbacksEnabled) {
+            features |= ConnectivityManager.FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS;
+        }
+        return features;
+    }
+>>>>>>> BRANCH (931f6c Merge cherrypicks of ['android-review.googlesource.com/33079)
 }
