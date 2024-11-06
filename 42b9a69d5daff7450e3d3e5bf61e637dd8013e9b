@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e4a5e4d_8efd0c46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T09:12:53Z",
+      "side": 1,
+      "message": "I think you should get a review from Remi for this change as well.",
+      "revId": "42b9a69d5daff7450e3d3e5bf61e637dd8013e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97458abe_11d338e8",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T09:12:53Z",
+      "side": 1,
+      "message": "Could you add comments to explain the usage for these vraiables?",
+      "range": {
+        "startLine": 208,
+        "startChar": 52,
+        "endLine": 208,
+        "endChar": 73
+      },
+      "revId": "42b9a69d5daff7450e3d3e5bf61e637dd8013e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1e0bc9a_aaa5dd4e",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-06T09:12:53Z",
+      "side": 1,
+      "message": "Per our offline discussion, should we add synchronized (sRateLimitCacheLock) to this method to ensure the lock is really acquired?",
+      "range": {
+        "startLine": 377,
+        "startChar": 16,
+        "endLine": 377,
+        "endChar": 35
+      },
+      "revId": "42b9a69d5daff7450e3d3e5bf61e637dd8013e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
