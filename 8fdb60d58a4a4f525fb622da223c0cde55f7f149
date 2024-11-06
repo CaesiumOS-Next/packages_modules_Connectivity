@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a55672b4_f018add3",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-06T09:43:39Z",
+      "side": 1,
+      "message": "If #1 works, why limit the usage to networkstack only? Why not use it everyhere?\n\nCan we add a CTS test that ensures it works? It seems quite easy:\n- Register a callback\n- Attempt to start tethering with the invalid package\n- Check that the callback is called back with a permission error.\n\nHaving a CTS test will give us confidence that this method will work on all supported Android releases and not just on future releases.",
+      "parentUuid": "11e85929_c454106b",
+      "range": {
+        "startLine": 213,
+        "startChar": 17,
+        "endLine": 213,
+        "endChar": 26
+      },
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "197f79f5_89631317",
         "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
         "patchSetId": 4
