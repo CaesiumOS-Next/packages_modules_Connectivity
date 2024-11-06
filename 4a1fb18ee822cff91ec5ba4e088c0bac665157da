@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "831f2928_fe350b10",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-06T11:36:33Z",
+      "side": 0,
+      "message": "Is this now unused? If so, can you remove it?",
+      "range": {
+        "startLine": 1130,
+        "startChar": 8,
+        "endLine": 1130,
+        "endChar": 27
+      },
+      "revId": "4a1fb18ee822cff91ec5ba4e088c0bac665157da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

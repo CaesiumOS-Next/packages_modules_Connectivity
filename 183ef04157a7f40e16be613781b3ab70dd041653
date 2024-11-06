@@ -261,6 +261,30 @@
       },
       "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d449e24a_26db0f1e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 53
+      },
+      "lineNbr": 2508,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-06T11:36:33Z",
+      "side": 1,
+      "message": "Thanks for doing it. Per previous comment, could you move that new test to another CL?",
+      "parentUuid": "06b57c19_44f47c1d",
+      "range": {
+        "startLine": 2508,
+        "startChar": 12,
+        "endLine": 2508,
+        "endChar": 15
+      },
+      "revId": "183ef04157a7f40e16be613781b3ab70dd041653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

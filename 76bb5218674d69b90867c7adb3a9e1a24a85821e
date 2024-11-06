@@ -3,6 +3,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ddae89bc_bfa15660",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-06T11:36:33Z",
+      "side": 1,
+      "message": "Instead of having duplicate code in these two constructors, can you just make the first constructor call the second constructor with a null SoftApConfiguration?",
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22c1a418_cce66f23",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-06T11:36:33Z",
+      "side": 1,
+      "message": "Can you make this optional if null?\n\n        + ((mSoftApConfig \u003d\u003d null) ? \"\" : \", mSoftApConfig\u003d\" + mSoftApConfig\")\n        + \"}\";",
+      "range": {
+        "startLine": 131,
+        "startChar": 18,
+        "endLine": 131,
+        "endChar": 56
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8322b54d_398df200",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-06T11:36:33Z",
+      "side": 1,
+      "message": "Perhaps not for this CL, but is there a reason we cannot make this @NonNull and final? Ideally we would never have any IpServer without a request.",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 13
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90ebbee9_0fcedb71",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 59
@@ -19,6 +82,98 @@
         "startChar": 20,
         "endLine": 1114,
         "endChar": 34
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b90f5af_a59ca60a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-06T11:36:33Z",
+      "side": 1,
+      "message": "This refactoring and renaming of sendTetherStateChangedBroadcast, registerTetheringEventCallback and sendTetherStatesChangedCallback is necessary to add the APIs that you are adding in this CL, but it\u0027s difficult to follow and this CL is already very large. Could you move it out to a separate CL (which this CL will depend on) so it can be independently reviewed and tested? (Presumably the tests should not need to change since it should be a complete no-op.)",
+      "range": {
+        "startLine": 1128,
+        "startChar": 31,
+        "endLine": 1128,
+        "endChar": 54
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ecdc065_d2d302ee",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-06T11:36:33Z",
+      "side": 1,
+      "message": "Can you make this a bit easier to read? Something like:\n\n    final boolean includeSoftApConfig \u003d request !\u003d null \u0026\u0026 cookie !\u003d null\n            \u0026\u0026 (cookie.uid \u003d\u003d request.getUid() || cookie.hasSystemPrivilege);\n    final TetheringInterface tetheringIface \u003d new TetheringInterface(type, iface,\n        includeSoftApConfig ? request.getSoftApConfiguration() : null);",
+      "range": {
+        "startLine": 1141,
+        "startChar": 39,
+        "endLine": 1141,
+        "endChar": 53
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "569d2b8e_d52b85c2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-06T11:36:33Z",
+      "side": 1,
+      "message": "It seems unfortunate that this can be null. Perhaps in this CL we can\u0027t guarantee that it be non-null, but once we do the TetheringRequest refactor, will we have an invariant where every IpServer always has a non-null TetheringRequest at all times? Ideally we should never have any IpServer without a TetheringRequest, right?",
+      "range": {
+        "startLine": 1141,
+        "startChar": 20,
+        "endLine": 1141,
+        "endChar": 35
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec25d44e_441309a0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-06T11:36:33Z",
+      "side": 1,
+      "message": "null /* cookie */",
+      "range": {
+        "startLine": 1181,
+        "startChar": 60,
+        "endLine": 1181,
+        "endChar": 64
       },
       "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
