@@ -163,6 +163,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b90c2747_57d8cda4",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1240997
+      },
+      "writtenOn": "2024-11-06T23:13:27Z",
+      "side": 1,
+      "message": "\u003e If #1 works, why limit the usage to networkstack only? Why not use it everyhere?\n\nYes, #1 works. Would it be possible that this change get made in a separate CL so that if something were it break it wouldn\u0027t need to revert the tethering stack of CLs again. Created b/377758490 to track this effort, and added this to the comments.\n\n```\nCan we add a CTS test that ensures it works? It seems quite easy:\n\nRegister a callback\nAttempt to start tethering with the invalid package\nCheck that the callback is called back with a permission error.\n```\n\nThere is already some existing CTS test that\u0027s verifying that correct call is passing:\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java;l\u003d401?q\u003d%22.registerTetheringEventCallback(%22\u0026sq\u003drepo:googleplex-android%2Fplatform%2Fsuperproject%2Fmain%20b:main\n\nThe invalid package testing would be kind of complicated. In my understanding, CTS test calling through TetheringManager will alway result in a valid packageName. To inject an invalid packageName the CTS test would need to access TetheringService directly from a binder call. This doesn\u0027t seem like a case that we would normally test through CTS. If you know a better way to fake a packageName, please let me know",
+      "parentUuid": "977443d0_bcef7aa0",
+      "range": {
+        "startLine": 213,
+        "startChar": 17,
+        "endLine": 213,
+        "endChar": 26
+      },
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "197f79f5_89631317",
         "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
         "patchSetId": 4
