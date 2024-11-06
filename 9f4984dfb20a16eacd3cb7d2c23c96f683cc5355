@@ -16,6 +16,24 @@
       "message": "What\u0027s the consideration of making this a singleton class? I\u0027m a bit concerned that it\u0027s more error-prone than a instance-based approach.",
       "revId": "9f4984dfb20a16eacd3cb7d2c23c96f683cc5355",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f547fa0_f86a19d1",
+        "filename": "thread/tests/utils/src/android/net/thread/utils/ThreadStateListener.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-06T06:02:21Z",
+      "side": 1,
+      "message": "Sorry, I didn\u0027t get you. What makes you think this is a singleton?",
+      "parentUuid": "4c2def28_ec2a2f28",
+      "revId": "9f4984dfb20a16eacd3cb7d2c23c96f683cc5355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
