@@ -211,6 +211,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9006ddd3_db01f027",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1240997
+      },
+      "writtenOn": "2024-11-07T20:18:51Z",
+      "side": 1,
+      "message": "Quang PTAL at request for unit test. It seems to be asking to validate the packageName that\u0027s been set in the TetheringRequest? \n\nHowever the setUid and setPackageName appear to be @hide APIs that\u0027s intended to only get used in the framework. I don\u0027t think CTS test is allowed nor supposed to set these fields",
+      "parentUuid": "0b7ef160_4b337f4b",
+      "range": {
+        "startLine": 213,
+        "startChar": 17,
+        "endLine": 213,
+        "endChar": 26
+      },
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "197f79f5_89631317",
         "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
         "patchSetId": 4
