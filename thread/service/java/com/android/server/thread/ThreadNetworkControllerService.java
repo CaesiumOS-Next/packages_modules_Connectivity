@@ -228,6 +228,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final UserManager mUserManager;
     private boolean mUserRestricted;
     private boolean mForceStopOtDaemonEnabled;
+    private boolean mTrelEnabled;
 
     private InfraLinkState mInfraLinkState;
 
@@ -265,6 +266,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mUserManager = userManager;
         mResources = resources;
         mCountryCodeSupplier = countryCodeSupplier;
+        mTrelEnabled = mResources.get().getBoolean(R.bool.config_thread_trel_enabled);
     }
 
     public static ThreadNetworkControllerService newInstance(
@@ -353,7 +355,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         otDaemon.initialize(
                 mTunIfController.getTunFd(),
                 shouldEnableThread(),
-                newOtDaemonConfig(mPersistentSettings.getConfiguration()),
+                newOtDaemonConfig(mPersistentSettings.getConfiguration(), mTrelEnabled),
                 mNsdPublisher,
                 getMeshcopTxtAttributes(mResources.get()),
                 mOtDaemonCallbackProxy,
@@ -614,7 +616,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         try {
             getOtDaemon()
                     .setConfiguration(
-                            newOtDaemonConfig(configuration),
+                            newOtDaemonConfig(configuration, mTrelEnabled),
                             new LoggingOtStatusReceiver("setConfiguration"));
         } catch (RemoteException | ThreadNetworkException e) {
             LOG.e("otDaemon.setConfiguration failed. Config: " + configuration, e);
@@ -623,11 +625,12 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     }
 
     private static OtDaemonConfiguration newOtDaemonConfig(
-            @NonNull ThreadConfiguration threadConfig) {
+            @NonNull ThreadConfiguration threadConfig, boolean trelEnabled) {
         return new OtDaemonConfiguration.Builder()
                 .setBorderRouterEnabled(threadConfig.isBorderRouterEnabled())
                 .setNat64Enabled(threadConfig.isNat64Enabled())
                 .setDhcpv6PdEnabled(threadConfig.isDhcpv6PdEnabled())
+                .setTrelEnabled(trelEnabled)
                 .build();
     }
 
