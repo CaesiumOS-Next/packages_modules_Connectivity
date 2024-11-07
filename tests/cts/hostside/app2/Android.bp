@@ -27,6 +27,7 @@ android_test_helper_app {
     ],
     static_libs: [
         "androidx.annotation_annotation",
+        "cts-net-utils",
         "CtsHostsideNetworkTestsAidl",
     ],
     srcs: ["src/**/*.java"],
