@@ -63,6 +63,30 @@
       },
       "revId": "46722ad4c43fa460197a05d85eb22b376561ff12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "305ee7d8_120ed7af",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1240997
+      },
+      "writtenOn": "2024-11-07T20:13:03Z",
+      "side": 1,
+      "message": "Hmmm, there seems to be 2 different package names relevant here.\n1. The package name that\u0027s set in TetheringRequest\n2. The package name obtained from mContext.getOpPackageName()\n\nQuang, please take a look at Lorenzo\u0027s comment on whether startTethering should automatically populate the packageName in TetheringRequest if the caller didn\u0027t set it. Also, what should be the expected behavior if the 2 package names don\u0027t match?",
+      "parentUuid": "b0a24cf4_fa5792d4",
+      "range": {
+        "startLine": 1051,
+        "startChar": 0,
+        "endLine": 1051,
+        "endChar": 1
+      },
+      "revId": "46722ad4c43fa460197a05d85eb22b376561ff12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
