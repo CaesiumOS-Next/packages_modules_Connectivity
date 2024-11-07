@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "762626d7_33f7d56c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-07T14:13:10Z",
+      "side": 1,
+      "message": "LGTM, but please take a look at the inline comment and (unless it\u0027s incorrect) fix it in another CL.",
+      "revId": "46722ad4c43fa460197a05d85eb22b376561ff12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4c869d7_41c49c2c",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-07T14:13:10Z",
+      "side": 1,
+      "message": "Not for this CL since this is a revert. But...\n\nPer https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3326396/comment/cb643e95_6208b668/ : don\u0027t we need to populate the package name before we send the IPC? The package name is not available on the server side, we only have it here.\n\nSeems like we should do something like:\n\n    // If the app didn\u0027t specify the UID or package name, populate them now.\n    if (request.getUid() \u003d\u003d Process.INVALID_UID \u0026\u0026 request.getPackageName() \u003d\u003d null) {\n        request.setUid(Process.myUid());\n        request.setPackageName(callerPkg);\n    }",
+      "range": {
+        "startLine": 1051,
+        "startChar": 0,
+        "endLine": 1051,
+        "endChar": 1
+      },
+      "revId": "46722ad4c43fa460197a05d85eb22b376561ff12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
