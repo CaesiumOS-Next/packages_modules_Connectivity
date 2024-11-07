@@ -18407,9 +18407,16 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testRequestRouteToHostAddress_PackageDoesNotBelongToCaller() {
+        final String unownedPackage = "com.not.package.owner";
+        final String ownedPackage = "com.package.owner";
+        doThrow(new SecurityException()).when(mAppOpsManager).checkPackage(Process.myUid(),
+                unownedPackage);
+        doNothing().when(mAppOpsManager).checkPackage(Process.myUid(), ownedPackage);
         assertThrows(SecurityException.class, () -> mService.requestRouteToHostAddress(
-                ConnectivityManager.TYPE_NONE, null /* hostAddress */, "com.not.package.owner",
+                ConnectivityManager.TYPE_NONE, null /* hostAddress */, unownedPackage,
                 null /* callingAttributionTag */));
+        mService.requestRouteToHostAddress(ConnectivityManager.TYPE_NONE, null /* hostAddress */,
+                ownedPackage, null /* callingAttributionTag */);
     }
 
     @Test @IgnoreUpTo(SC_V2)

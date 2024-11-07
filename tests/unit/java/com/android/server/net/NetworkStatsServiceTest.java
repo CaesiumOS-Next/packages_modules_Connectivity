@@ -66,6 +66,7 @@ import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.WEEK_IN_MILLIS;
 
+import static com.android.dx.mockito.inline.extended.ExtendedMockito.doNothing;
 import static com.android.dx.mockito.inline.extended.ExtendedMockito.doThrow;
 import static com.android.server.net.NetworkStatsEventLogger.POLL_REASON_RAT_CHANGED;
 import static com.android.server.net.NetworkStatsEventLogger.PollEvent.pollReasonNameOf;
@@ -105,6 +106,7 @@ import static org.mockito.Mockito.verify;
 
 import android.annotation.NonNull;
 import android.app.AlarmManager;
+import android.app.AppOpsManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -268,6 +270,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private @Mock INetd mNetd;
     private @Mock TetheringManager mTetheringManager;
     private @Mock PackageManager mPm;
+    private @Mock AppOpsManager mAppOpsManager;
     private @Mock NetworkStatsFactory mStatsFactory;
     @NonNull
     private final TestNetworkStatsSettings mSettings =
@@ -350,6 +353,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
         @Override
         public Object getSystemService(String name) {
+            if (Context.APP_OPS_SERVICE.equals(name)) return mAppOpsManager;
             if (Context.TELEPHONY_SERVICE.equals(name)) return mTelephonyManager;
             if (Context.TETHERING_SERVICE.equals(name)) return mTetheringManager;
             return mBaseContext.getSystemService(name);
@@ -3057,10 +3061,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         final String testRedPackageName = "test.package.red";
         final String testInvalidPackageName = "test.package.notfound";
 
-        doReturn(UID_RED).when(mPm).getPackageUid(eq(testRedPackageName), anyInt());
-        doReturn(Process.myUid()).when(mPm).getPackageUid(eq(testMyPackageName), anyInt());
-        doThrow(new PackageManager.NameNotFoundException()).when(mPm)
-                .getPackageUid(eq(testInvalidPackageName), anyInt());
+        doNothing().when(mAppOpsManager).checkPackage(Process.myUid(), testMyPackageName);
+        doThrow(new SecurityException()).when(mAppOpsManager).checkPackage(
+                Process.myUid(), testRedPackageName);
+        doThrow(new SecurityException()).when(mAppOpsManager).checkPackage(
+                Process.myUid(), testInvalidPackageName);
 
         assertThrows(SecurityException.class, () ->
                 mService.openSessionForUsageStats(0 /* flags */, testRedPackageName));
