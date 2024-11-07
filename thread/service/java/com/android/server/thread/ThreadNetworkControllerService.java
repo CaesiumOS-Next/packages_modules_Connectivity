@@ -123,6 +123,7 @@ import android.util.SparseArray;
 
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.IIpv4PrefixRequest;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.net.module.util.SharedLog;
@@ -187,6 +188,15 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     // The channel mask that indicates all channels from channel 11 to channel 24
     private static final int CHANNEL_MASK_11_TO_24 = 0x1FFF800;
 
+    // The namespace for Thread Network feature flags
+    private static final String NAMESPACE_THREAD_NETWORK = "thread_network";
+
+    // The prefix for TREL feature flags
+    private static final String TREL_FEATURE_PREFIX = "TrelFeature__";
+
+    // The feature flag for TREL enabled state
+    private static final String TREL_ENABLED_FLAG = TREL_FEATURE_PREFIX + "enabled";
+
     // Below member fields can be accessed from both the binder and handler threads
 
     private final Context mContext;
@@ -228,6 +238,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final UserManager mUserManager;
     private boolean mUserRestricted;
     private boolean mForceStopOtDaemonEnabled;
+    private boolean mTrelEnabled;
 
     private InfraLinkState mInfraLinkState;
 
@@ -265,6 +276,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mUserManager = userManager;
         mResources = resources;
         mCountryCodeSupplier = countryCodeSupplier;
+        mTrelEnabled = isTrelFeatureEnabled();
     }
 
     public static ThreadNetworkControllerService newInstance(
@@ -298,6 +310,11 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 new ConnectivityResources(context),
                 countryCodeSupplier,
                 networkToLinkProperties);
+    }
+
+    private boolean isTrelFeatureEnabled() {
+        return DeviceConfigUtils.getDeviceConfigPropertyBoolean(
+                NAMESPACE_THREAD_NETWORK, TREL_ENABLED_FLAG, false);
     }
 
     private NetworkRequest newUpstreamNetworkRequest() {
@@ -357,7 +374,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 mNsdPublisher,
                 getMeshcopTxtAttributes(mResources.get()),
                 mOtDaemonCallbackProxy,
-                mCountryCodeSupplier.get());
+                mCountryCodeSupplier.get(),
+                mTrelEnabled);
         otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         mOtDaemon = otDaemon;
         mHandler.post(mNat64CidrController::maybeUpdateNat64Cidr);
@@ -1406,7 +1424,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void setInfraLinkState(InfraLinkState newInfraLinkState) {
         if (Objects.equals(mInfraLinkState, newInfraLinkState)) {
-            return ;
+            return;
         }
         LOG.i("Infra link state changed: " + mInfraLinkState + " -> " + newInfraLinkState);
         setInfraLinkInterfaceName(newInfraLinkState.interfaceName);
@@ -1417,7 +1435,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void setInfraLinkInterfaceName(String newInfraLinkInterfaceName) {
         if (Objects.equals(mInfraLinkState.interfaceName, newInfraLinkInterfaceName)) {
-            return ;
+            return;
         }
         ParcelFileDescriptor infraIcmp6Socket = null;
         if (newInfraLinkInterfaceName != null) {
@@ -1440,7 +1458,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void setInfraLinkNat64Prefix(@Nullable String newNat64Prefix) {
         if (Objects.equals(newNat64Prefix, mInfraLinkState.nat64Prefix)) {
-            return ;
+            return;
         }
         try {
             getOtDaemon()
@@ -1453,7 +1471,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void setInfraLinkDnsServers(List<String> newDnsServers) {
         if (Objects.equals(newDnsServers, mInfraLinkState.dnsServers)) {
-            return ;
+            return;
         }
         try {
             getOtDaemon()
