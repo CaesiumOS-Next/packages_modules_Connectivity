@@ -52,6 +52,7 @@
             <item type="string" name="config_thread_vendor_oui" />
             <item type="string" name="config_thread_model_name" />
             <item type="array" name="config_thread_mdns_vendor_specific_txts" />
+            <item type="bool" name="config_thread_trel_enabled" />
         </policy>
     </overlayable>
 </resources>

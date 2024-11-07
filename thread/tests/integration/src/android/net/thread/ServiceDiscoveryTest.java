@@ -50,6 +50,8 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.net.module.util.HexDump;
+
 import com.google.common.truth.Correspondence;
 
 import org.junit.After;
@@ -439,6 +441,20 @@ public class ServiceDiscoveryTest {
         assertThat(resolvedService.getAttributes())
                 .comparingValuesUsing(BYTE_ARRAY_EQUALITY)
                 .containsExactly("key1", bytes(0x01, 0x02), "key2", bytes(3));
+    }
+
+    @Test
+    public void trel_servicePublished() throws Exception {
+        NsdServiceInfo discoveredService = discoverService(mNsdManager, "_trel._udp");
+        assertThat(discoveredService).isNotNull();
+        NsdServiceInfo trelService = resolveService(mNsdManager, discoveredService);
+
+        Map<String, byte[]> txtMap = trelService.getAttributes();
+        assertThat(trelService.getPort()).isEqualTo(mOtCtl.getTrelPort());
+        assertThat(HexDump.toHexString(txtMap.get("xa")).toLowerCase())
+                .isEqualTo(mOtCtl.getExtendedAddr().toLowerCase());
+        assertThat(HexDump.toHexString(txtMap.get("xp")).toLowerCase())
+                .isEqualTo(mOtCtl.getExtendedPanId().toLowerCase());
     }
 
     private void registerService(NsdServiceInfo serviceInfo, RegistrationListener listener)
