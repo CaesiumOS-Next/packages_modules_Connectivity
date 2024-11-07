@@ -20,6 +20,7 @@ import static android.os.Process.INVALID_UID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -27,6 +28,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.INetworkStatsService;
+import android.net.INetworkStatsSession;
 import android.net.TrafficStats;
 import android.net.connectivity.android.net.netstats.StatsResult;
 import android.os.Build;
@@ -54,18 +56,24 @@ import java.util.function.Predicate;
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2) // Mainline NetworkStats starts from T.
 @RunWith(DevSdkIgnoreRunner.class)
 public class NetworkStatsBinderTest {
-    @Nullable
-    private StatsResult getUidStatsFromBinder(int uid) throws Exception {
+
+    private final Context mContext = InstrumentationRegistry.getContext();
+
+    private INetworkStatsService getNetworkStatsService() throws Exception {
         final Method getServiceMethod = Class.forName("android.os.ServiceManager")
                 .getDeclaredMethod("getService", new Class[]{String.class});
         final IBinder binder = (IBinder) getServiceMethod.invoke(
                 null, Context.NETWORK_STATS_SERVICE);
-        final INetworkStatsService nss = INetworkStatsService.Stub.asInterface(binder);
-        return nss.getUidStats(uid);
+        return INetworkStatsService.Stub.asInterface(binder);
+    }
+
+    @Nullable
+    private StatsResult getUidStatsFromBinder(int uid) throws Exception {
+        return getNetworkStatsService().getUidStats(uid);
     }
 
     private int getFirstAppUidThat(@NonNull Predicate<Integer> predicate) {
-        PackageManager pm = InstrumentationRegistry.getContext().getPackageManager();
+        PackageManager pm = mContext.getPackageManager();
         List<PackageInfo> apps = pm.getInstalledPackages(0 /* flags */);
         final PackageInfo match = CollectionUtils.find(apps,
                 it -> it.applicationInfo != null && predicate.test(it.applicationInfo.uid));
@@ -121,5 +129,17 @@ public class NetworkStatsBinderTest {
                 return;
             }
         }
+    }
+
+    @Test
+    public void testPackagenameMismatch() throws Exception {
+        final INetworkStatsService service = getNetworkStatsService();
+
+        final String myPackage = mContext.getOpPackageName();
+        assertThrows(SecurityException.class,
+                ()-> service.openSessionForUsageStats(0 /* flags */, "android"));
+        final INetworkStatsSession session = service.openSessionForUsageStats(0 /* flags */,
+                myPackage);
+        session.close();
     }
 }

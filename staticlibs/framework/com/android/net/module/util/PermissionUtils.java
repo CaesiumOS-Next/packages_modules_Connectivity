@@ -26,11 +26,10 @@ import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import android.annotation.CheckResult;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Binder;
-import android.os.UserHandle;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -202,22 +201,14 @@ public final class PermissionUtils {
      */
     public static void enforcePackageNameMatchesUid(
             @NonNull Context context, int uid, @Nullable String packageName) {
-        final UserHandle user = UserHandle.getUserHandleForUid(uid);
-        if (getAppUid(context, packageName, user) != uid) {
-            throw new SecurityException(packageName + " does not belong to uid " + uid);
+        // Use AppOpsManager instead of PackageManager directly because some of the callers of this
+        // method, such as NetworkStack, can't construct a PackageManager for non-system users
+        // (createContextAsUser throws IllegalArgumentException).
+        final AppOpsManager aom = context.getSystemService(AppOpsManager.class);
+        if (aom == null) {
+            throw new SecurityException("null AppOpsManager, cannot determine permissions");
         }
-    }
-
-    private static int getAppUid(Context context, final String app, final UserHandle user) {
-        final PackageManager pm =
-                context.createContextAsUser(user, 0 /* flags */).getPackageManager();
-        final long token = Binder.clearCallingIdentity();
-        try {
-            return pm.getPackageUid(app, 0 /* flags */);
-        } catch (PackageManager.NameNotFoundException e) {
-            return -1;
-        } finally {
-            Binder.restoreCallingIdentity(token);
-        }
+        // Throws SecurityException if package name does not match UID.
+        aom.checkPackage(uid, packageName);
     }
 }

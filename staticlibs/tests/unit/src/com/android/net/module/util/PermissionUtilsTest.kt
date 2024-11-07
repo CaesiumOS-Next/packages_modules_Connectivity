@@ -17,9 +17,9 @@
 package com.android.net.module.util
 
 import android.Manifest.permission.NETWORK_STACK
+import android.app.AppOpsManager
 import android.content.Context
 import android.content.pm.PackageManager
-import android.content.pm.PackageManager.NameNotFoundException
 import android.content.pm.PackageManager.PERMISSION_DENIED
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK
@@ -45,7 +45,7 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.ArgumentMatchers.eq
+import org.mockito.Mockito.doNothing
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.doThrow
 import org.mockito.Mockito.mock
@@ -63,6 +63,7 @@ class PermissionUtilsTest {
     private val TEST_PACKAGE_NAME = "test.package"
     private val mockContext = mock(Context::class.java)
     private val mockPackageManager = mock(PackageManager::class.java)
+    private val mockAppOpsManager = mock(AppOpsManager::class.java)
 
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
 
@@ -70,6 +71,7 @@ class PermissionUtilsTest {
     fun setup() {
         doReturn(mockPackageManager).`when`(mockContext).packageManager
         doReturn(mockContext).`when`(mockContext).createContextAsUser(any(), anyInt())
+        doReturn(mockAppOpsManager).`when`(mockContext).getSystemService(AppOpsManager::class.java)
     }
 
     @Test
@@ -153,21 +155,15 @@ class PermissionUtilsTest {
 
     @Test
     fun testEnforcePackageNameMatchesUid() {
-        // Verify name not found throws.
-        doThrow(NameNotFoundException()).`when`(mockPackageManager)
-            .getPackageUid(eq(TEST_PACKAGE_NAME), anyInt())
-        assertFailsWith<SecurityException> {
-            enforcePackageNameMatchesUid(mockContext, TEST_UID1, TEST_PACKAGE_NAME)
-        }
+        // Verify uid match passes.
+        doNothing().`when`(mockAppOpsManager).checkPackage(TEST_UID1, TEST_PACKAGE_NAME)
+        enforcePackageNameMatchesUid(mockContext, TEST_UID1, TEST_PACKAGE_NAME)
 
         // Verify uid mismatch throws.
-        doReturn(TEST_UID1).`when`(mockPackageManager)
-            .getPackageUid(eq(TEST_PACKAGE_NAME), anyInt())
+        doThrow(SecurityException()).`when`(mockAppOpsManager).checkPackage(TEST_UID2,
+                                                                            TEST_PACKAGE_NAME)
         assertFailsWith<SecurityException> {
             enforcePackageNameMatchesUid(mockContext, TEST_UID2, TEST_PACKAGE_NAME)
         }
-
-        // Verify uid match passes.
-        enforcePackageNameMatchesUid(mockContext, TEST_UID1, TEST_PACKAGE_NAME)
     }
 }
