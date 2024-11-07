@@ -130,6 +130,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edf712ab_8b39a408",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-07T03:27:35Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "b2a26e32_f31e277f",
+      "range": {
+        "startLine": 377,
+        "startChar": 16,
+        "endLine": 377,
+        "endChar": 35
+      },
+      "revId": "42b9a69d5daff7450e3d3e5bf61e637dd8013e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6c27218_be041e5f",
