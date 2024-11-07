@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "762cd231_89ed20df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-07T13:39:22Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "b5fa14f0bab817cc96e11694b0ad6a7c35bf3b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc3652bf_f518650f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1097,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-07T13:39:22Z",
+      "side": 1,
+      "message": "The previous code first called into mNotificationUpdater, and sent the callbacks, then sent the broadcast. Can we maintain that order? I think you can just move these two lines to after line 1115.",
+      "range": {
+        "startLine": 1096,
+        "startChar": 0,
+        "endLine": 1097,
+        "endChar": 43
+      },
+      "revId": "b5fa14f0bab817cc96e11694b0ad6a7c35bf3b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f992325_2bbd1e6f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-07T13:39:22Z",
+      "side": 1,
+      "message": "Do you need to do this? Isn\u0027t there an overload of toIfaces that takes a TetheringInterface[]?",
+      "range": {
+        "startLine": 1175,
+        "startChar": 40,
+        "endLine": 1175,
+        "endChar": 69
+      },
+      "revId": "b5fa14f0bab817cc96e11694b0ad6a7c35bf3b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
