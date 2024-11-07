@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85a8685c_04da6f40",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-07T16:48:10Z",
+      "side": 1,
+      "message": "Ditto.",
+      "parentUuid": "b16038d5_48f9e14a",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b36ecfc_b89b66e6",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-07T16:48:10Z",
+      "side": 1,
+      "message": "As discussed offline, I replaced the enum with a wrapper class around the DownloadManager status and error Ids. This way we don\u0027t need to worry about keeping the enum in sync with the atom and we can more easily expand the logic to interpret the results over time.",
+      "parentUuid": "9cca46d9_85aec65e",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f40997e8_c2c1c696",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-11-05T18:40:42Z",
       "side": 1,
       "message": "Uber uber nit: could you put this as the first value of DownloadStatus? This guidance is for protobufs, but I still think it\u0027s good practice to have UNKNOWN as the first value in an enum.\n\ngo/protodosdonts#unspecified-enum",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b56d2f8_0c30d3cf",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-07T16:48:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f40997e8_c2c1c696",
       "range": {
         "startLine": 48,
         "startChar": 8,
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c92aca1_dac0d567",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-07T16:48:10Z",
+      "side": 1,
+      "message": "I think so, it would probably be useful to add this information to the atom.",
+      "parentUuid": "bb386090_e5387ab2",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 17
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea5dbfba_48dab5f6",
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33c9fd67_75de2e7f",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-07T16:48:10Z",
+      "side": 1,
+      "message": "I tried updating the test names, hopefully they are more clear now. Let me know if that is not the case.",
+      "parentUuid": "ea5dbfba_48dab5f6",
+      "range": {
+        "startLine": 137,
+        "startChar": 31,
+        "endLine": 137,
+        "endChar": 59
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e434baae_03cc6c51",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-11-05T18:40:42Z",
       "side": 1,
       "message": "Nit: is the contentId meant to be the same as the VERSION_PENDING property? If so, it might be worth instead doing something like the following to show the relationship clearer:\n\nlong contentId \u003d 666;\nmDataStore.setProperty(Config.VERSION_PENDING, Long.toString(contentId));\n\nIf they\u0027re not related, could you change it so they\u0027re totally unrelated numbers as right now I can\u0027t tell if they\u0027re meant to be the same value, but just a string vs a long.",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 210,
+        "endChar": 29
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50571b06_a22279be",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-07T16:48:10Z",
+      "side": 1,
+      "message": "They are not related, I just like using the number 666 in tests :P",
+      "parentUuid": "e434baae_03cc6c51",
       "range": {
         "startLine": 210,
         "startChar": 8,
