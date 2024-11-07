@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b0fea8e_289e17ad",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-11-07T17:27:38Z",
+      "side": 1,
+      "message": "Ack I can do that and send that CL to you for review.",
+      "parentUuid": "0c92aca1_dac0d567",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 17
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea5dbfba_48dab5f6",
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "They are not related, I just like using the number 666 in tests :P",
       "parentUuid": "e434baae_03cc6c51",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 210,
+        "endChar": 29
+      },
+      "revId": "b74f00d29384352b28dbcf6363873a01b95b8cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d8fdc3e_158eaa28",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-11-07T17:27:38Z",
+      "side": 1,
+      "message": "Ahaha I see",
+      "parentUuid": "50571b06_a22279be",
       "range": {
         "startLine": 210,
         "startChar": 8,
