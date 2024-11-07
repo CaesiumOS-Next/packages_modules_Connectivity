@@ -187,6 +187,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b7ef160_4b337f4b",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-07T14:06:16Z",
+      "side": 1,
+      "message": "Can\u0027t you just do something like this?\n\n    final TetheringRequest.Builder builder \u003d new TetheringRequest.Builder()\n    builder.setUid(Process.myUid());\n    builder.setPackageName(\"invalid.package\");\n    mTm.startTethering(request, ...);\n\nI\u0027ve uploaded a aosp/3341636 to switch to AppOpsManager. Let\u0027s see what treehugger thinks about it.\n\nThat got me looking at aosp/3341636 again and as far as I can tell, nothing calls TetheringRequest.Builder#setPackageName. How does that work? Will all TetheringRequests have null package names? That seems wrong. The server side can\u0027t populate this because the package name is only known in client code.\n\nBecause TetheringRequest.Builder doesn\u0027t have a Context pointer, there doesn\u0027t seem to be a way to populate the package name in the builder. Perhaps we should populate it in startTethering? Will leave a comment on aosp/3333293 .",
+      "parentUuid": "b90c2747_57d8cda4",
+      "range": {
+        "startLine": 213,
+        "startChar": 17,
+        "endLine": 213,
+        "endChar": 26
+      },
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "197f79f5_89631317",
         "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
         "patchSetId": 4
