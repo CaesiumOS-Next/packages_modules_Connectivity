@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9411b7da_95768608",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-07T14:15:15Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed. Please add a CTS test as suggested, unless that\u0027s somehow not possible.",
+      "revId": "f496ab220e0fd0176bb39e44d0ab1abd737904bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
