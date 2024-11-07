@@ -477,6 +477,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5220d0ef_4230749f",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideTetheringTests.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:59:01Z",
+      "side": 1,
+      "message": "Moved these tests to aosp/3342574",
+      "parentUuid": "0bf69e83_cc36d987",
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2eff9270_388eb3ce",
