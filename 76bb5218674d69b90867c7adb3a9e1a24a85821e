@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1562cad_6d6171c1",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddae89bc_bfa15660",
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22c1a418_cce66f23",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-11-06T11:36:33Z",
       "side": 1,
       "message": "Can you make this optional if null?\n\n        + ((mSoftApConfig \u003d\u003d null) ? \"\" : \", mSoftApConfig\u003d\" + mSoftApConfig\")\n        + \"}\";",
+      "range": {
+        "startLine": 131,
+        "startChar": 18,
+        "endLine": 131,
+        "endChar": 56
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a1e40e0_b8141e23",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22c1a418_cce66f23",
       "range": {
         "startLine": 131,
         "startChar": 18,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b80e20b_9546aba5",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:41:50Z",
+      "side": 1,
+      "message": "See above",
+      "parentUuid": "8322b54d_398df200",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 13
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90ebbee9_0fcedb71",
@@ -87,6 +153,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "964b9ce7_c1e233e8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90ebbee9_0fcedb71",
+      "range": {
+        "startLine": 1114,
+        "startChar": 20,
+        "endLine": 1114,
+        "endChar": 34
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eda9296b_09760514",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90ebbee9_0fcedb71",
+      "range": {
+        "startLine": 1114,
+        "startChar": 20,
+        "endLine": 1114,
+        "endChar": 34
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b90f5af_a59ca60a",
@@ -100,6 +214,30 @@
       "writtenOn": "2024-11-06T11:36:33Z",
       "side": 1,
       "message": "This refactoring and renaming of sendTetherStateChangedBroadcast, registerTetheringEventCallback and sendTetherStatesChangedCallback is necessary to add the APIs that you are adding in this CL, but it\u0027s difficult to follow and this CL is already very large. Could you move it out to a separate CL (which this CL will depend on) so it can be independently reviewed and tested? (Presumably the tests should not need to change since it should be a complete no-op.)",
+      "range": {
+        "startLine": 1128,
+        "startChar": 31,
+        "endLine": 1128,
+        "endChar": 54
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c59a535_d8273267",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b90f5af_a59ca60a",
       "range": {
         "startLine": 1128,
         "startChar": 31,
@@ -180,6 +318,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e63a88a4_6db212e8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ecdc065_d2d302ee",
+      "range": {
+        "startLine": 1141,
+        "startChar": 39,
+        "endLine": 1141,
+        "endChar": 53
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aee54021_e9f06bb5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:41:50Z",
+      "side": 1,
+      "message": "No, there are still cases where IpServer is created for a wifi interface that wasn\u0027t created for tethering. Mark had a CL to fix this at aosp/1731710, but I don\u0027t think this is vital for this stack of CLs right now.",
+      "parentUuid": "2d7e91bc_66a5a614",
+      "range": {
+        "startLine": 1141,
+        "startChar": 20,
+        "endLine": 1141,
+        "endChar": 35
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec25d44e_441309a0",
@@ -203,6 +389,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f706b93_7156edee",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec25d44e_441309a0",
+      "range": {
+        "startLine": 1181,
+        "startChar": 60,
+        "endLine": 1181,
+        "endChar": 64
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41c1eec6_cbfb80c5",
@@ -216,6 +426,30 @@
       "writtenOn": "2024-11-06T10:42:33Z",
       "side": 1,
       "message": "Is this correct? The runner doesn\u0027t actually run this class, does it?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 2
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17ba8b41_9e16a4dc",
+        "filename": "tests/cts/hostside/app2/src/com/android/cts/net/hostside/app2/TetheringTestApp2.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:41:50Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "41c1eec6_cbfb80c5",
       "range": {
         "startLine": 33,
         "startChar": 0,
@@ -256,6 +490,30 @@
       "writtenOn": "2024-11-06T10:42:33Z",
       "side": 1,
       "message": "Why this change? Is the permission no longer necessary? If so, can we remove it in its own CL, to ensure it doesn\u0027t by itself break any tests?",
+      "range": {
+        "startLine": 469,
+        "startChar": 19,
+        "endLine": 469,
+        "endChar": 39
+      },
+      "revId": "76bb5218674d69b90867c7adb3a9e1a24a85821e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eba31ed1_a88a9959",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-07T11:41:50Z",
+      "side": 1,
+      "message": "This is necessary for the SoftApConfig to be redacted for the CTS tests -- otherwise hasSystemPrivilege will be true and there\u0027ll be no redaction. I\u0027ve moved this to the test CL on top of this one.",
+      "parentUuid": "2eff9270_388eb3ce",
       "range": {
         "startLine": 469,
         "startChar": 19,
