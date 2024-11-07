@@ -48,4 +48,5 @@
     <test class="com.android.tradefed.testtype.AndroidJUnitTest" >
         <option name="package" value="com.android.thread.tests.integration" />
     </test>
+
 </configuration>
