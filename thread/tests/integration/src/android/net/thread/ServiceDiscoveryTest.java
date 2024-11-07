@@ -16,6 +16,7 @@
 
 package android.net.thread;
 
+import static android.Manifest.permission.WRITE_DEVICE_CONFIG;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.nsd.NsdManager.PROTOCOL_DNS_SD;
 import static android.net.thread.utils.IntegrationTestUtils.SERVICE_DISCOVERY_TIMEOUT;
@@ -25,6 +26,8 @@ import static android.net.thread.utils.IntegrationTestUtils.joinNetworkAndWaitFo
 import static android.net.thread.utils.IntegrationTestUtils.resolveService;
 import static android.net.thread.utils.IntegrationTestUtils.resolveServiceUntil;
 import static android.net.thread.utils.IntegrationTestUtils.waitFor;
+
+import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static com.google.common.io.BaseEncoding.base16;
 import static com.google.common.truth.Truth.assertThat;
@@ -45,10 +48,13 @@ import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresSimulationThrea
 import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresThreadFeature;
 import android.net.thread.utils.ThreadNetworkControllerWrapper;
 import android.os.HandlerThread;
+import android.provider.DeviceConfig;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import androidx.test.runner.AndroidJUnit4;
+
+import com.android.net.module.util.HexDump;
 
 import com.google.common.truth.Correspondence;
 
@@ -64,6 +70,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -108,6 +115,9 @@ public class ServiceDiscoveryTest {
     @Before
     public void setUp() throws Exception {
         mOtCtl.factoryReset();
+        runAsShell(
+                WRITE_DEVICE_CONFIG,
+                () -> DeviceConfig.deleteProperty("thread_network", "TrelFeature__enabled"));
         mController.setEnabledAndWait(true);
         mController.joinAndWait(DEFAULT_DATASET);
         mNsdManager = mContext.getSystemService(NsdManager.class);
@@ -149,6 +159,9 @@ public class ServiceDiscoveryTest {
         }
         mController.setTestNetworkAsUpstreamAndWait(null);
         mController.leaveAndWait();
+        runAsShell(
+                WRITE_DEVICE_CONFIG,
+                () -> DeviceConfig.deleteProperty("thread_network", "TrelFeature__enabled"));
     }
 
     @Test
@@ -439,6 +452,55 @@ public class ServiceDiscoveryTest {
         assertThat(resolvedService.getAttributes())
                 .comparingValuesUsing(BYTE_ARRAY_EQUALITY)
                 .containsExactly("key1", bytes(0x01, 0x02), "key2", bytes(3));
+    }
+
+    @Test
+    public void trelFeatureFlagNotSet_trelServiceNotPublished() throws Exception {
+        assertThrows(TimeoutException.class, () -> discoverService(mNsdManager, "_trel._udp"));
+    }
+
+    @Test
+    public void trelFeatureFlagEnabled_trelServicePublished() throws Exception {
+        setTrelFeatureEnabledFlag(true);
+
+        NsdServiceInfo discoveredService = discoverService(mNsdManager, "_trel._udp");
+        assertThat(discoveredService).isNotNull();
+        NsdServiceInfo trelService = resolveService(mNsdManager, discoveredService);
+
+        Map<String, byte[]> txtMap = trelService.getAttributes();
+        assertThat(trelService.getPort()).isEqualTo(mOtCtl.getTrelPort());
+        assertThat(HexDump.toHexString(txtMap.get("xa")).toLowerCase(Locale.ROOT))
+                .isEqualTo(mOtCtl.getExtendedAddr().toLowerCase(Locale.ROOT));
+        assertThat(HexDump.toHexString(txtMap.get("xp")).toLowerCase(Locale.ROOT))
+                .isEqualTo(mOtCtl.getExtendedPanId().toLowerCase(Locale.ROOT));
+    }
+
+    @Test
+    public void trelFeatureFlagFromEnabledToDisabled_trelServiceUnpublished() throws Exception {
+        setTrelFeatureEnabledFlag(true);
+        assertThat(discoverService(mNsdManager, "_trel._udp")).isNotNull();
+        setTrelFeatureEnabledFlag(false);
+        CompletableFuture<NsdServiceInfo> serviceLostFuture = new CompletableFuture<>();
+        NsdManager.DiscoveryListener listener =
+                discoverForServiceLost(mNsdManager, "_trel._udp", serviceLostFuture);
+
+        try {
+            serviceLostFuture.get(SERVICE_DISCOVERY_TIMEOUT.toMillis(), MILLISECONDS);
+        } finally {
+            mNsdManager.stopServiceDiscovery(listener);
+        }
+        assertThrows(TimeoutException.class, () -> discoverService(mNsdManager, "_trel._udp"));
+    }
+
+    private void setTrelFeatureEnabledFlag(boolean enabled) {
+        runAsShell(
+                WRITE_DEVICE_CONFIG,
+                () ->
+                        DeviceConfig.setProperty(
+                                "thread_network",
+                                "TrelFeature__enabled",
+                                enabled ? "true" : "false",
+                                false));
     }
 
     private void registerService(NsdServiceInfo serviceInfo, RegistrationListener listener)

@@ -228,6 +228,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
     private final UserManager mUserManager;
     private boolean mUserRestricted;
     private boolean mForceStopOtDaemonEnabled;
+    private boolean mTrelEnabled;
 
     private InfraLinkState mInfraLinkState;
 
@@ -265,6 +266,24 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         mUserManager = userManager;
         mResources = resources;
         mCountryCodeSupplier = countryCodeSupplier;
+        mTrelEnabled = FeatureFlags.isTrelEnabled();
+        FeatureFlags.subscribe(() -> mHandler.post(() -> onFlagsChanged()));
+    }
+
+    private void onFlagsChanged() {
+        handleTrelEnabledFlagChange();
+    }
+
+    private void handleTrelEnabledFlagChange() {
+        if (mTrelEnabled == FeatureFlags.isTrelEnabled()) return;
+
+        LOG.i("TREL feature flag is changed to " + (mTrelEnabled ? "enabled" : "disabled"));
+        mTrelEnabled = FeatureFlags.isTrelEnabled();
+        try {
+            getOtDaemon().setTrelEnabled(mTrelEnabled);
+        } catch (RemoteException | ThreadNetworkException e) {
+            LOG.e("otDaemon.setTrelEnabled failed", e);
+        }
     }
 
     public static ThreadNetworkControllerService newInstance(
@@ -358,6 +377,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 getMeshcopTxtAttributes(mResources.get()),
                 mOtDaemonCallbackProxy,
                 mCountryCodeSupplier.get());
+        otDaemon.setTrelEnabled(mTrelEnabled);
         otDaemon.asBinder().linkToDeath(() -> mHandler.post(this::onOtDaemonDied), 0);
         mOtDaemon = otDaemon;
         mHandler.post(mNat64CidrController::maybeUpdateNat64Cidr);
@@ -1406,7 +1426,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void setInfraLinkState(InfraLinkState newInfraLinkState) {
         if (Objects.equals(mInfraLinkState, newInfraLinkState)) {
-            return ;
+            return;
         }
         LOG.i("Infra link state changed: " + mInfraLinkState + " -> " + newInfraLinkState);
         setInfraLinkInterfaceName(newInfraLinkState.interfaceName);
@@ -1417,7 +1437,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void setInfraLinkInterfaceName(String newInfraLinkInterfaceName) {
         if (Objects.equals(mInfraLinkState.interfaceName, newInfraLinkInterfaceName)) {
-            return ;
+            return;
         }
         ParcelFileDescriptor infraIcmp6Socket = null;
         if (newInfraLinkInterfaceName != null) {
@@ -1440,7 +1460,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void setInfraLinkNat64Prefix(@Nullable String newNat64Prefix) {
         if (Objects.equals(newNat64Prefix, mInfraLinkState.nat64Prefix)) {
-            return ;
+            return;
         }
         try {
             getOtDaemon()
@@ -1453,7 +1473,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
 
     private void setInfraLinkDnsServers(List<String> newDnsServers) {
         if (Objects.equals(newDnsServers, mInfraLinkState.dnsServers)) {
-            return ;
+            return;
         }
         try {
             getOtDaemon()
