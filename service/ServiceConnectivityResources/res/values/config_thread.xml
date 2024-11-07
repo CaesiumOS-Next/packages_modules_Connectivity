@@ -71,4 +71,7 @@
     -->
     <string-array name="config_thread_mdns_vendor_specific_txts">
     </string-array>
+
+    <!-- Sets to {@code true} to enable TREL, or {@code false} to disable TREL. -->
+    <bool name="config_thread_trel_enabled">true</bool>
 </resources>
