@@ -233,6 +233,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b73e36b5_946ce42e",
+        "filename": "staticlibs/framework/com/android/net/module/util/PermissionUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-08T02:30:40Z",
+      "side": 1,
+      "message": "\u003e That got me looking at aosp/3341636 again and as far as I can tell, nothing calls TetheringRequest.Builder#setPackageName. How does that work? Will all TetheringRequests have null package names? That seems wrong. The server side can\u0027t populate this because the package name is only known in client code.\n\nsetPackageName isn\u0027t called by the app, its called in the service side (TetheringService). But the actual package name is retrieved in the client side in TetheringManager#startTethering using Context.getOpPackageName().\n\nThis makes the CTS test impossible since I don\u0027t think there\u0027s a non-hacky way to mock Context.getOpPackageName() here. Plus, we already have a unit test in TetheringServiceTest that checks for an invalid package name.",
+      "parentUuid": "9006ddd3_db01f027",
+      "range": {
+        "startLine": 213,
+        "startChar": 17,
+        "endLine": 213,
+        "endChar": 26
+      },
+      "revId": "8fdb60d58a4a4f525fb622da223c0cde55f7f149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "197f79f5_89631317",
