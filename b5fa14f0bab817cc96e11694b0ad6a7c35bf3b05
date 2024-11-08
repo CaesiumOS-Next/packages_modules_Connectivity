@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36bf7f8c_14120a08",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1097,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-08T01:29:25Z",
+      "side": 1,
+      "message": "Previous code line 1132 and 1134 send the callback and broadcast respectively, then mNotificationUpdater is called at line 1145. So, this matches the previous code.",
+      "parentUuid": "cc3652bf_f518650f",
+      "range": {
+        "startLine": 1096,
+        "startChar": 0,
+        "endLine": 1097,
+        "endChar": 43
+      },
+      "revId": "b5fa14f0bab817cc96e11694b0ad6a7c35bf3b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f992325_2bbd1e6f",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-11-07T13:39:22Z",
       "side": 1,
       "message": "Do you need to do this? Isn\u0027t there an overload of toIfaces that takes a TetheringInterface[]?",
+      "range": {
+        "startLine": 1175,
+        "startChar": 40,
+        "endLine": 1175,
+        "endChar": 69
+      },
+      "revId": "b5fa14f0bab817cc96e11694b0ad6a7c35bf3b05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af56d827_1bde6880",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-08T01:29:25Z",
+      "side": 1,
+      "message": "That one returns String[], but this intent requires ArrayList\u003cString\u003e.",
+      "parentUuid": "7f992325_2bbd1e6f",
       "range": {
         "startLine": 1175,
         "startChar": 40,
