@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
+import com.android.net.module.util.LinkPropertiesUtils;
 
 /**
  * A utility class for handling for communicating between bearer-specific
