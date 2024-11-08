@@ -37,6 +37,7 @@ import android.telephony.data.NrQosSessionAttributes;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.FrameworkConnectivityStatsLog;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -997,6 +998,9 @@ public abstract class NetworkAgent {
      * Call {@link #unregister} to disconnect.
      */
     public void markConnected() {
+        FrameworkConnectivityStatsLog.write(
+                FrameworkConnectivityStatsLog.CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED,
+                FrameworkConnectivityStatsLog.CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_MESSAGE_QUEUED_BEFORE_CONNECT);
         mNetworkInfo.setDetailedState(NetworkInfo.DetailedState.CONNECTED, null /* reason */,
                 mNetworkInfo.getExtraInfo());
         queueOrSendNetworkInfo(mNetworkInfo);
