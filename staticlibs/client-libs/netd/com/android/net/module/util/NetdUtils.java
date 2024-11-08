@@ -27,6 +27,8 @@ import android.annotation.SuppressLint;
 import android.net.INetd;
 import android.net.InterfaceConfigurationParcel;
 import android.net.IpPrefix;
+import android.net.NativeNetworkConfig;
+import android.net.NativeNetworkType;
 import android.net.RouteInfo;
 import android.net.RouteInfoParcel;
 import android.net.TetherConfigParcel;
@@ -149,22 +151,24 @@ public class NetdUtils {
     }
 
     /** Setup interface for tethering. */
-    public static void tetherInterface(final INetd netd, final String iface, final IpPrefix dest)
+    public static void createNetworkForTether(final INetd netd, int netId, final String iface)
             throws RemoteException, ServiceSpecificException {
-        tetherInterface(netd, iface, dest, 20 /* maxAttempts */, 50 /* pollingIntervalMs */);
+        createNetworkForTether(netd, netId, iface, 20 /* maxAttempts */, 50 /* pollingIntervalMs */);
     }
 
     /** Setup interface with configurable retries for tethering. */
-    public static void tetherInterface(final INetd netd, final String iface, final IpPrefix dest,
+    public static void createNetworkForTether(final INetd netd, int netId, final String iface,
             int maxAttempts, int pollingIntervalMs)
             throws RemoteException, ServiceSpecificException {
+        final NativeNetworkConfig config = new NativeNetworkConfig(netId,
+                NativeNetworkType.PHYSICAL_LOCAL,
+                INetd.PERMISSION_NONE,
+                false /* secure */,
+                -1 /* VpnManager.TYPE_VPN_NONE in sdk level 31 */,
+                false /* excludeLocalRoutes */);
+        netd.networkCreate(config);
         netd.tetherInterfaceAdd(iface);
-        networkAddInterface(netd, iface, maxAttempts, pollingIntervalMs);
-        // Activate a route to dest and IPv6 link local.
-        modifyRoute(netd, ModifyOperation.ADD, INetd.LOCAL_NET_ID,
-                new RouteInfo(dest, null, iface, RTN_UNICAST));
-        modifyRoute(netd, ModifyOperation.ADD, INetd.LOCAL_NET_ID,
-                new RouteInfo(new IpPrefix("fe80::/64"), null, iface, RTN_UNICAST));
+        networkAddInterface(netd, netId, iface, maxAttempts, pollingIntervalMs);
     }
 
     /**
@@ -174,12 +178,12 @@ public class NetdUtils {
      * in use in netd because the ConnectivityService thread hasn't processed the disconnect yet.
      * See b/158269544 for detail.
      */
-    private static void networkAddInterface(final INetd netd, final String iface,
+    private static void networkAddInterface(final INetd netd, int netId, final String iface,
             int maxAttempts, int pollingIntervalMs)
             throws ServiceSpecificException, RemoteException {
         for (int i = 1; i <= maxAttempts; i++) {
             try {
-                netd.networkAddInterface(INetd.LOCAL_NET_ID, iface);
+                netd.networkAddInterface(netId, iface);
                 return;
             } catch (ServiceSpecificException e) {
                 if (e.errorCode == EBUSY && i < maxAttempts) {
@@ -203,28 +207,28 @@ public class NetdUtils {
         }
     }
 
-    /** Add |routes| to local network. */
-    public static void addRoutesToLocalNetwork(final INetd netd, final String iface,
+    /** Add |routes| to a network. */
+    public static void addRoutesToNetwork(final INetd netd, int netId, final String iface,
             final List<RouteInfo> routes) {
 
         for (RouteInfo route : routes) {
             if (!route.isDefaultRoute()) {
-                modifyRoute(netd, ModifyOperation.ADD, INetd.LOCAL_NET_ID, route);
+                modifyRoute(netd, ModifyOperation.ADD, netId, route);
             }
         }
 
         // IPv6 link local should be activated always.
-        modifyRoute(netd, ModifyOperation.ADD, INetd.LOCAL_NET_ID,
+        modifyRoute(netd, ModifyOperation.ADD, netId,
                 new RouteInfo(new IpPrefix("fe80::/64"), null, iface, RTN_UNICAST));
     }
 
-    /** Remove routes from local network. */
-    public static int removeRoutesFromLocalNetwork(final INetd netd, final List<RouteInfo> routes) {
+    /** Remove routes from a network. */
+    public static int removeRoutesFromNetwork(final INetd netd, int netId, final List<RouteInfo> routes) {
         int failures = 0;
 
         for (RouteInfo route : routes) {
             try {
-                modifyRoute(netd, ModifyOperation.REMOVE, INetd.LOCAL_NET_ID, route);
+                modifyRoute(netd, ModifyOperation.REMOVE, netId, route);
             } catch (IllegalStateException e) {
                 failures++;
             }
