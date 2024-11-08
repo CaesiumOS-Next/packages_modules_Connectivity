@@ -87,6 +87,30 @@
       },
       "revId": "46722ad4c43fa460197a05d85eb22b376561ff12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d9042a_06a2b07d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-08T02:10:26Z",
+      "side": 1,
+      "message": "Oscar is right, package name is available in the service side since we already pass it as a separate argument. Having both package name and UID set at the same time on the service side seems cleaner than having two surfaces where we populate the caller identity.",
+      "parentUuid": "305ee7d8_120ed7af",
+      "range": {
+        "startLine": 1051,
+        "startChar": 0,
+        "endLine": 1051,
+        "endChar": 1
+      },
+      "revId": "46722ad4c43fa460197a05d85eb22b376561ff12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
