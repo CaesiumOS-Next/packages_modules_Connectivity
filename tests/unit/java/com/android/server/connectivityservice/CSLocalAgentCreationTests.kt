@@ -104,7 +104,7 @@ class CSLocalAgentCreationTests(
             return
         }
         localAgent.connect()
-        netdInOrder.verify(netd).networkCreate(
+        netdInOrder.verify(netd, never()).networkCreate(
                 makeNativeNetworkConfigLocal(localAgent.network.netId, INetd.PERMISSION_NONE))
         if (addLocalNetCapToRequest) {
             assertEquals(localAgent.network, allNetworksCb.expect<Available>().network)
@@ -113,7 +113,7 @@ class CSLocalAgentCreationTests(
         }
         cm.unregisterNetworkCallback(allNetworksCb)
         localAgent.disconnect()
-        netdInOrder.verify(netd, timeout(TIMEOUT_MS)).networkDestroy(localAgent.network.netId)
+        netdInOrder.verify(netd, never()).networkDestroy(localAgent.network.netId)
     }
 
     @Test

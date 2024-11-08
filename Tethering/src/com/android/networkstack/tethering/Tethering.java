@@ -2074,7 +2074,7 @@ public class Tethering {
                 }
 
                 mRoutingCoordinator.maybeRemoveDeprecatedUpstreams();
-                mUpstreamNetworkMonitor.startObserveAllNetworks();
+                mUpstreamNetworkMonitor.startObserveUpstreamNetworks();
 
                 // TODO: De-duplicate with updateUpstreamWanted() below.
                 if (upstreamWanted()) {
@@ -2813,7 +2813,7 @@ public class Tethering {
 
         mLog.i("adding IpServer for: " + iface);
         final TetherState tetherState = new TetherState(
-                new IpServer(iface, mHandler, interfaceType, mLog, mNetd, mBpfCoordinator,
+                new IpServer(iface, mContext, mHandler, interfaceType, mLog, mNetd, mBpfCoordinator,
                         mRoutingCoordinator, new ControlCallback(), mConfig, mTetheringMetrics,
                         mDeps.makeIpServerDependencies()), isNcm);
         mTetherStates.put(iface, tetherState);
