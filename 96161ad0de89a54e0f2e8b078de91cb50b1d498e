@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70f35f56_ae31a1c9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroyedNetworkTests.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-08T11:38:26Z",
+      "side": 1,
+      "message": "nit: I personally find these helper methods quickly make tests hard to read. Why not make nc and nr global consts and just duplicate the remaining 4 lines?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 5
+      },
+      "revId": "96161ad0de89a54e0f2e8b078de91cb50b1d498e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50bd88ad_05534214",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroyedNetworkTests.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-08T11:38:26Z",
+      "side": 1,
+      "message": "should this use clearInvocations(), so potential stubbing is not reset? (unless that\u0027s what you are trying to do?)",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "96161ad0de89a54e0f2e8b078de91cb50b1d498e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
