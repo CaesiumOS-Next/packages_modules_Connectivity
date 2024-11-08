@@ -195,7 +195,7 @@ public class NetdUtilsTest {
     private void verifyTetherInterfaceSucceeds(int expectedTries) throws Exception {
         setNetworkAddInterfaceOutcome(null, expectedTries);
 
-        NetdUtils.tetherInterface(mNetd, IFACE, TEST_IPPREFIX);
+        NetdUtils.createNetworkForTether(mNetd, IFACE, TEST_IPPREFIX);
         verify(mNetd).tetherInterfaceAdd(IFACE);
         verify(mNetd, times(expectedTries)).networkAddInterface(LOCAL_NET_ID, IFACE);
         verify(mNetd, times(2)).networkAddRoute(eq(LOCAL_NET_ID), eq(IFACE), any(), any());

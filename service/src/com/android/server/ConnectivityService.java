@@ -5388,6 +5388,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static boolean shouldCreateNativeNetwork(@NonNull NetworkAgentInfo nai,
             @NonNull NetworkInfo.State state) {
         if (nai.isCreated()) return false;
+        if (nai.networkCapabilities.hasCapability(NET_CAPABILITY_LOCAL_NETWORK)) return false;
         if (state == NetworkInfo.State.CONNECTED) return true;
         if (state != NetworkInfo.State.CONNECTING) {
             // TODO: throw if no WTFs are observed in the field.
@@ -9200,6 +9201,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Before U, netd doesn't support PHYSICAL_LOCAL networks so this can't work.
             throw new IllegalArgumentException("Local agents are not supported in this version");
         }
+        // FIXME: Check config.skipCreateNativeNetwork everywhere.
+        if (hasLocalCap && localNetworkConfig == null) {
+            localNetworkConfig = new LocalNetworkConfig.Builder().build();
+        }
+
         final boolean hasLocalNetworkConfig = null != localNetworkConfig;
         if (hasLocalCap != hasLocalNetworkConfig) {
             throw new IllegalArgumentException(null != localNetworkConfig
