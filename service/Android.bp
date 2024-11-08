@@ -159,6 +159,7 @@ java_library {
         ":framework-connectivity-shared-srcs",
         ":services-connectivity-shared-srcs",
         ":statslog-connectivity-java-gen",
+        ":statslog-framework-connectivity-java-gen",
     ],
     libs: [
         "framework-annotations-lib",

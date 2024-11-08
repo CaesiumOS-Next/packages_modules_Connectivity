@@ -47,6 +47,7 @@ public final class LinkPropertiesUtils {
         public CompareResult() {}
 
         public CompareResult(@Nullable Collection<T> oldItems, @Nullable Collection<T> newItems) {
+            FrameworkConnectivityStatsLog lg;
             if (oldItems != null) {
                 removed.addAll(oldItems);
             }
