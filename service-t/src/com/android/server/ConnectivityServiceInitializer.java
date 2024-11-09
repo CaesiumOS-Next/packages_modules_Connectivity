@@ -20,6 +20,7 @@ import android.annotation.Nullable;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.thread.ThreadNetworkManager;
+import android.os.IBinder;
 import android.util.Log;
 
 import com.android.modules.utils.build.SdkLevel;
@@ -30,6 +31,10 @@ import com.android.server.ethernet.EthernetServiceImpl;
 import com.android.server.nearby.NearbyService;
 import com.android.server.net.ct.CertificateTransparencyService;
 import com.android.server.thread.ThreadNetworkService;
+
+import dalvik.system.PathClassLoader;
+
+import java.lang.reflect.Method;
 
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
@@ -45,6 +50,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
     private final EthernetServiceImpl mEthernetServiceImpl;
     private final ThreadNetworkService mThreadNetworkService;
     private final CertificateTransparencyService mCertificateTransparencyService;
+    private final IBinder mVcnManagementService;
 
     public ConnectivityServiceInitializer(Context context) {
         super(context);
@@ -58,6 +64,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
         mNearbyService = createNearbyService(context);
         mThreadNetworkService = createThreadNetworkService(context);
         mCertificateTransparencyService = createCertificateTransparencyService(context);
+        mVcnManagementService = createVcnManagementService(context);
     }
 
     @Override
@@ -98,6 +105,12 @@ public final class ConnectivityServiceInitializer extends SystemService {
             Log.i(TAG, "Registering " + ThreadNetworkManager.SERVICE_NAME);
             publishBinderService(ThreadNetworkManager.SERVICE_NAME, mThreadNetworkService,
                     /* allowIsolated= */ false);
+        }
+
+        if (mVcnManagementService != null) {
+            Log.i("TEST", "Registering " + "vcn_management");
+            publishBinderService(
+                    "vcn_management", mVcnManagementService, /* allowIsolated= */ false);
         }
     }
 
@@ -201,5 +214,23 @@ public final class ConnectivityServiceInitializer extends SystemService {
         return SdkLevel.isAtLeastV() && CertificateTransparencyService.enabled(context)
                 ? new CertificateTransparencyService(context)
                 : null;
+    }
+
+    private IBinder createVcnManagementService(Context context) {
+        PathClassLoader classLoader =
+                new PathClassLoader("/system/framework/services.jar", getClass().getClassLoader());
+        android.util.Log.i("TEST", "classLoader " + classLoader);
+
+        try {
+            Class<?> vcnManagementServiceClass =
+                    Class.forName("com.android.server.VcnManagementService", true, classLoader);
+            Method createMethod = vcnManagementServiceClass.getMethod("create", Context.class);
+
+            return (IBinder) createMethod.invoke(null, context);
+        } catch (Exception e) {
+            android.util.Log.e("TEST", "Fail to load " + e);
+        }
+        android.util.Log.i("TEST", "load succeed ");
+        return null;
     }
 }
