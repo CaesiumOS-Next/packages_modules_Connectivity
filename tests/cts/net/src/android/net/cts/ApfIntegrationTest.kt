@@ -20,6 +20,8 @@
 package android.net.cts
 
 import android.Manifest.permission.WRITE_DEVICE_CONFIG
+import android.content.pm.PackageManager
+import android.content.pm.PackageManager.FEATURE_AUTOMOTIVE
 import android.content.pm.PackageManager.FEATURE_WIFI
 import android.net.ConnectivityManager
 import android.net.Network
@@ -49,6 +51,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.PowerManager
+import android.os.UserManager
 import android.platform.test.annotations.AppModeFull
 import android.provider.DeviceConfig
 import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
@@ -126,6 +129,7 @@ class ApfIntegrationTest {
         private val context = InstrumentationRegistry.getInstrumentation().context
         private val powerManager = context.getSystemService(PowerManager::class.java)!!
         private val wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG)
+        var skippedTestForAutomotiveWithVisibleBackgroundUser = false
 
         fun pollingCheck(condition: () -> Boolean, timeout_ms: Int): Boolean {
             var polling_time = 0
@@ -156,7 +160,15 @@ class ApfIntegrationTest {
         @Suppress("ktlint:standard:no-multi-spaces")
         fun setupOnce() {
             // TODO: assertions thrown in @BeforeClass / @AfterClass are not well supported in the
-            // test infrastructure. Consider saving excepion and throwing it in setUp().
+            // test infrastructure. Consider saving exception and throwing it in setUp().
+
+            // TODO(b/366037029): This test should be re-enabled once PowerManager#isInteractive
+            //  is fixed on automotive form factors with visible background user.
+            if (isAutomotiveWithVisibleBackgroundUser()) {
+                skippedTestForAutomotiveWithVisibleBackgroundUser = true
+                return
+            }
+
             // APF must run when the screen is off and the device is not interactive.
             turnScreenOff()
             // Wait for APF to become active.
@@ -173,6 +185,13 @@ class ApfIntegrationTest {
                         false // makeDefault
                 )
             }
+        }
+
+        private fun isAutomotiveWithVisibleBackgroundUser(): Boolean {
+            val packageManager: PackageManager = context.getPackageManager()
+            val userManager: UserManager = context.getSystemService(UserManager::class.java)
+            return (packageManager.hasSystemFeature(FEATURE_AUTOMOTIVE)
+                    && userManager.isVisibleBackgroundUsersSupported)
         }
 
         @AfterClass
@@ -276,6 +295,10 @@ class ApfIntegrationTest {
 
     @Before
     fun setUp() {
+        // TODO(b/366037029): This test should be re-enabled once PowerManager#isInteractive
+        //  is fixed on automotive form factors with visible background user.
+        assume().that(skippedTestForAutomotiveWithVisibleBackgroundUser).isFalse()
+
         assume().that(pm.hasSystemFeature(FEATURE_WIFI)).isTrue()
 
         networkCallback = TestableNetworkCallback()
