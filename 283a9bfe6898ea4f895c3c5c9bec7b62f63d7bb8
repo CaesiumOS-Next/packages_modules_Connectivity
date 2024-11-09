@@ -16,6 +16,24 @@
       "message": "If APF CDD requirements apply to auto (I believe they do), I think it\u0027s important we keep this test on automotive as well, otherwise we lose coverage for the APF functionality. IIUC the problem is just about PowerManager#isInteractive.\n\nHere PowerManager#isInteractive is used to detect whether the screen is on, to match VSR-5.3.12-005. If that\u0027s not actually what PowerManager#isInteractive indicates, then the test should be fixed to properly detect the screen state instead.\nHowever if the usage is correct but it\u0027s automotive that has a bug in PowerManager#isInteractive, maybe this test should be kept failing until the bug is fixed ?",
       "revId": "283a9bfe6898ea4f895c3c5c9bec7b62f63d7bb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fba6a0c8_f39c48c7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1630008
+      },
+      "writtenOn": "2024-11-09T03:24:04Z",
+      "side": 1,
+      "message": "Hi Remi, I replied this comment on October 30, but forgot to hit send. Sorry for that.\n\nPowerManager#isInteractive is not fully implemented yet on automotive with visible background user (multi user multi display automotive).We expect this to be done in 25Q1 (b/330610015), so then we\u0027ll re-enable this test on auto MUMD (b/366037029).\n\nNote: PowerManager#isInteractive works fine on regular automotive and this assumption won\u0027t prevent this test to run there. Is just skipping on MUMD.\n\nPlease let me know if this addresses your concerns. Thanks.",
+      "parentUuid": "71e4c879_2120ad45",
+      "revId": "283a9bfe6898ea4f895c3c5c9bec7b62f63d7bb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
