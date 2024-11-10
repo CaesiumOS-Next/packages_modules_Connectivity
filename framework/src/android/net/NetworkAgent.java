@@ -37,6 +37,7 @@ import android.telephony.data.NrQosSessionAttributes;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.FrameworkConnectivityStatsLog;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -943,6 +944,18 @@ public abstract class NetworkAgent {
 
     private void queueOrSendMessage(@NonNull RegistryAction action) {
         synchronized (mPreConnectedQueue) {
+            if (mNetwork == null) {
+                // Theoretically, it should not be valid to queue messages here before
+                // registering the NetworkAgent. However, practically, with the way
+                // queueing works right now, it ends up working out just fine.
+                // Log a statistic so that we know if this is happening in the
+                // wild.
+
+                FrameworkConnectivityStatsLog.write(
+                        FrameworkConnectivityStatsLog.CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED,
+                        FrameworkConnectivityStatsLog.CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_MESSAGE_QUEUED_BEFORE_CONNECT
+                );
+            }
             if (mRegistry != null) {
                 try {
                     action.execute(mRegistry);

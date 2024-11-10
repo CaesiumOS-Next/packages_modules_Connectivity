@@ -174,6 +174,7 @@ import org.mockito.ArgumentMatchers.argThat
 import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.spy
 import org.mockito.Mockito.timeout
 import org.mockito.Mockito.verify
 
@@ -380,10 +381,10 @@ class NetworkAgentTest {
         val nc = makeTestNetworkCapabilities(specifier, transports)
         val agent = createNetworkAgent(context, initialConfig = initialConfig, initialLp = lp,
             initialNc = nc)
-        agent.setTeardownDelayMillis(0)
         // Connect the agent and verify initial status callbacks.
         agent.register()
         agent.markConnected()
+        agent.setTeardownDelayMillis(0)
         agent.expectCallback<OnNetworkCreated>()
         agent.expectPostConnectionCallbacks(expectedInitSignalStrengthThresholds)
         callback.expectAvailableThenValidatedCallbacks(agent.network!!)
@@ -1022,11 +1023,11 @@ class NetworkAgentTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     fun testAgentStartsInConnecting() {
         val mockContext = mock(Context::class.java)
-        val mockCm = mock(ConnectivityManager::class.java)
-        doReturn(mockCm).`when`(mockContext).getSystemService(Context.CONNECTIVITY_SERVICE)
+        val spyCm = spy(mCM)
+        doReturn(spyCm).`when`(mockContext).getSystemService(Context.CONNECTIVITY_SERVICE)
         val agent = createNetworkAgent(mockContext)
         agent.register()
-        verify(mockCm).registerNetworkAgent(any(),
+        verify(spyCm).registerNetworkAgent(any(),
                 argThat<NetworkInfo> { it.detailedState == NetworkInfo.DetailedState.CONNECTING },
                 any(LinkProperties::class.java),
                 any(NetworkCapabilities::class.java),
