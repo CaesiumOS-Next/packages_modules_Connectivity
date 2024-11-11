@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cb3c3259_99497882",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-11T16:12:07Z",
+      "side": 1,
+      "message": "Nice, we can actually use AutoValue, it just requires a small change in the external repo aosp/3342985",
+      "parentUuid": "feadea36_bdb15de9",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 40
+      },
+      "revId": "1e19f4788275473cf9568e215a562d313fdedbb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d1134bad_1acfdc15",
         "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
         "patchSetId": 3
@@ -60,6 +84,30 @@
       "writtenOn": "2024-11-07T17:27:38Z",
       "side": 1,
       "message": "Uber nit: Fail\n\nJust to keep it consistent throughout :)",
+      "range": {
+        "startLine": 211,
+        "startChar": 61,
+        "endLine": 211,
+        "endChar": 66
+      },
+      "revId": "1e19f4788275473cf9568e215a562d313fdedbb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b780892c_889cea1e",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-11T16:12:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "734bdb4f_6215fa17",
       "range": {
         "startLine": 211,
         "startChar": 61,
