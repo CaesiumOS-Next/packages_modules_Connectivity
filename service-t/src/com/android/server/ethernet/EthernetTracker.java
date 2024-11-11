@@ -215,9 +215,6 @@ public class EthernetTracker {
         // Note: processNetlinkMessage is called on the handler thread.
         @Override
         protected void processNetlinkMessage(NetlinkMessage nlMsg, long whenMs) {
-            // ignore all updates when ethernet is disabled.
-            if (mEthernetState == ETHERNET_STATE_DISABLED) return;
-
             if (nlMsg instanceof RtNetlinkLinkMessage) {
                 processRtNetlinkLinkMessage((RtNetlinkLinkMessage) nlMsg);
             } else {
@@ -646,6 +643,10 @@ public class EthernetTracker {
     }
 
     private void setInterfaceAdministrativeState(String iface, boolean up, EthernetCallback cb) {
+        if (mEthernetState == ETHERNET_STATE_DISABLED) {
+            cb.onError("Failed to enable/disable interface when ethernet is disabled");
+            return;
+        }
         if (getInterfaceState(iface) == EthernetManager.STATE_ABSENT) {
             cb.onError("Failed to enable/disable absent interface: " + iface);
             return;
@@ -965,20 +966,23 @@ public class EthernetTracker {
 
             mEthernetState = newState;
 
-            if (enabled) {
-                trackAvailableInterfaces();
-            } else {
-                // TODO: maybe also disable server mode interface as well.
-                untrackFactoryInterfaces();
+            // Interface in server mode should also be included.
+            ArrayList<String> interfaces =
+                    new ArrayList<>(List.of(mFactory.getAvailableInterfaces(true)));
+
+            if (mTetheringInterfaceMode == INTERFACE_MODE_SERVER) {
+                interfaces.add(mTetheringInterface);
+            }
+
+            for (String iface : interfaces) {
+                if (enabled) {
+                    NetdUtils.setInterfaceUp(mNetd, iface);
+                } else {
+                    NetdUtils.setInterfaceDown(mNetd, iface);
+                }
             }
             broadcastEthernetStateChange(mEthernetState);
         });
-    }
-
-    private void untrackFactoryInterfaces() {
-        for (String iface : mFactory.getAvailableInterfaces(true /* includeRestricted */)) {
-            stopTrackingInterface(iface);
-        }
     }
 
     private void unicastEthernetStateChange(@NonNull IEthernetServiceListener listener,
