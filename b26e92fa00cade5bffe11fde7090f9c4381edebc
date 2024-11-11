@@ -1,0 +1,168 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2879a60_4a307b30",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-11T05:40:34Z",
+      "side": 1,
+      "message": "BTQ Q to Patrick and Lorenzo unrelated to this patch: is it intended that `whenMs` is ignored ?",
+      "range": {
+        "startLine": 217,
+        "startChar": 72,
+        "endLine": 217,
+        "endChar": 78
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "68f384fc_17065962",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+              "range": {
+                "startLine": 217,
+                "startChar": 0,
+                "endLine": 218,
+                "endChar": 0
+              },
+              "replacement": "        protected void processNetlinkMessage(NetlinkMessage nlMsg) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b26e92fa00cade5bffe11fde7090f9c4381edebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcc4fa62_a471c71a",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-11T05:40:34Z",
+      "side": 1,
+      "message": "\"Failed to\" -\u003e \"Cannot\"",
+      "range": {
+        "startLine": 647,
+        "startChar": 24,
+        "endLine": 647,
+        "endChar": 33
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4f036eec_6282d3aa",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+              "range": {
+                "startLine": 647,
+                "startChar": 0,
+                "endLine": 648,
+                "endChar": 0
+              },
+              "replacement": "            cb.onError(\"Cannot enable/disable interface when ethernet is disabled\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b26e92fa00cade5bffe11fde7090f9c4381edebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d9fcdf9_212030e9",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-11T05:40:34Z",
+      "side": 1,
+      "message": "nit: `true /* includeRestricted */`",
+      "range": {
+        "startLine": 971,
+        "startChar": 76,
+        "endLine": 971,
+        "endChar": 80
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "94fca847_6e5b4621",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+              "range": {
+                "startLine": 971,
+                "startChar": 0,
+                "endLine": 972,
+                "endChar": 0
+              },
+              "replacement": "                    new ArrayList\u003c\u003e(List.of(mFactory.getAvailableInterfaces(\n                            true /* includeRestricted */)));\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b26e92fa00cade5bffe11fde7090f9c4381edebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23ed70d3_45a9227d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-11T05:40:34Z",
+      "side": 1,
+      "message": "BTW Q to Patrick and Lorenzo: should disabling Internet also disable Server mode ?",
+      "range": {
+        "startLine": 973,
+        "startChar": 12,
+        "endLine": 973,
+        "endChar": 67
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "808a2ee1_9e4d84b3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+              "range": {
+                "startLine": 973,
+                "startChar": 0,
+                "endLine": 973,
+                "endChar": 0
+              },
+              "replacement": "            // TODO(b/234743836): should disabling Internet also disable Server mode?\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b26e92fa00cade5bffe11fde7090f9c4381edebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
