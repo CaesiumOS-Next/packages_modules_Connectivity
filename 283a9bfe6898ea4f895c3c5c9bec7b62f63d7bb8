@@ -34,6 +34,24 @@
       "parentUuid": "71e4c879_2120ad45",
       "revId": "283a9bfe6898ea4f895c3c5c9bec7b62f63d7bb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "744be8c0_616f94e7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-11T15:22:31Z",
+      "side": 1,
+      "message": "Hey, sorry I didn\u0027t reply earlier,\n\nThis sounds like there\u0027s some missing implementation of the SDK on Auto, so I think it\u0027s WAI that the test fails: it should probably be kept failing until the SDK implementation is fixed.\nAt least we shouldn\u0027t remove APF tests because of PowerManager#isInteractive, as it\u0027s only used to set up the test. It would remove coverage for APF because of a missing separate feature on Auto; the test could be setup differently, for example just sleeping for 1~2 seconds and assuming the screen has had time to turn on/off, instead of removing coverage altogether.",
+      "parentUuid": "fba6a0c8_f39c48c7",
+      "revId": "283a9bfe6898ea4f895c3c5c9bec7b62f63d7bb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
