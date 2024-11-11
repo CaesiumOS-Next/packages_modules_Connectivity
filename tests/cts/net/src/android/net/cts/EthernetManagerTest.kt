@@ -611,9 +611,8 @@ class EthernetManagerTest {
         addInterfaceStateListener(listener)
         listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
 
-        // Remove running interface. The interface stays running but is no longer tracked.
         setEthernetEnabled(false)
-        listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
+        listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)
 
         setEthernetEnabled(true)
         listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
@@ -908,6 +907,21 @@ class EthernetManagerTest {
 
         disableInterface(iface).expectResult(iface.name)
         listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)
+    }
+
+    @Test
+    fun testEnableDisableInterface_disableEnableEthernet() {
+        val iface = createInterface()
+
+        // When ethernet is disabled, enable/disableInterface() should both return an error.
+        setEthernetEnabled(false)
+        enableInterface(iface).expectError()
+        disableInterface(iface).expectError()
+
+        // When ethernet is enabled, enable/disableInterface() should succeed.
+        setEthernetEnabled(true)
+        enableInterface(iface).expectResult(iface.name)
+        disableInterface(iface).expectResult(iface.name)
     }
 
     @Test
