@@ -419,7 +419,8 @@ class EthernetManagerTest {
 
     // WARNING: setting hasCarrier to false requires kernel support. Call
     // assumeCreateInterfaceWithoutCarrierSupported() at the top of your test.
-    private fun createInterface(hasCarrier: Boolean = true): EthernetTestInterface {
+    private fun createInterface(hasCarrier: Boolean = true, ethEnabled: Boolean = true):
+            EthernetTestInterface {
         val iface = EthernetTestInterface(
             context,
             handler,
@@ -428,7 +429,7 @@ class EthernetManagerTest {
 
         // when an interface comes up, we should always see a down cb before an up cb.
         ifaceListener.eventuallyExpect(iface, STATE_LINK_DOWN, ROLE_CLIENT)
-        if (hasCarrier) {
+        if (hasCarrier && ethEnabled) {
             ifaceListener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
         }
         return iface
@@ -611,9 +612,8 @@ class EthernetManagerTest {
         addInterfaceStateListener(listener)
         listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
 
-        // Remove running interface. The interface stays running but is no longer tracked.
         setEthernetEnabled(false)
-        listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
+        listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)
 
         setEthernetEnabled(true)
         listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
@@ -911,6 +911,21 @@ class EthernetManagerTest {
     }
 
     @Test
+    fun testEnableDisableInterface_disableEnableEthernet() {
+        val iface = createInterface()
+
+        // When ethernet is disabled, enable/disableInterface() should both return an error.
+        setEthernetEnabled(false)
+        enableInterface(iface).expectError()
+        disableInterface(iface).expectError()
+
+        // When ethernet is enabled, enable/disableInterface() should succeed.
+        setEthernetEnabled(true)
+        enableInterface(iface).expectResult(iface.name)
+        disableInterface(iface).expectResult(iface.name)
+    }
+
+    @Test
     fun testUpdateConfiguration_forBothIpConfigAndCapabilities() {
         val iface = createInterface()
         val cb = requestNetwork(ETH_REQUEST.copyWithEthernetSpecifier(iface.name))
@@ -1017,5 +1032,45 @@ class EthernetManagerTest {
         iface.setCarrierEnabled(true)
         cb.eventuallyExpectCapabilities(TEST_CAPS)
         cb.eventuallyExpectLpForStaticConfig(STATIC_IP_CONFIGURATION.staticIpConfiguration)
+    }
+
+    @Test
+    fun testAddInterface_disableEnableEthernet() {
+        val listener = EthernetStateListener()
+        addInterfaceStateListener(listener)
+
+        // When ethernet is disabled, newly added interfaces should not be brought up.
+        setEthernetEnabled(false)
+        val iface = createInterface(/* hasCarrier */ true, /* ethEnabled */ false)
+        listener.eventuallyExpect(iface, STATE_LINK_DOWN, ROLE_CLIENT)
+
+        // When ethernet is re-enabled after interface is added, it will be brought up.
+        setEthernetEnabled(true)
+        listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
+    }
+
+
+    @Test
+    fun testSetTetheringInterfaceMode_disableEnableEthernet() {
+        val listener = EthernetStateListener()
+        addInterfaceStateListener(listener)
+
+        val iface = createInterface()
+        requestTetheredInterface().expectOnAvailable()
+        listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_SERVER)
+
+        // (b/234743836): Currenly the state of server mode interfaces always returns true due to
+        // that interface state for server mode interfaces is not tracked properly.
+        // So we do not get any state change when disabling ethernet.
+        setEthernetEnabled(false)
+        listener.assertNoCallback()
+
+        // When ethernet is disabled, change interface mode will not bring the interface up.
+        releaseTetheredInterface()
+        listener.eventuallyExpect(iface, STATE_LINK_DOWN, ROLE_CLIENT)
+
+        // When ethernet is re-enabled, interface will be brought up.
+        setEthernetEnabled(true)
+        listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
     }
 }
