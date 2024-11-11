@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3024a871_ad58503d",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-11T14:22:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16d3e175_fda922bb",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 67
+      },
+      "revId": "d5f2322e2394d8171fe7a3176ac43c46a0ba0e3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36e82369_0633ad0b",
@@ -55,6 +79,30 @@
       "writtenOn": "2024-11-11T09:46:46Z",
       "side": 1,
       "message": "let\u0027s try to organize this in an order that makes a little bit more sense\n\nunknown\nlocalhost\nlink-local\nlocalnetwork\nula\nglobal\nmulticast\nbroadcast",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 24
+      },
+      "revId": "d5f2322e2394d8171fe7a3176ac43c46a0ba0e3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09f39ecb_f0359bf8",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-11T14:22:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36e82369_0633ad0b",
       "range": {
         "startLine": 231,
         "startChar": 0,
@@ -106,6 +154,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfc4046c_dd341606",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-11T14:22:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "732fc109_93f9cd1a",
+      "range": {
+        "startLine": 266,
+        "startChar": 3,
+        "endLine": 266,
+        "endChar": 4
+      },
+      "revId": "d5f2322e2394d8171fe7a3176ac43c46a0ba0e3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ccde74c_5c02b90a",
@@ -147,6 +219,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f4e90a8_8116611a",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-11T14:22:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ccde74c_5c02b90a",
+      "range": {
+        "startLine": 268,
+        "startChar": 20,
+        "endLine": 268,
+        "endChar": 35
+      },
+      "revId": "d5f2322e2394d8171fe7a3176ac43c46a0ba0e3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4403a36a_5c33f772",
@@ -184,6 +280,30 @@
           ]
         }
       ],
+      "revId": "d5f2322e2394d8171fe7a3176ac43c46a0ba0e3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "623df827_a2acdb35",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-11T14:22:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4403a36a_5c33f772",
+      "range": {
+        "startLine": 270,
+        "startChar": 9,
+        "endLine": 270,
+        "endChar": 20
+      },
       "revId": "d5f2322e2394d8171fe7a3176ac43c46a0ba0e3a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
