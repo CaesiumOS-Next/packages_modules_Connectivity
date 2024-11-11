@@ -211,6 +211,30 @@
       ],
       "revId": "b26e92fa00cade5bffe11fde7090f9c4381edebc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74ababba_1dbd7f26",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-11T18:20:24Z",
+      "side": 1,
+      "message": "It should not change the tethering interface mode, but it should bring down the interface.",
+      "parentUuid": "23ed70d3_45a9227d",
+      "range": {
+        "startLine": 973,
+        "startChar": 12,
+        "endLine": 973,
+        "endChar": 67
+      },
+      "revId": "b26e92fa00cade5bffe11fde7090f9c4381edebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
