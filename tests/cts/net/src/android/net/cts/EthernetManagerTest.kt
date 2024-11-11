@@ -611,9 +611,8 @@ class EthernetManagerTest {
         addInterfaceStateListener(listener)
         listener.eventuallyExpect(iface, STATE_LINK_UP, ROLE_CLIENT)
 
-        // Remove running interface. The interface stays running but is no longer tracked.
         setEthernetEnabled(false)
-        listener.expectCallback(iface, STATE_ABSENT, ROLE_NONE)
+        listener.expectCallback(iface, STATE_LINK_DOWN, ROLE_CLIENT)
 
         setEthernetEnabled(true)
         listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
