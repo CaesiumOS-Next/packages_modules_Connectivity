@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16d3e175_fda922bb",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-11T09:46:46Z",
+      "side": 1,
+      "message": "let\u0027s just strip this, we\u0027re more likely to just delete the above comment then fix it up.  Either way 200 ~24 byte entries shouldn\u0027t take up more than 10KB.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 67
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d9d4da8e_8e4ad3e6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 130,
+                "startChar": 0,
+                "endLine": 131,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "d5f2322e2394d8171fe7a3176ac43c46a0ba0e3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36e82369_0633ad0b",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-11T09:46:46Z",
+      "side": 1,
+      "message": "let\u0027s try to organize this in an order that makes a little bit more sense\n\nunknown\nlocalhost\nlink-local\nlocalnetwork\nula\nglobal\nmulticast\nbroadcast",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 24
+      },
+      "revId": "d5f2322e2394d8171fe7a3176ac43c46a0ba0e3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "732fc109_93f9cd1a",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-11T09:46:46Z",
+      "side": 1,
+      "message": "perhaps an example? 32\u003d match only the if_index, 160\u003dmatch if_index + ipv6 address?\nor a range 0..160",
+      "range": {
+        "startLine": 266,
+        "startChar": 3,
+        "endLine": 266,
+        "endChar": 4
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "2141e284_6b81c727",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 266,
+                "startChar": 0,
+                "endLine": 266,
+                "endChar": 0
+              },
+              "replacement": "   * For example, if lpm_bitlen is 32, only if_index is matched.\n   * If lpm_bitlen is 160, both if_index and ip address are matched.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "d5f2322e2394d8171fe7a3176ac43c46a0ba0e3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ccde74c_5c02b90a",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-11T09:46:46Z",
+      "side": 1,
+      "message": "\u0027of the packet\u0027 is spurious... and there\u0027s no guarantee that lookups will even involve packets.  We could be trying to do ip classification before we have a packet.",
+      "range": {
+        "startLine": 268,
+        "startChar": 20,
+        "endLine": 268,
+        "endChar": 35
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b7a8edb8_70aa3a62",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 268,
+                "startChar": 0,
+                "endLine": 269,
+                "endChar": 0
+              },
+              "replacement": "  // Interface index.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "d5f2322e2394d8171fe7a3176ac43c46a0ba0e3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4403a36a_5c33f772",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-11T09:46:46Z",
+      "side": 1,
+      "message": "except it\u0027s the source on ingress... so again I\u0027d just skip this (before the .) portion",
+      "range": {
+        "startLine": 270,
+        "startChar": 9,
+        "endLine": 270,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ca4da491_0b22f5c7",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 270,
+                "startChar": 0,
+                "endLine": 272,
+                "endChar": 0
+              },
+              "replacement": "  // The source ip of the packet.  IPv4 uses IPv4-mapped IPv6 address format.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "d5f2322e2394d8171fe7a3176ac43c46a0ba0e3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
