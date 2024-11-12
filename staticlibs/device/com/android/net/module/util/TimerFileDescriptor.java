@@ -33,6 +33,7 @@ import androidx.annotation.Nullable;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Represents a Timer file descriptor object used for scheduling tasks with precise delays.
@@ -84,15 +85,23 @@ public class TimerFileDescriptor implements AutoCloseable {
     @Nullable
     private Runnable mTask;
 
-    public TimerFileDescriptor(@NonNull Handler handler) {
+    public TimerFileDescriptor(@NonNull Looper looper) {
         mId = TimerFdUtils.createTimerFileDescriptor();
         mParcelFileDescriptor = ParcelFileDescriptor.adoptFd(mId);
         mFileDescriptor = Objects.requireNonNull(mParcelFileDescriptor.getFileDescriptor());
-        mHandler = handler;
-        mQueue = handler.getLooper().getQueue();
+        mHandler = new Handler(looper);
+        mQueue = looper.getQueue();
         registerFdEventListener();
 
         mGuard.open("close");
+    }
+
+    private void checkAndRunOnHandlerThread(@NonNull Runnable function) {
+        if (isRunningOnHandlerThread()) {
+            function.run();
+        } else {
+            mHandler.post(function);
+        }
     }
 
     /**
@@ -107,7 +116,10 @@ public class TimerFileDescriptor implements AutoCloseable {
      * @throws IllegalArgumentException if the delay time is less than 0
      */
     public void setDelayedTask(@NonNull Runnable task, long delayMs) {
-        ensureRunningOnCorrectThread();
+        checkAndRunOnHandlerThread(() -> scheduleExpirationTimeForTask(task, delayMs));
+    }
+
+    private void scheduleExpirationTimeForTask(@NonNull Runnable task, long delayMs) {
         if (mTask != null) {
             throw new IllegalArgumentException("task is already scheduled");
         }
@@ -126,17 +138,28 @@ public class TimerFileDescriptor implements AutoCloseable {
      * Cancel the scheduled task.
      */
     public void cancelTask() {
-        ensureRunningOnCorrectThread();
-        TimerFdUtils.setExpirationTime(mId, 0 /* delayMs */);
-        mTask = null;
+        checkAndRunOnHandlerThread(() -> {
+            TimerFdUtils.setExpirationTime(mId, 0 /* delayMs */);
+            mTask = null;
+        });
     }
 
     /**
      * Check if there is a scheduled task.
      */
     public boolean hasDelayedTask() {
-        ensureRunningOnCorrectThread();
-        return mTask != null;
+        if (isRunningOnHandlerThread()) {
+            return mTask != null;
+        } else {
+            final CompletableFuture<Boolean> future = new CompletableFuture<>();
+            mHandler.post(() -> future.complete(mTask != null));
+            try {
+                return future.get();
+            } catch (Exception e) {
+                Log.e(TAG, "Get delayed task failed. e=" + e);
+                return false;
+            }
+        }
     }
 
     /**
@@ -145,8 +168,7 @@ public class TimerFileDescriptor implements AutoCloseable {
      */
     @Override
     public void close() {
-        ensureRunningOnCorrectThread();
-        unregisterAndDestroyFd();
+        checkAndRunOnHandlerThread(() -> unregisterAndDestroyFd());
     }
 
     private void registerFdEventListener() {
@@ -195,11 +217,11 @@ public class TimerFileDescriptor implements AutoCloseable {
         }
     }
 
-    private void ensureRunningOnCorrectThread() {
-        if (mHandler.getLooper() != Looper.myLooper()) {
-            throw new IllegalStateException(
-                    "Not running on Handler thread: " + Thread.currentThread().getName());
+    private boolean isRunningOnHandlerThread() {
+        if (mHandler.getLooper().getThread() == Thread.currentThread()) {
+            return true;
         }
+        return false;
     }
 
     @SuppressWarnings("Finalize")

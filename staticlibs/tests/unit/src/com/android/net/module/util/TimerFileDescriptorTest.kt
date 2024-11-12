@@ -53,7 +53,7 @@ class TimerFileDescriptorTest {
     @Test
     fun testSetDelayedTask() {
         val delayTime = 100L
-        val timerFd = TimerFileDescriptor(handler)
+        val timerFd = TimerFileDescriptor(handler.looper)
         val cv = ConditionVariable()
         handler.post { timerFd.setDelayedTask({ cv.open() }, delayTime) }
         handler.waitForIdle(DEFAULT_TIMEOUT_MS)
@@ -65,7 +65,7 @@ class TimerFileDescriptorTest {
     @Test
     fun testCancelTask() {
         val delayTime = 500L
-        val timerFd = TimerFileDescriptor(handler)
+        val timerFd = TimerFileDescriptor(handler.looper)
         val future = CompletableFuture<Boolean>()
         handler.post {
             timerFd.setDelayedTask({ future.complete(true) }, delayTime)
