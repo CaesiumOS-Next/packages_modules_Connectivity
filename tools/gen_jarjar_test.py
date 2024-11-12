@@ -25,8 +25,8 @@
 #  limitations under the License.
 
 import gen_jarjar
+import shutil
 import unittest
-
 
 class TestGenJarjar(unittest.TestCase):
     def test_gen_rules(self):
@@ -42,6 +42,7 @@ class TestGenJarjar(unittest.TestCase):
 
         with open(args.output) as out:
             lines = out.readlines()
+        shutil.rmtree(args.output)
 
         self.maxDiff = None
         self.assertListEqual([
@@ -74,6 +75,7 @@ class TestGenJarjar(unittest.TestCase):
 
         with open(args.output) as out:
             lines = out.readlines()
+        shutil.rmtree(args.output)
 
         self.maxDiff = None
         self.assertListEqual([
@@ -97,6 +99,7 @@ class TestGenJarjar(unittest.TestCase):
 
         with open(args.output) as out:
             lines = out.readlines()
+        shutil.rmtree(args.output)
 
         self.maxDiff = None
         self.assertListEqual([
