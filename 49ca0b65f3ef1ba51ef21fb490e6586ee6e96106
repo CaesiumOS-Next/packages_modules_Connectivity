@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ca43678_69dd4fb2",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-12T06:05:47Z",
+      "side": 1,
+      "message": "Here we can skip checking down flag, since it will be a noop if it is/isnt existing, and only use eth state will be more concise",
+      "range": {
+        "startLine": 597,
+        "startChar": 0,
+        "endLine": 597,
+        "endChar": 59
+      },
+      "revId": "49ca0b65f3ef1ba51ef21fb490e6586ee6e96106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
