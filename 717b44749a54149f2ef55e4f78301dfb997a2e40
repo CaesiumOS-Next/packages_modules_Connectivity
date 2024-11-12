@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6801f0d_972c04fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1042828
+      },
+      "writtenOn": "2024-11-12T22:49:04Z",
+      "side": 1,
+      "message": "I agree entirely with the argument that this needs to be fixed. (Except that I think on ARM it matters that the exchange does a release store, and it doesn\u0027t matter that it also does a memory barrier.) And I agree that the result is much more likely to work than the original.\n\nAs a C++ language lawyer, there are remaining issues, but I doubt they\u0027re either fixable given the way the kernel does things, or likely to really break things. The C++ way to do this to use atomic_ref or declare the length field as atomic, but that\u0027s not a clear improvement here. I\u0027d do whatever other code in this vicinity does.",
+      "revId": "717b44749a54149f2ef55e4f78301dfb997a2e40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
