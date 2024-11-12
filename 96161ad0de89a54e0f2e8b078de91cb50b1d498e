@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01d7f064_adf7c1c9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroyedNetworkTests.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-12T15:33:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70f35f56_ae31a1c9",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 5
+      },
+      "revId": "96161ad0de89a54e0f2e8b078de91cb50b1d498e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50bd88ad_05534214",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-08T11:38:26Z",
       "side": 1,
       "message": "should this use clearInvocations(), so potential stubbing is not reset? (unless that\u0027s what you are trying to do?)",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "96161ad0de89a54e0f2e8b078de91cb50b1d498e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a4a1ecb_368f78d8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroyedNetworkTests.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-12T15:33:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50bd88ad_05534214",
       "range": {
         "startLine": 89,
         "startChar": 0,
