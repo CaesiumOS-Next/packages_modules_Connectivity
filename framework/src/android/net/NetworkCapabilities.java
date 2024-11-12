@@ -1300,6 +1300,7 @@ public final class NetworkCapabilities implements Parcelable {
             TRANSPORT_USB,
             TRANSPORT_THREAD,
             TRANSPORT_SATELLITE,
+            TRANSPORT_L2CAP,
     })
     public @interface Transport { }
 
@@ -1362,10 +1363,16 @@ public final class NetworkCapabilities implements Parcelable {
     @FlaggedApi(Flags.FLAG_SUPPORT_TRANSPORT_SATELLITE)
     public static final int TRANSPORT_SATELLITE = 10;
 
+    /**
+     * Indicates this network uses a Bluetooth L2CAP CoC transport.
+     */
+    @FlaggedApi(Flags.FLAG_IPV6_OVER_BLE)
+    public static final int TRANSPORT_L2CAP = 11;
+
     /** @hide */
     public static final int MIN_TRANSPORT = TRANSPORT_CELLULAR;
     /** @hide */
-    public static final int MAX_TRANSPORT = TRANSPORT_SATELLITE;
+    public static final int MAX_TRANSPORT = TRANSPORT_L2CAP;
 
     private static final int ALL_VALID_TRANSPORTS;
     static {
