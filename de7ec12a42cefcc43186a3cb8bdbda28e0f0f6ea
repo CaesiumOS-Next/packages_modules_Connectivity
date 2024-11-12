@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "380c783c_93b02f24",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-12T11:24:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "264e146f_765439ac",
+      "range": {
+        "startLine": 208,
+        "startChar": 16,
+        "endLine": 208,
+        "endChar": 25
+      },
+      "revId": "de7ec12a42cefcc43186a3cb8bdbda28e0f0f6ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e748704_bec410be",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "497d630d_70e717d5",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-12T11:24:54Z",
+      "side": 1,
+      "message": "I did that initially, but did not like how they were formatted after chaining :P",
+      "parentUuid": "3e748704_bec410be",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 93
+      },
+      "revId": "de7ec12a42cefcc43186a3cb8bdbda28e0f0f6ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "090310ea_a87f53e7",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-11-12T09:43:47Z",
       "side": 1,
       "message": "Please fix this WARNING reported by AndroidLint: [WrongCommentType] This block comment looks like it was intended to be a javadoc comment\n\nAnalyzer Description: Reports AndroidLint warnings.\nOwner: colefaust@google.com\n\n[WrongCommentType] This block comment looks like it was intended to be a javadoc comment\n\n        /* A wrapper around the status and reason Ids returned by the {@link DownloadManager}. */\n                                                                      ~~~~~~~~~~~~~~~~~~~~~~~\n\nThis check flags any block comments which look like they had been intended to be KDoc or javadoc comments instead.\n\nIf you really want to use Javadoc-like constructs in a block comment, there\u0027s a convention you can use: include `(non-Javadoc)` somewhere in the comment, e.g.\n```\n  /* (non-Javadoc)\n   * @see org.xml.sax.helpers.DefaultHandler#setDocumentLocator(org.xml.sax.Locator)\n   */\n  @Override\n  public void setDocumentLocator(Locator locator) {\n```\n(see https://stackoverflow.com/questions/5172841/non-javadoc-meaning)\n\nSuppression and local reproduction steps: go/ayeaye-android-lint\n\nThis warning was found on the git_main branch",
+      "range": {
+        "startLine": 90,
+        "startChar": 67,
+        "endLine": 90,
+        "endChar": 93
+      },
+      "revId": "de7ec12a42cefcc43186a3cb8bdbda28e0f0f6ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b997886_e47efcb6",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-12T11:24:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "090310ea_a87f53e7",
       "range": {
         "startLine": 90,
         "startChar": 67,
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5403cd6a_38d1f0b1",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DownloadHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-12T11:24:54Z",
+      "side": 1,
+      "message": "The error name is a bit confusing, the [documentation](https://developer.android.com/reference/android/app/DownloadManager#ERROR_DEVICE_NOT_FOUND) says this error might appears because the SD card is not mounted. Not sure how likely this error is to happen on modern devices.",
+      "parentUuid": "d4909d5f_1b6103bf",
+      "range": {
+        "startLine": 108,
+        "startChar": 50,
+        "endLine": 108,
+        "endChar": 72
+      },
+      "revId": "de7ec12a42cefcc43186a3cb8bdbda28e0f0f6ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c828439_dbbe0105",
@@ -129,6 +225,30 @@
       "writtenOn": "2024-11-12T09:43:47Z",
       "side": 1,
       "message": "Uber nit: could you remove the new line here, so the arrange block is all together? Please apply throughout.\n\ngo/unit-test-practices#structure",
+      "range": {
+        "startLine": 242,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 13
+      },
+      "revId": "de7ec12a42cefcc43186a3cb8bdbda28e0f0f6ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35e3d2b6_9384ef1d",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-12T11:24:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c828439_dbbe0105",
       "range": {
         "startLine": 242,
         "startChar": 8,
