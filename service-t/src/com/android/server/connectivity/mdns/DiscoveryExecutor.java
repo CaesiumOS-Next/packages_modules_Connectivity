@@ -42,12 +42,12 @@ public class DiscoveryExecutor implements Executor {
 
     @GuardedBy("mPendingTasks")
     @Nullable
-    private Handler mHandler;
+    Handler mHandler;
     // Store pending tasks and associated delay time. Each Pair represents a pending task
     // (first) and its delay time (second).
     @GuardedBy("mPendingTasks")
     @NonNull
-    private final ArrayList<Pair<Runnable, Long>> mPendingTasks = new ArrayList<>();
+    final ArrayList<Pair<Runnable, Long>> mPendingTasks = new ArrayList<>();
 
     DiscoveryExecutor(@Nullable Looper defaultLooper) {
         if (defaultLooper != null) {
@@ -62,7 +62,7 @@ public class DiscoveryExecutor implements Executor {
                     synchronized (mPendingTasks) {
                         mHandler = new Handler(getLooper());
                         for (Pair<Runnable, Long> pendingTask : mPendingTasks) {
-                            mHandler.postDelayed(pendingTask.first, pendingTask.second);
+                            executeDelayed(pendingTask.first, pendingTask.second);
                         }
                         mPendingTasks.clear();
                     }
