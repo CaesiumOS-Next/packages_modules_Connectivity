@@ -62,7 +62,7 @@ public class DiscoveryExecutor implements Executor {
                     synchronized (mPendingTasks) {
                         mHandler = new Handler(getLooper());
                         for (Pair<Runnable, Long> pendingTask : mPendingTasks) {
-                            mHandler.postDelayed(pendingTask.first, pendingTask.second);
+                            executeDelayed(pendingTask.first, pendingTask.second);
                         }
                         mPendingTasks.clear();
                     }
