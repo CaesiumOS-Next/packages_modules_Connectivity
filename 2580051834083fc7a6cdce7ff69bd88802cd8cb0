@@ -16,6 +16,24 @@
       "message": "I don\u0027t know whether this will work.",
       "revId": "2580051834083fc7a6cdce7ff69bd88802cd8cb0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0faad0a6_b8e846e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-13T17:29:05Z",
+      "side": 1,
+      "message": "Resolving this since it\u0027ll interfere with autosubmit if the presubmits do pass.",
+      "parentUuid": "bf380e9c_a7281b36",
+      "revId": "2580051834083fc7a6cdce7ff69bd88802cd8cb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
