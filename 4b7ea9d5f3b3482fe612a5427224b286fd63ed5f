@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38c8f1f8_3c097a84",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-13T08:32:04Z",
+      "side": 1,
+      "message": "I recommend having a new class \"FeatureFlags.java\" for those constants and provide public methods for other components to test if a feature flag is enabled. We can add more feature flags in the future to this FeatureFlags.java class.",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 84
+      },
+      "revId": "4b7ea9d5f3b3482fe612a5427224b286fd63ed5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ac1ff2c_6360b461",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-13T08:32:04Z",
+      "side": 1,
+      "message": "You also need to add tests that verify TREL is really disabled when the feature flag is set false. This allows us to safely roll back if there are regressions with enabling TREL",
+      "revId": "4b7ea9d5f3b3482fe612a5427224b286fd63ed5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
