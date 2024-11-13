@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1775599e_48732d01",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-13T08:49:33Z",
+      "side": 1,
+      "message": "Furthermore, we can store the dependencies class instance and let it query `DeviceConfigUtils` on `isTrelFeatureEnabled`. Otherwise, you have to maintain the boolean `mTrelEnabled` which is inflexible.",
+      "parentUuid": "54a50159_f2c7f838",
+      "revId": "4b7ea9d5f3b3482fe612a5427224b286fd63ed5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78b683ba_c44df728",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 7
