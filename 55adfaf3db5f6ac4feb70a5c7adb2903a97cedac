@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d017c6a_1afd1d78",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-13T16:57:30Z",
+      "side": 1,
+      "message": "does that mean this can be deleted? (or maybe it first has to be rolled back? I am not familiar with trunk stable flags)",
+      "range": {
+        "startLine": 44,
+        "startChar": 9,
+        "endLine": 44,
+        "endChar": 46
+      },
+      "revId": "55adfaf3db5f6ac4feb70a5c7adb2903a97cedac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
