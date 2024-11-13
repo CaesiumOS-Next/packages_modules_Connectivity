@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3f3abc8_71151b07",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-13T04:30:34Z",
+      "side": 0,
+      "message": "@sunytt@google.com\n\nHere and below I think tearing down the infra link is unnecessary. Please take a look.",
+      "range": {
+        "startLine": 618,
+        "startChar": 0,
+        "endLine": 619,
+        "endChar": 31
+      },
+      "revId": "9dbe69420db265e397e57e7f0a0740b701be48ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
