@@ -22,6 +22,30 @@
       },
       "revId": "9dbe69420db265e397e57e7f0a0740b701be48ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bef08d4f_779fc8fe",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-11-13T05:24:43Z",
+      "side": 0,
+      "message": "LGTM, thx",
+      "parentUuid": "a3f3abc8_71151b07",
+      "range": {
+        "startLine": 618,
+        "startChar": 0,
+        "endLine": 619,
+        "endChar": 31
+      },
+      "revId": "9dbe69420db265e397e57e7f0a0740b701be48ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
