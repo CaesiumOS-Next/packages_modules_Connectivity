@@ -24,6 +24,10 @@
 
 // Note arguments to BPF_JUMP(opcode, operand, true_offset, false_offset)
 
+// if equal, jump over count instruction
+#define BPF_JUMP_IF_EQUAL(v, count) \
+    BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, (v), (count), 0)
+
 // If not equal, jump over count instructions
 #define BPF_JUMP_IF_NOT_EQUAL(v, count) \
 	BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, (v), 0, (count))
