@@ -33,6 +33,24 @@
       "message": "I don\u0027t know what you are doing, but it is clearly not nullable.",
       "revId": "9461e7dbb65e15ae53dfff104287293a50ae51c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e3d294_f45b8b41",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1792,
+      "author": {
+        "id": 3524514
+      },
+      "writtenOn": "2024-11-14T18:48:39Z",
+      "side": 1,
+      "message": "Hi @prohr@google.com, thank you for your comment. However, there are instances when the logger is nullable. Many developers have various reasons to disable certain services for their use cases. In our case, which I\u0027m sure is the case for other developers too, there are instances where we disable IpConnectivityMetrics service. When that happens the logger becomes nullable, so the system server needs to be robust to such changes, and handle them gracefully. Hope that clarifies things.",
+      "parentUuid": "48c3964d_9b6b19d6",
+      "revId": "9461e7dbb65e15ae53dfff104287293a50ae51c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
