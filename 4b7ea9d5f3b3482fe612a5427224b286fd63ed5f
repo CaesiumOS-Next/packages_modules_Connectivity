@@ -97,6 +97,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b00d9d7c_ee27e226",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-14T03:01:36Z",
+      "side": 1,
+      "message": "\u003e If yes, we should use mock to make the program testable,\n\n\"should\" should be \"should not\"",
+      "parentUuid": "511a965f_49292bf5",
+      "revId": "4b7ea9d5f3b3482fe612a5427224b286fd63ed5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78b683ba_c44df728",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 7
