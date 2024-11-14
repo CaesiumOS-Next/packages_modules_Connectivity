@@ -225,6 +225,99 @@ public class NetlinkUtils {
     }
 
     /**
+     * Send an RTM_GETLINK message to kernel to get the list of all interfaces.
+     */
+    @Nullable
+    public static String[] sendRtmGetLinkRequest() {
+        final byte[] msg = RtNetlinkLinkMessage.createGetAllLinksMessage(1 /* seqNo*/)
+                .pack(ByteOrder.nativeOrder());
+        final FileDescriptor fd;
+        List<String> ifnames = new ArrayList<>();
+
+        try {
+            fd = NetlinkUtils.netlinkSocketForProto(NETLINK_ROUTE, SOCKET_RECV_BUFSIZE);
+            sendMessage(fd, msg, 0, msg.length, IO_TIMEOUT_MS);
+        } catch (ErrnoException | InterruptedIOException e) {
+            Log.w(TAG, "Failed to send netlink message.", e);
+            return null;
+        }
+
+        // After each netlink request, repeatedly read netlink messages until netlink
+        // message with NLMSG_DONE is received.
+        boolean done = false;
+        while (!done) {
+            final ByteBuffer response;
+            try {
+                response = NetlinkUtils.recvMessage(fd, DEFAULT_RECV_BUFSIZE, IO_TIMEOUT_MS);
+            } catch (ErrnoException | InterruptedIOException e) {
+                Log.w(TAG, "Failed to receive message from netlink socket.", e);
+                break;
+            }
+
+            do {
+                final int start = response.position();
+                final NetlinkMessage nlMsg =
+                        NetlinkMessage.parse(response, NETLINK_ROUTE);
+                if (nlMsg == null) {
+                    Log.e(TAG, "Badly formatted data, failed to get netlink message");
+                    break;
+                }
+                final StructNlMsgHdr hdr = nlMsg.getHeader();
+                if (hdr == null) {
+                    Log.e(TAG, "Badly formatted data, "
+                            + "failed to get netlink message header");
+                    break;
+                }
+                if (hdr.nlmsg_type == NLMSG_DONE) {
+                    done = true;
+                    break;
+                }
+                if (!(nlMsg instanceof RtNetlinkLinkMessage)) {
+                    Log.e(TAG, "Received netlink message is wrong type");
+                    break;
+                }
+                String ifname = ((RtNetlinkLinkMessage) nlMsg).getInterfaceName();
+                if (ifname != null) {
+                    ifnames.add(ifname);
+                } else {
+                    Log.e(TAG, "Failed to get interface name from netlink message");
+                    break;
+                }
+            } while (enoughBytesRemainForValidNlMsg(response));
+        }
+        if (done) {
+            return ifnames.toArray(new String[0]);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Method to skip the remaining attributes bytes.
+     * Corresponds to NLMSG_NEXT in bionic/libc/kernel/uapi/linux/netlink.h.
+     *
+     * @param buffer the target ByteBuffer
+     * @param len the remaining length to skip.
+     */
+    private static void skipRemainingAttributesBytesAligned(@NonNull final ByteBuffer buffer,
+            final short len) {
+        // Data in {@code RoutingAttribute} is followed after header with size {@code NLA_ALIGNTO}
+        // bytes long for each block. Next attribute will start after the padding bytes if any.
+        // If all remaining bytes after header are valid in a data block, next attr will just start
+        // after valid bytes.
+        //
+        // E.g., With NLA_ALIGNTO(4), an attr struct with length 5 means 1 byte valid data remains
+        // after header and 3(4-1) padding bytes. Next attr with length 8 will start after the
+        // padding bytes and contain 4(8-4) valid bytes of data. The next attr start after the
+        // valid bytes, like:
+        //
+        // [HEADER(L=5)][   4-Bytes DATA      ][ HEADER(L=8) ][4 bytes DATA][Next attr]
+        // [ 5 valid bytes ][3 padding bytes  ][      8 valid bytes        ]   ...
+        final int cur = buffer.position();
+        buffer.position(cur + NetlinkConstants.alignedLengthOf(len));
+    }
+
+    /**
      * Create netlink socket with the given netlink protocol type and buffersize.
      *
      * @param nlProto the netlink protocol
