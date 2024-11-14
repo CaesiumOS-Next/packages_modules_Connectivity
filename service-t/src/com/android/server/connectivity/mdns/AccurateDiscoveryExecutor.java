@@ -22,12 +22,11 @@ import android.util.Pair;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.Nullable;
 
-import com.android.net.module.util.TimerFileDescriptor;
 
 public class AccurateDiscoveryExecutor extends DiscoveryExecutor {
     @GuardedBy("pendingTasks")
     @android.annotation.Nullable
-    TimerFileDescriptor mTimerFd;
+    AbstractAccurateDelayCallback mCallback;
 
     AccurateDiscoveryExecutor(@Nullable Looper defaultLooper) {
         super(defaultLooper);
@@ -36,22 +35,23 @@ public class AccurateDiscoveryExecutor extends DiscoveryExecutor {
     /**
      * Execute the given function after the specified amount of time elapses.
      *
-     * Note: It's using TimerFileDescriptor instead of Handler to execute delayed task accurately.
+     * Note: It's using AccurateDelayCallback instead of Handler to execute delayed task accurately.
      */
     @Override
     public void executeDelayed(Runnable function, long delayMillis) {
-        final TimerFileDescriptor timerFd;
+        final AbstractAccurateDelayCallback callback;
         synchronized (mPendingTasks) {
             if (this.mHandler == null) {
                 mPendingTasks.add(Pair.create(function, delayMillis));
                 return;
             } else {
-                if (this.mTimerFd == null) {
-                    this.mTimerFd = new TimerFileDescriptor(mHandler.getLooper());
+                if (this.mCallback == null) {
+                    this.mCallback = AccurateDelayCallbackFactory.createAccurateDelayCallback(
+                            mHandler.getLooper());
                 }
-                timerFd = this.mTimerFd;
+                callback = this.mCallback;
             }
         }
-        timerFd.setDelayedTask(function, delayMillis);
+        callback.setDelayedTask(function, delayMillis);
     }
 }
