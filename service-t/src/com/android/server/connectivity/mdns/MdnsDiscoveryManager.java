@@ -125,9 +125,8 @@ public class MdnsDiscoveryManager implements MdnsSocketClientBase.Callback {
         this.sharedLog = sharedLog;
         this.perSocketServiceTypeClients = new PerSocketServiceTypeClients();
         this.mdnsFeatureFlags = mdnsFeatureFlags;
-        this.discoveryExecutor = mdnsFeatureFlags.isAccurateDelayCallbackEnabled()
-                ? new RealtimeDiscoveryExecutor(socketClient.getLooper())
-                : new DiscoveryExecutor(socketClient.getLooper());
+        this.discoveryExecutor = RealtimeDelayCallbackFactory.createDiscoveryExecutor(
+                mdnsFeatureFlags.isAccurateDelayCallbackEnabled(), socketClient.getLooper());
     }
 
     /**
