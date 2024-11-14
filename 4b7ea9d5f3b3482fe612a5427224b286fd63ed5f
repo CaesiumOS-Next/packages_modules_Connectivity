@@ -79,6 +79,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "511a965f_49292bf5",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-14T02:35:22Z",
+      "side": 1,
+      "message": "A `FeatureFlags` interface SGTM.",
+      "parentUuid": "5867e2dd_c581009e",
+      "revId": "4b7ea9d5f3b3482fe612a5427224b286fd63ed5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78b683ba_c44df728",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 7
