@@ -51,6 +51,24 @@
       "parentUuid": "48c3964d_9b6b19d6",
       "revId": "9461e7dbb65e15ae53dfff104287293a50ae51c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d90a7442_198bcdee",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1792,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-14T19:03:03Z",
+      "side": 1,
+      "message": "This is mainline code. There are no \"instances\" of this code, just the one. By your argument, everything must always be nullable.",
+      "parentUuid": "57e3d294_f45b8b41",
+      "revId": "9461e7dbb65e15ae53dfff104287293a50ae51c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
