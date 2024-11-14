@@ -60,7 +60,6 @@ import android.text.TextUtils;
 
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.SharedLog;
-import com.android.net.module.util.TimerFileDescriptor;
 import com.android.server.connectivity.mdns.MdnsServiceInfo.TextEntry;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 import com.android.testutils.DevSdkIgnoreRule;
@@ -129,7 +128,7 @@ public class MdnsServiceTypeClientTests {
     @Mock
     private MdnsServiceTypeClient.Dependencies mockDeps;
     @Mock
-    private TimerFileDescriptor mockTimerFd;
+    private AbstractAccurateDelayCallback mockCallback;
     @Captor
     private ArgumentCaptor<MdnsServiceInfo> serviceInfoCaptor;
 
@@ -148,7 +147,7 @@ public class MdnsServiceTypeClientTests {
     private Message delayMessage = null;
     private Handler realHandler = null;
     private MdnsFeatureFlags featureFlags = MdnsFeatureFlags.newBuilder().build();
-    private TimerFileDescriptor.MessageTask task = null;
+    private Message message = null;
 
     @Before
     @SuppressWarnings("DoNotMock")
@@ -251,14 +250,15 @@ public class MdnsServiceTypeClientTests {
         doAnswer(inv -> {
             realHandler = (Handler) inv.getArguments()[1];
             final MdnsFeatureFlags flags = (MdnsFeatureFlags) inv.getArguments()[0];
-            return flags.isAccurateDelayCallbackEnabled() ? mockTimerFd : null;
-        }).when(mockDeps).createTimerFd(any(MdnsFeatureFlags.class), any(Handler.class));
+            return flags.isAccurateDelayCallbackEnabled() ? mockCallback : null;
+        }).when(mockDeps).createAccurateDelayCallback(
+                any(MdnsFeatureFlags.class), any(Handler.class));
 
         doAnswer(inv -> {
-            task = (TimerFileDescriptor.MessageTask) inv.getArguments()[0];
+            message = (Message) inv.getArguments()[0];
             latestDelayMs = (long) inv.getArguments()[1];
             return null;
-        }).when(mockTimerFd).setDelayedTask(any(), anyLong());
+        }).when(mockCallback).setDelayedTask(any(), anyLong());
 
         client = makeMdnsServiceTypeClient(featureFlags);
     }
@@ -2138,21 +2138,21 @@ public class MdnsServiceTypeClientTests {
                 .setNumOfQueriesBeforeBackoff(numOfQueriesBeforeBackoff)
                 .build();
         startSendAndReceive(mockListenerOne, searchOptions);
-        verify(mockTimerFd, times(1)).cancelTask();
+        verify(mockCallback, times(1)).cancelTask();
 
         // Verify that the first query has been sent.
         verifyAndSendQuery(0 /* index */, 0 /* timeInMs */, true /* expectsUnicastResponse */,
                 true /* multipleSocketDiscovery */, 1 /* scheduledCount */,
                 1 /* sendMessageCount */, true /* useAccurateDelayCallback */);
         // Verify that the task cancellation occurred before scheduling another query.
-        verify(mockTimerFd, times(2)).cancelTask();
+        verify(mockCallback, times(2)).cancelTask();
 
         // Verify that the second query has been sent
         verifyAndSendQuery(1 /* index */, 0 /* timeInMs */, false /* expectsUnicastResponse */,
                 true /* multipleSocketDiscovery */, 2 /* scheduledCount */,
                 2 /* sendMessageCount */, true /* useAccurateDelayCallback */);
         // Verify that the task cancellation occurred before scheduling another query.
-        verify(mockTimerFd, times(3)).cancelTask();
+        verify(mockCallback, times(3)).cancelTask();
 
         // Verify that the third query has been sent
         verifyAndSendQuery(2 /* index */, TIME_BETWEEN_RETRANSMISSION_QUERIES_IN_BURST_MS,
@@ -2160,30 +2160,30 @@ public class MdnsServiceTypeClientTests {
                 3 /* scheduledCount */, 3 /* sendMessageCount */,
                 true /* useAccurateDelayCallback */);
         // Verify that the task cancellation occurred before scheduling another query.
-        verify(mockTimerFd, times(4)).cancelTask();
+        verify(mockCallback, times(4)).cancelTask();
 
         // In backoff mode, the current scheduled task will be canceled and reschedule if the
         // 0.8 * smallestRemainingTtl is larger than time to next run.
         long currentTime = TEST_TTL / 2 + TEST_ELAPSED_REALTIME;
         doReturn(currentTime).when(mockDecoderClock).elapsedRealtime();
-        doReturn(true).when(mockTimerFd).hasDelayedTask();
+        doReturn(true).when(mockCallback).hasDelayedTask();
         processResponse(createResponse(
                 "service-instance-1", "192.0.2.123", 5353,
                 SERVICE_TYPE_LABELS,
                 Collections.emptyMap(), TEST_TTL), socketKey);
         // Verify that the task cancellation occurred twice.
-        verify(mockTimerFd, times(6)).cancelTask();
-        assertNotNull(task);
+        verify(mockCallback, times(6)).cancelTask();
+        assertNotNull(message);
         verifyAndSendQuery(3 /* index */, (long) (TEST_TTL / 2 * 0.8) /* timeInMs */,
                 true /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
                 5 /* scheduledCount */, 4 /* sendMessageCount */,
                 true /* useAccurateDelayCallback */);
         // Verify that the task cancellation occurred before scheduling another query.
-        verify(mockTimerFd, times(7)).cancelTask();
+        verify(mockCallback, times(7)).cancelTask();
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
-        verify(mockTimerFd, times(8)).cancelTask();
+        verify(mockCallback, times(8)).cancelTask();
     }
 
     @Test
@@ -2193,11 +2193,11 @@ public class MdnsServiceTypeClientTests {
 
         // Start query
         startSendAndReceive(mockListenerOne, MdnsSearchOptions.newBuilder().build());
-        verify(mockTimerFd, times(1)).cancelTask();
+        verify(mockCallback, times(1)).cancelTask();
 
         // Stop query and verify the close() method has been called.
         stopSendAndReceive(mockListenerOne);
-        verify(mockTimerFd).close();
+        verify(mockCallback).close();
     }
 
     private static MdnsServiceInfo matchServiceName(String name) {
@@ -2221,9 +2221,9 @@ public class MdnsServiceTypeClientTests {
     private void verifyAndSendQuery(int index, long timeInMs, boolean expectsUnicastResponse,
             boolean multipleSocketDiscovery, int scheduledCount, int sendMessageCount,
             boolean useAccurateDelayCallback) {
-        if (useAccurateDelayCallback && task != null && realHandler != null) {
-            runOnHandler(() -> realHandler.dispatchMessage(task.getMessage()));
-            task = null;
+        if (useAccurateDelayCallback && message != null && realHandler != null) {
+            runOnHandler(() -> realHandler.dispatchMessage(message));
+            message = null;
         } else {
             // Dispatch the message
             if (delayMessage != null && realHandler != null) {
@@ -2255,7 +2255,7 @@ public class MdnsServiceTypeClientTests {
                 .sendMessage(any(Handler.class), any(Message.class));
         // Verify the task has been scheduled.
         if (useAccurateDelayCallback) {
-            verify(mockTimerFd, times(scheduledCount)).setDelayedTask(any(), anyLong());
+            verify(mockCallback, times(scheduledCount)).setDelayedTask(any(), anyLong());
         } else {
             verify(mockDeps, times(scheduledCount))
                     .sendMessageDelayed(any(Handler.class), any(Message.class), anyLong());

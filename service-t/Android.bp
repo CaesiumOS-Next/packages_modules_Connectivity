@@ -108,7 +108,10 @@ java_library {
         ":service-mdns-droidstubs",
     ],
     exclude_srcs: [
+        "src/com/android/server/connectivity/mdns/internal/AccurateDelayCallback.java",
         "src/com/android/server/connectivity/mdns/internal/SocketNetlinkMonitor.java",
+        "src/com/android/server/connectivity/mdns/AccurateDiscoveryExecutor.java",
+        "src/com/android/server/connectivity/mdns/AccurateDelayCallbackFactory.java",
         "src/com/android/server/connectivity/mdns/SocketNetLinkMonitorFactory.java",
         "src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
         "src/com/android/server/connectivity/mdns/MdnsAnnouncer.java",
@@ -131,7 +134,10 @@ java_library {
 
 droidstubs {
     name: "service-mdns-droidstubs",
-    srcs: ["src/com/android/server/connectivity/mdns/SocketNetLinkMonitorFactory.java"],
+    srcs: [
+        "src/com/android/server/connectivity/mdns/AccurateDelayCallbackFactory.java",
+        "src/com/android/server/connectivity/mdns/SocketNetLinkMonitorFactory.java",
+    ],
     libs: [
         "net-utils-device-common-mdns-standalone-build-test",
         "service-connectivity-tiramisu-pre-jarjar",
