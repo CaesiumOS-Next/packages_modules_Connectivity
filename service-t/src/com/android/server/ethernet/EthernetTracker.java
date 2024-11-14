@@ -56,6 +56,7 @@ import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.ip.NetlinkMonitor;
 import com.android.net.module.util.netlink.NetlinkConstants;
 import com.android.net.module.util.netlink.NetlinkMessage;
+import com.android.net.module.util.netlink.NetlinkUtils;
 import com.android.net.module.util.netlink.RtNetlinkLinkMessage;
 import com.android.net.module.util.netlink.StructIfinfoMsg;
 import com.android.server.connectivity.ConnectivityResources;
@@ -403,13 +404,7 @@ public class EthernetTracker {
 
     List<String> getInterfaceList() {
         final List<String> interfaceList = new ArrayList<String>();
-        final String[] ifaces;
-        try {
-            ifaces = mNetd.interfaceGetList();
-        } catch (RemoteException e) {
-            Log.e(TAG, "Could not get list of interfaces " + e);
-            return interfaceList;
-        }
+        final String[] ifaces = NetlinkUtils.sendRtmGetLinkRequest();
 
         // There is a possible race with setIncludeTestInterfaces() which can affect
         // isValidEthernetInterface (it returns true for test interfaces if setIncludeTestInterfaces
@@ -727,12 +722,12 @@ public class EthernetTracker {
 
     private void trackAvailableInterfaces() {
         try {
-            final String[] ifaces = mNetd.interfaceGetList();
+            final String[] ifaces = NetlinkUtils.sendRtmGetLinkRequest();
             for (String iface : ifaces) {
                 maybeTrackInterface(iface);
             }
-        } catch (RemoteException | ServiceSpecificException e) {
-            Log.e(TAG, "Could not get list of interfaces " + e);
+        } catch (ServiceSpecificException e) {
+            Log.e(TAG, "Could not start tracking interfaces " + e);
         }
     }
 

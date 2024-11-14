@@ -225,6 +225,129 @@ public class NetlinkUtils {
     }
 
     /**
+     * Send an RTM_GETLINK message to kernel to get the list of all interfaces.
+     */
+    public static String[] sendRtmGetLinkRequest() {
+        final byte[] msg = RtNetlinkLinkMessage.createGetAllLinksMessage(2 /* seqNo*/)
+                .pack(ByteOrder.nativeOrder());
+        final FileDescriptor fd;
+        List<String> ifnames = new ArrayList<>();
+
+        try {
+            fd = NetlinkUtils.netlinkSocketForProto(NETLINK_ROUTE, SOCKET_RECV_BUFSIZE);
+            sendMessage(fd, msg, 0, msg.length, IO_TIMEOUT_MS);
+        } catch (ErrnoException | InterruptedIOException e) {
+            Log.w(TAG, "Failed to send netlink message.", e);
+            return ifnames.toArray(new String[0]);
+        }
+
+        // After each netlink request, repeatedly read netlink messages until netlink
+        // message with NLMSG_DONE is received.
+        boolean done = false;
+        while (!done) {
+            final ByteBuffer response;
+            try {
+                response = NetlinkUtils.recvMessage(fd, DEFAULT_RECV_BUFSIZE, IO_TIMEOUT_MS);
+            } catch (ErrnoException | InterruptedIOException e) {
+                Log.w(TAG, "Failed to receive message from netlink socket.", e);
+                break;
+            }
+
+            do {
+                final int start = response.position();
+                final NetlinkMessage nlMsg =
+                        NetlinkMessage.parse(response, NETLINK_ROUTE);
+                if (nlMsg == null) {
+                    Log.e(TAG, "Badly formatted data, failed to get netlink message");
+                    break;
+                }
+                final StructNlMsgHdr hdr = nlMsg.getHeader();
+                if (hdr == null) {
+                    Log.e(TAG, "Badly formatted data, "
+                            + "failed to get netlink message header");
+                    break;
+                }
+                if (hdr.nlmsg_type == NLMSG_DONE) {
+                    done = true;
+                    break;
+                }
+                if (nlMsg instanceof RtNetlinkLinkMessage) {
+                    final int nlmsgLen = hdr.nlmsg_len;
+                    String ifname = getInterfaceName(response, start, nlmsgLen);
+                    if (ifname != null) {
+                        ifnames.add(ifname);
+                    } else {
+                        Log.e(TAG, "Failed to get interface name from netlink message");
+                    }
+                }
+            } while (enoughBytesRemainForValidNlMsg(response));
+        }
+        return ifnames.toArray(new String[0]);
+    }
+
+    private static String getInterfaceName(@NonNull final ByteBuffer bytes, final int start,
+            final int nlmsgLen) {
+        final ByteBuffer copy = bytes.duplicate().order(bytes.order());
+
+        final int msgSize = StructNlMsgHdr.STRUCT_SIZE + StructIfinfoMsg.STRUCT_SIZE;
+        copy.position(start + msgSize);
+        int payloadLength = NetlinkConstants.alignedLengthOf(nlmsgLen);
+        payloadLength -= msgSize;
+        if (payloadLength < 0 || payloadLength > copy.remaining()) {
+            // Malformed message or runt buffer.
+            Log.e(TAG, "Badly formatted buffer, parse interface info failed.");
+            return null;
+        }
+
+        final int endOfMessage = start + nlmsgLen;
+        // iterate routing attributes until we find interface name. Every netlink message only
+        // contains at most one interface name, so we should return on finding one.
+        while (copy.position() < endOfMessage) {
+            final short rtaLen = copy.getShort();
+            final short rtaType = copy.getShort();
+            // data length is the whole length excludes the length of header.
+            final short dataLen = (short) (rtaLen - 4);
+            if (rtaType == RtNetlinkLinkMessage.IFLA_IFNAME) {
+                byte[] ifnameBytes = new byte[dataLen];
+                copy.get(ifnameBytes);
+                String ifname = new String(ifnameBytes);
+                return ifname.trim();
+            } else {
+                // Data provided by kernel will include both valid data and padding data. The data
+                // len provided from kernel indicates the valid data size. Readers must deduce the
+                // alignment by themselves.
+                skipRemainingAttributesBytesAligned(copy, dataLen);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Method to skip the remaining attributes bytes.
+     * Corresponds to NLMSG_NEXT in bionic/libc/kernel/uapi/linux/netlink.h.
+     *
+     * @param buffer the target ByteBuffer
+     * @param len the remaining length to skip.
+     */
+    private static void skipRemainingAttributesBytesAligned(@NonNull final ByteBuffer buffer,
+            final short len) {
+        // Data in {@code RoutingAttribute} is followed after header with size {@code NLA_ALIGNTO}
+        // bytes long for each block. Next attribute will start after the padding bytes if any.
+        // If all remaining bytes after header are valid in a data block, next attr will just start
+        // after valid bytes.
+        //
+        // E.g., With NLA_ALIGNTO(4), an attr struct with length 5 means 1 byte valid data remains
+        // after header and 3(4-1) padding bytes. Next attr with length 8 will start after the
+        // padding bytes and contain 4(8-4) valid bytes of data. The next attr start after the
+        // valid bytes, like:
+        //
+        // [HEADER(L=5)][   4-Bytes DATA      ][ HEADER(L=8) ][4 bytes DATA][Next attr]
+        // [ 5 valid bytes ][3 padding bytes  ][      8 valid bytes        ]   ...
+        final int cur = buffer.position();
+        buffer.position(cur + NetlinkConstants.alignedLengthOf(len));
+    }
+
+    /**
      * Create netlink socket with the given netlink protocol type and buffersize.
      *
      * @param nlProto the netlink protocol

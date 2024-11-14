@@ -22,6 +22,7 @@ import static com.android.net.module.util.NetworkStackConstants.ETHER_ADDR_LEN;
 import static com.android.net.module.util.netlink.NetlinkConstants.IFF_UP;
 import static com.android.net.module.util.netlink.NetlinkConstants.RTM_GETLINK;
 import static com.android.net.module.util.netlink.NetlinkConstants.RTM_NEWLINK;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_DUMP;
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST_ACK;
 
@@ -309,6 +310,23 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
         return RtNetlinkLinkMessage.build(
                 new StructNlMsgHdr(0, RTM_GETLINK, NLM_F_REQUEST, sequenceNumber),
                 new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, interfaceIndex, 0, 0),
+                DEFAULT_MTU, null, null);
+    }
+
+    /**
+     * Creates an {@link RtNetlinkLinkMessage} instance that can be used to get the link information
+     * of all network interface.
+     *
+     * @param sequenceNumber The sequence number for the Netlink message.
+     * @return An `RtNetlinkLinkMessage` instance representing the request to query for the list
+     * of all interfaces.
+     */
+    @Nullable
+    public static RtNetlinkLinkMessage createGetAllLinksMessage(int sequenceNumber) {
+        return RtNetlinkLinkMessage.build(
+                new StructNlMsgHdr(0, RTM_GETLINK, (short) (NLM_F_REQUEST | NLM_F_DUMP),
+                        sequenceNumber),
+                new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, 0, 0, 0),
                 DEFAULT_MTU, null, null);
     }
 
