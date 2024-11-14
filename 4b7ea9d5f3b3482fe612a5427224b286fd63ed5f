@@ -115,6 +115,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29dc32c4_5f6be3fc",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-14T03:06:15Z",
+      "side": 1,
+      "message": "So there is a DeviceConfig#setProperty API for you to override a feature flag, then you don\u0027t need to mock the FeatureFlags class / interface in unit tests. See https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/ConfigInfrastructure/framework/java/android/provider/DeviceConfig.java?q\u003dsymbol%3A%5Cbandroid.provider.DeviceConfig.setProperty%5Cb%20case%3Ayes",
+      "parentUuid": "b00d9d7c_ee27e226",
+      "revId": "4b7ea9d5f3b3482fe612a5427224b286fd63ed5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78b683ba_c44df728",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 7
