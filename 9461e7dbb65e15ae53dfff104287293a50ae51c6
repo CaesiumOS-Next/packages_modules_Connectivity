@@ -16,6 +16,23 @@
       "message": "Upstream from Meta 😊",
       "revId": "9461e7dbb65e15ae53dfff104287293a50ae51c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48c3964d_9b6b19d6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1792,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-14T16:43:11Z",
+      "side": 1,
+      "message": "I don\u0027t know what you are doing, but it is clearly not nullable.",
+      "revId": "9461e7dbb65e15ae53dfff104287293a50ae51c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
