@@ -37,7 +37,6 @@ import androidx.annotation.VisibleForTesting;
 
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.DnsUtils;
-import com.android.net.module.util.RealtimeScheduler;
 import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
@@ -96,9 +95,9 @@ public class MdnsServiceTypeClient {
     private final boolean removeServiceAfterTtlExpires =
             MdnsConfigs.removeServiceAfterTtlExpires();
     private final Clock clock;
-    // Use RealtimeScheduler for query scheduling, which allows for more accurate sending of
+    // Use MdnsRealtimeScheduler for query scheduling, which allows for more accurate sending of
     // queries.
-    @Nullable private final RealtimeScheduler realtimeScheduler;
+    @Nullable private final Scheduler scheduler;
 
     @Nullable private MdnsSearchOptions searchOptions;
 
@@ -264,11 +263,11 @@ public class MdnsServiceTypeClient {
         }
 
         /**
-         * @see RealtimeScheduler
+         * @see Scheduler
          */
         @Nullable
-        public RealtimeScheduler createRealtimeScheduler(@NonNull Handler handler) {
-            return new RealtimeScheduler(handler);
+        public Scheduler createScheduler(@NonNull Handler handler) {
+            return SchedulerFactory.createScheduler(handler);
         }
     }
 
@@ -317,8 +316,8 @@ public class MdnsServiceTypeClient {
         this.mdnsQueryScheduler = new MdnsQueryScheduler();
         this.cacheKey = new MdnsServiceCache.CacheKey(serviceType, socketKey);
         this.featureFlags = featureFlags;
-        this.realtimeScheduler = featureFlags.isAccurateDelayCallbackEnabled()
-                ? dependencies.createRealtimeScheduler(handler) : null;
+        this.scheduler = featureFlags.isAccurateDelayCallbackEnabled()
+                ? dependencies.createScheduler(handler) : null;
     }
 
     /**
@@ -328,8 +327,8 @@ public class MdnsServiceTypeClient {
         removeScheduledTask();
         mdnsQueryScheduler.cancelScheduledRun();
         serviceCache.unregisterServiceExpiredCallback(cacheKey);
-        if (realtimeScheduler != null) {
-            realtimeScheduler.close();
+        if (scheduler != null) {
+            scheduler.close();
         }
     }
 
@@ -339,8 +338,8 @@ public class MdnsServiceTypeClient {
     }
 
     private void setDelayedTask(ScheduledQueryTaskArgs args, long timeToNextTaskMs) {
-        realtimeScheduler.removeDelayedMessage(EVENT_START_QUERYTASK);
-        realtimeScheduler.sendDelayedMessage(
+        scheduler.removeDelayedMessage(EVENT_START_QUERYTASK);
+        scheduler.sendDelayedMessage(
                 handler.obtainMessage(EVENT_START_QUERYTASK, args), timeToNextTaskMs);
     }
 
@@ -452,7 +451,7 @@ public class MdnsServiceTypeClient {
 
     private void removeScheduledTask() {
         if (featureFlags.isAccurateDelayCallbackEnabled()) {
-            realtimeScheduler.removeDelayedMessage(EVENT_START_QUERYTASK);
+            scheduler.removeDelayedMessage(EVENT_START_QUERYTASK);
         } else {
             dependencies.removeMessages(handler, EVENT_START_QUERYTASK);
         }
@@ -542,7 +541,7 @@ public class MdnsServiceTypeClient {
             }
         }
         final boolean hasScheduledTask = featureFlags.isAccurateDelayCallbackEnabled()
-                ? realtimeScheduler.hasDelayedMessage(EVENT_START_QUERYTASK)
+                ? scheduler.hasDelayedMessage(EVENT_START_QUERYTASK)
                 : dependencies.hasMessages(handler, EVENT_START_QUERYTASK);
         if (hasScheduledTask) {
             final long now = clock.elapsedRealtime();
