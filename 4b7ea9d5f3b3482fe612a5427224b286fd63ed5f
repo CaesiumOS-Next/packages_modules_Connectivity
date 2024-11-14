@@ -61,6 +61,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5867e2dd_c581009e",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-14T02:30:06Z",
+      "side": 1,
+      "message": "Can we change the values in DeviceConfig in unit tests? If yes, we should use mock to make the program testable, if no, I prefer a dedicated `FeatureFlags` interface rather than a bucket Dependencies class which groups unrelated stuffs in a single class / interface.",
+      "parentUuid": "1775599e_48732d01",
+      "revId": "4b7ea9d5f3b3482fe612a5427224b286fd63ed5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78b683ba_c44df728",
         "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
         "patchSetId": 7
