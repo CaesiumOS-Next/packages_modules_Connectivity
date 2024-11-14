@@ -283,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "312b034c_194df4e9",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-14T23:56:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "71efa760_a2c4e2d8",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 65
+      },
+      "revId": "2482a0d88eb6af88edd9afd2405e2f0979dc6f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "840d6e3c_8dedd7ec",
