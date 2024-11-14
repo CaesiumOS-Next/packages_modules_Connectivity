@@ -69,6 +69,24 @@
       "parentUuid": "57e3d294_f45b8b41",
       "revId": "9461e7dbb65e15ae53dfff104287293a50ae51c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59a83ac9_844ecf90",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1792,
+      "author": {
+        "id": 3524514
+      },
+      "writtenOn": "2024-11-14T19:40:04Z",
+      "side": 1,
+      "message": "I understand that this is mainline code, however, given that any developer has the option to disable system services for various reason. Would it not be the right approach to ensure that mainline code is as robust as possible to the various options that are provided to developers?",
+      "parentUuid": "d90a7442_198bcdee",
+      "revId": "9461e7dbb65e15ae53dfff104287293a50ae51c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
