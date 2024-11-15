@@ -34,6 +34,7 @@ import android.net.IpConfiguration;
 import android.net.NetworkCapabilities;
 import android.net.NetworkSpecifier;
 import android.os.Handler;
+import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.util.Log;
 import android.util.PrintWriterPrinter;
@@ -141,6 +142,10 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
         return mTracker.isTrackingInterface(iface);
     }
 
+    public void updateLostNeighborSetting(String iface, boolean reset) {
+        mTracker.updateLostNeighborSetting(iface, reset);
+    }
+
     /**
      * Adds a listener.
      * @param listener A {@link IEthernetServiceListener} to add.
@@ -184,6 +189,14 @@ public class EthernetServiceImpl extends IEthernetManager.Stub {
         PermissionUtils.enforceNetworkStackPermissionOr(mContext,
                 android.Manifest.permission.NETWORK_SETTINGS);
         mTracker.releaseTetheredInterface(callback);
+    }
+
+    @Override
+    public int handleShellCommand(ParcelFileDescriptor in, ParcelFileDescriptor out,
+                                  ParcelFileDescriptor err, String[] args) {
+        return new EthernetShellCommand(this, mContext).exec(
+                this, in.getFileDescriptor(), out.getFileDescriptor(), err.getFileDescriptor(),
+                args);
     }
 
     @Override
