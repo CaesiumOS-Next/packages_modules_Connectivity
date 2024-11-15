@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef9c89c9_e2629fa9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 2505,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-15T10:02:29Z",
+      "side": 1,
+      "message": "Process.SYSTEM_UID",
+      "range": {
+        "startLine": 2505,
+        "startChar": 39,
+        "endLine": 2505,
+        "endChar": 43
+      },
+      "revId": "f8dab31719f827553146160ddfe85e5d0fa5cc44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
