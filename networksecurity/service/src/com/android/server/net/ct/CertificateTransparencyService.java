@@ -20,6 +20,7 @@ import android.content.Context;
 import android.net.ct.ICertificateTransparencyManager;
 import android.os.Build;
 import android.provider.DeviceConfig;
+import android.util.Log;
 
 import com.android.net.ct.flags.Flags;
 import com.android.server.SystemService;
@@ -28,7 +29,10 @@ import com.android.server.SystemService;
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 public class CertificateTransparencyService extends ICertificateTransparencyManager.Stub {
 
+    private final DataStore mDataStore;
+    private final CertificateTransparencyDownloader mCertificateTransparencyDownloader;
     private final CertificateTransparencyFlagsListener mFlagsListener;
+    private final CertificateTransparencyJobService mJobService;
 
     /**
      * @return true if the CertificateTransparency service is enabled.
@@ -41,7 +45,15 @@ public class CertificateTransparencyService extends ICertificateTransparencyMana
 
     /** Creates a new {@link CertificateTransparencyService} object. */
     public CertificateTransparencyService(Context context) {
-        mFlagsListener = new CertificateTransparencyFlagsListener(context);
+        mDataStore = new DataStore(Config.PREFERENCES_FILE);
+        mCertificateTransparencyDownloader =
+                new CertificateTransparencyDownloader(context, mDataStore);
+        mFlagsListener =
+                new CertificateTransparencyFlagsListener(
+                        mDataStore, mCertificateTransparencyDownloader);
+        mJobService =
+                new CertificateTransparencyJobService(
+                        context, mDataStore, mCertificateTransparencyDownloader, mFlagsListener);
     }
 
     /**
@@ -53,7 +65,15 @@ public class CertificateTransparencyService extends ICertificateTransparencyMana
 
         switch (phase) {
             case SystemService.PHASE_BOOT_COMPLETED:
-                mFlagsListener.initialize();
+                try {
+                    if (Flags.certificateTransparencyJobService()) {
+                        mJobService.initialize();
+                    } else {
+                        mFlagsListener.initialize();
+                    }
+                } catch (Exception e) {
+                    Log.e("CertificateTransparencyJobService", "error", e);
+                }
                 break;
             default:
         }
