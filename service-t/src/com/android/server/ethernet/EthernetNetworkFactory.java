@@ -253,6 +253,13 @@ public class EthernetNetworkFactory {
         return mTrackingInterfaces.containsKey(ifaceName);
     }
 
+    public void updateLostNeighborSetting(String ifaceName, boolean lostNeighborSetting) {
+        NetworkInterfaceState iface = mTrackingInterfaces.get(ifaceName);
+        if (iface != null) {
+            iface.setLostNeighborReset(lostNeighborSetting);
+        }
+    }
+
     @VisibleForTesting(visibility = VisibleForTesting.Visibility.PACKAGE)
     @Nullable
     protected String getHwAddress(@NonNull final String ifaceName) {
@@ -288,6 +295,7 @@ public class EthernetNetworkFactory {
         private @Nullable EthernetIpClientCallback mIpClientCallback;
         private @Nullable EthernetNetworkAgent mNetworkAgent;
         private IpConfiguration mIpConfig;
+        private volatile boolean mLostNeighborResetIface = true;
 
         /**
          * A map of TRANSPORT_* types to legacy transport types available for each type an ethernet
@@ -577,6 +585,10 @@ public class EthernetNetworkFactory {
             }
         }
 
+        private void setLostNeighborReset(boolean lostNeighborResetIface) {
+            mLostNeighborResetIface = lostNeighborResetIface;
+        }
+
         private void handleOnReachabilityLost(String logMsg) {
             Log.i(TAG, "handleOnReachabilityLost " + logMsg);
             if (mIpConfig.getIpAssignment() == IpAssignment.STATIC) {
@@ -593,13 +605,17 @@ public class EthernetNetworkFactory {
             // If there is a better network, that will become default and apps
             // will be able to use internet. If ethernet gets connected again,
             // and has backhaul connectivity, it will become default.
-            Log.i(TAG, "Resetting interface : " + name);
-            NetdUtils.setInterfaceDown(mNetd, name);
-            Log.i(TAG, "Turning down iface: " + name);
-            mHandler.postDelayed(() -> {
-                NetdUtils.setInterfaceUp(mNetd, name);
-                Log.i(TAG, "Turning up iface: " + name);
-            }, 3000);
+            if (mLostNeighborResetIface) {
+                Log.i(TAG, "Resetting interface : " + name);
+                NetdUtils.setInterfaceDown(mNetd, name);
+                Log.i(TAG, "Turning down iface: " + name);
+                mHandler.postDelayed(() -> {
+                    NetdUtils.setInterfaceUp(mNetd, name);
+                    Log.i(TAG, "Turning up iface: " + name);
+                }, 3000);
+            } else {
+                Log.i(TAG, "Ignoring neighbor lost event.");
+            }
         }
 
         /** Returns true if state has been modified */
@@ -695,8 +711,9 @@ public class EthernetNetworkFactory {
                     + "hwAddress: " + mHwAddress + ", "
                     + "networkCapabilities: " + mCapabilities + ", "
                     + "networkAgent: " + mNetworkAgent + ", "
-                    + "ipClient: " + mIpClient + ","
-                    + "linkProperties: " + mLinkProperties
+                    + "ipClient: " + mIpClient + ", "
+                    + "linkProperties: " + mLinkProperties + ", "
+                    + "mLostNeighborResetIface: " + mLostNeighborResetIface
                     + "}";
         }
     }

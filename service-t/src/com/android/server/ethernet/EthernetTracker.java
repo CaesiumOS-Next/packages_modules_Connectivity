@@ -400,6 +400,10 @@ public class EthernetTracker {
         return mFactory.hasInterface(iface);
     }
 
+    public void updateLostNeighborSetting(String iface, boolean reset) {
+        mFactory.updateLostNeighborSetting(iface, reset);
+    }
+
     String[] getClientModeInterfaces(boolean includeRestricted) {
         return mFactory.getAvailableInterfaces(includeRestricted);
     }
