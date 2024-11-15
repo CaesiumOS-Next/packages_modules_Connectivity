@@ -1,0 +1,592 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "458cd232_60418ecb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "Add",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ab88f17_48adc0d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "stores",
+      "range": {
+        "startLine": 9,
+        "startChar": 55,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "264f111e_15015c86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "you don\u0027t really need \u0027address\u0027.  \u0027subnet\u0027 kind of implies that",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba83c6c0_3cb1dceb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "the ordering here is possibly weird.\n\nsubnet already includes prefix length - otherwise it\u0027s an address and not a subnet.\n\nso either this \u0027along with prefix length\u0027 is spurious or it\u0027s referring to something else (ie. LPM bitlen).\n\nI think it\u0027s likely best to just drop it.",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3005dfb1_b12d1eb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "This statement is kind of spurious: of course an LPM_TRIE uses LPM.\n\nPerhaps we should instead just clarify in () what LPM_TRIE is.\n\nie. BPF_MAP_TYPE_LPM_TRIE (longest prefix match tree)",
+      "range": {
+        "startLine": 10,
+        "startChar": 51,
+        "endLine": 11,
+        "endChar": 39
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06ce98e4_d8976513",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "add () to denote function",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 20
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5088c5d4_c24c7991",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "perhaps Helper not lookup? not sure",
+      "range": {
+        "startLine": 12,
+        "startChar": 52,
+        "endLine": 12,
+        "endChar": 58
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "164db3f3_0b058597",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "()",
+      "range": {
+        "startLine": 13,
+        "startChar": 24,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afcf1dc6_aaeb7ab1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "Q: perhaps it would be useful to clarify what this means: ie. if the ip belongs to the interface or something??",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 24
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7014b9e9_311d3795",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "just \u0027querying the bpf map\u0027",
+      "range": {
+        "startLine": 17,
+        "startChar": 57,
+        "endLine": 17,
+        "endChar": 69
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01d1c55b_ebbd7580",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "yeah, I think I\u0027m liking \u0027address_type_map\u0027 better and better and \u0027AddressTypeKey\u0027 \u0027enum AddressType\u0027 and ADDRESS_TYPE_MAP_SIZE",
+      "range": {
+        "startLine": 87,
+        "startChar": 23,
+        "endLine": 87,
+        "endChar": 42
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b13a0d8a_a208ca52",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "inconsistent indentation with rest of file\n\nplease match surrounding style, not linter",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 2
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d519cac_4748794a",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "I keep on thinking this is a bad name (because it\u0027s not just IP address, but also the ifindex/scope)... but honestly I can\u0027t come up with a better one either.",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 23
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f851258_ecd5e7e2",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "maybe we\u0027d be better of with just \u0027AddressType\u0027  - then we could argue that Address includes both the ip and the scope/ifindex",
+      "range": {
+        "startLine": 226,
+        "startChar": 5,
+        "endLine": 226,
+        "endChar": 18
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a5333cca_09f7f583",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 226,
+                "startChar": 0,
+                "endLine": 227,
+                "endChar": 0
+              },
+              "replacement": "enum AddressType : uint8_t {\n"
+            },
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 276,
+                "startChar": 0,
+                "endLine": 278,
+                "endChar": 0
+              },
+              "replacement": "} AddressTypeKey;\nSTRUCT_SIZE(AddressTypeKey, 2 * 4 + 16); // 24\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff4d8ec6_76afe7ac",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "Q: should we differentiate localhost from local ip?\nie. have one more value for ::1 and 127/8 ?",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 23
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d42b4a82_1490fa76",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "hmm, since we\u0027re only classifying ip addresses along with scope/ifindex, this _IP_ADDRESS suffix is both verbose and a bit of a lie.  Could we just strip these _IP_ADDRESS ?",
+      "range": {
+        "startLine": 232,
+        "startChar": 8,
+        "endLine": 232,
+        "endChar": 19
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "321fbaef_77581490",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 227,
+                "startChar": 0,
+                "endLine": 235,
+                "endChar": 0
+              },
+              "replacement": "  UNKNOWN \u003d 0,  // Unknown type.\n  LOCAL \u003d 1,  // Local ip address.\n  LINK_LOCAL \u003d 2,  // Link local ip address.\n  LOCAL_NETWORK \u003d 3,  // Local network ip address.\n  ULA_SITE \u003d 4,  // ULA site ip address.\n  GLOBAL \u003d 5,  // Global ip address.\n  MULTICAST \u003d 6,  // Multicast ip address.\n  BROADCAST \u003d 7,  // Broadcast ip address.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83386cbd_54512a21",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "spurious space",
+      "range": {
+        "startLine": 266,
+        "startChar": 48,
+        "endLine": 266,
+        "endChar": 50
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f99bbed6_7692b06f",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "don\u0027t need this 0",
+      "range": {
+        "startLine": 266,
+        "startChar": 57,
+        "endLine": 266,
+        "endChar": 58
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9e7ff9df_6566f36e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 266,
+                "startChar": 0,
+                "endLine": 267,
+                "endChar": 0
+              },
+              "replacement": "   * 1. If key is (lpm_bitlen\u003d32, if_index \u003d 47,  addr\u003d::), it will match all\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58bb578a_d2b5a73e",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "perhaps a better example would be ::1",
+      "range": {
+        "startLine": 268,
+        "startChar": 59,
+        "endLine": 268,
+        "endChar": 60
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbb66d96_2d7cd883",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "spurious space",
+      "range": {
+        "startLine": 268,
+        "startChar": 49,
+        "endLine": 268,
+        "endChar": 51
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25edb3a0_4b46b6e3",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "1 for lo",
+      "range": {
+        "startLine": 268,
+        "startChar": 46,
+        "endLine": 268,
+        "endChar": 48
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7786677_82aeb0d8",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-11-15T00:08:54Z",
+      "side": 1,
+      "message": "spurious e",
+      "range": {
+        "startLine": 269,
+        "startChar": 12,
+        "endLine": 269,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "bcd3d192_6c8828e4",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 269,
+                "startChar": 0,
+                "endLine": 270,
+                "endChar": 0
+              },
+              "replacement": "   * one ip address ::0 having if_index as 47.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
