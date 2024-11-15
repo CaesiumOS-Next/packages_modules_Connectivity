@@ -24,7 +24,7 @@ import java.io.File;
 /** Class holding the constants used by the CT feature. */
 final class Config {
 
-    static final boolean DEBUG = false;
+    static final boolean DEBUG = true;
 
     // preferences file
     private static final File DEVICE_PROTECTED_DATA_DIR =
