@@ -128,6 +128,30 @@
       },
       "revId": "46722ad4c43fa460197a05d85eb22b376561ff12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27710ae4_76f9e7c3",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-15T09:41:06Z",
+      "side": 1,
+      "message": "Ok, but then this doesn\u0027t make sense. We have a TetheringRequest that stores package name and UID. But instead of filling that in and using it to pass the package name and UID to the service, we leave them empty on the client side and pass the package name via a separate IPC argument, then rely on the server to populate them on the server side. As as a result the TetheringRequest objects on the client side and on the server side are not equal.\n\nIt seems much better to remove the separate IPC argument and instead use the TetheringRequest for everything. The service would then be responsible for checking the package name against the UID and failing the operation if they don\u0027t match.",
+      "parentUuid": "06d9042a_06a2b07d",
+      "range": {
+        "startLine": 1051,
+        "startChar": 0,
+        "endLine": 1051,
+        "endChar": 1
+      },
+      "revId": "46722ad4c43fa460197a05d85eb22b376561ff12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
