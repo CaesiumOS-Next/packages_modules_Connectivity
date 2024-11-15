@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4c21f42_421232cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-15T12:22:12Z",
+      "side": 1,
+      "message": "Generally LGTM assuming comments addressed, but haven\u0027t looked at the tests yet.",
+      "revId": "acfa388950181153cacb5962016576bff50cb0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e3e06ed_de80e202",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-15T12:22:12Z",
+      "side": 1,
+      "message": "I think this comment is incorrect? This is a SparseIntArray, so the key must be an int.",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 28
+      },
+      "revId": "acfa388950181153cacb5962016576bff50cb0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96c39104_6191a298",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-15T12:22:12Z",
+      "side": 1,
+      "message": "Prefer ArraySet for small Sets due to smaller memory footprint.",
+      "range": {
+        "startLine": 227,
+        "startChar": 34,
+        "endLine": 227,
+        "endChar": 41
+      },
+      "revId": "acfa388950181153cacb5962016576bff50cb0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bcafb5d_17c1b3e6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-15T12:22:12Z",
+      "side": 1,
+      "message": "I think streams are discouraged in framework code because of memory usage? Since this case is so simple, I would suggest instead:\n\n    private void hasCurrentDownstreamOfType(int type) {\n        for (TetheringRequest request : mCurrentDownstreams) {\n            if (request.getTetheringType() \u003d\u003d type) return true;\n        }\n        return false;\n    }",
+      "range": {
+        "startLine": 350,
+        "startChar": 32,
+        "endLine": 350,
+        "endChar": 38
+      },
+      "revId": "acfa388950181153cacb5962016576bff50cb0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "153a0410_358c8784",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-15T12:22:12Z",
+      "side": 1,
+      "message": "In the case where multiple types of tethering must be re-evaluated (e.g., we need to call runTetheringProvisioning on TETHERING_WIFI and on TETHERING_USB), the previous code would do these in a deterministic order, but the current code will do them in hash table order. Maybe we should sort them?\n\nAlso, suggest putting the Set into a local variable (downstreamsToEvaluate?) instead of in the header of the for loop.",
+      "range": {
+        "startLine": 396,
+        "startChar": 36,
+        "endLine": 396,
+        "endChar": 41
+      },
+      "revId": "acfa388950181153cacb5962016576bff50cb0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "365a08d0_b7fa43d4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-15T12:22:12Z",
+      "side": 1,
+      "message": "Per comment above, suggest defining a hasCurrentDownstreamOfType method and using it here.",
+      "range": {
+        "startLine": 588,
+        "startChar": 58,
+        "endLine": 588,
+        "endChar": 64
+      },
+      "revId": "acfa388950181153cacb5962016576bff50cb0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f95884c_9660be6d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-15T12:22:12Z",
+      "side": 1,
+      "message": "This is going to be really verbose because TetheringRequest#toString prints all the possible settings even if they are not unset. Could you fix that in another CL by omitting values if they are set to the default? For example, instead of aways printing \" exemptFromEntitlementCheck\u003d\" + exemptFromEntitlementCheck you could do: \n\n                    + exemptFromEntitlementCheck ? \" exemptFromEntitlementCheck\" : \"\"\n\nand so on.",
+      "range": {
+        "startLine": 645,
+        "startChar": 15,
+        "endLine": 645,
+        "endChar": 20
+      },
+      "revId": "acfa388950181153cacb5962016576bff50cb0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b52f4242_c4cc844f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-15T12:22:12Z",
+      "side": 1,
+      "message": "What happens if the request specifies CONNECTIVITY_SCOPE_LOCAL? Do we still request entitlement? That seems like a bug.\n\nDo you think you could fix it in this CL or in another CL in the stack? While the code is already incorrect, I think this CL makes things more confusing because after this CL EntitlementManager can store multiple requests for the same downstream type but with different connectivity scope.\n\nWe could either have EntitlementManager ignore any requests that have the wrong scope, or we could have this code not pass such requests to EntitlementManager. The latter seems easier and less error-prone, but it has to be done in (or after) this CL.",
+      "range": {
+        "startLine": 675,
+        "startChar": 58,
+        "endLine": 675,
+        "endChar": 65
+      },
+      "revId": "acfa388950181153cacb5962016576bff50cb0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30d9d81_0e231b3f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-15T12:22:12Z",
+      "side": 0,
+      "message": "We should probably move this to TetheringRequest#toString.",
+      "range": {
+        "startLine": 655,
+        "startChar": 26,
+        "endLine": 655,
+        "endChar": 36
+      },
+      "revId": "1b0e43738bb5605223175e7ca25d79051d459af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
