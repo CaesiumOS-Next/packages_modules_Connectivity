@@ -800,4 +800,164 @@ public class InetDiagSocketTest {
         doTestIsAdbSocket(ROOT_UID, false /* expected */);
         doTestIsAdbSocket(appUid, false /* expected */);
     }
+
+    private static final String INET_DIAG_MSG_MAPPED6 =
+            // struct nlmsghdr
+            "6C000000"       // length = 108
+                    + "1400"         // type = SOCK_DIAG_BY_FAMILY
+                    + "0000"         // flags
+                    + "00000000"     // seqno
+                    + "f5220000"     // pid
+                    // struct inet_diag_msg
+                    + "0a"           // family = AF_INET6
+                    + "02"           // idiag_state = 2
+                    + "10"           // idiag_timer = 16
+                    + "20"           // idiag_retrans = 32
+                    // inet_diag_sockid
+                    + "a845"     // idiag_sport = 43077
+                    + "01bb"     // idiag_dport = 443
+                    + "00000000000000000000ffffc0000201"  // idiag_src = ::FFFF:192.0.2.1
+                    + "00000000000000000000ffffc0000202"  // idiag_dst = ::FFFF:192.0.2.2
+                    + "08000000" // idiag_if = 8
+                    + "6300000000000000" // idiag_cookie = 99
+                    + "30000000"     // idiag_expires = 48
+                    + "40000000"     // idiag_rqueue = 64
+                    + "50000000"     // idiag_wqueue = 80
+                    + "39300000"     // idiag_uid = 12345
+                    + "851a0000"     // idiag_inode = 6789
+                    + "0500"           // len = 5
+                    + "0800"         // type = 8
+                    + "00000000"     // data
+                    + "0800"         // len = 8
+                    + "0F00"         // type = 15(INET_DIAG_MARK)
+                    + "65000500"     // data, socket mark 0x50065
+                    + "0400"         // len = 4
+                    + "0200";        // type = 2
+
+    private static final String INET_DIAG_MSG_MAPPED6_OEM_NET_ID =
+            // struct nlmsghdr
+            "6C000000"       // length = 108
+                    + "1400"         // type = SOCK_DIAG_BY_FAMILY
+                    + "0000"         // flags
+                    + "00000000"     // seqno
+                    + "f5220000"     // pid
+                    // struct inet_diag_msg
+                    + "0a"           // family = AF_INET6
+                    + "02"           // idiag_state = 2
+                    + "10"           // idiag_timer = 16
+                    + "20"           // idiag_retrans = 32
+                    // inet_diag_sockid
+                    + "a845"     // idiag_sport = 43077
+                    + "01bb"     // idiag_dport = 443
+                    + "00000000000000000000ffffc0000201"  // idiag_src = ::FFFF:192.0.2.1
+                    + "00000000000000000000ffffc0000202"  // idiag_dst = ::FFFF:192.0.2.2
+                    + "08000000" // idiag_if = 8
+                    + "6300000000000000" // idiag_cookie = 99
+                    + "30000000"     // idiag_expires = 48
+                    + "40000000"     // idiag_rqueue = 64
+                    + "50000000"     // idiag_wqueue = 80
+                    + "39300000"     // idiag_uid = 12345
+                    + "851a0000"     // idiag_inode = 6789
+                    + "0500"           // len = 5
+                    + "0800"         // type = 8
+                    + "00000000"     // data
+                    + "0800"         // len = 8
+                    + "0F00"         // type = 15(INET_DIAG_MARK)
+                    + "23000500"     // data, socket mark 0x50065
+                    + "0400"         // len = 4
+                    + "0200";        // type = 2
+
+    private void doTestMatchingDestroyCondition(boolean expected, InetAddress address,
+            Range<Integer> netIdRange, Set<Integer> exemtNetIds, Set<Range<Integer>> uidRanges,
+            int interfaceId, int netIdMask, String nlmsg) {
+        byte[] nlMsgByte = HexEncoding.decode(nlmsg.toCharArray(), false);
+        final ByteBuffer byteBuffer = ByteBuffer.wrap(nlMsgByte);
+        byteBuffer.order(ByteOrder.nativeOrder());
+        final NetlinkMessage msg = NetlinkMessage.parse(byteBuffer, NETLINK_INET_DIAG);
+        final InetDiagMessage inetDiagMsg = (InetDiagMessage) msg;
+
+        assertEquals(expected, InetDiagMessage.matchingDestroyCondition(address, netIdRange,
+                exemtNetIds, uidRanges, interfaceId, netIdMask, inetDiagMsg));
+    }
+
+    @Test
+    public void testMatchingDestroyConditionAddressOnly() {
+        doTestMatchingDestroyCondition(
+                true, InetAddresses.parseNumericAddress("2001:db8::3"),
+                null, null, null,
+                0, 0xffff, INET_DIAG_MSG_HEX2);
+        doTestMatchingDestroyCondition(
+                true, InetAddresses.parseNumericAddress("192.0.2.1"),
+                Range.create(100, 65535), null, null,
+                0, 0xffff, INET_DIAG_MSG_MAPPED6);
+    }
+
+    @Test
+    public void testMatchingDestroyConditionForInterfaceId() {
+        doTestMatchingDestroyCondition(
+                false, InetAddresses.parseNumericAddress("192.0.2.1"), null,
+                null, null, 7, 0xffff, INET_DIAG_MSG_MAPPED6);
+        doTestMatchingDestroyCondition(
+                true, InetAddresses.parseNumericAddress("192.0.2.1"), null,
+                null, null, 8, 0xffff, INET_DIAG_MSG_MAPPED6);
+    }
+
+    @Test
+    public void testMatchingDestroyConditionForNetIdRange() {
+        doTestMatchingDestroyCondition(
+                false, InetAddresses.parseNumericAddress("192.0.2.1"),
+                Range.create(0, 99), null, null, 0, 0xffff, INET_DIAG_MSG_MAPPED6);
+        doTestMatchingDestroyCondition(
+                true, InetAddresses.parseNumericAddress("192.0.2.1"),
+                Range.create(0, 99), null, null, 0, 0xffff, INET_DIAG_MSG_MAPPED6_OEM_NET_ID);
+        doTestMatchingDestroyCondition(
+                true, InetAddresses.parseNumericAddress("192.0.2.1"),
+                Range.create(100, 65535), null, null, 0, 0xffff, INET_DIAG_MSG_MAPPED6);
+    }
+
+    @Test
+    public void testMatchingDestroyConditionForExemptNetId() {
+        Set<Integer> exemptNetIds = Set.of(101, 102);
+        doTestMatchingDestroyCondition(
+                false, InetAddresses.parseNumericAddress("192.0.2.1"),
+                Range.create(100, 65535), exemptNetIds,
+                null, 0, 0xffff, INET_DIAG_MSG_MAPPED6);
+        doTestMatchingDestroyCondition(
+                true, InetAddresses.parseNumericAddress("2001:db8::3"),
+                Range.create(100, 65535), exemptNetIds,
+                null, 0, 0xffff, INET_DIAG_MSG_HEX2);
+    }
+
+    @Test
+    public void testMatchingDestroyConditionForUidRanges() {
+        Set<Range<Integer>> uidRanges = Set.of(new Range<>(12000, 12346));
+        doTestMatchingDestroyCondition(
+                true, InetAddresses.parseNumericAddress("2001:db8::3"),
+                Range.create(100, 65535), null,
+                uidRanges, 0, 0xffff, INET_DIAG_MSG_HEX2);
+    }
+
+    private void doTestIsLackingPermission(
+            boolean expected, int netId, int permission, int netIdMask, String nlmsg) {
+        byte[] nlMsgByte = HexEncoding.decode(nlmsg.toCharArray(), false);
+        final ByteBuffer byteBuffer = ByteBuffer.wrap(nlMsgByte);
+        byteBuffer.order(ByteOrder.nativeOrder());
+        final NetlinkMessage msg = NetlinkMessage.parse(byteBuffer, NETLINK_INET_DIAG);
+        final InetDiagMessage inetDiagMsg = (InetDiagMessage) msg;
+
+        assertEquals(expected, InetDiagMessage.isLackingPermission(
+                netId, netIdMask, permission, inetDiagMsg));
+    }
+
+    @Test
+    public void testIsLackingPermission() {
+        doTestIsLackingPermission(
+                true, 101, 3, 0xffff, INET_DIAG_MSG_MAPPED6);
+        doTestIsLackingPermission(
+                false, 100, 3, 0xffff, INET_DIAG_MSG_MAPPED6);
+        doTestIsLackingPermission(
+                false, 101, 1, 0xffff, INET_DIAG_MSG_MAPPED6);
+        doTestIsLackingPermission(
+                true, 2693, 3, 0xffff, INET_DIAG_MSG_HEX2);
+    }
 }
