@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24d77d16_721ceed8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-18T17:59:15Z",
+      "side": 1,
+      "message": "First of all, I don\u0027t see why it would be useful to disable this mechanism. Ignoring the usefulness of this, adb shell cmds are not the right mechanism to use to configure this. This should either use DeviceConfig or an overlayable config.xml option.",
+      "revId": "17397d6f76b8147f1923ed701db7b5e87ef6a402",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
