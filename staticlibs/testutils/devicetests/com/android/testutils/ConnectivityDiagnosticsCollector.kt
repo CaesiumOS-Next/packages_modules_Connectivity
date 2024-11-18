@@ -309,6 +309,15 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
     fun collectTestFailureDiagnostics(exceptionContext: Throwable? = null) {
         maybeCollectFailureHeader()
         collectDumpsysConnectivity(exceptionContext)
+        collectDumpsys("su 0 dumpsys dnsresolver")
+    }
+
+    private fun collectDumpsys(command: String) {
+        ParcelFileDescriptor.AutoCloseInputStream(
+            InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(
+                command)).use {
+            it.copyTo(buffer)
+        }
     }
 
     /**
@@ -325,11 +334,7 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
             maybeWriteExceptionContext(it, exceptionContext)
             it.flush()
         }
-        ParcelFileDescriptor.AutoCloseInputStream(
-            InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(
-                "dumpsys connectivity --dump-priority HIGH")).use {
-            it.copyTo(buffer)
-        }
+        collectDumpsys("dumpsys connectivity --dump-priority HIGH")
     }
 
     private fun maybeWriteExceptionContext(writer: PrintWriter, exceptionContext: Throwable?) {
