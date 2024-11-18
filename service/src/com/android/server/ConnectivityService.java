@@ -258,6 +258,7 @@ import android.net.netd.aidl.NativeUidRangeConfig;
 import android.net.networkstack.ModuleNetworkStackClient;
 import android.net.networkstack.NetworkStackClientBase;
 import android.net.networkstack.aidl.NetworkMonitorParameters;
+import android.net.platform.flags.Flags;
 import android.net.resolv.aidl.DnsHealthEventParcel;
 import android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener;
 import android.net.resolv.aidl.Nat64PrefixEventParcel;
@@ -389,6 +390,7 @@ import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
@@ -1082,6 +1084,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     // Flag to drop packets to VPN addresses ingressing via non-VPN interfaces.
     private final boolean mIngressToVpnAddressFiltering;
+
+    // A map from IP address to networks
+    @VisibleForTesting
+    final Map<InetAddress, Set<NetworkAgentInfo>> mIpToNetworksMap = new HashMap<>();
 
     /**
      * Implements support for the legacy "one network per network type" model.
@@ -1785,6 +1791,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 @NonNull final Network network, final long delayMs) {
             handler.sendMessageDelayed(
                     handler.obtainMessage(EVENT_INITIAL_EVALUATION_TIMEOUT, network), delayMs);
+        }
+
+        /**
+         * Whether the flag for connectivity service socket destroy is enabled or not.
+         */
+        public boolean flagConnectivityServiceDestroySocket() {
+            if (!Flags.connectivityServiceDestroySocket()) {
+                Log.d(TAG, "Flag connectivityServiceDestroySocket enabled.");
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -5442,6 +5460,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (DBG) {
             log(nai.toShortString() + " disconnected, was satisfying " + nai.numNetworkRequests());
         }
+        updateIpAddressForNetwork(nai, nai.linkProperties, null);
         // Clear all notifications of this network.
         mNotifier.clearNotification(nai.network.getNetId());
         // A network agent has disconnected.
@@ -9445,10 +9464,54 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             networkAgent.networkMonitor().notifyLinkPropertiesChanged(
                     new LinkProperties(newLp, true /* parcelSensitiveFields */));
+            updateIpAddressForNetwork(networkAgent, oldLp, newLp);
             notifyNetworkCallbacks(networkAgent, CALLBACK_IP_CHANGED);
         }
 
         mKeepaliveTracker.handleCheckKeepalivesStillValid(networkAgent);
+    }
+
+    private void updateIpAddressForNetwork(
+            NetworkAgentInfo nai, LinkProperties oldLp, LinkProperties newLp) {
+        if (!mDeps.flagConnectivityServiceDestroySocket()) {
+            return;
+        }
+        List<InetAddress> addList = null;
+        List<InetAddress> removeList = null;
+
+        if (oldLp != null) {
+            removeList = oldLp.getAllAddresses();
+        }
+
+        if (newLp != null) {
+            addList = newLp.getAllAddresses();
+        }
+
+        if (oldLp != null && newLp != null) {
+            removeList.removeAll(newLp.getAllAddresses());
+            addList.removeAll(oldLp.getAllAddresses());
+        }
+
+        if (addList != null && !addList.isEmpty()) {
+            for (InetAddress address : addList) {
+                if (address instanceof Inet6Address && address.isLinkLocalAddress()) {
+                    continue;
+                }
+                mIpToNetworksMap.computeIfAbsent(address, k -> new ArraySet<>()).add(nai);
+            }
+        }
+
+        if (removeList != null && !removeList.isEmpty()) {
+            for (InetAddress address : removeList) {
+                Set<NetworkAgentInfo> networks = mIpToNetworksMap.get(address);
+                if (networks != null) {
+                    networks.remove(nai);
+                    if (networks.isEmpty()) {
+                        mIpToNetworksMap.remove(address);
+                    }
+                }
+            }
+        }
     }
 
     private void applyInitialLinkProperties(@NonNull NetworkAgentInfo nai) {
