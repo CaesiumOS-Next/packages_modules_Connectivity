@@ -32,7 +32,6 @@ import androidx.annotation.RequiresApi
 import com.android.modules.utils.build.SdkLevel.isAtLeastS
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
-import kotlin.test.assertTrue
 
 /**
  * Create a test network based on a TUN interface with a LinkAddress.
@@ -62,7 +61,12 @@ fun initTestNetwork(
     linkAddrs: List<LinkAddress>,
     setupTimeoutMs: Long = 10_000L
 ): TestNetworkTracker {
-    return initTestNetwork(context, linkAddrs, lp = null, setupTimeoutMs = setupTimeoutMs)
+    return initTestNetwork(
+        context,
+        linkAddrs,
+        lpBuilder = { null },
+        setupTimeoutMs = setupTimeoutMs
+    )
 }
 
 /**
@@ -81,22 +85,35 @@ fun initTestNetwork(
     lp: LinkProperties,
     setupTimeoutMs: Long = 10_000L
 ): TestNetworkTracker {
-    return initTestNetwork(context, lp.linkAddresses, lp, setupTimeoutMs)
+    return initTestNetwork(context, lp.linkAddresses, setupTimeoutMs) {
+        LinkProperties(lp).apply {
+            interfaceName = it.interfaceName
+        }
+    }
 }
 
-private fun initTestNetwork(
+/**
+ * Create a test network based on a TUN interface
+ *
+ * This method will block until the test network is available. Requires
+ * [android.Manifest.permission.CHANGE_NETWORK_STATE] and
+ * [android.Manifest.permission.MANAGE_TEST_NETWORKS].
+ *
+ * This is only usable starting from R as [TestNetworkManager] has no support for specifying
+ * LinkProperties on Q.
+ */
+@RequiresApi(Build.VERSION_CODES.R)
+fun initTestNetwork(
     context: Context,
     linkAddrs: List<LinkAddress>,
-    lp: LinkProperties?,
-    setupTimeoutMs: Long = 10_000L
+    setupTimeoutMs: Long = 10_000L,
+    lpBuilder: ((TestNetworkInterface) -> LinkProperties?)
 ): TestNetworkTracker {
     val tnm = context.getSystemService(TestNetworkManager::class.java)!!
     val iface = if (isAtLeastS()) tnm.createTunInterface(linkAddrs)
     else tnm.createTunInterface(linkAddrs.toTypedArray())
-    val lpWithIface = if (lp == null) null else LinkProperties(lp).apply {
-        interfaceName = iface.interfaceName
-    }
-    return TestNetworkTracker(context, iface, tnm, lpWithIface, setupTimeoutMs)
+    val lp = lpBuilder(iface)
+    return TestNetworkTracker(context, iface, tnm, lp, setupTimeoutMs)
 }
 
 /**
