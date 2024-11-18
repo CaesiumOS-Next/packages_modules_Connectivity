@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c629df9_ba53ba86",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-18T08:25:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "052dd749_8d7ca931",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 24
+      },
+      "revId": "d8f0c735cb1e2d7c467932527da61d02f00c794b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe071346_920b694e",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-11-15T11:30:12Z",
       "side": 1,
       "message": "If this code runs it will be very hard to debug the test - the caller will just get null and won\u0027t know why. You probably want to throw an exception back to the caller. Something like:\n\n    throw new IllegalStateException(\"Wait for wifi TetheredInterface interrupted\");",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 29
+      },
+      "revId": "d8f0c735cb1e2d7c467932527da61d02f00c794b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf06fbaf_c605c18f",
+        "filename": "tests/cts/hostside/app2/src/com/android/cts/net/hostside/app2/TetheringHelperService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-18T08:25:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe071346_920b694e",
       "range": {
         "startLine": 62,
         "startChar": 16,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d3d3907_4382b233",
+        "filename": "tests/cts/hostside/app2/src/com/android/cts/net/hostside/app2/TetheringHelperService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-18T08:25:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08d7a372_886c1533",
+      "range": {
+        "startLine": 66,
+        "startChar": 19,
+        "endLine": 66,
+        "endChar": 24
+      },
+      "revId": "d8f0c735cb1e2d7c467932527da61d02f00c794b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ea768cd_5c4fab9e",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-11-15T11:30:12Z",
       "side": 1,
       "message": "Could this be made @BeforeClass so it only needs to run once per test class instead of once per test? Installing and uninstalling APKs can take a while.",
+      "range": {
+        "startLine": 28,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 11
+      },
+      "revId": "d8f0c735cb1e2d7c467932527da61d02f00c794b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6ddb67d_83f53142",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideTetheringTests.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-18T08:25:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ea768cd_5c4fab9e",
       "range": {
         "startLine": 28,
         "startChar": 5,
