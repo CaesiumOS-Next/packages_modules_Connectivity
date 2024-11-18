@@ -22,6 +22,30 @@
       },
       "revId": "1b0e43738bb5605223175e7ca25d79051d459af2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2493b327_7c9c07c0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-18T10:20:55Z",
+      "side": 0,
+      "message": "Added to https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3350070",
+      "parentUuid": "e30d9d81_0e231b3f",
+      "range": {
+        "startLine": 655,
+        "startChar": 26,
+        "endLine": 655,
+        "endChar": 36
+      },
+      "revId": "1b0e43738bb5605223175e7ca25d79051d459af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
