@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f84bef9_21dd093c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1960915
+      },
+      "writtenOn": "2024-11-18T15:10:55Z",
+      "side": 1,
+      "message": "Is ```CertificateTransparencyJobService``` declared in the manifest as well?",
+      "revId": "b6c0ba5c3eb53e378b326b817db53f0db39c1384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
