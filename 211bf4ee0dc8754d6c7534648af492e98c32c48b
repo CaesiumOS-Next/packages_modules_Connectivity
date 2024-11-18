@@ -254,6 +254,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "977198a3_dd05f7fc",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-18T00:55:11Z",
+      "side": 1,
+      "message": "Closing for now, let me know if there\u0027s something else I can write for a followup",
+      "parentUuid": "86e25ce8_82ff5d68",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 5
+      },
+      "revId": "211bf4ee0dc8754d6c7534648af492e98c32c48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20fea7ef_bffb6d0c",
