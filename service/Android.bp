@@ -197,6 +197,7 @@ java_library {
         "PlatformProperties",
         "service-connectivity-protos",
         "service-connectivity-stats-protos",
+        "android.net.platform.flags-aconfig-exported-java",
     ],
     apex_available: [
         "com.android.tethering",
