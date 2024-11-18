@@ -408,6 +408,10 @@ open class CSTest {
         }
 
         override fun makeL2capNetworkProvider(context: Context) = null
+
+        override fun flagConnectivityServiceDestroySocket(): Boolean {
+            return true
+        }
     }
 
     inner class PermDeps : PermissionMonitor.Dependencies() {
