@@ -253,6 +253,24 @@
       "parentUuid": "1ac1ff2c_6360b461",
       "revId": "4b7ea9d5f3b3482fe612a5427224b286fd63ed5f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "760549e4_e583a9c8",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-11-18T07:20:36Z",
+      "side": 1,
+      "message": "Tests are added in `ThreadNetworkControllerServiceTest` unit test since the change of feature flag requires restart of system server.",
+      "parentUuid": "ce149e8a_1dd46be4",
+      "revId": "4b7ea9d5f3b3482fe612a5427224b286fd63ed5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
