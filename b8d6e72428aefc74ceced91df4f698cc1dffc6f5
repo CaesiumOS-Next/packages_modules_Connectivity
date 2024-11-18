@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0de05ba5_8e2f6251",
+        "filename": "thread/service/java/com/android/server/thread/FeatureFlags.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-18T05:22:04Z",
+      "side": 1,
+      "message": "Does it need to be public?",
+      "revId": "b8d6e72428aefc74ceced91df4f698cc1dffc6f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
