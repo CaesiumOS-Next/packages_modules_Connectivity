@@ -393,6 +393,10 @@ open class CSTest {
             // Call mocked destroyLiveTcpSocketsByOwnerUids so that test can verify this method call
             destroySocketsWrapper.destroyLiveTcpSocketsByOwnerUids(ownerUids)
         }
+
+        override fun flagConnectivityServiceDestroySocket(): Boolean {
+            return true
+        }
     }
 
     inner class CSContext(base: Context) : BroadcastInterceptingContext(base) {
