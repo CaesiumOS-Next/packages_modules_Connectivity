@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f5ad987_0d95eab9",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-18T08:01:09Z",
+      "side": 1,
+      "message": "Add a disabled case?\n\nBTW it may not be 100% appropriate to put TREL test case into \u0027ServiceDiscovery\u0027. However, maybe leave a TODO here to move it out when the necessary utilities are decoupled from this test case.",
+      "revId": "bdf2083abb44510fbc2f7cbaf523f9f23c92a785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfa7cfa3_5028cf99",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-18T08:01:09Z",
+      "side": 1,
+      "message": "```suggestion\n        runAsShell(\n                WRITE_DEVICE_CONFIG,\n                () -\u003e\n                        DeviceConfig.setProperty(\n                                \"thread_network\", \"TrelFeature__enabled\", \"false\", false));\n\n        mService.initialize();\n        mTestLooper.dispatchAll();\n```",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 34
+      },
+      "revId": "bdf2083abb44510fbc2f7cbaf523f9f23c92a785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8a9f540_86a55558",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-18T08:01:09Z",
+      "side": 1,
+      "message": "This seems better to be in the teardown step?",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 93
+      },
+      "revId": "bdf2083abb44510fbc2f7cbaf523f9f23c92a785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdb1e2d9_e11bcd11",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-18T08:01:09Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "bdf2083abb44510fbc2f7cbaf523f9f23c92a785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
