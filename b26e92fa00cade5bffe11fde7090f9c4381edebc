@@ -44,6 +44,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7290d572_946d375d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-18T20:21:58Z",
+      "side": 1,
+      "message": "Yes, I don\u0027t think whenMs is particularly useful here.",
+      "parentUuid": "a2879a60_4a307b30",
+      "range": {
+        "startLine": 217,
+        "startChar": 72,
+        "endLine": 217,
+        "endChar": 78
+      },
+      "revId": "b26e92fa00cade5bffe11fde7090f9c4381edebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bcc4fa62_a471c71a",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 3

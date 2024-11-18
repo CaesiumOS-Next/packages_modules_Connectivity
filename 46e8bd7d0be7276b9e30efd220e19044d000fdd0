@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfea6f0e_0ca3c947",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-18T20:21:58Z",
+      "side": 1,
+      "message": "Generally LGTM, but I think we need to create a partner bug and ask OEMs whether they rely on any of the callbacks affected by this change. @natashalee@google.com can help you with this.\n\nYou can directly point them to this change.",
+      "revId": "46e8bd7d0be7276b9e30efd220e19044d000fdd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c271f730_b280a239",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-18T20:21:58Z",
+      "side": 1,
+      "message": "I think this should just be else. Or possibly flip the if() and say \"0\" is disabled, and everything else is enabled (which might make more sense). In general, mEthernetState should just be boolean as it can only be 0 or 1.",
+      "range": {
+        "startLine": 601,
+        "startChar": 14,
+        "endLine": 601,
+        "endChar": 67
+      },
+      "revId": "46e8bd7d0be7276b9e30efd220e19044d000fdd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec8464b6_4a037a8e",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-18T20:21:58Z",
+      "side": 1,
+      "message": "consider setting a global isEthernetEnabled rather than passing the state to createInterface().",
+      "revId": "46e8bd7d0be7276b9e30efd220e19044d000fdd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47b00bd8_6d99ab78",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-18T20:21:58Z",
+      "side": 1,
+      "message": "can you also add a test that removes the interface?",
+      "range": {
+        "startLine": 1028,
+        "startChar": 8,
+        "endLine": 1028,
+        "endChar": 46
+      },
+      "revId": "46e8bd7d0be7276b9e30efd220e19044d000fdd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b489b8cc_915953b1",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-18T20:21:58Z",
+      "side": 1,
+      "message": "Could you also add another test which calls updateConfiguration() while ethernet is disabled?",
+      "revId": "46e8bd7d0be7276b9e30efd220e19044d000fdd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
