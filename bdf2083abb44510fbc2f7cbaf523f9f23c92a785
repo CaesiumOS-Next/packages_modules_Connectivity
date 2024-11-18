@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5da18627_6b21f4de",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-11-18T09:32:45Z",
+      "side": 1,
+      "message": "Changing the flag requires restarting system server, it\u0027s not easy to add a disabled case here. There are unit test to cover the enabled \u0026 disabled cases.\n\nAdded TODO to move this to BorderRoutingTest later.",
+      "parentUuid": "4f5ad987_0d95eab9",
+      "revId": "bdf2083abb44510fbc2f7cbaf523f9f23c92a785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfa7cfa3_5028cf99",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-11-18T08:01:09Z",
       "side": 1,
       "message": "```suggestion\n        runAsShell(\n                WRITE_DEVICE_CONFIG,\n                () -\u003e\n                        DeviceConfig.setProperty(\n                                \"thread_network\", \"TrelFeature__enabled\", \"false\", false));\n\n        mService.initialize();\n        mTestLooper.dispatchAll();\n```",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 34
+      },
+      "revId": "bdf2083abb44510fbc2f7cbaf523f9f23c92a785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55bfec30_644b8425",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-11-18T09:32:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfa7cfa3_5028cf99",
       "range": {
         "startLine": 331,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecb354f1_e938a6fb",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-11-18T09:32:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8a9f540_86a55558",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 93
+      },
+      "revId": "bdf2083abb44510fbc2f7cbaf523f9f23c92a785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdb1e2d9_e11bcd11",
@@ -77,6 +143,24 @@
       "writtenOn": "2024-11-18T08:01:09Z",
       "side": 1,
       "message": "ditto",
+      "revId": "bdf2083abb44510fbc2f7cbaf523f9f23c92a785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7170b988_4dab1980",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadNetworkControllerServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-11-18T09:32:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdb1e2d9_e11bcd11",
       "revId": "bdf2083abb44510fbc2f7cbaf523f9f23c92a785",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
