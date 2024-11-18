@@ -16,6 +16,24 @@
       "message": "Is ```CertificateTransparencyJobService``` declared in the manifest as well?",
       "revId": "b6c0ba5c3eb53e378b326b817db53f0db39c1384",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9dd4d8e_715cc51e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-18T15:58:27Z",
+      "side": 1,
+      "message": "Thanks for the pointer, I uploaded aosp/3360250 with the jobservice declaration and now I can start the job service.\n\nDo you know if it would be possible to use a different manifest to declare the job, to remove the dependency to frameworks/base?\n\nI tried adding the jobservice declaration to [this manifest](https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/Tethering/AndroidManifest.xml), but I am getting a `java.lang.IllegalArgumentException: uid 1000 cannot schedule job in com.android.networkstack.tethering` error (gpaste/6013094328532992). @reminv@google.com FYI",
+      "parentUuid": "3f84bef9_21dd093c",
+      "revId": "b6c0ba5c3eb53e378b326b817db53f0db39c1384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
