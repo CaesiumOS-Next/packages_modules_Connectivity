@@ -24,6 +24,7 @@ import android.net.ConnectivityManager.BLOCKED_REASON_NONE
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
 import android.net.ConnectivityManager.FIREWALL_RULE_ALLOW
 import android.net.ConnectivityManager.FIREWALL_RULE_DENY
+import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -31,6 +32,11 @@ import com.android.net.module.util.BaseNetdUnsolicitedEventListener
 import com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import java.net.InetAddress
+import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertFalse
+import junit.framework.Assert.assertNotNull
+import junit.framework.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
@@ -44,6 +50,13 @@ private const val TIMESTAMP = 1234L
 private const val TEST_UID = 1234
 private const val TEST_UID2 = 5678
 private const val TEST_CELL_IFACE = "test_rmnet"
+private const val TEST_IPV6_ADDRESS1 = "2100::1234"
+private const val TEST_IPV6_ADDRESS2 = "2100:0207::4321:1234"
+private const val TEST_IPV6_ADDRESS3 = "FE80::1234"
+private const val TEST_IPV6_ADDRESS4 = "2100:0207::1234"
+private const val TEST_IPV4_ADDRESS1 = "203.0.113.10"
+private const val TEST_IPV4_ADDRESS2 = "203.0.113.11"
+private const val TEST_IPV4_ADDRESS3 = "203.0.113.12"
 
 private fun cellNc() = NetworkCapabilities.Builder()
         .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
@@ -52,8 +65,19 @@ private fun cellNc() = NetworkCapabilities.Builder()
         .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
         .build()
 
+private fun wlanNc() = NetworkCapabilities.Builder()
+    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
+    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+    .build()
+
 private fun cellLp() = LinkProperties().also{
     it.interfaceName = TEST_CELL_IFACE
+}
+
+private fun makeLp(interfaceName: String) = LinkProperties().also{
+    it.interfaceName = interfaceName
 }
 
 @RunWith(DevSdkIgnoreRunner::class)
@@ -334,5 +358,112 @@ class CSDestroySocketTest : CSTest() {
                 enableBackgroundChain = false,
                 expectDestroySockets = false
         )
+    }
+
+    private fun prepareNetworkAgent(interfaceName: String,
+        addresses: List<String>, transportType: Int): CSAgentWrapper {
+        val linkProperties = makeLp(interfaceName)
+        for (address in addresses) {
+            if (address.contains(":")) {
+                linkProperties.addLinkAddress(LinkAddress("$address/64"))
+            } else {
+                linkProperties.addLinkAddress(LinkAddress("$address/24"))
+            }
+        }
+        val agent = if (transportType == NetworkCapabilities.TRANSPORT_CELLULAR) {
+            Agent(nc = cellNc(), lp = linkProperties)
+        } else {
+            Agent(nc = wlanNc(), lp = linkProperties)
+        }
+        agent.connect()
+        waitForIdle()
+        return agent
+    }
+
+    @Test
+    fun testIpToNetworksMap() {
+        // Creates 3 NetworkAgent with various IP addresses(somre are used for only one network
+        // agent some are used for multiple network agents.)
+        val agent1 = prepareNetworkAgent(
+            "rmnet1", arrayListOf(TEST_IPV6_ADDRESS1, TEST_IPV4_ADDRESS1),
+            NetworkCapabilities.TRANSPORT_CELLULAR)
+        val agent2 = prepareNetworkAgent(
+            "wlan1", arrayListOf(TEST_IPV6_ADDRESS2, TEST_IPV4_ADDRESS1),
+            NetworkCapabilities.TRANSPORT_WIFI)
+        val agent3 = prepareNetworkAgent(
+            "rmnet2", arrayListOf(TEST_IPV6_ADDRESS2, TEST_IPV4_ADDRESS2),
+            NetworkCapabilities.TRANSPORT_WIFI)
+        val networks1 = service.mIpToNetworksMap.get(InetAddress.getByName(TEST_IPV6_ADDRESS1))
+        val networks2 = service.mIpToNetworksMap.get(InetAddress.getByName(TEST_IPV4_ADDRESS1))
+        val networks3 = service.mIpToNetworksMap.get(InetAddress.getByName(TEST_IPV6_ADDRESS2))
+        val networks4 = service.mIpToNetworksMap.get(InetAddress.getByName(TEST_IPV4_ADDRESS2))
+        // Verify mIpToNetworksMap properly stores network agents based on IP addresses.
+        assertNotNull(networks1)
+        assertNotNull(networks2)
+        assertNotNull(networks3)
+        assertNotNull(networks4)
+        assertEquals(1, networks1?.size)
+        assertEquals(2, networks2?.size)
+        assertEquals(2, networks3?.size)
+        assertEquals(1, networks4?.size)
+
+        // Disconnect network agent#2.
+        agent2.disconnect()
+        waitForIdle()
+        // Verify mIpToNetworksMap status is properly updated.
+        assertEquals(1, networks1?.size)
+        assertEquals(1, networks2?.size)
+        assertEquals(1, networks3?.size)
+        assertEquals(1, networks4?.size)
+
+        // Disconnect network agent#3.
+        agent3.disconnect()
+        waitForIdle()
+        // Verify mIpToNetworksMap status is properly updated.
+        assertEquals(1, networks1?.size)
+        assertEquals(1, networks2?.size)
+        assertFalse(service.mIpToNetworksMap.contains(InetAddress.getByName(TEST_IPV6_ADDRESS2)))
+        assertFalse(service.mIpToNetworksMap.contains(InetAddress.getByName(TEST_IPV4_ADDRESS2)))
+
+        // Update only interface name without IP address change for network agent #1.
+        val linkProperties = makeLp("ipsec1")
+        linkProperties.addLinkAddress(LinkAddress("$TEST_IPV4_ADDRESS1/24"))
+        linkProperties.addLinkAddress(LinkAddress("$TEST_IPV6_ADDRESS1/64"))
+        agent1.sendLinkProperties(linkProperties)
+        waitForIdle()
+        // Verify mIpToNetworksMap status is not changed.
+        assertEquals(1, networks1?.size)
+        assertEquals(1, networks2?.size)
+
+        // Chagne IP addresses for network agent #1.
+        val linkProperties2 = makeLp("rmnet1")
+        linkProperties2.addLinkAddress(LinkAddress("$TEST_IPV4_ADDRESS2/24"))
+        linkProperties2.addLinkAddress(LinkAddress("$TEST_IPV6_ADDRESS1/64"))
+        linkProperties2.addLinkAddress(LinkAddress("$TEST_IPV6_ADDRESS4/64"))
+        agent1.sendLinkProperties(linkProperties2)
+        waitForIdle()
+        // Verify mIpToNetworksMap status is properly updated.
+        assertEquals(1, networks1?.size)
+        assertFalse(service.mIpToNetworksMap.contains(InetAddress.getByName(TEST_IPV4_ADDRESS1)))
+        val networks5 = service.mIpToNetworksMap.get(InetAddress.getByName(TEST_IPV4_ADDRESS2))
+        val networks6 = service.mIpToNetworksMap.get(InetAddress.getByName(TEST_IPV6_ADDRESS4))
+        assertEquals(1, networks5?.size)
+        assertEquals(1, networks6?.size)
+
+        // Add network agent#4
+        val agent4 = prepareNetworkAgent(
+            "wlan2", arrayListOf(TEST_IPV6_ADDRESS3, TEST_IPV4_ADDRESS2),
+            NetworkCapabilities.TRANSPORT_WIFI)
+        waitForIdle()
+        // Verify mIpToNetworksMap status is properly updated.
+        assertFalse(service.mIpToNetworksMap.contains(InetAddress.getByName(TEST_IPV6_ADDRESS3)))
+        assertEquals(2, networks5?.size)
+
+        // Disconnect all remaining network agents.
+        agent1.disconnect()
+        agent4.disconnect()
+        waitForIdle()
+        // Verify mIpToNetworksMap is empty.
+        assertTrue(service.mIpToNetworksMap.isEmpty())
     }
 }
