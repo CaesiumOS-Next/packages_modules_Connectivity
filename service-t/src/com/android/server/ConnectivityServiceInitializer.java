@@ -20,6 +20,7 @@ import android.annotation.Nullable;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.thread.ThreadNetworkManager;
+import android.os.IBinder;
 import android.util.Log;
 
 import com.android.modules.utils.build.SdkLevel;
@@ -30,6 +31,10 @@ import com.android.server.ethernet.EthernetServiceImpl;
 import com.android.server.nearby.NearbyService;
 import com.android.server.net.ct.CertificateTransparencyService;
 import com.android.server.thread.ThreadNetworkService;
+
+import dalvik.system.PathClassLoader;
+
+import java.lang.reflect.Constructor;
 
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
@@ -45,6 +50,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
     private final EthernetServiceImpl mEthernetServiceImpl;
     private final ThreadNetworkService mThreadNetworkService;
     private final CertificateTransparencyService mCertificateTransparencyService;
+    private final SystemService mConnectivityServiceInitializerB;
 
     public ConnectivityServiceInitializer(Context context) {
         super(context);
@@ -58,6 +64,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
         mNearbyService = createNearbyService(context);
         mThreadNetworkService = createThreadNetworkService(context);
         mCertificateTransparencyService = createCertificateTransparencyService(context);
+        mConnectivityServiceInitializerB = createConnectivityServiceInitializerB(context);
     }
 
     @Override
@@ -99,6 +106,11 @@ public final class ConnectivityServiceInitializer extends SystemService {
             publishBinderService(ThreadNetworkManager.SERVICE_NAME, mThreadNetworkService,
                     /* allowIsolated= */ false);
         }
+
+        if (mConnectivityServiceInitializerB != null) {
+            Log.i("TEST", "Registering " + "vcn_management");
+            mConnectivityServiceInitializerB.onStart();
+        }
     }
 
     @Override
@@ -117,6 +129,10 @@ public final class ConnectivityServiceInitializer extends SystemService {
 
         if (SdkLevel.isAtLeastV() && mCertificateTransparencyService != null) {
             mCertificateTransparencyService.onBootPhase(phase);
+        }
+
+        if (mConnectivityServiceInitializerB != null) {
+            mConnectivityServiceInitializerB.onBootPhase(phase);
         }
     }
 
@@ -201,5 +217,23 @@ public final class ConnectivityServiceInitializer extends SystemService {
         return SdkLevel.isAtLeastV() && CertificateTransparencyService.enabled(context)
                 ? new CertificateTransparencyService(context)
                 : null;
+    }
+
+    private SystemService createConnectivityServiceInitializerB(Context context) {
+        PathClassLoader classLoader =
+                new PathClassLoader("/system/framework/services.jar", getClass().getClassLoader());
+        android.util.Log.i("TEST", "classLoader " + classLoader);
+
+        try {
+            Class<?> connectivityServiceInitializerBClass =
+                Class.forName("com.android.server.ConnectivityServiceInitializerB", true, classLoader);
+            Constructor constructor = connectivityServiceInitializerBClass.getConstructor(Context.class);
+
+            return (SystemService) constructor.newInstance(context);
+        } catch (Exception e) {
+            android.util.Log.e("TEST", "Fail to load " + e);
+        }
+        android.util.Log.i("TEST", "load succeed ");
+        return null;
     }
 }
