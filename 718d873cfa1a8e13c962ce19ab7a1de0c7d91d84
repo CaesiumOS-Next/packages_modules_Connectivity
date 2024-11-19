@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e380d9bb_997090f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T06:38:33Z",
+      "side": 1,
+      "message": "Thanks for addressing this ! It\u0027s probably worth asking Lorenzo if he wants to have a look since it\u0027s for fixinga flake, but it\u0027s new test logic, and also it was his idea.",
+      "revId": "718d873cfa1a8e13c962ce19ab7a1de0c7d91d84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3143900_84ca1053",
+        "filename": "staticlibs/framework/com/android/net/module/util/DnsPacket.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T06:38:33Z",
+      "side": 1,
+      "message": "\"mRecords\" is naming for a private field, so this shouldn\u0027t be public as-is. Also the array itself is mutable so it isn\u0027t very good practice to expose it.\n\nCould you have getters instead ? Something like getHeader, getQuestionRecords, getAnswerRecords, Authority and Additional\n\nOr, `getSection(int sectionId)`",
+      "revId": "718d873cfa1a8e13c962ce19ab7a1de0c7d91d84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b7fe0b7_db96832d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T06:38:33Z",
+      "side": 1,
+      "message": "The network request timeout is 3s, so unless there\u0027s a particular reason to use 2s I\u0027d just keep it consistent with the network request above (which also seems like an arbitrary timeout)",
+      "range": {
+        "startLine": 312,
+        "startChar": 52,
+        "endLine": 312,
+        "endChar": 56
+      },
+      "revId": "718d873cfa1a8e13c962ce19ab7a1de0c7d91d84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cb14ba8_b219b18e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T06:38:33Z",
+      "side": 1,
+      "message": "IpAddress, but Ipv6Address would be more accurate",
+      "range": {
+        "startLine": 868,
+        "startChar": 35,
+        "endLine": 868,
+        "endChar": 37
+      },
+      "revId": "718d873cfa1a8e13c962ce19ab7a1de0c7d91d84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32a975b4_e0f36d98",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T06:38:33Z",
+      "side": 1,
+      "message": "Nit: dnsIpAddr or dnsAddr would be more correct",
+      "range": {
+        "startLine": 869,
+        "startChar": 26,
+        "endLine": 869,
+        "endChar": 31
+      },
+      "revId": "718d873cfa1a8e13c962ce19ab7a1de0c7d91d84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "763204c3_c255e41a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T06:38:33Z",
+      "side": 1,
+      "message": "Nit: `List.of() /* an */`",
+      "revId": "718d873cfa1a8e13c962ce19ab7a1de0c7d91d84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8314ed7_ee930789",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T06:38:33Z",
+      "side": 1,
+      "message": "I guess that\u0027s because the first byte is the data length ?\n\nHaving something like\n```\nfinal byte dataLength \u003d txtReplyRecord[0];\nassertEquals(dataLength, txtReplyRecord.length - 1)\n```\n, or at least a comment, would make that clearer when reading through the test",
+      "range": {
+        "startLine": 896,
+        "startChar": 65,
+        "endLine": 896,
+        "endChar": 66
+      },
+      "revId": "718d873cfa1a8e13c962ce19ab7a1de0c7d91d84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92c5ecc9_98b43d02",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T06:38:33Z",
+      "side": 1,
+      "message": "It\u0027s a bit weird that with \"enforce\u003dtrue\" the return value is useless, and with \"enforce\u003dfalse\" the return value is the only thing that matters.\n\nYou could instead do `assertTrue(checkOnNetwork(...))`, but the error message would be a bit less clear.\n\nOr just have a `getInet6Addresses(Network)` method, and the caller can call assertContains or contains by themselves.",
+      "revId": "718d873cfa1a8e13c962ce19ab7a1de0c7d91d84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56013e8c_70537300",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T06:38:33Z",
+      "side": 1,
+      "message": "Typo: cellular",
+      "range": {
+        "startLine": 927,
+        "startChar": 34,
+        "endLine": 927,
+        "endChar": 41
+      },
+      "revId": "718d873cfa1a8e13c962ce19ab7a1de0c7d91d84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
