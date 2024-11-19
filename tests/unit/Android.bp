@@ -42,6 +42,7 @@ java_defaults {
         "libnetworkstatsfactorytestjni",
         "libpackagelistparser",
         "libpcre2",
+        "libsatellitenetworkstats",
         "libselinux",
         "libtinyxml2",
         "libui",
