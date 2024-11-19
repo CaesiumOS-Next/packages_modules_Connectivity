@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38c61995_eb3c1a1c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkPrefixMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-11-19T07:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01bdc265_55b9ebbf",
+      "range": {
+        "startLine": 50,
+        "startChar": 17,
+        "endLine": 50,
+        "endChar": 23
+      },
+      "revId": "663bbb9a097a82613f735dd3c723bd38d69b1182",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "994f7f39_bc5f1ea5",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-23T09:34:32Z",
       "side": 1,
       "message": "Not for this CL but I feel it\u0027s a bit confusing that some struct throw `IllegalArgumentException` and some struct return null when the buffer.remaining() is smaller than struct size.",
+      "range": {
+        "startLine": 98,
+        "startChar": 45,
+        "endLine": 98,
+        "endChar": 63
+      },
+      "revId": "663bbb9a097a82613f735dd3c723bd38d69b1182",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d53b2ead_c22c0216",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkPrefixMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-11-19T07:32:50Z",
+      "side": 1,
+      "message": "Acknowledged, will update with the same behavior in a follow-up CL.",
+      "parentUuid": "994f7f39_bc5f1ea5",
       "range": {
         "startLine": 98,
         "startChar": 45,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54b1f01f_49e8287c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkPrefixMessage.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-11-19T07:32:50Z",
+      "side": 1,
+      "message": "The RTM_NEWPREFIX message comes from RA PIO option, (https://elixir.bootlin.com/linux/v6.12/source/net/ipv6/addrconf.c#L2917), which is used to configure an \"real\" IPv6 address via SLAAC or PD, v4-mapped v6 address prefix (::ffff:aabb:ccdd) shouldn\u0027t be used in the PIO option.",
+      "parentUuid": "c665cde2_6a960ab6",
+      "range": {
+        "startLine": 104,
+        "startChar": 83,
+        "endLine": 104,
+        "endChar": 84
+      },
+      "revId": "663bbb9a097a82613f735dd3c723bd38d69b1182",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6042da7_1ec05007",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-08-23T09:34:32Z",
       "side": 1,
       "message": "nits:Isn\u0027t it better to use range from documentation prefix?\nOr is this also a documentation prefix?\nhttps://datatracker.ietf.org/doc/html/rfc3849",
+      "range": {
+        "startLine": 43,
+        "startChar": 61,
+        "endLine": 43,
+        "endChar": 87
+      },
+      "revId": "663bbb9a097a82613f735dd3c723bd38d69b1182",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82cb5c97_2092fd14",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkPrefixMessageTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-11-19T07:32:50Z",
+      "side": 1,
+      "message": "I refer to the prefix obtained from \"googleguest\":), updated with the prefix documented in this rfc for testing purpose.",
+      "parentUuid": "a6042da7_1ec05007",
       "range": {
         "startLine": 43,
         "startChar": 61,
