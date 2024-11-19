@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e49fcf2_7db71b58",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-19T06:44:24Z",
+      "side": 1,
+      "message": "Maybe create_query_test_result could be a better name.",
+      "range": {
+        "startLine": 418,
+        "startChar": 15,
+        "endLine": 418,
+        "endChar": 32
+      },
+      "revId": "459524503b384a788f92b113bd46e9e3eb2d951e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f4a31b5_535d9985",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-19T06:44:24Z",
+      "side": 1,
+      "message": "Maybe not for this CL, do we really need this errnum local variable? I see previous code use errno directly.",
+      "range": {
+        "startLine": 544,
+        "startChar": 12,
+        "endLine": 544,
+        "endChar": 18
+      },
+      "revId": "459524503b384a788f92b113bd46e9e3eb2d951e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8de089c9_a7d6af0e",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-19T06:44:24Z",
+      "side": 1,
+      "message": "Can we run this test 10 times as well?",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 214,
+        "endChar": 41
+      },
+      "revId": "459524503b384a788f92b113bd46e9e3eb2d951e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b66be1d_a76a5287",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-19T06:44:24Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 234,
+        "startChar": 12,
+        "endLine": 234,
+        "endChar": 27
+      },
+      "revId": "459524503b384a788f92b113bd46e9e3eb2d951e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fd4cbd3_a63ccd4f",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-19T06:44:24Z",
+      "side": 1,
+      "message": "Is this Log.e redundant given we have the fail(error) in the following line?",
+      "revId": "459524503b384a788f92b113bd46e9e3eb2d951e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
