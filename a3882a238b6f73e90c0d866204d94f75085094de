@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3661e01a_c75c1491",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1294681
+      },
+      "writtenOn": "2024-11-19T05:34:04Z",
+      "side": 1,
+      "message": "@lorenzo@google.com and @reminv@google.com when you have a moment, would you be able to review the addition of the `WRITE_ALLOWLISTED_DEVICE_CONFIG` permission to the adoption of the shell permission identity in these tests? Soon the `WRITE_DEVICE_CONFIG` permission will be removed from the shell user, and I want to make sure it doesn\u0027t impact these tests. Thanks!",
+      "revId": "a3882a238b6f73e90c0d866204d94f75085094de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
