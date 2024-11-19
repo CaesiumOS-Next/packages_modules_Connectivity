@@ -93,6 +93,30 @@
       },
       "revId": "bf3f11cf7f0a47dc9aca71a101967f9e136f46bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7ac091a_74b8d54b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-19T16:30:38Z",
+      "side": 0,
+      "message": "I think it should. It calls trackAvailableInterfaces() after updating the interface match regex. Synchronization is an issue; I have been using setEthernetEnabled() which always awaits a callback to synchronize other calls. In this case, you could call:\n\n```\nsetIncludeTestInterfaces(false);\n// Use setEthernetEnabled(true) to wait for setIncludeTestInterfaces() to\n// be processed.\nsetEthernetEnabled(true);\n```\n\nYou just have to create the interface after calling setIncludeTestInterfaces(false) and bring it up outside of EthernetTracker, i.e. add a parameter to EthernetTestInterface to set bringUp to true. Currently, bringUp is always false:\n```\ntnm.createTapInterface(hasCarrier, false /* bringUp */)\n```\n\nAs I am writing this, I realize that it might make sense to put this in a follow up CL.",
+      "parentUuid": "734b2cc7_06e7119c",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 604,
+        "endChar": 46
+      },
+      "revId": "bf3f11cf7f0a47dc9aca71a101967f9e136f46bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
