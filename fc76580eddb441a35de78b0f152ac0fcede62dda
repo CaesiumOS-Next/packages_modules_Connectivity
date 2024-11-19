@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0df6127_11581d99",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-19T16:33:47Z",
+      "side": 1,
+      "message": "nit: mIsEthernetEnabled",
+      "range": {
+        "startLine": 143,
+        "startChar": 20,
+        "endLine": 143,
+        "endChar": 29
+      },
+      "revId": "fc76580eddb441a35de78b0f152ac0fcede62dda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
