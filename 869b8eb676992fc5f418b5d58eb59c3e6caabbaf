@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c4591c7_82aecaa3",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-19T09:37:15Z",
+      "side": 1,
+      "message": "It\u0027s probably a good idea to avoid spaces in case anyone is parsing this text. Maybe:\n\n    return \"TETHERING_UNKNOWN(\" + type + \")\";",
+      "range": {
+        "startLine": 222,
+        "startChar": 24,
+        "endLine": 222,
+        "endChar": 46
+      },
+      "revId": "869b8eb676992fc5f418b5d58eb59c3e6caabbaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "540febcc_73c641f4",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-19T09:37:15Z",
+      "side": 1,
+      "message": "Ditto, no spaces.",
+      "range": {
+        "startLine": 714,
+        "startChar": 24,
+        "endLine": 714,
+        "endChar": 50
+      },
+      "revId": "869b8eb676992fc5f418b5d58eb59c3e6caabbaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
