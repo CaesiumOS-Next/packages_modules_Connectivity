@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51cd9039_0d7da2fc",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-19T04:41:35Z",
+      "side": 0,
+      "message": "If we are not planning to have any other state (enabling, for example) SG to make this a boolean. Will do in a separate patch.",
+      "parentUuid": "a582b8db_5408ce0e",
+      "range": {
+        "startLine": 143,
+        "startChar": 16,
+        "endLine": 143,
+        "endChar": 30
+      },
+      "revId": "bf3f11cf7f0a47dc9aca71a101967f9e136f46bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fb3cb92_0f14ef4c",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-18T20:21:58Z",
       "side": 0,
       "message": "Is it possible to rewrite this test using setIncludeTestInterfaces? I don\u0027t want to lose coverage for this case if we can prevent it.",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 604,
+        "endChar": 46
+      },
+      "revId": "bf3f11cf7f0a47dc9aca71a101967f9e136f46bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "734b2cc7_06e7119c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-19T04:41:35Z",
+      "side": 0,
+      "message": "The behavior of `setIncludeTestInterfaces` can be different from original `setEthernetEnabled`, and it does not bring up the iface again when calling `setIncludeTestInterfaces(true)`, and does not send out callback when calling `setIncludeTestInterfaces(false)`? How do we want to test it?",
+      "parentUuid": "5fb3cb92_0f14ef4c",
       "range": {
         "startLine": 604,
         "startChar": 0,

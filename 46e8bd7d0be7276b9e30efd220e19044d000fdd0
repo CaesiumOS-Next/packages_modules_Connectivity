@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03ce1b9a_c1171a21",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-19T04:41:35Z",
+      "side": 1,
+      "message": "Will do in a separate patch along with changing this to boolean.",
+      "parentUuid": "c271f730_b280a239",
+      "range": {
+        "startLine": 601,
+        "startChar": 14,
+        "endLine": 601,
+        "endChar": 67
+      },
+      "revId": "46e8bd7d0be7276b9e30efd220e19044d000fdd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec8464b6_4a037a8e",
@@ -54,6 +78,24 @@
       "writtenOn": "2024-11-18T20:21:58Z",
       "side": 1,
       "message": "consider setting a global isEthernetEnabled rather than passing the state to createInterface().",
+      "revId": "46e8bd7d0be7276b9e30efd220e19044d000fdd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fe7071e_d43d3b63",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-19T04:41:35Z",
+      "side": 1,
+      "message": "Thanks for advice. Added `ethernetEnabled`",
+      "parentUuid": "ec8464b6_4a037a8e",
       "revId": "46e8bd7d0be7276b9e30efd220e19044d000fdd0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -81,6 +123,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "303fc026_c97a2581",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-19T04:41:35Z",
+      "side": 1,
+      "message": "Added `testRemoveInterface_disableEnableEthernet` to test that:\n1. When removing iface when eth is enabled, will receive: LINK_DOWN -\u003e LINK_ABSENT\n2. When removing iface when eth is disabled, will receive: LINK_ABSENT",
+      "parentUuid": "47b00bd8_6d99ab78",
+      "range": {
+        "startLine": 1028,
+        "startChar": 8,
+        "endLine": 1028,
+        "endChar": 46
+      },
+      "revId": "46e8bd7d0be7276b9e30efd220e19044d000fdd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b489b8cc_915953b1",
@@ -94,6 +160,24 @@
       "writtenOn": "2024-11-18T20:21:58Z",
       "side": 1,
       "message": "Could you also add another test which calls updateConfiguration() while ethernet is disabled?",
+      "revId": "46e8bd7d0be7276b9e30efd220e19044d000fdd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "510526e6_b1aa2a55",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-19T04:41:35Z",
+      "side": 1,
+      "message": "This use case should be covered in `testUpdateConfiguration_onUntrackedInterface`?",
+      "parentUuid": "b489b8cc_915953b1",
       "revId": "46e8bd7d0be7276b9e30efd220e19044d000fdd0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
