@@ -48,3 +48,44 @@ cc_library {
     ],
     min_sdk_version: "30",
 }
+
+cc_test {
+    name: "libsatellitenetworkstats_test",
+    test_suites: [
+        "general-tests",
+        "mts-tethering",
+    ],
+    test_config_template: ":net_native_test_config_template",
+    header_libs: ["bpf_connectivity_headers"],
+    srcs: [
+        "SatelliteBufferEventPollerTest.cpp",
+    ],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wthread-safety",
+    ],
+    version_script: ":connectivity_mainline_test_map",
+    stl: "libc++_static",
+    static_libs: [
+        "libgmock",
+        "libsatellitenetworkstats",
+    ],
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libcutils",
+        "libandroid_net",
+    ],
+    compile_multilib: "both",
+    multilib: {
+        lib32: {
+            suffix: "32",
+        },
+        lib64: {
+            suffix: "64",
+        },
+    },
+    require_root: true,
+}
