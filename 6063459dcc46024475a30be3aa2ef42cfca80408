@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9536fd5_e43b6260",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/TetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-19T10:37:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18017477_d29f5327",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 79
+      },
+      "revId": "6063459dcc46024475a30be3aa2ef42cfca80408",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "305ec868_2bf80273",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-19T09:32:36Z",
       "side": 1,
       "message": "Might want to do something like:\n\n    assertEquals(tetheredIface.getInterface(), iface.getInterface());\n\nto check that the two callbacks see the same interface.",
+      "range": {
+        "startLine": 72,
+        "startChar": 26,
+        "endLine": 72,
+        "endChar": 31
+      },
+      "revId": "6063459dcc46024475a30be3aa2ef42cfca80408",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b92cc1b_3eb7382b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/TetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-19T10:37:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "305ec868_2bf80273",
       "range": {
         "startLine": 72,
         "startChar": 26,
