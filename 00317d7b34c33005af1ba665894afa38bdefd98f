@@ -16,6 +16,23 @@
       "message": "I think the problem with having the class in the service jar is that this onload.cpp file is in service/jni/com_android_net_module_util/, but actually it only loads JNI for framework classes (BpfMap, TcUtils, BpfUtils are all in framework-connectivity).\n\nThis should actually be moved to framework/jni/com_android_net_module_util (not in this CL).\n\nInstead I think you can remove TimerFdUtils from net-utils-framework-connectivity-srcs, and call register_com_android_net_module_util_TimerFdUtils from service/jni/onload.cpp instead of service/jni/com_android_net_module_util/onload.cpp.\n\nCould you have a try at that ?",
       "revId": "00317d7b34c33005af1ba665894afa38bdefd98f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e025dfda_e199178e",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFdUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T07:56:48Z",
+      "side": 1,
+      "message": "```\nif (Process.myUid() \u003d\u003d Process.SYSTEM_UID) {\n    // This library is part of service-connectivity.jar when in the system server, so libservice-connectivity.so is the library to load\n    loadLibrary(\"service-connectivity\")\n} else {\n    // This logic\n}\n```",
+      "revId": "00317d7b34c33005af1ba665894afa38bdefd98f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
