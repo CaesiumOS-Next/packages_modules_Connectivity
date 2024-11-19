@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6903332_8549ae40",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T23:32:33Z",
+      "side": 1,
+      "message": "AFAIK ExecutorService does not include time in deep sleep in its delays, so the initial delay and period may end up much larger than expected.\n\nSomething like aosp/3268573 (to run \"next time CPU is up after at least X seconds\") or AlarmManager could avoid this problem.",
+      "revId": "bf9f644ab56b17b0ed04a7ac38a1163d32907b8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
