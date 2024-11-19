@@ -140,7 +140,7 @@ public class EthernetTracker {
     // Tracks whether clients were notified that the tethered interface is available
     private boolean mTetheredInterfaceWasAvailable = false;
 
-    private int mEthernetState = ETHERNET_STATE_ENABLED;
+    private boolean mEthernetEnabled = true;
 
     private class TetheredInterfaceRequestList extends
             RemoteCallbackList<ITetheredInterfaceCallback> {
@@ -444,7 +444,7 @@ public class EthernetTracker {
                 unicastInterfaceStateChange(listener, mTetheringInterface);
             }
 
-            unicastEthernetStateChange(listener, mEthernetState);
+            unicastEthernetStateChange(listener, mEthernetEnabled);
         });
     }
 
@@ -594,11 +594,11 @@ public class EthernetTracker {
             // already running an UP event is created after adding the interface.
             config = NetdUtils.getInterfaceConfigParcel(mNetd, iface);
             // Only bring the interface up when ethernet is enabled.
-            if (mEthernetState == ETHERNET_STATE_ENABLED) {
+            if (mEthernetEnabled) {
                 // As a side-effect, NetdUtils#setInterfaceUp() also clears the interface's IPv4
                 // address and readds it which *could* lead to unexpected behavior in the future.
                 NetdUtils.setInterfaceUp(mNetd, iface);
-            } else if (mEthernetState == ETHERNET_STATE_DISABLED) {
+            } else {
                 NetdUtils.setInterfaceDown(mNetd, iface);
             }
         } catch (IllegalStateException e) {
@@ -646,7 +646,7 @@ public class EthernetTracker {
     }
 
     private void setInterfaceAdministrativeState(String iface, boolean up, EthernetCallback cb) {
-        if (mEthernetState == ETHERNET_STATE_DISABLED) {
+        if (!mEthernetEnabled) {
             cb.onError("Cannot enable/disable interface when ethernet is disabled");
             return;
         }
@@ -964,10 +964,9 @@ public class EthernetTracker {
     @VisibleForTesting(visibility = PACKAGE)
     protected void setEthernetEnabled(boolean enabled) {
         mHandler.post(() -> {
-            int newState = enabled ? ETHERNET_STATE_ENABLED : ETHERNET_STATE_DISABLED;
-            if (mEthernetState == newState) return;
+            if (mEthernetEnabled == enabled) return;
 
-            mEthernetState = newState;
+            mEthernetEnabled = enabled;
 
             // Interface in server mode should also be included.
             ArrayList<String> interfaces =
@@ -985,26 +984,28 @@ public class EthernetTracker {
                     NetdUtils.setInterfaceDown(mNetd, iface);
                 }
             }
-            broadcastEthernetStateChange(mEthernetState);
+            broadcastEthernetStateChange(mEthernetEnabled);
         });
     }
 
     private void unicastEthernetStateChange(@NonNull IEthernetServiceListener listener,
-            int state) {
+            boolean enabled) {
         ensureRunningOnEthernetServiceThread();
         try {
-            listener.onEthernetStateChanged(state);
+            listener.onEthernetStateChanged(
+                    enabled ? ETHERNET_STATE_ENABLED : ETHERNET_STATE_DISABLED);
         } catch (RemoteException e) {
             // Do nothing here.
         }
     }
 
-    private void broadcastEthernetStateChange(int state) {
+    private void broadcastEthernetStateChange(boolean enabled) {
         ensureRunningOnEthernetServiceThread();
         final int n = mListeners.beginBroadcast();
         for (int i = 0; i < n; i++) {
             try {
-                mListeners.getBroadcastItem(i).onEthernetStateChanged(state);
+                mListeners.getBroadcastItem(i).onEthernetStateChanged(
+                        enabled ? ETHERNET_STATE_ENABLED : ETHERNET_STATE_DISABLED);
             } catch (RemoteException e) {
                 // Do nothing here.
             }
@@ -1016,7 +1017,7 @@ public class EthernetTracker {
         postAndWaitForRunnable(() -> {
             pw.println(getClass().getSimpleName());
             pw.println("Ethernet State: "
-                    + (mEthernetState == ETHERNET_STATE_ENABLED ? "enabled" : "disabled"));
+                    + (mEthernetEnabled ? "enabled" : "disabled"));
             pw.println("Ethernet interface name filter: " + mIfaceMatch);
             pw.println("Interface used for tethering: " + mTetheringInterface);
             pw.println("Tethering interface mode: " + mTetheringInterfaceMode);
