@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7ebb251_4a6ef679",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-11-19T04:20:20Z",
+      "side": 1,
+      "message": "As discussed to keep as launching in V , since sdk release for BANDWIDTH_NOT_CONSTRAINED API is on V .",
+      "parentUuid": "fab18124_694a87a7",
+      "range": {
+        "startLine": 1911,
+        "startChar": 18,
+        "endLine": 1911,
+        "endChar": 28
+      },
+      "revId": "b712a96014ebb4fb8abbd5998ea6aa3e7d9efcb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5c2d631_1b5b3795",
