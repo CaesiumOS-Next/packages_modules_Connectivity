@@ -16,6 +16,29 @@
       "message": "Bypassing due to omg/77179",
       "revId": "2d9992c186d82d7292f5d6aae098e6426c6117f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7593965_b989d444",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1544,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-19T03:57:44Z",
+      "side": 1,
+      "message": "Does this correctly handle link-local addresses (e.g., fe80::1%wlan0)? That has caused us problems several times.",
+      "range": {
+        "startLine": 1544,
+        "startChar": 32,
+        "endLine": 1544,
+        "endChar": 46
+      },
+      "revId": "2d9992c186d82d7292f5d6aae098e6426c6117f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
