@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17db0622_068cc1f6",
+        "filename": "service/jni/com_android_net_module_util/onload.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-19T07:30:59Z",
+      "side": 1,
+      "message": "I think the problem with having the class in the service jar is that this onload.cpp file is in service/jni/com_android_net_module_util/, but actually it only loads JNI for framework classes (BpfMap, TcUtils, BpfUtils are all in framework-connectivity).\n\nThis should actually be moved to framework/jni/com_android_net_module_util (not in this CL).\n\nInstead I think you can remove TimerFdUtils from net-utils-framework-connectivity-srcs, and call register_com_android_net_module_util_TimerFdUtils from service/jni/onload.cpp instead of service/jni/com_android_net_module_util/onload.cpp.\n\nCould you have a try at that ?",
+      "revId": "00317d7b34c33005af1ba665894afa38bdefd98f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
