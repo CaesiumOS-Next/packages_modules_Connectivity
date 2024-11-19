@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0203a8f9_d78ef0cf",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-19T06:14:02Z",
+      "side": 1,
+      "message": "Maybe add new test cases to verify that \"_trel._udp\" will be unpublished when trel is disabled from enabled?",
+      "revId": "bb7efba754100db9413fa43b2c0998c60179a602",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
