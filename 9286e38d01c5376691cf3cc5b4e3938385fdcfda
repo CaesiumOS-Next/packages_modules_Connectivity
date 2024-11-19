@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc7d404d_af16e9af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-19T08:16:51Z",
+      "side": 1,
+      "message": "```\nnetd_updatable_unit_test did not report any run:\nCANNOT LINK EXECUTABLE \"/data/local/tmp/netd_updatable_unit_test\": cannot locate symbol \"_Z23CgroupGetControllerPathRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEEPS5_\" referenced by \"/data/local/tmp/netd_updatable_unit_test\"...\n```\n\nThe above error message is very unlikely caused by this changes.\n\nThis change is only adding a couple of constants.\n\nPlease double confirm the failure root cause.",
+      "revId": "9286e38d01c5376691cf3cc5b4e3938385fdcfda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
