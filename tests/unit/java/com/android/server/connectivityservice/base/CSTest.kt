@@ -32,6 +32,7 @@ import android.net.INetd.PERMISSION_INTERNET
 import android.net.InetAddresses
 import android.net.LinkProperties
 import android.net.LocalNetworkConfig
+import android.net.MarkMaskParcel
 import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED
@@ -58,6 +59,7 @@ import android.permission.PermissionManager.PermissionResult
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
 import android.testing.TestableContext
+import android.util.Range
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.internal.app.IBatteryStats
 import com.android.internal.util.test.BroadcastInterceptingContext
@@ -78,6 +80,7 @@ import com.android.server.connectivity.ProxyTracker
 import com.android.server.connectivity.SatelliteAccessController
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
+import java.net.InetAddress
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
@@ -194,7 +197,11 @@ open class CSTest {
     val packageManager = makeMockPackageManager(instrumentationContext)
     val connResources = makeMockConnResources(sysResources, packageManager)
 
-    val netd = mock<INetd>()
+    val netd = mock<INetd>().also {
+        val markMaskParcel = MarkMaskParcel()
+        markMaskParcel.mask = 0xffff
+        doReturn(markMaskParcel).`when`(it).getFwmarkForNetwork(anyInt())
+    }
     val interfaceTracker = mock<InterfaceTracker>()
     val bpfNetMaps = mock<BpfNetMaps>().also {
         doReturn(PERMISSION_INTERNET).`when`(it).getNetPermForUid(anyInt())
@@ -278,6 +285,9 @@ open class CSTest {
     // Class to be mocked and used to verify destroy sockets methods call
     open inner class DestroySocketsWrapper {
         open fun destroyLiveTcpSocketsByOwnerUids(ownerUids: Set<Int>) {}
+        open fun destroyLiveTcpSocketsByLocalAddress(
+            address: InetAddress, netIdRange: Range<Int>, exemptNetIds: Set<Int>?,
+            uidRanges: Set<Range<Int>>?, interfaceId: Int, netIdMask: Int) {}
     }
 
     inner class CSDeps : ConnectivityService.Dependencies() {
@@ -411,6 +421,15 @@ open class CSTest {
 
         override fun flagConnectivityServiceDestroySocket(): Boolean {
             return true
+        }
+
+        override fun destroyLiveTcpSocketsByLocalAddress(
+            address: InetAddress, netIdRange: Range<Int>, exemptNetIds: Set<Int>?,
+            uidRanges: Set<Range<Int>>?, interfaceId: Int, netIdMask: Int) {
+            // Call mocked destroyLiveTcpSocketsByLocalAddress so that test can verify this method
+            // call
+            destroySocketsWrapper.destroyLiveTcpSocketsByLocalAddress(
+                address, netIdRange, exemptNetIds, uidRanges, interfaceId, netIdMask)
         }
     }
 
