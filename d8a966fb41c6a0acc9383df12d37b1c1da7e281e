@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cc0209e_7c0b7264",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1930620
+      },
+      "writtenOn": "2024-11-20T19:39:17Z",
+      "side": 1,
+      "message": "Oh awesome, I was prepping instead but this would be just as good: aosp/3365801",
+      "revId": "d8a966fb41c6a0acc9383df12d37b1c1da7e281e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
