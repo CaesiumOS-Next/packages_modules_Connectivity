@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "715bd3ee_a5f049f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:50:58Z",
+      "side": 1,
+      "message": "I\u0027m not sure about this... It\u0027s really hard to use it correctly, because if cancelTask is called from another thread, it\u0027s still possible for tasks to run on the Handler thread \"after\" that. It also makes error-prone logic more complicated, having to support 2 modes.\n\nAre there callers that really need this ?",
+      "revId": "b5e6a917a4a64c76795cb27e7f4b4db5b24846ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
