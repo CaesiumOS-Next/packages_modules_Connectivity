@@ -76,13 +76,15 @@ cc_test {
     stl: "libc++_static",
     static_libs: [
         "libbase",
+        "libjsoncpp",
         "libnetd_updatable",
+        "libprocessgroup",
+        "libprocessgroup_util",
     ],
     shared_libs: [
         "libcutils",
         "liblog",
         "libnetdutils",
-        "libprocessgroup",
     ],
     compile_multilib: "both",
     multilib: {
