@@ -303,6 +303,7 @@ import android.net.IpSecManager;
 import android.net.IpSecManager.UdpEncapsulationSocket;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
+import android.net.MarkMaskParcel;
 import android.net.MatchAllNetworkSpecifier;
 import android.net.NativeNetworkConfig;
 import android.net.NativeNetworkType;
@@ -1926,6 +1927,10 @@ public class ConnectivityServiceTest {
                 .createConnectivityResources(mServiceContext);
         doReturn(new int[] {1, 3, 0, 0}).when(mMockKeepaliveTrackerDependencies)
                 .getSupportedKeepalives(mServiceContext);
+        MarkMaskParcel markMaskParcel = new MarkMaskParcel();
+        markMaskParcel.mask = 0xffff;
+        doReturn(markMaskParcel).when(mMockNetd)
+                .getFwmarkForNetwork(anyInt());
         mAutoOnOffKeepaliveDependencies =
                 new AutomaticOnOffKeepaliveTrackerDependencies(mServiceContext);
         mService = new ConnectivityService(mServiceContext,
