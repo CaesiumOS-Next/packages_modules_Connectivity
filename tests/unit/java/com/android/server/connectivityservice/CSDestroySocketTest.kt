@@ -27,7 +27,11 @@ import android.net.ConnectivityManager.FIREWALL_RULE_DENY
 import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.NetworkCapabilities
+import android.net.VpnManager
+import android.net.VpnTransportInfo
 import android.os.Build
+import android.util.ArraySet
+import android.util.Range
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener
 import com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS
 import com.android.testutils.DevSdkIgnoreRule
@@ -46,9 +50,13 @@ import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 
+
 private const val TIMESTAMP = 1234L
 private const val TEST_UID = 1234
 private const val TEST_UID2 = 5678
+private val TEST_UID_RANGE1 = Range(10000, 20000)
+private val TEST_UID_RANGE2 = Range(21000, 30000)
+private val TEST_UID_RANGE3 = Range(31000, 40000)
 private const val TEST_CELL_IFACE = "test_rmnet"
 private const val TEST_IPV6_ADDRESS1 = "2100::1234"
 private const val TEST_IPV6_ADDRESS2 = "2100:0207::4321:1234"
@@ -56,7 +64,6 @@ private const val TEST_IPV6_ADDRESS3 = "FE80::1234"
 private const val TEST_IPV6_ADDRESS4 = "2100:0207::1234"
 private const val TEST_IPV4_ADDRESS1 = "203.0.113.10"
 private const val TEST_IPV4_ADDRESS2 = "203.0.113.11"
-private const val TEST_IPV4_ADDRESS3 = "203.0.113.12"
 
 private fun cellNc() = NetworkCapabilities.Builder()
         .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
@@ -70,6 +77,19 @@ private fun wlanNc() = NetworkCapabilities.Builder()
     .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
     .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+    .build()
+
+private fun vpnNc(uidRanges: Set<Range<Int>>) = NetworkCapabilities.Builder()
+    .addTransportType(NetworkCapabilities.TRANSPORT_VPN)
+    .setTransportInfo(
+        VpnTransportInfo(VpnManager.TYPE_VPN_PLATFORM, null /* sessionId */,
+            false /* bypassable */, false /* longLivedTcpConnectionsExpensive */)
+    )
+    .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
+    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+    .setUids(uidRanges)
     .build()
 
 private fun cellLp() = LinkProperties().also{
@@ -361,7 +381,7 @@ class CSDestroySocketTest : CSTest() {
     }
 
     private fun prepareNetworkAgent(interfaceName: String,
-        addresses: List<String>, transportType: Int): CSAgentWrapper {
+        addresses: List<String>, netCapabilities: NetworkCapabilities): CSAgentWrapper {
         val linkProperties = makeLp(interfaceName)
         for (address in addresses) {
             if (address.contains(":")) {
@@ -370,11 +390,7 @@ class CSDestroySocketTest : CSTest() {
                 linkProperties.addLinkAddress(LinkAddress("$address/24"))
             }
         }
-        val agent = if (transportType == NetworkCapabilities.TRANSPORT_CELLULAR) {
-            Agent(nc = cellNc(), lp = linkProperties)
-        } else {
-            Agent(nc = wlanNc(), lp = linkProperties)
-        }
+        val agent = Agent(netCapabilities, lp = linkProperties)
         agent.connect()
         waitForIdle()
         return agent
@@ -385,14 +401,11 @@ class CSDestroySocketTest : CSTest() {
         // Creates 3 NetworkAgent with various IP addresses(somre are used for only one network
         // agent some are used for multiple network agents.)
         val agent1 = prepareNetworkAgent(
-            "rmnet1", arrayListOf(TEST_IPV6_ADDRESS1, TEST_IPV4_ADDRESS1),
-            NetworkCapabilities.TRANSPORT_CELLULAR)
+            "rmnet1", arrayListOf(TEST_IPV6_ADDRESS1, TEST_IPV4_ADDRESS1), cellNc())
         val agent2 = prepareNetworkAgent(
-            "wlan1", arrayListOf(TEST_IPV6_ADDRESS2, TEST_IPV4_ADDRESS1),
-            NetworkCapabilities.TRANSPORT_WIFI)
+            "wlan1", arrayListOf(TEST_IPV6_ADDRESS2, TEST_IPV4_ADDRESS1), wlanNc())
         val agent3 = prepareNetworkAgent(
-            "rmnet2", arrayListOf(TEST_IPV6_ADDRESS2, TEST_IPV4_ADDRESS2),
-            NetworkCapabilities.TRANSPORT_WIFI)
+            "rmnet2", arrayListOf(TEST_IPV6_ADDRESS2, TEST_IPV4_ADDRESS2), cellNc())
         val networks1 = service.mIpToNetworksMap.get(InetAddress.getByName(TEST_IPV6_ADDRESS1))
         val networks2 = service.mIpToNetworksMap.get(InetAddress.getByName(TEST_IPV4_ADDRESS1))
         val networks3 = service.mIpToNetworksMap.get(InetAddress.getByName(TEST_IPV6_ADDRESS2))
@@ -452,8 +465,7 @@ class CSDestroySocketTest : CSTest() {
 
         // Add network agent#4
         val agent4 = prepareNetworkAgent(
-            "wlan2", arrayListOf(TEST_IPV6_ADDRESS3, TEST_IPV4_ADDRESS2),
-            NetworkCapabilities.TRANSPORT_WIFI)
+            "wlan2", arrayListOf(TEST_IPV6_ADDRESS3, TEST_IPV4_ADDRESS2), wlanNc())
         waitForIdle()
         // Verify mIpToNetworksMap status is properly updated.
         assertFalse(service.mIpToNetworksMap.contains(InetAddress.getByName(TEST_IPV6_ADDRESS3)))
@@ -465,5 +477,139 @@ class CSDestroySocketTest : CSTest() {
         waitForIdle()
         // Verify mIpToNetworksMap is empty.
         assertTrue(service.mIpToNetworksMap.isEmpty())
+    }
+
+    @Test
+    fun testDestroySocketForRemovedIpAddressFromSingleNetwork() {
+        val inOrder = inOrder(destroySocketsWrapper)
+        // add a test network.
+        val agent1 = prepareNetworkAgent(
+            "wlan2", arrayListOf(TEST_IPV6_ADDRESS1), wlanNc())
+
+        // IP address changed
+        val linkProperties2 = makeLp("wlan2")
+        linkProperties2.addLinkAddress(LinkAddress("$TEST_IPV6_ADDRESS2/64"))
+        agent1.sendLinkProperties(linkProperties2)
+        waitForIdle()
+
+        // verify destroy sockets on the removed IP address
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS1), null, null, 0, 0xffff)
+
+        // network disconnect
+        agent1.disconnect()
+        waitForIdle()
+
+        // verify destroy sockets on the removed IP address
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS2), null, null, 0, 0xffff)
+        inOrder.verifyNoMoreInteractions()
+    }
+
+    @Test
+    fun testDestroySocketForRemovedIpAddressFromMultipleNonVpnNetworks() {
+        val inOrder = inOrder(destroySocketsWrapper)
+
+        // add 4 test networks(non VPN). 3 have a same IP address, and 1 network has different one.
+        val agent1 = prepareNetworkAgent(
+            "rmnet1", arrayListOf(TEST_IPV6_ADDRESS1, TEST_IPV4_ADDRESS1), cellNc())
+        val agent2 = prepareNetworkAgent(
+            "wlan0", arrayListOf(TEST_IPV6_ADDRESS3, TEST_IPV6_ADDRESS1), wlanNc())
+        val agent3 = prepareNetworkAgent(
+            "rmnet2", arrayListOf(TEST_IPV6_ADDRESS2), cellNc())
+        val agent4 = prepareNetworkAgent(
+            "ipsec1", arrayListOf(TEST_IPV6_ADDRESS1), wlanNc())
+        // disconnect one network which has the same IP address with other networks.
+        agent1.disconnect()
+        waitForIdle()
+        val exemptNetIds = ArraySet<Int>()
+        exemptNetIds.add(agent2.network.netId)
+        exemptNetIds.add(agent4.network.netId)
+        // verify destroy sockets on the removed IP address and exempt netId lists.
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS1),
+            setOf(agent2.network.netId, agent4.network.netId), null, 0, 0xffff)
+        // verify destroy sockets on the removed IP address
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV4_ADDRESS1),
+            null, null, 0, 0xffff)
+
+        // disconnect network#2
+        agent2.disconnect()
+        waitForIdle()
+        // verify destroy sockets on the removed IP address and exempt netId lists.
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS1),
+            setOf(agent4.network.netId), null, 0, 0xffff)
+        // verify not to destroy sockets on the link local address at NetworkAgent update.
+        inOrder.verify(destroySocketsWrapper, never()).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS3), null, null, 0, 0xffff)
+
+        // disconnect network#3
+        agent3.disconnect()
+        waitForIdle()
+        // verify destroy sockets on the removed IP address
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS2), null, null, 0, 0xffff)
+
+        // disconnect network#4
+        agent4.disconnect()
+        waitForIdle()
+        // verify destroy sockets on the removed IP address
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS1), null, null, 0, 0xffff)
+    }
+
+    @Test
+    fun testDestroySocketForRemovedIpAddressFromMultipleVpnNetworks() {
+        val inOrder = inOrder(destroySocketsWrapper)
+
+        // add 3 VPN test networks and 1 non-VPN network.
+        val agent1 = prepareNetworkAgent(
+            "ipsec1", arrayListOf(TEST_IPV6_ADDRESS1, TEST_IPV4_ADDRESS1),
+            vpnNc(setOf(TEST_UID_RANGE1)))
+        val agent2 = prepareNetworkAgent(
+            "ipsec2", arrayListOf(
+                TEST_IPV6_ADDRESS3, TEST_IPV6_ADDRESS1), vpnNc(setOf(TEST_UID_RANGE2)))
+        val agent3 = prepareNetworkAgent(
+            "ipsec3", arrayListOf(TEST_IPV6_ADDRESS1), vpnNc(setOf(TEST_UID_RANGE3)))
+        val agent4 = prepareNetworkAgent(
+            "rmnet1", arrayListOf(TEST_IPV6_ADDRESS2, TEST_IPV4_ADDRESS1), cellNc())
+        waitForIdle()
+        // disconnect 1 VPN network(#1).
+        agent1.disconnect()
+        waitForIdle()
+        // verify destroy sockets on the removed IP address(TEST_IPV6_ADDRESS1) and VPN's uid range.
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS1), null, agent1.nc.uids, 0, 0xffff)
+        // verify destroy sockets on the removed IP address(TEST_IPV4_ADDRESS1). network#1 and
+        // network#4 use TEST_IPV4_ADDRESS1, however network#4 is not VPN network, so we destroy
+        // sockets only based on the removed IP address.
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV4_ADDRESS1), null, null, 0, 0xffff)
+
+        // disconnect 1 VPN network(#2).
+        agent2.disconnect()
+        waitForIdle()
+        // verify destroy sockets on the removed IP address(TEST_IPV6_ADDRESS1) and VPN's uid range.
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS1), null, agent2.nc.uids, 0, 0xffff)
+        // verify not to destroy sockets on the link local address at NetworkAgent update.
+        inOrder.verify(destroySocketsWrapper, never()).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS3), null, null, 0, 0xffff)
+
+        agent3.disconnect()
+        waitForIdle()
+        // verify destroy sockets on the removed IP address(TEST_IPV6_ADDRESS1).
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS1), null, null, 0, 0xffff)
+
+        agent4.disconnect()
+        waitForIdle()
+        // verify destroy sockets on the removed IP address.
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS2), null, null, 0, 0xffff)
+        inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV4_ADDRESS1), null, null, 0, 0xffff)
     }
 }
