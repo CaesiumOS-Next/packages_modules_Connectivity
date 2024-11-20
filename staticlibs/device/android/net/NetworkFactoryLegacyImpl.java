@@ -125,19 +125,7 @@ class NetworkFactoryLegacyImpl extends Handler
         if (DBG) mParent.log("Registering NetworkFactory");
 
         mProvider = new NetworkProvider(mContext, NetworkFactoryLegacyImpl.this.getLooper(),
-                logTag) {
-            @Override
-            public void onNetworkRequested(@NonNull NetworkRequest request, int score,
-                    int servingProviderId) {
-                handleAddRequest(request, score, servingProviderId);
-            }
-
-            @Override
-            public void onNetworkRequestWithdrawn(@NonNull NetworkRequest request) {
-                handleRemoveRequest(request);
-            }
-        };
-
+                logTag);
         ((ConnectivityManager) mContext.getSystemService(
             Context.CONNECTIVITY_SERVICE)).registerNetworkProvider(mProvider);
     }
