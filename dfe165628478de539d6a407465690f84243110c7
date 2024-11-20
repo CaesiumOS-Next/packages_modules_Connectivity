@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3f67804_806d1ecb",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-20T06:51:02Z",
+      "side": 1,
+      "message": "Better to implement the mDNS related test cases in ServiceDiscoveryTest (not ideal but feasible). \n\nThis is because the test infra network used in BorderRoutingTest is based on a TUN interface, which is point-to-point and hence no considered eligible for mDNS by NsdService.\nOn the contrary, ServiceDiscoveryTest uses a TAP interface as the test network and it\u0027s eligible for mDNS.",
+      "range": {
+        "startLine": 732,
+        "startChar": 0,
+        "endLine": 732,
+        "endChar": 85
+      },
+      "revId": "dfe165628478de539d6a407465690f84243110c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
