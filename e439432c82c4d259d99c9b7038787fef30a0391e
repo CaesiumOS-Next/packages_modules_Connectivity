@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "606492f5_38a5b9af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-20T01:39:26Z",
+      "side": 1,
+      "message": "Metrics part looks good to me but I don\u0027t have the context of the logic change. Over @reminv@google.com to take a look.",
+      "revId": "e439432c82c4d259d99c9b7038787fef30a0391e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
