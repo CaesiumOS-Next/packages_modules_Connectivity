@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13e7149e_0cfe6557",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T00:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e49fcf2_7db71b58",
+      "range": {
+        "startLine": 418,
+        "startChar": 15,
+        "endLine": 418,
+        "endChar": 32
+      },
+      "revId": "459524503b384a788f92b113bd46e9e3eb2d951e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f4a31b5_535d9985",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-19T06:44:24Z",
       "side": 1,
       "message": "Maybe not for this CL, do we really need this errnum local variable? I see previous code use errno directly.",
+      "range": {
+        "startLine": 544,
+        "startChar": 12,
+        "endLine": 544,
+        "endChar": 18
+      },
+      "revId": "459524503b384a788f92b113bd46e9e3eb2d951e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08dbfcf7_2301b9b5",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T00:31:29Z",
+      "side": 1,
+      "message": "I think that\u0027s possibly as a precaution for LOGD actually setting errno, which would be pretty inconvenient",
+      "parentUuid": "6f4a31b5_535d9985",
       "range": {
         "startLine": 544,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90da6c63_bee3572a",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T00:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8de089c9_a7d6af0e",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 214,
+        "endChar": 41
+      },
+      "revId": "459524503b384a788f92b113bd46e9e3eb2d951e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b66be1d_a76a5287",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb54c45f_e1b87899",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T00:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b66be1d_a76a5287",
+      "range": {
+        "startLine": 234,
+        "startChar": 12,
+        "endLine": 234,
+        "endChar": 27
+      },
+      "revId": "459524503b384a788f92b113bd46e9e3eb2d951e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fd4cbd3_a63ccd4f",
@@ -106,6 +202,24 @@
       "writtenOn": "2024-11-19T06:44:24Z",
       "side": 1,
       "message": "Is this Log.e redundant given we have the fail(error) in the following line?",
+      "revId": "459524503b384a788f92b113bd46e9e3eb2d951e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b21ab0cf_447cc1b5",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T00:31:29Z",
+      "side": 1,
+      "message": "The log also mentions the failed result (with source port and attempts), so it is more complete. Updated the comment above to be more explicit",
+      "parentUuid": "8fd4cbd3_a63ccd4f",
       "revId": "459524503b384a788f92b113bd46e9e3eb2d951e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
