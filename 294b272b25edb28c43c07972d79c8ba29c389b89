@@ -1,0 +1,385 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2030af87_dd3aeb20",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "More accurately, should this be after all tasks have finished running (not just after scheduling) ?",
+      "range": {
+        "startLine": 58,
+        "startChar": 48,
+        "endLine": 58,
+        "endChar": 57
+      },
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9241a230_bdb2ee05",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "IIUC this would close the FD immediately before the task runs, would this really work ?\n\nIf this doesn\u0027t work, I don\u0027t see a good way to leverage the AutoCloseable, and it would actually be more error prone so it\u0027s maybe best not making this class AutoCloseable",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f65a959f_6838450c",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "Nit: mFdInt would be more explicit, and match FileDescriptor#setInt$",
+      "range": {
+        "startLine": 81,
+        "startChar": 22,
+        "endLine": 81,
+        "endChar": 25
+      },
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48e4f552_0b45036a",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "Nit: considering that this is in mParcelFileDescriptor.getFileDescriptor, this member isn\u0027t really needed",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0b2f1df_5ed7ea71",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "Not for this CL but it would probably be useful to have a way to post a Message instead of a Runnable on the Handler, otherwise StateMachine like IpClient would need to do 2 Handler loops (one to run the Runnable which would post the message, and the message itself).\n\nArguably only supporting a Message and not a Runnable could work since the caller Handler can run the code in its handleMessage method, but it\u0027s not always convenient.",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1047a2f_e27c847b",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "Nit: A comment to document that the constructor is safe to call on another thread today because it only sets final members and registers the event to call on the handler could help, because it would be easy to make a mistake and add code that makes it unsafe (for example setting non-final members).",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62b89b9b_4cbaec30",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "mHandler.post would be best, otherwise the setDelayedTask call would block until the task runs, so callers would get inconsistent behavior depending on the delay",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db942895_e6790329",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary, mTask was checked to be null above",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05242dee_fb8f49ba",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "Since isRunning checks if the FD is valid, IIUC this would only run if the FD is already released ?",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00a14e4a_f1b10ef5",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "Question: what happens if this is not done here ?",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d28ceddd_22a2764d",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "This always returns true, better make the method void",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0165986_5ef67064",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "mParcelFileDescriptor.close() is what the ParcelFileDescriptor API expects callers to use I think",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 33
+      },
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60296c72_0143f4b1",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "Is this still necessary ? IIUC this can work from API 23 ?",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5de78d6_0644eec6",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "I think a lower timeout like 10ms would be fine, especially considering that this doesn\u0027t check that the task is executed after the delay",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "188aab55_8a727c2e",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "Nit: not really necessary I think, unless you want to check that the CV is still closed before the timeout",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "411a6372_888fb24d",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "assertTrue(cv.block(...))",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "936d6ebb_a3e5a8a6",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "Nit: handler.post / handler.waitForIdle is equivalent to HandlerUtils.visibleOnHandlerThread I think",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30980d10_c132cff4",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "Also here 10ms or even 5ms should be enough since the task is cancelled immediately on the same handler loop scheduling it, so it has no chance to run",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed9c2671_8380f04c",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "For consistency with the test above, ConditionVariable would be enough since only true is used (and assertFalse instead of assertFailsWith)",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5a95602_22118ecc",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "With a delayTime of 10ms, a timeout of 20ms should be enough to catch bugs with at least very, very frequent flakes",
+      "range": {
+        "startLine": 77,
+        "startChar": 55,
+        "endLine": 77,
+        "endChar": 73
+      },
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34fd82c9_5848a115",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T01:48:34Z",
+      "side": 1,
+      "message": "Nit: use tryTest / cleanup to avoid leaks on failure",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
