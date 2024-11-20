@@ -117,6 +117,30 @@
       },
       "revId": "bf3f11cf7f0a47dc9aca71a101967f9e136f46bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5b0ae8f_2bf9a170",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-20T02:20:31Z",
+      "side": 0,
+      "message": "yes it calls `trackAvailableInterfaces()` but it does not reaches the code path of sending out broadcast, since when `setIncludeTestInterfaces(false)`, `maybeTrackInterface()` returns immediately on `!isValidEthernetInterface(iface)` because it is not a valid test iface any more because `mIncludeTestInterfaces` is already set to false.\nThen when calling `setIncludeTestInterfaces(true)` after this, since the iface is not removed from mFactory, so it is already tracked, no cb is triggered.",
+      "parentUuid": "d7ac091a_74b8d54b",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 604,
+        "endChar": 46
+      },
+      "revId": "bf3f11cf7f0a47dc9aca71a101967f9e136f46bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
