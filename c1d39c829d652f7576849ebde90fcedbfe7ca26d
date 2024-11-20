@@ -16,6 +16,24 @@
       "message": "Please add a blank line on the second line of the CL and add a Bug tag.",
       "revId": "c1d39c829d652f7576849ebde90fcedbfe7ca26d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44fe255c_e41f1a53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2024-11-20T03:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2328328_d6d24c20",
+      "revId": "c1d39c829d652f7576849ebde90fcedbfe7ca26d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
