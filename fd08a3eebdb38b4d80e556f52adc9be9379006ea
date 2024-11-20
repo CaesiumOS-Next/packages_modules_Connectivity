@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76feb200_ed88b05a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-20T05:05:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8087652d_126eb26c",
+      "range": {
+        "startLine": 874,
+        "startChar": 51,
+        "endLine": 874,
+        "endChar": 59
+      },
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20c919a8_bd313977",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-20T00:42:33Z",
       "side": 1,
       "message": "We can probably lower this to 1 second to speed up the test.",
+      "range": {
+        "startLine": 889,
+        "startChar": 35,
+        "endLine": 889,
+        "endChar": 61
+      },
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a57ae2b_5ef5c2df",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-20T05:05:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20c919a8_bd313977",
       "range": {
         "startLine": 889,
         "startChar": 35,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5f874b9_d0324c6f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-20T05:05:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d3bb729_37115e52",
+      "range": {
+        "startLine": 890,
+        "startChar": 22,
+        "endLine": 890,
+        "endChar": 29
+      },
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57dfb4a6_25a7ff37",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-11-20T00:42:33Z",
       "side": 1,
       "message": "InetAddresses.parseNumericAddress?",
+      "range": {
+        "startLine": 927,
+        "startChar": 40,
+        "endLine": 927,
+        "endChar": 61
+      },
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1640866d_d39b3e51",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-20T05:05:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57dfb4a6_25a7ff37",
       "range": {
         "startLine": 927,
         "startChar": 40,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88d30d8a_75dfc1a0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-20T05:05:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e4943ed_b6b1c59a",
+      "range": {
+        "startLine": 934,
+        "startChar": 52,
+        "endLine": 934,
+        "endChar": 61
+      },
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74782ace_c35cfe0b",
@@ -129,6 +249,24 @@
       "writtenOn": "2024-11-20T00:42:33Z",
       "side": 1,
       "message": "I find these nested if statements hard to read. Can we simplify this with something like:\n\n    if (isUserdebug \u0026\u0026 !cellNetworkAddresses.contains(cellAddress)) {\n        ...\n    } else {\n        assertContains(cellNetworkAddresses, cellAddress);\n    }",
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f35e9ed_9d9369fa",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-20T05:05:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74782ace_c35cfe0b",
       "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
