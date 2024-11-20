@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8087652d_126eb26c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-20T00:42:33Z",
+      "side": 1,
+      "message": "Can we make this random as well?",
+      "range": {
+        "startLine": 874,
+        "startChar": 51,
+        "endLine": 874,
+        "endChar": 59
+      },
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20c919a8_bd313977",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-20T00:42:33Z",
+      "side": 1,
+      "message": "We can probably lower this to 1 second to speed up the test.",
+      "range": {
+        "startLine": 889,
+        "startChar": 35,
+        "endLine": 889,
+        "endChar": 61
+      },
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d3bb729_37115e52",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-20T00:42:33Z",
+      "side": 1,
+      "message": "It looks like if either the request or the response is dropped, then the test will fail. Can we put this in a retry loop that retries the receive up to, say, 3 times?",
+      "range": {
+        "startLine": 890,
+        "startChar": 22,
+        "endLine": 890,
+        "endChar": 29
+      },
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57dfb4a6_25a7ff37",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-20T00:42:33Z",
+      "side": 1,
+      "message": "InetAddresses.parseNumericAddress?",
+      "range": {
+        "startLine": 927,
+        "startChar": 40,
+        "endLine": 927,
+        "endChar": 61
+      },
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e4943ed_b6b1c59a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-20T00:42:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 934,
+        "startChar": 52,
+        "endLine": 934,
+        "endChar": 61
+      },
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74782ace_c35cfe0b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-20T00:42:33Z",
+      "side": 1,
+      "message": "I find these nested if statements hard to read. Can we simplify this with something like:\n\n    if (isUserdebug \u0026\u0026 !cellNetworkAddresses.contains(cellAddress)) {\n        ...\n    } else {\n        assertContains(cellNetworkAddresses, cellAddress);\n    }",
+      "revId": "fd08a3eebdb38b4d80e556f52adc9be9379006ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
