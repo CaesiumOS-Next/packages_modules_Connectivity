@@ -22,6 +22,30 @@
       },
       "revId": "dfe165628478de539d6a407465690f84243110c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5937e226_180f854a",
+        "filename": "thread/tests/integration/src/android/net/thread/BorderRoutingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2024-11-20T07:59:06Z",
+      "side": 1,
+      "message": "I see, moved to ServiceDiscoveryTest. Also added a test target for trel feature flag disabled.",
+      "parentUuid": "f3f67804_806d1ecb",
+      "range": {
+        "startLine": 732,
+        "startChar": 0,
+        "endLine": 732,
+        "endChar": 85
+      },
+      "revId": "dfe165628478de539d6a407465690f84243110c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
