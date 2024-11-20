@@ -22,6 +22,30 @@
       },
       "revId": "fc76580eddb441a35de78b0f152ac0fcede62dda",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf534e85_b18822ff",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-20T02:30:11Z",
+      "side": 1,
+      "message": "Thanks for advice, modified.",
+      "parentUuid": "d0df6127_11581d99",
+      "range": {
+        "startLine": 143,
+        "startChar": 20,
+        "endLine": 143,
+        "endChar": 29
+      },
+      "revId": "fc76580eddb441a35de78b0f152ac0fcede62dda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
