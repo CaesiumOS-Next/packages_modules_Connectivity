@@ -96,6 +96,7 @@ android_test {
     ],
     test_suites: [
         "cts",
+        "vts",
         "mts-tethering",
         "mcts-tethering",
         "general-tests",
