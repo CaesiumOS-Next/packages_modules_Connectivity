@@ -77,12 +77,12 @@ cc_test {
     static_libs: [
         "libbase",
         "libnetd_updatable",
+        "libprocessgroup",
     ],
     shared_libs: [
         "libcutils",
         "liblog",
         "libnetdutils",
-        "libprocessgroup",
     ],
     compile_multilib: "both",
     multilib: {
