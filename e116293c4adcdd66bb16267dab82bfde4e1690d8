@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2b14749_39e67a93",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T23:38:51Z",
+      "side": 1,
+      "message": "Alarms that use an OnAlarmListener instead of a PendingIntent might be more efficient considering that the process is always up ? But I think you\u0027d need to handle the repeating manually since I don\u0027t see a version to do repeating alarms with a callback.\n\nThe choice is up to you though",
+      "revId": "e116293c4adcdd66bb16267dab82bfde4e1690d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

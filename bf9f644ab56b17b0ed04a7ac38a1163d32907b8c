@@ -87,6 +87,24 @@
       "parentUuid": "599391ca_489e5831",
       "revId": "bf9f644ab56b17b0ed04a7ac38a1163d32907b8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac540b10_e27796e1",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T23:38:51Z",
+      "side": 1,
+      "message": "When you\u0027re not touching the device most of the time it will turn off the CPU; you can see that when looking at a bugreport and opening it in the bug tool, see the \"device awake\" metric in the battery historian. On a random bugreport I had sitting around, out of 6 hours screen off time there are only 3 hours of uptime.\n\nSo it\u0027s not really the system_server being in deep sleep, it\u0027s the whole device turning off the CPU to save power. The system_server process is still alive in memory but there\u0027s no CPU cycles during that time. That\u0027s why holding a wakelock has a drastic effect on battery life :)\n\nYour new change LGTM at high level but I\u0027ll leave it up to your team for detailed review",
+      "parentUuid": "ed2a02cb_70cd154b",
+      "revId": "bf9f644ab56b17b0ed04a7ac38a1163d32907b8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
