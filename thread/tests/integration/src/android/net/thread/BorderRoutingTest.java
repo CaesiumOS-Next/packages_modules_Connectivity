@@ -19,7 +19,10 @@ package android.net.thread;
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.thread.utils.IntegrationTestUtils.DEFAULT_DATASET;
+import static android.net.thread.utils.IntegrationTestUtils.SERVICE_DISCOVERY_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.buildIcmpv4EchoReply;
+import static android.net.thread.utils.IntegrationTestUtils.discoverForServiceLost;
+import static android.net.thread.utils.IntegrationTestUtils.discoverService;
 import static android.net.thread.utils.IntegrationTestUtils.enableThreadAndJoinNetwork;
 import static android.net.thread.utils.IntegrationTestUtils.getIpv6LinkAddresses;
 import static android.net.thread.utils.IntegrationTestUtils.isExpectedIcmpv4Packet;
@@ -46,14 +49,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 import android.content.Context;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.RouteInfo;
+import android.net.nsd.NsdManager;
+import android.net.nsd.NsdServiceInfo;
 import android.net.thread.utils.FullThreadDevice;
 import android.net.thread.utils.InfraNetworkDevice;
 import android.net.thread.utils.IntegrationTestUtils;
@@ -91,6 +98,9 @@ import java.nio.ByteBuffer;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Predicate;
 
 /** Integration test cases for Thread Border Routing feature. */
@@ -127,6 +137,7 @@ public class BorderRoutingTest {
     private List<FullThreadDevice> mFtds;
     private PollPacketReader mInfraNetworkReader;
     private InfraNetworkDevice mInfraDevice;
+    private NsdManager mNsdManager;
 
     @BeforeClass
     public static void beforeClass() throws Exception {
@@ -144,6 +155,7 @@ public class BorderRoutingTest {
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
         mFtds = new ArrayList<>();
+        mNsdManager = mContext.getSystemService(NsdManager.class);
 
         setUpInfraNetwork();
 
@@ -714,6 +726,27 @@ public class BorderRoutingTest {
         assertNotNull(
                 pollForIcmpPacketOnInfraNetwork(
                         ICMPV6_ECHO_REQUEST_TYPE, null, AIL_NAT64_SYNTHESIZED_SERVER_ADDR));
+    }
+
+    @Test
+    public void trelFromEnabledToDisabled_trelServiceUnpublished() throws Exception {
+        // TREL is enabled by default
+        mController.joinAndWait(DEFAULT_DATASET);
+        assertThat(discoverService(mNsdManager, "_trel._udp")).isNotNull();
+
+        CompletableFuture<NsdServiceInfo> serviceLostFuture = new CompletableFuture<>();
+        NsdManager.DiscoveryListener listener =
+                discoverForServiceLost(mNsdManager, "_trel._udp", serviceLostFuture);
+        mOtCtl.setTrelEnabled(false);
+
+        try {
+            serviceLostFuture.get(SERVICE_DISCOVERY_TIMEOUT.toMillis(), MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException ignored) {
+            // It's fine if the service lost event didn't show up.
+        } finally {
+            mNsdManager.stopServiceDiscovery(listener);
+        }
+        assertThrows(TimeoutException.class, () -> discoverService(mNsdManager, "_trel._udp"));
     }
 
     private void setUpInfraNetwork() throws Exception {

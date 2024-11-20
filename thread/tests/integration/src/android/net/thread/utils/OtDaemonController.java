@@ -144,6 +144,10 @@ public final class OtDaemonController {
         executeCommand("netdata register");
     }
 
+    public void setTrelEnabled(boolean enabled) {
+        executeCommand("trel " + (enabled ? "enable" : "disable"));
+    }
+
     public int getTrelPort() {
         return Integer.parseInt(executeCommandAndParse("trel port").get(0));
     }
