@@ -69,6 +69,24 @@
       "parentUuid": "a6903332_8549ae40",
       "revId": "bf9f644ab56b17b0ed04a7ac38a1163d32907b8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed2a02cb_70cd154b",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-20T14:25:00Z",
+      "side": 1,
+      "message": "I went for the AlarmManager, PTAL.",
+      "parentUuid": "599391ca_489e5831",
+      "revId": "bf9f644ab56b17b0ed04a7ac38a1163d32907b8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
