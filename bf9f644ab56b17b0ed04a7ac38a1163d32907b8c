@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c3ccafe_32bb7b56",
+        "filename": "common/networksecurity_flags.aconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-11-20T02:21:15Z",
+      "side": 1,
+      "message": "Is a new flag strictly necessary? I understand we are changing the behaviour here, but would it be fine to rely on the existing flag?",
+      "revId": "bf9f644ab56b17b0ed04a7ac38a1163d32907b8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6903332_8549ae40",
         "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
         "patchSetId": 2
