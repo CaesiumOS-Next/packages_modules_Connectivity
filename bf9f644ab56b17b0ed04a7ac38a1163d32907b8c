@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f24eb919_9472c220",
+        "filename": "common/networksecurity_flags.aconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-20T09:59:46Z",
+      "side": 1,
+      "message": "Yeah, adding a flag is no fun, especially this late in the process. I am a bit worried about submitting this change without a flag, though. The change in behavior is pretty big. I checked with Thomas, and we should have enough time to ramp up a new flag, even if it is rather tight.",
+      "parentUuid": "3c3ccafe_32bb7b56",
+      "revId": "bf9f644ab56b17b0ed04a7ac38a1163d32907b8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6903332_8549ae40",
         "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2024-11-19T23:32:33Z",
       "side": 1,
       "message": "AFAIK ExecutorService does not include time in deep sleep in its delays, so the initial delay and period may end up much larger than expected.\n\nSomething like aosp/3268573 (to run \"next time CPU is up after at least X seconds\") or AlarmManager could avoid this problem.",
+      "revId": "bf9f644ab56b17b0ed04a7ac38a1163d32907b8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "599391ca_489e5831",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-20T09:59:46Z",
+      "side": 1,
+      "message": "Thanks for the tip, I\u0027ll look into those pointers 👍\n\nOut of curiosity, how likely is it for system_server to be in deep sleep?\nIsn\u0027t the system_server process supposed to be alive all the time?",
+      "parentUuid": "a6903332_8549ae40",
       "revId": "bf9f644ab56b17b0ed04a7ac38a1163d32907b8c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
