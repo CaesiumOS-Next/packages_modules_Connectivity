@@ -39,10 +39,9 @@ import java.util.concurrent.Executor;
  * {@link NetworkAgent}s. The networks can then provide connectivity to apps and can be interacted
  * with via networking APIs such as {@link ConnectivityManager}.
  *
- * Subclasses should implement {@link #onNetworkRequested} and {@link #onNetworkRequestWithdrawn}
- * to receive {@link NetworkRequest}s sent by the system and by apps. A network that is not the
- * best (highest-scoring) network for any request is generally not used by the system, and torn
- * down.
+ * Subclasses should register a {@link NetworkOffer} to receive {@link NetworkRequest}s sent by the
+ * system and by apps. A network that is not the best (highest-scoring) network for any request is
+ * generally not used by the system, and torn down.
  *
  * @hide
  */
@@ -75,8 +74,7 @@ public class NetworkProvider {
     /**
      * Constructs a new NetworkProvider.
      *
-     * @param looper the Looper on which to run {@link #onNetworkRequested} and
-     *               {@link #onNetworkRequestWithdrawn}.
+     * @param looper the Looper on which to handle the {@link Messenger} messages.
      * @param name the name of the listener, used only for debugging.
      *
      * @hide
@@ -88,19 +86,12 @@ public class NetworkProvider {
         final Handler handler = new Handler(looper) {
             @Override
             public void handleMessage(Message m) {
-                switch (m.what) {
-                    case CMD_REQUEST_NETWORK:
-                        onNetworkRequested((NetworkRequest) m.obj, m.arg1, m.arg2);
-                        break;
-                    case CMD_CANCEL_REQUEST:
-                        onNetworkRequestWithdrawn((NetworkRequest) m.obj);
-                        break;
-                    default:
-                        Log.e(mName, "Unhandled message: " + m.what);
-                }
+                Log.e(mName, "Unhandled message: " + m.what);
             }
         };
         mContext = context;
+        // TODO: The Messenger is currently entirely unused. Either reuse it (for the reserveNetwork
+        // API) or remove it altogether.
         mMessenger = new Messenger(handler);
         mName = name;
     }
@@ -138,17 +129,25 @@ public class NetworkProvider {
      * @param score the score of the network currently satisfying the request, or 0 if none.
      * @param providerId the ID of the provider that created the network currently satisfying this
      *                   request, or {@link #ID_NONE} if none.
+     * @deprecated ConnectivityService does not call this method anymore. Register a NetworkOffer
+     * instead.
      *
      *  @hide
      */
+    @Deprecated
     @SystemApi
     public void onNetworkRequested(@NonNull NetworkRequest request,
             @IntRange(from = 0, to = 99) int score, int providerId) {}
 
     /**
      *  Called when a NetworkRequest is withdrawn.
+     *
+     * @deprecated ConnectivityService does not call this method anymore. Register a NetworkOffer
+     * instead.
+     *
      *  @hide
      */
+    @Deprecated
     @SystemApi
     public void onNetworkRequestWithdrawn(@NonNull NetworkRequest request) {}
 
