@@ -100,6 +100,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "368efda9_021ebb5b",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-20T02:52:52Z",
+      "side": 1,
+      "message": "Actually looking at the usage in mDNS it looks like it\u0027s mostly messages.\n\nAt least I think you could make it more generic by using an interface (ITask ?) like suggested in https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3270117/comment/0dee8072_3be7c186/\n\nSo here you could have something like:\n\n```\ninterface ITask {\n    // For Runnables, just call Handler#post with a wrapped runnable\n    void run(Handler); \n}\n```",
+      "parentUuid": "f0b2f1df_5ed7ea71",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f1047a2f_e27c847b",
         "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
         "patchSetId": 11
