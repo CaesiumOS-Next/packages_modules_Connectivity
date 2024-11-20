@@ -18,6 +18,7 @@ package android.net.ip;
 
 import static android.net.INetd.IF_STATE_DOWN;
 import static android.net.INetd.IF_STATE_UP;
+import static android.net.INetd.LOCAL_NET_ID;
 import static android.net.RouteInfo.RTN_UNICAST;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
@@ -346,10 +347,10 @@ public class IpServerTest {
 
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
         InOrder inOrder = inOrder(mCallback, mNetd, mRoutingCoordinatorManager);
+        assertTetherInterface(inOrder);
         if (isAtLeastT()) {
             assertStartIpv4(inOrder, CONNECTIVITY_SCOPE_GLOBAL, true);
         }
-        assertTetherInterface(inOrder);
         // T- Bluetooth set route by themselves.
         assertLeavingBaseServingStateEnter(inOrder, STATE_TETHERED, isAtLeastT());
         verifyNoMoreInteractions(mNetd, mCallback);
@@ -363,7 +364,7 @@ public class IpServerTest {
         InOrder inOrder = inOrder(mCallback, mNetd, mRoutingCoordinatorManager, mBpfCoordinator);
         assertStopIpv6(inOrder);
         assertUntetherInterface(inOrder);
-        assertStopIpv4(inOrder);
+        assertStopIpv4(inOrder, true);
         assertEnterInitialState(inOrder, TETHER_ERROR_NO_ERROR);
         verify(mTetheringMetrics).updateErrorCode(eq(TETHERING_BLUETOOTH),
                 eq(TETHER_ERROR_NO_ERROR));
@@ -377,8 +378,8 @@ public class IpServerTest {
 
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
         InOrder inOrder = inOrder(mCallback, mNetd, mRoutingCoordinatorManager);
-        assertStartIpv4(inOrder, CONNECTIVITY_SCOPE_GLOBAL, true);
         assertTetherInterface(inOrder);
+        assertStartIpv4(inOrder, CONNECTIVITY_SCOPE_GLOBAL, true);
         assertLeavingBaseServingStateEnter(inOrder, STATE_TETHERED, true);
         verifyNoMoreInteractions(mNetd, mCallback, mRoutingCoordinatorManager);
     }
@@ -389,8 +390,8 @@ public class IpServerTest {
 
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_LOCAL_ONLY);
         InOrder inOrder = inOrder(mCallback, mNetd, mRoutingCoordinatorManager);
-        assertStartIpv4(inOrder, CONNECTIVITY_SCOPE_LOCAL, false);
         assertTetherInterface(inOrder);
+        assertStartIpv4(inOrder, CONNECTIVITY_SCOPE_LOCAL, false);
         assertLeavingBaseServingStateEnter(inOrder, STATE_LOCAL_ONLY, true);
         verifyNoMoreInteractions(mNetd, mCallback, mRoutingCoordinatorManager);
     }
@@ -404,8 +405,8 @@ public class IpServerTest {
         InOrder inOrder = inOrder(mCallback, mNetd, mRoutingCoordinatorManager);
         // When using WiFi P2p dedicated IP, the IpServer just picks the IP address without
         // requesting for it at RoutingCoordinatorManager.
-        assertStartIpv4(inOrder, DO_NOT_REQUEST_STICKY_DOWNSTREAM, false);
         assertTetherInterface(inOrder);
+        assertStartIpv4(inOrder, DO_NOT_REQUEST_STICKY_DOWNSTREAM, false);
         assertLeavingBaseServingStateEnter(inOrder, STATE_LOCAL_ONLY, true);
         assertEquals(List.of(new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS)),
                 mLinkPropertiesCaptor.getValue().getLinkAddresses());
@@ -518,12 +519,12 @@ public class IpServerTest {
                 mNetd, mCallback, mBpfCoordinator, mRoutingCoordinatorManager);
         dispatchCommand(IpServer.CMD_TETHER_UNREQUESTED);
         InOrder inOrder = inOrder(mNetd, mCallback, mBpfCoordinator, mRoutingCoordinatorManager);
-        assertExitTetheredState(inOrder);
+        assertExitTetheredState(inOrder, true);
 
         // Exiting BaseServingState.
         assertStopIpv6(inOrder);
         assertUntetherInterface(inOrder);
-        assertStopIpv4(inOrder);
+        assertStopIpv4(inOrder, true);
         assertLeavingBaseServingStateExit(inOrder);
 
         assertEnterInitialState(inOrder, TETHER_ERROR_NO_ERROR);
@@ -560,11 +561,21 @@ public class IpServerTest {
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
 
         InOrder inOrder = inOrder(mCallback, mNetd, mRoutingCoordinatorManager, mBpfCoordinator);
-        assertStartIpv4(inOrder, CONNECTIVITY_SCOPE_GLOBAL, true);
-
         // Verify error handling caused by the Exception thrown by tetherInterfaceAdd.
         inOrder.verify(mNetd).tetherInterfaceAdd(IFACE_NAME);
-        assertStopIpv4(inOrder);
+        // Verify BaseServingState#enter exits with error code.
+        inOrder.verify(mCallback).updateInterfaceState(
+                mIpServer, STATE_TETHERED, TETHER_ERROR_TETHER_IFACE_ERROR);
+        inOrder.verify(mCallback).updateLinkProperties(
+                eq(mIpServer), mLinkPropertiesCaptor.capture());
+        assertExitTetheredState(inOrder, false);
+
+        // Exiting BaseServingState.
+        // StopIpv6 do nothing because RaDaemon is not even started.
+        assertUntetherInterface(inOrder);
+        assertStopIpv4(inOrder, false);
+        assertLeavingBaseServingStateExit(inOrder);
+
         assertEnterInitialState(inOrder, TETHER_ERROR_TETHER_IFACE_ERROR);
 
         // Verify metrics update.
@@ -663,8 +674,8 @@ public class IpServerTest {
         final ArgumentCaptor<LinkProperties> lpCaptor =
                 ArgumentCaptor.forClass(LinkProperties.class);
         InOrder inOrder = inOrder(mNetd, mCallback, mRoutingCoordinatorManager);
-        assertStartIpv4(inOrder, CONNECTIVITY_SCOPE_LOCAL, true);
         assertTetherInterface(inOrder);
+        assertStartIpv4(inOrder, CONNECTIVITY_SCOPE_LOCAL, true);
         assertLeavingBaseServingStateEnter(inOrder, STATE_LOCAL_ONLY, true);
         verifyNoMoreInteractions(mCallback, mRoutingCoordinatorManager);
 
@@ -1042,15 +1053,12 @@ public class IpServerTest {
 
     private void assertTetherInterface(InOrder inOrder) throws RemoteException {
         inOrder.verify(mNetd).tetherInterfaceAdd(IFACE_NAME);
-        inOrder.verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
-        // One for ipv4 route, one for ipv6 link local route.
-        inOrder.verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(IFACE_NAME),
-                any(), any());
+        inOrder.verify(mNetd).networkAddInterface(LOCAL_NET_ID, IFACE_NAME);
     }
 
     private void assertUntetherInterface(InOrder inOrder) throws RemoteException {
         inOrder.verify(mNetd).tetherInterfaceRemove(IFACE_NAME);
-        inOrder.verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
+        inOrder.verify(mNetd).networkRemoveInterface(LOCAL_NET_ID, IFACE_NAME);
     }
 
     private void assertStartIpv4(InOrder inOrder, int expectedScope,
@@ -1070,15 +1078,23 @@ public class IpServerTest {
                 IFACE_NAME.equals(cfg.ifName)
                         && (expectedIfUp ? checkContainsFlag(cfg.flags, IF_STATE_UP)
                         : assertNotContainsFlag(cfg.flags, IF_STATE_UP))));
+        inOrder.verify(mRoutingCoordinatorManager).addInterfaceToNetwork(LOCAL_NET_ID, IFACE_NAME);
+        // One for ipv4 route, one for ipv6 link local route, see NetdUtils#addRoutesToNetwork.
+        inOrder.verify(mNetd, times(2)).networkAddRoute(eq(LOCAL_NET_ID), eq(IFACE_NAME),
+                any(), any());
     }
 
-    private void assertStopIpv4(InOrder inOrder) throws RemoteException {
+    private void assertStopIpv4(InOrder inOrder, boolean started) throws RemoteException {
         // Interactions introduced by stopIpv4().
         // One is ipv4 address clear (set to 0.0.0.0), another is set interface down which only
         // happen after T. Before T, the interface configuration control in bluetooth side.
-        if (isAtLeastT()) {
-            inOrder.verify(mNetd).interfaceSetCfg(
-                    argThat(cfg -> checkContainsFlag(cfg.flags, IF_STATE_DOWN)));
+        if (started) {
+            if (isAtLeastT()) {
+                inOrder.verify(mNetd).interfaceSetCfg(
+                        argThat(cfg -> checkContainsFlag(cfg.flags, IF_STATE_DOWN)));
+            }
+            inOrder.verify(mNetd).networkRemoveRoute(eq(LOCAL_NET_ID), eq(IFACE_NAME),
+                    any(), any());
         }
         inOrder.verify(mNetd).interfaceSetCfg(argThat(cfg -> cfg.flags.length == 0));
         inOrder.verify(mRoutingCoordinatorManager).releaseDownstream(any());
@@ -1099,12 +1115,14 @@ public class IpServerTest {
         }
     }
 
-    private void assertExitTetheredState(InOrder inOrder) {
-        inOrder.verify(mBpfCoordinator).maybeDetachProgram(IFACE_NAME, UPSTREAM_IFACE);
-        inOrder.verify(mRoutingCoordinatorManager)
-                .removeInterfaceForward(IFACE_NAME, UPSTREAM_IFACE);
-        inOrder.verify(mBpfCoordinator).updateIpv6UpstreamInterface(
-                mIpServer, NO_UPSTREAM, NO_PREFIXES);
+    private void assertExitTetheredState(InOrder inOrder, boolean hasUpstream) {
+        if (hasUpstream) {
+            inOrder.verify(mBpfCoordinator).maybeDetachProgram(IFACE_NAME, UPSTREAM_IFACE);
+            inOrder.verify(mRoutingCoordinatorManager)
+                    .removeInterfaceForward(IFACE_NAME, UPSTREAM_IFACE);
+            inOrder.verify(mBpfCoordinator).updateIpv6UpstreamInterface(
+                    mIpServer, NO_UPSTREAM, NO_PREFIXES);
+        }
         // When tethering stops, upstream interface is set to zero and thus clearing all upstream
         // rules. Downstream rules are needed to be cleared explicitly by calling
         // BpfCoordinator#clearAllIpv6Rules in TetheredState#exit.
