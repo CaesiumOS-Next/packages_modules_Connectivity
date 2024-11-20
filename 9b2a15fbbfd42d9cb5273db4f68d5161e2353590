@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2bf5f1f_c3df7e1b",
+        "filename": "thread/tests/integration/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2024-11-20T10:09:15Z",
+      "side": 1,
+      "message": "I think the 15-minutes limit is per test module, right? This is a new test module now.\n\nThe test module will be removed when we clean up the flag anyway.\n\n\u003e Could you limit the scope of the test case?\n\nTREL fundamentally changes how Thread functionalities work, and better to be careful for the first-time onboarding to this runtime flag system in mainline. The goal is to make sure everything Thread works fine when TREL flag is rolled back - this is the whole point of the P/H flag system. For future feature flags which have smaller scope, I think we don\u0027t need a separate test module like this, but a way to be able to test the flag-disabled case needs to be reasoned out.",
+      "parentUuid": "6e633403_689a46f1",
+      "range": {
+        "startLine": 67,
+        "startChar": 11,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "9b2a15fbbfd42d9cb5273db4f68d5161e2353590",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e8d6b33b_b2c0e4ac",
         "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
         "patchSetId": 3
