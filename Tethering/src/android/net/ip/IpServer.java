@@ -19,6 +19,10 @@ package android.net.ip;
 import static android.net.RouteInfo.RTN_UNICAST;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
+import static android.net.TetheringManager.TETHERING_BLUETOOTH;
+import static android.net.TetheringManager.TETHERING_NCM;
+import static android.net.TetheringManager.TETHERING_WIFI;
+import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHER_ERROR_DHCPSERVER_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_ENABLE_FORWARDING_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_IFACE_CFG_ERROR;
@@ -580,8 +584,8 @@ public class IpServer extends StateMachineShim {
             @NonNull final Inet4Address dnsServer, @NonNull LinkAddress serverAddr,
             @Nullable Inet4Address clientAddr) {
         final boolean changePrefixOnDecline =
-                (mInterfaceType == TetheringManager.TETHERING_NCM && clientAddr == null);
-        final int subnetPrefixLength = mInterfaceType == TetheringManager.TETHERING_WIFI_P2P
+                (mInterfaceType == TETHERING_NCM && clientAddr == null);
+        final int subnetPrefixLength = mInterfaceType == TETHERING_WIFI_P2P
                 ? mP2pLeasesSubnetPrefixLength : 0 /* default value */;
 
         return new DhcpServingParamsParcelExt()
@@ -681,8 +685,8 @@ public class IpServer extends StateMachineShim {
         final IpPrefix ipv4Prefix = asIpPrefix(mIpv4Address);
 
         final Boolean setIfaceUp;
-        if (mInterfaceType == TetheringManager.TETHERING_WIFI
-                || mInterfaceType == TetheringManager.TETHERING_WIFI_P2P
+        if (mInterfaceType == TETHERING_WIFI
+                || mInterfaceType == TETHERING_WIFI_P2P
                 || mInterfaceType == TetheringManager.TETHERING_ETHERNET
                 || mInterfaceType == TetheringManager.TETHERING_WIGIG) {
             // The WiFi and Ethernet stack has ownership of the interface up/down state.
@@ -700,22 +704,24 @@ public class IpServer extends StateMachineShim {
 
         if (enabled) {
             mLinkProperties.addLinkAddress(mIpv4Address);
-            mLinkProperties.addRoute(getDirectConnectedRoute(mIpv4Address));
+            addRoutesToNetworkAndLinkProperties(INetd.LOCAL_NET_ID,
+                    List.of(getDirectConnectedRoute(mIpv4Address)));
         } else {
             mLinkProperties.removeLinkAddress(mIpv4Address);
-            mLinkProperties.removeRoute(getDirectConnectedRoute(mIpv4Address));
+            removeRoutesFromNetworkAndLinkProperties(INetd.LOCAL_NET_ID,
+                    List.of(getDirectConnectedRoute(mIpv4Address)));
         }
         return configureDhcp(enabled, mIpv4Address, mStaticIpv4ClientAddr);
     }
 
     private boolean shouldNotConfigureBluetoothInterface() {
         // Before T, bluetooth tethering configures the interface elsewhere.
-        return (mInterfaceType == TetheringManager.TETHERING_BLUETOOTH) && !SdkLevel.isAtLeastT();
+        return (mInterfaceType == TETHERING_BLUETOOTH) && !SdkLevel.isAtLeastT();
     }
 
     private boolean shouldUseWifiP2pDedicatedIp() {
         return mIsWifiP2pDedicatedIpEnabled
-                && mInterfaceType == TetheringManager.TETHERING_WIFI_P2P;
+                && mInterfaceType == TETHERING_WIFI_P2P;
     }
 
     private LinkAddress requestIpv4Address(final int scope, final boolean useLastAddress) {
@@ -835,9 +841,9 @@ public class IpServer extends StateMachineShim {
         }
     }
 
-    private void removeRoutesFromLocalNetwork(@NonNull final List<RouteInfo> toBeRemoved) {
-        final int removalFailures = NetdUtils.removeRoutesFromLocalNetwork(
-                mNetd, toBeRemoved);
+    private void removeRoutesFromNetworkAndLinkProperties(int netId, @NonNull final List<RouteInfo> toBeRemoved) {
+        final int removalFailures = NetdUtils.removeRoutesFromNetwork(
+                mNetd, netId, toBeRemoved);
         if (removalFailures > 0) {
             mLog.e(String.format("Failed to remove %d IPv6 routes from local table.",
                     removalFailures));
@@ -870,14 +876,14 @@ public class IpServer extends StateMachineShim {
         }
     }
 
-    private void addRoutesToLocalNetwork(@NonNull final List<RouteInfo> toBeAdded) {
+    private void addRoutesToNetworkAndLinkProperties(int netId, @NonNull final List<RouteInfo> toBeAdded) {
         // It's safe to call addInterfaceToNetwork() even if
-        // the interface is already in the local_network.
-        addInterfaceToNetwork(INetd.LOCAL_NET_ID, mIfaceName);
+        // the interface is already in the network.
+        addInterfaceToNetwork(netId, mIfaceName);
         try {
             // Add routes from local network. Note that adding routes that
             // already exist does not cause an error (EEXIST is silently ignored).
-            NetdUtils.addRoutesToLocalNetwork(mNetd, mIfaceName, toBeAdded);
+            NetdUtils.addRoutesToNetwork(mNetd, netId, mIfaceName, toBeAdded);
         } catch (IllegalStateException e) {
             mLog.e("Failed to add IPv4/v6 routes to local table: " + e);
             return;
@@ -890,7 +896,8 @@ public class IpServer extends StateMachineShim {
             ArraySet<IpPrefix> deprecatedPrefixes, ArraySet<IpPrefix> newPrefixes) {
         // [1] Remove the routes that are deprecated.
         if (!deprecatedPrefixes.isEmpty()) {
-            removeRoutesFromLocalNetwork(getLocalRoutesFor(mIfaceName, deprecatedPrefixes));
+            removeRoutesFromNetworkAndLinkProperties(INetd.LOCAL_NET_ID,
+                    getLocalRoutesFor(mIfaceName, deprecatedPrefixes));
         }
 
         // [2] Add only the routes that have not previously been added.
@@ -901,7 +908,8 @@ public class IpServer extends StateMachineShim {
             }
 
             if (!addedPrefixes.isEmpty()) {
-                addRoutesToLocalNetwork(getLocalRoutesFor(mIfaceName, addedPrefixes));
+                addRoutesToNetworkAndLinkProperties(INetd.LOCAL_NET_ID,
+                        getLocalRoutesFor(mIfaceName, addedPrefixes));
             }
         }
     }
@@ -1098,16 +1106,16 @@ public class IpServer extends StateMachineShim {
         }
 
         private void startServingInterface() {
-            if (!startIPv4(getScope())) {
-                mLastError = TETHER_ERROR_IFACE_CFG_ERROR;
-                return;
-            }
-
             try {
-                NetdUtils.tetherInterface(mNetd, mIfaceName, asIpPrefix(mIpv4Address));
+                NetdUtils.tetherInterface(mNetd, INetd.LOCAL_NET_ID, mIfaceName);
             } catch (RemoteException | ServiceSpecificException | IllegalStateException e) {
                 mLog.e("Error Tethering", e);
                 mLastError = TETHER_ERROR_TETHER_IFACE_ERROR;
+                return;
+            }
+
+            if (!startIPv4(getScope())) {
+                mLastError = TETHER_ERROR_IFACE_CFG_ERROR;
                 return;
             }
 
@@ -1203,14 +1211,14 @@ public class IpServer extends StateMachineShim {
                 return;
             }
 
-            // Remove deprecated routes from local network.
-            removeRoutesFromLocalNetwork(
-                    Collections.singletonList(getDirectConnectedRoute(deprecatedLinkAddress)));
+            // Remove deprecated routes from downstream network.
+            removeRoutesFromNetworkAndLinkProperties(INetd.LOCAL_NET_ID,
+                    List.of(getDirectConnectedRoute(deprecatedLinkAddress)));
             mLinkProperties.removeLinkAddress(deprecatedLinkAddress);
 
-            // Add new routes to local network.
-            addRoutesToLocalNetwork(
-                    Collections.singletonList(getDirectConnectedRoute(mIpv4Address)));
+            // Add new routes to downstream network.
+            addRoutesToNetworkAndLinkProperties(INetd.LOCAL_NET_ID,
+                    List.of(getDirectConnectedRoute(mIpv4Address)));
             mLinkProperties.addLinkAddress(mIpv4Address);
 
             // Update local DNS caching server with new IPv4 address, otherwise, dnsmasq doesn't
