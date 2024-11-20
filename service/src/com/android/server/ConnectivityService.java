@@ -146,6 +146,8 @@ import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPer
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
 import static com.android.net.module.util.PermissionUtils.hasAnyPermissionOf;
 import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
+import static com.android.server.NetIdManager.MAX_NET_ID;
+import static com.android.server.NetIdManager.MIN_NET_ID;
 import static com.android.server.connectivity.ConnectivityFlags.CELLULAR_DATA_INACTIVITY_TIMEOUT;
 import static com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS;
 import static com.android.server.connectivity.ConnectivityFlags.INGRESS_TO_VPN_ADDRESS_FILTERING;
@@ -210,6 +212,7 @@ import android.net.IpPrefix;
 import android.net.LinkProperties;
 import android.net.LocalNetworkConfig;
 import android.net.LocalNetworkInfo;
+import android.net.MarkMaskParcel;
 import android.net.MatchAllNetworkSpecifier;
 import android.net.MulticastRoutingConfig;
 import android.net.NativeNetworkConfig;
@@ -1088,6 +1091,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // A map from IP address to networks
     @VisibleForTesting
     final Map<InetAddress, Set<NetworkAgentInfo>> mIpToNetworksMap = new HashMap<>();
+    private int mNetIdMask;
 
     /**
      * Implements support for the legacy "one network per network type" model.
@@ -1804,6 +1808,24 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 return false;
             }
         }
+
+        /**
+         * Destroy live tcp sockets for IP addresses with conditions.
+         *
+         * @param address a local address to destroy sockets
+         * @param netIdRange a range of net IDs need to be matched
+         * @param exemptNetIds a network identifiers that need to be exempted for destroying sockets
+         * @param uidRanges ranges of UIDs to destroy sockets
+         * @param interfaceId interface id needs to be referred for destroying sockets
+         * @param netIdMask a mask to get netId from the socket's FW mark value
+         */
+        public void destroyLiveTcpSocketsByLocalAddress(
+                @NonNull InetAddress address, Range<Integer> netIdRange, Set<Integer> exemptNetIds,
+                Set<Range<Integer>> uidRanges, int interfaceId, int netIdMask)
+                throws SocketException, InterruptedIOException, ErrnoException {
+            InetDiagMessage.destroyLiveTcpSocketsByLocalAddress(
+                    address, netIdRange, exemptNetIds, uidRanges, interfaceId, netIdMask);
+        }
     }
 
     public ConnectivityService(Context context) {
@@ -2102,6 +2124,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         mIngressToVpnAddressFiltering = mDeps.isAtLeastT()
                 && mDeps.isFeatureNotChickenedOut(mContext, INGRESS_TO_VPN_ADDRESS_FILTERING);
+        try {
+            MarkMaskParcel markMaskParcel = mNetd.getFwmarkForNetwork(0);
+            mNetIdMask = markMaskParcel.mask;
+        } catch (RemoteException | ServiceSpecificException e) {
+            loge("Error to retrieve netId mask :" + e);
+        }
     }
 
     /**
@@ -7476,7 +7504,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final long ident = Binder.clearCallingIdentity();
         try {
             // Concatenate the range of types onto the range of NetIDs.
-            int id = NetIdManager.MAX_NET_ID + 1 + (networkType - ConnectivityManager.TYPE_NONE);
+            int id = MAX_NET_ID + 1 + (networkType - ConnectivityManager.TYPE_NONE);
             mNotifier.setProvNotificationVisible(visible, id, action);
         } finally {
             Binder.restoreCallingIdentity(ident);
@@ -9503,7 +9531,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (removeList != null && !removeList.isEmpty()) {
             for (InetAddress address : removeList) {
+                if (address instanceof Inet6Address && address.isLinkLocalAddress()) {
+                    continue;
+                }
                 Set<NetworkAgentInfo> networks = mIpToNetworksMap.get(address);
+                destroySocketsByAddress(address, nai, networks, 0 /* interfaceId */);
                 if (networks != null) {
                     networks.remove(nai);
                     if (networks.isEmpty()) {
@@ -9511,6 +9543,37 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     }
                 }
             }
+        }
+    }
+
+    private void destroySocketsByAddress(InetAddress address, NetworkAgentInfo nai,
+            Set<NetworkAgentInfo> networks, int interfaceId) {
+        Set<Integer> exemptNetIdSet = null;
+        Set<Range<Integer>> uidRangeSet = null;
+        if (networks != null && networks.size() > 1) {
+            int numVpn = 0;
+            for (NetworkAgentInfo network : networks) {
+                if (network.isVPN()) {
+                    numVpn++;
+                    exemptNetIdSet = null;
+                } else {
+                    if (network.network.netId != nai.network.netId && numVpn == 0) {
+                        if (exemptNetIdSet == null) {
+                            exemptNetIdSet = new ArraySet<>();
+                        }
+                        exemptNetIdSet.add(network.network.netId);
+                    }
+                }
+            }
+            if (numVpn == networks.size()) {
+                uidRangeSet = nai.networkCapabilities.getUids();
+            }
+        }
+        try {
+            mDeps.destroyLiveTcpSocketsByLocalAddress(address, Range.create(MIN_NET_ID, MAX_NET_ID),
+                    exemptNetIdSet, uidRangeSet, interfaceId, mNetIdMask);
+        } catch (Exception e) {
+            loge("Exception destroy TCP sockets on local address: " + e);
         }
     }
 
