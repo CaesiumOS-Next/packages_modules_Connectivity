@@ -39,6 +39,30 @@
       },
       "revId": "2d9992c186d82d7292f5d6aae098e6426c6117f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57ff6181_e5a8ca2f",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1544,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-20T06:06:36Z",
+      "side": 1,
+      "message": "Thanks for the heads up. Currently ot-daemon only handles IPv4 DNS servers and it just ignores the IPv6 DNS servers.",
+      "parentUuid": "a7593965_b989d444",
+      "range": {
+        "startLine": 1544,
+        "startChar": 32,
+        "endLine": 1544,
+        "endChar": 46
+      },
+      "revId": "2d9992c186d82d7292f5d6aae098e6426c6117f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
