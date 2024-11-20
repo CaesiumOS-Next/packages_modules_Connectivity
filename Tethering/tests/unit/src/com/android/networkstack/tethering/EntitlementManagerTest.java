@@ -188,8 +188,9 @@ public final class EntitlementManagerTest {
             if (intent != null) {
                 assertUiTetherProvisioningIntent(type, config, receiver, intent);
                 uiProvisionCount++;
+                // If the intent is null, the result is sent by the underlying method.
+                receiver.send(fakeEntitlementResult, null);
             }
-            receiver.send(fakeEntitlementResult, null);
             return intent;
         }
 
@@ -638,12 +639,13 @@ public final class EntitlementManagerTest {
         doReturn(isAdminUser).when(mUserManager).isAdminUser();
 
         mDeps.reset();
-        mDeps.fakeEntitlementResult = TETHER_ERROR_NO_ERROR;
+        mDeps.fakeEntitlementResult = TETHER_ERROR_ENTITLEMENT_UNKNOWN;
         mEnMgr.notifyUpstream(true);
         mLooper.dispatchAll();
         mEnMgr.startProvisioningIfNeeded(TETHERING_USB, true);
         mLooper.dispatchAll();
         assertEquals(expectedUiProvisionCount, mDeps.uiProvisionCount);
+        assertLatestEntitlementResult(TETHERING_USB, TETHER_ERROR_PROVISIONING_FAILED, false);
     }
 
     @Test
