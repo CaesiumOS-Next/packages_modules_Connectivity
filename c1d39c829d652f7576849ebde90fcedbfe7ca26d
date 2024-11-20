@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2328328_d6d24c20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-20T01:36:44Z",
+      "side": 1,
+      "message": "Please add a blank line on the second line of the CL and add a Bug tag.",
+      "revId": "c1d39c829d652f7576849ebde90fcedbfe7ca26d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
