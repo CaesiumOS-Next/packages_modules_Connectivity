@@ -167,6 +167,7 @@ public class EntitlementManager {
                 } else {
                     mLog.e("Current user (" + currentUserId
                             + ") is not allowed to perform entitlement check.");
+                    receiver.send(TETHER_ERROR_PROVISIONING_FAILED, null);
                     return null;
                 }
             } else {
