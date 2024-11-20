@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e633403_689a46f1",
+        "filename": "thread/tests/integration/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-20T09:48:46Z",
+      "side": 1,
+      "message": "It\u0027s good to run the tests when TREL is enabled/disabled respectively.\n\nHowever, I\u0027m concerned about the overhead introduced by this test. It seems to double the time consumption while it\u0027s already close to the 15-minute limit.\n\nCould you limit the scope of the test case?",
+      "range": {
+        "startLine": 67,
+        "startChar": 11,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "9b2a15fbbfd42d9cb5273db4f68d5161e2353590",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8d6b33b_b2c0e4ac",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-20T09:48:46Z",
+      "side": 1,
+      "message": "ServiceDiscoveryTest",
+      "range": {
+        "startLine": 474,
+        "startChar": 35,
+        "endLine": 474,
+        "endChar": 52
+      },
+      "revId": "9b2a15fbbfd42d9cb5273db4f68d5161e2353590",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
