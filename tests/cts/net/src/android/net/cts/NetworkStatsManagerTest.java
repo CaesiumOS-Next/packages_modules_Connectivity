@@ -74,6 +74,7 @@ import com.android.compatibility.common.util.ShellIdentityUtils;
 import com.android.compatibility.common.util.SystemUtil;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.testutils.AutoReleaseNetworkCallbackRule;
+import com.android.testutils.ConnectivityDiagnosticsCollector;
 import com.android.testutils.ConnectivityModuleTest;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -756,6 +757,7 @@ public class NetworkStatsManagerTest {
                 bucket.getRxBytes(), bucket.getTxBytes()));
     }
 
+    @ConnectivityDiagnosticsCollector.CollectTcpdumpOnFailure
     @Test
     public void testUidTagStateDetails() throws Exception {
         for (int i = 0; i < mNetworkInterfacesToTest.length; ++i) {
