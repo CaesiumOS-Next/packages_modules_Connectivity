@@ -1889,6 +1889,18 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         }
 
         /**
+         * Call {@link InetDiagMessage#destroyLiveTcpSocketsLackingPermission(int, int, int)}
+         *
+         * @param netId network ID
+         * @param permission network permission
+         */
+        public void destroyLiveTcpSocketsForLackingPermission(
+                int netId, int netIdMask, int permission)
+                throws SocketException, InterruptedIOException, ErrnoException {
+            InetDiagMessage.destroyLiveTcpSocketsLackingPermission(netId, netIdMask, permission);
+        }
+
+        /**
          * Create a AddressUpdateMonitor instance.
          */
         public AddressUpdateMonitor makeAddressUpdateMonitor(
@@ -5708,8 +5720,10 @@ public class ConnectivityService extends IConnectivityManager.Stub {
 
         // Delayed teardown.
         if (nai.isCreated() && !nai.isDestroyed()) {
+            destroyLiveTcpSocketsLackingPermission(nai, INetd.PERMISSION_SYSTEM);
             try {
                 mNetd.networkSetPermissionForNetwork(nai.network.netId, INetd.PERMISSION_SYSTEM);
+                destroyLiveTcpSocketsLackingPermission(nai, INetd.PERMISSION_SYSTEM);
             } catch (RemoteException e) {
                 Log.d(TAG, "Error marking network restricted during teardown: ", e);
             }
@@ -10434,8 +10448,10 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         final int oldPermission = getNetworkPermission(nai.networkCapabilities);
         final int newPermission = getNetworkPermission(newNc);
         if (oldPermission != newPermission && nai.isCreated() && !nai.isVPN()) {
+            destroyLiveTcpSocketsLackingPermission(nai, newPermission);
             try {
                 mNetd.networkSetPermissionForNetwork(nai.network.getNetId(), newPermission);
+                destroyLiveTcpSocketsLackingPermission(nai, newPermission);
             } catch (RemoteException | ServiceSpecificException e) {
                 loge("Exception in networkSetPermissionForNetwork: " + e);
             }
@@ -15247,6 +15263,22 @@ public class ConnectivityService extends IConnectivityManager.Stub {
                     removedAddress, netIdRange, null, null, interfaceId, mNetIdMask);
         } catch (Exception e) {
             loge("Exception destroy TCP sockets on local address: " + e);
+        }
+    }
+
+    private void destroyLiveTcpSocketsLackingPermission(NetworkAgentInfo nai, int permission) {
+        if (!mDeps.flagConnectivityServiceDestroySocket()) {
+            return;
+        }
+        if (permission == INetd.PERMISSION_NONE || nai.isVPN()
+                || permission == getNetworkPermission(nai.networkCapabilities)) {
+            return;
+        }
+        try {
+            mDeps.destroyLiveTcpSocketsForLackingPermission(
+                    nai.network.netId, mNetIdMask, permission);
+        } catch (Exception e) {
+            loge("Exception destroy TCP sockets lacking permission: " + e);
         }
     }
 }
