@@ -1,0 +1,128 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82d4ac2b_65b57907",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T04:52:45Z",
+      "side": 1,
+      "message": "LGTM % minor nits",
+      "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f73101e_6438eac9",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T04:52:45Z",
+      "side": 1,
+      "message": "While we are at it, maybe also add some simple 1 line description",
+      "range": {
+        "startLine": 143,
+        "startChar": 20,
+        "endLine": 143,
+        "endChar": 31
+      },
+      "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "512da0f3_575b0d4b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T04:52:45Z",
+      "side": 1,
+      "message": "nit: what about a private static function for that ?",
+      "range": {
+        "startLine": 996,
+        "startChar": 20,
+        "endLine": 996,
+        "endChar": 78
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d0763cf8_beadfc17",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+              "range": {
+                "startLine": 995,
+                "startChar": 0,
+                "endLine": 997,
+                "endChar": 0
+              },
+              "replacement": "            listener.onEthernetStateChanged(getEthernetState(enabled));\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+              "range": {
+                "startLine": 1007,
+                "startChar": 0,
+                "endLine": 1009,
+                "endChar": 0
+              },
+              "replacement": "                mListeners.getBroadcastItem(i).onEthernetStateChanged(getEthernetState(enabled));\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+              "range": {
+                "startLine": 1015,
+                "startChar": 0,
+                "endLine": 1015,
+                "endChar": 0
+              },
+              "replacement": "\n    private int getEthernetState(boolean enabled) {\n        return enabled ? ETHERNET_STATE_ENABLED : ETHERNET_STATE_DISABLED;\n    }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbcb9102_66e3f937",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T04:52:45Z",
+      "side": 1,
+      "message": "Why not just read `mIsEthernetEnabled` instead of passing it in as an arg ?",
+      "range": {
+        "startLine": 1002,
+        "startChar": 46,
+        "endLine": 1002,
+        "endChar": 61
+      },
+      "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
