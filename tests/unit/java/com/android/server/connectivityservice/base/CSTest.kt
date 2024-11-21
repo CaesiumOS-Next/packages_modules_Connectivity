@@ -291,6 +291,8 @@ open class CSTest {
         open fun destroyLiveTcpSocketsByLocalAddress(
             address: InetAddress, netIdRange: Range<Int>?, exemptNetIds: Set<Int>?,
             uidRanges: Set<Range<Int>>?, interfaceId: Int, netIdMask: Int) {}
+        open fun destroyLiveTcpSocketsForLackingPermission(
+            netId: Int, netIdMask: Int, permission: Int) {}
     }
 
     inner class CSDeps : ConnectivityService.Dependencies() {
@@ -434,6 +436,12 @@ open class CSTest {
             // call
             destroySocketsWrapper.destroyLiveTcpSocketsByLocalAddress(
                 address, netIdRange, exemptNetIds, uidRanges, interfaceId, netIdMask)
+        }
+
+        override fun destroyLiveTcpSocketsForLackingPermission(
+            netId: Int, netIdMask: Int, permission: Int) {
+            destroySocketsWrapper.destroyLiveTcpSocketsForLackingPermission(
+                netId, netIdMask, permission)
         }
 
         var netlinkMessageUpdate: Consumer<NetlinkMessage>? = null
