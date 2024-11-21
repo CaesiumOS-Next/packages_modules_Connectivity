@@ -24,6 +24,7 @@ import android.net.ConnectivityManager.BLOCKED_REASON_NONE
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
 import android.net.ConnectivityManager.FIREWALL_RULE_ALLOW
 import android.net.ConnectivityManager.FIREWALL_RULE_DENY
+import android.net.INetd
 import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.NetworkCapabilities
@@ -50,10 +51,13 @@ import junit.framework.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mockito.any
+import org.mockito.Mockito.doNothing
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.never
+import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 
 
@@ -661,5 +665,46 @@ class CSDestroySocketTest : CSTest() {
         verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
             InetAddress.getByName(TEST_IPV4_ADDRESS2), Range.create(0, MIN_NET_ID - 1),
             null, null, 0, 0xffff)
+    }
+
+    @Test
+    fun testDestroySocketsLackingPermissionForPermissionUpdate() {
+        val inOrder = inOrder(destroySocketsWrapper)
+        doNothing().`when`(netd).networkSetPermissionForNetwork(anyInt(), anyInt())
+        val agent = prepareNetworkAgent(
+            "rmnet1", arrayListOf(TEST_IPV6_ADDRESS1, TEST_IPV4_ADDRESS1), cellNc())
+
+        val ncRestricted =
+            cellNc().removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+        agent.sendNetworkCapabilities(ncRestricted)
+        waitForIdle()
+
+        inOrder.verify(destroySocketsWrapper, times(2))
+            .destroyLiveTcpSocketsForLackingPermission(
+                agent.network.netId, 0xffff, INetd.PERMISSION_SYSTEM)
+
+        val ncNotRestricted =
+            cellNc().addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+        agent.sendNetworkCapabilities(ncNotRestricted)
+        waitForIdle()
+
+        inOrder.verify(destroySocketsWrapper, never())
+            .destroyLiveTcpSocketsForLackingPermission(
+                agent.network.netId, 0xffff, INetd.PERMISSION_NONE)
+    }
+
+    @Test
+    fun testDestroySocketsLackingPermissionForDelayedTeardown() {
+        doNothing().`when`(netd).networkSetPermissionForNetwork(anyInt(), anyInt())
+        val agent = prepareNetworkAgent(
+            "rmnet1", arrayListOf(TEST_IPV6_ADDRESS1, TEST_IPV4_ADDRESS1), cellNc())
+
+        agent.sendTeardownDelayMs(1000)
+        waitForIdle()
+        agent.disconnect()
+        waitForIdle()
+
+        verify(destroySocketsWrapper, times(2)).destroyLiveTcpSocketsForLackingPermission(
+            agent.network.netId, 0xffff, INetd.PERMISSION_SYSTEM)
     }
 }
