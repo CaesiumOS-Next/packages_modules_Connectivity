@@ -1,0 +1,434 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ad230bb_9f499d04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T05:14:24Z",
+      "side": 1,
+      "message": "We could also say this is moving forward with one less usage of netd.",
+      "range": {
+        "startLine": 15,
+        "startChar": 30,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adbc4ff4_22fcf4d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T05:14:24Z",
+      "side": 1,
+      "message": "Two high level comments:\n - we should have a separate change just for the netlink addition (without EthernetTracker change)\n - we need unit tests and also integration tests for the link dump one shot request. You can ask Aka/Zikai/Yuyang for details on how/where to add the integration tests.",
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27c62942_e5005387",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T05:14:24Z",
+      "side": 1,
+      "message": "Does not really matter for a one shot request, but using 1 would be better for consistency here.",
+      "range": {
+        "startLine": 231,
+        "startChar": 73,
+        "endLine": 231,
+        "endChar": 74
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "27979a60_5cc17fb1",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 231,
+                "startChar": 0,
+                "endLine": 232,
+                "endChar": 0
+              },
+              "replacement": "        final byte[] msg \u003d RtNetlinkLinkMessage.createGetAllLinksMessage(1 /* seqNo*/)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede461d1_0cd70e62",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T05:14:24Z",
+      "side": 1,
+      "message": "This might be a bit misleading to the caller because we can\u0027t distinguish a failure from a environment with no interface. \n\nShould we return null here and tag the function as returning nullable ?",
+      "range": {
+        "startLine": 241,
+        "startChar": 12,
+        "endLine": 241,
+        "endChar": 50
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "bfa3643f_adf897b5",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 230,
+                "startChar": 0,
+                "endLine": 231,
+                "endChar": 0
+              },
+              "replacement": "    public static String[] sendRtmGetLinkRequest() throws ErrnoException {\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 239,
+                "startChar": 0,
+                "endLine": 240,
+                "endChar": 0
+              },
+              "replacement": "        } catch (InterruptedIOException e) {\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 241,
+                "startChar": 0,
+                "endLine": 242,
+                "endChar": 0
+              },
+              "replacement": "            throw new ErrnoException(\"Failed to send netlink message.\", EIO, e);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e1bfce8_688afb1a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T05:14:24Z",
+      "side": 1,
+      "message": "Here and below, I would lean towards returning the \"error result\" (null or empty array, see comment above) instead of returning a partial list of interface names in case there is already something in `ifnames` from a previous iteration of the loop.",
+      "range": {
+        "startLine": 253,
+        "startChar": 16,
+        "endLine": 253,
+        "endChar": 21
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "0fef5938_dbcc1710",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 230,
+                "startChar": 0,
+                "endLine": 231,
+                "endChar": 0
+              },
+              "replacement": "    public static List\u003cString\u003e sendRtmGetLinkRequest() {\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 241,
+                "startChar": 0,
+                "endLine": 242,
+                "endChar": 0
+              },
+              "replacement": "            return ifnames;\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 253,
+                "startChar": 0,
+                "endLine": 254,
+                "endChar": 0
+              },
+              "replacement": "                return ifnames;\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 285,
+                "startChar": 0,
+                "endLine": 286,
+                "endChar": 0
+              },
+              "replacement": "        return ifnames;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d69c0062_99d75b52",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T05:14:24Z",
+      "side": 1,
+      "message": "This should also probably be fatal for the request and make the whole call fail.",
+      "range": {
+        "startLine": 279,
+        "startChar": 22,
+        "endLine": 281,
+        "endChar": 21
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "5c41cabf_ac73fa1b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 280,
+                "startChar": 0,
+                "endLine": 281,
+                "endChar": 0
+              },
+              "replacement": "                        Log.e(TAG, \"Failed to get interface name from netlink message, \"\n                                + \"failed to get interface list\");\n                        return new String[0];\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc1b204e_7111f000",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T05:14:24Z",
+      "side": 1,
+      "message": "I think we should have an else branch here with an error case because we don\u0027t expect any other type of class.\n\nSo we could basically inverse the check and do:\n```\nif (!nlMsg instanceof RtNetlinkLinkMessage) {\n  Log.e(TAG, \"...\");\n  break;\n}\n```\nBTW isntanceof also checks for null (null object cannot match any class) so if you do it this way you can merge it with the null check on `nlMsg` just a bit above.",
+      "range": {
+        "startLine": 282,
+        "startChar": 16,
+        "endLine": 282,
+        "endChar": 17
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "bb9cb6c9_41ed9c3a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 274,
+                "startChar": 0,
+                "endLine": 274,
+                "endChar": 0
+              },
+              "replacement": "                if (!(nlMsg instanceof RtNetlinkLinkMessage)) {\n                    Log.e(TAG, \"Received unexpected netlink message: \" + nlMsg);\n                    continue;\n                }\n\n                if (nlMsg.getHeader().nlmsg_type \u003d\u003d NLMSG_DONE) {\n                    done \u003d true;\n                    break;\n                }\n\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16dc0dec_21229345",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T05:14:24Z",
+      "side": 1,
+      "message": "I am a bit surprise you need to manually jump over the attributes yourselves. Isn\u0027t there a subclass of `RtNetlinkLinkMessage` that would have already parsed that when doing `NetlinkMessage.parse(response, NETLINK_ROUTE)` ?",
+      "range": {
+        "startLine": 288,
+        "startChar": 26,
+        "endLine": 288,
+        "endChar": 42
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d6199b69_1b9f8f33",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 32,
+                "startChar": 0,
+                "endLine": 33,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 45,
+                "startChar": 0,
+                "endLine": 46,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 48,
+                "startChar": 0,
+                "endLine": 49,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 288,
+                "startChar": 0,
+                "endLine": 288,
+                "endChar": 0
+              },
+              "replacement": "    /**\n     * Get interface name from netlink message.\n     *\n     * @param bytes the netlink message to parse\n     * @param start the start position of the netlink message\n     * @param nlmsgLen the length of the netlink message\n     * @return the interface name\n     */\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02ffd103_3ee8e15e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T05:14:24Z",
+      "side": 1,
+      "message": "We should use `slice()` instead to avoid doing a byte copy.",
+      "range": {
+        "startLine": 290,
+        "startChar": 32,
+        "endLine": 290,
+        "endChar": 70
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a2199c79_e31bd723",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 290,
+                "startChar": 0,
+                "endLine": 291,
+                "endChar": 0
+              },
+              "replacement": "        final ByteBuffer copy \u003d bytes.slice().order(bytes.order());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b47cd77_56543774",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-21T05:14:24Z",
+      "side": 1,
+      "message": "interfaces",
+      "range": {
+        "startLine": 318,
+        "startChar": 22,
+        "endLine": 318,
+        "endChar": 31
+      },
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
