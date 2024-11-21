@@ -297,6 +297,7 @@ import android.stats.connectivity.RequestType;
 import android.stats.connectivity.ValidatedState;
 import android.sysprop.NetworkProperties;
 import android.system.ErrnoException;
+import android.system.OsConstants;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -341,8 +342,14 @@ import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.PerUidCounter;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.RoutingCoordinatorService;
+import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.TcUtils;
+import com.android.net.module.util.ip.NetlinkMonitor;
 import com.android.net.module.util.netlink.InetDiagMessage;
+import com.android.net.module.util.netlink.NetlinkConstants;
+import com.android.net.module.util.netlink.NetlinkMessage;
+import com.android.net.module.util.netlink.RtNetlinkAddressMessage;
+import com.android.net.module.util.netlink.StructIfaddrMsg;
 import com.android.networkstack.apishim.BroadcastOptionsShimImpl;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.common.BroadcastOptionsShim;
@@ -1092,6 +1099,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @VisibleForTesting
     final Map<InetAddress, Set<NetworkAgentInfo>> mIpToNetworksMap = new HashMap<>();
     private int mNetIdMask;
+    // NetlinkMonitor for ConnectivityService
+    @Nullable private AddressUpdateMonitor mAddressUpdateMonitor;
 
     /**
      * Implements support for the legacy "one network per network type" model.
@@ -1435,6 +1444,27 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // TODO: Integrate into signal dump.
                 dumpNormal(fd, pw, args);
             }
+        }
+    }
+
+    /**
+     * Simple NetlinkMonitor. Listen for address changed events from kernel.
+     * All methods except the constructor must be called on the handler thread.
+     */
+    public static class AddressUpdateMonitor extends NetlinkMonitor {
+        private final Consumer<NetlinkMessage> mNetlinkMessageConsumer;
+
+        AddressUpdateMonitor(Handler h, SharedLog log, String tag,
+                Consumer<NetlinkMessage> netlinkMessageConsumer) {
+            super(h, log, tag, OsConstants.NETLINK_ROUTE,
+                    (NetlinkConstants.RTMGRP_IPV4_IFADDR
+                            | NetlinkConstants.RTMGRP_IPV6_IFADDR));
+            mNetlinkMessageConsumer = netlinkMessageConsumer;
+        }
+
+        @Override
+        protected void processNetlinkMessage(@NonNull NetlinkMessage nlMsg, long whenMs) {
+            mNetlinkMessageConsumer.accept(nlMsg);
         }
     }
 
@@ -1826,6 +1856,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
             InetDiagMessage.destroyLiveTcpSocketsByLocalAddress(
                     address, netIdRange, exemptNetIds, uidRanges, interfaceId, netIdMask);
         }
+
+        /**
+         * Create a AddressUpdateMonitor instance.
+         */
+        public AddressUpdateMonitor makeAddressUpdateMonitor(
+                @NonNull Handler h, @NonNull SharedLog log, @NonNull String tag,
+                @NonNull Consumer<NetlinkMessage> consumer) {
+            if (Flags.connectivityServiceDestroySocket()) {
+                Log.d(TAG, "create AddressUpdateMonitor.");
+                return new AddressUpdateMonitor(h, log, tag, consumer);
+            } else {
+                return null;
+            }
+
+        }
     }
 
     public ConnectivityService(Context context) {
@@ -2130,6 +2175,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } catch (RemoteException | ServiceSpecificException e) {
             loge("Error to retrieve netId mask :" + e);
         }
+        mAddressUpdateMonitor = mDeps.makeAddressUpdateMonitor(
+                mHandler, new SharedLog(500, TAG), TAG, this::processNetlinkMessage);
     }
 
     /**
@@ -4135,6 +4182,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mPermissionMonitor.startMonitoring();
             startMonitoringDone.open();
         });
+        if (mAddressUpdateMonitor != null) {
+            mHandler.post(() -> mAddressUpdateMonitor.start());
+        }
         mProxyTracker.loadGlobalProxy();
         registerDnsResolverUnsolicitedEventListener();
 
@@ -14675,6 +14725,32 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 return mIngressToVpnAddressFiltering;
             default:
                 throw new IllegalArgumentException("Unknown flag: " + featureFlag);
+        }
+    }
+
+    private void processNetlinkMessage(NetlinkMessage nlMsg) {
+        if (!(nlMsg instanceof RtNetlinkAddressMessage msg)) {
+            return;
+        }
+        if (msg.getHeader().nlmsg_type != NetlinkConstants.RTM_DELADDR) {
+            return;
+        }
+
+        final StructIfaddrMsg ifaddrMsg = msg.getIfaddrHeader();
+        InetAddress removedAddress = msg.getIpAddress();
+        int interfaceId = 0;
+        Range<Integer> netIdRange = null;
+        if (removedAddress instanceof Inet6Address && removedAddress.isLinkLocalAddress()) {
+            interfaceId = ifaddrMsg.index;
+        } else {
+            // netId Range for non platform managed socket.
+            netIdRange = Range.create(0, MIN_NET_ID - 1);
+        }
+        try {
+            mDeps.destroyLiveTcpSocketsByLocalAddress(
+                    removedAddress, netIdRange, null, null, interfaceId, mNetIdMask);
+        } catch (Exception e) {
+            loge("Exception destroy TCP sockets on local address: " + e);
         }
     }
 }
