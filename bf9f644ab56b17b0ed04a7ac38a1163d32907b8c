@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bd6d468_dfd23fa7",
+        "filename": "common/networksecurity_flags.aconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-11-21T10:38:39Z",
+      "side": 1,
+      "message": "Ack, no worries. Happy either way. Thanks for the explanation.",
+      "parentUuid": "f24eb919_9472c220",
+      "revId": "bf9f644ab56b17b0ed04a7ac38a1163d32907b8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6903332_8549ae40",
