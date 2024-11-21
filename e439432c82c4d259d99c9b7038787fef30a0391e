@@ -39,6 +39,30 @@
       },
       "revId": "e439432c82c4d259d99c9b7038787fef30a0391e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1db58338_a8101811",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-21T09:41:47Z",
+      "side": 1,
+      "message": "Hopefully, if you do this you won\u0027t need any test changes in this CL at all...",
+      "parentUuid": "32039035_6ade6b6e",
+      "range": {
+        "startLine": 947,
+        "startChar": 16,
+        "endLine": 947,
+        "endChar": 32
+      },
+      "revId": "e439432c82c4d259d99c9b7038787fef30a0391e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
