@@ -34,6 +34,24 @@
       "parentUuid": "0dee8072_3be7c186",
       "revId": "6385eeb4bc8d7ca6719b74c0d8da9df35b83d146",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c296769_2daa9747",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-21T08:46:48Z",
+      "side": 1,
+      "message": "The proposed API exactly match what I plan to do 😊.\n\nFor the interface name, I plan to make them same as Handler class",
+      "parentUuid": "cb83ae30_45ba5b4a",
+      "revId": "6385eeb4bc8d7ca6719b74c0d8da9df35b83d146",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
