@@ -16,6 +16,24 @@
       "message": "Alarms that use an OnAlarmListener instead of a PendingIntent might be more efficient considering that the process is always up ? But I think you\u0027d need to handle the repeating manually since I don\u0027t see a version to do repeating alarms with a callback.\n\nThe choice is up to you though",
       "revId": "e116293c4adcdd66bb16267dab82bfde4e1690d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b01a997_eca55be0",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-21T15:00:03Z",
+      "side": 1,
+      "message": "Thanks for the pointer. I looked into `OnAlarmListener` a bit, but I think I\u0027ll stick with `setInexactRepeating` for now. I appreciate not having to worry about implementing my own scheduling, and the [documentation](https://developer.android.com/reference/android/app/AlarmManager#setInexactRepeating(int,%20long,%20long,%20android.app.PendingIntent) mentions that when using the provided intervals some optimization mechanism tries to minimize the number of wakeups.",
+      "parentUuid": "b2b14749_39e67a93",
+      "revId": "e116293c4adcdd66bb16267dab82bfde4e1690d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
