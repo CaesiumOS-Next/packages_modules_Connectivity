@@ -16,6 +16,29 @@
       "message": "Metrics part looks good to me but I don\u0027t have the context of the logic change. Over @reminv@google.com to take a look.",
       "revId": "e439432c82c4d259d99c9b7038787fef30a0391e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32039035_6ade6b6e",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-21T09:41:14Z",
+      "side": 1,
+      "message": "The fact that this happens today in test means that this metric is not very useful, because there will be devices in the wild that run these tests.\n\nInstead of changing this test, could you perhaps only log if the call does not come from an app? Something like:\n\n    if (mNetwork \u003d\u003d null \u0026\u0026 !Process.isApplicationUid(Process.myUid())) {\n        // Theoretically, it should not be valid to queue messages here before\n        // registering the NetworkAgent. However, practically, with the way\n        // queueing works right now, it ends up working out just fine.\n        // Log a statistic so that we know if this is happening in the\n        // wild. The check for isApplicationUid is to prevent logging the\n        // metric from test code.",
+      "range": {
+        "startLine": 947,
+        "startChar": 16,
+        "endLine": 947,
+        "endChar": 32
+      },
+      "revId": "e439432c82c4d259d99c9b7038787fef30a0391e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

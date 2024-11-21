@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acf176f5_d387b706",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-21T09:41:14Z",
+      "side": 0,
+      "message": "The fact that this happens today in test means that this metric is not very useful, because there will be devices in the wild that run these tests.\n\nInstead of changing this test, could you perhaps only log if the call does not come from an app? Something like:",
+      "range": {
+        "startLine": 383,
+        "startChar": 8,
+        "endLine": 383,
+        "endChar": 39
+      },
+      "revId": "35ace44269c37a39bb9ccd04702a6d15ad7042b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
