@@ -64,6 +64,8 @@ import com.android.internal.app.IBatteryStats
 import com.android.internal.util.test.BroadcastInterceptingContext
 import com.android.modules.utils.build.SdkLevel
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.SharedLog
+import com.android.net.module.util.netlink.NetlinkMessage
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException
 import com.android.server.connectivity.AutomaticOnOffKeepaliveTracker
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator
@@ -277,7 +279,7 @@ open class CSTest {
     open inner class DestroySocketsWrapper {
         open fun destroyLiveTcpSocketsByOwnerUids(ownerUids: Set<Int>) {}
         open fun destroyLiveTcpSocketsByLocalAddress(
-            address: InetAddress, netIdRange: Range<Int>, exemptNetIds: Set<Int>?,
+            address: InetAddress, netIdRange: Range<Int>?, exemptNetIds: Set<Int>?,
             uidRanges: Set<Range<Int>>?, interfaceId: Int, netIdMask: Int) {}
     }
 
@@ -409,12 +411,28 @@ open class CSTest {
         }
 
         override fun destroyLiveTcpSocketsByLocalAddress(
-            address: InetAddress, netIdRange: Range<Int>, exemptNetIds: Set<Int>?,
+            address: InetAddress, netIdRange: Range<Int>?, exemptNetIds: Set<Int>?,
             uidRanges: Set<Range<Int>>?, interfaceId: Int, netIdMask: Int) {
             // Call mocked destroyLiveTcpSocketsByLocalAddress so that test can verify this method
             // call
             destroySocketsWrapper.destroyLiveTcpSocketsByLocalAddress(
                 address, netIdRange, exemptNetIds, uidRanges, interfaceId, netIdMask)
+        }
+
+        var netlinkMessageUpdate: Consumer<NetlinkMessage>? = null
+        override fun makeAddressUpdateMonitor(
+            h: Handler,
+            log: SharedLog,
+            tag: String,
+            consumer: Consumer<NetlinkMessage>
+        ): ConnectivityService.AddressUpdateMonitor {
+            netlinkMessageUpdate = consumer
+            return ConnectivityService.AddressUpdateMonitor(
+                h,
+                log,
+                tag,
+                consumer
+            )
         }
     }
 
