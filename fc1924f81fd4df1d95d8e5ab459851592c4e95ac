@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42d3ac28_73362cd6",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-21T07:36:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f73101e_6438eac9",
+      "range": {
+        "startLine": 143,
+        "startChar": 20,
+        "endLine": 143,
+        "endChar": 31
+      },
+      "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "512da0f3_575b0d4b",
@@ -102,6 +126,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "460a716d_fa6ff67e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-21T07:36:30Z",
+      "side": 1,
+      "message": "Added `IsEthernetEnabledAsInt()`",
+      "parentUuid": "512da0f3_575b0d4b",
+      "range": {
+        "startLine": 996,
+        "startChar": 20,
+        "endLine": 996,
+        "endChar": 78
+      },
+      "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbcb9102_66e3f937",
@@ -115,6 +163,30 @@
       "writtenOn": "2024-11-21T04:52:45Z",
       "side": 1,
       "message": "Why not just read `mIsEthernetEnabled` instead of passing it in as an arg ?",
+      "range": {
+        "startLine": 1002,
+        "startChar": 46,
+        "endLine": 1002,
+        "endChar": 61
+      },
+      "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2c5a551_554c79ee",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-21T07:36:30Z",
+      "side": 1,
+      "message": "Yes that makes more sense, also changed for `unicastEthernetStateChange`. Thanks for advice!",
+      "parentUuid": "dbcb9102_66e3f937",
       "range": {
         "startLine": 1002,
         "startChar": 46,
