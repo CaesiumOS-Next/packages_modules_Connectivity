@@ -29,6 +29,7 @@ python_test_host {
     ],
     test_suites: [
         "cts",
+        "vts",
         "general-tests",
     ],
     test_options: {
