@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbdd699b_be2b2b6c",
+        "filename": "thread/tests/integration/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2024-11-21T02:26:03Z",
+      "side": 1,
+      "message": "LGTM to have this entry in postsubmit. \n\nClarification about the time limit: I only found 15-minute timeout for **per presubmit entry**. This time we\u0027re only adding it to postsubmit so it should be fine.",
+      "parentUuid": "b2bf5f1f_c3df7e1b",
+      "range": {
+        "startLine": 67,
+        "startChar": 11,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "9b2a15fbbfd42d9cb5273db4f68d5161e2353590",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8d6b33b_b2c0e4ac",
