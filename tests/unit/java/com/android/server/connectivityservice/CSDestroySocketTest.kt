@@ -33,6 +33,10 @@ import android.os.Build
 import android.util.ArraySet
 import android.util.Range
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener
+import com.android.net.module.util.netlink.NetlinkConstants
+import com.android.net.module.util.netlink.RtNetlinkAddressMessage
+import com.android.net.module.util.netlink.StructIfaddrMsg
+import com.android.net.module.util.netlink.StructNlMsgHdr
 import com.android.server.NetIdManager.MAX_NET_ID
 import com.android.server.NetIdManager.MIN_NET_ID
 import com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS
@@ -624,6 +628,38 @@ class CSDestroySocketTest : CSTest() {
             null, null, 0, 0xffff)
         inOrder.verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
             InetAddress.getByName(TEST_IPV4_ADDRESS1), Range.create(MIN_NET_ID, MAX_NET_ID),
+            null, null, 0, 0xffff)
+    }
+
+    @Test
+    fun testDestroySocketWithNetlinkMessage() {
+        val nlMsgLinkLocalAddressRemoved = RtNetlinkAddressMessage(
+            StructNlMsgHdr(
+                30 /* payload length */, NetlinkConstants.RTM_DELADDR, 0 /* flages */, 0 /* seq */),
+            StructIfaddrMsg(10 /* family */, 64 /* prefix length */, 0 /* flags */,
+                0 /* scope */, 10 /* interfaceId */),
+            InetAddress.getByName(TEST_IPV6_ADDRESS3), null, 0 /* flags */)
+
+        val nlMsgAddressRemoved = RtNetlinkAddressMessage(
+            StructNlMsgHdr(
+                30 /* payload length */, NetlinkConstants.RTM_DELADDR, 0 /* flags */, 0 /* seq */),
+            StructIfaddrMsg(10 /* family */, 64 /* prefix length */, 0 /* flags */,
+                0 /* scope */, 5 /* interfaceId */),
+            InetAddress.getByName(TEST_IPV4_ADDRESS2), null, 0 /* flags */)
+
+        csHandler.post{deps.netlinkMessageUpdate?.accept(nlMsgLinkLocalAddressRemoved)}
+        waitForIdle()
+
+        // verify destroy a socket on link local address with corresponding interface ID.
+        verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV6_ADDRESS3), null, null, null, 10, 0xffff)
+
+        csHandler.post{deps.netlinkMessageUpdate?.accept(nlMsgAddressRemoved)}
+        waitForIdle()
+
+        // verify destroy non platform socket(netId < MIN_NET_ID) with the RTM_DELADDR message
+        verify(destroySocketsWrapper).destroyLiveTcpSocketsByLocalAddress(
+            InetAddress.getByName(TEST_IPV4_ADDRESS2), Range.create(0, MIN_NET_ID - 1),
             null, null, 0, 0xffff)
     }
 }
