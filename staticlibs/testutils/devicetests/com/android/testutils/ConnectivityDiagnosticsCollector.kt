@@ -36,6 +36,7 @@ import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.ParcelFileDescriptor
+import android.os.SystemProperties
 import android.telephony.TelephonyManager
 import android.telephony.TelephonyManager.SIM_STATE_UNKNOWN
 import android.util.Log
@@ -43,20 +44,27 @@ import androidx.annotation.RequiresApi
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.modules.utils.build.SdkLevel.isAtLeastS
 import java.io.ByteArrayOutputStream
+import java.io.CharArrayWriter
 import java.io.File
 import java.io.FileOutputStream
+import java.io.FileReader
+import java.io.OutputStream
+import java.io.OutputStreamWriter
 import java.io.PrintWriter
+import java.io.Reader
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 import kotlin.test.assertNull
+import kotlin.test.fail
 import org.json.JSONObject
 import org.junit.AssumptionViolatedException
 import org.junit.runner.Description
 import org.junit.runner.Result
 import org.junit.runner.notification.Failure
+
 
 /**
  * A diagnostics collector that outputs diagnostics files as test artifacts.
@@ -80,7 +88,45 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
         var instance: ConnectivityDiagnosticsCollector? = null
     }
 
+    /**
+     * Indicates tcpdump should be started and written to the diagnostics file on test case failure.
+     */
+    annotation class CollectTcpdumpOnFailure(
+        /**
+         * Extra arguments for tcpdump.
+         *
+         * For example consider -xx to dump packet contents, or using pcap filters.
+         */
+        val extraArgs: String = ""
+    )
+
+    private class ReaderThread(
+        // Keep a reference to the ParcelFileDescriptor otherwise GC would close it
+        private val fd: ParcelFileDescriptor,
+        private val reader: Reader
+    ) : Thread() {
+        private val writer = CharArrayWriter()
+        override fun run() {
+            reader.copyTo(writer)
+        }
+
+        fun closeAndWriteTo(output: OutputStream?) {
+            join()
+            fd.close()
+            if (output != null) {
+                val outputWriter = OutputStreamWriter(output)
+                outputWriter.write("--- tcpdump stopped at ${ZonedDateTime.now()} ---\n")
+                writer.writeTo(outputWriter)
+            }
+        }
+    }
+
+    private data class TcpdumpRun(val pid: Int, val reader: ReaderThread)
+
     private var failureHeader: String? = null
+
+    // Accessed from the test listener methods which are synchronized by junit (see TestListener)
+    private var tcpdumpRun: TcpdumpRun? = null
     private val buffer = ByteArrayOutputStream()
     private val failureHeaderExtras = mutableMapOf<String, Any>()
     private val collectorDir: File by lazy {
@@ -157,7 +203,61 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
         flushBufferToFileMetric(testData, baseFilename)
     }
 
+    override fun onTestStart(testData: DataRecord, description: Description) {
+        val tcpdumpAnn = description.annotations.firstOrNull { it is CollectTcpdumpOnFailure }
+                as? CollectTcpdumpOnFailure
+        if (tcpdumpAnn != null) {
+            startTcpdumpForTestcaseIfSupported(tcpdumpAnn.extraArgs)
+        }
+    }
+
+    private fun isDebuggable(): Boolean {
+        if (isAtLeastS()) {
+            return Build.isDebuggable()
+        }
+        return SystemProperties.getInt("ro.debuggable", 0) == 1
+    }
+
+    private fun startTcpdumpForTestcaseIfSupported(extraArgs: String) {
+        if (!isDebuggable()) {
+            Log.d(TAG, "Cannot start tcpdump, build is not debuggable")
+            return
+        }
+        if (tcpdumpRun != null) {
+            fail("Cannot start tcpdump: it is already running")
+        }
+        // executeShellCommand won't tokenize quoted arguments containing spaces (like pcap filters)
+        // properly, so pass in the command in stdin instead of using sh -c 'command'
+        val fds = instrumentation.uiAutomation.executeShellCommandRw("sh")
+
+        val stdout = fds[0]
+        val stdin = fds[1]
+        ParcelFileDescriptor.AutoCloseOutputStream(stdin).use { writer ->
+            // Echo the current pid, and replace it (with exec) with the tcpdump process, so the
+            // tcpdump pid is known.
+            writer.write(
+                "echo $$; exec su 0 tcpdump -n -i any -U $extraArgs"
+                    .encodeToByteArray()
+            )
+        }
+        val reader = FileReader(stdout.fileDescriptor).buffered()
+        val tcpdumpPid = Integer.parseInt(reader.readLine())
+        val readerThread = ReaderThread(stdout, reader)
+        readerThread.start()
+        tcpdumpRun = TcpdumpRun(tcpdumpPid, readerThread)
+    }
+
+    private fun maybeStopTcpdump(output: OutputStream?) {
+        val run = tcpdumpRun ?: return
+        executeCommandBlocking("su 0 kill ${run.pid}")
+        run.reader.closeAndWriteTo(output)
+        tcpdumpRun = null
+    }
+
     override fun onTestEnd(testData: DataRecord, description: Description) {
+        // If the test failed tcpdump would already have been stopped and output dumped
+        maybeStopTcpdump(output = null)
+
         // Tests may call methods like collectDumpsysConnectivity to collect diagnostics at any time
         // during the run, for example to observe state at various points to investigate a flake
         // and compare passing/failing cases.
@@ -196,6 +296,7 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
                 fos.write("\n".toByteArray())
             }
             fos.write(buffer.toByteArray())
+            maybeStopTcpdump(fos)
         }
         failureHeader = null
         buffer.reset()
