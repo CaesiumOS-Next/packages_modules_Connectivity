@@ -16,6 +16,24 @@
       "message": "Are we sure that there is no delayed task already scheduled here, which would crash ? It\u0027s not easy to see at least.\n\nGenerally using TimerFd directly seems error-prone because if 2 messages get scheduled it crashes; that makes it hard to migrate existing code that uses Handler too.\n\nI think we\u0027ll need another wrapper class that can handle multiple messages at the time, something like:\n\n```\ninterface ITask {\n    int getTaskType(); // Message.what if wrapping a message\n    long getRunTime(); // as per SystemClock.elapsedRealtime\n    void run(Handler); // Post if a runnable, sendMessage if a Message\n}\nclass MessageTask implements ITask {...}\nclass RunnableTask implements ITask {...}\n\nclass RealtimeScheduler {\n    private final TimerFd mTimer;\n    private final PriorityQueue\u003cITask\u003e mTasks \u003d new PriorityQueue\u003c\u003e(\n        Comparators.comparing(ITask::getRunTime);\n\n    addDelayedTask(ITask);\n    removeTasks(int taskType);\n}\n```",
       "revId": "6385eeb4bc8d7ca6719b74c0d8da9df35b83d146",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb83ae30_45ba5b4a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-21T08:19:34Z",
+      "side": 1,
+      "message": "@yuyanghuang@google.com Paul mentioned you\u0027re actually looking at implementing this, not sure if this implementation idea would look interesting",
+      "parentUuid": "0dee8072_3be7c186",
+      "revId": "6385eeb4bc8d7ca6719b74c0d8da9df35b83d146",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
