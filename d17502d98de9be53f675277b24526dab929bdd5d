@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f770af87_3cf7d07f",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-21T16:33:39Z",
+      "side": 1,
+      "message": "nit: \"Tracks the current state of ethernet as configured by EthernetManager#setEthernetEnabled.\"",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 42
+      },
+      "revId": "d17502d98de9be53f675277b24526dab929bdd5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "736c0299_17f65ae5",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-21T16:33:39Z",
+      "side": 1,
+      "message": "nit: putting functions above from where they are used improves (top-down) readability.",
+      "range": {
+        "startLine": 1013,
+        "startChar": 0,
+        "endLine": 1016,
+        "endChar": 0
+      },
+      "revId": "d17502d98de9be53f675277b24526dab929bdd5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
