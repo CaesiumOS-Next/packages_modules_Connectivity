@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8d6295d_a8d85875",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-22T06:30:59Z",
+      "side": 1,
+      "message": "Per discussion: the new classes on the bootclasspath are minimal - only the one generated class (FrameworkConnectivityStatsLog) and no proto classes. We confirmed this by looking at the bloatbuster results in presubmit.\n\nIs there a place (the proto file?) to ensure that we do not add any other nested messages, which would bring in lots of generated proto classes?",
+      "revId": "1cc7769bbe1ee8d54e16612b18a76c3e38de7a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da773bf5_f2b60c2a",
+        "filename": "framework/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-22T06:30:59Z",
+      "side": 1,
+      "message": "Alphabetical order? (Doesn\u0027t need to be in this CL)",
+      "range": {
+        "startLine": 109,
+        "startChar": 9,
+        "endLine": 109,
+        "endChar": 18
+      },
+      "revId": "1cc7769bbe1ee8d54e16612b18a76c3e38de7a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
