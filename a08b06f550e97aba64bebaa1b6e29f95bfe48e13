@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c220a19b_12581ac2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-22T10:43:12Z",
+      "side": 1,
+      "message": "LGTM, comments optional.",
+      "revId": "a08b06f550e97aba64bebaa1b6e29f95bfe48e13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59babe3c_8784b874",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-22T10:43:12Z",
+      "side": 1,
+      "message": "This is C++, you don\u0027t need to specify the \"struct\" keyword anywhere.",
+      "range": {
+        "startLine": 510,
+        "startChar": 49,
+        "endLine": 510,
+        "endChar": 55
+      },
+      "revId": "a08b06f550e97aba64bebaa1b6e29f95bfe48e13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e27dbe1_39d08c49",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-22T10:43:12Z",
+      "side": 1,
+      "message": "Nit: EAFNOSUPPORT",
+      "range": {
+        "startLine": 516,
+        "startChar": 52,
+        "endLine": 516,
+        "endChar": 58
+      },
+      "revId": "a08b06f550e97aba64bebaa1b6e29f95bfe48e13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e89c3e75_ee1f731e",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-22T10:43:12Z",
+      "side": 1,
+      "message": "Nit: might want to make this a positive error number rather than a negative error number.",
+      "range": {
+        "startLine": 81,
+        "startChar": 25,
+        "endLine": 81,
+        "endChar": 30
+      },
+      "revId": "a08b06f550e97aba64bebaa1b6e29f95bfe48e13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
