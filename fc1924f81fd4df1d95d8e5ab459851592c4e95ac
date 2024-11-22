@@ -219,6 +219,30 @@
       },
       "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e66a2ae8_a86a3b50",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-22T01:14:02Z",
+      "side": 1,
+      "message": "\u003e be careful about ordering,\n\nThat\u0027s definitely an advantage of the prior approach. I am totally fine keeping this style. In that case I would suggest to pass `mListeners` in too and making the function static to avoid mixing styles.",
+      "parentUuid": "5266f2cd_a4d4ce47",
+      "range": {
+        "startLine": 1002,
+        "startChar": 46,
+        "endLine": 1002,
+        "endChar": 61
+      },
+      "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
