@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6d9d524a_964721e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-22T07:05:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ad230bb_9f499d04",
+      "range": {
+        "startLine": 15,
+        "startChar": 30,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "adbc4ff4_22fcf4d5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -78,6 +102,30 @@
           ]
         }
       ],
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32be96d6_958fc6f7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-22T07:05:42Z",
+      "side": 1,
+      "message": "Thanks! Was wondering which value to use, thought we should increment one for each usage.",
+      "parentUuid": "27c62942_e5005387",
+      "range": {
+        "startLine": 231,
+        "startChar": 73,
+        "endLine": 231,
+        "endChar": 74
+      },
       "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -139,6 +187,30 @@
           ]
         }
       ],
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4955130f_3c6ac7e2",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-22T07:05:42Z",
+      "side": 1,
+      "message": "Yes null makes more sense here (Was avoiding returning null here as an old habit... But just realized its okay to do so in java)",
+      "parentUuid": "ede461d1_0cd70e62",
+      "range": {
+        "startLine": 241,
+        "startChar": 12,
+        "endLine": 241,
+        "endChar": 50
+      },
       "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -214,6 +286,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71189f1f_364ac577",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-22T07:05:42Z",
+      "side": 1,
+      "message": "Yes that makes more sense, thanks for noticing that.",
+      "parentUuid": "0e1bfce8_688afb1a",
+      "range": {
+        "startLine": 253,
+        "startChar": 16,
+        "endLine": 253,
+        "endChar": 21
+      },
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d69c0062_99d75b52",
@@ -255,6 +351,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acf02d70_57aec0bf",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-22T07:05:42Z",
+      "side": 1,
+      "message": "If we want this to be an atomic call - get all ifaces or nothing, then sounds right to fail here.",
+      "parentUuid": "d69c0062_99d75b52",
+      "range": {
+        "startLine": 279,
+        "startChar": 22,
+        "endLine": 281,
+        "endChar": 21
+      },
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc1b204e_7111f000",
@@ -292,6 +412,30 @@
           ]
         }
       ],
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a66a9863_cb44fa62",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-22T07:05:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc1b204e_7111f000",
+      "range": {
+        "startLine": 282,
+        "startChar": 16,
+        "endLine": 282,
+        "endChar": 17
+      },
       "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -367,6 +511,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91a059c7_635df3e4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-22T07:05:42Z",
+      "side": 1,
+      "message": "Ahh did not realize it is already parsed, updated in the new patch.",
+      "parentUuid": "16dc0dec_21229345",
+      "range": {
+        "startLine": 288,
+        "startChar": 26,
+        "endLine": 288,
+        "endChar": 42
+      },
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02ffd103_3ee8e15e",
@@ -410,6 +578,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59fe723c_3d286d58",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-22T07:05:42Z",
+      "side": 1,
+      "message": "Looking at [doc for ByteBuffer.duplicate](https://developer.android.com/reference/java/nio/ByteBuffer#duplicate())\n```\nThe content of the new buffer will be that of this buffer. Changes to this buffer\u0027s content will be visible in the new buffer, and vice versa; the two buffers\u0027 position, limit, and mark values will be independent.\n```\nLooking at the doc, I dont think it involves deep copy here? Used `duplicate` to have independent position/limit.",
+      "parentUuid": "02ffd103_3ee8e15e",
+      "range": {
+        "startLine": 290,
+        "startChar": 32,
+        "endLine": 290,
+        "endChar": 70
+      },
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b47cd77_56543774",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
         "patchSetId": 4
@@ -421,6 +613,30 @@
       "writtenOn": "2024-11-21T05:14:24Z",
       "side": 1,
       "message": "interfaces",
+      "range": {
+        "startLine": 318,
+        "startChar": 22,
+        "endLine": 318,
+        "endChar": 31
+      },
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4531201e_061aef56",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-22T07:05:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b47cd77_56543774",
       "range": {
         "startLine": 318,
         "startChar": 22,
