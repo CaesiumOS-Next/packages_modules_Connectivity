@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd0749b1_ab4ab344",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-22T08:09:55Z",
+      "side": 1,
+      "message": "Can you document the behavior? In the previous design, the entitlement check result would be notified in the Settings activity. However, the new design notifies the the error directly if the user is not allowed to perform an entitlement check.",
+      "revId": "677ce5fb41e341e5cad03413d4a571ee84599869",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
