@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fe34763_23f19b68",
+        "filename": "bpf/syscall_wrappers/include/BpfSyscallWrappers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-22T18:56:06Z",
+      "side": 1,
+      "message": "for a future CL, this should probably return a unique_fd.",
+      "range": {
+        "startLine": 123,
+        "startChar": 7,
+        "endLine": 123,
+        "endChar": 10
+      },
+      "revId": "99ace23829f13c1bb1ac1fd96bc0a51c97a08a3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
