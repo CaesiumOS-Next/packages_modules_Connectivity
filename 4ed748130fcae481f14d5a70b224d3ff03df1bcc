@@ -112,6 +112,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffb04e25_e29f3349",
+        "filename": "staticlibs/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-22T07:17:25Z",
+      "side": 1,
+      "message": "This file was removed after timerfd was moved to the service-connectivity library.",
+      "parentUuid": "c5ab7d4a_e49a4e2b",
+      "range": {
+        "startLine": 646,
+        "startChar": 8,
+        "endLine": 646,
+        "endChar": 70
+      },
+      "revId": "4ed748130fcae481f14d5a70b224d3ff03df1bcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5799e0e_d037bce5",
