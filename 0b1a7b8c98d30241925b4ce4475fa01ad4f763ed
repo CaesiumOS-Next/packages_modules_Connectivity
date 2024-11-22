@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aa17e96_f75da90c",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-22T06:20:33Z",
+      "side": 1,
+      "message": "Per discussion: another option would be to add an extra int argument to registerNetworkAgent that tells ConnectivityService the length of the queue. Advantages:\n1. We wouldn\u0027t need aosp/3342862\n2. It is guaranteed that the log message will be logged regardless of which process is hosting the NetworkAgent (normally, events from unprivileged UIDs are dropped, see allowed_sources in log_sources.gcl).\n\nAdding int arguments at the end of an AIDL IPC definition is safe even if someone is calling the raw AIDL without the final int. In that case the server will just see a final int argument of zero.\n\nThat said, LGTM either way. I don\u0027t think #2 is particularly a concern for this speficic code - it\u0027s unlikely that code in unprivileged processes will be creating NetworkAgents.",
+      "range": {
+        "startLine": 767,
+        "startChar": 93,
+        "endLine": 767,
+        "endChar": 95
+      },
+      "revId": "0b1a7b8c98d30241925b4ce4475fa01ad4f763ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
