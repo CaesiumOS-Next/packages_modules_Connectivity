@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7805ac24_9357507d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-22T10:04:41Z",
+      "side": 1,
+      "message": "LGTM except per comment in other CL I think the method name should not contain \"InZygote\". The method doesn\u0027t do anything to the zygote, it just preloads the class.",
+      "revId": "303086e55450d41ec4008ff9686299a36f2f0743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef7b75c7_45f9ef30",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-22T10:04:41Z",
+      "side": 1,
+      "message": "Nit: for consistency (and potentially for proximity in sorted lists), you might want to call this com.android.net.http instead.\n\nandroid.net.http is the API package, but the other aconfig target names are com.android.* which are not API packages (the API packages are android.net.*).",
+      "range": {
+        "startLine": 215,
+        "startChar": 9,
+        "endLine": 215,
+        "endChar": 25
+      },
+      "revId": "303086e55450d41ec4008ff9686299a36f2f0743",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
