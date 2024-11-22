@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17df6354_a08cc376",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-22T07:56:19Z",
+      "side": 1,
+      "message": "IIUC, this change will ensure the entitlement check result is received, which was not ensured in the previous design. Therefore, it should not be a no-op refactoring.",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 27
+      },
+      "revId": "b66172efdcd98001d3bf35f77dca11d0ddd0492e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f464f16_830e16c3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-22T07:56:19Z",
+      "side": 1,
+      "message": "Nit: The handler argument is always `null`. You could remove the argument and call `super(null)`.",
+      "range": {
+        "startLine": 614,
+        "startChar": 18,
+        "endLine": 614,
+        "endChar": 25
+      },
+      "revId": "b66172efdcd98001d3bf35f77dca11d0ddd0492e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
