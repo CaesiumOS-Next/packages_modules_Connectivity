@@ -141,6 +141,30 @@
       },
       "revId": "bf3f11cf7f0a47dc9aca71a101967f9e136f46bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ef389da_7037c9c3",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-22T07:41:27Z",
+      "side": 0,
+      "message": "Close it for now, we can continue discussion here if needed.",
+      "parentUuid": "a5b0ae8f_2bf9a170",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 604,
+        "endChar": 46
+      },
+      "revId": "bf3f11cf7f0a47dc9aca71a101967f9e136f46bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
