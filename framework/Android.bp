@@ -156,6 +156,7 @@ java_library {
 java_defaults {
     name: "CronetJavaDefaults",
     srcs: [":httpclient_api_sources"],
+    static_libs: ["android.net.http.flags-aconfig-java"],
     libs: [
         "androidx.annotation_annotation",
     ],
@@ -211,6 +212,7 @@ java_sdk_library {
         baseline_filename: "lint-baseline.xml",
     },
     aconfig_declarations: [
+        "android.net.http.flags-aconfig",
         "com.android.net.flags-aconfig",
         "com.android.networksecurity.flags-aconfig",
     ],
