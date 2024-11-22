@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2afb286_b4d84ca9",
+        "filename": "service/jni/com_android_net_module_util/onload.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-22T01:56:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17db0622_068cc1f6",
+      "revId": "00317d7b34c33005af1ba665894afa38bdefd98f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e025dfda_e199178e",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-11-19T07:56:48Z",
       "side": 1,
       "message": "```\nif (Process.myUid() \u003d\u003d Process.SYSTEM_UID) {\n    // This library is part of service-connectivity.jar when in the system server, so libservice-connectivity.so is the library to load\n    loadLibrary(\"service-connectivity\")\n} else {\n    // This logic\n}\n```",
+      "revId": "00317d7b34c33005af1ba665894afa38bdefd98f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d90947a_7380d027",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFdUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-22T01:56:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e025dfda_e199178e",
       "revId": "00317d7b34c33005af1ba665894afa38bdefd98f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
