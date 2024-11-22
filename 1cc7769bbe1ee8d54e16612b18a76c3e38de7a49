@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c889c4b_54ea4975",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-22T06:33:40Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d8d6295d_a8d85875",
+      "revId": "1cc7769bbe1ee8d54e16612b18a76c3e38de7a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da773bf5_f2b60c2a",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-11-22T06:30:59Z",
       "side": 1,
       "message": "Alphabetical order? (Doesn\u0027t need to be in this CL)",
+      "range": {
+        "startLine": 109,
+        "startChar": 9,
+        "endLine": 109,
+        "endChar": 18
+      },
+      "revId": "1cc7769bbe1ee8d54e16612b18a76c3e38de7a49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26a2d5e7_a7b7f95b",
+        "filename": "framework/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-22T06:33:40Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "da773bf5_f2b60c2a",
       "range": {
         "startLine": 109,
         "startChar": 9,
