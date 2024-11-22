@@ -243,6 +243,30 @@
       },
       "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cb2a831_b8b1f24b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-22T07:54:55Z",
+      "side": 1,
+      "message": "`ensureRunningOnEthernetServiceThread()` is not static so these 2 functions cannot be made static either",
+      "parentUuid": "e66a2ae8_a86a3b50",
+      "range": {
+        "startLine": 1002,
+        "startChar": 46,
+        "endLine": 1002,
+        "endChar": 61
+      },
+      "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
