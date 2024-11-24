@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82392606_d863dcc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "458cd232_60418ecb",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ab88f17_48adc0d0",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-15T00:08:54Z",
       "side": 1,
       "message": "stores",
+      "range": {
+        "startLine": 9,
+        "startChar": 55,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85cab14b_27190449",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ab88f17_48adc0d0",
       "range": {
         "startLine": 9,
         "startChar": 55,
@@ -88,6 +136,54 @@
         "startChar": 44,
         "endLine": 10,
         "endChar": 49
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e368ce4_98a0daa0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba83c6c0_3cb1dceb",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db2f0fb1_c7a3dfb3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "264f111e_15015c86",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 7
       },
       "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -162,6 +258,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dbdfca0_8b32c130",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5088c5d4_c24c7991",
+      "range": {
+        "startLine": 12,
+        "startChar": 52,
+        "endLine": 12,
+        "endChar": 58
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77d3eb0e_e9b81159",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06ce98e4_d8976513",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 20
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "164db3f3_0b058597",
@@ -175,6 +319,30 @@
       "writtenOn": "2024-11-15T00:08:54Z",
       "side": 1,
       "message": "()",
+      "range": {
+        "startLine": 13,
+        "startChar": 24,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee87535e_c2e9ae19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "164db3f3_0b058597",
       "range": {
         "startLine": 13,
         "startChar": 24,
@@ -208,6 +376,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d38c178_796bd15c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "afcf1dc6_aaeb7ab1",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 24
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7014b9e9_311d3795",
@@ -221,6 +413,30 @@
       "writtenOn": "2024-11-15T00:08:54Z",
       "side": 1,
       "message": "just \u0027querying the bpf map\u0027",
+      "range": {
+        "startLine": 17,
+        "startChar": 57,
+        "endLine": 17,
+        "endChar": 69
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d65c7d32_fe9cb912",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7014b9e9_311d3795",
       "range": {
         "startLine": 17,
         "startChar": 57,
@@ -254,6 +470,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4131d455_79c019e8",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01d1c55b_ebbd7580",
+      "range": {
+        "startLine": 87,
+        "startChar": 23,
+        "endLine": 87,
+        "endChar": 42
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b13a0d8a_a208ca52",
@@ -277,6 +517,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23bfcb9c_6d6701f6",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b13a0d8a_a208ca52",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 2
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d519cac_4748794a",
@@ -290,6 +554,30 @@
       "writtenOn": "2024-11-15T00:08:54Z",
       "side": 1,
       "message": "I keep on thinking this is a bad name (because it\u0027s not just IP address, but also the ifindex/scope)... but honestly I can\u0027t come up with a better one either.",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 23
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49f4d09b_e8be6feb",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d519cac_4748794a",
       "range": {
         "startLine": 189,
         "startChar": 8,
@@ -351,6 +639,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b59469d_89ab73f6",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f851258_ecd5e7e2",
+      "range": {
+        "startLine": 226,
+        "startChar": 5,
+        "endLine": 226,
+        "endChar": 18
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff4d8ec6_76afe7ac",
@@ -364,6 +676,30 @@
       "writtenOn": "2024-11-15T00:08:54Z",
       "side": 1,
       "message": "Q: should we differentiate localhost from local ip?\nie. have one more value for ::1 and 127/8 ?",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 23
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6652220_d72ae2b6",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "for this we would change the type to u16 if we add any more values, should i do that?",
+      "parentUuid": "ff4d8ec6_76afe7ac",
       "range": {
         "startLine": 228,
         "startChar": 0,
@@ -411,6 +747,30 @@
           ]
         }
       ],
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfda30ab_319457a0",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d42b4a82_1490fa76",
+      "range": {
+        "startLine": 232,
+        "startChar": 8,
+        "endLine": 232,
+        "endChar": 19
+      },
       "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -475,6 +835,54 @@
           ]
         }
       ],
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7943dbfa_2f695d3f",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83386cbd_54512a21",
+      "range": {
+        "startLine": 266,
+        "startChar": 48,
+        "endLine": 266,
+        "endChar": 50
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53e9d008_8cd669d4",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f99bbed6_7692b06f",
+      "range": {
+        "startLine": 266,
+        "startChar": 57,
+        "endLine": 266,
+        "endChar": 58
+      },
       "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -548,6 +956,78 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6cfe2d7_af55c70d",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58bb578a_d2b5a73e",
+      "range": {
+        "startLine": 268,
+        "startChar": 59,
+        "endLine": 268,
+        "endChar": 60
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "133f9ed5_3e510431",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbb66d96_2d7cd883",
+      "range": {
+        "startLine": 268,
+        "startChar": 49,
+        "endLine": 268,
+        "endChar": 51
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1b3694b_29c7e3ee",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25edb3a0_4b46b6e3",
+      "range": {
+        "startLine": 268,
+        "startChar": 46,
+        "endLine": 268,
+        "endChar": 48
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7786677_82aeb0d8",
@@ -585,6 +1065,30 @@
           ]
         }
       ],
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71c8072b_7c1eda67",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-11-24T16:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7786677_82aeb0d8",
+      "range": {
+        "startLine": 269,
+        "startChar": 12,
+        "endLine": 269,
+        "endChar": 20
+      },
       "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
