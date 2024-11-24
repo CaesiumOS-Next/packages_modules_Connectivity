@@ -16,6 +16,57 @@
       "message": "Friendly ping, @reminv@google.com, @lorenzo@google.com can you have another look ? thanks!",
       "revId": "51ea3112c46af7cdf4b8240c0cb2adfa16192b8b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6dd729f_aaf2dd8a",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1962675
+      },
+      "writtenOn": "2024-11-24T02:45:00Z",
+      "side": 1,
+      "message": "Antonio, please add a comment explaining why we need to do Thread.sleep here.",
+      "range": {
+        "startLine": 150,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "dcb2150d_c7f72dca",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+              "range": {
+                "startLine": 151,
+                "startChar": 0,
+                "endLine": 151,
+                "endChar": 0
+              },
+              "replacement": "                // Wait for the screen to turn off.\n"
+            },
+            {
+              "path": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+              "range": {
+                "startLine": 166,
+                "startChar": 0,
+                "endLine": 166,
+                "endChar": 0
+              },
+              "replacement": "                // Wait for the screen to turn on.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "51ea3112c46af7cdf4b8240c0cb2adfa16192b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
