@@ -63,6 +63,30 @@
       },
       "revId": "e70174f326e0a8a710f090028841ec5a6df6d273",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f6ccee1_1da7a982",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 3524514
+      },
+      "writtenOn": "2024-11-25T16:39:14Z",
+      "side": 1,
+      "message": "Hi @prohr@google.com, was wondering if you have an update on the following suggested approach?",
+      "parentUuid": "ce9332b8_c933b52d",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 602,
+        "endChar": 21
+      },
+      "revId": "e70174f326e0a8a710f090028841ec5a6df6d273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
