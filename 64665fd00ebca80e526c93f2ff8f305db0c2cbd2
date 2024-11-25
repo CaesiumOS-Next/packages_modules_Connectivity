@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede70357_be0be99b",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:48:34Z",
+      "side": 1,
+      "message": "extra line",
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7f0c315_c5eb59e0",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:48:34Z",
+      "side": 1,
+      "message": "I am not sure if we really need this. Given this feature is for debugging, should we always dump in most detailed format instead of making it configurable?",
+      "range": {
+        "startLine": 94,
+        "startChar": 21,
+        "endLine": 94,
+        "endChar": 44
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d94ded07_65d13840",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:48:34Z",
+      "side": 1,
+      "message": "Can we call it DumpThread? Its not necessary only reader?",
+      "range": {
+        "startLine": 103,
+        "startChar": 18,
+        "endLine": 103,
+        "endChar": 30
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "117ef08d_06513ddb",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:48:34Z",
+      "side": 1,
+      "message": "This seems like a gocha, could we put it in staticlib function?",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 63
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a827855d_0a736891",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:48:34Z",
+      "side": 1,
+      "message": "Is \u0027fail\u0027 the right thing to do?",
+      "range": {
+        "startLine": 227,
+        "startChar": 12,
+        "endLine": 227,
+        "endChar": 16
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e7ae04b_29bd7f5e",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:48:34Z",
+      "side": 1,
+      "message": "We should put -xx here directly.",
+      "range": {
+        "startLine": 239,
+        "startChar": 44,
+        "endLine": 239,
+        "endChar": 46
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "932e02ce_b7d4acd6",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:48:34Z",
+      "side": 1,
+      "message": "Shall we use `kill -9` just for safe side?",
+      "range": {
+        "startLine": 252,
+        "startChar": 41,
+        "endLine": 252,
+        "endChar": 42
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d691266_3b401bd4",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:48:34Z",
+      "side": 1,
+      "message": "I feel `maybeStopTcpdump` could be confusing given the `maybeStopTcpdump` is also called in flushBufferToFileMetric() I think we can change the logic to follows?\n\n```\n\nif (buffer.size() \u003d\u003d 0 || outputFiles.size \u003e\u003d MAX_DUMPS) {\n    maybeStopTcpdump(output \u003d null)\n    return;\n}\n\n```",
+      "range": {
+        "startLine": 259,
+        "startChar": 8,
+        "endLine": 259,
+        "endChar": 24
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5679f154_dedc4dc2",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:48:34Z",
+      "side": 1,
+      "message": "I feel we can just call it stopTcpDump(). The maybe prefix can cause some confusion means in some condition we didn\u0027t stop.",
+      "range": {
+        "startLine": 299,
+        "startChar": 12,
+        "endLine": 299,
+        "endChar": 28
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45bc6c9f_a3ba1164",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:48:34Z",
+      "side": 1,
+      "message": "Is this line change expected?",
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
