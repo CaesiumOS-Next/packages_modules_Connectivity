@@ -67,6 +67,30 @@
       ],
       "revId": "51ea3112c46af7cdf4b8240c0cb2adfa16192b8b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1c37bf3_27328204",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-25T06:07:02Z",
+      "side": 1,
+      "message": "Also, can you factor this out to a method? Something like:\n\n    private void waitForInteractiveState(boolean interactive) throws InterruptedException {\n        if (isAutomotiveWithVisibleBackgroundUser()) {\n            // ...\n            Thread.sleep(2000L)\n        } else {\n            val result \u003d pollingCheck({ powerManager.isInteractive() }, timeout_ms \u003d 2000)\n            assertThat(result).isTrue()\n        }\n    }",
+      "parentUuid": "a6dd729f_aaf2dd8a",
+      "range": {
+        "startLine": 150,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 20
+      },
+      "revId": "51ea3112c46af7cdf4b8240c0cb2adfa16192b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
