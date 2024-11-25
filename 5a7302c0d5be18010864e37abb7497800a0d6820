@@ -22,6 +22,30 @@
       },
       "revId": "5a7302c0d5be18010864e37abb7497800a0d6820",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57bcf5b7_c2e1ea18",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 63
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-25T04:28:22Z",
+      "side": 1,
+      "message": "Sure, I think we can consider adding the TetheringRequest before setVirtualMachineTethering and then remove it if there\u0027s a failure",
+      "parentUuid": "8ddc7f78_3aa5e15f",
+      "range": {
+        "startLine": 768,
+        "startChar": 16,
+        "endLine": 768,
+        "endChar": 60
+      },
+      "revId": "5a7302c0d5be18010864e37abb7497800a0d6820",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
