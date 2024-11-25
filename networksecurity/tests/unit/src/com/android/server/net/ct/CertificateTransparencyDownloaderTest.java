@@ -18,6 +18,7 @@ package com.android.server.net.ct;
 import static com.google.common.truth.Truth.assertThat;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -54,6 +55,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.util.Base64;
+import java.util.Optional;
 
 /** Tests for the {@link CertificateTransparencyDownloader}. */
 @RunWith(JUnit4.class)
@@ -67,6 +69,7 @@ public class CertificateTransparencyDownloaderTest {
     private Context mContext;
     private File mTempFile;
     private DataStore mDataStore;
+    private SignatureVerifier mSignatureVerifier;
     private CertificateTransparencyDownloader mCertificateTransparencyDownloader;
 
     @Before
@@ -82,16 +85,32 @@ public class CertificateTransparencyDownloaderTest {
         mTempFile = File.createTempFile("datastore-test", ".properties");
         mDataStore = new DataStore(mTempFile);
         mDataStore.load();
+        mSignatureVerifier = new SignatureVerifier(mContext);
 
         mCertificateTransparencyDownloader =
                 new CertificateTransparencyDownloader(
-                        mContext, mDataStore, mDownloadHelper, mCertificateTransparencyInstaller);
+                        mContext,
+                        mDataStore,
+                        mDownloadHelper,
+                        mSignatureVerifier,
+                        mCertificateTransparencyInstaller);
     }
 
     @After
     public void tearDown() {
         mTempFile.delete();
-        mCertificateTransparencyDownloader.resetPublicKey();
+        mSignatureVerifier.resetPublicKey();
+    }
+
+    @Test
+    public void testDownloader_startPublicKeyDownload() {
+        String publicKeyUrl = "http://test-public-key.org";
+        long downloadId = 666;
+        when(mDownloadHelper.startDownload(publicKeyUrl)).thenReturn(downloadId);
+
+        assertThat(mCertificateTransparencyDownloader.isPublicKeyDownloadId(downloadId)).isFalse();
+        mCertificateTransparencyDownloader.startPublicKeyDownload(publicKeyUrl);
+        assertThat(mCertificateTransparencyDownloader.isPublicKeyDownloadId(downloadId)).isTrue();
     }
 
     @Test
@@ -114,6 +133,74 @@ public class CertificateTransparencyDownloaderTest {
         assertThat(mCertificateTransparencyDownloader.isContentDownloadId(downloadId)).isFalse();
         mCertificateTransparencyDownloader.startContentDownload(contentUrl);
         assertThat(mCertificateTransparencyDownloader.isContentDownloadId(downloadId)).isTrue();
+    }
+
+    @Test
+    public void testDownloader_publicKeyDownloadSuccess_updatePublicKey_startMetadataDownload()
+            throws Exception {
+        long publicKeyId = 123;
+        mDataStore.setPropertyLong(Config.PUBLIC_KEY_URL_KEY, publicKeyId);
+        when(mDownloadHelper.getDownloadStatus(publicKeyId))
+                .thenReturn(makeSuccessfulDownloadStatus(publicKeyId));
+        when(mDownloadHelper.getUri(publicKeyId))
+                .thenReturn(Uri.fromFile(writePublicKeyToFile(mPublicKey)));
+        long metadataId = 666;
+        String metadataUrl = "http://test-metadata.org";
+        mDataStore.setProperty(Config.METADATA_URL_PENDING, metadataUrl);
+        when(mDownloadHelper.startDownload(metadataUrl)).thenReturn(metadataId);
+
+        assertThat(mSignatureVerifier.getPublicKey().isPresent()).isFalse();
+        mCertificateTransparencyDownloader.onReceive(
+                mContext, makeDownloadCompleteIntent(publicKeyId));
+
+        Optional<PublicKey> publicKey = mSignatureVerifier.getPublicKey();
+        assertThat(publicKey.isPresent()).isTrue();
+        assertThat(publicKey.get()).isEqualTo(mPublicKey);
+        assertThat(mCertificateTransparencyDownloader.isMetadataDownloadId(metadataId)).isTrue();
+    }
+
+    @Test
+    public void
+            testDownloader_publicKeyDownloadSuccess_updatePublicKeyFail_doNotStartMetadataDownload()
+                    throws Exception {
+        long publicKeyId = 123;
+        mDataStore.setPropertyLong(Config.PUBLIC_KEY_URL_KEY, publicKeyId);
+        when(mDownloadHelper.getDownloadStatus(publicKeyId))
+                .thenReturn(makeSuccessfulDownloadStatus(publicKeyId));
+        when(mDownloadHelper.getUri(publicKeyId))
+                .thenReturn(
+                        Uri.fromFile(
+                                writeToFile("i_am_not_a_base64_encoded_public_key".getBytes())));
+        mDataStore.setProperty(Config.METADATA_URL_PENDING, "http://test-metadata.org");
+
+        assertThat(mSignatureVerifier.getPublicKey().isPresent()).isFalse();
+        mCertificateTransparencyDownloader.onReceive(
+                mContext, makeDownloadCompleteIntent(publicKeyId));
+
+        assertThat(mSignatureVerifier.getPublicKey().isPresent()).isFalse();
+        verify(mDownloadHelper, never()).startDownload(anyString());
+    }
+
+    @Test
+    public void testDownloader_publicKeyDownloadFail_doNotUpdatePublicKey() throws Exception {
+        long publicKeyId = 123;
+        mDataStore.setPropertyLong(Config.PUBLIC_KEY_URL_KEY, publicKeyId);
+        when(mDownloadHelper.getDownloadStatus(publicKeyId))
+                .thenReturn(
+                        makeHttpErrorDownloadStatus(publicKeyId),
+                        makeStorageErrorDownloadStatus(publicKeyId));
+        Intent downloadCompleteIntent = makeDownloadCompleteIntent(publicKeyId);
+        mDataStore.setProperty(Config.METADATA_URL_PENDING, "http://test-metadata.org");
+
+        assertThat(mSignatureVerifier.getPublicKey().isPresent()).isFalse();
+        mCertificateTransparencyDownloader.onReceive(
+                mContext, makeDownloadCompleteIntent(publicKeyId));
+
+        mCertificateTransparencyDownloader.onReceive(mContext, downloadCompleteIntent);
+        mCertificateTransparencyDownloader.onReceive(mContext, downloadCompleteIntent);
+
+        assertThat(mSignatureVerifier.getPublicKey().isPresent()).isFalse();
+        verify(mDownloadHelper, never()).startDownload(anyString());
     }
 
     @Test
@@ -162,7 +249,7 @@ public class CertificateTransparencyDownloaderTest {
         long metadataId = 123;
         File metadataFile = sign(logListFile);
         Uri metadataUri = Uri.fromFile(metadataFile);
-        mCertificateTransparencyDownloader.setPublicKey(
+        mSignatureVerifier.setPublicKey(
                 Base64.getEncoder().encodeToString(mPublicKey.getEncoded()));
         setUpContentDownloadCompleteSuccessful(
                 version, metadataId, metadataUri, contentId, contentUri);
@@ -314,6 +401,21 @@ public class CertificateTransparencyDownloaderTest {
                 .setStatus(DownloadManager.STATUS_FAILED)
                 .setReason(DownloadManager.ERROR_HTTP_DATA_ERROR)
                 .build();
+    }
+
+    private File writePublicKeyToFile(PublicKey publicKey)
+            throws IOException, GeneralSecurityException {
+        return writeToFile(Base64.getEncoder().encode(publicKey.getEncoded()));
+    }
+
+    private File writeToFile(byte[] bytes) throws IOException, GeneralSecurityException {
+        File file = File.createTempFile("temp_file", "tmp");
+
+        try (OutputStream outputStream = new FileOutputStream(file)) {
+            outputStream.write(bytes);
+        }
+
+        return file;
     }
 
     private File sign(File file) throws IOException, GeneralSecurityException {
