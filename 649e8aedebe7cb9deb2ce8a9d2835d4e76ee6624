@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3200dbc8_66b4ab08",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b38ced5_59cd52c4",
+      "range": {
+        "startLine": 897,
+        "startChar": 80,
+        "endLine": 897,
+        "endChar": 81
+      },
+      "revId": "649e8aedebe7cb9deb2ce8a9d2835d4e76ee6624",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df945513_4f8d179d",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03323145_78afc5b8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df945513_4f8d179d",
+      "range": {
+        "startLine": 900,
+        "startChar": 91,
+        "endLine": 900,
+        "endChar": 92
+      },
+      "revId": "649e8aedebe7cb9deb2ce8a9d2835d4e76ee6624",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0937369_7e4d8fbf",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-11-22T09:52:35Z",
       "side": 1,
       "message": "If we finish the third loop and all the reads time out, what happens? It looks like we will try to parse receiveBuffer which contains all zeros. Presumably this will throw a parse error? That seems like it will be difficult to debug.",
+      "range": {
+        "startLine": 903,
+        "startChar": 12,
+        "endLine": 903,
+        "endChar": 13
+      },
+      "revId": "649e8aedebe7cb9deb2ce8a9d2835d4e76ee6624",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73ed1b32_c4f4e53a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-25T03:01:19Z",
+      "side": 1,
+      "message": "Fix by through proper error on last try.",
+      "parentUuid": "d0937369_7e4d8fbf",
       "range": {
         "startLine": 903,
         "startChar": 12,
