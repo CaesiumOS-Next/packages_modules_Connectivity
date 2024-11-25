@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bf2f6a8_535ee582",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-25T00:25:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59babe3c_8784b874",
+      "range": {
+        "startLine": 510,
+        "startChar": 49,
+        "endLine": 510,
+        "endChar": 55
+      },
+      "revId": "a08b06f550e97aba64bebaa1b6e29f95bfe48e13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e27dbe1_39d08c49",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5978d55_1628b29c",
+        "filename": "tests/cts/net/jni/NativeMultinetworkJni.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-25T00:25:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e27dbe1_39d08c49",
+      "range": {
+        "startLine": 516,
+        "startChar": 52,
+        "endLine": 516,
+        "endChar": 58
+      },
+      "revId": "a08b06f550e97aba64bebaa1b6e29f95bfe48e13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e89c3e75_ee1f731e",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-11-22T10:43:12Z",
       "side": 1,
       "message": "Nit: might want to make this a positive error number rather than a negative error number.",
+      "range": {
+        "startLine": 81,
+        "startChar": 25,
+        "endLine": 81,
+        "endChar": 30
+      },
+      "revId": "a08b06f550e97aba64bebaa1b6e29f95bfe48e13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "058a5b0c_79732706",
+        "filename": "tests/cts/net/src/android/net/cts/MultinetworkApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-25T00:25:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e89c3e75_ee1f731e",
       "range": {
         "startLine": 81,
         "startChar": 25,
