@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ddc7f78_3aa5e15f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 63
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1952516
+      },
+      "writtenOn": "2024-11-25T04:09:35Z",
+      "side": 1,
+      "message": "The configuration here will break VM tethering:\n\nIn `setVirtualMachineTethering`, the IPServer is enabled here. However, the logic for adding tethering requests is added only in line#782 in this file. Consequently, when the IP server is enabled, it will see no pending tethering requests for this type, and the static IP request will not be accommodated. This will break the current Ferrochrome configuration that expects the VM client to have a [fixed IP at 192.168.0.2](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Virtualization/libs/service-virtualization/src/com/android/system/virtualmachine/VirtualizationSystemService.java;drc\u003d4d965f76a40a93d721efe998271b571929accc76;l\u003d167).",
+      "range": {
+        "startLine": 768,
+        "startChar": 16,
+        "endLine": 768,
+        "endChar": 60
+      },
+      "revId": "5a7302c0d5be18010864e37abb7497800a0d6820",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
