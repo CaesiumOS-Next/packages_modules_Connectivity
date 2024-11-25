@@ -21,6 +21,7 @@ import static android.os.MessageQueue.OnFileDescriptorEventListener.EVENT_INPUT;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.os.MessageQueue;
 import android.os.ParcelFileDescriptor;
 import android.util.CloseGuard;
@@ -77,7 +78,61 @@ public class TimerFileDescriptor implements AutoCloseable {
     private final ParcelFileDescriptor mParcelFileDescriptor;
     private final int mFdInt;
     @Nullable
-    private Runnable mTask;
+    private ITask mTask;
+
+    /**
+     * An interface for defining tasks that can be executed using a {@link Handler}.
+     */
+    public interface ITask {
+        /**
+         * Executes the task using the provided {@link Handler}.
+         *
+         * @param handler The {@link Handler} to use for executing the task.
+         */
+        void run(Handler handler);
+    }
+
+    /**
+     * A task that sends a {@link Message} using a {@link Handler}.
+     */
+    public static class MessageTask implements ITask {
+        private final Message mMessage;
+
+        MessageTask(Message message) {
+            mMessage = message;
+        }
+
+        /**
+         * Sends the {@link Message} using the provided {@link Handler}.
+         *
+         * @param handler The {@link Handler} to use for sending the message.
+         */
+        @Override
+        public void run(Handler handler) {
+            handler.sendMessage(mMessage);
+        }
+    }
+
+    /**
+     * A task that posts a {@link Runnable} to a {@link Handler}.
+     */
+    public static class RunnableTask implements ITask {
+        private final Runnable mRunnable;
+
+        RunnableTask(Runnable runnable) {
+            mRunnable = runnable;
+        }
+
+        /**
+         * Posts the {@link Runnable} to the provided {@link Handler}.
+         *
+         * @param handler The {@link Handler} to use for posting the runnable.
+         */
+        @Override
+        public void run(Handler handler) {
+            handler.post(mRunnable);
+        }
+    }
 
     /**
      * TimerFileDescriptor constructor
@@ -106,13 +161,13 @@ public class TimerFileDescriptor implements AutoCloseable {
      * @throws IllegalArgumentException if try to replace the current scheduled task
      * @throws IllegalArgumentException if the delay time is less than 0
      */
-    public void setDelayedTask(@NonNull Runnable task, long delayMs) {
+    public void setDelayedTask(@NonNull ITask task, long delayMs) {
         ensureRunningOnCorrectThread();
         if (mTask != null) {
             throw new IllegalArgumentException("task is already scheduled");
         }
         if (delayMs <= 0L) {
-            mHandler.post(task);
+            task.run(mHandler);
             return;
         }
 
@@ -175,7 +230,7 @@ public class TimerFileDescriptor implements AutoCloseable {
 
         // Execute the task
         if (mTask != null) {
-            mTask.run();
+            mTask.run(mHandler);
             mTask = null;
         }
         return true;

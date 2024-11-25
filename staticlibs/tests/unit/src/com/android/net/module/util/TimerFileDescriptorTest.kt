@@ -19,7 +19,11 @@ package com.android.net.module.util
 import android.os.ConditionVariable
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.Looper
+import android.os.Message
 import androidx.test.filters.SmallTest
+import com.android.net.module.util.TimerFileDescriptor.MessageTask
+import com.android.net.module.util.TimerFileDescriptor.RunnableTask
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.tryTest
 import com.android.testutils.visibleOnHandlerThread
@@ -30,13 +34,20 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 private const val DEFAULT_TIMEOUT_MS = 20L
+private const val MSG_TEST = 1
 
 @DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner::class)
 @SmallTest
 class TimerFileDescriptorTest {
+    private class TestHandler(looper: Looper) : Handler(looper) {
+        override fun handleMessage(msg: Message) {
+            val cv = msg.obj as ConditionVariable
+            cv.open()
+        }
+    }
     private val thread = HandlerThread(TimerFileDescriptorTest::class.simpleName).apply { start() }
-    private val handler by lazy { Handler(thread.looper) }
+    private val handler by lazy { TestHandler(thread.looper) }
 
     @After
     fun tearDown() {
@@ -48,10 +59,22 @@ class TimerFileDescriptorTest {
     fun testSetDelayedTask() {
         val delayTime = 10L
         val timerFd = TimerFileDescriptor(handler)
-        val cv = ConditionVariable()
         tryTest {
-            handler.post { timerFd.setDelayedTask({ cv.open() }, delayTime) }
-            assertTrue(cv.block(DEFAULT_TIMEOUT_MS))
+            // Verify the delayed task is executed with the self-implemented ITask
+            val cv1 = ConditionVariable()
+            handler.post { timerFd.setDelayedTask({ cv1.open() }, delayTime) }
+            assertTrue(cv1.block(DEFAULT_TIMEOUT_MS))
+
+            // Verify the delayed task is executed with the RunnableTask
+            val cv2 = ConditionVariable()
+            handler.post { timerFd.setDelayedTask(RunnableTask{ cv2.open() }, delayTime) }
+            assertTrue(cv2.block(DEFAULT_TIMEOUT_MS))
+
+            // Verify the delayed task is executed with the MessageTask
+            val cv3 = ConditionVariable()
+            handler.post { timerFd.setDelayedTask(
+                    MessageTask(handler.obtainMessage(MSG_TEST, cv3)), delayTime) }
+            assertTrue(cv3.block(DEFAULT_TIMEOUT_MS))
         } cleanup {
             visibleOnHandlerThread(handler) { timerFd.close() }
         }
