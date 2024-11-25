@@ -50,6 +50,75 @@
       "message": "Also: if the MUMD tests are currently failing at tip of tree, then why did treehugger previously mark this CL presubmit-verified +2? It should have run the MUMD tests in presubmit, and they should have failed. Are the MUMD tests not in presubmit yet?",
       "revId": "0ce4fec68bf4fb2385c786b0416577957b040776",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ff280b_f08bfa8c",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-25T17:27:18Z",
+      "side": 1,
+      "message": "nit: putting methods above from where they are used improves (top down) readability.",
+      "range": {
+        "startLine": 205,
+        "startChar": 20,
+        "endLine": 205,
+        "endChar": 57
+      },
+      "revId": "0ce4fec68bf4fb2385c786b0416577957b040776",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cc9927f_5e3c24cf",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-25T17:27:18Z",
+      "side": 1,
+      "message": "nit: type is not required here. Could just be `val packageManager \u003d context.getPackageManager()`",
+      "range": {
+        "startLine": 206,
+        "startChar": 30,
+        "endLine": 206,
+        "endChar": 46
+      },
+      "revId": "0ce4fec68bf4fb2385c786b0416577957b040776",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2e5d7c4_f79a1ff5",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-25T17:27:18Z",
+      "side": 1,
+      "message": "I believe getSystemService returns nullable, so the type should either be UserManager? or you could use !!.\n\nIn this case, I would do the latter:\n\n`val userManager \u003d context.getSystemService(UserManager::class.java)!!`\n\n(and same as above, the type is not required).",
+      "range": {
+        "startLine": 207,
+        "startChar": 12,
+        "endLine": 207,
+        "endChar": 92
+      },
+      "revId": "0ce4fec68bf4fb2385c786b0416577957b040776",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
