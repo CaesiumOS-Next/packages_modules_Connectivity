@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14c69368_486a40d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1962675
+      },
+      "writtenOn": "2024-11-25T07:38:54Z",
+      "side": 1,
+      "message": "Samip, can you grant DrNo? The original CL was merged into aosp main.",
+      "revId": "92071eea46235709d875cb7fe22c647cf9a2650e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
