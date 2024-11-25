@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54b7fb54_1e834f79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-25T06:21:57Z",
+      "side": 1,
+      "message": "Please follow the commit message guidelines at: https://source.android.com/docs/setup/contribute/submit-patches#commit-your-change .",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 109
+      },
+      "revId": "116a3a7bd0d1e80adf3258850180f60dc90a3a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17090c4c_1487f33b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-25T06:21:57Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "116a3a7bd0d1e80adf3258850180f60dc90a3a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
