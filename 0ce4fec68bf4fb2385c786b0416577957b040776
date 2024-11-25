@@ -16,6 +16,23 @@
       "message": "LGTM assuming comments addressed.",
       "revId": "0ce4fec68bf4fb2385c786b0416577957b040776",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4466652_1a07b36d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-25T06:12:35Z",
+      "side": 1,
+      "message": "Also, please reformat the commit message to match the guidelines here: https://source.android.com/docs/setup/contribute/submit-patches#commit-your-change .",
+      "revId": "0ce4fec68bf4fb2385c786b0416577957b040776",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
