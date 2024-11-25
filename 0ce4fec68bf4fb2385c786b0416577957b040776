@@ -33,6 +33,23 @@
       "message": "Also, please reformat the commit message to match the guidelines here: https://source.android.com/docs/setup/contribute/submit-patches#commit-your-change .",
       "revId": "0ce4fec68bf4fb2385c786b0416577957b040776",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ef23438_4b967106",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-25T06:20:30Z",
+      "side": 1,
+      "message": "Also: if the MUMD tests are currently failing at tip of tree, then why did treehugger previously mark this CL presubmit-verified +2? It should have run the MUMD tests in presubmit, and they should have failed. Are the MUMD tests not in presubmit yet?",
+      "revId": "0ce4fec68bf4fb2385c786b0416577957b040776",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
