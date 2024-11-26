@@ -1325,6 +1325,9 @@ public class NsdService extends INsdManager.Stub {
                         final ConnectorArgs arg = (ConnectorArgs) msg.obj;
                         final INsdManagerCallback cb = arg.callback;
                         try {
+                            if (cb == null) {
+                                return NOT_HANDLED;
+                            }
                             cb.asBinder().linkToDeath(arg.connector, 0);
                             final String tag = "Client" + arg.uid + "-" + mClientNumberId++;
                             final NetworkNsdReportedMetrics metrics =
