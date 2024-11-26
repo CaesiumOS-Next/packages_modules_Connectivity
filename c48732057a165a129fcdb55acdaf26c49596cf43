@@ -68,6 +68,24 @@
       "parentUuid": "2e26ba1b_e16952ae",
       "revId": "c48732057a165a129fcdb55acdaf26c49596cf43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec4aea62_c6358b29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1962675
+      },
+      "writtenOn": "2024-11-26T23:26:18Z",
+      "side": 1,
+      "message": "Lorenzo, \n\nI have sent out https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3377327 to add this module to automotive-mumd-presubmit as well. Can you review both CLs?",
+      "parentUuid": "26c0f9df_5447f8dc",
+      "revId": "c48732057a165a129fcdb55acdaf26c49596cf43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
