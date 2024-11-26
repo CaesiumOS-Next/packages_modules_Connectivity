@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a76b96bf_2f931451",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-26T10:44:39Z",
+      "side": 1,
+      "message": "Fixed at aosp/3377869\nFor sStatsService that will be accessed from arbitary thread thus I think it is not feasible to do that.\nFeel free to reopen if any idea.",
+      "parentUuid": "ec9ecdb5_013c6731",
+      "range": {
+        "startLine": 220,
+        "startChar": 23,
+        "endLine": 220,
+        "endChar": 40
+      },
+      "revId": "e51bae6bdc4909688975df053c2051735a6c10d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "009ea5fd_66902a74",
