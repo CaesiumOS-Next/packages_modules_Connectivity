@@ -140,6 +140,38 @@ public class NetworkStatsBinderTest {
                 } catch (RemoteException e) {
                     return;
                 }
+<<<<<<< HEAD   (8a9fa0 Merge "Fix Flaky testTrafficStatsForLocalhost" into android1)
+||||||| BASE
+            } catch (IllegalAccessException e) {
+                /* Java language access prevents exploitation. */
+                return;
+            } catch (InvocationTargetException e) {
+                /* Underlying method has been changed. */
+                return;
+            } catch (ClassNotFoundException e) {
+                /* not vulnerable if hidden API no longer available */
+                return;
+            } catch (NoSuchMethodException e) {
+                /* not vulnerable if hidden API no longer available */
+                return;
+            } catch (RemoteException e) {
+                return;
+=======
+            } catch (IllegalAccessException e) {
+                /* Java language access prevents exploitation. */
+                return;
+            } catch (InvocationTargetException e) {
+                /* Underlying method has been changed. */
+                return;
+            } catch (ClassNotFoundException e) {
+                /* not vulnerable if hidden API no longer available */
+                return;
+            } catch (NoSuchMethodException | NoSuchMethodError e) {
+                /* not vulnerable if hidden API no longer available */
+                return;
+            } catch (RemoteException e) {
+                return;
+>>>>>>> CHANGE (05b57b Skip NetworkStatsBinderTest if the binder interface is not a)
             }
         }
     }
