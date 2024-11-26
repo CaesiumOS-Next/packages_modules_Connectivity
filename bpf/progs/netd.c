@@ -238,22 +238,13 @@ static __always_inline inline int bpf_skb_load_bytes_net(const struct __sk_buff*
  * lookup is performing a longest prefix match in map address_type_map.
  * Returns UNKNOWN if the if_index + ip is not found in map.
  */
-static inline __always_inline enum AddressType get_address_type(
-        const uint32_t if_index, const struct in6_addr addr) {
-    AddressTypeKey query_key = {.lpm_bitlen = (sizeof(if_index) + sizeof(addr)) * 8,
+static inline __always_inline enum AddressType get_address_type(const uint32_t if_index,
+                                   const struct in6_addr* addr) {
+    AddressTypeKey query_key = {.lpm_bitlen = (sizeof(if_index) + sizeof(*addr)) * 8,
                                 .if_index = if_index,
-                                .addr = addr};
+                                .addr = *addr};
     enum AddressType *query_value = bpf_address_type_map_lookup_elem(&query_key);
     return query_value ? *query_value : UNKNOWN;
-}
-
-/*
- * Returns true if the given interface index and ip address is of type
- * LOCAL_NETWORK_IP_ADDRESS.
- */
-static inline __always_inline bool is_local_network_address(
-        const uint32_t if_index, const struct in6_addr address) {
-    return get_address_type(if_index, address) == LOCAL_NETWORK;
 }
 
 /*
@@ -262,18 +253,29 @@ static inline __always_inline bool is_local_network_address(
  * destination address on packet is of type LOCAL_NETWORK_IP_ADDRESS.
  */
 static __always_inline inline bool should_block_local_network_packets(struct __sk_buff *skb,
-                                   const struct kver_uint kver) {
+                                   const struct egress_bool egress, const struct kver_uint kver) {
    if (!KVER_IS_AT_LEAST(kver, 5, 4, 0)) return false;
    struct in6_addr addr = {};
+
+   int field_offset = 0;
+   if (egress.egress) {
+       field_offset = (skb->protocol == htons(ETH_P_IP)) ? IP4_OFFSET(daddr) : IP6_OFFSET(daddr);
+   } else {
+       field_offset = (skb->protocol == htons(ETH_P_IP)) ? IP4_OFFSET(saddr) : IP6_OFFSET(saddr);
+   }
+
    if (skb->protocol == htons(ETH_P_IP)) {
        addr.s6_addr32[2] = htonl(0xFFFF);
-       (void)bpf_skb_load_bytes_net(skb, IP4_OFFSET(daddr), &addr.s6_addr32[3], 4, kver);
+       (void)bpf_skb_load_bytes_net(skb, field_offset, &addr.s6_addr32[3], 4, kver);
    } else if (skb->protocol == htons(ETH_P_IPV6)) {
-       (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(daddr), &addr, sizeof(addr), kver);
+       (void)bpf_skb_load_bytes_net(skb, field_offset, &addr, sizeof(addr), kver);
    } else {
        return false;
    }
-   return is_local_network_address(skb->ifindex, addr);
+
+   enum AddressType address_type = get_address_type(skb->ifindex, &addr);
+   return (address_type == LOCAL_NETWORK) || (address_type == MULTICAST) ||
+       (address_type == BROADCAST);
 }
 
 static __always_inline inline void do_packet_tracing(
@@ -528,10 +530,8 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
         if (match == DROP_UNLESS_DNS) match = DROP;
     }
 
-    if (egress.egress) {
-        if ((match != DROP) && should_block_local_network_packets(skb, kver)) match = DROP;
-        if (match == DROP) return DROP;
-    }
+    if ((match != DROP) && should_block_local_network_packets(skb, egress, kver)) match = DROP;
+    if (egress.egress && (match == DROP))  return DROP;
 
     StatsKey key = {.uid = uid, .tag = tag, .counterSet = 0, .ifaceIndex = skb->ifindex};
 
