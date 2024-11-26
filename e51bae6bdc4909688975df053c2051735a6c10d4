@@ -45,6 +45,30 @@
       },
       "revId": "e51bae6bdc4909688975df053c2051735a6c10d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6bed148_d71f5c6a",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-26T07:10:34Z",
+      "side": 1,
+      "message": "Yes, it was already fixed in follow-up CL: aosp/3328955",
+      "parentUuid": "009ea5fd_66902a74",
+      "range": {
+        "startLine": 1013,
+        "startChar": 45,
+        "endLine": 1013,
+        "endChar": 80
+      },
+      "revId": "e51bae6bdc4909688975df053c2051735a6c10d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
