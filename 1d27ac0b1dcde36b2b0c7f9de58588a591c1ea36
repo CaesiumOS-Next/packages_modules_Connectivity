@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1852f837_746dcc67",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-26T15:37:45Z",
+      "side": 1,
+      "message": "Because this is a set and not a list, if the caller adds two identical requests, only one will be stored in the set. If later on one of the two is removed, neither of the requests will be stored in the set.\n\nIn the current code, can this happen? I\u0027m not sure it can, and in any case, the code before your CL uses a BitSet that likely has the same problem, right? If that\u0027s correct, then no issue here (but you could add a TODO).\n\nWhen we merge the CL that implements fuzzy matching (hopefully soon), will this continue not not be possible, because we\u0027ll never get two equal requests here? Or will we need to worry about this problem occurring when we merge that CL?",
+      "range": {
+        "startLine": 325,
+        "startChar": 28,
+        "endLine": 325,
+        "endChar": 31
+      },
+      "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c1808cc_d900eac6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-26T15:37:45Z",
+      "side": 1,
+      "message": "type",
+      "range": {
+        "startLine": 359,
+        "startChar": 40,
+        "endLine": 359,
+        "endChar": 66
+      },
+      "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84f042ea_48ec189f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-26T15:37:45Z",
+      "side": 1,
+      "message": "Might want to add a comment explaining why? Something like:\n\n    // Previous Android releases ran provisioning in order. Maintain compatibility.",
+      "range": {
+        "startLine": 407,
+        "startChar": 20,
+        "endLine": 407,
+        "endChar": 24
+      },
+      "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cf6796c_d3386f19",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-26T15:37:45Z",
+      "side": 1,
+      "message": "Similar to the comment below on maybeStopUsbProvisioning - if we call startTethering for a given type, that will start provisioning. Then if we immediately call stopTethering, before the IpServer has been told of the request in tether(), we won\u0027t stop provisioning.",
+      "range": {
+        "startLine": 698,
+        "startChar": 16,
+        "endLine": 698,
+        "endChar": 38
+      },
+      "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28abd912_1af107fb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-26T15:37:45Z",
+      "side": 1,
+      "message": "The previous code didn\u0027t have to worry about the case where the IpServer did not not know about the request yet.\n\nBut with your new code the request could be null. Can the following happen?\n- Someone (e.g., Settings) calls startTethering(TETHERING_USB)\n- EntitlementManager starts provisioning\n- Before the IpServer is actually started and moves into STATE_TETHERED, USB is unplugged and maybeStopUsbProvisioning is called.\n\nIf that can happen, then I think the code won\u0027t stop provisioning even though it should.",
+      "range": {
+        "startLine": 1306,
+        "startChar": 20,
+        "endLine": 1306,
+        "endChar": 35
+      },
+      "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc32fd9f_2466ff90",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-26T15:37:45Z",
+      "side": 1,
+      "message": "Consider assigning this to a class-level WIFI_REQUEST constant. Same for other types (i.e., add USB_REQUEST, ETHERNET_REQUEST, ...)",
+      "range": {
+        "startLine": 463,
+        "startChar": 39,
+        "endLine": 464,
+        "endChar": 24
+      },
+      "revId": "e8bc8e26a625262531619980efca5f4791ff7420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8301d971_2a47de21",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 3007,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-26T15:37:45Z",
+      "side": 1,
+      "message": "Can you add a positive test case here to ensure that the test actually works? It might pass \"by chance\" (e.g., entitlementmanager isn\u0027t set up correctly and therefore isn\u0027t doing anything, but thee test passes because it\u0027s not verifying anything).\n\nI think you can just add code at the end of this test method that calls startTethering for a non-local request of a different type (e.g., wifi) and check that startProvisioningIfNeeded is called.",
+      "range": {
+        "startLine": 3007,
+        "startChar": 4,
+        "endLine": 3007,
+        "endChar": 5
+      },
+      "revId": "e8bc8e26a625262531619980efca5f4791ff7420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
