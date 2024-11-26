@@ -45,6 +45,30 @@
       },
       "revId": "865fc866ed2f26a14c2997e77838a71be53938d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6709214a_6c62514f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkPrefixMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-26T13:09:28Z",
+      "side": 1,
+      "message": "If there isn\u0027t handy ASCII chart, I think paste the original C Struct definition in the comment here also fine.",
+      "parentUuid": "703feae9_d08109f3",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 72
+      },
+      "revId": "865fc866ed2f26a14c2997e77838a71be53938d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
