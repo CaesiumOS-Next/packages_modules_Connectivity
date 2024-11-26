@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf378e50_e393d316",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkPrefixMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-26T13:08:31Z",
+      "side": 1,
+      "message": "Please add the inline comment for those two values.",
+      "range": {
+        "startLine": 65,
+        "startChar": 32,
+        "endLine": 65,
+        "endChar": 37
+      },
+      "revId": "865fc866ed2f26a14c2997e77838a71be53938d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "703feae9_d08109f3",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkPrefixMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-26T13:08:31Z",
+      "side": 1,
+      "message": "Can we paste a message format ASCII chart here? I think it will be easier for the other people to refer to the parsing logic.",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 72
+      },
+      "revId": "865fc866ed2f26a14c2997e77838a71be53938d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
