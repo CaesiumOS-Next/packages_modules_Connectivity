@@ -96,6 +96,7 @@ java_test_host {
         "device-tests",
         "general-tests",
         "cts",
+        "mcts",
         "mts-networking",
         "mts-tethering",
     ],
