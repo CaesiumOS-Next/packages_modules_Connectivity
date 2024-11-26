@@ -258,19 +258,27 @@ static inline __always_inline __unused enum LocalNetworkAccessValue get_local_ne
  * address on packet is DISALLOWED.
  */
 static __always_inline inline bool should_block_local_network_packets(struct __sk_buff *skb,
-                                   const struct kver_uint kver) {
+                                   const struct egress_bool egress, const struct kver_uint kver) {
    if (!KVER_IS_AT_LEAST(kver, 5, 4, 0)) return false;
    struct in6_addr addr = {};
    uint8_t proto = 0;
    uint8_t L4_off = 0;
+
+  int addr_field_offset = 0;
+  if (egress.egress) {
+      addr_field_offset = (skb->protocol == htons(ETH_P_IP)) ? IP4_OFFSET(daddr) : IP6_OFFSET(daddr);
+  } else {
+      addr_field_offset = (skb->protocol == htons(ETH_P_IP)) ? IP4_OFFSET(saddr) : IP6_OFFSET(saddr);
+  }
+
    if (skb->protocol == htons(ETH_P_IP)) {
        addr.s6_addr32[2] = htonl(0xFFFF);
-       (void)bpf_skb_load_bytes_net(skb, IP4_OFFSET(daddr), &addr.s6_addr32[3], 4, kver);
+       (void)bpf_skb_load_bytes_net(skb, addr_field_offset, &addr.s6_addr32[3], 4, kver);
        (void)bpf_skb_load_bytes_net(skb, IP4_OFFSET(protocol), &proto, sizeof(proto), kver);
        (void)bpf_skb_load_bytes_net(skb, IPPROTO_IHL_OFF, &L4_off, sizeof(L4_off), kver);
        L4_off = (L4_off & 0x0F) * 4;  // IHL calculation.
    } else if (skb->protocol == htons(ETH_P_IPV6)) {
-       (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(daddr), &addr, sizeof(addr), kver);
+       (void)bpf_skb_load_bytes_net(skb, addr_field_offset, &addr, sizeof(addr), kver);
        (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(nexthdr), &proto, sizeof(proto), kver);
        L4_off = sizeof(struct ipv6hdr);
        if (proto == IPPROTO_HOPOPTS || proto == IPPROTO_DSTOPTS) {
@@ -286,7 +294,7 @@ static __always_inline inline bool should_block_local_network_packets(struct __s
        return false;
    }
 
-   __be16 sport = 0, dport = 0;
+   __be16 sport = 0, dport = 0, port = 0;
    if (L4_off >= 20) {
      switch (proto) {
        case IPPROTO_TCP:
@@ -308,7 +316,9 @@ static __always_inline inline bool should_block_local_network_packets(struct __s
      }
    }
 
-   enum LocalNetworkAccessValue access_value = get_local_network_access(skb->ifindex, &addr, dport,
+   port = (egress.egress) ? dport : sport;
+
+   enum LocalNetworkAccessValue access_value = get_local_network_access(skb->ifindex, &addr, port,
        proto);
    return access_value == DISALLOWED;
 }
@@ -565,10 +575,8 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
         if (match == DROP_UNLESS_DNS) match = DROP;
     }
 
-    if (egress.egress) {
-        if ((match != DROP) && should_block_local_network_packets(skb, kver)) match = DROP;
-        if (match == DROP) return DROP;
-    }
+    if ((match != DROP) && should_block_local_network_packets(skb, egress, kver)) match = DROP;
+    if (egress.egress && (match == DROP))  return DROP;
 
     StatsKey key = {.uid = uid, .tag = tag, .counterSet = 0, .ifaceIndex = skb->ifindex};
 
