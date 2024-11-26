@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf547850_2145c6cd",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-26T08:45:33Z",
+      "side": 1,
+      "message": "Nit: if this is available for external callers I\u0027d call this differently, like \"post\" ? \"run\" looks like Runnable::run which generally runs on a specified thread, but here this doesn\u0027t run on the Handler thread",
+      "range": {
+        "startLine": 92,
+        "startChar": 13,
+        "endLine": 92,
+        "endChar": 16
+      },
+      "revId": "a2e6eea70d17bb2403719c1486865bc74a63de36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
