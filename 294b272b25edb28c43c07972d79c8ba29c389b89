@@ -412,6 +412,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e89316e_1f8098be",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-27T13:32:50Z",
+      "side": 1,
+      "message": "Acknowledged. Removed the `unregisterAndDestroyFd`.",
+      "parentUuid": "69e704ac_38bae1a3",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00a14e4a_f1b10ef5",
@@ -465,6 +483,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d307af47_2fe9ccb0",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-27T13:32:50Z",
+      "side": 1,
+      "message": "Removed as unnecessary.",
+      "parentUuid": "3d8d7d19_d661da2f",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d28ceddd_22a2764d",
@@ -514,6 +550,24 @@
       "side": 1,
       "message": "Reopening as I\u0027m not sure disarming is necessary, so this would simplify the code",
       "parentUuid": "8d33a50d_a86df230",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab070290_4097c222",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-27T13:32:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f16ef918_417bcb97",
       "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
