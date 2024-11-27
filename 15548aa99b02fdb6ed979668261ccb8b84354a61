@@ -85,6 +85,24 @@
       "message": "we cannot use trunk stable flags in mainline code. The only thing you can use the flag for is API changes if there are any.",
       "revId": "15548aa99b02fdb6ed979668261ccb8b84354a61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad99ef27_7af5b050",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-27T16:45:07Z",
+      "side": 1,
+      "message": "This should use a phenotype flag. You can look here for flags we have added and how they are used https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/connectivity/ConnectivityFlags.java",
+      "parentUuid": "3c862335_9b3a7902",
+      "revId": "15548aa99b02fdb6ed979668261ccb8b84354a61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
