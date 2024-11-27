@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "987407d9_67cf8b31",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-27T06:22:14Z",
+      "side": 1,
+      "message": "Are you implementing these because you wanted to use an existing interface for Clock ? Would java.util.function.LongSupplier work ? It would avoid the dead code",
+      "revId": "95233c0f4fe83232571e28979bfd17271158f7ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
