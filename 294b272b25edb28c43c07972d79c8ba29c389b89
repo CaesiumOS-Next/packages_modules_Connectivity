@@ -101,6 +101,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7929bcb_fc7780b0",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-27T14:27:33Z",
+      "side": 1,
+      "message": "You are right. I used a `ConditionVariable` to verify whether this code is working, but it depends on the implementation. If `block()` is within the try statement, as in `Example 1`, the delayed task can execute normally. However, if `block()` is outside the try statement, as in Example 2, the timerfd is already closed before `cv.block()` is executed.  I believe `Example 2` is the more common use case. Therefore, the try-with-resources approach does not work. I removed this example code.\n\n```\n # Example 1\n try (TimerFileDescriptor timerFd \u003d new TimerFileDescriptor(mHandler)) {\n     timerFd.setDelayedTask(() -\u003e cv2.open(), 5000L);\n     assertTrue(cv2.block(60000L));\n }\n \n # Example 2\n try (TimerFileDescriptor timerFd \u003d new TimerFileDescriptor(mHandler)) {\n     timerFd.setDelayedTask(() -\u003e cv2.open(), 5000L);\n }\n assertTrue(cv2.block(60000L));\n```",
+      "parentUuid": "981801cc_76f71f61",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f65a959f_6838450c",
