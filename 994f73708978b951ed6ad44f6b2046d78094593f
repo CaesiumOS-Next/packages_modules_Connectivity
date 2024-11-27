@@ -16,6 +16,24 @@
       "message": "perhaps you\u0027d want a:\n\nDEFINE_BPF_MAP_NO_NETD(sdksandbox_restrict_localhost_map, ARRAY, uint32_t, bool, 1)\n\nand then read it and do the drop only if true?",
       "revId": "994f73708978b951ed6ad44f6b2046d78094593f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "087ae662_bec9d5c8",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2024-11-27T10:30:24Z",
+      "side": 1,
+      "message": "Added, but reversed since the default in the array is false and I believe it\u0027s better to drop localhost comms by default. However, I added it as a way to enforce the compile time aflag.",
+      "parentUuid": "eb424ae0_300244e9",
+      "revId": "994f73708978b951ed6ad44f6b2046d78094593f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
