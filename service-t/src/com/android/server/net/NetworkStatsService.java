@@ -1196,8 +1196,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             mFastDataInputFallbacksCounter = mDeps.createPersistentCounter(mStatsDir.toPath(),
                     NETSTATS_FASTDATAINPUT_FALLBACKS_COUNTER_NAME);
         } catch (IOException e) {
-            Log.wtf(TAG, "Failed to create persistent counters, skip.", e);
-            useFastDataInput = false;
+            Log.wtf(TAG, "Failed to create persistent counters, return.", e);
+            return;
         }
 
         final int targetAttempts = mDeps.getUseFastDataInputTargetAttempts();
