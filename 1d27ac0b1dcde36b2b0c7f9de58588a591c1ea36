@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e22fc577_51036e72",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-27T07:46:36Z",
+      "side": 1,
+      "message": "Yes this can happen (I.e. identical request clobbers existing identical request), but it\u0027s the same behavior as with the previous code.\n\nWith the fuzzy matching CL, we\u0027ll reject fuzzy-matched requests so there\u0027ll be no worry about duplicate requests here.",
+      "parentUuid": "1852f837_746dcc67",
+      "range": {
+        "startLine": 325,
+        "startChar": 28,
+        "endLine": 325,
+        "endChar": 31
+      },
+      "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c1808cc_d900eac6",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-26T15:37:45Z",
       "side": 1,
       "message": "type",
+      "range": {
+        "startLine": 359,
+        "startChar": 40,
+        "endLine": 359,
+        "endChar": 66
+      },
+      "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01ded721_7ed7e27c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-27T07:46:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c1808cc_d900eac6",
       "range": {
         "startLine": 359,
         "startChar": 40,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48be010f_448d8957",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-27T07:46:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84f042ea_48ec189f",
+      "range": {
+        "startLine": 407,
+        "startChar": 20,
+        "endLine": 407,
+        "endChar": 24
+      },
+      "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cf6796c_d3386f19",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc3e2e6a_d2cedc7d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-27T07:46:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cf6796c_d3386f19",
+      "range": {
+        "startLine": 698,
+        "startChar": 16,
+        "endLine": 698,
+        "endChar": 38
+      },
+      "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28abd912_1af107fb",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-11-26T15:37:45Z",
       "side": 1,
       "message": "The previous code didn\u0027t have to worry about the case where the IpServer did not not know about the request yet.\n\nBut with your new code the request could be null. Can the following happen?\n- Someone (e.g., Settings) calls startTethering(TETHERING_USB)\n- EntitlementManager starts provisioning\n- Before the IpServer is actually started and moves into STATE_TETHERED, USB is unplugged and maybeStopUsbProvisioning is called.\n\nIf that can happen, then I think the code won\u0027t stop provisioning even though it should.",
+      "range": {
+        "startLine": 1306,
+        "startChar": 20,
+        "endLine": 1306,
+        "endChar": 35
+      },
+      "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "174c727f_3b084aae",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-11-27T07:46:36Z",
+      "side": 1,
+      "message": "I see. In this case I\u0027ve re-added the stopProvisioningIfNeeded that takes a type so we don\u0027t have to be synchronized with IpServer.",
+      "parentUuid": "28abd912_1af107fb",
       "range": {
         "startLine": 1306,
         "startChar": 20,
