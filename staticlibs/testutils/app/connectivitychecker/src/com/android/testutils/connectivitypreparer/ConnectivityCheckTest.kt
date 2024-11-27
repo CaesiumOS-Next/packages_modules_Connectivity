@@ -18,14 +18,18 @@ package com.android.testutils.connectivitypreparer
 
 import android.content.pm.PackageManager.FEATURE_TELEPHONY
 import android.content.pm.PackageManager.FEATURE_WIFI
+import android.telephony.SubscriptionManager
+import android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID
 import android.telephony.TelephonyManager
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.testutils.ConnectUtil
-import kotlin.test.assertTrue
-import kotlin.test.fail
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.test.assertTrue
+import kotlin.test.fail
+
 
 @RunWith(AndroidJUnit4::class)
 class ConnectivityCheckTest {
@@ -56,6 +60,12 @@ class ConnectivityCheckTest {
             fail("The device is not setup with a usable SIM card. Sim state was ${tm.simState}. " +
                     commonError)
         }
+        val subId = SubscriptionManager.getDefaultDataSubscriptionId()
+        assertNotEquals("The device does not have a valid default subId.",
+                INVALID_SUBSCRIPTION_ID, subId)
+        assertTrue(tm.createForSubscriptionId(subId).isDataEnabled(),
+            "The mobile data is disabled, please enable it from the settings.")
+        // Refer to DataEvaluation#DataDisallowedReason for possible reasons.
         assertTrue(tm.isDataConnectivityPossible,
             "The device has a SIM card, but it does not supports data connectivity. " +
             "Check the data plan, and verify that mobile data is working. " + commonError)
