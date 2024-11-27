@@ -267,6 +267,30 @@
       },
       "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a40e0aa_589d26d1",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-27T07:37:43Z",
+      "side": 1,
+      "message": "OK then let\u0027s go back to the prior version where we pass the enabled state directly as a function arg and the function is not static. Sorry for the noise.",
+      "parentUuid": "3cb2a831_b8b1f24b",
+      "range": {
+        "startLine": 1002,
+        "startChar": 46,
+        "endLine": 1002,
+        "endChar": 61
+      },
+      "revId": "fc1924f81fd4df1d95d8e5ab459851592c4e95ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
