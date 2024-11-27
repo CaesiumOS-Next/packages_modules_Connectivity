@@ -27,8 +27,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.VisibleForTesting;
-
 import com.android.server.net.ct.DownloadHelper.DownloadStatus;
 
 import org.json.JSONException;
@@ -75,34 +73,31 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         }
     }
 
-    void startPublicKeyDownload(String publicKeyUrl) {
-        long downloadId = download(publicKeyUrl);
-        if (downloadId == -1) {
-            Log.e(TAG, "Metadata download request failed for " + publicKeyUrl);
-            return;
+    long startPublicKeyDownload() {
+        long downloadId = download(mDataStore.getProperty(Config.PUBLIC_KEY_URL));
+        if (downloadId != -1) {
+            mDataStore.setPropertyLong(Config.PUBLIC_KEY_DOWNLOAD_ID, downloadId);
+            mDataStore.store();
         }
-        mDataStore.setPropertyLong(Config.PUBLIC_KEY_URL_KEY, downloadId);
-        mDataStore.store();
+        return downloadId;
     }
 
-    void startMetadataDownload(String metadataUrl) {
-        long downloadId = download(metadataUrl);
-        if (downloadId == -1) {
-            Log.e(TAG, "Metadata download request failed for " + metadataUrl);
-            return;
+    long startMetadataDownload() {
+        long downloadId = download(mDataStore.getProperty(Config.METADATA_URL));
+        if (downloadId != -1) {
+            mDataStore.setPropertyLong(Config.METADATA_DOWNLOAD_ID, downloadId);
+            mDataStore.store();
         }
-        mDataStore.setPropertyLong(Config.METADATA_URL_KEY, downloadId);
-        mDataStore.store();
+        return downloadId;
     }
 
-    void startContentDownload(String contentUrl) {
-        long downloadId = download(contentUrl);
-        if (downloadId == -1) {
-            Log.e(TAG, "Content download request failed for " + contentUrl);
-            return;
+    long startContentDownload() {
+        long downloadId = download(mDataStore.getProperty(Config.CONTENT_URL));
+        if (downloadId != -1) {
+            mDataStore.setPropertyLong(Config.CONTENT_DOWNLOAD_ID, downloadId);
+            mDataStore.store();
         }
-        mDataStore.setPropertyLong(Config.CONTENT_URL_KEY, downloadId);
-        mDataStore.store();
+        return downloadId;
     }
 
     @Override
@@ -157,7 +152,11 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
 
-        startMetadataDownload(mDataStore.getProperty(Config.METADATA_URL_PENDING));
+        if (startMetadataDownload() == -1) {
+            Log.e(TAG, "Metadata download not started.");
+        } else if (Config.DEBUG) {
+            Log.d(TAG, "Metadata download started successfully.");
+        }
     }
 
     private void handleMetadataDownloadCompleted(long downloadId) {
@@ -166,7 +165,11 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             handleDownloadFailed(status);
             return;
         }
-        startContentDownload(mDataStore.getProperty(Config.CONTENT_URL_PENDING));
+        if (startContentDownload() == -1) {
+            Log.e(TAG, "Content download not started.");
+        } else if (Config.DEBUG) {
+            Log.d(TAG, "Content download started successfully.");
+        }
     }
 
     private void handleContentDownloadCompleted(long downloadId) {
@@ -204,8 +207,6 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
 
-        String contentUrl = mDataStore.getProperty(Config.CONTENT_URL_PENDING);
-        String metadataUrl = mDataStore.getProperty(Config.METADATA_URL_PENDING);
         try (InputStream inputStream = mContext.getContentResolver().openInputStream(contentUri)) {
             success = mInstaller.install(Config.COMPATIBILITY_VERSION, inputStream, version);
         } catch (IOException e) {
@@ -216,8 +217,6 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         if (success) {
             // Update information about the stored version on successful install.
             mDataStore.setProperty(Config.VERSION, version);
-            mDataStore.setProperty(Config.CONTENT_URL, contentUrl);
-            mDataStore.setProperty(Config.METADATA_URL, metadataUrl);
             mDataStore.store();
         }
     }
@@ -236,30 +235,51 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         }
     }
 
-    @VisibleForTesting
+    long getPublicKeyDownloadId() {
+        return mDataStore.getPropertyLong(Config.PUBLIC_KEY_DOWNLOAD_ID, -1);
+    }
+
+    long getMetadataDownloadId() {
+        return mDataStore.getPropertyLong(Config.METADATA_DOWNLOAD_ID, -1);
+    }
+
+    long getContentDownloadId() {
+        return mDataStore.getPropertyLong(Config.CONTENT_DOWNLOAD_ID, -1);
+    }
+
+    boolean hasPublicKeyDownloadId() {
+        return getPublicKeyDownloadId() != -1;
+    }
+
+    boolean hasMetadataDownloadId() {
+        return getMetadataDownloadId() != -1;
+    }
+
+    boolean hasContentDownloadId() {
+        return getContentDownloadId() != -1;
+    }
+
     boolean isPublicKeyDownloadId(long downloadId) {
-        return mDataStore.getPropertyLong(Config.PUBLIC_KEY_URL_KEY, -1) == downloadId;
+        return getPublicKeyDownloadId() == downloadId;
     }
 
-    @VisibleForTesting
     boolean isMetadataDownloadId(long downloadId) {
-        return mDataStore.getPropertyLong(Config.METADATA_URL_KEY, -1) == downloadId;
+        return getMetadataDownloadId() == downloadId;
     }
 
-    @VisibleForTesting
     boolean isContentDownloadId(long downloadId) {
-        return mDataStore.getPropertyLong(Config.CONTENT_URL_KEY, -1) == downloadId;
+        return getContentDownloadId() == downloadId;
     }
 
     private Uri getPublicKeyDownloadUri() {
-        return mDownloadHelper.getUri(mDataStore.getPropertyLong(Config.PUBLIC_KEY_URL_KEY, -1));
+        return mDownloadHelper.getUri(getPublicKeyDownloadId());
     }
 
     private Uri getMetadataDownloadUri() {
-        return mDownloadHelper.getUri(mDataStore.getPropertyLong(Config.METADATA_URL_KEY, -1));
+        return mDownloadHelper.getUri(getMetadataDownloadId());
     }
 
     private Uri getContentDownloadUri() {
-        return mDownloadHelper.getUri(mDataStore.getPropertyLong(Config.CONTENT_URL_KEY, -1));
+        return mDownloadHelper.getUri(getContentDownloadId());
     }
 }
