@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d90bac98_ebbc4fd1",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-27T16:41:53Z",
+      "side": 1,
+      "message": "nit: Can this comment say:\n\"Do not allow loopback traffic for SDK sandbox UIDs. Defaults to \u0027enabled\u0027.\".",
+      "range": {
+        "startLine": 432,
+        "startChar": 8,
+        "endLine": 432,
+        "endChar": 46
+      },
+      "revId": "15548aa99b02fdb6ed979668261ccb8b84354a61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdfd6683_1cda1069",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-27T16:41:53Z",
+      "side": 1,
+      "message": "nit: \"allowLocalhost\" and eliminate the newline here and below.",
+      "range": {
+        "startLine": 434,
+        "startChar": 14,
+        "endLine": 434,
+        "endChar": 38
+      },
+      "revId": "15548aa99b02fdb6ed979668261ccb8b84354a61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5194b526_a31574bd",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-27T16:41:53Z",
+      "side": 1,
+      "message": "nit: shouldn\u0027t this fit on one line? If not, s/permissions/perm/",
+      "range": {
+        "startLine": 442,
+        "startChar": 12,
+        "endLine": 443,
+        "endChar": 70
+      },
+      "revId": "15548aa99b02fdb6ed979668261ccb8b84354a61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c862335_9b3a7902",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-27T16:41:53Z",
+      "side": 1,
+      "message": "we cannot use trunk stable flags in mainline code. The only thing you can use the flag for is API changes if there are any.",
+      "revId": "15548aa99b02fdb6ed979668261ccb8b84354a61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

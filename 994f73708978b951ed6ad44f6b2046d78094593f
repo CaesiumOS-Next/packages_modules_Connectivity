@@ -34,6 +34,24 @@
       "parentUuid": "eb424ae0_300244e9",
       "revId": "994f73708978b951ed6ad44f6b2046d78094593f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db8093f2_911bf152",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-11-27T16:41:53Z",
+      "side": 1,
+      "message": "I am not sure whether this shouldn\u0027t be an sdksandbox_deny_localhost_map instead. Don\u0027t we want to roll this out by a (phenotype) flag rollout?",
+      "parentUuid": "087ae662_bec9d5c8",
+      "revId": "994f73708978b951ed6ad44f6b2046d78094593f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
