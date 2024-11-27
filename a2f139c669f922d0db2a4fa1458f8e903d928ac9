@@ -67,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e967f97_34e2c52b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-27T07:55:35Z",
+      "side": 1,
+      "message": "(unresolved)",
+      "parentUuid": "adbc4ff4_22fcf4d5",
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27c62942_e5005387",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 4
@@ -590,6 +608,30 @@
       "side": 1,
       "message": "Looking at [doc for ByteBuffer.duplicate](https://developer.android.com/reference/java/nio/ByteBuffer#duplicate())\n```\nThe content of the new buffer will be that of this buffer. Changes to this buffer\u0027s content will be visible in the new buffer, and vice versa; the two buffers\u0027 position, limit, and mark values will be independent.\n```\nLooking at the doc, I dont think it involves deep copy here? Used `duplicate` to have independent position/limit.",
       "parentUuid": "02ffd103_3ee8e15e",
+      "range": {
+        "startLine": 290,
+        "startChar": 32,
+        "endLine": 290,
+        "endChar": 70
+      },
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b17d8de_6c1ad086",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-11-27T07:55:35Z",
+      "side": 1,
+      "message": "Thanks for the explanation, I just assumed based on the name that there was a copy of the underlying byte array.",
+      "parentUuid": "59fe723c_3d286d58",
       "range": {
         "startLine": 290,
         "startChar": 32,
