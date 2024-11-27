@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22bc37fa_6c0b29d5",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverCancellationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-27T00:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83a3e1cd_18ec4346",
+      "revId": "0b4052ed22d457933a321a16d4a2c71171422f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e7299da_d463e797",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-11-25T04:20:47Z",
       "side": 1,
       "message": "Do you actually need this? I don\u0027t think the actual networking operations used in this test require a default router, or even an RA at all. (Maybe you could call this LinkLocalDnsTest?)\n\nThat said, it doesn\u0027t hurt.",
+      "range": {
+        "startLine": 120,
+        "startChar": 20,
+        "endLine": 120,
+        "endChar": 34
+      },
+      "revId": "0b4052ed22d457933a321a16d4a2c71171422f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8bf5dfd_10777cc7",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverCancellationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-27T00:23:26Z",
+      "side": 1,
+      "message": "Only a neighbor entry is needed actually, changed to that",
+      "parentUuid": "3e7299da_d463e797",
       "range": {
         "startLine": 120,
         "startChar": 20,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a886e985_04a71198",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverCancellationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-27T00:23:26Z",
+      "side": 1,
+      "message": "Removed, this was not actually necessary (just the route is needed)",
+      "parentUuid": "3187145f_b671d4e0",
+      "range": {
+        "startLine": 125,
+        "startChar": 27,
+        "endLine": 125,
+        "endChar": 47
+      },
+      "revId": "0b4052ed22d457933a321a16d4a2c71171422f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f2dd59e_396b4c48",
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4142c924_2f58d1f8",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverCancellationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-27T00:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f2dd59e_396b4c48",
+      "range": {
+        "startLine": 126,
+        "startChar": 40,
+        "endLine": 126,
+        "endChar": 46
+      },
+      "revId": "0b4052ed22d457933a321a16d4a2c71171422f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b0372c2_ee82f76d",
@@ -100,6 +190,30 @@
       "writtenOn": "2024-11-25T04:20:47Z",
       "side": 1,
       "message": "NetworkMonitor won\u0027t run on this network, will it? Because there\u0027s no INTERNET capability? If it does, then you might have to to filter out NetworkMonitor\u0027s queries.",
+      "range": {
+        "startLine": 149,
+        "startChar": 26,
+        "endLine": 149,
+        "endChar": 37
+      },
+      "revId": "0b4052ed22d457933a321a16d4a2c71171422f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbc7ab1e_e978d890",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverCancellationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-27T00:23:26Z",
+      "side": 1,
+      "message": "Yes, but also this already filters for queries for the test domain (see `isQueryFor(domain, DnsResolver.TYPE_AAAA)`). Added a comment.",
+      "parentUuid": "1b0372c2_ee82f76d",
       "range": {
         "startLine": 149,
         "startChar": 26,
