@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4550bf19_913b59ab",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-11-27T00:09:58Z",
+      "side": 1,
+      "message": "nit: extract the base URL into its own variable?",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 69
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "cc306a18_ef5a912d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/Config.java",
+              "range": {
+                "startLine": 63,
+                "startChar": 0,
+                "endLine": 69,
+                "endChar": 0
+              },
+              "replacement": "    static final String URL_BASE \u003d \"https://www.gstatic.com/android/certificate_transparency/\";\n    static final String URL_LOG_LIST \u003d URL_BASE + \"log_list.json\";\n    static final String URL_SIGNATURE \u003d URL_BASE + \"log_list.sig\";\n    static final String URL_PUBLIC_KEY \u003d URL_BASE + \"log_list.pub\";\n"
+            }
+          ]
+        }
+      ],
+      "revId": "701c09e15201b06433ec5d3f46ded9d9dcd83dd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
