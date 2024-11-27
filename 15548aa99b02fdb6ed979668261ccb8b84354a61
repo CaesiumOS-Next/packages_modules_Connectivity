@@ -103,6 +103,24 @@
       "parentUuid": "3c862335_9b3a7902",
       "revId": "15548aa99b02fdb6ed979668261ccb8b84354a61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e868b929_32019bfa",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2024-11-27T17:31:48Z",
+      "side": 1,
+      "message": "As of now trunk stable flags are supported in mainline, though only read-only (which this one is). We\u0027ve been using them in the SdkRuntime for a while and I see them being used in other parts of the Connectivity module. Are they for some reason not supported for this service?",
+      "parentUuid": "ad99ef27_7af5b050",
+      "revId": "15548aa99b02fdb6ed979668261ccb8b84354a61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
