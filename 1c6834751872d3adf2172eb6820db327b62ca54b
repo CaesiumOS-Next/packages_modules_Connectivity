@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5dc6b36_97c672a3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5224,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-28T02:17:43Z",
+      "side": 1,
+      "message": "Won\u0027t this break the NetworkAgent#setTeardownDelayMillis API? The purpose of that API is to ensure that this code does *not* tear down the network, and instead will wait for the teardown delay before destroying it - see line 5237.\n\nThis CL will make the network be destroyed immediately anyway, even though the caller has requested a delay.",
+      "range": {
+        "startLine": 5224,
+        "startChar": 40,
+        "endLine": 5224,
+        "endChar": 58
+      },
+      "revId": "1c6834751872d3adf2172eb6820db327b62ca54b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5cb6b3a7_07353a97",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 2
