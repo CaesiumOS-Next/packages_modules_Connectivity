@@ -98,6 +98,8 @@ java_test_host {
         "cts",
         "mts-networking",
         "mts-tethering",
+        "mcts",
+        "mcts-tethering",
     ],
     data: [":ConnectivityTestPreparer"],
 }
