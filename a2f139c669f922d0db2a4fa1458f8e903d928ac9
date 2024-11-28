@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "137d4943_36aff1a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-28T01:14:59Z",
+      "side": 1,
+      "message": "Thanks for bringing this up. Will have 3 patches to (1) netlink addition (2) EthernetTracker change (3) test",
+      "parentUuid": "3e967f97_34e2c52b",
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27c62942_e5005387",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 4
