@@ -228,7 +228,7 @@ public class NetlinkUtils {
      * Send an RTM_GETLINK message to kernel to get the list of all interfaces.
      */
     @Nullable
-    public static String[] sendRtmGetLinkRequest() {
+    public static String[] getInterfaceList() {
         final byte[] msg = RtNetlinkLinkMessage.createGetAllLinksMessage(1 /* seqNo*/)
                 .pack(ByteOrder.nativeOrder());
         final FileDescriptor fd;
