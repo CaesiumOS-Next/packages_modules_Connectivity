@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f7590b4_94a9f708",
+        "filename": "staticlibs/testutils/app/connectivitychecker/src/com/android/testutils/connectivitypreparer/ConnectivityCheckTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-28T23:43:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "982257de_39ae353d",
+      "range": {
+        "startLine": 114,
+        "startChar": 58,
+        "endLine": 114,
+        "endChar": 79
+      },
+      "revId": "c40852c5b0790162c8b438fd1eb5fe0167c0ff54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f1a0b78_224560e1",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-28T03:44:54Z",
       "side": 1,
       "message": "Might want to log the IP address as well?",
+      "range": {
+        "startLine": 149,
+        "startChar": 53,
+        "endLine": 149,
+        "endChar": 61
+      },
+      "revId": "c40852c5b0790162c8b438fd1eb5fe0167c0ff54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e184611_944232cb",
+        "filename": "staticlibs/testutils/app/connectivitychecker/src/com/android/testutils/connectivitypreparer/ConnectivityCheckTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-28T23:43:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f1a0b78_224560e1",
       "range": {
         "startLine": 149,
         "startChar": 53,
