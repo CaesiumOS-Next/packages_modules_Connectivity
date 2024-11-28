@@ -62,7 +62,10 @@ import com.android.server.connectivity.ConnectivityResources;
 
 import java.io.FileDescriptor;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -403,11 +406,16 @@ public class EthernetTracker {
 
     List<String> getInterfaceList() {
         final List<String> interfaceList = new ArrayList<String>();
-        final String[] ifaces;
+        Enumeration<NetworkInterface> ifaces = null;
+
         try {
-            ifaces = mNetd.interfaceGetList();
-        } catch (RemoteException e) {
-            Log.e(TAG, "Could not get list of interfaces " + e);
+            ifaces = NetworkInterface.getNetworkInterfaces();
+        } catch (SocketException e) {
+            Log.e(TAG, "Failed to query for interface list: ", e);
+        }
+
+        if (ifaces == null) {
+            Log.e(TAG, "Could not get list of interfaces");
             return interfaceList;
         }
 
@@ -419,8 +427,9 @@ public class EthernetTracker {
         // indeterminate either way. This can easily be circumvented by waiting on a callback from
         // a test interface after calling setIncludeTestInterfaces() before calling this function.
         // In production code, this has no effect.
-        for (String iface : ifaces) {
-            if (isValidEthernetInterface(iface)) interfaceList.add(iface);
+        while (ifaces.hasMoreElements()) {
+            NetworkInterface iface = ifaces.nextElement();
+            if (isValidEthernetInterface(iface.getName())) interfaceList.add(iface.getName());
         }
         return interfaceList;
     }
