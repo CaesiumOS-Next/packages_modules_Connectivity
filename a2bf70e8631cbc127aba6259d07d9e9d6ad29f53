@@ -151,6 +151,24 @@
       "parentUuid": "d2a1512c_326c4146",
       "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd5d3243_38a39417",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-28T00:46:07Z",
+      "side": 1,
+      "message": "Yes, the poll shouldn\u0027t be restarted because that would change the connector while the framework is up, which isn\u0027t supported by all the dependencies of this class.\n\nBasically just check that the binder is alive before setting mConnector. Once mConnector is set, assume it should always be alive; if it dies the framework should restart to recover",
+      "parentUuid": "680810e5_2ec8c5d8",
+      "revId": "a2bf70e8631cbc127aba6259d07d9e9d6ad29f53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
