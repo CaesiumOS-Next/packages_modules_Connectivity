@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b46465e_16ea3f10",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2560,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-28T05:30:17Z",
+      "side": 1,
+      "message": "Consider:\n\n    .append((mReservationId \u003d\u003d RES_ID_MATCH_ALL_RESERVATIONS) ? \"MATCH_ALL\" : mReservationId);\n\nor\n\n    .append((mReservationId \u003d\u003d RES_ID_MATCH_ALL_RESERVATIONS) ? \"*\" : mReservationId);",
+      "range": {
+        "startLine": 2560,
+        "startChar": 49,
+        "endLine": 2560,
+        "endChar": 63
+      },
+      "revId": "a579b05df7e456b4897f0a4cedf0f2cc338e1862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c6c5f80_b7331fe3",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-28T05:30:17Z",
+      "side": 1,
+      "message": "The documentation in line 2902 says it does, doesn\u0027t it? But the code doesn\u0027t actually implement that. If you did want to implement it, I\u0027d guess it would be just:\n\n    if (mReservationId \u003d\u003d RES_ID_UNSET) {\n        // ...\n        return nc.mReservationId !\u003d RES_ID_MATCH_ALL_RESERVATIONS;\n    }\n\n?",
+      "range": {
+        "startLine": 2936,
+        "startChar": 12,
+        "endLine": 2936,
+        "endChar": 70
+      },
+      "revId": "a579b05df7e456b4897f0a4cedf0f2cc338e1862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8419c497_7b28e629",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1498,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-28T05:30:17Z",
+      "side": 1,
+      "message": "Why SC_V2? This will work on S, right? If so, this should be Build.VERSION_CODES.R.",
+      "range": {
+        "startLine": 1498,
+        "startChar": 22,
+        "endLine": 1498,
+        "endChar": 27
+      },
+      "revId": "a579b05df7e456b4897f0a4cedf0f2cc338e1862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d65c6b2_8fd323f6",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-11-28T05:30:17Z",
+      "side": 1,
+      "message": "Now set one of them to 43 and check that equals starts returning false?",
+      "range": {
+        "startLine": 1530,
+        "startChar": 31,
+        "endLine": 1530,
+        "endChar": 32
+      },
+      "revId": "a579b05df7e456b4897f0a4cedf0f2cc338e1862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
