@@ -103,6 +103,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed9f3809_84083331",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-11-28T07:39:33Z",
+      "side": 1,
+      "message": "Talked with Yuyang and Remi, and 2 takeaways:\n1. We do not need netlink for retrieving interface list, `NetworkInterface.getNetworkInterfaces()` already does the job (tested locally and works)\n2. For `setInterfaceUp` that needs to uses netlink, we better test at a public API level (maybe a CTS to call `setInterfaceEnabled` and test if interface is up/down, for example) rather than netlink level.",
+      "parentUuid": "137d4943_36aff1a5",
+      "revId": "a2f139c669f922d0db2a4fa1458f8e903d928ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27c62942_e5005387",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 4
