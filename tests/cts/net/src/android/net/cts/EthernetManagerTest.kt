@@ -680,6 +680,27 @@ class EthernetManagerTest {
     }
 
     @Test
+    fun testGetInterfaceList_disableEnableEthernet() {
+        // Test that interface list can be obtained when ethernet is disabled.
+        setEthernetEnabled(false)
+        // Create two test interfaces and check the return list contains the interface names.
+        val iface1 = createInterface()
+        val iface2 = createInterface()
+        var ifaces = em.getInterfaceList()
+        assertTrue(ifaces.size > 0)
+        assertTrue(ifaces.contains(iface1.name))
+        assertTrue(ifaces.contains(iface2.name))
+
+        // Remove one existing test interface and check the return list doesn't contain the
+        // removed interface name.
+        removeInterface(iface1)
+        ifaces = em.getInterfaceList()
+        assertFalse(ifaces.contains(iface1.name))
+        assertTrue(ifaces.contains(iface2.name))
+
+        removeInterface(iface2)
+    }
+    @Test
     fun testNetworkRequest_withSingleExistingInterface() {
         createInterface()
 
