@@ -225,6 +225,74 @@ public class NetlinkUtils {
     }
 
     /**
+     * Send an RTM_GETLINK message to kernel to get the list of all interfaces.
+     */
+    @Nullable
+    public static String[] sendRtmGetLinkRequest() {
+        final byte[] msg = RtNetlinkLinkMessage.createGetAllLinksMessage(1 /* seqNo*/)
+                .pack(ByteOrder.nativeOrder());
+        final FileDescriptor fd;
+        List<String> ifnames = new ArrayList<>();
+
+        try {
+            fd = NetlinkUtils.netlinkSocketForProto(NETLINK_ROUTE, SOCKET_RECV_BUFSIZE);
+            sendMessage(fd, msg, 0, msg.length, IO_TIMEOUT_MS);
+        } catch (ErrnoException | InterruptedIOException e) {
+            Log.w(TAG, "Failed to send netlink message.", e);
+            return null;
+        }
+
+        // After each netlink request, repeatedly read netlink messages until netlink
+        // message with NLMSG_DONE is received.
+        boolean done = false;
+        while (!done) {
+            final ByteBuffer response;
+            try {
+                response = NetlinkUtils.recvMessage(fd, DEFAULT_RECV_BUFSIZE, IO_TIMEOUT_MS);
+            } catch (ErrnoException | InterruptedIOException e) {
+                Log.w(TAG, "Failed to receive message from netlink socket.", e);
+                break;
+            }
+
+            do {
+                final int start = response.position();
+                final NetlinkMessage nlMsg =
+                        NetlinkMessage.parse(response, NETLINK_ROUTE);
+                if (nlMsg == null) {
+                    Log.e(TAG, "Badly formatted data, failed to get netlink message");
+                    break;
+                }
+                final StructNlMsgHdr hdr = nlMsg.getHeader();
+                if (hdr == null) {
+                    Log.e(TAG, "Badly formatted data, "
+                            + "failed to get netlink message header");
+                    break;
+                }
+                if (hdr.nlmsg_type == NLMSG_DONE) {
+                    done = true;
+                    break;
+                }
+                if (!(nlMsg instanceof RtNetlinkLinkMessage)) {
+                    Log.e(TAG, "Received netlink message is wrong type");
+                    break;
+                }
+                String ifname = ((RtNetlinkLinkMessage) nlMsg).getInterfaceName();
+                if (ifname != null) {
+                    ifnames.add(ifname);
+                } else {
+                    Log.e(TAG, "Failed to get interface name from netlink message");
+                    break;
+                }
+            } while (enoughBytesRemainForValidNlMsg(response));
+        }
+        if (done) {
+            return ifnames.toArray(new String[0]);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Create netlink socket with the given netlink protocol type and buffersize.
      *
      * @param nlProto the netlink protocol
