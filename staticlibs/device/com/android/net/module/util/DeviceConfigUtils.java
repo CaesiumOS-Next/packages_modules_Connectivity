@@ -40,7 +40,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -57,11 +56,6 @@ public final class DeviceConfigUtils {
      * be referencing a different tethering module variant, or having a stale reference.
      */
     public static final String TETHERING_MODULE_NAME = "com.android.tethering";
-
-    @VisibleForTesting
-    public static final String RESOURCES_APK_INTENT =
-            "com.android.server.connectivity.intent.action.SERVICE_CONNECTIVITY_RESOURCES_APK";
-    private static final String CONNECTIVITY_RES_PKG_DIR = "/apex/" + TETHERING_MODULE_NAME + "/";
 
     @VisibleForTesting
     public static final long DEFAULT_PACKAGE_VERSION = 1000;
@@ -266,14 +260,14 @@ public final class DeviceConfigUtils {
     }
 
     private static String resolvePkgPrefix(Context context) {
-        final String connResourcesPackage = getConnectivityResourcesPackageName(context);
-        final int pkgPrefixLen = connResourcesPackage.indexOf("connectivity");
+        final String networkStackPackage = getNetworkStackPackageName(context);
+        final int pkgPrefixLen = networkStackPackage.indexOf("networkstack");
         if (pkgPrefixLen < 0) {
             throw new IllegalStateException(
-                    "Invalid connectivity resources package: " + connResourcesPackage);
+                    "Invalid NetworkStack package: " + networkStackPackage);
         }
 
-        return connResourcesPackage.substring(0, pkgPrefixLen);
+        return networkStackPackage.substring(0, pkgPrefixLen);
     }
 
     private static volatile long sTetheringModuleVersion = -1;
@@ -327,20 +321,10 @@ public final class DeviceConfigUtils {
 
     private static long resolveNetworkStackModuleVersion(@NonNull Context context)
             throws PackageManager.NameNotFoundException {
-        // TODO(b/293975546): Strictly speaking this is the prefix for connectivity and not
-        //  network stack. In practice, it's the same. Read the prefix from network stack instead.
-        final String pkgPrefix = resolvePkgPrefix(context);
         final PackageManager packageManager = context.getPackageManager();
-        try {
-            return packageManager.getPackageInfo(pkgPrefix + "networkstack",
-                    PackageManager.MATCH_SYSTEM_ONLY).getLongVersionCode();
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.d(TAG, "Device is using go or non-mainline modules");
-            // fall through
-        }
-
-        return packageManager.getPackageInfo(pkgPrefix + "go.networkstack",
-                PackageManager.MATCH_ALL).getLongVersionCode();
+        final String pkgName = getNetworkStackPackageName(context);
+        return packageManager.getPackageInfo(pkgName,
+                PackageManager.MATCH_SYSTEM_ONLY).getLongVersionCode();
     }
 
     /**
@@ -431,23 +415,18 @@ public final class DeviceConfigUtils {
         }
     }
 
-    /**
-     * Get the package name of the ServiceConnectivityResources package, used to provide resources
-     * for service-connectivity.
-     */
     @NonNull
-    public static String getConnectivityResourcesPackageName(@NonNull Context context) {
-        final List<ResolveInfo> pkgs = new ArrayList<>(context.getPackageManager()
-                .queryIntentActivities(new Intent(RESOURCES_APK_INTENT), MATCH_SYSTEM_ONLY));
-        pkgs.removeIf(pkg -> !pkg.activityInfo.applicationInfo.sourceDir.startsWith(
-                CONNECTIVITY_RES_PKG_DIR));
-        if (pkgs.size() > 1) {
-            Log.wtf(TAG, "More than one connectivity resources package found: " + pkgs);
+    public static String getNetworkStackPackageName(@NonNull Context context) {
+        final List<ResolveInfo> packages = context.getPackageManager().queryIntentServices(
+                new Intent("android.net.INetworkStackConnector"), MATCH_SYSTEM_ONLY);
+        if (!packages.isEmpty()) {
+            return packages.get(0).resolvePackageName;
         }
-        if (pkgs.isEmpty()) {
-            throw new IllegalStateException("No connectivity resource package found");
+        final List<ResolveInfo> goPackages = context.getPackageManager().queryIntentServices(
+                new Intent("android.net.INetworkStackConnector.InProcess"), MATCH_SYSTEM_ONLY);
+        if (!goPackages.isEmpty()) {
+            return goPackages.get(0).resolvePackageName;
         }
-
-        return pkgs.get(0).activityInfo.applicationInfo.packageName;
+        throw new IllegalStateException("No NetworkStack package found");
     }
 }

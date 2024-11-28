@@ -16,14 +16,21 @@
 
 package com.android.server.connectivity;
 
+import static android.content.pm.PackageManager.MATCH_SYSTEM_ONLY;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.net.module.util.DeviceConfigUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Utility to obtain the {@link com.android.server.ConnectivityService} {@link Resources}, in the
@@ -31,6 +38,8 @@ import com.android.net.module.util.DeviceConfigUtils;
  * @hide
  */
 public class ConnectivityResources {
+    private static final String TAG = ConnectivityResources.class.getSimpleName();
+
     @NonNull
     private final Context mContext;
 
@@ -39,6 +48,10 @@ public class ConnectivityResources {
 
     @Nullable
     private static Context sTestResourcesContext = null;
+
+    private static final String RESOURCES_APK_INTENT =
+            "com.android.server.connectivity.intent.action.SERVICE_CONNECTIVITY_RESOURCES_APK";
+    private static final String CONNECTIVITY_RES_PKG_DIR = "/apex/" + TETHERING_MODULE_NAME + "/";
 
     public ConnectivityResources(Context context) {
         mContext = context;
@@ -66,7 +79,7 @@ public class ConnectivityResources {
             return mResourcesContext;
         }
 
-        final String resPkg = DeviceConfigUtils.getConnectivityResourcesPackageName(mContext);
+        final String resPkg = getConnectivityResourcesPackageName(mContext);
         final Context pkgContext;
         try {
             pkgContext = mContext.createPackageContext(resPkg, 0 /* flags */);
@@ -76,6 +89,27 @@ public class ConnectivityResources {
 
         mResourcesContext = pkgContext;
         return pkgContext;
+    }
+
+
+    /**
+     * Get the package name of the ServiceConnectivityResources package, used to provide resources
+     * for service-connectivity.
+     */
+    @NonNull
+    private static String getConnectivityResourcesPackageName(@NonNull Context context) {
+        final List<ResolveInfo> pkgs = new ArrayList<>(context.getPackageManager()
+                .queryIntentActivities(new Intent(RESOURCES_APK_INTENT), MATCH_SYSTEM_ONLY));
+        pkgs.removeIf(pkg -> !pkg.activityInfo.applicationInfo.sourceDir.startsWith(
+                CONNECTIVITY_RES_PKG_DIR));
+        if (pkgs.size() > 1) {
+            Log.wtf(TAG, "More than one connectivity resources package found: " + pkgs);
+        }
+        if (pkgs.isEmpty()) {
+            throw new IllegalStateException("No connectivity resource package found");
+        }
+
+        return pkgs.get(0).activityInfo.applicationInfo.packageName;
     }
 
     /**
