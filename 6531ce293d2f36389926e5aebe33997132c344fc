@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49866694_cc0d1e26",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/CleanupTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-29T06:17:50Z",
+      "side": 1,
+      "message": "There are tones of build warning, is it expected?",
+      "range": {
+        "startLine": 274,
+        "startChar": 14,
+        "endLine": 274,
+        "endChar": 21
+      },
+      "revId": "6531ce293d2f36389926e5aebe33997132c344fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55d147f9_138ee4af",
+        "filename": "staticlibs/testutils/hostdevice/com/android/testutils/Cleanup.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-29T06:17:50Z",
+      "side": 1,
+      "message": "Maybe we should call it `swapDiagnosticsCollector`, `setDiagnosticsCollector` seems imply the method shouldn\u0027t have return value.",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 31
+      },
+      "revId": "6531ce293d2f36389926e5aebe33997132c344fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
