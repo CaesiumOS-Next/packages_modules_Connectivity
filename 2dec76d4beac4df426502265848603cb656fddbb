@@ -22,6 +22,30 @@
       },
       "revId": "2dec76d4beac4df426502265848603cb656fddbb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7cd2feb_d4cd77a7",
+        "filename": "staticlibs/testutils/hostdevice/com/android/testutils/MiscAsserts.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-29T07:29:21Z",
+      "side": 1,
+      "message": "Changed to an explicit util call",
+      "parentUuid": "be6978b1_7ecca9e4",
+      "range": {
+        "startLine": 137,
+        "startChar": 48,
+        "endLine": 137,
+        "endChar": 55
+      },
+      "revId": "2dec76d4beac4df426502265848603cb656fddbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
