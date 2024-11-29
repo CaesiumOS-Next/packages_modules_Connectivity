@@ -89,6 +89,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54d387cf_b39bc857",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-29T06:28:15Z",
+      "side": 1,
+      "message": "As I am facing the issue as well, let me put it in the staticlib",
+      "parentUuid": "117ef08d_06513ddb",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 63
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a827855d_0a736891",
         "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
         "patchSetId": 4
