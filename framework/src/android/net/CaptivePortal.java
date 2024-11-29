@@ -19,6 +19,7 @@ import android.annotation.NonNull;
 import android.annotation.RequiresPermission;
 import android.annotation.SystemApi;
 import android.os.IBinder;
+import android.os.OutcomeReceiver;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.RemoteException;
@@ -166,5 +167,40 @@ public class CaptivePortal implements Parcelable {
     @Deprecated
     @SystemApi
     public void logEvent(int eventId, @NonNull String packageName) {
+    }
+
+    /**
+     * Sets the UID of the app that is allowed to perform network traffic for captive
+     * portal login.
+     *
+     * This app will be allowed to communicate directly on the captive
+     * portal by binding to the {@link android.net.Network} extra passed in the
+     * ACTION_CAPTIVE_PORTAL_SIGN_IN broadcast that contained this object.
+     *
+     * Communication will bypass network access restrictions such as VPNs and
+     * Private DNS settings, so the delegated UID must be trusted to ensure that only
+     * traffic intended for captive portal login binds to that network.
+     *
+     * By default, no UID is delegated. The delegation can be cleared by calling
+     * this method again with {@link android.os.Process.INVALID_UID}.
+     *
+     * The operation is asynchronous. The uid is only guaranteed to have access when
+     * the completes when the provided OutcomeReceiver is called.
+     *
+     * @SystemApi(client = MODULE_LIBRARIES)
+     * @RequiresPermission(MAINLINE_NETWORK_STACK)
+     */
+    void setDelegateUid(int uid, OutcomeReceiver<Void> receiver) {
+        try {
+            ICaptivePortal.Stub.asInterface(mBinder).setDelegateUid(uid, new IResultReceiver.Stub() {
+                @Override
+                public void send(int resultCode, Bundle resultData) {
+                    receiver.onResult(null);
+                }
+            });
+        }
+    } catch (RemoteException e) {
+    } catch (Exception e) {
+        receiver.onError(e);
     }
 }
