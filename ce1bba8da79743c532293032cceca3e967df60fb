@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca613c03_99c87824",
+        "filename": "staticlibs/testutils/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-11-29T03:41:26Z",
+      "side": 1,
+      "message": "Shouldn\u0027t that be more specific like mcts-networking, mcts-tethering ? I don\u0027t understand when \"mcts\" should be used and not the specific ones.",
+      "revId": "ce1bba8da79743c532293032cceca3e967df60fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
