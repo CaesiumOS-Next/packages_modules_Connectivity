@@ -64,6 +64,7 @@ java_defaults {
         ":net-utils-framework-common-srcs",
         ":framework-connectivity-api-shared-srcs",
         ":framework-networksecurity-sources",
+        ":IResultReceiver.aidl",
     ],
     aidl: {
         generate_get_transaction_name: true,

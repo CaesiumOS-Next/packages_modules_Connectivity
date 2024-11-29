@@ -1,6 +1,10 @@
 // Signature format: 2.0
 package android.net {
 
+  public class CaptivePortal implements android.os.Parcelable {
+    method @FlaggedApi("com.android.net.flags.captive_portal_delegated_uid_api") @RequiresPermission(android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK) public void setDelegateUid(int, @NonNull android.os.OutcomeReceiver<java.lang.Void,android.os.ServiceSpecificException>);
+  }
+
   public final class ConnectivityFrameworkInitializer {
     method public static void registerServiceWrappers();
   }
