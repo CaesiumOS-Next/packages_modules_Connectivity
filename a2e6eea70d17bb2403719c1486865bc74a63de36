@@ -22,6 +22,30 @@
       },
       "revId": "a2e6eea70d17bb2403719c1486865bc74a63de36",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c8a66ca_45dd90bd",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-11-29T10:12:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cf547850_2145c6cd",
+      "range": {
+        "startLine": 92,
+        "startChar": 13,
+        "endLine": 92,
+        "endChar": 16
+      },
+      "revId": "a2e6eea70d17bb2403719c1486865bc74a63de36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
