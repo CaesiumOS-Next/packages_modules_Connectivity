@@ -32,6 +32,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.CaptivePortalData;
 import android.net.DscpPolicy;
+import android.net.ICaptivePortal;
 import android.net.IDnsResolver;
 import android.net.INetd;
 import android.net.INetworkAgent;
@@ -60,6 +61,7 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.telephony.data.EpsBearerQosSessionAttributes;
 import android.telephony.data.NrQosSessionAttributes;
+import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
 import android.util.Pair;
@@ -78,6 +80,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.SortedSet;
@@ -574,6 +577,10 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     // For fast lookups. Indexes into mInactivityTimers by request ID.
     private final SparseArray<InactivityTimer> mInactivityTimerForRequest = new SparseArray<>();
 
+    // Map of delegated UIDs used to bypass the privacy setting such as VPN or private DNS and its
+    // captive portal app caller.
+    private final ArrayMap<ICaptivePortal, Integer> mCaptivePortalDelelgateUids = new ArrayMap<>();
+
     // Inactivity expiry timer. Armed whenever mInactivityTimers is non-empty, regardless of
     // whether the network is inactive or not. Always set to the expiry of the mInactivityTimers
     // that expires last. When the timer fires, all inactivity state is cleared, and if the network
@@ -703,6 +710,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     public void disconnect() {
         try {
             networkAgent.onDisconnected();
+            mCaptivePortalDelelgateUids.clear();
         } catch (RemoteException e) {
             Log.i(TAG, "Error disconnecting NetworkAgent", e);
             // Fall through: it's fine if the remote has died
@@ -894,6 +902,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     public void onNetworkDestroyed() {
         try {
             networkAgent.onNetworkDestroyed();
+            mCaptivePortalDelelgateUids.clear();
         } catch (RemoteException e) {
             Log.e(TAG, "Error sending network destroyed event", e);
         }
@@ -1547,6 +1556,43 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
                 nc, hasAutomotiveFeature, deps, authenticator)) {
             nc.setAllowedUids(new ArraySet<>());
         }
+    }
+
+    /**
+     * Set the UID of the app that is allowed to perform network traffic for captive portal login.
+     *
+     * @param portal the captive portal app to delegate the UID
+     * @param uid the delegated UID of the captive portal app.
+     */
+    public void setCaptivePortalDelegateUid(@NonNull final ICaptivePortal portal, int uid) {
+        mCaptivePortalDelelgateUids.put(portal, uid);
+    }
+
+    /**
+     * Remove the UID of the app that is allowed to perform network traffic for captive portal
+     * login.
+     *
+     * @param portal the captive portal app to delegate the UID
+     */
+    @Nullable
+    public Integer removeCaptivePortalDelegateUid(@NonNull final ICaptivePortal portal) {
+        return mCaptivePortalDelelgateUids.remove(portal);
+    }
+
+    /**
+     * Remove all UIDs corresponding to the app that is allowed to perform network traffic for
+     * captive portal login.
+     *
+     * @param portal the captive portal app to delegate the UID
+     */
+    public void clearDelegateUidsPerCaptivePortal(@NonNull final ICaptivePortal portal) {
+        if (mCaptivePortalDelelgateUids.isEmpty()) return;
+        final List<ICaptivePortal> toRemove = new ArrayList<>();
+        for (Map.Entry<ICaptivePortal, Integer> entry : mCaptivePortalDelelgateUids.entrySet()) {
+            final ICaptivePortal key = entry.getKey();
+            if (key.equals(portal)) toRemove.add(key);
+        }
+        mCaptivePortalDelelgateUids.removeAll(toRemove);
     }
 
     private static boolean areAllowedUidsAcceptableFromNetworkAgent(

@@ -121,6 +121,8 @@ import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_SELF_CER
 import static android.net.connectivity.ConnectivityCompatChanges.NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION;
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.VPN_UID;
+import static android.system.OsConstants.ENOENT;
+import static android.system.OsConstants.EOPNOTSUPP;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
@@ -309,6 +311,7 @@ import android.util.StatsEvent;
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.os.IResultReceiver;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
 import com.android.metrics.ConnectionDurationForTransports;
@@ -413,6 +416,7 @@ import java.util.TreeSet;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -6342,6 +6346,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private class CaptivePortalImpl extends ICaptivePortal.Stub {
         private final Network mNetwork;
+        private final AtomicReference<IBinder> mCallbackBinder = new AtomicReference();
 
         private CaptivePortalImpl(Network network) {
             mNetwork = network;
@@ -6381,6 +6386,37 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
+        @Override
+        public void setDelegateUid(int uid, @NonNull final IBinder binder,
+                @NonNull final IResultReceiver receiver) {
+            enforceAnyPermissionOf(mContext, NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+            if (mCallbackBinder.compareAndSet(null, binder)) {
+                // Register a death recipient on IResultReceiver
+                try {
+                    receiver.asBinder().linkToDeath(
+                            () -> {
+                                // Clear the set of UIDs delegated by this caller.
+                                final NetworkAgentInfo nai =
+                                        getNetworkAgentInfoForNetwork(mNetwork);
+                                if (nai == null) {
+                                    Log.e(TAG, "network agent info is null");
+                                    return;
+                                }
+                                nai.clearDelegateUidsPerCaptivePortal(this);
+                            }, 0);
+                } catch (RemoteException e) {
+                    loge("Remote binder has already died " + e);
+                }
+            }
+            mHandler.post(() -> {
+                try {
+                    setCaptivePortalDelegateUid(this, mNetwork, uid, receiver);
+                } catch (RemoteException e) {
+                    loge("Exception sending back the result code" + e);
+                }
+            });
+        }
+
         @Nullable
         private NetworkMonitorManager getNetworkMonitorManager(final Network network) {
             // getNetworkAgentInfoForNetwork is thread-safe
@@ -6389,6 +6425,39 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             // nai.networkMonitor() is thread-safe
             return nai.networkMonitor();
+        }
+    }
+
+    private void setCaptivePortalDelegateUid(@NonNull final ICaptivePortal portal,
+            @NonNull final Network network, int uid, @NonNull IResultReceiver receiver)
+            throws RemoteException {
+        final NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(network);
+        if (nai == null || nai.isDestroyed()) {
+            receiver.send(ENOENT /* resultCode */, null /* resultData */);
+            return;
+        }
+
+        // Store the fact that this UID has been delegated to use this network by this
+        // ICaptivePortal. This will be cleared by the death recipient if the caller dies.
+        // The information should be stored in a new element inside nai.
+        // The mixInCapabilities method should take the access UIDs in the nai's declared
+        // capabilities, and add all the UIDs delegated on that nai by this method.
+        if (uid == INVALID_UID && nai.removeCaptivePortalDelegateUid(portal) == null) {
+            receiver.send(ENOENT /* resultCode */, null /* resultData */);
+            return;
+        }
+        nai.setCaptivePortalDelegateUid(portal, uid);
+
+        if (!mDeps.isAtLeastV()) {
+            receiver.send(EOPNOTSUPP /* resultCode */, null /* resultData */);
+            return;
+        }
+        try {
+            mNetd.networkAllowBypassVpnOnNetwork(true /* allow */, uid, network.netId);
+        } catch (RemoteException e) {
+            loge("Error allow bypassing VPN on network :" + network.netId + e);
+        } catch (ServiceSpecificException e) {
+            receiver.send(e.errorCode /* resultCode */, null /* resultData */);
         }
     }
 
