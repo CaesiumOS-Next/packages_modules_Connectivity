@@ -134,7 +134,7 @@ fun assertEventuallyTrue(
     // on host). When waiting for a condition during tests the device would generally not go into
     // deep sleep, and the polling sleep would go over the timeout anyway in that case, so this is
     // fine.
-    val limit = System.nanoTime() + timeoutMs * 1000
+    val limit = System.nanoTime() + timeoutMs * 1000000
     while (!fn.asBoolean) {
         if (System.nanoTime() > limit) {
             fail(descr)
