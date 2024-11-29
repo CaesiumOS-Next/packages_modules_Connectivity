@@ -16,6 +16,24 @@
       "message": "Shouldn\u0027t that be more specific like mcts-networking, mcts-tethering ? I don\u0027t understand when \"mcts\" should be used and not the specific ones.",
       "revId": "ce1bba8da79743c532293032cceca3e967df60fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eaba958_0197e801",
+        "filename": "staticlibs/testutils/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1927237
+      },
+      "writtenOn": "2024-11-29T03:59:30Z",
+      "side": 1,
+      "message": "sorry, modified in this change aosp/3381265. \"mcts\" tag is for android-mcts.zip, we will also release this package to partners.",
+      "parentUuid": "ca613c03_99c87824",
+      "revId": "ce1bba8da79743c532293032cceca3e967df60fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
