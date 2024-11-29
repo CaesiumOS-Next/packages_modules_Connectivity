@@ -16,6 +16,24 @@
       "message": "Are you implementing these because you wanted to use an existing interface for Clock ? Would java.util.function.LongSupplier work ? It would avoid the dead code",
       "revId": "95233c0f4fe83232571e28979bfd17271158f7ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaf7bdc1_d5e5eb0f",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-29T08:20:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "987407d9_67cf8b31",
+      "revId": "95233c0f4fe83232571e28979bfd17271158f7ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

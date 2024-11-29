@@ -16,6 +16,24 @@
       "message": "As per discussion, suggestion:\n - Have methods like getIfaceCache and getUidCache, which grab a lock and optionally initialize the cache, then return it\n - Remove locks in all callers, since using the LruCacheWithExpiry class itself is thread-safe",
       "revId": "704beebc20bd808e572148fd5e61f8cf695b7759",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ba4f14b_17d8563c",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-11-29T08:20:25Z",
+      "side": 1,
+      "message": "Done. Thanks for the idea.\nSee if it works for you.",
+      "parentUuid": "ea15a4f5_e8f7ebea",
+      "revId": "704beebc20bd808e572148fd5e61f8cf695b7759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
