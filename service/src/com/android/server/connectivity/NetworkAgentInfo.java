@@ -32,6 +32,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.CaptivePortalData;
 import android.net.DscpPolicy;
+import android.net.ICaptivePortal;
 import android.net.IDnsResolver;
 import android.net.INetd;
 import android.net.INetworkAgent;
@@ -573,6 +574,10 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
 
     // For fast lookups. Indexes into mInactivityTimers by request ID.
     private final SparseArray<InactivityTimer> mInactivityTimerForRequest = new SparseArray<>();
+
+    // Maps from the calling UID to the delegeted UID.
+    // TODO: make it as private member and define getter/setter.
+    public final SparseArray<ICaptivePortal> mCaptivePortalDelelgatedUids = new SparseArray<>();
 
     // Inactivity expiry timer. Armed whenever mInactivityTimers is non-empty, regardless of
     // whether the network is inactive or not. Always set to the expiry of the mInactivityTimers

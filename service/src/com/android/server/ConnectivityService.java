@@ -309,6 +309,7 @@ import android.util.StatsEvent;
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.os.IResultReceiver;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
 import com.android.metrics.ConnectionDurationForTransports;
@@ -6381,6 +6382,37 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
+        @Override
+        public void setDelegateUid(int uid, IResultReceiver receiver) {
+            enforceSettingsPermission();
+            // Register a death recipient on IResultReceiver
+            try {
+                receiver.asBinder().linkToDeath(
+                        () -> {
+                            // Clear the set of UIDs delegated by this caller.
+                            final NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(mNetwork);
+                            maybeRemoveAllDelegatedUidsPerCaller(nai, this);
+                        }, 0);
+            } catch (RemoteException e) {
+                // binderDied
+            }
+            mHandler.post(() -> {
+                setCaptivePortalDelegateUid(this, mNetwork, uid, receiver);
+            });
+        }
+
+        private void maybeRemoveAllDelegatedUidsPerCaller(final NetworkAgentInfo nai,
+                final ICaptivePortal caller) {
+            final SparseArray<ICaptivePortal> callers = nai.mCaptivePortalDelelgatedUids.clone();
+            for (int i = 0; i < callers.size(); i++) {
+                int key = callers.keyAt(i);
+                final ICaptivePortal portal = callers.get(key);
+                if (portal == caller) {
+                    nai.mCaptivePortalDelelgatedUids.remove(key);
+                }
+            }
+        }
+
         @Nullable
         private NetworkMonitorManager getNetworkMonitorManager(final Network network) {
             // getNetworkAgentInfoForNetwork is thread-safe
@@ -6389,6 +6421,46 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             // nai.networkMonitor() is thread-safe
             return nai.networkMonitor();
+        }
+    }
+
+    private void removeInvalidDelegatedUid(final NetworkAgentInfo nai, int uid) {
+        final SparseArray<ICaptivePortal> callers = nai.mCaptivePortalDelelgatedUids.clone();
+        for (int i = 0; i < callers.size(); i++) {
+            int key = callers.keyAt(i);
+            if (key == uid) nai.mCaptivePortalDelelgatedUids.remove(key);
+        }
+    }
+
+    private void setCaptivePortalDelegateUid(final CaptivePortalImpl caller,
+            final Network network, int uid, IResultReceiver receiver) {
+        final NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(network);
+        try {
+            if (nai == null) {
+                receiver.send(-1 /* resultCode */, null /* resultData */);
+                return;
+            }
+        } catch (RemoteException e) {
+            loge("Exception sending back the result code", e);
+            return;
+        }
+
+        // Store the fact that this UID has been delegated to use this network by this
+        // ICaptivePortal. This will be cleared by the death recipient if the caller dies.
+        // The information should be stored in a new element inside nai.
+        // The mixInCapabilities method should take the access UIDs in the nai's declared
+        // capabilities, and add all the UIDs delegated on that nai by this method.
+        if (uid == INVALID_UID) {
+            removeInvalidDelegatedUid(nai, uid);
+            return;
+        }
+        nai.mCaptivePortalDelelgatedUids.set(uid, caller);
+
+        try {
+            mNetd.networkAllowBypassVpnOnNetwork(true /* allow */, uid, network.netId);
+            receiver.send(0 /* resultCode */, null /* resultData */);
+        } catch (RemoteException e) {
+            loge("Error bypassing VPN on network :" + network.netId + e);
         }
     }
 

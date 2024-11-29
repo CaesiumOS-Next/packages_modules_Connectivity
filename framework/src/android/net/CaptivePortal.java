@@ -15,13 +15,21 @@
  */
 package android.net;
 
+import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
+
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.RequiresPermission;
 import android.annotation.SystemApi;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.os.OutcomeReceiver;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.RemoteException;
+
+import com.android.internal.os.IResultReceiver;
+import com.android.net.flags.Flags;
 
 /**
  * A class allowing apps handling the {@link ConnectivityManager#ACTION_CAPTIVE_PORTAL_SIGN_IN}
@@ -166,5 +174,42 @@ public class CaptivePortal implements Parcelable {
     @Deprecated
     @SystemApi
     public void logEvent(int eventId, @NonNull String packageName) {
+    }
+
+    /**
+     * Sets the UID of the app that is allowed to perform network traffic for captive
+     * portal login.
+     *
+     * This app will be allowed to communicate directly on the captive
+     * portal by binding to the {@link android.net.Network} extra passed in the
+     * ACTION_CAPTIVE_PORTAL_SIGN_IN broadcast that contained this object.
+     *
+     * Communication will bypass network access restrictions such as VPNs and
+     * Private DNS settings, so the delegated UID must be trusted to ensure that only
+     * traffic intended for captive portal login binds to that network.
+     *
+     * By default, no UID is delegated. The delegation can be cleared by calling
+     * this method again with {@link android.os.Process.INVALID_UID}.
+     *
+     * The operation is asynchronous. The uid is only guaranteed to have access when
+     * the completes when the provided OutcomeReceiver is called.
+     * @hide
+     */
+    @FlaggedApi(Flags.FLAG_CAPTIVE_PORTAL_DELEGATED_UID_API)
+    @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)
+    public void setDelegateUid(int uid,
+            @NonNull final OutcomeReceiver<Integer, Exception> receiver) {
+        try {
+            ICaptivePortal.Stub.asInterface(mBinder).setDelegateUid(uid,
+                new IResultReceiver.Stub() {
+                    @Override
+                    public void send(int resultCode, Bundle resultData) {
+                        receiver.onResult(resultCode);
+                    }
+                });
+        } catch (RemoteException e) {
+            receiver.onError(e);
+        }
     }
 }
