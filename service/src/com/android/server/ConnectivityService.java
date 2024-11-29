@@ -6381,6 +6381,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
+        @Override
+        public void setDelegateUid(int uid, IResultReceiver receiver) {
+            enforceSettingsPermission();
+            // Register a death recipient on IResultReceiver
+            receiver.asBinder().linkToDeath(() -> {
+                // Clear the set of UIDs delegated by this caller.
+            }, 0);
+            mHandler.post(() -> {
+                setCaptivePortalDelegateUid(mNetwork, uid, receiver);
+            });
+        }
+
         @Nullable
         private NetworkMonitorManager getNetworkMonitorManager(final Network network) {
             // getNetworkAgentInfoForNetwork is thread-safe
@@ -6390,6 +6402,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // nai.networkMonitor() is thread-safe
             return nai.networkMonitor();
         }
+    }
+
+    private void setCaptivePortalDelegateUid(Network network, int uid, IResultreceiver receiver) {
+        final NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(network);
+        if (nai == null) {
+            // TODO: call receiver#onError?
+            return;
+        }
+        // Store the fact that this UID has has been delegated to use this network by this
+        // ICaptivePortalImpl. This will be cleared by the death recipient if the caller dies.
+        // The information should be stored in a new element inside nai.
+        // The mixInCapabilities method should take the access UIDs in the nai's declared
+        // capabilities, and add all the UIDs delegated on that nai by this method.
     }
 
     public boolean avoidBadWifi() {

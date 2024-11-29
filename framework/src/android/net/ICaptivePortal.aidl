@@ -23,4 +23,5 @@ package android.net;
 oneway interface ICaptivePortal {
     void appRequest(int request);
     void appResponse(int response);
+    void setDelegateUid(int uid, IResultReceiver receiver);
 }
