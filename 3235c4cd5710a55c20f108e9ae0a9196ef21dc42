@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aba1689_e1ce1d8b",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-11-29T12:20:02Z",
+      "side": 1,
+      "message": "fixed",
+      "parentUuid": "5add94a5_309b8448",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 4
+      },
+      "revId": "3235c4cd5710a55c20f108e9ae0a9196ef21dc42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec317ef5_1aa93c16",
@@ -58,6 +82,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7ae06ee_206677e5",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-11-29T12:20:02Z",
+      "side": 1,
+      "message": "Yes. Removed this",
+      "parentUuid": "ec317ef5_1aa93c16",
+      "revId": "3235c4cd5710a55c20f108e9ae0a9196ef21dc42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5de2f747_7063d07b",
@@ -71,6 +113,30 @@
       "writtenOn": "2024-11-28T00:46:07Z",
       "side": 1,
       "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 384,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 104
+      },
+      "revId": "3235c4cd5710a55c20f108e9ae0a9196ef21dc42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f2fbf8c_2c174302",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-11-29T12:20:02Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "5de2f747_7063d07b",
       "range": {
         "startLine": 384,
         "startChar": 0,
@@ -104,6 +170,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0448854_da13f1e9",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-11-29T12:20:02Z",
+      "side": 1,
+      "message": "fixed",
+      "parentUuid": "16b53bc8_bda5d4b9",
+      "range": {
+        "startLine": 397,
+        "startChar": 55,
+        "endLine": 397,
+        "endChar": 56
+      },
+      "revId": "3235c4cd5710a55c20f108e9ae0a9196ef21dc42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f06e2520_27d1e47c",
@@ -121,6 +211,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "399b75e7_958010be",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-11-29T12:20:02Z",
+      "side": 1,
+      "message": "Yes. added the changes as per suggestion",
+      "parentUuid": "f06e2520_27d1e47c",
+      "revId": "3235c4cd5710a55c20f108e9ae0a9196ef21dc42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29a3b960_e712ea36",
@@ -134,6 +242,30 @@
       "writtenOn": "2024-11-28T00:46:07Z",
       "side": 1,
       "message": "Please fix this WARNING reported by Check Contents: Please remove the trailing whitespace.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nPlease remove the trailing whitespace.",
+      "range": {
+        "startLine": 419,
+        "startChar": 17,
+        "endLine": 419,
+        "endChar": 19
+      },
+      "revId": "3235c4cd5710a55c20f108e9ae0a9196ef21dc42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be9ece51_7df2d518",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-11-29T12:20:02Z",
+      "side": 1,
+      "message": "fixed",
+      "parentUuid": "29a3b960_e712ea36",
       "range": {
         "startLine": 419,
         "startChar": 17,
