@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be6978b1_7ecca9e4",
+        "filename": "staticlibs/testutils/hostdevice/com/android/testutils/MiscAsserts.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-11-29T01:31:45Z",
+      "side": 1,
+      "message": "Better to use constant instead of hard coded number",
+      "range": {
+        "startLine": 137,
+        "startChar": 48,
+        "endLine": 137,
+        "endChar": 55
+      },
+      "revId": "2dec76d4beac4df426502265848603cb656fddbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
