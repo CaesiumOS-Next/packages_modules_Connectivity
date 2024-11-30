@@ -133,6 +133,7 @@
          Format is [priority int]:[service type], for example: "0:_testservice._tcp"
     -->
     <string-array translatable="false" name="config_nsdOffloadServicesPriority">
+        <item>1:_googlecast._tcp</item>
     </string-array>
 
     <!-- Whether to use an ongoing notification for signing in to captive portals, instead of a

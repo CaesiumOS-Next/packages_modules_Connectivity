@@ -1314,6 +1314,7 @@ public class NsdService extends INsdManager.Stub {
                     case NsdManager.REGISTER_OFFLOAD_ENGINE:
                         offloadEngineInfo = (OffloadEngineInfo) msg.obj;
                         // TODO: Limits the number of registrations created by a given class.
+                        Log.i(TAG, "register offload engine: " + offloadEngineInfo.mInterfaceName);
                         mOffloadEngines.register(offloadEngineInfo.mOffloadEngine,
                                 offloadEngineInfo);
                         sendAllOffloadServiceInfos(offloadEngineInfo);
@@ -2181,6 +2182,8 @@ public class NsdService extends INsdManager.Stub {
                 mAdvertiser.getAllInterfaceOffloadServiceInfos(targetInterface);
         for (MdnsAdvertiser.OffloadServiceInfoWrapper wrapper : offloadWrappers) {
             try {
+                Log.i(TAG, "send offload service info to " + targetInterface + ": "
+                        + wrapper.mOffloadServiceInfo);
                 offloadEngine.onOffloadServiceUpdated(wrapper.mOffloadServiceInfo);
             } catch (RemoteException e) {
                 // Can happen in regular cases, do not log a stacktrace
@@ -2257,6 +2260,7 @@ public class NsdService extends INsdManager.Stub {
         @Override
         public void onOffloadStartOrUpdate(@NonNull String interfaceName,
                 @NonNull OffloadServiceInfo offloadServiceInfo) {
+            Log.i(TAG, "onOffloadStartOrUpdate: " + offloadServiceInfo + " on " + interfaceName);
             sendOffloadServiceInfosUpdate(interfaceName, offloadServiceInfo, false /* isRemove */);
         }
 
