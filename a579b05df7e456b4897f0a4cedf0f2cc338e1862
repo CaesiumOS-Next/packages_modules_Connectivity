@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4f8c24d_d74b2966",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2560,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-02T22:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b46465e_16ea3f10",
+      "range": {
+        "startLine": 2560,
+        "startChar": 49,
+        "endLine": 2560,
+        "endChar": 63
+      },
+      "revId": "a579b05df7e456b4897f0a4cedf0f2cc338e1862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c6c5f80_b7331fe3",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-28T05:30:17Z",
       "side": 1,
       "message": "The documentation in line 2902 says it does, doesn\u0027t it? But the code doesn\u0027t actually implement that. If you did want to implement it, I\u0027d guess it would be just:\n\n    if (mReservationId \u003d\u003d RES_ID_UNSET) {\n        // ...\n        return nc.mReservationId !\u003d RES_ID_MATCH_ALL_RESERVATIONS;\n    }\n\n?",
+      "range": {
+        "startLine": 2936,
+        "startChar": 12,
+        "endLine": 2936,
+        "endChar": 70
+      },
+      "revId": "a579b05df7e456b4897f0a4cedf0f2cc338e1862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed4fd3b2_462c74ab",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-02T22:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c6c5f80_b7331fe3",
       "range": {
         "startLine": 2936,
         "startChar": 12,
@@ -83,6 +131,30 @@
       "writtenOn": "2024-11-28T05:30:17Z",
       "side": 1,
       "message": "Now set one of them to 43 and check that equals starts returning false?",
+      "range": {
+        "startLine": 1530,
+        "startChar": 31,
+        "endLine": 1530,
+        "endChar": 32
+      },
+      "revId": "a579b05df7e456b4897f0a4cedf0f2cc338e1862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cd0dabb_b0c8c1d9",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-02T22:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d65c6b2_8fd323f6",
       "range": {
         "startLine": 1530,
         "startChar": 31,
