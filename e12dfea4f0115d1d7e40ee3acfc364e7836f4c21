@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32968baf_32e6fd2d",
+        "filename": "staticlibs/device/com/android/net/module/util/PrivateAddressCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-02T06:57:10Z",
+      "side": 1,
+      "message": "Could you maintain the indentation here?\n\n    pw.println(\"  \" + prefix);\n\nAlso everywhere else.",
+      "revId": "e12dfea4f0115d1d7e40ee3acfc364e7836f4c21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
