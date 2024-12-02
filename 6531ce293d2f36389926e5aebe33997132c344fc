@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7937ad72_9715df5e",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/CleanupTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-02T00:29:22Z",
+      "side": 1,
+      "message": "Yes, this is consistent with other existing test cases in this test. The assignments are necessary otherwise it doesn\u0027t compile, because the tryTest and cleanup don\u0027t have return type \"Unit\"",
+      "parentUuid": "49866694_cc0d1e26",
+      "range": {
+        "startLine": 274,
+        "startChar": 14,
+        "endLine": 274,
+        "endChar": 21
+      },
+      "revId": "6531ce293d2f36389926e5aebe33997132c344fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55d147f9_138ee4af",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-29T06:17:50Z",
       "side": 1,
       "message": "Maybe we should call it `swapDiagnosticsCollector`, `setDiagnosticsCollector` seems imply the method shouldn\u0027t have return value.",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 31
+      },
+      "revId": "6531ce293d2f36389926e5aebe33997132c344fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b10f625e_01ab5fc6",
+        "filename": "staticlibs/testutils/hostdevice/com/android/testutils/Cleanup.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-02T00:29:22Z",
+      "side": 1,
+      "message": "Log.setWtfHandler does this too but it\u0027s true you wouldn\u0027t tell from the name - done",
+      "parentUuid": "55d147f9_138ee4af",
       "range": {
         "startLine": 85,
         "startChar": 8,
