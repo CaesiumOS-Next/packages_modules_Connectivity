@@ -16,6 +16,23 @@
       "message": "LGTM",
       "revId": "aa6b4c3db8de3ea11723b85e26f026e19b701b9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f71d0625_1d70dbd7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-02T06:48:30Z",
+      "side": 1,
+      "message": "Is this used only in this file? If so, can we make it private? There are a lot of constructors in this file but most of them seem to be used only internally. It would be good to know which are internal-only and which should be used outside this class.",
+      "revId": "aa6b4c3db8de3ea11723b85e26f026e19b701b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
