@@ -4417,6 +4417,22 @@ public class ConnectivityManager {
         }
         private static final int METHOD_ONBLOCKEDSTATUSCHANGED_INT = 14;
 
+        /**
+         * Called when a network is reserved.
+         *
+         * The reservation includes the {@link NetworkCapabilities} that describe the specific
+         * network that was reserved. The caller can use this information to bring up the network.
+         *
+         * If, for any reason, a reservation is cancelled by the system, onUnavailable is called,
+         * and the requestor must issue a new reservation. This means, that the caller can only ever
+         * expect a single call to {@link #onReserved(NetworkCapabilities)}.
+         * @param networkCapabilities The {@link NetworkCapabilities} of the reservation.
+         */
+        @FlaggedApi(Flags.FLAG_IPV6_OVER_BLE)
+        @FilteredCallback(methodId = METHOD_ONRESERVED, calledByCallbackId = CALLBACK_RESERVED)
+        public void onReserved(@NonNull NetworkCapabilities networkCapabilities) {}
+        private static final int METHOD_ONRESERVED = 15;
+
         private NetworkRequest networkRequest;
         private final int mFlags;
     }
@@ -4468,6 +4484,8 @@ public class ConnectivityManager {
     public static final int CALLBACK_BLK_CHANGED                = 11;
     /** @hide */
     public static final int CALLBACK_LOCAL_NETWORK_INFO_CHANGED = 12;
+    /** @hide */
+    public static final int CALLBACK_RESERVED                   = 13;
     // When adding new IDs, note CallbackQueue assumes callback IDs are at most 16 bits.
 
 
@@ -4487,6 +4505,7 @@ public class ConnectivityManager {
             case CALLBACK_RESUMED:      return "CALLBACK_RESUMED";
             case CALLBACK_BLK_CHANGED:  return "CALLBACK_BLK_CHANGED";
             case CALLBACK_LOCAL_NETWORK_INFO_CHANGED: return "CALLBACK_LOCAL_NETWORK_INFO_CHANGED";
+            case CALLBACK_RESERVED:     return "CALLBACK_RESERVED";
             default:
                 return Integer.toString(whichCallback);
         }
@@ -4517,6 +4536,7 @@ public class ConnectivityManager {
     public static class NetworkCallbackMethodsHolder {
         public static final NetworkCallbackMethod[] NETWORK_CB_METHODS =
                 new NetworkCallbackMethod[] {
+                        method("onReserved", 1 << CALLBACK_RESERVED, NetworkCapabilities.class),
                         method("onPreCheck", 1 << CALLBACK_PRECHECK, Network.class),
                         // Note the final overload of onAvailable is not included, since it cannot
                         // match any overridden method.
@@ -4596,6 +4616,11 @@ public class ConnectivityManager {
             }
 
             switch (message.what) {
+                case CALLBACK_RESERVED: {
+                    final NetworkCapabilities cap = getObject(message, NetworkCapabilities.class);
+                    callback.onReserved(cap);
+                    break;
+                }
                 case CALLBACK_PRECHECK: {
                     callback.onPreCheck(network);
                     break;
