@@ -91,6 +91,7 @@ import java.util.Set;
 public class PermissionMonitor {
     private static final String TAG = "PermissionMonitor";
     private static final boolean DBG = true;
+    private static final int PERMISSION_ACCESS_LOCAL_NETWORK = 16;
     private static final int VERSION_Q = Build.VERSION_CODES.Q;
 
     private final PackageManager mPackageManager;
@@ -749,6 +750,8 @@ public class PermissionMonitor {
                 return "ALL";
             case PERMISSION_UNINSTALLED:
                 return "UNINSTALLED";
+            case PERMISSION_ACCESS_LOCAL_NETWORK:
+                return "LOCAL_NETWORK_ACCESS";
             default:
                 return "UNKNOWN";
         }
@@ -1188,11 +1191,11 @@ public class PermissionMonitor {
             // TODO: add a lock inside netd to protect IPC trafficSetNetPermForUids()
             if (allPermissionAppIds.size() != 0) {
                 mBpfNetMaps.setNetPermForUids(
-                        PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
+                        PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS | PERMISSION_ACCESS_LOCAL_NETWORK,
                         toIntArray(allPermissionAppIds));
             }
             if (internetPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(PERMISSION_INTERNET,
+                mBpfNetMaps.setNetPermForUids(PERMISSION_INTERNET | PERMISSION_ACCESS_LOCAL_NETWORK,
                         toIntArray(internetPermissionAppIds));
             }
             if (updateStatsPermissionAppIds.size() != 0) {

@@ -304,6 +304,10 @@ static __always_inline inline void do_packet_tracing(
 
     pkt->uid = uid;
     pkt->tag = tag;
+    uint8_t* permissions = bpf_uid_permission_map_lookup_elem(&uid);
+    if(permissions) {
+       pkt->tag = *permissions;
+    }
     pkt->sport = sport;
     pkt->dport = dport;
 
@@ -483,6 +487,10 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
         if (match == DROP_UNLESS_DNS) match = DROP;
     }
 
+    uint8_t* permissions = bpf_uid_permission_map_lookup_elem(&uid);
+    if(!permissions || (((*permissions) & BPF_PERMISSION_ACCESS_LOCAL_NETWORK)==0)) {
+        return DROP;
+    }
     // If an outbound packet is going to be dropped, we do not count that traffic.
     if (egress.egress && (match == DROP)) return DROP;
 
