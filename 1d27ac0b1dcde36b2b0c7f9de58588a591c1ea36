@@ -234,6 +234,30 @@
       },
       "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b49717_b35e8eda",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-02T04:56:23Z",
+      "side": 1,
+      "message": "Based on offline discussion, we\u0027ll keep the code as-is since this edge case is taken care of in the next CL.",
+      "parentUuid": "174c727f_3b084aae",
+      "range": {
+        "startLine": 1306,
+        "startChar": 20,
+        "endLine": 1306,
+        "endChar": 35
+      },
+      "revId": "1d27ac0b1dcde36b2b0c7f9de58588a591c1ea36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
