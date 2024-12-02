@@ -258,6 +258,9 @@ public class NetworkRequest implements Parcelable {
         }
         requestId = rId;
         networkCapabilities = nc;
+        if (type == Type.RESERVATION) {
+            networkCapabilities.setReservationId(rId);
+        }
         this.legacyType = legacyType;
         this.type = type;
     }
