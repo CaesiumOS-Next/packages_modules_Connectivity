@@ -105,6 +105,12 @@ DEFINE_BPF_RINGBUF_EXT(packet_trace_ringbuf, PacketTrace, PACKET_TRACE_BUF_SIZE,
 DEFINE_BPF_MAP_RO_NETD(data_saver_enabled_map, ARRAY, uint32_t, bool,
                        DATA_SAVER_ENABLED_MAP_SIZE)
 
+// A ring buffer on which packet information is pushed.
+DEFINE_BPF_RINGBUF_EXT(lnp_log_ringbuf, LnpLog, LNP_LOG_BUF_SIZE,
+                       AID_ROOT, AID_SYSTEM, 0060, "fs_bpf_net_shared", "", PRIVATE,
+                       BPFLOADER_MAINLINE_U_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG,
+                       LOAD_ON_USER, LOAD_ON_USERDEBUG);
+
 // iptables xt_bpf programs need to be usable by both netd and netutils_wrappers
 // selinux contexts, because even non-xt_bpf iptables mutations are implemented as
 // a full table dump, followed by an update in userspace, and then a reload into the kernel,
@@ -252,7 +258,7 @@ static inline __always_inline enum AddressType get_address_type(const uint32_t i
  * from socket buffer as key. This method would be used to block packets if the
  * destination address on packet is of type LOCAL_NETWORK_IP_ADDRESS.
  */
-static __always_inline inline bool should_block_local_network_packets(struct __sk_buff *skb,
+static __always_inline inline bool should_block_local_network_packets(const struct __sk_buff *skb,
                                    const struct egress_bool egress, const struct kver_uint kver) {
    if (!KVER_IS_AT_LEAST(kver, 5, 4, 0)) return false;
    struct in6_addr addr = {};
@@ -359,6 +365,17 @@ static __always_inline inline void do_packet_tracing(
     pkt->ipProto = proto;
     pkt->tcpFlags = flags;
     pkt->ipVersion = ipVersion;
+    pkt->isLocalNetwork = should_block_local_network_packets(skb, egress, kver);
+
+    struct in6_addr addr = {};
+    if (skb->protocol == htons(ETH_P_IP)) {
+       addr.s6_addr32[2] = htonl(0xFFFF);
+       (void)bpf_skb_load_bytes_net(skb, IP4_OFFSET(daddr), &addr.s6_addr32[3], 4, kver);
+    } else if (skb->protocol == htons(ETH_P_IPV6)) {
+       (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(daddr), &addr, sizeof(addr), kver);
+    }
+
+    pkt->addr = addr;
 
     bpf_packet_trace_ringbuf_submit(pkt);
 }

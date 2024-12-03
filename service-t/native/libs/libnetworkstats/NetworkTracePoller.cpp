@@ -24,6 +24,7 @@
 #include <log/log.h>
 #include <perfetto/tracing/platform.h>
 #include <perfetto/tracing/tracing.h>
+#include <arpa/inet.h>
 
 #include <unordered_map>
 #include <unordered_set>
@@ -158,7 +159,13 @@ bool NetworkTracePoller::ConsumeAll() {
     }
 
     base::Result<int> ret = mRingBuffer->ConsumeAll(
-        [&](const PacketTrace& pkt) { packets.push_back(pkt); });
+        [&](const PacketTrace& pkt) {
+
+        char v6Str[46];
+        inet_ntop(AF_INET6, &pkt.addr, v6Str, sizeof(v6Str));
+        ALOGD("lnp_log_ret uid:%d, isLocalNetwork: %d, addr:%s ",pkt.uid, pkt.isLocalNetwork, v6Str);
+
+        packets.push_back(pkt); });
     if (!ret.ok()) {
       ALOGW("Failed to poll ringbuf: %s", ret.error().message().c_str());
       return false;
