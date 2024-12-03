@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e72daa87_11c6f7ec",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 68
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Starting from 25Q2 this should probably be noop or throw (Based on tethering with soft ap config flag)",
+      "fixSuggestions": [
+        {
+          "fixId": "e7420fc0_798042aa",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+              "range": {
+                "startLine": 612,
+                "startChar": 0,
+                "endLine": 613,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "33220a4511931936ff3c0f11e36c7d8f9486dd62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3275595_f00fc049",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 68
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "same as above",
+      "revId": "33220a4511931936ff3c0f11e36c7d8f9486dd62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "835cbdcc_9dd367d1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 68
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Need to make sure we remove TetheringRequests for IpServers that aren\u0027t started with one. Probably synthesize TetheringRequests for these (I.e. the legacy tether API)",
+      "revId": "33220a4511931936ff3c0f11e36c7d8f9486dd62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

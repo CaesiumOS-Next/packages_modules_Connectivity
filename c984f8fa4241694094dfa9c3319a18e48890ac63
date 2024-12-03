@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aeb17139_a7ccf7de",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done, will add the UID check in the stopTethering() CL",
+      "parentUuid": "7815d76a_e9c1f015",
+      "range": {
+        "startLine": 665,
+        "startChar": 8,
+        "endLine": 665,
+        "endChar": 53
+      },
+      "revId": "c984f8fa4241694094dfa9c3319a18e48890ac63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8733fc9_77a12d8e",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f039e0_f0e6d0e8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8733fc9_77a12d8e",
+      "range": {
+        "startLine": 670,
+        "startChar": 35,
+        "endLine": 670,
+        "endChar": 62
+      },
+      "revId": "c984f8fa4241694094dfa9c3319a18e48890ac63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "875c52e9_9ed7b12e",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-12-02T06:19:50Z",
       "side": 1,
       "message": "If this is an app compatibility measure, checking for V here is not useful, because V is already released. If we do want to base this on OS release, then it should instead use a trunk-stable flag owned by the platform (not in the tethering container). In that case, maybe gate it on the tethering_with_soft_ap_config trunk-stable flag?\n\nNote: in general it\u0027s easier for apps to opt in based on their target SDK version, or by calling a new API as opposed to an old API, but that might not be necessary here because these APIs are not public and not widely used, and most callers are either in the OS (e.g., settings, OEM apps) or aware of different OS behaviour (e.g., gmscore).",
+      "range": {
+        "startLine": 691,
+        "startChar": 25,
+        "endLine": 691,
+        "endChar": 35
+      },
+      "revId": "c984f8fa4241694094dfa9c3319a18e48890ac63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0be448c_b5e18825",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Tied it to the tethering_with_soft_ap_config flag -- I think it\u0027s better if we had some compatibility check in case we do break some app\u0027s reliance on the old behavior.",
+      "parentUuid": "875c52e9_9ed7b12e",
       "range": {
         "startLine": 691,
         "startChar": 25,

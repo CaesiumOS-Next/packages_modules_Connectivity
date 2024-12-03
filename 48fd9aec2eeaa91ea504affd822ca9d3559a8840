@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a22628d_bbe24364",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b2e4191_e51f30ad",
+      "range": {
+        "startLine": 235,
+        "startChar": 17,
+        "endLine": 235,
+        "endChar": 23
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c02185ab_0da2ed3c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc6dfb8c_63044ce9",
+      "range": {
+        "startLine": 235,
+        "startChar": 85,
+        "endLine": 235,
+        "endChar": 88
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66513bdb_06f3ffef",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-12-02T06:19:50Z",
       "side": 1,
       "message": "Can this list contain duplicates? If it can\u0027t, the doc should say that it cannot contain duplicates. If it can, then the doc should explain in which circumstances it can contain duplicates and how that behaves (e.g., what happens when a duplicate request is fled, when those duplicates are removed, etc.).",
+      "range": {
+        "startLine": 236,
+        "startChar": 82,
+        "endLine": 236,
+        "endChar": 83
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ca64954_cbfd104b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66513bdb_06f3ffef",
       "range": {
         "startLine": 236,
         "startChar": 82,
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba4205b9_43e29914",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fb6fd86_78402b91",
+      "range": {
+        "startLine": 661,
+        "startChar": 20,
+        "endLine": 661,
+        "endChar": 48
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "888891c5_d51c4b39",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-12-02T06:19:50Z",
       "side": 1,
       "message": "To me \"active\" suggests that these requests are being served by an IpClient. But they\u0027re not, right? This list would include pending requests as well? If so, would rename to \"currentRequests\" or \"existingRequests\".",
+      "range": {
+        "startLine": 694,
+        "startChar": 39,
+        "endLine": 694,
+        "endChar": 53
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "905d3796_21e42618",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "888891c5_d51c4b39",
       "range": {
         "startLine": 694,
         "startChar": 39,
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a1ffe0d_55a37cab",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a8a782c_09e87e0c",
+      "range": {
+        "startLine": 750,
+        "startChar": 12,
+        "endLine": 751,
+        "endChar": 83
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "239a5993_2c88894c",
@@ -152,6 +296,30 @@
       "writtenOn": "2024-12-02T06:19:50Z",
       "side": 1,
       "message": "In this case, the code currently silently replaces the existing request without changing the configuration. Is that what the old code did? If so, please add a bit more text to the comment.\n\nEven if that\u0027s what the old code did, the new code still seems wrong - for example, the IpServer that was started to fulfill the previous request will still store the previous request.",
+      "range": {
+        "startLine": 756,
+        "startChar": 16,
+        "endLine": 756,
+        "endChar": 49
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1979ab5e_58e3cfe4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "I\u0027ve modified this to only overwrite pending requests and keep the serving request in mCurrentTetheringRequests so we can still handle it internally via TetheringRequest instead of Type.",
+      "parentUuid": "239a5993_2c88894c",
       "range": {
         "startLine": 756,
         "startChar": 16,
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59795d3f_dfd1dcb1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74d9a568_32b7de83",
+      "range": {
+        "startLine": 791,
+        "startChar": 12,
+        "endLine": 791,
+        "endChar": 21
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b2125b9_441a3b8d",
@@ -198,6 +390,30 @@
       "writtenOn": "2024-12-02T06:19:50Z",
       "side": 1,
       "message": "Do you mind rewording to:\n\n    // The result of Bluetooth tethering will be sent by #setBluetoothTethering\n    // if the PAN service is already connected, or deferred to when the PAN service\n    // connects if it is not.",
+      "range": {
+        "startLine": 795,
+        "startChar": 83,
+        "endLine": 795,
+        "endChar": 84
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ece4fe0_e86d5931",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b2125b9_441a3b8d",
       "range": {
         "startLine": 795,
         "startChar": 83,
@@ -231,6 +447,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "489bb797_3c9ee061",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Actually Bluetooth calls sendTetherResult asynchronously, so the old cold was correct and we do need to put the remove logic in this method.",
+      "parentUuid": "4f3d6417_72320632",
+      "range": {
+        "startLine": 809,
+        "startChar": 39,
+        "endLine": 809,
+        "endChar": 45
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "064f6030_b1f0d3cf",
@@ -244,6 +484,30 @@
       "writtenOn": "2024-12-02T06:19:50Z",
       "side": 1,
       "message": "Shouldn\u0027t we remove the TetheringRequest from mActiveRequests? sendTetherResult doesn\u0027t do that any more. Maybe it should?",
+      "range": {
+        "startLine": 843,
+        "startChar": 12,
+        "endLine": 843,
+        "endChar": 28
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5274a5e_75cd589e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "064f6030_b1f0d3cf",
       "range": {
         "startLine": 843,
         "startChar": 12,
@@ -277,6 +541,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6877cc34_303317d4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "639a4be1_b9c824cb",
+      "range": {
+        "startLine": 866,
+        "startChar": 65,
+        "endLine": 866,
+        "endChar": 66
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d147469_4a2b674d",
@@ -290,6 +578,30 @@
       "writtenOn": "2024-12-02T06:19:50Z",
       "side": 1,
       "message": "This seems to lose information that was passed in to setBluetoothTetheringSettings. Should we pass that information through? Perhaps by storing the TetheringRequest in mPendingPanRequests? We\u0027d have to change the type from Pair to a new class that stores boolean, request, and listener. That shouldn\u0027t be too bad.",
+      "range": {
+        "startLine": 890,
+        "startChar": 57,
+        "endLine": 890,
+        "endChar": 76
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e61e31a1_142772f5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d147469_4a2b674d",
       "range": {
         "startLine": 890,
         "startChar": 57,
@@ -323,6 +635,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5253d23b_de90b42b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Now handled in handleEnableTetheringResult (formerly sendTetherResult)",
+      "parentUuid": "c128f873_8c5ed3a9",
+      "range": {
+        "startLine": 911,
+        "startChar": 12,
+        "endLine": 911,
+        "endChar": 15
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9710378_8febc6ac",
@@ -340,6 +676,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7728fe2e_b99a511b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Now handled in handleEnableTetheringResult (formerly sendTetherResult)",
+      "parentUuid": "e9710378_8febc6ac",
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35b93f28_581d3e29",
@@ -353,6 +707,30 @@
       "writtenOn": "2024-12-02T06:19:50Z",
       "side": 1,
       "message": "Can we pass the request to enableIpServing as well? It has useful information in it, such as the connectivity scope, and in the future, the interface name. Right now your code calls enableIpServing -\u003e ensureIpServerStarted and creates the IpServer, but doesn\u0027t put the TetheringRequest in, then it calls tether, which then tries to figure out what request it was supposed to serve and notifies the IpServer of it.\n\nSome tethering types (like wifi, on new releases) will pass the TetheringRequest back to us. But even for those that don\u0027t, it would be better to determine the TetheringRequest that is being served as soon as possible instead of guessing it later.",
+      "range": {
+        "startLine": 1032,
+        "startChar": 12,
+        "endLine": 1032,
+        "endChar": 27
+      },
+      "revId": "48fd9aec2eeaa91ea504affd822ca9d3559a8840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39fb594d_e759f7e0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 67
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-03T01:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35b93f28_581d3e29",
       "range": {
         "startLine": 1032,
         "startChar": 12,
