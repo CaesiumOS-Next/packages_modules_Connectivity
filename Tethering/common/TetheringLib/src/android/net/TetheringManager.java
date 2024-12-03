@@ -766,6 +766,12 @@ public class TetheringManager {
     }
 
     /**
+     * Unspecified connectivity scope.
+     * @hide
+     */
+    public static final int CONNECTIVITY_SCOPE_ANY = 0;
+
+    /**
      * Indicates that this tethering connection will provide connectivity beyond this device (e.g.,
      * global Internet access).
      */
