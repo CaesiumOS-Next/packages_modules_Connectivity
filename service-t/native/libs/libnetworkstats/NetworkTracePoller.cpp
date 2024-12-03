@@ -78,6 +78,17 @@ bool NetworkTracePoller::Start(uint32_t pollMs) {
     mRingBuffer = std::move(*rb);
   }
 
+    auto log_rb = BpfRingbuf<LnpLog>::Create(LNP_LOG_RINGBUF_PATH);
+    if (!log_rb.ok()) {
+      ALOGW("Failed to create lnp_log ringbuf: %s", log_rb.error().message().c_str());
+      return false;
+    }
+
+    {
+      std::scoped_lock<std::mutex> block(mBufferMutex);
+      mLnpLogRingBuffer = std::move(*log_rb);
+    }
+
   auto res = mConfigurationMap.writeValue(0, true, BPF_ANY);
   if (!res.ok()) {
     ALOGW("Failed to enable tracing: %s", res.error().message().c_str());
@@ -123,6 +134,11 @@ bool NetworkTracePoller::Stop() {
     mRingBuffer.reset();
   }
 
+  {
+      std::scoped_lock<std::mutex> block(mBufferMutex);
+      mLnpLogRingBuffer.reset();
+    }
+
   return res.ok();
 }
 
@@ -150,6 +166,7 @@ void NetworkTracePoller::TraceIfaces(const std::vector<PacketTrace>& packets) {
 
 bool NetworkTracePoller::ConsumeAll() {
   std::vector<PacketTrace> packets;
+  std::vector<LnpLog> logs;
   {
     std::scoped_lock<std::mutex> lock(mBufferMutex);
     if (mRingBuffer == nullptr) {
@@ -157,12 +174,26 @@ bool NetworkTracePoller::ConsumeAll() {
       return false;
     }
 
+    if (mLnpLogRingBuffer == nullptr) {
+          ALOGW("Lnp Log Tracing is not active");
+          return false;
+        }
+
     base::Result<int> ret = mRingBuffer->ConsumeAll(
         [&](const PacketTrace& pkt) { packets.push_back(pkt); });
     if (!ret.ok()) {
       ALOGW("Failed to poll ringbuf: %s", ret.error().message().c_str());
       return false;
     }
+
+    base::Result<int> lnp_log_ret = mLnpLogRingBuffer->ConsumeAll(
+            [&](const LnpLog& log) {
+                ALOGD("lnp_log_ret uid:%d, shouldBlockLocalNetwork uid: %d ",log.uid, log.isLocalNetwork);
+            });
+        if (!lnp_log_ret.ok()) {
+          ALOGW("Failed to poll lnp log ringbuf: %s", lnp_log_ret.error().message().c_str());
+          return false;
+        }
   }
 
   ATRACE_INT("NetworkTracePackets", packets.size());

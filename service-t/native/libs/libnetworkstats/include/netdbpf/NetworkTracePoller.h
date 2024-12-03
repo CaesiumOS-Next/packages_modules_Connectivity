@@ -87,6 +87,9 @@ class NetworkTracePoller {
   // The BPF ring buffer handle.
   std::unique_ptr<BpfRingbuf<PacketTrace>> mRingBuffer GUARDED_BY(mBufferMutex);
 
+   // The BPF ring buffer handle.
+  std::unique_ptr<BpfRingbuf<LnpLog>> mLnpLogRingBuffer GUARDED_BY(mBufferMutex);
+
   // The packet tracing config map (really a 1-element array).
   BpfMap<uint32_t, bool> mConfigurationMap GUARDED_BY(mMutex);
 

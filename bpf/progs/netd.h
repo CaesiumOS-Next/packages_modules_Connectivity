@@ -90,6 +90,14 @@ typedef struct {
 } PacketTrace;
 STRUCT_SIZE(PacketTrace, 8+4+4 + 4+4 + 2+2 + 1+1+1+1);
 
+typedef struct {
+  uint32_t uid;
+  uint32_t tag;
+  struct in6_addr addr;
+  bool isLocalNetwork:1;
+} LnpLog;
+//STRUCT_SIZE(LnpLog, 8+4+4 + 4+4 + 2+2 + 1+1+1+1);
+
 // Since we cannot garbage collect the stats map since device boot, we need to make these maps as
 // large as possible. The maximum size of number of map entries we can have is depend on the rlimit
 // of MEM_LOCK granted to netd. The memory space needed by each map can be calculated by the
@@ -187,6 +195,7 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define PACKET_TRACE_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_packet_trace_enabled_map"
 #define DATA_SAVER_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_data_saver_enabled_map"
 #define ADDRESS_TYPE_MAP_PATH BPF_NETD_PATH "map_netd_address_type_map"
+#define LNP_LOG_RINGBUF_PATH BPF_NETD_PATH "map_netd_lnp_log_ringbuf"
 
 #endif // __cplusplus
 
