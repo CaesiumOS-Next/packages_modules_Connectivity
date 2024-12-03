@@ -415,12 +415,6 @@ public class IpServer extends StateMachineShim {
         return mIpv4PrefixRequest;
     }
 
-    /** The TetheringRequest the IpServer started with. */
-    @Nullable
-    public TetheringRequest getTetheringRequest() {
-        return mTetheringRequest;
-    }
-
     /**
      * Get the latest list of DHCP leases that was reported. Must be called on the IpServer looper
      * thread.
@@ -430,7 +424,7 @@ public class IpServer extends StateMachineShim {
     }
 
     /** Enable this IpServer. IpServer state machine will be tethered or localHotspot state. */
-    public void enable(final int requestedState, final TetheringRequest request) {
+    public void enable(final int requestedState, @NonNull final TetheringRequest request) {
         sendMessage(CMD_TETHER_REQUESTED, requestedState, 0, request);
     }
 
