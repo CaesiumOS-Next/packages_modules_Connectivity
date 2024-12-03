@@ -16,6 +16,24 @@
       "message": "Adding to the consumer to the wait queue if the connector is dead should not do anything since the queue is unused after the connector was set; also the connector being null is expected on boot so it would add a few log messages to various caller processes that may be unnecessary.\n\nIf the connector is dead at this point subsequent calls may crash, but this indicates a fatal bug happened and the system can only recover from by crashing so that is the fastest path to recovery. You could just have an additional log if the binder is not alive, although I am not sure this is worth the cost of doing the check on every getConnector call.\n\nCould you leave this part of the code as-is ? The rest looks good.",
       "revId": "430efaf019443248487174823d513f57682db300",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e12581a0_4e01bc33",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 3543904
+      },
+      "writtenOn": "2024-12-03T05:44:46Z",
+      "side": 1,
+      "message": "But If you look at the logs logs of 353920381, even thought the binder is dead, system never recovered.\n\nAnyway I can remove changes from this part.",
+      "parentUuid": "1e96c922_bf12421c",
+      "revId": "430efaf019443248487174823d513f57682db300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
