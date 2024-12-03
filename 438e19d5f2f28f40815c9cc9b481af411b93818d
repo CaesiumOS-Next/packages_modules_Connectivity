@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5e0303b_9034d1c0",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "I don\u0027t think there is anything useful to return here. Maybe make this an OutcomeReceiver\u003cVoid, ServiceSpecificException\u003e? Then you can use whatever error codes can easily be represented in errno. And actually you might just be able to pass back the ServiceSpecificException from netd.",
+      "range": {
+        "startLine": 5,
+        "startChar": 229,
+        "endLine": 5,
+        "endChar": 246
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a50ee05_e3cbc508",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": ". Only one UID can be delegated at any given time.",
+      "range": {
+        "startLine": 192,
+        "startChar": 68,
+        "endLine": 192,
+        "endChar": 69
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d29afcc_b4abf72a",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "when",
+      "range": {
+        "startLine": 194,
+        "startChar": 80,
+        "endLine": 195,
+        "endChar": 25
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a475f222_4504887a",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "This can\u0027t actually happen - if it does, then the system is crashing and the app will crash shortly after. You should call rethrowFromSystemServer in the catch clause.",
+      "range": {
+        "startLine": 211,
+        "startChar": 17,
+        "endLine": 211,
+        "endChar": 34
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fae3754_689c3415",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6387,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "We probably want to check only for MAINLINE_NETWORK_STACK here, at least for now. I think there\u0027s probably a method for this already?",
+      "range": {
+        "startLine": 6387,
+        "startChar": 12,
+        "endLine": 6387,
+        "endChar": 37
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9671d4f_c953de46",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6390,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "If we do this, then every time an all calls setDelegateUid we might end up with a new receiver and a new death recipient. And the app would have no way of clearing death recipients it previously passed in. So we will have more and more death recipients. We probably want to store a binder object in the client-side CaptivePortal class.\n\nMaybe we could add something like this to CaptivePortal.java:\n\n    // Callback object that ConnectivityService can store and use to register\n    // death recipients. Initialized the first time that setDelegateUid() is called\n    // and never changed.\n    private final AtomicReference\u003cIBinder\u003e mCallbackBinder;\n\nand in setDelegateUid:\n\n    mCallbackBinder \u003d compareAndSet(null, new Binder());\n\nthen you would pass this binder to the setDelegateUid together with the UID and the result receiver. Then you could store this binder in the CaptivePortalImpl class using a similar AtomicReference. It would start off null, and the first time you change it from non-null to null (check the return value of compareAndSet) you could call linkToDeath. That ensure that as soon as setDelegateUid is called, the death recipient is registered, and no more death recipients are registered for this CaptivePortalImpl object in the future.",
+      "range": {
+        "startLine": 6390,
+        "startChar": 16,
+        "endLine": 6390,
+        "endChar": 24
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df4a5478_a55b246d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6406,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "This will crash if nai has disconnected?",
+      "range": {
+        "startLine": 6406,
+        "startChar": 59,
+        "endLine": 6406,
+        "endChar": 60
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32b235b6_5ba4df28",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6406,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "Typo, delegated (without the extra L).",
+      "range": {
+        "startLine": 6406,
+        "startChar": 74,
+        "endLine": 6406,
+        "endChar": 84
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "368b9d3a_b4cdb254",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6429,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "If all you want to do is remove a the element that has the specified key, then there\u0027s no need to iterate. You can just call remove(uid). But see above.",
+      "range": {
+        "startLine": 6429,
+        "startChar": 8,
+        "endLine": 6429,
+        "endChar": 11
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59cab5d0_1c923d10",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6444,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "Use \"+\" instead of \",\" to avoid logging the stack trace. But I don\u0027t think it\u0027s particularly useful to log this anyway - if the calling app was killed between when it called the function and when we sent the callback, that will be pretty clear from existing logs.",
+      "range": {
+        "startLine": 6444,
+        "startChar": 57,
+        "endLine": 6444,
+        "endChar": 58
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "475f3961_dd67fa52",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6457,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "I think it\u0027s probably better to have this code be in NetworkAgentInfo. That way this code can just call a NetworkAgentInfo method, and that method will take care of updating the data structure and of changing the configuration.\n\nYou probably want to add a TODO to consider updating the access UIDs of the network when the UID is delegated.",
+      "range": {
+        "startLine": 6457,
+        "startChar": 8,
+        "endLine": 6457,
+        "endChar": 12
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f63ccb07_f31278a3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6460,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "You never clear this. Again you probably want a setCaptivePortalDelegateUid method in NetworkAgentInfo.",
+      "range": {
+        "startLine": 6460,
+        "startChar": 18,
+        "endLine": 6460,
+        "endChar": 48
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ad3eb27_e4039166",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6460,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "This only works on V+ I think? You might want to just return an error if the app tries to do this before V. If you use ServiceSpecificException, you could do something like return EOPNOTSUPP or EINVAL.",
+      "range": {
+        "startLine": 6460,
+        "startChar": 18,
+        "endLine": 6460,
+        "endChar": 48
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "290981dd_9b35a3bb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6460,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "Before telling netd to do things, we need to check if !nai.isDestroyed().",
+      "range": {
+        "startLine": 6460,
+        "startChar": 18,
+        "endLine": 6460,
+        "endChar": 48
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79de5e59_66758686",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6462,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "RemoteException means that netd is dead and the system will be crashing immediately. You might need to catch ServiceSpecificException, but hopefully not, since ConnectivityService and netd state should be in sync: networkAllowBypassVpnOnNetwork can throw ServiceSpecificExceptions with ENOENT or EEXIST, but I don\u0027t think that can ever happen if this code is correct.\n\nThat said, see above: if we use an OutcomeReceiver\u003cVoid, ServiceSpecificException\u003e, then maybe we can just pass that back to the caller. In some cases we might have to throw SSE locally, such as if the caller passes in -1 and there is nothing already in the map, we could throw new ServiceSpecificException(ENOENT).",
+      "range": {
+        "startLine": 6462,
+        "startChar": 17,
+        "endLine": 6462,
+        "endChar": 32
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f9a9707_dfeff0a2",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T10:41:25Z",
+      "side": 1,
+      "message": "Per discussion, I don\u0027t think this works. Maybe make this an ArrayMap\u003cICaptivePortalImpl, Integer\u003e? That way:\n- When the death recipient fires (i.e., the captive portal app goes away) you can just do mCaptivePortalDelelgatedUids.remove(ICaptivePortalImpl.this)\n- When a UID is delegated, you can do something like:\n    Integer oldDelegateUid \u003d mCaptivePortalDelelgatedUids.put(ICaptivePortalImpl.this. delegateUid);\n- When the delegation is cleared (i.e., -1 is passed in), you can just do mCaptivePortalDelelgatedUids.remove(ICaptivePortalImpl.this);",
+      "range": {
+        "startLine": 580,
+        "startChar": 17,
+        "endLine": 580,
+        "endChar": 44
+      },
+      "revId": "438e19d5f2f28f40815c9cc9b481af411b93818d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
