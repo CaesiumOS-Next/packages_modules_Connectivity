@@ -708,6 +708,7 @@ public class TetheringTest {
 
         when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)).thenReturn(true);
         when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)).thenReturn(true);
+        when(mWifiManager.startTetheredHotspot(any())).thenReturn(true);
     }
 
     // In order to interact with syncSM from the test, tethering must be created in test thread.
@@ -956,9 +957,8 @@ public class TetheringTest {
         final TetheringRequest request = createTetheringRequest(TETHERING_USB);
         mTethering.startTethering(request, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
-
-        assertEquals(1, mTethering.getActiveTetheringRequests().size());
-        assertEquals(request, mTethering.getActiveTetheringRequests().get(TETHERING_USB));
+        assertEquals(1, mTethering.getAllTetheringRequests().size());
+        assertTrue(mTethering.getAllTetheringRequests().contains(request));
 
         if (mTethering.getTetheringConfiguration().isUsingNcm()) {
             verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NCM);
@@ -2066,9 +2066,9 @@ public class TetheringTest {
                 TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_CONFIGURATION_ERROR);
 
         verify(mTetheringMetrics, times(0)).maybeUpdateUpstreamType(any());
-        verify(mTetheringMetrics, times(2)).updateErrorCode(eq(TETHERING_WIFI),
+        verify(mTetheringMetrics, times(1)).updateErrorCode(eq(TETHERING_WIFI),
                 eq(TETHER_ERROR_INTERNAL_ERROR));
-        verify(mTetheringMetrics, times(2)).sendReport(eq(TETHERING_WIFI));
+        verify(mTetheringMetrics, times(1)).sendReport(eq(TETHERING_WIFI));
 
         verifyNoMoreInteractions(mWifiManager);
         verifyNoMoreInteractions(mNetd);
@@ -2170,7 +2170,9 @@ public class TetheringTest {
         runUsbTethering(upstreamState);
         assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_RNDIS_IFNAME);
         assertTrue(mTethering.isTetheringActive());
-        assertEquals(0, mTethering.getActiveTetheringRequests().size());
+        assertEquals(1, mTethering.getAllTetheringRequests().size());
+        assertTrue(mTethering.getAllTetheringRequests().contains(
+                createTetheringRequest(TETHERING_USB)));
 
         final Tethering.UserRestrictionActionListener ural = makeUserRestrictionActionListener(
                 mTethering, false /* currentDisallow */, true /* nextDisallow */);
@@ -3006,7 +3008,7 @@ public class TetheringTest {
         assertFalse(mEntitleMgr.isCellularUpstreamPermitted());
         mTethering.stopTethering(TETHERING_WIFI);
         mLooper.dispatchAll();
-        verify(mEntitleMgr).stopProvisioningIfNeeded(TETHERING_WIFI);
+        verify(mEntitleMgr, times(2)).stopProvisioningIfNeeded(TETHERING_WIFI);
         reset(mEntitleMgr);
     }
 
@@ -3189,6 +3191,7 @@ public class TetheringTest {
         reset(mDhcpServer);
 
         // Run wifi tethering.
+        mTethering.startTethering(createTetheringRequest(TETHERING_WIFI), TEST_CALLER_PKG, null);
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
         verify(mDhcpServer, timeout(DHCPSERVER_START_TIMEOUT_MS)).startWithCallbacks(
@@ -3253,6 +3256,9 @@ public class TetheringTest {
         });
         callback.expectTetheredClientChanged(Collections.emptyList());
 
+        mTethering.startTethering(
+                createTetheringRequest(TETHERING_WIFI), TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
         final ArgumentCaptor<IDhcpEventCallbacks> dhcpEventCbsCaptor =
@@ -3426,7 +3432,7 @@ public class TetheringTest {
         mTethering.interfaceStatusChanged(TEST_BT_IFNAME, false);
         mTethering.interfaceStatusChanged(TEST_BT_IFNAME, true);
         final ResultListener tetherResult = new ResultListener(TETHER_ERROR_NO_ERROR);
-        mTethering.tether(TEST_BT_IFNAME, IpServer.STATE_TETHERED, tetherResult);
+        mTethering.tether(TEST_BT_IFNAME, tetherResult);
         mLooper.dispatchAll();
         tetherResult.assertHasResult();
 
@@ -3476,7 +3482,7 @@ public class TetheringTest {
             mTethering.interfaceStatusChanged(TEST_BT_IFNAME, false);
             mTethering.interfaceStatusChanged(TEST_BT_IFNAME, true);
             final ResultListener tetherResult = new ResultListener(TETHER_ERROR_NO_ERROR);
-            mTethering.tether(TEST_BT_IFNAME, IpServer.STATE_TETHERED, tetherResult);
+            mTethering.tether(TEST_BT_IFNAME, tetherResult);
             mLooper.dispatchAll();
             tetherResult.assertHasResult();
         }
@@ -3601,7 +3607,7 @@ public class TetheringTest {
     }
 
     private void verifyUsbTetheringStopDueToSettingChange(final String iface) {
-        verify(mUsbManager, times(2)).setCurrentFunctions(UsbManager.FUNCTION_NONE);
+        verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
         mTethering.interfaceRemoved(iface);
         sendUsbBroadcast(true, true, -1 /* no functions enabled */);
         reset(mUsbManager, mNetd, mDhcpServer, mRouterAdvertisementDaemon,
@@ -3743,6 +3749,9 @@ public class TetheringTest {
     @Test
     public void testIpv4AddressForSapAndLohsConcurrency() throws Exception {
         initTetheringOnTestThread();
+        mTethering.startTethering(
+                createTetheringRequest(TETHERING_WIFI), TEST_CALLER_PKG, null);
+        mLooper.dispatchAll();
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
 
