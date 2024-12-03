@@ -83,12 +83,21 @@ typedef struct {
   __be16 dport;
 
   bool egress:1,
-       wakeup:1;
+       wakeup:1,
+       isLocalNetwork:1;
   uint8_t ipProto;
   uint8_t tcpFlags;
   uint8_t ipVersion; // 4=IPv4, 6=IPv6, 0=unknown
+  struct in6_addr addr;
 } PacketTrace;
-STRUCT_SIZE(PacketTrace, 8+4+4 + 4+4 + 2+2 + 1+1+1+1);
+//STRUCT_SIZE(PacketTrace, 8+4+4 + 4+4 + 2+2 + 1+1+1+1);
+
+typedef struct {
+  uint32_t uid;
+  uint32_t tag;
+  bool isLocalNetwork:1;
+} LnpLog;
+//STRUCT_SIZE(LnpLog, 8+4+4 + 4+4 + 2+2 + 1+1+1+1);
 
 // Since we cannot garbage collect the stats map since device boot, we need to make these maps as
 // large as possible. The maximum size of number of map entries we can have is depend on the rlimit
@@ -128,6 +137,7 @@ static const int INGRESS_DISCARD_MAP_SIZE = 100;
 static const int PACKET_TRACE_BUF_SIZE = 32 * 1024;
 static const int DATA_SAVER_ENABLED_MAP_SIZE = 1;
 static const int ADDRESS_TYPE_MAP_SIZE = 200;
+static const int LNP_LOG_BUF_SIZE = 64 * 1024;
 
 #ifdef __cplusplus
 
@@ -187,6 +197,7 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define PACKET_TRACE_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_packet_trace_enabled_map"
 #define DATA_SAVER_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_data_saver_enabled_map"
 #define ADDRESS_TYPE_MAP_PATH BPF_NETD_PATH "map_netd_address_type_map"
+#define LNP_LOG_RINGBUF_PATH BPF_NETD_PATH "map_netd_lnp_log_ringbuf"
 
 #endif // __cplusplus
 
