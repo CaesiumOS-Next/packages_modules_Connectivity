@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9f66004_1c14a8ed",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkPrefixMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-03T10:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf378e50_e393d316",
+      "range": {
+        "startLine": 65,
+        "startChar": 32,
+        "endLine": 65,
+        "endChar": 37
+      },
+      "revId": "865fc866ed2f26a14c2997e77838a71be53938d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "703feae9_d08109f3",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "766dd614_9e6e7688",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkPrefixMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-03T10:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6709214a_6c62514f",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 72
+      },
+      "revId": "865fc866ed2f26a14c2997e77838a71be53938d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6f82605_2068dc9e",
@@ -84,6 +132,30 @@
       "writtenOn": "2024-11-26T13:12:19Z",
       "side": 1,
       "message": "All the `// For testing.` comment doesn\u0027t seems useful to me...\n\nDo we plan to test LE and BE or we always want to use LE?\n\nIf for later, could you add some explanation why?",
+      "range": {
+        "startLine": 59,
+        "startChar": 52,
+        "endLine": 59,
+        "endChar": 67
+      },
+      "revId": "865fc866ed2f26a14c2997e77838a71be53938d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0810433_74be7713",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkPrefixMessageTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-03T10:54:39Z",
+      "side": 1,
+      "message": "The platform(e.g. phones or cuttlefish) which the test cases are running at are LE, so add a `// For testing`, per discussion, removed all of them.",
+      "parentUuid": "f6f82605_2068dc9e",
       "range": {
         "startLine": 59,
         "startChar": 52,
