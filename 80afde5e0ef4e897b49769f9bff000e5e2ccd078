@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a5347b8_1fc21af5",
+        "filename": "staticlibs/framework/com/android/net/module/util/CollectionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-03T04:08:28Z",
+      "side": 1,
+      "message": "As discussed, the methods below should be simple to implement based on concatArrays above",
+      "revId": "80afde5e0ef4e897b49769f9bff000e5e2ccd078",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ee6beac_a4d4213e",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/CollectionUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-03T04:08:28Z",
+      "side": 1,
+      "message": "Also tests for boundary conditions (concat with empty arrays, concat with an empty array of arrays) would be useful",
+      "revId": "80afde5e0ef4e897b49769f9bff000e5e2ccd078",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ee39ef_13f93f80",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/CollectionUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-03T04:08:28Z",
+      "side": 1,
+      "message": "Nit: it would be cleaner having these in separate test cases (staying closer to http://go/unit-testing-practices#structure)",
+      "revId": "80afde5e0ef4e897b49769f9bff000e5e2ccd078",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
