@@ -174,10 +174,10 @@ public class IpServer extends StateMachineShim {
         /**
          * Request Tethering change.
          *
-         * @param tetheringType the downstream type of this IpServer.
+         * @param request the TetheringRequest this IpServer was enabled with.
          * @param enabled enable or disable tethering.
          */
-        public void requestEnableTethering(int tetheringType, boolean enabled) { }
+        public void requestEnableTethering(TetheringRequest request, boolean enabled) { }
     }
 
     /** Capture IpServer dependencies, for injection. */
@@ -415,12 +415,6 @@ public class IpServer extends StateMachineShim {
         return mIpv4PrefixRequest;
     }
 
-    /** The TetheringRequest the IpServer started with. */
-    @Nullable
-    public TetheringRequest getTetheringRequest() {
-        return mTetheringRequest;
-    }
-
     /**
      * Get the latest list of DHCP leases that was reported. Must be called on the IpServer looper
      * thread.
@@ -430,7 +424,7 @@ public class IpServer extends StateMachineShim {
     }
 
     /** Enable this IpServer. IpServer state machine will be tethered or localHotspot state. */
-    public void enable(final int requestedState, final TetheringRequest request) {
+    public void enable(final int requestedState, @NonNull final TetheringRequest request) {
         sendMessage(CMD_TETHER_REQUESTED, requestedState, 0, request);
     }
 
@@ -1189,8 +1183,8 @@ public class IpServer extends StateMachineShim {
                     handleNewPrefixRequest((IpPrefix) message.obj);
                     break;
                 case CMD_NOTIFY_PREFIX_CONFLICT:
-                    mLog.i("restart tethering: " + mInterfaceType);
-                    mCallback.requestEnableTethering(mInterfaceType, false /* enabled */);
+                    mLog.i("restart tethering: " + mIfaceName);
+                    mCallback.requestEnableTethering(mTetheringRequest, false /* enabled */);
                     transitionTo(mWaitingForRestartState);
                     break;
                 case CMD_SERVICE_FAILED_TO_START:
@@ -1474,12 +1468,12 @@ public class IpServer extends StateMachineShim {
                 case CMD_TETHER_UNREQUESTED:
                     transitionTo(mInitialState);
                     mLog.i("Untethered (unrequested) and restarting " + mIfaceName);
-                    mCallback.requestEnableTethering(mInterfaceType, true /* enabled */);
+                    mCallback.requestEnableTethering(mTetheringRequest, true /* enabled */);
                     break;
                 case CMD_INTERFACE_DOWN:
                     transitionTo(mUnavailableState);
                     mLog.i("Untethered (interface down) and restarting " + mIfaceName);
-                    mCallback.requestEnableTethering(mInterfaceType, true /* enabled */);
+                    mCallback.requestEnableTethering(mTetheringRequest, true /* enabled */);
                     break;
                 default:
                     return false;

@@ -111,7 +111,7 @@ public class TetheringService extends Service {
                 IIntResultListener listener) {
             if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, listener)) return;
 
-            mTethering.tether(iface, IpServer.STATE_TETHERED, listener);
+            mTethering.tether(iface, listener);
         }
 
         @Override
