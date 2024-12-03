@@ -953,8 +953,8 @@ public class TetheringTest {
         mTethering.startTethering(request, TEST_CALLER_PKG, null);
         mLooper.dispatchAll();
 
-        assertEquals(1, mTethering.getActiveTetheringRequests().size());
-        assertEquals(request, mTethering.getActiveTetheringRequests().get(TETHERING_USB));
+        assertEquals(1, mTethering.getAllTetheringRequests().size());
+        assertEquals(request, mTethering.getAllTetheringRequests().get(0));
 
         if (mTethering.getTetheringConfiguration().isUsingNcm()) {
             verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NCM);
@@ -2166,7 +2166,8 @@ public class TetheringTest {
         runUsbTethering(upstreamState);
         assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_RNDIS_IFNAME);
         assertTrue(mTethering.isTetheringActive());
-        assertEquals(0, mTethering.getActiveTetheringRequests().size());
+        assertEquals(1, mTethering.getAllTetheringRequests().size());
+        assertEquals(TETHERING_USB, mTethering.getAllTetheringRequests().get(0).getTetheringType());
 
         final Tethering.UserRestrictionActionListener ural = makeUserRestrictionActionListener(
                 mTethering, false /* currentDisallow */, true /* nextDisallow */);
@@ -3586,7 +3587,7 @@ public class TetheringTest {
     }
 
     private void verifyUsbTetheringStopDueToSettingChange(final String iface) {
-        verify(mUsbManager, times(2)).setCurrentFunctions(UsbManager.FUNCTION_NONE);
+        verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
         mTethering.interfaceRemoved(iface);
         sendUsbBroadcast(true, true, -1 /* no functions enabled */);
         reset(mUsbManager, mNetd, mDhcpServer, mRouterAdvertisementDaemon,
