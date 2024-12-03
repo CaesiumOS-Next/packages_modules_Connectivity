@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6783cba6_ca2fc547",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-03T13:23:32Z",
+      "side": 1,
+      "message": "FWIW I don\u0027t think you need this shim any more. You can just do:\n\n    if (SdkLevel.isAtLeastV()\n            \u0026\u0026 mDeps.isTetheringRequestWithSoftApConfigEnabled(mContext)) {\n        mgr.startTetheredHotspot(request, mExecutor, new TetheringSoftApCallback(...));\n    } else {\n        success \u003d mgr.startTetheredHotspot(null);\n    }",
+      "range": {
+        "startLine": 862,
+        "startChar": 20,
+        "endLine": 862,
+        "endChar": 35
+      },
+      "revId": "470c5f1d0c4d39f8cc0cf2a0dd9c1b3ab9299fec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
