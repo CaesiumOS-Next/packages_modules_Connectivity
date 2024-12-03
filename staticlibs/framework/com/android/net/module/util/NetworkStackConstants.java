@@ -120,6 +120,8 @@ public final class NetworkStackConstants {
             (byte) 0, (byte) 0, (byte) 0, (byte) 0,
             (byte) 0, (byte) 0, (byte) 0, (byte) 0,
             (byte) 0, (byte) 0, (byte) 0, (byte) 0 });
+    public static final Inet4Address IPV4_ADDR_ALL_HOST_MULTICAST =
+            (Inet4Address) InetAddresses.parseNumericAddress("224.0.0.1");
 
     /**
      * CLAT constants
@@ -153,7 +155,6 @@ public final class NetworkStackConstants {
             (Inet6Address) InetAddresses.parseNumericAddress("ff02::3");
 
     public static final int IPPROTO_FRAGMENT = 44;
-
     /**
      * ICMP constants.
      *
