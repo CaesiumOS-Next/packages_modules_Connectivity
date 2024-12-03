@@ -687,6 +687,13 @@ public class TetheringManager {
     /**
      * Indicates that this tethering connection will provide connectivity beyond this device (e.g.,
      * global Internet access).
+     * @hide
+     */
+    public static final int CONNECTIVITY_SCOPE_UNKNOWN = 0;
+
+    /**
+     * Indicates that this tethering connection will provide connectivity beyond this device (e.g.,
+     * global Internet access).
      */
     public static final int CONNECTIVITY_SCOPE_GLOBAL = 1;
 
@@ -701,6 +708,7 @@ public class TetheringManager {
      */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(prefix = "CONNECTIVITY_SCOPE_", value = {
+            CONNECTIVITY_SCOPE_UNKNOWN,
             CONNECTIVITY_SCOPE_GLOBAL,
             CONNECTIVITY_SCOPE_LOCAL,
     })
@@ -970,7 +978,8 @@ public class TetheringManager {
          */
         private static boolean checkConnectivityScope(int type, int scope) {
             if (scope == CONNECTIVITY_SCOPE_GLOBAL) return true;
-            return type == TETHERING_USB || type == TETHERING_ETHERNET || type == TETHERING_NCM;
+            return type == TETHERING_USB || type == TETHERING_ETHERNET || type == TETHERING_NCM
+                    || type == TETHERING_WIFI || type == TETHERING_WIFI_P2P;
         }
 
         /**
