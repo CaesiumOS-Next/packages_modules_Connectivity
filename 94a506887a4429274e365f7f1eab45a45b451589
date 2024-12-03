@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90febe06_b41e5487",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-03T10:05:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bb6995d_a78b299d",
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4165140_7eade2c0",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-12-03T06:53:32Z",
       "side": 1,
       "message": "Having a static member here doesn\u0027t seem necessary (it uses more memory and makes class init more expensive); you could just have a static class (`private static class RealtimeSupplier implements LongSupplier`), and call `new RealtimeSupplier` in `initRateLimitCacheLocked`",
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc6bc330_8e3983a9",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-03T10:05:07Z",
+      "side": 1,
+      "message": "I find it less valuable to have a dedicate class given it is only used once.\nBut made it a local variable as suggested.\nSee if it works for you.\nReopen if any idea.",
+      "parentUuid": "c4165140_7eade2c0",
       "revId": "94a506887a4429274e365f7f1eab45a45b451589",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fa411d3_555a8066",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-03T10:05:07Z",
+      "side": 1,
+      "message": "Done, but given that Java does not have null check like kotlin does.\nI find it less aesthetically pleasing.\nSee if it works for you.",
+      "parentUuid": "0cd481d8_11e8bc82",
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e775710d_f4189e71",
@@ -69,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "093ebca5_17b4f29c",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-03T10:05:07Z",
+      "side": 1,
+      "message": "Done.\nThanks for the idea.\nAnd it seems we can refactor other parts as well.\nSee if it works for you.",
+      "parentUuid": "e775710d_f4189e71",
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4a05215_750f58f8",
@@ -82,6 +154,30 @@
       "writtenOn": "2024-12-03T06:53:32Z",
       "side": 1,
       "message": "The new code makes the problem worse though, because an older, lower value may be cached for a long time after higher values were returned.\n\nFor example:\n\n - [Thread1] statsFetcher.get() --\u003e returns 42\n - [Thread2] statsFetcher.get() --\u003e returns 43\n - [Thread2] Caches 43\n - [Thread1] Caches 42\n --\u003e Anyone from that point gets 42 for a few seconds. Before, it would only return 42 on the calls that raced, the value wouldn\u0027t remain in cache.\n\nI think this can be fixed by replacing `void cache.put()` with `StatsResult cache.putIfAbsent()`, which would return the currently cached value if any. Then this method would return the value that was put into the cache, so the flow becomes:\n\n - [Thread1] statsFetcher.get() --\u003e returns 42\n - [Thread2] statsFetcher.get() --\u003e returns 43\n - [Thread2] Caches 43\n - [Thread1] putIfAbsent(42) -\u003e returns 43 --\u003e method returns 43",
+      "range": {
+        "startLine": 1165,
+        "startChar": 51,
+        "endLine": 1167,
+        "endChar": 38
+      },
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32022cd3_c3592458",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-03T10:05:07Z",
+      "side": 1,
+      "message": "You mean:\n```\n[Thread1] statsFetcher.get() --\u003e returns 42\n[Thread2] statsFetcher.get() --\u003e returns 43\n[Thread2] Caches 43\n[Thread1] putIfAbsent(42) -\u003e returns 42 --\u003e other method returns 43\n```\nRight?\n\nIt indeed fixes the out-of-order case but it would break the in-order case, which I think more likely to happen, right?\n```\n[Thread1] statsFetcher.get() --\u003e returns 42\n[Thread2] statsFetcher.get() --\u003e returns 43\n[Thread1] Caches 42\n[Thread2] putIfAbsent(43) -\u003e return 43 -\u003e other method returns 42. \n```\nIf so, prefer to keep it as is.\nWDYT?",
+      "parentUuid": "b4a05215_750f58f8",
       "range": {
         "startLine": 1165,
         "startChar": 51,
