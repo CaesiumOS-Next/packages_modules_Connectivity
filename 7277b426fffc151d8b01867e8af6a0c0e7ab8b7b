@@ -281,6 +281,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dea11ba6_a4760aa4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2024-12-03T18:47:33Z",
+      "side": 1,
+      "message": "Method to match incoming request with existing request.\n\nQuang to hopefully update this",
+      "range": {
+        "startLine": 679,
+        "startChar": 53,
+        "endLine": 679,
+        "endChar": 60
+      },
+      "revId": "7277b426fffc151d8b01867e8af6a0c0e7ab8b7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cda984f3_4c1b8df5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2024-12-03T18:47:33Z",
+      "side": 1,
+      "message": "Interface name might not be known at this time.",
+      "range": {
+        "startLine": 683,
+        "startChar": 20,
+        "endLine": 683,
+        "endChar": 41
+      },
+      "revId": "7277b426fffc151d8b01867e8af6a0c0e7ab8b7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5935b4fb_e042258f",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 16

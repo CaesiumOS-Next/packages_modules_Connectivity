@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b38215a_2831f599",
+        "filename": "Tethering/src/com/android/networkstack/tethering/PrivateAddressCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2024-12-03T18:47:33Z",
+      "side": 0,
+      "message": "Code needs to stay for backwards compatability.",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 64
+      },
+      "revId": "52f6a8a28e5e0fb4906685bc68757862936bb8d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
