@@ -69,6 +69,7 @@ import android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import android.net.cts.util.CtsTetheringUtils;
 import android.net.cts.util.CtsTetheringUtils.StartTetheringCallback;
 import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
+import android.net.http.internal.com.android.net.flags.Flags;
 import android.net.wifi.SoftApConfiguration;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiSsid;
@@ -315,6 +316,13 @@ public class TetheringManagerTest {
                 .setConnectivityScope(CONNECTIVITY_SCOPE_GLOBAL).build();
         assertEquals(interfaceName, tr4.getInterfaceName());
         assertEquals(CONNECTIVITY_SCOPE_GLOBAL, tr4.getConnectivityScope());
+
+        try {
+            new TetheringRequest.Builder(TETHERING_WIFI).setConnectivityScope(-1);
+            fail("Expected to throw");
+        } catch (IllegalArgumentException e) {
+            // Success.
+        }
     }
 
     @Test

@@ -751,6 +751,12 @@ public class TetheringManager {
     }
 
     /**
+     * Unspecified connectivity scope.
+     * @hide
+     */
+    public static final int CONNECTIVITY_SCOPE_ANY = 0;
+
+    /**
      * Indicates that this tethering connection will provide connectivity beyond this device (e.g.,
      * global Internet access).
      */
@@ -1083,7 +1089,16 @@ public class TetheringManager {
          */
         private static boolean checkConnectivityScope(int type, int scope) {
             if (scope == CONNECTIVITY_SCOPE_GLOBAL) return true;
-            return type == TETHERING_USB || type == TETHERING_ETHERNET || type == TETHERING_NCM;
+
+            if (scope != CONNECTIVITY_SCOPE_LOCAL) return false;
+            switch (type) {
+                case TETHERING_USB:
+                case TETHERING_NCM:
+                case TETHERING_ETHERNET:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         /**
