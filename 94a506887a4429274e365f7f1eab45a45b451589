@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bb6995d_a78b299d",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-03T06:53:32Z",
+      "side": 1,
+      "message": "The member cannot, it\u0027s just the methods on the cache object, so it would be best to document that explicitly (e.g. the member is protected by the lock, but the cache itself is thread-safe)",
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4165140_7eade2c0",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-03T06:53:32Z",
+      "side": 1,
+      "message": "Having a static member here doesn\u0027t seem necessary (it uses more memory and makes class init more expensive); you could just have a static class (`private static class RealtimeSupplier implements LongSupplier`), and call `new RealtimeSupplier` in `initRateLimitCacheLocked`",
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd481d8_11e8bc82",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-03T06:53:32Z",
+      "side": 1,
+      "message": "For consistency with other methods using the cache, could this use maybeGetRateLimitIfaceCache / maybeGetRateLimitUidCache ?",
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e775710d_f4189e71",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-03T06:53:32Z",
+      "side": 1,
+      "message": "I think you could refactor this part into a function to reuse it: it would call the lambda directly if there\u0027s no cache, or call fetchStatsWithCache",
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4a05215_750f58f8",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-03T06:53:32Z",
+      "side": 1,
+      "message": "The new code makes the problem worse though, because an older, lower value may be cached for a long time after higher values were returned.\n\nFor example:\n\n - [Thread1] statsFetcher.get() --\u003e returns 42\n - [Thread2] statsFetcher.get() --\u003e returns 43\n - [Thread2] Caches 43\n - [Thread1] Caches 42\n --\u003e Anyone from that point gets 42 for a few seconds. Before, it would only return 42 on the calls that raced, the value wouldn\u0027t remain in cache.\n\nI think this can be fixed by replacing `void cache.put()` with `StatsResult cache.putIfAbsent()`, which would return the currently cached value if any. Then this method would return the value that was put into the cache, so the flow becomes:\n\n - [Thread1] statsFetcher.get() --\u003e returns 42\n - [Thread2] statsFetcher.get() --\u003e returns 43\n - [Thread2] Caches 43\n - [Thread1] putIfAbsent(42) -\u003e returns 43 --\u003e method returns 43",
+      "range": {
+        "startLine": 1165,
+        "startChar": 51,
+        "endLine": 1167,
+        "endChar": 38
+      },
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
