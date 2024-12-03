@@ -315,6 +315,13 @@ public class TetheringManagerTest {
                 .setConnectivityScope(CONNECTIVITY_SCOPE_GLOBAL).build();
         assertEquals(interfaceName, tr4.getInterfaceName());
         assertEquals(CONNECTIVITY_SCOPE_GLOBAL, tr4.getConnectivityScope());
+
+        try {
+            new TetheringRequest.Builder(TETHERING_WIFI).setConnectivityScope(-1);
+            fail("Expected to throw");
+        } catch (IllegalArgumentException e) {
+            // Success.
+        }
     }
 
     @Test
