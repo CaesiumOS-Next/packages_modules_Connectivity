@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28661dd0_43fb76c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-03T20:24:13Z",
+      "side": 1,
+      "message": "I generally believe all assertions should be inside the @Test function. Adding helper functions that include assertions makes tests much harder to maintain, as over time, the helper functions will inevitably have to be split, parametrized, etc.\n\nI don\u0027t personally mind the duplication of the assertions in the test. It\u0027s very explicit, but it makes the test so much easier to read and maintain.",
+      "revId": "64e1924d80a9439a6b88e2fa26126ec1ccf4d8f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
