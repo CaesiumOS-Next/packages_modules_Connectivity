@@ -672,6 +672,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ba05d17_fa6a08dd",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-04T02:34:34Z",
+      "side": 1,
+      "message": "The shared library `libnativehelper` in libservice-connectivity has a minimum SDK version restriction of 31. Therefore, this ignore rule is necessary.\n\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:libnativehelper/Android.bp;l\u003d161\n\nhttps://android-build.corp.google.com/test_investigate/invocation/I83000010341440150/test/TR21729536455087292/?blocking\u003dblocking\u0026status\u003dnone",
+      "parentUuid": "1a02102d_ead49814",
+      "revId": "294b272b25edb28c43c07972d79c8ba29c389b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5de78d6_0644eec6",
