@@ -16,6 +16,75 @@
       "message": "pat",
       "revId": "405ddd0b1bfeadb51a9f5eb2d3f3fd223dcffeb9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19ae2ca0_04142048",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-04T06:14:38Z",
+      "side": 1,
+      "message": "I don\u0027t see any LinkProperties being added. Perhaps it\u0027s only `removeRoutesFromNetwork`?",
+      "range": {
+        "startLine": 851,
+        "startChar": 40,
+        "endLine": 851,
+        "endChar": 57
+      },
+      "revId": "405ddd0b1bfeadb51a9f5eb2d3f3fd223dcffeb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b577f94_a4c2eee7",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-04T06:14:38Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 887,
+        "startChar": 35,
+        "endLine": 887,
+        "endChar": 52
+      },
+      "revId": "405ddd0b1bfeadb51a9f5eb2d3f3fd223dcffeb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdf8f215_fb0cb0e6",
+        "filename": "staticlibs/client-libs/netd/com/android/net/module/util/NetdUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-04T06:14:38Z",
+      "side": 1,
+      "message": "Is this still valid that the network ID is not static (LOCAL_NET_ID)?",
+      "range": {
+        "startLine": 171,
+        "startChar": 7,
+        "endLine": 175,
+        "endChar": 34
+      },
+      "revId": "405ddd0b1bfeadb51a9f5eb2d3f3fd223dcffeb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
