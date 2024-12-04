@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4700c439_dcc465c1",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-04T09:38:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62a737f1_31ef9012",
+      "range": {
+        "startLine": 939,
+        "startChar": 8,
+        "endLine": 939,
+        "endChar": 14
+      },
+      "revId": "3168f34f26da0e2c556b7e1882a5ad72b0ddd015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c869e768_1b60d7e9",
@@ -71,6 +95,30 @@
       "writtenOn": "2024-12-04T08:31:32Z",
       "side": 1,
       "message": "I don\u0027t think we can allow anyone who has permission to start tethering the ability to tether on arbitrary interfaces - imagine if they passed in lo, or wlan0. Can we add a permission check to only allow non-null interface names if the caller has NETWORK_STACK or MAINLINE_NETWORK_STACK (and maybe NETWORK_SETTINGS if we need to do this in tests)?",
+      "range": {
+        "startLine": 669,
+        "startChar": 42,
+        "endLine": 669,
+        "endChar": 58
+      },
+      "revId": "3168f34f26da0e2c556b7e1882a5ad72b0ddd015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "262ac834_9a8efb5d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-04T09:38:54Z",
+      "side": 1,
+      "message": "Added check for system privileged permissions (NETWORK_STACK/MAINLINE_NETWORK_STACK and NETWORK_SETTINGS (For test))",
+      "parentUuid": "c869e768_1b60d7e9",
       "range": {
         "startLine": 669,
         "startChar": 42,
