@@ -379,6 +379,23 @@
       },
       "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c6a334c_be422dcf",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T23:47:22Z",
+      "side": 1,
+      "message": "There can only ever be one, so this method should be removed.",
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
