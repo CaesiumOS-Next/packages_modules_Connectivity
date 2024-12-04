@@ -51,6 +51,24 @@
       "parentUuid": "5f59d575_b10391fe",
       "revId": "d95c0c692c2061ee5eb2e8464d7e10508f5ad49a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1263bd4e_db943bae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1608690
+      },
+      "writtenOn": "2024-12-04T21:52:25Z",
+      "side": 1,
+      "message": "Thank you for clarification. We will discuss our strategy internally.",
+      "parentUuid": "e5ee2b9c_c8e3c2ff",
+      "revId": "d95c0c692c2061ee5eb2e8464d7e10508f5ad49a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
