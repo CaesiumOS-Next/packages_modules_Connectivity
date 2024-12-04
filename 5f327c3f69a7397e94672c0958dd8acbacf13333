@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42c8d32b_c38f0a33",
+        "filename": "Tethering/common/TetheringLib/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-04T10:59:27Z",
+      "side": 1,
+      "message": "Do we really want to support any unprivileged app doing this? There are battery and data usage implications, and potentially privacy implications too (if devices connect). Currently apps can\u0027t enable tethering except by calling hidden APIs. And for peer-to-peer apps, there are much better connectivity options such as LOHS, P2P, etc. I think that on newer releases, where this API exists, we will have to require TETHER_PRIVILEGED or some other permission.\n\nNot sure how to annotate the \"allowed to device owner apps\" here. How are carrier privilege APIs annotated?\n\nMaybe for now we can just use TETHER_PRIVILEGED?",
+      "range": {
+        "startLine": 17,
+        "startChar": 113,
+        "endLine": 17,
+        "endChar": 127
+      },
+      "revId": "5f327c3f69a7397e94672c0958dd8acbacf13333",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
