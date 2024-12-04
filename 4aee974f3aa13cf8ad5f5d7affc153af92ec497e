@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6e571f9_9ccc4ac3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-04T06:20:41Z",
+      "side": 1,
+      "message": "Generally LGTM with a few last comments",
+      "revId": "4aee974f3aa13cf8ad5f5d7affc153af92ec497e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4268761c_0c8da470",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-04T06:20:41Z",
+      "side": 1,
+      "message": "Nit: it may be useful to document that EVENT_ERROR may be generated even if not specified, as per its javadoc",
+      "revId": "4aee974f3aa13cf8ad5f5d7affc153af92ec497e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bde90d25_7f879842",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-04T06:20:41Z",
+      "side": 1,
+      "message": "This should probably only be called for EVENT_INPUT, not EVENT_ERROR",
+      "revId": "4aee974f3aa13cf8ad5f5d7affc153af92ec497e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f949661c_b90311d3",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TimerFileDescriptorTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-04T06:20:41Z",
+      "side": 1,
+      "message": "Nit: I think it would help to document that the task is posted and cancelled in the same handler loop, so the delay used here won\u0027t cause flakes even if short",
+      "revId": "4aee974f3aa13cf8ad5f5d7affc153af92ec497e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
