@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26f8fef8_de7e5f21",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-04T06:38:25Z",
+      "side": 1,
+      "message": "It was at l.860 which is the original functionality.",
+      "parentUuid": "19ae2ca0_04142048",
+      "range": {
+        "startLine": 851,
+        "startChar": 40,
+        "endLine": 851,
+        "endChar": 57
+      },
+      "revId": "405ddd0b1bfeadb51a9f5eb2d3f3fd223dcffeb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b577f94_a4c2eee7",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ebc4a1a_e0041642",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-04T06:38:25Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "9b577f94_a4c2eee7",
+      "range": {
+        "startLine": 887,
+        "startChar": 35,
+        "endLine": 887,
+        "endChar": 52
+      },
+      "revId": "405ddd0b1bfeadb51a9f5eb2d3f3fd223dcffeb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdf8f215_fb0cb0e6",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-12-04T06:14:38Z",
       "side": 1,
       "message": "Is this still valid that the network ID is not static (LOCAL_NET_ID)?",
+      "range": {
+        "startLine": 171,
+        "startChar": 7,
+        "endLine": 175,
+        "endChar": 34
+      },
+      "revId": "405ddd0b1bfeadb51a9f5eb2d3f3fd223dcffeb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94c452af_4204817f",
+        "filename": "staticlibs/client-libs/netd/com/android/net/module/util/NetdUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-04T06:38:25Z",
+      "side": 1,
+      "message": "Yes because we still pass LOCAL_NET_ID",
+      "parentUuid": "fdf8f215_fb0cb0e6",
       "range": {
         "startLine": 171,
         "startChar": 7,
