@@ -1544,15 +1544,15 @@ static int doLoad(char** argv, char * const envp[]) {
      *
      * Additionally the 32-bit kernel jit support is poor,
      * and 32-bit userspace on 64-bit kernel bpf ringbuffer compatibility is broken.
+     * Note, however, that TV and wear devices will continue to support 32-bit userspace
+     * on Android 15 (on ARM64 only).
      */
+    constexpr bool isArmWearOrTvUpToV = isArm() && !isAtLeastW && (isTV() || isWear());
     if (isUserspace32bit() && isAtLeastKernelVersion(6, 2, 0)) {
         // Stuff won't work reliably, but...
-        if (isTV()) {
-            // exempt TVs... they don't really need functional advanced networking
-            ALOGW("[TV] 32-bit userspace unsupported on 6.2+ kernels.");
-        } else if (isWear() && isArm()) {
-            // exempt Arm Wear devices (arm32 ABI is far less problematic than x86-32)
-            ALOGW("[Arm Wear] 32-bit userspace unsupported on 6.2+ kernels.");
+        if (isArmWearOrTvUpToV) {
+            // exempt Arm Wear or TV devices (arm32 ABI is far less problematic than x86-32)
+            ALOGW("[Arm Wear/TV] 32-bit userspace unsupported on 6.2+ kernels.");
         } else if (first_api_level <= __ANDROID_API_T__ && isArm()) {
             // also exempt Arm devices upgrading with major kernel rev from T-
             // might possibly be better for them to run with a newer kernel...
@@ -1566,8 +1566,8 @@ static int doLoad(char** argv, char * const envp[]) {
         }
     }
 
-    // Note: 6.6 is highest version supported by Android V (sdk=35), so this is for sdk=36+
-    if (isUserspace32bit() && isAtLeastKernelVersion(6, 7, 0)) {
+    // On phones, 6.6 is highest version supported by Android V (sdk=35), so this is for sdk=36+
+    if (isUserspace32bit() && isAtLeastKernelVersion(6, 7, 0) && !isArmWearOrTvUpToV) {
         ALOGE("64-bit userspace required on 6.7+ kernels.");
         return 1;
     }
