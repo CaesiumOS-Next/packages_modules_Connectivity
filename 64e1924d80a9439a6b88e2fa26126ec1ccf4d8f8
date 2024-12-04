@@ -16,6 +16,24 @@
       "message": "I generally believe all assertions should be inside the @Test function. Adding helper functions that include assertions makes tests much harder to maintain, as over time, the helper functions will inevitably have to be split, parametrized, etc.\n\nI don\u0027t personally mind the duplication of the assertions in the test. It\u0027s very explicit, but it makes the test so much easier to read and maintain.",
       "revId": "64e1924d80a9439a6b88e2fa26126ec1ccf4d8f8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fbe2b6d_ef51088a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-04T02:25:51Z",
+      "side": 1,
+      "message": "The refactored assertions are still all invoked in the @Test function,\nas the CL itself is a no-op, but only an abstraction layer is added.\nSimilar pattern can be found widely in Connectivity code such as NetworkStatsServiceTest or ConnectivityServiceTest or even in this test already,\nwhere the assertions are grouped to have better readability.\n\nI find it hard to follow and modify in the original code given that \nthey are coming from different methods and no comment with it. e.g. https://osscs.corp.google.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/Tethering/tests/unit/src/android/net/ip/IpServerTest.java;l\u003d400?q\u003dIpServer\u0026ss\u003dandroid\n\nWhile I have 10+ methods to modify because the order change in the next CL,\nit takes 3 days for me to figure out where does these invokes coming from, and \nhow should I modify that.\n\nWith this change, it seems to me this is significantly easier to follow both\nfor me and the reviewer. (Refer to patch 1 and 2 of aosp/3383831).\n\nThus I would prefer to keep it as is if there is no strong opinion against it.\nFeel free to reopen if any idea.",
+      "parentUuid": "28661dd0_43fb76c5",
+      "revId": "64e1924d80a9439a6b88e2fa26126ec1ccf4d8f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
