@@ -5392,6 +5392,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static boolean shouldCreateNativeNetwork(@NonNull NetworkAgentInfo nai,
             @NonNull NetworkInfo.State state) {
         if (nai.isCreated()) return false;
+        if (nai.netAgentConfig().shouldSkipNativeNetworkCreation()) return false;
         if (state == NetworkInfo.State.CONNECTED) return true;
         if (state != NetworkInfo.State.CONNECTING) {
             // TODO: throw if no WTFs are observed in the field.
@@ -9273,6 +9274,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Before U, netd doesn't support PHYSICAL_LOCAL networks so this can't work.
             throw new IllegalArgumentException("Local agents are not supported in this version");
         }
+        if (!hasLocalCap && networkAgentConfig.shouldSkipNativeNetworkCreation()) {
+            throw new IllegalArgumentException(
+                    "Only local network agents can skip native network creation");
+        }
+        // Build a no-op localNetworkConfig to prevent from checking this flag everywhere.
+        if (networkAgentConfig.shouldSkipNativeNetworkCreation() && localNetworkConfig == null) {
+            localNetworkConfig = new LocalNetworkConfig.Builder().build();
+        }
         final boolean hasLocalNetworkConfig = null != localNetworkConfig;
         if (hasLocalCap != hasLocalNetworkConfig) {
             throw new IllegalArgumentException(null != localNetworkConfig
@@ -9462,7 +9471,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // the LinkProperties for the network are accurate.
         networkAgent.clatd.fixupLinkProperties(oldLp, newLp);
 
-        updateInterfaces(newLp, oldLp, netId, networkAgent);
+        if (networkAgent.isCreated()) {
+            updateInterfaces(newLp, oldLp, netId, networkAgent);
+        }
 
         // update filtering rules, need to happen after the interface update so netd knows about the
         // new interface (the interface name -> index map becomes initialized)
@@ -9480,7 +9491,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             updateTcpBufferSizes(newLp.getTcpBufferSizes());
         }
 
-        updateRoutes(newLp, oldLp, netId);
+        if (networkAgent.isCreated()) {
+            updateRoutes(newLp, oldLp, netId);
+        }
         updateDnses(newLp, oldLp, netId);
         // Make sure LinkProperties represents the latest private DNS status.
         // This does not need to be done before updateDnses because the
@@ -10211,7 +10224,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void handleUpdateLocalNetworkConfig(@NonNull final NetworkAgentInfo nai,
             @Nullable final LocalNetworkConfig oldConfig,
             @NonNull final LocalNetworkConfig newConfig) {
-        if (!nai.isLocalNetwork()) {
+        if (!nai.isLocalNetwork() || nai.netAgentConfig().shouldSkipNativeNetworkCreation()) {
             Log.wtf(TAG, "Ignoring update of a local network info on non-local network " + nai);
             return;
         }
