@@ -16,6 +16,23 @@
       "message": "I suppose this is simpler and better than using netlink?",
       "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ff4da9e_1ee22cd6",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T03:32:39Z",
+      "side": 1,
+      "message": "getNetworkInterfaces() uses getifaddrs(). Does that mean if an interface does not have an address does not show up? The old code path used to read the entries of /sys/class/net which generally seems like the better approach (though I am not sure system server has access to that directory).",
+      "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
