@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6f6e6b5_113f16da",
+        "filename": "Tethering/common/TetheringLib/api/module-lib-current.txt",
+        "patchSetId": 31
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-04T10:38:17Z",
+      "side": 1,
+      "message": "Nit: this might be better as @Nullable to match the getter (which must be nullable, obviously, since null is the default). Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 56,
+        "startChar": 232,
+        "endLine": 56,
+        "endChar": 240
+      },
+      "revId": "76edf2ca47973c8889ea8361000bf9effc5ebc76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
