@@ -16,15 +16,22 @@
 
 package android.net
 
+import android.os.Build
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import com.android.modules.utils.build.SdkLevel.isAtLeastS
 import com.android.modules.utils.build.SdkLevel.isAtLeastT
+import com.android.modules.utils.build.SdkLevel.isAtLeastV
 import com.android.testutils.ConnectivityModuleTest
+import com.android.testutils.DevSdkIgnoreRule
+import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter
 import com.android.testutils.assertParcelingIsLossless
+import kotlin.jvm.JvmField
+import kotlin.test.assertFailsWith
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -32,6 +39,10 @@ import org.junit.runner.RunWith
 @SmallTest
 @ConnectivityModuleTest
 class NetworkAgentConfigTest {
+    @Rule
+    @JvmField
+    val ignoreRule = DevSdkIgnoreRule()
+
     @Test
     fun testParcelNetworkAgentConfig() {
         val config = NetworkAgentConfig.Builder().apply {
@@ -46,6 +57,9 @@ class NetworkAgentConfigTest {
             if (isAtLeastT()) {
                 setLocalRoutesExcludedForVpn(true)
                 setVpnRequiresValidation(true)
+            }
+            if (isAtLeastV()) {
+                setSkipNativeNetworkCreation(true)
             }
         }.build()
         assertParcelingIsLossless(config)
@@ -71,6 +85,9 @@ class NetworkAgentConfigTest {
                 setLocalRoutesExcludedForVpn(true)
                 setVpnRequiresValidation(true)
             }
+            if (isAtLeastV()) {
+                setSkipNativeNetworkCreation(true)
+            }
         }.build()
 
         assertTrue(config.isExplicitlySelected())
@@ -79,6 +96,9 @@ class NetworkAgentConfigTest {
         assertFalse(config.isPartialConnectivityAcceptable())
         assertTrue(config.isUnvalidatedConnectivityAcceptable())
         assertEquals("TEST_NETWORK", config.getLegacyTypeName())
+        if (isAtLeastV()) {
+            assertTrue(config.shouldSkipNativeNetworkCreation())
+        }
         if (isAtLeastT()) {
             assertTrue(config.areLocalRoutesExcludedForVpn())
             assertTrue(config.isVpnValidationRequired())
@@ -91,6 +111,14 @@ class NetworkAgentConfigTest {
         } else {
             assertTrue(config.isNat64DetectionEnabled())
             assertTrue(config.isProvisioningNotificationEnabled())
+        }
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    fun testSetSkipNativeNetworkCreation_throwsBelowV() {
+        assertFailsWith<UnsupportedOperationException> {
+            NetworkAgentConfig.Builder().setSkipNativeNetworkCreation(true).build()
         }
     }
 }
