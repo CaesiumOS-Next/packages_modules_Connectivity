@@ -40,6 +40,7 @@ class NetworkAgentConfigTest {
             setSubscriberId("MySubId")
             setPartialConnectivityAcceptable(false)
             setUnvalidatedConnectivityAcceptable(true)
+            setSkipNativeNetworkCreation(true)
             if (isAtLeastS()) {
                 setBypassableVpn(true)
             }
@@ -61,6 +62,7 @@ class NetworkAgentConfigTest {
             setPartialConnectivityAcceptable(false)
             setUnvalidatedConnectivityAcceptable(true)
             setLegacyTypeName("TEST_NETWORK")
+            setSkipNativeNetworkCreation(true)
             if (isAtLeastS()) {
                 setLegacyExtraInfo(testExtraInfo)
                 setNat64DetectionEnabled(false)
@@ -79,6 +81,7 @@ class NetworkAgentConfigTest {
         assertFalse(config.isPartialConnectivityAcceptable())
         assertTrue(config.isUnvalidatedConnectivityAcceptable())
         assertEquals("TEST_NETWORK", config.getLegacyTypeName())
+        assertTrue(config.shouldSkipNativeNetworkCreation())
         if (isAtLeastT()) {
             assertTrue(config.areLocalRoutesExcludedForVpn())
             assertTrue(config.isVpnValidationRequired())
