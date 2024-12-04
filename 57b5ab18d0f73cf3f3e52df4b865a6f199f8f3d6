@@ -16,6 +16,24 @@
       "message": "LGTM but Lorenzo should +1 CTS change",
       "revId": "57b5ab18d0f73cf3f3e52df4b865a6f199f8f3d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e331ce45_801a5a4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-04T08:51:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0caff22_eaac63d9",
+      "revId": "57b5ab18d0f73cf3f3e52df4b865a6f199f8f3d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
