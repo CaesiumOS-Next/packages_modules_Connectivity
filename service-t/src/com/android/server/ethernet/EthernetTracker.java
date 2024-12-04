@@ -56,6 +56,7 @@ import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.ip.NetlinkMonitor;
 import com.android.net.module.util.netlink.NetlinkConstants;
 import com.android.net.module.util.netlink.NetlinkMessage;
+import com.android.net.module.util.netlink.NetlinkUtils;
 import com.android.net.module.util.netlink.RtNetlinkLinkMessage;
 import com.android.net.module.util.netlink.StructIfinfoMsg;
 import com.android.server.connectivity.ConnectivityResources;
@@ -597,9 +598,17 @@ public class EthernetTracker {
             if (mIsEthernetEnabled) {
                 // As a side-effect, NetdUtils#setInterfaceUp() also clears the interface's IPv4
                 // address and readds it which *could* lead to unexpected behavior in the future.
-                NetdUtils.setInterfaceUp(mNetd, iface);
+                Log.e("TESTING", "before enable iface");
+                NetlinkUtils.getInterfaceFlags(iface);
+                setInterfaceUp(iface);
+                Log.e("TESTING", "after enable iface");
+                NetlinkUtils.getInterfaceFlags(iface);
             } else {
-                NetdUtils.setInterfaceDown(mNetd, iface);
+                Log.e("TESTING", "before disable iface");
+                NetlinkUtils.getInterfaceFlags(iface);
+                setInterfaceDown(iface);
+                Log.e("TESTING", "after disable iface");
+                NetlinkUtils.getInterfaceFlags(iface);
             }
         } catch (IllegalStateException e) {
             // Either the system is crashing or the interface has disappeared. Just ignore the
@@ -665,9 +674,9 @@ public class EthernetTracker {
             // enableInterface() on an active interface can lead to a provisioning failure which
             // will cause IpClient to be restarted.
             // TODO: use netlink directly rather than calling into netd.
-            NetdUtils.setInterfaceUp(mNetd, iface);
+            setInterfaceUp(iface);
         } else {
-            NetdUtils.setInterfaceDown(mNetd, iface);
+            setInterfaceDown(iface);
         }
         cb.onResult(iface);
     }
@@ -979,9 +988,9 @@ public class EthernetTracker {
 
             for (String iface : interfaces) {
                 if (enabled) {
-                    NetdUtils.setInterfaceUp(mNetd, iface);
+                    setInterfaceUp(iface);
                 } else {
-                    NetdUtils.setInterfaceDown(mNetd, iface);
+                    setInterfaceDown(iface);
                 }
             }
             broadcastEthernetStateChange(mIsEthernetEnabled);
@@ -1061,5 +1070,14 @@ public class EthernetTracker {
             mIpConfig = tokens.length > 2 && !TextUtils.isEmpty(tokens[2]) ? tokens[2] : null;
             mTransport = tokens.length > 3 ? tokens[3] : null;
         }
+    }
+
+    private boolean setInterfaceUp(@NonNull String iface) {
+        return NetlinkUtils.setInterfaceFlags(iface, NetlinkConstants.IFF_UP,
+                NetlinkConstants.IFF_UP);
+    }
+
+    private boolean setInterfaceDown(@NonNull String iface) {
+        return NetlinkUtils.setInterfaceFlags(iface, 0, NetlinkConstants.IFF_UP);
     }
 }
