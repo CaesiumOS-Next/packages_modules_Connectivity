@@ -22,6 +22,29 @@
       },
       "revId": "76edf2ca47973c8889ea8361000bf9effc5ebc76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32944cd1_c193d85f",
+        "filename": "Tethering/common/TetheringLib/api/module-lib-current.txt",
+        "patchSetId": 31
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-04T10:41:16Z",
+      "side": 1,
+      "message": "oneOf(NETWORK_STACK, NETWORK_SETTINGS, MAINLINE_NETWORK_STACK). Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 56,
+        "startChar": 135,
+        "endLine": 56,
+        "endChar": 152
+      },
+      "revId": "76edf2ca47973c8889ea8361000bf9effc5ebc76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
