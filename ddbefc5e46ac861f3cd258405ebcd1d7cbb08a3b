@@ -1,0 +1,116 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dad0b5c4_6c80a999",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1550,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-12-04T09:44:09Z",
+      "side": 1,
+      "message": "This can\u0027t be \u0027constexpr\u0027 - it\u0027s not a build time constant.\n\nAlso calling isTV/isWear is expensive - and here it is unconditional on arm \u003cW, so let\u0027s keep this inside the if () {...} statement.",
+      "range": {
+        "startLine": 1550,
+        "startChar": 0,
+        "endLine": 1550,
+        "endChar": 87
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "5c95d508_52c33672",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/loader/NetBpfLoad.cpp",
+              "range": {
+                "startLine": 1550,
+                "startChar": 0,
+                "endLine": 1551,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "bpf/loader/NetBpfLoad.cpp",
+              "range": {
+                "startLine": 1552,
+                "startChar": 0,
+                "endLine": 1552,
+                "endChar": 0
+              },
+              "replacement": "        const bool isArmWearOrTvUpToV \u003d isArm() \u0026\u0026 !isAtLeastW \u0026\u0026 (isTV() || isWear());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ddbefc5e46ac861f3cd258405ebcd1d7cbb08a3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1f3e4b3_2cf1acda",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-12-04T09:44:09Z",
+      "side": 1,
+      "message": "maybe just change this to if (!isArm() \u0026\u0026 ...)\n\nGets rid of the need for the bool, and Arm is compile time known.",
+      "range": {
+        "startLine": 1570,
+        "startChar": 66,
+        "endLine": 1570,
+        "endChar": 84
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "894f8802_82177a9d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/loader/NetBpfLoad.cpp",
+              "range": {
+                "startLine": 1550,
+                "startChar": 0,
+                "endLine": 1551,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "bpf/loader/NetBpfLoad.cpp",
+              "range": {
+                "startLine": 1553,
+                "startChar": 0,
+                "endLine": 1554,
+                "endChar": 0
+              },
+              "replacement": "        if (isArm() \u0026\u0026 !isAtLeastW \u0026\u0026 (isTV() || isWear())) {\n"
+            },
+            {
+              "path": "bpf/loader/NetBpfLoad.cpp",
+              "range": {
+                "startLine": 1570,
+                "startChar": 0,
+                "endLine": 1571,
+                "endChar": 0
+              },
+              "replacement": "    if (isUserspace32bit() \u0026\u0026 isAtLeastKernelVersion(6, 7, 0) \u0026\u0026 !isArm()) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ddbefc5e46ac861f3cd258405ebcd1d7cbb08a3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
