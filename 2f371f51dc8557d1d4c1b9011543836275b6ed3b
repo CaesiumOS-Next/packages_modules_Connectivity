@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b696202_599cd5fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-04T04:44:04Z",
+      "side": 1,
+      "message": "(sorry for the slow review)\n\nLGTM assuming we agree that using getNetworkInterfaces() / getifaddrs() is fine here.\n\nWe should at least do the following manual checks quickly:\n  - verify that veth ifaces are picked up by getifaddrs()\n  - verify that ifaces without an address are picked by getifaddrs()",
+      "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ff4da9e_1ee22cd6",
@@ -31,6 +48,24 @@
       "writtenOn": "2024-12-04T03:32:39Z",
       "side": 1,
       "message": "getNetworkInterfaces() uses getifaddrs(). Does that mean if an interface does not have an address does not show up? The old code path used to read the entries of /sys/class/net which generally seems like the better approach (though I am not sure system server has access to that directory).",
+      "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71001da4_d8934308",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-04T04:44:04Z",
+      "side": 1,
+      "message": "Quickly checking online, it looks like `getifaddrs()` is expected to return an entry even for an interface with no address. This is basically kernel dependent. Following on our sync this morning, this is probably a detail we might want to check with CTS or with a (real) integration test.\n\nIt will also probably be hard to have a legitimate interface without at least an IPv6 link local address.\n\n\u003e /sys/class/net which generally seems like the better approach (though I am not sure system server has access to that directory)\n\nCurious just in general outside of the context of this particular patch: can we officially depend on sysfs in the system server ?",
+      "parentUuid": "3ff4da9e_1ee22cd6",
       "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
