@@ -28,7 +28,6 @@ import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_UNSUPPORTED;
 import static android.net.dhcp.IDhcpServer.STATUS_UNKNOWN_ERROR;
 
-import android.app.AppOpsManager;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
@@ -56,6 +55,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.PermissionUtils;
 import com.android.networkstack.apishim.SettingsShimImpl;
 import com.android.networkstack.apishim.common.SettingsShim;
 
@@ -351,11 +351,7 @@ public class TetheringService extends Service {
     boolean checkPackageNameMatchesUid(@NonNull Context context, int uid,
             @NonNull String callingPackage) {
         try {
-            final AppOpsManager mAppOps = context.getSystemService(AppOpsManager.class);
-            if (mAppOps == null) {
-                return false;
-            }
-            mAppOps.checkPackage(uid, callingPackage);
+            PermissionUtils.enforcePackageNameMatchesUid(context, uid, callingPackage);
         } catch (SecurityException e) {
             return false;
         }
