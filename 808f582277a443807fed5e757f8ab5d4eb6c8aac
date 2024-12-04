@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5127c0ce_ea44d560",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-04T10:45:59Z",
+      "side": 1,
+      "message": "We probably want to be a bit less specific here. The fuzzy matching rules are complex, currently unmerged (so could change), and might change in future releases. I would just say, \"that matches it\".",
+      "range": {
+        "startLine": 1236,
+        "startChar": 81,
+        "endLine": 1239,
+        "endChar": 34
+      },
+      "revId": "808f582277a443807fed5e757f8ab5d4eb6c8aac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96e59fc4_38cf9c92",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-04T10:45:59Z",
+      "side": 1,
+      "message": "Care to add a no-op CTS test that just checks for UOE?",
+      "range": {
+        "startLine": 1246,
+        "startChar": 16,
+        "endLine": 1246,
+        "endChar": 29
+      },
+      "revId": "808f582277a443807fed5e757f8ab5d4eb6c8aac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
