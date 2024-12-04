@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "656331a0_c5e29dfe",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "Should also take a `@NonNull Executor executor`",
+      "range": {
+        "startLine": 205,
+        "startChar": 38,
+        "endLine": 205,
+        "endChar": 39
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a707b815_5a2c3975",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "nit: Objects.requireNonNull(receiver);",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 13
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a970133_0fd19565",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "this is probably wrong because the remote end of this binder object is owned by CS. Can you add a new `static final IBinder mLifetimeTracker \u003d new Binder();` in this class and pass that?",
+      "range": {
+        "startLine": 210,
+        "startChar": 20,
+        "endLine": 210,
+        "endChar": 28
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83bb0487_899e5eb2",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "executor.executor(() -\u003e receiver.onError(..));",
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b63ba20_53f5cc6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6347,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "should this implement IBinder.DeathRecipient?",
+      "range": {
+        "startLine": 6347,
+        "startChar": 36,
+        "endLine": 6347,
+        "endChar": 63
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "263aff32_8d5c89c3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6394,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "```\nObjects.requireNonNull(binder);\nObjects.requireNonNull(receiver);\n```",
+      "range": {
+        "startLine": 6394,
+        "startChar": 15,
+        "endLine": 6394,
+        "endChar": 26
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "497950a6_2022bb8f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6400,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "binder",
+      "range": {
+        "startLine": 6400,
+        "startChar": 20,
+        "endLine": 6400,
+        "endChar": 28
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91b45430_e7390f17",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6406,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "w. I don\u0027t think this is an error. The network could have disappeared in the meantime.",
+      "range": {
+        "startLine": 6406,
+        "startChar": 40,
+        "endLine": 6406,
+        "endChar": 41
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "093a4a42_1b403c90",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6409,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "This is not thread-safe. Should this post on the handler instead?",
+      "range": {
+        "startLine": 6409,
+        "startChar": 36,
+        "endLine": 6409,
+        "endChar": 69
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36314221_e6ceef3a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6413,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "If you implemented binderDied on CaptivePortalImpl, you could:\n\n```\ntry {\n    binder.asBinder().linkToDeath(this);\n} catch (RemoteException e) {\n    binderDied(); // \u003c-- may not be necessary, but this seems to be a pattern.\n    return;\n}\n```\n\n```\n@Override\npublic void binderDied() {\n    mHandler.post(() -\u003e clearDelegateUid());\n}\n```\n\n```\nprivate void clearDelegateUid() {\n    final NetworkAgentInfo nai \u003d getNetworkAgentInfoForNetwork(mNetwork);\n    if (nai \u003d\u003d null) return; // network disappeared, nothing to do.\n    nai.clearCaptivePortalDelegateUid();\n}\n```",
+      "range": {
+        "startLine": 6399,
+        "startChar": 16,
+        "endLine": 6413,
+        "endChar": 17
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b914a75b_83a44371",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6417,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be throwing. Can we prevent exceptions from escaping and just:\n\n`mHandler.post(() -\u003e setDelegateUid(uid, receiver));`\n\nI also think this should be a member of CaptivePortalImpl.",
+      "range": {
+        "startLine": 6417,
+        "startChar": 20,
+        "endLine": 6417,
+        "endChar": 47
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e3820fe_a055d650",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6419,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "The easiest way to prevent this is by using a wrapper. There might already be one that you can reuse.",
+      "range": {
+        "startLine": 6418,
+        "startChar": 18,
+        "endLine": 6419,
+        "endChar": 71
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f26bf00_a9a5a8d2",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-04T19:40:00Z",
+      "side": 1,
+      "message": "typo: mCaptivePortalDelegateUids",
+      "range": {
+        "startLine": 582,
+        "startChar": 52,
+        "endLine": 582,
+        "endChar": 79
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
