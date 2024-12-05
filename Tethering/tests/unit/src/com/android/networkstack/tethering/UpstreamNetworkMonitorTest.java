@@ -21,6 +21,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.net.ConnectivityManager.TYPE_WIFI;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
@@ -36,7 +37,6 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -63,6 +63,7 @@ import com.android.networkstack.tethering.TestConnectivityManager.NetworkRequest
 import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -91,6 +92,12 @@ public class UpstreamNetworkMonitorTest {
             .addTransportType(TRANSPORT_CELLULAR).addCapability(NET_CAPABILITY_DUN).build();
     private static final NetworkCapabilities WIFI_CAPABILITIES = new NetworkCapabilities.Builder()
             .addTransportType(TRANSPORT_WIFI).addCapability(NET_CAPABILITY_INTERNET).build();
+
+    private static final NetworkCapabilities LOCAL_WIFI_CAPABILITIES =
+            new NetworkCapabilities.Builder()
+                    .addTransportType(TRANSPORT_WIFI)
+                    .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
+                    .addCapability(NET_CAPABILITY_INTERNET).build();
 
     @Rule public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
 
@@ -141,7 +148,7 @@ public class UpstreamNetworkMonitorTest {
         assertTrue(mCM.hasNoCallbacks());
         mUNM.startTrackDefaultNetwork(mEntitleMgr);
 
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
         assertEquals(1, mCM.mTrackingDefault.size());
 
         mUNM.stop();
@@ -149,13 +156,13 @@ public class UpstreamNetworkMonitorTest {
     }
 
     @Test
-    public void testListensForAllNetworks() throws Exception {
+    public void testListensForUpstreamNetworks() throws Exception {
         assertTrue(mCM.mListening.isEmpty());
 
         mUNM.startTrackDefaultNetwork(mEntitleMgr);
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
         assertFalse(mCM.mListening.isEmpty());
-        assertTrue(mCM.isListeningForAll());
+        assertTrue(mCM.isListeningForUpstream());
 
         mUNM.stop();
         assertTrue(mCM.onlyHasDefaultCallbacks());
@@ -179,7 +186,7 @@ public class UpstreamNetworkMonitorTest {
             assertTrue(TestConnectivityManager.looksLikeDefaultRequest(requestCaptor.getValue()));
         }
 
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
         verify(mCM, times(1)).registerNetworkCallback(
                 any(NetworkRequest.class), any(NetworkCallback.class), any(Handler.class));
 
@@ -192,7 +199,7 @@ public class UpstreamNetworkMonitorTest {
         assertFalse(mUNM.mobileNetworkRequested());
         assertEquals(0, mCM.mRequested.size());
 
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
         assertFalse(mUNM.mobileNetworkRequested());
         assertEquals(0, mCM.mRequested.size());
 
@@ -215,7 +222,7 @@ public class UpstreamNetworkMonitorTest {
         assertFalse(mUNM.mobileNetworkRequested());
         assertEquals(0, mCM.mRequested.size());
 
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
         verify(mCM, times(1)).registerNetworkCallback(
                 any(NetworkRequest.class), any(NetworkCallback.class), any(Handler.class));
         assertFalse(mUNM.mobileNetworkRequested());
@@ -251,7 +258,7 @@ public class UpstreamNetworkMonitorTest {
         assertFalse(mUNM.mobileNetworkRequested());
         assertEquals(0, mCM.mRequested.size());
 
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
         assertFalse(mUNM.mobileNetworkRequested());
         assertEquals(0, mCM.mRequested.size());
 
@@ -271,7 +278,7 @@ public class UpstreamNetworkMonitorTest {
 
     @Test
     public void testUpdateMobileRequiresDun() throws Exception {
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
 
         // Test going from no-DUN to DUN correctly re-registers callbacks.
         mUNM.setUpstreamConfig(false /* autoUpstream */, false /* dunRequired */);
@@ -301,7 +308,7 @@ public class UpstreamNetworkMonitorTest {
         preferredTypes.add(TYPE_WIFI);
 
         mUNM.startTrackDefaultNetwork(mEntitleMgr);
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
         // There are no networks, so there is nothing to select.
         assertSatisfiesLegacyType(TYPE_NONE, mUNM.selectPreferredUpstreamType(preferredTypes));
 
@@ -372,9 +379,24 @@ public class UpstreamNetworkMonitorTest {
     }
 
     @Test
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    public void testGetCurrentPreferredUpstream_localNetworkAgent() {
+        mUNM.startTrackDefaultNetwork(mEntitleMgr);
+        mUNM.startObserveUpstreamNetworks();
+        mUNM.setUpstreamConfig(true /* autoUpstream */, false /* dunRequired */);
+        mUNM.setTryCell(true);
+
+        final TestNetworkAgent wifiLocalAgent = new TestNetworkAgent(mCM, LOCAL_WIFI_CAPABILITIES);
+        wifiLocalAgent.fakeConnect();
+        mLooper.dispatchAll();
+        assertEquals(null, mUNM.getCurrentPreferredUpstream());
+        assertEquals(0, mCM.mRequested.size());
+    }
+
+    @Test
     public void testGetCurrentPreferredUpstream() throws Exception {
         mUNM.startTrackDefaultNetwork(mEntitleMgr);
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
         mUNM.setUpstreamConfig(true /* autoUpstream */, false /* dunRequired */);
         mUNM.setTryCell(true);
 
@@ -446,7 +468,7 @@ public class UpstreamNetworkMonitorTest {
     @Test
     public void testLocalPrefixes() throws Exception {
         mUNM.startTrackDefaultNetwork(mEntitleMgr);
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
 
         // [0] Test minimum set of local prefixes.
         Set<IpPrefix> local = mUNM.getLocalPrefixes();
@@ -558,7 +580,7 @@ public class UpstreamNetworkMonitorTest {
         preferredTypes.add(TYPE_MOBILE_HIPRI);
         preferredTypes.add(TYPE_WIFI);
         mUNM.startTrackDefaultNetwork(mEntitleMgr);
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
         // Setup wifi and make wifi as default network.
         final TestNetworkAgent wifiAgent = new TestNetworkAgent(mCM, WIFI_CAPABILITIES);
         wifiAgent.fakeConnect();
@@ -579,7 +601,7 @@ public class UpstreamNetworkMonitorTest {
         final String ipv6Addr1 = "2001:db8:4:fd00:827a:bfff:fe6f:374d/64";
         final String ipv6Addr2 = "2003:aa8:3::123/64";
         mUNM.startTrackDefaultNetwork(mEntitleMgr);
-        mUNM.startObserveAllNetworks();
+        mUNM.startObserveUpstreamNetworks();
         mUNM.setUpstreamConfig(true /* autoUpstream */, false /* dunRequired */);
         mUNM.setTryCell(true);
 

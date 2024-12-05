@@ -24,6 +24,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.net.ConnectivityManager.TYPE_WIFI;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
@@ -62,9 +63,10 @@ import java.util.Set;
  * The owner of UNM gets it to register network callbacks by calling the
  * following methods :
  * Calling #startTrackDefaultNetwork() to track the system default network.
- * Calling #startObserveAllNetworks() to observe all networks. Listening all
- * networks is necessary while the expression of preferred upstreams remains
- * a list of legacy connectivity types.  In future, this can be revisited.
+ * Calling #startObserveUpstreamNetworks() to observe upstream networks.
+ * Listening all upstream networks is necessary while the expression of
+ * preferred upstreams remains a list of legacy connectivity types.
+ * In future, this can be revisited.
  * Calling #setTryCell() to request bringing up mobile DUN or HIPRI.
  *
  * The methods and data members of this class are only to be accessed and
@@ -94,7 +96,7 @@ public class UpstreamNetworkMonitor {
     @VisibleForTesting
     public static final int TYPE_NONE = -1;
 
-    private static final int CALLBACK_LISTEN_ALL = 1;
+    private static final int CALLBACK_LISTEN_UPSTREAM = 1;
     private static final int CALLBACK_DEFAULT_INTERNET = 2;
     private static final int CALLBACK_MOBILE_REQUEST = 3;
 
@@ -116,7 +118,7 @@ public class UpstreamNetworkMonitor {
     private HashSet<IpPrefix> mLocalPrefixes;
     private ConnectivityManager mCM;
     private EntitlementManager mEntitlementMgr;
-    private NetworkCallback mListenAllCallback;
+    private NetworkCallback mListenUpstreamCallback;
     private NetworkCallback mDefaultNetworkCallback;
     private NetworkCallback mMobileNetworkCallback;
 
@@ -163,14 +165,14 @@ public class UpstreamNetworkMonitor {
         }
     }
 
-    /** Listen all networks. */
-    public void startObserveAllNetworks() {
+    /** Listen upstream networks. */
+    public void startObserveUpstreamNetworks() {
         stop();
 
-        final NetworkRequest listenAllRequest = new NetworkRequest.Builder()
-                .clearCapabilities().build();
-        mListenAllCallback = new UpstreamNetworkCallback(CALLBACK_LISTEN_ALL);
-        cm().registerNetworkCallback(listenAllRequest, mListenAllCallback, mHandler);
+        final NetworkRequest listenUpstreamRequest = new NetworkRequest.Builder()
+                .clearCapabilities().addForbiddenCapability(NET_CAPABILITY_LOCAL_NETWORK).build();
+        mListenUpstreamCallback = new UpstreamNetworkCallback(CALLBACK_LISTEN_UPSTREAM);
+        cm().registerNetworkCallback(listenUpstreamRequest, mListenUpstreamCallback, mHandler);
     }
 
     /**
@@ -183,8 +185,8 @@ public class UpstreamNetworkMonitor {
     public void stop() {
         setTryCell(false);
 
-        releaseCallback(mListenAllCallback);
-        mListenAllCallback = null;
+        releaseCallback(mListenUpstreamCallback);
+        mListenUpstreamCallback = null;
 
         mNetworkMap.clear();
     }
@@ -535,10 +537,10 @@ public class UpstreamNetworkMonitor {
                 return;
             }
 
-            // Any non-LISTEN_ALL callback will necessarily concern a network that will
-            // also match the LISTEN_ALL callback by construction of the LISTEN_ALL callback.
-            // So it's not useful to do this work for non-LISTEN_ALL callbacks.
-            if (mCallbackType == CALLBACK_LISTEN_ALL) {
+            // Any non-LISTEN_UPSTREAM callback will necessarily concern a network that will
+            // also match the LISTEN_UPSTREAM callback by construction of the LISTEN_UPSTREAM
+            // callback. So it's not useful to do this work for non-LISTEN_UPSTREAM callbacks.
+            if (mCallbackType == CALLBACK_LISTEN_UPSTREAM) {
                 recomputeLocalPrefixes();
             }
         }
@@ -555,10 +557,11 @@ public class UpstreamNetworkMonitor {
             }
 
             handleLost(network);
-            // Any non-LISTEN_ALL callback will necessarily concern a network that will
-            // also match the LISTEN_ALL callback by construction of the LISTEN_ALL callback.
-            // So it's not useful to do this work for non-LISTEN_ALL callbacks.
-            if (mCallbackType == CALLBACK_LISTEN_ALL) {
+            // Any non-LISTEN_UPSTREAM callback will necessarily concern a network that will
+            // also match the LISTEN_UPSTREAM callback by construction of the
+            // LISTEN_UPSTREAM callback. So it's not useful to do this work for
+            // non-LISTEN_UPSTREAM callbacks.
+            if (mCallbackType == CALLBACK_LISTEN_UPSTREAM) {
                 recomputeLocalPrefixes();
             }
         }
