@@ -312,6 +312,54 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
                 DEFAULT_MTU, null, null);
     }
 
+    /**
+     * Creates an {@link RtNetlinkLinkMessage} instance that can be used to set the flags of a
+     * network interface.
+     *
+     * @param interfaceName The name of the network interface to query.
+     * @param sequenceNumber The sequence number for the Netlink message.
+     * @param flags power-of-two integer flags to set or unset. A flag to set should be passed as
+     *        is as a power-of-two value, and a flag to remove should be passed inversed as -1 with
+     *        a single bit down. For example: IFF_UP, ~IFF_BROADCAST...
+     * @return An `RtNetlinkLinkMessage` instance representing the request to query the interface.
+     */
+    @Nullable
+    public static RtNetlinkLinkMessage createSetFlagsMessage(@NonNull String interfaceName,
+            int sequenceNumber, int... flags) {
+        int changeBits = 0;
+        int flagsBits = 0;
+        for (int f : flags) {
+            if (Integer.bitCount(f) == 1) {
+                flagsBits = flagsBits | f;
+                changeBits = changeBits | f;
+            } else if (Integer.bitCount(~f) == 1) {
+                changeBits = changeBits | ~f;
+            } else {
+                return null;
+            }
+        }
+        return createSetFlagsMessage(
+                interfaceName, sequenceNumber, flagsBits, changeBits, new OsAccess());
+    }
+
+    @VisibleForTesting
+    @Nullable
+    protected static RtNetlinkLinkMessage createSetFlagsMessage(
+            @NonNull String interfaceName, int sequenceNumber, int flags, int change,
+            @NonNull OsAccess osAccess) {
+        final int interfaceIndex = osAccess.if_nametoindex(interfaceName);
+        if (interfaceIndex == OsAccess.INVALID_INTERFACE_INDEX) {
+            return null;
+        }
+        // RTM_NEWLINK is used here for create, modify, or notify changes about a internet
+        // interface, including change in administrative state. While RTM_SETLINK is used to
+        // modify an existing link rather than creating a new one.
+        return RtNetlinkLinkMessage.build(
+                new StructNlMsgHdr(/*payloadLen*/ 0, RTM_NEWLINK, NLM_F_REQUEST, sequenceNumber),
+                new StructIfinfoMsg((short) AF_UNSPEC, /*type*/ 0, interfaceIndex, flags, change),
+                DEFAULT_MTU, /*hardwareAddress*/ null, /*interfaceName*/ null);
+    }
+
     @Override
     public String toString() {
         return "RtNetlinkLinkMessage{ "
