@@ -58,6 +58,7 @@ import androidx.annotation.Nullable;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.networkstack.apishim.SettingsShimImpl;
 import com.android.networkstack.apishim.common.SettingsShim;
+import com.android.networkstack.tethering.util.TetheringPermissionUtils;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -73,6 +74,7 @@ public class TetheringService extends Service {
     private TetheringDependencies mDeps;
     private TetheringConnector mConnector;
     private SettingsShim mSettingsShim;
+    private TetheringPermissionUtils mTetheringPermissionsUtils;
 
     @Override
     public void onCreate() {
@@ -82,6 +84,7 @@ public class TetheringService extends Service {
         mConnector = new TetheringConnector(makeTethering(mDeps), TetheringService.this);
 
         mSettingsShim = SettingsShimImpl.newInstance();
+        mTetheringPermissionsUtils = new TetheringPermissionUtils(deps.getContext());
     }
 
     /**
@@ -311,6 +314,11 @@ public class TetheringService extends Service {
 
             if (hasTetherPrivilegedPermission()) return true;
 
+            if (mService.isDeviceOwner(callerPkg)
+                    || mService.hasCarrierPrivileges(callerPkg)) {
+                return true;
+            }
+
             // After TetheringManager moves to public API, prevent third-party apps from being able
             // to change tethering with only WRITE_SETTINGS permission.
             if (mService.isTetheringWithSoftApConfigEnabled()) return false;
@@ -335,6 +343,14 @@ public class TetheringService extends Service {
 
         private int getBinderCallingUid() {
             return mService.getBinderCallingUid();
+        }
+
+        private boolean isDeviceOwner(final String callerPkg) {
+            return mService.isDeviceOwner(callerPkg);
+        }
+
+        private boolean hasCarrierPrivileges(final String callerPkg) {
+            return mService.hasCarrierPrivileges(callerPkg);
         }
 
         private boolean checkPackageNameMatchesUid(final int uid, final String callerPkg) {
@@ -389,6 +405,22 @@ public class TetheringService extends Service {
     boolean isTetheringWithSoftApConfigEnabled() {
         if (mDeps == null) return false;
         return mDeps.isTetheringWithSoftApConfigEnabled();
+    }
+
+    /**
+     * Wrapper for {@link TetheringPermissionUtils#isDeviceOwner(String)}, used for mocks.
+     */
+    @VisibleForTesting
+    boolean isDeviceOwner(final String callerPkg) {
+        return mTetheringPermissionsUtils.isDeviceOwner(callerPkg);
+    }
+
+    /**
+     * Wrapper for {@link TetheringPermissionUtils#hasCarrierPrivileges(String)}, used for mocks.
+     */
+    @VisibleForTesting
+    boolean hasCarrierPrivileges(final String callerPkg) {
+        return mTetheringPermissionsUtils.hasCarrierPrivileges(callerPkg);
     }
 
     /**
