@@ -88,6 +88,8 @@ public class NetlinkUtils {
     public static final int SOCKET_RECV_BUFSIZE = 64 * 1024;
     public static final int SOCKET_DUMP_RECV_BUFSIZE = 128 * 1024;
 
+    public static final long INVALID_INTERFACE_FLAGS = -1;
+
     /**
      * Return whether the input ByteBuffer contains enough remaining bytes for
      * {@code StructNlMsgHdr}.
@@ -468,5 +470,93 @@ public class NetlinkUtils {
         } catch (IOException e) {
             // Nothing we can do here
         }
+    }
+
+    /**
+     * Sends a netlink request to set flags for given interface
+     *
+     * @param interfaceName The name of the network interface to query.
+     * @param flags The bitwise ORed values of desired state of the interface flags, for example:
+     *              IFF_UP | ~IFF_BROADCAST
+     * @param change The bitwise ORed values of flags to change, for example: IFF_UP | IFF_BROADCAST
+     * @return true if the request finished successfully, otherwise false.
+     */
+    public static boolean setInterfaceFlags(@NonNull String interfaceName, int flags, int change) {
+        final RtNetlinkLinkMessage ntMsg =
+                RtNetlinkLinkMessage.createSetFlagsMessage(interfaceName, /*seqNo*/ 0,
+                        flags, change);
+        if (ntMsg == null) {
+            Log.e(TAG, "Failed to create message to set interface flags");
+            return false;
+        }
+        final byte[] msg = ntMsg.pack(ByteOrder.nativeOrder());
+        try {
+            NetlinkUtils.sendOneShotKernelMessage(NETLINK_ROUTE, msg);
+            return true;
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to set flags for: " + interfaceName, e);
+            return false;
+        }
+    }
+
+    /**
+     * Sends a netlink request to get flags for given interface
+     *
+     * @param interfaceName The name of the network interface to query.
+     * @return flags of the queried interface if request succeeds, otherwise
+     * {@code INVALID_INTERFACE_FLAGS}
+     */
+    public static long getInterfaceFlags(@NonNull String interfaceName) {
+        final RtNetlinkLinkMessage ntMsg =
+                RtNetlinkLinkMessage.createGetLinkMessage(interfaceName, /*seqNo*/ 0);
+        if (ntMsg == null) {
+            Log.e(TAG, "Failed to create message to get interface flags");
+            return INVALID_INTERFACE_FLAGS;
+        }
+        final byte[] msg = ntMsg.pack(ByteOrder.nativeOrder());
+
+        final FileDescriptor fd;
+        try {
+            fd = NetlinkUtils.netlinkSocketForProto(NETLINK_ROUTE, SOCKET_RECV_BUFSIZE);
+            sendMessage(fd, msg, /*offset*/ 0, msg.length, IO_TIMEOUT_MS);
+        } catch (ErrnoException | InterruptedIOException e) {
+            Log.w(TAG, "Failed to send netlink message.", e);
+            return INVALID_INTERFACE_FLAGS;
+        }
+
+        // When requesting for flags of single interface with NLM_F_REQUEST flag, we should only
+        // expect single netlink message to be received.
+        final ByteBuffer response;
+        try {
+            response = NetlinkUtils.recvMessage(fd, DEFAULT_RECV_BUFSIZE, IO_TIMEOUT_MS);
+        } catch (ErrnoException | InterruptedIOException e) {
+            Log.w(TAG, "Failed to receive message from netlink socket.", e);
+            return INVALID_INTERFACE_FLAGS;
+        }
+
+        do {
+            final NetlinkMessage nlMsg =
+                    NetlinkMessage.parse(response, NETLINK_ROUTE);
+            if (nlMsg == null) {
+                Log.e(TAG, "Badly formatted data, failed to get netlink message");
+                break;
+            }
+            if (!(nlMsg instanceof RtNetlinkLinkMessage)) {
+                continue;
+            }
+            final StructNlMsgHdr hdr = nlMsg.getHeader();
+            if (hdr == null) {
+                Log.e(TAG, "Badly formatted data, "
+                        + "failed to get netlink message header");
+                break;
+            }
+            if (hdr.nlmsg_type == NLMSG_DONE) {
+                break;
+            }
+
+            StructIfinfoMsg ifInfo = ((RtNetlinkLinkMessage) nlMsg).getIfinfoHeader();
+            return ifInfo.flags;
+        } while (enoughBytesRemainForValidNlMsg(response));
+        return INVALID_INTERFACE_FLAGS;
     }
 }
