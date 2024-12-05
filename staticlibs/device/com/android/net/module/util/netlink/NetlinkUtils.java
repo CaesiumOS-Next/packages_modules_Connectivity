@@ -481,10 +481,9 @@ public class NetlinkUtils {
      * @param change The bitwise ORed values of flags to change, for example: IFF_UP | IFF_BROADCAST
      * @return true if the request finished successfully, otherwise false.
      */
-    public static boolean setInterfaceFlags(@NonNull String interfaceName, int flags, int change) {
+    public static boolean setInterfaceFlags(@NonNull String interfaceName, int... flags) {
         final RtNetlinkLinkMessage ntMsg =
-                RtNetlinkLinkMessage.createSetFlagsMessage(interfaceName, /*seqNo*/ 0,
-                        flags, change);
+                RtNetlinkLinkMessage.createSetFlagsMessage(interfaceName, /*seqNo*/ 0, flags);
         if (ntMsg == null) {
             Log.e(TAG, "Failed to create message to set interface flags");
             return false;
