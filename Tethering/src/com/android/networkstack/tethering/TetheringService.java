@@ -22,6 +22,7 @@ import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
+import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
@@ -58,6 +59,7 @@ import androidx.annotation.Nullable;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.networkstack.apishim.SettingsShimImpl;
 import com.android.networkstack.apishim.common.SettingsShim;
+import com.android.networkstack.tethering.util.TetheringPermissionsUtils;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -72,6 +74,7 @@ public class TetheringService extends Service {
 
     private TetheringConnector mConnector;
     private SettingsShim mSettingsShim;
+    private TetheringPermissionsUtils mTetheringPermissionsUtils;
 
     @Override
     public void onCreate() {
@@ -81,6 +84,7 @@ public class TetheringService extends Service {
         mConnector = new TetheringConnector(makeTethering(deps), TetheringService.this);
 
         mSettingsShim = SettingsShimImpl.newInstance();
+        mTetheringPermissionsUtils = new TetheringPermissionsUtils(deps.getContext());
     }
 
     /**
@@ -312,13 +316,18 @@ public class TetheringService extends Service {
 
             if (hasTetherPrivilegedPermission()) return true;
 
-            // After TetheringManager moves to public API, prevent third-party apps from being able
-            // to change tethering with only WRITE_SETTINGS permission.
-            if (mTethering.isTetheringWithSoftApConfigEnabled()) return false;
+            // After TetheringManager moves to public API, prevent non-DO/Carrier third-party apps
+            // from being able to change tethering with only WRITE_SETTINGS permission.
+            int uid = getBinderCallingUid();
+            if (mTethering.isTetheringWithSoftApConfigEnabled()) {
+                if (!mService.isDeviceOwner(uid, callerPkg)) return false;
+
+                // DO apps can only change tethering for Wi-Fi with a non-null SoftApConfiguration.
+                return request != null && request.getTetheringType() == TETHERING_WIFI
+                        && request.getSoftApConfiguration() != null;
+            }
 
             if (mTethering.isTetherProvisioningRequired()) return false;
-
-            int uid = getBinderCallingUid();
 
             // If callerPkg's uid is not same as getBinderCallingUid(),
             // checkAndNoteWriteSettingsOperation will return false and the operation will be
@@ -381,6 +390,14 @@ public class TetheringService extends Service {
     @VisibleForTesting
     int getBinderCallingUid() {
         return Binder.getCallingUid();
+    }
+
+    /**
+     * Wrapper for {@link TetheringPermissionsUtils#isDeviceOwner(int, String)}, used for mocks.
+     */
+    @VisibleForTesting
+    boolean isDeviceOwner(final int uid, final String callerPkg) {
+        return mTetheringPermissionsUtils.isDeviceOwner(uid, callerPkg);
     }
 
     /**

@@ -162,6 +162,13 @@ public final class TetheringServiceTest {
                 TETHER_PRIVILEGED);
     }
 
+    private void runAsDeviceOwner(final TestTetheringCall test) throws Exception {
+        mMockConnector.addDeviceOwnerPackage(TEST_CALLER_PKG);
+        runTetheringCall(test, true /* isTetheringAllowed */, false /* isWriteSettingsAllowed */,
+                new String[0]);
+        mMockConnector.removeDeviceOwnerPackage(TEST_CALLER_PKG);
+    }
+
     private void runAsAccessNetworkState(final TestTetheringCall test) throws Exception {
         runTetheringCall(test, true /* isTetheringAllowed */, false /* isWriteSettingsAllowed */,
                 ACCESS_NETWORK_STATE);
@@ -382,6 +389,15 @@ public final class TetheringServiceTest {
             mTetheringConnector.startTethering(request, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG,
                     result);
             verify(mTethering).isTetheringWithSoftApConfigEnabled();
+            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        runAsDeviceOwner((result) -> {
+            mTetheringConnector.startTethering(request, TEST_WRONG_PACKAGE,
+                    TEST_ATTRIBUTION_TAG, result);
+            verify(mTethering, never()).startTethering(
+                    eq(new TetheringRequest(request)), eq(TEST_WRONG_PACKAGE), eq(result));
             result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
             verifyNoMoreInteractionsForTethering();
         });
