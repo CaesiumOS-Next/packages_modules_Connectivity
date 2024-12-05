@@ -198,7 +198,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
     @Nullable
     private CertificateTransparencyService createCertificateTransparencyService(
             final Context context) {
-        return SdkLevel.isAtLeastV() && CertificateTransparencyService.enabled(context)
+        return CertificateTransparencyService.enabled(context)
                 ? new CertificateTransparencyService(context)
                 : null;
     }
