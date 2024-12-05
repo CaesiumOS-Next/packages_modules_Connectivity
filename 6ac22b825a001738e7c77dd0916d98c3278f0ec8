@@ -22,6 +22,30 @@
       },
       "revId": "6ac22b825a001738e7c77dd0916d98c3278f0ec8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7876867_ed3d5aed",
+        "filename": "staticlibs/testutils/host/java/com/android/testutils/ConnectivityTestTargetPreparer.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-05T05:47:22Z",
+      "side": 1,
+      "message": "Added a bunch more comments to hopefully explain better, PTAL",
+      "parentUuid": "dd2b8564_9e577ebc",
+      "range": {
+        "startLine": 69,
+        "startChar": 13,
+        "endLine": 70,
+        "endChar": 82
+      },
+      "revId": "6ac22b825a001738e7c77dd0916d98c3278f0ec8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
