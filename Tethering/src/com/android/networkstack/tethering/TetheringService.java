@@ -56,6 +56,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.flags.Flags;
 import com.android.networkstack.apishim.SettingsShimImpl;
 import com.android.networkstack.apishim.common.SettingsShim;
 
@@ -310,6 +311,10 @@ public class TetheringService extends Service {
 
             if (hasTetherPrivilegedPermission()) return true;
 
+            // After TetheringManager moves to public API, prevent third-party apps from being able
+            // to change tethering with only WRITE_SETTINGS permission.
+            if (mService.isTetheringWithSoftApConfigEnabled()) return false;
+
             if (mTethering.isTetherProvisioningRequired()) return false;
 
             int uid = getBinderCallingUid();
@@ -375,6 +380,14 @@ public class TetheringService extends Service {
     @VisibleForTesting
     int getBinderCallingUid() {
         return Binder.getCallingUid();
+    }
+
+    /**
+     * Wrapper for Flags.tetheringWithSoftApConfig(), used for mocks.
+     */
+    @VisibleForTesting
+    boolean isTetheringWithSoftApConfigEnabled() {
+        return Flags.tetheringWithSoftApConfig();
     }
 
     /**
