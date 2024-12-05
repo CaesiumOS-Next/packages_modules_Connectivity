@@ -30,10 +30,14 @@ java_library {
         "framework-configinfrastructure.stubs.module_lib",
         "framework-connectivity-pre-jarjar",
         "service-connectivity-pre-jarjar",
+        // "android.security.flags-aconfig-java-export",
+        // "android.security.flags-aconfig-java",
     ],
 
     static_libs: [
         "auto_value_annotations",
+        "android.security.flags-aconfig-java",
+        // "android.security.flags-aconfig-java-export",
     ],
 
     plugins: [

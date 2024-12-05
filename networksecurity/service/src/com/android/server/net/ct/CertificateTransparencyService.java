@@ -15,13 +15,17 @@
  */
 package com.android.server.net.ct;
 
+import static android.security.Flags.certificateTransparencyConfiguration;
+
+import static com.android.net.ct.flags.Flags.certificateTransparencyService;
+
 import android.annotation.RequiresApi;
 import android.content.Context;
 import android.net.ct.ICertificateTransparencyManager;
 import android.os.Build;
 import android.provider.DeviceConfig;
 
-import com.android.net.ct.flags.Flags;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.server.SystemService;
 
 /** Implementation of the Certificate Transparency service. */
@@ -35,9 +39,11 @@ public class CertificateTransparencyService extends ICertificateTransparencyMana
      * @return true if the CertificateTransparency service is enabled.
      */
     public static boolean enabled(Context context) {
-        return DeviceConfig.getBoolean(
+        return SdkLevel.isAtLeastV()
+                && DeviceConfig.getBoolean(
                         Config.NAMESPACE_NETWORK_SECURITY, Config.FLAG_SERVICE_ENABLED, false)
-                && Flags.certificateTransparencyService();
+                && certificateTransparencyService()
+                && certificateTransparencyConfiguration();
     }
 
     /** Creates a new {@link CertificateTransparencyService} object. */
