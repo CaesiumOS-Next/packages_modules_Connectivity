@@ -16,6 +16,10 @@
 
 package android.net;
 
+import android.os.IBinder;
+
+import com.android.internal.os.IResultReceiver;
+
 /**
  * Interface to inform NetworkMonitor of decisions of app handling captive portal.
  * @hide
@@ -23,4 +27,5 @@ package android.net;
 oneway interface ICaptivePortal {
     void appRequest(int request);
     void appResponse(int response);
+    void setDelegateUid(int uid, IBinder binder, IResultReceiver receiver);
 }
