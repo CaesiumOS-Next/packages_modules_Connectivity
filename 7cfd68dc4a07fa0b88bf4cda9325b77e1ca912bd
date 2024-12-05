@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa887a99_1ec27620",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 6471,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T05:01:32Z",
+      "side": 1,
+      "message": "If we want to index mCaptivePortalDelegateUids by IBinder, then we could potentially get away with a ConcurrentHashMap, so we might be able to get rid of the handler. We can also use the version of binderDied() that passes the IBinder. If we can\u0027t get to this today, I could attempt fixing this in a follow up.",
+      "range": {
+        "startLine": 6471,
+        "startChar": 20,
+        "endLine": 6471,
+        "endChar": 34
+      },
+      "revId": "7cfd68dc4a07fa0b88bf4cda9325b77e1ca912bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
