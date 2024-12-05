@@ -71,6 +71,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a26376e5_93500efb",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-05T07:13:37Z",
+      "side": 1,
+      "message": "In practice the lambda ends up generating a class so this is kind of equivalent; having it inline LGTM",
+      "parentUuid": "fc6bc330_8e3983a9",
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cd481d8_11e8bc82",
@@ -178,6 +196,30 @@
       "side": 1,
       "message": "You mean:\n```\n[Thread1] statsFetcher.get() --\u003e returns 42\n[Thread2] statsFetcher.get() --\u003e returns 43\n[Thread2] Caches 43\n[Thread1] putIfAbsent(42) -\u003e returns 42 --\u003e other method returns 43\n```\nRight?\n\nIt indeed fixes the out-of-order case but it would break the in-order case, which I think more likely to happen, right?\n```\n[Thread1] statsFetcher.get() --\u003e returns 42\n[Thread2] statsFetcher.get() --\u003e returns 43\n[Thread1] Caches 42\n[Thread2] putIfAbsent(43) -\u003e return 43 -\u003e other method returns 42. \n```\nIf so, prefer to keep it as is.\nWDYT?",
       "parentUuid": "b4a05215_750f58f8",
+      "range": {
+        "startLine": 1165,
+        "startChar": 51,
+        "endLine": 1167,
+        "endChar": 38
+      },
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6574846_d865e907",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-05T07:13:37Z",
+      "side": 1,
+      "message": "No I think in the first case both would return 43, and in the second case both would return 42\n\nI think you\u0027d have something like:\n\n\n```\nif (stats \u003d\u003d null) {\n    // Cache miss, fetch from the service.\n    stats \u003d statsFetcher.get();\n\n    // Update the cache with the fetched result if valid.\n    if (stats !\u003d null \u0026\u0026 !isEmpty(stats)) {\n        final StatsResult cachedValue \u003d cache.putIfAbsent(key, stats);\n        if (cachedValue !\u003d null) {\n            // Some other thread cached a value after this thread originally got a cache miss.\n            // Return the cached value to ensure all returned values after caching are consistent.\n            return cachedValue;\n        }\n    }\n    return stats;\n}\n```\n\nBasically this ensures that if a value is put in cache, this will be the value returned by any thread as long as the cache is valid.",
+      "parentUuid": "32022cd3_c3592458",
       "range": {
         "startLine": 1165,
         "startChar": 51,
