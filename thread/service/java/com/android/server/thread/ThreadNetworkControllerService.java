@@ -1486,6 +1486,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             // This is an idempotent method which can be called for multiple times when the device
             // is already attached (e.g. going from Child to Router)
             registerThreadNetwork();
+
+            mTunIfController.createDnsServerListeningSocket();
         } else {
             LOG.i("Detached from the Thread network");
 

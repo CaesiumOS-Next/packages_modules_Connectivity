@@ -20,8 +20,17 @@ import static android.system.OsConstants.AF_INET6;
 import static android.system.OsConstants.EADDRINUSE;
 import static android.system.OsConstants.IFF_MULTICAST;
 import static android.system.OsConstants.IFF_NOARP;
+import static android.system.OsConstants.IPPROTO_IPV6;
+import static android.system.OsConstants.IPPROTO_UDP;
+import static android.system.OsConstants.IPV6_RECVHOPLIMIT;
+import static android.system.OsConstants.IPV6_RECVPKTINFO;
 import static android.system.OsConstants.NETLINK_ROUTE;
+import static android.system.OsConstants.SOCK_DGRAM;
+import static android.system.OsConstants.SOCK_NONBLOCK;
+import static android.system.OsConstants.SOL_SOCKET;
+import static android.system.OsConstants.SO_REUSEADDR;
 
+import static com.android.net.module.util.SocketUtils.closeSocketQuietly;
 import static com.android.net.module.util.netlink.NetlinkConstants.RTM_NEWLINK;
 import static com.android.net.module.util.netlink.RtNetlinkLinkMessage.IFLA_AF_SPEC;
 import static com.android.net.module.util.netlink.RtNetlinkLinkMessage.IFLA_INET6_ADDR_GEN_MODE;
@@ -34,6 +43,7 @@ import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.RouteInfo;
+import android.net.util.SocketUtils;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.system.ErrnoException;
@@ -49,6 +59,7 @@ import com.android.net.module.util.netlink.StructNlMsgHdr;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
 import com.android.server.thread.openthread.OnMeshPrefixConfig;
 
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -81,6 +92,7 @@ public class TunInterfaceController {
     private final List<RouteInfo> mNetDataPrefixes = new ArrayList<>();
 
     private ParcelFileDescriptor mParcelTunFd;
+    private ParcelFileDescriptor mParcelDnsServerSocketFd;
     private NetworkInterface mNetworkInterface;
 
     /** Creates a new {@link TunInterfaceController} instance for given interface. */
@@ -140,6 +152,42 @@ public class TunInterfaceController {
     }
 
     private native int nativeCreateTunInterface(String interfaceName, int mtu) throws IOException;
+
+    /**
+     * Creates a UDP socket listening to given address and DNS server port 53.
+     *
+     * <p>The system_server creates this socket and pass it to ot-daemon because ot-daemon doesn't
+     * have the capability to bind to port lower than 1024.
+     */
+    public void createDnsServerListeningSocket() {
+        if (mParcelDnsServerSocketFd != null) {
+            return;
+        }
+
+        FileDescriptor fd = null;
+
+        InetAddress addr = mLinkProperties.getAllAddresses().getFirst();
+        LOG.e("Binding DNS server to address " + addr);
+
+        try {
+            fd = Os.socket(AF_INET6, SOCK_DGRAM | SOCK_NONBLOCK, IPPROTO_UDP);
+            SocketUtils.bindSocketToInterface(fd, mIfName);
+            Os.bind(fd, addr, 53);
+            Os.setsockoptInt(fd, IPPROTO_IPV6, IPV6_RECVPKTINFO, 1);
+            Os.setsockoptInt(fd, IPPROTO_IPV6, IPV6_RECVHOPLIMIT, 1);
+
+            // A bound UDP socket must enable SO_REUSEADDR to allow the remote the process to bind
+            // to the same same address when received this ParcelFileDescriptor from binder.
+            // Otherwise, it would result in binder API failure like "ransaction failed on small
+            // parcel; remote process probably died..."
+            Os.setsockoptInt(fd, SOL_SOCKET, SO_REUSEADDR, 1);
+
+            mParcelDnsServerSocketFd = ParcelFileDescriptor.dup(fd);
+        } catch (ErrnoException | IOException e) {
+            LOG.e("Failed to create DNS-SD socket", e);
+            closeSocketQuietly(fd);
+        }
+    }
 
     /** Sets the interface up or down according to {@code isUp}. */
     public void setInterfaceUp(boolean isUp) throws IOException {
