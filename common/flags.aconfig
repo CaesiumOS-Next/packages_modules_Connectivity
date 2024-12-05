@@ -45,7 +45,7 @@ flag {
   is_exported: true
   namespace: "android_core_networking"
   description: "The flag controls the access for the parcelable TetheringRequest with getSoftApConfiguration/setSoftApConfiguration API"
-  bug: "216524590"
+  bug: "295979433"
   is_fixed_read_only: true
 }
 
