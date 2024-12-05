@@ -121,6 +121,8 @@ import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_SELF_CER
 import static android.net.connectivity.ConnectivityCompatChanges.NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION;
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.VPN_UID;
+import static android.system.OsConstants.ENOENT;
+import static android.system.OsConstants.EOPNOTSUPP;
 import static android.system.OsConstants.ETH_P_ALL;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
@@ -309,6 +311,7 @@ import android.util.StatsEvent;
 import com.android.connectivity.resources.R;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.os.IResultReceiver;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
 import com.android.metrics.ConnectionDurationForTransports;
@@ -6340,8 +6343,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private class CaptivePortalImpl extends ICaptivePortal.Stub {
+    private class CaptivePortalImpl extends ICaptivePortal.Stub implements IBinder.DeathRecipient {
         private final Network mNetwork;
+        // Binder object to track the lifetime of the setDelegateUid caller for cleanup purposes.
+        @Nullable private IBinder mDelegateUidCaller;
 
         private CaptivePortalImpl(Network network) {
             mNetwork = network;
@@ -6381,6 +6386,58 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
+        private int handleSetDelegateUid(int uid, @NonNull final IBinder callerBinder) {
+            if (uid == INVALID_UID && mDelegateUidCaller != null) {
+                // When removing the delegate UID, unlink binder death recipient if one exists
+                mDelegateUidCaller.unlinkToDeath(this, 0);
+                mDelegateUidCaller = null;
+            } else if (uid != INVALID_UID && mDelegateUidCaller == null) {
+                // When configuring the delegate UID, register the binder death recipient
+                // unless one exists already.
+                mDelegateUidCaller = callerBinder;
+                try {
+                    mDelegateUidCaller.linkToDeath(this, 0);
+                } catch (RemoteException e) {
+                    // remote has died, return early.
+                    return ENOENT;
+                }
+            }
+
+            final NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(mNetwork);
+            if (nai == null) return ENOENT; // network does not exist anymore.
+            if (nai.isDestroyed()) return ENOENT; // network has already been destroyed.
+
+            // TODO: consider allowing the uid to bypass VPN on all networks before V.
+            if (!mDeps.isAtLeastV()) return EOPNOTSUPP;
+
+            // Check whether there has already been a delegate UID configured, if so, perform
+            // cleanup and disallow bypassing VPN for that UID.
+            // TODO: consider using exceptions instead of errnos.
+            final int errno = nai.removeCaptivePortalDelegateUid(this, mNetd, uid, mNetwork.netId);
+            if (errno != 0) return errno;
+
+            // If uid == INVALID_UID, we are done.
+            if (uid == INVALID_UID) return 0;
+            return nai.setCaptivePortalDelegateUid(this, mNetd, uid, mNetwork.netId);
+        }
+
+        @Override
+        public void setDelegateUid(int uid, @NonNull final IBinder callerBinder,
+                @NonNull final IResultReceiver receiver) {
+            Objects.requireNonNull(callerBinder);
+            Objects.requireNonNull(receiver);
+            enforceAnyPermissionOf(mContext, NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+
+            mHandler.post(() -> {
+                final int errno = handleSetDelegateUid(uid, callerBinder);
+                try {
+                    receiver.send(errno, null);
+                } catch (RemoteException e) {
+                    // remote has died, nothing to do.
+                }
+            });
+        }
+
         @Nullable
         private NetworkMonitorManager getNetworkMonitorManager(final Network network) {
             // getNetworkAgentInfoForNetwork is thread-safe
@@ -6389,6 +6446,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             // nai.networkMonitor() is thread-safe
             return nai.networkMonitor();
+        }
+
+        @Override
+        public void binderDied() {
+            mHandler.post(() -> {
+                if (mDelegateUidCaller == null) return;
+                mDelegateUidCaller = null;
+                // Only cleanup invalid UID and restore the VPN bypass rule.
+                handleSetDelegateUid(INVALID_UID, null /* callerBinder */);
+            });
         }
     }
 
