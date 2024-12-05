@@ -70,15 +70,16 @@ import java.io.PrintWriter;
 public class TetheringService extends Service {
     private static final String TAG = TetheringService.class.getSimpleName();
 
+    private TetheringDependencies mDeps;
     private TetheringConnector mConnector;
     private SettingsShim mSettingsShim;
 
     @Override
     public void onCreate() {
-        final TetheringDependencies deps = makeTetheringDependencies();
+        mDeps = makeTetheringDependencies();
         // The Tethering object needs a fully functional context to start, so this can't be done
         // in the constructor.
-        mConnector = new TetheringConnector(makeTethering(deps), TetheringService.this);
+        mConnector = new TetheringConnector(makeTethering(mDeps), TetheringService.this);
 
         mSettingsShim = SettingsShimImpl.newInstance();
     }
@@ -310,6 +311,10 @@ public class TetheringService extends Service {
 
             if (hasTetherPrivilegedPermission()) return true;
 
+            // After TetheringManager moves to public API, prevent third-party apps from being able
+            // to change tethering with only WRITE_SETTINGS permission.
+            if (mService.isTetheringWithSoftApConfigEnabled()) return false;
+
             if (mTethering.isTetherProvisioningRequired()) return false;
 
             int uid = getBinderCallingUid();
@@ -375,6 +380,15 @@ public class TetheringService extends Service {
     @VisibleForTesting
     int getBinderCallingUid() {
         return Binder.getCallingUid();
+    }
+
+    /**
+     * Wrapper for Flags.tetheringWithSoftApConfig(), used for mocks.
+     */
+    @VisibleForTesting
+    boolean isTetheringWithSoftApConfigEnabled() {
+        if (mDeps == null) return false;
+        return mDeps.isTetheringWithSoftApConfigEnabled();
     }
 
     /**

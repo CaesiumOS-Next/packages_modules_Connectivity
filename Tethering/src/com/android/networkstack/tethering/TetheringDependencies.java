@@ -208,4 +208,12 @@ public abstract class TetheringDependencies {
     public int getBinderCallingUid() {
         return Binder.getCallingUid();
     }
+
+    /**
+     * Wrapper for tethering_with_soft_ap_config feature flag.
+     */
+    public boolean isTetheringWithSoftApConfigEnabled() {
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM
+                && Flags.tetheringWithSoftApConfig();
+    }
 }
