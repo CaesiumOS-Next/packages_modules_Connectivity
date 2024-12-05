@@ -22,6 +22,7 @@ import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
+import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
@@ -58,6 +59,7 @@ import androidx.annotation.Nullable;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.networkstack.apishim.SettingsShimImpl;
 import com.android.networkstack.apishim.common.SettingsShim;
+import com.android.networkstack.tethering.util.TetheringPermissionUtils;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -72,6 +74,7 @@ public class TetheringService extends Service {
 
     private TetheringConnector mConnector;
     private SettingsShim mSettingsShim;
+    private TetheringPermissionUtils mTetheringPermissionsUtils;
 
     @Override
     public void onCreate() {
@@ -81,6 +84,7 @@ public class TetheringService extends Service {
         mConnector = new TetheringConnector(makeTethering(deps), TetheringService.this);
 
         mSettingsShim = SettingsShimImpl.newInstance();
+        mTetheringPermissionsUtils = new TetheringPermissionUtils(deps.getContext());
     }
 
     /**
@@ -133,17 +137,15 @@ public class TetheringService extends Service {
         @Override
         public void startTethering(TetheringRequestParcel request, String callerPkg,
                 String callingAttributionTag, IIntResultListener listener) {
-            boolean onlyAllowPrivileged = request.exemptFromEntitlementCheck
-                    || request.interfaceName != null;
-            if (checkAndNotifyCommonError(callerPkg,
-                    callingAttributionTag,
-                    onlyAllowPrivileged,
-                    listener)) {
-                return;
-            }
             TetheringRequest external = new TetheringRequest(request);
             external.setUid(getBinderCallingUid());
             external.setPackageName(callerPkg);
+            if (checkAndNotifyCommonError(callerPkg,
+                    callingAttributionTag,
+                    external,
+                    listener)) {
+                return;
+            }
             mTethering.startTethering(external, callerPkg, listener);
         }
 
@@ -161,7 +163,18 @@ public class TetheringService extends Service {
         @Override
         public void requestLatestTetheringEntitlementResult(int type, ResultReceiver receiver,
                 boolean showEntitlementUi, String callerPkg, String callingAttributionTag) {
-            if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, receiver)) return;
+            IIntResultListener listener = new IIntResultListener() {
+                @Override
+                public void onResult(int i) throws RemoteException {
+                    receiver.send(i, null);
+                }
+
+                @Override
+                public IBinder asBinder() {
+                    return null;
+                }
+            };
+            if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, listener)) return;
 
             mTethering.requestLatestTetheringEntitlementResult(type, receiver, showEntitlementUi);
         }
@@ -235,12 +248,12 @@ public class TetheringService extends Service {
 
         private boolean checkAndNotifyCommonError(final String callerPkg,
                 final String callingAttributionTag, final IIntResultListener listener) {
-            return checkAndNotifyCommonError(callerPkg, callingAttributionTag,
-                    false /* onlyAllowPrivileged */, listener);
+            return checkAndNotifyCommonError(callerPkg, callingAttributionTag, null /* request */,
+                    listener);
         }
 
         private boolean checkAndNotifyCommonError(final String callerPkg,
-                final String callingAttributionTag, final boolean onlyAllowPrivileged,
+                final String callingAttributionTag, final TetheringRequest request,
                 final IIntResultListener listener) {
             try {
                 if (!checkPackageNameMatchesUid(getBinderCallingUid(), callerPkg)) {
@@ -249,8 +262,7 @@ public class TetheringService extends Service {
                     listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
                     return true;
                 }
-                if (!hasTetherChangePermission(callerPkg, callingAttributionTag,
-                        onlyAllowPrivileged)) {
+                if (!hasTetherChangePermission(callerPkg, callingAttributionTag, request)) {
                     listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
                     return true;
                 }
@@ -259,27 +271,6 @@ public class TetheringService extends Service {
                     return true;
                 }
             } catch (RemoteException e) {
-                return true;
-            }
-
-            return false;
-        }
-
-        private boolean checkAndNotifyCommonError(final String callerPkg,
-                final String callingAttributionTag, final ResultReceiver receiver) {
-            if (!checkPackageNameMatchesUid(getBinderCallingUid(), callerPkg)) {
-                Log.e(TAG, "Package name " + callerPkg + " does not match UID "
-                        + getBinderCallingUid());
-                receiver.send(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION, null);
-                return true;
-            }
-            if (!hasTetherChangePermission(callerPkg, callingAttributionTag,
-                    false /* onlyAllowPrivileged */)) {
-                receiver.send(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION, null);
-                return true;
-            }
-            if (!mTethering.isTetheringSupported() || !mTethering.isTetheringAllowed()) {
-                receiver.send(TETHER_ERROR_UNSUPPORTED, null);
                 return true;
             }
 
@@ -304,19 +295,30 @@ public class TetheringService extends Service {
         }
 
         private boolean hasTetherChangePermission(final String callerPkg,
-                final String callingAttributionTag, final boolean onlyAllowPrivileged) {
+                final String callingAttributionTag, final TetheringRequest request) {
+            boolean onlyAllowPrivileged = request != null
+                    && (request.isExemptFromEntitlementCheck()
+                    || request.getInterfaceName() != null);
             if (onlyAllowPrivileged && !hasNetworkStackPermission()
                     && !hasNetworkSettingsPermission()) return false;
 
             if (hasTetherPrivilegedPermission()) return true;
 
-            // After TetheringManager moves to public API, prevent third-party apps from being able
-            // to change tethering with only WRITE_SETTINGS permission.
-            if (mTethering.isTetheringWithSoftApConfigEnabled()) return false;
+            // After TetheringManager moves to public API, prevent non-DO/Carrier third-party apps
+            // from being able to change tethering with only WRITE_SETTINGS permission.
+            int uid = getBinderCallingUid();
+            if (mTethering.isTetheringWithSoftApConfigEnabled()) {
+                if (!mService.isDeviceOwner(uid, callerPkg)
+                        && !mService.hasCarrierPrivileges(callerPkg)) {
+                    return false;
+                }
+
+                // DO/Carrier apps can only change tethering for Wi-Fi with a SoftApConfiguration.
+                return request != null && request.getTetheringType() == TETHERING_WIFI
+                        && request.getSoftApConfiguration() != null;
+            }
 
             if (mTethering.isTetherProvisioningRequired()) return false;
-
-            int uid = getBinderCallingUid();
 
             // If callerPkg's uid is not same as getBinderCallingUid(),
             // checkAndNoteWriteSettingsOperation will return false and the operation will be
@@ -379,6 +381,22 @@ public class TetheringService extends Service {
     @VisibleForTesting
     int getBinderCallingUid() {
         return Binder.getCallingUid();
+    }
+
+    /**
+     * Wrapper for {@link TetheringPermissionUtils#isDeviceOwner(int, String)}, used for mocks.
+     */
+    @VisibleForTesting
+    boolean isDeviceOwner(final int uid, final String callerPkg) {
+        return mTetheringPermissionsUtils.isDeviceOwner(uid, callerPkg);
+    }
+
+    /**
+     * Wrapper for {@link TetheringPermissionUtils#hasCarrierPrivileges(String)}, used for mocks.
+     */
+    @VisibleForTesting
+    boolean hasCarrierPrivileges(final String callerPkg) {
+        return mTetheringPermissionsUtils.hasCarrierPrivileges(callerPkg);
     }
 
     /**
