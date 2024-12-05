@@ -25,14 +25,19 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.ArrayMap;
+import android.util.ArraySet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.util.Set;
 
 public class MockTetheringService extends TetheringService {
     private final Tethering mTethering = mock(Tethering.class);
     private final ArrayMap<String, Integer> mMockedPermissions = new ArrayMap<>();
     private final ArrayMap<String, Integer> mMockedPackageUids = new ArrayMap<>();
+    private final Set<String> mMockedCarrierPrivilegesPackages = new ArraySet<>();
+    private final Set<String> mMockedDeviceOwnerPackages = new ArraySet<>();
     private int mMockCallingUid;
     private boolean mIsTetheringWithSoftApConfigEnabled = true;
 
@@ -78,6 +83,16 @@ public class MockTetheringService extends TetheringService {
     @Override
     boolean isTetheringWithSoftApConfigEnabled() {
         return mIsTetheringWithSoftApConfigEnabled;
+    }
+
+    @Override
+    boolean isDeviceOwner(final String callerPkg) {
+        return mMockedDeviceOwnerPackages.contains(callerPkg);
+    }
+
+    @Override
+    boolean hasCarrierPrivileges(final String callerPkg) {
+        return mMockedCarrierPrivilegesPackages.contains(callerPkg);
     }
 
     public Tethering getTethering() {
@@ -130,6 +145,34 @@ public class MockTetheringService extends TetheringService {
          */
         public void setIsTetheringWithSoftApConfigEnabled(boolean enabled) {
             mIsTetheringWithSoftApConfigEnabled = enabled;
+        }
+
+        /**
+         * Add a mocked carrier privileges package
+         */
+        public void addDeviceOwnerPackage(final String packageName) {
+            mMockedDeviceOwnerPackages.add(packageName);
+        }
+
+        /**
+         * Remove a mocked carrier privileges package
+         */
+        public void removeDeviceOwnerPackage(final String packageName) {
+            mMockedDeviceOwnerPackages.remove(packageName);
+        }
+
+        /**
+         * Add a mocked carrier privileges package
+         */
+        public void addCarrierPrivilegesPackage(final String packageName) {
+            mMockedCarrierPrivilegesPackages.add(packageName);
+        }
+
+        /**
+         * Remove a mocked carrier privileges package
+         */
+        public void removeCarrierPrivilegesPackage(final String packageName) {
+            mMockedCarrierPrivilegesPackages.remove(packageName);
         }
     }
 }
