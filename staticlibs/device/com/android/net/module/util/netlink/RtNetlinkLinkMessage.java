@@ -247,7 +247,6 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
         if (interfaceIndex == OsAccess.INVALID_INTERFACE_INDEX) {
             return null;
         }
-
         return RtNetlinkLinkMessage.build(
                 new StructNlMsgHdr(0, RTM_NEWLINK, NLM_F_REQUEST_ACK, sequenceNumber),
                 new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, interfaceIndex,
@@ -310,6 +309,68 @@ public class RtNetlinkLinkMessage extends NetlinkMessage {
                 new StructNlMsgHdr(0, RTM_GETLINK, NLM_F_REQUEST, sequenceNumber),
                 new StructIfinfoMsg((short) AF_UNSPEC, (short) 0, interfaceIndex, 0, 0),
                 DEFAULT_MTU, null, null);
+    }
+
+    /**
+     * Creates an {@link RtNetlinkLinkMessage} instance that can be used to set the flags of a
+     * network interface.
+     *
+     * @param interfaceName The name of the network interface to query.
+     * @param sequenceNumber The sequence number for the Netlink message.
+     * @param flags The values for the target flags.
+     * @param change The flags we want to change.
+     * @return An `RtNetlinkLinkMessage` instance representing the request to query the interface.
+     */
+    @Nullable
+    public static RtNetlinkLinkMessage createSetInterfaceFlagsMessage(@NonNull String interfaceName,
+            int sequenceNumber, int flags, int change) {
+        return createSetInterfaceFlagsMessage(
+                interfaceName, sequenceNumber, flags, change, new OsAccess());
+    }
+
+    @VisibleForTesting
+    @Nullable
+    protected static RtNetlinkLinkMessage createSetInterfaceFlagsMessage(
+            @NonNull String interfaceName, int sequenceNumber, int flags, int change,
+            @NonNull OsAccess osAccess) {
+        final int interfaceIndex = osAccess.if_nametoindex(interfaceName);
+        if (interfaceIndex == OsAccess.INVALID_INTERFACE_INDEX) {
+            return null;
+        }
+        return RtNetlinkLinkMessage.build(
+                new StructNlMsgHdr(/*payloadLen*/ 0, RTM_NEWLINK, NLM_F_REQUEST, sequenceNumber),
+                new StructIfinfoMsg((short) AF_UNSPEC, /*type*/ 0, interfaceIndex, flags, change),
+                DEFAULT_MTU, /*hardwareAddress*/ null, /*interfaceName*/ null);
+    }
+
+    /**
+     * Creates an {@link RtNetlinkLinkMessage} instance that can be used to get the flags of a
+     * network interface.
+     *
+     * @param interfaceName The name of the network interface to query.-+
+     * @param sequenceNumber The sequence number for the Netlink message.
+     * @return An `RtNetlinkLinkMessage` instance representing the request to query the interface.
+     */
+    @Nullable
+    public static RtNetlinkLinkMessage createGetInterfaceFlagsMessage(@NonNull String interfaceName,
+            int sequenceNumber) {
+        return createGetInterfaceFlagsMessage(interfaceName, sequenceNumber, new OsAccess());
+    }
+
+    @VisibleForTesting
+    @Nullable
+    protected static RtNetlinkLinkMessage createGetInterfaceFlagsMessage(
+            @NonNull String interfaceName, int sequenceNumber, @NonNull OsAccess osAccess) {
+        final int interfaceIndex = osAccess.if_nametoindex(interfaceName);
+        if (interfaceIndex == OsAccess.INVALID_INTERFACE_INDEX) {
+            return null;
+        }
+
+        return RtNetlinkLinkMessage.build(
+                new StructNlMsgHdr(/*payloadLen*/ 0, RTM_GETLINK, NLM_F_REQUEST, sequenceNumber),
+                new StructIfinfoMsg((short) AF_UNSPEC, /*type*/ 0,
+                        interfaceIndex, /*flags*/ 0, /*change*/ 0),
+                DEFAULT_MTU, /*hardwareAddress*/ null, /*interfaceName*/ null);
     }
 
     @Override
