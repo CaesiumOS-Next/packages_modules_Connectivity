@@ -469,4 +469,30 @@ public class NetlinkUtils {
             // Nothing we can do here
         }
     }
+
+    /**
+     * Sends a netlink request to set flags for given interface
+     *
+     * @param interfaceName The name of the network interface to query.
+     * @param flags power-of-two integer flags to set or unset. A flag to set should be passed as
+     *        is as a power-of-two value, and a flag to remove should be passed inversed as -1 with
+     *        a single bit down. For example: IFF_UP, ~IFF_BROADCAST...
+     * @return true if the request finished successfully, otherwise false.
+     */
+    public static boolean setInterfaceFlags(@NonNull String interfaceName, int... flags) {
+        final RtNetlinkLinkMessage ntMsg =
+                RtNetlinkLinkMessage.createSetFlagsMessage(interfaceName, /*seqNo*/ 0, flags);
+        if (ntMsg == null) {
+            Log.e(TAG, "Failed to create message to set interface flags");
+            return false;
+        }
+        final byte[] msg = ntMsg.pack(ByteOrder.nativeOrder());
+        try {
+            NetlinkUtils.sendOneShotKernelMessage(NETLINK_ROUTE, msg);
+            return true;
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to set flags for: " + interfaceName, e);
+            return false;
+        }
+    }
 }
