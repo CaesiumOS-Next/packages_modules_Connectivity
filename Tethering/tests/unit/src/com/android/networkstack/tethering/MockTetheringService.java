@@ -34,6 +34,7 @@ public class MockTetheringService extends TetheringService {
     private final ArrayMap<String, Integer> mMockedPermissions = new ArrayMap<>();
     private final ArrayMap<String, Integer> mMockedPackageUids = new ArrayMap<>();
     private int mMockCallingUid;
+    private boolean mIsTetheringWithSoftApConfigEnabled = true;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -72,6 +73,11 @@ public class MockTetheringService extends TetheringService {
     @Override
     int getBinderCallingUid() {
         return mMockCallingUid;
+    }
+
+    @Override
+    boolean isTetheringWithSoftApConfigEnabled() {
+        return mIsTetheringWithSoftApConfigEnabled;
     }
 
     public Tethering getTethering() {
@@ -117,6 +123,13 @@ public class MockTetheringService extends TetheringService {
          */
         public void setCallingUid(int uid) {
             mMockCallingUid = uid;
+        }
+
+        /**
+         * Mock TetheringService#isTetheringWithSoftApConfigEnabled().
+         */
+        public void setIsTetheringWithSoftApConfigEnabled(boolean enabled) {
+            mIsTetheringWithSoftApConfigEnabled = enabled;
         }
     }
 }
