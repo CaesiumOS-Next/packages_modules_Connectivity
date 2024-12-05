@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69a08fdf_4a3a1a30",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "656331a0_c5e29dfe",
+      "range": {
+        "startLine": 205,
+        "startChar": 38,
+        "endLine": 205,
+        "endChar": 39
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a707b815_5a2c3975",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-04T19:40:00Z",
       "side": 1,
       "message": "nit: Objects.requireNonNull(receiver);",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 13
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1af3ec0_98978c09",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a707b815_5a2c3975",
       "range": {
         "startLine": 207,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbe49a81_ed8bd40b",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a970133_0fd19565",
+      "range": {
+        "startLine": 210,
+        "startChar": 20,
+        "endLine": 210,
+        "endChar": 28
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83bb0487_899e5eb2",
@@ -87,6 +159,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26b76f78_915912ef",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83bb0487_899e5eb2",
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b63ba20_53f5cc6e",
@@ -100,6 +190,30 @@
       "writtenOn": "2024-12-04T19:40:00Z",
       "side": 1,
       "message": "should this implement IBinder.DeathRecipient?",
+      "range": {
+        "startLine": 6347,
+        "startChar": 36,
+        "endLine": 6347,
+        "endChar": 63
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "543fd220_6e8063e0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6347,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b63ba20_53f5cc6e",
       "range": {
         "startLine": 6347,
         "startChar": 36,
@@ -133,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04fd868e_6cff18f9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6394,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "263aff32_8d5c89c3",
+      "range": {
+        "startLine": 6394,
+        "startChar": 15,
+        "endLine": 6394,
+        "endChar": 26
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "497950a6_2022bb8f",
@@ -146,6 +284,30 @@
       "writtenOn": "2024-12-04T19:40:00Z",
       "side": 1,
       "message": "binder",
+      "range": {
+        "startLine": 6400,
+        "startChar": 20,
+        "endLine": 6400,
+        "endChar": 28
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3c6f188_e6f25749",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6400,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "497950a6_2022bb8f",
       "range": {
         "startLine": 6400,
         "startChar": 20,
@@ -179,6 +341,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21ea851e_0d8c1228",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6406,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91b45430_e7390f17",
+      "range": {
+        "startLine": 6406,
+        "startChar": 40,
+        "endLine": 6406,
+        "endChar": 41
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "093a4a42_1b403c90",
@@ -192,6 +378,30 @@
       "writtenOn": "2024-12-04T19:40:00Z",
       "side": 1,
       "message": "This is not thread-safe. Should this post on the handler instead?",
+      "range": {
+        "startLine": 6409,
+        "startChar": 36,
+        "endLine": 6409,
+        "endChar": 69
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ae76cb6_1cdb595f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6409,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "093a4a42_1b403c90",
       "range": {
         "startLine": 6409,
         "startChar": 36,
@@ -225,6 +435,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56a51bdb_7a656bb2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6413,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "This turned out to be a bit more complicated.",
+      "parentUuid": "36314221_e6ceef3a",
+      "range": {
+        "startLine": 6399,
+        "startChar": 16,
+        "endLine": 6413,
+        "endChar": 17
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b914a75b_83a44371",
@@ -238,6 +472,30 @@
       "writtenOn": "2024-12-04T19:40:00Z",
       "side": 1,
       "message": "I don\u0027t think this should be throwing. Can we prevent exceptions from escaping and just:\n\n`mHandler.post(() -\u003e setDelegateUid(uid, receiver));`\n\nI also think this should be a member of CaptivePortalImpl.",
+      "range": {
+        "startLine": 6417,
+        "startChar": 20,
+        "endLine": 6417,
+        "endChar": 47
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e93f3d8_4c785def",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6417,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b914a75b_83a44371",
       "range": {
         "startLine": 6417,
         "startChar": 20,
@@ -312,6 +570,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b4cf73e_0de705c8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6445,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d84f7552_9ed4ccf3",
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3089353_71cc8c86",
@@ -325,6 +601,30 @@
       "writtenOn": "2024-12-04T21:56:50Z",
       "side": 1,
       "message": "the success case doesn\u0027t seem to actually do anything",
+      "range": {
+        "startLine": 6447,
+        "startChar": 4,
+        "endLine": 6447,
+        "endChar": 9
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a0f48e3_06ca7098",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6447,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3089353_71cc8c86",
       "range": {
         "startLine": 6447,
         "startChar": 4,
@@ -383,6 +683,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "edcc944c_a772dd60",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "I now am wondering whether we should (also?) keep the delegateUid inside CaptivePortal. I was also on the fence about splitting the handleSetDelegateUid function into a remove and set counterpart.",
+      "parentUuid": "e0990932_1048aa17",
+      "range": {
+        "startLine": 582,
+        "startChar": 18,
+        "endLine": 582,
+        "endChar": 26
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbc49a21_fd5c0771",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f26bf00_a9a5a8d2",
+      "range": {
+        "startLine": 582,
+        "startChar": 52,
+        "endLine": 582,
+        "endChar": 79
+      },
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c6a334c_be422dcf",
         "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
         "patchSetId": 7
@@ -394,6 +742,24 @@
       "writtenOn": "2024-12-04T23:47:22Z",
       "side": 1,
       "message": "There can only ever be one, so this method should be removed.",
+      "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ed1a85a_e6da7b20",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-05T01:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c6a334c_be422dcf",
       "revId": "e85eb78e34108fe06e89445eebab34fc124459de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
