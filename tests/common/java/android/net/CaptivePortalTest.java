@@ -19,11 +19,13 @@ package android.net;
 import static org.junit.Assert.assertEquals;
 
 import android.os.Build;
+import android.os.IBinder;
 import android.os.RemoteException;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.internal.os.IResultReceiver;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
@@ -53,6 +55,10 @@ public class CaptivePortalTest {
         @Override
         public void appRequest(final int request) throws RemoteException {
             mCode = request;
+        }
+
+        @Override
+        public void setDelegateUid(int uid, IBinder binder, IResultReceiver receiver) {
         }
 
         // This is only @Override on R-
