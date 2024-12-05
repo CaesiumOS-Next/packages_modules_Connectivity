@@ -25,6 +25,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.transportNamesOf;
+import static android.system.OsConstants.EIO;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -32,6 +33,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.CaptivePortalData;
 import android.net.DscpPolicy;
+import android.net.ICaptivePortal;
 import android.net.IDnsResolver;
 import android.net.INetd;
 import android.net.INetworkAgent;
@@ -57,9 +59,11 @@ import android.net.TcpKeepalivePacketData;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.os.ServiceSpecificException;
 import android.os.SystemClock;
 import android.telephony.data.EpsBearerQosSessionAttributes;
 import android.telephony.data.NrQosSessionAttributes;
+import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
 import android.util.Pair;
@@ -574,6 +578,10 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     // For fast lookups. Indexes into mInactivityTimers by request ID.
     private final SparseArray<InactivityTimer> mInactivityTimerForRequest = new SparseArray<>();
 
+    // Map of delegated UIDs used to bypass the privacy setting such as VPN or private DNS and its
+    // captive portal app caller.
+    private final ArrayMap<ICaptivePortal, Integer> mCaptivePortalDelegateUids = new ArrayMap<>();
+
     // Inactivity expiry timer. Armed whenever mInactivityTimers is non-empty, regardless of
     // whether the network is inactive or not. Always set to the expiry of the mInactivityTimers
     // that expires last. When the timer fires, all inactivity state is cleared, and if the network
@@ -626,6 +634,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     private final Context mContext;
     private final Handler mHandler;
     private final QosCallbackTracker mQosCallbackTracker;
+    private final INetd mNetd;
 
     private final long mCreationTime;
 
@@ -655,6 +664,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
         mConnServiceDeps = deps;
         setScore(score); // uses members connService, networkCapabilities and networkAgentConfig
         clatd = new Nat464Xlat(this, netd, dnsResolver, deps);
+        mNetd = netd;
         mContext = context;
         mHandler = handler;
         this.factorySerialNumber = factorySerialNumber;
@@ -703,6 +713,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     public void disconnect() {
         try {
             networkAgent.onDisconnected();
+            mCaptivePortalDelegateUids.clear();
         } catch (RemoteException e) {
             Log.i(TAG, "Error disconnecting NetworkAgent", e);
             // Fall through: it's fine if the remote has died
@@ -894,6 +905,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     public void onNetworkDestroyed() {
         try {
             networkAgent.onNetworkDestroyed();
+            mCaptivePortalDelegateUids.clear();
         } catch (RemoteException e) {
             Log.e(TAG, "Error sending network destroyed event", e);
         }
@@ -1547,6 +1559,44 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
                 nc, hasAutomotiveFeature, deps, authenticator)) {
             nc.setAllowedUids(new ArraySet<>());
         }
+    }
+
+    private int allowBypassVpnOnNetwork(boolean allow, int uid, int netId) {
+        try {
+            mNetd.networkAllowBypassVpnOnNetwork(allow, uid, netId);
+            return 0;
+        } catch (RemoteException e) {
+            final String op = (allow) ? "allow" : "disallow";
+            Log.e(TAG, "networkAllowBypassVpnOnNetwork(" + op + ", " + uid + ", " + netId + ")", e);
+            return EIO;
+        } catch (ServiceSpecificException e) {
+            return e.errorCode;
+        }
+    }
+
+    /**
+     * Set the UID of the app that is allowed to perform network traffic for captive portal login.
+     *
+     * @param portal the captive portal app to delegate the UID
+     * @param uid the delegated UID of the captive portal app.
+     * @return Return 0 if set the UID successfully otherwise return errno.
+     */
+    public int setCaptivePortalDelegateUid(@NonNull final ICaptivePortal portal, int uid) {
+        mCaptivePortalDelegateUids.put(portal, uid);
+        return allowBypassVpnOnNetwork(true /* allow */, uid, network.netId);
+    }
+
+    /**
+     * Remove the UID of the app that is allowed to perform network traffic for captive portal
+     * login.
+     *
+     * @param portal the captive portal app to delegate the UID.
+     * @return Return 0 if remove the UID successfully or UID doesn't exist otherwise return errno.
+     */
+    public int removeCaptivePortalDelegateUid(@NonNull final ICaptivePortal portal, int uid) {
+        final Integer delegateUid = mCaptivePortalDelegateUids.remove(portal);
+        if (delegateUid == null) return 0;
+        return allowBypassVpnOnNetwork(false /* allow */, delegateUid, network.netId);
     }
 
     private static boolean areAllowedUidsAcceptableFromNetworkAgent(
