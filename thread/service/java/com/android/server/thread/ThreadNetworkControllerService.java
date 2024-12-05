@@ -365,6 +365,10 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         return mOtDaemon;
     }
 
+    private static boolean isSrpServerWaitingForBorderRoutingEnabled(Resources resources) {
+        return resources.getBoolean(R.string.config_thread_srp_server_wait_for_border_routing_enabled);
+    }
+
     @VisibleForTesting
     static MeshcopTxtAttributes getMeshcopTxtAttributes(Resources resources) {
         final String modelName = resources.getString(R.string.config_thread_model_name);
