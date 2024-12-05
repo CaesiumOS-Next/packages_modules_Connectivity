@@ -45,6 +45,54 @@
       },
       "revId": "76edf2ca47973c8889ea8361000bf9effc5ebc76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e3cc4ce_cc50de65",
+        "filename": "Tethering/common/TetheringLib/api/module-lib-current.txt",
+        "patchSetId": 31
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-05T00:49:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6f6e6b5_113f16da",
+      "range": {
+        "startLine": 56,
+        "startChar": 232,
+        "endLine": 56,
+        "endChar": 240
+      },
+      "revId": "76edf2ca47973c8889ea8361000bf9effc5ebc76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeb996ff_195ecba5",
+        "filename": "Tethering/common/TetheringLib/api/module-lib-current.txt",
+        "patchSetId": 31
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-05T00:49:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32944cd1_c193d85f",
+      "range": {
+        "startLine": 56,
+        "startChar": 135,
+        "endLine": 56,
+        "endChar": 152
+      },
+      "revId": "76edf2ca47973c8889ea8361000bf9effc5ebc76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
