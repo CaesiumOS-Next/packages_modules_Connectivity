@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc267c3a_a47af570",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-05T06:53:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "571cece5_08cc5a36",
+      "range": {
+        "startLine": 90,
+        "startChar": 33,
+        "endLine": 90,
+        "endChar": 34
+      },
+      "revId": "c3a5f8e85006603bd191888a744001ad859d0ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f581daa_75251083",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abaa87f1_f4256340",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 6434,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-05T06:53:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cf31581_d9a312fb",
+      "range": {
+        "startLine": 6434,
+        "startChar": 26,
+        "endLine": 6434,
+        "endChar": 33
+      },
+      "revId": "c3a5f8e85006603bd191888a744001ad859d0ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61a14a17_890b0f7e",
@@ -83,6 +131,30 @@
       "writtenOn": "2024-12-05T04:43:51Z",
       "side": 1,
       "message": "Per discussion: move the call to setVpnBypass to here?",
+      "range": {
+        "startLine": 1568,
+        "startChar": 4,
+        "endLine": 1568,
+        "endChar": 5
+      },
+      "revId": "c3a5f8e85006603bd191888a744001ad859d0ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4e5d936_794f04cf",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1568,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-05T06:53:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61a14a17_890b0f7e",
       "range": {
         "startLine": 1568,
         "startChar": 4,
