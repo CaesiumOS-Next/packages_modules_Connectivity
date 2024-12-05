@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebfd685a_0f874397",
+        "filename": "staticlibs/framework/com/android/net/module/util/CollectionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-05T06:32:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a5347b8_1fc21af5",
+      "revId": "80afde5e0ef4e897b49769f9bff000e5e2ccd078",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ee6beac_a4d4213e",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eedc88c9_57b6de23",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/CollectionUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-05T06:32:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ee6beac_a4d4213e",
+      "revId": "80afde5e0ef4e897b49769f9bff000e5e2ccd078",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44ee39ef_13f93f80",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-12-03T04:08:28Z",
       "side": 1,
       "message": "Nit: it would be cleaner having these in separate test cases (staying closer to http://go/unit-testing-practices#structure)",
+      "revId": "80afde5e0ef4e897b49769f9bff000e5e2ccd078",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "274179b8_fbd6691d",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/CollectionUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-05T06:32:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44ee39ef_13f93f80",
       "revId": "80afde5e0ef4e897b49769f9bff000e5e2ccd078",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
