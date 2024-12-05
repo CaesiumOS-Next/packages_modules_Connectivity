@@ -63,6 +63,7 @@ import android.net.TetheringManager;
 import android.net.TetheringManager.OnTetheringEntitlementResultListener;
 import android.net.TetheringManager.TetheringInterfaceRegexps;
 import android.net.TetheringManager.TetheringRequest;
+import android.net.connectivity.com.android.net.flags.Flags;
 import android.net.cts.util.CtsNetUtils;
 import android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import android.net.cts.util.CtsTetheringUtils;
@@ -458,8 +459,10 @@ public class TetheringManagerTest {
     }
 
     @Test
-    public void testEnableTetheringPermission() throws Exception {
+    public void testStartTetheringNoPermission() throws Exception {
         final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
+
+        // No permission
         mTM.startTethering(new TetheringRequest.Builder(TETHERING_WIFI).build(),
                 c -> c.run() /* executor */, startTetheringCallback);
         startTetheringCallback.expectTetheringFailed(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
@@ -470,6 +473,16 @@ public class TetheringManagerTest {
             startTetheringCallback.doNotExpectTetheringFailed(
                     TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
         });
+
+        // WRITE_SETTINGS not sufficient
+        if (Flags.tetheringWithSoftApConfig()) {
+            runAsShell(WRITE_SETTINGS, () -> {
+                mTM.startTethering(new TetheringRequest.Builder(TETHERING_WIFI).build(),
+                        c -> c.run() /* executor */, startTetheringCallback);
+                startTetheringCallback.expectTetheringFailed(
+                        TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            });
+        }
     }
 
     private class EntitlementResultListener implements OnTetheringEntitlementResultListener {
