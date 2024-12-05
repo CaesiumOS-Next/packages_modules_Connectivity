@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c87b9d90_86b45092",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-05T03:19:20Z",
+      "side": 1,
+      "message": "In the future, suggest instead:\n\n    expectThrows(UnsupportedOperationException.class, () -\u003e mTm.stopTethering(...));\n\nFor this CL it doesn\u0027t matter because we already have the implementation in aosp/2984278 , which will have to remove the check and test the correct behaviour.",
+      "range": {
+        "startLine": 454,
+        "startChar": 8,
+        "endLine": 454,
+        "endChar": 11
+      },
+      "revId": "5475f2dd74a0a8e8f797f72eafa8d866bb204ad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
