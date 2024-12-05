@@ -2085,7 +2085,7 @@ public class Tethering {
                 }
 
                 mRoutingCoordinator.maybeRemoveDeprecatedUpstreams();
-                mUpstreamNetworkMonitor.startObserveAllNetworks();
+                mUpstreamNetworkMonitor.startObserveUpstreamNetworks();
 
                 // TODO: De-duplicate with updateUpstreamWanted() below.
                 if (upstreamWanted()) {
