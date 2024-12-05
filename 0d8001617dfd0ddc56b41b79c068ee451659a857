@@ -16,6 +16,24 @@
       "message": "@jacqueli@google.com, we chatted with Lorenzo about this a couple weeks ago, reminv@ should be the reviewer. Lorenzo and Maze can go to CC",
       "revId": "0d8001617dfd0ddc56b41b79c068ee451659a857",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed288145_526530df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2024-12-05T21:52:28Z",
+      "side": 1,
+      "message": "Ack, updated",
+      "parentUuid": "662b89a7_a4de36fc",
+      "revId": "0d8001617dfd0ddc56b41b79c068ee451659a857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
