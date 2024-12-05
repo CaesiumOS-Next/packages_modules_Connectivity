@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "571cece5_08cc5a36",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-05T04:43:51Z",
+      "side": 1,
+      "message": "Let\u0027s make sure that it is clear how this is different from mBinder: this one is *not* parcelled and is only used in the client process.",
+      "range": {
+        "startLine": 90,
+        "startChar": 33,
+        "endLine": 90,
+        "endChar": 34
+      },
+      "revId": "c3a5f8e85006603bd191888a744001ad859d0ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f581daa_75251083",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 6403,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-05T04:43:51Z",
+      "side": 1,
+      "message": "Don\u0027t we need to pass in the OutcomeReceiver here, so that when this method terminates, it can call the callback?",
+      "range": {
+        "startLine": 6403,
+        "startChar": 49,
+        "endLine": 6403,
+        "endChar": 52
+      },
+      "revId": "c3a5f8e85006603bd191888a744001ad859d0ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cf31581_d9a312fb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 6434,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-05T04:43:51Z",
+      "side": 1,
+      "message": "If we have a handleSetDelegateUid method already, it might be better to put all the code there, instead of half of it there and half of it here.",
+      "range": {
+        "startLine": 6434,
+        "startChar": 26,
+        "endLine": 6434,
+        "endChar": 33
+      },
+      "revId": "c3a5f8e85006603bd191888a744001ad859d0ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61a14a17_890b0f7e",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1568,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-05T04:43:51Z",
+      "side": 1,
+      "message": "Per discussion: move the call to setVpnBypass to here?",
+      "range": {
+        "startLine": 1568,
+        "startChar": 4,
+        "endLine": 1568,
+        "endChar": 5
+      },
+      "revId": "c3a5f8e85006603bd191888a744001ad859d0ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
