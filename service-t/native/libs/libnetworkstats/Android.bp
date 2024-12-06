@@ -81,8 +81,11 @@ cc_test {
     static_libs: [
         "libbase",
         "libgmock",
+        "libjsoncpp",
         "libnetworkstats",
         "libperfetto_client_experimental",
+        "libprocessgroup",
+        "libprocessgroup_util",
         "libprotobuf-cpp-lite",
         "perfetto_trace_protos",
     ],
