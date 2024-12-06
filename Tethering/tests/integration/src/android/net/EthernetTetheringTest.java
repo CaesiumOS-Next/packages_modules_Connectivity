@@ -1208,7 +1208,7 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
         } finally {
             maybeStopTapPacketReader(downstreamReader);
             maybeCloseTestInterface(downstreamIface);
-            maybeUnregisterTetheringEventCallback(tetheringEventCallback);
+            stopVirtualTethering(tetheringEventCallback);
         }
     }
 }
