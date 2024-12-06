@@ -18,8 +18,8 @@ package android.net;
 
 import static android.Manifest.permission.DUMP;
 import static android.net.InetAddresses.parseNumericAddress;
-import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
+import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringManager.TETHERING_VIRTUAL;
 import static android.net.TetheringTester.TestDnsPacket;
