@@ -21,6 +21,7 @@ import static android.net.NetworkRequest.Type.BACKGROUND_REQUEST;
 import static android.net.NetworkRequest.Type.LISTEN;
 import static android.net.NetworkRequest.Type.LISTEN_FOR_BEST;
 import static android.net.NetworkRequest.Type.REQUEST;
+import static android.net.NetworkRequest.Type.RESERVATION;
 import static android.net.NetworkRequest.Type.TRACK_DEFAULT;
 import static android.net.NetworkRequest.Type.TRACK_SYSTEM_DEFAULT;
 import static android.net.QosCallback.QosCallbackRegistrationException;
@@ -5005,6 +5006,41 @@ public class ConnectivityManager {
         CallbackHandler cbHandler = new CallbackHandler(handler);
         NetworkCapabilities nc = request.networkCapabilities;
         sendRequestForNetwork(nc, networkCallback, 0, REQUEST, TYPE_NONE, cbHandler);
+    }
+
+    /**
+     * Reserve a network to satisfy a set of {@link NetworkCapabilities}.
+     *
+     * Some types of networks require the system to generate (i.e. reserve) some set of information
+     * before a network can be connected. For such networks, {@link #reserveNetwork} can be used
+     * which may lead to a call to {@link NetworkCallback#onReserved(NetworkCapabilities)}
+     * containing the {@link NetworkCapabilities} that were reserved.
+     *
+     * A reservation reserves at most one network. If the network connects, a reservation request
+     * behaves similar to a request filed using {@link #requestNetwork}. The provided {@link
+     * NetworkCallback} will only be called for the reserved network.
+     *
+     * Once the network becomes available, the reservation behaves the same as a regular request
+     * filed via {@link #requestNetwork}.
+     *
+     * If the system determines that the requested reservation can never be fulfilled, {@link
+     * NetworkCallback#onUnvailable} is called, the reservation is released by the system, and the
+     * provided callback can be reused. Otherwise, the reservation remains in place until the
+     * requested network connects. There is no guarantee that the reserved network will ever
+     * connect.
+     *
+     * @param request {@link NetworkRequest} describing this request.
+     * @param handler {@link Handler} to specify the thread upon which the callback will be invoked.
+     * @param networkCallback The {@link NetworkCallback} to be utilized for this request. Note
+     *                        the callback must not be shared - it uniquely specifies this request.
+     */
+    @FlaggedApi(Flags.FLAG_IPV6_OVER_BLE)
+    public void reserveNetwork(@NonNull NetworkRequest request,
+            @NonNull Handler handler,
+            @NonNull NetworkCallback networkCallback) {
+        final CallbackHandler cbHandler = new CallbackHandler(handler);
+        final NetworkCapabilities nc = request.networkCapabilities;
+        sendRequestForNetwork(nc, networkCallback, 0, RESERVATION, TYPE_NONE, cbHandler);
     }
 
     /**
