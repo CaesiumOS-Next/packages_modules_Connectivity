@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e76367c9_d4635625",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-06T04:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ede70357_be0be99b",
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7f0c315_c5eb59e0",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa76cb3d_478147be",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-06T04:07:28Z",
+      "side": 1,
+      "message": "Removed the argument, this may make the dump file a bit big but I guess that\u0027s only in case of failures",
+      "parentUuid": "b7f0c315_c5eb59e0",
+      "range": {
+        "startLine": 94,
+        "startChar": 21,
+        "endLine": 94,
+        "endChar": 44
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d94ded07_65d13840",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-11-25T03:48:34Z",
       "side": 1,
       "message": "Can we call it DumpThread? Its not necessary only reader?",
+      "range": {
+        "startLine": 103,
+        "startChar": 18,
+        "endLine": 103,
+        "endChar": 30
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d245641_bb407231",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-06T04:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d94ded07_65d13840",
       "range": {
         "startLine": 103,
         "startChar": 18,
@@ -111,6 +177,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99d82b44_4a1e8aff",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-06T04:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54d387cf_b39bc857",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 63
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a827855d_0a736891",
@@ -124,6 +214,30 @@
       "writtenOn": "2024-11-25T03:48:34Z",
       "side": 1,
       "message": "Is \u0027fail\u0027 the right thing to do?",
+      "range": {
+        "startLine": 227,
+        "startChar": 12,
+        "endLine": 227,
+        "endChar": 16
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fc5f535_7fd50a0f",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-06T04:07:28Z",
+      "side": 1,
+      "message": "Changed to Log.e",
+      "parentUuid": "a827855d_0a736891",
       "range": {
         "startLine": 227,
         "startChar": 12,
@@ -157,6 +271,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e0887be_cd74400a",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-06T04:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e7ae04b_29bd7f5e",
+      "range": {
+        "startLine": 239,
+        "startChar": 44,
+        "endLine": 239,
+        "endChar": 46
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "932e02ce_b7d4acd6",
@@ -170,6 +308,30 @@
       "writtenOn": "2024-11-25T03:48:34Z",
       "side": 1,
       "message": "Shall we use `kill -9` just for safe side?",
+      "range": {
+        "startLine": 252,
+        "startChar": 41,
+        "endLine": 252,
+        "endChar": 42
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f964c08_022cf459",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-06T04:07:28Z",
+      "side": 1,
+      "message": "I think that might cause the dump to be interrupted in the middle of packets or miss packets; added a comment.",
+      "parentUuid": "932e02ce_b7d4acd6",
       "range": {
         "startLine": 252,
         "startChar": 41,
@@ -203,6 +365,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ca1a2c4_30eecc17",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-06T04:07:28Z",
+      "side": 1,
+      "message": "Actually this should stop tcpdump even if there is no buffer output, because if it is running at this point, that\u0027s because the test is succeeding. Updated the comment to be clearer",
+      "parentUuid": "2d691266_3b401bd4",
+      "range": {
+        "startLine": 259,
+        "startChar": 8,
+        "endLine": 259,
+        "endChar": 24
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5679f154_dedc4dc2",
@@ -226,6 +412,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "917436f1_058575e6",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-06T04:07:28Z",
+      "side": 1,
+      "message": "Changed to `stopTcpdumpIfRunning`, this way it\u0027s clear that it ends up stopped either way",
+      "parentUuid": "5679f154_dedc4dc2",
+      "range": {
+        "startLine": 299,
+        "startChar": 12,
+        "endLine": 299,
+        "endChar": 28
+      },
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45bc6c9f_a3ba1164",
@@ -239,6 +449,24 @@
       "writtenOn": "2024-11-25T03:48:34Z",
       "side": 1,
       "message": "Is this line change expected?",
+      "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3233bec_0ea99609",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-06T04:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45bc6c9f_a3ba1164",
       "revId": "64665fd00ebca80e526c93f2ff8f305db0c2cbd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
