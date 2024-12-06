@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f858e6_1a9985ad",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-06T07:57:03Z",
+      "side": 1,
+      "message": "https://b.corp.google.com/issues/376792293#comment3",
+      "parentUuid": "d155f2ac_e4c09cd5",
+      "range": {
+        "startLine": 445,
+        "startChar": 38,
+        "endLine": 445,
+        "endChar": 52
+      },
+      "revId": "b4a92ff791f4ec7ff6640cc3cf01c26010f77325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e45a5ab7_80366d8f",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-31T05:44:34Z",
       "side": 1,
       "message": "As far as I can see, nothing checks this return value. So if a non-admin user calls this code, the API just silently fails with no callback. Shouldn\u0027t this code schedule a call to the receiver to notify it that entitlement has failed?",
+      "range": {
+        "startLine": 455,
+        "startChar": 16,
+        "endLine": 455,
+        "endChar": 28
+      },
+      "revId": "b4a92ff791f4ec7ff6640cc3cf01c26010f77325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fd865d1_55cfe93e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-06T07:57:03Z",
+      "side": 1,
+      "message": "fixed at aosp/3364270",
+      "parentUuid": "e45a5ab7_80366d8f",
       "range": {
         "startLine": 455,
         "startChar": 16,
