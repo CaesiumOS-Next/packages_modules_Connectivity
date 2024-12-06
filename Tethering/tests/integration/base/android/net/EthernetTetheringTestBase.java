@@ -24,6 +24,7 @@ import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
+import static android.net.TetheringManager.TETHERING_VIRTUAL;
 import static android.net.TetheringTester.buildTcpPacket;
 import static android.net.TetheringTester.buildUdpPacket;
 import static android.net.TetheringTester.buildUdpPackets;
@@ -214,6 +215,13 @@ public abstract class EthernetTetheringTestBase {
     protected void stopEthernetTethering(final MyTetheringEventCallback callback) {
         runAsShell(TETHER_PRIVILEGED, () -> {
             sTm.stopTethering(TETHERING_ETHERNET);
+            maybeUnregisterTetheringEventCallback(callback);
+        });
+    }
+
+    protected void stopVirtualTethering(final MyTetheringEventCallback callback) {
+        runAsShell(TETHER_PRIVILEGED, () -> {
+            sTm.stopTethering(TETHERING_VIRTUAL);
             maybeUnregisterTetheringEventCallback(callback);
         });
     }
