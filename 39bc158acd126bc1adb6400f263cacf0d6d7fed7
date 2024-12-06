@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcde6858_e1549f48",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2024-12-06T18:41:48Z",
+      "side": 1,
+      "message": "Is it applicable on V or W ?",
+      "range": {
+        "startLine": 486,
+        "startChar": 22,
+        "endLine": 486,
+        "endChar": 32
+      },
+      "revId": "39bc158acd126bc1adb6400f263cacf0d6d7fed7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
