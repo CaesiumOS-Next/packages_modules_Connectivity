@@ -28,6 +28,7 @@ import android.annotation.SystemApi;
 import android.content.Context;
 import android.net.wifi.SoftApConfiguration;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.os.IBinder;
@@ -666,8 +667,10 @@ public class TetheringManager {
      * access will of course fail until an upstream network interface becomes
      * active.
      *
-     * @deprecated The only usages is PanService. It uses this for legacy reasons
-     * and will migrate away as soon as possible.
+     * @deprecated Legacy tethering API. Callers should instead use
+     *             {@link #startTethering(int, Executor, StartTetheringCallback)}.
+     *             On SDK versions after {@link Build.VERSION_CODES.VANILLA_ICE_CREAM}, this will
+     *             throw an UnsupportedOperationException.
      *
      * @param iface the interface name to tether.
      * @return error a {@code TETHER_ERROR} value indicating success or failure type
@@ -677,6 +680,11 @@ public class TetheringManager {
     @Deprecated
     @SystemApi(client = MODULE_LIBRARIES)
     public int tether(@NonNull final String iface) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            throw new UnsupportedOperationException("Not supported after SDK version "
+                    + Build.VERSION_CODES.VANILLA_ICE_CREAM);
+        }
+
         final String callerPkg = mContext.getOpPackageName();
         Log.i(TAG, "tether caller:" + callerPkg);
         final RequestDispatcher dispatcher = new RequestDispatcher();
@@ -700,14 +708,21 @@ public class TetheringManager {
     /**
      * Stop tethering the named interface.
      *
-     * @deprecated The only usages is PanService. It uses this for legacy reasons
-     * and will migrate away as soon as possible.
+     * @deprecated Legacy tethering API. Callers should instead use
+     *             {@link #stopTethering(int)}.
+     *             On SDK versions after {@link Build.VERSION_CODES.VANILLA_ICE_CREAM}, this will
+     *             throw an UnsupportedOperationException.
      *
      * {@hide}
      */
     @Deprecated
     @SystemApi(client = MODULE_LIBRARIES)
     public int untether(@NonNull final String iface) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            throw new UnsupportedOperationException("Not supported after SDK version "
+                    + Build.VERSION_CODES.VANILLA_ICE_CREAM);
+        }
+
         final String callerPkg = mContext.getOpPackageName();
         Log.i(TAG, "untether caller:" + callerPkg);
 
