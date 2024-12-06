@@ -45,6 +45,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
@@ -607,5 +608,12 @@ public class TetheringManagerTest {
                 mCtsNetUtils.connectToWifi();
             }
         }
+    }
+
+    @Test
+    public void testLegacyTetherApisThrowUnsupportedOperationExceptionForBaklava() {
+        assumeTrue(Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM);
+        assertThrows(UnsupportedOperationException.class, () -> mTM.tether("iface"));
+        assertThrows(UnsupportedOperationException.class, () -> mTM.untether("iface"));
     }
 }

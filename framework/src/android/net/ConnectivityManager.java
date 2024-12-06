@@ -3064,7 +3064,7 @@ public class ConnectivityManager {
      * <p>WARNING: New clients should not use this function. The only usages should be in PanService
      * and WifiStateMachine which need direct access. All other clients should use
      * {@link #startTethering} and {@link #stopTethering} which encapsulate proper provisioning
-     * logic.</p>
+     * logic. Starting in Baklava, this will throw an UnsupportedOperationException.</p>
      *
      * @param iface the interface name to tether.
      * @return error a {@code TETHER_ERROR} value indicating success or failure type
@@ -3075,6 +3075,9 @@ public class ConnectivityManager {
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
     @Deprecated
     public int tether(String iface) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            throw new UnsupportedOperationException("Not supported after Baklava");
+        }
         return getTetheringManager().tether(iface);
     }
 
