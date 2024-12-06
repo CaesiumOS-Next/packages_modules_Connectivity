@@ -22,6 +22,30 @@
       },
       "revId": "239d43e3205074d190c336d4b02986b437cc003c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da22f8c6_a123cdad",
+        "filename": "staticlibs/framework/com/android/net/module/util/LruCacheWithExpiry.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-06T08:02:01Z",
+      "side": 1,
+      "message": "Yes, there would be no point of returning the expired value but not updating the newest value into the cache.,",
+      "parentUuid": "fd0f24bd_8f4512fc",
+      "range": {
+        "startLine": 138,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 13
+      },
+      "revId": "239d43e3205074d190c336d4b02986b437cc003c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
