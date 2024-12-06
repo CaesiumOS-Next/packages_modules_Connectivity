@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd0f24bd_8f4512fc",
+        "filename": "staticlibs/framework/com/android/net/module/util/LruCacheWithExpiry.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-06T08:00:18Z",
+      "side": 1,
+      "message": "`get()` will clear the entry if the value has expired, so the key isn\u0027t truly absent. Are you sure this is the intended behavior?",
+      "range": {
+        "startLine": 138,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 13
+      },
+      "revId": "239d43e3205074d190c336d4b02986b437cc003c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
