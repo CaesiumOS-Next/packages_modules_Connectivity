@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a28cb51_34fdbda5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-06T08:29:43Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d391ee32_a4d05179",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-06T08:29:43Z",
+      "side": 1,
+      "message": "For consistency I would recommend also creating a `createGetFlagsMessage`. This will be useful for the integration tests of `createSetFlagsMessage`.",
+      "range": {
+        "startLine": 334,
+        "startChar": 42,
+        "endLine": 334,
+        "endChar": 63
+      },
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6d0b5d9_51f6b722",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-06T08:29:43Z",
+      "side": 1,
+      "message": "Could we try a OR combination of multiple flags ?",
+      "range": {
+        "startLine": 320,
+        "startChar": 47,
+        "endLine": 320,
+        "endChar": 70
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "de79a7cc_d8e1beac",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+              "range": {
+                "startLine": 309,
+                "startChar": 0,
+                "endLine": 310,
+                "endChar": 0
+              },
+              "replacement": "    public void testCreateSetFlagsMessage() {\n"
+            },
+            {
+              "path": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+              "range": {
+                "startLine": 326,
+                "startChar": 0,
+                "endLine": 326,
+                "endChar": 0
+              },
+              "replacement": "\n    @Test\n    public void testCreateSetFlagsMessage_OrFlags() {\n        final String expectedHexBytes \u003d\n                \"20000000100001006824000000000000\"    // struct nlmsghdr\n                        + \"00000000080000000100000001000000\"; // struct ifinfomsg\n        final String interfaceName \u003d \"wlan0\";\n        final int interfaceIndex \u003d 8;\n        final int sequenceNumber \u003d 0x2468;\n\n        when(mOsAccess.if_nametoindex(interfaceName)).thenReturn(interfaceIndex);\n\n        final RtNetlinkLinkMessage msg \u003d RtNetlinkLinkMessage.createSetFlagsMessage(\n                interfaceName, sequenceNumber, NetlinkConstants.IFF_UP | NetlinkConstants.IFF_BROADCAST,\n                NetlinkConstants.IFF_UP | NetlinkConstants.IFF_BROADCAST, mOsAccess);\n        assertNotNull(msg);\n        final byte[] bytes \u003d msg.pack(ByteOrder.LITTLE_ENDIAN);  // For testing.\n        assertEquals(expectedHexBytes, HexDump.toHexString(bytes));\n    }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
