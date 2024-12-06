@@ -232,7 +232,10 @@ public class TetheringManager {
      */
     public static final int MAX_TETHERING_TYPE = TETHERING_VIRTUAL;
 
-    private static String typeToString(@TetheringType int type) {
+    /**
+     * @hide
+     */
+    public static String typeToString(@TetheringType int type) {
         switch (type) {
             case TETHERING_INVALID: return "TETHERING_INVALID";
             case TETHERING_WIFI: return "TETHERING_WIFI";
@@ -781,7 +784,10 @@ public class TetheringManager {
     })
     public @interface ConnectivityScope {}
 
-    private static String connectivityScopeToString(@ConnectivityScope int scope) {
+    /**
+     * @hide
+     */
+    public static String connectivityScopeToString(@ConnectivityScope int scope) {
         switch (scope) {
             case CONNECTIVITY_SCOPE_GLOBAL:
                 return "CONNECTIVITY_SCOPE_GLOBAL";

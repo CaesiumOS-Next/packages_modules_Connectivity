@@ -98,6 +98,7 @@ import android.net.TetheredClient;
 import android.net.TetheringCallbackStartedParcel;
 import android.net.TetheringConfigurationParcel;
 import android.net.TetheringInterface;
+import android.net.TetheringManager;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.Uri;
 import android.net.ip.IpServer;
@@ -613,6 +614,11 @@ public class Tethering {
     // This method needs to exist because TETHERING_BLUETOOTH before Android T and TETHERING_WIGIG
     // can't use enableIpServing.
     private void processInterfaceStateChange(final String iface, boolean enabled) {
+        if (isTetheringWithSoftApConfigEnabled()) {
+            // Not supported after Baklava. For Baklava and above, expect all tethering to go
+            // through enableIpServer which creates the IpServer and enables it immediately.
+            return;
+        }
         // Do not listen to USB interface state changes or USB interface add/removes. USB tethering
         // is driven only by USB_ACTION broadcasts.
         final int type = ifaceNameToType(iface);
@@ -1029,7 +1035,7 @@ public class Tethering {
         return TETHER_ERROR_NO_ERROR;
     }
 
-    @NonNull
+    @Nullable
     private TetheringRequest findPendingTetheringRequest(int type) {
         return findPendingTetheringRequest(type, CONNECTIVITY_SCOPE_ANY);
     }
@@ -1038,7 +1044,7 @@ public class Tethering {
      * Finds the pending TetheringRequest for a recent link layer event, or synthesizes one if none
      * were specified.
      */
-    @NonNull
+    @Nullable
     private TetheringRequest findPendingTetheringRequest(int type, int connectivityScope) {
         // Find the tethering request matching the pending request
         for (TetheringRequest pendingRequest : mPendingTetheringRequests) {
@@ -1048,6 +1054,22 @@ public class Tethering {
                 continue;
             }
             return pendingRequest;
+        }
+
+        final boolean isLocalOnlyHotspot = type == TETHERING_WIFI
+                && connectivityScope == CONNECTIVITY_SCOPE_LOCAL;
+        if (isTetheringWithSoftApConfigEnabled()
+                && !isLocalOnlyHotspot
+                && type != TETHERING_WIFI_P2P) {
+            // If TETHERING_WITH_SOFT_AP_CONFIG is enabled, then we should expect all tethering
+            // to go through startTethering() and thus have a TetheringRequest either pending or
+            // serving. If not, then this must be a legacy flow, so return null to ignore.
+            // TODO: Wifi Local-Only Hotspot and P2P currently rely on this legacy flow, so add an
+            //       exception for these until they also go through startTethering().
+            Log.e(TAG, "Couldn't find pending tethering request with type="
+                    + TetheringManager.typeToString(type) + " connectivityScope="
+                    + TetheringManager.connectivityScopeToString(connectivityScope));
+            return null;
         }
 
         // No pending request found, synthesize a TetheringRequest. This only happens for legacy
@@ -1060,11 +1082,19 @@ public class Tethering {
     }
 
     void tether(String iface, int requestedState, final IIntResultListener listener) {
+        if (isTetheringWithSoftApConfigEnabled()) {
+            throw new UnsupportedOperationException("tether without TetheringRequest not supported"
+                    + " after Baklava!");
+        }
         mHandler.post(() -> {
             try {
                 TetheringRequest request = findPendingTetheringRequest(ifaceNameToType(iface),
                         requestedState == IpServer.STATE_TETHERED ? CONNECTIVITY_SCOPE_GLOBAL
                                 : CONNECTIVITY_SCOPE_LOCAL);
+                if (request == null) {
+                    listener.onResult(TETHER_ERROR_INTERNAL_ERROR);
+                    return;
+                }
                 listener.onResult(tether(request, iface));
             } catch (RemoteException e) { }
         });
@@ -1100,6 +1130,10 @@ public class Tethering {
     }
 
     void untether(String iface, final IIntResultListener listener) {
+        if (isTetheringWithSoftApConfigEnabled()) {
+            throw new UnsupportedOperationException("untether without TetheringRequest not"
+                    + " supported after Baklava!");
+        }
         mHandler.post(() -> {
             try {
                 listener.onResult(untether(iface));
@@ -1509,11 +1543,15 @@ public class Tethering {
         }
     }
 
-    private void enableIpServing(@NonNull TetheringRequest request, String ifname) {
+    private void enableIpServing(@Nullable TetheringRequest request, String ifname) {
         enableIpServing(request, ifname, false /* isNcm */);
     }
 
-    private void enableIpServing(@NonNull TetheringRequest request, String ifname, boolean isNcm) {
+    private void enableIpServing(@Nullable TetheringRequest request, String ifname, boolean isNcm) {
+        if (request == null) {
+            Log.e(TAG, "Tried to enable tethering on " + ifname + " with null TetheringRequest!");
+            return;
+        }
         ensureIpServerStarted(ifname, request.getTetheringType(), isNcm);
         if (tether(request, ifname) != TETHER_ERROR_NO_ERROR) {
             Log.e(TAG, "unable start tethering on iface " + ifname);
@@ -1521,6 +1559,11 @@ public class Tethering {
     }
 
     private void disableWifiIpServingCommon(int tetheringType, String ifname) {
+        if (isTetheringWithSoftApConfigEnabled()) {
+            ensureIpServerStopped(ifname);
+            return;
+        }
+
         if (!TextUtils.isEmpty(ifname) && mTetherStates.containsKey(ifname)) {
             mTetherStates.get(ifname).ipServer.unwanted();
             mServingTetheringRequests.remove(ifname);
