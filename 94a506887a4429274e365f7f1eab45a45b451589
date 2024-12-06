@@ -228,6 +228,30 @@
       },
       "revId": "94a506887a4429274e365f7f1eab45a45b451589",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "521d07ce_54d3a523",
+        "filename": "framework-t/src/android/net/TrafficStats.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-06T06:54:48Z",
+      "side": 1,
+      "message": "Done \nalso aosp/3394006 added.",
+      "parentUuid": "b6574846_d865e907",
+      "range": {
+        "startLine": 1165,
+        "startChar": 51,
+        "endLine": 1167,
+        "endChar": 38
+      },
+      "revId": "94a506887a4429274e365f7f1eab45a45b451589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
