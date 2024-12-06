@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bcc6d71_46270eef",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1562,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-06T16:29:06Z",
+      "side": 1,
+      "message": "(Not saying that\u0027s wrong necessarily) but the reservation I had was that NetworkAgentInfo is (was?) effectively a POD struct before this change. That being said, the alternative of putting this in CS just increases the size of CS even more. Something to keep thinking about I guess.",
+      "parentUuid": "949ab2b4_7a6ed864",
+      "range": {
+        "startLine": 1562,
+        "startChar": 47,
+        "endLine": 1562,
+        "endChar": 72
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f111a11b_08d42cdf",
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "delegateUid is mapping to ICaptivePortal, not sure if the case where one ICaptivePortal has multiple delegate UIDs (except -1), e.g. startCaptivePortalAppInternal always creates a new ICaptivePortal object.",
       "parentUuid": "e2ec6141_574574e2",
+      "range": {
+        "startLine": 1600,
+        "startChar": 45,
+        "endLine": 1600,
+        "endChar": 50
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c4a7985_edec27aa",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-06T16:29:06Z",
+      "side": 1,
+      "message": "Chrome will always have the same UID. So imagine ICaptivePortal@1 having the same delegateUid\u003d1234 as ICaptivePortal@2. The first thing that will happen is that allowBypassVpnOnNetwork will be called twice. Secondly, when the first delegateUid goes away, it will clean up 1234 on the captive portal network, even though ICaptivePortal@2 still exists.\n\nI think mCaptivePortalDelegateUids needs to be some sort of Map\u003cPair\u003cuid, netId\u003e, Integer\u003e where Integer is the refcount. For this to work, CaptivePortalImpl must store it\u0027s reservation in a member. Or you have a second refcount map in here (the first option sounds better).",
+      "parentUuid": "c6dd86ff_6c7d6223",
       "range": {
         "startLine": 1600,
         "startChar": 45,
