@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bf7d61d_ca1207de",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 6389,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-06T01:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89464049_91b113d1",
+      "range": {
+        "startLine": 6389,
+        "startChar": 51,
+        "endLine": 6389,
+        "endChar": 58
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9225377_6bd9152b",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "949ab2b4_7a6ed864",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1562,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-06T01:57:09Z",
+      "side": 1,
+      "message": "making netd a member of nai looks more reasonable, right, it\u0027s already passed into the constructor. Probably mNetd could be used for other purpose in the future.",
+      "parentUuid": "f9225377_6bd9152b",
+      "range": {
+        "startLine": 1562,
+        "startChar": 47,
+        "endLine": 1562,
+        "endChar": 72
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f111a11b_08d42cdf",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-12-05T15:33:48Z",
       "side": 1,
       "message": "this should be network.netId",
+      "range": {
+        "startLine": 1586,
+        "startChar": 68,
+        "endLine": 1586,
+        "endChar": 73
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9325f5dd_35168300",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1586,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-06T01:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f111a11b_08d42cdf",
       "range": {
         "startLine": 1586,
         "startChar": 68,
@@ -111,6 +183,54 @@
         "startChar": 77,
         "endLine": 1600,
         "endChar": 82
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88a00a75_d248cc75",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-06T01:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d984d42e_9736785a",
+      "range": {
+        "startLine": 1600,
+        "startChar": 77,
+        "endLine": 1600,
+        "endChar": 82
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6dd86ff_6c7d6223",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-06T01:57:09Z",
+      "side": 1,
+      "message": "delegateUid is mapping to ICaptivePortal, not sure if the case where one ICaptivePortal has multiple delegate UIDs (except -1), e.g. startCaptivePortalAppInternal always creates a new ICaptivePortal object.",
+      "parentUuid": "e2ec6141_574574e2",
+      "range": {
+        "startLine": 1600,
+        "startChar": 45,
+        "endLine": 1600,
+        "endChar": 50
       },
       "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
