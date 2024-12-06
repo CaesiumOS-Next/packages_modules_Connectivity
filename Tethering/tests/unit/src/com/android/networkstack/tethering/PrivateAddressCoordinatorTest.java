@@ -78,6 +78,7 @@ public final class PrivateAddressCoordinatorTest {
     @Mock private IpServer mUsbIpServer;
     @Mock private IpServer mEthernetIpServer;
     @Mock private IpServer mWifiP2pIpServer;
+    @Mock private IpServer mWifiP2pIpServer2;
     @Mock private Context mContext;
     @Mock private ConnectivityManager mConnectivityMgr;
     @Mock private PrivateAddressCoordinator.Dependencies mDeps;
@@ -120,6 +121,7 @@ public final class PrivateAddressCoordinatorTest {
         setUpIpServer(mHotspotIpServer, TETHERING_WIFI);
         setUpIpServer(mLocalHotspotIpServer, TETHERING_WIFI);
         setUpIpServer(mWifiP2pIpServer, TETHERING_WIFI_P2P);
+        setUpIpServer(mWifiP2pIpServer2, TETHERING_WIFI_P2P);
     }
 
     @Before
@@ -209,6 +211,32 @@ public final class PrivateAddressCoordinatorTest {
         assertNotEquals(asIpPrefix(mBluetoothAddress), etherPrefix);
         assertNotEquals(hotspotPrefix, etherPrefix);
         releaseDownstream(mEthernetIpServer);
+    }
+
+    @Test
+    public void testMultipleRequestWithSameType() throws Exception {
+        //check for the reserved IP address for the P2P
+        final LinkAddress address = requestStickyDownstreamAddress(mWifiP2pIpServer, CONNECTIVITY_SCOPE_LOCAL);
+        assertEquals(mLegacyWifiP2pAddress, address);
+        releaseDownstream(mWifiP2pIpServer);
+
+        //check if the same cached  IP is generated for new P2P request
+        final LinkAddress address2 = requestStickyDownstreamAddress(mWifiP2pIpServer, CONNECTIVITY_SCOPE_LOCAL);
+        assertEquals(mLegacyWifiP2pAddress, address2);
+        //check if the IP is dynamically generated for the second P2P request
+        final LinkAddress address3 = requestStickyDownstreamAddress(mWifiP2pIpServer2,CONNECTIVITY_SCOPE_LOCAL);
+        assertNotEquals(mLegacyWifiP2pAddress, address3);
+        releaseDownstream(mWifiP2pIpServer);
+        releaseDownstream(mWifiP2pIpServer2);
+
+        //start again to check the reserved address is coming back
+        final LinkAddress address4 = requestStickyDownstreamAddress(mWifiP2pIpServer2,CONNECTIVITY_SCOPE_LOCAL);
+        assertEquals(mLegacyWifiP2pAddress, address4);
+        final LinkAddress address5 = requestStickyDownstreamAddress(mWifiP2pIpServer,CONNECTIVITY_SCOPE_LOCAL);
+        assertNotEquals(address4, address5);
+
+        releaseDownstream(mWifiP2pIpServer);
+        releaseDownstream(mWifiP2pIpServer2);
     }
 
     @Test
