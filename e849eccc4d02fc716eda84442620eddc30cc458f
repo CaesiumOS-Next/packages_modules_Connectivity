@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24064b0b_0fe23981",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-07T03:17:15Z",
+      "side": 1,
+      "message": "BTW we ll want to migrate that as well too.",
+      "range": {
+        "startLine": 594,
+        "startChar": 11,
+        "endLine": 596,
+        "endChar": 70
+      },
+      "revId": "e849eccc4d02fc716eda84442620eddc30cc458f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e654390c_3a494002",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-07T03:17:15Z",
+      "side": 1,
+      "message": "swap args ? The order for `NetlinkUtils.setInterfaceFlags`/`createSetFlagsMessage`/`StructIfinfoMsg` is flag first then change.",
+      "range": {
+        "startLine": 1004,
+        "startChar": 16,
+        "endLine": 1004,
+        "endChar": 73
+      },
+      "revId": "e849eccc4d02fc716eda84442620eddc30cc458f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
