@@ -43,6 +43,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "11b9d287_8e89edb2",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-07T03:19:20Z",
+      "side": 1,
+      "message": "Is this value correct ? I don\u0027t know myself but I would have expected `RTM_SETLINK` instead.",
+      "range": {
+        "startLine": 342,
+        "startChar": 53,
+        "endLine": 342,
+        "endChar": 64
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a83c103f_c35a7767",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 25,
+                "startChar": 0,
+                "endLine": 25,
+                "endChar": 0
+              },
+              "replacement": "import static com.android.net.module.util.netlink.NetlinkConstants.RTM_SETLINK;\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 342,
+                "startChar": 0,
+                "endLine": 343,
+                "endChar": 0
+              },
+              "replacement": "                new StructNlMsgHdr(/*payloadLen*/ 0, RTM_SETLINK, NLM_F_REQUEST, sequenceNumber),\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce32dc25_6238c0e3",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-07T03:19:20Z",
+      "side": 1,
+      "message": "Another thing where I am not sure how the kernel behaves: do we need to make sure that `change` has no bits set outside of the bitmast of `flags` ?",
+      "range": {
+        "startLine": 343,
+        "startChar": 83,
+        "endLine": 343,
+        "endChar": 96
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f96a2f35_3ca14563",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+              "range": {
+                "startLine": 341,
+                "startChar": 0,
+                "endLine": 341,
+                "endChar": 0
+              },
+              "replacement": "        if ((flags \u0026 ~change) !\u003d 0) {\n            return null;\n        }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6d0b5d9_51f6b722",
         "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
         "patchSetId": 8
