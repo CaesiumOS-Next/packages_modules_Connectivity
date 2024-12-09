@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0a4ae46_7fc228cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-09T09:43:34Z",
+      "side": 1,
+      "message": "Looks like no callers in NetworkStack or Connectivity module checks the specific exception type, the IllegalArgumentException is better.",
+      "revId": "2c60124e10cce4d343f2adb1bc3447fcc8992a0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
