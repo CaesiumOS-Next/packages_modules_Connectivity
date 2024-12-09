@@ -16,6 +16,40 @@
       "message": "Previous review was done in ag/30203514",
       "revId": "4f1e5d2e46e49f017b1b47283dfcc282261d9583",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fba3f37_cd2853b5",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-09T01:39:39Z",
+      "side": 1,
+      "message": "As per http://b/268440216#comment4\n\nCombining compat configs later seems to be painful. It would be best to include it in the connectivity-compat-config from the start (there shouldn\u0027t really be a separate one for framework-b, since we\u0027re already using a single one for framework and framework-t).\n\nCould you conditionally add the sources to connectivity-compat-config, instead of conditionally adding a new compat config ?",
+      "revId": "4f1e5d2e46e49f017b1b47283dfcc282261d9583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5486227c_b04d621b",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-09T01:39:39Z",
+      "side": 1,
+      "message": "As we discussed, it seems there would be a problem including the current compat config into the module, as on older platforms the same change IDs would conflict\nSimilar to http://b/235355681#comment16, which was eventually fixed by https://r.android.com/2157803",
+      "revId": "4f1e5d2e46e49f017b1b47283dfcc282261d9583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
