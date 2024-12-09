@@ -21,6 +21,7 @@ import static android.net.NetworkRequest.Type.BACKGROUND_REQUEST;
 import static android.net.NetworkRequest.Type.LISTEN;
 import static android.net.NetworkRequest.Type.LISTEN_FOR_BEST;
 import static android.net.NetworkRequest.Type.REQUEST;
+import static android.net.NetworkRequest.Type.RESERVATION;
 import static android.net.NetworkRequest.Type.TRACK_DEFAULT;
 import static android.net.NetworkRequest.Type.TRACK_SYSTEM_DEFAULT;
 import static android.net.QosCallback.QosCallbackRegistrationException;
@@ -5005,6 +5006,34 @@ public class ConnectivityManager {
         CallbackHandler cbHandler = new CallbackHandler(handler);
         NetworkCapabilities nc = request.networkCapabilities;
         sendRequestForNetwork(nc, networkCallback, 0, REQUEST, TYPE_NONE, cbHandler);
+    }
+
+    /**
+     * Reserve a network to satisfy a set of {@link NetworkCapabilities}.
+     *
+     * Some types of networks require the connectivity stack to generate and share some set of
+     * information with the app before the network can be established.
+     *
+     * In order to request such a network, apps can call {@link #reserveNetwork} and expect a
+     * call to {@link NetworkCallback#onReserved(NetworkCapabilities)} containing the reserved
+     * information.
+     *
+     * Once the network becomes available, the reservation behaves the same as a regular request
+     * filed via {@link #requestNetwork}.
+     *
+     * @param request {@link NetworkRequest} describing this request.
+     * @param networkCallback The {@link NetworkCallback} to be utilized for this request. Note
+     *                        the callback must not be shared - it uniquely specifies this request.
+     * @param handler {@link Handler} to specify the thread upon which the callback will be invoked.
+     */
+    @SuppressLint("ListenerLast")
+    @FlaggedApi(Flags.FLAG_IPV6_OVER_BLE)
+    public void reserveNetwork(@NonNull NetworkRequest request,
+            @NonNull NetworkCallback networkCallback,
+            @SuppressLint("ListenerLast") @NonNull Handler handler) {
+        final CallbackHandler cbHandler = new CallbackHandler(handler);
+        final NetworkCapabilities nc = request.networkCapabilities;
+        sendRequestForNetwork(nc, networkCallback, 0, RESERVATION, TYPE_NONE, cbHandler);
     }
 
     /**
