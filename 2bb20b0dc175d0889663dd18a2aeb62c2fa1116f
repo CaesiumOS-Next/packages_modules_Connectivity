@@ -734,6 +734,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b3cdde_7bf0582d",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2024-12-09T08:00:49Z",
+      "side": 1,
+      "message": "no applicable with the refactoring",
+      "parentUuid": "d6652220_d72ae2b6",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 23
+      },
+      "revId": "2bb20b0dc175d0889663dd18a2aeb62c2fa1116f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d42b4a82_1490fa76",
