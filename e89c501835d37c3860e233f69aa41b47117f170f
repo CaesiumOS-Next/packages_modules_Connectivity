@@ -279,6 +279,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f53f8e52_14d0e4d0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-09T05:03:04Z",
+      "side": 1,
+      "message": "There is another way to write the interface which might be even less ambiguous and easier to use:\n\n```\n// @param flags array of power-of-two integer flags to set or unset. A flag to set\n// should be passed as is as a power-of-two value, and a flag to remove should be\n// passed inversed as -1 with a single bit down.\nsetInterfaceFlags(@NonNull String interfaceName, int[] flags)\n//or\n\nsetInterfaceFlags(@NonNull String interfaceName, int... flags)\n```\n\nThen we can do:\n```\nint flags \u003d 0\nint changes \u003d 0;\nfor (f in flags) {\n  if (Integer.bitCount(f) \u003d\u003d 1) {\n    flags |\u003d f;\n    change |\u003d f;\n  } else if (Integer.bitCount(~f) \u003d\u003d 1) {\n    change |\u003d ~f;\n  }\n}\n```\n\nThis avoid any redundancy like for instance:\n```\nsetInterfaceFlag(\"eth0\", IFF_UP, ~IFF_BROADCAST);\n```",
+      "parentUuid": "9392bda0_d6861d44",
+      "range": {
+        "startLine": 343,
+        "startChar": 83,
+        "endLine": 343,
+        "endChar": 96
+      },
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6d0b5d9_51f6b722",
         "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
         "patchSetId": 8
