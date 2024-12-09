@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "751c91ba_5329bc4e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-09T04:50:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8176cfaf_b288a7c6",
+      "range": {
+        "startLine": 594,
+        "startChar": 11,
+        "endLine": 596,
+        "endChar": 70
+      },
+      "revId": "e849eccc4d02fc716eda84442620eddc30cc458f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e654390c_3a494002",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "The order is exactly flags then change.\nThe `flags` field specifies the new desired state of the network interface flags (`up ? NetlinkConstants.IFF_UP : 0`) while `change` is the fields we want to modify.(`NetlinkConstants.IFF_UP`)\nThis also indicates that it might be better to use `add_flags` and `removes_flags` as we discussed in former patch to reduce confusion.",
       "parentUuid": "e654390c_3a494002",
+      "range": {
+        "startLine": 1004,
+        "startChar": 16,
+        "endLine": 1004,
+        "endChar": 73
+      },
+      "revId": "e849eccc4d02fc716eda84442620eddc30cc458f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14d77819_698aef84",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-09T04:50:39Z",
+      "side": 1,
+      "message": "\u003e The flags field specifies the new desired state of flags while change is the fields we want to modify.\n\nOk thanks for explaining this. My naive understanding based on the name was the opposite of that: I thought that \"flags means which flags we want to modify and \"change\" was the new values as a bitfield.\n\nSo I would definitely encourage switching to the alternative signature with \"added flags\" and \"removed flags\".",
+      "parentUuid": "331b6cab_824ccf3e",
       "range": {
         "startLine": 1004,
         "startChar": 16,
