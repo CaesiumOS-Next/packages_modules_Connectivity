@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6aad3797_8ccfed0a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-09T01:37:11Z",
+      "side": 1,
+      "message": "We already have a `createGetLinkMessage` that serves exactly the functionality.",
+      "parentUuid": "d391ee32_a4d05179",
+      "range": {
+        "startLine": 334,
+        "startChar": 42,
+        "endLine": 334,
+        "endChar": 63
+      },
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11b9d287_8e89edb2",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
         "patchSetId": 8
@@ -94,6 +118,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76152903_1f6d3b2f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-09T01:37:11Z",
+      "side": 1,
+      "message": "Looking at [Linux kernel code](https://github.com/spotify/linux/blob/master/net/core/rtnetlink.c#L1339) RTM_NEWLINK is used together with IFF_UP \nIn my understanding, `RTM_NEWLINK` is used for updating or configuring properties of an existing network interface. This includes changing its administrative state (e.g., bringing it up or down) by setting or clearing the IFF_UP flag, while RTM_SETLINK is used to emphasize that the operation modifies an existing link rather than creating a new one",
+      "parentUuid": "11b9d287_8e89edb2",
+      "range": {
+        "startLine": 342,
+        "startChar": 53,
+        "endLine": 342,
+        "endChar": 64
+      },
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce32dc25_6238c0e3",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
         "patchSetId": 8
@@ -129,6 +177,30 @@
           ]
         }
       ],
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ade85c16_f2f99cb0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-09T01:37:11Z",
+      "side": 1,
+      "message": "Yes we should we this, otherwise we may modify other flags unexpectedly. Probably we can set change inside the method and, something like:\n```\n    protected static RtNetlinkLinkMessage createSetFlagsMessage(\n            @NonNull String interfaceName, int sequenceNumber, int add_flags, int remove_flags\n            @NonNull OsAccess osAccess) {\n                int change \u003d 0;\n                for (flag in add_flags) { change |\u003d flag;}\n                for (flag in remove_flags) { change |\u003d ~flag;}\n            }\n```",
+      "parentUuid": "ce32dc25_6238c0e3",
+      "range": {
+        "startLine": 343,
+        "startChar": 83,
+        "endLine": 343,
+        "endChar": 96
+      },
       "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
