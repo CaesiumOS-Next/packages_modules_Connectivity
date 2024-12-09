@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cbb6f13_838df685",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-09T04:54:42Z",
+      "side": 1,
+      "message": "ok got it, I had missed that this was covered by this function.",
+      "parentUuid": "6aad3797_8ccfed0a",
+      "range": {
+        "startLine": 334,
+        "startChar": 42,
+        "endLine": 334,
+        "endChar": 63
+      },
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11b9d287_8e89edb2",
@@ -142,6 +166,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0dafe42b_e5674e82",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-09T04:54:42Z",
+      "side": 1,
+      "message": "Thanks for checking. I think this is worth a 1 line comment to explain why we use NEWLINK.",
+      "parentUuid": "76152903_1f6d3b2f",
+      "range": {
+        "startLine": 342,
+        "startChar": 53,
+        "endLine": 342,
+        "endChar": 64
+      },
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce32dc25_6238c0e3",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
         "patchSetId": 8
@@ -195,6 +243,30 @@
       "side": 1,
       "message": "Yes we should we this, otherwise we may modify other flags unexpectedly. Probably we can set change inside the method and, something like:\n```\n    protected static RtNetlinkLinkMessage createSetFlagsMessage(\n            @NonNull String interfaceName, int sequenceNumber, int add_flags, int remove_flags\n            @NonNull OsAccess osAccess) {\n                int change \u003d 0;\n                for (flag in add_flags) { change |\u003d flag;}\n                for (flag in remove_flags) { change |\u003d ~flag;}\n            }\n```",
       "parentUuid": "ce32dc25_6238c0e3",
+      "range": {
+        "startLine": 343,
+        "startChar": 83,
+        "endLine": 343,
+        "endChar": 96
+      },
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9392bda0_d6861d44",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-09T04:54:42Z",
+      "side": 1,
+      "message": "I like the signature `int add_flags, int remove_flags` better than `int flagBitmask, int changeBitfields`. This is imo much easier to use.\n\nIf we do that we need to decide which one takes precedence if a particular flag is set on both sides to be removed and added. In that case I would lean towards keeping the flag up.",
+      "parentUuid": "ade85c16_f2f99cb0",
       "range": {
         "startLine": 343,
         "startChar": 83,
