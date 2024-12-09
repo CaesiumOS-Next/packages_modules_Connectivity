@@ -50,6 +50,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca2f7ab4_b51d2bdd",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-09T06:27:59Z",
+      "side": 1,
+      "message": "Nit: do we need this? I don\u0027t think we clear many of the other data structures in NetworkAgentInfo.\n\nAlso, is it correct to clear the map without actually informing the lower layers in netd that these UIDs are no longer present?",
+      "range": {
+        "startLine": 714,
+        "startChar": 12,
+        "endLine": 714,
+        "endChar": 47
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "093363de_639f773e",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-09T06:27:59Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 906,
+        "startChar": 12,
+        "endLine": 906,
+        "endChar": 47
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9225377_6bd9152b",
         "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
         "patchSetId": 21
@@ -121,6 +167,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d05073e5_80621a49",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-09T06:27:59Z",
+      "side": 1,
+      "message": "There\u0027s no need to do this - if we get RemoteException from netd, then netd has crashed and the system is going to crash imminently. I think we can do something like:\n\n    } catch (RemoteException e) {\n        // Netd has crashed, and this process is about to crash as well.\n    }",
+      "range": {
+        "startLine": 1567,
+        "startChar": 17,
+        "endLine": 1570,
+        "endChar": 23
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f111a11b_08d42cdf",
         "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
         "patchSetId": 21
@@ -155,6 +224,30 @@
       "writtenOn": "2024-12-06T01:57:09Z",
       "side": 1,
       "message": "Done",
+      "parentUuid": "f111a11b_08d42cdf",
+      "range": {
+        "startLine": 1586,
+        "startChar": 68,
+        "endLine": 1586,
+        "endChar": 73
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1203661a_63808365",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1586,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-09T06:27:59Z",
+      "side": 1,
+      "message": "+1, the netId argument should be removed. A NetworkAgentInfo object *is* basically a network.",
       "parentUuid": "f111a11b_08d42cdf",
       "range": {
         "startLine": 1586,
@@ -274,6 +367,30 @@
       "side": 1,
       "message": "Chrome will always have the same UID. So imagine ICaptivePortal@1 having the same delegateUid\u003d1234 as ICaptivePortal@2. The first thing that will happen is that allowBypassVpnOnNetwork will be called twice. Secondly, when the first delegateUid goes away, it will clean up 1234 on the captive portal network, even though ICaptivePortal@2 still exists.\n\nI think mCaptivePortalDelegateUids needs to be some sort of Map\u003cPair\u003cuid, netId\u003e, Integer\u003e where Integer is the refcount. For this to work, CaptivePortalImpl must store it\u0027s reservation in a member. Or you have a second refcount map in here (the first option sounds better).",
       "parentUuid": "c6dd86ff_6c7d6223",
+      "range": {
+        "startLine": 1600,
+        "startChar": 45,
+        "endLine": 1600,
+        "endChar": 50
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5887e4be_3227f06d",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-09T06:27:59Z",
+      "side": 1,
+      "message": "+1, before telling netd that the UID is gone we should check that there is no other entry in mCaptivePortalDelegateUids whose value is uid.",
+      "parentUuid": "e2ec6141_574574e2",
       "range": {
         "startLine": 1600,
         "startChar": 45,

@@ -22,6 +22,30 @@
       },
       "revId": "7cfd68dc4a07fa0b88bf4cda9325b77e1ca912bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "129513bc_a2fc5c48",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 6471,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-09T06:27:59Z",
+      "side": 1,
+      "message": "Unless we think this really needs to be synchronous, I\u0027d rather do it on the handler thread anyway.\n\nAs for passing the IBinder - can\u0027t we just make mCaptivePortalDelegateUids have CaptiveportalImpl as the key, instead of ICaptivePortal? That will always be non-null, because it\u0027s captured in the lambda, and this code can just do:\n\n    handleSetDelegateUid(INVALID_UID, this);",
+      "parentUuid": "aa887a99_1ec27620",
+      "range": {
+        "startLine": 6471,
+        "startChar": 20,
+        "endLine": 6471,
+        "endChar": 34
+      },
+      "revId": "7cfd68dc4a07fa0b88bf4cda9325b77e1ca912bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
