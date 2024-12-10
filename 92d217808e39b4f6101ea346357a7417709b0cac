@@ -1,0 +1,103 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aceac0d_1b749f11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-10T14:17:48Z",
+      "side": 1,
+      "message": "LGTM but I would like to be sure if @prohr@google.com has any comment ?",
+      "revId": "92d217808e39b4f6101ea346357a7417709b0cac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ba01129_4fea8e3f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-10T14:17:48Z",
+      "side": 1,
+      "message": "This probably means that there was an invalid value in flags. It would be useful to print the content of the flags array here.",
+      "range": {
+        "startLine": 486,
+        "startChar": 23,
+        "endLine": 486,
+        "endChar": 72
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "fb113013_817a03a6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 486,
+                "startChar": 0,
+                "endLine": 487,
+                "endChar": 0
+              },
+              "replacement": "            Log.e(TAG, \"Failed to create message to set interface flags: \" + flags);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "92d217808e39b4f6101ea346357a7417709b0cac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64d5e3c3_72a32ee8",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-10T14:17:48Z",
+      "side": 1,
+      "message": "sorry for the nit: could we also test the overload that takes a `int...` arg of flags and inversed flags ?",
+      "range": {
+        "startLine": 319,
+        "startChar": 62,
+        "endLine": 319,
+        "endChar": 83
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9d7c19bb_12cff503",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+              "range": {
+                "startLine": 329,
+                "startChar": 0,
+                "endLine": 329,
+                "endChar": 0
+              },
+              "replacement": "\n    @Test\n    public void testCreateSetInterfaceFlagsMessage_intFlags() {\n        final String expectedHexBytes \u003d\n                \"20000000100001006824000000000000\"    // struct nlmsghdr\n                        + \"00000000080000000100010001000100\"; // struct ifinfomsg\n        final String interfaceName \u003d \"wlan0\";\n        final int interfaceIndex \u003d 8;\n        final int sequenceNumber \u003d 0x2468;\n\n        when(mOsAccess.if_nametoindex(interfaceName)).thenReturn(interfaceIndex);\n\n        final RtNetlinkLinkMessage msg \u003d RtNetlinkLinkMessage.createSetFlagsMessage(\n                interfaceName,\n                sequenceNumber,\n                NetlinkConstants.IFF_UP | NetlinkConstants.IFF_LOWER_UP,\n                NetlinkConstants.IFF_UP | NetlinkConstants.IFF_LOWER_UP,\n                mOsAccess);\n        assertNotNull(msg);\n        final byte[] bytes \u003d msg.pack(ByteOrder.LITTLE_ENDIAN);  // For testing.\n        assertEquals(expectedHexBytes, HexDump.toHexString(bytes));\n    }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "92d217808e39b4f6101ea346357a7417709b0cac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
