@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8a13706_d9008bf0",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-10T07:58:51Z",
+      "side": 1,
+      "message": "IIRC if the network is being destroyed anyway, there\u0027s no need to inform netd that the delegate UID has gone. I think networkAllowBypassVpnOnNetwork stores the information in the PhysicalNetwork object inside netd, and when the network is destroyed, that object is deleted.",
+      "parentUuid": "ca2f7ab4_b51d2bdd",
+      "range": {
+        "startLine": 714,
+        "startChar": 12,
+        "endLine": 714,
+        "endChar": 47
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "093363de_639f773e",
         "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
         "patchSetId": 21
@@ -391,6 +415,30 @@
       "side": 1,
       "message": "+1, before telling netd that the UID is gone we should check that there is no other entry in mCaptivePortalDelegateUids whose value is uid.",
       "parentUuid": "e2ec6141_574574e2",
+      "range": {
+        "startLine": 1600,
+        "startChar": 45,
+        "endLine": 1600,
+        "endChar": 50
+      },
+      "revId": "808109eddc76d05a6163779dbd6819c963a9360b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec275b0f_108f1806",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-10T07:58:51Z",
+      "side": 1,
+      "message": "Per discussion: we don\u0027t need a refcount here, because each time NetworkMonitor calls startCaptivePortalApp, ConnectivityService will create a new CaptivePortalImpl object. That CaptivePortalImpl object is already the key into the mCaptivePortalDelegateUids map.\n\nIf multiple captive portal apps each delegate one UID on a given network, that\u0027s fine: mCaptivePortalDelegateUids will contain one entry for each of these apps. Each entry will be cleared if the creating app (which is associated with one CaptivePortalImpl object) calls setDelegateUid(-1, ...) or if the associated death recipient (also one per CaptivePortalImpl object) fires.",
+      "parentUuid": "5887e4be_3227f06d",
       "range": {
         "startLine": 1600,
         "startChar": 45,
