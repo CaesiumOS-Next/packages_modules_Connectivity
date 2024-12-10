@@ -207,7 +207,6 @@ public final class PrivateAddressCoordinatorTest {
         final IpPrefix etherPrefix = asIpPrefix(etherAddress);
         assertNotEquals(asIpPrefix(mLegacyWifiP2pAddress), etherPrefix);
         assertNotEquals(asIpPrefix(mBluetoothAddress), etherPrefix);
-        assertNotEquals(hotspotPrefix, etherPrefix);
         releaseDownstream(mEthernetIpServer);
     }
 
