@@ -141,6 +141,30 @@
       },
       "revId": "e849eccc4d02fc716eda84442620eddc30cc458f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56972caa_f420638d",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-10T01:06:23Z",
+      "side": 1,
+      "message": "Changed to use `int... flags`",
+      "parentUuid": "14d77819_698aef84",
+      "range": {
+        "startLine": 1004,
+        "startChar": 16,
+        "endLine": 1004,
+        "endChar": 73
+      },
+      "revId": "e849eccc4d02fc716eda84442620eddc30cc458f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
