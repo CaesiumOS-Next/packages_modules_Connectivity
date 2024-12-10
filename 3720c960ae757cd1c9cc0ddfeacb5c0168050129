@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "026e803b_d01de0c8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 6348,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-10T12:47:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b761e489_a12e9a1b",
+      "range": {
+        "startLine": 6348,
+        "startChar": 96,
+        "endLine": 6348,
+        "endChar": 97
+      },
+      "revId": "3720c960ae757cd1c9cc0ddfeacb5c0168050129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99891ade_17c6a88b",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-10T07:58:51Z",
       "side": 1,
       "message": "Why do this? Can\u0027t we just leave the death recipient around for as long as the caller (CaptivePortalLogin) has not terminated? I think this code could just be:\n\n    if (mDelegateUidCaller \u003d\u003d null) {\n        mDelegateUidCaller \u003d callerBinder;\n        try {\n            mDelegateUidCaller.linkToDeath(this, 0);\n        } catch (RemoteException e) {\n            // remote has died, return early.\n            return ENOTCONN;  // Or whatever other error that is not used elsewhere.\n        }\n\n        final NetworkAgentInfo nai \u003d ...\n        ...\n    }",
+      "range": {
+        "startLine": 6392,
+        "startChar": 16,
+        "endLine": 6392,
+        "endChar": 58
+      },
+      "revId": "3720c960ae757cd1c9cc0ddfeacb5c0168050129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6094522a_d5a5cea6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 6392,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-10T12:47:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99891ade_17c6a88b",
       "range": {
         "startLine": 6392,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df1b2271_88915918",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 6402,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-10T12:47:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbe01690_4bdfbe27",
+      "range": {
+        "startLine": 6402,
+        "startChar": 27,
+        "endLine": 6402,
+        "endChar": 33
+      },
+      "revId": "3720c960ae757cd1c9cc0ddfeacb5c0168050129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0b0e745_b29282a1",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd1d25cf_52f8c79f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 6455,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-10T12:47:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0b0e745_b29282a1",
+      "range": {
+        "startLine": 6454,
+        "startChar": 0,
+        "endLine": 6455,
+        "endChar": 42
+      },
+      "revId": "3720c960ae757cd1c9cc0ddfeacb5c0168050129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a4f2781_24c64df7",
@@ -106,6 +202,54 @@
       "writtenOn": "2024-12-10T07:58:51Z",
       "side": 1,
       "message": "What happens if one caller call this method for a given network (say, 101) and then another caller also calls this method with the same network? Seems like:\n- The first one should add the permission\n- The second should silently succeed\n- The permission of the UID should be removed when both of the callers have removed the permission.\n\nBecause this map is going to be very small, you can probably achieve this by calling values(). But you could also add another SparseIntArray that maps the UID to the number of times it has been added, and maintain a refcount in that map. (Don\u0027t forget to change remove as well.)",
+      "range": {
+        "startLine": 1586,
+        "startChar": 15,
+        "endLine": 1586,
+        "endChar": 38
+      },
+      "revId": "3720c960ae757cd1c9cc0ddfeacb5c0168050129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c61447c0_a378ae68",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 1586,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-10T12:47:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a4f2781_24c64df7",
+      "range": {
+        "startLine": 1586,
+        "startChar": 15,
+        "endLine": 1586,
+        "endChar": 38
+      },
+      "revId": "3720c960ae757cd1c9cc0ddfeacb5c0168050129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05a0655e_bc459816",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 1586,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-10T12:47:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a4f2781_24c64df7",
       "range": {
         "startLine": 1586,
         "startChar": 15,
