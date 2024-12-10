@@ -142,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de36e5a7_06985066",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 6402,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-10T21:11:31Z",
+      "side": 1,
+      "message": "The code is irrelevant as the caller is dead (unless we were to log it somewhere).",
+      "parentUuid": "df1b2271_88915918",
+      "range": {
+        "startLine": 6402,
+        "startChar": 27,
+        "endLine": 6402,
+        "endChar": 33
+      },
+      "revId": "3720c960ae757cd1c9cc0ddfeacb5c0168050129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0b0e745_b29282a1",

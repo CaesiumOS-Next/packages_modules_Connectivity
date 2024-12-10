@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beff77c1_aa7b987c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 6356,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-10T21:11:31Z",
+      "side": 1,
+      "message": "nit: we could add a TODO: track all callers by callerBinder instead of CaptivePortalImpl.",
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d8d81d7_af6a60ed",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 6401,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-10T21:11:31Z",
+      "side": 1,
+      "message": "nit: since we now register a DeathRecipient for the cleanup operation, we should leave a comment that:\n\n// While technically unnecessary, it is safe to register a DeathRecipient for a cleanup operation (where uid \u003d INVALID_UID).",
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5244d78b_c4a77d6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 6456,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-10T21:11:31Z",
+      "side": 1,
+      "message": "nit: add comment: // Because mDelegateUidCaller is never reset, it cannot be null in this context.",
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
