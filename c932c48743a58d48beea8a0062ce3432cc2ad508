@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f8a006_72a4fe45",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/CollectionUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-10T08:56:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "160a52e3_fdfc85fb",
+      "range": {
+        "startLine": 201,
+        "startChar": 12,
+        "endLine": 201,
+        "endChar": 19
+      },
+      "revId": "c932c48743a58d48beea8a0062ce3432cc2ad508",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d710ecf3_9ea36cc0",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-10T08:22:21Z",
       "side": 1,
       "message": "Concat",
+      "range": {
+        "startLine": 209,
+        "startChar": 12,
+        "endLine": 209,
+        "endChar": 19
+      },
+      "revId": "c932c48743a58d48beea8a0062ce3432cc2ad508",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a813e6_de9cf6db",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/CollectionUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-10T08:56:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d710ecf3_9ea36cc0",
       "range": {
         "startLine": 209,
         "startChar": 12,
