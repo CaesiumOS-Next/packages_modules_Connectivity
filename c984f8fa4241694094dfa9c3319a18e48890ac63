@@ -140,6 +140,30 @@
       },
       "revId": "c984f8fa4241694094dfa9c3319a18e48890ac63",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9759aad5_25ed6199",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-10T04:23:09Z",
+      "side": 1,
+      "message": "Actually that is incorrect. That flag is part of the tethering container, so the value of the flag will be determined by the version of the tethering module, not the version of the platform. I think you could check the version of Build.SDK_INT being \u003e 35, or you could define (and ramp) another flag, like was done in \nb/379988507 .",
+      "parentUuid": "a0be448c_b5e18825",
+      "range": {
+        "startLine": 691,
+        "startChar": 25,
+        "endLine": 691,
+        "endChar": 35
+      },
+      "revId": "c984f8fa4241694094dfa9c3319a18e48890ac63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
