@@ -34,6 +34,24 @@
       "parentUuid": "0c60f68f_d544bb39",
       "revId": "95fc4ad2a0b9e8f56ca82adbed5a59fa6e2c2403",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fd3e0ba_6a94b81a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1096713
+      },
+      "writtenOn": "2024-12-10T17:54:00Z",
+      "side": 1,
+      "message": "Note that mokey is no longer a part of TreeHugger, and has been removed (go/ag/30359121) from Internal Gerrit.  So that no longer blocks this CL.",
+      "parentUuid": "964f7915_0d0da22c",
+      "revId": "95fc4ad2a0b9e8f56ca82adbed5a59fa6e2c2403",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
