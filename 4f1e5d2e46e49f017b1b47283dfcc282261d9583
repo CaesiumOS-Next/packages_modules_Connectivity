@@ -53,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3277d32a_92862933",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2024-12-10T02:24:15Z",
+      "side": 1,
+      "message": "VCN will piggyback on `ENABLE_CHECKING_TELEPHONY_FEATURES`. See comments in https://android-review.git.corp.google.com/c/platform/frameworks/base/+/3371576/16/packages/Vcn/framework-b/src/android/net/ConnectivityFrameworkInitializerBaklava.java",
+      "parentUuid": "adafe854_3cec1b74",
+      "revId": "4f1e5d2e46e49f017b1b47283dfcc282261d9583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5486227c_b04d621b",
