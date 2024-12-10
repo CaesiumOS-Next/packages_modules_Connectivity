@@ -188,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e58a63a_0d691f06",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-10T04:30:11Z",
+      "side": 1,
+      "message": "Added:\n```\n        // RTM_NEWLINK is used here for create, modify, or notify changes about a internet\n        // interface, including change in administrative state. While RTM_SETLINK is used to\n        // modify an existing link rather than creating a new one\n```",
+      "parentUuid": "0dafe42b_e5674e82",
+      "range": {
+        "startLine": 342,
+        "startChar": 53,
+        "endLine": 342,
+        "endChar": 64
+      },
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce32dc25_6238c0e3",
@@ -301,6 +325,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "416d609b_ea8bb1b9",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-10T04:30:11Z",
+      "side": 1,
+      "message": "Thanks for the advice, this looks good, changed to use varargs.",
+      "parentUuid": "f53f8e52_14d0e4d0",
+      "range": {
+        "startLine": 343,
+        "startChar": 83,
+        "endLine": 343,
+        "endChar": 96
+      },
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6d0b5d9_51f6b722",
@@ -348,6 +396,30 @@
           ]
         }
       ],
+      "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae037375_2b97597b",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-10T04:30:11Z",
+      "side": 1,
+      "message": "Added `LOWER_UP` as well",
+      "parentUuid": "a6d0b5d9_51f6b722",
+      "range": {
+        "startLine": 320,
+        "startChar": 47,
+        "endLine": 320,
+        "endChar": 70
+      },
       "revId": "e89c501835d37c3860e233f69aa41b47117f170f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
