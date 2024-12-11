@@ -1,0 +1,195 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee20c533_2d835e5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-11T15:08:36Z",
+      "side": 1,
+      "message": "LGTM only minor comments.",
+      "revId": "a68be947fc35f38ed80f5fe4465854bf5e5124d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd007b42_a56932a5",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-11T15:08:36Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we close this explicitly if we don\u0027t use it as a `try` scoped resource ?",
+      "range": {
+        "startLine": 240,
+        "startChar": 12,
+        "endLine": 240,
+        "endChar": 14
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4aa68e43_af5bae6a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 242,
+                "startChar": 0,
+                "endLine": 242,
+                "endChar": 0
+              },
+              "replacement": "            if (fd !\u003d null) {\n                closeSocketQuietly(fd);\n            }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a68be947fc35f38ed80f5fe4465854bf5e5124d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73526329_d331ba08",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-11T15:08:36Z",
+      "side": 1,
+      "message": "Since `done` cannot be true in this branch, we could return null directly here.",
+      "range": {
+        "startLine": 256,
+        "startChar": 16,
+        "endLine": 256,
+        "endChar": 22
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "6fbb0039_69a4718f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 256,
+                "startChar": 0,
+                "endLine": 257,
+                "endChar": 0
+              },
+              "replacement": "                return null;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a68be947fc35f38ed80f5fe4465854bf5e5124d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4dac098_79374570",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-11T15:08:36Z",
+      "side": 1,
+      "message": "not used ?",
+      "range": {
+        "startLine": 260,
+        "startChar": 16,
+        "endLine": 260,
+        "endChar": 54
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d7b531b7_735388c4",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 260,
+                "startChar": 0,
+                "endLine": 261,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "a68be947fc35f38ed80f5fe4465854bf5e5124d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c27ca8_546f6b39",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-11T15:08:36Z",
+      "side": 1,
+      "message": "nit: prefer keeping the positive case with less nesting\n\n```\nif (ifname \u003d\u003d null) {\n  log();\n  break;\n}\nifnames.add(ifname);\n```",
+      "range": {
+        "startLine": 282,
+        "startChar": 15,
+        "endLine": 287,
+        "endChar": 17
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d7219f0d_4f5f1059",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 282,
+                "startChar": 0,
+                "endLine": 285,
+                "endChar": 0
+              },
+              "replacement": "                if (ifname \u003d\u003d null) {\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 288,
+                "startChar": 0,
+                "endLine": 288,
+                "endChar": 0
+              },
+              "replacement": "                ifnames.add(ifname);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a68be947fc35f38ed80f5fe4465854bf5e5124d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
