@@ -59,6 +59,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a941c28_bc11d6ec",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-11T04:35:20Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "6ba01129_4fea8e3f",
+      "range": {
+        "startLine": 486,
+        "startChar": 23,
+        "endLine": 486,
+        "endChar": 72
+      },
+      "revId": "92d217808e39b4f6101ea346357a7417709b0cac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "284bab6b_b1714b5d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-11T04:35:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ba01129_4fea8e3f",
+      "range": {
+        "startLine": 486,
+        "startChar": 23,
+        "endLine": 486,
+        "endChar": 72
+      },
+      "revId": "92d217808e39b4f6101ea346357a7417709b0cac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64d5e3c3_72a32ee8",
@@ -96,6 +144,30 @@
           ]
         }
       ],
+      "revId": "92d217808e39b4f6101ea346357a7417709b0cac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b802db5f_620b74b7",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkLinkMessageTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-11T04:35:20Z",
+      "side": 1,
+      "message": "When calling overload with `int...`, OsAccess is not passed in and the interface index obtained from OsAccess `interfaceIndex \u003d osAccess.if_nametoindex(interfaceName);` is not deterministic, so we cannot test the method directly. Maybe change both `createSetFlagsMessage` to  take `int...`?",
+      "parentUuid": "64d5e3c3_72a32ee8",
+      "range": {
+        "startLine": 319,
+        "startChar": 62,
+        "endLine": 319,
+        "endChar": 83
+      },
       "revId": "92d217808e39b4f6101ea346357a7417709b0cac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
