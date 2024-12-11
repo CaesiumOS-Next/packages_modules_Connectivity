@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb2b9ac5_1be81c35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T20:48:09Z",
+      "side": 1,
+      "message": "This CL reminds me: I have been wondering whether listening to RTM_NEWADDR directly inside PrivateAddressCoordinator wouldn\u0027t be a better approach. I am not certain whether distinguishing between up- and downstream makes sense. Technically, any conflict can lead to unexpected behavior. It would also have the benefit of eliminating the IPC into NetworkStack and back into SystemServer (where PrivateAddressCoordinator now runs, but only on S+).",
+      "revId": "981bf1a297f84ba40ba5f775de24cdbee739fbdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
