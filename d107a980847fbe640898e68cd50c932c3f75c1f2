@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39b82542_84fab533",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T17:08:23Z",
+      "side": 1,
+      "message": "This populates the reservationId with the value of the requestId when a new NetworkRequest is created. Conceptually, the reservationId is not related to the requestId; however, the requestId fulfills the same uniqueness requirements that are needed for the reservationId, so it can just be reused for this purpose.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "d107a980847fbe640898e68cd50c932c3f75c1f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51016dbb_5d3764c8",
+        "filename": "framework/src/android/net/NetworkRequest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T17:08:23Z",
+      "side": 1,
+      "message": "Add a comment along the lines of the commit message here to clarify that the requestId is not related to the reservationId. It just needs to be set to a unique-per-request ID which the requestId happens to be.",
+      "revId": "d107a980847fbe640898e68cd50c932c3f75c1f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
