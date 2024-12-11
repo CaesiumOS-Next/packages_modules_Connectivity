@@ -42,10 +42,12 @@ import com.android.connectivity.resources.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.DnsUtils;
+import com.android.net.module.util.HexDump;
 import com.android.net.module.util.SharedLog;
 import com.android.server.connectivity.ConnectivityResources;
 import com.android.server.connectivity.mdns.util.MdnsUtils;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -117,7 +119,7 @@ public class MdnsAdvertiser {
          * Generates a unique hostname to be used by the device.
          */
         @NonNull
-        public String[] generateHostname() {
+        public String[] generateHostname(boolean useShortFormat) {
             // Generate a very-probably-unique hostname. This allows minimizing possible conflicts
             // to the point that probing for it is no longer necessary (as per RFC6762 8.1 last
             // paragraph), and does not leak more information than what could already be obtained by
@@ -127,10 +129,21 @@ public class MdnsAdvertiser {
             // Having a different hostname per interface is an acceptable option as per RFC6762 14.
             // This hostname will change every time the interface is reconnected, so this does not
             // allow tracking the device.
-            // TODO: consider deriving a hostname from other sources, such as the IPv6 addresses
-            // (reusing the same privacy-protecting mechanics).
-            return new String[] {
-                    "Android_" + UUID.randomUUID().toString().replace("-", ""), LOCAL_TLD };
+            if (useShortFormat) {
+                // A short hostname helps reduce the size of APF mDNS filtering programs, and
+                // is necessary for compatibility with some Matter 1.0 devices which assumed
+                // 16 characters is the maximum length.
+                // SecureRandom is what is used for UUID.randomUUID, so effectively the "long"
+                // format based on UUID is the same implementation with more bytes (some being set
+                // to hardcoded version/variant values).
+                final SecureRandom sr = new SecureRandom();
+                byte[] randomBytes = new byte[8];
+                sr.nextBytes(randomBytes);
+                return new String[]{ HexDump.toHexString(randomBytes), LOCAL_TLD };
+            } else {
+                return new String[]{
+                        "Android_" + UUID.randomUUID().toString().replace("-", ""), LOCAL_TLD};
+            }
         }
     }
 
@@ -825,7 +838,7 @@ public class MdnsAdvertiser {
         mCb = cb;
         mSocketProvider = socketProvider;
         mDeps = deps;
-        mDeviceHostName = deps.generateHostname();
+        mDeviceHostName = deps.generateHostname(mDnsFeatureFlags.isShortHostnamesEnabled());
         mSharedLog = sharedLog;
         mMdnsFeatureFlags = mDnsFeatureFlags;
         final ConnectivityResources res = new ConnectivityResources(context);
@@ -943,7 +956,7 @@ public class MdnsAdvertiser {
         mRegistrations.remove(id);
         // Regenerates host name when registrations removed.
         if (mRegistrations.size() == 0) {
-            mDeviceHostName = mDeps.generateHostname();
+            mDeviceHostName = mDeps.generateHostname(mMdnsFeatureFlags.isShortHostnamesEnabled());
         }
     }
 
