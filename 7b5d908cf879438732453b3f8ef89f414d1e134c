@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afdc402b_1118361b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-11T01:29:28Z",
+      "side": 1,
+      "message": "Nit: this is void, return null would be less confusing",
+      "revId": "7b5d908cf879438732453b3f8ef89f414d1e134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e13d4fd_007ff781",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2144,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-11T01:29:28Z",
+      "side": 1,
+      "message": "This is a large copy-paste from the test above, and tests things that are specific to aggressive query mode and the caching behavior, so it doesn\u0027t look like a test for the timer FD scheduling.\n\nThe test would be clearer if you set numQueriesBeforeBackoff to 1 or 2, and just check the scheduling of the first query, the second query, and a backed off query after receiving a response (only trying to cover the 3 code paths where the timerFd is set).",
+      "revId": "7b5d908cf879438732453b3f8ef89f414d1e134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc478a54_3695a166",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2148,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-11T01:29:28Z",
+      "side": 1,
+      "message": "Why + 2 ?  A comment would help",
+      "range": {
+        "startLine": 2148,
+        "startChar": 40,
+        "endLine": 2148,
+        "endChar": 43
+      },
+      "revId": "7b5d908cf879438732453b3f8ef89f414d1e134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "Why doesn\u0027t this use AlarmManager which does the same thing?\n\nEven better, AlarmManager allows you to set inexact alarms by providing a wake window. (Though I seem to recall that those *may* not always trigger a wake up when they expire, you\u0027ll have to look into that.)",
       "revId": "4a7270cceebe257bf0af0a8c70c56f4181b89305",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2739dec0_006451c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-11T01:29:28Z",
+      "side": 1,
+      "message": "AlarmManager is too inaccurate: with a quick test, keeping the screen on (so CPU on), scheduling a 10s alarm causes it to be delivered after 17~18s. It\u0027s also more heavyweight as it\u0027s mostly designed to wake up apps when they\u0027re not running; the documentation says that \"The Alarm Manager is intended for cases where you want to have your application code run at a specific time, even if your application is not currently running. For normal timing operations (ticks, timeouts, etc) it is easier and much more efficient to use Handler\".\n\nThis util aims at setting a timer that fires the next time the CPU is on after the specified time (kind of equivalent to AlarmManager.RTC without wakeups). If that gets delayed significantly (like 10s -\u003e 18s), it would affect functionality where mDNS services may not be found for several seconds after the screen is turned on (user visible), or the DTIM multiplier may not be updated for unexpected amounts of time (another use-case for this timer).",
+      "parentUuid": "dbaac6a2_3068b81b",
+      "revId": "4a7270cceebe257bf0af0a8c70c56f4181b89305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
