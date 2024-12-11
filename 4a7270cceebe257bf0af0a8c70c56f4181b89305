@@ -34,6 +34,24 @@
       "parentUuid": "dbaac6a2_3068b81b",
       "revId": "4a7270cceebe257bf0af0a8c70c56f4181b89305",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eabc6714_25df7147",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T21:29:06Z",
+      "side": 1,
+      "message": "In order to make this generally useful, we should add functionality that lets you specify a wake window. This would actually be useful in a few places. I just checked, and it looks like both system_server and networkstack have CAP_WAKE_ALARM.",
+      "parentUuid": "2739dec0_006451c4",
+      "revId": "4a7270cceebe257bf0af0a8c70c56f4181b89305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
