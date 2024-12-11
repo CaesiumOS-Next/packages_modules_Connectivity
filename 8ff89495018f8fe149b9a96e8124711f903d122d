@@ -50,6 +50,76 @@
       ],
       "revId": "8ff89495018f8fe149b9a96e8124711f903d122d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5b0269b_c7d991fc",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T22:32:04Z",
+      "side": 1,
+      "message": "I don\u0027t think there needs to be a try/catch at all. The ServiceSpecificException looks like a historical artifact which may have been mistakingly added because of the netd interaction (though getInterfaceList always returns binder::Status::ok).",
+      "parentUuid": "cee8037a_fc2156c5",
+      "range": {
+        "startLine": 732,
+        "startChar": 8,
+        "endLine": 732,
+        "endChar": 13
+      },
+      "revId": "8ff89495018f8fe149b9a96e8124711f903d122d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "853c9c20_4f908658",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T22:32:04Z",
+      "side": 1,
+      "message": "you could use truth and write this as:\n```\nassertThat(ifaces).containsAtLeast(iface1.name, iface2.name)\n```\n\nhttps://truth.dev, if you are not familiar with it.",
+      "range": {
+        "startLine": 690,
+        "startChar": 8,
+        "endLine": 692,
+        "endChar": 48
+      },
+      "revId": "8ff89495018f8fe149b9a96e8124711f903d122d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6d22400_b8db95d9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T22:32:04Z",
+      "side": 1,
+      "message": "With truth, I think this becomes:\n```\nassertThat(ifaces).doesNotContain(iface1.name)\nassertThat(ifaces).contains(iface2.name)\n```",
+      "range": {
+        "startLine": 698,
+        "startChar": 0,
+        "endLine": 699,
+        "endChar": 48
+      },
+      "revId": "8ff89495018f8fe149b9a96e8124711f903d122d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
