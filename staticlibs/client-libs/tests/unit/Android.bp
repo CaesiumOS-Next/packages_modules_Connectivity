@@ -13,7 +13,7 @@ android_library {
     static_libs: [
         "androidx.test.rules",
         "mockito-target-extended-minus-junit4",
-        "net-tests-utils-host-device-common",
+        "net-tests-utils",
         "netd-client",
     ],
     libs: [
