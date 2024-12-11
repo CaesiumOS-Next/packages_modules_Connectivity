@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db713c0d_3f1ace89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-11T03:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3a7a44b_37892119",
+      "revId": "ccc9f7a7a211a5e8642986c1d6a915301303e9a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8736505_8c1fd274",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-12-04T14:35:15Z",
       "side": 1,
       "message": "Use `UnsupportedOperationException` like `setLocalRoutesExcludedForVpn`?",
+      "range": {
+        "startLine": 522,
+        "startChar": 26,
+        "endLine": 522,
+        "endChar": 50
+      },
+      "revId": "ccc9f7a7a211a5e8642986c1d6a915301303e9a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cb93870_1f02709a",
+        "filename": "framework/src/android/net/NetworkAgentConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-11T03:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8736505_8c1fd274",
       "range": {
         "startLine": 522,
         "startChar": 26,
