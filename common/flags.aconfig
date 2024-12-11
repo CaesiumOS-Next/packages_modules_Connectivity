@@ -165,3 +165,12 @@ flag {
   bug: "372936361"
   is_fixed_read_only: true
 }
+
+flag {
+  name: "tethering_local_network_agent"
+  is_exported: true
+  namespace: "android_core_networking"
+  description: "Flag for tethering local network agent"
+  bug: "349487600"
+  is_fixed_read_only: true
+}

@@ -18,6 +18,7 @@ package android.net;
 
 import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
 
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
@@ -25,6 +26,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.flags.Flags;
 
 import java.util.Objects;
 
@@ -286,9 +288,8 @@ public final class NetworkAgentConfig implements Parcelable {
      * @return Whether the native network creation should be skipped.
      * @hide
      */
-    // TODO: Expose API when ready.
-    // @FlaggedApi(Flags.FLAG_TETHERING_NETWORK_AGENT)
-    // @SystemApi(client = MODULE_LIBRARIES) when ready.
+    @FlaggedApi(Flags.FLAG_TETHERING_LOCAL_NETWORK_AGENT)
+    @SystemApi(client = MODULE_LIBRARIES)
     public boolean shouldSkipNativeNetworkCreation() {
         return mSkipNativeNetworkCreation;
     }
@@ -512,9 +513,8 @@ public final class NetworkAgentConfig implements Parcelable {
          * @hide
          */
         @NonNull
-        // TODO: Expose API when ready.
-        // @FlaggedApi(Flags.FLAG_TETHERING_NETWORK_AGENT)
-        // @SystemApi(client = MODULE_LIBRARIES) when ready.
+        @FlaggedApi(Flags.FLAG_TETHERING_LOCAL_NETWORK_AGENT)
+        @SystemApi(client = MODULE_LIBRARIES)
         public Builder setSkipNativeNetworkCreation(boolean skipNativeNetworkCreation) {
             if (!SdkLevel.isAtLeastV()) {
                 // Local agents are supported starting on U on TVs and on V on everything else.
