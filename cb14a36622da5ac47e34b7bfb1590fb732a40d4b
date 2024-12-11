@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43dc730b_ad3f857c",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-11T07:40:24Z",
+      "side": 1,
+      "message": "is not parcelled as part of this object. It is created in the client process and sent to the server by setDelegateUid so that the server can use it to register a death recipient.",
+      "range": {
+        "startLine": 86,
+        "startChar": 47,
+        "endLine": 87,
+        "endChar": 15
+      },
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "beff77c1_aa7b987c",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 25
@@ -31,6 +54,24 @@
       "writtenOn": "2024-12-10T21:11:31Z",
       "side": 1,
       "message": "nit: we could add a TODO: track all callers by callerBinder instead of CaptivePortalImpl.",
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4977c734_90ebcfef",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 6356,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-11T07:40:24Z",
+      "side": 1,
+      "message": "+1, let\u0027s add a TODO to store these in a Set. When the death recipient fires, we can remove the callingbinder from the set, and when the set is empty, we can clear the delegated UID.",
+      "parentUuid": "beff77c1_aa7b987c",
       "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -54,6 +95,70 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "204aebcb_b87b8de6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 6401,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-11T07:40:24Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "1d8d81d7_af6a60ed",
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbb5ccf0_57bd9784",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 6409,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-11T07:40:24Z",
+      "side": 1,
+      "message": "ENONET",
+      "range": {
+        "startLine": 6409,
+        "startChar": 36,
+        "endLine": 6409,
+        "endChar": 42
+      },
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a7b8f19_839f0bce",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 6410,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-11T07:40:24Z",
+      "side": 1,
+      "message": "ENONET",
+      "range": {
+        "startLine": 6410,
+        "startChar": 42,
+        "endLine": 6410,
+        "endChar": 48
+      },
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5244d78b_c4a77d6e",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 25
@@ -65,6 +170,116 @@
       "writtenOn": "2024-12-10T21:11:31Z",
       "side": 1,
       "message": "nit: add comment: // Because mDelegateUidCaller is never reset, it cannot be null in this context.",
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "534bcbc5_b60d3690",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 6456,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-11T07:40:24Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5244d78b_c4a77d6e",
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c79e2fa1_8b496813",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-11T07:40:24Z",
+      "side": 1,
+      "message": "that delegated",
+      "range": {
+        "startLine": 1580,
+        "startChar": 44,
+        "endLine": 1580,
+        "endChar": 55
+      },
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "889c4469_24bacb49",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1586,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-11T07:40:24Z",
+      "side": 1,
+      "message": "If netd returns an error that\u0027s not EEXIST, we shouldn\u0027t update the map, right? Otherwise we\u0027ll the values in mCaptivePortalDelegateUids will not match the current configuration in netd. Maybe do this instead?\n\n    final int errorCode \u003d allowBypassVpnOnNetwork(true /* allow */, uid, network.netId);\n    if (errorCode \u003d\u003d 0 || errorCode \u003d\u003d EEXIST) {\n        mCaptivePortalDelegateUids.put(caller, uid);\n    }\n    return errorCode \u003d\u003d EEXIST ? 0 : errorCode;",
+      "range": {
+        "startLine": 1586,
+        "startChar": 8,
+        "endLine": 1586,
+        "endChar": 52
+      },
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc12fca3_e4df75c2",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1605,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-11T07:40:24Z",
+      "side": 1,
+      "message": "In theory this can never happen, right? If it does happen, that means that the UID appeared at least once in mCaptivePortalDelegateUids but netd didn\u0027t know about it. Perhaps not for this CL, but can we log a CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED if this happens?",
+      "range": {
+        "startLine": 1605,
+        "startChar": 15,
+        "endLine": 1605,
+        "endChar": 34
+      },
+      "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "925c72a8_59db4d1c",
+        "filename": "tests/common/java/android/net/CaptivePortalTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-11T07:40:24Z",
+      "side": 1,
+      "message": "Not for this CL, but we should add a new test file for this behaviour in packages/modules/Connectivity/tests/unit/java/com/android/server/connectivityservice which subclasses CSTest.kt. The test can call startCaptivePortalApp and then call expectStartActivityIntent, then it can get the CaptivePortal out of the intent extras. Then it can call setDelegateUid and you can check the actual behaviour by calling verify() calls on netd.",
+      "range": {
+        "startLine": 61,
+        "startChar": 20,
+        "endLine": 61,
+        "endChar": 34
+      },
       "revId": "cb14a36622da5ac47e34b7bfb1590fb732a40d4b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
