@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8becfa39_0ee59173",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-11T06:36:11Z",
+      "side": 1,
+      "message": "Reopened the patch as discussed",
+      "revId": "341d4a27c693a56a300c100a6db6428343f8c622",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
