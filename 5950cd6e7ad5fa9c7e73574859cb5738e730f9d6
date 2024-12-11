@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f572cd43_4b0aa6a3",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T21:08:53Z",
+      "side": 1,
+      "message": "nit: import these so we don\u0027t have the line break",
+      "range": {
+        "startLine": 1004,
+        "startChar": 21,
+        "endLine": 1004,
+        "endChar": 37
+      },
+      "revId": "5950cd6e7ad5fa9c7e73574859cb5738e730f9d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ddfcb56e_e9a6d931",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 4
