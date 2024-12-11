@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f55b6d5_81673c59",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T23:39:45Z",
+      "side": 0,
+      "message": "Could this call getInterfaceList? (and consider renaming it to getEthernetInterfaces() or getEthernetInterfaceList())",
+      "range": {
+        "startLine": 730,
+        "startChar": 12,
+        "endLine": 730,
+        "endChar": 61
+      },
+      "revId": "bf3f11cf7f0a47dc9aca71a101967f9e136f46bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

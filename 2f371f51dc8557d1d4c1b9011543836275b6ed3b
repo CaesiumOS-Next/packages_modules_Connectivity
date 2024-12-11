@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9249217d_5354f833",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T23:39:45Z",
+      "side": 1,
+      "message": "Could this be:\n```\nfinal Enumeration\u003cNetworkInterface\u003e ifaces;\ntry {\n    ifaces \u003d NetworkInterface.getNetworkInterfaces();\n} catch (SocketException e) {\n    Log.e(TAG, \"Failed to getNetworkInterfaces\", e);\n    return interfaceList;\n}\n```",
+      "range": {
+        "startLine": 409,
+        "startChar": 7,
+        "endLine": 409,
+        "endChar": 35
+      },
+      "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ff4da9e_1ee22cd6",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 1
@@ -84,6 +107,70 @@
       "side": 1,
       "message": "Not sure if this is helpful, but netd is using `sysfs` to get interface names: [Utils.getIfaceNames()](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/netd/libnetdutils/Utils.cpp;l\u003d30;bpv\u003d1;bpt\u003d1?q\u003d%22%2Fsys%2Fclass%2Fnet%22\u0026start\u003d1)",
       "parentUuid": "71001da4_d8934308",
+      "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "077a9c06_3f02397f",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T23:39:45Z",
+      "side": 1,
+      "message": "I spent some time looking at the getifaddrs() implementation in bionic: https://source.corp.google.com/h/android/platform/superproject/main/+/main:bionic/libc/bionic/ifaddrs.cpp\n\nIt indeed looks like it\u0027s doing the right thing. (I also quickly checked musl, which also populates interfaces without addresses). So maybe this can be relied upon afterall.\n\nSorry for sending you down a rabbit hole.",
+      "parentUuid": "5988d7ad_30587544",
+      "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d5c46e9_40b4e36e",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T23:39:45Z",
+      "side": 1,
+      "message": "and we could also remove this.",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 717,
+        "endChar": 9
+      },
+      "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cd13dae_2e8c6c1c",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-11T23:39:45Z",
+      "side": 1,
+      "message": "Then we could remove this.",
+      "range": {
+        "startLine": 743,
+        "startChar": 0,
+        "endLine": 745,
+        "endChar": 9
+      },
       "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
