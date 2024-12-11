@@ -27,6 +27,8 @@ import android.annotation.SuppressLint;
 import android.net.INetd;
 import android.net.InterfaceConfigurationParcel;
 import android.net.IpPrefix;
+import android.net.NativeNetworkConfig;
+import android.net.NativeNetworkType;
 import android.net.RouteInfo;
 import android.net.RouteInfoParcel;
 import android.net.TetherConfigParcel;
@@ -37,6 +39,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+
+import com.android.modules.utils.build.SdkLevel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -146,6 +150,21 @@ public class NetdUtils {
         config.usingLegacyDnsProxy = usingLegacyDnsProxy;
         config.dhcpRanges = dhcpRange;
         netd.tetherStartWithConfiguration(config);
+    }
+
+    /** Create physical local network. */
+    public static void createPhysicalLocalNetwork(final INetd netd, int netId)
+            throws RemoteException {
+        if (!SdkLevel.isAtLeastV()) {
+            throw new UnsupportedOperationException("method is not supported");
+        }
+        final NativeNetworkConfig config = new NativeNetworkConfig(netId,
+                NativeNetworkType.PHYSICAL_LOCAL,
+                INetd.PERMISSION_NONE,
+                false /* secure */,
+                -1 /* VpnManager.TYPE_VPN_NONE in sdk level 31 */,
+                false /* excludeLocalRoutes */);
+        netd.networkCreate(config);
     }
 
     /** Setup interface for tethering. */

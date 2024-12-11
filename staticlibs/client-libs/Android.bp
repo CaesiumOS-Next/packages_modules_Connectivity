@@ -21,6 +21,7 @@ java_library {
     ],
     libs: ["androidx.annotation_annotation"],
     static_libs: [
+        "modules-utils-build_system",
         "netd_aidl_interface-lateststable-java",
         "netd_event_listener_interface-lateststable-java",
     ],

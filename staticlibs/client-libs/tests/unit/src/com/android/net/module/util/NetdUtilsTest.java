@@ -41,13 +41,20 @@ import static org.mockito.Mockito.when;
 import android.net.INetd;
 import android.net.InterfaceConfigurationParcel;
 import android.net.IpPrefix;
+import android.net.NativeNetworkConfig;
+import android.net.NativeNetworkType;
+import android.os.Build;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -59,6 +66,9 @@ import java.util.Arrays;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class NetdUtilsTest {
+    @Rule
+    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
     @Mock private INetd mNetd;
 
     private static final String IFACE = "TEST_IFACE";
@@ -118,6 +128,18 @@ public class NetdUtilsTest {
         // Add an invalid flag and expect to get an IllegalStateException.
         assertThrows(IllegalStateException.class,
                 () -> NetdUtils.removeAndAddFlags(flags, "down" /* remove */, "u p" /* add */));
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @Test
+    public void testCreatePhysicalLocalNetwork() throws RemoteException {
+        NetdUtils.createPhysicalLocalNetwork(mNetd, 123);
+        final ArgumentCaptor<NativeNetworkConfig> nativeNetworkConfigArgumentCaptor =
+                ArgumentCaptor.forClass(NativeNetworkConfig.class);
+        verify(mNetd).networkCreate(nativeNetworkConfigArgumentCaptor.capture());
+        final NativeNetworkConfig config = nativeNetworkConfigArgumentCaptor.getValue();
+        assertEquals(123, config.netId);
+        assertEquals(NativeNetworkType.PHYSICAL_LOCAL, config.networkType);
     }
 
     private void setNetworkAddInterfaceOutcome(final Exception cause, int numLoops)
