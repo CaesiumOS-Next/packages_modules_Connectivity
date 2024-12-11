@@ -68,6 +68,24 @@
       "parentUuid": "3ff4da9e_1ee22cd6",
       "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5988d7ad_30587544",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-11T04:47:16Z",
+      "side": 1,
+      "message": "Not sure if this is helpful, but netd is using `sysfs` to get interface names: [Utils.getIfaceNames()](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/netd/libnetdutils/Utils.cpp;l\u003d30;bpv\u003d1;bpt\u003d1?q\u003d%22%2Fsys%2Fclass%2Fnet%22\u0026start\u003d1)",
+      "parentUuid": "71001da4_d8934308",
+      "revId": "2f371f51dc8557d1d4c1b9011543836275b6ed3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
