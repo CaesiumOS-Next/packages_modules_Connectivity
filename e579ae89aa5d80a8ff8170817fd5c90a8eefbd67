@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9209a05_e1c84b58",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-12T08:51:48Z",
+      "side": 1,
+      "message": "Super nit: This is another way to simplify the code. Not a strong option.\n```\n        final SecureRandom random \u003d new SecureRandom();\n        final String allowedChars \u003d \"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ\";\n        final StringBuilder sb \u003d new StringBuilder(8);\n        for (int i \u003d 0; i \u003c 8; i++) {\n            sb.append(allowedChars.charAt(random.nextInt(allowedChars.length())));\n        }\n        return new String[]{\"Android_\" + sb.toString(), LOCAL_TLD};\n```",
+      "range": {
+        "startLine": 138,
+        "startChar": 16,
+        "endLine": 150,
+        "endChar": 87
+      },
+      "revId": "e579ae89aa5d80a8ff8170817fd5c90a8eefbd67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84c7b98d_a3972de2",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-12T08:51:48Z",
+      "side": 1,
+      "message": "Set this to `true` to enable this flag by default, since you\u0027re using `isTetheringFeatureNotChickenedOut()`?",
+      "range": {
+        "startLine": 302,
+        "startChar": 39,
+        "endLine": 302,
+        "endChar": 44
+      },
+      "revId": "e579ae89aa5d80a8ff8170817fd5c90a8eefbd67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ad61962_59a2f850",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-12T08:51:48Z",
+      "side": 1,
+      "message": "Android_[8 uppercase letters or digits]",
+      "range": {
+        "startLine": 622,
+        "startChar": 31,
+        "endLine": 622,
+        "endChar": 63
+      },
+      "revId": "e579ae89aa5d80a8ff8170817fd5c90a8eefbd67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
