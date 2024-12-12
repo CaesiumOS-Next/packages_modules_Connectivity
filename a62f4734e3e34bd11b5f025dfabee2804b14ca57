@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a1b9b81_496540a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-12T04:24:24Z",
+      "side": 1,
+      "message": "Changed to killswitch as discussed and updated",
+      "parentUuid": "2a324b7a_cffd1a0f",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "a62f4734e3e34bd11b5f025dfabee2804b14ca57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b90b6fd_06d5468e",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7d340f8_6503fe73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-12T04:24:24Z",
+      "side": 1,
+      "message": "Done (but the matter spec is not an RFC)",
+      "parentUuid": "7b90b6fd_06d5468e",
+      "range": {
+        "startLine": 13,
+        "startChar": 61,
+        "endLine": 14,
+        "endChar": 9
+      },
+      "revId": "a62f4734e3e34bd11b5f025dfabee2804b14ca57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d183607_c6eccc09",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-12-11T07:35:08Z",
       "side": 1,
       "message": "Per discussion, we should keep the Android_ + 8 character [a-z][0-9]",
+      "range": {
+        "startLine": 139,
+        "startChar": 36,
+        "endLine": 139,
+        "endChar": 69
+      },
+      "revId": "a62f4734e3e34bd11b5f025dfabee2804b14ca57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4063cf28_843dfcb4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-12T04:24:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d183607_c6eccc09",
       "range": {
         "startLine": 139,
         "startChar": 36,
