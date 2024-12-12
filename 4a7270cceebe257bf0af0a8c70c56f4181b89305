@@ -52,6 +52,24 @@
       "parentUuid": "2739dec0_006451c4",
       "revId": "4a7270cceebe257bf0af0a8c70c56f4181b89305",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41cc4789_bd207b51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-12T01:20:29Z",
+      "side": 1,
+      "message": "@paulhu@google.com, it seems in the design doc, we didn\u0027t add section for comparing with the AlarmManager, could you try to add the AlarmManager in comparison as well? \n\nhttps://docs.google.com/document/d/1MBXsXQ7cSAdSSlwRPu4Po7zxaXlK0UydU8omgx8qyCM/edit?resourcekey\u003d0-1r_grVuSv6O1LVhbLAhwXQ\u0026tab\u003dt.0#heading\u003dh.xzptrog8pyxf",
+      "parentUuid": "eabc6714_25df7147",
+      "revId": "4a7270cceebe257bf0af0a8c70c56f4181b89305",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
