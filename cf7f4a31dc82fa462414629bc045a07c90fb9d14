@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dddd088_37d4a9f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-12T07:46:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e909085c_43422091",
+      "range": {
+        "startLine": 22,
+        "startChar": 61,
+        "endLine": 22,
+        "endChar": 69
+      },
+      "revId": "cf7f4a31dc82fa462414629bc045a07c90fb9d14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dac4c5e2_1592c408",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-12T04:28:06Z",
       "side": 1,
       "message": "nit: final",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 20
+      },
+      "revId": "cf7f4a31dc82fa462414629bc045a07c90fb9d14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "738fbd78_2d91eef6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-12T07:46:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dac4c5e2_1592c408",
       "range": {
         "startLine": 139,
         "startChar": 16,
