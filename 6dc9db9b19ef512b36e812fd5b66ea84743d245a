@@ -93,6 +93,78 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3837cfad_68aadda3",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4424,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-12T22:57:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5ed0ccc_4b28cfa5",
+      "range": {
+        "startLine": 4424,
+        "startChar": 74,
+        "endLine": 4424,
+        "endChar": 82
+      },
+      "revId": "6dc9db9b19ef512b36e812fd5b66ea84743d245a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f01316_6ef840fb",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4424,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-12T22:57:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b149d61_ad8a2ea1",
+      "range": {
+        "startLine": 4424,
+        "startChar": 74,
+        "endLine": 4424,
+        "endChar": 97
+      },
+      "revId": "6dc9db9b19ef512b36e812fd5b66ea84743d245a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "606671c7_60f0bc1c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4424,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-12T22:57:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f21f8b5e_26ef60f0",
+      "range": {
+        "startLine": 4424,
+        "startChar": 49,
+        "endLine": 4424,
+        "endChar": 52
+      },
+      "revId": "6dc9db9b19ef512b36e812fd5b66ea84743d245a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf0c9cc6_6a5af3cb",
@@ -106,6 +178,30 @@
       "writtenOn": "2024-12-11T17:14:20Z",
       "side": 1,
       "message": "onReserved is guaranteed to be called before any other callback, unless the network is unavailable.",
+      "range": {
+        "startLine": 4428,
+        "startChar": 75,
+        "endLine": 4428,
+        "endChar": 76
+      },
+      "revId": "6dc9db9b19ef512b36e812fd5b66ea84743d245a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c390612_c879efae",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4428,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-12T22:57:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf0c9cc6_6a5af3cb",
       "range": {
         "startLine": 4428,
         "startChar": 75,
