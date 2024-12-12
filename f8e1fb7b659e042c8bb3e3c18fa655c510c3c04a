@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee140ed1_e732d0ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-12T22:57:41Z",
+      "side": 1,
+      "message": "If we ever end up supporting tethering on an L2CAP CoC channel, then we need to be able distinguish the resulting network from TRANSPORT_BLUETOOTH (Bluetooth Classic). This could possibly be achieved with using different NetworkSpecifiers for TRANSPORT_BLUETOOTH, though the existing pattern uses only a single well-known NetworkSpecifier type per transport type.",
+      "range": {
+        "startLine": 9,
+        "startChar": 62,
+        "endLine": 9,
+        "endChar": 63
+      },
+      "revId": "f8e1fb7b659e042c8bb3e3c18fa655c510c3c04a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f38bf9d4_75303a39",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 10
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-12T22:57:41Z",
+      "side": 1,
+      "message": "separate out flag change.",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 1
+      },
+      "revId": "f8e1fb7b659e042c8bb3e3c18fa655c510c3c04a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f66ff3b7_9430477d",
         "filename": "framework/src/android/net/NetworkCapabilities.java",
         "patchSetId": 10
