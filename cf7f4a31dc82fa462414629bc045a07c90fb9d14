@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e909085c_43422091",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-12T04:28:06Z",
+      "side": 1,
+      "message": "nit: add \"\" to Android_ seems improve the readbility.",
+      "range": {
+        "startLine": 22,
+        "startChar": 61,
+        "endLine": 22,
+        "endChar": 69
+      },
+      "revId": "cf7f4a31dc82fa462414629bc045a07c90fb9d14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dac4c5e2_1592c408",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-12T04:28:06Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 20
+      },
+      "revId": "cf7f4a31dc82fa462414629bc045a07c90fb9d14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
