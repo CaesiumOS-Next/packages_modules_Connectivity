@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1cc67be_7aa9f1c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-12T01:26:19Z",
+      "side": 1,
+      "message": "Metrics change LGTM. I am lacking the context of this issue. Over to @reminv@google.com to confirm the try-catch block is added as expected.",
+      "revId": "42fe5bdb144d93dc27d9f430b556ede824c2b8e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
