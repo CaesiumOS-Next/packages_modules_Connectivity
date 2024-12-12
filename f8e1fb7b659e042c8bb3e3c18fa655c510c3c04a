@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f66ff3b7_9430477d",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-12T04:42:42Z",
+      "side": 1,
+      "message": "Might want to say how this is different from BLUETOOTH?",
+      "range": {
+        "startLine": 1369,
+        "startChar": 66,
+        "endLine": 1369,
+        "endChar": 67
+      },
+      "revId": "f8e1fb7b659e042c8bb3e3c18fa655c510c3c04a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
