@@ -72,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b149d61_ad8a2ea1",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4424,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-12T04:37:10Z",
+      "side": 1,
+      "message": "This is confusing, because in order to get onReserved, the caller must have called reserveNetwork, which will in itself bring up the network.\n\nMaybe instead say: can communicate this information to hardware or software components on or off-device to instruct them to create a network matching this reservation.",
+      "range": {
+        "startLine": 4424,
+        "startChar": 74,
+        "endLine": 4424,
+        "endChar": 97
+      },
+      "revId": "6dc9db9b19ef512b36e812fd5b66ea84743d245a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf0c9cc6_6a5af3cb",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 2
