@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbf8f10e_f308e984",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-12T03:35:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afdc402b_1118361b",
+      "revId": "7b5d908cf879438732453b3f8ef89f414d1e134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e13d4fd_007ff781",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0256f6f_77e228ee",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2144,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-12T03:35:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e13d4fd_007ff781",
+      "revId": "7b5d908cf879438732453b3f8ef89f414d1e134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc478a54_3695a166",
@@ -48,6 +84,30 @@
       "writtenOn": "2024-12-11T01:29:28Z",
       "side": 1,
       "message": "Why + 2 ?  A comment would help",
+      "range": {
+        "startLine": 2148,
+        "startChar": 40,
+        "endLine": 2148,
+        "endChar": 43
+      },
+      "revId": "7b5d908cf879438732453b3f8ef89f414d1e134c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8f6d313_fa58b188",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2148,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-12T03:35:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc478a54_3695a166",
       "range": {
         "startLine": 2148,
         "startChar": 40,
