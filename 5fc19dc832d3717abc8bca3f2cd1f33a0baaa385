@@ -45,6 +45,54 @@
       },
       "revId": "5fc19dc832d3717abc8bca3f2cd1f33a0baaa385",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb12ac96_0136d61a",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1511,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-12T22:57:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bb13ef4_90455ba9",
+      "range": {
+        "startLine": 1511,
+        "startChar": 43,
+        "endLine": 1511,
+        "endChar": 50
+      },
+      "revId": "5fc19dc832d3717abc8bca3f2cd1f33a0baaa385",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28e28206_61bd5df0",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1511,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-12T22:57:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d554e9ca_e3ce46dd",
+      "range": {
+        "startLine": 1511,
+        "startChar": 58,
+        "endLine": 1511,
+        "endChar": 75
+      },
+      "revId": "5fc19dc832d3717abc8bca3f2cd1f33a0baaa385",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
