@@ -22,6 +22,30 @@
       },
       "revId": "bf3f11cf7f0a47dc9aca71a101967f9e136f46bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cc4e009_340faa5c",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-12T01:40:38Z",
+      "side": 0,
+      "message": "Thanks, changed and renamed to getEthernetInterfaceList",
+      "parentUuid": "9f55b6d5_81673c59",
+      "range": {
+        "startLine": 730,
+        "startChar": 12,
+        "endLine": 730,
+        "endChar": 61
+      },
+      "revId": "bf3f11cf7f0a47dc9aca71a101967f9e136f46bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
