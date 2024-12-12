@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3abe1918_bd936a78",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-12T22:57:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39b82542_84fab533",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "d107a980847fbe640898e68cd50c932c3f75c1f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51016dbb_5d3764c8",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-12-11T17:08:23Z",
       "side": 1,
       "message": "Add a comment along the lines of the commit message here to clarify that the requestId is not related to the reservationId. It just needs to be set to a unique-per-request ID which the requestId happens to be.",
+      "revId": "d107a980847fbe640898e68cd50c932c3f75c1f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aec8e1ad_d1e66985",
+        "filename": "framework/src/android/net/NetworkRequest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-12T22:57:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51016dbb_5d3764c8",
       "revId": "d107a980847fbe640898e68cd50c932c3f75c1f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
