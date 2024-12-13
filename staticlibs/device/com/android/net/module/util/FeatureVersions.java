@@ -56,4 +56,10 @@ public class FeatureVersions {
             CONNECTIVITY_MODULE_ID + 35_11_00_000L;
     public static final long FEATURE_DDR_IN_DNSRESOLVER =
             DNS_RESOLVER_MODULE_ID + 35_11_00_000L;
+
+    // Set Delegate UID is a feature implemented across ConnectivityService and CaptivePortalLogin,
+    // which provides an API to bypass VPN rule for the captive portal app with that delegated UID,
+    // introduced in version M-2025-02.
+    public static final long FEAUTRE_SET_DELEGATE_UID_IN_CAPTIVEPORTALLOGIN =
+            CONNECTIVITY_MODULE_ID + 35_11_00_000L;
 }
