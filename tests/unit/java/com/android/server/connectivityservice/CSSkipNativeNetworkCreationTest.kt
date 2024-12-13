@@ -36,9 +36,9 @@ import com.android.testutils.TestableNetworkCallback
 import kotlin.test.assertFailsWith
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito
 
 private const val TEST_INTERFACE = "wlan0"
@@ -67,10 +67,10 @@ class CSSkipNativeNetworkCreationTest : CSTest() {
         localAgent.connect()
         allNetworksCb.expectAvailableCallbacks(localAgent.network, validated = false)
         Mockito.verify(netd, Mockito.never()).networkCreate(any())
-        Mockito.verify(netd, Mockito.never()).networkAddInterface(ArgumentMatchers.anyInt(), ArgumentMatchers.anyString())
-        Mockito.verify(netd, Mockito.never()).networkAddRouteParcel(ArgumentMatchers.anyInt(), any())
+        Mockito.verify(netd, Mockito.never()).networkAddInterface(anyInt(), anyString())
+        Mockito.verify(netd, Mockito.never()).networkAddRouteParcel(anyInt(), any())
         Mockito.verify(multicastRoutingCoordinatorService, Mockito.never())
-                .applyMulticastRoutingConfig(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), any())
+                .applyMulticastRoutingConfig(anyString(), anyString(), any())
 
         val newLp = LinkProperties().apply {
             setInterfaceName(TEST_INTERFACE)
@@ -82,10 +82,11 @@ class CSSkipNativeNetworkCreationTest : CSTest() {
             it.lp.interfaceName.equals(TEST_INTERFACE)
         }
         // Verify no interaction when updating LinkProperties.
-        Mockito.verify(netd, Mockito.never()).networkAddInterface(ArgumentMatchers.anyInt(), ArgumentMatchers.anyString())
-        Mockito.verify(netd, Mockito.never()).networkAddRouteParcel(ArgumentMatchers.anyInt(), any())
+        Mockito.verify(netd, Mockito.never())
+                .networkAddInterface(anyInt(), anyString())
+        Mockito.verify(netd, Mockito.never()).networkAddRouteParcel(anyInt(), any())
         Mockito.verify(multicastRoutingCoordinatorService, Mockito.never())
-                .applyMulticastRoutingConfig(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), any())
+                .applyMulticastRoutingConfig(anyString(), anyString(), any())
 
         cm.unregisterNetworkCallback(allNetworksCb)
         localAgent.disconnect()
