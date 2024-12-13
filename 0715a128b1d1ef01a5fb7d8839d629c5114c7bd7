@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7676864e_13fc4b48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-13T03:32:05Z",
+      "side": 1,
+      "message": "Put it in one topic.",
+      "parentUuid": "725be523_909e1a33",
+      "revId": "0715a128b1d1ef01a5fb7d8839d629c5114c7bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e47c288_3e1f220d",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-12-13T03:23:34Z",
       "side": 1,
       "message": "You could also just remove the whole line (otherwise this isn\u0027t really consistent with other builtin hooks that are not enabled), but either way works",
+      "revId": "0715a128b1d1ef01a5fb7d8839d629c5114c7bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e4cc396_a3c42e84",
+        "filename": "PREUPLOAD.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-13T03:32:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e47c288_3e1f220d",
       "revId": "0715a128b1d1ef01a5fb7d8839d629c5114c7bd7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40ccb895_b648848b",
+        "filename": "PREUPLOAD.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-13T03:32:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e56c5fa_97e442d4",
+      "revId": "0715a128b1d1ef01a5fb7d8839d629c5114c7bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5a8743a_478db641",
@@ -65,6 +119,30 @@
       "writtenOn": "2024-12-13T03:23:34Z",
       "side": 1,
       "message": "As per the other CL, disabled-rules (with disableD) would be slightly more consistent with the ktlint arg",
+      "range": {
+        "startLine": 13,
+        "startChar": 56,
+        "endLine": 13,
+        "endChar": 69
+      },
+      "revId": "0715a128b1d1ef01a5fb7d8839d629c5114c7bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8d41970_366bd4de",
+        "filename": "PREUPLOAD.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-13T03:32:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5a8743a_478db641",
       "range": {
         "startLine": 13,
         "startChar": 56,
