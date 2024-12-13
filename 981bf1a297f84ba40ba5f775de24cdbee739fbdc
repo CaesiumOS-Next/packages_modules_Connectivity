@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82791653_5f15e7ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-13T06:15:21Z",
+      "side": 1,
+      "message": "Yeah that would be an interesting idea.",
+      "parentUuid": "eb2b9ac5_1be81c35",
+      "revId": "981bf1a297f84ba40ba5f775de24cdbee739fbdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bcf3b31c_12babbc3",
         "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
         "patchSetId": 8
@@ -31,6 +49,24 @@
       "writtenOn": "2024-12-11T20:50:34Z",
       "side": 1,
       "message": "wouldn\u0027t that mean that no network includes the capability before V, so it can safely be added to the forbidden capabilities?",
+      "revId": "981bf1a297f84ba40ba5f775de24cdbee739fbdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb775ee5_e6b3802f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-13T06:15:21Z",
+      "side": 1,
+      "message": "No, before V addForbiddenCapability and NET_CAPABILITY_LOCAL_NETWORK is not system api yet. From tethering we can only access connectivity APIs according to their sdk level. Otherwise it will be thrown as no such method exception.",
+      "parentUuid": "bcf3b31c_12babbc3",
       "revId": "981bf1a297f84ba40ba5f775de24cdbee739fbdc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
