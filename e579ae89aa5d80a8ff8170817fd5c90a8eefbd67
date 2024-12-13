@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fd463a5_f1b34ce6",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-13T03:12:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9209a05_e1c84b58",
+      "range": {
+        "startLine": 138,
+        "startChar": 16,
+        "endLine": 150,
+        "endChar": 87
+      },
+      "revId": "e579ae89aa5d80a8ff8170817fd5c90a8eefbd67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84c7b98d_a3972de2",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adaa7000_5524edeb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-13T03:12:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84c7b98d_a3972de2",
+      "range": {
+        "startLine": 302,
+        "startChar": 39,
+        "endLine": 302,
+        "endChar": 44
+      },
+      "revId": "e579ae89aa5d80a8ff8170817fd5c90a8eefbd67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ad61962_59a2f850",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-12-12T08:51:48Z",
       "side": 1,
       "message": "Android_[8 uppercase letters or digits]",
+      "range": {
+        "startLine": 622,
+        "startChar": 31,
+        "endLine": 622,
+        "endChar": 63
+      },
+      "revId": "e579ae89aa5d80a8ff8170817fd5c90a8eefbd67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "083b9ba1_eb578359",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsAdvertiserTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-13T03:12:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ad61962_59a2f850",
       "range": {
         "startLine": 622,
         "startChar": 31,
