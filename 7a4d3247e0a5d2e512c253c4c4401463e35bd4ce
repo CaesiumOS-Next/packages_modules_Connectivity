@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb662f2_72ac4eca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-13T12:17:05Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "7a4d3247e0a5d2e512c253c4c4401463e35bd4ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fbe61a2_af3e554d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-13T12:17:05Z",
+      "side": 1,
+      "message": "Nit: It\u0027s nice to use getConfigForNextRun() to retrieve the configuration first, then extract the new query index from it. Because the index increment might change in the future (e.g., increase by 2).\n\n```\nfinal QueryTaskConfig nextRunConfig \u003d currentConfig.getConfigForNextRun(queryMode);\nfinal int newQueryIndex \u003d nextRunConfig.queryIndex;\n```",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 63
+      },
+      "revId": "7a4d3247e0a5d2e512c253c4c4401463e35bd4ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
