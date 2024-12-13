@@ -16,11 +16,25 @@
 
 package android.net.connectivity;
 
+import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.LinkProperties;
+import android.net.LocalNetworkConfig;
+import android.net.NetworkAgent;
+import android.net.NetworkAgentConfig;
+import android.net.NetworkCapabilities;
+import android.net.NetworkScore;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.Looper;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 /**
@@ -56,5 +70,57 @@ public class ConnectivityInternalApiUtil {
     public static IBinder getRoutingCoordinator(Context ctx) {
         final ConnectivityManager cm = ctx.getSystemService(ConnectivityManager.class);
         return cm.getRoutingCoordinatorService();
+    }
+
+    /**
+     * Create a NetworkAgent instance to be used by Tethering.
+     * @param ctx the context
+     * @return an instance of the {@code NetworkAgent}
+     */
+    // TODO: Expose LocalNetworkConfig related APIs and delete this method. This method is
+    //  only here because on R Tethering is installed and not Connectivity, requiring all
+    //  shared classes to be public API. LocalNetworkConfig is not public yet, but it will
+    //  only be used by Tethering on V+ so it's fine.
+    @SuppressLint("WrongConstant")
+    @NonNull
+    public static TetheringNetworkAgent buildTetheringNetworkAgent(@NonNull Context ctx,
+            @NonNull Looper looper, @NonNull String logTag, int transportType,
+            @NonNull LinkProperties lp) {
+        final NetworkCapabilities.Builder builder = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_NOT_METERED)
+                .addCapability(NET_CAPABILITY_NOT_ROAMING)
+                .addCapability(NET_CAPABILITY_NOT_CONGESTED)
+                .addCapability(NET_CAPABILITY_NOT_SUSPENDED)
+                .addTransportType(transportType);
+        // TODO: Change to use the constant definition. Flags.netCapabilityLocalNetwork() was not
+        //  fully rollout but the service will still process this capability, set it anyway.
+        builder.addCapability(36 /* NET_CAPABILITY_LOCAL_NETWORK */);
+        final NetworkCapabilities caps = builder.build();
+        final NetworkAgentConfig nac = new NetworkAgentConfig.Builder().build();
+        return new TetheringNetworkAgent(ctx, looper, logTag, caps, lp,
+                new LocalNetworkConfig.Builder().build(),
+                new NetworkScore.Builder()
+                        .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK)
+                        .build(), nac);
+    }
+
+    public static class TetheringNetworkAgent extends NetworkAgent {
+        TetheringNetworkAgent(@NonNull Context ctx, @NonNull Looper looper,
+                @NonNull String logTag,
+                @NonNull NetworkCapabilities nc, @NonNull LinkProperties lp,
+                @NonNull LocalNetworkConfig lnc,
+                @NonNull NetworkScore score, @NonNull NetworkAgentConfig config) {
+            super(ctx, looper, logTag, nc, lp, lnc, score,
+                    config, null /* provider */);
+        }
+
+        /**
+         * Return whether the agent was ever registered.
+         *
+         * This is useful for determine whether the agent was successfully registered.
+         */
+        public boolean everRegistered() {
+            return getNetwork() != null;
+        }
     }
 }
