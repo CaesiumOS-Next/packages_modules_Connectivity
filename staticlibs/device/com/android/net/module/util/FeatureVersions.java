@@ -50,6 +50,11 @@ public class FeatureVersions {
     public static final long FEATURE_IS_UID_NETWORKING_BLOCKED =
             CONNECTIVITY_MODULE_ID + 34_14_00_000L;
 
+    // SET_DELEGATE_UID is a feature implemented in the ConnectivityService which provides an API
+    // to bypass VPN permission for the captive portal app with that delegated UID, introduced in
+    // version M-2025-Feb.
+    public static final long FEATURE_SET_DELEGATE_UID = CONNECTIVITY_MODULE_ID + 35_14_00_000L;
+
     // DDR is a feature implemented across NetworkStack, ConnectivityService and DnsResolver.
     // The flag that enables this feature is in NetworkStack.
     public static final long FEATURE_DDR_IN_CONNECTIVITY =
