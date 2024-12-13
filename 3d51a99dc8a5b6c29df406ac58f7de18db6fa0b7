@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ab3a5c2_cca534a5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 2173,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-13T03:06:19Z",
+      "side": 1,
+      "message": "But why twice ? I guess that\u0027s once to cancel the old run, and once because each new scheduled query causes a call to cancelTask",
+      "range": {
+        "startLine": 2173,
+        "startChar": 54,
+        "endLine": 2173,
+        "endChar": 59
+      },
+      "revId": "3d51a99dc8a5b6c29df406ac58f7de18db6fa0b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
