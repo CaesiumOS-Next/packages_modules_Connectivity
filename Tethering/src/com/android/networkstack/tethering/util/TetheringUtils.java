@@ -15,6 +15,19 @@
  */
 package com.android.networkstack.tethering.util;
 
+import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
+import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
+import static android.net.NetworkCapabilities.TRANSPORT_USB;
+import static android.net.TetheringManager.TETHERING_BLUETOOTH;
+import static android.net.TetheringManager.TETHERING_ETHERNET;
+import static android.net.TetheringManager.TETHERING_NCM;
+import static android.net.TetheringManager.TETHERING_USB;
+import static android.net.TetheringManager.TETHERING_VIRTUAL;
+import static android.net.TetheringManager.TETHERING_WIFI;
+import static android.net.TetheringManager.TETHERING_WIFI_P2P;
+import static android.net.TetheringManager.TETHERING_WIGIG;
+
 import android.net.TetherStatsParcel;
 import android.util.Log;
 
@@ -164,6 +177,32 @@ public class TetheringUtils {
             Log.wtf("TetheringUtils", "Failed to construct Inet6Address from "
                     + Arrays.toString(ALL_NODES) + " and scopedId " + scopeId);
             return null;
+        }
+    }
+
+    /**
+     * Returns the transport type for the given interface type.
+     *
+     * @param interfaceType The interface type.
+     * @return The transport type.
+     * @throws IllegalArgumentException if the interface type is invalid.
+     */
+    public static int getTransportTypeForTetherableType(int interfaceType) {
+        switch (interfaceType) {
+            case TETHERING_WIFI:
+            case TETHERING_WIGIG:
+            case TETHERING_WIFI_P2P:
+                return TRANSPORT_WIFI;
+            case TETHERING_USB:
+            case TETHERING_NCM:
+                return TRANSPORT_USB;
+            case TETHERING_BLUETOOTH:
+                return TRANSPORT_BLUETOOTH;
+            case TETHERING_ETHERNET:
+            case TETHERING_VIRTUAL: // For virtual machines.
+                return TRANSPORT_ETHERNET;
+            default:
+                throw new IllegalArgumentException("Invalid interface type: " + interfaceType);
         }
     }
 }
