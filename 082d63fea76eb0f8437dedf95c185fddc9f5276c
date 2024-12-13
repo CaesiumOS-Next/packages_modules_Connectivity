@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c548a95_f08bc876",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-13T02:36:35Z",
+      "side": 1,
+      "message": "LGTM if Lorenzo is happy with the latest update",
+      "revId": "082d63fea76eb0f8437dedf95c185fddc9f5276c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
