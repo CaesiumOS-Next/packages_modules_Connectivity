@@ -2833,7 +2833,7 @@ private fun ByteArray?.utf8ToString(): String {
 }
 
 private fun assertAddressEquals(expected: List<InetAddress>, actual: List<InetAddress>) {
-    // No duplicate addresses in the actual address list
+    // No duplicate addresses in the actual address list.
     assertEquals(actual.toSet().size, actual.size)
     assertEquals(expected.toSet(), actual.toSet())
 }
