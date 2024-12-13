@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0bcd9a1_eb00292a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-13T12:53:29Z",
+      "side": 1,
+      "message": "hmm, if we need to do the conversion, does it means we maybe chose the wrong type in the MdnsConfig class?",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "7a4d3247e0a5d2e512c253c4c4401463e35bd4ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2fbe61a2_af3e554d",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsQueryScheduler.java",
         "patchSetId": 5
