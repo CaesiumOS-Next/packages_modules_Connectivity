@@ -17,8 +17,11 @@ package android.tethering.mts;
 
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.READ_DEVICE_CONFIG;
+import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.Manifest.permission.WRITE_SETTINGS;
+import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringManager.TETHERING_WIFI;
+import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
@@ -32,6 +35,8 @@ import android.content.Context;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.TetheringInterface;
+import android.net.TetheringManager;
+import android.net.TetheringManager.TetheringRequest;
 import android.net.cts.util.CtsTetheringUtils;
 import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
 import android.provider.DeviceConfig;
@@ -40,6 +45,7 @@ import androidx.annotation.NonNull;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.bedstead.harrier.annotations.RequireRunOnSecondaryUser;
 import com.android.testutils.TestNetworkTracker;
 
 import org.junit.Before;
@@ -56,12 +62,14 @@ import java.util.List;
 public class TetheringModuleTest {
     private Context mContext;
     private CtsTetheringUtils mCtsTetheringUtils;
+    private TetheringManager mTM;
     private final long mRestartTimeOutMs = 5_000;
 
     @Before
     public void setUp() throws Exception {
         mContext = InstrumentationRegistry.getContext();
         mCtsTetheringUtils = new CtsTetheringUtils(mContext);
+        mTM = (TetheringManager) mContext.getSystemService(Context.TETHERING_SERVICE);
     }
 
     @Test
@@ -177,5 +185,23 @@ public class TetheringModuleTest {
     public static boolean isFeatureEnabled(final String name, final boolean defaultValue) {
         return runAsShell(READ_DEVICE_CONFIG,
                 () -> DeviceConfig.getBoolean(NAMESPACE_CONNECTIVITY, name, defaultValue));
+    }
+
+    @Test
+    @RequireRunOnSecondaryUser
+    public void testStartTetheringPermissionCheckOnSecondaryUser() {
+        // With TETHER_PRIVILEGED, we should be able to call startTethering and not get
+        // TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION (but may fail with a different error
+        // depending on device capabilities for ethernet tethering).
+        // If we do get this error, then this means AppOpsManager#checkPackage doesn't work for the
+        // secondary user.
+        final CtsTetheringUtils.StartTetheringCallback
+                startTetheringCallback = new CtsTetheringUtils.StartTetheringCallback();
+        runAsShell(TETHER_PRIVILEGED, () -> {
+            mTM.startTethering(new TetheringRequest.Builder(TETHERING_ETHERNET).build(),
+                    c -> c.run() /* executor */, startTetheringCallback);
+            startTetheringCallback.doNotExpectTetheringFailed(
+                    TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+        });
     }
 }

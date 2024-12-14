@@ -18,10 +18,6 @@ package android.tethering.test;
 import static android.Manifest.permission.MODIFY_PHONE_STATE;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
-import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
-import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_BLUETOOTH;
@@ -46,7 +42,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 import android.content.BroadcastReceiver;
@@ -56,15 +51,12 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.LinkAddress;
-import android.net.Network;
-import android.net.NetworkCapabilities;
 import android.net.TetheringInterface;
 import android.net.TetheringManager;
 import android.net.TetheringManager.OnTetheringEntitlementResultListener;
 import android.net.TetheringManager.TetheringInterfaceRegexps;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.cts.util.CtsNetUtils;
-import android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import android.net.cts.util.CtsTetheringUtils;
 import android.net.cts.util.CtsTetheringUtils.StartTetheringCallback;
 import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
@@ -82,6 +74,7 @@ import androidx.annotation.NonNull;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.bedstead.harrier.annotations.RequireRunOnSecondaryUser;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.testutils.ParcelUtils;
 
@@ -463,6 +456,23 @@ public class TetheringManagerTest {
         mTM.startTethering(new TetheringRequest.Builder(TETHERING_WIFI).build(),
                 c -> c.run() /* executor */, startTetheringCallback);
         startTetheringCallback.expectTetheringFailed(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+    }
+
+    @Test
+    @RequireRunOnSecondaryUser
+    public void testStartTetheringPermissionCheckOnSecondaryUser() {
+        // With TETHER_PRIVILEGED, we should be able to call startTethering and not get
+        // TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION (but may fail with a different error
+        // depending on device capabilities for ethernet tethering).
+        // If we do get this error, then this means AppOpsManager#checkPackage doesn't work for the
+        // secondary user.
+        final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
+        runAsShell(TETHER_PRIVILEGED, () -> {
+            mTM.startTethering(new TetheringRequest.Builder(TETHERING_ETHERNET).build(),
+                    c -> c.run() /* executor */, startTetheringCallback);
+            startTetheringCallback.doNotExpectTetheringFailed(
+                    TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+        });
     }
 
     private class EntitlementResultListener implements OnTetheringEntitlementResultListener {
