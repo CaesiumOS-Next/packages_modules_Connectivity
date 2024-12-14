@@ -16,6 +16,8 @@
 
 package com.android.cts.net;
 
+import static org.junit.Assert.fail;
+
 import com.android.tradefed.device.DeviceNotAvailableException;
 import com.android.tradefed.invoker.TestInformation;
 import com.android.tradefed.testtype.DeviceJUnit4ClassRunner;
@@ -49,5 +51,10 @@ public class HostsideTetheringTests extends HostsideNetworkTestCase {
     public void testSoftApConfigurationRedactedForOtherApps() throws Exception {
         runDeviceTests(TEST_PKG, TEST_PKG + ".TetheringTest",
                 "testSoftApConfigurationRedactedForOtherUids");
+    }
+
+    @Test
+    public void testFail() throws Exception {
+        fail();
     }
 }
