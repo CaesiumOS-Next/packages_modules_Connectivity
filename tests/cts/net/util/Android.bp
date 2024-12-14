@@ -32,5 +32,6 @@ java_library {
         "net-tests-utils",
         "modules-utils-build",
         "net-utils-framework-common",
+        "Harrier",
     ],
 }
