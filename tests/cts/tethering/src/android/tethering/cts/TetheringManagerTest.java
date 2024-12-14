@@ -463,6 +463,13 @@ public class TetheringManagerTest {
         mTM.startTethering(new TetheringRequest.Builder(TETHERING_WIFI).build(),
                 c -> c.run() /* executor */, startTetheringCallback);
         startTetheringCallback.expectTetheringFailed(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+
+        runAsShell(TETHER_PRIVILEGED, () -> {
+            mTM.startTethering(new TetheringRequest.Builder(TETHERING_WIFI).build(),
+                    c -> c.run() /* executor */, startTetheringCallback);
+            startTetheringCallback.doNotExpectTetheringFailed(
+                    TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+        });
     }
 
     private class EntitlementResultListener implements OnTetheringEntitlementResultListener {
