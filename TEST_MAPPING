@@ -83,6 +83,17 @@
           "exclude-annotation": "com.android.testutils.NetworkStackModuleTest"
         }
       ]
+    },
+    {
+      "name": "CtsTetheringTestSecondaryUser",
+      "options": [
+        {
+          "exclude-annotation": "com.android.testutils.NetworkStackModuleTest"
+        },
+        {
+          "user-type": "secondary_user"
+        }
+      ]
     }
   ],
   "captiveportal-networkstack-mainline-presubmit": [

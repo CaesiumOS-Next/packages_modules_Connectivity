@@ -157,6 +157,26 @@ java_defaults {
     ],
 }
 
+// same as framework-connectivity-test-defaults but builds against android test stubs
+// instead of the full framework.
+java_defaults {
+    name: "framework-connectivity-test-defaults-android-test-stubs",
+    sdk_version: "core_platform", // tests can use @CorePlatformApi's
+    libs: [
+        // order matters: classes in framework-connectivity are resolved before framework,
+        // meaning @hide APIs in framework-connectivity are resolved before @SystemApi
+        // stubs in android_test_stubs_current
+        "framework-connectivity.impl",
+        "framework-connectivity-b.impl",
+        "framework-connectivity-t.impl",
+        "framework-tethering.impl",
+        "android_test_stubs_current",
+
+        // if sdk_version="" this gets automatically included, but here we need to add manually.
+        "framework-res",
+    ],
+}
+
 // defaults for tests that need to build against framework-connectivity's @hide APIs, but also
 // using fully @hide classes that are jarjared (because they have no API member). Similar to
 // framework-connectivity-test-defaults above but uses pre-jarjar class names.

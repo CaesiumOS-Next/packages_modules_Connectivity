@@ -30,6 +30,18 @@
     </target_preparer>
     <test class="com.android.tradefed.testtype.AndroidJUnitTest" >
         <option name="package" value="android.tethering.cts" />
+        <option name="instrumentation-arg" key="test-module-name" value="{MODULE}" />
+        <!-- Test filter that allows test APKs to select which tests they want to run by annotating
+             those tests with an annotation matching the name of the APK.
+
+             This allows us to maintain one AndroidTestTemplate.xml for all CtsTetheringTest*.apk,
+             and have CtsTetheringTest run all tests, but have CtsTetheringTestSecondaryUser run
+             only tests that require running on the secondary user.
+
+             This relies on the fact that if the class specified in include-annotation exists, then
+             the runner will only run the tests annotated with that annotation, but if it does not,
+             the runner will run all the tests. -->
+        <option name="include-annotation" value="com.android.testutils.filters.{MODULE}" />
     </test>
 
     <object type="module_controller" class="com.android.tradefed.testtype.suite.module.MainlineTestModuleController">

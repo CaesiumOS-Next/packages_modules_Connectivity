@@ -21,7 +21,7 @@ java_defaults {
     name: "CtsTetheringTestDefaults",
     defaults: [
         "cts_defaults",
-        "framework-connectivity-test-defaults",
+        "framework-connectivity-test-defaults-android-test-stubs",
     ],
 
     libs: [
@@ -88,6 +88,32 @@ android_test {
 // release devices as their min_sdk_version is set to a production version.
 android_test {
     name: "CtsTetheringTest",
+    defaults: ["CtsTetheringTestDefaults"],
+
+    static_libs: [
+        "TetheringIntegrationTestsLib",
+    ],
+
+    // Tag this module as a cts test artifact
+    test_suites: [
+        "cts",
+        "mts-tethering",
+        "mcts-tethering",
+        "general-tests",
+    ],
+
+    test_config_template: "AndroidTestTemplate.xml",
+
+    // Include both the 32 and 64 bit versions
+    compile_multilib: "both",
+    jarjar_rules: ":NetworkStackJarJarRules",
+}
+
+// Tethering CTS tests for the secondary user.
+// This only runs tests annotated with CtsTetheringTestSecondaryUser and must only be run
+// configured as the secondary user (--user-type secondary_user).
+android_test {
+    name: "CtsTetheringTestSecondaryUser",
     defaults: ["CtsTetheringTestDefaults"],
 
     static_libs: [
