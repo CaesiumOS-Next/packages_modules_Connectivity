@@ -3,6 +3,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9ea364a5_04d3001d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-14T23:32:50Z",
+      "side": 1,
+      "message": "This should be on the handler thread, but I\u0027ll actually add it to change 3389321",
+      "range": {
+        "startLine": 1245,
+        "startChar": 0,
+        "endLine": 1247,
+        "endChar": 9
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1c6ce87b_f0bdacf0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1245,
+                "startChar": 0,
+                "endLine": 1248,
+                "endChar": 0
+              },
+              "replacement": "        mHandler.post(() -\u003e {\n            for (TetheringRequest request : getAllTetheringRequests()) {\n                stopTetheringInternal(request);\n            }\n        });\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2463c5a3eb07a940663558a9d0ffbf51d44409e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85c86203_6bcc6582",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 17
