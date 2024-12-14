@@ -73,6 +73,7 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiSsid;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.os.Process;
 import android.os.ResultReceiver;
 import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionManager;
@@ -463,6 +464,42 @@ public class TetheringManagerTest {
         mTM.startTethering(new TetheringRequest.Builder(TETHERING_WIFI).build(),
                 c -> c.run() /* executor */, startTetheringCallback);
         startTetheringCallback.expectTetheringFailed(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+
+        // With TETHER_PRIVILEGED, we should be able to call startTethering and not get
+        // TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION (but may fail with a different error
+        // depending on device capabilities for ethernet tethering).
+        // If we do get this error, then this means AppOpsManager#checkPackage doesn't work for the
+        // secondary user.
+        final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
+        runAsShell(TETHER_PRIVILEGED, () -> {
+            mTM.startTethering(new TetheringRequest.Builder(TETHERING_ETHERNET).build(),
+                    c -> c.run() /* executor */, startTetheringCallback);
+            startTetheringCallback.doNotExpectTetheringFailed(
+                    TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+        });
+    }
+
+    @Test
+    public void testFailSecondaryUser() {
+        if (Process.myUid() >= 100_000) {
+            fail("Failed because secondary user");
+        }
+    }
+
+    @Test
+    public void testStartTetheringPermissionCheckOnSecondaryUser() {
+        // With TETHER_PRIVILEGED, we should be able to call startTethering and not get
+        // TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION (but may fail with a different error
+        // depending on device capabilities for ethernet tethering).
+        // If we do get this error, then this means AppOpsManager#checkPackage doesn't work for the
+        // secondary user.
+        final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
+        runAsShell(TETHER_PRIVILEGED, () -> {
+            mTM.startTethering(new TetheringRequest.Builder(TETHERING_ETHERNET).build(),
+                    c -> c.run() /* executor */, startTetheringCallback);
+            startTetheringCallback.doNotExpectTetheringFailed(
+                    TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+        });
     }
 
     private class EntitlementResultListener implements OnTetheringEntitlementResultListener {

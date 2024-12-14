@@ -81,6 +81,9 @@
       "options": [
         {
           "exclude-annotation": "com.android.testutils.NetworkStackModuleTest"
+        },
+        {
+          "user-type": "secondary_user"
         }
       ]
     }
