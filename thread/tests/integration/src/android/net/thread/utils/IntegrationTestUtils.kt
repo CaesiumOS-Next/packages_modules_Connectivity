@@ -388,12 +388,7 @@ object IntegrationTestUtils {
         raMsg ?: return pioList
 
         val buf = ByteBuffer.wrap(raMsg)
-        val ipv6Header = try {
-            Struct.parse(Ipv6Header::class.java, buf)
-        } catch (e: IllegalArgumentException) {
-            // the packet is not IPv6
-            return pioList
-        }
+        val ipv6Header = Struct.parse(Ipv6Header::class.java, buf)
         if (ipv6Header.nextHeader != OsConstants.IPPROTO_ICMPV6.toByte()) {
             return pioList
         }
