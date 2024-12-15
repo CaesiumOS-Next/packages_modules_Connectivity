@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.android.server.net.ct;
 
 import android.annotation.RequiresApi;
@@ -37,8 +36,7 @@ public class CertificateTransparencyService extends ICertificateTransparencyMana
      */
     public static boolean enabled(Context context) {
         return DeviceConfig.getBoolean(
-                Config.NAMESPACE_NETWORK_SECURITY, Config.FLAG_SERVICE_ENABLED,
-                /* defaultValue= */ true)
+                        Config.NAMESPACE_NETWORK_SECURITY, Config.FLAG_SERVICE_ENABLED, false)
                 && Flags.certificateTransparencyService();
     }
 
