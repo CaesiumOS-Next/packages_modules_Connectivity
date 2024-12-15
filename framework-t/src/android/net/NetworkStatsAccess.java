@@ -111,6 +111,12 @@ public final class NetworkStatsAccess {
     /** Returns the {@link NetworkStatsAccess.Level} for the given caller. */
     public static @NetworkStatsAccess.Level int checkAccessLevel(
             Context context, int callingPid, int callingUid, @Nullable String callingPackage) {
+        final int appId = UserHandle.getAppId(callingUid);
+        if (appId == Process.SYSTEM_UID) {
+            // the system can access data usage for all apps on the device.
+            // check system uid first, to avoid possible dead lock from other APIs
+            return NetworkStatsAccess.Level.DEVICE;
+        }
         final DevicePolicyManager mDpm = context.getSystemService(DevicePolicyManager.class);
         final TelephonyManager tm = (TelephonyManager)
                 context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -125,8 +131,6 @@ public final class NetworkStatsAccess {
         } finally {
             Binder.restoreCallingIdentity(token);
         }
-
-        final int appId = UserHandle.getAppId(callingUid);
 
         final boolean isNetworkStack = PermissionUtils.hasAnyPermissionOf(
                 context, callingPid, callingUid, android.Manifest.permission.NETWORK_STACK,
