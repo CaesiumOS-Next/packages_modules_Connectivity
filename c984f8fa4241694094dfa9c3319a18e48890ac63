@@ -164,6 +164,30 @@
       },
       "revId": "c984f8fa4241694094dfa9c3319a18e48890ac63",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d2c0237_9aef77dc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-16T07:08:57Z",
+      "side": 1,
+      "message": "Added a Build version check in TetheringDependencies.isTetheringWithSoftApConfigEnabled()",
+      "parentUuid": "9759aad5_25ed6199",
+      "range": {
+        "startLine": 691,
+        "startChar": 25,
+        "endLine": 691,
+        "endChar": 35
+      },
+      "revId": "c984f8fa4241694094dfa9c3319a18e48890ac63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
