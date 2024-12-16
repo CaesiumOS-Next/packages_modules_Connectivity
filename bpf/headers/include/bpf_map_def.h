@@ -155,7 +155,7 @@ struct bpf_map_def {
     enum bpf_map_type type;
     unsigned int key_size;
     unsigned int value_size;
-    unsigned int max_entries;
+    int max_entries;
     unsigned int map_flags;
 
     // The following are not supported by the Android bpfloader:
