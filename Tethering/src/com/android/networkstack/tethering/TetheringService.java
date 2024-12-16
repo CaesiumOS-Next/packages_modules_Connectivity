@@ -243,6 +243,12 @@ public class TetheringService extends Service {
                 final String callingAttributionTag, final boolean onlyAllowPrivileged,
                 final IIntResultListener listener) {
             try {
+                int callingUid = getBinderCallingUid();
+                if (callingUid > 100_000) {
+                    Log.e(TAG, "Secondary user not allowed to call tethering");
+                    listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+                    return true;
+                }
                 if (!checkPackageNameMatchesUid(getBinderCallingUid(), callerPkg)) {
                     Log.e(TAG, "Package name " + callerPkg + " does not match UID "
                             + getBinderCallingUid());
