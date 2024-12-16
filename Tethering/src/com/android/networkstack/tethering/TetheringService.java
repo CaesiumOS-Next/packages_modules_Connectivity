@@ -50,6 +50,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
+import android.os.UserHandle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -242,6 +243,9 @@ public class TetheringService extends Service {
         private boolean checkAndNotifyCommonError(final String callerPkg,
                 final String callingAttributionTag, final boolean onlyAllowPrivileged,
                 final IIntResultListener listener) {
+            if (UserHandle.CURRENT.getIdentifier() >= UserHandle.MIN_SECONDARY_USER_ID) {
+                throw new IllegalArgumentException("Secondary user not allowed!");
+            }
             try {
                 if (!checkPackageNameMatchesUid(getBinderCallingUid(), callerPkg)) {
                     Log.e(TAG, "Package name " + callerPkg + " does not match UID "
