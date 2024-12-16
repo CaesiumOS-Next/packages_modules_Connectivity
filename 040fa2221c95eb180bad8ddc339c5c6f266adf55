@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "263a75ed_fd8f444c",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-16T06:41:04Z",
+      "side": 1,
+      "message": "CCT is generally implemented across both, but setDelegateUid is just implemented by ConnectivityService\n\nI think the feature can just be called FEATURE_SET_DELEGATE_UID; see for example FEATURE_IS_UID_NETWORKING_BLOCKED which is similar. The DDR feature above is not a good example because it is actually implemented across 3 modules.",
+      "range": {
+        "startLine": 60,
+        "startChar": 7,
+        "endLine": 60,
+        "endChar": 98
+      },
+      "revId": "040fa2221c95eb180bad8ddc339c5c6f266adf55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03857891_789a9896",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-16T06:41:04Z",
+      "side": 1,
+      "message": "Typo: FEATURE",
+      "range": {
+        "startLine": 63,
+        "startChar": 29,
+        "endLine": 63,
+        "endChar": 36
+      },
+      "revId": "040fa2221c95eb180bad8ddc339c5c6f266adf55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "578823c0_8e088384",
+        "filename": "staticlibs/device/com/android/net/module/util/FeatureVersions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-16T06:41:04Z",
+      "side": 1,
+      "message": "This is M-2024-11",
+      "range": {
+        "startLine": 64,
+        "startChar": 37,
+        "endLine": 64,
+        "endChar": 42
+      },
+      "revId": "040fa2221c95eb180bad8ddc339c5c6f266adf55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
