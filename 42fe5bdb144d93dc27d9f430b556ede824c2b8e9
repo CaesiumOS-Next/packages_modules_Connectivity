@@ -16,6 +16,29 @@
       "message": "Metrics change LGTM. I am lacking the context of this issue. Over to @reminv@google.com to confirm the try-catch block is added as expected.",
       "revId": "42fe5bdb144d93dc27d9f430b556ede824c2b8e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51106fb9_3f9ad883",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-16T21:16:14Z",
+      "side": 1,
+      "message": "I guess this was probably discussed at some point, but I don\u0027t understand why a WTF is being logged here. Reading b/382628161, we actually expect this to happen, so I do not understand what value these logs provide. This isn\u0027t actually a \"terrible error\", right?",
+      "range": {
+        "startLine": 170,
+        "startChar": 18,
+        "endLine": 172,
+        "endChar": 157
+      },
+      "revId": "42fe5bdb144d93dc27d9f430b556ede824c2b8e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
