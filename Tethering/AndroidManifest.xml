@@ -17,6 +17,7 @@
  */
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.android.networkstack.tethering"
           android:sharedUserId="android.uid.networkstack">
 
@@ -60,6 +61,16 @@
             <intent-filter>
                 <action android:name="android.net.ITetheringConnector"/>
             </intent-filter>
+        </service>
+        <service android:name="com.android.server.NetworkStackService"
+                 android:exported="true"
+                 android:permission="android.permission.MAINLINE_NETWORK_STACK">
+            <intent-filter>
+                <action android:name="android.net.INetworkStackConnectorInTethering"/>
+            </intent-filter>
+        </service>
+        <service android:name="com.android.networkstack.ipmemorystore.RegularMaintenanceJobService"
+                 android:permission="android.permission.BIND_JOB_SERVICE" >
         </service>
     </application>
 </manifest>

@@ -97,7 +97,7 @@ android_library {
         "TetheringReleaseTargetSdk",
     ],
     static_libs: [
-        "NetworkStackApiCurrentShims",
+        "NetworkStackApiStableLib",
     ],
     apex_available: ["com.android.tethering"],
     lint: {
@@ -170,6 +170,7 @@ java_defaults {
     privileged: true,
     jni_libs: [
         "libcom_android_networkstack_tethering_util_jni",
+        "libnetworkstackutilsjni",
     ],
     resource_dirs: [
         "res",
