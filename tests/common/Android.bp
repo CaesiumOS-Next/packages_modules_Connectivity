@@ -113,6 +113,7 @@ android_test {
         "mockito-target-extended-minus-junit4",
         "modules-utils-native-coverage-listener",
         "ConnectivityCoverageTestsLib",
+        "com.android.net.flags-aconfig-java",
     ],
     jni_libs: [
         // For mockito extended
