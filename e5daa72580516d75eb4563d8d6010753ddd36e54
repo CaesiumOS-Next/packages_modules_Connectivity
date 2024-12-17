@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5d54adb_99455fcd",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-17T01:07:48Z",
+      "side": 1,
+      "message": "Is ConfigUpdate linked to the ConfigUpdater? Could we avoid this dependency?\n\nAlso, the doc for that class states \"All require the UPDATE_CONFIG permission.\". Is that accurate here, do we require UPDATE_CONFIG?",
+      "revId": "e5daa72580516d75eb4563d8d6010753ddd36e54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
