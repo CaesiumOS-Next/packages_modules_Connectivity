@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bf08bd3_3a0d6fb6",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-17T04:19:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f572cd43_4b0aa6a3",
+      "range": {
+        "startLine": 1004,
+        "startChar": 21,
+        "endLine": 1004,
+        "endChar": 37
+      },
+      "revId": "5950cd6e7ad5fa9c7e73574859cb5738e730f9d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddfcb56e_e9a6d931",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-11T14:11:08Z",
       "side": 1,
       "message": "Needs update",
+      "range": {
+        "startLine": 477,
+        "startChar": 7,
+        "endLine": 479,
+        "endChar": 20
+      },
+      "revId": "5950cd6e7ad5fa9c7e73574859cb5738e730f9d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b71d0efd_ad32e10a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-17T04:19:39Z",
+      "side": 1,
+      "message": "Updated in previous patch.",
+      "parentUuid": "ddfcb56e_e9a6d931",
       "range": {
         "startLine": 477,
         "startChar": 7,
