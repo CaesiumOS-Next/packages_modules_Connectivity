@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8679164d_910393a3",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-17T05:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c312acad_8c5c4ec6",
+      "range": {
+        "startLine": 1298,
+        "startChar": 24,
+        "endLine": 1298,
+        "endChar": 32
+      },
+      "revId": "6cd68df6bd00d0e7d79098737e663a23c2e352d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35576f5d_47841e2f",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-17T02:48:20Z",
       "side": 1,
       "message": "Can we avoid keeping the dependencies here? Maybe you can have isTetheringWithSoftApConfigEnabled call into mTethering?",
+      "range": {
+        "startLine": 73,
+        "startChar": 34,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "6cd68df6bd00d0e7d79098737e663a23c2e352d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "199a4f5c_60635ee4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-17T05:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35576f5d_47841e2f",
       "range": {
         "startLine": 73,
         "startChar": 34,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cef4864_807cc7d9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-17T05:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6ffab6d_d86240d9",
+      "range": {
+        "startLine": 172,
+        "startChar": 17,
+        "endLine": 172,
+        "endChar": 74
+      },
+      "revId": "6cd68df6bd00d0e7d79098737e663a23c2e352d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47bf74e4_51404321",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-12-17T02:48:20Z",
       "side": 1,
       "message": "Can this throw? Presumably yes since this method has \"throws Exception\". Can it throw when the test passes? If so, put this in a finally clause? Or at least add a comment that if runTetheringCall throws, then the test will fail anyway, so calling setIsTetheringWithSoftApConfigEnabled(true) is not necessary.",
+      "range": {
+        "startLine": 175,
+        "startChar": 8,
+        "endLine": 175,
+        "endChar": 24
+      },
+      "revId": "6cd68df6bd00d0e7d79098737e663a23c2e352d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92006ffd_43ba79b1",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-17T05:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47bf74e4_51404321",
       "range": {
         "startLine": 175,
         "startChar": 8,
