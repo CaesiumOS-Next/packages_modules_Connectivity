@@ -1873,6 +1873,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                     return innerSocketPort;
                 },
                 false /* enableEncrypt */);
+<<<<<<< HEAD   (91ee26 [automerger skipped] Add awaitEspPacket that requires sequen)
     }
 
     @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
@@ -1914,5 +1915,8 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
                     },
                     true /* enableEncrypt */);
         }
+||||||| BASE
+=======
+>>>>>>> BRANCH (20df9d Handle ICMP in testRequestIpSecTransformStateForTx)
     }
 }
