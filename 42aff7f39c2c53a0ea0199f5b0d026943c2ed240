@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bd2f343_45eb3524",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-17T02:06:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b748b9c4_632e6e4a",
+      "range": {
+        "startLine": 487,
+        "startChar": 24,
+        "endLine": 487,
+        "endChar": 30
+      },
+      "revId": "42aff7f39c2c53a0ea0199f5b0d026943c2ed240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d18b8f7_c4fa4436",
@@ -71,6 +95,30 @@
           ]
         }
       ],
+      "revId": "42aff7f39c2c53a0ea0199f5b0d026943c2ed240",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe6860c8_fbd4064f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/RtNetlinkLinkMessage.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-17T02:06:32Z",
+      "side": 1,
+      "message": "Just realized it does, thanks for noticing this.",
+      "parentUuid": "2d18b8f7_c4fa4436",
+      "range": {
+        "startLine": 333,
+        "startChar": 16,
+        "endLine": 333,
+        "endChar": 42
+      },
       "revId": "42aff7f39c2c53a0ea0199f5b0d026943c2ed240",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
