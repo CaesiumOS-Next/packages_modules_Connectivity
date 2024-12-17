@@ -219,6 +219,7 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.MiscAsserts;
+import com.android.testutils.com.android.testutils.SetFeatureFlagsRule;
 
 import org.junit.After;
 import org.junit.Before;
@@ -240,6 +241,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
@@ -249,6 +251,16 @@ import java.util.concurrent.Executor;
 @SmallTest
 public class TetheringTest {
     @Rule public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
+
+    final HashMap<String, Boolean> mFeatureFlags = new HashMap<>();
+    // This will set feature flags from @FeatureFlag annotations
+    // into the map before setUp() runs.
+    @Rule
+    public final SetFeatureFlagsRule mSetFeatureFlagsRule =
+            new SetFeatureFlagsRule((name, enabled) -> {
+                mFeatureFlags.put(name, enabled);
+                return null;
+            }, (name) -> mFeatureFlags.getOrDefault(name, false));
 
     private static final int IFINDEX_OFFSET = 100;
 
@@ -460,6 +472,11 @@ public class TetheringTest {
 
         public void setOnDhcpServerCreatedResult(final int result) {
             mOnDhcpServerCreatedResult = result;
+        }
+
+        @Override
+        public boolean isFeatureEnabled(Context context, String name) {
+            return mFeatureFlags.getOrDefault(name, false);
         }
     }
 

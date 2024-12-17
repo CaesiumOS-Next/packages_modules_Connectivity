@@ -28,6 +28,7 @@ import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHER_ERROR_ENABLE_FORWARDING_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
+import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
 import static android.net.TetheringManager.TETHER_ERROR_TETHER_IFACE_ERROR;
 import static android.net.dhcp.IDhcpServer.STATUS_SUCCESS;
 import static android.net.ip.IpServer.STATE_AVAILABLE;
@@ -38,6 +39,7 @@ import static android.net.ip.IpServer.getTetherableIpv6Prefixes;
 
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
+import static com.android.networkstack.tethering.TetheringConfiguration.TETHERING_LOCAL_NETWORK_AGENT;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -53,6 +55,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
@@ -64,7 +67,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.net.INetd;
 import android.net.InetAddresses;
 import android.net.InterfaceConfigurationParcel;
@@ -72,6 +75,8 @@ import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.MacAddress;
+import android.net.Network;
+import android.net.NetworkAgent;
 import android.net.RouteInfo;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.dhcp.DhcpServerCallbacks;
@@ -83,12 +88,14 @@ import android.net.ip.RouterAdvertisementDaemon.RaParams;
 import android.os.Build;
 import android.os.Handler;
 import android.os.RemoteException;
+import android.os.ServiceSpecificException;
 import android.os.test.TestLooper;
 import android.text.TextUtils;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.net.module.util.SharedLog;
@@ -100,6 +107,7 @@ import com.android.networkstack.tethering.util.PrefixUtils;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import com.android.testutils.com.android.testutils.SetFeatureFlagsRule;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -110,9 +118,11 @@ import org.mockito.Captor;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.stubbing.Answer;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -121,6 +131,16 @@ import java.util.Set;
 public class IpServerTest {
     @Rule
     public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
+
+    final HashMap<String, Boolean> mFeatureFlags = new HashMap<>();
+    // This will set feature flags from @FeatureFlag annotations
+    // into the map before setUp() runs.
+    @Rule
+    public final SetFeatureFlagsRule mSetFeatureFlagsRule =
+            new SetFeatureFlagsRule((name, enabled) -> {
+                mFeatureFlags.put(name, enabled);
+                return null;
+            }, (name) -> mFeatureFlags.getOrDefault(name, false));
 
     private static final String IFACE_NAME = "testnet1";
     private static final String UPSTREAM_IFACE = "upstream0";
@@ -164,6 +184,7 @@ public class IpServerTest {
             new LinkAddress("2001:db8:0:abcd::168/64"));
     private static final Set<IpPrefix> UPSTREAM_PREFIXES2 = Set.of(
             new IpPrefix("2001:db8:0:1234::/64"), new IpPrefix("2001:db8:0:abcd::/64"));
+    private static final int TEST_NET_ID = 123;
 
     @Mock private INetd mNetd;
     @Mock private IpServer.Callback mCallback;
@@ -173,10 +194,11 @@ public class IpServerTest {
     @Mock private RouterAdvertisementDaemon mRaDaemon;
     @Mock private IpServer.Dependencies mDependencies;
     @Mock private RoutingCoordinatorManager mRoutingCoordinatorManager;
-    @Mock private NetworkStatsManager mStatsManager;
     @Mock private TetheringConfiguration mTetherConfig;
     @Mock private TetheringMetrics mTetheringMetrics;
     @Mock private BpfCoordinator mBpfCoordinator;
+    @Mock private Context mContext;
+    @Mock private NetworkAgent mNetworkAgent;
 
     @Captor private ArgumentCaptor<DhcpServingParamsParcel> mDhcpParamsCaptor;
 
@@ -205,6 +227,20 @@ public class IpServerTest {
         when(mDependencies.getInterfaceParams(UPSTREAM_IFACE)).thenReturn(UPSTREAM_IFACE_PARAMS);
         when(mDependencies.getInterfaceParams(UPSTREAM_IFACE2)).thenReturn(UPSTREAM_IFACE_PARAMS2);
         when(mDependencies.getInterfaceParams(IPSEC_IFACE)).thenReturn(IPSEC_IFACE_PARAMS);
+        doAnswer(
+                invocation -> mFeatureFlags.getOrDefault((String) invocation.getArgument(1), false)
+        ).when(mDependencies).isFeatureEnabled(any(), anyString());
+        if (SdkLevel.isAtLeastV()) {
+            when(mDependencies.makeNetworkAgent(any(), any(), anyString(), anyInt(), any()))
+                    .thenReturn(mNetworkAgent);
+            // Mock the returned network and modifying the status when register() is called.
+            doAnswer((Answer<Void>) invocation -> {
+                final Network network = mock(Network.class);
+                doReturn(TEST_NET_ID).when(network).getNetId();
+                doReturn(network).when(mNetworkAgent).getNetwork();
+                return null;
+            }).when(mNetworkAgent).register();
+        }
 
         mInterfaceConfiguration = new InterfaceConfigurationParcel();
         mInterfaceConfiguration.flags = new String[0];
@@ -294,10 +330,9 @@ public class IpServerTest {
     private IpServer createIpServer(final int interfaceType) {
         mLooper = new TestLooper();
         mHandler = new Handler(mLooper.getLooper());
-        return new IpServer(IFACE_NAME, mHandler, interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mRoutingCoordinatorManager, mCallback, mTetherConfig,
+        return new IpServer(IFACE_NAME, mContext, mHandler, interfaceType, mSharedLog, mNetd,
+                mBpfCoordinator, mRoutingCoordinatorManager, mCallback, mTetherConfig,
                 mTetheringMetrics, mDependencies);
-
     }
 
     @Test
@@ -1056,6 +1091,162 @@ public class IpServerTest {
             }
         }
         return true;
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @SetFeatureFlagsRule.FeatureFlag(name = TETHERING_LOCAL_NETWORK_AGENT)
+    @Test
+    public void testTetheringNetworkAgent_tetheringAgentEnabled() throws Exception {
+        doTestTetheringNetworkAgent(CONNECTIVITY_SCOPE_GLOBAL, true);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @SetFeatureFlagsRule.FeatureFlag(name = TETHERING_LOCAL_NETWORK_AGENT, enabled = false)
+    @Test
+    public void testTetheringNetworkAgent_tetheringAgentDisabled() throws Exception {
+        doTestTetheringNetworkAgent(CONNECTIVITY_SCOPE_GLOBAL, false);
+    }
+
+    // Verify Tethering Network Agent feature doesn't affect Wi-fi P2P Group Owner although
+    // the code is mostly shared.
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @SetFeatureFlagsRule.FeatureFlag(name = TETHERING_LOCAL_NETWORK_AGENT)
+    @Test
+    public void testTetheringNetworkAgent_p2pGoAgentDisabled() throws Exception {
+        doTestTetheringNetworkAgent(CONNECTIVITY_SCOPE_LOCAL, false);
+    }
+
+    private void doTestTetheringNetworkAgent(int scope, boolean expectAgentEnabled)
+            throws Exception {
+        initStateMachine(TETHERING_USB);
+
+        InOrder inOrder = inOrder(mNetworkAgent, mNetd);
+        dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED,
+                0, createMockTetheringRequest(scope));
+
+        verify(mNetworkAgent, expectAgentEnabled ? times(1) : never()).register();
+        inOrder.verify(mNetd, times(1)).tetherInterfaceAdd(anyString());
+        if (expectAgentEnabled) {
+            inOrder.verify(mNetd, never()).networkAddInterface(anyInt(), anyString());
+            inOrder.verify(mNetd, never()).networkAddRoute(anyInt(), anyString(), any(), any());
+            inOrder.verify(mNetworkAgent, times(1)).sendLinkProperties(any());
+            inOrder.verify(mNetworkAgent, times(1)).markConnected();
+        } else {
+            inOrder.verify(mNetd, times(1)).networkAddInterface(anyInt(), anyString());
+            inOrder.verify(mNetd, times(2)).networkAddRoute(anyInt(), anyString(), any(), any());
+            inOrder.verify(mNetworkAgent, never()).sendLinkProperties(any());
+            inOrder.verify(mNetworkAgent, never()).markConnected();
+        }
+
+        dispatchCommand(IpServer.CMD_TETHER_UNREQUESTED);
+        if (expectAgentEnabled) {
+            inOrder.verify(mNetworkAgent, times(1)).unregister();
+            inOrder.verify(mNetd, never()).networkRemoveInterface(anyInt(), anyString());
+        } else {
+            inOrder.verify(mNetworkAgent, never()).unregister();
+            inOrder.verify(mNetd, times(1)).networkRemoveInterface(anyInt(), anyString());
+        }
+    }
+
+    // Verify if the registration failed, tethering can be gracefully shutdown.
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @SetFeatureFlagsRule.FeatureFlag(name = TETHERING_LOCAL_NETWORK_AGENT)
+    @Test
+    public void testTetheringNetworkAgent_registerThrows() throws Exception {
+        initStateMachine(TETHERING_USB);
+
+        InOrder inOrder = inOrder(mNetworkAgent, mNetd, mCallback);
+        doReturn(null).when(mNetworkAgent).getNetwork();
+        doThrow(IllegalStateException.class).when(mNetworkAgent).register();
+        dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED,
+                0, createMockTetheringRequest(CONNECTIVITY_SCOPE_GLOBAL));
+
+        verify(mNetworkAgent).register();
+        inOrder.verify(mNetd, never()).networkCreate(any());
+        inOrder.verify(mNetworkAgent, never()).sendLinkProperties(any());
+        inOrder.verify(mNetworkAgent, never()).markConnected();
+        inOrder.verify(mNetworkAgent, never()).unregister();
+        inOrder.verify(mNetd, never()).networkDestroy(anyInt());
+        inOrder.verify(mCallback).updateInterfaceState(
+                mIpServer, STATE_AVAILABLE, TETHER_ERROR_SERVICE_UNAVAIL);
+    }
+
+    // Verify if the network creation failed, tethering can be gracefully shutdown.
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @SetFeatureFlagsRule.FeatureFlag(name = TETHERING_LOCAL_NETWORK_AGENT)
+    @Test
+    public void testTetheringNetworkAgent_netdThrows() throws Exception {
+        initStateMachine(TETHERING_USB);
+
+        InOrder inOrder = inOrder(mNetworkAgent, mNetd, mCallback);
+        doThrow(ServiceSpecificException.class).when(mNetd).tetherInterfaceAdd(any());
+        dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED,
+                0, createMockTetheringRequest(CONNECTIVITY_SCOPE_GLOBAL));
+
+        inOrder.verify(mNetworkAgent).register();
+        inOrder.verify(mNetd, never()).networkCreate(any());
+        inOrder.verify(mNetworkAgent, never()).sendLinkProperties(any());
+        inOrder.verify(mNetworkAgent, never()).markConnected();
+        inOrder.verify(mNetworkAgent).unregister();
+        inOrder.verify(mNetd, never()).networkDestroy(anyInt());
+        inOrder.verify(mCallback).updateInterfaceState(
+                mIpServer, STATE_AVAILABLE, TETHER_ERROR_TETHER_IFACE_ERROR);
+    }
+
+    // Verify when IPv6 address update, set routes accordingly.
+    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @SetFeatureFlagsRule.FeatureFlag(name = TETHERING_LOCAL_NETWORK_AGENT)
+    @Test
+    public void testTetheringNetworkAgent_ipv6AddressUpdate() throws Exception {
+        initStateMachine(TETHERING_USB);
+
+        InOrder inOrder = inOrder(mNetworkAgent, mNetd);
+        dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED,
+                0, createMockTetheringRequest(CONNECTIVITY_SCOPE_GLOBAL));
+
+        verify(mNetworkAgent).register();
+        inOrder.verify(mNetd, never()).networkCreate(any());
+        inOrder.verify(mNetd, never()).networkAddRoute(anyInt(), anyString(), any(), any());
+
+        // Ipv6 link local route won't show up in the LinkProperties, so just
+        // verify ipv4 route.
+        final ArgumentCaptor<LinkProperties> lpCaptor =
+                ArgumentCaptor.forClass(LinkProperties.class);
+        inOrder.verify(mNetworkAgent).sendLinkProperties(lpCaptor.capture());
+        final RouteInfo expectedIpv4Route = new RouteInfo(PrefixUtils.asIpPrefix(mTestAddress),
+                null, IFACE_NAME, RouteInfo.RTN_UNICAST);
+        assertRoutes(List.of(expectedIpv4Route), lpCaptor.getValue().getRoutes());
+        assertEquals(IFACE_NAME, lpCaptor.getValue().getInterfaceName());
+
+        inOrder.verify(mNetworkAgent).markConnected();
+
+        // Mock ipv4-only upstream show up.
+        dispatchTetherConnectionChanged(UPSTREAM_IFACE);
+        inOrder.verifyNoMoreInteractions();
+
+        // Verify LinkProperties is updated when IPv6 connectivity is available.
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(UPSTREAM_IFACE);
+        lp.setLinkAddresses(UPSTREAM_ADDRESSES);
+        dispatchTetherConnectionChanged(UPSTREAM_IFACE, lp, -1);
+        inOrder.verify(mNetd, never()).networkAddRoute(anyInt(), anyString(), any(), any());
+        inOrder.verify(mNetworkAgent).sendLinkProperties(lpCaptor.capture());
+
+        // Expect one Ipv4 route, plus one Ipv6 route.
+        final RouteInfo expectedIpv6Route = new RouteInfo(UPSTREAM_PREFIXES.toArray(
+                new IpPrefix[0])[0], null, IFACE_NAME, RouteInfo.RTN_UNICAST);
+        assertRoutes(List.of(expectedIpv4Route, expectedIpv6Route),
+                lpCaptor.getValue().getRoutes());
+        assertEquals(IFACE_NAME, lpCaptor.getValue().getInterfaceName());
+
+        dispatchCommand(IpServer.CMD_TETHER_UNREQUESTED);
+        inOrder.verify(mNetworkAgent).unregister();
+        inOrder.verify(mNetd, never()).networkDestroy(anyInt());
+    }
+
+    private void assertRoutes(List<RouteInfo> expectedRoutes, List<RouteInfo> actualRoutes) {
+        assertTrue("Expected Routes: " + expectedRoutes + ", but got: " + actualRoutes,
+                expectedRoutes.equals(actualRoutes));
     }
 
     @Test @IgnoreUpTo(Build.VERSION_CODES.R)
