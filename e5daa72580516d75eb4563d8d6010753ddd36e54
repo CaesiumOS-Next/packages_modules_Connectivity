@@ -16,6 +16,24 @@
       "message": "Is ConfigUpdate linked to the ConfigUpdater? Could we avoid this dependency?\n\nAlso, the doc for that class states \"All require the UPDATE_CONFIG permission.\". Is that accurate here, do we require UPDATE_CONFIG?",
       "revId": "e5daa72580516d75eb4563d8d6010753ddd36e54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f861ac15_c790eb9f",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-17T09:31:09Z",
+      "side": 1,
+      "message": "The android.os.ConfigUpdate is indeed related to the ConfigUpdater, although not in the vendor partition. It contains the frameworks broadcast receiver that the ConfigUpdater sends the data to.\n\nAt the moment we do not require the UPDATE_CONFIG permission.\n\nThe reason I uploaded this CL is that at some point we were discussing that the ability to trigger a log list download should be somewhat guarded, to avoid apps from triggering (or abusing) the log list downloader. My thought process was, instead of defining on our own intent we can rely on the UPDATE_CT_LOGS that is already defined (and thus available in case of CT backporting), and add the permission check as well.\n\nI realized I should have spent a bit more time thinking about this, though, and communicate it better, sorry about that ❤️\n\nMaybe it would be better to abandon this CL and tackle this issue with a proper discussion, possibly start a short design doc about it. WDYT?",
+      "parentUuid": "a5d54adb_99455fcd",
+      "revId": "e5daa72580516d75eb4563d8d6010753ddd36e54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
