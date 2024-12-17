@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8a8d023_bfa57bdc",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-12-17T09:45:35Z",
+      "side": 1,
+      "message": "use a local to this {} \u0027uint8_t IHL\u0027 for this - it\u0027ll be easier to read.",
+      "range": {
+        "startLine": 270,
+        "startChar": 59,
+        "endLine": 270,
+        "endChar": 65
+      },
+      "revId": "8480f80e23db258ea6d76b69c0f35c98bff72e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d51f4921_aa21fe77",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-12-17T09:45:35Z",
+      "side": 1,
+      "message": "what if L4_off isn\u0027t in [0x45..0x4F] -\u003e that should return false right?",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 57
+      },
+      "revId": "8480f80e23db258ea6d76b69c0f35c98bff72e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aedde393_5e8e47f9",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-12-17T09:45:35Z",
+      "side": 1,
+      "message": "do you use sport?",
+      "range": {
+        "startLine": 289,
+        "startChar": 10,
+        "endLine": 289,
+        "endChar": 15
+      },
+      "revId": "8480f80e23db258ea6d76b69c0f35c98bff72e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66fb5f94_63402530",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-12-17T09:45:35Z",
+      "side": 1,
+      "message": "what for?",
+      "range": {
+        "startLine": 302,
+        "startChar": 27,
+        "endLine": 308,
+        "endChar": 6
+      },
+      "revId": "8480f80e23db258ea6d76b69c0f35c98bff72e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cbb2bc5_056b01c9",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-12-17T09:45:35Z",
+      "side": 1,
+      "message": "suggests get_local_network_access() could just return a bool...",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 37
+      },
+      "revId": "8480f80e23db258ea6d76b69c0f35c98bff72e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
