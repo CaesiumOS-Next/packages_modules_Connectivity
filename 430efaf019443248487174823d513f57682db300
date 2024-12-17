@@ -34,6 +34,24 @@
       "parentUuid": "1e96c922_bf12421c",
       "revId": "430efaf019443248487174823d513f57682db300",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "856e4d69_88c200e5",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-17T07:47:47Z",
+      "side": 1,
+      "message": "If the binder dies while the system is running, the system should crash at some point (in particular ConnectivityModuleConnector$ModuleServiceConnection#onServiceDisconnected will crash, and other code paths will not be happy about having a dead binder).\n\nAfter that happens, when the system restarts, the checks added in this change will ensure that the system waits for a newer Tethering binder to be registered; hopefully this will help with that case.",
+      "parentUuid": "e12581a0_4e01bc33",
+      "revId": "430efaf019443248487174823d513f57682db300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
