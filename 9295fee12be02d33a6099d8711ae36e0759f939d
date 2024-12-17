@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64c50952_bb14a911",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T03:06:51Z",
+      "side": 1,
+      "message": "It looks like we are adding an extra permission check after checkAndNotifyCommonError has already checked permissions, and that check is only for this method (startTethering) but not for any of the other methods (including tether, which generally does the same thing as this method does).\n\nThat seems brittle - it seems better for all the permissions checks to be in one method that always performs the same checks. Per discussion, that might require passing in the TetheringRequest into checkAndNotifyCommonError. That would probably allow us to remove some of the parameters of that method, which are derived from the request (e.g., onlyAllowPrivileged).",
+      "range": {
+        "startLine": 151,
+        "startChar": 24,
+        "endLine": 151,
+        "endChar": 95
+      },
+      "revId": "9295fee12be02d33a6099d8711ae36e0759f939d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23d1d1b9_da97f61c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T03:06:51Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be after the flag check? if the flag is off, DO and carrier apps shouldn\u0027t have any permissions?\n\nAlso, per comment on other CL, there should probably be an Android version check - the isTetheringWithSoftApConfigEnabled check looks at the flag, but the flag\u0027s container is the tethering module, so it will be true after a given version of the tethering module. But I think per discussion this API won\u0027t be available, and shouldn\u0027t work, when a new tethering module is installed on older releases.",
+      "range": {
+        "startLine": 326,
+        "startChar": 25,
+        "endLine": 326,
+        "endChar": 38
+      },
+      "revId": "9295fee12be02d33a6099d8711ae36e0759f939d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "572ebf32_4fb3acce",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/TetheringPermissionUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T03:06:51Z",
+      "side": 1,
+      "message": "Is this correct for a device owner that is not installed in the current user? I\u0027m not sure how device owner apps work in headless system user mode - presumably they run as the first user but not as the system user?",
+      "range": {
+        "startLine": 45,
+        "startChar": 45,
+        "endLine": 45,
+        "endChar": 63
+      },
+      "revId": "9295fee12be02d33a6099d8711ae36e0759f939d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
