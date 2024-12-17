@@ -1187,18 +1187,11 @@ public class TetheringManager {
         public boolean equals(Object obj) {
             if (this == obj) return true;
             if (!(obj instanceof TetheringRequest otherRequest)) return false;
+            if (!equalsIgnoreUidPackage(otherRequest)) return false;
             TetheringRequestParcel parcel = getParcel();
             TetheringRequestParcel otherParcel = otherRequest.getParcel();
-            return parcel.tetheringType == otherParcel.tetheringType
-                    && Objects.equals(parcel.localIPv4Address, otherParcel.localIPv4Address)
-                    && Objects.equals(parcel.staticClientAddress, otherParcel.staticClientAddress)
-                    && parcel.exemptFromEntitlementCheck == otherParcel.exemptFromEntitlementCheck
-                    && parcel.showProvisioningUi == otherParcel.showProvisioningUi
-                    && parcel.connectivityScope == otherParcel.connectivityScope
-                    && Objects.equals(parcel.softApConfig, otherParcel.softApConfig)
-                    && parcel.uid == otherParcel.uid
-                    && Objects.equals(parcel.packageName, otherParcel.packageName)
-                    && Objects.equals(parcel.interfaceName, otherParcel.interfaceName);
+            return parcel.uid == otherParcel.uid
+                    && Objects.equals(parcel.packageName, otherParcel.packageName);
         }
 
         /**
@@ -1212,6 +1205,22 @@ public class TetheringManager {
                     parcel.staticClientAddress, parcel.exemptFromEntitlementCheck,
                     parcel.showProvisioningUi, parcel.connectivityScope, parcel.softApConfig,
                     parcel.uid, parcel.packageName, parcel.interfaceName);
+        }
+
+        /**
+         * @hide
+         */
+        public boolean equalsIgnoreUidPackage(TetheringRequest otherRequest) {
+            TetheringRequestParcel parcel = getParcel();
+            TetheringRequestParcel otherParcel = otherRequest.getParcel();
+            return parcel.tetheringType == otherParcel.tetheringType
+                    && Objects.equals(parcel.localIPv4Address, otherParcel.localIPv4Address)
+                    && Objects.equals(parcel.staticClientAddress, otherParcel.staticClientAddress)
+                    && parcel.exemptFromEntitlementCheck == otherParcel.exemptFromEntitlementCheck
+                    && parcel.showProvisioningUi == otherParcel.showProvisioningUi
+                    && parcel.connectivityScope == otherParcel.connectivityScope
+                    && Objects.equals(parcel.softApConfig, otherParcel.softApConfig)
+                    && Objects.equals(parcel.interfaceName, otherParcel.interfaceName);
         }
     }
 
