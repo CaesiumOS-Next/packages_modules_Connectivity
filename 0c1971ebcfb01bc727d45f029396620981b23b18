@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3073416a_85f72680",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1340390
+      },
+      "writtenOn": "2024-12-17T08:35:17Z",
+      "side": 1,
+      "message": "https://android-review.googlesource.com/c/device/freescale/picoimx/+/203691/comments/bd63cc16_c70eced0",
+      "revId": "0c1971ebcfb01bc727d45f029396620981b23b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
