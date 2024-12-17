@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2f53ca3_4c13feea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-17T17:07:18Z",
+      "side": 1,
+      "message": "The change wasn\u0027t entirely self-explanatory, so I added a comment.",
+      "revId": "72b7823c1a8907dc10224b230d94d78cb97b6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
