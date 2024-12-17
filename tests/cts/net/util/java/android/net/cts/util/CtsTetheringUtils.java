@@ -29,6 +29,7 @@ import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STOPPED;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -118,11 +119,26 @@ public final class CtsTetheringUtils {
                     cv instanceof CallbackValue.OnTetheringStarted);
         }
 
-        public void expectTetheringFailed(final int expected) throws InterruptedException {
+        /**
+         * Expect that we get a onTetheringFailed callback with the specified error code.
+         */
+        public void expectTetheringFailed(final int expected) {
             final CallbackValue cv = mHistory.poll(TIMEOUT_MS, c -> true);
             assertNotNull("No onTetheringFailed after " + TIMEOUT_MS + " ms", cv);
             assertTrue("Expect fail with error code " + expected + ", but received: " + cv,
                     (cv instanceof CallbackValue.OnTetheringFailed) && (cv.error == expected));
+        }
+
+        /**
+         * Expect that we don't get a onTetheringFailed callback with the specified error code.
+         */
+        public void doNotExpectTetheringFailed(final int unexpected) {
+            // We should always get a callback (either onTetheringFailed or onTetheringStarted)
+            // after starting tethering, so we don't expect to wait for the entire TIMEOUT_MS.
+            final CallbackValue cv = mHistory.poll(TIMEOUT_MS, c -> true);
+            assertNotNull("No callback after " + TIMEOUT_MS + " ms", cv);
+            assertFalse("Failed with unexpected error code " + unexpected + ": " + cv,
+                    (cv instanceof CallbackValue.OnTetheringFailed) && (cv.error == unexpected));
         }
     }
 

@@ -73,6 +73,7 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiSsid;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.os.Process;
 import android.os.ResultReceiver;
 import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionManager;
@@ -82,6 +83,7 @@ import androidx.annotation.NonNull;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.bedstead.harrier.annotations.RequireRunOnSecondaryUser;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.testutils.ParcelUtils;
 
@@ -463,6 +465,30 @@ public class TetheringManagerTest {
         mTM.startTethering(new TetheringRequest.Builder(TETHERING_WIFI).build(),
                 c -> c.run() /* executor */, startTetheringCallback);
         startTetheringCallback.expectTetheringFailed(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+    }
+
+    @Test
+    @RequireRunOnSecondaryUser
+    public void testStartTetheringPermissionCheckOnSecondaryUser() {
+        // With TETHER_PRIVILEGED, we should be able to call startTethering and not get
+        // TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION (but may fail with a different error
+        // depending on device capabilities for ethernet tethering).
+        // If we do get this error, then this means AppOpsManager#checkPackage doesn't work for the
+        // secondary user.
+        final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
+        runAsShell(TETHER_PRIVILEGED, () -> {
+            mTM.startTethering(new TetheringRequest.Builder(TETHERING_ETHERNET).build(),
+                    c -> c.run() /* executor */, startTetheringCallback);
+            startTetheringCallback.doNotExpectTetheringFailed(
+                    TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+        });
+    }
+
+    @Test
+    @RequireRunOnSecondaryUser
+    public void testRunOnSecondaryUser() {
+        int uid = Process.myUid();
+        assertTrue("Expected uid to be for secondary user, but instead got " + uid, uid >= 100_000);
     }
 
     private class EntitlementResultListener implements OnTetheringEntitlementResultListener {
