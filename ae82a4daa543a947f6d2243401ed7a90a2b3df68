@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c270f631_2ac180ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1962675
+      },
+      "writtenOn": "2024-12-17T05:46:05Z",
+      "side": 1,
+      "message": "Adding Samip for DrNo!",
+      "revId": "ae82a4daa543a947f6d2243401ed7a90a2b3df68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
