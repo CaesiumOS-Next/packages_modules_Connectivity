@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cba7f130_ffc6143e",
+        "filename": "Tethering/tests/mts/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-17T04:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32f50909_b57ada64",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 18
+      },
+      "revId": "25ca61b29bb3c38792d447057c8227c705abbca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c14d330_720c1956",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-12-17T02:19:32Z",
       "side": 1,
       "message": "I don\u0027t think you need to change this test file at all, because MTS will run CtsTetheringTest and I think this CL adds the same test to CtsTetheringTest.\n\nNot for this CL, but can you try to replace all instances of CtsTetheringTestLatestSdk in TEST_MAPPING with CtsTetheringTest, and then remove CtsTetheringTestLatestSdk entirely? I think that would let you delete TetheringIntegrationTestsLatestSdkLib as well. While you\u0027re changing those build files, it looks like TetheringTestsLatestSdkLib is not useful and its only user (ConnectivityCoverageTestsLib) could use TetheringApiStableLib directly?",
+      "revId": "25ca61b29bb3c38792d447057c8227c705abbca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65902857_ec65a2fc",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/TetheringModuleTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-17T04:11:30Z",
+      "side": 1,
+      "message": "Done; created b/384606551 to track CtsTetheringTestLatestSdk removal",
+      "parentUuid": "3c14d330_720c1956",
       "revId": "25ca61b29bb3c38792d447057c8227c705abbca1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87ee49f4_eb0b9f68",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/TetheringModuleTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-17T04:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89eafb98_df889f4f",
+      "range": {
+        "startLine": 72,
+        "startChar": 59,
+        "endLine": 72,
+        "endChar": 84
+      },
+      "revId": "25ca61b29bb3c38792d447057c8227c705abbca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6dad6f7_e651168d",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-12-17T02:19:32Z",
       "side": 1,
       "message": "Per discussion: if this code will never wait 30 seconds because it\u0027s guaranteed that some callback (either success or failure) will be called, please add a comment explaining that.",
+      "range": {
+        "startLine": 136,
+        "startChar": 51,
+        "endLine": 136,
+        "endChar": 61
+      },
+      "revId": "25ca61b29bb3c38792d447057c8227c705abbca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7272ac12_54e12830",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-17T04:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6dad6f7_e651168d",
       "range": {
         "startLine": 136,
         "startChar": 51,
