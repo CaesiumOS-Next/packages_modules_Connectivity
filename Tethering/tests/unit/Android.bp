@@ -53,6 +53,8 @@ java_defaults {
     static_libs: [
         "TetheringCommonTests",
         "androidx.test.rules",
+        "com.android.net.flags-aconfig-java",
+        "flag-junit",
         "frameworks-base-testutils",
         "mockito-target-extended-minus-junit4",
         "net-tests-utils",
