@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f569de3b_236602d6",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFdUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T04:41:27Z",
+      "side": 1,
+      "message": "fd",
+      "range": {
+        "startLine": 70,
+        "startChar": 41,
+        "endLine": 70,
+        "endChar": 43
+      },
+      "revId": "8c8d2b1bd8846fd329feb3239a1df845873d65b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
