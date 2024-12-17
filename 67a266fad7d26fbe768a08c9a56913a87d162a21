@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbc8c0e8_d216f6e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T07:38:07Z",
+      "side": 1,
+      "message": "Just iInitial review comments, haven\u0027t really looked at Tethering yet.",
+      "revId": "67a266fad7d26fbe768a08c9a56913a87d162a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f455e07b_e4bdc5c5",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T07:38:07Z",
+      "side": 1,
+      "message": "If this is only used for querying, perhaps call this ANY instead of unknown?",
+      "range": {
+        "startLine": 753,
+        "startChar": 7,
+        "endLine": 753,
+        "endChar": 14
+      },
+      "revId": "67a266fad7d26fbe768a08c9a56913a87d162a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12fe8c87_4ab371a2",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T07:38:07Z",
+      "side": 1,
+      "message": "Do we have a check somewhere that prevents callers from passing in this value, or at least, that overwrites this value if they do?",
+      "range": {
+        "startLine": 756,
+        "startChar": 28,
+        "endLine": 756,
+        "endChar": 54
+      },
+      "revId": "67a266fad7d26fbe768a08c9a56913a87d162a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0989ece4_75d1b63a",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T07:38:07Z",
+      "side": 1,
+      "message": "This IntDef lists the costants that can be passed into the API. UNKNOWN (or ANY) is not a valid value to pass in, right? In that case it shouldn\u0027t be in this IntDef.",
+      "range": {
+        "startLine": 778,
+        "startChar": 12,
+        "endLine": 778,
+        "endChar": 38
+      },
+      "revId": "67a266fad7d26fbe768a08c9a56913a87d162a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d6885f4_6eb6703d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T07:38:07Z",
+      "side": 1,
+      "message": "Do we need ANY here? Or does it not matter because no request with ANY will actually ever exist?",
+      "range": {
+        "startLine": 790,
+        "startChar": 12,
+        "endLine": 790,
+        "endChar": 19
+      },
+      "revId": "67a266fad7d26fbe768a08c9a56913a87d162a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a0458de_63118507",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T07:38:07Z",
+      "side": 1,
+      "message": "It looks like if a caller passes in an invalid scope (-1. 42, 123456), this code will silently accept it?",
+      "range": {
+        "startLine": 1092,
+        "startChar": 12,
+        "endLine": 1092,
+        "endChar": 18
+      },
+      "revId": "67a266fad7d26fbe768a08c9a56913a87d162a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a9aa70_4438f2fd",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T07:38:07Z",
+      "side": 1,
+      "message": "Currently any app that requests TETHERING_WIFI or TETHERING_WIFI_P2P with any scope other than GLOBAL will get GLOBAL. Presumably we don\u0027t want to change this in this CL? If so, we\u0027ll need some check somewhere that ensures that such requests are not accepted.\n\nPer discussion - it looks like this method is primarily intended to prevent the code from accepting invalid API calls (i.e., invalid app input). If the reason you are changing this code is so that Tethering can internally generate TetheringRequests with these combinations that are not valid for apps to request, then probably those internal requests should be generated internally by the service, and shouldn\u0027t call the input-checking methods?",
+      "range": {
+        "startLine": 1093,
+        "startChar": 31,
+        "endLine": 1093,
+        "endChar": 75
+      },
+      "revId": "67a266fad7d26fbe768a08c9a56913a87d162a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4502173d_ddf44ec3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T07:38:07Z",
+      "side": 1,
+      "message": "Is there a way for code to know that these were internally constructed? It seems likely that we will need one.",
+      "range": {
+        "startLine": 241,
+        "startChar": 30,
+        "endLine": 241,
+        "endChar": 55
+      },
+      "revId": "67a266fad7d26fbe768a08c9a56913a87d162a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

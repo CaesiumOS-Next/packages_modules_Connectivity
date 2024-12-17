@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fda7d96_36f23775",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-17T07:38:07Z",
+      "side": 0,
+      "message": "Looking at this code I realize that the CL that added the UID and package name to the TetheringRequest changed the behaviour of equals(). That means that this code will start to behave differently in the field starting from M-2025-01. I think we\u0027ll need to fix that before we go further in this change stack.",
+      "range": {
+        "startLine": 671,
+        "startChar": 64,
+        "endLine": 671,
+        "endChar": 70
+      },
+      "revId": "e8f7563875e8b110af9d56c2bc9b68695b3a79a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
