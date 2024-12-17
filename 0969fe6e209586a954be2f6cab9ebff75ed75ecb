@@ -22,6 +22,30 @@
       },
       "revId": "0969fe6e209586a954be2f6cab9ebff75ed75ecb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e47713ab_6667bd9c",
+        "filename": "staticlibs/client-libs/netd/com/android/net/module/util/NetdUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-17T08:38:31Z",
+      "side": 1,
+      "message": "No that is implemented/used in Wifi module.\nMight not be a good idea to touch classes maintained by other team?",
+      "parentUuid": "97a99d70_e7048423",
+      "range": {
+        "startLine": 197,
+        "startChar": 23,
+        "endLine": 197,
+        "endChar": 40
+      },
+      "revId": "0969fe6e209586a954be2f6cab9ebff75ed75ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
