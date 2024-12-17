@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cdfbda1_de28ea1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2024-12-17T02:48:32Z",
+      "side": 1,
+      "message": "From chat conversation, no updates from anyone so closing open threads",
+      "revId": "55726f17b9172ade75519f80dedd99d9639a43aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
