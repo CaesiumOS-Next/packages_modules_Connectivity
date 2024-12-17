@@ -2207,9 +2207,19 @@ public class Tethering {
                         break;
                     }
                     case EVENT_REQUEST_CHANGE_DOWNSTREAM: {
+<<<<<<< PATCH SET (8d9850 Revert "Send TetheringRequest to restart Tethering from IpSe)
+                        final int tetheringType = message.arg1;
+                        final Boolean enabled = (Boolean) message.obj;
+                        enableTetheringInternal(tetheringType, enabled, null);
+||||||| BASE
+                        final boolean enabled = message.arg1 == 1;
+                        final TetheringRequest request = (TetheringRequest) message.obj;
+                        enableTetheringInternal(request.getTetheringType(), enabled, null);
+=======
                         final boolean enabled = message.arg1 == 1;
                         final TetheringRequest request = (TetheringRequest) message.obj;
                         enableTetheringInternal(request.getTetheringType(), enabled, null, null);
+>>>>>>> BASE      (3196da Merge "Fix missing network id arguments" into main)
                         break;
                     }
                     default:
@@ -2787,9 +2797,9 @@ public class Tethering {
         }
 
         @Override
-        public void requestEnableTethering(TetheringRequest request, boolean enabled) {
+        public void requestEnableTethering(int tetheringType, boolean enabled) {
             mTetherMainSM.sendMessage(TetherMainSM.EVENT_REQUEST_CHANGE_DOWNSTREAM,
-                    enabled ? 1 : 0, 0, request);
+                    tetheringType, 0, enabled ? Boolean.TRUE : Boolean.FALSE);
         }
     }
 
