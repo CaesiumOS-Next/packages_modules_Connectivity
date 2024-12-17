@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97a99d70_e7048423",
+        "filename": "staticlibs/client-libs/netd/com/android/net/module/util/NetdUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-17T08:20:10Z",
+      "side": 1,
+      "message": "The `NetdWrapper` has a similar design, should you also update the design there?\n```\npackages/modules/Wifi/service/java/com/android/server/wifi/util/NetdWrapper.java\n```",
+      "range": {
+        "startLine": 197,
+        "startChar": 23,
+        "endLine": 197,
+        "endChar": 40
+      },
+      "revId": "0969fe6e209586a954be2f6cab9ebff75ed75ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
