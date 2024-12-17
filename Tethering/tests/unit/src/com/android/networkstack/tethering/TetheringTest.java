@@ -73,6 +73,7 @@ import static android.net.wifi.WifiManager.WIFI_AP_STATE_FAILED;
 import static android.system.OsConstants.RT_SCOPE_UNIVERSE;
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
+import static com.android.modules.utils.build.SdkLevel.isAtLeastB;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastS;
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
 import static com.android.net.module.util.Inet4AddressUtils.inet4AddressToIntHTH;
@@ -83,6 +84,7 @@ import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOA
 import static com.android.networkstack.tethering.TestConnectivityManager.BROADCAST_FIRST;
 import static com.android.networkstack.tethering.TestConnectivityManager.CALLBACKS_FIRST;
 import static com.android.networkstack.tethering.Tethering.UserRestrictionActionListener;
+import static com.android.networkstack.tethering.TetheringConfiguration.TETHERING_LOCAL_NETWORK_AGENT;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_NCM_FUNCTION;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_RNDIS_FUNCTION;
@@ -219,6 +221,7 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.MiscAsserts;
+import com.android.testutils.com.android.testutils.SetFeatureFlagsRule;
 
 import org.junit.After;
 import org.junit.Before;
@@ -240,6 +243,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
@@ -249,6 +253,16 @@ import java.util.concurrent.Executor;
 @SmallTest
 public class TetheringTest {
     @Rule public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
+
+    final HashMap<String, Boolean> mFeatureFlags = new HashMap<>();
+    // This will set feature flags from @FeatureFlag annotations
+    // into the map before setUp() runs.
+    @Rule
+    public final SetFeatureFlagsRule mSetFeatureFlagsRule =
+            new SetFeatureFlagsRule((name, enabled) -> {
+                mFeatureFlags.put(name, enabled);
+                return null;
+            }, (name) -> mFeatureFlags.getOrDefault(name, false));
 
     private static final int IFINDEX_OFFSET = 100;
 
@@ -460,6 +474,11 @@ public class TetheringTest {
 
         public void setOnDhcpServerCreatedResult(final int result) {
             mOnDhcpServerCreatedResult = result;
+        }
+
+        @Override
+        public boolean isFeatureEnabled(Context context, String name) {
+            return mFeatureFlags.getOrDefault(name, false);
         }
     }
 
@@ -954,12 +973,18 @@ public class TetheringTest {
         verifyNoMoreInteractions(mCm);
     }
 
-    private void verifyInterfaceServingModeStarted(String ifname) throws Exception {
+    private void verifyInterfaceServingModeStarted(String ifname, boolean expectAgentEnabled)
+            throws Exception {
         verify(mNetd).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd).tetherInterfaceAdd(ifname);
-        verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, ifname);
-        verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(ifname),
-                anyString(), anyString());
+        if (expectAgentEnabled) {
+            verify(mNetd, never()).networkAddInterface(anyInt(), anyString());
+            verify(mNetd, never()).networkAddRoute(anyInt(), anyString(), anyString(), anyString());
+        } else {
+            verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, ifname);
+            verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(ifname),
+                    anyString(), anyString());
+        }
     }
 
     private void verifyTetheringBroadcast(String ifname, String whichExtra) {
@@ -1061,10 +1086,15 @@ public class TetheringTest {
         failingLocalOnlyHotspotLegacyApBroadcast(false);
     }
 
-    private void verifyStopHotpot() throws Exception {
+    private void verifyStopHotpot(boolean isLocalOnly) throws Exception {
         verify(mNetd).tetherApplyDnsInterfaces();
         verify(mNetd).tetherInterfaceRemove(TEST_WLAN_IFNAME);
-        verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_WLAN_IFNAME);
+        if (!isLocalOnly && (isAtLeastB()
+                || mFeatureFlags.getOrDefault(TETHERING_LOCAL_NETWORK_AGENT, false))) {
+            verify(mNetd, never()).networkRemoveInterface(anyInt(), anyString());
+        } else {
+            verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_WLAN_IFNAME);
+        }
         // interfaceSetCfg() called once for enabling and twice disabling IPv4.
         verify(mNetd, times(3)).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd).tetherStop();
@@ -1083,7 +1113,9 @@ public class TetheringTest {
     }
 
     private void verifyStartHotspot(boolean isLocalOnly) throws Exception {
-        verifyInterfaceServingModeStarted(TEST_WLAN_IFNAME);
+        final boolean expectAgentEnabled = !isLocalOnly && (isAtLeastB()
+                || mFeatureFlags.getOrDefault(TETHERING_LOCAL_NETWORK_AGENT, false));
+        verifyInterfaceServingModeStarted(TEST_WLAN_IFNAME, expectAgentEnabled);
         verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
         verify(mWifiManager).updateInterfaceIpState(
                 TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
@@ -1127,7 +1159,7 @@ public class TetheringTest {
         mTethering.interfaceRemoved(TEST_WLAN_IFNAME);
         mLooper.dispatchAll();
 
-        verifyStopHotpot();
+        verifyStopHotpot(true /* isLocalOnly */);
     }
 
     /**
@@ -2073,7 +2105,7 @@ public class TetheringTest {
         mTethering.interfaceRemoved(TEST_WLAN_IFNAME);
         mLooper.dispatchAll();
 
-        verifyStopHotpot();
+        verifyStopHotpot(false /* isLocalOnly */);
     }
 
     @Test
@@ -2218,9 +2250,14 @@ public class TetheringTest {
         // code is refactored the two calls during shutdown will revert to one.
         verify(mNetd, times(3)).interfaceSetCfg(argThat(p -> TEST_WLAN_IFNAME.equals(p.ifName)));
         verify(mNetd, times(1)).tetherInterfaceAdd(TEST_WLAN_IFNAME);
-        verify(mNetd, times(1)).networkAddInterface(INetd.LOCAL_NET_ID, TEST_WLAN_IFNAME);
-        verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(TEST_WLAN_IFNAME),
-                anyString(), anyString());
+        if (isAtLeastB() || mFeatureFlags.getOrDefault(TETHERING_LOCAL_NETWORK_AGENT, false)) {
+            verify(mNetd, never()).networkAddInterface(anyInt(), anyString());
+            verify(mNetd, never()).networkAddRoute(anyInt(), anyString(), anyString(), anyString());
+        } else {
+            verify(mNetd, times(1)).networkAddInterface(INetd.LOCAL_NET_ID, TEST_WLAN_IFNAME);
+            verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(TEST_WLAN_IFNAME),
+                    anyString(), anyString());
+        }
         verify(mWifiManager).updateInterfaceIpState(
                 TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
         verify(mWifiManager).updateInterfaceIpState(
@@ -2239,7 +2276,11 @@ public class TetheringTest {
         // so it can take down AP mode.
         verify(mNetd, times(1)).tetherApplyDnsInterfaces();
         verify(mNetd, times(1)).tetherInterfaceRemove(TEST_WLAN_IFNAME);
-        verify(mNetd, times(1)).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_WLAN_IFNAME);
+        if (isAtLeastB() || mFeatureFlags.getOrDefault(TETHERING_LOCAL_NETWORK_AGENT, false)) {
+            verify(mNetd, never()).networkRemoveInterface(anyInt(), anyString());
+        } else {
+            verify(mNetd, times(1)).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_WLAN_IFNAME);
+        }
         verify(mWifiManager).updateInterfaceIpState(
                 TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_CONFIGURATION_ERROR);
 
@@ -3100,7 +3141,7 @@ public class TetheringTest {
         }
         sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
 
-        verifyInterfaceServingModeStarted(TEST_P2P_IFNAME);
+        verifyInterfaceServingModeStarted(TEST_P2P_IFNAME, false);
         verifyTetheringBroadcast(TEST_P2P_IFNAME, EXTRA_AVAILABLE_TETHER);
         verify(mNetd, times(1)).ipfwdEnableForwarding(TETHERING_NAME);
         verify(mNetd, times(1)).tetherStartWithConfiguration(any());
@@ -4119,13 +4160,22 @@ public class TetheringTest {
                     && assertContainsFlag(cfg.flags, INetd.IF_STATE_UP)));
         }
         verify(mNetd).tetherInterfaceAdd(TEST_BT_IFNAME);
-        verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, TEST_BT_IFNAME);
-        verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(TEST_BT_IFNAME),
-                anyString(), anyString());
+        if (isAtLeastB() || mFeatureFlags.getOrDefault(TETHERING_LOCAL_NETWORK_AGENT, false)) {
+            verify(mNetd, never()).networkAddInterface(anyInt(), anyString());
+            verify(mNetd, never()).networkAddRoute(anyInt(), anyString(), anyString(), anyString());
+        } else {
+            verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, TEST_BT_IFNAME);
+            verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(TEST_BT_IFNAME),
+                    anyString(), anyString());
+        }
         verify(mNetd).ipfwdEnableForwarding(TETHERING_NAME);
         verify(mNetd).tetherStartWithConfiguration(any());
-        verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(TEST_BT_IFNAME),
-                anyString(), anyString());
+        if (isAtLeastB() || mFeatureFlags.getOrDefault(TETHERING_LOCAL_NETWORK_AGENT, false)) {
+            verify(mNetd, never()).networkAddRoute(anyInt(), anyString(), anyString(), anyString());
+        } else {
+            verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(TEST_BT_IFNAME),
+                    anyString(), anyString());
+        }
         verifyNoMoreInteractions(mNetd);
         reset(mNetd);
     }
@@ -4140,7 +4190,11 @@ public class TetheringTest {
     private void verifyNetdCommandForBtTearDown() throws Exception {
         verify(mNetd).tetherApplyDnsInterfaces();
         verify(mNetd).tetherInterfaceRemove(TEST_BT_IFNAME);
-        verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_BT_IFNAME);
+        if (isAtLeastB() || mFeatureFlags.getOrDefault(TETHERING_LOCAL_NETWORK_AGENT, false)) {
+            verify(mNetd, never()).networkRemoveInterface(anyInt(), anyString());
+        } else {
+            verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_BT_IFNAME);
+        }
         // One is ipv4 address clear (set to 0.0.0.0), another is set interface down which only
         // happen after T. Before T, the interface configuration control in bluetooth side.
         verify(mNetd, times(isAtLeastT() ? 2 : 1)).interfaceSetCfg(
@@ -4405,7 +4459,7 @@ public class TetheringTest {
         initTetheringOnTestThread();
         // Enable wifi P2P.
         sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
-        verifyInterfaceServingModeStarted(TEST_P2P_IFNAME);
+        verifyInterfaceServingModeStarted(TEST_P2P_IFNAME, false);
         verifyTetheringBroadcast(TEST_P2P_IFNAME, EXTRA_AVAILABLE_TETHER);
         verifyTetheringBroadcast(TEST_P2P_IFNAME, EXTRA_ACTIVE_LOCAL_ONLY);
         verify(mUpstreamNetworkMonitor).startObserveUpstreamNetworks();
