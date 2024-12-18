@@ -98,9 +98,9 @@ import com.android.testutils.NsdServiceInfoCallbackRecord
 import com.android.testutils.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdated
 import com.android.testutils.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdatedLost
 import com.android.testutils.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.UnregisterCallbackSucceeded
+import com.android.testutils.PollPacketReader
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
-import com.android.testutils.PollPacketReader
 import com.android.testutils.TestDnsPacket
 import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
