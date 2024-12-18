@@ -22,6 +22,30 @@
       },
       "revId": "457d60e5fba3889aec98bd9dc5ddeaa914aa8e52",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b16823b_a6987b56",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-18T08:09:21Z",
+      "side": 1,
+      "message": "Yes, this API is necessary for that feature, and as per Patrick this can still roll out",
+      "parentUuid": "1f8c9e69_366732d2",
+      "range": {
+        "startLine": 208,
+        "startChar": 22,
+        "endLine": 208,
+        "endChar": 40
+      },
+      "revId": "457d60e5fba3889aec98bd9dc5ddeaa914aa8e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
