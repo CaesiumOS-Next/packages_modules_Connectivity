@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b620fb49_adbc5254",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-18T13:21:47Z",
+      "side": 1,
+      "message": "I followed the instrucitons from b/383437444 to run the Crystall ball metrics for this CL and of course the metric from the bug does not appear in the result 😐 go/crystalball-post-boot-unlock-comparison\n\nI\u0027d say let\u0027s submit this CL and see if the regression appears again. If it does, we can also try to additionally delay the initial execution of the CT job.",
+      "revId": "ff3a00633830292b49e83d56efc803d63ccc6025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
