@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c73bd53c_9ede4b3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3801800
+      },
+      "writtenOn": "2024-12-18T06:03:13Z",
+      "side": 1,
+      "message": "https://developer.android.com/develop/ui/compose/glance/glance-app-widget?hl\u003dtr#manage-state",
+      "revId": "4ef9655d15a7fd586bcb3dfb9883557cb33f7d10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
