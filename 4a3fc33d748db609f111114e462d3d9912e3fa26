@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "496a4348_3a70ad2f",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-12-18T12:26:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9cafd08_8bf74850",
+      "range": {
+        "startLine": 222,
+        "startChar": 11,
+        "endLine": 222,
+        "endChar": 31
+      },
+      "revId": "4a3fc33d748db609f111114e462d3d9912e3fa26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7124832_4f71e322",
@@ -55,6 +79,30 @@
       "writtenOn": "2024-12-18T10:40:40Z",
       "side": 1,
       "message": "nit: I was a bit confused by this name as it does not indicate that the failure count also increases. Maybe rename to something like `updateFailureCount`?",
+      "range": {
+        "startLine": 247,
+        "startChar": 20,
+        "endLine": 247,
+        "endChar": 48
+      },
+      "revId": "4a3fc33d748db609f111114e462d3d9912e3fa26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00759368_630559bd",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-12-18T12:26:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7124832_4f71e322",
       "range": {
         "startLine": 247,
         "startChar": 20,
