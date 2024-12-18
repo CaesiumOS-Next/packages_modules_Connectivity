@@ -34,6 +34,24 @@
       "parentUuid": "a5d54adb_99455fcd",
       "revId": "e5daa72580516d75eb4563d8d6010753ddd36e54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97bd2f3d_73b3a807",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-18T02:30:19Z",
+      "side": 1,
+      "message": "Oh sorry if I was a bit curt in my comment. No, this makes sense; especially if using UPDATE_CT_LOGS can help with the backporting.\n\nI don\u0027t think we need a design doc; although it\u0027s probably worth confirming that UPDATE_CONFIG is the most appropriate permission here. It is declared as `signature|privileged`, which should be fine for our usecases, WDYT? If you think we should discuss that more, feel free to open a bug, but from my side, LGTM. 👍",
+      "parentUuid": "f861ac15_c790eb9f",
+      "revId": "e5daa72580516d75eb4563d8d6010753ddd36e54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
