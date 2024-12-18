@@ -204,10 +204,8 @@ public final class NsdServiceInfo implements Parcelable {
      * level domain ".local." is omitted.
      *
      * <p>For example, it returns "MyHost" when the service's hostname is "MyHost.local.".
-     *
-     * @hide
      */
-//    @FlaggedApi(NsdManager.Flags.NSD_CUSTOM_HOSTNAME_ENABLED)
+    @FlaggedApi(Flags.FLAG_IPV6_OVER_BLE)
     @Nullable
     public String getHostname() {
         return mHostname;
