@@ -52,6 +52,24 @@
       "parentUuid": "f861ac15_c790eb9f",
       "revId": "e5daa72580516d75eb4563d8d6010753ddd36e54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c718b13_e2f4340b",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-18T10:28:52Z",
+      "side": 1,
+      "message": "No worries, everything fine 😊\n\nI created b/384869526 to track the permission work. If you are fine with that, I would first submit this CL, and add the permission check in a later CL.",
+      "parentUuid": "97bd2f3d_73b3a807",
+      "revId": "e5daa72580516d75eb4563d8d6010753ddd36e54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
