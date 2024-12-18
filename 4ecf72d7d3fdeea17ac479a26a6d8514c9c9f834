@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93f63e35_6d9cf1e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-18T07:33:02Z",
+      "side": 1,
+      "message": "But if testReadWriteProgram takes 15 minutes, this will still fail because IIUC from the bug, shell-timeout\u003dtotal instrumentation timeout, so this includes the other test cases in CtsNetTestCases.\n\nIf that test takes 15 minutes, then it seems shell-timeout should have some margin on top of that ?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 16
+      },
+      "revId": "4ecf72d7d3fdeea17ac479a26a6d8514c9c9f834",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
