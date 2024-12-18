@@ -22,6 +22,30 @@
       },
       "revId": "8c8d2b1bd8846fd329feb3239a1df845873d65b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e2c7ba7_60cd3c86",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFdUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2024-12-18T18:57:11Z",
+      "side": 1,
+      "message": "https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3421878",
+      "parentUuid": "f569de3b_236602d6",
+      "range": {
+        "startLine": 70,
+        "startChar": 41,
+        "endLine": 70,
+        "endChar": 43
+      },
+      "revId": "8c8d2b1bd8846fd329feb3239a1df845873d65b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
