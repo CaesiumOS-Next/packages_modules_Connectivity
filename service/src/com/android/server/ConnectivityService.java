@@ -6693,7 +6693,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     final NetworkOfferInfo offer =
                             findNetworkOfferInfoByCallback((INetworkOfferCallback) msg.obj);
                     if (null != offer) {
-                        handleUnregisterNetworkOffer(offer);
+                        handleUnregisterNetworkOffer(offer, false /* isAfterMigration */);
                     }
                     break;
                 }
@@ -8890,7 +8890,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
         for (final NetworkOfferInfo noi : toRemove) {
-            handleUnregisterNetworkOffer(noi);
+            handleUnregisterNetworkOffer(noi, false /* isAfterMigration */);
         }
         if (DBG) log("unregisterNetworkProvider for " + npi.name);
     }
@@ -9323,7 +9323,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         @Override
         public void binderDied() {
-            mHandler.post(() -> handleUnregisterNetworkOffer(this));
+            mHandler.post(() -> handleUnregisterNetworkOffer(this, false /* isAfterMigration */));
         }
     }
 
@@ -9364,15 +9364,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return;
         }
         final NetworkOfferInfo existingOffer = findNetworkOfferInfoByCallback(newOffer.callback);
+        final NetworkOfferInfo noi = new NetworkOfferInfo(newOffer);
+
         if (null != existingOffer) {
-            // If the existing offer has an associated reservation,
-            // handleUnregisterNetworkOffer will trigger an onUnavailable() callback which
-            // automatically releases the NetworkRequest.
-            // TODO: to support migration support for reserved offers that want to update their
-            // score, prevent handleUnregisterNetworkOffer() from sending an onUnavailable()
-            // callback here.
-            handleUnregisterNetworkOffer(existingOffer);
-            newOffer.migrateFrom(existingOffer.offer);
+            final boolean migrationSuccessful = newOffer.tryMigrateFrom(existingOffer.offer);
+            // Only set isAfterMigration to true when the migration was successful. This will
+            // prevent handleUnregisterNetworkOffer from sending an onUnavailable() callback if
+            // there is an associated reservation.
+            handleUnregisterNetworkOffer(existingOffer, migrationSuccessful);
+            if (!migrationSuccessful) {
+                // Send onNetworkUnneeded for remaining requests before forgetting about the offer.
+                existingOffer.offer.markUnneeded();
+                loge("failed to migrate from: " + existingOffer + " to: " + newOffer);
+                return;
+            }
             if (DBG) {
                 // handleUnregisterNetworkOffer has already logged the old offer
                 log("update offer from providerId " + newOffer.providerId + " new : " + newOffer);
@@ -9381,21 +9386,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (DBG) {
                 log("register offer from providerId " + newOffer.providerId + " : " + newOffer);
             }
-        }
-        final NetworkOfferInfo noi = new NetworkOfferInfo(newOffer);
-        final NetworkRequestInfo nri = maybeGetNriForReservedOffer(noi);
-        if (nri != null) {
-            // A NetworkRequest is only allowed to trigger a single reserved offer (and onReserved()
-            // callback). All subsequent offers are ignored.
-            // TODO: add proper support for offer migration; i.e. allow the score of a reservation
-            // offer to be updated.
-            if (nri.getReservedCapabilities() != null) {
-                loge("A reservation can only trigger a single offer; new offer is ignored.");
-                return;
+            final NetworkRequestInfo nri = maybeGetNriForReservedOffer(noi);
+            // Reservation offer migrations cannot update the capabilities, so there is no need to send
+            // another onReserved() callback.
+            if (nri != null) {
+                // A NetworkRequest is only allowed to trigger a single reserved offer (and onReserved()
+                // callback). All subsequent offers are ignored.
+                if (nri.getReservedCapabilities() != null) {
+                    loge("A reservation can only trigger a single offer; new offer is ignored.");
+                    return;
+                }
+                // Always update the reserved offer before calling callCallbackForRequest.
+                nri.setReservedCapabilities(noi.offer.caps);
+                callCallbackForRequest(nri, null /* networkAgent */, CALLBACK_RESERVED, 0 /* arg1 */);
             }
-            // Always update the reserved offer before calling callCallbackForRequest.
-            nri.setReservedCapabilities(noi.offer.caps);
-            callCallbackForRequest(nri, null /* networkAgent */, CALLBACK_RESERVED, 0 /* arg1 */);
         }
 
         try {
@@ -9408,7 +9412,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         issueNetworkNeeds(noi);
     }
 
-    private void handleUnregisterNetworkOffer(@NonNull final NetworkOfferInfo noi) {
+    private void handleUnregisterNetworkOffer(@NonNull final NetworkOfferInfo noi,
+                    boolean isAfterMigration) {
         ensureRunningOnConnectivityServiceThread();
         if (DBG) {
             log("unregister offer from providerId " + noi.offer.providerId + " : " + noi.offer);
@@ -9419,17 +9424,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // the offer.
         if (!mNetworkOffers.remove(noi)) return;
 
-        // If the offer was brought up as a result of a reservation, inform the RESERVATION request
-        // that it has disappeared. There is no need to reset nri.mReservedOffer to null, as
-        // CALLBACK_UNAVAIL will cause the request to be torn down. In addition, leaving
-        // nri.mReservedOffer set prevents an additional onReserved() callback in
-        // handleRegisterNetworkOffer() in the case of a migration (which would be ignored as it
-        // follows an onUnavailable).
+        // Note: do not send UNAVAIL if the NetworkOffer is removed as the result of an offer
+        // migration.
         final NetworkRequestInfo nri = maybeGetNriForReservedOffer(noi);
-        if (nri != null) {
+        if (!isAfterMigration && nri != null) {
+            // If the offer was brought up as a result of a reservation, inform the RESERVATION request
+            // that it has disappeared. There is no need to reset nri.mReservedOffer to null, as
+            // CALLBACK_UNAVAIL will cause the request to be torn down. In addition, leaving
+            // nri.mReservedOffer set prevents an additional onReserved() callback in
+            // handleRegisterNetworkOffer() in the case of a migration (which would be ignored as it
+            // follows an onUnavailable).
             callCallbackForRequest(nri, null /* networkAgent */, CALLBACK_UNAVAIL, 0 /* arg1 */);
         }
-
         noi.offer.callback.asBinder().unlinkToDeath(noi, 0 /* flags */);
     }
 

@@ -16,11 +16,15 @@
 
 package com.android.server.connectivity;
 
+import static android.net.NetworkCapabilities.RES_ID_MATCH_ALL_RESERVATIONS;
+import static android.net.NetworkCapabilities.RES_ID_UNSET;
+
 import android.annotation.NonNull;
 import android.net.INetworkOfferCallback;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.os.RemoteException;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,6 +46,7 @@ import java.util.Set;
  * @hide
  */
 public class NetworkOffer implements NetworkRanker.Scoreable {
+    public final static String TAG = NetworkOffer.class.getSimpleName();
     @NonNull public final FullScore score;
     @NonNull public final NetworkCapabilities caps;
     @NonNull public final INetworkOfferCallback callback;
@@ -126,20 +131,46 @@ public class NetworkOffer implements NetworkRanker.Scoreable {
     }
 
     /**
+     * Sends onNetworkUnneeded for any remaining NetworkRequests.
+     *
+     * Used after a NetworkOffer migration failed to let the provider know that its networks should
+     * be torn down (as the offer is no longer registered).
+     */
+    public void markUnneeded() {
+        try {
+            for (NetworkRequest request : mCurrentlyNeeded) {
+                callback.onNetworkUnneeded(request);
+            }
+        } catch (final RemoteException e) {
+            // The remote is dead; nothing to do.
+        }
+        mCurrentlyNeeded.clear();
+    }
+
+    /**
      * Migrate from, and take over, a previous offer.
      *
      * When an updated offer is sent from a provider, call this method on the new offer, passing
      * the old one, to take over the state.
      *
      * @param previousOffer the previous offer
+     * @return true if the migration was successful, false otherwise.
      */
-    public void migrateFrom(@NonNull final NetworkOffer previousOffer) {
+    public boolean tryMigrateFrom(@NonNull final NetworkOffer previousOffer) {
         if (!callback.asBinder().equals(previousOffer.callback.asBinder())) {
-            throw new IllegalArgumentException("Can only migrate from a previous version of"
-                    + " the same offer");
+            Log.wtf(TAG, "Can only migrate from a previous version of the same offer");
+            return false;
+        }
+        if (caps.getReservationId() != RES_ID_UNSET
+                && caps.getReservationId() != RES_ID_MATCH_ALL_RESERVATIONS
+                && previousOffer.caps != caps) {
+            Log.e(TAG, "Reservation offers are not allowed to update their capabilities");
+            return false;
         }
         mCurrentlyNeeded.clear();
         mCurrentlyNeeded.addAll(previousOffer.mCurrentlyNeeded);
+        previousOffer.mCurrentlyNeeded.clear();
+        return true;
     }
 
     @Override
