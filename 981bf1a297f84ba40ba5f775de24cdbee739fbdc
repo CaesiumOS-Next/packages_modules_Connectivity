@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69901c8e_20c47db3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-18T07:02:59Z",
+      "side": 1,
+      "message": "Discussed with markchien@. It seems this would be feasible, but one major concern is that the RTM_NEWADDR event is asynchronous. If two downstream addresses are allocated back-to-back, this might increase the chance of conflict since we will need to wait for the RTM_NEWADDR event to detect the conflict. However, for now, downstream addresses are added to the database only when requested, so this issue should not occur.\nReopen if any idea.",
+      "parentUuid": "82791653_5f15e7ec",
+      "revId": "981bf1a297f84ba40ba5f775de24cdbee739fbdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcf3b31c_12babbc3",
