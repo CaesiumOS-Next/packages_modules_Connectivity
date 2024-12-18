@@ -16,6 +16,7 @@
 
 package com.android.server;
 
+import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
 import static android.Manifest.permission.DEVICE_POWER;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.NETWORK_STACK;
@@ -23,6 +24,7 @@ import static android.net.ConnectivityManager.NETID_UNSET;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
+import static android.net.nsd.AdvertisingRequest.NSD_ADVERTISING_SKIP_PROBING;
 import static android.net.nsd.NsdManager.MDNS_DISCOVERY_MANAGER_EVENT;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
 import static android.net.nsd.NsdManager.RESOLVE_SERVICE_SUCCEEDED;
@@ -1046,9 +1048,12 @@ public class NsdService extends INsdManager.Stub {
 
                             serviceInfo.setSubtypes(subtypes);
                             maybeStartMonitoringSockets();
+                            final boolean skipProbing = (advertisingRequest.getAdvertisingConfig()
+                                    & NSD_ADVERTISING_SKIP_PROBING) > 0;
                             final MdnsAdvertisingOptions mdnsAdvertisingOptions =
                                     MdnsAdvertisingOptions.newBuilder()
                                             .setIsOnlyUpdate(isUpdateOnly)
+                                            .setSkipProbing(skipProbing)
                                             .setTtl(advertisingRequest.getTtl())
                                             .build();
                             mAdvertiser.addOrUpdateService(transactionId, serviceInfo,
@@ -2348,6 +2353,12 @@ public class NsdService extends INsdManager.Stub {
         public void registerService(int listenerKey, AdvertisingRequest advertisingRequest)
                 throws RemoteException {
             NsdManager.checkServiceInfoForRegistration(advertisingRequest.getServiceInfo());
+            if ((advertisingRequest.getAdvertisingConfig() & NSD_ADVERTISING_SKIP_PROBING) > 0) {
+                // Disallow "skip probing" for unprivileged apps, as they are likely to misuse it
+                // when the service name isn't actually unique.
+                PermissionUtils.enforceAnyPermissionOf(
+                        mContext, CONNECTIVITY_USE_RESTRICTED_NETWORKS);
+            }
             mNsdStateMachine.sendMessage(mNsdStateMachine.obtainMessage(
                     NsdManager.REGISTER_SERVICE, 0, listenerKey,
                     new AdvertisingArgs(this, advertisingRequest)
