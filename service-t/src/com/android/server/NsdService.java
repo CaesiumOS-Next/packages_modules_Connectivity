@@ -23,6 +23,7 @@ import static android.net.ConnectivityManager.NETID_UNSET;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
+import static android.net.nsd.AdvertisingRequest.FLAG_SKIP_PROBING;
 import static android.net.nsd.NsdManager.MDNS_DISCOVERY_MANAGER_EVENT;
 import static android.net.nsd.NsdManager.MDNS_SERVICE_EVENT;
 import static android.net.nsd.NsdManager.RESOLVE_SERVICE_SUCCEEDED;
@@ -1046,9 +1047,12 @@ public class NsdService extends INsdManager.Stub {
 
                             serviceInfo.setSubtypes(subtypes);
                             maybeStartMonitoringSockets();
+                            final boolean skipProbing = (advertisingRequest.getAdvertisingConfig()
+                                    & FLAG_SKIP_PROBING) > 0;
                             final MdnsAdvertisingOptions mdnsAdvertisingOptions =
                                     MdnsAdvertisingOptions.newBuilder()
                                             .setIsOnlyUpdate(isUpdateOnly)
+                                            .setSkipProbing(skipProbing)
                                             .setTtl(advertisingRequest.getTtl())
                                             .build();
                             mAdvertiser.addOrUpdateService(transactionId, serviceInfo,
