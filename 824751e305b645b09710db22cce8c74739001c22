@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "791c1ebd_45c5fcfd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1870696
+      },
+      "writtenOn": "2024-12-18T19:03:38Z",
+      "side": 1,
+      "message": "This is a CP of aosp/3418399 which is already merged to git_main",
+      "revId": "824751e305b645b09710db22cce8c74739001c22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
