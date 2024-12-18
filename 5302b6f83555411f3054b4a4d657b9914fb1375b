@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c2dc9d3_8e978e24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-18T07:27:34Z",
+      "side": 1,
+      "message": "Would it be possible to have the test in the same CL ? If a module build gets cut between the two we wouldn\u0027t have MTS coverage of the code otherwise.\n\nThe callback part LGTM, I\u0027m not very familiar with the request/offer details but only nits on that part.",
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebcdf8fc_ad30eb9f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9370,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-18T07:27:34Z",
+      "side": 1,
+      "message": "Nit: it may be useful to have some pointers to where this is (in ConnectivityManager), it took me some time to figure that out",
+      "range": {
+        "startLine": 9370,
+        "startChar": 15,
+        "endLine": 9370,
+        "endChar": 28
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63ea945e_7895f7ca",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9375,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-18T07:27:34Z",
+      "side": 1,
+      "message": "What happens if the new offer has different values for the reservation ID in its NetworkCapabilities ? I guess that\u0027s similar to how NetworkCapabilities changes are handled today, but I can\u0027t find code that handles that.",
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8caf30ba_b7b0cca6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9423,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-18T07:27:34Z",
+      "side": 1,
+      "message": "I can\u0027t find such a member, there\u0027s mReservedCapabilities ?\n\nIn that case, a comment on mReservedCapabilities to indicate that they may be stale, and can only be set once and never reset, may help avoid wrong assumptions in the future.\nMaybe even throw in setReservedCapabilities if it\u0027s already set to something ?",
+      "range": {
+        "startLine": 9423,
+        "startChar": 66,
+        "endLine": 9423,
+        "endChar": 80
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c21705a1_8d7d0d37",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10666,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-18T07:27:34Z",
+      "side": 1,
+      "message": "Nit: This explains why it\u0027s OK not to queue them, but not really why it needs to not be queued\nYou could mention that they can\u0027t be queued because the queues are per netId, and there is no netId for these.",
+      "range": {
+        "startLine": 10665,
+        "startChar": 58,
+        "endLine": 10666,
+        "endChar": 19
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a5affe4_d45c8c1e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10684,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-18T07:27:34Z",
+      "side": 1,
+      "message": "Nit: this part is duplicated in CALLBACK_RESERVED, CALLBACK_AVAILABLE and CALLBACK_CAP_CHANGED, it may be worth factoring it out to a method at this point",
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
