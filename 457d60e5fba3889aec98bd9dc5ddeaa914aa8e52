@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f8c9e69_366732d2",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-18T07:09:07Z",
+      "side": 1,
+      "message": "I guess we have the green light for rollout this flag?",
+      "range": {
+        "startLine": 208,
+        "startChar": 22,
+        "endLine": 208,
+        "endChar": 40
+      },
+      "revId": "457d60e5fba3889aec98bd9dc5ddeaa914aa8e52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
