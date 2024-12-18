@@ -39,6 +39,30 @@
       },
       "revId": "42fe5bdb144d93dc27d9f430b556ede824c2b8e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfef964b_2fcb3aed",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-18T03:21:59Z",
+      "side": 1,
+      "message": "I think it is not expected where an OEM partner changes how the tethering module being installed (vendor/google/data/etc/sysconfig/), and we expected createContextAsUser could be called for FULL users.\nIf that happens, the entitlement check would fail, and it means some OEM partners are doing something funny, and we might want to collect data about how bad it is.\n\n+@lorenzo@google.com for input if anything wrong.",
+      "parentUuid": "51106fb9_3f9ad883",
+      "range": {
+        "startLine": 170,
+        "startChar": 18,
+        "endLine": 172,
+        "endChar": 157
+      },
+      "revId": "42fe5bdb144d93dc27d9f430b556ede824c2b8e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
