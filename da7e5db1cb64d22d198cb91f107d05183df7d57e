@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3546ded_64b3dee3",
+        "filename": "service/src/com/android/server/connectivity/NetworkOffer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-18T22:49:29Z",
+      "side": 1,
+      "message": "private",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 10
+      },
+      "revId": "da7e5db1cb64d22d198cb91f107d05183df7d57e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
