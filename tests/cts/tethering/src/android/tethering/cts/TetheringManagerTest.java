@@ -73,6 +73,7 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiSsid;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.os.Process;
 import android.os.ResultReceiver;
 import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionManager;
@@ -602,5 +603,15 @@ public class TetheringManagerTest {
                 mCtsNetUtils.connectToWifi();
             }
         }
+    }
+
+    @Test
+    public void testIsSecondaryUser() {
+        assertTrue(Process.myUid() >= 100_000);
+    }
+
+    @Test
+    public void testIsPrimaryUser() {
+        assertTrue(Process.myUid() < 100_000);
     }
 }
