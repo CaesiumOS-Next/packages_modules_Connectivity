@@ -1,0 +1,68 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9cafd08_8bf74850",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-18T10:40:40Z",
+      "side": 1,
+      "message": "nit: remove this line, one store() should be sufficient.",
+      "range": {
+        "startLine": 222,
+        "startChar": 11,
+        "endLine": 222,
+        "endChar": 31
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "bd16f6f6_4f1c7332",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+              "range": {
+                "startLine": 222,
+                "startChar": 0,
+                "endLine": 223,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "4a3fc33d748db609f111114e462d3d9912e3fa26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7124832_4f71e322",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-18T10:40:40Z",
+      "side": 1,
+      "message": "nit: I was a bit confused by this name as it does not indicate that the failure count also increases. Maybe rename to something like `updateFailureCount`?",
+      "range": {
+        "startLine": 247,
+        "startChar": 20,
+        "endLine": 247,
+        "endChar": 48
+      },
+      "revId": "4a3fc33d748db609f111114e462d3d9912e3fa26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
