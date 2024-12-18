@@ -314,6 +314,13 @@ public final class NsdManager {
     /** Dns based service discovery protocol */
     public static final int PROTOCOL_DNS_SD = 0x0001;
 
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(prefix = {"PROTOCOL_"}, value = {
+            PROTOCOL_DNS_SD,
+    })
+    public @interface ProtocolType {}
+
     /**
      * The minimum TTL seconds which is allowed for a service registration.
      *
