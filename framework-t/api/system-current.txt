@@ -384,6 +384,22 @@ package android.net.netstats.provider {
 
 package android.net.nsd {
 
+  @FlaggedApi("com.android.net.flags.ipv6_over_ble") public final class AdvertisingRequest implements android.os.Parcelable {
+    method public int describeContents();
+    method public long getAdvertisingConfig();
+    method public int getProtocolType();
+    method @NonNull public android.net.nsd.NsdServiceInfo getServiceInfo();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.nsd.AdvertisingRequest> CREATOR;
+    field public static final long NSD_ADVERTISING_SKIP_PROBING = 2L; // 0x2L
+  }
+
+  @FlaggedApi("com.android.net.flags.ipv6_over_ble") public static final class AdvertisingRequest.Builder {
+    ctor public AdvertisingRequest.Builder(@NonNull android.net.nsd.NsdServiceInfo, int);
+    method @NonNull public android.net.nsd.AdvertisingRequest build();
+    method @NonNull public android.net.nsd.AdvertisingRequest.Builder setAdvertisingConfig(long);
+  }
+
   public final class NsdManager {
     method @FlaggedApi("com.android.net.flags.register_nsd_offload_engine_api") @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_SETTINGS, android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, android.Manifest.permission.NETWORK_STACK}) public void registerOffloadEngine(@NonNull String, long, long, @NonNull java.util.concurrent.Executor, @NonNull android.net.nsd.OffloadEngine);
     method @FlaggedApi("com.android.net.flags.register_nsd_offload_engine_api") @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_SETTINGS, android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, android.Manifest.permission.NETWORK_STACK}) public void unregisterOffloadEngine(@NonNull android.net.nsd.OffloadEngine);

@@ -15,11 +15,15 @@
  */
 package android.net.nsd;
 
+import android.annotation.FlaggedApi;
 import android.annotation.LongDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.SystemApi;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.android.net.flags.Flags;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -30,14 +34,25 @@ import java.util.Objects;
  * Encapsulates parameters for {@link NsdManager#registerService}.
  * @hide
  */
-//@FlaggedApi(NsdManager.Flags.ADVERTISE_REQUEST_API)
+@SystemApi
+@FlaggedApi(Flags.FLAG_IPV6_OVER_BLE)
 public final class AdvertisingRequest implements Parcelable {
 
     /**
      * Only update the registration without sending exit and re-announcement.
+     * @hide
      */
     public static final long NSD_ADVERTISING_UPDATE_ONLY = 1;
 
+    /**
+     * Skip the probing step when advertising.
+     *
+     * <p>This must only be used when the service name ({@link NsdServiceInfo#getServiceName()} is
+     * known to be unique and cannot possibly be used by any other device on the network.
+     *
+     * <p>This feature requires CONNECTIVITY_USE_RESTRICTED_NETWORKS permission.
+     */
+    public static final long NSD_ADVERTISING_SKIP_PROBING = 1 << 1;
 
     @NonNull
     public static final Creator<AdvertisingRequest> CREATOR =
@@ -165,11 +180,10 @@ public final class AdvertisingRequest implements Parcelable {
         dest.writeLong(mTtl == null ? -1L : mTtl.getSeconds());
     }
 
-//    @FlaggedApi(NsdManager.Flags.ADVERTISE_REQUEST_API)
     /**
      * The builder for creating new {@link AdvertisingRequest} objects.
-     * @hide
      */
+    @FlaggedApi(Flags.FLAG_IPV6_OVER_BLE)
     public static final class Builder {
         @NonNull
         private final NsdServiceInfo mServiceInfo;
