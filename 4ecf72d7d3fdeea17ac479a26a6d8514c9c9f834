@@ -22,6 +22,30 @@
       },
       "revId": "4ecf72d7d3fdeea17ac479a26a6d8514c9c9f834",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "817cc72f_6c82b5be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-18T07:39:37Z",
+      "side": 1,
+      "message": "Change it to 10 -\u003e 25 minues to take account the worst case. 15 minutes readWriteTest + 10 minues for rest.\n\nI am wondering if we should put the ApfIntegrationTest into seaparte test suits...",
+      "parentUuid": "93f63e35_6d9cf1e9",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 16
+      },
+      "revId": "4ecf72d7d3fdeea17ac479a26a6d8514c9c9f834",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
