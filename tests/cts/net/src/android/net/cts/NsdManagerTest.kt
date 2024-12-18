@@ -15,6 +15,7 @@
  */
 package android.net.cts
 
+import android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.app.compat.CompatChanges
@@ -40,8 +41,11 @@ import android.net.TestNetworkManager
 import android.net.TestNetworkSpecifier
 import android.net.connectivity.ConnectivityCompatChanges
 import android.net.cts.util.CtsNetUtils
+import android.net.nsd.AdvertisingRequest
+import android.net.nsd.AdvertisingRequest.NSD_ADVERTISING_SKIP_PROBING
 import android.net.nsd.DiscoveryRequest
 import android.net.nsd.NsdManager
+import android.net.nsd.NsdManager.PROTOCOL_DNS_SD
 import android.net.nsd.NsdServiceInfo
 import android.net.nsd.OffloadEngine
 import android.net.nsd.OffloadServiceInfo
@@ -98,14 +102,15 @@ import com.android.testutils.NsdServiceInfoCallbackRecord
 import com.android.testutils.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdated
 import com.android.testutils.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.ServiceUpdatedLost
 import com.android.testutils.NsdServiceInfoCallbackRecord.ServiceInfoCallbackEvent.UnregisterCallbackSucceeded
+import com.android.testutils.PollPacketReader
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
-import com.android.testutils.PollPacketReader
 import com.android.testutils.TestDnsPacket
 import com.android.testutils.TestableNetworkAgent
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
 import com.android.testutils.TestableNetworkCallback
 import com.android.testutils.assertEmpty
+import com.android.testutils.assertThrows
 import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk30
 import com.android.testutils.filters.CtsNetTestCasesMaxTargetSdk33
 import com.android.testutils.pollForAdvertisement
@@ -2627,6 +2632,60 @@ class NsdManagerTest {
                 "1"
         )
         verifyCachedServicesRemoval(isCachedServiceRemoved = true)
+    }
+
+    @Test
+    fun testSkipProbing() {
+        val si = makeTestServiceInfo(testNetwork1.network)
+        val request = AdvertisingRequest.Builder(si, PROTOCOL_DNS_SD)
+            .setAdvertisingConfig(NSD_ADVERTISING_SKIP_PROBING)
+            .build()
+
+        // Register service on testNetwork1
+        val registrationRecord = NsdRegistrationRecord()
+        runAsShell(CONNECTIVITY_USE_RESTRICTED_NETWORKS) {
+            nsdManager.registerService(request, { it.run() }, registrationRecord)
+            registrationRecord.expectCallback<ServiceRegistered>()
+        }
+        val packetReader = makePacketReader()
+
+        tryTest {
+            val srvRecordName = "$serviceName.$serviceType.local"
+            // Look for either announcements or probes
+            val packet = packetReader.pollForMdnsPacket {
+                it.isProbeFor(srvRecordName) || it.isReplyFor(srvRecordName)
+            }
+            assertNotNull(packet, "Probe or announcement not received within timeout")
+            // The first packet should be an announcement, not a probe.
+            assertTrue("Found initial probes with NSD_ADVERTISING_SKIP_PROBING enabled",
+                packet.isReplyFor(srvRecordName))
+
+            // Force a conflict now that the service is getting announced
+            val conflictingAnnouncement = buildConflictingAnnouncement()
+            packetReader.sendResponse(conflictingAnnouncement)
+
+            // Expect to see probes now (RFC6762 9., service is reset to probing state)
+            assertNotNull(packetReader.pollForProbe(serviceName, serviceType),
+                "Probe not received within timeout after conflict")
+        } cleanupStep {
+            nsdManager.unregisterService(registrationRecord)
+            registrationRecord.expectCallback<ServiceUnregistered>()
+        } cleanup {
+            packetReader.handler.post { packetReader.stop() }
+            handlerThread.waitForIdle(TIMEOUT_MS)
+        }
+    }
+
+    @Test
+    fun testSkipProbing_MissingPermission() {
+        val si = makeTestServiceInfo(testNetwork1.network)
+        val request = AdvertisingRequest.Builder(si, PROTOCOL_DNS_SD)
+            .setAdvertisingConfig(NSD_ADVERTISING_SKIP_PROBING)
+            .build()
+
+        assertThrows(SecurityException::class.java) {
+            nsdManager.registerService(request, { it.run() }, NsdRegistrationRecord())
+        }
     }
 
     private fun hasServiceTypeClientsForNetwork(clients: List<String>, network: Network): Boolean {
