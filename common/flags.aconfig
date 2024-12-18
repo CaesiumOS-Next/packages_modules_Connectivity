@@ -172,5 +172,4 @@ flag {
   namespace: "android_core_networking"
   description: "Flag for tethering local network agent"
   bug: "349487600"
-  is_fixed_read_only: true
 }
