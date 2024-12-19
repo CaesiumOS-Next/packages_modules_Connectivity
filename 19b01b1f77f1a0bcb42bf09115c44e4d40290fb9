@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffd371c4_6b269832",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/QueryTaskConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-19T06:12:36Z",
+      "side": 1,
+      "message": "Nit: Is any reason to remove this java doc?",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 7
+      },
+      "revId": "19b01b1f77f1a0bcb42bf09115c44e4d40290fb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "285feff9_1f757601",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceTypeClientTests.java",
         "patchSetId": 1
