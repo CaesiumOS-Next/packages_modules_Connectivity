@@ -34,15 +34,16 @@ public class MdnsQueryScheduler {
     @VisibleForTesting
     // RFC 6762 5.2: The interval between the first two queries MUST be at least one second.
     static final int INITIAL_AGGRESSIVE_TIME_BETWEEN_BURSTS_MS = 1000;
-    private static final int INITIAL_TIME_BETWEEN_BURSTS_MS =
-            (int) MdnsConfigs.initialTimeBetweenBurstsMs();
-    private static final int MAX_TIME_BETWEEN_ACTIVE_PASSIVE_BURSTS_MS =
-            (int) MdnsConfigs.timeBetweenBurstsMs();
-    private static final int QUERIES_PER_BURST = (int) MdnsConfigs.queriesPerBurst();
-    private static final int TIME_BETWEEN_QUERIES_IN_BURST_MS =
-            (int) MdnsConfigs.timeBetweenQueriesInBurstMs();
-    private static final int QUERIES_PER_BURST_PASSIVE_MODE =
-            (int) MdnsConfigs.queriesPerBurstPassive();
+    @VisibleForTesting
+    static final int INITIAL_TIME_BETWEEN_BURSTS_MS = 5000;
+    @VisibleForTesting
+    static final int MAX_TIME_BETWEEN_ACTIVE_PASSIVE_BURSTS_MS =
+            20_000;
+    @VisibleForTesting
+    static final int QUERIES_PER_BURST = 3;
+    @VisibleForTesting
+    static final int TIME_BETWEEN_QUERIES_IN_BURST_MS = 1000;
+    private static final int QUERIES_PER_BURST_PASSIVE_MODE = 1;
     @VisibleForTesting
     // Basically this tries to send one query per typical DTIM interval 100ms, to maximize the
     // chances that a query will be received if devices are using a DTIM multiplier (in which case

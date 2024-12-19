@@ -93,8 +93,6 @@ public class MdnsServiceTypeClient {
     @NonNull private final MdnsFeatureFlags featureFlags;
     private final ArrayMap<MdnsServiceBrowserListener, ListenerInfo> listeners =
             new ArrayMap<>();
-    private final boolean removeServiceAfterTtlExpires =
-            MdnsConfigs.removeServiceAfterTtlExpires();
     private final Clock clock;
     // Use TimerFileDescriptor for query scheduling, which allows for more accurate sending of
     // queries.
@@ -663,9 +661,6 @@ public class MdnsServiceTypeClient {
     }
 
     private boolean shouldRemoveServiceAfterTtlExpires() {
-        if (removeServiceAfterTtlExpires) {
-            return true;
-        }
         return searchOptions != null && searchOptions.removeExpiredService();
     }
 

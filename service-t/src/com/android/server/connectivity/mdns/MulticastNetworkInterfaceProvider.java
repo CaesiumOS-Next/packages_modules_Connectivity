@@ -42,7 +42,6 @@ public class MulticastNetworkInterfaceProvider {
 
     private static final String TAG = "MdnsNIProvider";
     private final SharedLog sharedLog;
-    private static final boolean PREFER_IPV6 = MdnsConfigs.preferIpv6();
 
     private final List<NetworkInterfaceWrapper> multicastNetworkInterfaces = new ArrayList<>();
     // Only modifiable from tests.
@@ -106,10 +105,6 @@ public class MulticastNetworkInterfaceProvider {
             return false;
         }
 
-        // TODO(b/79866499): Remove this when the bug is resolved.
-        if (PREFER_IPV6) {
-            return true;
-        }
         boolean hasAtleastOneIPv6Address = false;
         for (NetworkInterfaceWrapper interfaceWrapper : networkInterfaces) {
             for (InterfaceAddress ifAddr : interfaceWrapper.getInterfaceAddresses()) {
