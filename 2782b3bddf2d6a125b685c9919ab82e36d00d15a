@@ -22,6 +22,30 @@
       },
       "revId": "2782b3bddf2d6a125b685c9919ab82e36d00d15a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a4fab35_6a94b433",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-19T02:42:43Z",
+      "side": 1,
+      "message": "We still have coverage for the older release where app with WRITE_SETTINGS succeeds when provisioning is not required.\n\nWe don\u0027t have coverage for the case when it fails when provisioning IS required, but the existing code doesn\u0027t have this check either (which means no regression in coverage)",
+      "parentUuid": "b8f239d3_ceb10b86",
+      "range": {
+        "startLine": 203,
+        "startChar": 28,
+        "endLine": 203,
+        "endChar": 62
+      },
+      "revId": "2782b3bddf2d6a125b685c9919ab82e36d00d15a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
