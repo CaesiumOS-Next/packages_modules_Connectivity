@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2baa886_1e782daa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-19T00:59:27Z",
+      "side": 1,
+      "message": "LGTM assuming callback is placed last.",
+      "revId": "09a6257940dd77d44a7b4837fa30243ae856cbf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bbbb72c_a833e621",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5017,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-19T00:59:27Z",
+      "side": 1,
+      "message": "may receive",
+      "range": {
+        "startLine": 5017,
+        "startChar": 85,
+        "endLine": 5017,
+        "endChar": 91
+      },
+      "revId": "09a6257940dd77d44a7b4837fa30243ae856cbf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33579faf_9ee66d26",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5019,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-19T00:59:27Z",
+      "side": 1,
+      "message": "network\u0027s {@link NetworkCapabilities}.",
+      "range": {
+        "startLine": 5019,
+        "startChar": 7,
+        "endLine": 5019,
+        "endChar": 18
+      },
+      "revId": "09a6257940dd77d44a7b4837fa30243ae856cbf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18429b9b_03db31a9",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5021,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-19T00:59:27Z",
+      "side": 1,
+      "message": "connects",
+      "range": {
+        "startLine": 5021,
+        "startChar": 24,
+        "endLine": 5021,
+        "endChar": 41
+      },
+      "revId": "09a6257940dd77d44a7b4837fa30243ae856cbf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ac5558d_7800d416",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5021,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-19T00:59:27Z",
+      "side": 1,
+      "message": "* A reservation reserves at most one network.",
+      "range": {
+        "startLine": 5021,
+        "startChar": 5,
+        "endLine": 5021,
+        "endChar": 6
+      },
+      "revId": "09a6257940dd77d44a7b4837fa30243ae856cbf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f6ee9f4_e5265d53",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5021,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-19T00:59:27Z",
+      "side": 1,
+      "message": "If",
+      "range": {
+        "startLine": 5021,
+        "startChar": 7,
+        "endLine": 5021,
+        "endChar": 11
+      },
+      "revId": "09a6257940dd77d44a7b4837fa30243ae856cbf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ad85cae_4baa8599",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5022,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-19T00:59:27Z",
+      "side": 1,
+      "message": "Suggest \"The provided callback will only be called for the reserved network.\"",
+      "range": {
+        "startLine": 5022,
+        "startChar": 40,
+        "endLine": 5022,
+        "endChar": 41
+      },
+      "revId": "09a6257940dd77d44a7b4837fa30243ae856cbf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3ff4b38_53b4c93a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5023,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-19T00:59:27Z",
+      "side": 1,
+      "message": "If the system determines that the requested reservation can never be fulfilled, {@link NetworkCallback#onUnavailble} is called, the reservation is be released by the system, and the provided callback can be reused. Otherwise, the reservation remains in place until the requested network connects. There is no guarantee that the reserved network will ever connect.",
+      "range": {
+        "startLine": 5023,
+        "startChar": 5,
+        "endLine": 5023,
+        "endChar": 6
+      },
+      "revId": "09a6257940dd77d44a7b4837fa30243ae856cbf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce66ac77_1c055a6b",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5033,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-19T00:59:27Z",
+      "side": 1,
+      "message": "Not putting the callback at the end is generally unfriendly to kotlin code because it prevents apps from declaring the callback inline. It should be the last argument.",
+      "range": {
+        "startLine": 5033,
+        "startChar": 12,
+        "endLine": 5033,
+        "endChar": 41
+      },
+      "revId": "09a6257940dd77d44a7b4837fa30243ae856cbf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
