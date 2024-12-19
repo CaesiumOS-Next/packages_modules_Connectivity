@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8f239d3_ceb10b86",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-19T02:38:48Z",
+      "side": 1,
+      "message": "Perhapzs not for this CL, but I think what this really represents is, \"is tethering a public API\". Maybe rename to isTetheringPublicApi?\n\nI think this CL is missing some coverage for older releases where tethering is not a public API. For example, is there a test that on older releases, if an app has WRITE_SETTINGS it can start tethering iff provisioning is not required?\n\nPlease ensure that the test covers all the scenarios that it covered before this CL.",
+      "range": {
+        "startLine": 203,
+        "startChar": 28,
+        "endLine": 203,
+        "endChar": 62
+      },
+      "revId": "2782b3bddf2d6a125b685c9919ab82e36d00d15a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
