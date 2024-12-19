@@ -16,6 +16,24 @@
       "message": "You will need to put the proto change in the same topic, so that when cherry-pick, you won\u0027t forger.",
       "revId": "a255e79fec27c450838584e6c144241fd1b33a81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ee537db_8048a201",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-19T03:02:35Z",
+      "side": 1,
+      "message": "yeah, will do that in a follow-up CL.",
+      "parentUuid": "f7095426_3db846cf",
+      "revId": "a255e79fec27c450838584e6c144241fd1b33a81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
