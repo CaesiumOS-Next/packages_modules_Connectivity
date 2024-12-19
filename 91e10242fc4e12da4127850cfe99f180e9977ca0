@@ -16,6 +16,57 @@
       "message": "@reminv@google.com friendly ping",
       "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7130b3d_db804d3a",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-19T04:08:06Z",
+      "side": 1,
+      "message": "It\u0027s probably best to avoid registering the listener altogether if the flag is off",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb0e33fb_d26e7c26",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-19T04:08:06Z",
+      "side": 1,
+      "message": "Does this get called when the app is not running ? If not, will it get called when the app is started ? I guess this probably doesn\u0027t get called with every app when the listener is registered ?\n\nI\u0027m not sure you can plan to populate the BPF map in this callback depending on the answers to these questions",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9527531_cec22171",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-19T04:08:06Z",
+      "side": 1,
+      "message": "The callback means the permission changed, but not necessarily that it is granted IIUC",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
