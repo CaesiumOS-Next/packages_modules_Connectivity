@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b38894f_b4dfa41f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-19T18:30:26Z",
+      "side": 1,
+      "message": "This might return TETHERING_INVALID (e.g. when iface is eth0), in which case the code will synthesize a TetheringRequest with TETHERING_INVALID. However, I *don\u0027t think* the behavior is changed, i.e. this will still return TETHER_ERROR_UNKNOWN_IFACE below, because ensureIpServerStarted(iface), which is called from a link up / interface added event, also uses ifaceNameToType. So I believe TETHERING_ETHERNET is just not supported using this API.\n\nMight be worth adding a comment.\n\n\n----\n\nActually, looking at\n\n```\nprivate void enableIpServing(@NonNull TetheringRequest request, String ifname) {\n        enableIpServing(request, ifname, false /* isNcm */);\n    }\n\n    private void enableIpServing(@NonNull TetheringRequest request, String ifname, boolean isNcm) {\n        ensureIpServerStarted(ifname, request.getTetheringType(), isNcm);\n        if (tether(request, ifname) !\u003d TETHER_ERROR_NO_ERROR) {\n            Log.e(TAG, \"unable start tethering on iface \" + ifname);\n        }\n    }\n```\n\nI think this breaks ethernet tethering.",
+      "range": {
+        "startLine": 1098,
+        "startChar": 70,
+        "endLine": 1098,
+        "endChar": 85
+      },
+      "revId": "9516d02971009be444d7e56b2a754e953bdbbdae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
