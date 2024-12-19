@@ -474,64 +474,6 @@ public class MdnsSocketClientTests {
     }
 
     @Test
-    @Ignore("MdnsConfigs is not configurable currently.")
-    public void testMulticastResponseIsNotReceived() throws IOException, InterruptedException {
-        //MdnsConfigsFlagsImpl.checkMulticastResponse.override(true);
-        //MdnsConfigsFlagsImpl.checkMulticastResponseIntervalMs
-        //        .override(DateUtils.SECOND_IN_MILLIS);
-        //MdnsConfigsFlagsImpl.useSeparateSocketToSendUnicastQuery.override(true);
-        enableMulticastResponse.set(false);
-        enableUnicastResponse.set(true);
-
-        mdnsClient.startDiscovery();
-        DatagramPacket packet = getTestDatagramPacket();
-        mdnsClient.sendPacketRequestingUnicastResponse(List.of(packet),
-                false /* onlyUseIpv6OnIpv6OnlyNetworks */);
-        mdnsClient.sendPacketRequestingMulticastResponse(List.of(packet),
-                false /* onlyUseIpv6OnIpv6OnlyNetworks */);
-
-        // Wait for the timer to be triggered.
-        Thread.sleep(MdnsConfigs.checkMulticastResponseIntervalMs() * 2);
-
-        assertFalse(mdnsClient.receivedMulticastResponse);
-        assertTrue(mdnsClient.receivedUnicastResponse);
-        assertTrue(mdnsClient.cannotReceiveMulticastResponse.get());
-
-        // Allow multicast response and verify the states again.
-        enableMulticastResponse.set(true);
-        Thread.sleep(DateUtils.SECOND_IN_MILLIS);
-
-        // Verify cannotReceiveMulticastResponse is reset to false.
-        assertTrue(mdnsClient.receivedMulticastResponse);
-        assertTrue(mdnsClient.receivedUnicastResponse);
-        assertFalse(mdnsClient.cannotReceiveMulticastResponse.get());
-
-        // Stop the discovery and start a new session. Don't respond the unicsat query either in
-        // this session.
-        enableMulticastResponse.set(false);
-        enableUnicastResponse.set(false);
-        mdnsClient.stopDiscovery();
-        mdnsClient.startDiscovery();
-
-        // Verify the states are reset.
-        assertFalse(mdnsClient.receivedMulticastResponse);
-        assertFalse(mdnsClient.receivedUnicastResponse);
-        assertFalse(mdnsClient.cannotReceiveMulticastResponse.get());
-
-        mdnsClient.sendPacketRequestingUnicastResponse(List.of(packet),
-                false /* onlyUseIpv6OnIpv6OnlyNetworks */);
-        mdnsClient.sendPacketRequestingMulticastResponse(List.of(packet),
-                false /* onlyUseIpv6OnIpv6OnlyNetworks */);
-        Thread.sleep(MdnsConfigs.checkMulticastResponseIntervalMs() * 2);
-
-        // Verify cannotReceiveMulticastResponse is not set the true because we didn't receive the
-        // unicast response either. This is expected for users who don't have any cast device.
-        assertFalse(mdnsClient.receivedMulticastResponse);
-        assertFalse(mdnsClient.receivedUnicastResponse);
-        assertFalse(mdnsClient.cannotReceiveMulticastResponse.get());
-    }
-
-    @Test
     public void startDiscovery_andPropagateInterfaceIndex_includesInterfaceIndex()
             throws Exception {
         //MdnsConfigsFlagsImpl.allowNetworkInterfaceIndexPropagation.override(true);

@@ -47,20 +47,6 @@ import java.util.concurrent.Callable;
 public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<String>>> {
 
     private static final String TAG = "MdnsQueryCallable";
-    private static final List<Integer> castShellEmulatorMdnsPorts;
-
-    static {
-        castShellEmulatorMdnsPorts = new ArrayList<>();
-        String[] stringPorts = MdnsConfigs.castShellEmulatorMdnsPorts();
-
-        for (String port : stringPorts) {
-            try {
-                castShellEmulatorMdnsPorts.add(Integer.parseInt(port));
-            } catch (NumberFormatException e) {
-                // Ignore.
-            }
-        }
-    }
 
     @NonNull
     private final WeakReference<MdnsSocketClientBase> weakRequestSender;
@@ -214,9 +200,6 @@ public class EnqueueMdnsQueryCallable implements Callable<Pair<Integer, List<Str
                     Collections.emptyList(), /* authorityRecords */
                     Collections.emptyList() /* additionalRecords */);
             sendPacketToIpv4AndIpv6(requestSender, MdnsConstants.MDNS_PORT, queryPacket);
-            for (Integer emulatorPort : castShellEmulatorMdnsPorts) {
-                sendPacketToIpv4AndIpv6(requestSender, emulatorPort, queryPacket);
-            }
             return Pair.create(transactionId, subtypes);
         } catch (Exception e) {
             sharedLog.e(String.format("Failed to create mDNS packet for subtype: %s.",

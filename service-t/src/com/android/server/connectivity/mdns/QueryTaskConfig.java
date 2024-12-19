@@ -26,8 +26,6 @@ import com.android.internal.annotations.VisibleForTesting;
  */
 public class QueryTaskConfig {
     private static final int UNSIGNED_SHORT_MAX_VALUE = 65536;
-    private final boolean alwaysAskForUnicastResponse =
-            MdnsConfigs.alwaysAskForUnicastResponseInEachBurst();
     @VisibleForTesting
     final boolean expectUnicastResponse;
     final int queryIndex;
@@ -61,6 +59,6 @@ public class QueryTaskConfig {
                 return true;
             }
         }
-        return queryIndex == 0 || alwaysAskForUnicastResponse;
+        return queryIndex == 0;
     }
 }

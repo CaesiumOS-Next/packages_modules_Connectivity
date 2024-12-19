@@ -17,7 +17,11 @@
 package com.android.server.connectivity.mdns;
 
 import static com.android.server.connectivity.mdns.MdnsQueryScheduler.INITIAL_AGGRESSIVE_TIME_BETWEEN_BURSTS_MS;
+import static com.android.server.connectivity.mdns.MdnsQueryScheduler.INITIAL_TIME_BETWEEN_BURSTS_MS;
+import static com.android.server.connectivity.mdns.MdnsQueryScheduler.MAX_TIME_BETWEEN_ACTIVE_PASSIVE_BURSTS_MS;
 import static com.android.server.connectivity.mdns.MdnsQueryScheduler.MAX_TIME_BETWEEN_AGGRESSIVE_BURSTS_MS;
+import static com.android.server.connectivity.mdns.MdnsQueryScheduler.QUERIES_PER_BURST;
+import static com.android.server.connectivity.mdns.MdnsQueryScheduler.TIME_BETWEEN_QUERIES_IN_BURST_MS;
 import static com.android.server.connectivity.mdns.MdnsQueryScheduler.TIME_BETWEEN_RETRANSMISSION_QUERIES_IN_BURST_MS;
 import static com.android.server.connectivity.mdns.MdnsSearchOptions.ACTIVE_QUERY_MODE;
 import static com.android.server.connectivity.mdns.MdnsSearchOptions.AGGRESSIVE_QUERY_MODE;
@@ -314,39 +318,39 @@ public class MdnsServiceTypeClientTests {
         // First burst, 3 queries.
         verifyAndSendQuery(0, 0, /* expectsUnicastResponse= */ true);
         verifyAndSendQuery(
-                1, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                1, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                2, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                2, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         // Second burst will be sent after initialTimeBetweenBurstsMs, 3 queries.
         verifyAndSendQuery(
-                3, MdnsConfigs.initialTimeBetweenBurstsMs(), /* expectsUnicastResponse= */ false);
+                3, INITIAL_TIME_BETWEEN_BURSTS_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                4, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                4, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                5, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                5, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         // Third burst will be sent after initialTimeBetweenBurstsMs * 2, 3 queries.
         verifyAndSendQuery(
-                6, MdnsConfigs.initialTimeBetweenBurstsMs() * 2, /* expectsUnicastResponse= */
+                6, INITIAL_TIME_BETWEEN_BURSTS_MS * 2, /* expectsUnicastResponse= */
                 false);
         verifyAndSendQuery(
-                7, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                7, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                8, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                8, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         // Forth burst will be sent after initialTimeBetweenBurstsMs * 4, 3 queries.
         verifyAndSendQuery(
-                9, MdnsConfigs.initialTimeBetweenBurstsMs() * 4, /* expectsUnicastResponse= */
+                9, INITIAL_TIME_BETWEEN_BURSTS_MS * 4, /* expectsUnicastResponse= */
                 false);
         verifyAndSendQuery(
-                10, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                10, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                11, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                11, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         // Fifth burst will be sent after timeBetweenBurstsMs, 3 queries.
-        verifyAndSendQuery(12, MdnsConfigs.timeBetweenBurstsMs(), /* expectsUnicastResponse= */
-                false);
+        verifyAndSendQuery(12, MAX_TIME_BETWEEN_ACTIVE_PASSIVE_BURSTS_MS,
+                /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                13, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                13, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                14, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                14, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         // Verify that Task is not removed before stopSendAndReceive was called.
         verify(mockDeps, times(1)).removeMessages(any(), eq(EVENT_START_QUERYTASK));
 
@@ -380,9 +384,9 @@ public class MdnsServiceTypeClientTests {
         // Queries should continue to be sent.
         verifyAndSendQuery(1, 0, /* expectsUnicastResponse= */ true);
         verifyAndSendQuery(
-                2, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                2, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                3, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                3, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
@@ -400,15 +404,15 @@ public class MdnsServiceTypeClientTests {
         // First burst, 3 query.
         verifyAndSendQuery(0, 0, /* expectsUnicastResponse= */ true);
         verifyAndSendQuery(
-                1, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                1, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                2, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                2, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         // Second burst will be sent after timeBetweenBurstsMs, 1 query.
-        verifyAndSendQuery(3, MdnsConfigs.timeBetweenBurstsMs(), /* expectsUnicastResponse= */
-                false);
+        verifyAndSendQuery(3, MAX_TIME_BETWEEN_ACTIVE_PASSIVE_BURSTS_MS,
+                /* expectsUnicastResponse= */ false);
         // Third burst will be sent after timeBetweenBurstsMs, 1 query.
-        verifyAndSendQuery(4, MdnsConfigs.timeBetweenBurstsMs(), /* expectsUnicastResponse= */
-                false);
+        verifyAndSendQuery(4, MAX_TIME_BETWEEN_ACTIVE_PASSIVE_BURSTS_MS,
+                /* expectsUnicastResponse= */ false);
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
@@ -429,32 +433,32 @@ public class MdnsServiceTypeClientTests {
         // First burst, 3 queries.
         verifyAndSendQuery(0, 0, /* expectsUnicastResponse= */ true);
         verifyAndSendQuery(
-                1, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                1, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                2, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                2, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         // Second burst will be sent after initialTimeBetweenBurstsMs, 3 queries.
         verifyAndSendQuery(
-                3, MdnsConfigs.initialTimeBetweenBurstsMs(), /* expectsUnicastResponse= */ false);
+                3, INITIAL_TIME_BETWEEN_BURSTS_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                4, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                4, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                5, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                5, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         // Third burst will be sent after initialTimeBetweenBurstsMs * 2, 3 queries.
         verifyAndSendQuery(
-                6, MdnsConfigs.initialTimeBetweenBurstsMs() * 2, /* expectsUnicastResponse= */
+                6, INITIAL_TIME_BETWEEN_BURSTS_MS * 2, /* expectsUnicastResponse= */
                 false);
         verifyAndSendQuery(
-                7, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                7, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                8, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                8, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         // Forth burst will be sent after initialTimeBetweenBurstsMs * 4, 3 queries.
         verifyAndSendQuery(
-                9, MdnsConfigs.initialTimeBetweenBurstsMs() * 4, /* expectsUnicastResponse= */
+                9, INITIAL_TIME_BETWEEN_BURSTS_MS * 4, /* expectsUnicastResponse= */
                 false);
         verifyAndSendQuery(
-                10, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                10, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                11, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                11, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         // In backoff mode, the current scheduled task will be canceled and reschedule if the
         // 0.8 * smallestRemainingTtl is larger than time to next run.
         long currentTime = TEST_TTL / 2 + TEST_ELAPSED_REALTIME;
@@ -471,7 +475,7 @@ public class MdnsServiceTypeClientTests {
                 14 /* scheduledCount */);
         currentTime += (long) (TEST_TTL / 2 * 0.8);
         doReturn(currentTime).when(mockDecoderClock).elapsedRealtime();
-        verifyAndSendQuery(13 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
+        verifyAndSendQuery(13 /* index */, TIME_BETWEEN_QUERIES_IN_BURST_MS,
                 false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
                 15 /* scheduledCount */);
     }
@@ -489,13 +493,13 @@ public class MdnsServiceTypeClientTests {
 
         verifyAndSendQuery(0 /* index */, 0 /* timeInMs */, true /* expectsUnicastResponse */,
                 true /* multipleSocketDiscovery */, 1 /* scheduledCount */);
-        verifyAndSendQuery(1 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
+        verifyAndSendQuery(1 /* index */, TIME_BETWEEN_QUERIES_IN_BURST_MS,
                 false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
                 2 /* scheduledCount */);
-        verifyAndSendQuery(2 /* index */, MdnsConfigs.timeBetweenQueriesInBurstMs(),
+        verifyAndSendQuery(2 /* index */, TIME_BETWEEN_QUERIES_IN_BURST_MS,
                 false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
                 3 /* scheduledCount */);
-        verifyAndSendQuery(3 /* index */, MdnsConfigs.timeBetweenBurstsMs(),
+        verifyAndSendQuery(3 /* index */, MAX_TIME_BETWEEN_ACTIVE_PASSIVE_BURSTS_MS,
                 false /* expectsUnicastResponse */, true /* multipleSocketDiscovery */,
                 4 /* scheduledCount */);
 
@@ -562,9 +566,9 @@ public class MdnsServiceTypeClientTests {
         // Queries should continue to be sent.
         verifyAndSendQuery(1, 0, /* expectsUnicastResponse= */ true);
         verifyAndSendQuery(
-                2, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                2, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
         verifyAndSendQuery(
-                3, MdnsConfigs.timeBetweenQueriesInBurstMs(), /* expectsUnicastResponse= */ false);
+                3, TIME_BETWEEN_QUERIES_IN_BURST_MS, /* expectsUnicastResponse= */ false);
 
         // Stop sending packets.
         stopSendAndReceive(mockListenerOne);
@@ -584,7 +588,7 @@ public class MdnsServiceTypeClientTests {
         assertEquals(config.getTransactionId(), 1);
 
         // For the rest of queries in this burst, we will NOT ask for unicast response.
-        for (int i = 1; i < MdnsConfigs.queriesPerBurst(); i++) {
+        for (int i = 1; i < QUERIES_PER_BURST; i++) {
             int oldTransactionId = config.getTransactionId();
             config = config.getConfigForNextRun(ACTIVE_QUERY_MODE);
             assertFalse(config.expectUnicastResponse);
@@ -609,7 +613,7 @@ public class MdnsServiceTypeClientTests {
         assertEquals(config.getTransactionId(), 1);
 
         // For the rest of queries in this burst, we will NOT ask for unicast response.
-        for (int i = 1; i < MdnsConfigs.queriesPerBurst(); i++) {
+        for (int i = 1; i < QUERIES_PER_BURST; i++) {
             int oldTransactionId = config.getTransactionId();
             config = config.getConfigForNextRun(ACTIVE_QUERY_MODE);
             assertFalse(config.expectUnicastResponse);
@@ -694,7 +698,7 @@ public class MdnsServiceTypeClientTests {
         assertNull(currentThreadExecutor.getAndClearSubmittedRunnable());
         // This just skips the first query of the first burst
         verify(mockDeps).sendMessageDelayed(
-                any(), any(), eq(MdnsConfigs.timeBetweenQueriesInBurstMs()));
+                any(), any(), eq(TIME_BETWEEN_QUERIES_IN_BURST_MS));
     }
 
     @Test
