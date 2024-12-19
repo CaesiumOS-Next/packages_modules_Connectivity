@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50b2f18c_1cff9be8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-19T02:40:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64c50952_bb14a911",
+      "range": {
+        "startLine": 151,
+        "startChar": 24,
+        "endLine": 151,
+        "endChar": 95
+      },
+      "revId": "9295fee12be02d33a6099d8711ae36e0759f939d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23d1d1b9_da97f61c",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5abe8eb3_a0e91ed7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-19T02:40:20Z",
+      "side": 1,
+      "message": "isTetheringWithSoftApConfigEnabled looks at the build version now (from TetheringDependencies), so we should be OK even if installed on older releases.\n\nWithout the API check, I\u0027m not sure if the app could still access the API using reflection (since we moved it from System-\u003ePublic)",
+      "parentUuid": "23d1d1b9_da97f61c",
+      "range": {
+        "startLine": 326,
+        "startChar": 25,
+        "endLine": 326,
+        "endChar": 38
+      },
+      "revId": "9295fee12be02d33a6099d8711ae36e0759f939d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "572ebf32_4fb3acce",
         "filename": "Tethering/src/com/android/networkstack/tethering/util/TetheringPermissionUtils.java",
         "patchSetId": 7
@@ -60,6 +108,30 @@
       "writtenOn": "2024-12-17T03:06:51Z",
       "side": 1,
       "message": "Is this correct for a device owner that is not installed in the current user? I\u0027m not sure how device owner apps work in headless system user mode - presumably they run as the first user but not as the system user?",
+      "range": {
+        "startLine": 45,
+        "startChar": 45,
+        "endLine": 45,
+        "endChar": 63
+      },
+      "revId": "9295fee12be02d33a6099d8711ae36e0759f939d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c76ea759_2c48c0e1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/TetheringPermissionUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-19T02:40:20Z",
+      "side": 1,
+      "message": "Changed to use user of binder calling uid",
+      "parentUuid": "572ebf32_4fb3acce",
       "range": {
         "startLine": 45,
         "startChar": 45,
