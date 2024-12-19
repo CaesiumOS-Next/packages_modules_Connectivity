@@ -34,6 +34,24 @@
       "parentUuid": "f7095426_3db846cf",
       "revId": "a255e79fec27c450838584e6c144241fd1b33a81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f02380d_117990a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-12-19T03:09:58Z",
+      "side": 1,
+      "message": "\u003e yeah, will do that in a follow-up CL.\nI mean for the sync back enum to g3. For this topic, yes, having a topic for that.",
+      "parentUuid": "1ee537db_8048a201",
+      "revId": "a255e79fec27c450838584e6c144241fd1b33a81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
