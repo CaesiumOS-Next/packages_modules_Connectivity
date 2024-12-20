@@ -16,6 +16,16 @@
 
 package com.android.server.net.ct;
 
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_DEVICE_OFFLINE;
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_DOMAIN_BLOCKED;
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_DOWNLOAD_CANNOT_RESUME;
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_HTTP_ERROR;
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_NO_DISK_SPACE;
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_TOO_MANY_REDIRECTS;
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_UNKNOWN;
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_VERSION_ALREADY_EXISTS;
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__PENDING_WAITING_FOR_WIFI;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import android.annotation.RequiresApi;
@@ -197,6 +207,8 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         }
         if (!success) {
             Log.w(TAG, "Log list did not pass verification");
+
+            // TODO(b/384931263): add logging for failed signature verification
             return;
         }
 
@@ -225,7 +237,13 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             mDataStore.store();
         } else {
             if (updateFailureCount()) {
-                // TODO(378626065): Report FAILURE_VERSION_ALREADY_EXISTS failure via statsd.
+                CertificateTransparencyStatsLog.write(
+                    CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED,
+                    CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_VERSION_ALREADY_EXISTS,
+                    mDataStore.getPropertyInt(
+                            Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0),
+                    /* httpErrorStatusCode= */ 0
+                );
             }
         }
     }
@@ -234,7 +252,48 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         Log.e(TAG, "Download failed with " + status);
 
         if (updateFailureCount()) {
-            // TODO(378626065): Report download failure via statsd.
+            // HTTP Error
+            if (400 <= status.reason() && status.reason() <= 600) {
+                CertificateTransparencyStatsLog.write(
+                    CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED,
+                    CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_HTTP_ERROR,
+                    mDataStore.getPropertyInt(
+                            Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0),
+                    status.reason()
+                );
+            } else {
+                // TODO(b/384935059): handle blocked domain logging
+
+                CertificateTransparencyStatsLog.write(
+                    CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED,
+                    downloadStatusToFailureReason(status.reason()),
+                    mDataStore.getPropertyInt(
+                            Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0),
+                    /* httpErrorStatusCode= */ 0
+                );
+            }
+        }
+    }
+
+    private int downloadStatusToFailureReason(int downloadStatusReason) {
+        switch(downloadStatusReason) {
+            case DownloadManager.PAUSED_WAITING_TO_RETRY:
+            case DownloadManager.PAUSED_WAITING_FOR_NETWORK:
+                return CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_DEVICE_OFFLINE;
+            case DownloadManager.ERROR_UNHANDLED_HTTP_CODE:
+            case DownloadManager.ERROR_HTTP_DATA_ERROR:
+                return CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_HTTP_ERROR;
+            case DownloadManager.ERROR_TOO_MANY_REDIRECTS:
+                return CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_TOO_MANY_REDIRECTS;
+            case DownloadManager.ERROR_CANNOT_RESUME:
+                return CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_DOWNLOAD_CANNOT_RESUME;
+            case DownloadManager.ERROR_INSUFFICIENT_SPACE:
+                return CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_NO_DISK_SPACE;
+            case DownloadManager.PAUSED_QUEUED_FOR_WIFI:
+                // TODO(b/384936292): add additional NetworkCapabilities checks, if necessary
+                return CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__PENDING_WAITING_FOR_WIFI;
+            default:
+                return CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_UNKNOWN;
         }
     }
 

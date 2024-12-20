@@ -15,12 +15,17 @@
  */
 package com.android.server.net.ct;
 
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED;
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_HTTP_ERROR;
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_NO_DISK_SPACE;
+
 import static com.google.common.truth.Truth.assertThat;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -37,6 +42,8 @@ import android.net.Uri;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.android.server.net.ct.CertificateTransparencyStatsLog;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;
@@ -44,6 +51,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -67,6 +76,7 @@ public class CertificateTransparencyDownloaderTest {
 
     @Mock private DownloadManager mDownloadManager;
     @Mock private CertificateTransparencyInstaller mCertificateTransparencyInstaller;
+    @Mock private CertificateTransparencyStatsLog mCertificateTransparencyStatsLog;
 
     private PrivateKey mPrivateKey;
     private PublicKey mPublicKey;
@@ -203,7 +213,12 @@ public class CertificateTransparencyDownloaderTest {
         assertThat(mDataStore.getPropertyInt(
                 Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0))
                         .isEqualTo(Config.LOG_LIST_UPDATE_FAILURE_THRESHOLD);
-        // TODO(378626065): Verify logged failure via statsd.
+        verify(mCertificateTransparencyStatsLog, times(1)).write(
+                CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED,
+                CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_NO_DISK_SPACE,
+                Config.LOG_LIST_UPDATE_FAILURE_THRESHOLD,
+                /* httpErrorStatusCode= */ 0
+        );
     }
 
     @Test
@@ -223,7 +238,9 @@ public class CertificateTransparencyDownloaderTest {
         assertThat(mDataStore.getPropertyInt(
                 Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0))
                         .isEqualTo(1);
-        // TODO(378626065): Verify no failure logged via statsd.
+        verify(mCertificateTransparencyStatsLog, never()).write(
+                any(), any(), any(), any()
+        );
     }
 
     @Test
