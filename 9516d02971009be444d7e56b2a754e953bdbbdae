@@ -92,6 +92,30 @@
       },
       "revId": "9516d02971009be444d7e56b2a754e953bdbbdae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974ccda6_d5441ee5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-20T04:58:40Z",
+      "side": 1,
+      "message": "\u003e I think this breaks ethernet tethering.\n\nCan you clarify in what case it would break ethernet tethering? Your reasoning that this API doesn\u0027t work for Ethernet seems correct to me. Ethernet relies on enableIpServing, which starts the IpServer and enables it without relying on ifaceNameToType.",
+      "parentUuid": "bcc463ec_5a68a75a",
+      "range": {
+        "startLine": 1098,
+        "startChar": 70,
+        "endLine": 1098,
+        "endChar": 85
+      },
+      "revId": "9516d02971009be444d7e56b2a754e953bdbbdae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
