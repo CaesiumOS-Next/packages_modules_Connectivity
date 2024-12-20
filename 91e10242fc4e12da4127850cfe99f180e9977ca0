@@ -105,6 +105,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d05012dd_ac754e8e",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2024-12-20T22:55:38Z",
+      "side": 1,
+      "message": "This actually gave compiler errors about `mPermissionManager may not have been initialized` so I kept the permissions manager as is. only wrapping the listener with a flag check",
+      "parentUuid": "ba1ee8e5_4c0d0e54",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9527531_cec22171",
