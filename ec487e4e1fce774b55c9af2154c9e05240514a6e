@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c52c164d_8ceaecf1",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4424,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ceffdffa_a38949b3",
+      "range": {
+        "startLine": 4424,
+        "startChar": 49,
+        "endLine": 4424,
+        "endChar": 59
+      },
+      "revId": "ec487e4e1fce774b55c9af2154c9e05240514a6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a021136_528847a0",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-18T01:46:11Z",
       "side": 1,
       "message": "Nit: Can that happen without onReserved ? If not, it would be useful to document that this is after onReserved was called. \"cancelled by the system\" sounds like it, but the next paragraph suggests only onUnavailable may be called.",
+      "range": {
+        "startLine": 4428,
+        "startChar": 73,
+        "endLine": 4428,
+        "endChar": 96
+      },
+      "revId": "ec487e4e1fce774b55c9af2154c9e05240514a6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8483978e_09dbf206",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4428,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Reworded this slightly. I will add the unavailable semantics to reserveNetwork() instead of the callback docs.",
+      "parentUuid": "8a021136_528847a0",
       "range": {
         "startLine": 4428,
         "startChar": 73,
@@ -83,6 +131,30 @@
       "writtenOn": "2024-12-20T02:25:55Z",
       "side": 1,
       "message": "Actually might want to add this here. \n\n    * Once a reservation is made, the reserved network\u0027s capabilities will not be\n    * updated, and the reservation remains in place until the reserved network\n    * connects or onUnavailable is called.",
+      "parentUuid": "b56f60a2_23f41d01",
+      "range": {
+        "startLine": 4429,
+        "startChar": 59,
+        "endLine": 4429,
+        "endChar": 76
+      },
+      "revId": "ec487e4e1fce774b55c9af2154c9e05240514a6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "658f5ec7_96bc01f8",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4429,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "b56f60a2_23f41d01",
       "range": {
         "startLine": 4429,
