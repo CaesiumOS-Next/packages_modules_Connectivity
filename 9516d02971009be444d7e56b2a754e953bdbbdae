@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f272df2e_f0303bd7",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-20T04:06:49Z",
+      "side": 1,
+      "message": "// TODO: make this @NonNull final.\n//\n// We do not know if this is safe yet because there might be devices in the field that\n// are using the legacy codepath (create the IpServer in processInterfaceStateChanged,\n// then enable it via tether()) for TETHERING_WIFI and TETHERING_WIFI_P2P. In that\n// codepath, we cannot create the TetheringRequest in processInterfaceStateChanged\n// because the connectivity scope is not yet known.\n// In all other cases, the TetheringRequest can be passed in to the IpServer constructor.",
+      "range": {
+        "startLine": 419,
+        "startChar": 4,
+        "endLine": 419,
+        "endChar": 13
+      },
+      "revId": "9516d02971009be444d7e56b2a754e953bdbbdae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a520c5c_482675e4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-20T04:06:49Z",
+      "side": 1,
+      "message": "I\u0027m not sure this can be implemented correctly. IpServer#enable just sends a message, so  state.ipServer.getTetheringRequest() will continue to return null until the message is processed. Until that happens, getTetheringRequest() will return null.\n\nI don\u0027t know what the implications of this are. It\u0027s clear that if that happens, the request will be returned by getPendingRequests and not by getServingRequests, even though Tethering has already called IpServer#enable.\n\nMaybe it means it\u0027s not possible to stop tethering immediately after an IpServer is enabled, because the stop won\u0027t find the IpServer?\n\nAFAICT we won\u0027t hit the wtf at line 699 because until the IpServer is actually enabled, isCurrentlyServing will return false.\n\nNot sure what to do about this. The tethering sync state machine refactor might fix this, but that is just rolling out now. We could potentially force the sync state machine refactor to be on in 25Q2+ if that will help.\n\nAnother thing we could do is keep a list of tetheringrequests in this class and update that list as soon as enable() runs. That would be incorrect in a different way (it stores state that the IpServer hasn\u0027t reached yet), but maybe it\u0027s better because at least Tethering will not look at state that is updated on two different timescales - for example, if a request is still in the pending list, it\u0027s guaranteed that an IpServer has not yet been enabled.",
+      "range": {
+        "startLine": 689,
+        "startChar": 34,
+        "endLine": 689,
+        "endChar": 55
+      },
+      "revId": "9516d02971009be444d7e56b2a754e953bdbbdae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b38894f_b4dfa41f",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 32
