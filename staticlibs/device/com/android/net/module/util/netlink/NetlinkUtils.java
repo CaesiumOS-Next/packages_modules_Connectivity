@@ -36,6 +36,7 @@ import static com.android.net.module.util.netlink.NetlinkConstants.RTNL_FAMILY_I
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_DUMP;
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 
+import android.net.MacAddress;
 import android.net.util.SocketUtils;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -496,5 +497,133 @@ public class NetlinkUtils {
             Log.e(TAG, "Failed to set flags for: " + interfaceName, e);
             return false;
         }
+    }
+
+    /**
+     * Send a RtNetlinkLinkMessage and get a RtNetlinkLinkMessage as response is successful,
+     * otherwise get null when request failed.
+     */
+    private static RtNetlinkLinkMessage sendOneShotRtNlMsg(RtNetlinkLinkMessage request)
+            throws ErrnoException  {
+        final byte[] msg = request.pack(ByteOrder.nativeOrder());
+        final ByteBuffer response;
+        final FileDescriptor fd = netlinkSocketForProto(NETLINK_ROUTE, SOCKET_RECV_BUFSIZE);
+        try {
+            sendMessage(fd, msg, /*offset*/ 0, msg.length, IO_TIMEOUT_MS);
+            response = NetlinkUtils.recvMessage(fd, DEFAULT_RECV_BUFSIZE, IO_TIMEOUT_MS);
+        } catch (ErrnoException | InterruptedIOException e) {
+            Log.e(TAG, "Failed to send or receive netlink message to get link information", e);
+            return null;
+        } finally {
+            closeSocketQuietly(fd);
+        }
+
+        if (!enoughBytesRemainForValidNlMsg(response)) {
+            Log.e(TAG, "Badly formatted data, failed to get netlink message to get link "
+                    + "information");
+            return null;
+        }
+        final NetlinkMessage nlMsg =
+                NetlinkMessage.parse(response, NETLINK_ROUTE);
+        if (nlMsg == null || !(nlMsg instanceof RtNetlinkLinkMessage)) {
+            Log.e(TAG, "Badly formatted data, failed to get netlink message to get link "
+                    + "information");
+            return null;
+        }
+        final StructNlMsgHdr hdr = nlMsg.getHeader();
+        if (hdr == null) {
+            Log.e(TAG, "Badly formatted data, failed to get netlink message header to get link"
+                    + " information");
+            return null;
+        }
+        if (hdr.nlmsg_type == NetlinkConstants.NLMSG_ERROR) {
+            Log.e(TAG, "Failed to get response of link information"
+                    + ", error message: " + ((NetlinkErrorMessage) nlMsg));
+            return null;
+        }
+        if (hdr.nlmsg_type != NetlinkConstants.RTM_NEWLINK) {
+            Log.e(TAG, "Wrong netlink message type: " + hdr.nlmsg_type
+                    + " to get link information");
+            return null;
+        }
+        return (RtNetlinkLinkMessage) nlMsg;
+    }
+
+    @Nullable
+    private static RtNetlinkLinkMessage sendGetLinkRequest(@NonNull String interfaceName)
+            throws ErrnoException {
+        final RtNetlinkLinkMessage ntMsg =
+                RtNetlinkLinkMessage.createGetLinkMessage(interfaceName, /*seqNo*/ 0);
+        if (ntMsg == null) {
+            Log.e(TAG, "Failed to create netlink message to get link information for "
+                    + interfaceName);
+            return null;
+        }
+        RtNetlinkLinkMessage response;
+        try {
+            response = sendOneShotRtNlMsg(ntMsg);
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to get link information for interface" + interfaceName, e);
+            return null;
+        }
+        if (response == null) {
+            Log.e(TAG, "Failed to get link information for interface" + interfaceName);
+        }
+        return response;
+    }
+
+    /**
+     * Get interface flags for a given interface.
+     *
+     * @param interfaceName The name of the network interface to query.
+     * @return Array of flags of the queried interface if request succeeds, otherwise
+     * {@code null}
+     */
+    @Nullable
+    public static List<Long> getInterfaceFlags(@NonNull String interfaceName) {
+        RtNetlinkLinkMessage msg = null;
+        try {
+            msg = sendGetLinkRequest(interfaceName);
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to send request to get link information for interface "
+                    + interfaceName + ": ", e);
+            return null;
+        }
+        if (msg == null) {
+            Log.e(TAG, "Failed to get interface flags for interface " +  interfaceName);
+            return null;
+        }
+        long flags = msg.getIfinfoHeader().flags;
+
+        ArrayList<Long> flagsList = new ArrayList<>();
+        for (long flag = Long.highestOneBit(flags); flag != 0; flag = flag >>> 1)  {
+            if ((flags & flag) != 0) {
+                flagsList.add(flag);
+            }
+        }
+        return flagsList;
+    }
+
+    /**
+     * Get MAC address for a given interface.
+     *
+     * @param interfaceName The name of the network interface to query.
+     * @return MAC address of the queried interface if request succeeds, otherwise {@code null}.
+     */
+    @Nullable
+    public static MacAddress getInterfaceHwAddress(@NonNull String interfaceName) {
+        RtNetlinkLinkMessage msg = null;
+        try {
+            msg = sendGetLinkRequest(interfaceName);
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to send request to get link information for interface "
+                    + interfaceName + ": ", e);
+            return null;
+        }
+        if (msg == null) {
+            Log.e(TAG, "Failed to get MAC address for interface: " +  interfaceName);
+            return null;
+        }
+        return msg.getHardwareAddress();
     }
 }
