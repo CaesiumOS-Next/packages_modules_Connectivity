@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30cf6565_add5de9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T04:24:32Z",
+      "side": 1,
+      "message": "I think this either broke in aosp/3285750 or was never actually implemented that way (I can\u0027t tell at a quick glance). So I think merging this will make the tests flaky again.",
+      "revId": "27eed97a1421fefc342a1b2130616fbf29a356c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
