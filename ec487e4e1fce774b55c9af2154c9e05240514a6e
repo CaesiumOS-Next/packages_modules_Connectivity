@@ -68,6 +68,30 @@
       },
       "revId": "ec487e4e1fce774b55c9af2154c9e05240514a6e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e7c47a1_685f2ada",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4429,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-20T02:25:55Z",
+      "side": 1,
+      "message": "Actually might want to add this here. \n\n    * Once a reservation is made, the reserved network\u0027s capabilities will not be\n    * updated, and the reservation remains in place until the reserved network\n    * connects or onUnavailable is called.",
+      "parentUuid": "b56f60a2_23f41d01",
+      "range": {
+        "startLine": 4429,
+        "startChar": 59,
+        "endLine": 4429,
+        "endChar": 76
+      },
+      "revId": "ec487e4e1fce774b55c9af2154c9e05240514a6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
