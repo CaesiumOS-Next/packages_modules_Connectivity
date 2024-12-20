@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b449104a_7c83b7f8",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T16:51:50Z",
+      "side": 1,
+      "message": "side note: This check does not make any sense. enforceNetworkStackPermission calls Context#checkCallingOrSelfPermission() and checks whether this process or the calling process has NETWORK_STACK or MAINLINE_NETWORK_STACK permission.\n\nThis code runs in system server, so I believe checkSelfPermission() eventually runs ActivityManagerService#checkComponentPermission which grants all permissions to the system server uid.\n\nCheck calling permission is based on Binder.getCallingUid(), which in turn only works on the binder thread (it\u0027s based on the thread-local IPCThreadState). However, this code runs on the service-local handler thread..\n\nNote: This was added in aosp/1553695 but I cannot figure out why. Presumably a copy / paste error from looking at the other CLs in that topic.\n\n---\n\nBy the way, this would throw a SecurityException which would kill the handler thread as it is not caught by the surrounding try / catch. I believe this invokes the deafult UncaughtExceptionHandler set by RuntimeInit (KillApplicationHandler) and takes down system server.\n\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:frameworks/base/core/java/com/android/internal/os/RuntimeInit.java;l\u003d245\n\n---\n\nUploaded aosp/3428919 to remove it.",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 592,
+        "endChar": 68
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9c6e6e6_23d2d804",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T16:51:50Z",
+      "side": 1,
+      "message": "When can this happen? When we get an ENOBUFS? Can you log a TERRIBLE_ERROR similar to here: https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/NetworkAgent.java;l\u003d957",
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99400513_8e69b3fe",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T16:51:50Z",
+      "side": 1,
+      "message": "The thing that used to throw IllegalStateException was getInterfaceConfigParcel which you removed, so this try / catch can be removed too. The setInterfaceUpState never belonged inside the try / catch, but that was an oversight in the last CL.",
+      "range": {
+        "startLine": 602,
+        "startChar": 17,
+        "endLine": 602,
+        "endChar": 38
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a94354_4ee53e69",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T16:51:50Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 608,
+        "startChar": 8,
+        "endLine": 608,
+        "endChar": 18
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80c81c39_1911b488",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T16:51:50Z",
+      "side": 1,
+      "message": "This returns true for INVALID_INTERFACE_FLAGS. Should INVALID_INTERFACE_FLAGS be 0 instead? Maybe this can\u0027t happen anymore, because nothing in the try / catch above can actually throw?",
+      "range": {
+        "startLine": 637,
+        "startChar": 8,
+        "endLine": 637,
+        "endChar": 58
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
