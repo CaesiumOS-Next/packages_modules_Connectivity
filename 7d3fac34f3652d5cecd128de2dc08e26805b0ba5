@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edce2131_4df4e78a",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-20T09:38:42Z",
+      "side": 1,
+      "message": "Remove this \u003cp\u003e?",
+      "range": {
+        "startLine": 206,
+        "startChar": 6,
+        "endLine": 206,
+        "endChar": 10
+      },
+      "revId": "7d3fac34f3652d5cecd128de2dc08e26805b0ba5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a697f54c_c6f455da",
+        "filename": "framework-t/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-20T09:38:42Z",
+      "side": 1,
+      "message": "In all other cases, this will be null.",
+      "range": {
+        "startLine": 206,
+        "startChar": 89,
+        "endLine": 206,
+        "endChar": 90
+      },
+      "revId": "7d3fac34f3652d5cecd128de2dc08e26805b0ba5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
