@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "138fd76e_f85f3c36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "I wanted to do that, but without a reserveNetwork API it would have required hooking up a Messenger in the test. I ended up just merging these CLs. The addition of reserveNetwork does not make the change much more complex, and in turn makes it actually testable. The test is pretty basic, but I have more coming after I add support for offer migration.",
+      "parentUuid": "0c2dc9d3_8e978e24",
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fba2ec1_53e7e521",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4b43b65_f89d7138",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 7733,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fba2ec1_53e7e521",
+      "range": {
+        "startLine": 7733,
+        "startChar": 8,
+        "endLine": 7733,
+        "endChar": 10
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ccbd870_c920b4c0",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-12-19T01:41:35Z",
       "side": 1,
       "message": "@NonNull? This should never go from non-null to null, right?",
+      "range": {
+        "startLine": 7744,
+        "startChar": 37,
+        "endLine": 7744,
+        "endChar": 46
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1fceeb3_2cac45d9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 7744,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ccbd870_c920b4c0",
       "range": {
         "startLine": 7744,
         "startChar": 37,
@@ -133,6 +199,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a95068ce_55a066aa",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8112,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b327699c_58bed9e2",
+      "range": {
+        "startLine": 8112,
+        "startChar": 25,
+        "endLine": 8112,
+        "endChar": 80
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84eee2f3_de74f814",
@@ -146,6 +236,30 @@
       "writtenOn": "2024-12-19T01:41:35Z",
       "side": 1,
       "message": "This should ensure that the reservation ID is set to zero and throw IAE if it isn\u0027t.\n\nPerhaps better, the NetworkRequest constructor itself could throw IAE if it\u0027s passed a NetworkCapabilities that has a nonzero reservation ID. That would prevent us from creating an invalid NetworkRequest where the reservation ID is nonzero but the type is reservation. If you do that, I think you don\u0027t need to change the code here, the exception will just be thrown back at the app because this code runs on the binder thread.",
+      "range": {
+        "startLine": 8295,
+        "startChar": 17,
+        "endLine": 8295,
+        "endChar": 46
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "086f52a7_02c8f0f9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8295,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84eee2f3_de74f814",
       "range": {
         "startLine": 8295,
         "startChar": 17,
@@ -179,6 +293,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c7f63ea_105b3e9f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9346,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7828ebe3_23206ed4",
+      "range": {
+        "startLine": 9346,
+        "startChar": 27,
+        "endLine": 9346,
+        "endChar": 38
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30066503_0ddd0bd4",
@@ -192,6 +330,30 @@
       "writtenOn": "2024-12-19T01:41:35Z",
       "side": 1,
       "message": "Nit: we might not want this log message at all.",
+      "range": {
+        "startLine": 9347,
+        "startChar": 8,
+        "endLine": 9347,
+        "endChar": 13
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a442896_02f9c250",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9347,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30066503_0ddd0bd4",
       "range": {
         "startLine": 9347,
         "startChar": 8,
@@ -248,6 +410,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d4e0349_58c6a2db",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9370,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3218464d_2202a8ca",
+      "range": {
+        "startLine": 9368,
+        "startChar": 12,
+        "endLine": 9370,
+        "endChar": 57
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c4bba2c_b744e177",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9370,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebcdf8fc_ad30eb9f",
+      "range": {
+        "startLine": 9370,
+        "startChar": 15,
+        "endLine": 9370,
+        "endChar": 28
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afcafa0d_412e267e",
@@ -261,6 +471,30 @@
       "writtenOn": "2024-12-19T01:41:35Z",
       "side": 1,
       "message": "updating the score",
+      "range": {
+        "startLine": 9371,
+        "startChar": 32,
+        "endLine": 9371,
+        "endChar": 49
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88a8cdce_08d0cf85",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9371,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afcafa0d_412e267e",
       "range": {
         "startLine": 9371,
         "startChar": 32,
@@ -288,6 +522,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8d95e09_1cebcdae",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9375,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "That\u0027s addressed in aosp/3419192 which prevents offers from updating their capabilities. (You are right that this CL would fall over if an offer were to do so).",
+      "parentUuid": "63ea945e_7895f7ca",
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bcea733_06dd0edd",
@@ -301,6 +553,30 @@
       "writtenOn": "2024-12-19T01:41:35Z",
       "side": 1,
       "message": "reservationNri",
+      "range": {
+        "startLine": 9386,
+        "startChar": 33,
+        "endLine": 9386,
+        "endChar": 36
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1faac268_82ab8fd9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9386,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bcea733_06dd0edd",
       "range": {
         "startLine": 9386,
         "startChar": 33,
@@ -334,6 +610,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cb9f406_9f4a61da",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9389,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c1ccdf2_c3160ffb",
+      "range": {
+        "startLine": 9389,
+        "startChar": 59,
+        "endLine": 9389,
+        "endChar": 60
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13f0a864_53b3f324",
@@ -347,6 +647,30 @@
       "writtenOn": "2024-12-19T01:41:35Z",
       "side": 1,
       "message": "This can never be null, right? Presumably it\u0027s already checked?",
+      "range": {
+        "startLine": 9397,
+        "startChar": 50,
+        "endLine": 9397,
+        "endChar": 54
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9a83d85_b9720851",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9397,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "this is already checked on input inside offerNetwork().",
+      "parentUuid": "13f0a864_53b3f324",
       "range": {
         "startLine": 9397,
         "startChar": 50,
@@ -380,6 +704,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "293e261d_fe075657",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9423,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "I added a logwtf() to setReservedCapabilities() and added a comment there too.",
+      "parentUuid": "8caf30ba_b7b0cca6",
+      "range": {
+        "startLine": 9423,
+        "startChar": 66,
+        "endLine": 9423,
+        "endChar": 80
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5537d64f_9961cbcd",
@@ -403,6 +751,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3d43215_d2252ea1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9424,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5537d64f_9961cbcd",
+      "range": {
+        "startLine": 9424,
+        "startChar": 28,
+        "endLine": 9424,
+        "endChar": 66
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c21705a1_8d7d0d37",
@@ -416,6 +788,30 @@
       "writtenOn": "2024-12-18T07:27:34Z",
       "side": 1,
       "message": "Nit: This explains why it\u0027s OK not to queue them, but not really why it needs to not be queued\nYou could mention that they can\u0027t be queued because the queues are per netId, and there is no netId for these.",
+      "range": {
+        "startLine": 10665,
+        "startChar": 58,
+        "endLine": 10666,
+        "endChar": 19
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f836253c_d8b6b651",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10666,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "Well, they could relatively easily be queued. There is no need for a netId, and the reservedCapabilities are already in the NRI. It just didn\u0027t feel worth the additional code complexity (e.g., making networkAgent nullable in maybeQueueCallback, etc.) for almost no benefit since there can only ever be a single callback.",
+      "parentUuid": "c21705a1_8d7d0d37",
       "range": {
         "startLine": 10665,
         "startChar": 58,
@@ -457,6 +853,24 @@
       "side": 1,
       "message": "+1. Also - we need to ensure that an app without location permission cannot call reserveNetwork to get location-sensitive information back.\n\nAssuming whatever specifier is being used for the reservation correctly implements redaction, this code will redact the capabilities that we send in the callback, but the network will still be reserved. That might allow an app to see if a particular specifiers exists by filing a reservation and seeing if it gets onReserved.\n\nIn the particular case of L2CAP I don\u0027t think this can happen, but we should think about it.",
       "parentUuid": "8a5affe4_d45c8c1e",
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89cedab2_f8b17ab6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10684,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T20:49:49Z",
+      "side": 1,
+      "message": "I was going to suggest we should add NetworkSpecifier#redact, but it turns out it already exists.\n\nFor the former, I can try, though it\u0027s already a single (granted, ugly) function call. I\u0027ll see what makes sense.",
+      "parentUuid": "4b69cb08_f9f3a30e",
       "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
