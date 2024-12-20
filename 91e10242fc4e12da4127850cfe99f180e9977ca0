@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f873393_7640dec8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2024-12-20T16:00:22Z",
+      "side": 1,
+      "message": "Thanks for the review @reminv@google.com!",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7130b3d_db804d3a",
@@ -52,6 +69,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba1ee8e5_4c0d0e54",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2024-12-20T16:00:22Z",
+      "side": 1,
+      "message": "Done, also included initializing the permission monitor",
+      "parentUuid": "d7130b3d_db804d3a",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "342c43c7_87b091be",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2024-12-20T16:00:22Z",
+      "side": 1,
+      "message": "IIUC this line will be called when the ConnectivityService  is initialized ([ref](https://source.corp.google.com/h/googleplex-android/platform/packages/modules/Connectivity/+/839d33cff65b37263042ce749833f8c9fd68e21c:service/src/com/android/server/ConnectivityService.java;l\u003d1876-1877;bpv\u003d1;bpt\u003d0;drc\u003db960664fa87446d1aad3309914e0852b01c961cd)).\n\nThe callback itself should be called every time the permission for any installed app is changed, whether it\u0027s in the permission dialog or in the device settings, after the PermissionService updates the permission state.",
+      "parentUuid": "bb0e33fb_d26e7c26",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9527531_cec22171",
@@ -65,6 +118,24 @@
       "writtenOn": "2024-12-19T04:08:06Z",
       "side": 1,
       "message": "The callback means the permission changed, but not necessarily that it is granted IIUC",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adf73fe0_49e55c35",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2024-12-20T16:00:22Z",
+      "side": 1,
+      "message": "Yes that\u0027s correct. It actually only tells us that _a_ permission has changed, not necessarily that the specific NEARBY_WIFI_DEVICES permission has changed (there isn\u0027t an API that does that). With that said, users are unlikely to be changing permissions in large batches so this should not be terribly expensive, either.",
+      "parentUuid": "c9527531_cec22171",
       "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
