@@ -30,7 +30,6 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 import android.content.Context;
-import android.net.INetd;
 import android.net.InetAddresses;
 import android.net.IpConfiguration;
 import android.net.IpConfiguration.IpAssignment;
@@ -70,7 +69,6 @@ public class EthernetTrackerTest {
     private HandlerThread mHandlerThread;
     @Mock private Context mContext;
     @Mock private EthernetNetworkFactory mFactory;
-    @Mock private INetd mNetd;
     @Mock private EthernetTracker.Dependencies mDeps;
 
     @Before
@@ -78,11 +76,10 @@ public class EthernetTrackerTest {
         MockitoAnnotations.initMocks(this);
         initMockResources();
         doReturn(false).when(mFactory).updateInterfaceLinkState(anyString(), anyBoolean());
-        doReturn(new String[0]).when(mNetd).interfaceGetList();
         mHandlerThread = new HandlerThread(THREAD_NAME);
         mHandlerThread.start();
-        tracker = new EthernetTracker(mContext, mHandlerThread.getThreadHandler(), mFactory, mNetd,
-                mDeps);
+        tracker = new EthernetTracker(mContext, mHandlerThread.getThreadHandler(), mFactory,
+                        mDeps);
     }
 
     @After
