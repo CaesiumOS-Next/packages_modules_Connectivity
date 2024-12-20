@@ -28,13 +28,12 @@ import android.annotation.Nullable;
 import android.content.Context;
 import android.net.EthernetManager;
 import android.net.IEthernetServiceListener;
-import android.net.INetd;
 import android.net.ITetheredInterfaceCallback;
-import android.net.InterfaceConfigurationParcel;
 import android.net.IpConfiguration;
 import android.net.IpConfiguration.IpAssignment;
 import android.net.IpConfiguration.ProxySettings;
 import android.net.LinkAddress;
+import android.net.MacAddress;
 import android.net.NetworkCapabilities;
 import android.net.StaticIpConfiguration;
 import android.os.ConditionVariable;
@@ -50,7 +49,6 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.HandlerUtils;
-import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.ip.NetlinkMonitor;
@@ -120,7 +118,6 @@ public class EthernetTracker {
             new ConcurrentHashMap<>();
 
     private final Context mContext;
-    private final INetd mNetd;
     private final Handler mHandler;
     private final EthernetNetworkFactory mFactory;
     private final EthernetConfigStore mConfigStore;
@@ -229,18 +226,16 @@ public class EthernetTracker {
 
 
     EthernetTracker(@NonNull final Context context, @NonNull final Handler handler,
-            @NonNull final EthernetNetworkFactory factory, @NonNull final INetd netd) {
-        this(context, handler, factory, netd, new Dependencies());
+            @NonNull final EthernetNetworkFactory factory) {
+        this(context, handler, factory, new Dependencies());
     }
 
     @VisibleForTesting
     EthernetTracker(@NonNull final Context context, @NonNull final Handler handler,
-            @NonNull final EthernetNetworkFactory factory, @NonNull final INetd netd,
-            @NonNull final Dependencies deps) {
+            @NonNull final EthernetNetworkFactory factory, @NonNull final Dependencies deps) {
         mContext = context;
         mHandler = handler;
         mFactory = factory;
-        mNetd = netd;
         mDeps = deps;
 
         // Interface match regex.
@@ -591,13 +586,17 @@ public class EthernetTracker {
     }
 
     private void addInterface(String iface) {
-        InterfaceConfigurationParcel config = null;
+        long flags = NetlinkUtils.INVALID_INTERFACE_FLAGS;
         // Bring up the interface so we get link status indications.
         try {
             PermissionUtils.enforceNetworkStackPermission(mContext);
             // Read the flags before attempting to bring up the interface. If the interface is
             // already running an UP event is created after adding the interface.
-            config = NetdUtils.getInterfaceConfigParcel(mNetd, iface);
+            flags = NetlinkUtils.getInterfaceFlags(iface);
+            if (flags == NetlinkUtils.INVALID_INTERFACE_FLAGS) {
+                Log.e(TAG, "Failed to get interface flags for: " + iface);
+                return;
+            }
             // Only bring the interface up when ethernet is enabled, otherwise set interface down.
             setInterfaceUpState(iface, mIsEthernetEnabled);
         } catch (IllegalStateException e) {
@@ -606,13 +605,12 @@ public class EthernetTracker {
             Log.e(TAG, "Error upping interface " + iface, e);
         }
 
-        if (config == null) {
-            Log.e(TAG, "Null interface config parcelable for " + iface + ". Bailing out.");
+        MacAddress address = NetlinkUtils.getInterfaceHwAddress(iface);
+        if (address == null) {
+            Log.e(TAG, "Failed to get MAC address for: " + iface);
             return;
         }
-
-        final String hwAddress = config.hwAddr;
-
+        final String hwAddress = address.toString();
         if (getInterfaceMode(iface) == INTERFACE_MODE_SERVER) {
             maybeUpdateServerModeInterfaceState(iface, true);
             mTetheringInterfaceHwAddr = hwAddress;
@@ -636,7 +634,7 @@ public class EthernetTracker {
         // Note: if the interface already has link (e.g., if we crashed and got
         // restarted while it was running), we need to fake a link up notification so we
         // start configuring it.
-        if (NetdUtils.hasFlag(config, INetd.IF_FLAG_RUNNING)) {
+        if ((flags & NetlinkConstants.IFF_RUNNING) != 0) {
             // no need to send an interface state change as this is not a true "state change". The
             // callers (maybeTrackInterface() and setTetheringInterfaceMode()) already broadcast the
             // state change.
