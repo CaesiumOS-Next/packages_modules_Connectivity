@@ -36,6 +36,7 @@ import static com.android.net.module.util.netlink.NetlinkConstants.RTNL_FAMILY_I
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_DUMP;
 import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 
+import android.net.MacAddress;
 import android.net.util.SocketUtils;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -88,6 +89,8 @@ public class NetlinkUtils {
     public static final int DEFAULT_RECV_BUFSIZE = 8 * 1024;
     public static final int SOCKET_RECV_BUFSIZE = 64 * 1024;
     public static final int SOCKET_DUMP_RECV_BUFSIZE = 128 * 1024;
+
+    public static final int INVALID_INTERFACE_FLAGS = 0xffffffff;
 
     /**
      * Return whether the input ByteBuffer contains enough remaining bytes for
@@ -496,5 +499,89 @@ public class NetlinkUtils {
             Log.e(TAG, "Failed to set flags for: " + interfaceName, e);
             return false;
         }
+    }
+
+    @Nullable
+    private static RtNetlinkLinkMessage sendGetLinkRequest(@NonNull String interfaceName) {
+        final RtNetlinkLinkMessage ntMsg =
+                RtNetlinkLinkMessage.createGetLinkMessage(interfaceName, /*seqNo*/ 0);
+        if (ntMsg == null) {
+            Log.e(TAG, "Failed to create message to get interface flags");
+            return null;
+        }
+        final byte[] msg = ntMsg.pack(ByteOrder.nativeOrder());
+
+        final FileDescriptor fd;
+        try {
+            fd = NetlinkUtils.netlinkSocketForProto(NETLINK_ROUTE, SOCKET_RECV_BUFSIZE);
+            sendMessage(fd, msg, /*offset*/ 0, msg.length, IO_TIMEOUT_MS);
+        } catch (ErrnoException | InterruptedIOException e) {
+            Log.w(TAG, "Failed to send netlink message.", e);
+            return null;
+        }
+
+        // When requesting for flags of single interface with NLM_F_REQUEST flag, we should only
+        // expect single netlink message to be received.
+        final ByteBuffer response;
+        try {
+            response = NetlinkUtils.recvMessage(fd, DEFAULT_RECV_BUFSIZE, IO_TIMEOUT_MS);
+        } catch (ErrnoException | InterruptedIOException e) {
+            Log.w(TAG, "Failed to receive message from netlink socket.", e);
+            return null;
+        }
+
+        do {
+            final NetlinkMessage nlMsg =
+                    NetlinkMessage.parse(response, NETLINK_ROUTE);
+            if (nlMsg == null) {
+                Log.e(TAG, "Badly formatted data, failed to get netlink message");
+                break;
+            }
+            if (!(nlMsg instanceof RtNetlinkLinkMessage)) {
+                continue;
+            }
+            final StructNlMsgHdr hdr = nlMsg.getHeader();
+            if (hdr == null) {
+                Log.e(TAG, "Badly formatted data, "
+                        + "failed to get netlink message header");
+                break;
+            }
+            if (hdr.nlmsg_type == NLMSG_DONE) {
+                break;
+            }
+
+            return (RtNetlinkLinkMessage) nlMsg;
+        } while (enoughBytesRemainForValidNlMsg(response));
+        return null;
+    }
+
+    /**
+     * Get interface flags for a given interface.
+     *
+     * @param interfaceName The name of the network interface to query.
+     * @return flags of the queried interface if request succeeds, otherwise
+     * {@code INVALID_INTERFACE_FLAGS}
+     */
+    public static long getInterfaceFlags(@NonNull String interfaceName) {
+        RtNetlinkLinkMessage msg = sendGetLinkRequest(interfaceName);
+        if (msg == null) {
+            return INVALID_INTERFACE_FLAGS;
+        }
+        return msg.getIfinfoHeader().flags;
+    }
+
+    /**
+     * Get MAC address for a given interface.
+     *
+     * @param interfaceName The name of the network interface to query.
+     * @return MAC address of the queried interface if request succeeds, otherwise {@code null}.
+     */
+    @Nullable
+    public static MacAddress getInterfaceHwAddress(@NonNull String interfaceName) {
+        RtNetlinkLinkMessage msg = sendGetLinkRequest(interfaceName);
+        if (msg == null) {
+            return null;
+        }
+        return msg.getHardwareAddress();
     }
 }
