@@ -164,6 +164,30 @@
       },
       "revId": "9516d02971009be444d7e56b2a754e953bdbbdae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "574168ac_2ed81d0e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-20T17:13:17Z",
+      "side": 1,
+      "message": "A right, it calls the request overload. This should be okay then. So maybe just leave a comment in tether(interface)",
+      "parentUuid": "974ccda6_d5441ee5",
+      "range": {
+        "startLine": 1098,
+        "startChar": 70,
+        "endLine": 1098,
+        "endChar": 85
+      },
+      "revId": "9516d02971009be444d7e56b2a754e953bdbbdae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
