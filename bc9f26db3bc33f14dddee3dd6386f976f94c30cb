@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4509a240_faf9a9a4",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-22T21:33:38Z",
+      "side": 1,
+      "message": "If we decide to go this route, would also have to be added here: packages/modules/DnsResolver/binder/android/net/IDnsResolver.aidl",
+      "range": {
+        "startLine": 1305,
+        "startChar": 12,
+        "endLine": 1305,
+        "endChar": 27
+      },
+      "revId": "bc9f26db3bc33f14dddee3dd6386f976f94c30cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
