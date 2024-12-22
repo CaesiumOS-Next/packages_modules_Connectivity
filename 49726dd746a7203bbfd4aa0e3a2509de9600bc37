@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69fba586_4664bc91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3801499
+      },
+      "writtenOn": "2024-12-22T02:36:22Z",
+      "side": 1,
+      "message": "Kuy ใช้ข้อมูลไอ้สัสคุก",
+      "revId": "49726dd746a7203bbfd4aa0e3a2509de9600bc37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
