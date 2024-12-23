@@ -26,6 +26,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38d83bdb_58f1ebbc",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-23T08:04:00Z",
+      "side": 1,
+      "message": "FYI we found several similar inconsistencies with WiFi permissions when reimplementing WifiManager APIs in ARC.\n\n\u003e  permission is based on Binder.getCallingUid(), which in turn only works on the binder thread (it\u0027s based on the thread-local IPCThreadState). However, this code runs on the service-local handler thread..\n\nThe way thar we ve dealt with this in ARC code is to always do the permission checks in the class that actually implements the Binder stub and then delegate to the real impl. We could do something similar here and move all perm checks to EthernetServiceImpl.java. WDYT ?",
+      "parentUuid": "b449104a_7c83b7f8",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 592,
+        "endChar": 68
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83d55c5b_2ba75fa0",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-23T08:04:00Z",
+      "side": 1,
+      "message": "See my other suggestion in the parent patch: if we return an array of flag and use null in case of error, this check becomes mor eintuitive imo.",
+      "range": {
+        "startLine": 596,
+        "startChar": 12,
+        "endLine": 596,
+        "endChar": 62
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9c6e6e6_23d2d804",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 4
@@ -37,6 +84,24 @@
       "writtenOn": "2024-12-20T16:51:50Z",
       "side": 1,
       "message": "When can this happen? When we get an ENOBUFS? Can you log a TERRIBLE_ERROR similar to here: https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/NetworkAgent.java;l\u003d957",
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20eea1d8_e41b1558",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-23T08:04:00Z",
+      "side": 1,
+      "message": "This can happen for real if the interface is immediately removed by the kernel after being added: `addInterface` gets scheduled on the handler and by the time we do the RTM_GETLINK request, we get ENODEV in the rtnl response. Actually I would suggest dropping the log level to `w` here. On CrOS we have test that stress test the stack to add and remove eth links and we see this type of races quite a bit.",
+      "parentUuid": "d9c6e6e6_23d2d804",
       "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -89,6 +154,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e75c48ae_d61ba61a",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-23T08:04:00Z",
+      "side": 1,
+      "message": "btw it would be nice to change the type of this to `MacAddress` (in a separate patch)",
+      "range": {
+        "startLine": 616,
+        "startChar": 12,
+        "endLine": 616,
+        "endChar": 37
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80c81c39_1911b488",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 4
@@ -100,6 +188,30 @@
       "writtenOn": "2024-12-20T16:51:50Z",
       "side": 1,
       "message": "This returns true for INVALID_INTERFACE_FLAGS. Should INVALID_INTERFACE_FLAGS be 0 instead? Maybe this can\u0027t happen anymore, because nothing in the try / catch above can actually throw?",
+      "range": {
+        "startLine": 637,
+        "startChar": 8,
+        "endLine": 637,
+        "endChar": 58
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afd4c5b2_5940c46c",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-23T08:04:00Z",
+      "side": 1,
+      "message": "This ambiguity is also fixed if we use an array of flag or ArrayList of flags as the return value. Then we can just use `contains()` or equivalent.",
+      "parentUuid": "80c81c39_1911b488",
       "range": {
         "startLine": 637,
         "startChar": 8,
