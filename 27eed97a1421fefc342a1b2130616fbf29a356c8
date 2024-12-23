@@ -16,6 +16,24 @@
       "message": "I think this either broke in aosp/3285750 or was never actually implemented that way (I can\u0027t tell at a quick glance). So I think merging this will make the tests flaky again.",
       "revId": "27eed97a1421fefc342a1b2130616fbf29a356c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73f0ec5c_5ae55d39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-23T02:26:29Z",
+      "side": 1,
+      "message": "Even after aosp/3285750, `requestDownstreamAddress(server, scope, useLastAddress\u003dtrue)` (which was renamed to `requestStickyDownstreamAddress`) would return addresses from mCachedAddresses I think. And chooseDownstreamAddress still uses getConflictPrefix which looks at mCachedAddresses to know whether the candidates have a conflict. So it doesn\u0027t look to me like aosp/3285750 broke requestStickyDownstreamAddress, which is what this test originally intended to cover.\n\nIf it did break it, I think you\u0027d be on the hook for fixing it :)",
+      "parentUuid": "30cf6565_add5de9a",
+      "revId": "27eed97a1421fefc342a1b2130616fbf29a356c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
