@@ -1,0 +1,241 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1597341_408a93fb",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-23T02:05:14Z",
+      "side": 1,
+      "message": "This may be used for something else than getting interface flags. We could just say `\"get link information for \" + ifname`.",
+      "range": {
+        "startLine": 509,
+        "startChar": 52,
+        "endLine": 509,
+        "endChar": 71
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "917750d5_6e737de5",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 509,
+                "startChar": 0,
+                "endLine": 510,
+                "endChar": 0
+              },
+              "replacement": "            Log.e(TAG, \"Failed to create message to get link information for \" + interfaceName);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39dddc04_ec244dd0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-23T02:05:14Z",
+      "side": 1,
+      "message": "Could we try a more tightly scoped `fd` with a single `try catch` for all IOs:\n\n```\nfinal ByteBuffer resp;\ntry (FileDescriptor fd \u003d NetlinkUtils.netlinkSocketForProto(NETLINK_ROUTE, SOCKET_RECV_BUFSIZE)) {\n  sendMessage(fd, msg);\n  resp \u003d NetlinkUtils.recvMessage(fd);\n} catch (ErrnoException | InterruptedIOException e) {\n  Log.w();\n  return null;\n}\n``` \n\nThis avoids having a dangling `fd` variable later in the function.",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 531,
+        "endChar": 9
+      },
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faa0e287_ec730aa7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-23T02:05:14Z",
+      "side": 1,
+      "message": "See comment below, we should not need to do a loop here, instead we should check `enoughBytesRemainForValidNlMsg()` first just once and then proceed with the parsing.",
+      "range": {
+        "startLine": 533,
+        "startChar": 8,
+        "endLine": 533,
+        "endChar": 12
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c98a11a7_497c4b3d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 533,
+                "startChar": 0,
+                "endLine": 552,
+                "endChar": 0
+              },
+              "replacement": "        if (!enoughBytesRemainForValidNlMsg(response)) {\n            Log.e(TAG, \"Badly formatted data, failed to get netlink message\");\n            return null;\n        }\n\n        final NetlinkMessage nlMsg \u003d\n                NetlinkMessage.parse(response, NETLINK_ROUTE);\n        if (nlMsg \u003d\u003d null) {\n            Log.e(TAG, \"Badly formatted data, failed to get netlink message\");\n            return null;\n        }\n        if (!(nlMsg instanceof RtNetlinkLinkMessage)) {\n            return null;\n        }\n        final StructNlMsgHdr hdr \u003d nlMsg.getHeader();\n        if (hdr \u003d\u003d null) {\n            Log.e(TAG, \"Badly formatted data, \"\n                    + \"failed to get netlink message header\");\n            return null;\n        }\n        if (hdr.nlmsg_type \u003d\u003d NLMSG_DONE) {\n            return null;\n        }\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 553,
+                "startChar": 0,
+                "endLine": 555,
+                "endChar": 0
+              },
+              "replacement": "        return (RtNetlinkLinkMessage) nlMsg;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f77f21e_5b88fea1",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-23T02:05:14Z",
+      "side": 1,
+      "message": "The request is not a dump so we don\u0027t expect to see NLMSG_DONE here. We expect a single msg in the response with type nlmsg_type RTM_GETLINK.\n\nAlso, we need to check on `nlmsg_type !\u003d NetlinkConstants.NLMSG_ERROR` or log the specific rtnetlink error and return null otherwise.",
+      "range": {
+        "startLine": 549,
+        "startChar": 0,
+        "endLine": 551,
+        "endChar": 13
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "603b5ce4_8e0d1875",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 549,
+                "startChar": 0,
+                "endLine": 550,
+                "endChar": 0
+              },
+              "replacement": "            if (hdr.nlmsg_type !\u003d NetlinkConstants.NLMSG_ERROR) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb54b375_b1e03abf",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-23T02:05:14Z",
+      "side": 1,
+      "message": "similarly to `setInterfaceFlags`, what about returning the list of flags as an array of flag bitfiield that are set ?",
+      "range": {
+        "startLine": 565,
+        "startChar": 18,
+        "endLine": 565,
+        "endChar": 22
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "96a4e530_3290a698",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 93,
+                "startChar": 0,
+                "endLine": 95,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 562,
+                "startChar": 0,
+                "endLine": 564,
+                "endChar": 0
+              },
+              "replacement": "     * @return flags of the queried interface if request succeeds, otherwise {@code null}.\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 565,
+                "startChar": 0,
+                "endLine": 566,
+                "endChar": 0
+              },
+              "replacement": "    @Nullable\n    public static int[] getInterfaceFlags(@NonNull String interfaceName) {\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 569,
+                "startChar": 0,
+                "endLine": 570,
+                "endChar": 0
+              },
+              "replacement": "            return null;\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 571,
+                "startChar": 0,
+                "endLine": 572,
+                "endChar": 0
+              },
+              "replacement": "        return msg.getIfinfoHeader().flagsArray;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
