@@ -23,7 +23,12 @@ android_test {
 
     srcs: ["src/**/*.java"],
 
-    static_libs: ["ctstestrunner-axt"],
+    static_libs: [
+        "com.android.net.flags-aconfig-java",
+        "compatibility-device-util-axt",
+        "ctstestrunner-axt",
+        "net-tests-utils"
+    ],
 
     // Tag this module as a cts test artifact
     test_suites: [
