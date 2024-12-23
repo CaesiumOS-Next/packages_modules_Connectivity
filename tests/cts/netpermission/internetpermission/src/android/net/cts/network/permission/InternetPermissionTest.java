@@ -16,11 +16,19 @@
 
 package android.net.cts.networkpermission.internetpermission;
 
+import static com.android.testutils.TestPermissionUtil.runAsShell;
+
 import static org.junit.Assert.fail;
 
+import android.Manifest;
+import android.content.Context;
+import android.os.Process;
+
 import androidx.test.filters.SmallTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -32,6 +40,14 @@ import java.net.Socket;
 @RunWith(AndroidJUnit4.class)
 public class InternetPermissionTest {
 
+    private final Context mContext = InstrumentationRegistry.getInstrumentation()            .getContext();
+
+    @Before
+    public void setUp() {
+//        mPackageManager = InstrumentationRegistry.getInstrumentation()
+//            .getContext().getPackageManager();
+    }
+
     /**
      * Verify that create inet socket failed because of the permission is missing.
      * <p>Tests Permission:
@@ -40,6 +56,21 @@ public class InternetPermissionTest {
     @SmallTest
     @Test
     public void testCreateSocket() throws Exception {
+        try {
+            Socket socket = new Socket("example.com", 80);
+            fail("Ceate inet socket did not throw SecurityException as expected");
+        } catch (SecurityException e) {
+            // expected
+        }
+    }
+
+    @Test
+    public void testConnectToLocalNetwork_usingLocalNetworkProtections() throws Exception {
+        runAsShell(Manifest.permission.OBSERVE_GRANT_REVOKE_PERMISSIONS, () -> {
+            mContext.getPackageManager().grantRuntimePermission("android.networkpermission.internetpermission.cts",
+                    Manifest.permission.NEARBY_WIFI_DEVICES, Process.myUserHandle());
+        });
+
         try {
             Socket socket = new Socket("example.com", 80);
             fail("Ceate inet socket did not throw SecurityException as expected");
