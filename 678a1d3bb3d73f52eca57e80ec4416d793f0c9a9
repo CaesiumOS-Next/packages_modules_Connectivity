@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e19945a_ff20843f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2024-12-23T07:13:40Z",
+      "side": 1,
+      "message": "Yes we need to close this.\n\nBTW one cool improvement here would be to use a subclass or wrapper class of FileDescriptor which implements https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html and then it will get autoclosed when declared as a resource in a try catch. This seems to me much better pattern and as close to RAII as we can get in Java.",
+      "parentUuid": "53c96a54_13a4a407",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 531,
+        "endChar": 9
+      },
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "faa0e287_ec730aa7",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 2
