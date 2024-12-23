@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d82f802_54306b62",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-23T21:34:36Z",
+      "side": 1,
+      "message": "EthernetServiceImpl already implements the necessary permission checks (on the Binder thread), that\u0027s its only purpose. 😊 I think this check here has always just been spurious.",
+      "parentUuid": "38d83bdb_58f1ebbc",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 592,
+        "endChar": 68
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83d55c5b_2ba75fa0",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 4
@@ -102,6 +126,24 @@
       "side": 1,
       "message": "This can happen for real if the interface is immediately removed by the kernel after being added: `addInterface` gets scheduled on the handler and by the time we do the RTM_GETLINK request, we get ENODEV in the rtnl response. Actually I would suggest dropping the log level to `w` here. On CrOS we have test that stress test the stack to add and remove eth links and we see this type of races quite a bit.",
       "parentUuid": "d9c6e6e6_23d2d804",
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a504ec9b_9a023fd4",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-23T21:34:36Z",
+      "side": 1,
+      "message": "Oh right. We should actually already have the flags from the RTM_NEWLINK, we just don\u0027t propagate them. The other entry point calls NetworkInterface.getNetworkInterfaces(). There we could use NetworkInterface#getFlags which uses SIOCGIFFLAGS (though if there is reason to write the netlink code anyways, I am not against it).\n\nThis might require some refactoring because moving an interface in and out of tethering mode also calls addInterface(). Though if we properly kept track of the tethering interface\u0027s link state, then it would not have to.",
+      "parentUuid": "20eea1d8_e41b1558",
       "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -165,6 +207,30 @@
       "writtenOn": "2024-12-23T08:04:00Z",
       "side": 1,
       "message": "btw it would be nice to change the type of this to `MacAddress` (in a separate patch)",
+      "range": {
+        "startLine": 616,
+        "startChar": 12,
+        "endLine": 616,
+        "endChar": 37
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03d6fabb_e6e7d5b0",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-23T21:34:36Z",
+      "side": 1,
+      "message": "FWIW, we should just revert aosp/3025963. We once made an attempt to fix b/142259350, but failed. (I think the best way forward here would be to have a state machine tracking both client and server mode interfaces).",
+      "parentUuid": "e75c48ae_d61ba61a",
       "range": {
         "startLine": 616,
         "startChar": 12,
