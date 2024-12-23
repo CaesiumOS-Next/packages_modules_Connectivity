@@ -873,6 +873,24 @@
       "parentUuid": "4b69cb08_f9f3a30e",
       "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45bc9e81_e9d14678",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10684,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-23T03:51:47Z",
+      "side": 1,
+      "message": "Redaction will prevent an app seeing the data in returned specifiers. But if the reservation results in a network actually connecting, that will still tell the app that its reservation matched something, and therefore that the data that it specified in its reservation exists. This is probably a matter for NetworkSpecifiers to deal with though - we have the same issue for requestNetwork. Let\u0027s remember to discuss this in the L2CAP network specifier.",
+      "parentUuid": "89cedab2_f8b17ab6",
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

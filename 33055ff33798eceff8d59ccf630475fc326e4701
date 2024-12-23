@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94cfed9c_224dc56d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4275,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-23T03:51:47Z",
+      "side": 1,
+      "message": "If the callback was registered with one of the {@code requestNetwork} methods, this method will be called if...\n\nIf the callback was registered when reserving a network, this method indicates that the reservation is removed. It can be called when the reservation is requested, because the system could not satisfy the reservation, or after the reserved network connects.",
+      "range": {
+        "startLine": 4275,
+        "startChar": 11,
+        "endLine": 4275,
+        "endChar": 17
+      },
+      "revId": "33055ff33798eceff8d59ccf630475fc326e4701",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10deb23a_8d521148",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5024,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-23T03:51:47Z",
+      "side": 1,
+      "message": "I think the paragraph above already says this?",
+      "range": {
+        "startLine": 5023,
+        "startChar": 0,
+        "endLine": 5024,
+        "endChar": 41
+      },
+      "revId": "33055ff33798eceff8d59ccf630475fc326e4701",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36eb2de6_b789cb55",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5027,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-23T03:51:47Z",
+      "side": 1,
+      "message": "This @link tag is broken. Any idea why this didn\u0027t break the build?\n\n\u003d\u003d\u003d\u003d\u003d\u003d\n\nPlease fix this ERROR reported by Common Typos: Common typo found: \"Unvailable\" -- should it be \"Unavailable\"?\n\nAnalyzer Description: Linter for catching common typos motivated by go/todo-fail and go/lol-codesearch. Shared with google3 common typos library go/common-typos.\nOwner: ayeaye-team@google.com\n\nCommon typo found: \"Unvailable\" -- should it be \"Unavailable\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 5027,
+        "startChar": 25,
+        "endLine": 5027,
+        "endChar": 35
+      },
+      "revId": "33055ff33798eceff8d59ccf630475fc326e4701",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d796158f_ffdaa71a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5038,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-23T03:51:47Z",
+      "side": 1,
+      "message": "As discussed, we probably want to @SuppressLint ExecutorRegistration for this method, for consistency with all the other NetworkCallback methods. This not just because the API surface will be inconsistent, it\u0027s because until all of them have overloads that take Executor, apps will have to use both Executor and Handler, and that is going to be racy. Plus, the Executor overloads will not be available on older OS releases, so...\n\nMaybe add a TODO to add Executor overloads for all these methods? Any method that passed in an Executor could process the messages on the singleton ConnectivityThread Handler.\n\n\u003d\u003d\u003d\u003d\u003d\u003d\n\nPlease fix this ERROR reported by Build Warnings: Registration methods should have overload that accepts delivery Executor: `reserveNetwork` (ErrorWhenNew) [ExecutorRegistration]\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    Registration methods should have overload that accepts delivery Executor: `reserveNetwork` (ErrorWhenNew) [ExecutorRegistration]\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P87385596/targets/cf_x86_64_phone-trunk_staging-userdebug, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 5038,
+        "startChar": 0,
+        "endLine": 5038,
+        "endChar": 63
+      },
+      "revId": "33055ff33798eceff8d59ccf630475fc326e4701",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
