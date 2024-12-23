@@ -286,13 +286,18 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
         mContext = context;
         mBpfNetMaps = bpfNetMaps;
         mThread = thread;
+        log("Initializing PermissionMonitor");
         if (Flags.restrictLocalNetwork()) {
+            log("Registering permissionChangeListener");
             mPackageManager.addOnPermissionsChangeListener(this);
         }
     }
 
     @Override
     public void onPermissionsChanged(int uid) {
+        log("permission changed");
+        log("Package for UID " + uid + " is " + mPackageManager.getNameForUid(uid));
+        log("compat change enabled? "+ CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid));
         if (Flags.restrictLocalNetwork()
                 && CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid)
                 && SdkLevel.isAtLeastT() // Needed for min API requirements

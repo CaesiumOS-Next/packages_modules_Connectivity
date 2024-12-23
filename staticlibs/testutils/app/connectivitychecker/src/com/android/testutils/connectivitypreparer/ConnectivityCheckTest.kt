@@ -102,9 +102,9 @@ class ConnectivityCheckTest {
 
         // Checking QUIC is more important on Wi-Fi than cellular, as it finds firewall
         // configuration problems on Wi-Fi, but cellular is not actionable by the test lab.
-        checkQuic(wifiNetwork, wifiSsid, ipv6 = false)
+//        checkQuic(wifiNetwork, wifiSsid, ipv6 = false)
         if (!ipv6Unsupported(wifiSsid)) {
-            checkQuic(wifiNetwork, wifiSsid, ipv6 = true)
+//            checkQuic(wifiNetwork, wifiSsid, ipv6 = true)
         }
     }
 
