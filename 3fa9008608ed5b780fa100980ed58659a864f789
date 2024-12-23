@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "add475c5_8156e00f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-23T03:14:45Z",
+      "side": 1,
+      "message": "Might want to note that there can be no legitimate usage of this API, since getting a provider ID requires calling registerNetworkProvider which does a permission check.",
+      "revId": "3fa9008608ed5b780fa100980ed58659a864f789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
