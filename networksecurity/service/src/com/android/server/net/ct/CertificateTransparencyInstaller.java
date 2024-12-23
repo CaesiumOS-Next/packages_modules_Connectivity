@@ -83,7 +83,7 @@ public class CertificateTransparencyInstaller {
         DirectoryUtils.makeDir(mRootDirectory);
 
         if (!compatVersion.install(newContent, version)) {
-            Log.e(TAG, "Failed to install logs version " + version);
+            Log.e(TAG, "Failed to install logs for compatibility version " + compatibilityVersion);
             return false;
         }
         Log.i(TAG, "New logs installed at " + compatVersion.getLogsDir());

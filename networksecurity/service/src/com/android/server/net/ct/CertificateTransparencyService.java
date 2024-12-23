@@ -16,17 +16,13 @@
 
 package com.android.server.net.ct;
 
-import static android.security.Flags.certificateTransparencyConfiguration;
-
-import static com.android.net.ct.flags.Flags.certificateTransparencyJob;
-import static com.android.net.ct.flags.Flags.certificateTransparencyService;
-
 import android.annotation.RequiresApi;
 import android.content.Context;
 import android.net.ct.ICertificateTransparencyManager;
 import android.os.Build;
 import android.provider.DeviceConfig;
 
+import com.android.net.ct.flags.Flags;
 import com.android.server.SystemService;
 
 /** Implementation of the Certificate Transparency service. */
@@ -41,11 +37,9 @@ public class CertificateTransparencyService extends ICertificateTransparencyMana
      */
     public static boolean enabled(Context context) {
         return DeviceConfig.getBoolean(
-                        Config.NAMESPACE_NETWORK_SECURITY,
-                        Config.FLAG_SERVICE_ENABLED,
-                        /* defaultValue= */ true)
-                && certificateTransparencyService()
-                && certificateTransparencyConfiguration();
+                Config.NAMESPACE_NETWORK_SECURITY, Config.FLAG_SERVICE_ENABLED,
+                /* defaultValue= */ true)
+                && Flags.certificateTransparencyService();
     }
 
     /** Creates a new {@link CertificateTransparencyService} object. */
@@ -60,6 +54,7 @@ public class CertificateTransparencyService extends ICertificateTransparencyMana
                         downloadHelper,
                         signatureVerifier,
                         new CertificateTransparencyInstaller());
+
         mFlagsListener =
                 new CertificateTransparencyFlagsListener(dataStore, signatureVerifier, downloader);
         mCertificateTransparencyJob =
@@ -72,9 +67,10 @@ public class CertificateTransparencyService extends ICertificateTransparencyMana
      * @see com.android.server.SystemService#onBootPhase
      */
     public void onBootPhase(int phase) {
+
         switch (phase) {
             case SystemService.PHASE_BOOT_COMPLETED:
-                if (certificateTransparencyJob()) {
+                if (Flags.certificateTransparencyJob()) {
                     mCertificateTransparencyJob.initialize();
                 } else {
                     mFlagsListener.initialize();
