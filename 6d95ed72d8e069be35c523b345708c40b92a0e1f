@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bde305c3_234be0f4",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-23T22:28:15Z",
+      "side": 1,
+      "message": "redact() should redact at the very least redact the remoteMacAddress and psm. Possibly also the the role and compression mode.\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3403183/comment/8a5affe4_d45c8c1e/",
+      "revId": "6d95ed72d8e069be35c523b345708c40b92a0e1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
