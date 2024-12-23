@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "53c96a54_13a4a407",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-23T03:00:16Z",
+      "side": 1,
+      "message": "+1, more importantly, it must also be closed. I think it is currently leaking.",
+      "parentUuid": "39dddc04_ec244dd0",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 531,
+        "endChar": 9
+      },
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "faa0e287_ec730aa7",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 2
