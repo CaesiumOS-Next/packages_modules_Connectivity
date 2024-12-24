@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01ed0edf_ad49ad24",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T05:50:45Z",
+      "side": 1,
+      "message": "Often poll loops do not handle EVENT_ERROR correctly. If EVENT_ERROR happens, it must be handled to clear the error (typically by accessing the underlying fd), and if the code does not do so, it gets into an infinite loop - as soon as it calls poll again, EVENT_ERROR happens again.\n\nCan POLLERR happen on this fd type? If we\u0027re not sure, then maybe there is some code that we should run when POLLERR happens?",
+      "range": {
+        "startLine": 152,
+        "startChar": 34,
+        "endLine": 152,
+        "endChar": 45
+      },
+      "revId": "50c14402f629c670f500e94fb8738d3e949beb31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
