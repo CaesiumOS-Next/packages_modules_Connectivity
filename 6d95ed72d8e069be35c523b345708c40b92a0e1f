@@ -16,6 +16,24 @@
       "message": "redact() should redact at the very least redact the remoteMacAddress and psm. Possibly also the the role and compression mode.\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3403183/comment/8a5affe4_d45c8c1e/",
       "revId": "6d95ed72d8e069be35c523b345708c40b92a0e1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe97f547_18eec287",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T04:27:43Z",
+      "side": 1,
+      "message": "Role and compression mode probably not? I think the primary usage for redaction is to ensure that privileged or location-sensitive information is not passed to apps in callbacks.\n\nSome of this information might potentially be placed into a TransportInfo instead of a NetworkSpecifier, but note that the TransportInfo is only sent to callbacks and does not participate in request matching. So if apps need to be able to file requests for a given remote MAC address, then it needs to be in the specifier.\n\nRemember also that redaction only removes the information when calling a callback, but that information still participates in request matching. So if an app is able to file a request for a given MAC address, that request will still get onAvailable if a network with that MAC address connects, and so the app will implicitly know that a network with that MAC address exists.",
+      "parentUuid": "bde305c3_234be0f4",
+      "revId": "6d95ed72d8e069be35c523b345708c40b92a0e1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

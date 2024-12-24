@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3abb487f_95f28eee",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T04:27:43Z",
+      "side": 1,
+      "message": "If the reason for the existence of these factory methods is that the role is a mandatory parameter, then it\u0027s probably better to do that by making the role a mandatory parameter in the constructor. Remember to add @IntDef for it.\n\nPresumably it needs to be possible for someone to pass in ROLE_ANY - or at least, it seems like a useful thing to do, for example, if some app wants to register a callback for any L2CAP network regardless of whether it\u0027s server or client?\n\nOr maybe this isn\u0027t actually mandatory, and we can just say that the default is ANY, and if the caller wants another role then they can do setRole?\n\nIt think the same considerations actually probably apply for compression.",
+      "range": {
+        "startLine": 253,
+        "startChar": 76,
+        "endLine": 253,
+        "endChar": 90
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0352aab6_4a308378",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T04:27:43Z",
+      "side": 1,
+      "message": "Do we want to say what this represents? Per discussion, this does not represent a connection - for example, it could represent a server socket that could accept multiple connections.",
+      "range": {
+        "startLine": 34,
+        "startChar": 66,
+        "endLine": 34,
+        "endChar": 67
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e72133b6_dd18cd25",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T04:27:43Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 34,
+        "startChar": 47,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5b7f7a8_fc59731d",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T04:27:43Z",
+      "side": 1,
+      "message": "Per other comments these probably need to be public and have an @IntDef for them.",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 36
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecbd583d_fcff0f02",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T04:27:43Z",
+      "side": 1,
+      "message": "Is this always header compression? If so, rename to HEADER_COMPRESSION_xxx, Compression to HeaderCompression, getCompression / setCompression, etc.",
+      "range": {
+        "startLine": 81,
+        "startChar": 28,
+        "endLine": 81,
+        "endChar": 43
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5906898_8323ad8f",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T04:27:43Z",
+      "side": 1,
+      "message": "Why @hide? If we make the setter public then this should definitely be public as well.",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 12
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcf8e6ca_e87ed3bc",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T04:27:43Z",
+      "side": 1,
+      "message": "Presumably there needs to be a guard value that indicates the lack of a PSM? Maybe -1 or 0? That probably needs to be a public constant (PSM_ANY?) that is in the API surface.\n\nConsider whether there need to be separate values for \"any PSM\" and \"no PSM\". More specifically, do you need both a \"no PSM\" value that matches any PSMs and a \"no PSM\" value that doesn\u0027t match any PSM?\n\nIt sounds like because the specifier contains a role, we don\u0027t actually need two separate values here, and we just need a PSM_ANY.",
+      "range": {
+        "startLine": 147,
+        "startChar": 54,
+        "endLine": 147,
+        "endChar": 55
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd147da7_f1e57198",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T04:27:43Z",
+      "side": 1,
+      "message": "It\u0027susually better to defer throwing exceptions to the build() method. Otherwise the builder is hard to use - for example, it would be OK if a caller first sets the role and then the MAC, but it would throw if a caller first sets the MAC and then the role.",
+      "range": {
+        "startLine": 202,
+        "startChar": 22,
+        "endLine": 202,
+        "endChar": 50
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
