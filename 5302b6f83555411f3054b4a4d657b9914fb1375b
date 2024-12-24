@@ -153,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7825d11a_80d2c99f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 7768,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-24T02:44:52Z",
+      "side": 1,
+      "message": "addressed in follow up.",
+      "parentUuid": "b10cb0a5_a4f6bddb",
+      "range": {
+        "startLine": 7768,
+        "startChar": 12,
+        "endLine": 7768,
+        "endChar": 44
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12e1c55a_6d07f675",
@@ -166,6 +190,30 @@
       "writtenOn": "2024-12-19T01:41:35Z",
       "side": 1,
       "message": "Is this something we can check on input, or when the NRI is created? It should never happen except due to a programming error in CS. If you think such a programming error could happen, we might want to add a TerribleFailure for it.",
+      "range": {
+        "startLine": 8109,
+        "startChar": 28,
+        "endLine": 8109,
+        "endChar": 65
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecaa7fb5_5987180e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 8109,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-24T02:44:52Z",
+      "side": 1,
+      "message": "addressed in follow up.",
+      "parentUuid": "12e1c55a_6d07f675",
       "range": {
         "startLine": 8109,
         "startChar": 28,
@@ -822,6 +870,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7560492_d9277baa",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10666,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-24T02:44:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f836253c_d8b6b651",
+      "range": {
+        "startLine": 10665,
+        "startChar": 58,
+        "endLine": 10666,
+        "endChar": 19
+      },
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a5affe4_d45c8c1e",
@@ -889,6 +961,24 @@
       "side": 1,
       "message": "Redaction will prevent an app seeing the data in returned specifiers. But if the reservation results in a network actually connecting, that will still tell the app that its reservation matched something, and therefore that the data that it specified in its reservation exists. This is probably a matter for NetworkSpecifiers to deal with though - we have the same issue for requestNetwork. Let\u0027s remember to discuss this in the L2CAP network specifier.",
       "parentUuid": "89cedab2_f8b17ab6",
+      "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80d78274_5ef8f4e2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10684,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2024-12-24T02:44:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "45bc9e81_e9d14678",
       "revId": "5302b6f83555411f3054b4a4d657b9914fb1375b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
