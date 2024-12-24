@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ff1d10f_ed7ee31f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-24T06:55:21Z",
+      "side": 1,
+      "message": "Talking with Lorenzo, it would be best to have a compat change to also disallow WRITE_SETTINGS for apps that target newer SDK versions, even on R~V",
+      "revId": "2782b3bddf2d6a125b685c9919ab82e36d00d15a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b8f239d3_ceb10b86",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
         "patchSetId": 15
