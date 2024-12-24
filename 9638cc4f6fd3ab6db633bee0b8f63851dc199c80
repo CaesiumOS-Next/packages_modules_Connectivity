@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88bd9c0e_27933677",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 9281,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-24T02:14:37Z",
+      "side": 1,
+      "message": "The check further below already enforces that a localNetworkConfig must be provided if the local capability is provided, could that be enough ?\nOtherwise there\u0027s a bit inconsistent behavior where if you set the local capability you have to provide a localNetworkConfig, *except* if you set skipNativeNetworkCreation",
+      "revId": "9638cc4f6fd3ab6db633bee0b8f63851dc199c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50771eaf_bb7c9b4a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 9474,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-24T02:14:37Z",
+      "side": 1,
+      "message": "Why is it necessary to check this ? Is it a temporary state, or would the NetworkAgent never become created when shouldSkipNativeNetworkCreation is set ?\n\nupdateInterfaces does more than just add/remove the interface to/from the Network, is it expected that everything is skipped ?",
+      "revId": "9638cc4f6fd3ab6db633bee0b8f63851dc199c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fede295_95ba653a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 10228,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-24T02:14:37Z",
+      "side": 1,
+      "message": "But if shouldSkipNativeNetworkCreation is set it is a local network right ?",
+      "range": {
+        "startLine": 10228,
+        "startChar": 66,
+        "endLine": 10228,
+        "endChar": 86
+      },
+      "revId": "9638cc4f6fd3ab6db633bee0b8f63851dc199c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "747374b0_63f6a093",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSkipNativeNetworkCreationTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-24T02:14:37Z",
+      "side": 1,
+      "message": "Nit: use static imports, since this is generally what is done in this codebase",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 22
+      },
+      "revId": "9638cc4f6fd3ab6db633bee0b8f63851dc199c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
