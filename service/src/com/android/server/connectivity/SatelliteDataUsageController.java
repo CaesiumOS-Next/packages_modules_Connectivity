@@ -27,6 +27,7 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.InterfaceParams;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Monitors the Satellite network data usage for each uid based on the satellite buffer event
@@ -45,6 +46,8 @@ public class SatelliteDataUsageController {
     private static final int UNLIMITED_DATA_USAGE_LIMIT = 0; // Unlimited data usage
     // default satellite allowed data usage time measured interval
     private static final int DEFAULT_MEASURED_TIME_INTERVAL_SECS = 30;
+    private boolean mSatelliteBufferEventActive;
+    ArrayList<String> mNewSatelliteIfaces = new ArrayList<>();
 
     public SatelliteDataUsageController(
             @NonNull final Context c, @NonNull final Handler connectivityServiceInternalHandler) {
@@ -111,6 +114,28 @@ public class SatelliteDataUsageController {
             final InterfaceParams params = InterfaceParams.getByName(ifaceName);
             return params != null ? params.index : INVALID_IFINDEX;
         }
+
+        /**
+         * initialise satellite buffer event
+         */
+        public boolean initSatelliteBufferEvent() {
+            return nativeInitSatelliteBufferEvent();
+        }
+
+        /**
+         * Start satellite buffer event monitoring
+         */
+        public void startSatelliteBufferEventMonitoring(int[] ifaceIndexConfigs,
+                int[] eventConfigs) {
+            nativeStartSatelliteBufferEventMonitoring(ifaceIndexConfigs, eventConfigs);
+        }
+
+        /**
+         * update satellite ifaces for satellite buffer event monitoring
+         */
+        public void UpdateSatelliteBufferEventMonitoringIfaces(int[] ifaceIndexConfig) {
+            nativeUpdateSatelliteBufferEventMonitoringIfaces(ifaceIndexConfig);
+        }
     }
 
     @VisibleForTesting
@@ -139,6 +164,19 @@ public class SatelliteDataUsageController {
         }
     }
 
+    public synchronized void setMonitoringStatusForIface() {
+        Log.i(TAG, "current satellite iface list: " + mCurrentSatelliteIfaces);
+        if (!mSatelliteBufferEventActive) {
+            mNewSatelliteIfaces = new ArrayList<>(mCurrentSatelliteIfaces);
+            Log.i(TAG, "start monitoring for iface:" + mNewSatelliteIfaces);
+            startSatelliteBufferEventMonitoring();
+        } else {
+            mNewSatelliteIfaces = new ArrayList<>(mCurrentSatelliteIfaces);
+            Log.i(TAG, "update monitoring for iface:" + mNewSatelliteIfaces);
+            UpdateSatelliteBufferEventMonitoring();
+        }
+    }
+
     public synchronized void createDataUsageTrackingForIface(@NonNull String iface,
             boolean isSatellite, @NonNull NetworkAgentInfo nai) {
         if (isSatellite && !iface.isEmpty()) {
@@ -151,6 +189,7 @@ public class SatelliteDataUsageController {
                     NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
                 Log.i(TAG, "wifi default network iface detected");
                 mCurrentSatelliteIfaces = new ArrayList<>();
+                setMonitoringStatusForIface();
             }
         }
     }
@@ -166,6 +205,71 @@ public class SatelliteDataUsageController {
             } else { // add iface to data usage tracking list
                 addIfacetoMonitoringList(iface);
             }
+            setMonitoringStatusForIface();
         }
     }
+
+    private void UpdateSatelliteBufferEventMonitoring() {
+        if (mSatelliteBufferEventActive) {
+            int[] satelliteIfaceIndexConfig = getSatelliteInterfaceIndexForIfaces();
+            mDeps.UpdateSatelliteBufferEventMonitoringIfaces(satelliteIfaceIndexConfig);
+        }
+    }
+
+    private int[] getSatelliteInterfaceIndexForIfaces() {
+        int[] result = new int[mNewSatelliteIfaces.size()];
+        for (int i = 0; i < mNewSatelliteIfaces.size(); i++) {
+            String interfaceName = mNewSatelliteIfaces.get(i);
+            result[i] = mDeps.getInterfaceIndex(interfaceName);
+        }
+        return result;
+    }
+
+    /**
+     * Start satellite events to ring buffer at native code with different thread, monitor.
+     */
+    private void startSatelliteBufferEventMonitoring() {
+        if (!mSatelliteBufferEventActive) {
+            int[] satelliteIfaceIndexConfig = getSatelliteInterfaceIndexForIfaces();
+            int maxDataUsageLimitPerUid = mDeps.getSatelliteDataUsageLimitPerUid(mContext);
+
+            if (satelliteIfaceIndexConfig.length > 0
+                    && maxDataUsageLimitPerUid > UNLIMITED_DATA_USAGE_LIMIT) {
+                // build other satellite event configs to generate satellite buffer event to a ring
+                // buffer
+                int[] SatelliteEventConfig = mDeps.setupSatelliteEventConfig();
+                // time interval for which max usage check measured for
+                SatelliteEventConfig[0] =
+                        mDeps.getSatelliteAllowedDataUsageTimeMeasuredInterval(mContext);
+                // Update max satellite data usage limit per uid
+                SatelliteEventConfig[1] = maxDataUsageLimitPerUid;
+                Log.i(TAG, "interface index: " + Arrays.toString(satelliteIfaceIndexConfig));
+
+                boolean status = mDeps.initSatelliteBufferEvent();
+                if (status) {
+                    mSatelliteBufferEventActive = true;
+                    Thread nativeThread =
+                            new Thread(
+                                    () ->
+                                            mDeps.startSatelliteBufferEventMonitoring(
+                                                    satelliteIfaceIndexConfig,
+                                                    SatelliteEventConfig));
+                    nativeThread.start();
+                } else {
+                    Log.wtf(TAG, "failed to initialise satellite buffer event");
+                }
+            }
+        }
+    }
+
+    /** Initialise Satellite Buffer Event */
+    public static native boolean nativeInitSatelliteBufferEvent();
+
+    /** Start Satellite Buffer Event */
+    public static native void nativeStartSatelliteBufferEventMonitoring(int[] ifaceIndexConfig,
+            int[] eventConfig);
+
+    /** update satellite iface index for monitoring satellite buffer event to ring buffer */
+    public static native void nativeUpdateSatelliteBufferEventMonitoringIfaces(
+            int[] ifaceIndexConfig);
 }
