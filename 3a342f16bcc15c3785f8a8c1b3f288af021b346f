@@ -234,6 +234,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a7f63cc_ecf48dce",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T09:53:24Z",
+      "side": 1,
+      "message": "I might understand this wrong. But why would we need refactoring after changing from `netd. getInterfaceConfigParcel ` to `NetworkInterface.getFlags()`? They are both using ioctl to get interface flags which should be the same result?",
+      "parentUuid": "847cbceb_fc6aa936",
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99400513_8e69b3fe",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 4
