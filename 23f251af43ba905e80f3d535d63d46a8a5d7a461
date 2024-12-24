@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbdefe7d_02a53717",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9445,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "// This ensures that the reserved offer\u0027s capabilities match the ones passed by\n    // the onReserved callback, which is sent only once.\n    //\n    // TODO: consider letting the provider change the capabilities of an offer\n    // as long as they continue to satisfy the capabilities that were passed to\n    // onReserved. This is not needed today, but it shouldn\u0027t violate the API\n    // contract:\n    // - NetworkOffer capabilities are not promises\n    // - The app making a reservation must never assume that the capabilities of the\n    //   reserved network are equal to the ones that were passed to onReserved.\n    //   There will almost always be other capabilities, for example, those that\n    //   change at runtime such as VALIDATED or NOT_SUSPENDED.",
+      "range": {
+        "startLine": 9445,
+        "startChar": 82,
+        "endLine": 9445,
+        "endChar": 83
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "698ae599_05dcb557",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9454,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "Optional: consider a terrible error as well.",
+      "range": {
+        "startLine": 9454,
+        "startChar": 14,
+        "endLine": 9454,
+        "endChar": 20
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98159a3d_8b171a14",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9460,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "Please fix this ERROR reported by Common Typos: Common typo found: \"Unvailable\" -- should it be \"Unavailable\"?\n\nAnalyzer Description: Linter for catching common typos motivated by go/todo-fail and go/lol-codesearch. Shared with google3 common typos library go/common-typos.\nOwner: ayeaye-team@google.com\n\nCommon typo found: \"Unvailable\" -- should it be \"Unavailable\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 9460,
+        "startChar": 29,
+        "endLine": 9460,
+        "endChar": 39
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1cc1c28_1fba196b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9500,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "releaseReservations?",
+      "range": {
+        "startLine": 9500,
+        "startChar": 28,
+        "endLine": 9500,
+        "endChar": 45
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5920890b_d6a3a508",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9506,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "This method can be called multiple times:\n- If the provider removes the offer...\n- If an offer update is rejected by CS...",
+      "range": {
+        "startLine": 9506,
+        "startChar": 11,
+        "endLine": 9506,
+        "endChar": 13
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6165e9be_2d729908",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9510,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "this method will be called again if/when it unregisters the offer.",
+      "range": {
+        "startLine": 9510,
+        "startChar": 46,
+        "endLine": 9510,
+        "endChar": 78
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb267304_fad2b5e8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "reservedCaps",
+      "range": {
+        "startLine": 151,
+        "startChar": 12,
+        "endLine": 151,
+        "endChar": 20
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d24d51b8_1f963215",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "reservedOfferCb",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 27
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc69192d_91331070",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "Is it guaranteed that this is !\u003d reservationId2? If it\u0027s not strongly guaranteed, just pick a number that is !\u003d reservationId2 and reservationId.\n\nOr, actually - should this be reservationId2 instead? That way we can also ensure that onReserved is not called.\n\nBut it seems good to test both cases (match no existing reservation and match existing reservation). Maybe you can add both to this test method.",
+      "range": {
+        "startLine": 167,
+        "startChar": 62,
+        "endLine": 167,
+        "endChar": 81
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9953fe3f_956cc6bf",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "This implicitly verifies that reserved is not called, right?",
+      "range": {
+        "startLine": 175,
+        "startChar": 12,
+        "endLine": 175,
+        "endChar": 28
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0f2234b_5edf6fb2",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "Maybe file a request for NET_CAPABILITY_WIFI_P2P and check that the offer callback gets onNetworkNeeded?",
+      "range": {
+        "startLine": 211,
+        "startChar": 4,
+        "endLine": 211,
+        "endChar": 5
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b9c1c3d_6b112a77",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "Consider filing a request and checking that the old offer gets the onNetworkNeeded and the new one doesn\u0027t.",
+      "range": {
+        "startLine": 231,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 5
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3571b9c8_47663193",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "It would nice if we could ensure that the matches both the blanket offer and the requested offer, then change the score of the requested offer such that the  blanket offer can no longer beat the reserved offer, and checking that the blanket offer gets onNetworkUnneeded.\n\nNot sure how you\u0027d achieve this though - you\u0027d need something that when changed only on the reserved offere, guarantees that the *other* offer is outscored. Maybe you could use POLICY_TRANSPORT_PRIMARY?",
+      "range": {
+        "startLine": 257,
+        "startChar": 4,
+        "endLine": 257,
+        "endChar": 5
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eb00596_086e181f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-24T03:38:44Z",
+      "side": 1,
+      "message": "cb2?",
+      "range": {
+        "startLine": 275,
+        "startChar": 44,
+        "endLine": 275,
+        "endChar": 46
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
