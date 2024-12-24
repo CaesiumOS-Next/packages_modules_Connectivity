@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edcd50ca_bfca6091",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T07:33:33Z",
+      "side": 1,
+      "message": "Thanks, updated to using list.",
+      "parentUuid": "83d55c5b_2ba75fa0",
+      "range": {
+        "startLine": 596,
+        "startChar": 12,
+        "endLine": 596,
+        "endChar": 62
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9c6e6e6_23d2d804",
@@ -150,6 +174,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fec7f235_e1cce622",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T07:33:33Z",
+      "side": 1,
+      "message": "Just realized that we also have `byte[] getHardwareAddress()` in NetworkInterface. If no obvious, agreed that using `NetworkInterface#getFlags ` and `NetworkInterface#getHardwareAddress` is easier.\n\n\u003e This might require some refactoring because moving an interface in and out of tethering mode also calls addInterface()\n\nYou mean we might encounter race condition when moving in and out tethering mode?\nLooking at the code:\n```\n            removeInterface(mTetheringInterface);\n            addInterface(mTetheringInterface);\n```\n\nIt is added after removal but not the reverse. So maybe it should be okay?",
+      "parentUuid": "a504ec9b_9a023fd4",
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99400513_8e69b3fe",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 4
@@ -161,6 +203,30 @@
       "writtenOn": "2024-12-20T16:51:50Z",
       "side": 1,
       "message": "The thing that used to throw IllegalStateException was getInterfaceConfigParcel which you removed, so this try / catch can be removed too. The setInterfaceUpState never belonged inside the try / catch, but that was an oversight in the last CL.",
+      "range": {
+        "startLine": 602,
+        "startChar": 17,
+        "endLine": 602,
+        "endChar": 38
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b59798b6_6290667f",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T07:33:33Z",
+      "side": 1,
+      "message": "Removed try-catch block",
+      "parentUuid": "99400513_8e69b3fe",
       "range": {
         "startLine": 602,
         "startChar": 17,
@@ -184,6 +250,30 @@
       "writtenOn": "2024-12-20T16:51:50Z",
       "side": 1,
       "message": "nit: final",
+      "range": {
+        "startLine": 608,
+        "startChar": 8,
+        "endLine": 608,
+        "endChar": 18
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0a0ba81_e2c6cb97",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T07:33:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4a94354_4ee53e69",
       "range": {
         "startLine": 608,
         "startChar": 8,
@@ -278,6 +368,30 @@
       "side": 1,
       "message": "This ambiguity is also fixed if we use an array of flag or ArrayList of flags as the return value. Then we can just use `contains()` or equivalent.",
       "parentUuid": "80c81c39_1911b488",
+      "range": {
+        "startLine": 637,
+        "startChar": 8,
+        "endLine": 637,
+        "endChar": 58
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04755301_92af4f2f",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T07:33:33Z",
+      "side": 1,
+      "message": "Changed into using ArrayList.",
+      "parentUuid": "afd4c5b2_5940c46c",
       "range": {
         "startLine": 637,
         "startChar": 8,
