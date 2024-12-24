@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74ada815_1c9e45bd",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-24T02:40:33Z",
+      "side": 1,
+      "message": "But then I think you need a way to check whether the app has/does not have the permission at the start, otherwise the initial state will be incorrect.\n\nThere is a potential race though: if you first register the callback, and then\nuse synchronous methods to check the initial permission state, is there a guarantee that you will get all callbacks \"after\" the call to the getter (e.g. is the callback registration synchronous ?).\n\nIt might be worth checking with PermissionManager owners on the best way to do this.",
+      "parentUuid": "342c43c7_87b091be",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9527531_cec22171",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 27
