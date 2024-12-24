@@ -138,6 +138,7 @@ static const set<string> MAINLINE_FOR_U_PLUS = {
     NETD "map_netd_packet_trace_enabled_map",
     NETD "map_netd_satellite_cache_map",
     NETD "map_netd_satellite_config_map",
+    NETD "map_netd_satellite_ifindex_config_map",
 };
 
 // Provided by *current* mainline module for U+ devices with 5.10+ kernels

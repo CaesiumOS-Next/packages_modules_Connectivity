@@ -186,6 +186,12 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define PACKET_TRACE_RINGBUF_PATH BPF_NETD_PATH "map_netd_packet_trace_ringbuf"
 #define PACKET_TRACE_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_packet_trace_enabled_map"
 #define DATA_SAVER_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_data_saver_enabled_map"
+#define SATELLITE_EVENT_RINGBUF_PATH                                           \
+  BPF_NETD_PATH "map_netd_satellite_event_ringbuf"
+#define SATELLITE_CONFIG_MAP_PATH BPF_NETD_PATH "map_netd_satellite_config_map"
+#define SATELLITE_CACHE_MAP_PATH BPF_NETD_PATH "map_netd_satellite_cache_map"
+#define SATELLITE_IFINDEX_CONFIG_MAP_PATH                                      \
+  BPF_NETD_PATH "map_netd_satellite_ifindex_config_map"
 
 #endif // __cplusplus
 
@@ -247,9 +253,13 @@ typedef struct {
 STRUCT_SIZE(IngressDiscardValue, 2 * 4);  // 8
 
 typedef struct {
+  uint32_t ifindex6[4];
+  uint32_t ifindex4[4];
+} SatelliteIfIndexConfigValue;
+STRUCT_SIZE(SatelliteIfIndexConfigValue, 4 * 4 + 4 * 4); // 32
+
+typedef struct {
     uint64_t time_threshold_ns;
-    uint32_t ifindex6;
-    uint32_t ifindex4;
     uint16_t rx_threshold_bytes;
     uint16_t tx_threshold_bytes;
     uint16_t rx_threshold_packets;
@@ -258,9 +268,9 @@ typedef struct {
     uint8_t tx6_overhead_bytes;
     uint8_t rx4_overhead_bytes;
     uint8_t tx4_overhead_bytes;
-    uint8_t pad[4];
+    uint8_t pad[12];
 } SatelliteConfigValue;
-STRUCT_SIZE(SatelliteConfigValue, 8 + 2 * 4 + 4 * 2 + 8 * 1);  // 32
+STRUCT_SIZE(SatelliteConfigValue, 8 + 4 * 2 + 16 * 1); // 32
 
 typedef struct {
     uint64_t first_ns;
