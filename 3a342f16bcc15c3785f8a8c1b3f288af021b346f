@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4abcc49f_143003d6",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T07:43:25Z",
+      "side": 1,
+      "message": "Thanks for the discussion. Since solved in another patch, close for now.",
+      "parentUuid": "3d82f802_54306b62",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 592,
+        "endChar": 68
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83d55c5b_2ba75fa0",
