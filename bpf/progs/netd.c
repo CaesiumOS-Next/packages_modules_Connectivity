@@ -24,6 +24,7 @@
 static const int DROP = 0;
 static const int PASS = 1;
 static const int DROP_UNLESS_DNS = 2;  // internal to our program
+static const int MAX_IIF_INDEX = 4;    // internal to our program
 
 // Used for 'bool enable_tracing'
 static const bool TRACE_ON = true;
@@ -119,6 +120,12 @@ DEFINE_BPF_RINGBUF_EXT(satellite_event_ringbuf, SatelliteEvent, SATELLITE_EVENT_
                        AID_ROOT, AID_SYSTEM, 0060, "fs_bpf_net_shared", "", PRIVATE,
                        BPFLOADER_MAINLINE_U_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG,
                        LOAD_ON_USER, LOAD_ON_USERDEBUG);
+
+DEFINE_BPF_MAP_EXT(satellite_ifindex_config_map, ARRAY, uint32_t,
+                   SatelliteIfIndexConfigValue, 1, AID_ROOT, AID_SYSTEM, 0060,
+                   "fs_bpf_net_shared", "", PRIVATE,
+                   BPFLOADER_MAINLINE_U_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG,
+                   LOAD_ON_USER, LOAD_ON_USERDEBUG)
 
 // iptables xt_bpf programs need to be usable by both netd and netutils_wrappers
 // selinux contexts, because even non-xt_bpf iptables mutations are implemented as
@@ -248,10 +255,31 @@ static __always_inline inline int bpf_skb_load_bytes_net(const struct __sk_buff*
         : bpf_skb_load_bytes(skb, L3_off, to, len);
 }
 
+static __always_inline inline bool is_satellite_interface_index(struct __sk_buff *skb) {
+  uint32_t zero = 0;
+  // Support logging satellite buffer event to ring buffer for configured
+  // satellite interface index
+  SatelliteIfIndexConfigValue *ifIndexCfg =
+      bpf_satellite_ifindex_config_map_lookup_elem(&zero);
+
+  if (!ifIndexCfg)
+    return false;
+
+  for (int i = 0; i < MAX_IIF_INDEX; i++) {
+    if (ifIndexCfg->ifindex4[i] != 0 &&
+        ifIndexCfg->ifindex4[i] == skb->ifindex) {
+      return true;
+    }
+  }
+  return false;
+}
+
 static __always_inline inline void do_satellite_logging(
-        const struct __sk_buff* const skb, const struct egress_bool egress, const uint32_t uid,
+        struct __sk_buff* skb, const struct egress_bool egress, const uint32_t uid,
         const uint32_t tag, const bool foreground, const struct kver_uint kver) {
     if (!KVER_IS_AT_LEAST(kver, 5, 8, 0)) return;
+
+    if (!is_satellite_interface_index(skb)) return;
 
     uint32_t zero = 0;
     SatelliteConfigValue* cfg = bpf_satellite_config_map_lookup_elem(&zero);
