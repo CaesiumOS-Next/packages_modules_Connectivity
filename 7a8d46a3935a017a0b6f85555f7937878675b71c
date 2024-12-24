@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a91bf162_248d37b9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-24T01:55:14Z",
+      "side": 1,
+      "message": "Do you actually need to get the network here ? Or could you call `requestNetworkAndGenerateTraffic` as before if you implement the comment below ?",
+      "revId": "7a8d46a3935a017a0b6f85555f7937878675b71c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b108e3f_f0c47f5a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2024-12-24T01:55:14Z",
+      "side": 1,
+      "message": "This isn\u0027t easy to follow; could you have another overload of getTotalForTagState that takes the timestamps as argument, and remove usage of the class members in this test case altogether (just using local variables) ?\nUntil now mStartTime / mEndTime were \"start/end of the generated traffic\", so this is mis-using them a bit.",
+      "revId": "7a8d46a3935a017a0b6f85555f7937878675b71c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
