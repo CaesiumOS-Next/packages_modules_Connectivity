@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddc2783d_422a2aa4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T07:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1597341_408a93fb",
+      "range": {
+        "startLine": 509,
+        "startChar": 52,
+        "endLine": 509,
+        "endChar": 71
+      },
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39dddc04_ec244dd0",
@@ -115,6 +139,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6fd9bb42_0d5f9ade",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T07:33:44Z",
+      "side": 1,
+      "message": "Thanks for noticing this.\n\n\u003e subclass or wrapper class of FileDescriptor which implements AutoCloseable\n\nThis sounds good, maybe something like:\n```\nsendMessage(FileDescriptor fd, byte[] message) {\n    try (FileOutputStream fos \u003d new FileOutputStream(fd)) {\n        fos.write(message);\n        fos.flush();\n    } catch (IOException e) {\n        // Err handling\n    }\n}\n```\n?\n\nMaybe it is better to do this in a spearate patch other than this.\nAdded fd close for now. (Did not use try resource since need to close it in `finally` following the style of other fd usage in `NetlinkUtils`)",
+      "parentUuid": "8e19945a_ff20843f",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 531,
+        "endChar": 9
+      },
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "faa0e287_ec730aa7",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 2
@@ -164,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6e1992d_c3aeb8e8",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T07:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faa0e287_ec730aa7",
+      "range": {
+        "startLine": 533,
+        "startChar": 8,
+        "endLine": 533,
+        "endChar": 12
+      },
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f77f21e_5b88fea1",
@@ -201,6 +273,30 @@
           ]
         }
       ],
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14a938cd_d870155f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T07:33:44Z",
+      "side": 1,
+      "message": "Thanks for the advice.\n\nAdded:\n```\n            if (hdr.nlmsg_type \u003d\u003d NetlinkConstants.NLMSG_ERROR) {\n                Log.e(TAG, \"Failed to get response, errror message: \"\n                        + ((NetlinkErrorMessage) nlMsg));\n                return null;\n            }\n```",
+      "parentUuid": "8f77f21e_5b88fea1",
+      "range": {
+        "startLine": 549,
+        "startChar": 0,
+        "endLine": 551,
+        "endChar": 13
+      },
       "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -282,6 +378,30 @@
           ]
         }
       ],
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a90154a_d66c4d8e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2024-12-24T07:33:44Z",
+      "side": 1,
+      "message": "I was considering that if we want to return an array,\n1. We need a method to parse the bits\n2. Though minor considering the number of flags, when checking if flags is contained we need to do Arrays.contains, which is linear complexity while bitwise and is constant.\n\nBut for the point of simplicity of error check (by returning null), array does sound better. Modified in new patch.",
+      "parentUuid": "fb54b375_b1e03abf",
+      "range": {
+        "startLine": 565,
+        "startChar": 18,
+        "endLine": 565,
+        "endChar": 22
+      },
       "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
