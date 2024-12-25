@@ -68,9 +68,9 @@ public class TimerFdUtils {
     /**
      * Set expiration time to timerfd
      */
-    static boolean setExpirationTime(int fd, long expirationTimeMs) {
+    static boolean setExpirationTime(int id, long expirationTimeMs) {
         try {
-            setTime(fd, expirationTimeMs);
+            setTime(id, expirationTimeMs);
         } catch (IOException e) {
             Log.e(TAG, "setExpirationTime failed", e);
             return false;
