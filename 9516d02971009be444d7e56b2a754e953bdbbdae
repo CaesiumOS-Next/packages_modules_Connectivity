@@ -188,6 +188,30 @@
       },
       "revId": "9516d02971009be444d7e56b2a754e953bdbbdae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3764c3c1_7349f724",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-25T01:49:18Z",
+      "side": 1,
+      "message": "Ack, wrote a few comments in enableIpServing(iface) and tether(iface) to clear this up",
+      "parentUuid": "574168ac_2ed81d0e",
+      "range": {
+        "startLine": 1098,
+        "startChar": 70,
+        "endLine": 1098,
+        "endChar": 85
+      },
+      "revId": "9516d02971009be444d7e56b2a754e953bdbbdae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
