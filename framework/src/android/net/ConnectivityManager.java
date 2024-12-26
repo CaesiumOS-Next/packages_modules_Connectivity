@@ -1512,7 +1512,10 @@ public class ConnectivityManager {
      *        {@code null} if no default network is currently active or if
      *        the default network is blocked for the caller
      */
-    @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
+    @RequiresPermission(allOf = {
+            android.Manifest.permission.ACCESS_NETWORK_STATE,
+            android.Manifest.permission.INTERNET
+    })
     @Nullable
     public Network getActiveNetwork() {
         try {
