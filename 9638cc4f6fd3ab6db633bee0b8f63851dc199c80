@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "099e7336_9d7946a2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 9281,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-27T10:01:16Z",
+      "side": 1,
+      "message": "I think it is the behavior we want to have,\nwhere NET_CAP_LOCAL_NETWORK requires localNetworkConfig, but if skipNativeNetworkCreation it is not needed.\nThis is because \n1. When skipNativeNetworkCreation is set, tethering would set routes by themselves, thus LocalNetworkConfig is actually not used.\n2. LocalNetworkConfig is hidden, which cannot be referenced by tethering.\n\nAlternatively,\nwe can expose LocalNetworkConfig (and related NetworkAgent APIs), and making tethering provides a no-op LocalNetworkConfig, with skipNativeNetworkCreation set.\n\nWDYT?",
+      "parentUuid": "88bd9c0e_27933677",
+      "revId": "9638cc4f6fd3ab6db633bee0b8f63851dc199c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50771eaf_bb7c9b4a",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 11
@@ -31,6 +49,24 @@
       "writtenOn": "2024-12-24T02:14:37Z",
       "side": 1,
       "message": "Why is it necessary to check this ? Is it a temporary state, or would the NetworkAgent never become created when shouldSkipNativeNetworkCreation is set ?\n\nupdateInterfaces does more than just add/remove the interface to/from the Network, is it expected that everything is skipped ?",
+      "revId": "9638cc4f6fd3ab6db633bee0b8f63851dc199c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2dd658e_4a39b5f8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 9474,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-27T10:01:16Z",
+      "side": 1,
+      "message": "NetworkAgent never become created when shouldSkipNativeNetworkCreation is set.\nIt is expected everything is skipped.",
+      "parentUuid": "50771eaf_bb7c9b4a",
       "revId": "9638cc4f6fd3ab6db633bee0b8f63851dc199c80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -58,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d47d647_101b4e25",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 10228,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-27T10:01:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fede295_95ba653a",
+      "range": {
+        "startLine": 10228,
+        "startChar": 66,
+        "endLine": 10228,
+        "endChar": 86
+      },
+      "revId": "9638cc4f6fd3ab6db633bee0b8f63851dc199c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "747374b0_63f6a093",
@@ -71,6 +131,30 @@
       "writtenOn": "2024-12-24T02:14:37Z",
       "side": 1,
       "message": "Nit: use static imports, since this is generally what is done in this codebase",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 22
+      },
+      "revId": "9638cc4f6fd3ab6db633bee0b8f63851dc199c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9ac309e_ba22576f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSSkipNativeNetworkCreationTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2024-12-27T10:01:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "747374b0_63f6a093",
       "range": {
         "startLine": 67,
         "startChar": 16,
