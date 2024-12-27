@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4e47292_0add264e",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-12-27T10:58:37Z",
+      "side": 1,
+      "message": "Let me know if you think it makes more sense to just log _any_ exception that isn\u0027t an InvalidKeyException specifying a missing public key as \"FAILURE_SIGNATURE_VERIFICATION\".",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 60
+      },
+      "revId": "acafbbefe3fb9b7ec740d187da7e58dcddd9c3a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
