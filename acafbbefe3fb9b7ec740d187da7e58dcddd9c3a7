@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cba8b599_8f69c988",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-12-27T12:38:32Z",
+      "side": 1,
+      "message": "Good point, done.",
+      "parentUuid": "1f0bf2b9_d95c476a",
+      "range": {
+        "startLine": 213,
+        "startChar": 12,
+        "endLine": 213,
+        "endChar": 51
+      },
+      "revId": "acafbbefe3fb9b7ec740d187da7e58dcddd9c3a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e50307f_559fccb0",
@@ -84,6 +108,30 @@
       "writtenOn": "2024-12-27T11:55:00Z",
       "side": 1,
       "message": "nit: instead of looking at the error message it might be easier to create our own exception type. Feel free to ignore, though, this is also fine.",
+      "range": {
+        "startLine": 218,
+        "startChar": 28,
+        "endLine": 218,
+        "endChar": 73
+      },
+      "revId": "acafbbefe3fb9b7ec740d187da7e58dcddd9c3a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4142023_2d86e42e",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-12-27T12:38:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e50307f_559fccb0",
       "range": {
         "startLine": 218,
         "startChar": 28,
