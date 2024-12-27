@@ -24,6 +24,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b15b5af_430501a7",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-27T16:08:08Z",
+      "side": 1,
+      "message": "I was considering that, but decided not to add tests for the killswitch. As you said there would probably be a bit too much mocking to make it very useful. I was also looking at the CT classes, and wondering whether we can simplify the structure a bit. For example, we can probably remove the CertificateTransparencyInstaller, that thing does not have a clear purpose (I think you noticed that already). I will probably add some more test as part of the cleanup in the class structure.",
+      "parentUuid": "9c9ac380_1bee720e",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 18
+      },
+      "revId": "a2c75c5024454568780850ca80761d99360ccede",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d82ae587_bafdcf61",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-27T16:08:08Z",
+      "side": 1,
+      "message": "I was considering that, but decided not to add tests for the killswitch. As you said there would probably be a bit too much mocking to make it very useful. I was also looking at the CT classes, and wondering whether we can simplify the structure a bit. For example, we can probably remove the CertificateTransparencyInstaller, that thing does not have a clear purpose (I think you noticed that already). I will probably add some more test as part of the cleanup in the class structure.",
+      "parentUuid": "9c9ac380_1bee720e",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 18
+      },
+      "revId": "a2c75c5024454568780850ca80761d99360ccede",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f49eab4a_331ef8f2",
@@ -37,6 +85,30 @@
       "writtenOn": "2024-12-27T15:49:21Z",
       "side": 1,
       "message": "Could you add an inline comment for this call site literal, so it\u0027s easy to see what it represents?\n\ngo/java-practices/methods#call-site-literals",
+      "range": {
+        "startLine": 56,
+        "startChar": 24,
+        "endLine": 56,
+        "endChar": 25
+      },
+      "revId": "a2c75c5024454568780850ca80761d99360ccede",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9293819_ca9da0fe",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-27T16:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f49eab4a_331ef8f2",
       "range": {
         "startLine": 56,
         "startChar": 24,
