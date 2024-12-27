@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49db259c_f847fa2b",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-12-27T16:11:07Z",
+      "side": 1,
+      "message": "Ack, makes sense and sounds good to me.",
+      "parentUuid": "d82ae587_bafdcf61",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 18
+      },
+      "revId": "a2c75c5024454568780850ca80761d99360ccede",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f49eab4a_331ef8f2",
