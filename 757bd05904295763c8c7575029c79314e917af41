@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c133540_f47e1868",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-27T12:48:24Z",
+      "side": 1,
+      "message": "is this necessary? I believe only the first matchin catch clause will trigger.",
+      "range": {
+        "startLine": 223,
+        "startChar": 16,
+        "endLine": 223,
+        "endChar": 31
+      },
+      "revId": "757bd05904295763c8c7575029c79314e917af41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
