@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c9ac380_1bee720e",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-12-27T15:49:21Z",
+      "side": 1,
+      "message": "Do you think it\u0027s worth adding unit tests for start/stop? They\u0027re not public APIs so don\u0027t technically need to be tested (go/unit-testing-practices?polyglot\u003djava#public-apis), but at the same time it would be good if there was some form of automated check that the killswitch is behaving as we expect.\n\nFeel free to ignore if you feel the existing tests will have already covered this new killswitch functionality and/or that this will require too much mocking to actually be a useful test to have.",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 18
+      },
+      "revId": "a2c75c5024454568780850ca80761d99360ccede",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f49eab4a_331ef8f2",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2024-12-27T15:49:21Z",
+      "side": 1,
+      "message": "Could you add an inline comment for this call site literal, so it\u0027s easy to see what it represents?\n\ngo/java-practices/methods#call-site-literals",
+      "range": {
+        "startLine": 56,
+        "startChar": 24,
+        "endLine": 56,
+        "endChar": 25
+      },
+      "revId": "a2c75c5024454568780850ca80761d99360ccede",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
