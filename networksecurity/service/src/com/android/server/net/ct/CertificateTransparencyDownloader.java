@@ -61,6 +61,8 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
     private final CertificateTransparencyInstaller mInstaller;
     private final CertificateTransparencyLogger mLogger;
 
+    private boolean started = false;
+
     CertificateTransparencyDownloader(
             Context context,
             DataStore dataStore,
@@ -76,15 +78,32 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         mLogger = logger;
     }
 
-    void initialize() {
+    void start() {
+        if (started) {
+            return;
+        }
         mInstaller.addCompatibilityVersion(Config.COMPATIBILITY_VERSION);
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-        mContext.registerReceiver(this, intentFilter, Context.RECEIVER_EXPORTED);
+        mContext.registerReceiver(
+                this,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
+                Context.RECEIVER_EXPORTED);
+        started = true;
 
         if (Config.DEBUG) {
-            Log.d(TAG, "CertificateTransparencyDownloader initialized successfully");
+            Log.d(TAG, "CertificateTransparencyDownloader started.");
+        }
+    }
+
+    void stop() {
+        if (!started) {
+            return;
+        }
+        mContext.unregisterReceiver(this);
+        mInstaller.removeCompatibilityVersion(Config.COMPATIBILITY_VERSION);
+        started = false;
+
+        if (Config.DEBUG) {
+            Log.d(TAG, "CertificateTransparencyDownloader stopped.");
         }
     }
 
@@ -216,8 +235,9 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
 
         String version = null;
         try (InputStream inputStream = mContext.getContentResolver().openInputStream(contentUri)) {
-            version = new JSONObject(new String(inputStream.readAllBytes(), UTF_8))
-                    .getString("version");
+            version =
+                    new JSONObject(new String(inputStream.readAllBytes(), UTF_8))
+                            .getString("version");
         } catch (JSONException | IOException e) {
             Log.e(TAG, "Could not extract version from log list", e);
             return;
@@ -300,8 +320,9 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
      * @return whether the failure count exceeds the threshold and should be logged.
      */
     private boolean updateFailureCount() {
-        int failure_count = mDataStore.getPropertyInt(
-                Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0);
+        int failure_count =
+                mDataStore.getPropertyInt(
+                        Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0);
         int new_failure_count = failure_count + 1;
 
         mDataStore.setPropertyInt(Config.LOG_LIST_UPDATE_FAILURE_COUNT, new_failure_count);
@@ -309,8 +330,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
 
         boolean shouldReport = new_failure_count >= Config.LOG_LIST_UPDATE_FAILURE_THRESHOLD;
         if (shouldReport) {
-            Log.d(TAG,
-                    "Log list update failure count exceeds threshold: " + new_failure_count);
+            Log.e(TAG, "Log list update failure count exceeds threshold: " + new_failure_count);
         }
         return shouldReport;
     }
