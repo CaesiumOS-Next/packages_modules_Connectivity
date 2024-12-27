@@ -22,6 +22,76 @@
       },
       "revId": "acafbbefe3fb9b7ec740d187da7e58dcddd9c3a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fc201a3_4754648f",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-27T11:55:00Z",
+      "side": 1,
+      "message": "Sounds good, I think for now it\u0027s ok to start as is.",
+      "parentUuid": "a4e47292_0add264e",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 60
+      },
+      "revId": "acafbbefe3fb9b7ec740d187da7e58dcddd9c3a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f0bf2b9_d95c476a",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-27T11:55:00Z",
+      "side": 1,
+      "message": "instead of the `instanceof` statement, it might be clearer to add an explicit catch block for `InvalidKeyException`.",
+      "range": {
+        "startLine": 213,
+        "startChar": 12,
+        "endLine": 213,
+        "endChar": 51
+      },
+      "revId": "acafbbefe3fb9b7ec740d187da7e58dcddd9c3a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e50307f_559fccb0",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-12-27T11:55:00Z",
+      "side": 1,
+      "message": "nit: instead of looking at the error message it might be easier to create our own exception type. Feel free to ignore, though, this is also fine.",
+      "range": {
+        "startLine": 218,
+        "startChar": 28,
+        "endLine": 218,
+        "endChar": 73
+      },
+      "revId": "acafbbefe3fb9b7ec740d187da7e58dcddd9c3a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
