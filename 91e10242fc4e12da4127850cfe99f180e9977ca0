@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4df3e3f0_298f141c",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2024-12-27T17:59:55Z",
+      "side": 1,
+      "message": "The code will get callbacks at least for changes that happen after the call to register the callback returns. But surely the code will be racy between the binder call to register the callback starts and the callback is actually received and registered on system server side. So if you want to build a reliable callback you should register callback first and fetch current data right after that.\n\nThat being said, this still have the raciness I mentioned earlier in emails, that apps that newly requested and got the permission granted may be able to attempt to use the granted permission before the permission change is delieved to your callback here.",
+      "parentUuid": "74ada815_1c9e45bd",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9527531_cec22171",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 27
