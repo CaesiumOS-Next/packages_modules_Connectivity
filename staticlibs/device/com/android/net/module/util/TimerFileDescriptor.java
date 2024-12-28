@@ -24,13 +24,14 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.MessageQueue;
 import android.os.ParcelFileDescriptor;
+import android.os.SystemClock;
 import android.util.CloseGuard;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.io.IOException;
+import java.util.PriorityQueue;
 
 /**
  * Represents a Timer file descriptor object used for scheduling tasks with precise delays.
@@ -48,10 +49,10 @@ import java.io.IOException;
  * final TimerFileDescriptor timerFd = new TimerFileDescriptor(handler);
  *
  * // Schedule a new task with a delay.
- * timerFd.setDelayedTask(() -> taskToExecute(), delayTime);
+ * timerFd.postDelayed(() -> taskToExecute(), delayTime);
  *
  * // Once the delay has elapsed, and the task is running, schedule another task.
- * timerFd.setDelayedTask(() -> anotherTaskToExecute(), anotherDelayTime);
+ * timerFd.postDelayed(() -> anotherTaskToExecute(), anotherDelayTime);
  *
  * // Remember to close the TimerFileDescriptor after all tasks have finished running.
  * timerFd.close();
@@ -69,28 +70,54 @@ public class TimerFileDescriptor {
     @NonNull
     private final ParcelFileDescriptor mParcelFileDescriptor;
     private final int mFdInt;
-    @Nullable
-    private ITask mTask;
+
+    private final PriorityQueue<Task> mTaskQueue;
 
     /**
-     * An interface for defining tasks that can be executed using a {@link Handler}.
+     * An abstract class for defining tasks that can be executed using a {@link Handler}.
      */
-    public interface ITask {
+    private abstract static class Task implements Comparable<Task> {
+        private final long mRunTimeMs;
+        private final long mCreatedTimeNs = SystemClock.elapsedRealtimeNanos();
+
+        /**
+         * create a task with a run time
+         */
+        Task(long runTimeMs) {
+            mRunTimeMs = runTimeMs;
+        }
+
         /**
          * Executes the task using the provided {@link Handler}.
          *
          * @param handler The {@link Handler} to use for executing the task.
          */
-        void post(Handler handler);
+        abstract void post(Handler handler);
+
+        @Override
+        public int compareTo(@NonNull Task o) {
+            if (mRunTimeMs != o.mRunTimeMs) {
+                return Long.compare(mRunTimeMs, o.mRunTimeMs);
+            }
+            return Long.compare(mCreatedTimeNs, o.mCreatedTimeNs);
+        }
+
+        /**
+         * Returns the run time of the task.
+         */
+        public long getRunTimeMs() {
+            return mRunTimeMs;
+        }
     }
 
     /**
      * A task that sends a {@link Message} using a {@link Handler}.
      */
-    public static class MessageTask implements ITask {
+    private static class MessageTask extends Task {
         private final Message mMessage;
 
-        public MessageTask(Message message) {
+        MessageTask(Message message, long runTimeMs) {
+            super(runTimeMs);
             mMessage = message;
         }
 
@@ -108,10 +135,11 @@ public class TimerFileDescriptor {
     /**
      * A task that posts a {@link Runnable} to a {@link Handler}.
      */
-    public static class RunnableTask implements ITask {
+    private static class RunnableTask extends Task {
         private final Runnable mRunnable;
 
-        public RunnableTask(Runnable runnable) {
+        RunnableTask(Runnable runnable, long runTimeMs) {
+            super(runTimeMs);
             mRunnable = runnable;
         }
 
@@ -127,7 +155,7 @@ public class TimerFileDescriptor {
     }
 
     /**
-     * TimerFileDescriptor constructor
+     * The TimerFileDescriptor constructor
      *
      * Note: The constructor is currently safe to call on another thread because it only sets final
      * members and registers the event to be called on the handler.
@@ -137,54 +165,77 @@ public class TimerFileDescriptor {
         mParcelFileDescriptor = ParcelFileDescriptor.adoptFd(mFdInt);
         mHandler = handler;
         mQueue = handler.getLooper().getQueue();
+        mTaskQueue = new PriorityQueue<>();
         registerFdEventListener();
 
         mGuard.open("close");
     }
 
+    private boolean enqueueTask(@NonNull Task task, long delayMs) {
+        if (mTaskQueue.isEmpty() || task.getRunTimeMs() < mTaskQueue.peek().getRunTimeMs()) {
+            if (!TimerFdUtils.setExpirationTime(mFdInt, delayMs)) {
+                return false;
+            }
+        }
+        mTaskQueue.add(task);
+        return true;
+    }
+
     /**
-     * Set a task to be executed after a specified delay.
+     * Set a runnable to be executed after a specified delay.
      *
-     * <p> A task can only be scheduled once at a time. Cancel previous scheduled task before the
-     *     new task is scheduled.
-     *
-     * @param task the task to be executed
+     * @param runnable the runnable to be executed
      * @param delayMs the delay time in milliseconds
-     * @throws IllegalArgumentException if try to replace the current scheduled task
-     * @throws IllegalArgumentException if the delay time is less than 0
+     * @return true if the task is scheduled successfully, false otherwise.
      */
-    public void setDelayedTask(@NonNull ITask task, long delayMs) {
+    public boolean postDelayed(@NonNull Runnable runnable, long delayMs) {
         ensureRunningOnCorrectThread();
-        if (mTask != null) {
-            throw new IllegalArgumentException("task is already scheduled");
-        }
         if (delayMs <= 0L) {
-            task.post(mHandler);
-            return;
+            mHandler.post(runnable);
+            return true;
         }
 
-        if (TimerFdUtils.setExpirationTime(mFdInt, delayMs)) {
-            mTask = task;
-        }
+        return enqueueTask(new RunnableTask(runnable, SystemClock.elapsedRealtime() + delayMs),
+                delayMs);
     }
 
     /**
-     * Cancel the scheduled task.
+     * Remove a scheduled runnable.
+     *
+     * @param runnable the runnable to be removed
      */
-    public void cancelTask() {
+    public void removedDelayedRunnable(@NonNull Runnable runnable) {
         ensureRunningOnCorrectThread();
-        if (mTask == null) return;
-
-        TimerFdUtils.setExpirationTime(mFdInt, 0 /* delayMs */);
-        mTask = null;
+        mTaskQueue.removeIf(task -> task instanceof RunnableTask
+                && ((RunnableTask) task).mRunnable == runnable);
     }
 
     /**
-     * Check if there is a scheduled task.
+     * Set a message to be sent after a specified delay.
+     *
+     * @param msg the message to be sent
+     * @param delayMs the delay time in milliseconds
+     * @return true if the message is scheduled successfully, false otherwise.
      */
-    public boolean hasDelayedTask() {
+    public boolean sendDelayedMessage(Message msg, long delayMs) {
         ensureRunningOnCorrectThread();
-        return mTask != null;
+        if (delayMs <= 0L) {
+            mHandler.sendMessage(msg);
+            return true;
+        }
+
+        return enqueueTask(new MessageTask(msg, SystemClock.elapsedRealtime() + delayMs), delayMs);
+    }
+
+    /**
+     * Remove a scheduled message.
+     *
+     * @param what the message to be removed
+     */
+    public void removeDelayedMessage(int what) {
+        ensureRunningOnCorrectThread();
+        mTaskQueue.removeIf(task -> task instanceof MessageTask
+                && ((MessageTask) task).mMessage.what == what);
     }
 
     /**
@@ -216,10 +267,30 @@ public class TimerFileDescriptor {
     }
 
     private void handleExpiration() {
-        // Execute the task
-        if (mTask != null) {
-            mTask.post(mHandler);
-            mTask = null;
+        long currentTimeMs = SystemClock.elapsedRealtime();
+        while (!mTaskQueue.isEmpty()) {
+            final Task task = mTaskQueue.peek();
+            currentTimeMs = SystemClock.elapsedRealtime();
+            if (currentTimeMs < task.getRunTimeMs()) {
+                break;
+            }
+            task.post(mHandler);
+            mTaskQueue.poll();
+        }
+
+
+        if (!mTaskQueue.isEmpty()) {
+            // Using currentTimeMs ensures that the calculated expiration time
+            // is always positive.
+            if (!TimerFdUtils.setExpirationTime(mFdInt,
+                    mTaskQueue.peek().getRunTimeMs() - currentTimeMs)) {
+                // If setting the expiration time fails, clear the task queue.
+                mTaskQueue.clear();
+            }
+        } else {
+            // We have to clean up the timer if no tasks are left. Otherwise, the timer will keep
+            // being triggered.
+            TimerFdUtils.setExpirationTime(mFdInt, 0);
         }
     }
 
