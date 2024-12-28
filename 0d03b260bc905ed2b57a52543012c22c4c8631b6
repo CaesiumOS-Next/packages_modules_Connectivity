@@ -16,6 +16,23 @@
       "message": "https://android-review.googlesource.com/c/device/freescale/picoimx/+/203691/comments/bd63cc16_c70eced0",
       "revId": "0d03b260bc905ed2b57a52543012c22c4c8631b6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9c3ab15_f66c0a00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1340390
+      },
+      "writtenOn": "2024-12-28T18:57:23Z",
+      "side": 1,
+      "message": "Good",
+      "revId": "0d03b260bc905ed2b57a52543012c22c4c8631b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
