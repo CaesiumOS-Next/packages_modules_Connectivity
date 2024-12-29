@@ -22,6 +22,29 @@
       },
       "revId": "50c14402f629c670f500e94fb8738d3e949beb31",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "227d51ab_26cb11e3",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-29T09:01:08Z",
+      "side": 1,
+      "message": "It seems this handleExpireation() could be triggered multiple times based on my local testing, once timer expire. Could you double confirm to see if you can see similar issue locally? We may need to cleanup the timer everytime, expiration happened if it is true.",
+      "range": {
+        "startLine": 153,
+        "startChar": 24,
+        "endLine": 153,
+        "endChar": 40
+      },
+      "revId": "50c14402f629c670f500e94fb8738d3e949beb31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
