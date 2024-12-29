@@ -609,6 +609,8 @@ public class Tethering {
 
         if (type == TETHERING_BLUETOOTH && SdkLevel.isAtLeastT()) return;
 
+        if (type == TETHERING_WIFI || type == TETHERING_WIFI_P2P) return;
+
         if (enabled) {
             ensureIpServerStarted(iface);
         } else {
