@@ -384,26 +384,8 @@ public class TetheringManagerTest {
 
             assertNotNull(tetheredIface);
             assertEquals(softApConfig, tetheredIface.getSoftApConfiguration());
-            final String wifiTetheringIface = tetheredIface.getInterface();
 
             mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
-
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-                try {
-                    final int ret = runAsShell(TETHER_PRIVILEGED,
-                            () -> mTM.tether(wifiTetheringIface));
-                    // There is no guarantee that the wifi interface will be available after
-                    // disabling the hotspot, so don't fail the test if the call to tether() fails.
-                    if (ret == TETHER_ERROR_NO_ERROR) {
-                        // If calling #tether successful, there is a callback to tell the result of
-                        // tethering setup.
-                        tetherEventCallback.expectErrorOrTethered(
-                                new TetheringInterface(TETHERING_WIFI, wifiTetheringIface));
-                    }
-                } finally {
-                    runAsShell(TETHER_PRIVILEGED, () -> mTM.untether(wifiTetheringIface));
-                }
-            }
         } finally {
             mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
         }
