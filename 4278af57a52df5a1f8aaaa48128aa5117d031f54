@@ -70,6 +70,30 @@
       },
       "revId": "4278af57a52df5a1f8aaaa48128aa5117d031f54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "801e41c4_1b8fdb11",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2024-12-29T01:50:13Z",
+      "side": 1,
+      "message": "aosp/3395339 adds a DO check and we\u0027ve already merged the removal of WRITE_SETTINGS allowlisting, so it seems we should be good for permissions.",
+      "parentUuid": "796878fc_a816b659",
+      "range": {
+        "startLine": 877,
+        "startChar": 32,
+        "endLine": 877,
+        "endChar": 52
+      },
+      "revId": "4278af57a52df5a1f8aaaa48128aa5117d031f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
