@@ -603,6 +603,8 @@ public class Tethering {
 
         if (type == TETHERING_BLUETOOTH && SdkLevel.isAtLeastT()) return;
 
+        if (type == TETHERING_WIFI || type == TETHERING_WIFI_P2P) return;
+
         if (enabled) {
             ensureIpServerStarted(iface);
         } else {
@@ -1325,7 +1327,9 @@ public class Tethering {
                 case WifiManager.WIFI_AP_STATE_DISABLED:
                 case WifiManager.WIFI_AP_STATE_FAILED:
                 default:
-                    disableWifiIpServing(ifname, curState);
+                    mLog.log("Canceling WiFi tethering request - interface=" + ifname
+                            + " ipmode=" + ipmode);
+                    ensureIpServerStopped(ifname);
                     break;
             }
         }
@@ -1347,7 +1351,7 @@ public class Tethering {
 
             // if no group is formed, bring it down if needed.
             if (p2pInfo == null || !p2pInfo.groupFormed) {
-                disableWifiP2pIpServingIfNeeded(mWifiP2pTetherInterface);
+                ensureIpServerStopped(mWifiP2pTetherInterface);
                 mWifiP2pTetherInterface = null;
                 return;
             }
@@ -1363,7 +1367,7 @@ public class Tethering {
                 mLog.w("P2P tethered interface " + mWifiP2pTetherInterface
                         + "is different from current interface "
                         + group.getInterface() + ", re-tether it");
-                disableWifiP2pIpServingIfNeeded(mWifiP2pTetherInterface);
+                ensureIpServerStopped(mWifiP2pTetherInterface);
             }
 
             // Finally bring up serving on the new interface
@@ -1466,40 +1470,6 @@ public class Tethering {
         }
     }
 
-    private void disableWifiIpServingCommon(int tetheringType, String ifname) {
-        if (!TextUtils.isEmpty(ifname) && mTetherStates.containsKey(ifname)) {
-            mTetherStates.get(ifname).ipServer.unwanted();
-            return;
-        }
-
-        if (SdkLevel.isAtLeastT()) {
-            mLog.e("Tethering no longer handle untracked interface after T: " + ifname);
-            return;
-        }
-
-        // Attempt to guess the interface name before T. Pure AOSP code should never enter here
-        // because WIFI_AP_STATE_CHANGED intent always include ifname and it should be tracked
-        // by mTetherStates. In case OEMs have some modification in wifi side which pass null
-        // or empty ifname. Before T, tethering allow to disable the first wifi ipServer if
-        // given ifname don't match any tracking ipServer.
-        for (int i = 0; i < mTetherStates.size(); i++) {
-            final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
-            if (ipServer.interfaceType() == tetheringType) {
-                ipServer.unwanted();
-                return;
-            }
-        }
-        mLog.log("Error disabling Wi-Fi IP serving; "
-                + (TextUtils.isEmpty(ifname) ? "no interface name specified"
-                                           : "specified interface: " + ifname));
-    }
-
-    private void disableWifiIpServing(String ifname, int apState) {
-        mLog.log("Canceling WiFi tethering request - interface=" + ifname + " state=" + apState);
-
-        disableWifiIpServingCommon(TETHERING_WIFI, ifname);
-    }
-
     private void enableWifiP2pIpServing(String ifname) {
         if (TextUtils.isEmpty(ifname)) {
             mLog.e("Cannot enable P2P IP serving with invalid interface");
@@ -1514,13 +1484,6 @@ public class Tethering {
             return;
         }
         enableIpServing(type, ifname, IpServer.STATE_LOCAL_ONLY);
-    }
-
-    private void disableWifiP2pIpServingIfNeeded(String ifname) {
-        if (TextUtils.isEmpty(ifname)) return;
-
-        mLog.log("Canceling P2P tethering request - interface=" + ifname);
-        disableWifiIpServingCommon(TETHERING_WIFI_P2P, ifname);
     }
 
     private void enableWifiIpServing(String ifname, int wifiIpMode) {
