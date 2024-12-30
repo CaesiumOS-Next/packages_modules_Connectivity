@@ -161,6 +161,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01771e25_349cb8bd",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2024-12-30T15:11:31Z",
+      "side": 1,
+      "message": "\u003e you need a way to check whether the app has/does not have the permission at the start\n\nYes, we\u0027re planning to check all the packages and their permission state on initial boot to capture this initial state in the BPF program (some more details [here](https://docs.google.com/document/d/1NReL_Nppp9lGj0l-45pCPa5EbZk37JosU0YLf4vi5As/edit?tab\u003dt.0#bookmark\u003did.so3fbhv2b2ef)). FYI @sarup@google.com who has been working in the initial permission states, based on @zhanghai@google.com response above we should see how to properly synchronize these calls. Thanks for your input, Hai!\n\nIIUC, in most cases permission changes require user action such that by the time the user is able to change any permissions, the device has finished booting and the listener should be registered as part of intialization of the Connectivity Service. But will work with Sarup to come up with a more robust approach, as some cases (e.g. pregrant permissions) this is not guaranteed.",
+      "parentUuid": "74ada815_1c9e45bd",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9527531_cec22171",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 27
