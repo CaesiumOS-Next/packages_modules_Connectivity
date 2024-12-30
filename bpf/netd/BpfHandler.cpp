@@ -18,8 +18,9 @@
 
 #include "BpfHandler.h"
 
-#include <linux/bpf.h>
+#include <format>
 #include <inttypes.h>
+#include <linux/bpf.h>
 
 #include <android-base/unique_fd.h>
 #include <android-modules-utils/sdk_level.h>
@@ -54,10 +55,12 @@ static Status attachProgramToCgroup(const char* programPath, const unique_fd& cg
                                     bpf_attach_type type) {
     unique_fd cgroupProg(retrieveProgram(programPath));
     if (!cgroupProg.ok()) {
-        return statusFromErrno(errno, fmt::format("Failed to get program from {}", programPath));
+      return statusFromErrno(
+          errno, std::format("Failed to get program from {}", programPath));
     }
     if (android::bpf::attachProgram(type, cgroupProg, cgroupFd)) {
-        return statusFromErrno(errno, fmt::format("Program {} attach failed", programPath));
+      return statusFromErrno(
+          errno, std::format("Program {} attach failed", programPath));
     }
     return netdutils::status::ok;
 }
@@ -65,7 +68,8 @@ static Status attachProgramToCgroup(const char* programPath, const unique_fd& cg
 static Status checkProgramAccessible(const char* programPath) {
     unique_fd prog(retrieveProgram(programPath));
     if (!prog.ok()) {
-        return statusFromErrno(errno, fmt::format("Failed to get program from {}", programPath));
+      return statusFromErrno(
+          errno, std::format("Failed to get program from {}", programPath));
     }
     return netdutils::status::ok;
 }

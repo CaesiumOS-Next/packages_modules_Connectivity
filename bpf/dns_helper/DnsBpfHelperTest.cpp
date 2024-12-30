@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+#include <format>
+
 #include <gtest/gtest.h>
 #include <private/android_filesystem_config.h>
 
@@ -68,9 +70,9 @@ TEST_F(DnsBpfHelperTest, IsUidNetworkingBlocked) {
     const uint32_t uidRules;
     const int expectedResult;
     std::string toString() const {
-      return fmt::format(
-          "uid: {}, enabledRules: {}, uidRules: {}, expectedResult: {}",
-          uid, enabledRules, uidRules, expectedResult);
+      return std::format(
+          "uid: {}, enabledRules: {}, uidRules: {}, expectedResult: {}", uid,
+          enabledRules, uidRules, expectedResult);
     }
   } testConfigs[] = {
     // clang-format off
@@ -152,9 +154,9 @@ TEST_F(DnsBpfHelperTest, IsUidNetworkingBlocked_metered) {
     const uint32_t uidRules;         // Settings in uid owner map.
     const int blocked;               // Whether the UID is expected to be networking blocked or not.
     std::string toString() const {
-      return fmt::format(
-          ", enabledRules: {}, dataSaverEnabled: {},  uidRules: {}, expect blocked: {}",
-          enabledRules, dataSaverEnabled, uidRules, blocked);
+      return std::format(", enabledRules: {}, dataSaverEnabled: {},  uidRules: "
+                         "{}, expect blocked: {}",
+                         enabledRules, dataSaverEnabled, uidRules, blocked);
     }
   } testConfigs[]{
     // clang-format off

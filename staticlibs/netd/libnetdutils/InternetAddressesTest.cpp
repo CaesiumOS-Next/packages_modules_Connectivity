@@ -15,6 +15,7 @@
  */
 
 #include <cstdint>
+#include <format>
 #include <limits>
 #include <sstream>
 #include <string>
@@ -445,7 +446,8 @@ TEST(IPPrefixTest, containsPrefix) {
         const char* otherPrefix;
         const bool expected;
         std::string asParameters() const {
-            return fmt::format("prefix={}, other={}, expect={}", prefix, otherPrefix, expected);
+          return std::format("prefix={}, other={}, expect={}", prefix,
+                             otherPrefix, expected);
         }
     } testExpectations[] = {
             {"192.0.0.0/8", "192.0.0.0/8", true},
@@ -568,7 +570,8 @@ TEST(IPPrefixTest, containsAddress) {
         const char* address;
         const bool expected;
         std::string asParameters() const {
-            return fmt::format("prefix={}, address={}, expect={}", prefix, address, expected);
+          return std::format("prefix={}, address={}, expect={}", prefix,
+                             address, expected);
         }
     } testExpectations[] = {
         {"0.0.0.0/0", "255.255.255.255", true},

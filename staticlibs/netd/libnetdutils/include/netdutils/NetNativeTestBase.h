@@ -16,7 +16,8 @@
  */
 #pragma once
 
-#include <android-base/format.h>
+#include <format>
+
 #include <android-base/logging.h>
 #include "gtest/gtest.h"
 
@@ -40,7 +41,7 @@ class NetNativeTestBase : public ::testing::Test {
 
     std::string getTestCaseLog(bool running) {
         const TestInfo* const test_info = UnitTest::GetInstance()->current_test_info();
-        return fmt::format("{}: {}#{}", (running ? "started" : "finished"),
+        return std::format("{}: {}#{}", (running ? "started" : "finished"),
                            test_info->test_suite_name(), test_info->name());
     }
 };
