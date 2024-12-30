@@ -16,6 +16,24 @@
       "message": "Hi Xiaomi team\n\nCould you confirm if this cherry-picked CL will fix the problem you are facing?\n\nThanks,\n\nYuyang",
       "revId": "5eda29db3784080d4f778eb907060bedb3038f7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf879e6a_39a075a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1061057
+      },
+      "writtenOn": "2024-12-30T03:40:59Z",
+      "side": 1,
+      "message": "It\u0027s verified in b/381814937#comment19.",
+      "parentUuid": "cd8347ad_2e8152cf",
+      "revId": "5eda29db3784080d4f778eb907060bedb3038f7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
