@@ -41,6 +41,7 @@ import androidx.annotation.VisibleForTesting;
 
 import com.android.server.net.ct.DownloadHelper.DownloadStatus;
 
+import java.util.Optional;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,8 +59,9 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
     private final DataStore mDataStore;
     private final DownloadHelper mDownloadHelper;
     private final SignatureVerifier mSignatureVerifier;
-    private final CertificateTransparencyInstaller mInstaller;
     private final CertificateTransparencyLogger mLogger;
+
+    private final Map<String, CompatibilityVersion> mCompatVersions = new HashMap<>();
 
     private boolean started = false;
 
@@ -68,13 +70,11 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             DataStore dataStore,
             DownloadHelper downloadHelper,
             SignatureVerifier signatureVerifier,
-            CertificateTransparencyInstaller installer,
             CertificateTransparencyLogger logger) {
         mContext = context;
         mSignatureVerifier = signatureVerifier;
         mDataStore = dataStore;
         mDownloadHelper = downloadHelper;
-        mInstaller = installer;
         mLogger = logger;
     }
 
@@ -82,11 +82,17 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         if (started) {
             return;
         }
-        mInstaller.addCompatibilityVersion(Config.COMPATIBILITY_VERSION);
+        mCompatVersions.put(
+                Config.COMPATIBILITY_VERSION,
+                new CompatibilityVersion(
+                        Config.METADATA_URL,
+                        Config.CONTENT_URL,
+                        new File(Config.CT_ROOT_DIRECTORY_PATH, Config.COMPATIBILITY_VERSION)));
         mContext.registerReceiver(
                 this,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
                 Context.RECEIVER_EXPORTED);
+        mDataStore.load();
         started = true;
 
         if (Config.DEBUG) {
@@ -99,7 +105,10 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
         mContext.unregisterReceiver(this);
-        mInstaller.removeCompatibilityVersion(Config.COMPATIBILITY_VERSION);
+        CompatibilityVersion compatVersion = mCompatVersions.remove(versionName);
+        if (compatVersion != null && !compatVersion.delete()) {
+            Log.w(TAG, "Could not delete compatibility version directory.");
+        }
         started = false;
 
         if (Config.DEBUG) {
@@ -107,8 +116,12 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         }
     }
 
-    long startPublicKeyDownload() {
-        long downloadId = download(mDataStore.getProperty(Config.PUBLIC_KEY_URL));
+    long startPublicKeyDownload(String compatVersion) {
+        long downloadId =
+                Optional.ofNullable(mCompatVersions.get(compatVersion))
+                        .map(CompatibilityVersion::getPublicKeyUrl)
+                        .map(this::download)
+                        .orElse(-1);
         if (downloadId != -1) {
             mDataStore.setPropertyLong(Config.PUBLIC_KEY_DOWNLOAD_ID, downloadId);
             mDataStore.store();
@@ -233,6 +246,12 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
 
+        CompatibilityVersion compatVersion = mCompatVersions.get(Config.COMPATIBILITY_VERSION);
+        if (compatVersion == null) {
+            Log.e(TAG, "No compatibility version for " + compatibilityVersion);
+            return false;
+        }
+
         String version = null;
         try (InputStream inputStream = mContext.getContentResolver().openInputStream(contentUri)) {
             version =
@@ -244,7 +263,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         }
 
         try (InputStream inputStream = mContext.getContentResolver().openInputStream(contentUri)) {
-            success = mInstaller.install(Config.COMPATIBILITY_VERSION, inputStream, version);
+            success = compatVersion.install(inputStream, version);
         } catch (IOException e) {
             Log.e(TAG, "Could not install new content", e);
             return;

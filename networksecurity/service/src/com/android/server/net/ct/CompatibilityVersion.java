@@ -31,14 +31,27 @@ class CompatibilityVersion {
 
     private static final String CURRENT_LOGS_DIR_SYMLINK_NAME = "current";
 
+    private final String mMetadataUrl;
+    private final String mContentUrl;
     private final File mRootDirectory;
     private final File mCurrentLogsDirSymlink;
 
     private File mCurrentLogsDir = null;
 
-    CompatibilityVersion(File rootDirectory) {
+    CompatibilityVersion(
+            String metadataUrl, String contentUrl, File rootDirectory) {
+        mMetadataUrl = metadataUrl;
+        mContentUrl = contentUrl;
         mRootDirectory = rootDirectory;
         mCurrentLogsDirSymlink = new File(mRootDirectory, CURRENT_LOGS_DIR_SYMLINK_NAME);
+    }
+
+    public String getMetadataUrl() {
+        return mMetadataUrl;
+    }
+
+    public String getContentUrl() {
+        return mContentUrl;
     }
 
     /**
@@ -53,7 +66,7 @@ class CompatibilityVersion {
         // To support atomically replacing the old configuration directory with the new there's a
         // bunch of steps. We create a new directory with the logs and then do an atomic update of
         // the current symlink to point to the new directory.
-        // 1. Ensure that the root directory exists and is readable.
+        // 1. Ensure the path to the root directory exists and is readable.
         DirectoryUtils.makeDir(mRootDirectory);
 
         File newLogsDir = new File(mRootDirectory, LOGS_DIR_PREFIX + version);
