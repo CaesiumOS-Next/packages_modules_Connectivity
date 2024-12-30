@@ -15,8 +15,12 @@
  */
 package com.android.server.net.ct;
 
+import android.net.Uri;
 import android.system.ErrnoException;
 import android.system.Os;
+import android.util.Log;
+
+import androidx.annotation.VisibleForTesting;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,19 +30,51 @@ import java.nio.file.Files;
 /** Represents a compatibility version directory. */
 class CompatibilityVersion {
 
+    private static final String TAG = "CompatibilityVersion";
+    private static final String CURRENT_LOGS_DIR_SYMLINK_NAME = "current";
+
     static final String LOGS_DIR_PREFIX = "logs-";
     static final String LOGS_LIST_FILE_NAME = "log_list.json";
 
-    private static final String CURRENT_LOGS_DIR_SYMLINK_NAME = "current";
+    private final String mCompatVersion;
 
-    private final File mRootDirectory;
+    private final String mMetadataUrl;
+    private final String mContentUrl;
+    private final DownloadHelper mDownloadHelper;
+    private final DataStore mDataStore;
+    private final File mVersionDirectory;
     private final File mCurrentLogsDirSymlink;
 
-    private File mCurrentLogsDir = null;
+    CompatibilityVersion(
+            String compatVersion,
+            String metadataUrl,
+            String contentUrl,
+            DownloadHelper downloadHelper,
+            DataStore dataStore,
+            File rootDirectory) {
+        mCompatVersion = compatVersion;
+        mMetadataUrl = metadataUrl;
+        mContentUrl = contentUrl;
+        mDownloadHelper = downloadHelper;
+        mDataStore = dataStore;
+        mVersionDirectory = new File(rootDirectory, compatVersion);
+        mCurrentLogsDirSymlink = new File(mVersionDirectory, CURRENT_LOGS_DIR_SYMLINK_NAME);
+    }
 
-    CompatibilityVersion(File rootDirectory) {
-        mRootDirectory = rootDirectory;
-        mCurrentLogsDirSymlink = new File(mRootDirectory, CURRENT_LOGS_DIR_SYMLINK_NAME);
+    long startMetadataDownload() {
+        long downloadId = mDownloadHelper.startDownload(mMetadataUrl);
+        if (downloadId != -1) {
+            setMetadataDownloadId(downloadId);
+        }
+        return downloadId;
+    }
+
+    long startContentDownload() {
+        long downloadId = mDownloadHelper.startDownload(mContentUrl);
+        if (downloadId != -1) {
+            setContentDownloadId(downloadId);
+        }
+        return downloadId;
     }
 
     /**
@@ -53,10 +89,10 @@ class CompatibilityVersion {
         // To support atomically replacing the old configuration directory with the new there's a
         // bunch of steps. We create a new directory with the logs and then do an atomic update of
         // the current symlink to point to the new directory.
-        // 1. Ensure that the root directory exists and is readable.
-        DirectoryUtils.makeDir(mRootDirectory);
+        // 1. Ensure the path to the root directory exists and is readable.
+        DirectoryUtils.makeDir(mVersionDirectory);
 
-        File newLogsDir = new File(mRootDirectory, LOGS_DIR_PREFIX + version);
+        File newLogsDir = new File(mVersionDirectory, LOGS_DIR_PREFIX + version);
         // 2. Handle the corner case where the new directory already exists.
         if (newLogsDir.exists()) {
             // If the symlink has already been updated then the update died between steps 6 and 7
@@ -81,7 +117,7 @@ class CompatibilityVersion {
             DirectoryUtils.setWorldReadable(logListFile);
 
             // 5. Create temp symlink. We rename this to the target symlink to get an atomic update.
-            File tempSymlink = new File(mRootDirectory, "new_symlink");
+            File tempSymlink = new File(mVersionDirectory, "new_symlink");
             try {
                 Os.symlink(newLogsDir.getCanonicalPath(), tempSymlink.getCanonicalPath());
             } catch (ErrnoException e) {
@@ -95,17 +131,25 @@ class CompatibilityVersion {
             throw e;
         }
         // 7. Cleanup
-        mCurrentLogsDir = newLogsDir;
+        Log.i(TAG, "New logs installed at " + newLogsDir);
         deleteOldLogDirectories();
         return true;
     }
 
-    File getRootDir() {
-        return mRootDirectory;
+    String getCompatVersion() {
+        return mCompatVersion;
     }
 
-    File getLogsDir() {
-        return mCurrentLogsDir;
+    String getMetadataUrl() {
+        return mMetadataUrl;
+    }
+
+    String getContentUrl() {
+        return mContentUrl;
+    }
+
+    File getVersionDir() {
+        return mVersionDirectory;
     }
 
     File getLogsDirSymlink() {
@@ -113,23 +157,73 @@ class CompatibilityVersion {
     }
 
     File getLogsFile() {
-        return new File(mCurrentLogsDir, LOGS_LIST_FILE_NAME);
+        return new File(mCurrentLogsDirSymlink, LOGS_LIST_FILE_NAME);
     }
 
     boolean delete() {
-        return DirectoryUtils.removeDir(mRootDirectory);
+        return DirectoryUtils.removeDir(mVersionDirectory);
     }
 
     private void deleteOldLogDirectories() throws IOException {
-        if (!mRootDirectory.exists()) {
+        if (!mVersionDirectory.exists()) {
             return;
         }
         File currentTarget = mCurrentLogsDirSymlink.getCanonicalFile();
-        for (File file : mRootDirectory.listFiles()) {
+        for (File file : mVersionDirectory.listFiles()) {
             if (!currentTarget.equals(file.getCanonicalFile())
                     && file.getName().startsWith(LOGS_DIR_PREFIX)) {
                 DirectoryUtils.removeDir(file);
             }
         }
+    }
+
+    @VisibleForTesting
+    long getMetadataDownloadId() {
+        return mDataStore.getPropertyLong(mCompatVersion + "_" + Config.METADATA_DOWNLOAD_ID, -1);
+    }
+
+    @VisibleForTesting
+    void setMetadataDownloadId(long downloadId) {
+        mDataStore.setPropertyLong(mCompatVersion + "_" + Config.METADATA_DOWNLOAD_ID, downloadId);
+        mDataStore.store();
+    }
+
+    @VisibleForTesting
+    long getContentDownloadId() {
+        return mDataStore.getPropertyLong(mCompatVersion + "_" + Config.CONTENT_DOWNLOAD_ID, -1);
+    }
+
+    @VisibleForTesting
+    void setContentDownloadId(long downloadId) {
+        mDataStore.setPropertyLong(mCompatVersion + "_" + Config.CONTENT_DOWNLOAD_ID, downloadId);
+        mDataStore.store();
+    }
+
+    @VisibleForTesting
+    boolean hasMetadataDownloadId() {
+        return getMetadataDownloadId() != -1;
+    }
+
+    @VisibleForTesting
+    boolean hasContentDownloadId() {
+        return getContentDownloadId() != -1;
+    }
+
+    @VisibleForTesting
+    boolean isMetadataDownloadId(long downloadId) {
+        return getMetadataDownloadId() == downloadId;
+    }
+
+    @VisibleForTesting
+    boolean isContentDownloadId(long downloadId) {
+        return getContentDownloadId() == downloadId;
+    }
+
+    Uri getMetadataDownloadUri() {
+        return mDownloadHelper.getUri(getMetadataDownloadId());
+    }
+
+    Uri getContentDownloadUri() {
+        return mDownloadHelper.getUri(getContentDownloadId());
     }
 }
