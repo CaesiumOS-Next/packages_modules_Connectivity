@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c78f1e9_f9bdde39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2024-12-30T01:59:12Z",
+      "side": 1,
+      "message": "It seems this revert is not get auto merged to git_main?\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/Android.bp;l\u003d443;bpv\u003d1;bpt\u003d0",
+      "revId": "a481dc184fd75f5118578624b5c0ed8ec24cdf7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
