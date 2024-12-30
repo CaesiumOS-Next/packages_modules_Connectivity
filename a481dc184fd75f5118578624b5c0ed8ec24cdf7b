@@ -16,6 +16,24 @@
       "message": "It seems this revert is not get auto merged to git_main?\n\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/Android.bp;l\u003d443;bpv\u003d1;bpt\u003d0",
       "revId": "a481dc184fd75f5118578624b5c0ed8ec24cdf7b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7135c9fe_c3424a21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-30T02:35:42Z",
+      "side": 1,
+      "message": "I think the automerger is stuck. You can see that the change that was merged earlier than this change has just been automerged into git_main. Perhaps wait for a while to see if this change gets automerged.\n\nhttps://googleplex-android-review.git.corp.google.com/q/project:platform/packages/modules/Connectivity+(branch:aosp-main-future+OR+branch:main)",
+      "parentUuid": "3c78f1e9_f9bdde39",
+      "revId": "a481dc184fd75f5118578624b5c0ed8ec24cdf7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
