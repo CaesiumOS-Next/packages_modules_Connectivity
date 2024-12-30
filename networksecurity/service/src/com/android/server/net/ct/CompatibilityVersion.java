@@ -15,8 +15,11 @@
  */
 package com.android.server.net.ct;
 
+import android.net.Uri;
 import android.system.ErrnoException;
 import android.system.Os;
+
+import androidx.annotation.VisibleForTesting;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,14 +34,47 @@ class CompatibilityVersion {
 
     private static final String CURRENT_LOGS_DIR_SYMLINK_NAME = "current";
 
+    private final String mCompatVersion;
+
+    private final String mMetadataUrl;
+    private final String mContentUrl;
+    private final DownloadHelper mDownloadHelper;
+    private final DataStore mDataStore;
     private final File mRootDirectory;
     private final File mCurrentLogsDirSymlink;
 
     private File mCurrentLogsDir = null;
 
-    CompatibilityVersion(File rootDirectory) {
+    CompatibilityVersion(
+            String compatVersion,
+            String metadataUrl,
+            String contentUrl,
+            DownloadHelper downloadHelper,
+            DataStore dataStore,
+            File rootDirectory) {
+        mCompatVersion = compatVersion;
+        mMetadataUrl = metadataUrl;
+        mContentUrl = contentUrl;
+        mDownloadHelper = downloadHelper;
+        mDataStore = dataStore;
         mRootDirectory = rootDirectory;
         mCurrentLogsDirSymlink = new File(mRootDirectory, CURRENT_LOGS_DIR_SYMLINK_NAME);
+    }
+
+    long startMetadataDownload() {
+        long downloadId = mDownloadHelper.startDownload(mMetadataUrl);
+        if (downloadId != -1) {
+            setMetadataDownloadId(downloadId);
+        }
+        return downloadId;
+    }
+
+    long startContentDownload() {
+        long downloadId = mDownloadHelper.startDownload(mContentUrl);
+        if (downloadId != -1) {
+            setContentDownloadId(downloadId);
+        }
+        return downloadId;
     }
 
     /**
@@ -53,7 +89,7 @@ class CompatibilityVersion {
         // To support atomically replacing the old configuration directory with the new there's a
         // bunch of steps. We create a new directory with the logs and then do an atomic update of
         // the current symlink to point to the new directory.
-        // 1. Ensure that the root directory exists and is readable.
+        // 1. Ensure the path to the root directory exists and is readable.
         DirectoryUtils.makeDir(mRootDirectory);
 
         File newLogsDir = new File(mRootDirectory, LOGS_DIR_PREFIX + version);
@@ -100,6 +136,18 @@ class CompatibilityVersion {
         return true;
     }
 
+    String getCompatVersion() {
+        return mCompatVersion;
+    }
+
+    String getMetadataUrl() {
+        return mMetadataUrl;
+    }
+
+    String getContentUrl() {
+        return mContentUrl;
+    }
+
     File getRootDir() {
         return mRootDirectory;
     }
@@ -131,5 +179,55 @@ class CompatibilityVersion {
                 DirectoryUtils.removeDir(file);
             }
         }
+    }
+
+    @VisibleForTesting
+    long getMetadataDownloadId() {
+        return mDataStore.getPropertyLong(mCompatVersion + "_" + Config.METADATA_DOWNLOAD_ID, -1);
+    }
+
+    @VisibleForTesting
+    void setMetadataDownloadId(long downloadId) {
+        mDataStore.setPropertyLong(mCompatVersion + "_" + Config.METADATA_DOWNLOAD_ID, downloadId);
+        mDataStore.store();
+    }
+
+    @VisibleForTesting
+    long getContentDownloadId() {
+        return mDataStore.getPropertyLong(mCompatVersion + "_" + Config.CONTENT_DOWNLOAD_ID, -1);
+    }
+
+    @VisibleForTesting
+    void setContentDownloadId(long downloadId) {
+        mDataStore.setPropertyLong(mCompatVersion + "_" + Config.CONTENT_DOWNLOAD_ID, downloadId);
+        mDataStore.store();
+    }
+
+    @VisibleForTesting
+    boolean hasMetadataDownloadId() {
+        return getMetadataDownloadId() != -1;
+    }
+
+    @VisibleForTesting
+    boolean hasContentDownloadId() {
+        return getContentDownloadId() != -1;
+    }
+
+    @VisibleForTesting
+    boolean isMetadataDownloadId(long downloadId) {
+        return getMetadataDownloadId() == downloadId;
+    }
+
+    @VisibleForTesting
+    boolean isContentDownloadId(long downloadId) {
+        return getContentDownloadId() == downloadId;
+    }
+
+    Uri getMetadataDownloadUri() {
+        return mDownloadHelper.getUri(getMetadataDownloadId());
+    }
+
+    Uri getContentDownloadUri() {
+        return mDownloadHelper.getUri(getContentDownloadId());
     }
 }

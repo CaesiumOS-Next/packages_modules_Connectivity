@@ -46,10 +46,13 @@ import com.android.server.net.ct.DownloadHelper.DownloadStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Helper class to download certificate transparency log files. */
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
@@ -61,8 +64,9 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
     private final DataStore mDataStore;
     private final DownloadHelper mDownloadHelper;
     private final SignatureVerifier mSignatureVerifier;
-    private final CertificateTransparencyInstaller mInstaller;
     private final CertificateTransparencyLogger mLogger;
+
+    private final List<CompatibilityVersion> mCompatVersions = new ArrayList<>();
 
     private boolean started = false;
 
@@ -71,13 +75,11 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             DataStore dataStore,
             DownloadHelper downloadHelper,
             SignatureVerifier signatureVerifier,
-            CertificateTransparencyInstaller installer,
             CertificateTransparencyLogger logger) {
         mContext = context;
         mSignatureVerifier = signatureVerifier;
         mDataStore = dataStore;
         mDownloadHelper = downloadHelper;
-        mInstaller = installer;
         mLogger = logger;
     }
 
@@ -85,11 +87,19 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         if (started) {
             return;
         }
-        mInstaller.addCompatibilityVersion(Config.COMPATIBILITY_VERSION);
+        mCompatVersions.add(
+                new CompatibilityVersion(
+                        Config.COMPATIBILITY_VERSION,
+                        Config.METADATA_URL,
+                        Config.CONTENT_URL,
+                        mDownloadHelper,
+                        mDataStore,
+                        new File(Config.CT_ROOT_DIRECTORY_PATH, Config.COMPATIBILITY_VERSION)));
         mContext.registerReceiver(
                 this,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
                 Context.RECEIVER_EXPORTED);
+        mDataStore.load();
         started = true;
 
         if (Config.DEBUG) {
@@ -102,7 +112,17 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
         mContext.unregisterReceiver(this);
-        mInstaller.removeCompatibilityVersion(Config.COMPATIBILITY_VERSION);
+        mCompatVersions.stream()
+                .forEach(
+                        compatVersion -> {
+                            if (!compatVersion.delete()) {
+                                Log.w(
+                                        TAG,
+                                        "Could not delete directory for compatibility version "
+                                                + compatVersion.getCompatVersion());
+                            }
+                        });
+        mCompatVersions.clear();
         started = false;
 
         if (Config.DEBUG) {
@@ -119,22 +139,14 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         return downloadId;
     }
 
-    long startMetadataDownload() {
-        long downloadId = download(mDataStore.getProperty(Config.METADATA_URL));
-        if (downloadId != -1) {
-            mDataStore.setPropertyLong(Config.METADATA_DOWNLOAD_ID, downloadId);
-            mDataStore.store();
+    void startMetadataDownload() {
+        for (CompatibilityVersion compatVersion : mCompatVersions) {
+            if (compatVersion.startMetadataDownload() == -1) {
+                Log.e(TAG, "Metadata download not started for " + compatVersion.getCompatVersion());
+            } else if (Config.DEBUG) {
+                Log.d(TAG, "Metadata download started for " + compatVersion.getCompatVersion());
+            }
         }
-        return downloadId;
-    }
-
-    long startContentDownload() {
-        long downloadId = download(mDataStore.getProperty(Config.CONTENT_URL));
-        if (downloadId != -1) {
-            mDataStore.setPropertyLong(Config.CONTENT_DOWNLOAD_ID, downloadId);
-            mDataStore.store();
-        }
-        return downloadId;
     }
 
     @Override
@@ -156,14 +168,16 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
 
-        if (isMetadataDownloadId(completedId)) {
-            handleMetadataDownloadCompleted(completedId);
-            return;
-        }
+        for (CompatibilityVersion compatVersion : mCompatVersions) {
+            if (compatVersion.isMetadataDownloadId(completedId)) {
+                handleMetadataDownloadCompleted(compatVersion, completedId);
+                return;
+            }
 
-        if (isContentDownloadId(completedId)) {
-            handleContentDownloadCompleted(completedId);
-            return;
+            if (compatVersion.isContentDownloadId(completedId)) {
+                handleContentDownloadCompleted(compatVersion, completedId);
+                return;
+            }
         }
 
         Log.i(TAG, "Download id " + completedId + " is not recognized.");
@@ -189,35 +203,33 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
 
-        if (startMetadataDownload() == -1) {
-            Log.e(TAG, "Metadata download not started.");
-        } else if (Config.DEBUG) {
-            Log.d(TAG, "Metadata download started successfully.");
-        }
+        startMetadataDownload();
     }
 
-    private void handleMetadataDownloadCompleted(long downloadId) {
+    private void handleMetadataDownloadCompleted(
+            CompatibilityVersion compatVersion, long downloadId) {
         DownloadStatus status = mDownloadHelper.getDownloadStatus(downloadId);
         if (!status.isSuccessful()) {
             handleDownloadFailed(status);
             return;
         }
-        if (startContentDownload() == -1) {
-            Log.e(TAG, "Content download not started.");
+        if (compatVersion.startContentDownload() == -1) {
+            Log.e(TAG, "Content download failed for" + compatVersion.getCompatVersion());
         } else if (Config.DEBUG) {
-            Log.d(TAG, "Content download started successfully.");
+            Log.d(TAG, "Content download started for" + compatVersion.getCompatVersion());
         }
     }
 
-    private void handleContentDownloadCompleted(long downloadId) {
+    private void handleContentDownloadCompleted(
+            CompatibilityVersion compatVersion, long downloadId) {
         DownloadStatus status = mDownloadHelper.getDownloadStatus(downloadId);
         if (!status.isSuccessful()) {
             handleDownloadFailed(status);
             return;
         }
 
-        Uri contentUri = getContentDownloadUri();
-        Uri metadataUri = getMetadataDownloadUri();
+        Uri contentUri = compatVersion.getContentDownloadUri();
+        Uri metadataUri = compatVersion.getMetadataDownloadUri();
         if (contentUri == null || metadataUri == null) {
             Log.e(TAG, "Invalid URIs");
             return;
@@ -234,8 +246,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
                 mLogger.logCTLogListUpdateFailedEvent(
                         CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_SIGNATURE_NOT_FOUND,
                         mDataStore.getPropertyInt(
-                            Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0)
-                );
+                                Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0));
             }
         } catch (InvalidKeyException e) {
             if (updateFailureCount()) {
@@ -243,8 +254,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
                 mLogger.logCTLogListUpdateFailedEvent(
                         CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_SIGNATURE_VERIFICATION,
                         mDataStore.getPropertyInt(
-                            Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0)
-                );
+                                Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0));
             }
         } catch (IOException | GeneralSecurityException e) {
             Log.e(TAG, "Could not verify new log list", e);
@@ -258,7 +268,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
                 mLogger.logCTLogListUpdateFailedEvent(
                         CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_SIGNATURE_VERIFICATION,
                         mDataStore.getPropertyInt(
-                            Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0));
+                                Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0));
             }
             return;
         }
@@ -274,16 +284,13 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         }
 
         try (InputStream inputStream = mContext.getContentResolver().openInputStream(contentUri)) {
-            success = mInstaller.install(Config.COMPATIBILITY_VERSION, inputStream, version);
+            success = compatVersion.install(inputStream, version);
         } catch (IOException e) {
             Log.e(TAG, "Could not install new content", e);
             return;
         }
 
         if (success) {
-            // Update information about the stored version on successful install.
-            mDataStore.setProperty(Config.VERSION, version);
-
             // Reset the number of consecutive log list failure updates back to zero.
             mDataStore.setPropertyInt(Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* value= */ 0);
             mDataStore.store();
@@ -378,28 +385,8 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
     }
 
     @VisibleForTesting
-    long getMetadataDownloadId() {
-        return mDataStore.getPropertyLong(Config.METADATA_DOWNLOAD_ID, -1);
-    }
-
-    @VisibleForTesting
-    long getContentDownloadId() {
-        return mDataStore.getPropertyLong(Config.CONTENT_DOWNLOAD_ID, -1);
-    }
-
-    @VisibleForTesting
     boolean hasPublicKeyDownloadId() {
         return getPublicKeyDownloadId() != -1;
-    }
-
-    @VisibleForTesting
-    boolean hasMetadataDownloadId() {
-        return getMetadataDownloadId() != -1;
-    }
-
-    @VisibleForTesting
-    boolean hasContentDownloadId() {
-        return getContentDownloadId() != -1;
     }
 
     @VisibleForTesting
@@ -407,25 +394,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         return getPublicKeyDownloadId() == downloadId;
     }
 
-    @VisibleForTesting
-    boolean isMetadataDownloadId(long downloadId) {
-        return getMetadataDownloadId() == downloadId;
-    }
-
-    @VisibleForTesting
-    boolean isContentDownloadId(long downloadId) {
-        return getContentDownloadId() == downloadId;
-    }
-
     private Uri getPublicKeyDownloadUri() {
         return mDownloadHelper.getUri(getPublicKeyDownloadId());
-    }
-
-    private Uri getMetadataDownloadUri() {
-        return mDownloadHelper.getUri(getMetadataDownloadId());
-    }
-
-    private Uri getContentDownloadUri() {
-        return mDownloadHelper.getUri(getContentDownloadId());
     }
 }
