@@ -34,7 +34,6 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
     private static final String TAG = "CertificateTransparencyJob";
 
     private final Context mContext;
-    private final DataStore mDataStore;
     private final CertificateTransparencyDownloader mCertificateTransparencyDownloader;
     private final AlarmManager mAlarmManager;
     private final PendingIntent mPendingIntent;
@@ -43,11 +42,8 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
 
     /** Creates a new {@link CertificateTransparencyJob} object. */
     public CertificateTransparencyJob(
-            Context context,
-            DataStore dataStore,
-            CertificateTransparencyDownloader certificateTransparencyDownloader) {
+            Context context, CertificateTransparencyDownloader certificateTransparencyDownloader) {
         mContext = context;
-        mDataStore = dataStore;
         mCertificateTransparencyDownloader = certificateTransparencyDownloader;
         mAlarmManager = context.getSystemService(AlarmManager.class);
         mPendingIntent =
@@ -95,15 +91,9 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
             Log.d(TAG, "Starting CT daily job.");
         }
         if (!mDependenciesReady) {
-            mDataStore.load();
             mCertificateTransparencyDownloader.start();
             mDependenciesReady = true;
         }
-
-        mDataStore.setProperty(Config.CONTENT_URL, Config.URL_LOG_LIST);
-        mDataStore.setProperty(Config.METADATA_URL, Config.URL_SIGNATURE);
-        mDataStore.setProperty(Config.PUBLIC_KEY_URL, Config.URL_PUBLIC_KEY);
-        mDataStore.store();
 
         if (mCertificateTransparencyDownloader.startPublicKeyDownload() == -1) {
             Log.e(TAG, "Public key download not started.");
