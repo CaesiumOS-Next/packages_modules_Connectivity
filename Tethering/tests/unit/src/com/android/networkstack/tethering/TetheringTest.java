@@ -987,7 +987,7 @@ public class TetheringTest {
         verify(mNetd, times(1)).interfaceGetList();
 
         // Event callback should receive selected upstream
-        verify(mUpstreamNetworkMonitor, times(1)).getCurrentPreferredUpstream();
+        verify(mUpstreamNetworkMonitor, atLeast(1)).getCurrentPreferredUpstream();
         mTetheringEventCallback.expectUpstreamChanged(upstreamState.network);
     }
 
@@ -1243,7 +1243,7 @@ public class TetheringTest {
 
         // UpstreamNetworkMonitor should choose upstream automatically
         // (in this specific case: choose the default network).
-        verify(mUpstreamNetworkMonitor, times(1)).getCurrentPreferredUpstream();
+        verify(mUpstreamNetworkMonitor, atLeast(1)).getCurrentPreferredUpstream();
         verify(mUpstreamNetworkMonitor, never()).selectPreferredUpstreamType(any());
 
         mTetheringEventCallback.expectUpstreamChanged(upstreamState.network);
@@ -2609,7 +2609,7 @@ public class TetheringTest {
         verify(mNetd, times(3)).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd, times(1)).tetherStop();
         verify(mNetd, times(1)).ipfwdDisableForwarding(TETHERING_NAME);
-        verify(mUpstreamNetworkMonitor, never()).getCurrentPreferredUpstream();
+        verify(mUpstreamNetworkMonitor, atLeast(1)).getCurrentPreferredUpstream();
         verify(mUpstreamNetworkMonitor, never()).selectPreferredUpstreamType(any());
         verifyNoMoreInteractions(mNetd);
         // Asking for the last error after the per-interface state machine

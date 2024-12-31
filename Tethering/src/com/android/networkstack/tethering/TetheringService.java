@@ -39,6 +39,7 @@ import android.net.INetworkStackConnector;
 import android.net.ITetheringConnector;
 import android.net.ITetheringEventCallback;
 import android.net.NetworkStack;
+import android.net.TetheringConfigurationParcel;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringRequestParcel;
 import android.net.dhcp.DhcpServerCallbacks;
@@ -225,6 +226,19 @@ public class TetheringService extends Service {
             }
 
             mTethering.setPreferTestNetworks(prefer, listener);
+        }
+
+        @Override
+        public void setTetheringConfigurationForTest(@Nullable TetheringConfigurationParcel config,
+                @NonNull IIntResultListener listener) {
+            if (!checkCallingOrSelfPermission(NETWORK_SETTINGS)) {
+                try {
+                    listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+                } catch (RemoteException e) { }
+                return;
+            }
+
+            mTethering.setTetheringConfigurationForTest(config, listener);
         }
 
         @Override

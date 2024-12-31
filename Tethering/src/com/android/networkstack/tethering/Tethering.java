@@ -26,6 +26,7 @@ import static android.hardware.usb.UsbManager.USB_FUNCTION_RNDIS;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
+import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.TetheringManager.ACTION_TETHER_STATE_CHANGED;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
@@ -265,6 +266,12 @@ public class Tethering {
     private int mActiveDataSubId = INVALID_SUBSCRIPTION_ID;
 
     private volatile TetheringConfiguration mConfig;
+
+    // For test purpose, stores the test config.
+    // This will be used when generating TetheringConfiguration if the upstream is a test network.
+    @Nullable
+    private TetheringConfigurationParcel mConfigParcelForTest;
+
     private InterfaceSet mCurrentUpstreamIfaceSet;
 
     private boolean mRndisEnabled;       // track the RNDIS function enabled state
@@ -547,10 +554,25 @@ public class Tethering {
 
     // NOTE: This is always invoked on the mLooper thread.
     private void updateConfiguration() {
-        mConfig = mDeps.generateTetheringConfiguration(mContext, mLog, mActiveDataSubId);
+        final UpstreamNetworkState ns = mUpstreamNetworkMonitor.getCurrentPreferredUpstream();
+        final TetheringConfiguration config;
+        if (mConfigParcelForTest != null && ns != null && ns.networkCapabilities != null
+                && ns.networkCapabilities.hasTransport(TRANSPORT_TEST)) {
+            Log.d(TAG, "Applying test config: " + mConfigParcelForTest);
+            config = mDeps.generateTetheringConfigurationForTest(mContext, mLog,
+                    mActiveDataSubId, mConfigParcelForTest);
+        } else {
+            config = mDeps.generateTetheringConfiguration(mContext, mLog, mActiveDataSubId);
+        }
+        final boolean isConfigChanged = config.equals(mConfig);
+        // mConfig needs to be set before updateSupportedDownstreams, because
+        // EntitlementManager fetches mConfig.
+        mConfig = config;
         mUpstreamNetworkMonitor.setUpstreamConfig(mConfig.chooseUpstreamAutomatically,
                 mConfig.isDunRequired);
-        reportConfigurationChanged(mConfig.toStableParcelable());
+        if (isConfigChanged) {
+            reportConfigurationChanged(mConfig.toStableParcelable());
+        }
 
         updateSupportedDownstreams(mConfig);
     }
@@ -2069,6 +2091,12 @@ public class Tethering {
                 return;
             }
 
+            // This could be either capabilities change or lost for the current upstream.
+            if (ns.networkCapabilities.hasTransport(TRANSPORT_TEST)) {
+                updateConfiguration();
+                mEntitlementMgr.reevaluateSimCardProvisioning(mConfig);
+            }
+
             switch (arg1) {
                 case UpstreamNetworkMonitor.EVENT_ON_CAPABILITIES:
                     if (ns.network.equals(mTetherUpstream)) {
@@ -2138,6 +2166,8 @@ public class Tethering {
                     mNotificationUpdater.onUpstreamCapabilitiesChanged(null);
                 }
                 mTetheringMetrics.cleanup();
+                // Update configuration in case the test config is still effective.
+                updateConfiguration();
             }
 
             private boolean updateUpstreamWanted() {
@@ -2879,6 +2909,18 @@ public class Tethering {
     void setPreferTestNetworks(final boolean prefer, IIntResultListener listener) {
         mHandler.post(() -> {
             mUpstreamNetworkMonitor.setPreferTestNetworks(prefer);
+            try {
+                listener.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) { }
+        });
+    }
+
+    void setTetheringConfigurationForTest(final TetheringConfigurationParcel config,
+            final IIntResultListener listener) {
+        mHandler.post(() -> {
+            mConfigParcelForTest = config;
+            // Update config in case the test network is already up.
+            updateConfiguration();
             try {
                 listener.onResult(TETHER_ERROR_NO_ERROR);
             } catch (RemoteException e) { }
