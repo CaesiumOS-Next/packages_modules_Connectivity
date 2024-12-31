@@ -23,6 +23,7 @@ import android.bluetooth.BluetoothPan;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.INetd;
+import android.net.TetheringConfigurationParcel;
 import android.net.connectivity.ConnectivityInternalApiUtil;
 import android.net.ip.IpServer;
 import android.os.Binder;
@@ -110,6 +111,15 @@ public abstract class TetheringDependencies {
     public EntitlementManager makeEntitlementManager(Context ctx, Handler h, SharedLog log,
             Runnable callback) {
         return new EntitlementManager(ctx, h, log, callback);
+    }
+
+    /**
+     * Generate a new TetheringConfiguration according to test config and other parameters.
+     */
+    public TetheringConfiguration generateTetheringConfigurationForTest(Context ctx, SharedLog log,
+            int subId, TetheringConfigurationParcel testConfigParcel) {
+        return new TetheringConfiguration(ctx, log, subId,
+                new TetheringConfiguration.Dependencies(), testConfigParcel);
     }
 
     /**
