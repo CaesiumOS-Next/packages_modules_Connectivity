@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c7ec41d_1ba507a2",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-31T08:52:53Z",
+      "side": 1,
+      "message": "Suggest placing `stopEthernetTethering` in the `finally` block to ensure it\u0027s called even if the callback checks fail.",
+      "range": {
+        "startLine": 1275,
+        "startChar": 12,
+        "endLine": 1275,
+        "endChar": 33
+      },
+      "revId": "e7341be803d9b24213f025efc7dce835481b0506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3abd510_113f58b0",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2024-12-31T08:52:53Z",
+      "side": 1,
+      "message": "Consider using the public field `mDownstreamIface` to store the test interface. This will ensure the interface is closed automatically in the cleanup method.",
+      "range": {
+        "startLine": 1280,
+        "startChar": 36,
+        "endLine": 1280,
+        "endChar": 51
+      },
+      "revId": "e7341be803d9b24213f025efc7dce835481b0506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
