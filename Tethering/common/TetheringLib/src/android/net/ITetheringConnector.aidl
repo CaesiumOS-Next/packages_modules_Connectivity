@@ -17,6 +17,7 @@ package android.net;
 
 import android.net.IIntResultListener;
 import android.net.ITetheringEventCallback;
+import android.net.TetheringConfigurationParcel;
 import android.net.TetheringRequestParcel;
 import android.os.ResultReceiver;
 
@@ -51,4 +52,7 @@ oneway interface ITetheringConnector {
             IIntResultListener receiver);
 
     void setPreferTestNetworks(boolean prefer, IIntResultListener listener);
+
+    void setTetheringConfigurationForTest(in TetheringConfigurationParcel config,
+            IIntResultListener listener);
 }

@@ -28,6 +28,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -132,6 +133,8 @@ public class UpstreamNetworkMonitor {
 
     // Whether the current default upstream is mobile or not.
     private boolean mIsDefaultCellularUpstream;
+    // Whether the current default upstream is a test network.
+    private boolean mIsDefaultTestUpstream;
     // The current system default network (not really used yet).
     private Network mDefaultInternetNetwork;
     private boolean mPreferTestNetworks;
@@ -143,6 +146,7 @@ public class UpstreamNetworkMonitor {
         mEventListener = listener;
         mLocalPrefixes = new HashSet<>();
         mIsDefaultCellularUpstream = false;
+        mIsDefaultTestUpstream = false;
         mCM = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
@@ -524,9 +528,12 @@ public class UpstreamNetworkMonitor {
                 // This code runs when the default network connects or changes capabilities, but the
                 // default network might not be the tethering upstream.
                 final boolean newIsCellular = isCellular(newNc);
-                if (mIsDefaultCellularUpstream != newIsCellular) {
+                final boolean newIsTest = newNc.hasTransport(TRANSPORT_TEST);
+                if (mIsDefaultCellularUpstream != newIsCellular
+                        || mIsDefaultTestUpstream != newIsTest) {
                     mIsDefaultCellularUpstream = newIsCellular;
-                    mEntitlementMgr.notifyUpstream(newIsCellular);
+                    mIsDefaultTestUpstream = newIsTest;
+                    mEntitlementMgr.notifyUpstream(newIsCellular || newIsTest);
                 }
                 return;
             }

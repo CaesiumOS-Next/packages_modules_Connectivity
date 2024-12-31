@@ -56,6 +56,7 @@ import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.util.SparseIntArray;
 
 import androidx.annotation.Nullable;
@@ -111,7 +112,7 @@ public class EntitlementManager {
     private final Runnable mPermissionChangeCallback;
     private PendingIntent mProvisioningRecheckAlarm;
     private boolean mLastCellularUpstreamPermitted = true;
-    private boolean mUsingCellularAsUpstream = false;
+    private boolean mUpstreamMayNeedProvisioning = false;
     private boolean mNeedReRunProvisioningUi = false;
     private OnTetherProvisioningFailedListener mListener;
     private TetheringConfigurationFetcher mFetcher;
@@ -337,7 +338,7 @@ public class EntitlementManager {
 
         // If upstream is not cellular, provisioning app would not be launched
         // till upstream change to cellular.
-        if (mUsingCellularAsUpstream) {
+        if (mUpstreamMayNeedProvisioning) {
             runTetheringProvisioning(showProvisioningUi, downstreamType, config);
             mNeedReRunProvisioningUi = false;
         } else {
@@ -362,19 +363,20 @@ public class EntitlementManager {
     }
 
     /**
-     * Notify EntitlementManager if upstream is cellular or not.
+     * Notify EntitlementManager if upstream may need provisioning.
      *
-     * @param isCellular whether tethering upstream is cellular.
+     * @param upstreamMayNeedProvisioning whether tethering upstream may need provisioning.
      */
-    public void notifyUpstream(boolean isCellular) {
+    public void notifyUpstream(boolean upstreamMayNeedProvisioning) {
         if (DBG) {
-            mLog.i("notifyUpstream: " + isCellular
+            mLog.i("notifyUpstream: " + upstreamMayNeedProvisioning
                     + ", mLastCellularUpstreamPermitted: " + mLastCellularUpstreamPermitted
                     + ", mNeedReRunProvisioningUi: " + mNeedReRunProvisioningUi);
         }
-        mUsingCellularAsUpstream = isCellular;
 
-        if (mUsingCellularAsUpstream) {
+        if (mUpstreamMayNeedProvisioning != upstreamMayNeedProvisioning) {
+            Log.d(TAG, "notifyUpstream " + upstreamMayNeedProvisioning);
+            mUpstreamMayNeedProvisioning = upstreamMayNeedProvisioning;
             final TetheringConfiguration config = mFetcher.fetchTetheringConfiguration();
             maybeRunProvisioning(config);
         }
@@ -495,7 +497,7 @@ public class EntitlementManager {
             return;
         }
 
-        if (mUsingCellularAsUpstream) {
+        if (mUpstreamMayNeedProvisioning) {
             maybeRunProvisioning(config);
         }
     }
