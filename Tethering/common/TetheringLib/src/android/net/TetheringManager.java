@@ -2103,4 +2103,27 @@ public class TetheringManager {
             }
         }, this);
     }
+
+    /**
+     * Set tethering configuration for test only. After configuration change, there is
+     * onConfiugrationChanged form TetheringEventCallback. Passing null TetheringConfigurationParcel
+     * could reset tested configuration back to normal configuration.
+     *
+     * @throws SecurityException If the caller doesn't have the NETWORK_SETTINGS permission.
+     * @hide
+     */
+    @RequiresPermission(android.Manifest.permission.NETWORK_SETTINGS)
+    public void setTetheringConfigurationForTest(
+            @Nullable final TetheringConfigurationParcel config) {
+        Log.i(TAG, "setTetheringConfigurationForTest caller: " + mContext.getOpPackageName());
+
+        final RequestDispatcher dispatcher = new RequestDispatcher();
+        dispatcher.waitForResult((connector, listener) -> {
+            try {
+                connector.setTetheringConfigurationForTest(config, listener);
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+        }, this);
+    }
 }

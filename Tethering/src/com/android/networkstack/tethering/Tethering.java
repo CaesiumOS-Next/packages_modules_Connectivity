@@ -265,6 +265,12 @@ public class Tethering {
     private int mActiveDataSubId = INVALID_SUBSCRIPTION_ID;
 
     private volatile TetheringConfiguration mConfig;
+
+    // For test purpose, stores the test config.
+    // This will be fetched by entitlement manager if the upstream is a test network.
+    @Nullable
+    private TetheringConfiguration mConfigForTest;
+
     private InterfaceSet mCurrentUpstreamIfaceSet;
 
     private boolean mRndisEnabled;       // track the RNDIS function enabled state
@@ -338,7 +344,12 @@ public class Tethering {
             stopTethering(downstream);
         });
         mEntitlementMgr.setTetheringConfigurationFetcher(() -> {
-            return mConfig;
+            final UpstreamNetworkState ns = mUpstreamNetworkMonitor.getCurrentPreferredUpstream();
+            if (UpstreamNetworkMonitor.isTestNetwork(ns) && mConfigForTest != null) {
+                return mConfigForTest;
+            } else {
+                return mConfig;
+            }
         });
 
         mCarrierConfigChange = new VersionedBroadcastListener(
@@ -2879,6 +2890,17 @@ public class Tethering {
     void setPreferTestNetworks(final boolean prefer, IIntResultListener listener) {
         mHandler.post(() -> {
             mUpstreamNetworkMonitor.setPreferTestNetworks(prefer);
+            try {
+                listener.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) { }
+        });
+    }
+
+    void setTetheringConfigurationForTest(final TetheringConfigurationParcel config,
+            final IIntResultListener listener) {
+        mHandler.post(() -> {
+            mConfigForTest = new TetheringConfiguration(mContext, mLog, mActiveDataSubId,
+                    new TetheringConfiguration.Dependencies(), config);
             try {
                 listener.onResult(TETHER_ERROR_NO_ERROR);
             } catch (RemoteException e) { }
