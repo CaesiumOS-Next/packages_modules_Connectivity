@@ -16,6 +16,24 @@
       "message": "@sunytt@google.com Shall we abandon this CL?",
       "revId": "5c10181cd868bcc51d2c0a55dc738df8c49dc2b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7650179e_2f8ada97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2025-01-02T08:50:21Z",
+      "side": 1,
+      "message": "Yes, given the test has been quite stable for a few months.",
+      "parentUuid": "8b80cd09_bbf195ff",
+      "revId": "5c10181cd868bcc51d2c0a55dc738df8c49dc2b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
