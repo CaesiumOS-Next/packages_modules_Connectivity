@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf0e7616_eec6b73e",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-01-02T08:41:55Z",
+      "side": 1,
+      "message": "Shall we limit the scope of this variable to only class `IntegrationTestUtils`?",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 56
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d1a6b124_d647c35d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt",
+              "range": {
+                "startLine": 86,
+                "startChar": 0,
+                "endLine": 88,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt",
+              "range": {
+                "startLine": 90,
+                "startChar": 0,
+                "endLine": 90,
+                "endChar": 0
+              },
+              "replacement": "    private val TAG \u003d IntegrationTestUtils::class.simpleName\n\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ced121ad4e30fb91fd504f52c1ea1170afa3ff39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
