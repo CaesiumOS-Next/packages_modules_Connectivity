@@ -21,7 +21,7 @@ import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFIC
 /** Helper class to interface with logging to statsd. */
 public class CertificateTransparencyLogger {
 
-    public CertificateTransparencyLogger() {}
+    // Do not use a private constructor in order to allow testing via mocking
 
     /**
      * Logs a CTLogListUpdateFailed event to statsd, when no HTTP error status code is present.

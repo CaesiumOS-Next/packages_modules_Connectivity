@@ -313,7 +313,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
                         status.reason());
             } else {
                 // TODO(b/384935059): handle blocked domain logging
-                // TODO(b/384936292): add additionalchecks for pending wifi status
+                // TODO(b/384936292): add additional checks for pending wifi status
                 mLogger.logCTLogListUpdateFailedEvent(
                         downloadStatusToFailureReason(status.reason()), failureCount);
             }
@@ -346,6 +346,8 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
      * Updates the data store with the current number of consecutive log list update failures.
      *
      * @return whether the failure count exceeds the threshold and should be logged.
+     *
+     * Note: if `Config.DEBUG=true`, this method will always return true to help with debugging.
      */
     private boolean updateFailureCount() {
         int failure_count =
@@ -356,7 +358,9 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         mDataStore.setPropertyInt(Config.LOG_LIST_UPDATE_FAILURE_COUNT, new_failure_count);
         mDataStore.store();
 
-        boolean shouldReport = new_failure_count >= Config.LOG_LIST_UPDATE_FAILURE_THRESHOLD;
+        boolean shouldReport = Config.DEBUG
+                || new_failure_count >= Config.LOG_LIST_UPDATE_FAILURE_THRESHOLD;
+
         if (shouldReport) {
             Log.d(TAG, "Log list update failure count exceeds threshold: " + new_failure_count);
         }
