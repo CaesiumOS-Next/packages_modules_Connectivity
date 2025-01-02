@@ -39,6 +39,7 @@ import android.os.Handler
 import android.os.SystemClock
 import android.system.OsConstants
 import android.system.OsConstants.IPPROTO_ICMP
+import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import com.android.compatibility.common.util.SystemUtil.runShellCommandOrThrow
 import com.android.net.module.util.IpUtils
@@ -81,6 +82,8 @@ import java.util.concurrent.TimeoutException
 import java.util.function.Predicate
 import java.util.function.Supplier
 import org.junit.Assert
+
+private val TAG = IntegrationTestUtils::class.simpleName
 
 /** Utilities for Thread integration tests. */
 object IntegrationTestUtils {
@@ -483,6 +486,7 @@ object IntegrationTestUtils {
         val serviceInfoFuture = CompletableFuture<NsdServiceInfo>()
         val listener: NsdManager.DiscoveryListener = object : DefaultDiscoveryListener() {
             override fun onServiceFound(serviceInfo: NsdServiceInfo) {
+                Log.d(TAG, "onServiceFound: $serviceInfo")
                 serviceInfoFuture.complete(serviceInfo)
             }
         }
@@ -530,6 +534,7 @@ object IntegrationTestUtils {
         val resolvedServiceInfoFuture = CompletableFuture<NsdServiceInfo>()
         val callback: NsdManager.ServiceInfoCallback = object : DefaultServiceInfoCallback() {
             override fun onServiceUpdated(serviceInfo: NsdServiceInfo) {
+                Log.d(TAG, "onServiceUpdated: $serviceInfo")
                 if (predicate.test(serviceInfo)) {
                     resolvedServiceInfoFuture.complete(serviceInfo)
                 }
