@@ -47,6 +47,7 @@ import android.content.pm.ModuleInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.net.TetheringConfigurationParcel;
 import android.os.Build;
 import android.os.PersistableBundle;
 import android.provider.Settings;
@@ -776,5 +777,28 @@ public class TetheringConfigurationTest {
 
         setTetherEnableSyncSMFlagEnabled(false);
         assertEnableSyncSM(false);
+    }
+
+    @Test
+    public void testCreateTetheringConfigurationFromParcel() {
+        final TetheringConfigurationParcel parcel = new TetheringConfigurationParcel();
+        parcel.tetherableUsbRegexs = new String[]{ "test_usb_from_parcel" };
+        parcel.tetherableWifiRegexs = new String[]{ "test_wifi_from_parcel" };
+        parcel.tetherableBluetoothRegexs = new String[]{ "test_bluetooth_from_parcel" };
+        parcel.legacyDhcpRanges = new String[]{ "test_legacyDhcpRanges_from_parcel" };
+        parcel.provisioningApp = new String[]{ "test_provisioningApp_from_parcel" };
+        parcel.provisioningAppNoUi = "test_provisioningAppNoUi_from_parcel";
+
+        final TetheringConfiguration cfg = new TetheringConfiguration(mMockContext, mLog,
+                INVALID_SUBSCRIPTION_ID, mDeps, parcel);
+        assertArrayEquals(parcel.tetherableUsbRegexs, cfg.tetherableUsbRegexs);
+        assertArrayEquals(parcel.tetherableWifiRegexs, cfg.tetherableWifiRegexs);
+        assertArrayEquals(parcel.tetherableBluetoothRegexs, cfg.tetherableBluetoothRegexs);
+        assertArrayEquals(parcel.legacyDhcpRanges, cfg.legacyDhcpRanges);
+        assertArrayEquals(parcel.provisioningApp, cfg.provisioningApp);
+        assertEquals(parcel.provisioningAppNoUi, cfg.provisioningAppNoUi);
+
+        final TetheringConfigurationParcel parcelFromCfg = cfg.toStableParcelable();
+        assertEquals(parcel, parcelFromCfg);
     }
 }

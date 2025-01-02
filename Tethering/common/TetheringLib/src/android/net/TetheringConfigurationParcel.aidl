@@ -20,6 +20,7 @@ package android.net;
  * Configuration details for tethering.
  * @hide
  */
+@JavaDerive(equals=true, toString=true)
 parcelable TetheringConfigurationParcel {
     String[] tetherableUsbRegexs;
     String[] tetherableWifiRegexs;

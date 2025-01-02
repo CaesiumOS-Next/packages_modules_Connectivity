@@ -38,6 +38,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
@@ -218,12 +219,18 @@ public class TetheringConfiguration {
     }
 
     public TetheringConfiguration(@NonNull Context ctx, @NonNull SharedLog log, int id) {
-        this(ctx, log, id, new Dependencies());
+        this(ctx, log, id, new Dependencies(), null);
     }
 
     @VisibleForTesting
     public TetheringConfiguration(@NonNull Context ctx, @NonNull SharedLog log, int id,
             @NonNull Dependencies deps) {
+        this(ctx, log, id, deps, null);
+    }
+
+    @VisibleForTesting
+    public TetheringConfiguration(@NonNull Context ctx, @NonNull SharedLog log, int id,
+            @NonNull Dependencies deps, @Nullable TetheringConfigurationParcel configParcel) {
         mDeps = deps;
         final SharedLog configLog = log.forSubComponent("config");
 
@@ -234,26 +241,43 @@ public class TetheringConfiguration {
         mUsbTetheringFunction = getUsbTetheringFunction(res);
 
         final String[] ncmRegexs = getResourceStringArray(res, R.array.config_tether_ncm_regexs);
-        // If usb tethering use NCM and config_tether_ncm_regexs is not empty, use
-        // config_tether_ncm_regexs for tetherableUsbRegexs.
-        if (isUsingNcm() && (ncmRegexs.length != 0)) {
-            tetherableUsbRegexs = ncmRegexs;
-            tetherableNcmRegexs = EMPTY_STRING_ARRAY;
+        // If parcel is not null, convert it into the configuration, along with other
+        // parameters.
+        if (configParcel != null) {
+            tetherableUsbRegexs = configParcel.tetherableUsbRegexs;
+            tetherableNcmRegexs = isUsingNcm() ? ncmRegexs : EMPTY_STRING_ARRAY;
+            tetherableWifiRegexs = configParcel.tetherableWifiRegexs;
+            tetherableBluetoothRegexs = configParcel.tetherableBluetoothRegexs;
+            legacyDhcpRanges = configParcel.legacyDhcpRanges;
+            provisioningApp = configParcel.provisioningApp;
+            provisioningAppNoUi = configParcel.provisioningAppNoUi;
         } else {
-            tetherableUsbRegexs = getResourceStringArray(res, R.array.config_tether_usb_regexs);
-            tetherableNcmRegexs = ncmRegexs;
+            // If usb tethering use NCM and config_tether_ncm_regexs is not empty, use
+            // config_tether_ncm_regexs for tetherableUsbRegexs.
+            if (isUsingNcm() && (ncmRegexs.length != 0)) {
+                tetherableUsbRegexs = ncmRegexs;
+                tetherableNcmRegexs = EMPTY_STRING_ARRAY;
+            } else {
+                tetherableUsbRegexs = getResourceStringArray(res, R.array.config_tether_usb_regexs);
+                tetherableNcmRegexs = ncmRegexs;
+            }
+            // TODO: Evaluate deleting this altogether now that Wi-Fi always passes
+            // us an interface name. Careful consideration needs to be given to
+            // implications for Settings and for provisioning checks.
+            tetherableWifiRegexs = getResourceStringArray(res, R.array.config_tether_wifi_regexs);
+            tetherableBluetoothRegexs = getResourceStringArray(
+                    res, R.array.config_tether_bluetooth_regexs);
+            legacyDhcpRanges = getLegacyDhcpRanges(res);
+            provisioningApp = getResourceStringArray(res,
+                    R.array.config_mobile_hotspot_provision_app);
+            provisioningAppNoUi = getResourceString(res,
+                    R.string.config_mobile_hotspot_provision_app_no_ui);
         }
-        // TODO: Evaluate deleting this altogether now that Wi-Fi always passes
-        // us an interface name. Careful consideration needs to be given to
-        // implications for Settings and for provisioning checks.
-        tetherableWifiRegexs = getResourceStringArray(res, R.array.config_tether_wifi_regexs);
         // TODO: Remove entire wigig code once tethering module no longer support R devices.
         tetherableWigigRegexs = SdkLevel.isAtLeastS()
                 ? new String[0] : getResourceStringArray(res, R.array.config_tether_wigig_regexs);
-        tetherableWifiP2pRegexs = getResourceStringArray(
-                res, R.array.config_tether_wifi_p2p_regexs);
-        tetherableBluetoothRegexs = getResourceStringArray(
-                res, R.array.config_tether_bluetooth_regexs);
+        tetherableWifiP2pRegexs = getResourceStringArray(res,
+                R.array.config_tether_wifi_p2p_regexs);
 
         isDunRequired = checkDunRequired(ctx);
 
@@ -268,14 +292,10 @@ public class TetheringConfiguration {
                 res, R.bool.config_tether_upstream_automatic, false /** defaultValue */);
         preferredUpstreamIfaceTypes = getUpstreamIfaceTypes(res, isDunRequired);
 
-        legacyDhcpRanges = getLegacyDhcpRanges(res);
         defaultIPv4DNS = copy(DEFAULT_IPV4_DNS);
         mEnableBpfOffload = getEnableBpfOffload(res);
         mEnableLegacyDhcpServer = getEnableLegacyDhcpServer(res);
 
-        provisioningApp = getResourceStringArray(res, R.array.config_mobile_hotspot_provision_app);
-        provisioningAppNoUi = getResourceString(res,
-                R.string.config_mobile_hotspot_provision_app_no_ui);
         provisioningCheckPeriod = getResourceInteger(res,
                 R.integer.config_mobile_hotspot_provision_check_period,
                 0 /* No periodic re-check */);
