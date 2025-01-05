@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9fdb9d8_71ed4878",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-05T01:58:41Z",
+      "side": 1,
+      "message": "Why we want to make the list null? Can we always make it nonnull?",
+      "range": {
+        "startLine": 216,
+        "startChar": 38,
+        "endLine": 216,
+        "endChar": 68
+      },
+      "revId": "6f5a2ad9e061f3b33de926299f334edd21dd2020",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eb23fb4_b0be7437",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-05T01:58:41Z",
+      "side": 1,
+      "message": "I assume you have tested this method with P9 and it works? Also please make sure you run all the rest of the test cases locally as well as the whole test file will be skipped on TH.\n\nYou can skip testReadWriteProgram() as it take quite long time to run.",
+      "range": {
+        "startLine": 772,
+        "startChar": 8,
+        "endLine": 772,
+        "endChar": 29
+      },
+      "revId": "6f5a2ad9e061f3b33de926299f334edd21dd2020",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8937221c_4824d309",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-05T01:58:41Z",
+      "side": 1,
+      "message": "This initialization seems also duplicate with testReplyPing(), could you make it in a seaparte methods?",
+      "range": {
+        "startLine": 777,
+        "startChar": 7,
+        "endLine": 788,
+        "endChar": 9
+      },
+      "revId": "6f5a2ad9e061f3b33de926299f334edd21dd2020",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31f2e00e_49657ff7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-05T01:58:41Z",
+      "side": 1,
+      "message": "Why we chose 5 replies? I think the more reply we chose, the more flaky the methods will be.\n\nMaybe reduce it to 3 replies should be enough? I think for both IGMP and mDNS use case, we are very less likely to send more than 3 replies.",
+      "range": {
+        "startLine": 816,
+        "startChar": 13,
+        "endLine": 816,
+        "endChar": 34
+      },
+      "revId": "6f5a2ad9e061f3b33de926299f334edd21dd2020",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c515c44c_125dd6ab",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-05T01:58:41Z",
+      "side": 1,
+      "message": "I think this reply generation function can be put into a seaparte method so that we can reduce duplication between this test and testReplyPing().",
+      "range": {
+        "startLine": 820,
+        "startChar": 10,
+        "endLine": 824,
+        "endChar": 53
+      },
+      "revId": "6f5a2ad9e061f3b33de926299f334edd21dd2020",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a255ccda_b4bb04f1",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-05T01:58:41Z",
+      "side": 1,
+      "message": "Lets chose another counter to use. I plan to remove the DROPPED_IPV6_MULTICAST_PING in the later CL because it is not used in the ApfFilter.",
+      "range": {
+        "startLine": 849,
+        "startChar": 28,
+        "endLine": 849,
+        "endChar": 55
+      },
+      "revId": "6f5a2ad9e061f3b33de926299f334edd21dd2020",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
