@@ -22,6 +22,23 @@
       },
       "revId": "c6e2477ece2d59201120acb4f1d5f9b26f4f5d07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ab31064_b1f37fff",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T22:48:47Z",
+      "side": 1,
+      "message": "I am not sure about this TODO. If I were to do that, I could expose the member values as public @hide for use internally. But there also aren\u0027t that many combinations that do not make sense. For a reservation, maybe, but accounting for listen requests, I think almost all (or all?) of them should be allowed.",
+      "revId": "c6e2477ece2d59201120acb4f1d5f9b26f4f5d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
