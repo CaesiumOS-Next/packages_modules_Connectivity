@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec8cc48c_4834bac4",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T22:43:32Z",
+      "side": 1,
+      "message": "The bluetooth stack uses PSM \u003d\u003d 0 as invalid / allocation failed, so I figured -1 was a better value for ANY. This would also allow us adding a PSM_INVALID \u003d 0 in the future (if we ever had a need for it).",
+      "range": {
+        "startLine": 247,
+        "startChar": 34,
+        "endLine": 247,
+        "endChar": 61
+      },
+      "revId": "c6e2477ece2d59201120acb4f1d5f9b26f4f5d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

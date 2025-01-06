@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4540fbc_b09ac516",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T22:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3abb487f_95f28eee",
+      "range": {
+        "startLine": 253,
+        "startChar": 76,
+        "endLine": 253,
+        "endChar": 90
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0352aab6_4a308378",
@@ -60,6 +84,30 @@
       "writtenOn": "2024-12-24T04:27:43Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 34,
+        "startChar": 47,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e5357f0_c43e3421",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T22:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e72133b6_dd18cd25",
       "range": {
         "startLine": 34,
         "startChar": 47,
@@ -116,6 +164,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b1db25_06c14265",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T22:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecbd583d_fcff0f02",
+      "range": {
+        "startLine": 81,
+        "startChar": 28,
+        "endLine": 81,
+        "endChar": 43
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5906898_8323ad8f",
@@ -129,6 +201,30 @@
       "writtenOn": "2024-12-24T04:27:43Z",
       "side": 1,
       "message": "Why @hide? If we make the setter public then this should definitely be public as well.",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 12
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2fa28a6_19afcd99",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T22:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5906898_8323ad8f",
       "range": {
         "startLine": 129,
         "startChar": 7,
@@ -162,6 +258,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61b33f2d_9bcfeef5",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T22:43:32Z",
+      "side": 1,
+      "message": "\u003e It sounds like because the specifier contains a role, we don\u0027t actually need two separate values here, and we just need a PSM_ANY.\n\nagreed.",
+      "parentUuid": "fcf8e6ca_e87ed3bc",
+      "range": {
+        "startLine": 147,
+        "startChar": 54,
+        "endLine": 147,
+        "endChar": 55
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd147da7_f1e57198",
@@ -175,6 +295,30 @@
       "writtenOn": "2024-12-24T04:27:43Z",
       "side": 1,
       "message": "It\u0027susually better to defer throwing exceptions to the build() method. Otherwise the builder is hard to use - for example, it would be OK if a caller first sets the role and then the MAC, but it would throw if a caller first sets the MAC and then the role.",
+      "range": {
+        "startLine": 202,
+        "startChar": 22,
+        "endLine": 202,
+        "endChar": 50
+      },
+      "revId": "deb354fbd2a7f60194755f7d83fb4dd76b9b5efa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad4b6aba_586ff065",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T22:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd147da7_f1e57198",
       "range": {
         "startLine": 202,
         "startChar": 22,

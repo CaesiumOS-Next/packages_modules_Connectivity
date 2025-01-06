@@ -34,6 +34,24 @@
       "parentUuid": "bde305c3_234be0f4",
       "revId": "6d95ed72d8e069be35c523b345708c40b92a0e1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eb14fb0_c0da065e",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T22:43:32Z",
+      "side": 1,
+      "message": "Per discussion: the BLE MAC is an RPA (resolvable private address) which rotates every 7-15 minutes, so filing requests might not be feasible. All information contained in the L2capNetworkSpecifier is used in request matching, so I don\u0027t think TransportInfo will work.\n\nThe alternative (that I am a bit hesitant to bring up this late) would be to have two separate L2capNetworkSpecifiers, one for the server and one for the client side.\n\nThe server side specifier would only require to include headerCompression and the psm value could be moved to TransportInfo.\n\nOn the client side, the specifier would include headerCompression, psm, and remote MAC. The last two could be redacted.\n\nThat being said, this does seem a lot more complex.",
+      "parentUuid": "fe97f547_18eec287",
+      "revId": "6d95ed72d8e069be35c523b345708c40b92a0e1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
