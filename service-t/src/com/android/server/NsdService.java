@@ -1329,14 +1329,16 @@ public class NsdService extends INsdManager.Stub {
                         final ConnectorArgs arg = (ConnectorArgs) msg.obj;
                         final INsdManagerCallback cb = arg.callback;
                         try {
-                            cb.asBinder().linkToDeath(arg.connector, 0);
-                            final String tag = "Client" + arg.uid + "-" + mClientNumberId++;
-                            final NetworkNsdReportedMetrics metrics =
-                                    mDeps.makeNetworkNsdReportedMetrics(
-                                            (int) mClock.elapsedRealtime());
-                            clientInfo = new ClientInfo(cb, arg.uid, arg.useJavaBackend,
-                                    mServiceLogs.forSubComponent(tag), metrics);
-                            mClients.put(arg.connector, clientInfo);
+                            if (null != cb && null != cb.asBinder()) {
+                                cb.asBinder().linkToDeath(arg.connector, 0);
+                                final String tag = "Client" + arg.uid + "-" + mClientNumberId++;
+                                final NetworkNsdReportedMetrics metrics =
+                                        mDeps.makeNetworkNsdReportedMetrics(
+                                                (int) mClock.elapsedRealtime());
+                                clientInfo = new ClientInfo(cb, arg.uid, arg.useJavaBackend,
+                                        mServiceLogs.forSubComponent(tag), metrics);
+                                mClients.put(arg.connector, clientInfo);
+                            }
                         } catch (RemoteException e) {
                             Log.w(TAG, "Client request id " + clientRequestId
                                     + " has already died");
