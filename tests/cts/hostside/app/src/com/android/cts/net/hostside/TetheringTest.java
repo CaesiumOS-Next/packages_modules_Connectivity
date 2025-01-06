@@ -59,6 +59,7 @@ public class TetheringTest {
     public void testSoftApConfigurationRedactedForOtherUids() throws Exception {
         final CtsTetheringUtils.TestTetheringEventCallback tetherEventCallback =
                 mCtsTetheringUtils.registerTetheringEventCallback();
+        tetherEventCallback.assumeWifiTetheringSupported(getInstrumentation().getTargetContext());
         SoftApConfiguration softApConfig = new SoftApConfiguration.Builder()
                 .setWifiSsid(WifiSsid.fromBytes("This is an SSID!"
                         .getBytes(StandardCharsets.UTF_8))).build();
