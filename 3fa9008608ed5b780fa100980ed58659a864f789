@@ -16,6 +16,24 @@
       "message": "Might want to note that there can be no legitimate usage of this API, since getting a provider ID requires calling registerNetworkProvider which does a permission check.",
       "revId": "3fa9008608ed5b780fa100980ed58659a864f789",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f39223a3_f087168f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T21:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "add475c5_8156e00f",
+      "revId": "3fa9008608ed5b780fa100980ed58659a864f789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
