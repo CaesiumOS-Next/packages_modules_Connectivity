@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8715e28b_3091d18b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9446,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "*much* better actually. thanks for the suggestion.",
+      "parentUuid": "f7597d9a_fb9e5ee4",
+      "range": {
+        "startLine": 9446,
+        "startChar": 26,
+        "endLine": 9446,
+        "endChar": 45
+      },
+      "revId": "49726dd746a7203bbfd4aa0e3a2509de9600bc37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b349a56_df8858e2",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-12-23T04:44:59Z",
       "side": 1,
       "message": "sendOnUnavailable?",
+      "range": {
+        "startLine": 9496,
+        "startChar": 28,
+        "endLine": 9496,
+        "endChar": 44
+      },
+      "revId": "49726dd746a7203bbfd4aa0e3a2509de9600bc37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe012753_b413c3ab",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 9496,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b349a56_df8858e2",
       "range": {
         "startLine": 9496,
         "startChar": 28,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1f0720c_5191b6c8",
+        "filename": "service/src/com/android/server/connectivity/NetworkOffer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab0034bb_5ce90c1d",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 28
+      },
+      "revId": "49726dd746a7203bbfd4aa0e3a2509de9600bc37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cec05cbd_0b0fd30b",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-12-23T04:44:59Z",
       "side": 1,
       "message": "Per discussion - this can\u0027t happen, right? Because the offer we get here was found by calling findNetworkOfferInfoByCallback? Probably should leave this code untouched then (and continue to throw).",
+      "range": {
+        "startLine": 161,
+        "startChar": 12,
+        "endLine": 161,
+        "endChar": 19
+      },
+      "revId": "49726dd746a7203bbfd4aa0e3a2509de9600bc37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e9c81fc_9df7d8a9",
+        "filename": "service/src/com/android/server/connectivity/NetworkOffer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cec05cbd_0b0fd30b",
       "range": {
         "startLine": 161,
         "startChar": 12,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13f25009_eb974a53",
+        "filename": "service/src/com/android/server/connectivity/NetworkOffer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31f42b9e_b915eaf1",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 48
+      },
+      "revId": "49726dd746a7203bbfd4aa0e3a2509de9600bc37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64703a6f_4fd1cef8",
@@ -146,6 +266,30 @@
       "writtenOn": "2024-12-23T04:44:59Z",
       "side": 1,
       "message": "Why is this necessary now, but not necessary before this CL?",
+      "range": {
+        "startLine": 172,
+        "startChar": 8,
+        "endLine": 172,
+        "endChar": 47
+      },
+      "revId": "49726dd746a7203bbfd4aa0e3a2509de9600bc37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8716353_2f5270c1",
+        "filename": "service/src/com/android/server/connectivity/NetworkOffer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64703a6f_4fd1cef8",
       "range": {
         "startLine": 172,
         "startChar": 8,

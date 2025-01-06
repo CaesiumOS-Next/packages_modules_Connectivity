@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c222d71_87c7e5cc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9445,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbdefe7d_02a53717",
+      "range": {
+        "startLine": 9445,
+        "startChar": 82,
+        "endLine": 9445,
+        "endChar": 83
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "698ae599_05dcb557",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99a40c51_ec87874f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9460,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98159a3d_8b171a14",
+      "range": {
+        "startLine": 9460,
+        "startChar": 29,
+        "endLine": 9460,
+        "endChar": 39
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1cc1c28_1fba196b",
@@ -83,6 +131,30 @@
       "writtenOn": "2024-12-24T03:38:44Z",
       "side": 1,
       "message": "releaseReservations?",
+      "range": {
+        "startLine": 9500,
+        "startChar": 28,
+        "endLine": 9500,
+        "endChar": 45
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e5eb783_19e62482",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9500,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1cc1c28_1fba196b",
       "range": {
         "startLine": 9500,
         "startChar": 28,
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1477b16_bed1fb80",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9506,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Realized that the unregister offer path looks up the NOI which will be null in the second case, so I don\u0027t think this can actually happen. Reverted the comment changes.",
+      "parentUuid": "5920890b_d6a3a508",
+      "range": {
+        "startLine": 9506,
+        "startChar": 11,
+        "endLine": 9506,
+        "endChar": 13
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6165e9be_2d729908",
@@ -129,6 +225,30 @@
       "writtenOn": "2024-12-24T03:38:44Z",
       "side": 1,
       "message": "this method will be called again if/when it unregisters the offer.",
+      "range": {
+        "startLine": 9510,
+        "startChar": 46,
+        "endLine": 9510,
+        "endChar": 78
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48222672_09277ac0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 9510,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Removed entirely per comment above.",
+      "parentUuid": "6165e9be_2d729908",
       "range": {
         "startLine": 9510,
         "startChar": 46,
@@ -162,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02198e71_3fbe1a48",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb267304_fad2b5e8",
+      "range": {
+        "startLine": 151,
+        "startChar": 12,
+        "endLine": 151,
+        "endChar": 20
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d24d51b8_1f963215",
@@ -175,6 +319,30 @@
       "writtenOn": "2024-12-24T03:38:44Z",
       "side": 1,
       "message": "reservedOfferCb",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 27
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7857ff1_4a9bfa63",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d24d51b8_1f963215",
       "range": {
         "startLine": 152,
         "startChar": 12,
@@ -210,6 +378,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d1ac82e_2dd1393d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Agreed. Using reservationId2 now and will expand test in a follow-up.",
+      "parentUuid": "fc69192d_91331070",
+      "range": {
+        "startLine": 167,
+        "startChar": 62,
+        "endLine": 167,
+        "endChar": 81
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9953fe3f_956cc6bf",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
         "patchSetId": 6
@@ -221,6 +413,30 @@
       "writtenOn": "2024-12-24T03:38:44Z",
       "side": 1,
       "message": "This implicitly verifies that reserved is not called, right?",
+      "range": {
+        "startLine": 175,
+        "startChar": 12,
+        "endLine": 175,
+        "endChar": 28
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "342ae94a_71d2a05b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Correct, added a comment.",
+      "parentUuid": "9953fe3f_956cc6bf",
       "range": {
         "startLine": 175,
         "startChar": 12,
@@ -254,6 +470,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9b4d29a_9c922874",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0f2234b_5edf6fb2",
+      "range": {
+        "startLine": 211,
+        "startChar": 4,
+        "endLine": 211,
+        "endChar": 5
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b9c1c3d_6b112a77",
@@ -267,6 +507,30 @@
       "writtenOn": "2024-12-24T03:38:44Z",
       "side": 1,
       "message": "Consider filing a request and checking that the old offer gets the onNetworkNeeded and the new one doesn\u0027t.",
+      "range": {
+        "startLine": 231,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 5
+      },
+      "revId": "23f251af43ba905e80f3d535d63d46a8a5d7a461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1cd0128_d4c61b2d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkReservationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T20:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b9c1c3d_6b112a77",
       "range": {
         "startLine": 231,
         "startChar": 4,
