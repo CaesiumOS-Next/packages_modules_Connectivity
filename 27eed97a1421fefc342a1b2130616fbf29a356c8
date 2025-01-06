@@ -34,6 +34,24 @@
       "parentUuid": "30cf6565_add5de9a",
       "revId": "27eed97a1421fefc342a1b2130616fbf29a356c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6acd30f3_4cbf637a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-06T19:16:55Z",
+      "side": 1,
+      "message": "Ah right, getConflictPrefix() also calls getInUseDownstreamPrefix() which in turn looks at cached addresses. Great, nothing seems broken after all.",
+      "parentUuid": "73f0ec5c_5ae55d39",
+      "revId": "27eed97a1421fefc342a1b2130616fbf29a356c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
