@@ -52,8 +52,8 @@ abstract class HostsideNetworkTestCase extends BaseHostJUnit4Test {
 
     // Custom static method to install the specified package, this is used to bypass auto-cleanup
     // per test in BaseHostJUnit4.
-    protected static void installPackage(TestInformation testInfo, String apk)
-            throws DeviceNotAvailableException, TargetSetupError {
+     protected static void installPackage(TestInformation testInfo, String apk,
+             boolean shouldGrantPermissions) throws DeviceNotAvailableException, TargetSetupError {
         assertNotNull(testInfo);
         final int userId = testInfo.getDevice().getCurrentUser();
         final SuiteApkInstaller installer = new SuiteApkInstaller();
@@ -61,7 +61,7 @@ abstract class HostsideNetworkTestCase extends BaseHostJUnit4Test {
         installer.setCleanApk(true);
         installer.addTestFileName(apk);
         installer.setUserId(userId);
-        installer.setShouldGrantPermission(true);
+        installer.setShouldGrantPermission(shouldGrantPermissions);
         installer.addInstallArg("-t");
         try {
             installer.setUp(testInfo);
@@ -71,8 +71,18 @@ abstract class HostsideNetworkTestCase extends BaseHostJUnit4Test {
         }
     }
 
+    protected static void installPackage(TestInformation testInfo, String apk)
+            throws DeviceNotAvailableException, TargetSetupError {
+        installPackage(testInfo, apk, true);
+    }
+
     protected void installPackage(String apk) throws DeviceNotAvailableException, TargetSetupError {
         installPackage(getTestInformation(), apk);
+    }
+
+    protected void installPackage(String apk, boolean shouldGrantPermissions)
+            throws DeviceNotAvailableException, TargetSetupError {
+        installPackage(getTestInformation(), apk, shouldGrantPermissions);
     }
 
     protected static void uninstallPackage(TestInformation testInfo, String packageName,
