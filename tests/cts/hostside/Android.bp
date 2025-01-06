@@ -46,6 +46,8 @@ java_test_host {
         "tradefed",
     ],
     static_libs: [
+        "com.android.net.flags-aconfig-java",
+        "flag-junit-host",
         "modules-utils-build-testing",
     ],
     // Tag this module as a cts test artifact
