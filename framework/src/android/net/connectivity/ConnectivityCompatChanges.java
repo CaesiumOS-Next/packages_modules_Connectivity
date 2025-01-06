@@ -16,8 +16,10 @@
 package android.net.connectivity;
 
 import android.compat.annotation.ChangeId;
+import android.compat.annotation.Disabled;
 import android.compat.annotation.EnabledAfter;
 import android.compat.annotation.EnabledSince;
+import android.compat.annotation.Overridable;
 import android.os.Build;
 
 /**
@@ -145,7 +147,8 @@ public final class ConnectivityCompatChanges {
      * @hide
      */
     @ChangeId
-    @EnabledAfter(targetSdkVersion = 36)
+    @Disabled
+    @Overridable
     public static final long RESTRICT_LOCAL_NETWORK = 365139289L;
 
     /**
