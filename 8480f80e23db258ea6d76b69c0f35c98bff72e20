@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "146d45da_8173a378",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-06T01:20:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8a8d023_bfa57bdc",
+      "range": {
+        "startLine": 270,
+        "startChar": 59,
+        "endLine": 270,
+        "endChar": 65
+      },
+      "revId": "8480f80e23db258ea6d76b69c0f35c98bff72e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d51f4921_aa21fe77",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "199dc2ba_ac99ee5f",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-06T01:20:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aedde393_5e8e47f9",
+      "range": {
+        "startLine": 289,
+        "startChar": 10,
+        "endLine": 289,
+        "endChar": 15
+      },
+      "revId": "8480f80e23db258ea6d76b69c0f35c98bff72e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66fb5f94_63402530",
@@ -106,6 +154,30 @@
       "writtenOn": "2024-12-17T09:45:35Z",
       "side": 1,
       "message": "suggests get_local_network_access() could just return a bool...",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 37
+      },
+      "revId": "8480f80e23db258ea6d76b69c0f35c98bff72e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5af69939_607c99d2",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-06T01:20:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cbb2bc5_056b01c9",
       "range": {
         "startLine": 313,
         "startChar": 0,
