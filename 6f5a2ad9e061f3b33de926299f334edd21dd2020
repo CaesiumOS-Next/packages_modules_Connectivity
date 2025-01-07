@@ -281,6 +281,30 @@
       },
       "revId": "6f5a2ad9e061f3b33de926299f334edd21dd2020",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ea15329_49cef7e7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-07T07:16:34Z",
+      "side": 1,
+      "message": "As discussed, updated with DROPPED_IPV6_NS_REPLIED_NON_DAD counters for this test.",
+      "parentUuid": "7e277dbb_05aa7b62",
+      "range": {
+        "startLine": 849,
+        "startChar": 28,
+        "endLine": 849,
+        "endChar": 55
+      },
+      "revId": "6f5a2ad9e061f3b33de926299f334edd21dd2020",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
