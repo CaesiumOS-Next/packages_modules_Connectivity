@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "998ba161_a1419a90",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TerribleErrorLogTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-07T07:08:05Z",
+      "side": 1,
+      "message": "It\u0027s a bit weird using spy on a lambda (using heavy mocking machinery to verify a method defined here is called), and not very consistent with how the verification is set on the WtfHandler. You could similarly have a mutableListOf\u003cPair\u003cInt, Int\u003e\u003e and used the same pattern.",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 30
+      },
+      "revId": "42c5771111aa56f08ad33d936036d0f1d1b0e07d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
