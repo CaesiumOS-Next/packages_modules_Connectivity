@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa534008_b3f01ec3",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TerribleErrorLogTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T07:02:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d725a49_3f5dbb09",
+      "range": {
+        "startLine": 20,
+        "startChar": 28,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "5650b10da8230bba38fe6e7b547371c81073d83e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "951aa2f9_92354ac6",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-01-07T01:21:50Z",
       "side": 1,
       "message": "This is going to have the test log an actual WTF (which I think crashes the process on eng builds ?)\n\nYou can instead use Log.setWtfHandler, and that will also let you verify that the wtf is logged too",
+      "revId": "5650b10da8230bba38fe6e7b547371c81073d83e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f7e39dd_42c1a59c",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TerribleErrorLogTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T07:02:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "951aa2f9_92354ac6",
       "revId": "5650b10da8230bba38fe6e7b547371c81073d83e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
