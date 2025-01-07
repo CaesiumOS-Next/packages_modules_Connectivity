@@ -1,5 +1,57 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fc2a7e2_02381b11",
+        "filename": "framework/Android.bp",
+        "patchSetId": 29
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-07T02:55:43Z",
+      "side": 1,
+      "message": "Would you be able to use OutcomeReceiver instead of IIntResultListener, and remove this ?",
+      "revId": "7d6dfd52b270dd26cbc26f4e6f93365af1aabd68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62aaa794_1cc880cb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 6357,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-07T02:55:43Z",
+      "side": 1,
+      "message": "Is there a change in flight to implement this, or a bug filed ?\n\nOr is it OK to actually not do this at all (if death recipients are fired by process and not by object - not sure) ?",
+      "revId": "7d6dfd52b270dd26cbc26f4e6f93365af1aabd68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e21538a3_a7798efc",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 1564,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-07T02:55:43Z",
+      "side": 1,
+      "message": "What is the minimum SDK version to call this ? Considering that mNetd.networkAllowBypassVpnOnNetwork is a recent thing.\n\nCan you add @RequiresSdk to it ?",
+      "revId": "7d6dfd52b270dd26cbc26f4e6f93365af1aabd68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
