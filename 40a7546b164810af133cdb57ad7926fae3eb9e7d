@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a812b8b_2b2a123d",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T10:27:00Z",
+      "side": 1,
+      "message": "I am not sure if retry really make sense here. Theorically, this TimerFdUtils.setExpirationTime() should never fails. Based on https://man7.org/linux/man-pages/man2/timerfd_create.2.html\n\n```\n    timerfd_settime() and timerfd_gettime() can fail with the\n       following errors:\n\n       EBADF  fd is not a valid file descriptor.\n\n       EFAULT new_value, old_value, or curr_value is not a valid\n              pointer.\n\n       EINVAL fd is not a valid timerfd file descriptor.\n\n       timerfd_settime() can also fail with the following errors:\n\n       ECANCELED\n              See NOTES.\n\n       EINVAL new_value is not properly initialized (one of the tv_nsec\n              falls outside the range zero to 999,999,999).\n\n       EINVAL flags is invalid.\n```\n\n@reminv@google.com, do you have suggestion here.",
+      "parentUuid": "ebcaeb91_75c988b5",
+      "range": {
+        "startLine": 285,
+        "startChar": 12,
+        "endLine": 289,
+        "endChar": 13
+      },
+      "revId": "40a7546b164810af133cdb57ad7926fae3eb9e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b9b060e_6b7d4867",
         "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
         "patchSetId": 5
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "111a6fa6_00b588de",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T10:27:00Z",
+      "side": 1,
+      "message": "https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3268573/comment/227d51ab_26cb11e3/\n\nWhen I test the raw timerfd API with epoll, it doesn\u0027t trigger a periodic timer. However, when I use timerfd with mQueue.addOnFileDescriptorEventListener(), a burst of events are triggered after the timer expires.\n\nThis behavior can be verified by adding logs to the existing timerfd class. I suspect this is due to the underlying implementation of addOnFileDescriptorEventListener().",
+      "parentUuid": "1b9b060e_6b7d4867",
+      "range": {
+        "startLine": 291,
+        "startChar": 12,
+        "endLine": 293,
+        "endChar": 54
+      },
+      "revId": "40a7546b164810af133cdb57ad7926fae3eb9e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6e256ca_57a135df",
         "filename": "staticlibs/tests/unit/src/com/android/net/module/util/RealTimeSchedulerTest.kt",
         "patchSetId": 5
@@ -60,6 +108,30 @@
       "writtenOn": "2025-01-07T10:06:31Z",
       "side": 1,
       "message": "Nit: Perhaps use `CountDownLatch` to verify that each task has been executed.",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 32
+      },
+      "revId": "40a7546b164810af133cdb57ad7926fae3eb9e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7e5c6d1_f3c661c6",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/RealTimeSchedulerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T10:27:00Z",
+      "side": 1,
+      "message": "I think I already did verifiy all task is executed in right time in line 88 ~ 92? What will be the addtional benefit for using `CountDownLatch` here?",
+      "parentUuid": "f6e256ca_57a135df",
       "range": {
         "startLine": 87,
         "startChar": 12,
