@@ -179,6 +179,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f6e2c96_efbd19e9",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-01-07T18:57:23Z",
+      "side": 1,
+      "message": "To update, Sarup and I chatted in person about this and the plan will to check for initial state after registering this listener -- thanks everyone for the input!",
+      "parentUuid": "01771e25_349cb8bd",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9527531_cec22171",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 27
