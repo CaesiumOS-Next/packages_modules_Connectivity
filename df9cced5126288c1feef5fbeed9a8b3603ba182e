@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab08f77e_7980ded7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-07T02:46:05Z",
+      "side": 1,
+      "message": "LGTM. How hard is it to write a test for this? A test would help ensure that when we refactor the code, this particular use case still works correctly.",
+      "revId": "df9cced5126288c1feef5fbeed9a8b3603ba182e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
