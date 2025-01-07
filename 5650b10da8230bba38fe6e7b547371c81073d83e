@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d725a49_3f5dbb09",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TerribleErrorLogTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-07T01:21:50Z",
+      "side": 1,
+      "message": "Use: `androidx.test.ext.junit.runners.AndroidJUnit4`\n\n\nPlease fix this WARNING reported by Build Warnings: \u0027AndroidJUnit4\u0027 is deprecated. Deprecated in Java\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    \u0027AndroidJUnit4\u0027 is deprecated. Deprecated in Java\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P87695926/targets/aosp_cf_x86_64_phone-trunk_staging-userdebug, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the aosp-main branch.",
+      "range": {
+        "startLine": 20,
+        "startChar": 28,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "5650b10da8230bba38fe6e7b547371c81073d83e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "951aa2f9_92354ac6",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/TerribleErrorLogTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-07T01:21:50Z",
+      "side": 1,
+      "message": "This is going to have the test log an actual WTF (which I think crashes the process on eng builds ?)\n\nYou can instead use Log.setWtfHandler, and that will also let you verify that the wtf is logged too",
+      "revId": "5650b10da8230bba38fe6e7b547371c81073d83e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
