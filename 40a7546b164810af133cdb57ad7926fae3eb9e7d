@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebcaeb91_75c988b5",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-07T10:06:31Z",
+      "side": 1,
+      "message": "Should we retry setting the timer instead of clearing all tasks?",
+      "range": {
+        "startLine": 285,
+        "startChar": 12,
+        "endLine": 289,
+        "endChar": 13
+      },
+      "revId": "40a7546b164810af133cdb57ad7926fae3eb9e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b9b060e_6b7d4867",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-07T10:06:31Z",
+      "side": 1,
+      "message": "Quersion: Is this really necessary? Because we only set `it_value`, not `it_interval`, it should not trigger a periodic timer.",
+      "range": {
+        "startLine": 291,
+        "startChar": 12,
+        "endLine": 293,
+        "endChar": 54
+      },
+      "revId": "40a7546b164810af133cdb57ad7926fae3eb9e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6e256ca_57a135df",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/RealTimeSchedulerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-07T10:06:31Z",
+      "side": 1,
+      "message": "Nit: Perhaps use `CountDownLatch` to verify that each task has been executed.",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 32
+      },
+      "revId": "40a7546b164810af133cdb57ad7926fae3eb9e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
