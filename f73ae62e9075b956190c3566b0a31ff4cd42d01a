@@ -1,0 +1,88 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aaea7f2_6533de35",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-07T10:58:17Z",
+      "side": 1,
+      "message": "unrelated to this change, but I was wondering what we could do to reduce the size of this unwieldy lines.\n\nMaybe we can add an enum in a local util class, and have the enum map the values from the [LogListUpdateStatus](https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:frameworks/proto_logging/stats/enums/corenetworking/certificatetransparency/enums.proto). This way the unwieldy lines will stay only in the local util class, and hopefully that will help make the rest a bit more readable. WDYT?",
+      "range": {
+        "startLine": 338,
+        "startChar": 16,
+        "endLine": 338,
+        "endChar": 113
+      },
+      "revId": "f73ae62e9075b956190c3566b0a31ff4cd42d01a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d686c597_ec7d54ed",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-07T10:58:17Z",
+      "side": 1,
+      "message": "I\u0027m not sure I would implement the change in this way. It might be better to add a device_config flag (something like [this](https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyService.java;l\u003d95-97;drc\u003df24643a42ab5c84a286d783234bd7e685cc456a8)). With a device config flag, you can easily enable/disable the flag with an `adb shell device_config put` command from the terminal.",
+      "range": {
+        "startLine": 349,
+        "startChar": 5,
+        "endLine": 349,
+        "endChar": 96
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "e3030230_d98da76d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+              "range": {
+                "startLine": 40,
+                "startChar": 0,
+                "endLine": 40,
+                "endChar": 0
+              },
+              "replacement": "import android.provider.DeviceConfig;\n"
+            },
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+              "range": {
+                "startLine": 348,
+                "startChar": 0,
+                "endLine": 350,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+              "range": {
+                "startLine": 360,
+                "startChar": 0,
+                "endLine": 361,
+                "endChar": 0
+              },
+              "replacement": "        boolean shouldReport \u003d DeviceConfig.getBoolean(\n                \"networksecurity_certificate_transparency_log_list_update_failure_debug\",\n                /* defaultValue\u003d */ false)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "f73ae62e9075b956190c3566b0a31ff4cd42d01a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
