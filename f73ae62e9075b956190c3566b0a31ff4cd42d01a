@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33bc1f95_2ddfecd3",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-01-07T12:24:07Z",
+      "side": 1,
+      "message": "Ack, I will do that in a follow-up CL. iirc I originally had it in the logger but ran into mocking issues in the tests, so probs easier to separate that change out ;)",
+      "parentUuid": "7eaa20f2_9cc39ad0",
+      "range": {
+        "startLine": 338,
+        "startChar": 16,
+        "endLine": 338,
+        "endChar": 113
+      },
+      "revId": "f73ae62e9075b956190c3566b0a31ff4cd42d01a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d686c597_ec7d54ed",
