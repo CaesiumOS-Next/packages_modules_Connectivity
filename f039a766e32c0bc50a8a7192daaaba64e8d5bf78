@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1904a9c5_58a24743",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T08:42:46Z",
+      "side": 1,
+      "message": "It seems it is not suitable to put those variable as part of class member, we should keep it in local variable.",
+      "range": {
+        "startLine": 301,
+        "startChar": 3,
+        "endLine": 303,
+        "endChar": 96
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c70d03bf_dbd64792",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T08:42:46Z",
+      "side": 1,
+      "message": "This method seems unnecessary, it doesn\u0027t reduce duplication too much and have bad readability. we can directly use the following two line in the code.\n\n```\nval payload \u003d ByteArray(pingRequestPayloadSize).also { Random.nextBytes(it) }\nval firstByte \u003d payload.take(1).toByteArray()\n```",
+      "range": {
+        "startLine": 456,
+        "startChar": 4,
+        "endLine": 460,
+        "endChar": 5
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3402b620_0a23188e",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T08:42:46Z",
+      "side": 1,
+      "message": "Ping6",
+      "range": {
+        "startLine": 462,
+        "startChar": 46,
+        "endLine": 462,
+        "endChar": 50
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c21857cf_d0650926",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T08:42:46Z",
+      "side": 1,
+      "message": "Could you have a separte CL to change this to DROPPED_IPV6_NS_REPLIED_NON_DAD before this CL? \n\nfirst patch: change DROPPED_IPV6_MULTICAST_PING to DROPPED_IPV6_NS_REPLIED_NON_DAD\nsecond patch: this patch",
+      "range": {
+        "startLine": 753,
+        "startChar": 42,
+        "endLine": 753,
+        "endChar": 69
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dbf6aa4_cb4ec0b9",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T08:42:46Z",
+      "side": 1,
+      "message": "testMultiplePing6Replies().",
+      "range": {
+        "startLine": 780,
+        "startChar": 8,
+        "endLine": 780,
+        "endChar": 29
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ed86541_2c5e8f87",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T08:42:46Z",
+      "side": 1,
+      "message": "Is this code also duplicated with the part in testPingReply?",
+      "range": {
+        "startLine": 804,
+        "startChar": 7,
+        "endLine": 809,
+        "endChar": 75
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8496e5cd_0dacb39c",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T08:42:46Z",
+      "side": 1,
+      "message": "Looks like we have OsConstants for this, lets use that\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:libcore/luni/src/main/java/android/system/OsConstants.java;l\u003d360?q\u003dOsConstants\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
+      "range": {
+        "startLine": 809,
+        "startChar": 34,
+        "endLine": 809,
+        "endChar": 38
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c324073_15885a3b",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T08:42:46Z",
+      "side": 1,
+      "message": "Add comments to discuss why we chose 3",
+      "range": {
+        "startLine": 817,
+        "startChar": 8,
+        "endLine": 817,
+        "endChar": 24
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2167d79_7dfea4c7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T08:42:46Z",
+      "side": 1,
+      "message": "Please think a better name for this variable. replyFirstByteList is not meaningful.",
+      "range": {
+        "startLine": 818,
+        "startChar": 12,
+        "endLine": 818,
+        "endChar": 30
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6be6215c_19ff7eb2",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T08:42:46Z",
+      "side": 1,
+      "message": "maybe directly call this `payload`?",
+      "range": {
+        "startLine": 820,
+        "startChar": 16,
+        "endLine": 820,
+        "endChar": 30
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
