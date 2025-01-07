@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d35f7ada_c0447f32",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-07T08:35:57Z",
+      "side": 1,
+      "message": "Why make this public? Should it be @VisibleForTesting?",
+      "range": {
+        "startLine": 793,
+        "startChar": 8,
+        "endLine": 793,
+        "endChar": 12
+      },
+      "revId": "39c7b89ba07e5f240595f930c622fe4d7a8e9821",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da63d2a0_6d402a40",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-07T08:35:57Z",
+      "side": 1,
+      "message": "I don\u0027t think you can throw an exception here and expect it to go back to the app. These are async APIs (even without the handler post below). To see how to return an error, look at TetheringService.\n\nIt\u0027s probably easiest to make ths code silently fail to do anything and rely on the throw in TetheringManager.",
+      "range": {
+        "startLine": 1021,
+        "startChar": 12,
+        "endLine": 1021,
+        "endChar": 17
+      },
+      "revId": "39c7b89ba07e5f240595f930c622fe4d7a8e9821",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "633754dc_94ab6ff5",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 3079,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-07T08:35:57Z",
+      "side": 1,
+      "message": "Why do this? Isn\u0027t line 3081 guaranteed to throw the same exception with the same message?",
+      "range": {
+        "startLine": 3079,
+        "startChar": 12,
+        "endLine": 3079,
+        "endChar": 17
+      },
+      "revId": "39c7b89ba07e5f240595f930c622fe4d7a8e9821",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
