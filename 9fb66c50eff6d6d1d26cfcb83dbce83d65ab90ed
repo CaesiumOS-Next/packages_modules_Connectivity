@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83b56a3a_831b2a20",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-07T08:44:46Z",
+      "side": 0,
+      "message": "Looks like refactoring this seapartely will not be that clean. Maybe lets keep it here unchanged.",
+      "range": {
+        "startLine": 672,
+        "startChar": 8,
+        "endLine": 677,
+        "endChar": 92
+      },
+      "revId": "9fb66c50eff6d6d1d26cfcb83dbce83d65ab90ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
