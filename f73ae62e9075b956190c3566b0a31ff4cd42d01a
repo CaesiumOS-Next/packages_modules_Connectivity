@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eaa20f2_9cc39ad0",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-07T12:18:44Z",
+      "side": 1,
+      "message": "Keeping the long proto enums inside the CTLogger sounds good. I think it makes sense to make the mapping from download status to failure reason an implementation detail of the logger.",
+      "parentUuid": "5bc474ed_2cf7962f",
+      "range": {
+        "startLine": 338,
+        "startChar": 16,
+        "endLine": 338,
+        "endChar": 113
+      },
+      "revId": "f73ae62e9075b956190c3566b0a31ff4cd42d01a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d686c597_ec7d54ed",
