@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a75f65e6_674e834f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "all comments are addressed in follow up changes.",
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a325ee81_6dd3a1fc",
@@ -14,6 +31,30 @@
       "writtenOn": "2025-01-08T04:37:21Z",
       "side": 1,
       "message": "backed",
+      "range": {
+        "startLine": 43,
+        "startChar": 46,
+        "endLine": 43,
+        "endChar": 57
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b7e0a99_e7050310",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a325ee81_6dd3a1fc",
       "range": {
         "startLine": 43,
         "startChar": 46,
@@ -47,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4293fc13_c1cba222",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95bbe7fd_25015039",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 21
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23a9fdbd_f740d438",
@@ -60,6 +125,30 @@
       "writtenOn": "2025-01-08T04:37:21Z",
       "side": 1,
       "message": "I can\u0027t imagine how this link tag will actually work since CS is not in the public documentation.",
+      "range": {
+        "startLine": 46,
+        "startChar": 82,
+        "endLine": 47,
+        "endChar": 22
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c36a8b67_9b74de35",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23a9fdbd_f740d438",
       "range": {
         "startLine": 46,
         "startChar": 82,
@@ -116,6 +205,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "900ae46d_4f671878",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc50f033_2e9eeab8",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 14
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd9b1af5_074c746a",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e209029_f976c0d1",
+      "range": {
+        "startLine": 56,
+        "startChar": 23,
+        "endLine": 56,
+        "endChar": 24
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "767703de_9fdfdeac",
@@ -129,6 +266,30 @@
       "writtenOn": "2025-01-08T04:37:21Z",
       "side": 1,
       "message": ", i.e., one where the device is the Bluetooth central.",
+      "range": {
+        "startLine": 58,
+        "startChar": 44,
+        "endLine": 58,
+        "endChar": 45
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4da38ab5_02e8387b",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "767703de_9fdfdeac",
       "range": {
         "startLine": 58,
         "startChar": 44,
@@ -162,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09cea211_37c690b0",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11e129d6_2eef8e82",
+      "range": {
+        "startLine": 60,
+        "startChar": 44,
+        "endLine": 60,
+        "endChar": 45
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eaf814d0_6222d698",
@@ -175,6 +360,30 @@
       "writtenOn": "2025-01-08T04:37:21Z",
       "side": 1,
       "message": "only meaningful in requests",
+      "range": {
+        "startLine": 75,
+        "startChar": 45,
+        "endLine": 75,
+        "endChar": 46
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "563f43a3_c17b7264",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaf814d0_6222d698",
       "range": {
         "startLine": 75,
         "startChar": 45,
@@ -208,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0deffcdb_adbfe973",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f1d5fff_ac73c4f7",
+      "range": {
+        "startLine": 134,
+        "startChar": 69,
+        "endLine": 134,
+        "endChar": 70
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50f3515e_2db0240b",
@@ -231,6 +464,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "247ef192_49972b03",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50f3515e_2db0240b",
+      "range": {
+        "startLine": 147,
+        "startChar": 25,
+        "endLine": 147,
+        "endChar": 26
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6a7c91c_cedbfeca",
@@ -244,6 +501,30 @@
       "writtenOn": "2025-01-08T04:37:21Z",
       "side": 1,
       "message": "\u003d ...",
+      "range": {
+        "startLine": 149,
+        "startChar": 38,
+        "endLine": 149,
+        "endChar": 39
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fca5725_040ef3b0",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6a7c91c_cedbfeca",
       "range": {
         "startLine": 149,
         "startChar": 38,
@@ -300,6 +581,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d27066a2_4398da37",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96e21a28_103eff53",
+      "range": {
+        "startLine": 155,
+        "startChar": 47,
+        "endLine": 155,
+        "endChar": 48
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3fd69c6_f36a6d78",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6b521ca_a2e20ef2",
+      "range": {
+        "startLine": 155,
+        "startChar": 47,
+        "endLine": 155,
+        "endChar": 48
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb24a11a_6cfdf0af",
@@ -313,6 +642,30 @@
       "writtenOn": "2025-01-08T04:37:21Z",
       "side": 1,
       "message": "If not set...",
+      "range": {
+        "startLine": 166,
+        "startChar": 71,
+        "endLine": 166,
+        "endChar": 72
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0de1f04d_a1cf0e6b",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb24a11a_6cfdf0af",
       "range": {
         "startLine": 166,
         "startChar": 71,
@@ -346,6 +699,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cb262df_61a53fd6",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8ec3a2c_ae246720",
+      "range": {
+        "startLine": 179,
+        "startChar": 45,
+        "endLine": 179,
+        "endChar": 60
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5519de1_f2007e61",
@@ -359,6 +736,30 @@
       "writtenOn": "2025-01-08T04:37:21Z",
       "side": 1,
       "message": "Per discussion: is there a need to redact this? It doesn\u0027t look like knowing the PSM of an L2CAP network would give other apps any sort of useful information. They don\u0027t have the MAC, and there are only 128 ephemeral PSM values anyway.",
+      "range": {
+        "startLine": 228,
+        "startChar": 54,
+        "endLine": 228,
+        "endChar": 61
+      },
+      "revId": "961528d1cca2dfacbec8f13a0b312ffa92522555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc1b4f89_aa785b4e",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T05:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5519de1_f2007e61",
       "range": {
         "startLine": 228,
         "startChar": 54,
