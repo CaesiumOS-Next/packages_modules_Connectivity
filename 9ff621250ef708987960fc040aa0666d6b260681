@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccc4db8c_bd1abc6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-08T14:04:52Z",
+      "side": 1,
+      "message": "This CL seems can be merged first. Its a no-op.",
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5c6550c_8dda6d43",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-08T14:04:52Z",
+      "side": 1,
+      "message": "why this comment is duplicated?",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 47
+      },
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
