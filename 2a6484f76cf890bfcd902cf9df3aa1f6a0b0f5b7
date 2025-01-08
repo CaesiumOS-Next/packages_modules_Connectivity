@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "326233b7_24541c1d",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T14:54:07Z",
+      "side": 1,
+      "message": ", or null to match any MAC address.",
+      "range": {
+        "startLine": 181,
+        "startChar": 61,
+        "endLine": 181,
+        "endChar": 62
+      },
+      "revId": "2a6484f76cf890bfcd902cf9df3aa1f6a0b0f5b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
