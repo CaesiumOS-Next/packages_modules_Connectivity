@@ -118,6 +118,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e0fc7c5_967507a4",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-08T11:17:04Z",
+      "side": 1,
+      "message": "Lets add addtional check as I put in aosp/3442139 to make sure we follow VSR-16 requirements.",
+      "range": {
+        "startLine": 781,
+        "startChar": 8,
+        "endLine": 781,
+        "endChar": 44
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5ed86541_2c5e8f87",
         "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
         "patchSetId": 4
