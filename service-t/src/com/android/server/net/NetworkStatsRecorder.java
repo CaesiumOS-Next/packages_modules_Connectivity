@@ -88,6 +88,7 @@ public class NetworkStatsRecorder {
     private long mPersistThresholdBytes = 2 * MB_IN_BYTES;
     private NetworkStats mLastSnapshot;
 
+    private long mLastPersistTimeMillis;
     private final NetworkStatsCollection mPending;
     private final NetworkStatsCollection mSinceBoot;
 
@@ -315,6 +316,9 @@ public class NetworkStatsRecorder {
      * {@link #mPersistThresholdBytes}.
      */
     public void maybePersistLocked(long currentTimeMillis) {
+        // avoid persisting too frequently, at most every 5 seconds
+        if (currentTimeMillis < mLastPersistTimeMillis + 5000) return;
+        mLastPersistTimeMillis = currentTimeMillis;
         Objects.requireNonNull(mRotator, "missing FileRotator");
         final long pendingBytes = mPending.getTotalBytes();
         if (pendingBytes >= mPersistThresholdBytes) {
