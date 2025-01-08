@@ -39,6 +39,30 @@
       },
       "revId": "abd12865e1bf2865ef4d63b99ac6391cd33bf720",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4f067c2_79ba0240",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-08T01:48:56Z",
+      "side": 1,
+      "message": "Yes; The callback is called upon registration in setUp(), so expectNoTetheringActive will be able to find the empty event.\n\nI\u0027ve also verified that the test works even when the test body is empty (i.e. no tethering is started)",
+      "parentUuid": "e9f7a52f_2ad3cc0a",
+      "range": {
+        "startLine": 56,
+        "startChar": 27,
+        "endLine": 56,
+        "endChar": 43
+      },
+      "revId": "abd12865e1bf2865ef4d63b99ac6391cd33bf720",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

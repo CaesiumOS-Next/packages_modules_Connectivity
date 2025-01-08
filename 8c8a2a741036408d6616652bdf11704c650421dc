@@ -93,6 +93,30 @@
       },
       "revId": "8c8a2a741036408d6616652bdf11704c650421dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "907b0453_16221ac4",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-08T01:48:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5de8f5_cac82775",
+      "range": {
+        "startLine": 78,
+        "startChar": 31,
+        "endLine": 78,
+        "endChar": 48
+      },
+      "revId": "8c8a2a741036408d6616652bdf11704c650421dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
