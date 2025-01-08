@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7f89a2a_db0e5c1f",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-08T09:04:09Z",
+      "side": 1,
+      "message": "it seems this constant is not necessary...",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "309a22b829a119d565500904fd39ad7ea4b3aa99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a3c3193_cdf13633",
         "filename": "tests/cts/multidevices/apfv6_test.py",
         "patchSetId": 29
