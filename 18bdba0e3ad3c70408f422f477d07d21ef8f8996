@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f841786_9bab11ce",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-08T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ba086f6_0159539a",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 5
+      },
+      "revId": "18bdba0e3ad3c70408f422f477d07d21ef8f8996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ec8ca25_80327a85",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-07T16:32:42Z",
       "side": 1,
       "message": "Optional suggestion (feel free to address in a follow-up CL as this one\u0027s scope has already grown larger than you were originally intending): would it make sense to use a Builder pattern instead for this class, given the number of identically typed parameters (which can easily be confused at the call site)? Even though it\u0027s package-private (which will reduce the likelihood of using it incorrectly), I could easily see us accidentally introducing a bug by passing the content URL before the metadata URL for example.\n\n\u003e When should I use a builder? [...] when there are \"many\" parameters, or when several parameters are of the same type and can be easily confused\n\ngo/java-practices/builders#when\ngo/ej3e-2",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 100
+      },
+      "revId": "18bdba0e3ad3c70408f422f477d07d21ef8f8996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1f405b0_805517b2",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CompatibilityVersion.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-08T14:59:16Z",
+      "side": 1,
+      "message": "You are right, using a builder pattern would help when constructing this class. While working on this CL I did accidentally swap the `String` parameters, it took me a while to figure out the issue 😄 I\u0027ll postpone that for a follow-up CL, though, this one has already grown too big.",
+      "parentUuid": "7ec8ca25_80327a85",
       "range": {
         "startLine": 61,
         "startChar": 4,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b524f63c_52e232d9",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CompatibilityVersion.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-08T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a55f5eeb_32295ff4",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 73
+      },
+      "revId": "18bdba0e3ad3c70408f422f477d07d21ef8f8996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d232fa9_4c28b86a",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CompatibilityVersion.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-08T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b12e9700_3844093a",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 73
+      },
+      "revId": "18bdba0e3ad3c70408f422f477d07d21ef8f8996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dc31c9b_cdc4d2d2",
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f051e59_ad5b631e",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CompatibilityVersion.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-08T14:59:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6dc31c9b_cdc4d2d2",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 5
+      },
+      "revId": "18bdba0e3ad3c70408f422f477d07d21ef8f8996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a498fccb_56b333e9",
@@ -129,6 +249,30 @@
       "writtenOn": "2025-01-07T16:32:42Z",
       "side": 1,
       "message": "Potentially a very stupid question, but why do you need to create a compat version here and explicitly set it in the CTDownloader, instead of relying on the mCTDownloader.start() API (and then doing mCTDownloader.stop() in tearDown())?\n\nOtherwise, it feels like the unit tests are testing class internals rather than testing via the available APIs. This makes the unit tests less resilient to implementation changes, because the unit tests are relying on implementation details like this method.\n\nInstead, it\u0027s recommended to exercise the behavior via the public APIs, and avoid the use of `@VisibleForTesting` on methods and unnecessarily increasing the visibility of methods.\n\ngo/java-practices/visibility#test_apis\ngo/unit-test-practices#public-apis\nhttp://sites/codehealth/refactoring-gallery/visiblefortesting-smellyviolationofencapsulation\n\nThen, the existing tests could remain with calling startMetadataDownload() and startContentDownload() without needing a CompatVersion passed in.",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 48
+      },
+      "revId": "18bdba0e3ad3c70408f422f477d07d21ef8f8996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9500f2d_31e0f21a",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-08T14:59:16Z",
+      "side": 1,
+      "message": "The problem is that the `Config.CT_ROOT_DIRECTORY_PATH` directory is not writable by the test process, so in the test class we need to provide a `CompatiblityVersion` that writes to a different location.\n\nI made some additional changes to twy and make both the test and the prod case follow the same usage pattern, where the `CompatiblityVersion` is added externally before starting the CTJob. This way the test class can invoke start/stop in the the test setup/teardown. Hopefully it\u0027s a bit clearer now.",
+      "parentUuid": "a498fccb_56b333e9",
       "range": {
         "startLine": 107,
         "startChar": 0,
@@ -175,6 +319,30 @@
       "writtenOn": "2025-01-07T16:32:42Z",
       "side": 1,
       "message": "More a generic open-ended question (that will probably make sense to resolve in a separate CL), but I\u0027m wondering if there\u0027s anyway we can simplify the setup for each test method, whether it\u0027s reusing test value objects or having separate test helpers for each stage under test (e.g. 1 helper to initialize up until publicKeyDownload success, 1 helper to initialize up until metadataDownload success, 1 helper to initialize up until contentDownloadSuccess). \n\nLmk what you think -- I realize it\u0027s a bit tricky to do so, but I don\u0027t think this would violate go/tott/643.",
+      "range": {
+        "startLine": 548,
+        "startChar": 0,
+        "endLine": 561,
+        "endChar": 65
+      },
+      "revId": "18bdba0e3ad3c70408f422f477d07d21ef8f8996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8ceee06_3cfe5b63",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-08T14:59:16Z",
+      "side": 1,
+      "message": "I agree, each test method setup should be simpler.\n\nI did a bit of refactoring of the test class, and now the test method setup is mostly performed via the helper methods `makeXXXDownloadIntent`. I hope that improves readability a bit.",
+      "parentUuid": "c483d7b9_55991ead",
       "range": {
         "startLine": 548,
         "startChar": 0,
