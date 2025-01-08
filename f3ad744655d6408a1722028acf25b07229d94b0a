@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "468db155_1000b840",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "On SDK versions after {@link Build.VERSION_CODES.VANILLA_ICE_CREAM},",
+      "range": {
+        "startLine": 672,
+        "startChar": 19,
+        "endLine": 672,
+        "endChar": 38
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d60d0ff_1135c106",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 712,
+        "startChar": 19,
+        "endLine": 712,
+        "endChar": 38
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "157b0fa2_f9e0f706",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "Fix error message, the one in line 682 is correct.",
+      "range": {
+        "startLine": 720,
+        "startChar": 67,
+        "endLine": 720,
+        "endChar": 80
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbcc5638_f62c1512",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "Suggest:\n\n    // On T+, Bluetooth uses enableIpServing.",
+      "range": {
+        "startLine": 603,
+        "startChar": 16,
+        "endLine": 603,
+        "endChar": 18
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caa7571c_666f4ad1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "Suggest:\n\n    // Cannot happen on S+, because on S+ tetherableWigigRegexs is always empty.",
+      "range": {
+        "startLine": 606,
+        "startChar": 16,
+        "endLine": 606,
+        "endChar": 18
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e33386e1_7fe886df",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "Can you add a comment to explain the situation here? Off the top of my head (but I may be misremembering), something like the following?\n\n    // This is not necessary in normal use, because the hotspot and p2p code do not call\n    // tether(). It\u0027s possible that this could happen in the field due to unforeseen OEM\n    // modifications. If it does happen, a terrible error is logged in tether().\n    // Disallow it entirely after V.",
+      "range": {
+        "startLine": 610,
+        "startChar": 16,
+        "endLine": 610,
+        "endChar": 18
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "773d61cb_2698144c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "Can you add a comment to explain why other tethering types (USB, NCM, ETHERNET) do not need this?",
+      "range": {
+        "startLine": 615,
+        "startChar": 16,
+        "endLine": 615,
+        "endChar": 22
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4708a75_2bd78ae2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1025,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "Suggest:\n\n    // After V, the TetheringManager and ConnectivityManager tether and untether methods\n    // throw UnsupportedOperationException, so this cannot happen in normal use. Ensure\n    // that this code cannot run even if callers use raw binder calls or other\n    // unsupported methods.",
+      "range": {
+        "startLine": 1025,
+        "startChar": 12,
+        "endLine": 1025,
+        "endChar": 19
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "053d5784_8ec7fb66",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "Why is there no code here that logs CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_LEGACY_TETHER_WITH_TYPE_WIFI ? That code is there on ToT:\n\nhttps://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/Tethering.java;l\u003d1008\n\nAre you planning to delete that code in this CL? It seems like we should still keep it.",
+      "range": {
+        "startLine": 1028,
+        "startChar": 12,
+        "endLine": 1028,
+        "endChar": 15
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6240993d_88db91a1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1503,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "Why is this necessary? Is it because before this CL, processInterfaceStateChange would have called ensureIpServerStopped? But if so, what about other tethering types? How do those work, and why is wifi different?",
+      "range": {
+        "startLine": 1503,
+        "startChar": 12,
+        "endLine": 1503,
+        "endChar": 33
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a78c7bc3_bfb0a7d2",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 3067,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "On SDK versions after {@link Build.VERSION_CODES.VANILLA_ICE_CREAM},",
+      "range": {
+        "startLine": 3067,
+        "startChar": 14,
+        "endLine": 3067,
+        "endChar": 33
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88a18336_2c81b5e0",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 3092,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "On SDK versions after {@link Build.VERSION_CODES.VANILLA_ICE_CREAM}, this will throw an UnsupportedOperationException.\u003c/p\u003e",
+      "range": {
+        "startLine": 3092,
+        "startChar": 12,
+        "endLine": 3092,
+        "endChar": 13
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cccf045_c4d00746",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "AfterV",
+      "range": {
+        "startLine": 632,
+        "startChar": 70,
+        "endLine": 632,
+        "endChar": 80
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a9621c3_efae7285",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:05:33Z",
+      "side": 1,
+      "message": "AfterV",
+      "range": {
+        "startLine": 676,
+        "startChar": 70,
+        "endLine": 676,
+        "endChar": 80
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
