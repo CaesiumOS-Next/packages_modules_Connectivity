@@ -62,6 +62,30 @@
       },
       "revId": "309a22b829a119d565500904fd39ad7ea4b3aa99",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa97cde0_871672f3",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-08T09:02:31Z",
+      "side": 1,
+      "message": "Not applied. I somehow missed the previous test cases....",
+      "parentUuid": "bc5da9b5_a67e0dbc",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 42
+      },
+      "revId": "309a22b829a119d565500904fd39ad7ea4b3aa99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
