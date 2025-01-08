@@ -44,6 +44,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9de1c46e_08f96ecb",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-08T06:52:37Z",
+      "side": 1,
+      "message": "Agreed that a check should be added here to prevent invalid arg. Other than `mtu\u003e0` maybe to check mtu is in range of valid `[64, 1500]` makes more sense?\nCurrent netlink method works in the way that if the arg is invalid, MTU value stays unchanged. Would you prefer to set it to default?",
+      "parentUuid": "e8616f12_d6eba72c",
+      "range": {
+        "startLine": 508,
+        "startChar": 73,
+        "endLine": 508,
+        "endChar": 80
+      },
+      "revId": "1f21fdcf9ca6bc8cc1ef7179bfaa37890cb25f84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43c57d57_69581526",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 2
@@ -89,6 +113,30 @@
           ]
         }
       ],
+      "revId": "1f21fdcf9ca6bc8cc1ef7179bfaa37890cb25f84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6247c041_f007f835",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-08T06:52:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43c57d57_69581526",
+      "range": {
+        "startLine": 512,
+        "startChar": 12,
+        "endLine": 512,
+        "endChar": 17
+      },
       "revId": "1f21fdcf9ca6bc8cc1ef7179bfaa37890cb25f84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
