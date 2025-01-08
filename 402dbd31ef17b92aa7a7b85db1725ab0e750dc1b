@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1fb96c3_9b53debf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-08T06:41:27Z",
+      "side": 1,
+      "message": "More specifically, the change was automerged into android15-tests-dev by accident as it is not actually part of Android 15",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 11,
+        "endChar": 37
+      },
+      "revId": "402dbd31ef17b92aa7a7b85db1725ab0e750dc1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
