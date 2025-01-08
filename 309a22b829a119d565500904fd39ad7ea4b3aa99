@@ -16,6 +16,52 @@
       "message": "@yuyanghuang@google.com\nTested with 2 P9 devices, and passed with --iterations 10.\nPlease help to review this CL when you\u0027re available.",
       "revId": "309a22b829a119d565500904fd39ad7ea4b3aa99",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a3c3193_cdf13633",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-08T09:01:51Z",
+      "side": 1,
+      "message": "As this test is run as part of 25Q2, lets make sure we fail the test if APFv6 is not supported.",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "309a22b829a119d565500904fd39ad7ea4b3aa99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc5da9b5_a67e0dbc",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-08T09:01:51Z",
+      "side": 1,
+      "message": "lets add a test case for unicast ARP as well in this CL. I think that should be trival.",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 42
+      },
+      "revId": "309a22b829a119d565500904fd39ad7ea4b3aa99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
