@@ -20,6 +20,7 @@ import android.annotation.FlaggedApi;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -40,11 +41,11 @@ import java.util.Objects;
  * network must always be reserved using {@link ConnectivityManager#reserveNetwork}. The subsequent
  * {@link ConnectivityManager.NetworkCallback#onReserved(NetworkCapabilities)} includes information
  * (i.e. the PSM) for the server to advertise to the client.
- * Under the hood, an L2CAP server network is represented by a {@link
+ * Under the hood, an L2CAP server network is backed by a {@link
  * android.bluetooth.BluetoothServerSocket} which can, in theory, accept many connections. However,
- * before Android 15 Bluetooth APIs do not expose the channel ID, so these connections are
- * indistinguishable. In practice, this means that network matching semantics in {@link
- * ConnectivityService} will tear down all but the first connection.
+ * before SDK version {@link Build.VERSION_CODES.VANILLA_ICE_CREAM} Bluetooth APIs do not expose the
+ * channel ID, so these connections are indistinguishable. In practice, this means that network
+ * matching semantics in ConnectivityService will tear down all but the first connection.
  *
  * The L2cap client network can be connected using {@link ConnectivityManager#requestNetwork}
  * including passing in the relevant information (i.e. PSM and destination MAC address) using the
@@ -53,11 +54,16 @@ import java.util.Objects;
  */
 @FlaggedApi(Flags.FLAG_IPV6_OVER_BLE)
 public final class L2capNetworkSpecifier extends NetworkSpecifier implements Parcelable {
-    /** Accept any role. */
+    /**
+     * Match any role.
+     *
+     * This role is only meaningful in {@link NetworkRequest}s. Specifiers for actual L2CAP
+     * networks never have this role set.
+     */
     public static final int ROLE_ANY = 0;
-    /** Specifier describes a client network. */
+    /** Specifier describes a client network, i.e., the device is the Bluetooth central. */
     public static final int ROLE_CLIENT = 1;
-    /** Specifier describes a server network. */
+    /** Specifier describes a server network, i.e., the device is the Bluetooth peripheral. */
     public static final int ROLE_SERVER = 2;
 
     /** @hide */
@@ -72,7 +78,12 @@ public final class L2capNetworkSpecifier extends NetworkSpecifier implements Par
     @Role
     private final int mRole;
 
-    /** Accept any form of header compression. */
+    /**
+     * Accept any form of header compression.
+     *
+     * This option is only meaningful in {@link NetworkRequest}s. Specifiers for actual L2CAP
+     * networks never have this option set.
+     */
     public static final int HEADER_COMPRESSION_ANY = 0;
     /** Do not compress packets on this network. */
     public static final int HEADER_COMPRESSION_NONE = 1;
@@ -91,13 +102,16 @@ public final class L2capNetworkSpecifier extends NetworkSpecifier implements Par
     @HeaderCompression
     private final int mHeaderCompression;
 
-    /**
-     *  The MAC address of the remote.
-     */
+    /** The MAC address of the remote. */
     @Nullable
     private final MacAddress mRemoteAddress;
 
-    /** Match any PSM. */
+    /**
+     * Match any PSM.
+     *
+     * This PSM value is only meaningful in {@link NetworkRequest}s. Specifiers for actual L2CAP
+     * networks never have this value set.
+     */
     public static final int PSM_ANY = -1;
 
     /** The Bluetooth L2CAP Protocol Service Multiplexer (PSM). */
@@ -131,7 +145,14 @@ public final class L2capNetworkSpecifier extends NetworkSpecifier implements Par
         return mHeaderCompression;
     }
 
-    /** Returns the remote MAC address for this network to connect to. */
+    /**
+     * Returns the remote MAC address for this network to connect to.
+     *
+     * The remote address is only meaningful for networks that have ROLE_CLIENT.
+     *
+     * When receiving this {@link L2capNetworkSpecifier} from Connectivity APIs such as a {@link
+     * ConnectivityManager.NetworkCallback}, the MAC address is redacted.
+     */
     public @Nullable MacAddress getRemoteAddress() {
         return mRemoteAddress;
     }
@@ -144,15 +165,17 @@ public final class L2capNetworkSpecifier extends NetworkSpecifier implements Par
     /** A builder class for L2capNetworkSpecifier. */
     public static final class Builder {
         @Role
-        private int mRole;
+        private int mRole = ROLE_ANY;
         @HeaderCompression
-        private int mHeaderCompression;
+        private int mHeaderCompression = HEADER_COMPRESSION_ANY;
         @Nullable
         private MacAddress mRemoteAddress;
         private int mPsm = PSM_ANY;
 
         /**
          * Set the role to use for this network.
+         *
+         * If not set, defaults to {@link ROLE_ANY}.
          *
          * @param role the role to use.
          */
@@ -165,6 +188,8 @@ public final class L2capNetworkSpecifier extends NetworkSpecifier implements Par
         /**
          * Set the header compression mechanism to use for this network.
          *
+         * If not set, defaults to {@link HEADER_COMPRESSION_ANY}.
+         *
          * @param headerCompression the header compression mechanism to use.
          */
         @NonNull
@@ -176,7 +201,7 @@ public final class L2capNetworkSpecifier extends NetworkSpecifier implements Par
         /**
          * Set the remote address for the client to connect to.
          *
-         * Only valid for client networks. A null MacAddress matches *any* MacAddress.
+         * Only valid for client networks. If not set, the specifier matches any MAC address.
          *
          * @param remoteAddress the MAC address to connect to.
          */
@@ -189,7 +214,7 @@ public final class L2capNetworkSpecifier extends NetworkSpecifier implements Par
         /**
          * Set the PSM for the client to connect to.
          *
-         * Can only be configured on client networks.
+         * If not set, defaults to {@link PSM_ANY}.
          *
          * @param psm the Protocol Service Multiplexer (PSM) to connect to.
          */
