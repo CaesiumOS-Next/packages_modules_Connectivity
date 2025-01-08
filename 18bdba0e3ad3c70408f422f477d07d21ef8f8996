@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2787add_687492b7",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CompatibilityVersion.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-01-08T17:05:47Z",
+      "side": 1,
+      "message": "Sounds good to me. Feeling validated in my worries that it is actually easy to accidentally swap multiple String parameters :P",
+      "parentUuid": "a1f405b0_805517b2",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 100
+      },
+      "revId": "18bdba0e3ad3c70408f422f477d07d21ef8f8996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b12e9700_3844093a",
@@ -285,6 +309,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "deaf68bc_8038ea7c",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-01-08T17:05:47Z",
+      "side": 1,
+      "message": "Thanks, I find it much clearer now!",
+      "parentUuid": "b9500f2d_31e0f21a",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 48
+      },
+      "revId": "18bdba0e3ad3c70408f422f477d07d21ef8f8996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6ca3c2ad_eb51240a",
         "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
         "patchSetId": 13
@@ -343,6 +391,30 @@
       "side": 1,
       "message": "I agree, each test method setup should be simpler.\n\nI did a bit of refactoring of the test class, and now the test method setup is mostly performed via the helper methods `makeXXXDownloadIntent`. I hope that improves readability a bit.",
       "parentUuid": "c483d7b9_55991ead",
+      "range": {
+        "startLine": 548,
+        "startChar": 0,
+        "endLine": 561,
+        "endChar": 65
+      },
+      "revId": "18bdba0e3ad3c70408f422f477d07d21ef8f8996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "991f64f8_00862672",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-01-08T17:05:47Z",
+      "side": 1,
+      "message": "Thanks for your hard work on this, I think the readability is much improved with the new test setup helpers!",
+      "parentUuid": "b8ceee06_3cfe5b63",
       "range": {
         "startLine": 548,
         "startChar": 0,
