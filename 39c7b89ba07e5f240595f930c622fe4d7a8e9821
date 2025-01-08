@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7267091a_0e4328fb",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-08T06:48:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab173d72_c9b17609",
+      "range": {
+        "startLine": 686,
+        "startChar": 73,
+        "endLine": 686,
+        "endChar": 80
+      },
+      "revId": "39c7b89ba07e5f240595f930c622fe4d7a8e9821",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d35f7ada_c0447f32",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-07T08:35:57Z",
       "side": 1,
       "message": "Why make this public? Should it be @VisibleForTesting?",
+      "range": {
+        "startLine": 793,
+        "startChar": 8,
+        "endLine": 793,
+        "endChar": 12
+      },
+      "revId": "39c7b89ba07e5f240595f930c622fe4d7a8e9821",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56bbfbdb_43312384",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-08T06:48:41Z",
+      "side": 1,
+      "message": "Oops, this shouldn\u0027t be here.",
+      "parentUuid": "d35f7ada_c0447f32",
       "range": {
         "startLine": 793,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0d092e9_3740972c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-08T06:48:41Z",
+      "side": 1,
+      "message": "Ack, made this into a no-op.",
+      "parentUuid": "da63d2a0_6d402a40",
+      "range": {
+        "startLine": 1021,
+        "startChar": 12,
+        "endLine": 1021,
+        "endChar": 17
+      },
+      "revId": "39c7b89ba07e5f240595f930c622fe4d7a8e9821",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "633754dc_94ab6ff5",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-01-07T08:35:57Z",
       "side": 1,
       "message": "Why do this? Isn\u0027t line 3081 guaranteed to throw the same exception with the same message?",
+      "range": {
+        "startLine": 3079,
+        "startChar": 12,
+        "endLine": 3079,
+        "endChar": 17
+      },
+      "revId": "39c7b89ba07e5f240595f930c622fe4d7a8e9821",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50daeffe_b3b7dea3",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 3079,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-08T06:48:41Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "633754dc_94ab6ff5",
       "range": {
         "startLine": 3079,
         "startChar": 12,
