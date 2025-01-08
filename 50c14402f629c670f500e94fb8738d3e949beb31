@@ -69,6 +69,30 @@
       },
       "revId": "50c14402f629c670f500e94fb8738d3e949beb31",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62a582c2_3310069c",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-08T06:38:21Z",
+      "side": 1,
+      "message": "I recalled this problem and tried to disarm the timer in handleExpiration() in earlier patchsets. However, I forgot about it, and Remi suggested removing the code. Since mTask is cleared after posting to the handler, there seems to be no problem with the current design.  Nevertheless, I think you\u0027re right; we need to clean up the timer or set the next one to avoid unexpected polling events.",
+      "parentUuid": "bbcf58dc_df5e4ba2",
+      "range": {
+        "startLine": 153,
+        "startChar": 24,
+        "endLine": 153,
+        "endChar": 40
+      },
+      "revId": "50c14402f629c670f500e94fb8738d3e949beb31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
