@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d202f9eb_82bff575",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T01:42:24Z",
+      "side": 1,
+      "message": "LGTM assuming this actually works. See inline.",
+      "revId": "abd12865e1bf2865ef4d63b99ac6391cd33bf720",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9f7a52f_2ad3cc0a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T01:42:24Z",
+      "side": 1,
+      "message": "Does this work on a device that does not support tethering? it looks like it will expect an onTetheredInterfacesChanged callback, and if none is received, it will throw. Does calling registerTetheringEventCallback guarantee that onTetheredInterfacesChanged is called even if tethering is not supported?",
+      "range": {
+        "startLine": 56,
+        "startChar": 27,
+        "endLine": 56,
+        "endChar": 43
+      },
+      "revId": "abd12865e1bf2865ef4d63b99ac6391cd33bf720",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
