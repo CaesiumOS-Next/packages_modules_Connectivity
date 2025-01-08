@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab173d72_c9b17609",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T01:52:10Z",
+      "side": 1,
+      "message": "It\u0027s not \"after baklava\", it\u0027s after V. Maybe:\n\n    throw new UnsupportedOperationException(\"Not supported after SDK version \" + VANILLA_ICE_CREAM);\n\nAlso elsewhere.",
+      "range": {
+        "startLine": 686,
+        "startChar": 73,
+        "endLine": 686,
+        "endChar": 80
+      },
+      "revId": "39c7b89ba07e5f240595f930c622fe4d7a8e9821",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d35f7ada_c0447f32",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
         "patchSetId": 25
