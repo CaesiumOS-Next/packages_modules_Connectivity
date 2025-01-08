@@ -39,7 +39,6 @@ import android.net.INetworkStackConnector;
 import android.net.ITetheringConnector;
 import android.net.ITetheringEventCallback;
 import android.net.NetworkStack;
-import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringRequestParcel;
 import android.net.dhcp.DhcpServerCallbacks;
 import android.net.dhcp.DhcpServingParamsParcel;
@@ -141,10 +140,18 @@ public class TetheringService extends Service {
                     listener)) {
                 return;
             }
+<<<<<<< HEAD   (49e1bf Merge changes Ibe41711b,Iabb49041,I6d36b77c into main)
             TetheringRequest external = new TetheringRequest(request);
             external.setUid(getBinderCallingUid());
             external.setPackageName(callerPkg);
             mTethering.startTethering(external, callerPkg, listener);
+||||||| BASE
+            // TODO(b/216524590): Add UID/packageName of caller to TetheringRequest here
+            mTethering.startTethering(new TetheringRequest(request), callerPkg, listener);
+=======
+
+            mTethering.startTethering(request, callerPkg, listener);
+>>>>>>> BRANCH (9f51cb Revert "Replace TetheringRequestParcel with TetheringRequest)
         }
 
         @Override

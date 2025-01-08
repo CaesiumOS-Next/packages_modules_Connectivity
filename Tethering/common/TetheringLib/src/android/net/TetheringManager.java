@@ -794,11 +794,21 @@ public class TetheringManager {
         /** A configuration set for TetheringRequest. */
         private final TetheringRequestParcel mRequestParcel;
 
+<<<<<<< HEAD   (49e1bf Merge changes Ibe41711b,Iabb49041,I6d36b77c into main)
         /**
          * @hide
          */
         @FlaggedApi(Flags.FLAG_TETHERING_WITH_SOFT_AP_CONFIG)
         public TetheringRequest(@NonNull final TetheringRequestParcel request) {
+||||||| BASE
+        /**
+         * @hide
+         */
+        @FlaggedApi(Flags.TETHERING_REQUEST_WITH_SOFT_AP_CONFIG)
+        public TetheringRequest(@NonNull final TetheringRequestParcel request) {
+=======
+        private TetheringRequest(@NonNull final TetheringRequestParcel request) {
+>>>>>>> BRANCH (9f51cb Revert "Replace TetheringRequestParcel with TetheringRequest)
             mRequestParcel = request;
         }
 
@@ -1179,6 +1189,7 @@ public class TetheringManager {
             }
             return sj.toString();
         }
+<<<<<<< HEAD   (49e1bf Merge changes Ibe41711b,Iabb49041,I6d36b77c into main)
 
         /**
          * @hide
@@ -1223,6 +1234,31 @@ public class TetheringManager {
                     parcel.showProvisioningUi, parcel.connectivityScope, parcel.softApConfig,
                     parcel.uid, parcel.packageName, parcel.interfaceName);
         }
+||||||| BASE
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof TetheringRequest otherRequest)) return false;
+            TetheringRequestParcel parcel = getParcel();
+            TetheringRequestParcel otherParcel = otherRequest.getParcel();
+            return parcel.tetheringType == otherParcel.tetheringType
+                    && Objects.equals(parcel.localIPv4Address, otherParcel.localIPv4Address)
+                    && Objects.equals(parcel.staticClientAddress, otherParcel.staticClientAddress)
+                    && parcel.exemptFromEntitlementCheck == otherParcel.exemptFromEntitlementCheck
+                    && parcel.showProvisioningUi == otherParcel.showProvisioningUi
+                    && parcel.connectivityScope == otherParcel.connectivityScope;
+        }
+
+        @Override
+        public int hashCode() {
+            TetheringRequestParcel parcel = getParcel();
+            return Objects.hash(parcel.tetheringType, parcel.localIPv4Address,
+                    parcel.staticClientAddress, parcel.exemptFromEntitlementCheck,
+                    parcel.showProvisioningUi, parcel.connectivityScope);
+        }
+=======
+>>>>>>> BRANCH (9f51cb Revert "Replace TetheringRequestParcel with TetheringRequest)
     }
 
     /**

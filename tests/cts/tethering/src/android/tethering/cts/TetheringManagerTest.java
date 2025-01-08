@@ -285,6 +285,7 @@ public class TetheringManagerTest {
         assertEquals(TETHERING_USB, tr2.getTetheringType());
         assertTrue(tr2.isExemptFromEntitlementCheck());
         assertFalse(tr2.getShouldShowEntitlementUi());
+<<<<<<< HEAD   (49e1bf Merge changes Ibe41711b,Iabb49041,I6d36b77c into main)
         assertEquals(CONNECTIVITY_SCOPE_LOCAL, tr2.getConnectivityScope());
         assertNull(tr2.getSoftApConfiguration());
         assertEquals(uid, tr2.getUid());
@@ -342,6 +343,15 @@ public class TetheringManagerTest {
                 // Success
             }
         }
+||||||| BASE
+
+        final TetheringRequest tr3 = new TetheringRequest.Builder(TETHERING_USB)
+                .setStaticIpv4Addresses(localAddr, clientAddr)
+                .setExemptFromEntitlementCheck(true)
+                .setShouldShowEntitlementUi(false).build();
+        assertEquals(tr2, tr3);
+=======
+>>>>>>> BRANCH (9f51cb Revert "Replace TetheringRequestParcel with TetheringRequest)
     }
 
     @Test
@@ -354,6 +364,7 @@ public class TetheringManagerTest {
                 .setStaticIpv4Addresses(localAddr, clientAddr)
                 .setExemptFromEntitlementCheck(true)
                 .setShouldShowEntitlementUi(false).build();
+<<<<<<< HEAD   (49e1bf Merge changes Ibe41711b,Iabb49041,I6d36b77c into main)
         final TetheringRequest withoutApConfig = new TetheringRequest.Builder(TETHERING_WIFI)
                 .setStaticIpv4Addresses(localAddr, clientAddr)
                 .setExemptFromEntitlementCheck(true)
@@ -366,6 +377,21 @@ public class TetheringManagerTest {
         final TetheringRequest withIfaceName = new TetheringRequest.Builder(TETHERING_VIRTUAL)
                 .setInterfaceName("test_iface").build();
         assertEquals(withIfaceName, ParcelUtils.parcelingRoundTrip(withIfaceName));
+||||||| BASE
+        final TetheringRequest parceled = ParcelUtils.parcelingRoundTrip(unparceled);
+        assertEquals(unparceled, parceled);
+=======
+        final TetheringRequest parceled = ParcelUtils.parcelingRoundTrip(unparceled);
+        assertEquals(unparceled.getTetheringType(), parceled.getTetheringType());
+        assertEquals(unparceled.getConnectivityScope(), parceled.getConnectivityScope());
+        assertEquals(unparceled.getLocalIpv4Address(), parceled.getLocalIpv4Address());
+        assertEquals(unparceled.getClientStaticIpv4Address(),
+                parceled.getClientStaticIpv4Address());
+        assertEquals(unparceled.isExemptFromEntitlementCheck(),
+                parceled.isExemptFromEntitlementCheck());
+        assertEquals(unparceled.getShouldShowEntitlementUi(),
+                parceled.getShouldShowEntitlementUi());
+>>>>>>> BRANCH (9f51cb Revert "Replace TetheringRequestParcel with TetheringRequest)
     }
 
     @Test
