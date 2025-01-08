@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7186f991_bcf46ebd",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-08T01:30:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57660244_193cdca8",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 62,
+        "endChar": 56
+      },
+      "revId": "8c8a2a741036408d6616652bdf11704c650421dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ca9de2b_b6657a3c",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-07T08:15:44Z",
       "side": 1,
       "message": "This codepath should unregister the callback too.",
+      "range": {
+        "startLine": 78,
+        "startChar": 31,
+        "endLine": 78,
+        "endChar": 48
+      },
+      "revId": "8c8a2a741036408d6616652bdf11704c650421dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da5de8f5_cac82775",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-08T01:30:41Z",
+      "side": 1,
+      "message": "There are existing CTS tests that call stopWifiTethering and then unregisterTetheringEventCallback. If we unregistered in stopWifiTethering, we\u0027ll run into an IllegalArgumentException when we try to unregister the already-removed callback.",
+      "parentUuid": "9ca9de2b_b6657a3c",
       "range": {
         "startLine": 78,
         "startChar": 31,
