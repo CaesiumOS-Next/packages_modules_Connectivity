@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6317c0b1_2fa6a676",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T06:42:33Z",
+      "side": 1,
+      "message": "I would remove this for clarity. Otherwise people might ask why the code is commented out.",
+      "range": {
+        "startLine": 251,
+        "startChar": 16,
+        "endLine": 251,
+        "endChar": 52
+      },
+      "revId": "1d68e48859a29ba56ecc8d8a7f63653676dcf1cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
