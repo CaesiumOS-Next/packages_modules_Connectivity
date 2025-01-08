@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20bc4504_30c7d03c",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T23:45:30Z",
+      "side": 1,
+      "message": "This isn\u0027t entirely correct. The client network needs to specify the remote MAC *and* PSM, while the server network technically doesn\u0027t specify any, it allocates / reserves the PSM.\n\n---\n\nHow about:\n\nThis specifier contains the information required to request a client L2CAP network using {@link ConnectivityManager#requestNetwork} and specifying the remote MAC address, Protocol/Service Multiplexer (PSM). It can also contain information allocated by the system when reserving a server network using {@link ConnectivityManager#reserveNetwork} such as the Protocol/Service Multiplexer (PSM). In both cases, the header compression option must always be specified.\n\n---\n\nReworded this section a bit. Thanks for the suggestions.",
+      "parentUuid": "4f7c7c9d_46725052",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "a14d0b69159fe1e6a424c6665e8317bf1ac70ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3def86d_2a3e1255",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-08T09:54:20Z",
       "side": 1,
       "message": "Per discussion in API council pod today: clarify how clients are supposed to find this PSM, and what it stands for. Maybe say something like:\n\nThe subsequent {@link ConnectivityManager.NetworkCallback#onReserved(NetworkCapabilities)} callback includes an {@code L2CapNetworkSpecifier}. The {@link getPsm()} method will return the PSM (Protocol/Service Multiplexer) of the reserved network so that the server can advertise it to the client and the client can connect.",
+      "range": {
+        "startLine": 42,
+        "startChar": 88,
+        "endLine": 43,
+        "endChar": 17
+      },
+      "revId": "a14d0b69159fe1e6a424c6665e8317bf1ac70ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63ddcef9_25bf4e06",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T23:45:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3def86d_2a3e1255",
       "range": {
         "startLine": 42,
         "startChar": 88,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d164036_8d87ac97",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T23:45:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb5214d6_4c18e488",
+      "range": {
+        "startLine": 54,
+        "startChar": 1,
+        "endLine": 54,
+        "endChar": 2
+      },
+      "revId": "a14d0b69159fe1e6a424c6665e8317bf1ac70ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74f6738a_756846c1",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-01-08T09:54:20Z",
       "side": 1,
       "message": "Protocol/Service Multiplexer (PSM)",
+      "range": {
+        "startLine": 160,
+        "startChar": 20,
+        "endLine": 160,
+        "endChar": 23
+      },
+      "revId": "a14d0b69159fe1e6a424c6665e8317bf1ac70ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "157d956c_fd5340c0",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T23:45:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74f6738a_756846c1",
       "range": {
         "startLine": 160,
         "startChar": 20,

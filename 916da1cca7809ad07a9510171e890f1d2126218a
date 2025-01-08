@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f2f81ca_21ef2af4",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-08T23:45:30Z",
+      "side": 1,
+      "message": "This option must be specified (i.e. not set to {@link HEADER_COMPRESSION_ANY} when requesting or reserving a new network.",
+      "range": {
+        "startLine": 191,
+        "startChar": 65,
+        "endLine": 191,
+        "endChar": 66
+      },
+      "revId": "916da1cca7809ad07a9510171e890f1d2126218a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
