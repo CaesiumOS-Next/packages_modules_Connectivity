@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b20dade2_5a0f15f2",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T04:37:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ec8cc48c_4834bac4",
+      "range": {
+        "startLine": 247,
+        "startChar": 34,
+        "endLine": 247,
+        "endChar": 61
+      },
+      "revId": "c6e2477ece2d59201120acb4f1d5f9b26f4f5d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ab31064_b1f37fff",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-01-06T22:48:47Z",
       "side": 1,
       "message": "I am not sure about this TODO. If I were to do that, I could expose the member values as public @hide for use internally. But there also aren\u0027t that many combinations that do not make sense. For a reservation, maybe, but accounting for listen requests, I think almost all (or all?) of them should be allowed.",
+      "revId": "c6e2477ece2d59201120acb4f1d5f9b26f4f5d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "676acb88_ee5350e4",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T04:37:21Z",
+      "side": 1,
+      "message": "Throwing for invalid combinations here is reasonable if you want to do it.",
+      "parentUuid": "9ab31064_b1f37fff",
       "revId": "c6e2477ece2d59201120acb4f1d5f9b26f4f5d07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

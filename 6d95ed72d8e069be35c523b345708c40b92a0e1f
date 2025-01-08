@@ -52,6 +52,24 @@
       "parentUuid": "fe97f547_18eec287",
       "revId": "6d95ed72d8e069be35c523b345708c40b92a0e1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faca66cb_b551f41e",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T04:37:21Z",
+      "side": 1,
+      "message": "Per other comment: this seems fine.",
+      "parentUuid": "7eb14fb0_c0da065e",
+      "revId": "6d95ed72d8e069be35c523b345708c40b92a0e1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
