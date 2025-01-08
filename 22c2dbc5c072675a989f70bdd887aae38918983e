@@ -1,0 +1,492 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e00ea8b0_a2f4fa3a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "should be `Log.e()`, and should log `interfaceName`",
+      "range": {
+        "startLine": 519,
+        "startChar": 12,
+        "endLine": 519,
+        "endChar": 17
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "80df294b_8e472dfe",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 519,
+                "startChar": 0,
+                "endLine": 520,
+                "endChar": 0
+              },
+              "replacement": "            Log.e(TAG, \"Failed to send or receive netlink message: \" + e.getMessage(), e);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "621bd35c_a23cf1c6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "Here and below, we should log `interfaceName`",
+      "range": {
+        "startLine": 529,
+        "startChar": 16,
+        "endLine": 529,
+        "endChar": 21
+      },
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52ca1eb2_59a209c6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "nit: prefer to keep the positive branch as unested as possible\n\n```\nif (msg.type !\u003d RTM_NEWLINK) {\n  Log.e();\n  return null;\n}\nreturn (Cast) msg;\n```\n\nAlso same comment applies to the check on `enoughBytesRemainForValidNlMsg()`.",
+      "range": {
+        "startLine": 547,
+        "startChar": 12,
+        "endLine": 551,
+        "endChar": 13
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "375038d7_e7d67e3c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 525,
+                "startChar": 0,
+                "endLine": 553,
+                "endChar": 0
+              },
+              "replacement": "        if (!enoughBytesRemainForValidNlMsg(response)) {\n            Log.e(TAG, \"Badly formatted data, failed to get netlink message\");\n            return null;\n        }\n\n        final NetlinkMessage nlMsg \u003d\n                NetlinkMessage.parse(response, NETLINK_ROUTE);\n        if (nlMsg \u003d\u003d null) {\n            Log.e(TAG, \"Badly formatted data, failed to get netlink message\");\n            return null;\n        }\n        if (!(nlMsg instanceof RtNetlinkLinkMessage)) {\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 554,
+                "startChar": 0,
+                "endLine": 554,
+                "endChar": 0
+              },
+              "replacement": "            return null;\n        }\n        final StructNlMsgHdr hdr \u003d nlMsg.getHeader();\n        if (hdr \u003d\u003d null) {\n            Log.e(TAG, \"Badly formatted data, \"\n                    + \"failed to get netlink message header\");\n            return null;\n        }\n        if (hdr.nlmsg_type \u003d\u003d NetlinkConstants.NLMSG_ERROR) {\n            Log.e(TAG, \"Failed to get response, error message: \"\n                    + ((NetlinkErrorMessage) nlMsg));\n            return null;\n        }\n        if (hdr.nlmsg_type !\u003d NetlinkConstants.RTM_NEWLINK) {\n            Log.e(TAG, \"Wrong netlink message type: \" + hdr.nlmsg_type);\n            return null;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed660e97_46c1663d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 565,
+        "startChar": 4,
+        "endLine": 565,
+        "endChar": 10
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "0033adec_0e2862b8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 565,
+                "startChar": 0,
+                "endLine": 565,
+                "endChar": 0
+              },
+              "replacement": "    @Nullable\n"
+            }
+          ]
+        }
+      ],
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1cc0802_e6d2a660",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "For a function input or return type, it is preferrable to use the less specific class like `List` / `Map` / `Set` instead of a concrete type like `ArrayList` or `HashSet`",
+      "range": {
+        "startLine": 565,
+        "startChar": 18,
+        "endLine": 565,
+        "endChar": 27
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "5f101af2_a71e8ef8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 565,
+                "startChar": 0,
+                "endLine": 566,
+                "endChar": 0
+              },
+              "replacement": "    public static List\u003cLong\u003e getInterfaceFlags(@NonNull String interfaceName) {\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 578,
+                "startChar": 0,
+                "endLine": 579,
+                "endChar": 0
+              },
+              "replacement": "        List\u003cLong\u003e flagsList \u003d new ArrayList\u003c\u003e();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c9a10dc_ebcf0511",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "nit: we should log interfaceName",
+      "range": {
+        "startLine": 570,
+        "startChar": 12,
+        "endLine": 570,
+        "endChar": 17
+      },
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e66ec6_69527ac3",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "To avoid the double Log.e(), we should return null directly from this catch block.",
+      "range": {
+        "startLine": 571,
+        "startChar": 8,
+        "endLine": 571,
+        "endChar": 9
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "982ec170_b8aad99c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 571,
+                "startChar": 0,
+                "endLine": 571,
+                "endChar": 0
+              },
+              "replacement": "            return null;\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 602,
+                "startChar": 0,
+                "endLine": 602,
+                "endChar": 0
+              },
+              "replacement": "            return null;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7613173e_85b724a6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "unused",
+      "range": {
+        "startLine": 579,
+        "startChar": 12,
+        "endLine": 579,
+        "endChar": 17
+      },
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "205e8600_9435a992",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "A slightly more efficient way to write the loop is to start directly from the highest bit and right shift carry one bit by iteration\n\n```\nfor (long flag \u003d Long.highestOneBit(flags); flag !\u003d 0; flag \u003d flag \u003e\u003e\u003e 1)  {\n}\n```",
+      "range": {
+        "startLine": 580,
+        "startChar": 1,
+        "endLine": 580,
+        "endChar": 38
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d1122639_b9bd3f9e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 579,
+                "startChar": 0,
+                "endLine": 585,
+                "endChar": 0
+              },
+              "replacement": "        for (long flag \u003d Long.highestOneBit(flags); flag !\u003d 0; flag \u003d Long.highestOneBit(flag)) {\n            flagsList.add(flag);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82ad921f_c5579623",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "nit: \"flag\" seems more appropriate here.",
+      "range": {
+        "startLine": 581,
+        "startChar": 17,
+        "endLine": 581,
+        "endChar": 21
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "bd0fe306_e107ea7d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 581,
+                "startChar": 0,
+                "endLine": 584,
+                "endChar": 0
+              },
+              "replacement": "            long flag \u003d 1 \u003c\u003c i;\n            if ((flags \u0026 flag) !\u003d 0) {\n                flagsList.add(flag);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35d79c6f_642539d2",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "nit: we should log `interfaceName`",
+      "range": {
+        "startLine": 601,
+        "startChar": 12,
+        "endLine": 601,
+        "endChar": 17
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f6bda417_c61e5faa",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 570,
+                "startChar": 0,
+                "endLine": 571,
+                "endChar": 0
+              },
+              "replacement": "            Log.w(TAG, \"Failed to send request to get link information: \", e);\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 601,
+                "startChar": 0,
+                "endLine": 602,
+                "endChar": 0
+              },
+              "replacement": "            Log.w(TAG, \"Failed to send request to get link information: \", e);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa219dfe_c06472c7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "To avoid the double `Log.e()`, we should return null directly from this catch block.",
+      "range": {
+        "startLine": 602,
+        "startChar": 8,
+        "endLine": 602,
+        "endChar": 9
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "63d46804_4f7f6530",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 571,
+                "startChar": 0,
+                "endLine": 571,
+                "endChar": 0
+              },
+              "replacement": "            return null;\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 602,
+                "startChar": 0,
+                "endLine": 602,
+                "endChar": 0
+              },
+              "replacement": "            return null;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "22c2dbc5c072675a989f70bdd887aae38918983e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

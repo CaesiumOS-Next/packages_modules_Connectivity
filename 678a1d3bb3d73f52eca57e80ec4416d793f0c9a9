@@ -163,6 +163,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "90096967_1a3120b4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-08T06:58:19Z",
+      "side": 1,
+      "message": "Agreed this should be a separate patch. For now doing the close in `finally` sounds good.\n\n\u003e maybe something like sendMessage(FileDescriptor fd, byte[] message)\n\nI would go one step further and move the creation of the FD directly inside the helper function. This completely encapsulates the resource creation and destruction.\n\nBasically we need a version of `sendOneShotKernelMessage()` that returns something.\n\nBy using overloads we can return the correct type based on the input msg type, instead of having a byte[] input:\n\n```\nRtNetlinkLinkMessage sendOneShotRtNlMsg(RtNetlinkLinkMessage request);\n// etc\n// there is no example for other protocol than rtnl in this file.\n```",
+      "parentUuid": "6fd9bb42_0d5f9ade",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 531,
+        "endChar": 9
+      },
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "faa0e287_ec730aa7",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 2
