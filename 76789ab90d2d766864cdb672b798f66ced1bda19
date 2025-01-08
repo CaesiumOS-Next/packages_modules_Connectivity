@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba215dad_eb75eaee",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/AccurateDiscoveryExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-08T14:07:58Z",
+      "side": 1,
+      "message": "RealtimeDiscoveryExecutor seems more approviate? As we use `RealtimeScheduler` in aosp/3432149",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "76789ab90d2d766864cdb672b798f66ced1bda19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94a50cb4_65d0ade0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/AccurateDiscoveryExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-08T14:07:58Z",
+      "side": 1,
+      "message": "I think this class will need some redesign on top of aosp/3432149",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "76789ab90d2d766864cdb672b798f66ced1bda19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b2d621_eec71705",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/AccurateDiscoveryExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-08T14:07:58Z",
+      "side": 1,
+      "message": "nit: why full path?",
+      "range": {
+        "startLine": 29,
+        "startChar": 5,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "76789ab90d2d766864cdb672b798f66ced1bda19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "383bb0f0_2ebc2cc1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/AccurateDiscoveryExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-08T14:07:58Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "76789ab90d2d766864cdb672b798f66ced1bda19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
