@@ -181,8 +181,7 @@ public final class L2capNetworkSpecifier extends NetworkSpecifier implements Par
          * @param remoteAddress the MAC address to connect to.
          */
         @NonNull
-        public Builder setRemoteAddress(@NonNull MacAddress remoteAddress) {
-            Objects.requireNonNull(remoteAddress);
+        public Builder setRemoteAddress(@Nullable MacAddress remoteAddress) {
             mRemoteAddress = remoteAddress;
             return this;
         }
