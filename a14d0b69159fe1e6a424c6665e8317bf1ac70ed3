@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f7c7c9d_46725052",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:54:20Z",
+      "side": 1,
+      "message": ", such as the remote MAC address, for client networks, or the Protocol/Service Multiplexer (PSM) for server networks.",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "a14d0b69159fe1e6a424c6665e8317bf1ac70ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3def86d_2a3e1255",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:54:20Z",
+      "side": 1,
+      "message": "Per discussion in API council pod today: clarify how clients are supposed to find this PSM, and what it stands for. Maybe say something like:\n\nThe subsequent {@link ConnectivityManager.NetworkCallback#onReserved(NetworkCapabilities)} callback includes an {@code L2CapNetworkSpecifier}. The {@link getPsm()} method will return the PSM (Protocol/Service Multiplexer) of the reserved network so that the server can advertise it to the client and the client can connect.",
+      "range": {
+        "startLine": 42,
+        "startChar": 88,
+        "endLine": 43,
+        "endChar": 17
+      },
+      "revId": "a14d0b69159fe1e6a424c6665e8317bf1ac70ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb5214d6_4c18e488",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:54:20Z",
+      "side": 1,
+      "message": "When the connection between client and server completes, a {@link Network} whose capabilities satisfy this {@L2CapNetworkSpecifier} will connect and the usual callbacks, such as {@link NetworkCallback#onAvailable}, will be called on the callback object passed to {@link ConnectivityManager#reserveNetwork} or {@link ConnectivityManager#requestNetwork}.",
+      "range": {
+        "startLine": 54,
+        "startChar": 1,
+        "endLine": 54,
+        "endChar": 2
+      },
+      "revId": "a14d0b69159fe1e6a424c6665e8317bf1ac70ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74f6738a_756846c1",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-08T09:54:20Z",
+      "side": 1,
+      "message": "Protocol/Service Multiplexer (PSM)",
+      "range": {
+        "startLine": 160,
+        "startChar": 20,
+        "endLine": 160,
+        "endChar": 23
+      },
+      "revId": "a14d0b69159fe1e6a424c6665e8317bf1ac70ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
