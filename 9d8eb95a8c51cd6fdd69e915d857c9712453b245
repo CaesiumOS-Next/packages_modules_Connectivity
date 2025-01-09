@@ -3,6 +3,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ad16acc_ead35181",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 32
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T08:45:25Z",
+      "side": 1,
+      "message": "This comment seems unnecessary",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "6ac60aff_e44aa877",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/apfv6_test.py",
+              "range": {
+                "startLine": 18,
+                "startChar": 0,
+                "endLine": 19,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "9d8eb95a8c51cd6fdd69e915d857c9712453b245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82f6fc6d_432c6f2c",
         "filename": "tests/cts/multidevices/apfv6_test.py",
         "patchSetId": 32
