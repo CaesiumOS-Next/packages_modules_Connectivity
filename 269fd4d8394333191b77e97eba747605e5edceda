@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ca24510_3b070ef0",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-01-09T10:50:30Z",
+      "side": 1,
+      "message": "\u003eIf you are ok with it, I\u0027ll keep it as is for this CL, and try to fix the formatter going forward.\n\nYep of course, think it\u0027s more important to get this CL merged anyways.",
+      "parentUuid": "99f408b6_68b055a3",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 282,
+        "endChar": 24
+      },
+      "revId": "269fd4d8394333191b77e97eba747605e5edceda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3955c59_4c19bcf4",
