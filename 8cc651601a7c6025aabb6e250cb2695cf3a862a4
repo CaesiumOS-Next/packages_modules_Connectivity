@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "197fce8c_a78ec8d0",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkConstants.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T03:51:09Z",
+      "side": 1,
+      "message": "BTW @prohr@google.com if we prefer to manipulate flags as type `long`, should we define these constants as `long` as well ?\n\nThe main reason for using the widest type here is to avoid any potential issue with Java signed extension.\n\nThe canonical definition in linux uapi defines them as a C enum which I believe does not have a standard underlying type and is platform dependent.",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d084b07c_18cfb904",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkConstants.java",
+              "range": {
+                "startLine": 161,
+                "startChar": 0,
+                "endLine": 164,
+                "endChar": 0
+              },
+              "replacement": "    public static final long IFF_UP       \u003d 1L \u003c\u003c 0;\n    public static final long IFF_RUNNING  \u003d 1L \u003c\u003c 6;\n    public static final long IFF_LOWER_UP \u003d 1L \u003c\u003c 16;\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkConstants.java",
+              "range": {
+                "startLine": 176,
+                "startChar": 0,
+                "endLine": 177,
+                "endChar": 0
+              },
+              "replacement": "    public static final long RTM_F_CLONED        \u003d 0x200L;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8cc651601a7c6025aabb6e250cb2695cf3a862a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

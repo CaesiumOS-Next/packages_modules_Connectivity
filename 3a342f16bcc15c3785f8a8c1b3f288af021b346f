@@ -393,6 +393,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "672608a7_28044aea",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T03:51:09Z",
+      "side": 1,
+      "message": "Thanks for the note, I haven\u0027t looked at the bug in details but I don\u0027t immediately understand how it is linked with the type here ?\n\nAre you saying that we should use the opportunity of changing the type to also introduce separate tracking of the hw address for clietn and server modes (i.e two separate instance variables) ?",
+      "parentUuid": "03d6fabb_e6e7d5b0",
+      "range": {
+        "startLine": 616,
+        "startChar": 12,
+        "endLine": 616,
+        "endChar": 37
+      },
+      "revId": "3a342f16bcc15c3785f8a8c1b3f288af021b346f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80c81c39_1911b488",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 4
