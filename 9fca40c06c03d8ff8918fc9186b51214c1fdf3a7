@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cda0d935_49b768de",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-09T06:17:33Z",
+      "side": 0,
+      "message": "Per discussion, it would be good to ensure that this method is as easy to read as possible. The switch statement you have looks clear, but it\u0027s actually misleading, because the startup and teardown paths are actually very different. What if we did something like:\n\n\n        // Do not listen to USB interface state changes or USB interface add/removes. USB tethering\n        // is driven only by USB_ACTION broadcasts.\n        final int type \u003d ifaceNameToType(iface);\n        if (type \u003d\u003d TETHERING_USB || type \u003d\u003d TETHERING_NCM) return;\n\n        // On T+, BLUETOOTH uses enableIpServing.\n        if (type \u003d\u003d TETHERING_BLUETOOTH \u0026\u0026 SdkLevel.isAtLeastT()) return;\n\n        // Cannot happen: on S+, tetherableWigigRegexps is always empty.\n        if (type \u003d\u003d TETHERING_WIGIG \u0026\u0026 SdkLevel.isAtLeastS()) return;\n\n        // After V, disallow this legacy codepath from starting tethering of any type:\n        // everything must call ensureIpServerStarted directly.\n        //\n        // Don\u0027t touch the teardown path for now. It\u0027s more complicated because:\n        // - ensureIpServerStarted and ensureIpServerStopped act on different\n        //   tethering types.\n        // - Depending on the type, ensureIpServerStopped is either called twice (once\n        //   on interface down and once on interface removed) or just once (on\n        //   interface removed).\n        //\n        // Note that this only affects WIFI and WIFI_P2P. The other types are either\n        // ignored above, or ignored by ensureIpServerStarted. Note that even for WIFI\n        // and WIFI_P2P, this code should not ever happen in normal use, because the\n        // hotspot and p2p code do not call tether(). It\u0027s possible that this could\n        //  happen in the field due to unforeseen OEM modifications. If it does happen,\n        // a terrible error is logged in tether().\n        if (enable \u0026\u0026 Build.VERSION.SDK_INT \u003e Build.VERSION_CODES.VANILLA_ICE_CREAM) {\n            return;\n        }",
+      "range": {
+        "startLine": 598,
+        "startChar": 17,
+        "endLine": 598,
+        "endChar": 44
+      },
+      "revId": "9fca40c06c03d8ff8918fc9186b51214c1fdf3a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

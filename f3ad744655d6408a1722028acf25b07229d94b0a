@@ -93,6 +93,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6c6ce0f_44ef56a2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-09T06:17:33Z",
+      "side": 1,
+      "message": "Per discussion, probably follow the comment in line 598 instead.",
+      "parentUuid": "dbcc5638_f62c1512",
+      "range": {
+        "startLine": 603,
+        "startChar": 16,
+        "endLine": 603,
+        "endChar": 18
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "caa7571c_666f4ad1",
@@ -106,6 +130,30 @@
       "writtenOn": "2025-01-08T09:05:33Z",
       "side": 1,
       "message": "Suggest:\n\n    // Cannot happen on S+, because on S+ tetherableWigigRegexs is always empty.",
+      "range": {
+        "startLine": 606,
+        "startChar": 16,
+        "endLine": 606,
+        "endChar": 18
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3973b421_27ef77bc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-09T06:17:33Z",
+      "side": 1,
+      "message": "Per discussion, probably follow the comment in line 598 instead.",
+      "parentUuid": "caa7571c_666f4ad1",
       "range": {
         "startLine": 606,
         "startChar": 16,
@@ -210,6 +258,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8625fda8_3989f1cf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-09T06:17:33Z",
+      "side": 1,
+      "message": "Could you move this to another CL, so it can be discussed separately?",
+      "range": {
+        "startLine": 1093,
+        "startChar": 8,
+        "endLine": 1093,
+        "endChar": 41
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6240993d_88db91a1",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 27
@@ -226,6 +297,76 @@
         "startChar": 12,
         "endLine": 1503,
         "endChar": 33
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46e64123_d1d77037",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1503,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-09T06:17:33Z",
+      "side": 1,
+      "message": "Per discussion: let\u0027s remove this for now. We don\u0027t need to fix the startup path in this CL, and the teardown path is more complicated. Let\u0027s leave that to a future CL.",
+      "parentUuid": "6240993d_88db91a1",
+      "range": {
+        "startLine": 1503,
+        "startChar": 12,
+        "endLine": 1503,
+        "endChar": 33
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29df7db6_5e751ec0",
+        "filename": "Tethering/tests/integration/base/android/net/EthernetTetheringTestBase.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-09T06:17:33Z",
+      "side": 1,
+      "message": "Also probably belongs in the other CL.",
+      "range": {
+        "startLine": 222,
+        "startChar": 19,
+        "endLine": 222,
+        "endChar": 39
+      },
+      "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36e5d7e7_1dcc8f47",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-09T06:17:33Z",
+      "side": 1,
+      "message": "If you address the comments in Tethering, this doesn\u0027t need to be in this CL. It does seem correct though; maybe move it to the same CL where you addstopTethering(TETHERING_VIRTUAL) to untetherAll?",
+      "range": {
+        "startLine": 1211,
+        "startChar": 12,
+        "endLine": 1211,
+        "endChar": 32
       },
       "revId": "f3ad744655d6408a1722028acf25b07229d94b0a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
