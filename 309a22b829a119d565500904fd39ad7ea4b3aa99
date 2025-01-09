@@ -180,6 +180,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6845ffa3_587c6151",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T02:28:08Z",
+      "side": 1,
+      "message": "APFv4 test looks correct.\n\nWe need to do sth. similar:\n\n\n```\n    if self.client.getVsrApiLevel() \u003e\u003d 202504:\n      asserts.assert_true(\n          caps.apf_version_supported \u003d\u003d 6000,\n          \"APFv6 became mandatory in Android 16 VSR.\",\n      )\n    else:\n      apf_utils.assume_apf_version_support_at_least(\n          self.clientDevice, self.client_iface_name, 6000\n      )\n```",
+      "parentUuid": "642e71c0_486d3e94",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "309a22b829a119d565500904fd39ad7ea4b3aa99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc5da9b5_a67e0dbc",
         "filename": "tests/cts/multidevices/apfv6_test.py",
         "patchSetId": 29
