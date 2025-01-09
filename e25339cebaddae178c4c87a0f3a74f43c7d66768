@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84634a05_50ff006a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-09T04:34:34Z",
+      "side": 1,
+      "message": "Same as previous patch, the only easy way to test here is to test created message bytes are correct (which is already tested in previous patch). As for real netlink request \u0026 reponse, it is difficult to do in a unit test because of permission issue, so we prefer to test in on actual device (via CTS etc,.)",
+      "parentUuid": "d58a74ab_880ce174",
+      "revId": "e25339cebaddae178c4c87a0f3a74f43c7d66768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1687aee_011d78b6",
@@ -55,6 +73,30 @@
           ]
         }
       ],
+      "revId": "e25339cebaddae178c4c87a0f3a74f43c7d66768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a06b0b7a_565ae67d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-09T04:34:34Z",
+      "side": 1,
+      "message": "This looks even better, thanks.",
+      "parentUuid": "b1687aee_011d78b6",
+      "range": {
+        "startLine": 579,
+        "startChar": 0,
+        "endLine": 586,
+        "endChar": 9
+      },
       "revId": "e25339cebaddae178c4c87a0f3a74f43c7d66768",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

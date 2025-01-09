@@ -235,6 +235,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b83702c_50f3937c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-09T04:34:34Z",
+      "side": 1,
+      "message": "Just realized that it is unable to auto close the fd using `FileOutputStream`, fd needs to be owned by `FileOutputStream` to be auto closed, and `isFdOwner` is set to false by default using visible ctor.\nStill, I think it would look cleaner if we capsule the whole logic to a separate funciton. Updated in the same patch.",
+      "parentUuid": "7e20428a_db75780f",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 531,
+        "endChar": 9
+      },
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "faa0e287_ec730aa7",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 2
