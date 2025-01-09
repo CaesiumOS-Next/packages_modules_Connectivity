@@ -1,0 +1,86 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82f6fc6d_432c6f2c",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 32
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T08:44:38Z",
+      "side": 1,
+      "message": "16",
+      "range": {
+        "startLine": 30,
+        "startChar": 51,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3cb8fdd9_5f490d87",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/apfv6_test.py",
+              "range": {
+                "startLine": 30,
+                "startChar": 0,
+                "endLine": 31,
+                "endChar": 0
+              },
+              "replacement": "                \"APFv6 became mandatory in Android 16 VSR.\"\n"
+            }
+          ]
+        }
+      ],
+      "revId": "9d8eb95a8c51cd6fdd69e915d857c9712453b245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ba9efb4_228ed9eb",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 32
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T08:44:38Z",
+      "side": 1,
+      "message": "16",
+      "range": {
+        "startLine": 33,
+        "startChar": 63,
+        "endLine": 33,
+        "endChar": 65
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "e2e0e5e2_8a958cf0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/apfv6_test.py",
+              "range": {
+                "startLine": 33,
+                "startChar": 0,
+                "endLine": 34,
+                "endChar": 0
+              },
+              "replacement": "            # Skip tests for APF version \u003c 6000 before Android 16 VSR.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "9d8eb95a8c51cd6fdd69e915d857c9712453b245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
