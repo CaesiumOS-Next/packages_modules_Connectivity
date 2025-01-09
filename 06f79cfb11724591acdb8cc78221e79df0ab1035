@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3be2e16a_f34bc2e7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-09T03:06:35Z",
+      "side": 1,
+      "message": "nit: space",
+      "range": {
+        "startLine": 775,
+        "startChar": 38,
+        "endLine": 775,
+        "endChar": 39
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "31a53ecd_d351eae3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 775,
+                "startChar": 0,
+                "endLine": 776,
+                "endChar": 0
+              },
+              "replacement": "                        false /* isNcm */);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1c3b253_e51b90b5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-09T03:06:35Z",
+      "side": 1,
+      "message": "Can this be simplified to ensureIpServerStopped(request.getInterfaceName())?",
+      "range": {
+        "startLine": 785,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 13
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9beaa825_fe5f452a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 785,
+                "startChar": 0,
+                "endLine": 791,
+                "endChar": 0
+              },
+              "replacement": "            ensureIpServerStopped(request.getInterfaceName());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3656596e_ecc6bcc8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 2801,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-09T03:06:35Z",
+      "side": 1,
+      "message": "Is this rebased properly? mServingTetheringRequests doesn\u0027t exist in this patchset.\n\nIf you rebase on aosp/3389321 then mServingTetheringRequests is now a Map by interface name, so you could just do mServingTetheringRequests.get(who.interfaceName()).",
+      "range": {
+        "startLine": 2801,
+        "startChar": 48,
+        "endLine": 2801,
+        "endChar": 73
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "83c12651_0d749544",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 2801,
+                "startChar": 0,
+                "endLine": 2802,
+                "endChar": 0
+              },
+              "replacement": "                for (TetheringRequest request : mActiveTetheringRequests) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ab93273_e257ad4a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 3812,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-09T03:06:35Z",
+      "side": 1,
+      "message": "Please add spaces after each comma",
+      "range": {
+        "startLine": 3812,
+        "startChar": 20,
+        "endLine": 3812,
+        "endChar": 22
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "32f935eb_d23eb6bf",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+              "range": {
+                "startLine": 3812,
+                "startChar": 0,
+                "endLine": 3813,
+                "endChar": 0
+              },
+              "replacement": "                null, false, CONNECTIVITY_SCOPE_GLOBAL, TEST_P2P_IFNAME);\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+              "range": {
+                "startLine": 3819,
+                "startChar": 0,
+                "endLine": 3820,
+                "endChar": 0
+              },
+              "replacement": "                null, false, CONNECTIVITY_SCOPE_GLOBAL, TEST_P2P2_IFNAME);\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+              "range": {
+                "startLine": 3831,
+                "startChar": 0,
+                "endLine": 3832,
+                "endChar": 0
+              },
+              "replacement": "                null, false, CONNECTIVITY_SCOPE_GLOBAL, TEST_P2P_IFNAME);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcdc0c7f_47080974",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 3812,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-09T03:06:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be CONNECTIVITY_SCOPE_LOCAL?\n\nIf so, we also need to change TetheringRequest.checkConnectivityScope to allow P2P and getDefaultConnectivityScope to set P2P with LOCAL as default",
+      "range": {
+        "startLine": 3812,
+        "startChar": 27,
+        "endLine": 3812,
+        "endChar": 52
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4a24bc71_08b94bd8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+              "range": {
+                "startLine": 3812,
+                "startChar": 0,
+                "endLine": 3813,
+                "endChar": 0
+              },
+              "replacement": "                null,false,CONNECTIVITY_SCOPE_LOCAL,TEST_P2P_IFNAME);\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+              "range": {
+                "startLine": 3819,
+                "startChar": 0,
+                "endLine": 3820,
+                "endChar": 0
+              },
+              "replacement": "                null,false,CONNECTIVITY_SCOPE_LOCAL,TEST_P2P2_IFNAME);\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+              "range": {
+                "startLine": 3831,
+                "startChar": 0,
+                "endLine": 3832,
+                "endChar": 0
+              },
+              "replacement": "                null,false,CONNECTIVITY_SCOPE_LOCAL,TEST_P2P_IFNAME);\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+              "range": {
+                "startLine": 3835,
+                "startChar": 0,
+                "endLine": 3836,
+                "endChar": 0
+              },
+              "replacement": "                null, false, CONNECTIVITY_SCOPE_LOCAL, TEST_P2P_IFNAME);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
