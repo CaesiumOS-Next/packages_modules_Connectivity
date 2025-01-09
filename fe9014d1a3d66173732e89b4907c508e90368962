@@ -52,6 +52,24 @@
       "parentUuid": "6346f80b_35c6e40d",
       "revId": "fe9014d1a3d66173732e89b4907c508e90368962",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a719198_7a22af7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-09T08:50:09Z",
+      "side": 1,
+      "message": "Understood, thanks. Suggested based on the consideration that we might need the check for other overloads of `sendOneShotRtNlMsg` in the futrue, which we can revisit later.\nBut surely for now they only check once and its okay to put it as it is. Refactored the core IO part.",
+      "parentUuid": "b55abe6d_38fb2425",
+      "revId": "fe9014d1a3d66173732e89b4907c508e90368962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
