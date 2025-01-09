@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d935327b_959c1a71",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-09T16:08:37Z",
+      "side": 1,
+      "message": "Yeah, I was not super convinced either. Go ahead and keep it as is 👍",
+      "parentUuid": "7e5d05bc_9e2b2bfa",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 168
+      },
+      "revId": "211afca7169da7cc351c6babbc4ba5196eab7cb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03958f13_579a0f06",
