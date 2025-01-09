@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3059c175_cb7c3bb4",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T09:08:16Z",
+      "side": 1,
+      "message": "Could you make a change on top to rename ? Since this is more than a FileDescriptor now",
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ee3a0fa_2d76bedf",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T09:08:16Z",
+      "side": 1,
+      "message": "Nit: to make sure consistent ordering is used as the code evolves, better use Task#compareTo",
+      "range": {
+        "startLine": 175,
+        "startChar": 36,
+        "endLine": 175,
+        "endChar": 90
+      },
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95b7515c_2d4e4a2b",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T09:08:16Z",
+      "side": 1,
+      "message": "It might be worth noting that if there are other tasks currently in the queue with a runTime \u003c now, then tasks may be run out-of-order. So if I call:\n\npostDelayed(A, -1)\npostDelayed(B, -2)\n\nThen A, B will run afterwards on the handler; not B, A\n\nThat might matter for some callers if they calculate the delay dynamically.\nMaybe it\u0027s OK if we consider that callers should be aware of that (add to javadoc). Or you could always add to the queue, and then call a function that maybe re-sets the timer if the run time is less than the first element. That could remove some duplication between enqueueTask and handleExpiration both setting the timer.",
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee4e481f_91c1b501",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T09:08:16Z",
+      "side": 1,
+      "message": "Typo: remove (instead of removed)",
+      "range": {
+        "startLine": 207,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 23
+      },
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85607196_55aba145",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T09:08:16Z",
+      "side": 1,
+      "message": "Nit: to remove a bit of duplicate code with postDelayed, you could move the 4 lines above inside enqueueTask",
+      "range": {
+        "startLine": 227,
+        "startChar": 15,
+        "endLine": 227,
+        "endChar": 26
+      },
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b008c2b_f7b6c37e",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T09:08:16Z",
+      "side": 1,
+      "message": "Also a Log.wtf would be in order; possibly even a WTF metric (would need to be provided by the caller though)",
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c684c49_71d5e2d4",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T09:08:16Z",
+      "side": 1,
+      "message": "Is that true ? I don\u0027t think these are recurring ?",
+      "range": {
+        "startLine": 291,
+        "startChar": 67,
+        "endLine": 292,
+        "endChar": 31
+      },
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
