@@ -1,0 +1,62 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d58a74ab_880ce174",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T03:25:06Z",
+      "side": 1,
+      "message": "LGTM but could we add unit tests too.\n\n@prohr@google.com could you take a look for approval ? Thanks",
+      "revId": "e25339cebaddae178c4c87a0f3a74f43c7d66768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1687aee_011d78b6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T03:25:06Z",
+      "side": 1,
+      "message": "Actually there is an even more direct way:\n\n```\nlong flags \u003d msg.getIfinfoHeader().flags;\nwhile (flags !\u003d 0) {\n  int flag \u003d Long.highestOneBit(flags);\n  flagsList.add(flag);\n  flags \u003d flags ^ flag;\n}\n```",
+      "range": {
+        "startLine": 579,
+        "startChar": 0,
+        "endLine": 586,
+        "endChar": 9
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "7602cd40_fa62f542",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 582,
+                "startChar": 0,
+                "endLine": 586,
+                "endChar": 0
+              },
+              "replacement": "        while (flags !\u003d 0) {\n            int flag \u003d Long.highestOneBit(flags);\n            flagsList.add(flag);\n            flags \u003d flags ^ flag;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e25339cebaddae178c4c87a0f3a74f43c7d66768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -209,6 +209,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e20428a_db75780f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T03:25:06Z",
+      "side": 1,
+      "message": "(resolving)",
+      "parentUuid": "c9c8f4a3_f1ccf5ea",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 531,
+        "endChar": 9
+      },
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "faa0e287_ec730aa7",
