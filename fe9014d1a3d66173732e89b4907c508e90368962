@@ -34,6 +34,24 @@
       "parentUuid": "f36852d1_1f3bcdc7",
       "revId": "fe9014d1a3d66173732e89b4907c508e90368962",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b55abe6d_38fb2425",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T08:11:45Z",
+      "side": 1,
+      "message": "I thought a bit about this and my impresession is that if we write the correct `sendOneShortMsg()` helper method with the right types in and out, we can probably gather most of these checks in fewer places. For instance we should\u0027t have to check more than once that the response msg is a) of the right class, b) not a Netlink error, c) of the right rtnl type. Same thing for converting a msg into a `byte[]`.\n\nSo I would first start by refactoring the core IO part with the FD creation and destruction management and go from there.",
+      "parentUuid": "6346f80b_35c6e40d",
+      "revId": "fe9014d1a3d66173732e89b4907c508e90368962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
