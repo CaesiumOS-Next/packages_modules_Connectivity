@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f45b1591_4d4bc804",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-09T12:09:44Z",
+      "side": 1,
+      "message": "how would you feel about removing these imports as well and add specific methods for these errors in the CTLogger instead?\nI\u0027m honestly not sure if that would improve readability or if it\u0027s not worth the effort. WDYT?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 168
+      },
+      "revId": "211afca7169da7cc351c6babbc4ba5196eab7cb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03958f13_579a0f06",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-09T12:09:44Z",
+      "side": 1,
+      "message": "sorry for the unrelated tangent, but I was thinking this code might be simplified a bit by removing the `failureLogged` boolean and adding an `int failureReason` local variable. The catch clauses above would only set the `failureReason` (e.g., to `CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_SIGNATURE_VERIFICATION` or one of the other values), and this if would be the only place where the error is logged. Feel free to ignore, though, since this change is about something else.",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 258,
+        "endChar": 9
+      },
+      "revId": "211afca7169da7cc351c6babbc4ba5196eab7cb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
