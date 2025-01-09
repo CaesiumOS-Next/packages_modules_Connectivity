@@ -20,6 +20,97 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7438fe31_53d7dfa4",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/DiscoveryExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T07:44:46Z",
+      "side": 1,
+      "message": "mHandlerThread, mHandler, mPendingTasks should be private",
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fcad0e8_3b3d93cd",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T07:44:46Z",
+      "side": 1,
+      "message": "There should also be a test for testCheckAndRunOnHandlerThread when a null looper is passed in",
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9ea349f_2c95c50e",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T07:44:46Z",
+      "side": 1,
+      "message": "Would thread.looper work here ? getMainLooper may or may not be on the current thread depending on the test runner, so it\u0027s best to have it clearly defined",
+      "range": {
+        "startLine": 49,
+        "startChar": 48,
+        "endLine": 49,
+        "endChar": 61
+      },
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc5c1fab_263ac4b7",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T07:44:46Z",
+      "side": 1,
+      "message": "If a looper is provided, the task is expected to be posted to the handler. So I think isDone shouldn\u0027t necessarily be true ? Is this flaky ?",
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeb8ea30_2535a3f9",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-09T07:44:46Z",
+      "side": 1,
+      "message": "Can you also check it isn\u0027t done before processAllMessages is called ?",
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5c6550c_8dda6d43",
         "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
         "patchSetId": 11
