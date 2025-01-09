@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "844bdfd6_3a3d5553",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-09T10:44:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97c2474a_b4ff5c2f",
+      "range": {
+        "startLine": 378,
+        "startChar": 83,
+        "endLine": 378,
+        "endChar": 85
+      },
+      "revId": "269fd4d8394333191b77e97eba747605e5edceda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7901100_f81dbeaf",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f408b6_68b055a3",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CertificateTransparencyDownloaderTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-09T10:44:34Z",
+      "side": 1,
+      "message": "Yes, this spacing looks a bit weird. I think there might be something misconfigured with my formatter. I tried playing with its settings a bit but I am only making things worse 😄\n\nIf you are ok with it, I\u0027ll keep it as is for this CL, and try to fix the formatter going forward.",
+      "parentUuid": "f7901100_f81dbeaf",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 282,
+        "endChar": 24
+      },
+      "revId": "269fd4d8394333191b77e97eba747605e5edceda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3955c59_4c19bcf4",
@@ -60,6 +108,30 @@
       "writtenOn": "2025-01-08T16:58:54Z",
       "side": 1,
       "message": "Nit: imo this should be separated into 3 different small unit tests as right now this unit test is actually testing out 3 different conditions. \n\nWhat I\u0027m proposing is something like the following: \n- testCompatibilityVersion_versionDirectory_setupSuccessful\n- testCompatibilityVersion_symlink_setupSuccessful \n- testCompatibilityVersion_logsFile_setupSuccessful\n\ngo/unit-testing-practices?polyglot\u003djava#behavior-testing",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 88
+      },
+      "revId": "269fd4d8394333191b77e97eba747605e5edceda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "327b5fa2_c1b7bb32",
+        "filename": "networksecurity/tests/unit/src/com/android/server/net/ct/CompatibilityVersionTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-09T10:44:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3955c59_4c19bcf4",
       "range": {
         "startLine": 54,
         "startChar": 0,
