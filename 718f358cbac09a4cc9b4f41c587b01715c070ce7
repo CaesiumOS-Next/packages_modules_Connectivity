@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69eea900_e1c9eeee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-09T08:19:01Z",
+      "side": 1,
+      "message": "Per discussion: desirable as this CL is, we should probably table it until such time as we know that there is no use of the legacy tether() API for wifi in production.",
+      "revId": "718f358cbac09a4cc9b4f41c587b01715c070ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
