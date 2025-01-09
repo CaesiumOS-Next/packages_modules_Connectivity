@@ -16,6 +16,24 @@
       "message": "I am wondering if we can simplify the whole checking by moving all the check inside `NetlinkMessage` class like:\n```\npublic void assertNotErrorMessage() throws Exception {\n        if (mHeader \u003d\u003d null || mHeader.nlmsg_type \u003d\u003d NetlinkConstants.NLMSG_ERROR) {\n            throws new Exception(\"Asserion failed, ...\");\n        }\n}\n\npublic void assertNetlinkMessageType(short type) throws Exception {\n        if (mHeader \u003d\u003d null || hdr.nlmsg_type !\u003d type) {\n            throws new Exception(\"Asserion failed, ...\");\n        }\n}\n\n... \n```\nSo that we could do something like:\n\n```\n        try {\n            NetlinkMessage nlMsg \u003d extractNetlinkMessage(response);\n            nlMsg.ensureNotErrorMessage();\n            nlMsg.ensureNetlinkMessageType(NetlinkConstants.RTM_NEWLINK);\n            // other assertion\n        }\n```\nSo it looks cleaner and can possibly be reused in the future check.",
       "revId": "fe9014d1a3d66173732e89b4907c508e90368962",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6346f80b_35c6e40d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-09T06:34:52Z",
+      "side": 1,
+      "message": "WDYT?",
+      "parentUuid": "f36852d1_1f3bcdc7",
+      "revId": "fe9014d1a3d66173732e89b4907c508e90368962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
