@@ -156,6 +156,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "642e71c0_486d3e94",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-09T02:24:17Z",
+      "side": 1,
+      "message": "I see, then I think [APFv4 test](https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/multidevices/apfv4_test.py;l\u003d39?q\u003dapfv4_test\u0026sq\u003dgit:android%2Fplatform%2Fsuperproject%2Fmain@main) should has the similar issue.  \nShould this be failed as well?",
+      "parentUuid": "e7e71979_46256043",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "309a22b829a119d565500904fd39ad7ea4b3aa99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc5da9b5_a67e0dbc",
         "filename": "tests/cts/multidevices/apfv6_test.py",
         "patchSetId": 29
