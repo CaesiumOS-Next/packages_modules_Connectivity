@@ -164,6 +164,30 @@
       },
       "revId": "40a7546b164810af133cdb57ad7926fae3eb9e7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12fef413_23567cb0",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/RealTimeSchedulerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-09T06:18:10Z",
+      "side": 1,
+      "message": "My thought is using a CountDownLatch to clearly indicate that each task has been executed. However, using a ConditionVariable is also acceptable since you\u0027re already verifying the execution results. Not a strong opinion.\n```\nval latch \u003d CountDownLatch(4)\nhandler.post {\n    scheduler.postDelayed({\n         executionTimes.add(SystemClock.elapsedRealtime() - initialTimeMs)\n         latch.countDown() }, 0)\n    scheduler.postDelayed({\n         executionTimes.add(SystemClock.elapsedRealtime() - initialTimeMs)\n         latch.countDown() }, 100)\n    val toBeRemoved \u003d Runnable {\n        executionTimes.add(SystemClock.elapsedRealtime() - initialTimeMs)\n        latch.countDown()\n    }\n    scheduler.postDelayed(toBeRemoved, 250)\n    scheduler.removedDelayedRunnable(toBeRemoved)\n    scheduler.postDelayed({\n         executionTimes.add(SystemClock.elapsedRealtime() - initialTimeMs)\n         latch.countDown() }, 200)\n    scheduler.postDelayed({\n         executionTimes.add(SystemClock.elapsedRealtime() - initialTimeMs)\n         latch.countDown() }, 300)\n}\nlatch.await(TIMEOUT_MS)\n```",
+      "parentUuid": "e7e5c6d1_f3c661c6",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 32
+      },
+      "revId": "40a7546b164810af133cdb57ad7926fae3eb9e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
