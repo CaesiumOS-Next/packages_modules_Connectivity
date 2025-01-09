@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06fed0aa_8ff2b99f",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T10:45:21Z",
+      "side": 1,
+      "message": "renamed in aosp/3444361.",
+      "parentUuid": "3059c175_cb7c3bb4",
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ee3a0fa_2d76bedf",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-01-09T09:08:16Z",
       "side": 1,
       "message": "Nit: to make sure consistent ordering is used as the code evolves, better use Task#compareTo",
+      "range": {
+        "startLine": 175,
+        "startChar": 36,
+        "endLine": 175,
+        "endChar": 90
+      },
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f68ece80_e86ba766",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T10:45:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ee3a0fa_2d76bedf",
       "range": {
         "startLine": 175,
         "startChar": 36,
@@ -58,6 +100,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "379ace71_989636be",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T10:45:21Z",
+      "side": 1,
+      "message": "Added a comment.\n\nI think the current logic also match the Handler.java behavior.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/os/Handler.java;l\u003d707;drc\u003db4d6320e2ae398b36f0aaafb2ecd83609d2d99af?q\u003dhandler.java%20f:framework\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
+      "parentUuid": "95b7515c_2d4e4a2b",
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee4e481f_91c1b501",
@@ -71,6 +131,30 @@
       "writtenOn": "2025-01-09T09:08:16Z",
       "side": 1,
       "message": "Typo: remove (instead of removed)",
+      "range": {
+        "startLine": 207,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 23
+      },
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2129e70_df42086b",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T10:45:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee4e481f_91c1b501",
       "range": {
         "startLine": 207,
         "startChar": 16,
@@ -104,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0d66eca_9287b651",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T10:45:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85607196_55aba145",
+      "range": {
+        "startLine": 227,
+        "startChar": 15,
+        "endLine": 227,
+        "endChar": 26
+      },
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b008c2b_f7b6c37e",
@@ -121,6 +229,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f9125b3_af04528e",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T10:45:21Z",
+      "side": 1,
+      "message": "Added a Log.wtf(). I think adding metrics could be a little bit trickly here as we don\u0027t know which metrics logger the caller use. We need some refactor in the constructor.\n\nTo keep the logic cleaner, I can add metrics in seaparte CL.",
+      "parentUuid": "4b008c2b_f7b6c37e",
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c684c49_71d5e2d4",
@@ -134,6 +260,30 @@
       "writtenOn": "2025-01-09T09:08:16Z",
       "side": 1,
       "message": "Is that true ? I don\u0027t think these are recurring ?",
+      "range": {
+        "startLine": 291,
+        "startChar": 67,
+        "endLine": 292,
+        "endChar": 31
+      },
+      "revId": "8835993484a060d7d3dd9a516c7eb88bf20f897b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25eb13ea_9fbcd63a",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T10:45:21Z",
+      "side": 1,
+      "message": "timerfd API doesn\u0027t fire the event recurrenting, however, in paractise, I do see the last event is triggered in a burst unless we clean the expiration time here. I think it should be relate to how the current message queue do the event polling. \n\n@paulhu@google.com also confirmed the event fired recurrenting here:\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3268573/comment/227d51ab_26cb11e3/",
+      "parentUuid": "4c684c49_71d5e2d4",
       "range": {
         "startLine": 291,
         "startChar": 67,
