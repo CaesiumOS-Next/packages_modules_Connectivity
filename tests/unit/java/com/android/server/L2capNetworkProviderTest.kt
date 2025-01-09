@@ -20,7 +20,12 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.FEATURE_BLUETOOTH_LE
 import android.net.ConnectivityManager
+import android.net.ConnectivityManager.TYPE_NONE
+import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH
 import android.net.NetworkProvider
+import android.net.NetworkProvider.NetworkOfferCallback
+import android.net.NetworkRequest
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
@@ -30,16 +35,25 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mock
 import org.mockito.Mockito.any
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.never
+import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 const val TAG = "L2capNetworkProviderTest"
+
+val RESERVATION_CAPS = NetworkCapabilities.Builder.withoutDefaultCapabilities()
+    .addTransportType(TRANSPORT_BLUETOOTH)
+    .build()
+
+val RESERVATION = NetworkRequest(NetworkCapabilities(RESERVATION_CAPS), TYPE_NONE, 42 /* rId */,
+        NetworkRequest.Type.RESERVATION)
 
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
@@ -80,5 +94,18 @@ class L2capNetworkProviderTest {
         doReturn(false).`when`(pm).hasSystemFeature(FEATURE_BLUETOOTH_LE)
         L2capNetworkProvider(deps, context, handler)
         verify(cm, never()).registerNetworkProvider(eq(provider))
+    }
+
+    @Test
+    fun testBlanketOffer_reservationTriggersReservedOffer() {
+        L2capNetworkProvider(deps, context, handler)
+        val captor = ArgumentCaptor.forClass(NetworkOfferCallback::class.java);
+        verify(provider).registerNetworkOffer(any(), any(), any(), captor.capture())
+
+        val blanketOffer = captor.value
+        blanketOffer.onNetworkNeeded(RESERVATION)
+
+        // reserved offer gets registered.
+        verify(provider, times(2)).registerNetworkOffer(any(), any(), any(), any())
     }
 }
