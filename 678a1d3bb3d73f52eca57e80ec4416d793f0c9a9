@@ -187,6 +187,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9c8f4a3_f1ccf5ea",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-09T01:51:59Z",
+      "side": 1,
+      "message": "Sounds good, thanks for the advice. Added an TODO for now and will upadte in a later patch.",
+      "parentUuid": "90096967_1a3120b4",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 531,
+        "endChar": 9
+      },
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "faa0e287_ec730aa7",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 2
