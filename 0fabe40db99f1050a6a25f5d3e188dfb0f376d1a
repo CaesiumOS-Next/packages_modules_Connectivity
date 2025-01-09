@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dad5c9e6_5bbe35a1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-09T08:17:51Z",
+      "side": 1,
+      "message": "I think it\u0027s very confusing for this method to synthesize a request if it cannot find one.\n\nAs an example: if a caller calls startTethering but then immediately calls stopTethering before the link layer comes up, then ideally tethering should not start, right? But if we synthesize a request, then it might start. I\u0027m sure there are other similar scenarios.\n\nCan we partition the codepaths that call this method into codepaths that only expect to find a request and codepaths that expect to create it?",
+      "range": {
+        "startLine": 1069,
+        "startChar": 37,
+        "endLine": 1069,
+        "endChar": 47
+      },
+      "revId": "0fabe40db99f1050a6a25f5d3e188dfb0f376d1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
