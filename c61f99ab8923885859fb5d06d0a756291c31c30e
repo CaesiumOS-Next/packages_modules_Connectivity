@@ -1,0 +1,255 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f51c95bb_8325c3bc",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T15:17:54Z",
+      "side": 1,
+      "message": "small nit: compared to the previous version, we now have two Log.e() statements instead of one in case that `sendMessage()` or `recvMessage()` throws an exception.\n\nI think it would be cleaner to keep the catch block in the caller and mark this function as throwing both ErrnoException and InterrupedIOException, with no log statement. This way you can still log the full exception info on the caller side with more info (like the rtnl msg type or full request), and you can just have a `try finally` without a `catch` here to close the socket.",
+      "range": {
+        "startLine": 509,
+        "startChar": 12,
+        "endLine": 509,
+        "endChar": 17
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "5297564f_3629aad0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 508,
+                "startChar": 0,
+                "endLine": 510,
+                "endChar": 0
+              },
+              "replacement": "        } catch (ErrnoException e) {\n            Log.e(TAG, \"Failed to send netlink message to get link information\", e);\n            return null;\n        } catch (InterruptedIOException e) {\n            Log.e(TAG, \"Failed to receive netlink message to get link information\", e);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e7be69_a303a8f6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T15:17:54Z",
+      "side": 1,
+      "message": "Here we don\u0027t have enough information to record a specific msg. We can just say \"rtnl request failed\".",
+      "range": {
+        "startLine": 509,
+        "startChar": 69,
+        "endLine": 509,
+        "endChar": 89
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "39bfaa3c_47f186ae",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 509,
+                "startChar": 0,
+                "endLine": 510,
+                "endChar": 0
+              },
+              "replacement": "            Log.e(TAG, \"Failed to send or receive netlink message to rtnl request failed\", e);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e637437_d31c7594",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T15:17:54Z",
+      "side": 1,
+      "message": "@nonnull",
+      "range": {
+        "startLine": 521,
+        "startChar": 59,
+        "endLine": 521,
+        "endChar": 79
+      },
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc534193_d47a5bed",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T15:17:54Z",
+      "side": 1,
+      "message": "@nullable",
+      "range": {
+        "startLine": 521,
+        "startChar": 19,
+        "endLine": 521,
+        "endChar": 39
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "38378b71_a0e5e836",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 521,
+                "startChar": 0,
+                "endLine": 521,
+                "endChar": 0
+              },
+              "replacement": "    @Nullable\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf1b1bea_e8ee4e08",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T15:17:54Z",
+      "side": 1,
+      "message": "This error msg is not necessary valid anymore here. We should just log |request| with a generic msg like `Log.e(\"Failed to get response for request \" + request, e)`",
+      "range": {
+        "startLine": 527,
+        "startChar": 24,
+        "endLine": 527,
+        "endChar": 54
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "2bd1e268_f8cf3563",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 527,
+                "startChar": 0,
+                "endLine": 528,
+                "endChar": 0
+              },
+              "replacement": "            Log.e(TAG, \"Failed to get response for request \" + request, e);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58a0d4f9_9fdc2515",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T15:17:54Z",
+      "side": 1,
+      "message": "Same comment as above",
+      "range": {
+        "startLine": 531,
+        "startChar": 56,
+        "endLine": 532,
+        "endChar": 34
+      },
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e6d23fd_8ef2fd69",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T15:17:54Z",
+      "side": 1,
+      "message": "This check is not valid anymore here for the generic case. I believe it should be fine to check that the `nlmsg_type` value of the response is the same as the `nlmsg_type` of the request.",
+      "range": {
+        "startLine": 553,
+        "startChar": 47,
+        "endLine": 553,
+        "endChar": 58
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f61d1f9b_95e3095a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 553,
+                "startChar": 0,
+                "endLine": 554,
+                "endChar": 0
+              },
+              "replacement": "        if (hdr.nlmsg_type !\u003d request.getHeader().nlmsg_type) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

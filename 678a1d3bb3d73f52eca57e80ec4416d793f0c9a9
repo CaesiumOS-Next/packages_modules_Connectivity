@@ -259,6 +259,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2becb6f9_194a541f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-09T15:17:54Z",
+      "side": 1,
+      "message": "SG to leave FileOutputStream out.",
+      "parentUuid": "9b83702c_50f3937c",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 531,
+        "endChar": 9
+      },
+      "revId": "678a1d3bb3d73f52eca57e80ec4416d793f0c9a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "faa0e287_ec730aa7",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 2
