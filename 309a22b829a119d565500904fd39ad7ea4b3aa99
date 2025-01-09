@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7e71979_46256043",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T02:05:34Z",
+      "side": 1,
+      "message": "\u003ethese test cases are ignored (by asserts#abort_class_if)\n\nNo the test case should failed. not ignored.",
+      "parentUuid": "82e1d51b_de458946",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "309a22b829a119d565500904fd39ad7ea4b3aa99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc5da9b5_a67e0dbc",
         "filename": "tests/cts/multidevices/apfv6_test.py",
         "patchSetId": 29
