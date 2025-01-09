@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7e5d05bc_9e2b2bfa",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-01-09T15:54:43Z",
+      "side": 1,
+      "message": "Tbh I don\u0027t think it\u0027s worth the effort, we\u0027d basically need to create 4 new APIs in the interface for each different failure reason imported here, and I don\u0027t think it would be more readable in the end as the new APIs would have similarly long names (e.g. logCTLogListUpdateFailedEventSignatureNotFound). We\u0027d also need to update the assertions in each test that is checking that nothing is logged to then also verify none of these 4 new APIs are called for completeness.\n\nAre you good with me keeping it as is then?",
+      "parentUuid": "f45b1591_4d4bc804",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 168
+      },
+      "revId": "211afca7169da7cc351c6babbc4ba5196eab7cb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "03958f13_579a0f06",
         "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-09T12:09:44Z",
       "side": 1,
       "message": "sorry for the unrelated tangent, but I was thinking this code might be simplified a bit by removing the `failureLogged` boolean and adding an `int failureReason` local variable. The catch clauses above would only set the `failureReason` (e.g., to `CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_SIGNATURE_VERIFICATION` or one of the other values), and this if would be the only place where the error is logged. Feel free to ignore, though, since this change is about something else.",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 258,
+        "endChar": 9
+      },
+      "revId": "211afca7169da7cc351c6babbc4ba5196eab7cb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c748cf8_5a0d401a",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-01-09T15:54:43Z",
+      "side": 1,
+      "message": "I like that idea actually and agree it would simplify the code (I\u0027ll do that in a follow-up CL). \n\nI was worried because both DownloadManager.COLUMN_REASON and the proto enum values are ints, that having an `int failureReason` local variable could be slightly confusing (it might be a DownloadManager failureReason OR a proto enum value, and there isn\u0027t a clear way of denoting which one is which imo), but I think this confusion should actually be avoidable based on the code paths.",
+      "parentUuid": "03958f13_579a0f06",
       "range": {
         "startLine": 247,
         "startChar": 8,
