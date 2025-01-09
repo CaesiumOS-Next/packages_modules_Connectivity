@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a423c34_6f684fb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-09T08:21:27Z",
+      "side": 1,
+      "message": "I renamed the class back to TimerFileDescriptor for this CL. The huge diff is gone. I can rename the class in a seaparte CL.",
+      "parentUuid": "b1720910_ec687897",
+      "revId": "40a7546b164810af133cdb57ad7926fae3eb9e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebcaeb91_75c988b5",
