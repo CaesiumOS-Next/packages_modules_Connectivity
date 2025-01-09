@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "623daaca_7d1057a2",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-09T06:01:59Z",
+      "side": 1,
+      "message": "You are right, plesae see my comment in aosp/3268573.",
+      "parentUuid": "111a6fa6_00b588de",
+      "range": {
+        "startLine": 291,
+        "startChar": 12,
+        "endLine": 293,
+        "endChar": 54
+      },
+      "revId": "40a7546b164810af133cdb57ad7926fae3eb9e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6e256ca_57a135df",
