@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70ac6e32_d6ffb209",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-09T01:59:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7f89a2a_db0e5c1f",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "309a22b829a119d565500904fd39ad7ea4b3aa99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a3c3193_cdf13633",
@@ -72,6 +96,30 @@
       "writtenOn": "2025-01-08T09:01:51Z",
       "side": 1,
       "message": "As this test is run as part of 25Q2, lets make sure we fail the test if APFv6 is not supported.",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "309a22b829a119d565500904fd39ad7ea4b3aa99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82e1d51b_de458946",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-09T01:59:12Z",
+      "side": 1,
+      "message": "Tested with 2 APFv6 unsupported devices (one with version 3, the other with version 4), these test cases are ignored (by [asserts#abort_class_if](https://source.corp.google.com/piper///depot/google3/third_party/py/mobly/asserts.py;l\u003d379?q\u003dabort_class_if))",
+      "parentUuid": "2a3c3193_cdf13633",
       "range": {
         "startLine": 28,
         "startChar": 18,
