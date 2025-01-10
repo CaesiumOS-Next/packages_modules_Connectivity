@@ -1020,6 +1020,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final LingerMonitor mLingerMonitor;
     private final SatelliteAccessController mSatelliteAccessController;
 
+    private final L2capNetworkProvider mL2capNetworkProvider;
+
     // sequence number of NetworkRequests
     private int mNextNetworkRequestId = NetworkRequest.FIRST_REQUEST_ID;
 
@@ -2091,6 +2093,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         mIngressToVpnAddressFiltering = mDeps.isAtLeastT()
                 && mDeps.isFeatureNotChickenedOut(mContext, INGRESS_TO_VPN_ADDRESS_FILTERING);
+
+        mL2capNetworkProvider = new L2capNetworkProvider(mContext);
     }
 
     /**
@@ -4137,6 +4141,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // forever, this replaces a synchronous call to PermissionMonitor#startMonitoring, which
         // could have blocked forever too.
         startMonitoringDone.block();
+
+        mL2capNetworkProvider.start();
     }
 
     /**
