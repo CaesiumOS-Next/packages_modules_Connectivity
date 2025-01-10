@@ -75,6 +75,7 @@ class L2capNetworkProviderTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         doReturn(provider).`when`(deps).getNetworkProvider(any(), any())
+        doReturn(handlerThread).`when`(deps).createHandlerThread()
         doReturn(cm).`when`(context).getSystemService(eq(ConnectivityManager::class.java))
         doReturn(pm).`when`(context).getPackageManager()
         doReturn(true).`when`(pm).hasSystemFeature(FEATURE_BLUETOOTH_LE)
@@ -88,7 +89,7 @@ class L2capNetworkProviderTest {
 
     @Test
     fun testNetworkProvider_registeredWhenSupported() {
-        L2capNetworkProvider(deps, context, handler)
+        L2capNetworkProvider(deps, context)
         verify(cm).registerNetworkProvider(eq(provider))
         verify(provider).registerNetworkOffer(any(), any(), any(), any())
     }
@@ -96,13 +97,13 @@ class L2capNetworkProviderTest {
     @Test
     fun testNetworkProvider_notRegisteredWhenNotSupported() {
         doReturn(false).`when`(pm).hasSystemFeature(FEATURE_BLUETOOTH_LE)
-        L2capNetworkProvider(deps, context, handler)
+        L2capNetworkProvider(deps, context)
         verify(cm, never()).registerNetworkProvider(eq(provider))
     }
 
     @Test
     fun testBlanketOffer_reservationTriggersReservedOffer() {
-        L2capNetworkProvider(deps, context, handler)
+        L2capNetworkProvider(deps, context)
         val captor = ArgumentCaptor.forClass(NetworkOfferCallback::class.java)
         verify(provider).registerNetworkOffer(any(), any(), any(), captor.capture())
 
