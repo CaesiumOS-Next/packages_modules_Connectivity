@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79020324_4ac1fb59",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-10T21:36:53Z",
+      "side": 1,
+      "message": "this doesn\u0027t seem useful.  assume skips the test if it is false.\n\nand you already enforce that if \u003e\u003d 202504 then \u003d\u003d 6000",
+      "range": {
+        "startLine": 629,
+        "startChar": 8,
+        "endLine": 630,
+        "endChar": 42
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "354a4ea7_c838e566",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+              "range": {
+                "startLine": 629,
+                "startChar": 0,
+                "endLine": 630,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+              "range": {
+                "startLine": 681,
+                "startChar": 0,
+                "endLine": 682,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "7ae7351d562cb6c9a734dcd5fbd7eb040b13034a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e57f71e_2a3ec6c2",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-10T21:36:53Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 681,
+        "endChar": 63
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "dd8f3963_9cda97a3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+              "range": {
+                "startLine": 629,
+                "startChar": 0,
+                "endLine": 630,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+              "range": {
+                "startLine": 681,
+                "startChar": 0,
+                "endLine": 682,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "7ae7351d562cb6c9a734dcd5fbd7eb040b13034a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
