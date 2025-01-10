@@ -251,6 +251,7 @@ public class TetheringConfiguration {
             legacyDhcpRanges = configParcel.legacyDhcpRanges;
             provisioningApp = configParcel.provisioningApp;
             provisioningAppNoUi = configParcel.provisioningAppNoUi;
+            provisioningResponse = configParcel.provisioningResponse;
         } else {
             // If usb tethering use NCM and config_tether_ncm_regexs is not empty, use
             // config_tether_ncm_regexs for tetherableUsbRegexs.
@@ -272,6 +273,8 @@ public class TetheringConfiguration {
                     R.array.config_mobile_hotspot_provision_app);
             provisioningAppNoUi = getResourceString(res,
                     R.string.config_mobile_hotspot_provision_app_no_ui);
+            provisioningResponse = getResourceString(res,
+                    R.string.config_mobile_hotspot_provision_response);
         }
         // TODO: Remove entire wigig code once tethering module no longer support R devices.
         tetherableWigigRegexs = SdkLevel.isAtLeastS()
@@ -299,8 +302,6 @@ public class TetheringConfiguration {
         provisioningCheckPeriod = getResourceInteger(res,
                 R.integer.config_mobile_hotspot_provision_check_period,
                 0 /* No periodic re-check */);
-        provisioningResponse = getResourceString(res,
-                R.string.config_mobile_hotspot_provision_response);
 
         PersistableBundle carrierConfigs = getCarrierConfig(ctx, activeDataSubId);
         isCarrierSupportTethering = carrierConfigAffirmsCarrierSupport(carrierConfigs);
@@ -760,6 +761,7 @@ public class TetheringConfiguration {
         parcel.legacyDhcpRanges = legacyDhcpRanges;
         parcel.provisioningApp = provisioningApp;
         parcel.provisioningAppNoUi = provisioningAppNoUi;
+        parcel.provisioningResponse = provisioningResponse;
 
         return parcel;
     }
