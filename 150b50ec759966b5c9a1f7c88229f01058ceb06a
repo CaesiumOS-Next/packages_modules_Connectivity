@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52a9fef7_b1448945",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-10T06:41:15Z",
+      "side": 1,
+      "message": "Nit: this is the same as line 683. Would factor out to a method (e.g., \"unsupportedAfterV\").",
+      "range": {
+        "startLine": 721,
+        "startChar": 0,
+        "endLine": 724,
+        "endChar": 9
+      },
+      "revId": "150b50ec759966b5c9a1f7c88229f01058ceb06a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce345bf3_d2d3f429",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-10T06:41:15Z",
+      "side": 1,
+      "message": "run",
+      "range": {
+        "startLine": 627,
+        "startChar": 51,
+        "endLine": 627,
+        "endChar": 57
+      },
+      "revId": "150b50ec759966b5c9a1f7c88229f01058ceb06a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4da83bb_12e295b5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-10T06:41:15Z",
+      "side": 1,
+      "message": "Nit: extra space.",
+      "range": {
+        "startLine": 629,
+        "startChar": 11,
+        "endLine": 629,
+        "endChar": 12
+      },
+      "revId": "150b50ec759966b5c9a1f7c88229f01058ceb06a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "049ca4c6_045639cf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-10T06:41:15Z",
+      "side": 1,
+      "message": "// TODO: fix the teardown path to stop depending on interface state notifications.\n// These are not necessary since most/all link layers have their own teardown\n// notifications, and can race with those notifications.",
+      "range": {
+        "startLine": 630,
+        "startChar": 8,
+        "endLine": 630,
+        "endChar": 10
+      },
+      "revId": "150b50ec759966b5c9a1f7c88229f01058ceb06a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c9dee21_c712212e",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-10T06:41:15Z",
+      "side": 1,
+      "message": "\u003c\u003d",
+      "range": {
+        "startLine": 391,
+        "startChar": 38,
+        "endLine": 391,
+        "endChar": 39
+      },
+      "revId": "150b50ec759966b5c9a1f7c88229f01058ceb06a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
