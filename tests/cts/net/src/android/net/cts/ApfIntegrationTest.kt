@@ -350,9 +350,6 @@ class ApfIntegrationTest {
         // APF became mandatory in Android 14 VSR.
         assume().that(getVsrApiLevel()).isAtLeast(34)
 
-        // ApfFilter does not support anything but ARPHRD_ETHER.
-        assertThat(caps.apfPacketFormat).isEqualTo(OsConstants.ARPHRD_ETHER)
-
         // DEVICEs launching with Android 14 with CHIPSETs that set ro.board.first_api_level to 34:
         // - [GMS-VSR-5.3.12-003] MUST return 4 or higher as the APF version number from calls to
         //   the getApfPacketFilterCapabilities HAL method.
@@ -374,6 +371,9 @@ class ApfIntegrationTest {
         if (getVsrApiLevel() >= 202404) {
             assertThat(caps.maximumApfProgramSize).isAtLeast(2048)
         }
+
+        // ApfFilter does not support anything but ARPHRD_ETHER.
+        assertThat(caps.apfPacketFormat).isEqualTo(OsConstants.ARPHRD_ETHER)
     }
 
     // APF is backwards compatible, i.e. a v6 interpreter supports both v2 and v4 functionality.
