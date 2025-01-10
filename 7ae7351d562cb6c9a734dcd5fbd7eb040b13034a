@@ -52,6 +52,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6be016e5_f5edb5dd",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-10T21:43:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79020324_4ac1fb59",
+      "range": {
+        "startLine": 629,
+        "startChar": 8,
+        "endLine": 630,
+        "endChar": 42
+      },
+      "revId": "7ae7351d562cb6c9a734dcd5fbd7eb040b13034a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e57f71e_2a3ec6c2",
@@ -99,6 +123,30 @@
           ]
         }
       ],
+      "revId": "7ae7351d562cb6c9a734dcd5fbd7eb040b13034a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "514218b9_e9e4785a",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-10T21:43:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e57f71e_2a3ec6c2",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 681,
+        "endChar": 63
+      },
       "revId": "7ae7351d562cb6c9a734dcd5fbd7eb040b13034a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
