@@ -139,6 +139,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "857f03a0_b04ed041",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-10T23:37:45Z",
+      "side": 1,
+      "message": "Acked. Not applicable anymore. Based on the review feedback in aosp/3442139. We can keep this `assumeApfVersionSupportAtLeast(6000)`",
+      "parentUuid": "3e0fc7c5_967507a4",
+      "range": {
+        "startLine": 781,
+        "startChar": 8,
+        "endLine": 781,
+        "endChar": 44
+      },
+      "revId": "f039a766e32c0bc50a8a7192daaaba64e8d5bf78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ed86541_2c5e8f87",
