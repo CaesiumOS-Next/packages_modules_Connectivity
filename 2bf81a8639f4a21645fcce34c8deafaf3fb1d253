@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f66f9295_1ea97409",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-10T07:13:50Z",
+      "side": 1,
+      "message": "Tested with 2 P9 devices, all tests passed.",
+      "revId": "2bf81a8639f4a21645fcce34c8deafaf3fb1d253",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
