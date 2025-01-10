@@ -83,6 +83,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35777750_cfef37d8",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-10T01:27:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75e7be69_a303a8f6",
+      "range": {
+        "startLine": 509,
+        "startChar": 69,
+        "endLine": 509,
+        "endChar": 89
+      },
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e637437_d31c7594",
@@ -149,6 +173,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f739a6e0_a75c09a7",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-10T01:27:20Z",
+      "side": 1,
+      "message": "I didnt add nullability annotation for private methods following the style in this file. In the consideration that if we add nullability here, user could assume other places wherever not annotated should be `NonNull`, which is not the case. WDYT?",
+      "parentUuid": "0e637437_d31c7594",
+      "range": {
+        "startLine": 521,
+        "startChar": 59,
+        "endLine": 521,
+        "endChar": 79
+      },
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf1b1bea_e8ee4e08",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 12
@@ -188,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9055620_d80d5286",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-10T01:27:20Z",
+      "side": 1,
+      "message": "Yes sorry forgot to updated.",
+      "parentUuid": "cf1b1bea_e8ee4e08",
+      "range": {
+        "startLine": 527,
+        "startChar": 24,
+        "endLine": 527,
+        "endChar": 54
+      },
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58a0d4f9_9fdc2515",
@@ -201,6 +273,30 @@
       "writtenOn": "2025-01-09T15:17:54Z",
       "side": 1,
       "message": "Same comment as above",
+      "range": {
+        "startLine": 531,
+        "startChar": 56,
+        "endLine": 532,
+        "endChar": 34
+      },
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d976fe8_ff223192",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-10T01:27:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58a0d4f9_9fdc2515",
       "range": {
         "startLine": 531,
         "startChar": 56,
@@ -248,6 +344,30 @@
           ]
         }
       ],
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f91d1f8_5f37a063",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-10T01:27:20Z",
+      "side": 1,
+      "message": "I am not sure if thats the case for all the type. `RTM_GETLINK` request could get response of `RTM_NEWLINK` rather than `RTM_GETLINK`",
+      "parentUuid": "6e6d23fd_8ef2fd69",
+      "range": {
+        "startLine": 553,
+        "startChar": 47,
+        "endLine": 553,
+        "endChar": 58
+      },
       "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
