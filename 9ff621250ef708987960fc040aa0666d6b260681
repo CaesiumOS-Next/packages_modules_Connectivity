@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2836f7f_98e94096",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/DiscoveryExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-13T03:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7438fe31_53d7dfa4",
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fcad0e8_3b3d93cd",
@@ -48,6 +66,24 @@
       "writtenOn": "2025-01-09T07:44:46Z",
       "side": 1,
       "message": "There should also be a test for testCheckAndRunOnHandlerThread when a null looper is passed in",
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29e1c544_490fed3f",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-13T03:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fcad0e8_3b3d93cd",
       "revId": "9ff621250ef708987960fc040aa0666d6b260681",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -75,6 +111,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34eed063_1c6cba95",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-13T03:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9ea349f_2c95c50e",
+      "range": {
+        "startLine": 49,
+        "startChar": 48,
+        "endLine": 49,
+        "endChar": 61
+      },
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc5c1fab_263ac4b7",
@@ -88,6 +148,24 @@
       "writtenOn": "2025-01-09T07:44:46Z",
       "side": 1,
       "message": "If a looper is provided, the task is expected to be posted to the handler. So I think isDone shouldn\u0027t necessarily be true ? Is this flaky ?",
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e6d3004_9cc00416",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-13T03:27:19Z",
+      "side": 1,
+      "message": "Yeah, it may cause flaky. Remove this check.",
+      "parentUuid": "bc5c1fab_263ac4b7",
       "revId": "9ff621250ef708987960fc040aa0666d6b260681",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -109,6 +187,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e333b659_5e6deab4",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-13T03:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeb8ea30_2535a3f9",
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5c6550c_8dda6d43",
@@ -122,6 +218,30 @@
       "writtenOn": "2025-01-08T14:04:52Z",
       "side": 1,
       "message": "why this comment is duplicated?",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 47
+      },
+      "revId": "9ff621250ef708987960fc040aa0666d6b260681",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "797816f0_d86a61b5",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-13T03:27:19Z",
+      "side": 1,
+      "message": "Oops, it\u0027s redundant. Removed.",
+      "parentUuid": "e5c6550c_8dda6d43",
       "range": {
         "startLine": 92,
         "startChar": 12,
