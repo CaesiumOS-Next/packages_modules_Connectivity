@@ -483,6 +483,7 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
         if (match == DROP_UNLESS_DNS) match = DROP;
     }
 
+
     // If an outbound packet is going to be dropped, we do not count that traffic.
     if (egress.egress && (match == DROP)) return DROP;
 

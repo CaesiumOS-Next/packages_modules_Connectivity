@@ -949,6 +949,11 @@ interface INetd {
     const int PERMISSION_UPDATE_DEVICE_STATS = 8;
 
    /**
+    * PERMISSION_ACCESS_LOCAL_NETWORK indicates that the app can connect to local networks
+    */
+    const int PERMISSION_ACCESS_LOCAL_NETWORK = 16;
+
+   /**
     * PERMISSION_UNINSTALLED is used when an app is uninstalled from the device. All internet
     * related permissions need to be cleaned
     */
