@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e80014da_50e37c24",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/AccurateDiscoveryExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-13T06:58:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94a50cb4_65d0ade0",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "76789ab90d2d766864cdb672b798f66ced1bda19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1686669_64951196",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/AccurateDiscoveryExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-13T06:58:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba215dad_eb75eaee",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "76789ab90d2d766864cdb672b798f66ced1bda19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1b2d621_eec71705",
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9e1776d_32552375",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/AccurateDiscoveryExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-13T06:58:07Z",
+      "side": 1,
+      "message": "Because I import different Nullable lib. Correct the import and revmove full path.",
+      "parentUuid": "f1b2d621_eec71705",
+      "range": {
+        "startLine": 29,
+        "startChar": 5,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "76789ab90d2d766864cdb672b798f66ced1bda19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "383bb0f0_2ebc2cc1",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-01-08T14:07:58Z",
       "side": 1,
       "message": "final?",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "76789ab90d2d766864cdb672b798f66ced1bda19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d80029c_5cf95064",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/AccurateDiscoveryExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-13T06:58:07Z",
+      "side": 1,
+      "message": "No. This object will be assign upon the handler is ready.",
+      "parentUuid": "383bb0f0_2ebc2cc1",
       "range": {
         "startLine": 30,
         "startChar": 4,
