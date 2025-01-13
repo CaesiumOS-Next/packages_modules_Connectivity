@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5a996d_9710a800",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 32
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-13T07:59:36Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "3ad16acc_ead35181",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "9d8eb95a8c51cd6fdd69e915d857c9712453b245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82f6fc6d_432c6f2c",
@@ -83,6 +107,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6019c03_7a2832fc",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 32
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-13T07:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82f6fc6d_432c6f2c",
+      "range": {
+        "startLine": 30,
+        "startChar": 51,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "9d8eb95a8c51cd6fdd69e915d857c9712453b245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ba9efb4_228ed9eb",
@@ -120,6 +168,30 @@
           ]
         }
       ],
+      "revId": "9d8eb95a8c51cd6fdd69e915d857c9712453b245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "040d9452_b561a040",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 32
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-13T07:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ba9efb4_228ed9eb",
+      "range": {
+        "startLine": 33,
+        "startChar": 63,
+        "endLine": 33,
+        "endChar": 65
+      },
       "revId": "9d8eb95a8c51cd6fdd69e915d857c9712453b245",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
