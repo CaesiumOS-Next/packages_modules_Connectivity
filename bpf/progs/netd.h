@@ -211,6 +211,7 @@ enum UidOwnerMatchType : uint32_t {
 enum BpfPermissionMatch : uint8_t {
     BPF_PERMISSION_INTERNET = 1 << 2,
     BPF_PERMISSION_UPDATE_DEVICE_STATS = 1 << 3,
+    BPF_PERMISSION_ACCESS_LOCAL_NETWORK = 1 << 4,
 };
 // In production we use two identical stats maps to record per uid stats and
 // do swap and clean based on the configuration specified here. The statsMapType
