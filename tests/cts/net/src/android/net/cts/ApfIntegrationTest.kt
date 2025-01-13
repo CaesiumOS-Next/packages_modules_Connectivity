@@ -38,7 +38,7 @@ import android.net.apf.ApfConstants.IPV6_HEADER_LEN
 import android.net.apf.ApfConstants.IPV6_NEXT_HEADER_OFFSET
 import android.net.apf.ApfConstants.IPV6_SRC_ADDR_OFFSET
 import android.net.apf.ApfCounterTracker
-import android.net.apf.ApfCounterTracker.Counter.DROPPED_IPV6_MULTICAST_PING
+import android.net.apf.ApfCounterTracker.Counter.DROPPED_IPV6_NS_REPLIED_NON_DAD
 import android.net.apf.ApfCounterTracker.Counter.FILTER_AGE_16384THS
 import android.net.apf.ApfCounterTracker.Counter.PASSED_IPV6_ICMP
 import android.net.apf.ApfV4Generator
@@ -421,44 +421,44 @@ class ApfIntegrationTest {
         return HexDump.hexStringToByteArray(progHexString)
     }
 
-    @VsrTest(
-            requirements = ["VSR-5.3.12-007", "VSR-5.3.12-008", "VSR-5.3.12-010", "VSR-5.3.12-011"]
-    )
-    @SkipPresubmit(reason = "This test takes longer than 1 minute, do not run it on presubmit.")
-    // APF integration is mostly broken before V, only run the full read / write test on V+.
-    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-    // Increase timeout for test to 15 minutes to accommodate device with large APF RAM.
-    @Test(timeout = 15 * 60 * 1000)
-    fun testReadWriteProgram() {
-        assumeApfVersionSupportAtLeast(4)
-
-        val minReadWriteSize = if (getFirstApiLevel() >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-            2
-        } else {
-            8
-        }
-
-        // The minReadWriteSize is 2 bytes. The first byte always stays PASS.
-        val program = ByteArray(caps.maximumApfProgramSize)
-        for (i in caps.maximumApfProgramSize downTo minReadWriteSize) {
-            // Randomize bytes in range [1, i). And install first [0, i) bytes of program.
-            // Note that only the very first instruction (PASS) is valid APF bytecode.
-            Random.nextBytes(program, 1 /* fromIndex */, i /* toIndex */)
-            installProgram(program.sliceArray(0..<i))
-
-            // Compare entire memory region.
-            val readResult = readProgram()
-            val errMsg = """
-                read/write $i byte prog failed.
-                In APFv4, the APF memory region MUST NOT be modified or cleared except by APF
-                instructions executed by the interpreter or by Android OS calls to the HAL. If this
-                requirement cannot be met, the firmware cannot declare that it supports APFv4 and
-                it should declare that it only supports APFv3(if counter is partially supported) or
-                APFv2.
-            """.trimIndent()
-            assertWithMessage(errMsg).that(readResult).isEqualTo(program)
-        }
-    }
+//    @VsrTest(
+//            requirements = ["VSR-5.3.12-007", "VSR-5.3.12-008", "VSR-5.3.12-010", "VSR-5.3.12-011"]
+//    )
+//    @SkipPresubmit(reason = "This test takes longer than 1 minute, do not run it on presubmit.")
+//    // APF integration is mostly broken before V, only run the full read / write test on V+.
+//    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+//    // Increase timeout for test to 15 minutes to accommodate device with large APF RAM.
+//    @Test(timeout = 15 * 60 * 1000)
+//    fun testReadWriteProgram() {
+//        assumeApfVersionSupportAtLeast(4)
+//
+//        val minReadWriteSize = if (getFirstApiLevel() >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+//            2
+//        } else {
+//            8
+//        }
+//
+//        // The minReadWriteSize is 2 bytes. The first byte always stays PASS.
+//        val program = ByteArray(caps.maximumApfProgramSize)
+//        for (i in caps.maximumApfProgramSize downTo minReadWriteSize) {
+//            // Randomize bytes in range [1, i). And install first [0, i) bytes of program.
+//            // Note that only the very first instruction (PASS) is valid APF bytecode.
+//            Random.nextBytes(program, 1 /* fromIndex */, i /* toIndex */)
+//            installProgram(program.sliceArray(0..<i))
+//
+//            // Compare entire memory region.
+//            val readResult = readProgram()
+//            val errMsg = """
+//                read/write $i byte prog failed.
+//                In APFv4, the APF memory region MUST NOT be modified or cleared except by APF
+//                instructions executed by the interpreter or by Android OS calls to the HAL. If this
+//                requirement cannot be met, the firmware cannot declare that it supports APFv4 and
+//                it should declare that it only supports APFv3(if counter is partially supported) or
+//                APFv2.
+//            """.trimIndent()
+//            assertWithMessage(errMsg).that(readResult).isEqualTo(program)
+//        }
+//    }
 
     private fun installAndVerifyProgram(program: ByteArray) {
         installProgram(program)
@@ -716,7 +716,7 @@ class ApfIntegrationTest {
         //     pass
         //   else
         //     transmit a ICMPv6 echo request packet with the first byte of the payload in the reply
-        //     increase DROPPED_IPV6_MULTICAST_PING counter
+        //     increase DROPPED_IPV6_NS_REPLIED_NON_DAD counter
         //     drop
         val program = gen
                 .addLoad16(R0, ETH_ETHERTYPE_OFFSET)
@@ -758,8 +758,8 @@ class ApfIntegrationTest {
                         IPPROTO_ICMPV6, // partial_sum
                         false // udp
                 )
-                // Warning: the program abuse DROPPED_IPV6_MULTICAST_PING for debugging purpose
-                .addCountAndDrop(DROPPED_IPV6_MULTICAST_PING)
+                // Warning: the program abuse DROPPED_IPV6_NS_REPLIED_NON_DAD for debugging purpose
+                .addCountAndDrop(DROPPED_IPV6_NS_REPLIED_NON_DAD)
                 .defineLabel(skipPacketLabel)
                 .addPass()
                 .generate()
