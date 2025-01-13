@@ -70,6 +70,10 @@ static Status checkProgramAccessible(const char* programPath) {
     return netdutils::status::ok;
 }
 
+static bool isAtLeast25Q2() {
+    return android_get_device_api_level() >= 36;
+}
+
 static Status initPrograms(const char* cg2_path) {
     if (!cg2_path) return Status("cg2_path is NULL");
 
@@ -89,6 +93,16 @@ static Status initPrograms(const char* cg2_path) {
     // U mandates this mount point (though it should also be the case on T)
     if (modules::sdklevel::IsAtLeastU() && !!strcmp(cg2_path, "/sys/fs/cgroup")) {
         return Status("U+ platform with cg2_path != /sys/fs/cgroup is unsupported");
+    }
+
+    // V bumps the kernel requirement up to 4.19
+    if (modules::sdklevel::IsAtLeastV() && !bpf::isAtLeastKernelVersion(4, 19, 0)) {
+        return Status("V+ platform with kernel version < 4.19.0 is unsupported");
+    }
+
+    // 25Q2 bumps the kernel requirement up to 5.4
+    if (IsAtLeast25Q2() && !bpf::isAtLeastKernelVersion(5, 4, 0)) {
+        return Status("25Q2+ platform with kernel version < 5.4.0 is unsupported");
     }
 
     unique_fd cg_fd(open(cg2_path, O_DIRECTORY | O_RDONLY | O_CLOEXEC));
