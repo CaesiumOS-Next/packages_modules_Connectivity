@@ -301,6 +301,7 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
             log("Eligible for local network restrictions");
             mPermissionManager.checkPermissionForPreflight(
                     Manifest.permission.NEARBY_WIFI_DEVICES, mContext.getAttributionSource());
+//            mBpfNetMaps.setNetPermForUids(PERMISSION_);
             // TODO(b/369817453): Populate BPF with permission state
         }
     }
@@ -773,6 +774,8 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
                 return "ALL";
             case PERMISSION_UNINSTALLED:
                 return "UNINSTALLED";
+//            case PERMISSION_ACCESS_LOCAL_NETWORK:
+//                return "LOCAL_NETWORK_ACCESS";
             default:
                 return "UNKNOWN";
         }
