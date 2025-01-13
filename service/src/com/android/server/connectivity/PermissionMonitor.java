@@ -19,11 +19,13 @@ package com.android.server.connectivity;
 import static android.Manifest.permission.CHANGE_NETWORK_STATE;
 import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
 import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.NEARBY_WIFI_DEVICES;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.PackageInfo.REQUESTED_PERMISSION_GRANTED;
 import static android.content.pm.PackageManager.GET_PERMISSIONS;
 import static android.net.ConnectivitySettingsManager.UIDS_ALLOWED_ON_RESTRICTED_NETWORKS;
+import static android.net.INetd.PERMISSION_ACCESS_LOCAL_NETWORK;
 import static android.net.INetd.PERMISSION_INTERNET;
 import static android.net.INetd.PERMISSION_NETWORK;
 import static android.net.INetd.PERMISSION_NONE;
@@ -325,6 +327,18 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
 
     private List<PackageInfo> getInstalledPackagesAsUser(final UserHandle user) {
         return mPackageManager.getInstalledPackagesAsUser(GET_PERMISSIONS, user.getIdentifier());
+    }
+
+    private List<PackageInfo> getInstalledPackagesFromUid(final int uid) {
+        String[] packages = mPackageManager.getPackagesForUid(uid);
+        List<PackageInfo> packageInfos = new ArrayList<>();
+        for (String packageName : packages) {
+            try {
+                packageInfos.add(mPackageManager.getPackageInfo(packageName, GET_PERMISSIONS));
+            } catch (NameNotFoundException) {
+                loge("NameNotFoundException " + packageName);
+            }
+        }
     }
 
     private synchronized void updateAllApps(final List<PackageInfo> apps) {
@@ -767,6 +781,8 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
                 return "ALL";
             case PERMISSION_UNINSTALLED:
                 return "UNINSTALLED";
+//            case PERMISSION_ACCESS_LOCAL_NETWORK:
+//                return "LOCAL_NETWORK_ACCESS";
             default:
                 return "UNKNOWN";
         }
@@ -944,6 +960,10 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
             if (requestedPermissions[i].equals(UPDATE_DEVICE_STATS)
                     && ((requestedPermissionsFlags[i] & REQUESTED_PERMISSION_GRANTED) != 0)) {
                 permissions |= PERMISSION_UPDATE_DEVICE_STATS;
+            }
+            if (requestedPermissions[i].equals(NEARBY_WIFI_DEVICES)
+                    && ((requestedPermissionsFlags[i] & REQUESTED_PERMISSION_GRANTED) != 0)) {
+                permissions |= PERMISSION_ACCESS_LOCAL_NETWORK;
             }
         }
         return permissions;
@@ -1175,6 +1195,10 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
     void sendAppIdsTrafficPermission(SparseIntArray netdPermissionsAppIds) {
         ensureRunningOnHandlerThread();
         final ArrayList<Integer> allPermissionAppIds = new ArrayList<>();
+        final ArrayList<Integer> internetAndUpdateStatsPermissionAppIds = new ArrayList();
+        final ArrayList<Integer> internetAndLocalNetworkPermissionAppIds = new ArrayList<>();
+        final ArrayList<Integer> localNetworkAndUpdateStatsPermissionAppIds = new ArrayList<>();
+        final ArrayList<Integer> localNetworkPermissionAppIds = new ArrayList<>();
         final ArrayList<Integer> internetPermissionAppIds = new ArrayList<>();
         final ArrayList<Integer> updateStatsPermissionAppIds = new ArrayList<>();
         final ArrayList<Integer> noPermissionAppIds = new ArrayList<>();
@@ -1182,8 +1206,30 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
         for (int i = 0; i < netdPermissionsAppIds.size(); i++) {
             int permissions = netdPermissionsAppIds.valueAt(i);
             switch(permissions) {
-                case (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS):
+                case (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS | PERMISSION_ACCESS_LOCAL_NETWORK):
                     allPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+                    break;
+                case (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS):
+                    internetAndUpdateStatsPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+                    break;
+                case (PERMISSION_INTERNET | PERMISSION_ACCESS_LOCAL_NETWORK):
+                    internetAndLocalNetworkPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+                    break;
+                case (PERMISSION_UPDATE_DEVICE_STATS | PERMISSION_ACCESS_LOCAL_NETWORK):
+                    // ACCESS_LOCAL_NETWORK  should not exist independent from INTERNET; store
+                    // the permission anyways since socket creation will still be blocked at lower
+                    // levels if INTERNET is not present.
+                    Log.e(TAG, "unknown permission state: " + permissions + "for uid: "
+                            + netdPermissionsAppIds.keyAt(i));
+                    localNetworkAndUpdateStatsPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+                    break;
+                case PERMISSION_ACCESS_LOCAL_NETWORK:
+                    // ACCESS_LOCAL_NETWORK  should not exist independent from INTERNET; store
+                    // the permission anyways since socket creation will still be blocked at lower
+                    // levels if INTERNET is not present.
+                    Log.e(TAG, "unknown permission state: " + permissions + "for uid: "
+                            + netdPermissionsAppIds.keyAt(i));
+                    localNetworkPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
                     break;
                 case PERMISSION_INTERNET:
                     internetPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
@@ -1206,12 +1252,27 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
             // TODO: add a lock inside netd to protect IPC trafficSetNetPermForUids()
             if (allPermissionAppIds.size() != 0) {
                 mBpfNetMaps.setNetPermForUids(
-                        PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
+                        PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS
+                                | PERMISSION_ACCESS_LOCAL_NETWORK,
                         toIntArray(allPermissionAppIds));
             }
-            if (internetPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(PERMISSION_INTERNET,
-                        toIntArray(internetPermissionAppIds));
+            if (internetAndUpdateStatsPermissionAppIds.size() != 0) {
+                mBpfNetMaps.setNetPermForUids(
+                        PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
+                        toIntArray(internetAndUpdateStatsPermissionAppIds));
+            }
+            if (internetAndLocalNetworkPermissionAppIds.size() != 0) {
+                mBpfNetMaps.setNetPermForUids(
+                        PERMISSION_INTERNET | PERMISSION_ACCESS_LOCAL_NETWORK,
+                        toIntArray(internetAndLocalNetworkPermissionAppIds));
+            }
+            if (localNetworkAndUpdateStatsPermissionAppIds.size() != 0) {
+                mBpfNetMaps.setNetPermForUids(PERMISSION_ACCESS_LOCAL_NETWORK | PERMISSION_UPDATE_DEVICE_STATS,
+                        toIntArray(localNetworkAndUpdateStatsPermissionAppIds));
+            }
+            if (localNetworkPermissionAppIds.size() != 0) {
+                mBpfNetMaps.setNetPermForUids(PERMISSION_LOCAL_NETWORK,
+                        toIntArray(localNetworkPermissionAppIds));
             }
             if (updateStatsPermissionAppIds.size() != 0) {
                 mBpfNetMaps.setNetPermForUids(PERMISSION_UPDATE_DEVICE_STATS,

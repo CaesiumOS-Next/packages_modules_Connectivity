@@ -230,6 +230,7 @@ interface INetd {
   const int NO_PERMISSIONS = 0;
   const int PERMISSION_INTERNET = 4;
   const int PERMISSION_UPDATE_DEVICE_STATS = 8;
+  const int PERMISSION_ACCESS_LOCAL_NETWORK = 16;
   const int PERMISSION_UNINSTALLED = (-1) /* -1 */;
   /**
    * @deprecated use FIREWALL_ALLOWLIST.
