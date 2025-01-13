@@ -1,0 +1,68 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "888be5ab_cde6ae5a",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-13T18:21:39Z",
+      "side": 1,
+      "message": "how about just removing this and relying on the other tests to enforce 202504+ has APFV6",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 70
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "078d58bd_ad7cde99",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/apfv6_test.py",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 36,
+                "endChar": 0
+              },
+              "replacement": "        apf_utils.assume_apf_version_support_at_least(\n            self.clientDevice, self.client_iface_name, APFV6_VERSION\n        )\n"
+            }
+          ]
+        }
+      ],
+      "revId": "23f5d02192d01eed81ddc864880fad718ce3e6c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ecf7870_844b6576",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-13T18:21:39Z",
+      "side": 1,
+      "message": "how could this happen?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 76
+      },
+      "revId": "23f5d02192d01eed81ddc864880fad718ce3e6c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
