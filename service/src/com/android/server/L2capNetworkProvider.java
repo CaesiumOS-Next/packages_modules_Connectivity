@@ -30,8 +30,14 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.RES_ID_MATCH_ALL_RESERVATIONS;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.content.pm.PackageManager.FEATURE_BLUETOOTH_LE;
+import static android.system.OsConstants.F_GETFL;
+import static android.system.OsConstants.F_SETFL;
 
 import android.annotation.Nullable;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -45,12 +51,19 @@ import android.net.NetworkSpecifier;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
-import android.util.ArrayMap;
+import android.os.ParcelFileDescriptor;
+import android.system.Os;
+import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.ServiceConnectivityJni;
+import com.android.server.net.L2capNetwork;
+import com.android.server.net.L2capPacketForwarder;
 
-import java.util.Map;
+import java.io.FileDescriptor;
+import java.io.IOException;
+import java.util.Set;
 
 
 public class L2capNetworkProvider {
@@ -61,7 +74,14 @@ public class L2capNetworkProvider {
     private final Handler mHandler;
     private final NetworkProvider mProvider;
     private final BlanketReservationOffer mBlanketOffer;
-    private final Map<Integer, ReservedServerOffer> mReservedServerOffers = new ArrayMap<>();
+    private final Set<ReservedServerOffer> mReservedServerOffers = new ArraySet<>();
+    // mBluetoothManager guaranteed non-null when read on handler thread after start() is called
+    @Nullable
+    private BluetoothManager mBluetoothManager;
+
+    // Note: IFNAMSIZ is 16.
+    private static final String TUN_IFNAME = "l2cap-tun";
+    private int mTunIndex = 0;
 
     /**
      * The blanket reservation offer is used to create an L2CAP server network, i.e. a network
@@ -71,10 +91,12 @@ public class L2capNetworkProvider {
      * requests that do not have a NetworkSpecifier set.
      */
     private class BlanketReservationOffer implements NetworkOfferCallback {
-        // TODO: ensure that once the incoming request is satisfied, the blanket offer does not get
-        // unneeded. This means the blanket offer must always outscore the reserved offer. This
-        // might require setting the blanket offer as setTransportPrimary().
-        public static final NetworkScore SCORE = new NetworkScore.Builder().build();
+        // Set as transport primary to ensure that the BlanketReservationOffer always outscores the
+        // ReservedServerOffer, because as soon as the BlanketReservationOffer receives an
+        // onNetworkUnneeded() callback, it will tear down the associated reserved offer.
+        public static final NetworkScore SCORE = new NetworkScore.Builder()
+                .setTransportPrimary(true)
+                .build();
         // Note the missing NET_CAPABILITY_NOT_RESTRICTED marking the network as restricted.
         public static final NetworkCapabilities CAPABILITIES;
         static {
@@ -127,76 +149,256 @@ public class L2capNetworkProvider {
                 return;
             }
 
-            final NetworkCapabilities reservationCaps = request.networkCapabilities;
-            final ReservedServerOffer reservedOffer = new ReservedServerOffer(reservationCaps);
+            final ReservedServerOffer reservedOffer = createReservedServerOffer(request);
+            if (reservedOffer == null) {
+                // Something went wrong when creating the offer. Send onUnavailable() to the app.
+                Log.e(TAG, "Failed to create L2cap server offer");
+                mProvider.declareNetworkRequestUnfulfillable(request);
+                return;
+            }
 
             final NetworkCapabilities reservedCaps = reservedOffer.getReservedCapabilities();
             mProvider.registerNetworkOffer(SCORE, reservedCaps, mHandler::post, reservedOffer);
-            mReservedServerOffers.put(request.requestId, reservedOffer);
+            mReservedServerOffers.add(reservedOffer);
+        }
+
+        @Nullable
+        private ReservedServerOffer getReservedOfferForRequest(NetworkRequest request) {
+            final int rId = request.networkCapabilities.getReservationId();
+            for (ReservedServerOffer offer : mReservedServerOffers) {
+                // TODO: it might be safe to use canBeSatisfiedBy() instead of comparing
+                // reservationIds.
+                if (offer.getReservation().networkCapabilities.getReservationId() != rId) continue;
+                return offer;
+            }
+            return null;
         }
 
         @Override
         public void onNetworkUnneeded(NetworkRequest request) {
-            if (!mReservedServerOffers.containsKey(request.requestId)) {
-                return;
-            }
-
-            final ReservedServerOffer reservedOffer = mReservedServerOffers.get(request.requestId);
+            final ReservedServerOffer reservedOffer = getReservedOfferForRequest(request);
+            if (reservedOffer == null) return;
             // Note that the reserved offer gets torn down when the reservation goes away, even if
             // there are lingering requests.
-            reservedOffer.tearDown();
-            mProvider.unregisterNetworkOffer(reservedOffer);
+            handleDestroyReservedServerOffer(reservedOffer);
         }
     }
 
+    @Nullable
+    private static ParcelFileDescriptor createTunInterface(String ifname) {
+        final ParcelFileDescriptor fd;
+        try {
+            fd = ParcelFileDescriptor.adoptFd(
+                    ServiceConnectivityJni.createTunTap(
+                            true /*isTun*/, true /*hasCarrier*/, true /*setIffMulticast*/, ifname));
+            ServiceConnectivityJni.bringUpInterface(ifname);
+            // TODO: consider adding a parameter to createTunTap() (or the Builder that should
+            // be added) to make i/o blocking.
+            // L2capPacketForward uses two threads and blocking i/o.
+            final int flags = Os.fcntlInt(fd.getFileDescriptor(), F_GETFL, 0);
+            Os.fcntlInt(fd.getFileDescriptor(), F_SETFL, flags);
+        } catch (Exception e) {
+            // Note: createTunTap currently throws an IllegalStateException on failure.
+            // TODO: native functions should throw ErrnoException.
+            Log.e(TAG, "Failed to create tun interface", e);
+            return null;
+        }
+        return fd;
+    }
+
+    private L2capNetwork createL2capNetwork(BluetoothSocket socket, NetworkCapabilities caps) {
+        final String ifname = TUN_IFNAME + String.valueOf(mTunIndex++);
+        final ParcelFileDescriptor tunFd = createTunInterface(ifname);
+        if (tunFd == null) {
+            return null;
+        }
+
+        return new L2capNetwork(mHandler, mContext, mProvider, ifname, socket, tunFd, caps, new L2capNetwork.ICallback() {
+            // TODO: implement
+            @Override
+            public void onError() {}
+            @Override
+            public void onNetworkUnwanted() {}
+        });
+    }
+
     private class ReservedServerOffer implements NetworkOfferCallback {
+        private final NetworkRequest mReservation;
         private final boolean mUseHeaderCompression;
-        private final int mPsm;
         private final NetworkCapabilities mReservedCapabilities;
+        private final AcceptThread mAcceptThread;
+        // This set should almost always contain at most one network. This is because all L2CAP server
+        // networks created by the same reserved offer are indistinguishable from each other, so
+        // that ConnectivityService will tear down all but the first. However, temporarily, there
+        // can be more than one network.
+        private final Set<L2capNetwork> mL2capNetworks = new ArraySet<>();
 
-        public ReservedServerOffer(NetworkCapabilities reservationCaps) {
-            // getNetworkSpecifier() is guaranteed to return a non-null L2capNetworkSpecifier.
-            final L2capNetworkSpecifier reservationSpec =
-                    (L2capNetworkSpecifier) reservationCaps.getNetworkSpecifier();
-            mUseHeaderCompression =
-                    reservationSpec.getHeaderCompression() == HEADER_COMPRESSION_6LOWPAN;
+        private class AcceptThread extends Thread {
+            private static final int TIMEOUT_MS = 500;
+            private final BluetoothServerSocket mServerSocket;
+            private volatile boolean mIsRunning = true;
 
-            // TODO: open BluetoothServerSocket and allocate a PSM.
-            mPsm = 0x80;
+            public AcceptThread(BluetoothServerSocket serverSocket) {
+                mServerSocket = serverSocket;
+            }
 
-            final L2capNetworkSpecifier reservedSpec = new L2capNetworkSpecifier.Builder()
-                    .setRole(ROLE_SERVER)
-                    .setHeaderCompression(reservationSpec.getHeaderCompression())
-                    .setPsm(mPsm)
-                    .build();
-            mReservedCapabilities = new NetworkCapabilities.Builder(reservationCaps)
-                    .setNetworkSpecifier(reservedSpec)
-                    .build();
+            private void destroyReservedServerOffer() {
+                mHandler.post(() -> {
+                    handleDestroyReservedServerOffer(ReservedServerOffer.this);
+                });
+            }
+
+            private static void closeBluetoothSocket(BluetoothSocket socket) {
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    Log.w(TAG, "Failed to close BluetoothSocket", e);
+                }
+            }
+
+            private void createNetwork(BluetoothSocket connectedSocket) {
+                mHandler.post(() -> {
+                    final boolean success = handleCreateNetwork(connectedSocket);
+                    if (!success) closeBluetoothSocket(connectedSocket);
+                });
+            }
+
+            public void run() {
+                while (mIsRunning) {
+                    final BluetoothSocket connectedSocket;
+                    try {
+                        connectedSocket = mServerSocket.accept();
+                    } catch (IOException e) {
+                        // BluetoothServerSocket was closed().
+                        if (!mIsRunning) return;
+
+                        // Else, BluetoothServerSocket encountered exception.
+                        Log.e(TAG, "BluetoothServerSocket#accept failed", e);
+                        destroyReservedServerOffer();
+                        return; // stop running immediately on error
+                    }
+                    createNetwork(connectedSocket);
+                }
+            }
+
+            public void tearDown() {
+                mIsRunning = false;
+                try {
+                    // BluetoothServerSocket.close() is thread-safe.
+                    mServerSocket.close();
+                } catch (IOException e) {
+                    Log.w(TAG, "Failed to close BluetoothServerSocket", e);
+                }
+                try {
+                    join();
+                } catch (InterruptedException e) {
+                    // join() interrupted during tearDown(). Do nothing.
+                }
+            }
+        }
+
+        private boolean handleCreateNetwork(BluetoothSocket socket) {
+            // It is possible the offer went away.
+            if (!mReservedServerOffers.contains(this)) return false;
+
+            if (!socket.isConnected()) {
+                Log.wtf(TAG, "BluetoothSocket must be connected");
+                return false;
+            }
+
+            final L2capNetwork network = createL2capNetwork(socket, mReservedCapabilities);
+            if (network == null) {
+                Log.e(TAG, "Failed to create L2capNetwork");
+                return false;
+            }
+
+            // TODO: add tearDown paths (specifically: offer and network-initiated teardown).
+            mL2capNetworks.add(network);
+            return true;
+        }
+
+        public ReservedServerOffer(NetworkRequest reservation, boolean useHeaderCompression,
+                NetworkCapabilities reservedCapabilities, BluetoothServerSocket serverSocket) {
+            mReservation = reservation;
+            mUseHeaderCompression = useHeaderCompression;
+            mReservedCapabilities = reservedCapabilities;
+            mAcceptThread = new AcceptThread(serverSocket);
+            mAcceptThread.start();
         }
 
         public NetworkCapabilities getReservedCapabilities() {
             return mReservedCapabilities;
         }
 
+        public NetworkRequest getReservation() {
+            return mReservation;
+        }
+
         @Override
         public void onNetworkNeeded(NetworkRequest request) {
-            // TODO: implement
+            // UNUSED: the lifetime of the reserved network is controlled by the blanket offer.
         }
 
         @Override
         public void onNetworkUnneeded(NetworkRequest request) {
-            // TODO: implement
+            // UNUSED: the lifetime of the reserved network is controlled by the blanket offer.
         }
 
         /**
          * Called when the reservation goes away and the reserved offer must be torn down.
          *
          * This method can be called multiple times.
+         * TODO: can it? Let the caller verify the offer still exists before calling this method.
          */
         public void tearDown() {
-            // TODO: implement.
-            // This method can be called multiple times.
+            mAcceptThread.tearDown();
+            for (L2capNetwork network : mL2capNetworks) {
+                network.tearDown();
+            }
         }
+    }
+
+    @Nullable
+    private ReservedServerOffer createReservedServerOffer(NetworkRequest reservation) {
+        final NetworkCapabilities reservationNc = reservation.networkCapabilities;
+        final L2capNetworkSpecifier reservationSpec =
+                (L2capNetworkSpecifier) reservationNc.getNetworkSpecifier();
+        final boolean useHeaderCompression =
+                reservationSpec.getHeaderCompression() == HEADER_COMPRESSION_6LOWPAN;
+
+        final BluetoothAdapter bluetoothAdapter = mBluetoothManager.getAdapter();
+        if (bluetoothAdapter == null) {
+            Log.w(TAG, "Failed to get BluetoothAdapter");
+            return null;
+        }
+        final BluetoothServerSocket serverSocket;
+        try {
+            serverSocket = bluetoothAdapter.listenUsingInsecureL2capChannel();
+        } catch (IOException e) {
+            Log.w(TAG, "Failed to open BluetoothServerSocket");
+            return null;
+        }
+
+        final L2capNetworkSpecifier reservedSpec = new L2capNetworkSpecifier.Builder()
+                .setRole(ROLE_SERVER)
+                .setHeaderCompression(reservationSpec.getHeaderCompression())
+                .setPsm(serverSocket.getPsm())
+                .build();
+        // TODO: should reserved capabilities be derived from request or blanket offer?
+        final NetworkCapabilities reservedNc = new NetworkCapabilities.Builder(reservationNc)
+                .setNetworkSpecifier(reservedSpec)
+                .build();
+        return new ReservedServerOffer(reservation, useHeaderCompression, reservedNc, serverSocket);
+    }
+
+    private void handleDestroyReservedServerOffer(ReservedServerOffer offer) {
+        if (!mReservedServerOffers.contains(offer)) return;
+        mReservedServerOffers.remove(offer);
+
+        offer.tearDown();
+        // TODO: registerNetworkOffer is part of BlanketReservationOffer#onNetworkNeeded(). Should
+        // it be added to createReservedServerOffer for symmetry?
+        mProvider.unregisterNetworkOffer(offer);
     }
 
     @VisibleForTesting
@@ -234,11 +436,20 @@ public class L2capNetworkProvider {
      * Called on CS Handler thread.
      */
     public void start() {
-        final PackageManager pm = mContext.getPackageManager();
-        if (pm.hasSystemFeature(FEATURE_BLUETOOTH_LE)) {
+        mHandler.post(() -> {
+            final PackageManager pm = mContext.getPackageManager();
+            if (!pm.hasSystemFeature(FEATURE_BLUETOOTH_LE)) {
+                return;
+            }
+            mBluetoothManager = mContext.getSystemService(BluetoothManager.class);
+            if (mBluetoothManager == null) {
+                // Can this ever happen?
+                Log.wtf(TAG, "BluetoothManager not found");
+                return;
+            }
             mContext.getSystemService(ConnectivityManager.class).registerNetworkProvider(mProvider);
             mProvider.registerNetworkOffer(BlanketReservationOffer.SCORE,
                     BlanketReservationOffer.CAPABILITIES, mHandler::post, mBlanketOffer);
-        }
+        });
     }
 }

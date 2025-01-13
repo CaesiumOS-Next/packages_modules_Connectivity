@@ -19,6 +19,8 @@ package com.android.server.net
 import android.bluetooth.BluetoothSocket
 import android.os.Build
 import android.system.Os
+import android.os.Handler
+import android.os.HandlerThread
 import android.system.OsConstants.AF_UNIX
 import android.system.OsConstants.SHUT_RD
 import android.system.OsConstants.SHUT_WR
@@ -59,6 +61,11 @@ class L2capPacketForwarderTest {
     private lateinit var l2capInputStream: BluetoothL2capInputStream
     private lateinit var l2capOutputStream: BluetoothL2capOutputStream
     @Mock private lateinit var bluetoothSocket: BluetoothSocket
+    @Mock private lateinit var callback: L2capPacketForwarder.ICallback
+
+    private val handlerThread = HandlerThread("L2capPacketForwarderTest thread").apply { start() }
+    private val handler = Handler(handlerThread.looper)
+
 
     /** Imitates the behavior of an L2CAP BluetoothSocket */
     private class BluetoothL2capInputStream(
@@ -170,8 +177,10 @@ class L2capPacketForwarderTest {
         }).`when`(bluetoothSocket).close()
 
         forwarder = L2capPacketForwarder(
+                handler,
                 FdWrapper(tunFds[0]),
-                BluetoothSocketWrapper(bluetoothSocket)
+                BluetoothSocketWrapper(bluetoothSocket),
+                callback
         )
     }
 
@@ -186,6 +195,9 @@ class L2capPacketForwarderTest {
         }
         Os.close(tunFds[1])
         Os.close(l2capFds[1])
+
+        handlerThread.quitSafely()
+        handlerThread.join()
     }
 
     fun sendPacket(fd: FileDescriptor, size: Int = 1280): ByteArray {
