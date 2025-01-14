@@ -22,6 +22,30 @@
       },
       "revId": "bd5674e92979a188cbc8d5526fad54acfca639ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "636aacc4_36c5466e",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTapTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-14T06:44:41Z",
+      "side": 1,
+      "message": "Updated the reason accordingly.",
+      "parentUuid": "00840847_ff61d0a4",
+      "range": {
+        "startLine": 62,
+        "startChar": 23,
+        "endLine": 62,
+        "endChar": 41
+      },
+      "revId": "bd5674e92979a188cbc8d5526fad54acfca639ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
