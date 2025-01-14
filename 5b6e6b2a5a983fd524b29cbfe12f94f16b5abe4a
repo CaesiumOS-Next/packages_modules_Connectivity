@@ -22,6 +22,30 @@
       },
       "revId": "5b6e6b2a5a983fd524b29cbfe12f94f16b5abe4a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45ad91c9_31f26c7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-14T03:13:55Z",
+      "side": 1,
+      "message": "The Bluetooth APIs specifically don\u0027t support it. Also, why not just use RFCOMM on Bluetooth Classic? Bluetooth Classic values are variable length and must be odd (they are terminated by an even octet). I am okay not specifying a range at all if you prefer.",
+      "parentUuid": "f6f64682_3b297657",
+      "range": {
+        "startLine": 9,
+        "startChar": 65,
+        "endLine": 11,
+        "endChar": 25
+      },
+      "revId": "5b6e6b2a5a983fd524b29cbfe12f94f16b5abe4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
