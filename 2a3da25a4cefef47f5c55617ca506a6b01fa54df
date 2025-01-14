@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d67de6ed_b9b047cd",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "I feel this class can be improved a little bit further, the current way of managing the state is not really ideal. Could you try sth. like follows?\n\nI think the PingContext can make the state management more readabile. \n\nPlease let me know if you have any question related to the suggestion.\n\n\n```\n\nclass Icmp6PacketReader(\n            handler: Handler,\n            private val network: Network\n    ) : PacketReader(handler, RCV_BUFFER_SIZE) {\n        private data class PingContext(\n            val futureReply: CompletableFuture\u003cList\u003cByteArray\u003e\u003e,\n            val expectReplyCount: Int,\n            val replyPayloads: MutableList\u003cByteArray\u003e \u003d mutableListOf()\n        )\n        private var pingContext: PingContext? \u003d null\n\n        override fun handlePacket(recvbuf: ByteArray, length: Int) {\n            val context \u003d pingContext ?: return \n            context.replyPayloads.add(recvbuf.sliceArray(8..\u003clength))\n            if (context.replyPayloads.size \u003d\u003d context.expectReplyCount) {\n                context.futureReply.complete(context.replyPayloads)\n                pingContext \u003d null\n            }\n        }\n\n        fun sendPing(data: ByteArray, payloadSize: Int, expectReplyCount: Int \u003d 1) {\n            pingContext \u003d PingContext(\n                futureReply \u003d CompletableFuture\u003cList\u003cByteArray\u003e\u003e(),\n                expectReplyCount \u003d expectReplyCount\n            )\n            Os.sendto(sockFd!!, packet, 0, packet.size, 0, PING_DESTINATION)\n        }\n\n        fun expectPingReply(timeoutMs: Long \u003d TIMEOUT_MS): List\u003cByteArray\u003e {\n            return pingContext!!.futureReply.get(timeoutMs, TimeUnit.MILLISECONDS)\n        }\n\n    }\n```",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 214,
+        "endChar": 28
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b696b011_217c42b1",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "I think we can just do sth. follows like follows and don\u0027t need to use skipLabel at all.\n\n\n```\n        addLoad16(R0, ETH_ETHERTYPE_OFFSET)\n        addJumpIfR0NotEquals(ETH_P_IPV6.toLong(), BaseApfGenerator.PASS_LABEL)\n        addLoad8(R0, IPV6_NEXT_HEADER_OFFSET)\n        addJumpIfR0NotEquals(IPPROTO_ICMPV6.toLong(), BaseApfGenerator.PASS_LABEL)\n        addLoad8(R0, ICMP6_TYPE_OFFSET)\n        addJumpIfR0NotEquals(ICMP6_ECHO_REPLY.toLong(), BaseApfGenerator.PASS_LABEL)\n\n```",
+      "range": {
+        "startLine": 494,
+        "startChar": 8,
+        "endLine": 494,
+        "endChar": 13
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e89edbb5_73e45860",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 767,
+        "startChar": 8,
+        "endLine": 767,
+        "endChar": 45
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33b832ba_42d31cf7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "It seems this skip label is not really necessary?",
+      "range": {
+        "startLine": 779,
+        "startChar": 48,
+        "endLine": 779,
+        "endChar": 63
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1575d4b8_2b9d260e",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 783,
+        "startChar": 16,
+        "endLine": 783,
+        "endChar": 45
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30fcfbc8_c7c20064",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "I think we should be more specificed. We are test multi transmit so I feel we should call it `testTransmitMultiplePackets`.",
+      "range": {
+        "startLine": 808,
+        "startChar": 8,
+        "endLine": 808,
+        "endChar": 32
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dada5be_3c1f5bbc",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 822,
+        "startChar": 8,
+        "endLine": 822,
+        "endChar": 45
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f0fe1d_f204e96b",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "3 ICMPv6 echo requests",
+      "range": {
+        "startLine": 831,
+        "startChar": 24,
+        "endLine": 831,
+        "endChar": 25
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8864b10_4d150a73",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "Hmm, maybe lets remove this comment. Its too detailed to be put into the CTS comment.",
+      "range": {
+        "startLine": 836,
+        "startChar": 8,
+        "endLine": 836,
+        "endChar": 84
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a4e9e67_cdd601a9",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "By go through the logic below, I think this should be really called `numOfPacketToTransmit`",
+      "range": {
+        "startLine": 837,
+        "startChar": 12,
+        "endLine": 837,
+        "endChar": 28
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94e2ecf6_f21918e3",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "We can try to use more kotlin feature to simpfliy the code.\n\n```\nval expectReplyPayloads \u003d (0 until 3).map { Random.nextBytes(1) }\n\nexpectReplyPayloads.forEach { \n    gen.generatePing6RequestTransmit(it) \n}\n```",
+      "range": {
+        "startLine": 837,
+        "startChar": 8,
+        "endLine": 843,
+        "endChar": 9
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89fbc5d5_48967913",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "This is not used anymore.",
+      "range": {
+        "startLine": 859,
+        "startChar": 0,
+        "endLine": 861,
+        "endChar": 63
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fffb882c_8f212a9f",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T08:38:49Z",
+      "side": 1,
+      "message": "```\npacketReader.sendPing(payload, pingRequestPayloadSize, expectReplyPayloads.size)\nval replyPayloads \u003d try {\n    packetReader.expectPingReply(TIMEOUT_MS * 2)\n} catch (e: TimeoutException) {\n    emptyList() \n}\n\nassertThat(replyPayloads).isEqualTo(expectReplyPayloads)\n\n```",
+      "range": {
+        "startLine": 853,
+        "startChar": 0,
+        "endLine": 866,
+        "endChar": 5
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
