@@ -153,7 +153,7 @@ private const val NAME_RECORDS_TTL_MILLIS: Long = 120
 private val multicastIpv6Addr = parseNumericAddress("ff02::fb") as Inet6Address
 private val testSrcAddr = parseNumericAddress("2001:db8::123") as Inet6Address
 
-@AppModeFull(reason = "Socket cannot bind in instant app mode")
+@AppModeFull(reason = "Test networks cannot be created in instant app mode")
 @RunWith(DevSdkIgnoreRunner::class)
 @SmallTest
 @ConnectivityModuleTest
