@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd584a31_83ad50af",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T04:35:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "888be5ab_cde6ae5a",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 70
+      },
+      "revId": "23f5d02192d01eed81ddc864880fad718ce3e6c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ecf7870_844b6576",
@@ -55,6 +79,30 @@
       "writtenOn": "2025-01-13T18:21:39Z",
       "side": 1,
       "message": "how could this happen?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 76
+      },
+      "revId": "23f5d02192d01eed81ddc864880fad718ce3e6c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22609d15_05a3c23b",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-14T04:35:05Z",
+      "side": 1,
+      "message": "Removed, it cannot happened in A16 CTS.",
+      "parentUuid": "7ecf7870_844b6576",
       "range": {
         "startLine": 41,
         "startChar": 0,
