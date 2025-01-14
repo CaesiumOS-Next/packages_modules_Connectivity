@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85c5fd16_3854df1b",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-14T07:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a65cec81_1b87b7a5",
+      "range": {
+        "startLine": 220,
+        "startChar": 16,
+        "endLine": 220,
+        "endChar": 19
+      },
+      "revId": "3281ce9887a8b36c8fdcd837f073abf5769919cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89d2114b_dd3cff45",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-13T11:22:53Z",
       "side": 1,
       "message": "expectReplyCount.",
+      "range": {
+        "startLine": 221,
+        "startChar": 20,
+        "endLine": 221,
+        "endChar": 28
+      },
+      "revId": "3281ce9887a8b36c8fdcd837f073abf5769919cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c85f570_ba02c055",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-14T07:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89d2114b_dd3cff45",
       "range": {
         "startLine": 221,
         "startChar": 20,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7660b162_7cbf987c",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-14T07:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63f50e0e_c3e09533",
+      "range": {
+        "startLine": 264,
+        "startChar": 23,
+        "endLine": 264,
+        "endChar": 37
+      },
+      "revId": "3281ce9887a8b36c8fdcd837f073abf5769919cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5a2c6d6_09ba4713",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-01-13T11:22:53Z",
       "side": 1,
       "message": "This comment seems can be removed.",
+      "range": {
+        "startLine": 488,
+        "startChar": 67,
+        "endLine": 488,
+        "endChar": 85
+      },
+      "revId": "3281ce9887a8b36c8fdcd837f073abf5769919cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ffb18a6_560e2241",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-14T07:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5a2c6d6_09ba4713",
       "range": {
         "startLine": 488,
         "startChar": 67,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f4b7c5b_e5dba463",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-14T07:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aab0f107_8aa720e3",
+      "range": {
+        "startLine": 779,
+        "startChar": 8,
+        "endLine": 780,
+        "endChar": 51
+      },
+      "revId": "3281ce9887a8b36c8fdcd837f073abf5769919cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "808418f5_0df7858c",
@@ -129,6 +249,30 @@
       "writtenOn": "2025-01-13T11:22:53Z",
       "side": 1,
       "message": "`replyPayloads` should be enough.",
+      "range": {
+        "startLine": 790,
+        "startChar": 12,
+        "endLine": 790,
+        "endChar": 28
+      },
+      "revId": "3281ce9887a8b36c8fdcd837f073abf5769919cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dae6eab1_523426ea",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-14T07:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "808418f5_0df7858c",
       "range": {
         "startLine": 790,
         "startChar": 12,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b03a288_f82b5966",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-14T07:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "843ee880_a35293fc",
+      "range": {
+        "startLine": 839,
+        "startChar": 12,
+        "endLine": 839,
+        "endChar": 34
+      },
+      "revId": "3281ce9887a8b36c8fdcd837f073abf5769919cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42e85e5f_ada54a61",
@@ -175,6 +343,30 @@
       "writtenOn": "2025-01-13T11:22:53Z",
       "side": 1,
       "message": "expectedReplyCount",
+      "range": {
+        "startLine": 854,
+        "startChar": 63,
+        "endLine": 854,
+        "endChar": 71
+      },
+      "revId": "3281ce9887a8b36c8fdcd837f073abf5769919cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4a04bbd_61a71ef5",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-14T07:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42e85e5f_ada54a61",
       "range": {
         "startLine": 854,
         "startChar": 63,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1610b618_1943a001",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-14T07:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7832d72_b9147d0e",
+      "range": {
+        "startLine": 855,
+        "startChar": 12,
+        "endLine": 855,
+        "endChar": 28
+      },
+      "revId": "3281ce9887a8b36c8fdcd837f073abf5769919cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c72239c_22d1e7d7",
@@ -221,6 +437,30 @@
       "writtenOn": "2025-01-13T11:22:53Z",
       "side": 1,
       "message": "This eems should be removed.",
+      "range": {
+        "startLine": 863,
+        "startChar": 8,
+        "endLine": 863,
+        "endChar": 64
+      },
+      "revId": "3281ce9887a8b36c8fdcd837f073abf5769919cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5925caf1_203dabc2",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-14T07:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c72239c_22d1e7d7",
       "range": {
         "startLine": 863,
         "startChar": 8,
