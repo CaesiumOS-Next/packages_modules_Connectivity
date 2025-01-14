@@ -119,7 +119,7 @@ public final class CtsNetUtils {
     /** Checks if FEATURE_IPSEC_TUNNELS is enabled on the device */
     public boolean hasIpsecTunnelsFeature() {
         return mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_IPSEC_TUNNELS)
-                || getFirstApiLevel() >= Build.VERSION_CODES.Q;
+                && getFirstApiLevel() >= Build.VERSION_CODES.Q;
     }
 
     /** Checks if FEATURE_IPSEC_TUNNEL_MIGRATION is enabled on the device */
