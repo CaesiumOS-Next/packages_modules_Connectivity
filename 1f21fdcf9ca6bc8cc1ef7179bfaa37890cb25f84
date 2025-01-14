@@ -92,6 +92,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2cd330aa_2a400625",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-14T03:19:14Z",
+      "side": 1,
+      "message": "In RFC791, it says:\n```\nEvery internet module must be able to forward a datagram of 68 octets without \nfurther fragmentation. This is because an internet header may be up to 60 octets,\nand the minimum fragment is 8 octets.\n```\n\nand in practice, when updating mtu using `ip link set dev \u003cinterface_name\u003e mtu \u003cvalue\u003e`, value below 68 or above 1500 is considered invalid and update fails.\n\n\u003e I think for now just a simple check mtu\u003e0 is safer. This can be refined later.\n\nSG. Sorry to ask again, do you prefer to set mtu to 1500 or stay unchanged when invalid value is input? Personally I feel log an error and stay unchanged feels more intuitive but also fine with following ChromeOS practice :)",
+      "parentUuid": "ce156433_2c365748",
+      "range": {
+        "startLine": 508,
+        "startChar": 73,
+        "endLine": 508,
+        "endChar": 80
+      },
+      "revId": "1f21fdcf9ca6bc8cc1ef7179bfaa37890cb25f84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43c57d57_69581526",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 2
