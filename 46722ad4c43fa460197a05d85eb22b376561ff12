@@ -152,6 +152,30 @@
       },
       "revId": "46722ad4c43fa460197a05d85eb22b376561ff12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e446d26f_823b7099",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-14T03:55:38Z",
+      "side": 1,
+      "message": "I believe we decided this isn\u0027t possible since the TetheringRequest constructor doesn\u0027t have a reference to a Context we can use to get the package name.",
+      "parentUuid": "27710ae4_76f9e7c3",
+      "range": {
+        "startLine": 1051,
+        "startChar": 0,
+        "endLine": 1051,
+        "endChar": 1
+      },
+      "revId": "46722ad4c43fa460197a05d85eb22b376561ff12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
