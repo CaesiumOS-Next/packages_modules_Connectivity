@@ -138,6 +138,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d431bd2_79ffbab1",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-14T08:47:45Z",
+      "side": 1,
+      "message": "Thanks for the confirmation. Added the check.",
+      "parentUuid": "bd9f34e2_ab7d3cab",
+      "range": {
+        "startLine": 508,
+        "startChar": 73,
+        "endLine": 508,
+        "endChar": 80
+      },
+      "revId": "1f21fdcf9ca6bc8cc1ef7179bfaa37890cb25f84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43c57d57_69581526",
