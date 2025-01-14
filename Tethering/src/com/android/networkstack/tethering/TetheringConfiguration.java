@@ -49,6 +49,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
@@ -159,7 +161,7 @@ public class TetheringConfiguration {
     public final String[] tetherableNcmRegexs;
     public final boolean isDunRequired;
     public final boolean chooseUpstreamAutomatically;
-    public final Collection<Integer> preferredUpstreamIfaceTypes;
+    public final List<Integer> preferredUpstreamIfaceTypes;
     public final String[] legacyDhcpRanges;
     public final String[] defaultIPv4DNS;
 
@@ -487,6 +489,7 @@ public class TetheringConfiguration {
         sj.add(String.format("offloadPollInterval:%d", mOffloadPollInterval));
         sj.add(String.format("preferredUpstreamIfaceTypes:%s",
                 toIntArray(preferredUpstreamIfaceTypes)));
+        sj.add(String.format("legacyDhcpRanges:%s", makeString(legacyDhcpRanges)));
         sj.add(String.format("provisioningApp:%s", makeString(provisioningApp)));
         sj.add(String.format("provisioningAppNoUi:%s", provisioningAppNoUi));
         sj.add(String.format("isCarrierSupportTethering:%s", isCarrierSupportTethering));
@@ -496,6 +499,56 @@ public class TetheringConfiguration {
         sj.add(String.format("enableLegacyDhcpServer:%s", mEnableLegacyDhcpServer));
         sj.add(String.format("enableWearTethering:%s", mEnableWearTethering));
         return String.format("TetheringConfiguration{%s}", sj.toString());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || !(o instanceof TetheringConfiguration)) return false;
+        TetheringConfiguration that = (TetheringConfiguration) o;
+        return isDunRequired == that.isDunRequired
+                && chooseUpstreamAutomatically == that.chooseUpstreamAutomatically
+                && provisioningCheckPeriod == that.provisioningCheckPeriod
+                && isCarrierSupportTethering == that.isCarrierSupportTethering
+                && isCarrierConfigAffirmsEntitlementCheckRequired
+                == that.isCarrierConfigAffirmsEntitlementCheckRequired
+                && activeDataSubId == that.activeDataSubId
+                && mEnableLegacyDhcpServer == that.mEnableLegacyDhcpServer
+                && mOffloadPollInterval == that.mOffloadPollInterval
+                && mEnableBpfOffload == that.mEnableBpfOffload
+                && mEnableWifiP2pDedicatedIp == that.mEnableWifiP2pDedicatedIp
+                && mP2pLeasesSubnetPrefixLength == that.mP2pLeasesSubnetPrefixLength
+                && mEnableWearTethering == that.mEnableWearTethering
+                && mUsbTetheringFunction == that.mUsbTetheringFunction && Arrays.equals(
+                tetherableUsbRegexs, that.tetherableUsbRegexs) && Arrays.equals(
+                tetherableWifiRegexs, that.tetherableWifiRegexs) && Arrays.equals(
+                tetherableWigigRegexs, that.tetherableWigigRegexs) && Arrays.equals(
+                tetherableWifiP2pRegexs, that.tetherableWifiP2pRegexs) && Arrays.equals(
+                tetherableBluetoothRegexs, that.tetherableBluetoothRegexs) && Arrays.equals(
+                tetherableNcmRegexs, that.tetherableNcmRegexs) && Objects.equals(
+                preferredUpstreamIfaceTypes, that.preferredUpstreamIfaceTypes)
+                && Arrays.equals(legacyDhcpRanges, that.legacyDhcpRanges)
+                && Arrays.equals(defaultIPv4DNS, that.defaultIPv4DNS)
+                && Arrays.equals(provisioningApp, that.provisioningApp)
+                && Objects.equals(provisioningAppNoUi, that.provisioningAppNoUi)
+                && Objects.equals(provisioningResponse, that.provisioningResponse);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(isDunRequired, chooseUpstreamAutomatically,
+                preferredUpstreamIfaceTypes, provisioningAppNoUi, provisioningCheckPeriod,
+                provisioningResponse, isCarrierSupportTethering,
+                isCarrierConfigAffirmsEntitlementCheckRequired, activeDataSubId,
+                mEnableLegacyDhcpServer, mOffloadPollInterval, mEnableBpfOffload,
+                mEnableWifiP2pDedicatedIp, mP2pLeasesSubnetPrefixLength, mEnableWearTethering,
+                mUsbTetheringFunction, Arrays.hashCode(tetherableUsbRegexs),
+                Arrays.hashCode(tetherableWifiRegexs), Arrays.hashCode(tetherableWigigRegexs),
+                Arrays.hashCode(tetherableWifiP2pRegexs), Arrays.hashCode(tetherableWifiP2pRegexs),
+                Arrays.hashCode(tetherableBluetoothRegexs), Arrays.hashCode(tetherableNcmRegexs),
+                Arrays.hashCode(legacyDhcpRanges), Arrays.hashCode(defaultIPv4DNS),
+                Arrays.hashCode(provisioningApp));
+        return result;
     }
 
     private static void dumpStringArray(PrintWriter pw, String label, String[] values) {
@@ -556,7 +609,7 @@ public class TetheringConfiguration {
         return Settings.Global.getString(mContentResolver, name);
     }
 
-    private static Collection<Integer> getUpstreamIfaceTypes(Resources res, boolean dunRequired) {
+    private static List<Integer> getUpstreamIfaceTypes(Resources res, boolean dunRequired) {
         final int[] ifaceTypes = res.getIntArray(R.array.config_tether_upstream_types);
         final ArrayList<Integer> upstreamIfaceTypes = new ArrayList<>(ifaceTypes.length);
         for (int i : ifaceTypes) {

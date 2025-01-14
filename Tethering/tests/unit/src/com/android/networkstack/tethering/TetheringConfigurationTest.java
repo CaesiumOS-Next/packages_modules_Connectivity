@@ -785,22 +785,42 @@ public class TetheringConfigurationTest {
         parcel.tetherableUsbRegexs = new String[]{ "test_usb_from_parcel" };
         parcel.tetherableWifiRegexs = new String[]{ "test_wifi_from_parcel" };
         parcel.tetherableBluetoothRegexs = new String[]{ "test_bluetooth_from_parcel" };
-        parcel.legacyDhcpRanges = new String[]{ "test_legacyDhcpRanges_from_parcel" };
+        parcel.legacyDhcpRanges = new String[]{ "test_legacyDhcpRanges_from_parcel", "" };
         parcel.provisioningApp = new String[]{ "test_provisioningApp_from_parcel" };
         parcel.provisioningAppNoUi = "test_provisioningAppNoUi_from_parcel";
         parcel.provisioningResponse = "test_provisioningResponse_from_parcel";
 
-        final TetheringConfiguration cfg = new TetheringConfiguration(mMockContext, mLog,
+        final TetheringConfiguration cfgFromParcel = new TetheringConfiguration(mMockContext, mLog,
                 INVALID_SUBSCRIPTION_ID, mDeps, parcel);
-        assertArrayEquals(parcel.tetherableUsbRegexs, cfg.tetherableUsbRegexs);
-        assertArrayEquals(parcel.tetherableWifiRegexs, cfg.tetherableWifiRegexs);
-        assertArrayEquals(parcel.tetherableBluetoothRegexs, cfg.tetherableBluetoothRegexs);
-        assertArrayEquals(parcel.legacyDhcpRanges, cfg.legacyDhcpRanges);
-        assertArrayEquals(parcel.provisioningApp, cfg.provisioningApp);
-        assertEquals(parcel.provisioningAppNoUi, cfg.provisioningAppNoUi);
-        assertEquals(parcel.provisioningResponse, cfg.provisioningResponse);
+        assertArrayEquals(parcel.tetherableUsbRegexs, cfgFromParcel.tetherableUsbRegexs);
+        assertArrayEquals(parcel.tetherableWifiRegexs, cfgFromParcel.tetherableWifiRegexs);
+        assertArrayEquals(parcel.tetherableBluetoothRegexs,
+                cfgFromParcel.tetherableBluetoothRegexs);
+        assertArrayEquals(parcel.legacyDhcpRanges, cfgFromParcel.legacyDhcpRanges);
+        assertArrayEquals(parcel.provisioningApp, cfgFromParcel.provisioningApp);
+        assertEquals(parcel.provisioningAppNoUi, cfgFromParcel.provisioningAppNoUi);
+        assertEquals(parcel.provisioningResponse, cfgFromParcel.provisioningResponse);
 
-        final TetheringConfigurationParcel parcelFromCfg = cfg.toStableParcelable();
+        final TetheringConfigurationParcel parcelFromCfg = cfgFromParcel.toStableParcelable();
         assertEquals(parcel, parcelFromCfg);
+
+        // Verify TetheringConfiguration#equals().
+        when(mResources.getStringArray(R.array.config_tether_usb_regexs))
+                .thenReturn(parcel.tetherableUsbRegexs);
+        when(mResources.getStringArray(R.array.config_tether_wifi_regexs))
+                .thenReturn(parcel.tetherableWifiRegexs);
+        when(mResources.getStringArray(R.array.config_tether_bluetooth_regexs)).thenReturn(
+                parcel.tetherableBluetoothRegexs);
+        when(mResources.getStringArray(R.array.config_tether_dhcp_range))
+                .thenReturn(parcel.legacyDhcpRanges);
+        when(mResources.getStringArray(R.array.config_mobile_hotspot_provision_app))
+                .thenReturn(parcel.provisioningApp);
+        when(mResources.getString(R.string.config_mobile_hotspot_provision_app_no_ui))
+                .thenReturn(parcel.provisioningAppNoUi);
+        when(mResources.getString(R.string.config_mobile_hotspot_provision_response))
+                .thenReturn(parcel.provisioningResponse);
+        final TetheringConfiguration cfgFromResource = new TetheringConfiguration(
+                mMockContext, mLog, INVALID_SUBSCRIPTION_ID, mDeps);
+        assertEquals(cfgFromParcel, cfgFromResource);
     }
 }
