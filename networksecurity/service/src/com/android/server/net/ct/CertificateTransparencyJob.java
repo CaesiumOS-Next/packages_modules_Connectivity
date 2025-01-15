@@ -28,6 +28,9 @@ import android.os.ConfigUpdate;
 import android.os.SystemClock;
 import android.util.Log;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 /** Implementation of the Certificate Transparency job */
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 public class CertificateTransparencyJob extends BroadcastReceiver {
@@ -37,16 +40,24 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
 
     private final Context mContext;
     private final CompatibilityVersion mCompatVersion;
+    private final SignatureVerifier mSignatureVerifier;
     private final CertificateTransparencyDownloader mCertificateTransparencyDownloader;
     private final AlarmManager mAlarmManager;
     private final PendingIntent mPendingIntent;
 
     private boolean mDependenciesReady = false;
 
-    /** Creates a new {@link CertificateTransparencyJob} object. */
+    /**
+     * Creates a new {@link CertificateTransparencyJob} object.
+     *
+     * @param signatureVerifier
+     */
     public CertificateTransparencyJob(
-            Context context, CertificateTransparencyDownloader certificateTransparencyDownloader) {
+            Context context,
+            SignatureVerifier signatureVerifier,
+            CertificateTransparencyDownloader certificateTransparencyDownloader) {
         mContext = context;
+        mSignatureVerifier = signatureVerifier;
         mCompatVersion =
                 new CompatibilityVersion(
                         Config.COMPATIBILITY_VERSION,
@@ -85,6 +96,7 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
         mAlarmManager.cancel(mPendingIntent);
         mCertificateTransparencyDownloader.stop();
         mCompatVersion.delete();
+        mSignatureVerifier.resetPublicKey();
         mDependenciesReady = false;
 
         if (Config.DEBUG) {
@@ -107,14 +119,16 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
             Log.d(TAG, "Starting CT daily job.");
         }
         if (!mDependenciesReady) {
+            try {
+                mSignatureVerifier.setPublicKeyFromResources();
+            } catch (GeneralSecurityException | IOException e) {
+                Log.e(TAG, "Could not add public key from resources", e);
+            }
+
             mCertificateTransparencyDownloader.start();
             mDependenciesReady = true;
         }
 
-        if (mCertificateTransparencyDownloader.startPublicKeyDownload() == -1) {
-            Log.e(TAG, "Public key download not started.");
-        } else if (Config.DEBUG) {
-            Log.d(TAG, "Public key download started successfully.");
-        }
+        mCertificateTransparencyDownloader.startMetadataDownload();
     }
 }

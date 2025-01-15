@@ -123,7 +123,6 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         return downloadId;
     }
 
-    @VisibleForTesting
     void startMetadataDownload() {
         for (CompatibilityVersion compatVersion : mCompatVersions) {
             if (startMetadataDownload(compatVersion) == -1) {
@@ -194,7 +193,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
 
         try {
             mSignatureVerifier.setPublicKeyFrom(publicKeyUri);
-        } catch (GeneralSecurityException | IOException | IllegalArgumentException e) {
+        } catch (GeneralSecurityException | IOException e) {
             Log.e(TAG, "Error setting the public Key", e);
             return;
         }
@@ -238,11 +237,13 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             success = mSignatureVerifier.verify(contentUri, metadataUri);
         } catch (MissingPublicKeyException e) {
             if (updateFailureCount()) {
-                failureReason = CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_SIGNATURE_NOT_FOUND;
+                failureReason =
+                        CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_SIGNATURE_NOT_FOUND;
             }
         } catch (InvalidKeyException e) {
             if (updateFailureCount()) {
-                failureReason = CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_SIGNATURE_VERIFICATION;
+                failureReason =
+                        CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_SIGNATURE_VERIFICATION;
             }
         } catch (IOException | GeneralSecurityException e) {
             Log.e(TAG, "Could not verify new log list", e);
@@ -253,7 +254,8 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
 
             // Avoid logging failure twice
             if (failureReason == -1 && updateFailureCount()) {
-                failureReason = CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_SIGNATURE_VERIFICATION;
+                failureReason =
+                        CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_FAILED__FAILURE_REASON__FAILURE_SIGNATURE_VERIFICATION;
             }
 
             if (failureReason != -1) {
