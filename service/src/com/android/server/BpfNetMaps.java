@@ -62,6 +62,7 @@ import android.util.ArraySet;
 import android.util.IndentingPrintWriter;
 import android.util.Log;
 import android.util.Pair;
+import android.util.SparseIntArray;
 import android.util.StatsEvent;
 
 import androidx.annotation.RequiresApi;
@@ -807,6 +808,34 @@ public class BpfNetMaps {
                         + permissions + " to uid " + uid + ": " + e);
             }
         }
+    }
+
+    public void setNetPermForUids(SparseIntArray netdPermissionsAppIds) throws RemoteException {
+        if (!SdkLevel.isAtLeastT()) {
+                mNetd.trafficSetNetPermForUids(netdPermissionsAppIds.copyKeys());
+            return;
+        }
+        for (int i = 0; i < netdPermissionsAppIds.size(); i++) {
+            int uid = netdPermissionsAppIds.keyAt(i);
+            int permissions = netdPermissionsAppIds.valueAt(i);
+            // Remove the entry if package is uninstalled or uid has only INTERNET permission.
+            if (permissions == PERMISSION_UNINSTALLED || permissions == PERMISSION_INTERNET) {
+                try {
+                    sUidPermissionMap.deleteEntry(new S32(uid));
+                } catch (ErrnoException e) {
+                    Log.e(TAG, "Failed to remove uid " + uid + " from permission map: " + e);
+                }
+            } else {
+                try {
+                    sUidPermissionMap.updateEntry(new S32(uid), new U8((short) permissions));
+                } catch (ErrnoException e) {
+                    Log.e(TAG, "Failed to set permission "
+                            + permissions + " to uid " + uid + ": " + e);
+                }
+            }
+        }
+
+
     }
 
     /**
