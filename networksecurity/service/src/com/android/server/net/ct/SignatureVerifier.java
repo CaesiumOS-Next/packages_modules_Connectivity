@@ -25,8 +25,14 @@ import android.util.Log;
 
 import androidx.annotation.VisibleForTesting;
 
+import com.android.connectivity.resources.R;
+import com.android.server.connectivity.ConnectivityResources;
+
+import org.bouncycastle.util.io.pem.PemReader;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.PublicKey;
@@ -40,11 +46,13 @@ import java.util.Optional;
 public class SignatureVerifier {
 
     private final Context mContext;
+    private final ConnectivityResources mConnectivityResources;
 
     @NonNull private Optional<PublicKey> mPublicKey = Optional.empty();
 
     public SignatureVerifier(Context context) {
         mContext = context;
+        mConnectivityResources = new ConnectivityResources(context);
     }
 
     @VisibleForTesting
@@ -59,6 +67,20 @@ public class SignatureVerifier {
     void setPublicKeyFrom(Uri file) throws GeneralSecurityException, IOException {
         try (InputStream fileStream = mContext.getContentResolver().openInputStream(file)) {
             setPublicKey(new String(fileStream.readAllBytes()));
+        }
+    }
+
+    void setPublicKeyFromResources() throws GeneralSecurityException, IOException {
+        try (PemReader reader =
+                new PemReader(
+                        new InputStreamReader(
+                                mConnectivityResources
+                                        .get()
+                                        .openRawResource(R.raw.public_key))); ) {
+            setPublicKey(
+                    KeyFactory.getInstance("EC")
+                            .generatePublic(
+                                    new X509EncodedKeySpec(reader.readPemObject().getContent())));
         }
     }
 
