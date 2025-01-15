@@ -28,6 +28,9 @@ import android.os.ConfigUpdate;
 import android.os.SystemClock;
 import android.util.Log;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 /** Implementation of the Certificate Transparency job */
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 public class CertificateTransparencyJob extends BroadcastReceiver {
@@ -38,6 +41,7 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
     private final DataStore mDataStore;
     private final CertificateTransparencyDownloader mCertificateTransparencyDownloader;
     private final CompatibilityVersion mCompatVersion;
+    private final SignatureVerifier mSignatureVerifier;
     private final AlarmManager mAlarmManager;
     private final PendingIntent mPendingIntent;
 
@@ -49,11 +53,13 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
             Context context,
             DataStore dataStore,
             CertificateTransparencyDownloader certificateTransparencyDownloader,
-            CompatibilityVersion compatVersion) {
+            CompatibilityVersion compatVersion,
+            SignatureVerifier signatureVerifier) {
         mContext = context;
         mDataStore = dataStore;
         mCertificateTransparencyDownloader = certificateTransparencyDownloader;
         mCompatVersion = compatVersion;
+        mSignatureVerifier = signatureVerifier;
 
         mAlarmManager = context.getSystemService(AlarmManager.class);
         mPendingIntent =
@@ -117,11 +123,7 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
             mDependenciesReady = true;
         }
 
-        if (mCertificateTransparencyDownloader.startPublicKeyDownload() == -1) {
-            Log.e(TAG, "Public key download not started.");
-        } else if (Config.DEBUG) {
-            Log.d(TAG, "Public key download started successfully.");
-        }
+        mCertificateTransparencyDownloader.startMetadataDownload();
     }
 
     private void startDependencies() {
@@ -131,6 +133,11 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
                 mCertificateTransparencyDownloader,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
                 Context.RECEIVER_EXPORTED);
+        try {
+            mSignatureVerifier.setPublicKeyFromResources();
+        } catch (GeneralSecurityException | IOException e) {
+            Log.e(TAG, "Could not add public key from resources", e);
+        }
 
         if (Config.DEBUG) {
             Log.d(TAG, "CertificateTransparencyJob dependencies ready.");
@@ -138,6 +145,7 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
     }
 
     private void stopDependencies() {
+        mSignatureVerifier.resetPublicKey();
         mContext.unregisterReceiver(mCertificateTransparencyDownloader);
         mCertificateTransparencyDownloader.clearCompatibilityVersions();
         mDataStore.delete();
