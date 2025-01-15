@@ -224,12 +224,11 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             mDataStore.store();
         } else {
             mLogger.logCTLogListUpdateStateChangedEvent(
-                    updateStatus
-                            .toBuilder()
+                    updateStatus.toBuilder()
                             .setState(CTLogListUpdateState.VERSION_ALREADY_EXISTS)
                             .build());
-            }
         }
+    }
 
     private void handleDownloadFailed(DownloadStatus status) {
         Log.e(TAG, "Download failed with " + status);
