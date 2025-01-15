@@ -178,4 +178,10 @@ public class HostsideVpnTests extends HostsideNetworkTestCase {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest",
                 "testDropPacketToVpnAddress_WithDuplicatedAddress");
     }
+
+    @Test
+    public void testSetDelegateUid() throws Exception {
+        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest",
+                "testSetDelegateUid");
+    }
 }

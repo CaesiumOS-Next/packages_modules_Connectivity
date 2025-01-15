@@ -31,6 +31,7 @@ import static android.net.ConnectivityManager.TYPE_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.os.Process.INVALID_UID;
+import static android.os.Process.myUserHandle;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
 import static android.system.OsConstants.ECONNABORTED;
@@ -97,10 +98,12 @@ import android.net.util.KeepaliveUtils;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.os.Process;
+import android.os.ResultReceiver;
 import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.provider.DeviceConfig;
@@ -2126,5 +2129,39 @@ public class VpnTest {
         public void onBlockedStatusChanged(Network network, int blockedReasons) {
             getHistory().add(new CallbackEntry.BlockedStatusInt(network, blockedReasons));
         }
+    }
+
+    @Test
+    public void testSetDelegateUid() throws Exception {
+        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
+                new String[] {"0.0.0.0/0", "::/0"},
+                new String[0] /* excludedRoutes */,
+                "", /* allowedApplications */
+                "", /* disallowedApplications */
+                null /* ProxyInfo */,
+                null /* underlyingNetworks */,
+                false /* isAlwaysMetered */,
+                false /* addRoutesByIpPrefix */);
+
+        final Handler h = new Handler(Looper.getMainLooper());
+        mCM.startCaptivePortalAppForTesting(
+                mNetwork,
+                mPackageName,
+                Process.myUid(),
+                new ResultReceiver(h) {
+                    @Override
+                    protected void onReceiveResult (int resultCode, Bundle resultData) {
+                        Log.d(TAG, "result code: " + resultCode);
+
+                        // Excluded routes should bypass VPN.
+                        try {
+                            checkTrafficBypassesVpn("192.0.2.1");
+                            checkTrafficBypassesVpn("2001:db8:dead:beef::f00");
+                        } catch (Exception e) {
+                            fail();
+                        }
+
+                    }
+                });
     }
 }

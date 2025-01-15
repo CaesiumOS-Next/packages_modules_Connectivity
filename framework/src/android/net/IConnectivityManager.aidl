@@ -264,4 +264,6 @@ interface IConnectivityManager
     long getEnabledConnectivityManagerFeatures();
 
     boolean isConnectivityServiceFeatureEnabledForTesting(String featureFlag);
+
+    void startCaptivePortalAppForTesting(in Network network, String cls, int uid, in ResultReceiver receiver );
 }

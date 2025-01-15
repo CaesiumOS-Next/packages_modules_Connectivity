@@ -5726,6 +5726,26 @@ public class ConnectivityManager {
     }
 
     /**
+     * Requests that the system open the captive portal app with the specified extras.
+     *
+     * <p>This endpoint is exclusively for use by the NetworkStack and is protected by the
+     * corresponding permission.
+     * @param network Network on which the captive portal was detected.
+     * @param cls class to create a new component identifier .
+     * @hide
+     */
+    @VisibleForTesting
+    @RequiresPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)
+    public void startCaptivePortalAppForTesting(@NonNull Network network, @NonNull String cls,
+            @NonNull int uid, @NonNull  ResultReceiver receiver) {
+        try {
+            mService.startCaptivePortalAppForTesting(network, cls, uid, receiver);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Determine whether the device is configured to avoid bad Wi-Fi.
      * @hide
      */
