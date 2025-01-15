@@ -90,7 +90,6 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         return downloadId;
     }
 
-    @VisibleForTesting
     void startMetadataDownload() {
         for (CompatibilityVersion compatVersion : mCompatVersions) {
             if (startMetadataDownload(compatVersion) == -1) {
@@ -161,7 +160,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
 
         try {
             mSignatureVerifier.setPublicKeyFrom(publicKeyUri);
-        } catch (GeneralSecurityException | IOException | IllegalArgumentException e) {
+        } catch (GeneralSecurityException | IOException e) {
             Log.e(TAG, "Error setting the public Key", e);
             return;
         }
