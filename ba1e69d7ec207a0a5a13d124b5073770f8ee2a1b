@@ -16,6 +16,24 @@
       "message": "Metrics code looks fine to me, but I am not sure if we added the log to all the necessary place.",
       "revId": "ba1e69d7ec207a0a5a13d124b5073770f8ee2a1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4da595aa_fee15914",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-15T06:58:13Z",
+      "side": 1,
+      "message": "All legacy TetheringManager#tether calls go through this method, so it should be sufficient.",
+      "parentUuid": "f0ed8100_21eaffdc",
+      "revId": "ba1e69d7ec207a0a5a13d124b5073770f8ee2a1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
