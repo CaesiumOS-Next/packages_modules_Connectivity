@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb524a93_72410c49",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-15T06:55:11Z",
+      "side": 1,
+      "message": "24Q2 is UQPR3? if yes, maybe use QPR3 is cleaner.",
+      "range": {
+        "startLine": 404,
+        "startChar": 30,
+        "endLine": 404,
+        "endChar": 34
+      },
+      "revId": "76a9dc1ac2e6fe54b10458a6d235a234469c4477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
