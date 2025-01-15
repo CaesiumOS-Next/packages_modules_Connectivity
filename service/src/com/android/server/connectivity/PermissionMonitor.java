@@ -1180,57 +1180,23 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
     @VisibleForTesting
     void sendAppIdsTrafficPermission(SparseIntArray netdPermissionsAppIds) {
         ensureRunningOnHandlerThread();
-        final ArrayList<Integer> allPermissionAppIds = new ArrayList<>();
-        final ArrayList<Integer> internetPermissionAppIds = new ArrayList<>();
-        final ArrayList<Integer> updateStatsPermissionAppIds = new ArrayList<>();
-        final ArrayList<Integer> noPermissionAppIds = new ArrayList<>();
-        final ArrayList<Integer> uninstalledAppIds = new ArrayList<>();
+        final SparseIntArray permissionAppIds = new SparseIntArray();
         for (int i = 0; i < netdPermissionsAppIds.size(); i++) {
             int permissions = netdPermissionsAppIds.valueAt(i);
-            switch(permissions) {
-                case (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS):
-                    allPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
-                    break;
-                case PERMISSION_INTERNET:
-                    internetPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
-                    break;
-                case PERMISSION_UPDATE_DEVICE_STATS:
-                    updateStatsPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
-                    break;
-                case PERMISSION_NONE:
-                    noPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
-                    break;
-                case PERMISSION_UNINSTALLED:
-                    uninstalledAppIds.add(netdPermissionsAppIds.keyAt(i));
-                    break;
-                default:
-                    Log.e(TAG, "unknown permission type: " + permissions + "for uid: "
-                            + netdPermissionsAppIds.keyAt(i));
+            if (permissions == PERMISSION_NONE
+                    || permissions == PERMISSION_UNINSTALLED
+                    || (permissions & (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS)) != 0) {
+                continue;
+            } else {
+                Log.e(TAG, "unknown permission type: " + permissions + "for uid: "
+                        + netdPermissionsAppIds.keyAt(i));
+                netdPermissionsAppIds.removeAt(i);
             }
-        }
+            // TODO(b/388803658): Check for case with ACCESS_LOCAL_NETWORK & !INTERNET; this should
+            // not be possible
         try {
             // TODO: add a lock inside netd to protect IPC trafficSetNetPermForUids()
-            if (allPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(
-                        PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
-                        toIntArray(allPermissionAppIds));
-            }
-            if (internetPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(PERMISSION_INTERNET,
-                        toIntArray(internetPermissionAppIds));
-            }
-            if (updateStatsPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(PERMISSION_UPDATE_DEVICE_STATS,
-                        toIntArray(updateStatsPermissionAppIds));
-            }
-            if (noPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(PERMISSION_NONE,
-                        toIntArray(noPermissionAppIds));
-            }
-            if (uninstalledAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(PERMISSION_UNINSTALLED,
-                        toIntArray(uninstalledAppIds));
-            }
+            sendAppIdsTrafficPermission(netdPermissionsAppIds);
         } catch (RemoteException | ServiceSpecificException e) {
             Log.e(TAG, "Pass appId list of special permission failed." + e);
         }
