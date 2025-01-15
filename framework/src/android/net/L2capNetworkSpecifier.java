@@ -41,9 +41,9 @@ import java.util.Objects;
  * allocated by the system when reserving a server network using {@link
  * ConnectivityManager#reserveNetwork} such as the Protocol/Service Multiplexer (PSM). In both
  * cases, the header compression option must be specified.
- *
+ * <p>
  * An L2CAP server network allocates a Protocol/Service Multiplexer (PSM) to be advertised to the
- * client. A new server network must always be reserved using {@code
+ * client. A new server network must always be reserved using {@link
  * ConnectivityManager#reserveNetwork}. The subsequent {@link
  * ConnectivityManager.NetworkCallback#onReserved(NetworkCapabilities)} callback includes an {@code
  * L2CapNetworkSpecifier}. The {@link getPsm()} method will return the Protocol/Service Multiplexer
@@ -54,11 +54,12 @@ import java.util.Objects;
  * Build.VERSION_CODES.VANILLA_ICE_CREAM} Bluetooth APIs do not expose the channel ID, so these
  * connections are indistinguishable. In practice, this means that the network matching semantics in
  * ConnectivityService will tear down all but the first connection.
- *
+ * <p>
  * When the connection between client and server completes, a {@link Network} whose capabilities
  * satisfy this {@code L2capNetworkSpecifier} will connect and the usual callbacks, such as {@link
- * NetworkCallback#onAvailable}, will be called on the callback object passed to {@code
- * ConnectivityManager#reserveNetwork} or {@code ConnectivityManager#requestNetwork}.
+ * NetworkCallback#onAvailable}, will be called on the callback object passed to {@link
+ * ConnectivityManager#reserveNetwork} or {@link ConnectivityManager#requestNetwork(NetworkRequest,
+ * NetworkCallback)}.
  */
 @FlaggedApi(Flags.FLAG_IPV6_OVER_BLE)
 public final class L2capNetworkSpecifier extends NetworkSpecifier implements Parcelable {
