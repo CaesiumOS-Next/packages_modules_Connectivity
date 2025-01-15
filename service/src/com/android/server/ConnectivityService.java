@@ -289,6 +289,7 @@ import android.os.PowerManager;
 import android.os.Process;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
+import android.os.ResultReceiver;
 import android.os.ServiceSpecificException;
 import android.os.SystemClock;
 import android.os.SystemProperties;
@@ -6342,6 +6343,31 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final long token = Binder.clearCallingIdentity();
         try {
             mContext.startActivityAsUser(appIntent, UserHandle.CURRENT);
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
+    }
+
+    @Override
+    @VisibleForTesting
+    public void startCaptivePortalAppForTesting(Network network, String cls, int uid,
+            ResultReceiver receiver) {
+        mContext.enforceCallingOrSelfPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
+                "ConnectivityService");
+
+        final Intent intent = new Intent();
+        final ComponentName componentName = new ComponentName(mContext, cls);
+        intent.setComponent(componentName);
+        intent.putExtra(ConnectivityManager.EXTRA_CAPTIVE_PORTAL,
+                new CaptivePortal(new CaptivePortalImpl(network).asBinder()));
+        Bundle bundle = new Bundle();
+        bundle.putInt("uid", uid);
+        bundle.putParcelable("receiver", receiver);
+        intent.putExtras(bundle);
+
+        final long token = Binder.clearCallingIdentity();
+        try {
+            mContext.startActivity(intent);
         } finally {
             Binder.restoreCallingIdentity(token);
         }
