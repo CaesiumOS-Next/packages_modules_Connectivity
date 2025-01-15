@@ -32,11 +32,13 @@ java_library {
         "framework-connectivity-pre-jarjar",
         "service-connectivity-pre-jarjar",
         "framework-statsd.stubs.module_lib",
+        "ServiceConnectivityResources",
     ],
 
     static_libs: [
         "auto_value_annotations",
         "android.security.flags-aconfig-java-export",
+        "bouncycastle-unbundled",
     ],
 
     plugins: [

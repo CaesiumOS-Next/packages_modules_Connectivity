@@ -24,8 +24,14 @@ import android.os.Build;
 
 import androidx.annotation.VisibleForTesting;
 
+import com.android.connectivity.resources.R;
+import com.android.server.connectivity.ConnectivityResources;
+
+import org.bouncycastle.util.io.pem.PemReader;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.PublicKey;
@@ -39,11 +45,13 @@ import java.util.Optional;
 public class SignatureVerifier {
 
     private final Context mContext;
+    private final ConnectivityResources mConnectivityResources;
 
     @NonNull private Optional<PublicKey> mPublicKey = Optional.empty();
 
     public SignatureVerifier(Context context) {
         mContext = context;
+        mConnectivityResources = new ConnectivityResources(context);
     }
 
     @VisibleForTesting
@@ -61,11 +69,29 @@ public class SignatureVerifier {
         }
     }
 
+    void setPublicKeyFromResources() throws GeneralSecurityException, IOException {
+        try (PemReader reader =
+                new PemReader(
+                        new InputStreamReader(
+                                mConnectivityResources
+                                        .get()
+                                        .openRawResource(R.raw.public_key))); ) {
+            setPublicKey(
+                    KeyFactory.getInstance("RSA")
+                            .generatePublic(
+                                    new X509EncodedKeySpec(reader.readPemObject().getContent())));
+        }
+    }
+
     void setPublicKey(String publicKey) throws GeneralSecurityException {
-        setPublicKey(
-                KeyFactory.getInstance("RSA")
-                        .generatePublic(
-                                new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey))));
+        try {
+            setPublicKey(
+                    KeyFactory.getInstance("RSA")
+                            .generatePublic(
+                                    new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey))));
+        } catch (IllegalArgumentException e) {
+            throw new GeneralSecurityException("Invalid public key", e);
+        }
     }
 
     @VisibleForTesting
