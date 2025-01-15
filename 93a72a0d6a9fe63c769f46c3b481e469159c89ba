@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca00497d_c40082c4",
+        "filename": "staticlibs/testutils/app/connectivitychecker/src/com/android/testutils/connectivitypreparer/ConnectivityCheckTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-15T07:03:55Z",
+      "side": 1,
+      "message": "Coudl you try to do multiple if, right now I am not follow....",
+      "range": {
+        "startLine": 93,
+        "startChar": 20,
+        "endLine": 95,
+        "endChar": 73
+      },
+      "revId": "93a72a0d6a9fe63c769f46c3b481e469159c89ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
