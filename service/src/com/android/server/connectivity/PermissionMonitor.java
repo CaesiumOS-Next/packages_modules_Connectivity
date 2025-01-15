@@ -1185,29 +1185,42 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
         final ArrayList<Integer> updateStatsPermissionAppIds = new ArrayList<>();
         final ArrayList<Integer> noPermissionAppIds = new ArrayList<>();
         final ArrayList<Integer> uninstalledAppIds = new ArrayList<>();
+
+        final SparseIntArray permissionAppIds = new SparseIntArray();
         for (int i = 0; i < netdPermissionsAppIds.size(); i++) {
             int permissions = netdPermissionsAppIds.valueAt(i);
-            switch(permissions) {
-                case (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS):
-                    allPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
-                    break;
-                case PERMISSION_INTERNET:
-                    internetPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
-                    break;
-                case PERMISSION_UPDATE_DEVICE_STATS:
-                    updateStatsPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
-                    break;
-                case PERMISSION_NONE:
-                    noPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
-                    break;
-                case PERMISSION_UNINSTALLED:
-                    uninstalledAppIds.add(netdPermissionsAppIds.keyAt(i));
-                    break;
-                default:
-                    Log.e(TAG, "unknown permission type: " + permissions + "for uid: "
-                            + netdPermissionsAppIds.keyAt(i));
+            if (permissions == PERMISSION_NONE
+                    || permissions == PERMISSION_UNINSTALLED
+                    || (permissions & (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS)) != 0) {
+                continue;
+            } else {
+                Log.e(TAG, "unknown permission type: " + permissions + "for uid: "
+                        + netdPermissionsAppIds.keyAt(i));
+                netdPermissionsAppIds.removeAt(i);
             }
-        }
+//            switch(permissions) {
+//                case (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS):
+//                    allPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+//                    break;
+//                case PERMISSION_INTERNET:
+//                    internetPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+//                    break;
+//                case PERMISSION_UPDATE_DEVICE_STATS:
+//                    updateStatsPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+//                    break;
+//                case PERMISSION_NONE, PERMISSION_UNINSTALLED:
+//                    noPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+//                    permissionAppIds.put();
+//                    break;
+//                case PERMISSION_UNINSTALLED:
+//                    uninstalledAppIds.add(netdPermissionsAppIds.keyAt(i));
+//                    break;
+//                default:
+//                    Log.e(TAG, "unknown permission type: " + permissions + "for uid: "
+//                            + netdPermissionsAppIds.keyAt(i));
+//                    netdPermissionsAppIds.removeAt(i);
+//            }
+//        }
         try {
             // TODO: add a lock inside netd to protect IPC trafficSetNetPermForUids()
             if (allPermissionAppIds.size() != 0) {

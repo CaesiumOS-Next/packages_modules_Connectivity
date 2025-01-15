@@ -47,6 +47,8 @@ import static android.system.OsConstants.EOPNOTSUPP;
 
 import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
 
+import static jdk.nio.zipfs.ZipFileAttributeView.AttrID.permissions;
+
 import android.app.StatsManager;
 import android.content.Context;
 import android.net.BpfNetMapsUtils;
@@ -62,6 +64,7 @@ import android.util.ArraySet;
 import android.util.IndentingPrintWriter;
 import android.util.Log;
 import android.util.Pair;
+import android.util.SparseIntArray;
 import android.util.StatsEvent;
 
 import androidx.annotation.RequiresApi;
@@ -788,6 +791,37 @@ public class BpfNetMaps {
         }
 
         // Remove the entry if package is uninstalled or uid has only INTERNET permission.
+        if (permissions == PERMISSION_UNINSTALLED || permissions == PERMISSION_INTERNET) {
+            for (final int uid : uids) {
+                try {
+                    sUidPermissionMap.deleteEntry(new S32(uid));
+                } catch (ErrnoException e) {
+                    Log.e(TAG, "Failed to remove uid " + uid + " from permission map: " + e);
+                }
+            }
+            return;
+        }
+
+        for (final int uid : uids) {
+            try {
+                sUidPermissionMap.updateEntry(new S32(uid), new U8((short) permissions));
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Failed to set permission "
+                        + permissions + " to uid " + uid + ": " + e);
+            }
+        }
+    }
+
+    public void setNetPermForUids(SparseIntArray netdPermissionsAppIds) throws RemoteException {
+        if (!SdkLevel.isAtLeastT()) {
+                mNetd.trafficSetNetPermForUids(netdPermissionsAppIds.copyKeys());
+            return;
+        }
+        for (int i = 0; i < netdPermissions.size(); i++) {
+
+        }
+
+            // Remove the entry if package is uninstalled or uid has only INTERNET permission.
         if (permissions == PERMISSION_UNINSTALLED || permissions == PERMISSION_INTERNET) {
             for (final int uid : uids) {
                 try {
