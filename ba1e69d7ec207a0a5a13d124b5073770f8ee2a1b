@@ -34,6 +34,29 @@
       "parentUuid": "f0ed8100_21eaffdc",
       "revId": "ba1e69d7ec207a0a5a13d124b5073770f8ee2a1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "040288ea_9dbf0325",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-15T06:59:54Z",
+      "side": 1,
+      "message": "Actually, please try to use the new TerribleErrorLog.java utility 😊\n\nhttps://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3433500",
+      "range": {
+        "startLine": 1062,
+        "startChar": 24,
+        "endLine": 1064,
+        "endChar": 96
+      },
+      "revId": "ba1e69d7ec207a0a5a13d124b5073770f8ee2a1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
