@@ -30,8 +30,15 @@ import android.util.Log;
 
 import androidx.annotation.VisibleForTesting;
 
+import com.android.connectivity.resources.R;
+import com.android.server.connectivity.ConnectivityResources;
+
+import org.bouncycastle.util.io.pem.PemObject;
+import org.bouncycastle.util.io.pem.PemReader;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -39,19 +46,50 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 /** Verifier of the log list signature. */
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 public class SignatureVerifier {
 
-    private final Context mContext;
     private static final String TAG = "SignatureVerifier";
+
+    private final Context mContext;
 
     @NonNull private Optional<PublicKey> mPublicKey = Optional.empty();
 
+    private final Set<String> mAllowedKeys = new HashSet<>();
+
     public SignatureVerifier(Context context) {
         mContext = context;
+    }
+
+    @VisibleForTesting
+    void addAllowedKey(String key) {
+        mAllowedKeys.add(key);
+    }
+
+    void loadAllowedKeys() {
+        try (PemReader reader =
+                new PemReader(
+                        new InputStreamReader(
+                                new ConnectivityResources(mContext)
+                                        .get()
+                                        .openRawResource(R.raw.ct_public_keys))); ) {
+            PemObject pemObject = reader.readPemObject();
+            while (pemObject != null) {
+                addAllowedKey(Base64.getEncoder().encodeToString(pemObject.getContent()));
+                pemObject = reader.readPemObject();
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Error loading public keys", e);
+        }
+    }
+
+    void clearAllowedKeys() {
+        mAllowedKeys.clear();
     }
 
     @VisibleForTesting
@@ -70,6 +108,9 @@ public class SignatureVerifier {
     }
 
     void setPublicKey(String publicKey) throws GeneralSecurityException {
+        if (!mAllowedKeys.contains(publicKey)) {
+            throw new GeneralSecurityException("Public key not in allowlist");
+        }
         byte[] decodedPublicKey = null;
         try {
             decodedPublicKey = Base64.getDecoder().decode(publicKey);

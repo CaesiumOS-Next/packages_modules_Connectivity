@@ -111,6 +111,8 @@ public class CertificateTransparencyDownloaderTest {
         prepareDownloadManager();
         mDataStore.load();
         mCertificateTransparencyDownloader.addCompatibilityVersion(mCompatVersion);
+        mSignatureVerifier.addAllowedKey(
+                Base64.getEncoder().encodeToString(mPublicKey.getEncoded()));
     }
 
     @After
@@ -165,6 +167,22 @@ public class CertificateTransparencyDownloaderTest {
 
     @Test
     public void
+            testDownloader_publicKeyDownloadSuccess_publicKeyNotAllowed_doNotStartMetadataDownload()
+                    throws Exception {
+        mCertificateTransparencyDownloader.startPublicKeyDownload();
+        PublicKey notAllowed = KeyPairGenerator.getInstance("RSA").generateKeyPair().getPublic();
+
+        assertThat(mSignatureVerifier.getPublicKey()).isEmpty();
+        assertThat(mCertificateTransparencyDownloader.hasMetadataDownloadId()).isFalse();
+        mCertificateTransparencyDownloader.onReceive(
+                mContext, makePublicKeyDownloadCompleteIntent(writePublicKeyToFile(notAllowed)));
+
+        assertThat(mSignatureVerifier.getPublicKey()).isEmpty();
+        assertThat(mCertificateTransparencyDownloader.hasMetadataDownloadId()).isFalse();
+    }
+
+    @Test
+    public void
             testDownloader_publicKeyDownloadSuccess_updatePublicKeyFail_doNotStartMetadataDownload()
                     throws Exception {
         mCertificateTransparencyDownloader.startPublicKeyDownload();
@@ -197,8 +215,7 @@ public class CertificateTransparencyDownloaderTest {
     }
 
     @Test
-    public void testDownloader_publicKeyDownloadFail_logsFailure()
-            throws Exception {
+    public void testDownloader_publicKeyDownloadFail_logsFailure() throws Exception {
         mCertificateTransparencyDownloader.startPublicKeyDownload();
 
         mCertificateTransparencyDownloader.onReceive(
@@ -243,8 +260,7 @@ public class CertificateTransparencyDownloaderTest {
     }
 
     @Test
-    public void testDownloader_metadataDownloadFail_logsFailure()
-            throws Exception {
+    public void testDownloader_metadataDownloadFail_logsFailure() throws Exception {
         mCertificateTransparencyDownloader.startMetadataDownload();
 
         mCertificateTransparencyDownloader.onReceive(
@@ -294,8 +310,7 @@ public class CertificateTransparencyDownloaderTest {
     }
 
     @Test
-    public void testDownloader_contentDownloadFail_logsFailure()
-            throws Exception {
+    public void testDownloader_contentDownloadFail_logsFailure() throws Exception {
         mCertificateTransparencyDownloader.startContentDownload(mCompatVersion);
 
         mCertificateTransparencyDownloader.onReceive(
@@ -329,9 +344,8 @@ public class CertificateTransparencyDownloaderTest {
     }
 
     @Test
-    public void
-            testDownloader_contentDownloadSuccess_noPublicKeyFound_logsSingleFailure()
-                    throws Exception {
+    public void testDownloader_contentDownloadSuccess_noPublicKeyFound_logsSingleFailure()
+            throws Exception {
         File logListFile = makeLogListFile("456");
         File metadataFile = sign(logListFile);
         mSignatureVerifier.setPublicKey(mPublicKey);
@@ -351,9 +365,8 @@ public class CertificateTransparencyDownloaderTest {
     }
 
     @Test
-    public void
-            testDownloader_contentDownloadSuccess_wrongSignatureAlgo_logsSingleFailure()
-                    throws Exception {
+    public void testDownloader_contentDownloadSuccess_wrongSignatureAlgo_logsSingleFailure()
+            throws Exception {
         // Arrange
         File logListFile = makeLogListFile("456");
         File metadataFile = sign(logListFile);
@@ -377,9 +390,8 @@ public class CertificateTransparencyDownloaderTest {
     }
 
     @Test
-    public void
-            testDownloader_contentDownloadSuccess_signatureNotVerified_logsSingleFailure()
-                    throws Exception {
+    public void testDownloader_contentDownloadSuccess_signatureNotVerified_logsSingleFailure()
+            throws Exception {
         // Arrange
         File logListFile = makeLogListFile("456");
         File metadataFile = sign(logListFile);
@@ -405,9 +417,7 @@ public class CertificateTransparencyDownloaderTest {
     }
 
     @Test
-    public void
-            testDownloader_contentDownloadSuccess_installFail_logsFailure()
-                    throws Exception {
+    public void testDownloader_contentDownloadSuccess_installFail_logsFailure() throws Exception {
         File invalidLogListFile = writeToFile("not_a_json_log_list".getBytes());
         File metadataFile = sign(invalidLogListFile);
         mSignatureVerifier.setPublicKey(mPublicKey);
