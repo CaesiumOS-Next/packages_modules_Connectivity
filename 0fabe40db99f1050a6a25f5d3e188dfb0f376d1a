@@ -22,6 +22,30 @@
       },
       "revId": "0fabe40db99f1050a6a25f5d3e188dfb0f376d1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e3df515_768cf2b4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 40
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-15T00:05:16Z",
+      "side": 1,
+      "message": "Updated CL based on offline discussion",
+      "parentUuid": "dad5c9e6_5bbe35a1",
+      "range": {
+        "startLine": 1069,
+        "startChar": 37,
+        "endLine": 1069,
+        "endChar": 47
+      },
+      "revId": "0fabe40db99f1050a6a25f5d3e188dfb0f376d1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
