@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include <linux/if.h>
 #define LOG_TAG "jniClatCoordinator"
 
 #include <arpa/inet.h>
@@ -238,6 +239,13 @@ static jint com_android_server_connectivity_ClatCoordinator_createTunInterface(J
                              strerror(errno));
         return -1;
     }
+
+    ifc_set_flags(v4_interface.c_str(), 0, IFF_MULTICAST);
+/*    struct ifreq ifr2 = {};
+    strlcpy(ifr2.ifr_name, v4interface.c_str(), sizeof(ifr2.ifr_name));
+    ioctl(fd, SIOCGIFFLAGS, &ifr2, sizeof(ifr2));
+    ifr2.ifr_flags &= ~IFF_MULTICAST;
+    ioctl(fd, SIOCSIFFLAGS, &ifr2, sizeof(ifr2)); */
 
     return fd;
 }
