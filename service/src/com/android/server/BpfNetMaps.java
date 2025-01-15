@@ -45,6 +45,7 @@ import static android.system.OsConstants.ENODEV;
 import static android.system.OsConstants.ENOENT;
 import static android.system.OsConstants.EOPNOTSUPP;
 
+import static com.android.net.module.util.CollectionUtils.toIntArray;
 import static com.android.server.ConnectivityStatsLog.NETWORK_BPF_MAP_INFO;
 
 import android.app.StatsManager;
@@ -62,6 +63,7 @@ import android.util.ArraySet;
 import android.util.IndentingPrintWriter;
 import android.util.Log;
 import android.util.Pair;
+import android.util.SparseIntArray;
 import android.util.StatsEvent;
 
 import androidx.annotation.RequiresApi;
@@ -85,6 +87,7 @@ import com.android.net.module.util.bpf.IngressDiscardValue;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -805,6 +808,84 @@ public class BpfNetMaps {
             } catch (ErrnoException e) {
                 Log.e(TAG, "Failed to set permission "
                         + permissions + " to uid " + uid + ": " + e);
+            }
+        }
+    }
+
+    public void setNetPermForUids(SparseIntArray netdPermissionsAppIds) throws RemoteException {
+        if (!SdkLevel.isAtLeastT()) {
+            final ArrayList<Integer> allPermissionAppIds = new ArrayList<>();
+            final ArrayList<Integer> internetPermissionAppIds = new ArrayList<>();
+            final ArrayList<Integer> updateStatsPermissionAppIds = new ArrayList<>();
+            final ArrayList<Integer> noPermissionAppIds = new ArrayList<>();
+            final ArrayList<Integer> uninstalledAppIds = new ArrayList<>();
+            for (int i = 0; i < netdPermissionsAppIds.size(); i++) {
+                int permissions = netdPermissionsAppIds.valueAt(i);
+                switch(permissions) {
+                    case (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS):
+                        allPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+                        break;
+                    case PERMISSION_INTERNET:
+                        internetPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+                        break;
+                    case PERMISSION_UPDATE_DEVICE_STATS:
+                        updateStatsPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+                        break;
+                    case PERMISSION_NONE:
+                        noPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
+                        break;
+                    case PERMISSION_UNINSTALLED:
+                        uninstalledAppIds.add(netdPermissionsAppIds.keyAt(i));
+                        break;
+                    default:
+                        Log.e(TAG, "unknown permission type: " + permissions + "for uid: "
+                                + netdPermissionsAppIds.keyAt(i));
+                }
+            }
+            if (allPermissionAppIds.size() != 0) {
+                mNetd.trafficSetNetPermForUids(
+                        PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
+                        toIntArray(allPermissionAppIds));
+            }
+            if (internetPermissionAppIds.size() != 0) {
+                mNetd.trafficSetNetPermForUids(
+                        PERMISSION_INTERNET,
+                        toIntArray(internetPermissionAppIds));
+            }
+            if (updateStatsPermissionAppIds.size() != 0) {
+                mNetd.trafficSetNetPermForUids(
+                        PERMISSION_UPDATE_DEVICE_STATS,
+                        toIntArray(updateStatsPermissionAppIds));
+            }
+            if (noPermissionAppIds.size() != 0) {
+                mNetd.trafficSetNetPermForUids(
+                        PERMISSION_NONE,
+                        toIntArray(noPermissionAppIds));
+            }
+            if (uninstalledAppIds.size() != 0) {
+                mNetd.trafficSetNetPermForUids(
+                        PERMISSION_UNINSTALLED,
+                        toIntArray(uninstalledAppIds));
+            }
+            return;
+        }
+        for (int i = 0; i < netdPermissionsAppIds.size(); i++) {
+            int uid = netdPermissionsAppIds.keyAt(i);
+            int permissions = netdPermissionsAppIds.valueAt(i);
+            // Remove the entry if package is uninstalled or uid has only INTERNET permission.
+            if (permissions == PERMISSION_UNINSTALLED || permissions == PERMISSION_INTERNET) {
+                try {
+                    sUidPermissionMap.deleteEntry(new S32(uid));
+                } catch (ErrnoException e) {
+                    Log.e(TAG, "Failed to remove uid " + uid + " from permission map: " + e);
+                }
+            } else {
+                try {
+                    sUidPermissionMap.updateEntry(new S32(uid), new U8((short) permissions));
+                } catch (ErrnoException e) {
+                    Log.e(TAG, "Failed to set permission "
+                            + permissions + " to uid " + uid + ": " + e);
+                }
             }
         }
     }
