@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71cab53d_b1639351",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-15T16:03:02Z",
+      "side": 1,
+      "message": "Addressed in aosp/3453338.",
+      "revId": "d10fa68a5c781592a3185ff973bb1b911ba96b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1196055c_dade25ac",
@@ -31,6 +48,30 @@
       "writtenOn": "2025-01-15T09:17:41Z",
       "side": 1,
       "message": "Use \u003cp\u003e to separate paragraphs.",
+      "range": {
+        "startLine": 43,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 2
+      },
+      "revId": "d10fa68a5c781592a3185ff973bb1b911ba96b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e23e6032_b75e6070",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-15T16:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1196055c_dade25ac",
       "range": {
         "startLine": 43,
         "startChar": 1,
@@ -64,6 +105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5acb0b27_70816da6",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-15T16:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f2e4113_62844b0c",
+      "range": {
+        "startLine": 45,
+        "startChar": 62,
+        "endLine": 46,
+        "endChar": 38
+      },
+      "revId": "d10fa68a5c781592a3185ff973bb1b911ba96b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ce430de_53de568c",
@@ -87,6 +152,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74b15e09_5d8cea7d",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-15T16:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ce430de_53de568c",
+      "range": {
+        "startLine": 56,
+        "startChar": 1,
+        "endLine": 56,
+        "endChar": 2
+      },
+      "revId": "d10fa68a5c781592a3185ff973bb1b911ba96b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76541516_ed9044bf",
@@ -100,6 +189,30 @@
       "writtenOn": "2025-01-15T09:17:41Z",
       "side": 1,
       "message": "These should be @link as well. Remember to pick the appropriate overload for requestNetwork (likely *not* the one that takes the pendingintent).",
+      "range": {
+        "startLine": 59,
+        "startChar": 81,
+        "endLine": 60,
+        "endChar": 84
+      },
+      "revId": "d10fa68a5c781592a3185ff973bb1b911ba96b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a60f2b17_cce25f54",
+        "filename": "framework/src/android/net/L2capNetworkSpecifier.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-15T16:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76541516_ed9044bf",
       "range": {
         "startLine": 59,
         "startChar": 81,
