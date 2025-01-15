@@ -78,12 +78,7 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
     private Timer mEphemeralKeyLifetimeTimer;
     private ThreadConfiguration mThreadConfiguration;
 
-    private static final byte[] DEFAULT_ACTIVE_DATASET_TLVS =
-            base16().lowerCase()
-                    .decode(
-                            "0e080000000000010000000300001235060004001fffe00208dae21bccb8c321c40708fdc376ead74396bb0510c52f56cd2d38a9eb7a716954f8efd939030f4f70656e5468726561642d646231390102db190410fcb737e6fd6bb1b0fed524a4496363110c0402a0f7f8");
-    private static final ActiveOperationalDataset DEFAULT_ACTIVE_DATASET =
-            ActiveOperationalDataset.fromThreadTlvs(DEFAULT_ACTIVE_DATASET_TLVS);
+    private ActiveOperationalDataset mDatasetToJoin;
 
     private static String deviceRoleToString(int mDeviceRole) {
         switch (mDeviceRole) {
@@ -189,7 +184,37 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
                     newActiveDataset -> {
                         this.mActiveDataset = newActiveDataset;
                         updateState();
+                        if (newActiveDataset != null) {
+                            this.mDatasetToJoin = newActiveDataset;
+                        }
                     });
+            mThreadController.createRandomizedDataset(
+                    "Mobile-Net",
+                    mMainExecutor,
+                    new OutcomeReceiver<ActiveOperationalDataset, ThreadNetworkException>() {
+                        @Override
+                        public void onError(ThreadNetworkException error) {
+                            Log.e(TAG, "Failed to create random dataset", error);
+                        }
+
+                        @Override
+                        public void onResult(ActiveOperationalDataset randomDataset) {
+                            // If the dataset is already set to Android platform, ignore the random
+                            // dataset
+                            if (mDatasetToJoin != null) {
+                                return;
+                            }
+
+                            mDatasetToJoin =
+                                    new ActiveOperationalDataset.Builder(randomDataset)
+                                            .setNetworkName(
+                                                    String.format(
+                                                            "Mobile-Net-%x",
+                                                            randomDataset.getPanId()))
+                                            .build();
+                        }
+                    });
+
             mThreadController.registerConfigurationCallback(
                     mMainExecutor, this::updateConfiguration);
         }
@@ -223,12 +248,12 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
 
     private void doJoin() {
         mThreadController.join(
-                DEFAULT_ACTIVE_DATASET,
+                mDatasetToJoin,
                 mMainExecutor,
                 new OutcomeReceiver<Void, ThreadNetworkException>() {
                     @Override
                     public void onError(ThreadNetworkException error) {
-                        Log.e(TAG, "Failed to join network " + DEFAULT_ACTIVE_DATASET, error);
+                        Log.e(TAG, "Failed to join network " + mDatasetToJoin, error);
                     }
 
                     @Override
@@ -244,7 +269,7 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
                 new OutcomeReceiver<>() {
                     @Override
                     public void onError(ThreadNetworkException error) {
-                        Log.e(TAG, "Failed to leave network " + DEFAULT_ACTIVE_DATASET, error);
+                        Log.e(TAG, "Failed to leave network " + mDatasetToJoin, error);
                     }
 
                     @Override
@@ -256,7 +281,7 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
 
     private void doMigration() {
         var newActiveDataset =
-                new ActiveOperationalDataset.Builder(DEFAULT_ACTIVE_DATASET)
+                new ActiveOperationalDataset.Builder(mDatasetToJoin)
                         .setNetworkName("NewThreadNet")
                         .setActiveTimestamp(OperationalDatasetTimestamp.fromInstant(Instant.now()))
                         .build();
@@ -358,12 +383,16 @@ public final class ThreadNetworkSettingsFragment extends Fragment {
                         "Role             %s\n"
                                 + "Partition ID     %d\n"
                                 + "Network Name     %s\n"
-                                + "Extended PAN ID  %s",
+                                + "Extended PAN ID  %s\n"
+                                + "Active Dataset   %s",
                         deviceRoleToString(mDeviceRole),
                         mPartitionId,
                         mActiveDataset != null ? mActiveDataset.getNetworkName() : null,
                         mActiveDataset != null
                                 ? base16().encode(mActiveDataset.getExtendedPanId())
+                                : null,
+                        mActiveDataset != null
+                                ? base16().encode(mActiveDataset.toThreadTlvs())
                                 : null);
         mTextState.setText(state);
 
