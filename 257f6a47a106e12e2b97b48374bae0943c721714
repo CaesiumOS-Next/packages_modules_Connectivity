@@ -160,6 +160,30 @@
       },
       "revId": "257f6a47a106e12e2b97b48374bae0943c721714",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "386648f0_a96ab73b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-16T07:26:17Z",
+      "side": 1,
+      "message": "... but what you have is fine too, since the list will always be very small.",
+      "parentUuid": "f59c8cf2_7e6384e9",
+      "range": {
+        "startLine": 733,
+        "startChar": 51,
+        "endLine": 733,
+        "endChar": 64
+      },
+      "revId": "257f6a47a106e12e2b97b48374bae0943c721714",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
