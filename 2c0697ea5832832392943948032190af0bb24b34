@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3260e708_65003596",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-16T00:46:00Z",
+      "side": 1,
+      "message": "Nit: use git trailer format, `Bug: 382649664`\n\nWith the \"\u003d\" this wouldn\u0027t be picked up by `git log --pretty\u003d\u0027format:%(trailers:key\u003dBug)\u0027`, which our team sometimes uses to list changes going into each module release",
+      "revId": "2c0697ea5832832392943948032190af0bb24b34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
