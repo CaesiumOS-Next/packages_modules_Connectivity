@@ -184,6 +184,98 @@
       },
       "revId": "257f6a47a106e12e2b97b48374bae0943c721714",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5885ee62_ae3d0820",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-16T10:03:56Z",
+      "side": 1,
+      "message": "Per discussion: we need to decide what to do if UID A starts tethering, and then later on UID B starts tethering with a request that is the same except has a different UID and package name.\n\nAFAICT from previous discussions: currently the code will enable tethering again and whether this succeeds or not is link-dependent (wifi will fail, everything else will succeed). The app will get a success or failure callback, but regardless, the pending request will be replaced with the new request.\n\nThis seems incorrect - in particular, if UID A starts hotspot, then UID B stats hotspot, we\u0027ll ask wifi to start hotspot twice. The second call will fail, but we will keep storing the request from UID B (not from UID A) in the pending request list.\n\nHow about: when a request comes in:\n- If there is already a different pending request, clear the pending request and restart with the new request (like we do today).\n- Otherwise (no pending request or pending request from different UID), ask the link layer to come up.\n  - If there is a failure, report the failure\n  - If not, report success and:\n    - If there is already a pending request that equalsIgnoreUidPackage(), do not replace it.\n    - If there is no such request, add the request to the pending list.",
+      "range": {
+        "startLine": 735,
+        "startChar": 42,
+        "endLine": 735,
+        "endChar": 48
+      },
+      "revId": "257f6a47a106e12e2b97b48374bae0943c721714",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0544a399_0445bf7e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-16T10:03:56Z",
+      "side": 1,
+      "message": "Per discussion: if this happens after we tell the link layer to start, but before the link layer tells us that it has come up, then when the link layer does come up, we won\u0027t have a request for it. We either:\n1. Ignore the start, on the assumption that the link layer is going to stop soon anyway.\n2. Process the start by synthesizing a request, and as soon as the link layer stops, process the stop.\n\n#1 might have app-visible changes in corner cases. But I don\u0027t know if this is going to matter given how race-prone this code is anyway.",
+      "range": {
+        "startLine": 764,
+        "startChar": 34,
+        "endLine": 764,
+        "endChar": 40
+      },
+      "revId": "257f6a47a106e12e2b97b48374bae0943c721714",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b22b811_204a9137",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-16T10:03:56Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is the right thing to do. Can it actually happen, given the \"this !\u003d mEthernetCallback\" in line 1047? And even if it doesn - wouldn\u0027t that be a different interface, which came up to serve a different request?\n\nSimilar comments for BT in line 1003.",
+      "range": {
+        "startLine": 1069,
+        "startChar": 45,
+        "endLine": 1069,
+        "endChar": 96
+      },
+      "revId": "257f6a47a106e12e2b97b48374bae0943c721714",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "900910ce_d823d5da",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 1491,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-16T10:03:56Z",
+      "side": 1,
+      "message": "// TODO: switch to the wifi API that passes the request back.",
+      "range": {
+        "startLine": 1491,
+        "startChar": 34,
+        "endLine": 1491,
+        "endChar": 60
+      },
+      "revId": "257f6a47a106e12e2b97b48374bae0943c721714",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
