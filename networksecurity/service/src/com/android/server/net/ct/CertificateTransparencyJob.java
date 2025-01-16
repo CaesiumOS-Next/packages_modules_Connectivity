@@ -68,6 +68,8 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
         mContext.registerReceiver(
                 this,
                 new IntentFilter(ConfigUpdate.ACTION_UPDATE_CT_LOGS),
+                UPDATE_CONFIG_PERMISSION,
+                /* handler= */ null,
                 Context.RECEIVER_EXPORTED);
         mAlarmManager.setInexactRepeating(
                 AlarmManager.ELAPSED_REALTIME,
