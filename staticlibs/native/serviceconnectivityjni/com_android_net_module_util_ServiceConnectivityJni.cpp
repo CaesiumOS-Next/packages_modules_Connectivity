@@ -51,34 +51,6 @@
 
 namespace android {
 
-static jint
-com_android_net_module_util_ServiceConnectivityJni_createTimerFd(JNIEnv *env,
-                                                       jclass clazz) {
-  int tfd;
-  tfd = timerfd_create(CLOCK_BOOTTIME, 0);
-  if (tfd == -1) {
-    jniThrowErrnoException(env, "createTimerFd", tfd);
-  }
-  return tfd;
-}
-
-static void
-com_android_net_module_util_ServiceConnectivityJni_setTime(JNIEnv *env, jclass clazz,
-                                                 jint tfd, jlong milliseconds) {
-  struct itimerspec new_value;
-  new_value.it_value.tv_sec = milliseconds / MSEC_PER_SEC;
-  new_value.it_value.tv_nsec = (milliseconds % MSEC_PER_SEC) * NSEC_PER_MSEC;
-  // Set the interval time to 0 because it's designed for repeated timer expirations after the
-  // initial expiration, which doesn't fit the current usage.
-  new_value.it_interval.tv_sec = 0;
-  new_value.it_interval.tv_nsec = 0;
-
-  int ret = timerfd_settime(tfd, 0, &new_value, NULL);
-  if (ret == -1) {
-    jniThrowErrnoException(env, "setTime", ret);
-  }
-}
-
 static void throwException(JNIEnv* env, int error, const char* action, const char* iface) {
     const std::string& msg = "Error: " + std::string(action) + " " + std::string(iface) +  ": "
                 + std::string(strerror(error));
@@ -147,6 +119,30 @@ static void bringUpInterfaceImpl(JNIEnv* env, const char* iface) {
 }
 
 //------------------------------------------------------------------------------
+
+static jint createTimerFd(JNIEnv *env, jclass clazz) {
+  int tfd;
+  tfd = timerfd_create(CLOCK_BOOTTIME, 0);
+  if (tfd == -1) {
+    jniThrowErrnoException(env, "createTimerFd", tfd);
+  }
+  return tfd;
+}
+
+static void setTime(JNIEnv *env, jclass clazz, jint tfd, jlong milliseconds) {
+  struct itimerspec new_value;
+  new_value.it_value.tv_sec = milliseconds / MSEC_PER_SEC;
+  new_value.it_value.tv_nsec = (milliseconds % MSEC_PER_SEC) * NSEC_PER_MSEC;
+  // Set the interval time to 0 because it's designed for repeated timer expirations after the
+  // initial expiration, which doesn't fit the current usage.
+  new_value.it_interval.tv_sec = 0;
+  new_value.it_interval.tv_nsec = 0;
+
+  int ret = timerfd_settime(tfd, 0, &new_value, NULL);
+  if (ret == -1) {
+    jniThrowErrnoException(env, "setTime", ret);
+  }
+}
 
 static void setTunTapCarrierEnabled(JNIEnv* env, jclass /* clazz */, jstring
                                     jIface, jint tunFd, jboolean enabled) {
