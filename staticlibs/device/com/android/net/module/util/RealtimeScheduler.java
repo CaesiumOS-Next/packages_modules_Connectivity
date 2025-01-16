@@ -253,7 +253,8 @@ public class RealtimeScheduler {
                 mParcelFileDescriptor.getFileDescriptor(),
                 FD_EVENTS,
                 (fd, events) -> {
-                    if (!isRunning()) {
+                    if (!isRunning() || ((events & EVENT_ERROR) != 0)) {
+                        unregisterAndDestroyFd();
                         return 0;
                     }
                     if ((events & EVENT_INPUT) != 0) {
