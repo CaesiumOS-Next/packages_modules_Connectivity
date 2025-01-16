@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eacc0084_f7cb8079",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T17:30:13Z",
+      "side": 1,
+      "message": "The real problem is that we have two functions to create default capabilities. What we should really do is call createNetworkCapabilities when TextUtils.isEmpty(config.mCapabilities).",
+      "range": {
+        "startLine": 743,
+        "startChar": 17,
+        "endLine": 743,
+        "endChar": 36
+      },
+      "revId": "126e25b84e53ce882db623d4794c732a1d77a445",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98d7012c_7973fd42",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T17:30:13Z",
+      "side": 1,
+      "message": "This function is so hard to understand, partially because of these two parameters.\nclearDefaultCapabilities is set to true when there is a config, i.e. commaSeparatedCapabilities are not empty. This is checked checked again inside of this function on line 836. I don\u0027t think clearDefaultCapabilities should exist as a parameter at all.",
+      "range": {
+        "startLine": 794,
+        "startChar": 12,
+        "endLine": 794,
+        "endChar": 89
+      },
+      "revId": "126e25b84e53ce882db623d4794c732a1d77a445",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
