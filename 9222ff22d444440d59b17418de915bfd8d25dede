@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "568023cb_8e19e339",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2025-01-16T00:07:17Z",
+      "side": 1,
+      "message": "nit: In commit xxx, the logic of [...] was changed to use [...]",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 32
+      },
+      "revId": "9222ff22d444440d59b17418de915bfd8d25dede",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
