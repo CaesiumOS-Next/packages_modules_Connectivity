@@ -25,6 +25,8 @@ using namespace android::bpf;  // NOLINT(google-build-using-namespace): exempted
 namespace android {
 namespace net {
 
+constexpr int CONFIGURATION_MAP_SIZE = 2;
+constexpr int DATA_SAVER_ENABLED_MAP_SIZE = 1;
 constexpr int TEST_MAP_SIZE = 2;
 
 #define ASSERT_VALID(x) ASSERT_TRUE((x).isValid())

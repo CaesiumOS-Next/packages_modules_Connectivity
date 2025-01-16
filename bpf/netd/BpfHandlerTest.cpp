@@ -31,6 +31,7 @@ namespace net {
 
 using base::Result;
 
+constexpr int CONFIGURATION_MAP_SIZE = 2;
 constexpr int TEST_MAP_SIZE = 10;
 constexpr int TEST_COOKIE = 1;
 constexpr uid_t TEST_UID = 10086;

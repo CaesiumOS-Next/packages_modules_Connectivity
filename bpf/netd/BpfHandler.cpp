@@ -45,6 +45,7 @@ constexpr int PER_UID_STATS_ENTRIES_LIMIT = 500;
 // that 10% of the map is always available to count untagged traffic, one entry per UID.
 // Otherwise, apps would be able to avoid data usage accounting entirely by filling up the
 // map with tagged traffic entries.
+constexpr int STATS_MAP_SIZE = 5000;
 constexpr int TOTAL_UID_STATS_ENTRIES_LIMIT = STATS_MAP_SIZE * 0.9;
 
 static_assert(STATS_MAP_SIZE - TOTAL_UID_STATS_ENTRIES_LIMIT > 100,
