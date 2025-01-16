@@ -25,6 +25,8 @@ import android.os.Message;
 import android.os.MessageQueue;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
+import android.system.ErrnoException;
+import android.system.Os;
 import android.util.CloseGuard;
 import android.util.Log;
 
@@ -72,6 +74,7 @@ public class RealtimeScheduler {
     private final int mFdInt;
 
     private final PriorityQueue<Task> mTaskQueue;
+    private final byte[] mPacketReadBuffer = new byte[8];
 
     /**
      * An abstract class for defining tasks that can be executed using a {@link Handler}.
@@ -265,6 +268,15 @@ public class RealtimeScheduler {
     }
 
     private void handleExpiration() {
+        // The data from the FileDescriptor must be read after the timer expires. Otherwise,
+        // expiration callbacks will continue to be sent, notifying of unread data.
+        try {
+            Os.read(mParcelFileDescriptor.getFileDescriptor(), mPacketReadBuffer, 0,
+                    mPacketReadBuffer.length);
+        } catch (IOException | ErrnoException exception) {
+            Log.e(TAG, "Read FileDescriptor failed. ", exception);
+        }
+
         long currentTimeMs = SystemClock.elapsedRealtime();
         while (!mTaskQueue.isEmpty()) {
             final Task task = mTaskQueue.peek();
@@ -276,7 +288,6 @@ public class RealtimeScheduler {
             mTaskQueue.poll();
         }
 
-
         if (!mTaskQueue.isEmpty()) {
             // Using currentTimeMs ensures that the calculated expiration time
             // is always positive.
@@ -286,10 +297,6 @@ public class RealtimeScheduler {
                 Log.wtf(TAG, "Failed to set expiration time");
                 mTaskQueue.clear();
             }
-        } else {
-            // We have to clean up the timer if no tasks are left. Otherwise, the timer will keep
-            // being triggered.
-            TimerFdUtils.setExpirationTime(mFdInt, 0);
         }
     }
 
