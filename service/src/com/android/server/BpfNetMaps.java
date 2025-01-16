@@ -819,11 +819,10 @@ public class BpfNetMaps {
      */
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public int getNetPermForUid(final int uid) {
-        final int appId = UserHandle.getAppId(uid);
         try {
-            // Key of uid permission map is appId
+            // Key of uid permission map is uid
             // TODO: Rename map name
-            final U8 permissions = sUidPermissionMap.getValue(new S32(appId));
+            final U8 permissions = sUidPermissionMap.getValue(new S32(uid));
             return permissions != null ? permissions.val : PERMISSION_INTERNET;
         } catch (ErrnoException e) {
             Log.wtf(TAG, "Failed to get permission for uid: " + uid);
