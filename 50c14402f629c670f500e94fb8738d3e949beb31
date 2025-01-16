@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f538acc4_694b9264",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFileDescriptor.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-16T14:05:13Z",
+      "side": 1,
+      "message": "Ack. Done in aosp/3452254.",
+      "parentUuid": "01ed0edf_ad49ad24",
+      "range": {
+        "startLine": 152,
+        "startChar": 34,
+        "endLine": 152,
+        "endChar": 45
+      },
+      "revId": "50c14402f629c670f500e94fb8738d3e949beb31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "227d51ab_26cb11e3",
