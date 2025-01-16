@@ -39,26 +39,11 @@ public class TimerFdUtils {
     private static final String TAG = TimerFdUtils.class.getSimpleName();
 
     /**
-     * Create a timerfd.
-     *
-     * @throws IOException if the timerfd creation is failed.
-     */
-    private static native int createTimerFd() throws IOException;
-
-    /**
-     * Set given time to the timerfd.
-     *
-     * @param timeMs target time
-     * @throws IOException if setting expiration time is failed.
-     */
-    private static native void setTime(int fd, long timeMs) throws IOException;
-
-    /**
      * Create a timerfd
      */
     static int createTimerFileDescriptor() {
         try {
-            return createTimerFd();
+            return ServiceConnectivityJni.createTimerFd();
         } catch (IOException e) {
             Log.e(TAG, "createTimerFd failed", e);
             return -1;
@@ -70,7 +55,7 @@ public class TimerFdUtils {
      */
     static boolean setExpirationTime(int fd, long expirationTimeMs) {
         try {
-            setTime(fd, expirationTimeMs);
+            ServiceConnectivityJni.setTime(fd, expirationTimeMs);
         } catch (IOException e) {
             Log.e(TAG, "setExpirationTime failed", e);
             return false;
