@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07754339_6df16263",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-16T12:20:24Z",
+      "side": 1,
+      "message": "I think we should do error handling similar to:\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/IPsec/src/java/com/android/internal/net/ipsec/ike/utils/FdEventsReader.java;l\u003d233;drc\u003d9906a10b5fe84ce113ec888af1da5dfba62949c6",
+      "range": {
+        "startLine": 277,
+        "startChar": 12,
+        "endLine": 277,
+        "endChar": 66
+      },
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
