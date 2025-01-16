@@ -23,7 +23,9 @@ cc_library_static {
         "com_android_net_module_util_ServiceConnectivityJni.cpp",
     ],
     header_libs: [
+        "bpf_headers",
         "jni_headers",
+        "libbase_headers",
     ],
     shared_libs: [
         "liblog",
