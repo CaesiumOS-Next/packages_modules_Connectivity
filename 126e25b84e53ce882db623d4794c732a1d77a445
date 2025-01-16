@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba72a97c_533a9767",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2025-01-16T22:42:56Z",
+      "side": 1,
+      "message": "Ah ok I think I understand!",
+      "parentUuid": "3354c548_b0632fd5",
+      "range": {
+        "startLine": 743,
+        "startChar": 17,
+        "endLine": 743,
+        "endChar": 36
+      },
+      "revId": "126e25b84e53ce882db623d4794c732a1d77a445",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98d7012c_7973fd42",
@@ -85,6 +109,30 @@
       "writtenOn": "2025-01-16T17:30:13Z",
       "side": 1,
       "message": "This function is so hard to understand, partially because of these two parameters.\nclearDefaultCapabilities is set to true when there is a config, i.e. commaSeparatedCapabilities are not empty. This is checked checked again inside of this function on line 836. I don\u0027t think clearDefaultCapabilities should exist as a parameter at all.",
+      "range": {
+        "startLine": 794,
+        "startChar": 12,
+        "endLine": 794,
+        "endChar": 89
+      },
+      "revId": "126e25b84e53ce882db623d4794c732a1d77a445",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe2397d7_24f0af26",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2025-01-16T22:42:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "98d7012c_7973fd42",
       "range": {
         "startLine": 794,
         "startChar": 12,
