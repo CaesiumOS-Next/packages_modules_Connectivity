@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f416be8a_1da1a28a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T18:53:05Z",
+      "side": 1,
+      "message": "maze says: and please split",
+      "revId": "46fb024a9358abf8093e5ba0c4a1531c25750f72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "229a0873_d90823fb",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T18:53:05Z",
+      "side": 1,
+      "message": "del",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 68
+      },
+      "revId": "46fb024a9358abf8093e5ba0c4a1531c25750f72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10bdc997_8bbe70f7",
+        "filename": "staticlibs/device/com/android/net/module/util/ServiceConnectivityJni.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T18:53:05Z",
+      "side": 1,
+      "message": "any way to make this better?",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 9
+      },
+      "revId": "46fb024a9358abf8093e5ba0c4a1531c25750f72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7678361c_98d9cc02",
+        "filename": "staticlibs/device/com/android/net/module/util/TimerFdUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T18:53:05Z",
+      "side": 1,
+      "message": "del",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "46fb024a9358abf8093e5ba0c4a1531c25750f72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
