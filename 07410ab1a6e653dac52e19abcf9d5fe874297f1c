@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6acde322_3a75aeb2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-16T04:44:47Z",
+      "side": 0,
+      "message": "Could you move the removal of this parameter to its own CL?",
+      "range": {
+        "startLine": 114,
+        "startChar": 37,
+        "endLine": 114,
+        "endChar": 60
+      },
+      "revId": "07410ab1a6e653dac52e19abcf9d5fe874297f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
