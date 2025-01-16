@@ -330,7 +330,7 @@ public class PermissionMonitorTest {
 
     private void sendAppIdsTrafficPermission(SparseIntArray netdPermissionsAppIds) {
         processOnHandlerThread(() ->
-                mPermissionMonitor.sendAppIdsTrafficPermission(netdPermissionsAppIds));
+                mPermissionMonitor.sendAppTrafficPermission(netdPermissionsAppIds));
     }
 
     private void sendPackagePermissionsForAppId(int appId, int permissions) {

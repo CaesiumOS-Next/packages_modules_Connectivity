@@ -642,8 +642,8 @@ static __always_inline inline uint8_t get_app_permissions() {
      * user at install time so we only check the appId part of a request uid at
      * run time. See UserHandle#isSameApp for detail.
      */
-    uint32_t appId = (gid_uid & 0xffffffff) % AID_USER_OFFSET;  // == PER_USER_RANGE == 100000
-    uint8_t* permissions = bpf_uid_permission_map_lookup_elem(&appId);
+    uint32_t uid = (gid_uid & 0xffffffff) ;  // uid comprises of user id and app id.
+    uint8_t* permissions = bpf_uid_permission_map_lookup_elem(&uid);
     // if UID not in map, then default to just INTERNET permission.
     return permissions ? *permissions : BPF_PERMISSION_INTERNET;
 }
