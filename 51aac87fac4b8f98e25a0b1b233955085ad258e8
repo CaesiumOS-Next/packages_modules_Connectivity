@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cac3cca_134d526c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T17:03:44Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 502,
+        "startChar": 19,
+        "endLine": 502,
+        "endChar": 29
+      },
+      "revId": "51aac87fac4b8f98e25a0b1b233955085ad258e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65ff4b50_8b7f6b9d",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T17:03:44Z",
+      "side": 1,
+      "message": "final ByteBuffer response;",
+      "range": {
+        "startLine": 521,
+        "startChar": 8,
+        "endLine": 521,
+        "endChar": 35
+      },
+      "revId": "51aac87fac4b8f98e25a0b1b233955085ad258e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7f33df9_8aac1ce1",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T17:03:44Z",
+      "side": 1,
+      "message": "nit: Should these be separated and have two different log messages?",
+      "range": {
+        "startLine": 528,
+        "startChar": 8,
+        "endLine": 528,
+        "endChar": 76
+      },
+      "revId": "51aac87fac4b8f98e25a0b1b233955085ad258e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9b2f837_ff178147",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T17:03:44Z",
+      "side": 1,
+      "message": "nit: Similarly, you could consider having two cases for \"failed to parse (null)\" and \"unexpected NetlinkMessage type\".",
+      "range": {
+        "startLine": 535,
+        "startChar": 24,
+        "endLine": 535,
+        "endChar": 44
+      },
+      "revId": "51aac87fac4b8f98e25a0b1b233955085ad258e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d31fe51_33c40eed",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T17:03:44Z",
+      "side": 1,
+      "message": "Can this happen? getHeader is @NonNull.",
+      "range": {
+        "startLine": 539,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 26
+      },
+      "revId": "51aac87fac4b8f98e25a0b1b233955085ad258e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85514eeb_bb2ec448",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T17:03:44Z",
+      "side": 1,
+      "message": "Nullable",
+      "range": {
+        "startLine": 554,
+        "startChar": 19,
+        "endLine": 554,
+        "endChar": 39
+      },
+      "revId": "51aac87fac4b8f98e25a0b1b233955085ad258e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

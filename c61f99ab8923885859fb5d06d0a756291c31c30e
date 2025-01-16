@@ -221,6 +221,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97e21fa2_3a5fd5ab",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-16T17:03:44Z",
+      "side": 1,
+      "message": "\u003e I didnt add nullability annotation for private methods following the style in this file.\n\n+1, though I know opinions differ on this topic. I generally like the Java Libraries team\u0027s guidance of using @Nullable explicitly and @NonNull implicitly. This is because @Nullable needs special handling (usually by performing a null check in the caller) but @NonNull does not.\n\ngo/java-practices/null#annotations",
+      "parentUuid": "f739a6e0_a75c09a7",
+      "range": {
+        "startLine": 521,
+        "startChar": 59,
+        "endLine": 521,
+        "endChar": 79
+      },
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf1b1bea_e8ee4e08",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
         "patchSetId": 12
