@@ -46,6 +46,30 @@
       },
       "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4728c945_325f7add",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-16T12:52:05Z",
+      "side": 1,
+      "message": "Actually, I feel we just need to ignore the error here. Logging here is not very helpful and there is nothing we can do. If we facing error like EAGAIN, we definatly need to retry so I suggest:\n\n\n```\n        } catch (IOException | ErrnoException exception) {\n             // ignore error\n        }\n```\n\n@reminv@google.com, any thought here?",
+      "parentUuid": "129e848f_ba4652d2",
+      "range": {
+        "startLine": 277,
+        "startChar": 12,
+        "endLine": 277,
+        "endChar": 66
+      },
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
