@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd774ca3_c4563bac",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2025-01-16T17:37:43Z",
+      "side": 1,
+      "message": "I don\u0027t believe I follow; what should be called when config.mCapabilities isn\u0027t empty ?",
+      "parentUuid": "eacc0084_f7cb8079",
+      "range": {
+        "startLine": 743,
+        "startChar": 17,
+        "endLine": 743,
+        "endChar": 36
+      },
+      "revId": "126e25b84e53ce882db623d4794c732a1d77a445",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "98d7012c_7973fd42",
         "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
         "patchSetId": 9
