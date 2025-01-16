@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5de7666b_d3c19d31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-16T00:47:05Z",
+      "side": 1,
+      "message": "Same as aosp/3427861: use git trailer format, `Bug: 382649664`",
+      "revId": "8c46b7a62ec0ec51b33b49b809d8e1677a3554c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
