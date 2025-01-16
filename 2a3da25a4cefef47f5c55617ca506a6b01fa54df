@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33925be4_1153477f",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "Good idea, this refactor can wrap ping related variables and reply to make it more clear.\nDone.",
+      "parentUuid": "d67de6ed_b9b047cd",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 214,
+        "endChar": 28
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b696b011_217c42b1",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-14T08:38:49Z",
       "side": 1,
       "message": "I think we can just do sth. follows like follows and don\u0027t need to use skipLabel at all.\n\n\n```\n        addLoad16(R0, ETH_ETHERTYPE_OFFSET)\n        addJumpIfR0NotEquals(ETH_P_IPV6.toLong(), BaseApfGenerator.PASS_LABEL)\n        addLoad8(R0, IPV6_NEXT_HEADER_OFFSET)\n        addJumpIfR0NotEquals(IPPROTO_ICMPV6.toLong(), BaseApfGenerator.PASS_LABEL)\n        addLoad8(R0, ICMP6_TYPE_OFFSET)\n        addJumpIfR0NotEquals(ICMP6_ECHO_REPLY.toLong(), BaseApfGenerator.PASS_LABEL)\n\n```",
+      "range": {
+        "startLine": 494,
+        "startChar": 8,
+        "endLine": 494,
+        "endChar": 13
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8554397_9b61582e",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "I see, just use the default pass label here, removed the skipLabel for the usage as well.",
+      "parentUuid": "b696b011_217c42b1",
       "range": {
         "startLine": 494,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b267d56_0a98c5ef",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e89edbb5_73e45860",
+      "range": {
+        "startLine": 767,
+        "startChar": 8,
+        "endLine": 767,
+        "endChar": 45
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33b832ba_42d31cf7",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-01-14T08:38:49Z",
       "side": 1,
       "message": "It seems this skip label is not really necessary?",
+      "range": {
+        "startLine": 779,
+        "startChar": 48,
+        "endLine": 779,
+        "endChar": 63
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82a9277a_a7202083",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "33b832ba_42d31cf7",
       "range": {
         "startLine": 779,
         "startChar": 48,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83d45dc5_c178960d",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1575d4b8_2b9d260e",
+      "range": {
+        "startLine": 783,
+        "startChar": 16,
+        "endLine": 783,
+        "endChar": 45
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30fcfbc8_c7c20064",
@@ -129,6 +249,30 @@
       "writtenOn": "2025-01-14T08:38:49Z",
       "side": 1,
       "message": "I think we should be more specificed. We are test multi transmit so I feel we should call it `testTransmitMultiplePackets`.",
+      "range": {
+        "startLine": 808,
+        "startChar": 8,
+        "endLine": 808,
+        "endChar": 32
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1add977_9264c18e",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30fcfbc8_c7c20064",
       "range": {
         "startLine": 808,
         "startChar": 8,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7639571_c3e991df",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dada5be_3c1f5bbc",
+      "range": {
+        "startLine": 822,
+        "startChar": 8,
+        "endLine": 822,
+        "endChar": 45
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41f0fe1d_f204e96b",
@@ -175,6 +343,30 @@
       "writtenOn": "2025-01-14T08:38:49Z",
       "side": 1,
       "message": "3 ICMPv6 echo requests",
+      "range": {
+        "startLine": 831,
+        "startChar": 24,
+        "endLine": 831,
+        "endChar": 25
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b2cce8e_b1f18ed8",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41f0fe1d_f204e96b",
       "range": {
         "startLine": 831,
         "startChar": 24,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa8e6fb2_a48b8e98",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "a8864b10_4d150a73",
+      "range": {
+        "startLine": 836,
+        "startChar": 8,
+        "endLine": 836,
+        "endChar": 84
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a4e9e67_cdd601a9",
@@ -221,6 +437,30 @@
       "writtenOn": "2025-01-14T08:38:49Z",
       "side": 1,
       "message": "By go through the logic below, I think this should be really called `numOfPacketToTransmit`",
+      "range": {
+        "startLine": 837,
+        "startChar": 12,
+        "endLine": 837,
+        "endChar": 28
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "552ff4c3_460d250b",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a4e9e67_cdd601a9",
       "range": {
         "startLine": 837,
         "startChar": 12,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "417abfde_084d07dc",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "Nice! done.",
+      "parentUuid": "94e2ecf6_f21918e3",
+      "range": {
+        "startLine": 837,
+        "startChar": 8,
+        "endLine": 843,
+        "endChar": 9
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89fbc5d5_48967913",
@@ -277,6 +541,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd176f98_5a352310",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "89fbc5d5_48967913",
+      "range": {
+        "startLine": 859,
+        "startChar": 0,
+        "endLine": 861,
+        "endChar": 63
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fffb882c_8f212a9f",
@@ -290,6 +578,30 @@
       "writtenOn": "2025-01-14T08:38:49Z",
       "side": 1,
       "message": "```\npacketReader.sendPing(payload, pingRequestPayloadSize, expectReplyPayloads.size)\nval replyPayloads \u003d try {\n    packetReader.expectPingReply(TIMEOUT_MS * 2)\n} catch (e: TimeoutException) {\n    emptyList() \n}\n\nassertThat(replyPayloads).isEqualTo(expectReplyPayloads)\n\n```",
+      "range": {
+        "startLine": 853,
+        "startChar": 0,
+        "endLine": 866,
+        "endChar": 5
+      },
+      "revId": "2a3da25a4cefef47f5c55617ca506a6b01fa54df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1ce0738_3aafaf16",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-16T04:55:39Z",
+      "side": 1,
+      "message": "`assertThat(replyPayloads).isEqualTo(expectReplyPayloads)` does not work due to it check if the instance is identical. \n\nRefactored using kotlin feature and zip/all to make it clear.",
+      "parentUuid": "fffb882c_8f212a9f",
       "range": {
         "startLine": 853,
         "startChar": 0,
