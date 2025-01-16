@@ -22,6 +22,30 @@
       },
       "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "129e848f_ba4652d2",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-16T12:49:39Z",
+      "side": 1,
+      "message": "I\u0027m not sure we need to handle the reading error. Even if reading from the file descriptor fails, we still receive the callback to execute the delayed task.  Should the file descriptor listener be unregistered if reading fails?",
+      "parentUuid": "07754339_6df16263",
+      "range": {
+        "startLine": 277,
+        "startChar": 12,
+        "endLine": 277,
+        "endChar": 66
+      },
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
