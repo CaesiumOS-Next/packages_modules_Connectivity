@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9af6e8e1_f6f8e301",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-17T07:16:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b22f557c_755fe05b",
+      "range": {
+        "startLine": 256,
+        "startChar": 51,
+        "endLine": 256,
+        "endChar": 62
+      },
+      "revId": "0332ae538787d7fd12e2e1acd64128c4ec2d77d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bd9cd03_8f56c461",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-17T01:35:21Z",
       "side": 1,
       "message": "unregisterAndDestroyFd shouldn\u0027t need to be called for `!isRunning()`, it\u0027s only necessary for EVENT_ERROR, since it\u0027s already done if `!isRunning()`\n\nBut actually the user of the RealtimeScheduler should close it in any case ? returning 0 should be enough since it unregisters the FileDescriptorListener",
+      "range": {
+        "startLine": 257,
+        "startChar": 24,
+        "endLine": 257,
+        "endChar": 46
+      },
+      "revId": "0332ae538787d7fd12e2e1acd64128c4ec2d77d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "728f7388_211615ae",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-17T07:16:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2bd9cd03_8f56c461",
       "range": {
         "startLine": 257,
         "startChar": 24,
