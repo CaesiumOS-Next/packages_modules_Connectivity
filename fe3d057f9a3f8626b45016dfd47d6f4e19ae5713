@@ -37,6 +37,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f061fcd_3fd4f5e2",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-17T03:05:09Z",
+      "side": 1,
+      "message": "+1, local variable seems good enough.",
+      "parentUuid": "a75dd332_263c1600",
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46e6206e_b16adda1",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-17T03:05:09Z",
+      "side": 1,
+      "message": "It will also helpful to document what are those 8 bytes for and explain why we can discard the content.\n\nhttps://man7.org/linux/man-pages/man2/timerfd_create.2.html\n\n\n```\n       read(2)\n              If the timer has already expired one or more times since\n              its settings were last modified using timerfd_settime(),\n              or since the last successful read(2), then the buffer\n              given to read(2) returns an unsigned 8-byte integer\n              (uint64_t) containing the number of expirations that have\n              occurred.  (The returned value is in host byte order—that\n              is, the native byte order for integers on the host\n              machine.)\n```",
+      "range": {
+        "startLine": 274,
+        "startChar": 12,
+        "endLine": 275,
+        "endChar": 46
+      },
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07754339_6df16263",
         "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
         "patchSetId": 1
@@ -120,6 +161,30 @@
       "side": 1,
       "message": "Any error here would be very unexpected, even EAGAIN since we\u0027d be getting EVENT_INPUT but the timer hasn\u0027t actually expired. I would have a Log.wtf to make sure that if this ever happens there is some way to know about it, it would be hard to debug if it ever happens and there\u0027s no log at all",
       "parentUuid": "4728c945_325f7add",
+      "range": {
+        "startLine": 277,
+        "startChar": 12,
+        "endLine": 277,
+        "endChar": 66
+      },
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ceabc37_33d13553",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-17T03:05:09Z",
+      "side": 1,
+      "message": "As discussed in the standup, using Log.wtf() here should be good enough.",
+      "parentUuid": "0c71b14c_b33b7f14",
       "range": {
         "startLine": 277,
         "startChar": 12,
