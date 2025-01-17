@@ -35,6 +35,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6da550b_622cb68d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-17T06:38:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "74acc31a_9da951b9",
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef57ddfb_f5653909",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-17T06:38:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c9c8eb8b_038a6026",
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a75dd332_263c1600",
@@ -70,6 +106,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36595581_2907e215",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-17T06:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f061fcd_3fd4f5e2",
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46e6206e_b16adda1",
@@ -83,6 +137,30 @@
       "writtenOn": "2025-01-17T03:05:09Z",
       "side": 1,
       "message": "It will also helpful to document what are those 8 bytes for and explain why we can discard the content.\n\nhttps://man7.org/linux/man-pages/man2/timerfd_create.2.html\n\n\n```\n       read(2)\n              If the timer has already expired one or more times since\n              its settings were last modified using timerfd_settime(),\n              or since the last successful read(2), then the buffer\n              given to read(2) returns an unsigned 8-byte integer\n              (uint64_t) containing the number of expirations that have\n              occurred.  (The returned value is in host byte order—that\n              is, the native byte order for integers on the host\n              machine.)\n```",
+      "range": {
+        "startLine": 274,
+        "startChar": 12,
+        "endLine": 275,
+        "endChar": 46
+      },
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f2638ec_bb450329",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-17T06:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46e6206e_b16adda1",
       "range": {
         "startLine": 274,
         "startChar": 12,
@@ -202,6 +280,30 @@
       "side": 1,
       "message": "As discussed in the standup, using Log.wtf() here should be good enough.",
       "parentUuid": "0c71b14c_b33b7f14",
+      "range": {
+        "startLine": 277,
+        "startChar": 12,
+        "endLine": 277,
+        "endChar": 66
+      },
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "460c7be6_518070f0",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-17T06:38:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6ceabc37_33d13553",
       "range": {
         "startLine": 277,
         "startChar": 12,
