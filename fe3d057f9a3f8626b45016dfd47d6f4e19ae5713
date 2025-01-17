@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9c8eb8b_038a6026",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-17T03:06:08Z",
+      "side": 1,
+      "message": "Code LGTM assume the merge conflict is resolved and comment is adjusted properly.",
+      "revId": "fe3d057f9a3f8626b45016dfd47d6f4e19ae5713",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a75dd332_263c1600",
         "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
         "patchSetId": 1
