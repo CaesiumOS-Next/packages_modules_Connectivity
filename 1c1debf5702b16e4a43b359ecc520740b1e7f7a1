@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdb0c4c2_3f44d3b5",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-17T03:21:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52f99b8c_080ce041",
+      "range": {
+        "startLine": 486,
+        "startChar": 3,
+        "endLine": 486,
+        "endChar": 62
+      },
+      "revId": "1c1debf5702b16e4a43b359ecc520740b1e7f7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7230019_076e9227",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-16T14:11:19Z",
       "side": 1,
       "message": "Could you move this function to right above testReplyPing() (somewhere around line 757). It is bette to move those two method closer for improve the readability.",
+      "range": {
+        "startLine": 501,
+        "startChar": 0,
+        "endLine": 501,
+        "endChar": 67
+      },
+      "revId": "1c1debf5702b16e4a43b359ecc520740b1e7f7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c945b409_b837eac0",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-17T03:21:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7230019_076e9227",
       "range": {
         "startLine": 501,
         "startChar": 0,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e431102_426e7d15",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-17T03:21:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfe8080c_7e0a6af6",
+      "revId": "1c1debf5702b16e4a43b359ecc520740b1e7f7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39d2e08c_c72dafe7",
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "970cf448_0d5fbab5",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-17T03:21:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39d2e08c_c72dafe7",
+      "range": {
+        "startLine": 518,
+        "startChar": 39,
+        "endLine": 518,
+        "endChar": 60
+      },
+      "revId": "1c1debf5702b16e4a43b359ecc520740b1e7f7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfa52398_8ff5aab1",
@@ -100,6 +190,30 @@
       "writtenOn": "2025-01-16T14:11:19Z",
       "side": 1,
       "message": "maybe this method also don\u0027t need to be a funciton anymore, we can put the logic right here to reduce the diff in this CL.",
+      "range": {
+        "startLine": 786,
+        "startChar": 16,
+        "endLine": 786,
+        "endChar": 44
+      },
+      "revId": "1c1debf5702b16e4a43b359ecc520740b1e7f7a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a37d0dd5_eaa401e0",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-01-17T03:21:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfa52398_8ff5aab1",
       "range": {
         "startLine": 786,
         "startChar": 16,
