@@ -251,29 +251,8 @@ public final class L2capNetworkSpecifier extends NetworkSpecifier implements Par
     /** @hide */
     @Override
     public boolean canBeSatisfiedBy(NetworkSpecifier other) {
-        if (!(other instanceof L2capNetworkSpecifier)) return false;
-        final L2capNetworkSpecifier rhs = (L2capNetworkSpecifier) other;
-
-        // A network / offer cannot be ROLE_ANY, but it is added for consistency.
-        if (mRole != rhs.mRole && mRole != ROLE_ANY && rhs.mRole != ROLE_ANY) {
-            return false;
-        }
-
-        if (mHeaderCompression != rhs.mHeaderCompression
-                && mHeaderCompression != HEADER_COMPRESSION_ANY
-                && rhs.mHeaderCompression != HEADER_COMPRESSION_ANY) {
-            return false;
-        }
-
-        if (!Objects.equals(mRemoteAddress, rhs.mRemoteAddress)
-                && mRemoteAddress != null && rhs.mRemoteAddress != null) {
-            return false;
-        }
-
-        if (mPsm != rhs.mPsm && mPsm != PSM_ANY && rhs.mPsm != PSM_ANY) {
-            return false;
-        }
-        return true;
+        // TODO: implement matching semantics.
+        return false;
     }
 
     /** @hide */
