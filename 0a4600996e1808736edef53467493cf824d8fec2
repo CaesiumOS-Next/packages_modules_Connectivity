@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95bbdd86_50264681",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-18T01:17:39Z",
+      "side": 1,
+      "message": "I think we should try to make our API close to the one in Handler.java.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/os/Handler.java;drc\u003d9906a10b5fe84ce113ec888af1da5dfba62949c6;l\u003d705?q\u003dhandler.java%20f:framework\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain\n\nIt will make it more obvious to user to use it.\n\nWhat will be the issue if we leave the API unchanged?",
+      "range": {
+        "startLine": 229,
+        "startChar": 38,
+        "endLine": 229,
+        "endChar": 67
+      },
+      "revId": "0a4600996e1808736edef53467493cf824d8fec2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
