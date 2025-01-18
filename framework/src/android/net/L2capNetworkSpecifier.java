@@ -240,10 +240,7 @@ public final class L2capNetworkSpecifier extends NetworkSpecifier implements Par
         /** Create the L2capNetworkSpecifier object. */
         @NonNull
         public L2capNetworkSpecifier build() {
-            if (mRole == ROLE_SERVER && mRemoteAddress != null) {
-                throw new IllegalArgumentException(
-                        "Specifying a remote address is not valid for server role.");
-            }
+            // TODO: throw an exception for combinations that cannot be supported.
             return new L2capNetworkSpecifier(mRole, mHeaderCompression, mRemoteAddress, mPsm);
         }
     }
