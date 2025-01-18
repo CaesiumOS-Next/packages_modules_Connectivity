@@ -256,12 +256,13 @@ public final class L2capNetworkSpecifier extends NetworkSpecifier implements Par
     @Override
     @Nullable
     public NetworkSpecifier redact() {
+        // Redact the remote MAC address and the PSM (for non-server roles).
         final NetworkSpecifier redactedSpecifier = new Builder()
                 .setRole(mRole)
                 .setHeaderCompression(mHeaderCompression)
-                // The remote address is redacted.
-                .setRemoteAddress(null)
-                .setPsm(mPsm)
+                // TODO: consider not redacting the specifier in onReserved, so the redaction can be
+                // more strict (i.e. the PSM could always be redacted).
+                .setPsm(mRole == ROLE_SERVER ? mPsm : PSM_ANY)
                 .build();
         return redactedSpecifier;
     }
