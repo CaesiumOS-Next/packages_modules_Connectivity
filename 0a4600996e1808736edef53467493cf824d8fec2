@@ -22,6 +22,30 @@
       },
       "revId": "0a4600996e1808736edef53467493cf824d8fec2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de550d92_cddb1445",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-01-20T06:11:57Z",
+      "side": 1,
+      "message": "IIUC, the Message object is mutable, so if the content is changed, the caller may not receive the callback or be able to remove that message. For example, if the event is changed from `ABC` to `DEF`, the caller may not be notified for the old event. However, the Handler#sendMessageDelayed() method should have the same behavior. Perhaps @reminv@google.com has more insight into this.",
+      "parentUuid": "95bbdd86_50264681",
+      "range": {
+        "startLine": 229,
+        "startChar": 38,
+        "endLine": 229,
+        "endChar": 67
+      },
+      "revId": "0a4600996e1808736edef53467493cf824d8fec2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
