@@ -22,6 +22,30 @@
       },
       "revId": "fd59c7c5ddb992f4ef4e825b951b13766cbcf59a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77cdc17b_3fe77599",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-20T20:06:16Z",
+      "side": 1,
+      "message": "Done, thanks!",
+      "parentUuid": "c981f2b1_f56b3fb6",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 0
+      },
+      "revId": "fd59c7c5ddb992f4ef4e825b951b13766cbcf59a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
