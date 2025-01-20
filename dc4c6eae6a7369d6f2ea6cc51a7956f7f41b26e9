@@ -16,6 +16,69 @@
       "message": "java.lang.NoSuchMethodError: No virtual method getConfigForSubId(I[Ljava/lang/String;)Landroid/os/PersistableBundle; in class Landroid/telephony/CarrierConfigManager; or its super classes (declaration of \u0027android.telephony.CarrierConfigManager\u0027 appears in /system/framework/framework.jar!classes3.dex)\n    at com.android.testutils.com.android.testutils.CarrierConfigRule$addConfigOverrides$previousValues$1.invoke(CarrierConfigRule.kt:71)\n    at com.android.testutils.com.android.testutils.CarrierConfigRule$addConfigOverrides$previousValues$1.invoke(CarrierConfigRule.kt:70)\n...\n    at com.android.testutils.Cleanup.testAndCleanup(Cleanup.kt:145)\n    at com.android.testutils.Cleanup.testAndCleanup(Cleanup.kt:150)\n    at android.net.cts.ConnectivityDiagnosticsManagerTest.testRegisterCallbackWithCarrierPrivileges(ConnectivityDiagnosticsManagerTest.java:268)",
       "revId": "dc4c6eae6a7369d6f2ea6cc51a7956f7f41b26e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cab31fb_b6cfec44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-20T02:38:05Z",
+      "side": 1,
+      "message": "LGTM assume the comment is adjsuted and the build error is fixed.",
+      "revId": "dc4c6eae6a7369d6f2ea6cc51a7956f7f41b26e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db0986d3_98567ccb",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-20T02:38:05Z",
+      "side": 1,
+      "message": "Why we need []?",
+      "range": {
+        "startLine": 34,
+        "startChar": 5,
+        "endLine": 34,
+        "endChar": 15
+      },
+      "revId": "dc4c6eae6a7369d6f2ea6cc51a7956f7f41b26e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d8d9a33_bfcdee6b",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-20T02:38:05Z",
+      "side": 1,
+      "message": "Shall we follow the javadoc syntax here. e.g {@code CarrierConfigManager} or {@link ....}",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 52
+      },
+      "revId": "dc4c6eae6a7369d6f2ea6cc51a7956f7f41b26e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
