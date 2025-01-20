@@ -224,12 +224,20 @@ static void (*bpf_ringbuf_submit_unsafe)(const void* data, __u64 flags) = (void*
                 ____btf_map_##name = { }
 
 #define BPF_ASSERT_LOADER_VERSION(min_loader, ignore_eng, ignore_user, ignore_userdebug) \
-    _Static_assert(                                                                      \
-        (min_loader) >= BPFLOADER_IGNORED_ON_VERSION ||                                  \
-            !((ignore_eng).ignore_on_eng ||                                              \
-              (ignore_user).ignore_on_user ||                                            \
-              (ignore_userdebug).ignore_on_userdebug),                                   \
+    _Static_assert(                                                            \
+        (min_loader) >= BPFLOADER_IGNORED_ON_VERSION ||                        \
+            !((ignore_eng).ignore_on_eng ||                                    \
+              (ignore_user).ignore_on_user ||                                  \
+              (ignore_userdebug).ignore_on_userdebug),                         \
         "bpfloader min version must be >= 0.33 in order to use ignored_on");
+
+#define ABSOLUTE(x) ((x) < 0 ? -(x) : (x))
+
+#define DEFAULT_BPF_MAP_FLAGS(type, num_entries, mapflags)    \
+    ( (mapflags) |                                            \
+      ((num_entries) < 0 ? BPF_F_NO_PREALLOC : 0) |           \
+      (type == BPF_MAP_TYPE_LPM_TRIE ? BPF_F_NO_PREALLOC : 0) \
+    )
 
 #define DEFINE_BPF_MAP_BASE(the_map, TYPE, keysize, valuesize, num_entries, \
                             usr, grp, md, selinux, pindir, share, minkver,  \
@@ -239,8 +247,8 @@ static void (*bpf_ringbuf_submit_unsafe)(const void* data, __u64 flags) = (void*
         .type = BPF_MAP_TYPE_##TYPE,                                        \
         .key_size = (keysize),                                              \
         .value_size = (valuesize),                                          \
-        .max_entries = (num_entries),                                       \
-        .map_flags = (mapflags),                                            \
+        .max_entries = ABSOLUTE(num_entries),                               \
+        .map_flags = DEFAULT_BPF_MAP_FLAGS(BPF_MAP_TYPE_##TYPE, num_entries, mapflags), \
         .uid = (usr),                                                       \
         .gid = (grp),                                                       \
         .mode = (md),                                                       \
