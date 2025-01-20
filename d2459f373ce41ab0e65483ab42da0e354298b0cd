@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "833f0a86_422980f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-20T23:15:10Z",
+      "side": 1,
+      "message": "Tested by adding\n\nDEFINE_BPF_MAP_NO_NETD(trie_map, LPM_TRIE, uint64_t, uint8_t, 1000)\n\nto bpf/progs/netd.c on a 6.6.58-android15-8-gb7e7f27a0d8c-ab12937138\n x86_64 cuttlefish, which results in:\n\n$ adbz shell ls -al /sys/fs/bpf/netd_shared/map_netd_trie_map\n----rw---- 1 root net_bw_acct 0 2025-01-20 15:12 /sys/fs/bpf/netd_shared/map_netd_trie_map",
+      "revId": "d2459f373ce41ab0e65483ab42da0e354298b0cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
