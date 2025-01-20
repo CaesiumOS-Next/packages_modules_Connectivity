@@ -16,6 +16,63 @@
       "message": "Friendly ping @reminv@google.com",
       "revId": "93a6dc98e44542e39c56a06e7ce6fb0b7c2e65ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe0b6005_e329dd4f",
+        "filename": "common/flags.aconfig",
+        "patchSetId": 32
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-20T02:31:03Z",
+      "side": 1,
+      "message": "Nit: this can probably be a bit more specific, indicating that local network access would be blocked based on ConnectivityCompatChanges.RESTRICT_LOCAL_NETWORK for example",
+      "range": {
+        "startLine": 173,
+        "startChar": 25,
+        "endLine": 173,
+        "endChar": 64
+      },
+      "revId": "93a6dc98e44542e39c56a06e7ce6fb0b7c2e65ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f86cd006_c042410e",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-20T02:31:03Z",
+      "side": 1,
+      "message": "Nit: this check doesn\u0027t seem necessary here",
+      "revId": "93a6dc98e44542e39c56a06e7ce6fb0b7c2e65ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2417ad93_54a27020",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-20T02:31:03Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem correct; it doesn\u0027t take the uid as argument. the mContext will be a system server context",
+      "revId": "93a6dc98e44542e39c56a06e7ce6fb0b7c2e65ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
