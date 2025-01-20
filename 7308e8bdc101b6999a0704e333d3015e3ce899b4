@@ -1,0 +1,360 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4455ada7_f1f5ad89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 50
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "Comments until line 1467 except haven\u0027t looked at the bluetooth code. So far so good.",
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c2d9482_ca56077d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 829,
+        "startChar": 65,
+        "endLine": 829,
+        "endChar": 68
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "428563f8_56b8aa10",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "Note that this can also find requests to restart an IpServer following a prefix conflict.",
+      "range": {
+        "startLine": 734,
+        "startChar": 26,
+        "endLine": 734,
+        "endChar": 27
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "381afead_d8c1090d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "Might be good to have a comment here explaining what this does, instead of down in line 809. Something like:\n\n    // If there is already a pending request to start tethering that is identical\n    // to this one but sent from a different UID, keep track of the previous request.\n    // This ensures code tracks the UID that actually started tethering first.",
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "943c9606_2d4a0ffc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "This comment seems incorrect / out of date now. This code can never remove a request created by another UID. Maybe remove it?",
+      "range": {
+        "startLine": 827,
+        "startChar": 0,
+        "endLine": 829,
+        "endChar": 0
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d3af6bb_66207d14",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "Might want to add a comment that the request might not be in the pending list. This could in theory happen if this request is the same (except for the UID) as a request that another UID filed just before it. That other request might succeed: for example, if two different UIDs call startTetheredHotspot back-to-back, the first will succeed and the second will fail.",
+      "range": {
+        "startLine": 830,
+        "startChar": 45,
+        "endLine": 830,
+        "endChar": 52
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96b222f5_415ab448",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "createImplicitLocalOnlyTetheringRequest?",
+      "range": {
+        "startLine": 1101,
+        "startChar": 29,
+        "endLine": 1101,
+        "endChar": 59
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bfc7258_78495a24",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "are",
+      "range": {
+        "startLine": 1111,
+        "startChar": 19,
+        "endLine": 1111,
+        "endChar": 25
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d23ea4d4_732079a9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "mention the adb shell cmd to enable hotspot?",
+      "range": {
+        "startLine": 1113,
+        "startChar": 71,
+        "endLine": 1113,
+        "endChar": 72
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cecf6c20_6eb503c7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "Can we add some sort of metric for how often this happens? If this only happens due to race conditions or unexpected usage and is expected to be very rare, a terrible error might be appropriate.",
+      "range": {
+        "startLine": 1122,
+        "startChar": 29,
+        "endLine": 1122,
+        "endChar": 30
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c04f317c_070ec655",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "Before the sync state machine refactor, it can happen that a CMD_TETHER_REQUESTED message is...",
+      "range": {
+        "startLine": 1190,
+        "startChar": 17,
+        "endLine": 1190,
+        "endChar": 19
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8a6c4c1_9ca26d4d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "IpServer",
+      "range": {
+        "startLine": 1190,
+        "startChar": 69,
+        "endLine": 1190,
+        "endChar": 73
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1138227b_d1da8fd1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": ". In that case",
+      "range": {
+        "startLine": 1191,
+        "startChar": 20,
+        "endLine": 1191,
+        "endChar": 21
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10eae81f_35ab65b2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "Remove this comment?",
+      "range": {
+        "startLine": 1193,
+        "startChar": 8,
+        "endLine": 1193,
+        "endChar": 93
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "072d521a_3c82d6b1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1201,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "I\u0027m concerned that if one of the errors in this method happen (line 1182 or 1188) we won\u0027t remove the pending request. Maybe put the remove at the beginning of this method? Or maybe we could have the getOrCreate... method remove it.",
+      "range": {
+        "startLine": 1201,
+        "startChar": 8,
+        "endLine": 1201,
+        "endChar": 50
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b18837f_23dc140d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1206,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-20T07:23:05Z",
+      "side": 1,
+      "message": "Do you think you could rename the legacy methods so they start with legacy\"? That would make the code easier to follow. Would be best to do that in a CL below this one.\n\nAlso maybe rename untetherAll to stopAllTethering?",
+      "range": {
+        "startLine": 1206,
+        "startChar": 9,
+        "endLine": 1206,
+        "endChar": 17
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
