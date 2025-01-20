@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f29c8a1_e414c0b4",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-20T02:19:10Z",
+      "side": 1,
+      "message": "As per discussion the other setNetPermForUids should be removed in favor of this one",
+      "revId": "e0942ea1a7f3cd56bc4fb3a1e2f26f599fb60865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f9f7cda_48ce1d06",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-20T02:19:10Z",
+      "side": 1,
+      "message": "Could you move the contents of this block to another method ? It would remove one level of indentation and make it easier to read (it\u0027s not easy to follow that this is \"S does this and T+ does that instead\" because the \"return\" is hard to spot at the end of this block)",
+      "revId": "e0942ea1a7f3cd56bc4fb3a1e2f26f599fb60865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9461853_412ca69a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-20T02:19:10Z",
+      "side": 1,
+      "message": "You could probably simplify this further by using a SparseArray\u003cSparseIntArray\u003e permissionToAppIds;\n\nThis would allow to do stuff like:\n\n```\nif (isValidPermission(permission)) {\n    SparseIntArray permissions \u003d permissionToAppIds.get(permission);\n    // If null make a new one and add to the map\n    permissions.add(appId);\n} else {\n    Log.e(TAG, \"unknown permission...\");\n}\n// Update netd with all the sparseIntArrays\n```\n\nSo \"isValidPermission\" can be reused in the loop for T+ below, and you don\u0027t need to have a loop for it in PermissionMonitor",
+      "revId": "e0942ea1a7f3cd56bc4fb3a1e2f26f599fb60865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5454304_bbcebae3",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1194,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-20T02:19:10Z",
+      "side": 1,
+      "message": "This modifies the SparseIntArray received as argument, which introduces a gotcha for the caller; right now callers don\u0027t seem to reuse the array after calling this method, but they may not expect that it gets changed.\n\nSee suggestion in BpfNetMaps.java to make this unnecessary though",
+      "revId": "e0942ea1a7f3cd56bc4fb3a1e2f26f599fb60865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
