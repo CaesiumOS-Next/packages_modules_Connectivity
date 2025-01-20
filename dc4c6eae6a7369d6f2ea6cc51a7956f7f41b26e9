@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9788d3f_a272b215",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-20T03:02:10Z",
+      "side": 1,
+      "message": "Oops, looks like that method was U+ so it fails on T-\n\nAdded a compat version",
+      "parentUuid": "5e84ce9e_232e4404",
+      "revId": "dc4c6eae6a7369d6f2ea6cc51a7956f7f41b26e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db0986d3_98567ccb",
@@ -76,6 +94,54 @@
         "startChar": 32,
         "endLine": 34,
         "endChar": 52
+      },
+      "revId": "dc4c6eae6a7369d6f2ea6cc51a7956f7f41b26e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18fda4fc_6d1b21ff",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-20T03:02:10Z",
+      "side": 1,
+      "message": "This wouldn\u0027t actually be recognized as a link; in KDoc it needs to be marked with square brackets instead",
+      "parentUuid": "7d8d9a33_bfcdee6b",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 52
+      },
+      "revId": "dc4c6eae6a7369d6f2ea6cc51a7956f7f41b26e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "436a8b47_1780c9dc",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-01-20T03:02:10Z",
+      "side": 1,
+      "message": "This is KDoc syntax: https://kotlinlang.org/docs/kotlin-doc.html#links-to-elements",
+      "parentUuid": "db0986d3_98567ccb",
+      "range": {
+        "startLine": 34,
+        "startChar": 5,
+        "endLine": 34,
+        "endChar": 15
       },
       "revId": "dc4c6eae6a7369d6f2ea6cc51a7956f7f41b26e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
