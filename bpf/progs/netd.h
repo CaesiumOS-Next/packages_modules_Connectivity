@@ -128,6 +128,7 @@ static const int INGRESS_DISCARD_MAP_SIZE = 100;
 static const int PACKET_TRACE_BUF_SIZE = 32 * 1024;
 static const int DATA_SAVER_ENABLED_MAP_SIZE = 1;
 static const int LOCAL_NETWORK_ACCESS_MAP_SIZE = 1000;
+static const int LOCAL_NETWORK_PERMISSION_BLOCK_MAP_SIZE = 1000;
 
 #ifdef __cplusplus
 

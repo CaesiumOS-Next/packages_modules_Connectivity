@@ -86,6 +86,8 @@ DEFINE_BPF_MAP_RW_NETD(lock_array_test_map, ARRAY, uint32_t, bool, 1)
 DEFINE_BPF_MAP_RW_NETD(lock_hash_test_map, HASH, uint32_t, bool, 1)
 DEFINE_BPF_MAP_RO_NETD(local_network_access_map, LPM_TRIE, LocalNetworkAccessKey, bool,
                        LOCAL_NETWORK_ACCESS_MAP_SIZE)
+DEFINE_BPF_MAP_NO_NETD(local_network_perm_block_map, HASH, uint32_t, bool,
+                       -1 * LOCAL_NETWORK_PERMISSION_BLOCK_MAP_SIZE)
 
 /* never actually used from ebpf */
 DEFINE_BPF_MAP_NO_NETD(iface_index_name_map, HASH, uint32_t, IfaceValue, IFACE_INDEX_NAME_MAP_SIZE)
@@ -259,8 +261,16 @@ static inline __always_inline __unused bool get_local_network_access(const uint3
  * address on packet is DISALLOWED.
  */
 static __always_inline inline bool should_block_local_network_packets(struct __sk_buff *skb,
-                                   const struct egress_bool egress, const struct kver_uint kver) {
+                                   const struct egress_bool egress, const uint32_t sock_uid,
+                                   const struct kver_uint kver) {
    if (!KVER_IS_AT_LEAST(kver, 5, 4, 0)) return false;
+   if (is_system_uid(sock_uid))return false;
+
+   bool* block_local_network_for_uid = bpf_local_network_perm_block_map_lookup_elem(&sock_uid);
+   if (block_local_network_for_uid == NULL || !(*block_local_network_for_uid)) {
+        return false;
+   }
+
    struct in6_addr addr = {};
    uint8_t proto = 0;
    uint8_t L4_off = 0;
@@ -580,7 +590,7 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
         if (match == DROP_UNLESS_DNS) match = DROP;
     }
 
-    if ((match != DROP) && should_block_local_network_packets(skb, egress, kver)) match = DROP;
+    if ((match != DROP) && should_block_local_network_packets(skb, egress, sock_uid, kver)) match = DROP;
     if (egress.egress && (match == DROP))  return DROP;
 
     StatsKey key = {.uid = uid, .tag = tag, .counterSet = 0, .ifaceIndex = skb->ifindex};
