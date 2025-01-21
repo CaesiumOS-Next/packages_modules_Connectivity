@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37c539de_2d7f71b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 52
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-21T08:01:38Z",
+      "side": 1,
+      "message": "[Resolving comments that were addressed in aosp/3456003]",
+      "revId": "e4a78a95f4d080a1508cf136763de8261c2bd618",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

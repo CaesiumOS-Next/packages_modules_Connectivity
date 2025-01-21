@@ -173,6 +173,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acf4f03e_1e70cdf1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-21T08:01:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96b222f5_415ab448",
+      "range": {
+        "startLine": 1101,
+        "startChar": 29,
+        "endLine": 1101,
+        "endChar": 59
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bfc7258_78495a24",
@@ -196,6 +220,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83923e61_ff5a8c79",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-21T08:01:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bfc7258_78495a24",
+      "range": {
+        "startLine": 1111,
+        "startChar": 19,
+        "endLine": 1111,
+        "endChar": 25
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d23ea4d4_732079a9",
@@ -209,6 +257,30 @@
       "writtenOn": "2025-01-20T07:23:05Z",
       "side": 1,
       "message": "mention the adb shell cmd to enable hotspot?",
+      "range": {
+        "startLine": 1113,
+        "startChar": 71,
+        "endLine": 1113,
+        "endChar": 72
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ba1748_66939d5f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-21T08:01:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d23ea4d4_732079a9",
       "range": {
         "startLine": 1113,
         "startChar": 71,
@@ -370,6 +442,30 @@
       "writtenOn": "2025-01-20T07:23:05Z",
       "side": 1,
       "message": "Do you think you could rename the legacy methods so they start with legacy\"? That would make the code easier to follow. Would be best to do that in a CL below this one.\n\nAlso maybe rename untetherAll to stopAllTethering?",
+      "range": {
+        "startLine": 1206,
+        "startChar": 9,
+        "endLine": 1206,
+        "endChar": 17
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f49a559_6a51775e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1206,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-21T08:01:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b18837f_23dc140d",
       "range": {
         "startLine": 1206,
         "startChar": 9,
