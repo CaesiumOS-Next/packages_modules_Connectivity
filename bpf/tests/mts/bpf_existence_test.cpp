@@ -169,6 +169,7 @@ static const set<string> MAINLINE_FOR_V_5_4_PLUS = {
 // Provided by *current* mainline module for 25Q2+ devices
 static const set<string> MAINLINE_FOR_25Q2_PLUS = {
     NETD "map_netd_local_network_access_map",
+    NETD "map_netd_local_network_perm_block_map",
 };
 
 

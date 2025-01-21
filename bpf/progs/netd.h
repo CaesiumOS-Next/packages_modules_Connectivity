@@ -128,6 +128,7 @@ static const int INGRESS_DISCARD_MAP_SIZE = 100;
 static const int PACKET_TRACE_BUF_SIZE = 32 * 1024;
 static const int DATA_SAVER_ENABLED_MAP_SIZE = 1;
 static const int LOCAL_NETWORK_ACCESS_MAP_SIZE = 1000;
+static const int LOCAL_NETWORK_PERMISSION_BLOCK_MAP_SIZE = 1000;
 
 #ifdef __cplusplus
 
@@ -187,6 +188,7 @@ ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilte
 #define PACKET_TRACE_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_packet_trace_enabled_map"
 #define DATA_SAVER_ENABLED_MAP_PATH BPF_NETD_PATH "map_netd_data_saver_enabled_map"
 #define LOCAL_NETWORK_ACCESS_MAP_PATH BPF_NETD_PATH "map_netd_local_network_access_map"
+#define LOCAL_NETWORK_PERM_BLOCK_MAP_PATH BPF_NETD_PATH "map_netd_local_network_perm_block_map"
 
 #endif // __cplusplus
 
