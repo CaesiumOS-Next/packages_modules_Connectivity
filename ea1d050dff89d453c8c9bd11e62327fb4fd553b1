@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78b049c9_330c3792",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-21T01:10:17Z",
+      "side": 1,
+      "message": "btw. I\u0027d approve the bpf portions and merge them.",
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e59f6c05_44b79ce1",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-21T01:10:17Z",
+      "side": 1,
+      "message": "are you sure this is appid and not unix uid at this point?\n\ndo you need to % AID_USER_OFFSET",
+      "range": {
+        "startLine": 427,
+        "startChar": 47,
+        "endLine": 427,
+        "endChar": 50
+      },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c496478_7c9f131f",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-21T01:10:17Z",
+      "side": 1,
+      "message": "will be easier to read as\n\nif (!perms) return DROP;  // shouldn\u0027t happen\nreturn (*perms \u0026 BPF_...) ? PASS : DROP;",
+      "range": {
+        "startLine": 431,
+        "startChar": 8,
+        "endLine": 433,
+        "endChar": 9
+      },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed626ce0_80c45ef9",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-21T01:10:17Z",
+      "side": 1,
+      "message": "looks like this should be is_sdksandbox_appid(uint32_t appid)",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 52
+      },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
