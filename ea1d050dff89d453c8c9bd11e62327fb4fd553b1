@@ -66,6 +66,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7fb2cbf7_418803bd",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-21T01:13:50Z",
+      "side": 1,
+      "message": "does this need to be defined in aidl?",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 214,
+        "endChar": 39
+      },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed626ce0_80c45ef9",
         "filename": "bpf/progs/netd.h",
         "patchSetId": 13
@@ -106,6 +129,64 @@
         "endLine": 203,
         "endChar": 69
       },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af1e9185_f32f8979",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-21T01:13:50Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be \u0027permission\u0027",
+      "range": {
+        "startLine": 377,
+        "startChar": 28,
+        "endLine": 377,
+        "endChar": 47
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "98b1b5e6_cb83ed40",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 377,
+                "startChar": 0,
+                "endLine": 378,
+                "endChar": 0
+              },
+              "replacement": "                            permission | PERMISSION_SDKSANDBOX_LOCALHOST);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b547a7c_b4d4e8b0",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-21T01:13:50Z",
+      "side": 1,
+      "message": "better yet, maybe just do \u0027permission |\u003d PERMISSION_SDKSANDBOX_LOCALHOST\nand move the .put() outside the if (would need to not be final)",
       "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
