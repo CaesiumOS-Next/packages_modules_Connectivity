@@ -35,6 +35,8 @@ using base::Result;
 using base::unique_fd;
 using std::function;
 
+#define ABORT(str...) abort()
+
 // This is a class wrapper for eBPF maps. The eBPF map is a special in-kernel
 // data structure that stores data in <Key, Value> pairs. It can be read/write
 // from userspace by passing syscalls with the map file descriptor. This class
@@ -60,14 +62,24 @@ class BpfMapRO {
 
   protected:
     void abortOnMismatch(bool writable) const {
-        if (!mMapFd.ok()) abort();
+        if (!mMapFd.ok())
+          ABORT("mMapFd is not valid (errno=%d)", errno);
         if (isAtLeastKernelVersion(4, 14, 0)) {
             int flags = bpfGetFdMapFlags(mMapFd);
-            if (flags < 0) abort();
-            if (flags & BPF_F_WRONLY) abort();
-            if (writable && (flags & BPF_F_RDONLY)) abort();
-            if (bpfGetFdKeySize(mMapFd) != sizeof(Key)) abort();
-            if (bpfGetFdValueSize(mMapFd) != sizeof(Value)) abort();
+            if (flags < 0)
+              ABORT("bpfGetFdMapsFlags fail: flags=0x%X errno=%d", flags, errno);
+            if (flags & BPF_F_WRONLY)
+              ABORT("map is write only (flags=0x%X)", flags);
+            if (writable && (flags & BPF_F_RDONLY))
+              ABORT("writable map is actually read only (flags=0x%X)", flags);
+            int keySize = bpfGetFdKeySize(mMapFd);
+            if (keySize != sizeof(Key))
+              ABORT("map key size mismatch (expected=%u, actual=%d, errno=%d)",
+                    sizeof(Key), keySize, errno);
+            int valueSize = bpfGetFdValueSize(mMapFd);
+            if (valueSize != sizeof(Value))
+              ABORT("map value size mismatch (expected=%u, actual=%d, errno=%d)",
+                    sizeof(Value), valueSize, errno);
         }
     }
 
@@ -278,8 +290,8 @@ class BpfMap : public BpfMapRO<Key, Value> {
     [[clang::reinitializes]] Result<void> resetMap(bpf_map_type map_type,
                                                    uint32_t max_entries,
                                                    uint32_t map_flags = 0) {
-        if (map_flags & BPF_F_WRONLY) abort();
-        if (map_flags & BPF_F_RDONLY) abort();
+        if (map_flags & BPF_F_WRONLY) ABORT("map_flags is write only");
+        if (map_flags & BPF_F_RDONLY) ABORT("map_flags is read only");
         mMapFd.reset(createMap(map_type, sizeof(Key), sizeof(Value), max_entries,
                                map_flags));
         if (!mMapFd.ok()) return ErrnoErrorf("BpfMap::resetMap() failed");
