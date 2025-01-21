@@ -85,6 +85,29 @@
       },
       "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ed0c3e9_22fa1545",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-21T01:11:22Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be declared where the other PERMISSION_ stuff is?\n\nis there a reason this is here?",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 69
+      },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
