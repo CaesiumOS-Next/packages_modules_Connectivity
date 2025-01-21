@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b77af145_9202e260",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-21T22:38:39Z",
+      "side": 1,
+      "message": "Added thanks!",
+      "parentUuid": "b1b96f5f_f589c5f3",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 87
+      },
+      "revId": "c2b9ffb2c88e0d56478e5e89dadd54431ca8af48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "429f9d0d_68d01a4b",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-21T22:38:39Z",
+      "side": 1,
+      "message": "Got it, updated!",
+      "parentUuid": "3013c982_44f8a5cb",
+      "range": {
+        "startLine": 87,
+        "startChar": 15,
+        "endLine": 87,
+        "endChar": 17
+      },
+      "revId": "c2b9ffb2c88e0d56478e5e89dadd54431ca8af48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f684d4e8_a94fae89",
@@ -60,6 +108,30 @@
       "writtenOn": "2025-01-21T02:49:02Z",
       "side": 1,
       "message": "reverse argument order.",
+      "range": {
+        "startLine": 242,
+        "startChar": 37,
+        "endLine": 242,
+        "endChar": 79
+      },
+      "revId": "c2b9ffb2c88e0d56478e5e89dadd54431ca8af48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0640b3a_a2bcfdfe",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-21T22:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f684d4e8_a94fae89",
       "range": {
         "startLine": 242,
         "startChar": 37,
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bc101f3_b9e6523c",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-21T22:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "530ce251_b7d10459",
+      "range": {
+        "startLine": 248,
+        "startChar": 32,
+        "endLine": 249,
+        "endChar": 52
+      },
+      "revId": "c2b9ffb2c88e0d56478e5e89dadd54431ca8af48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "813af5c1_d7470a38",
@@ -106,6 +202,30 @@
       "writtenOn": "2025-01-21T02:49:02Z",
       "side": 1,
       "message": "spaces, add a comment that u16 instead of u8 due to pad/align requirements.",
+      "range": {
+        "startLine": 265,
+        "startChar": 2,
+        "endLine": 265,
+        "endChar": 4
+      },
+      "revId": "c2b9ffb2c88e0d56478e5e89dadd54431ca8af48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "846c1fb1_d03558b7",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-21T22:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "813af5c1_d7470a38",
       "range": {
         "startLine": 265,
         "startChar": 2,
