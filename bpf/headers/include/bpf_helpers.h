@@ -233,10 +233,12 @@ static void (*bpf_ringbuf_submit_unsafe)(const void* data, __u64 flags) = (void*
 
 #define ABSOLUTE(x) ((x) < 0 ? -(x) : (x))
 
-#define DEFAULT_BPF_MAP_FLAGS(type, num_entries, mapflags)    \
-    ( (mapflags) |                                            \
-      ((num_entries) < 0 ? BPF_F_NO_PREALLOC : 0) |           \
-      (type == BPF_MAP_TYPE_LPM_TRIE ? BPF_F_NO_PREALLOC : 0) \
+#define DEFAULT_BPF_MAP_FLAGS(type, num_entries, mapflags, md)  \
+    ( (mapflags) |                                              \
+      ((num_entries) < 0 ? BPF_F_NO_PREALLOC : 0) |             \
+      (type == BPF_MAP_TYPE_LPM_TRIE ? BPF_F_NO_PREALLOC : 0) | \
+      (md & 0444 ? 0: BPF_F_RDONLY) |                          \
+      (md & 0222 ? 0: BPF_F_WRONLY)                            \
     )
 
 #define DEFINE_BPF_MAP_BASE(the_map, TYPE, keysize, valuesize, num_entries, \
@@ -248,7 +250,7 @@ static void (*bpf_ringbuf_submit_unsafe)(const void* data, __u64 flags) = (void*
         .key_size = (keysize),                                              \
         .value_size = (valuesize),                                          \
         .max_entries = ABSOLUTE(num_entries),                               \
-        .map_flags = DEFAULT_BPF_MAP_FLAGS(BPF_MAP_TYPE_##TYPE, num_entries, mapflags), \
+        .map_flags = DEFAULT_BPF_MAP_FLAGS(BPF_MAP_TYPE_##TYPE, num_entries, mapflags, md), \
         .uid = (usr),                                                       \
         .gid = (grp),                                                       \
         .mode = (md),                                                       \
