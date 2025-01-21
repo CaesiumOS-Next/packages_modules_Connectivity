@@ -104,6 +104,12 @@ DEFINE_BPF_MAP_EXT(local_net_access_map, LPM_TRIE, LocalNetAccessKey, bool, 1000
                    BPFLOADER_MAINLINE_25Q2_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG, LOAD_ON_USER,
                    LOAD_ON_USERDEBUG, 0)
 
+// not preallocated
+DEFINE_BPF_MAP_EXT(local_net_blocked_uid_map, HASH, uint32_t, bool, -1000,
+                   AID_ROOT, AID_NET_BW_ACCT, 0060, "fs_bpf_net_shared", "", PRIVATE,
+                   BPFLOADER_MAINLINE_25Q2_VERSION, BPFLOADER_MAX_VER, LOAD_ON_ENG, LOAD_ON_USER,
+                   LOAD_ON_USERDEBUG, 0)
+
 // iptables xt_bpf programs need to be usable by both netd and netutils_wrappers
 // selinux contexts, because even non-xt_bpf iptables mutations are implemented as
 // a full table dump, followed by an update in userspace, and then a reload into the kernel,
@@ -250,6 +256,26 @@ static inline __always_inline bool is_local_net_access_allowed(const uint32_t if
     return v ? *v : true;
 }
 
+<<<<<<< PATCH SET (cedcf4 Block local network calls if premission is not allowed.)
+static __always_inline inline bool should_block_local_network_packets(struct __sk_buff *skb,
+                                   const struct egress_bool egress, const uint32_t sock_uid,
+                                   const struct kver_uint kver) {
+   if (is_system_uid(sock_uid)) return false;
+
+   bool* block_local_net = bpf_local_net_blocked_uid_map_lookup_elem(&sock_uid);
+   if (!block_local_net) return false; // uid not found in map
+   if (!*block_local_net) return false; // lookup returned 'bool false'
+
+   struct in6_addr remote_ip6 = {};
+   uint8_t proto = 0;
+   uint8_t L4_off = 0;
+||||||| BASE
+static __always_inline inline bool should_block_local_network_packets(struct __sk_buff *skb,
+                                   const struct egress_bool egress, const struct kver_uint kver) {
+   struct in6_addr remote_ip6 = {};
+   uint8_t proto = 0;
+   uint8_t L4_off = 0;
+=======
 static __always_inline inline
 bool should_block_local_network_packets(struct __sk_buff *skb,
                                         const struct egress_bool egress,
@@ -275,6 +301,7 @@ bool should_block_local_network_packets(struct __sk_buff *skb,
     } else {
         return false;
     }
+>>>>>>> BASE      (77e337 bpf netd: Add blocking for ingress local network calls.)
 
     __be16 remote_port = 0;
     switch (ip_proto) {
@@ -548,7 +575,7 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
     }
 
     if (SDK_LEVEL_IS_AT_LEAST(lvl, 25Q2) && (match != DROP)) {
-        if (should_block_local_network_packets(skb, egress, kver)) match = DROP;
+        if (should_block_local_network_packets(skb, egress, sock_uid, kver)) match = DROP;
     }
 
     // If an outbound packet is going to be dropped, we do not count that traffic.
