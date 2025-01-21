@@ -144,6 +144,19 @@ struct kver_uint { unsigned int kver; };
 
 #define KVER_IS_AT_LEAST(kver, a, b, c) ((kver).kver >= KVER(a, b, c).kver)
 
+struct api_uint { unsigned int api; };
+#define API_(v) ((struct api_uint){ .api = (v) })
+#define API_NONE API_(0)
+#define API_S    API_(31) // Android 12
+#define API_Sv2  API_(32) // Android 12L
+#define API_T    API_(33) // Android 13
+#define API_U    API_(34) // Android 14
+#define API_V    API_(35) // Android 15
+#define API_24Q4 API_V
+#define API_25Q2 API_(36) // Android 16
+
+#define API_IS_AT_LEAST(api, v) ((api).api >= (v).api)
+
 /*
  * BPFFS (ie. /sys/fs/bpf) labelling is as follows:
  *   subdirectory   selinux context      mainline  usecase / usable by
