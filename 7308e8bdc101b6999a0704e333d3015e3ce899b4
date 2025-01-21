@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eff915b_af28b6e1",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Fixed in aosp/3456003",
+      "parentUuid": "2c2d9482_ca56077d",
+      "range": {
+        "startLine": 829,
+        "startChar": 65,
+        "endLine": 829,
+        "endChar": 68
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "428563f8_56b8aa10",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-01-20T07:23:05Z",
       "side": 1,
       "message": "Note that this can also find requests to restart an IpServer following a prefix conflict.",
+      "range": {
+        "startLine": 734,
+        "startChar": 26,
+        "endLine": 734,
+        "endChar": 27
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c21690a_522af44d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "428563f8_56b8aa10",
       "range": {
         "startLine": 734,
         "startChar": 26,
@@ -81,6 +129,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5e80cdf_dab22fa2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "381afead_d8c1090d",
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "943c9606_2d4a0ffc",
@@ -94,6 +160,30 @@
       "writtenOn": "2025-01-20T07:23:05Z",
       "side": 1,
       "message": "This comment seems incorrect / out of date now. This code can never remove a request created by another UID. Maybe remove it?",
+      "range": {
+        "startLine": 827,
+        "startChar": 0,
+        "endLine": 829,
+        "endChar": 0
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a26bc092_cc86a97f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "943c9606_2d4a0ffc",
       "range": {
         "startLine": 827,
         "startChar": 0,
@@ -127,6 +217,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa3d3212_e719f96b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d3af6bb_66207d14",
+      "range": {
+        "startLine": 830,
+        "startChar": 45,
+        "endLine": 830,
+        "endChar": 52
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1e1c193_91c0e5fc",
@@ -140,6 +254,30 @@
       "writtenOn": "2025-01-20T07:27:29Z",
       "side": 1,
       "message": "Per discussion: do you think you could make this CL smaller by pulling out into another CL the addition of the tethering request tye and the methods to create requests? That will leave this CL to focus only on the logic.",
+      "range": {
+        "startLine": 1089,
+        "startChar": 29,
+        "endLine": 1089,
+        "endChar": 57
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "389c161c_69322f30",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1e1c193_91c0e5fc",
       "range": {
         "startLine": 1089,
         "startChar": 29,
@@ -186,6 +324,30 @@
       "writtenOn": "2025-01-21T08:01:38Z",
       "side": 1,
       "message": "Done",
+      "parentUuid": "96b222f5_415ab448",
+      "range": {
+        "startLine": 1101,
+        "startChar": 29,
+        "endLine": 1101,
+        "endChar": 59
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4ecc67d_1a906f2d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Added to aosp/3453970",
       "parentUuid": "96b222f5_415ab448",
       "range": {
         "startLine": 1101,
@@ -244,6 +406,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dad4279_96468ed2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Added to aosp/3453970",
+      "parentUuid": "8bfc7258_78495a24",
+      "range": {
+        "startLine": 1111,
+        "startChar": 19,
+        "endLine": 1111,
+        "endChar": 25
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d23ea4d4_732079a9",
@@ -280,6 +466,30 @@
       "writtenOn": "2025-01-21T08:01:38Z",
       "side": 1,
       "message": "Done",
+      "parentUuid": "d23ea4d4_732079a9",
+      "range": {
+        "startLine": 1113,
+        "startChar": 71,
+        "endLine": 1113,
+        "endChar": 72
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83859d7e_19d26ecc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Added to aosp/3453970",
       "parentUuid": "d23ea4d4_732079a9",
       "range": {
         "startLine": 1113,
@@ -360,6 +570,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73a47018_3713419f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8a6c4c1_9ca26d4d",
+      "range": {
+        "startLine": 1190,
+        "startChar": 69,
+        "endLine": 1190,
+        "endChar": 73
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce55a6d1_c36dc340",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c04f317c_070ec655",
+      "range": {
+        "startLine": 1190,
+        "startChar": 17,
+        "endLine": 1190,
+        "endChar": 19
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1138227b_d1da8fd1",
@@ -373,6 +631,30 @@
       "writtenOn": "2025-01-20T07:23:05Z",
       "side": 1,
       "message": ". In that case",
+      "range": {
+        "startLine": 1191,
+        "startChar": 20,
+        "endLine": 1191,
+        "endChar": 21
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ff58915_5cb34f2e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1138227b_d1da8fd1",
       "range": {
         "startLine": 1191,
         "startChar": 20,
@@ -406,6 +688,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "029649ca_3f7c763e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10eae81f_35ab65b2",
+      "range": {
+        "startLine": 1193,
+        "startChar": 8,
+        "endLine": 1193,
+        "endChar": 93
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "072d521a_3c82d6b1",
@@ -419,6 +725,30 @@
       "writtenOn": "2025-01-20T07:23:05Z",
       "side": 1,
       "message": "I\u0027m concerned that if one of the errors in this method happen (line 1182 or 1188) we won\u0027t remove the pending request. Maybe put the remove at the beginning of this method? Or maybe we could have the getOrCreate... method remove it.",
+      "range": {
+        "startLine": 1201,
+        "startChar": 8,
+        "endLine": 1201,
+        "endChar": 50
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d312a391_aae9d407",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1201,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Added the remove call to getOrCreate..,",
+      "parentUuid": "072d521a_3c82d6b1",
       "range": {
         "startLine": 1201,
         "startChar": 8,
@@ -465,6 +795,30 @@
       "writtenOn": "2025-01-21T08:01:38Z",
       "side": 1,
       "message": "Done",
+      "parentUuid": "0b18837f_23dc140d",
+      "range": {
+        "startLine": 1206,
+        "startChar": 9,
+        "endLine": 1206,
+        "endChar": 17
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a35d85c_1e7102fd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1206,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:47Z",
+      "side": 1,
+      "message": "Added to aosp/3453970",
       "parentUuid": "0b18837f_23dc140d",
       "range": {
         "startLine": 1206,
