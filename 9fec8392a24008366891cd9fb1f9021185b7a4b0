@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8211ee53_4aef30f3",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d85e3a9_611e515d",
+      "revId": "9fec8392a24008366891cd9fb1f9021185b7a4b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e8bce8a_0518c363",
@@ -48,6 +66,30 @@
       "writtenOn": "2025-01-21T07:56:53Z",
       "side": 1,
       "message": "Not for this CL, but since these requests are sent by an app, can/should we keep track of the app\u0027s UID and packagename? If we don\u0027t, the UID and package name will be set to 1000 and \"android\", and that creates the risk that we will treat these requests incorrectly in future CLs.",
+      "range": {
+        "startLine": 1041,
+        "startChar": 65,
+        "endLine": 1041,
+        "endChar": 66
+      },
+      "revId": "9fec8392a24008366891cd9fb1f9021185b7a4b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f08e7a77_8d223d18",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1041,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-21T08:50:29Z",
+      "side": 1,
+      "message": "Actually the UID and packagename are set in startTethering, so these will be the default values of -1 and null.\n\nWe can\u0027t actually get the uid/package of the LOHS or Wifi P2P tethering requester either, since these are absent from the broadcasts. We\u0027d need a new API for this.",
+      "parentUuid": "4e8bce8a_0518c363",
       "range": {
         "startLine": 1041,
         "startChar": 65,
