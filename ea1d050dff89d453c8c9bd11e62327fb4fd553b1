@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e7850a6_2148b84a",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-21T23:54:28Z",
+      "side": 1,
+      "message": "yes, this is uid, addressed this in is_sdk_sandbox_uid",
+      "parentUuid": "e59f6c05_44b79ce1",
+      "range": {
+        "startLine": 427,
+        "startChar": 47,
+        "endLine": 427,
+        "endChar": 50
+      },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c496478_7c9f131f",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-01-21T01:10:17Z",
       "side": 1,
       "message": "will be easier to read as\n\nif (!perms) return DROP;  // shouldn\u0027t happen\nreturn (*perms \u0026 BPF_...) ? PASS : DROP;",
+      "range": {
+        "startLine": 431,
+        "startChar": 8,
+        "endLine": 433,
+        "endChar": 9
+      },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b7c8306_47ddce6f",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-21T23:54:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c496478_7c9f131f",
       "range": {
         "startLine": 431,
         "startChar": 8,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "609f4814_04039c64",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-21T23:54:28Z",
+      "side": 1,
+      "message": "I\u0027d say not this one. However, PERMISSION_SDKSANDBOX_LOCALHOST used on PermissionMonitor might be worth adding to INetd.aidl. It won\u0027t be used outside of the module, but just to prevent overloading of the bit by future functionality.",
+      "parentUuid": "7fb2cbf7_418803bd",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 214,
+        "endChar": 39
+      },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed626ce0_80c45ef9",
         "filename": "bpf/progs/netd.h",
         "patchSetId": 13
@@ -100,6 +172,30 @@
       "writtenOn": "2025-01-21T01:10:17Z",
       "side": 1,
       "message": "looks like this should be is_sdksandbox_appid(uint32_t appid)",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 52
+      },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe08c7cd_50464352",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-21T23:54:28Z",
+      "side": 1,
+      "message": "Kept as uid and calculated the aid as suggested below",
+      "parentUuid": "ed626ce0_80c45ef9",
       "range": {
         "startLine": 279,
         "startChar": 0,
@@ -123,6 +219,30 @@
       "writtenOn": "2025-01-21T01:11:22Z",
       "side": 1,
       "message": "shouldn\u0027t this be declared where the other PERMISSION_ stuff is?\n\nis there a reason this is here?",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 69
+      },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5284e46_6bbb9616",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-21T23:54:28Z",
+      "side": 1,
+      "message": "see reply in netd.h",
+      "parentUuid": "8ed0c3e9_22fa1545",
       "range": {
         "startLine": 203,
         "startChar": 0,
