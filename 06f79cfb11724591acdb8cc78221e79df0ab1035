@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfeb21a1_31a3625f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2025-01-21T09:27:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3be2e16a_f34bc2e7",
+      "range": {
+        "startLine": 775,
+        "startChar": 38,
+        "endLine": 775,
+        "endChar": 39
+      },
+      "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1c3b253_e51b90b5",
@@ -83,6 +107,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42efa98f_e37f9187",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2025-01-21T09:27:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b1c3b253_e51b90b5",
+      "range": {
+        "startLine": 785,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 13
+      },
+      "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3656596e_ecc6bcc8",
@@ -120,6 +168,30 @@
           ]
         }
       ],
+      "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "099904e3_be0be3a1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 2801,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2025-01-21T09:27:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3656596e_ecc6bcc8",
+      "range": {
+        "startLine": 2801,
+        "startChar": 48,
+        "endLine": 2801,
+        "endChar": 73
+      },
       "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -252,6 +324,54 @@
           ]
         }
       ],
+      "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02db0432_81a417da",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 3812,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2025-01-21T09:27:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dcdc0c7f_47080974",
+      "range": {
+        "startLine": 3812,
+        "startChar": 27,
+        "endLine": 3812,
+        "endChar": 52
+      },
+      "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dc4dd03_f813e1b3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 3812,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2025-01-21T09:27:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4ab93273_e257ad4a",
+      "range": {
+        "startLine": 3812,
+        "startChar": 20,
+        "endLine": 3812,
+        "endChar": 22
+      },
       "revId": "06f79cfb11724591acdb8cc78221e79df0ab1035",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

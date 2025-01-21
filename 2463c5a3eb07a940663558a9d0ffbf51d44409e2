@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42b43a7d_8bd68c1e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2025-01-21T09:27:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9ea364a5_04d3001d",
+      "range": {
+        "startLine": 1245,
+        "startChar": 0,
+        "endLine": 1247,
+        "endChar": 9
+      },
+      "revId": "2463c5a3eb07a940663558a9d0ffbf51d44409e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85c86203_6bcc6582",
@@ -55,6 +79,24 @@
       "writtenOn": "2024-12-14T12:27:08Z",
       "side": 1,
       "message": "Can we add the listener logic to sendTetherResult instead of forking a different method? We already have the request as an argument and can use the iface there (if it is not null)",
+      "revId": "2463c5a3eb07a940663558a9d0ffbf51d44409e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f6be1ae_a6dc9bec",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2910,
+      "author": {
+        "id": 1611437
+      },
+      "writtenOn": "2025-01-21T09:27:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "85c86203_6bcc6582",
       "revId": "2463c5a3eb07a940663558a9d0ffbf51d44409e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
