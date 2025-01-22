@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fac00307_23a937bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-01-22T03:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1cc67be_7aa9f1c2",
+      "revId": "42fe5bdb144d93dc27d9f430b556ede824c2b8e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51106fb9_3f9ad883",
@@ -78,6 +96,24 @@
       "writtenOn": "2025-01-21T00:13:53Z",
       "side": 1,
       "message": "Could you fall back to previous behavior in that case (just the startActivity) ? So we know that on the devices with unexpected configuration (tethering not included in some FULL secondary users), there won\u0027t be a behavior change",
+      "revId": "42fe5bdb144d93dc27d9f430b556ede824c2b8e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "083ea496_0e7ce2c6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-01-22T03:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c19205d_c77c72cd",
       "revId": "42fe5bdb144d93dc27d9f430b556ede824c2b8e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
