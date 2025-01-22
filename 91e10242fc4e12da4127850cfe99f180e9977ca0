@@ -264,6 +264,24 @@
       "parentUuid": "adf73fe0_49e55c35",
       "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b5740f8_00c4491c",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2025-01-22T22:50:29Z",
+      "side": 1,
+      "message": "I think the log here is still somewhat misleading - it says the UID is \"eligible\" for local network restriction, but in fact it\u0027s just the state changed for its restriction and we don\u0027t know either it\u0027s granted or denied here yet. I think saying something like `State changed for local network restrictions` would remove the ambiguity here.",
+      "parentUuid": "19ad751b_f70d727e",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
