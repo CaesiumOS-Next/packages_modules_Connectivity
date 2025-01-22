@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2326ad14_cdd7c186",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T17:32:01Z",
+      "side": 1,
+      "message": "This is a test only patch you are reverting, it is pretty unlikely to fix b/391508284 which is a failure in a totally different test module (ProTestUpdate).",
+      "revId": "ec1dc5de4fbe1ec6fb60fca54d0ba3434c36949f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
