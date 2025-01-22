@@ -1,0 +1,337 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c85c4c7_c13fe77e",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "RX_MTU ?\nmaybe TX_MTU \u003d 1280 ???",
+      "range": {
+        "startLine": 43,
+        "startChar": 28,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4b94a02_1c548fb1",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "read up to len bytes into bytes[off] and return bytes actually read",
+      "range": {
+        "startLine": 50,
+        "startChar": 24,
+        "endLine": 50,
+        "endChar": 25
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b782962a_17eb7ea5",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "Shutdown read direction - or just say call Os.shutdown(SHUT_RD)",
+      "range": {
+        "startLine": 54,
+        "startChar": 21,
+        "endLine": 54,
+        "endChar": 29
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65bafd36_1c0f7e28",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "does this mean we implement (or should) /extend AutoCloseable ?",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 24
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5b00ed5_90047ca1",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 69,
+        "startChar": 52,
+        "endLine": 69,
+        "endChar": 55
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38796816_ea4dba9f",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "spacing",
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bd33ecf_b02cfb3f",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "the",
+      "range": {
+        "startLine": 84,
+        "startChar": 21,
+        "endLine": 84,
+        "endChar": 36
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff6654b2_e1956fa1",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "this assumes bytes is at least MTU + 1 bytes in size, doc somewhere?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 8
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "528f83d7_9544eef5",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "is this comment helpful? it\u0027ll be dropped both ways...  add \u0027even\u0027 ?",
+      "range": {
+        "startLine": 98,
+        "startChar": 20,
+        "endLine": 98,
+        "endChar": 42
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "065960dd_6e049f01",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "should this goto again? ie. top of this func?",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 26
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ce3946f_4c45b25c",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "would it make sense to just throw ErrnoException and at least simplify these ?",
+      "range": {
+        "startLine": 163,
+        "startChar": 63,
+        "endLine": 163,
+        "endChar": 74
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abf2f7b1_812bc40f",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "so what does this do if you call it multiple times? add comment here?",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 28
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b37dd687_44694117",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "log?",
+      "range": {
+        "startLine": 236,
+        "startChar": 41,
+        "endLine": 236,
+        "endChar": 49
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a320a99_86bbcbe8",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "I guess you need (de)compression?  TODO?",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 20
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb735c06_81a22712",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:48:45Z",
+      "side": 1,
+      "message": "maybe should to {in,e}gressThread.tearDown() and only then {in,e}gressThread.join()",
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
