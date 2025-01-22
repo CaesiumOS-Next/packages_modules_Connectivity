@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33e592f6_ac752afa",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:53:41Z",
+      "side": 1,
+      "message": "currently this assumes egress, but doesn\u0027t check it.\n\nalso logically speaking the uid check should be merged first.",
+      "range": {
+        "startLine": 549,
+        "startChar": 0,
+        "endLine": 549,
+        "endChar": 8
+      },
+      "revId": "41b2738ad87cf068c9a9dd813e794826274be69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
