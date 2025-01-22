@@ -1,0 +1,75 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c81eab2_a8a62f1a",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyLoggerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-22T10:52:48Z",
+      "side": 1,
+      "message": "nit: rename this method and the others below to `logCTLogListUpdatedEventXXX`. Feel free to ignore, though, it\u0027s also fine as is.",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 63
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "bd56f5d3_f574e1d6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyLoggerImpl.java",
+              "range": {
+                "startLine": 35,
+                "startChar": 0,
+                "endLine": 36,
+                "endChar": 0
+              },
+              "replacement": "    public void logCTLogListUpdatedEventWithDownloadStatus(\n"
+            },
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyLoggerImpl.java",
+              "range": {
+                "startLine": 37,
+                "startChar": 0,
+                "endLine": 38,
+                "endChar": 0
+              },
+              "replacement": "        logCTLogListUpdatedEvent(downloadStatusToFailureReason(downloadStatus), failureCount);\n"
+            },
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyLoggerImpl.java",
+              "range": {
+                "startLine": 41,
+                "startChar": 0,
+                "endLine": 43,
+                "endChar": 0
+              },
+              "replacement": "    public void logCTLogListUpdatedEvent(int failureReason, int failureCount) {\n        logCTLogListUpdatedEvent(failureReason, failureCount, /* httpErrorStatusCode\u003d */ 0);\n"
+            },
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyLoggerImpl.java",
+              "range": {
+                "startLine": 46,
+                "startChar": 0,
+                "endLine": 47,
+                "endChar": 0
+              },
+              "replacement": "    public void logCTLogListUpdatedEvent(\n"
+            }
+          ]
+        }
+      ],
+      "revId": "f22deed4ce7edfdfb943fcdbbe9b984f026b3fa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
