@@ -70,6 +70,30 @@
       ],
       "revId": "f22deed4ce7edfdfb943fcdbbe9b984f026b3fa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d96a6c2_b26410fc",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyLoggerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-01-22T10:58:36Z",
+      "side": 1,
+      "message": "If it\u0027s alright, I was planning on renaming the method in a follow-up CL to keep this one focused on just making any necessary updates from the atom change to keep it from ballooning out (as I also will likely need to adjust the interface).",
+      "parentUuid": "9c81eab2_a8a62f1a",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 63
+      },
+      "revId": "f22deed4ce7edfdfb943fcdbbe9b984f026b3fa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
