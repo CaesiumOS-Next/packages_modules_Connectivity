@@ -22,6 +22,30 @@
       },
       "revId": "39bc158acd126bc1adb6400f263cacf0d6d7fed7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b698d9d_33b2e137",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2025-01-22T16:34:07Z",
+      "side": 1,
+      "message": "isAtLeastW() is not yet an API, leave as a V check for now",
+      "parentUuid": "dcde6858_e1549f48",
+      "range": {
+        "startLine": 486,
+        "startChar": 22,
+        "endLine": 486,
+        "endChar": 32
+      },
+      "revId": "39bc158acd126bc1adb6400f263cacf0d6d7fed7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
