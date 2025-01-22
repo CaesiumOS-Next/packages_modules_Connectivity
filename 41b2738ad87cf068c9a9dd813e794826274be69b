@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "566cabb5_136fb2f9",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:59:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ebf6f9a_bb85042c",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 22
+      },
+      "revId": "41b2738ad87cf068c9a9dd813e794826274be69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb02cbe0_2611ae56",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34458e6d_336bd858",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:59:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb02cbe0_2611ae56",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 19
+      },
+      "revId": "41b2738ad87cf068c9a9dd813e794826274be69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33e592f6_ac752afa",
@@ -83,6 +131,30 @@
       "writtenOn": "2025-01-22T23:53:41Z",
       "side": 1,
       "message": "currently this assumes egress, but doesn\u0027t check it.\n\nalso logically speaking the uid check should be merged first.",
+      "range": {
+        "startLine": 549,
+        "startChar": 0,
+        "endLine": 549,
+        "endChar": 8
+      },
+      "revId": "41b2738ad87cf068c9a9dd813e794826274be69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2ee6617_206a38a7",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:59:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33e592f6_ac752afa",
       "range": {
         "startLine": 549,
         "startChar": 0,
