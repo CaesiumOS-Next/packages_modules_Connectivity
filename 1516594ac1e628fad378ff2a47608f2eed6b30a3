@@ -1,0 +1,206 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ec1b166_101968b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:21:35Z",
+      "side": 1,
+      "message": "remove the",
+      "range": {
+        "startLine": 7,
+        "startChar": 32,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f0278a5_3147b0ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:21:35Z",
+      "side": 1,
+      "message": "Block",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "945d5388_e9358562",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:21:35Z",
+      "side": 1,
+      "message": "localnet_blocked_uid_map",
+      "range": {
+        "startLine": 89,
+        "startChar": 37,
+        "endLine": 89,
+        "endChar": 47
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6110f54c_21485352",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:21:35Z",
+      "side": 1,
+      "message": "// not preallocated",
+      "range": {
+        "startLine": 90,
+        "startChar": 67,
+        "endLine": 90,
+        "endChar": 68
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e83e006b_1790fb00",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:21:35Z",
+      "side": 1,
+      "message": "space before return",
+      "range": {
+        "startLine": 267,
+        "startChar": 31,
+        "endLine": 267,
+        "endChar": 37
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0bc5f94_313f6102",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:21:35Z",
+      "side": 1,
+      "message": "block_localnet \u003d",
+      "range": {
+        "startLine": 269,
+        "startChar": 9,
+        "endLine": 269,
+        "endChar": 36
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee2a469c_52811948",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:21:35Z",
+      "side": 1,
+      "message": "if (!block_localnet) return false;  // uid not found in map\nif (!*block_localnet) return false;  // lookup returned \u0027bool false\u0027",
+      "range": {
+        "startLine": 270,
+        "startChar": 3,
+        "endLine": 270,
+        "endChar": 5
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb1cb69d_6c796410",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:21:35Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 64
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "88035601_e64cd4cf",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 131,
+                "startChar": 0,
+                "endLine": 132,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
