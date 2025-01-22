@@ -509,6 +509,76 @@ public class EthernetNetworkFactoryTest {
     }
 
     @Test
+    public void testUpdateInterfaceSameConfigurationAndCapabilitiesNoRestart() throws Exception {
+        initEthernetNetworkFactory();
+        createAndVerifyProvisionedInterface(TEST_IFACE);
+
+        NetworkCapabilities capabilities = createDefaultFilterCaps();
+        IpConfiguration ipConfiguration = createStaticIpConfig();
+        mNetFactory.updateInterface(TEST_IFACE, ipConfiguration, capabilities);
+
+        triggerOnProvisioningSuccess();
+        verifyRestart(ipConfiguration);
+
+        clearInvocations(mDeps);
+        clearInvocations(mIpClient);
+        clearInvocations(mNetworkAgent);
+
+        mNetFactory.updateInterface(TEST_IFACE, ipConfiguration, capabilities);
+        verifyNoStopOrStart();
+    }
+
+    @Test
+    public void testUpdateInterfaceDifferentConfigurationRestartsAgentCorrectly()
+            throws Exception {
+        initEthernetNetworkFactory();
+        createAndVerifyProvisionedInterface(TEST_IFACE);
+
+        NetworkCapabilities capabilities = createDefaultFilterCaps();
+        IpConfiguration initialIpConfiguration = createStaticIpConfig();
+        mNetFactory.updateInterface(TEST_IFACE, initialIpConfiguration, capabilities);
+
+        triggerOnProvisioningSuccess();
+        verifyRestart(initialIpConfiguration);
+
+        clearInvocations(mDeps);
+        clearInvocations(mIpClient);
+        clearInvocations(mNetworkAgent);
+
+        IpConfiguration newIpConfiguration = createDefaultIpConfig();
+        mNetFactory.updateInterface(TEST_IFACE, newIpConfiguration, capabilities);
+        triggerOnProvisioningSuccess();
+        verifyRestart(newIpConfiguration);
+    }
+
+    @Test
+    public void testUpdateInterfaceDifferentCapabilitiesRestartsAgentCorrectly()
+            throws Exception {
+        initEthernetNetworkFactory();
+        createAndVerifyProvisionedInterface(TEST_IFACE);
+
+        NetworkCapabilities initialCapabilities = createDefaultFilterCaps();
+        IpConfiguration ipConfiguration = createStaticIpConfig();
+        mNetFactory.updateInterface(TEST_IFACE, ipConfiguration, initialCapabilities);
+
+        triggerOnProvisioningSuccess();
+        verifyRestart(ipConfiguration);
+
+        clearInvocations(mDeps);
+        clearInvocations(mIpClient);
+        clearInvocations(mNetworkAgent);
+
+        NetworkCapabilities newCapabilities =
+                createInterfaceCapsBuilder(NetworkCapabilities.TRANSPORT_ETHERNET).build();
+        mNetFactory.updateInterface(TEST_IFACE, ipConfiguration, newCapabilities);
+        triggerOnProvisioningSuccess();
+        verify(mDeps)
+                .makeEthernetNetworkAgent(
+                        any(), any(), eq(newCapabilities), any(), any(), any(), any());
+        verifyRestart(ipConfiguration);
+    }
+
+    @Test
     public void testUpdateInterfaceForNonExistingInterface() throws Exception {
         initEthernetNetworkFactory();
         // No interface exists due to not calling createAndVerifyProvisionedInterface(...).
