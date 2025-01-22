@@ -452,15 +452,17 @@ public class EthernetNetworkFactory {
                 );
             }
 
+            if (mIpConfig.equals(ipConfig) && mCapabilities.equals(capabilities)) {
+                return;
+            }
+
             if (null != ipConfig){
                 mIpConfig = ipConfig;
             }
             if (null != capabilities) {
                 setCapabilities(capabilities);
             }
-            // TODO: Update this logic to only do a restart if required. Although a restart may
-            //  be required due to the capabilities or ipConfiguration values, not all
-            //  capabilities changes require a restart.
+
             maybeRestart();
         }
 
