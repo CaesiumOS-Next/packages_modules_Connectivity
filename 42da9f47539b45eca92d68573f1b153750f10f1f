@@ -1,0 +1,91 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61514e20_1d8d5e56",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T03:26:29Z",
+      "side": 1,
+      "message": "does this only need to work on 25Q2+?\n\nif so please rebase, the framework for this should already be ready, though final patches are still outstanding in https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3460750\n\nwe might want to do something similar here to keep bpf verifier code complexity low on older devices",
+      "range": {
+        "startLine": 427,
+        "startChar": 0,
+        "endLine": 427,
+        "endChar": 4
+      },
+      "revId": "42da9f47539b45eca92d68573f1b153750f10f1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c426713_e9731040",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T03:26:29Z",
+      "side": 1,
+      "message": "I wonder if it\u0027s safer to only return DROP here, and fall through to PASS below... in case we ever want to add more drop rules",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 76
+      },
+      "revId": "42da9f47539b45eca92d68573f1b153750f10f1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8059b315_2915cf34",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T03:26:29Z",
+      "side": 1,
+      "message": "appid or app_id, aid seems to mean \u0027android id\u0027",
+      "range": {
+        "startLine": 281,
+        "startChar": 13,
+        "endLine": 281,
+        "endChar": 16
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "180b792f_1753c8c6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 281,
+                "startChar": 0,
+                "endLine": 284,
+                "endChar": 0
+              },
+              "replacement": "    uint32_t app_id \u003d uid % AID_USER_OFFSET;\n    return app_id \u003e\u003d AID_SDK_SANDBOX_PROCESS_START \u0026\u0026\n            app_id \u003c\u003d AID_SDK_SANDBOX_PROCESS_END;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "42da9f47539b45eca92d68573f1b153750f10f1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
