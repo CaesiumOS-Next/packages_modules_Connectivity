@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53f33101_075692e4",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-22T18:53:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8f9f33a_e76484a0",
+      "range": {
+        "startLine": 87,
+        "startChar": 23,
+        "endLine": 87,
+        "endChar": 47
+      },
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab510dd8_db4f7796",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-22T02:13:00Z",
       "side": 1,
       "message": "False iff arguments are found with longest prefix match lookup *and* disallowed.",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 99
+      },
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e11e63f0_65d090f9",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-22T18:53:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab510dd8_db4f7796",
       "range": {
         "startLine": 239,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c928aa2a_da713bcf",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-22T18:53:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c233e69_ad73c5b7",
+      "range": {
+        "startLine": 241,
+        "startChar": 44,
+        "endLine": 241,
+        "endChar": 47
+      },
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "824391b3_fbcd42de",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-01-22T02:13:00Z",
       "side": 1,
       "message": "spacing. suggest }; lined up with Local, and the innards indented by 4 (or 8)",
+      "range": {
+        "startLine": 243,
+        "startChar": 39,
+        "endLine": 250,
+        "endChar": 34
+      },
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "317701ba_767a1a9a",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-22T18:53:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "824391b3_fbcd42de",
       "range": {
         "startLine": 243,
         "startChar": 39,
@@ -601,6 +697,24 @@
       "writtenOn": "2025-01-22T02:13:00Z",
       "side": 1,
       "message": "spurious newline",
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a8e380b_a0bbc81e",
+        "filename": "bpf/tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-22T18:53:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abd6f9e7_b94bec6e",
       "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
