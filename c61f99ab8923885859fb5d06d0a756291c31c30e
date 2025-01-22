@@ -243,6 +243,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77cba3be_a7f74554",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-22T08:33:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc534193_d47a5bed",
+      "range": {
+        "startLine": 521,
+        "startChar": 19,
+        "endLine": 521,
+        "endChar": 39
+      },
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba5b36ac_f95a881e",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-22T08:33:15Z",
+      "side": 1,
+      "message": "Thanks for explanation, added.",
+      "parentUuid": "97e21fa2_3a5fd5ab",
+      "range": {
+        "startLine": 521,
+        "startChar": 59,
+        "endLine": 521,
+        "endChar": 79
+      },
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf1b1bea_e8ee4e08",
