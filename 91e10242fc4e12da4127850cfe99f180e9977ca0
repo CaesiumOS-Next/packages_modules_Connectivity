@@ -195,6 +195,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d25f97a1_12254b9c",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-01-22T21:36:18Z",
+      "side": 1,
+      "message": "Closing this thread",
+      "parentUuid": "9f6e2c96_efbd19e9",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9527531_cec22171",
@@ -226,6 +244,24 @@
       "side": 1,
       "message": "Yes that\u0027s correct. It actually only tells us that _a_ permission has changed, not necessarily that the specific NEARBY_WIFI_DEVICES permission has changed (there isn\u0027t an API that does that). With that said, users are unlikely to be changing permissions in large batches so this should not be terribly expensive, either.",
       "parentUuid": "c9527531_cec22171",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19ad751b_f70d727e",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-01-22T21:36:18Z",
+      "side": 1,
+      "message": "Closing out this thread",
+      "parentUuid": "adf73fe0_49e55c35",
       "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
