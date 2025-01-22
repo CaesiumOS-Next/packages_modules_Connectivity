@@ -1,0 +1,346 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab510dd8_db4f7796",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "False iff arguments are found with longest prefix match lookup *and* disallowed.",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 99
+      },
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c233e69_ad73c5b7",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "allow\n\nor is_local_net_access_allowed",
+      "range": {
+        "startLine": 241,
+        "startChar": 44,
+        "endLine": 241,
+        "endChar": 47
+      },
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "824391b3_fbcd42de",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "spacing. suggest }; lined up with Local, and the innards indented by 4 (or 8)",
+      "range": {
+        "startLine": 243,
+        "startChar": 39,
+        "endLine": 250,
+        "endChar": 34
+      },
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70c1c166_bb2e6cba",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "let\u0027s just put 1000 in the map def instead\n\nI want to get rid of these _SIZE constants from the .h to allow resizing things more dynamically at boot time.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 54
+      },
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82f2e68c_19459747",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "Longest prefix match length in bits (value from 0 to 192).",
+      "range": {
+        "startLine": 251,
+        "startChar": 6,
+        "endLine": 253,
+        "endChar": 45
+      },
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc235fb5_1a25c216",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 21
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c9ac1ed6_526ea0ea",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 260,
+                "startChar": 0,
+                "endLine": 261,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d37368bc_c3a7d02a",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 262,
+        "startChar": 5,
+        "endLine": 262,
+        "endChar": 28
+      },
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e9f573f_b095819e",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "remote_ip6/remote_addr",
+      "range": {
+        "startLine": 263,
+        "startChar": 18,
+        "endLine": 263,
+        "endChar": 22
+      },
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38fc9339_efbf83b7",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "// u16 instead of u8 due to avoid padding due to alignment requirement.",
+      "range": {
+        "startLine": 264,
+        "startChar": 2,
+        "endLine": 267,
+        "endChar": 5
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "6979ca7e_f855e122",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 264,
+                "startChar": 0,
+                "endLine": 268,
+                "endChar": 0
+              },
+              "replacement": "  // Protocol number for lookup. u16 instead of u8 due to padding/alignment requirement.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "472ff923_49343a3b",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 268,
+        "startChar": 2,
+        "endLine": 268,
+        "endChar": 3
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9fb4ea33_89a1d907",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 268,
+                "startChar": 0,
+                "endLine": 269,
+                "endChar": 0
+              },
+              "replacement": "  uint16_t protocol;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfe74213_57b6c2ba",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "remote_port",
+      "range": {
+        "startLine": 270,
+        "startChar": 9,
+        "endLine": 270,
+        "endChar": 13
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "8492d93a_71d453b0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/progs/netd.h",
+              "range": {
+                "startLine": 270,
+                "startChar": 0,
+                "endLine": 271,
+                "endChar": 0
+              },
+              "replacement": "  __be16 remote_port;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abd6f9e7_b94bec6e",
+        "filename": "bpf/tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:13:00Z",
+      "side": 1,
+      "message": "spurious newline",
+      "revId": "146962d8de462ec92bbc89b886393d5f5f5d1ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
