@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69432b3a_d4849d78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T05:05:51Z",
+      "side": 1,
+      "message": "reran failing tests locally:\n\n$ atest RegisteredServicesCacheTest\n\nx86_64 FrameworksCoreTests\n--------------------------\ncom.android.frameworks.coretests (6 Tests)\n[1/6] android.content.pm.RegisteredServicesCacheTest#testGetAllServicesHappyPath: PASSED (27ms)\n[2/6] android.content.pm.RegisteredServicesCacheTest#testGetAllServicesMultiUser: PASSED (50ms)\n[3/6] android.content.pm.RegisteredServicesCacheTest#testGetAllServicesReplaceUid: PASSED (50ms)\n[4/6] android.content.pm.RegisteredServicesCacheTest#testGetAllServicesServiceRemoved: PASSED (25ms)\n[5/6] android.content.pm.RegisteredServicesCacheTest#testMigration: PASSED (75ms)\n[6/6] android.content.pm.RegisteredServicesCacheTest#testOnRemove: PASSED (50ms)\n\nSummary (Test executed with 1 devices.)\n-------\nx86_64 FrameworksCoreTests:com.android.frameworks.coretests: Passed: 6, Failed: 0, Ignored: 0, Assumption Failed: 0",
+      "revId": "34cd3cde165e91dc00a8c5062addedde690de3f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
