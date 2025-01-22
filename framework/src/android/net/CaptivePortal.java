@@ -207,7 +207,9 @@ public class CaptivePortal implements Parcelable {
      *
      * @hide
      */
-    @RequiresPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)
+    @RequiresPermission(anyOf = {
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
+            android.Manifest.permission.NETWORK_SETTINGS})
     // OutcomeReceiver is not available on R, but the mainline version of this
     // class is only available on S+.
     @TargetApi(Build.VERSION_CODES.S)
