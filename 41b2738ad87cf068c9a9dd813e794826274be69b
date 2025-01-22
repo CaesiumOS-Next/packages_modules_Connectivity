@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d11e6cce_0c47a8d5",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:57:31Z",
+      "side": 1,
+      "message": "ip_proto is probably a better name to more cleanly distinguish from skb-\u003eprotocol",
+      "range": {
+        "startLine": 258,
+        "startChar": 11,
+        "endLine": 258,
+        "endChar": 16
+      },
+      "revId": "41b2738ad87cf068c9a9dd813e794826274be69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ebf6f9a_bb85042c",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:57:31Z",
+      "side": 1,
+      "message": "proto \u0026 L4_off do not need to be initialized, they\u0027re always written to before being read  (bpf_skb_load_bytes_net zeroes dst buffer on error)",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 22
+      },
+      "revId": "41b2738ad87cf068c9a9dd813e794826274be69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb02cbe0_2611ae56",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T23:57:31Z",
+      "side": 1,
+      "message": "this should be within the if (ETH_P_IP) block and does not require \u003d 0",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 19
+      },
+      "revId": "41b2738ad87cf068c9a9dd813e794826274be69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33e592f6_ac752afa",
         "filename": "bpf/progs/netd.c",
         "patchSetId": 12
