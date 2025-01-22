@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f34e2da8_45b55438",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:24:34Z",
+      "side": 1,
+      "message": "remote_ip_ofs",
+      "range": {
+        "startLine": 268,
+        "startChar": 6,
+        "endLine": 268,
+        "endChar": 12
+      },
+      "revId": "b5a48d71ae71d86299ad4c08fa8c3c29ddd8ce5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a9d671_1cdc1ebd",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:24:34Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 268,
+        "startChar": 12,
+        "endLine": 268,
+        "endChar": 16
+      },
+      "revId": "b5a48d71ae71d86299ad4c08fa8c3c29ddd8ce5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62fad996_f2adb0b1",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:24:34Z",
+      "side": 1,
+      "message": "make this the if, and egress.egress ? ... : ...",
+      "range": {
+        "startLine": 270,
+        "startChar": 15,
+        "endLine": 270,
+        "endChar": 50
+      },
+      "revId": "b5a48d71ae71d86299ad4c08fa8c3c29ddd8ce5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58568024_bcec4913",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-22T02:24:34Z",
+      "side": 1,
+      "message": "L4_off + (egress.egress ? 2 : 0)",
+      "range": {
+        "startLine": 309,
+        "startChar": 47,
+        "endLine": 309,
+        "endChar": 57
+      },
+      "revId": "b5a48d71ae71d86299ad4c08fa8c3c29ddd8ce5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
