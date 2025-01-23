@@ -25,6 +25,8 @@ import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED_KEY;
 import static android.net.BpfNetMapsConstants.DATA_SAVER_ENABLED_MAP_PATH;
 import static android.net.BpfNetMapsConstants.IIF_MATCH;
 import static android.net.BpfNetMapsConstants.INGRESS_DISCARD_MAP_PATH;
+import static android.net.BpfNetMapsConstants.LOCAL_NET_ACCESS_MAP_PATH;
+import static android.net.BpfNetMapsConstants.LOCAL_NET_BLOCKED_UID_MAP_PATH;
 import static android.net.BpfNetMapsConstants.LOCKDOWN_VPN_MATCH;
 import static android.net.BpfNetMapsConstants.UID_OWNER_MAP_PATH;
 import static android.net.BpfNetMapsConstants.UID_PERMISSION_MAP_PATH;
@@ -72,8 +74,10 @@ import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfDump;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.IBpfMap;
+import com.android.net.module.util.InetAddressUtils;
 import com.android.net.module.util.SingleWriterBpfMap;
 import com.android.net.module.util.Struct;
+import com.android.net.module.util.Struct.Bool;
 import com.android.net.module.util.Struct.S32;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
@@ -81,9 +85,12 @@ import com.android.net.module.util.bpf.CookieTagMapKey;
 import com.android.net.module.util.bpf.CookieTagMapValue;
 import com.android.net.module.util.bpf.IngressDiscardKey;
 import com.android.net.module.util.bpf.IngressDiscardValue;
+import com.android.net.module.util.bpf.LocalNetAccessKey;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
@@ -130,6 +137,9 @@ public class BpfNetMaps {
     // TODO: Add BOOL class and replace U8?
     private static IBpfMap<S32, U8> sDataSaverEnabledMap = null;
     private static IBpfMap<IngressDiscardKey, IngressDiscardValue> sIngressDiscardMap = null;
+
+    private static IBpfMap<LocalNetAccessKey, Bool> sLocalNetAccessMap = null;
+    private static IBpfMap<U32, Bool> sLocalNetBlockedUidMap = null;
 
     private static final List<Pair<Integer, String>> PERMISSION_LIST = Arrays.asList(
             Pair.create(PERMISSION_INTERNET, "PERMISSION_INTERNET"),
@@ -185,6 +195,25 @@ public class BpfNetMaps {
             IBpfMap<IngressDiscardKey, IngressDiscardValue> ingressDiscardMap) {
         sIngressDiscardMap = ingressDiscardMap;
     }
+
+    /**
+     * Set localNetAccessMap for test.
+     */
+    @VisibleForTesting
+    public static void setLocalNetAccessMapForTest(
+            IBpfMap<LocalNetAccessKey, Bool> localNetAccessMap) {
+        sLocalNetAccessMap = localNetAccessMap;
+    }
+
+    /**
+     * Set localNetBlockedUidMap for test.
+     */
+    @VisibleForTesting
+    public static void setLocalNetBlockedUidMapForTest(
+            IBpfMap<U32, Bool> localNetBlockedUidMap) {
+        sLocalNetBlockedUidMap = localNetBlockedUidMap;
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private static IBpfMap<S32, U32> getConfigurationMap() {
@@ -247,6 +276,26 @@ public class BpfNetMaps {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.CUR_DEVELOPMENT)
+    private static IBpfMap<U32, Bool> getLocalNetBlockedUidMap() {
+        try {
+            return SingleWriterBpfMap.getSingleton(LOCAL_NET_BLOCKED_UID_MAP_PATH,
+                    U32.class, Bool.class);
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Cannot open local_net_blocked_uid map", e);
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.CUR_DEVELOPMENT)
+    private static IBpfMap<LocalNetAccessKey, Bool> getLocalNetAccessMap() {
+        try {
+            return SingleWriterBpfMap.getSingleton(LOCAL_NET_ACCESS_MAP_PATH,
+                    LocalNetAccessKey.class, Bool.class);
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Cannot open local_net_access map", e);
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private static void initBpfMaps() {
         if (sConfigurationMap == null) {
@@ -299,6 +348,28 @@ public class BpfNetMaps {
         } catch (ErrnoException e) {
             throw new IllegalStateException("Failed to initialize ingress discard map", e);
         }
+
+        //Currently aosp have not changed its android sdk version, so isAtLeastB is returning false
+        // ToDo : add the check once aosp sdk version is finalised.
+        //if(SdkLevel.isAtLeastB()) {
+        if (sLocalNetAccessMap == null) {
+            sLocalNetAccessMap = getLocalNetAccessMap();
+        }
+        try {
+            sLocalNetAccessMap.clear();
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Failed to initialize local_net_access map", e);
+        }
+
+        if (sLocalNetBlockedUidMap == null) {
+            sLocalNetBlockedUidMap = getLocalNetBlockedUidMap();
+        }
+        try {
+            sLocalNetBlockedUidMap.clear();
+        } catch (ErrnoException e) {
+            throw new IllegalStateException("Failed to initialize local_net_blocked_uid map", e);
+        }
+        //}
     }
 
     /**
@@ -385,6 +456,14 @@ public class BpfNetMaps {
         if (!SdkLevel.isAtLeastT()) {
             throw new UnsupportedOperationException(msg);
         }
+    }
+
+    private void throwIfPreB(final String msg) {
+        //Currently aosp have not changed its android sdk version, so isAtLeastB is returning false
+        // ToDo : add the check once aosp sdk version is finalised.
+        //if (!SdkLevel.isAtLeastB()) {
+        //    throw new UnsupportedOperationException(msg);
+        //}
     }
 
     private void removeRule(final int uid, final long match, final String caller) {
@@ -810,6 +889,78 @@ public class BpfNetMaps {
     }
 
     /**
+     * Add configuration to local_net_access trie map.
+     * @param lpmBitlen prefix length that will be used for longest matching
+     * @param ifIndex interface index
+     * @param address remote address. ipv4 addresses would be mapped to v6/
+     * @param protocol required for longest match in special cases
+     * @param remotePort src/dst port for ingress/egress
+     * @param isAllowed is the local network call allowed or blocked.
+     * @throws RemoteException
+     */
+    @RequiresApi(Build.VERSION_CODES.CUR_DEVELOPMENT)
+    public void addLocalNetAccess(final int lpmBitlen, final int ifIndex, final InetAddress address,
+            final int protocol, final int remotePort, final boolean isAllowed)
+            throws RemoteException {
+        throwIfPreB("addLocalNetAccess is not available on pre-B devices");
+        Inet6Address remotedAddress  = (address instanceof Inet6Address) ? (Inet6Address) address :
+                InetAddressUtils.v4MappedV6Address((Inet4Address) address);
+        LocalNetAccessKey localNetAccessKey = new LocalNetAccessKey(lpmBitlen, ifIndex,
+                remotedAddress, protocol, remotePort);
+
+        try {
+            sLocalNetAccessMap.updateEntry(localNetAccessKey, new Bool(isAllowed));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to add local network access for localNetAccessKey : "
+                    + localNetAccessKey + ", isAllowed : " + isAllowed);
+        }
+    }
+
+    /**
+     * Add uid to local_net_blocked_uid map.
+     * @param uid application uid that needs to block local network calls.
+     */
+    @RequiresApi(Build.VERSION_CODES.CUR_DEVELOPMENT)
+    public void addUidToLocalNetBlockMap(final int uid) {
+        throwIfPreB("addUidToLocalNetBlockMap is not available on pre-B devices");
+        try {
+            sLocalNetBlockedUidMap.updateEntry(new U32(uid), new Bool(true));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to add local network blocked for uid : " + uid);
+        }
+    }
+
+    /**
+     * Find if uid is present in local_net_blocked_uid map.
+     * @param uid application uid that needs check if local network calls are blocked.
+     */
+    @RequiresApi(Build.VERSION_CODES.CUR_DEVELOPMENT)
+    public boolean isUidPresentInLocalNetBlockMap(final int uid) {
+        throwIfPreB("isUidPresentInLocalNetBlockMap is not available on pre-B devices");
+        try {
+            return sLocalNetBlockedUidMap.containsKey(new U32(uid));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to find if uid(" + uid
+                    + ") is present in local network blocked map");
+        }
+        return false;
+    }
+
+    /**
+     * Remove uid from local_net_blocked_uid map(if present).
+     * @param uid application uid that needs check if local network calls are blocked.
+     */
+    @RequiresApi(Build.VERSION_CODES.CUR_DEVELOPMENT)
+    public void removeUidFromLocalNetBlockMap(final int uid) {
+        throwIfPreB("removeUidFromLocalNetBlockMap is not available on pre-B devices");
+        try {
+            sLocalNetBlockedUidMap.deleteEntry(new U32(uid));
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to remove uid(" + uid + ") from local network blocked map");
+        }
+    }
+
+    /**
      * Get granted permissions for specified uid. If uid is not in the map, this method returns
      * {@link android.net.INetd.PERMISSION_INTERNET} since this is a default permission.
      * See {@link #setNetPermForUids}
@@ -1079,6 +1230,14 @@ public class BpfNetMaps {
                     (key, value) -> "[" + key.dstAddr + "]: "
                             + value.iif1 + "(" + mDeps.getIfName(value.iif1) + "), "
                             + value.iif2 + "(" + mDeps.getIfName(value.iif2) + ")");
+            if (sLocalNetBlockedUidMap != null) {
+                BpfDump.dumpMap(sLocalNetAccessMap, pw, "sLocalNetAccessMap",
+                        (key, value) -> "[" + key + "]: " + value);
+            }
+            if (sLocalNetBlockedUidMap != null) {
+                BpfDump.dumpMap(sLocalNetBlockedUidMap, pw, "sLocalNetBlockedUidMap",
+                        (key, value) -> "[" + key + "]: " + value);
+            }
             dumpDataSaverConfig(pw);
             pw.decreaseIndent();
         }
