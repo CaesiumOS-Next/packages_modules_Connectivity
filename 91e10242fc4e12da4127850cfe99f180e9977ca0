@@ -300,6 +300,24 @@
       "parentUuid": "1b5740f8_00c4491c",
       "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33619983_065067a9",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2025-01-23T21:29:12Z",
+      "side": 1,
+      "message": "Yes, that makes sense to me.",
+      "parentUuid": "b3a6e59e_fe736ffa",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
