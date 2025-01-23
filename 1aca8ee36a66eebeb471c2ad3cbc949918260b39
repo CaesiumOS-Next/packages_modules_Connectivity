@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc8e9a7a_1274f563",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-23T02:34:09Z",
+      "side": 1,
+      "message": "Both failures are on S base image - but we\u0027re only modifying netd.o, which is in a directory in the apex which isn\u0027t even looked at by the S bpfloader...",
+      "revId": "1aca8ee36a66eebeb471c2ad3cbc949918260b39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
