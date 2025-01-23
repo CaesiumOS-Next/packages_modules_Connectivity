@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f162ce11_c7b3c2a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-23T00:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ec1b166_101968b1",
+      "range": {
+        "startLine": 7,
+        "startChar": 32,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76c55a21_4ec929ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-23T00:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f0278a5_3147b0ea",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "945d5388_e9358562",
@@ -60,6 +108,30 @@
       "writtenOn": "2025-01-22T02:21:35Z",
       "side": 1,
       "message": "localnet_blocked_uid_map",
+      "range": {
+        "startLine": 89,
+        "startChar": 37,
+        "endLine": 89,
+        "endChar": 47
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad332d18_aa9ef1c3",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-23T00:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "945d5388_e9358562",
       "range": {
         "startLine": 89,
         "startChar": 37,
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6a4b6d4_e54b4e00",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-23T00:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6110f54c_21485352",
+      "range": {
+        "startLine": 90,
+        "startChar": 67,
+        "endLine": 90,
+        "endChar": 68
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e83e006b_1790fb00",
@@ -106,6 +202,30 @@
       "writtenOn": "2025-01-22T02:21:35Z",
       "side": 1,
       "message": "space before return",
+      "range": {
+        "startLine": 267,
+        "startChar": 31,
+        "endLine": 267,
+        "endChar": 37
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a4a4b1e_77d4e415",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-23T00:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e83e006b_1790fb00",
       "range": {
         "startLine": 267,
         "startChar": 31,
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2385799d_a5157e7e",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-23T00:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0bc5f94_313f6102",
+      "range": {
+        "startLine": 269,
+        "startChar": 9,
+        "endLine": 269,
+        "endChar": 36
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee2a469c_52811948",
@@ -152,6 +296,30 @@
       "writtenOn": "2025-01-22T02:21:35Z",
       "side": 1,
       "message": "if (!block_localnet) return false;  // uid not found in map\nif (!*block_localnet) return false;  // lookup returned \u0027bool false\u0027",
+      "range": {
+        "startLine": 270,
+        "startChar": 3,
+        "endLine": 270,
+        "endChar": 5
+      },
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0239f7bb_92670ad1",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-23T00:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee2a469c_52811948",
       "range": {
         "startLine": 270,
         "startChar": 3,
@@ -199,6 +367,30 @@
           ]
         }
       ],
+      "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c3eddeb_8fcf420c",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-01-23T00:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb1cb69d_6c796410",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 64
+      },
       "revId": "1516594ac1e628fad378ff2a47608f2eed6b30a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
