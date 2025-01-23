@@ -282,6 +282,24 @@
       "parentUuid": "19ad751b_f70d727e",
       "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3a6e59e_fe736ffa",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-01-23T20:40:14Z",
+      "side": 1,
+      "message": "I think this is also ambiguous since the permission for local network restrictions may not have changed: if the app gets to this point we know for sure that devs have enabled local network restrictions but not necessarily that the app has been restricted or not. I was hoping that using \"eligible\" would indicate this.\n\nWhat about something more general, like \"Permissions state changed for uid\u003d\u003cuid\u003e\"? Since at this point in the code we don\u0027t know if local network restrictions will need to be changed.",
+      "parentUuid": "1b5740f8_00c4491c",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
