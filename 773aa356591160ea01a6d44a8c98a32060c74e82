@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "409d8d36_ada12c51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-23T02:29:38Z",
+      "side": 1,
+      "message": "netd.o does not affect S and thus this CL cannot be guilty of the S-base-image test failures.",
+      "revId": "773aa356591160ea01a6d44a8c98a32060c74e82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
