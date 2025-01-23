@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3375d3ad_09a38773",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-23T22:20:32Z",
+      "side": 1,
+      "message": "The failing test is Test [v2/mainline-engprod/suite/test-mapping-tethering-mainline-presubmit-cloud-S-base-image] CtsNetTestCases and 1 others failing\n\nThe code this CL touches/reverts isn\u0027t even used on S.",
+      "revId": "7d3f931c279cd4bed34235163458de72418d7ef6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
