@@ -123,6 +123,7 @@ public class Struct {
         EUI48,       // IEEE Extended Unique Identifier, a 48-bits long MAC address in network order
         Ipv4Address, // IPv4 address in network order
         Ipv6Address, // IPv6 address in network order
+        IpAddress, // IP address in network order. Ipv4 address are stored as v4-Mapped-v6 address
     }
 
     /**
@@ -212,6 +213,9 @@ public class Struct {
             case Ipv6Address:
                 if (fieldType == Inet6Address.class) return;
                 break;
+            case IpAddress:
+                if (fieldType == InetAddress.class) return;
+                break;
             default:
                 throw new IllegalArgumentException("Unknown type" + annotation.type());
         }
@@ -254,6 +258,7 @@ public class Struct {
                 length = 4;
                 break;
             case Ipv6Address:
+            case IpAddress:
                 length = 16;
                 break;
             default:
@@ -426,11 +431,12 @@ public class Struct {
                 break;
             case Ipv4Address:
             case Ipv6Address:
-                final boolean isIpv6 = (fieldInfo.annotation.type() == Type.Ipv6Address);
-                final byte[] address = new byte[isIpv6 ? 16 : 4];
+            case IpAddress:
+                final boolean isIpv4 = (fieldInfo.annotation.type() == Type.Ipv4Address);
+                final byte[] address = new byte[isIpv4 ? 4 : 16];
                 buf.get(address);
                 try {
-                    if (isIpv6) {
+                    if (!isIpv4) {
                         // Using Inet6Address.getByAddress since InetAddress.getByAddress converts
                         // v4-mapped v6 address to v4 address internally and returns Inet4Address.
                         value = Inet6Address.getByAddress(
@@ -532,6 +538,13 @@ public class Struct {
             case Ipv6Address:
                 final byte[] address = ((InetAddress) value).getAddress();
                 output.put(address);
+                break;
+            case IpAddress:
+                InetAddress inetAddress = (InetAddress)value;
+                if (inetAddress instanceof Inet4Address) {
+                    inetAddress = InetAddressUtils.v4MappedV6Address((Inet4Address)value);
+                }
+                output.put(inetAddress.getAddress());
                 break;
             default:
                 throw new IllegalArgumentException("Unknown type:" + fieldInfo.annotation.type());

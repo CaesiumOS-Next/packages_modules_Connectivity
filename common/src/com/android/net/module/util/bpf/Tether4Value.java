@@ -44,11 +44,11 @@ public class Tether4Value extends Struct {
     @Field(order = 4, type = Type.U16)
     public final int pmtu;
 
-    @Field(order = 5, type = Type.ByteArray, arraysize = 16)
-    public final byte[] src46;
+    @Field(order = 5, type = Type.IpAddress)
+    public final InetAddress srcAddress;
 
-    @Field(order = 6, type = Type.ByteArray, arraysize = 16)
-    public final byte[] dst46;
+    @Field(order = 6, type = Type.IpAddress)
+    public final InetAddress dstAddress;
 
     @Field(order = 7, type = Type.UBE16)
     public final int srcPort;
@@ -62,7 +62,7 @@ public class Tether4Value extends Struct {
 
     public Tether4Value(final int oif, @NonNull final MacAddress ethDstMac,
             @NonNull final MacAddress ethSrcMac, final int ethProto, final int pmtu,
-            final byte[] src46, final byte[] dst46, final int srcPort,
+            final InetAddress srcAddress, final InetAddress dstAddress, final int srcPort,
             final int dstPort, final long lastUsed) {
         Objects.requireNonNull(ethDstMac);
         Objects.requireNonNull(ethSrcMac);
@@ -72,8 +72,8 @@ public class Tether4Value extends Struct {
         this.ethSrcMac = ethSrcMac;
         this.ethProto = ethProto;
         this.pmtu = pmtu;
-        this.src46 = src46;
-        this.dst46 = dst46;
+        this.srcAddress = srcAddress;
+        this.dstAddress = dstAddress;
         this.srcPort = srcPort;
         this.dstPort = dstPort;
         this.lastUsed = lastUsed;
@@ -81,17 +81,13 @@ public class Tether4Value extends Struct {
 
     @Override
     public String toString() {
-        try {
-            return String.format(
+        return String.format(
                     "oif: %d, ethDstMac: %s, ethSrcMac: %s, ethProto: %d, pmtu: %d, "
                             + "src46: %s, dst46: %s, srcPort: %d, dstPort: %d, "
                             + "lastUsed: %d",
                     oif, ethDstMac, ethSrcMac, ethProto, pmtu,
-                    InetAddress.getByAddress(src46), InetAddress.getByAddress(dst46),
+                    srcAddress, dstAddress,
                     Short.toUnsignedInt((short) srcPort), Short.toUnsignedInt((short) dstPort),
                     lastUsed);
-        } catch (UnknownHostException | IllegalArgumentException e) {
-            return "Invalid IP address" + e;
-        }
     }
 }

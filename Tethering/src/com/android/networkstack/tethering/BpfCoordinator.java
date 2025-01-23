@@ -1059,12 +1059,12 @@ public class BpfCoordinator {
 
         // Find the rules which are related with the given client.
         mBpfCoordinatorShim.tetherOffloadRuleForEach(UPSTREAM, (k, v) -> {
-            if (Arrays.equals(k.src4, clientAddr.getAddress())) {
+            if (Arrays.equals(k.src4.getAddress(), clientAddr.getAddress())) {
                 deleteUpstreamRuleKeys.add(k);
             }
         });
         mBpfCoordinatorShim.tetherOffloadRuleForEach(DOWNSTREAM, (k, v) -> {
-            if (Arrays.equals(v.dst46, toIpv4MappedAddressBytes(clientAddr))) {
+            if (Arrays.equals(v.dstAddress.getAddress(), toIpv4MappedAddressBytes(clientAddr))) {
                 deleteDownstreamRuleKeys.add(k);
                 upstreamIndiceSet.add((int) k.iif);
             }
@@ -1552,19 +1552,16 @@ public class BpfCoordinator {
             Tether4Key key, Tether4Value value) {
         final String src4, public4, dst4;
         final int publicPort;
-        try {
-            src4 = InetAddress.getByAddress(key.src4).getHostAddress();
-            if (downstream) {
-                public4 = InetAddress.getByAddress(key.dst4).getHostAddress();
-                publicPort = key.dstPort;
-            } else {
-                public4 = InetAddress.getByAddress(value.src46).getHostAddress();
-                publicPort = value.srcPort;
-            }
-            dst4 = InetAddress.getByAddress(value.dst46).getHostAddress();
-        } catch (UnknownHostException impossible) {
-            throw new AssertionError("IP address array not valid IPv4 address!");
+        src4 = key.src4.getHostAddress();
+        if (downstream) {
+            public4 = key.dst4.getHostAddress();
+            publicPort = key.dstPort;
+        } else {
+            public4 = value.srcAddress.getHostAddress();
+            publicPort = value.srcPort;
         }
+        dst4 = value.dstAddress.getHostAddress();
+
 
         final String ageStr = (value.lastUsed == 0) ? "-"
                 : String.format("%dms", (now - value.lastUsed) / 1_000_000);
@@ -2111,16 +2108,16 @@ public class BpfCoordinator {
         private Tether4Key makeTetherUpstream4Key(
                 @NonNull ConntrackEvent e, @NonNull ClientInfo c) {
             return new Tether4Key(c.downstreamIfindex, c.downstreamMac,
-                    e.tupleOrig.protoNum, e.tupleOrig.srcIp.getAddress(),
-                    e.tupleOrig.dstIp.getAddress(), e.tupleOrig.srcPort, e.tupleOrig.dstPort);
+                    e.tupleOrig.protoNum, e.tupleOrig.srcIp,
+                    e.tupleOrig.dstIp, e.tupleOrig.srcPort, e.tupleOrig.dstPort);
         }
 
         @NonNull
         private Tether4Key makeTetherDownstream4Key(
                 @NonNull ConntrackEvent e, @NonNull ClientInfo c, int upstreamIndex) {
             return new Tether4Key(upstreamIndex, NULL_MAC_ADDRESS /* dstMac (rawip) */,
-                    e.tupleReply.protoNum, e.tupleReply.srcIp.getAddress(),
-                    e.tupleReply.dstIp.getAddress(), e.tupleReply.srcPort, e.tupleReply.dstPort);
+                    e.tupleReply.protoNum, e.tupleReply.srcIp, e.tupleReply.dstIp,
+                    e.tupleReply.srcPort, e.tupleReply.dstPort);
         }
 
         @NonNull
@@ -2129,8 +2126,8 @@ public class BpfCoordinator {
             return new Tether4Value(upstreamInfo.ifIndex,
                     NULL_MAC_ADDRESS /* ethDstMac (rawip) */,
                     NULL_MAC_ADDRESS /* ethSrcMac (rawip) */, ETH_P_IP,
-                    upstreamInfo.mtu, toIpv4MappedAddressBytes(e.tupleReply.dstIp),
-                    toIpv4MappedAddressBytes(e.tupleReply.srcIp), e.tupleReply.dstPort,
+                    upstreamInfo.mtu, e.tupleReply.dstIp,
+                    e.tupleReply.srcIp, e.tupleReply.dstPort,
                     e.tupleReply.srcPort, 0 /* lastUsed, filled by bpf prog only */);
         }
 
@@ -2139,8 +2136,7 @@ public class BpfCoordinator {
                 @NonNull ClientInfo c, @NonNull UpstreamInfo upstreamInfo) {
             return new Tether4Value(c.downstreamIfindex,
                     c.clientMac, c.downstreamMac, ETH_P_IP, upstreamInfo.mtu,
-                    toIpv4MappedAddressBytes(e.tupleOrig.dstIp),
-                    toIpv4MappedAddressBytes(e.tupleOrig.srcIp),
+                    e.tupleOrig.dstIp, e.tupleOrig.srcIp,
                     e.tupleOrig.dstPort, e.tupleOrig.srcPort,
                     0 /* lastUsed, filled by bpf prog only */);
         }
@@ -2532,9 +2528,8 @@ public class BpfCoordinator {
         // both directions for TCP.
         mBpfCoordinatorShim.tetherOffloadRuleForEach(UPSTREAM, (k, v) -> {
             if ((now - v.lastUsed) / 1_000_000 < CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS) {
-                updateConntrackTimeout((byte) k.l4proto,
-                        parseIPv4Address(k.src4), (short) k.srcPort,
-                        parseIPv4Address(k.dst4), (short) k.dstPort);
+                updateConntrackTimeout((byte) k.l4proto, k.src4, (short) k.srcPort,
+                        k.dst4, (short) k.dstPort);
             }
         });
 
@@ -2544,8 +2539,8 @@ public class BpfCoordinator {
         mBpfCoordinatorShim.tetherOffloadRuleForEach(DOWNSTREAM, (k, v) -> {
             if ((now - v.lastUsed) / 1_000_000 < CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS) {
                 updateConntrackTimeout((byte) k.l4proto,
-                        parseIPv4Address(v.dst46), (short) v.dstPort,
-                        parseIPv4Address(v.src46), (short) v.srcPort);
+                        parseIPv4Address(v.dstAddress.getAddress()), (short) v.dstPort,
+                        parseIPv4Address(v.srcAddress.getAddress()), (short) v.srcPort);
             }
         });
     }

@@ -301,8 +301,8 @@ public class BpfCoordinatorTest {
             private int mIif = DOWNSTREAM_IFINDEX;
             private MacAddress mDstMac = DOWNSTREAM_MAC;
             private short mL4proto = (short) IPPROTO_TCP;
-            private byte[] mSrc4 = PRIVATE_ADDR.getAddress();
-            private byte[] mDst4 = REMOTE_ADDR.getAddress();
+            private Inet4Address mSrc4 = PRIVATE_ADDR;
+            private Inet4Address mDst4 = REMOTE_ADDR;
             private int mSrcPort = PRIVATE_PORT;
             private int mDstPort = REMOTE_PORT;
 
@@ -325,8 +325,8 @@ public class BpfCoordinatorTest {
             private int mIif = UPSTREAM_IFINDEX;
             private MacAddress mDstMac = MacAddress.ALL_ZEROS_ADDRESS /* dstMac (rawip) */;
             private short mL4proto = (short) IPPROTO_TCP;
-            private byte[] mSrc4 = REMOTE_ADDR.getAddress();
-            private byte[] mDst4 = PUBLIC_ADDR.getAddress();
+            private Inet4Address mSrc4 = REMOTE_ADDR;
+            private Inet4Address mDst4 = PUBLIC_ADDR;
             private int mSrcPort = REMOTE_PORT;
             private int mDstPort = PUBLIC_PORT;
 
@@ -351,8 +351,8 @@ public class BpfCoordinatorTest {
             private MacAddress mEthSrcMac = MacAddress.ALL_ZEROS_ADDRESS /* dstMac (rawip) */;
             private int mEthProto = ETH_P_IP;
             private short mPmtu = NetworkStackConstants.ETHER_MTU;
-            private byte[] mSrc46 = toIpv4MappedAddressBytes(PUBLIC_ADDR);
-            private byte[] mDst46 = toIpv4MappedAddressBytes(REMOTE_ADDR);
+            private InetAddress mSrc46 = PUBLIC_ADDR;
+            private InetAddress mDst46 = REMOTE_ADDR;
             private int mSrcPort = PUBLIC_PORT;
             private int mDstPort = REMOTE_PORT;
             private long mLastUsed = 0;
@@ -376,8 +376,8 @@ public class BpfCoordinatorTest {
             private MacAddress mEthSrcMac = DOWNSTREAM_MAC;
             private int mEthProto = ETH_P_IP;
             private short mPmtu = NetworkStackConstants.ETHER_MTU;
-            private byte[] mSrc46 = toIpv4MappedAddressBytes(REMOTE_ADDR);
-            private byte[] mDst46 = toIpv4MappedAddressBytes(PRIVATE_ADDR);
+            private InetAddress mSrc46 = REMOTE_ADDR;
+            private InetAddress mDst46 = PRIVATE_ADDR;
             private int mSrcPort = REMOTE_PORT;
             private int mDstPort = PRIVATE_PORT;
             private long mLastUsed = 0;
@@ -2432,14 +2432,13 @@ public class BpfCoordinatorTest {
             @NonNull final MacAddress downstreamMac, @NonNull final Inet4Address privateAddr,
             final short privatePort) {
         return new Tether4Key(downstreamIfindex, downstreamMac, (short) IPPROTO_TCP,
-            privateAddr.getAddress(), REMOTE_ADDR.getAddress(), privatePort, REMOTE_PORT);
+            privateAddr, REMOTE_ADDR, privatePort, REMOTE_PORT);
     }
 
     @NonNull
     private static Tether4Key makeDownstream4Key(final short publicPort) {
         return new Tether4Key(UPSTREAM_IFINDEX, MacAddress.ALL_ZEROS_ADDRESS /* dstMac (rawip) */,
-                (short) IPPROTO_TCP, REMOTE_ADDR.getAddress(), PUBLIC_ADDR.getAddress(),
-                REMOTE_PORT, publicPort);
+                (short) IPPROTO_TCP, REMOTE_ADDR, PUBLIC_ADDR, REMOTE_PORT, publicPort);
     }
 
     @NonNull
@@ -2447,8 +2446,7 @@ public class BpfCoordinatorTest {
         return new Tether4Value(UPSTREAM_IFINDEX,
                 MacAddress.ALL_ZEROS_ADDRESS /* ethDstMac (rawip) */,
                 MacAddress.ALL_ZEROS_ADDRESS /* ethSrcMac (rawip) */, ETH_P_IP,
-                NetworkStackConstants.ETHER_MTU, toIpv4MappedAddressBytes(PUBLIC_ADDR),
-                toIpv4MappedAddressBytes(REMOTE_ADDR), publicPort, REMOTE_PORT,
+                NetworkStackConstants.ETHER_MTU, PUBLIC_ADDR, REMOTE_ADDR, publicPort, REMOTE_PORT,
                 0 /* lastUsed */);
     }
 
@@ -2457,8 +2455,8 @@ public class BpfCoordinatorTest {
             @NonNull final MacAddress clientMac, @NonNull final MacAddress downstreamMac,
             @NonNull final Inet4Address privateAddr, final short privatePort) {
         return new Tether4Value(downstreamIfindex, clientMac, downstreamMac,
-                ETH_P_IP, NetworkStackConstants.ETHER_MTU, toIpv4MappedAddressBytes(REMOTE_ADDR),
-                toIpv4MappedAddressBytes(privateAddr), REMOTE_PORT, privatePort, 0 /* lastUsed */);
+                ETH_P_IP, NetworkStackConstants.ETHER_MTU, REMOTE_ADDR, privateAddr,
+                REMOTE_PORT, privatePort, 0 /* lastUsed */);
     }
 
     @NonNull
