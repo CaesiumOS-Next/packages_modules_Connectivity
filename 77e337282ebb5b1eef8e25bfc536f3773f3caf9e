@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f967824_4386e1b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-23T02:30:49Z",
+      "side": 1,
+      "message": "2 tests fail on S base image, but netd.o isn\u0027t loaded/used on S.\n1 test fails due to connectivity issue (sim card bad?) which is an infra failure",
+      "revId": "77e337282ebb5b1eef8e25bfc536f3773f3caf9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
