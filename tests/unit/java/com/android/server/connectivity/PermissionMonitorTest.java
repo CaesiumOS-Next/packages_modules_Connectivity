@@ -105,6 +105,7 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
 
+import libcore.junit.util.compat.CoreCompatChangeRule.DisableCompatChanges;
 import libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges;
 
 import org.junit.After;
@@ -1716,6 +1717,15 @@ public class PermissionMonitorTest {
         String dumpsys = getSharedLogString(
                 pw -> mPermissionMonitor.mPermissionUpdateLogs.dump(null, pw, null));
         assertTrue(dumpsys.contains("Permissions state changed for uid=" + MOCK_UID12));
+    }
+
+    @Test
+    @DisableCompatChanges({ConnectivityCompatChanges.RESTRICT_LOCAL_NETWORK})
+    public void testDoesNotCheckLocalNetworkRestrictions() {
+        mPermissionMonitor.onPermissionsChanged(MOCK_UID13);
+        String dumpsys = getSharedLogString(
+                pw -> mPermissionMonitor.mPermissionUpdateLogs.dump(null, pw, null));
+        assertFalse(dumpsys.contains("Permissions state changed for uid=" + MOCK_UID13));
     }
 
     private static String getSharedLogString(Consumer<PrintWriter> functor) {
