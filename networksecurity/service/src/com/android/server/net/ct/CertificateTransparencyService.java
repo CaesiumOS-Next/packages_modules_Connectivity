@@ -41,8 +41,6 @@ public class CertificateTransparencyService extends ICertificateTransparencyMana
 
     private final CertificateTransparencyJob mCertificateTransparencyJob;
 
-    private boolean started = false;
-
     /**
      * @return true if the CertificateTransparency service is enabled.
      */
@@ -104,19 +102,13 @@ public class CertificateTransparencyService extends ICertificateTransparencyMana
         if (Config.DEBUG) {
             Log.d(TAG, "CertificateTransparencyService start");
         }
-        if (!started) {
-            mCertificateTransparencyJob.schedule();
-            started = true;
-        }
+        mCertificateTransparencyJob.schedule();
     }
 
     private void stopService() {
         if (Config.DEBUG) {
             Log.d(TAG, "CertificateTransparencyService stop");
         }
-        if (started) {
-            mCertificateTransparencyJob.cancel();
-            started = false;
-        }
+        mCertificateTransparencyJob.cancel();
     }
 }

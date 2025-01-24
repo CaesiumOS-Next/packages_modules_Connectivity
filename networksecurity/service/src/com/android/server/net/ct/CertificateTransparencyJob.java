@@ -22,7 +22,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.ConfigUpdate;
 import android.os.SystemClock;
@@ -33,7 +32,6 @@ import android.util.Log;
 public class CertificateTransparencyJob extends BroadcastReceiver {
 
     private static final String TAG = "CertificateTransparencyJob";
-    private static final String UPDATE_CONFIG_PERMISSION = "android.permission.UPDATE_CONFIG";
 
     private final Context mContext;
     private final CompatibilityVersion mCompatVersion;
@@ -41,6 +39,7 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
     private final AlarmManager mAlarmManager;
     private final PendingIntent mPendingIntent;
 
+    private boolean mScheduled = false;
     private boolean mDependenciesReady = false;
 
     /** Creates a new {@link CertificateTransparencyJob} object. */
@@ -65,15 +64,19 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
     }
 
     void schedule() {
-        mContext.registerReceiver(
-                this,
-                new IntentFilter(ConfigUpdate.ACTION_UPDATE_CT_LOGS),
-                Context.RECEIVER_EXPORTED);
-        mAlarmManager.setInexactRepeating(
-                AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime(), // schedule first job at earliest convenient time.
-                AlarmManager.INTERVAL_DAY,
-                mPendingIntent);
+        if (!mScheduled) {
+            mContext.registerReceiver(
+                    this,
+                    new IntentFilter(ConfigUpdate.ACTION_UPDATE_CT_LOGS),
+                    Context.RECEIVER_EXPORTED);
+            mAlarmManager.setInexactRepeating(
+                    AlarmManager.ELAPSED_REALTIME,
+                    SystemClock
+                            .elapsedRealtime(), // schedule first job at earliest convenient time.
+                    AlarmManager.INTERVAL_DAY,
+                    mPendingIntent);
+        }
+        mScheduled = true;
 
         if (Config.DEBUG) {
             Log.d(TAG, "CertificateTransparencyJob scheduled.");
@@ -81,11 +84,18 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
     }
 
     void cancel() {
-        mContext.unregisterReceiver(this);
-        mAlarmManager.cancel(mPendingIntent);
-        mCertificateTransparencyDownloader.stop();
-        mCompatVersion.delete();
+        if (mScheduled) {
+            mContext.unregisterReceiver(this);
+            mAlarmManager.cancel(mPendingIntent);
+        }
+        mScheduled = false;
+
+        if (mDependenciesReady) {
+            mCertificateTransparencyDownloader.stop();
+        }
         mDependenciesReady = false;
+
+        mCompatVersion.delete();
 
         if (Config.DEBUG) {
             Log.d(TAG, "CertificateTransparencyJob canceled.");
@@ -96,11 +106,6 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (!ConfigUpdate.ACTION_UPDATE_CT_LOGS.equals(intent.getAction())) {
             Log.w(TAG, "Received unexpected broadcast with action " + intent);
-            return;
-        }
-        if (context.checkCallingOrSelfPermission(UPDATE_CONFIG_PERMISSION)
-                != PackageManager.PERMISSION_GRANTED) {
-            Log.e(TAG, "Caller does not have UPDATE_CONFIG permission.");
             return;
         }
         if (Config.DEBUG) {

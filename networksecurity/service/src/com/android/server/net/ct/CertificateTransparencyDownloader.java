@@ -57,8 +57,6 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
 
     private final List<CompatibilityVersion> mCompatVersions = new ArrayList<>();
 
-    private boolean started = false;
-
     CertificateTransparencyDownloader(
             Context context,
             DataStore dataStore,
@@ -77,15 +75,11 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
     }
 
     void start() {
-        if (started) {
-            return;
-        }
         mContext.registerReceiver(
                 this,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
                 Context.RECEIVER_EXPORTED);
         mDataStore.load();
-        started = true;
 
         if (Config.DEBUG) {
             Log.d(TAG, "CertificateTransparencyDownloader started.");
@@ -93,12 +87,8 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
     }
 
     void stop() {
-        if (!started) {
-            return;
-        }
         mContext.unregisterReceiver(this);
         mDataStore.delete();
-        started = false;
 
         if (Config.DEBUG) {
             Log.d(TAG, "CertificateTransparencyDownloader stopped.");
