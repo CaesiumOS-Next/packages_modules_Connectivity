@@ -159,7 +159,8 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
     private static final int SYSTEM_APPID = SYSTEM_UID;
 
     private static final int MAX_PERMISSION_UPDATE_LOGS = 40;
-    private final SharedLog mPermissionUpdateLogs = new SharedLog(MAX_PERMISSION_UPDATE_LOGS, TAG);
+    @VisibleForTesting
+    protected final SharedLog mPermissionUpdateLogs = new SharedLog(MAX_PERMISSION_UPDATE_LOGS, TAG);
 
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
