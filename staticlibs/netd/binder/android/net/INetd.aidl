@@ -949,6 +949,12 @@ interface INetd {
     const int PERMISSION_UPDATE_DEVICE_STATS = 8;
 
    /**
+    * PERMISSION_SDKSANDBOX_LOCALHOST indicates if an SDKRT UID will be allowed to connect
+    * to localhost. For non SDKRT UIDs this bit is a no-op.
+    */
+    const int PERMISSION_SDKSANDBOX_LOCALHOST = 16;
+
+   /**
     * PERMISSION_UNINSTALLED is used when an app is uninstalled from the device. All internet
     * related permissions need to be cleaned
     */
