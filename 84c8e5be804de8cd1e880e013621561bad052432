@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "973e75a8_ee14c3e6",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-24T22:27:27Z",
+      "side": 0,
+      "message": "I don\u0027t think this TODO is addressed. While not incorrect, I am not sure how valuable this change is. I think we should prevent a restart when some of the mutable capabilities are updated as well. Though I am also not sure whether that\u0027s worth addressing (considering the backward compatibility implications).",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 463,
+        "endChar": 55
+      },
+      "revId": "84c8e5be804de8cd1e880e013621561bad052432",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

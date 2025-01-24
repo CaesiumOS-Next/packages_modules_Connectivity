@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f5024a2_de6f7dfb",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetNetworkFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-24T22:27:27Z",
+      "side": 1,
+      "message": "Given this ships to S+ via mainline, is there a chance any OEM relies on the existing behavior?",
+      "range": {
+        "startLine": 455,
+        "startChar": 12,
+        "endLine": 457,
+        "endChar": 13
+      },
+      "revId": "baa832bf061f97823cf0681647371a62121dae63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10eb2f7d_fff79122",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetNetworkFactoryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-01-24T22:27:27Z",
+      "side": 1,
+      "message": "FWIW, I would much prefer an EthernetManagerTest.",
+      "range": {
+        "startLine": 512,
+        "startChar": 3,
+        "endLine": 579,
+        "endChar": 5
+      },
+      "revId": "baa832bf061f97823cf0681647371a62121dae63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
