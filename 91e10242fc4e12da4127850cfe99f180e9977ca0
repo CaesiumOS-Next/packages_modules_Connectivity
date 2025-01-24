@@ -318,6 +318,24 @@
       "parentUuid": "b3a6e59e_fe736ffa",
       "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca5e1092_e32f2914",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-01-24T21:42:36Z",
+      "side": 1,
+      "message": "Closing out this thread",
+      "parentUuid": "33619983_065067a9",
+      "revId": "91e10242fc4e12da4127850cfe99f180e9977ca0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
