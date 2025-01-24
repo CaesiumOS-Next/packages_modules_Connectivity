@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3051d142_39f391ce",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-24T14:02:14Z",
+      "side": 1,
+      "message": "nit: I am not sure why the formatter decided to have these two on the same line now. Could you verify the formatter did run on these lines?\nI fear if I touch this file again my formatter will attempt to split this line into two again.",
+      "range": {
+        "startLine": 256,
+        "startChar": 16,
+        "endLine": 256,
+        "endChar": 134
+      },
+      "revId": "e48e790e328e7882d1ade48c1e438cef60c2f65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
