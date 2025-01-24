@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a39cfe_ccb073dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-24T06:17:59Z",
+      "side": 1,
+      "message": "Don\u0027t merge until we confirm this CL won\u0027t cause breakage.",
+      "revId": "6f99275476ad24afcc679aae83958c906f92ced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
