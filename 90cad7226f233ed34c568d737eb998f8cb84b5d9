@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c132e85_633f1d6a",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-24T16:55:59Z",
+      "side": 1,
+      "message": "instead of the two seaparate success and failureReason variable, it might be easier to have the `verify` method directly return a status object (see other comment as well).",
+      "range": {
+        "startLine": 234,
+        "startChar": 8,
+        "endLine": 235,
+        "endChar": 31
+      },
+      "revId": "90cad7226f233ed34c568d737eb998f8cb84b5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80d43965_5e39389a",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-01-24T16:55:59Z",
+      "side": 1,
+      "message": "I am not very convinced by this method, the Signature is supposed to be a transient object, this method makes it stay around longer than necessary.\n\nFrom what I can see it looks like having a boolean as the return value of the `verify` method is not enough. Maybe it is time to change the signature of the method to return a status object, similar to the `DownloadStatus` from the `DownloadHelper`. \n\nI think this might also help clarify the logic in the `handleContentDownloadCompleted`, by combining the failureReason and success variables into a single status object. WDYT?",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "90cad7226f233ed34c568d737eb998f8cb84b5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
