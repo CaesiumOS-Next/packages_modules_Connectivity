@@ -1723,6 +1723,15 @@ public class PermissionMonitorTest {
         assertTrue(dumpsys.contains("Permissions state changed for uid=" + MOCK_UID12));
     }
 
+    @Test
+    @DisableCompatChanges({ConnectivityCompatChanges.RESTRICT_LOCAL_NETWORK})
+    public void testDoesNotCheckLocalNetworkRestrictions() {
+        mPermissionMonitor.onPermissionsChanged(MOCK_UID13);
+        String dumpsys = getSharedLogString(
+                pw -> mPermissionMonitor.mPermissionUpdateLogs.dump(null, pw, null));
+        assertFalse(dumpsys.contains("Permissions state changed for uid=" + MOCK_UID13));
+    }
+
     private static String getSharedLogString(Consumer<PrintWriter> functor) {
         final ByteArrayOutputStream ostream = new ByteArrayOutputStream();
         final PrintWriter pw = new PrintWriter(ostream, true);
