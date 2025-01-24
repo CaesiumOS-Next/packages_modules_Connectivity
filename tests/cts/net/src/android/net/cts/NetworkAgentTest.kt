@@ -708,50 +708,6 @@ class NetworkAgentTest {
     }
 
     private fun setHoldCarrierPrivilege(hold: Boolean, subId: Int) {
-        fun getCertHash(): String {
-            val pkgInfo = realContext.packageManager.getPackageInfo(
-                realContext.opPackageName,
-                PackageManager.GET_SIGNATURES
-            )
-            val digest = MessageDigest.getInstance("SHA-256")
-            val certHash = digest.digest(pkgInfo.signatures!![0]!!.toByteArray())
-            return UiccUtil.bytesToHexString(certHash)!!
-        }
-
-        val tm = realContext.getSystemService(TelephonyManager::class.java)!!
-
-        val cv = ConditionVariable()
-        val cpb = PrivilegeWaiterCallback(cv)
-        tryTest {
-            val slotIndex = SubscriptionManager.getSlotIndex(subId)!!
-            runAsShell(READ_PRIVILEGED_PHONE_STATE) {
-                tm.registerCarrierPrivilegesCallback(slotIndex, { it.run() }, cpb)
-            }
-            // Wait for the callback to be registered
-            assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't register CarrierPrivilegesCallback")
-            if (cpb.hasPrivilege == hold) {
-                if (hold) {
-                    Log.w(TAG, "Package ${realContext.opPackageName} already is privileged")
-                } else {
-                    Log.w(TAG, "Package ${realContext.opPackageName} already isn't privileged")
-                }
-                return@tryTest
-            }
-            cv.close()
-            if (hold) {
-                carrierConfigRule.addConfigOverrides(subId, PersistableBundle().also {
-                    it.putStringArray(CarrierConfigManager.KEY_CARRIER_CERTIFICATE_STRING_ARRAY,
-                        arrayOf(getCertHash()))
-                })
-            } else {
-                carrierConfigRule.cleanUpNow()
-            }
-            assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't change carrier privilege")
-        } cleanup {
-            runAsShell(READ_PRIVILEGED_PHONE_STATE) {
-                tm.unregisterCarrierPrivilegesCallback(cpb)
-            }
-        }
     }
 
     private fun acquireCarrierPrivilege(subId: Int) = setHoldCarrierPrivilege(true, subId)
@@ -1981,15 +1937,6 @@ class NetworkAgentTest {
 // Subclasses of CarrierPrivilegesCallback can't be inline, or they'll be compiled as
 // inner classes of the test class and will fail resolution on R as the test harness
 // uses reflection to list all methods and classes
-class PrivilegeWaiterCallback(private val cv: ConditionVariable) :
-        CarrierPrivilegesCallback {
-    var hasPrivilege = false
-    override fun onCarrierPrivilegesChanged(p: MutableSet<String>, uids: MutableSet<Int>) {
-        hasPrivilege = uids.contains(Process.myUid())
-        cv.open()
-    }
-}
-
 class CarrierServiceChangedWaiterCallback(private val cv: ConditionVariable) :
         CarrierPrivilegesCallback {
     var pkgName: String? = null
