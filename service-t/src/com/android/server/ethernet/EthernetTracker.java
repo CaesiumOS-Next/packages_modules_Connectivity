@@ -397,6 +397,16 @@ public class EthernetTracker {
         return mFactory.hasInterface(iface);
     }
 
+    private ArrayList<String> getAllInterfaces() {
+        final ArrayList<String> interfaces = new ArrayList<>(
+                List.of(mFactory.getAvailableInterfaces(/* includeRestricted */ true)));
+
+        if (mTetheringInterfaceMode == INTERFACE_MODE_SERVER) {
+            interfaces.add(mTetheringInterface);
+        }
+        return interfaces;
+    }
+
     String[] getClientModeInterfaces(boolean includeRestricted) {
         return mFactory.getAvailableInterfaces(includeRestricted);
     }
@@ -459,10 +469,16 @@ public class EthernetTracker {
     public void setIncludeTestInterfaces(boolean include) {
         mHandler.post(() -> {
             mIncludeTestInterfaces = include;
-            if (!include) {
+            if (include) {
+                trackAvailableInterfaces();
+            } else {
                 removeTestData();
+                // remove all test interfaces
+                for (String iface : getAllInterfaces()) {
+                    if (isValidEthernetInterface(iface)) continue;
+                    stopTrackingInterface(iface);
+                }
             }
-            trackAvailableInterfaces();
         });
     }
 
@@ -954,6 +970,19 @@ public class EthernetTracker {
             mIsEthernetEnabled = enabled;
 
             // Interface in server mode should also be included.
+<<<<<<< PATCH SET (cb3937 Stop tracking left-over test interfaces)
+            for (String iface : getAllInterfaces()) {
+||||||| BASE
+            ArrayList<String> interfaces =
+                    new ArrayList<>(
+                    List.of(mFactory.getAvailableInterfaces(/* includeRestricted */ true)));
+
+            if (mTetheringInterfaceMode == INTERFACE_MODE_SERVER) {
+                interfaces.add(mTetheringInterface);
+            }
+
+            for (String iface : interfaces) {
+=======
             ArrayList<String> interfaces =
                     new ArrayList<>(
                     List.of(mFactory.getAvailableInterfaces(/* includeRestricted */ true)));
@@ -963,6 +992,7 @@ public class EthernetTracker {
             }
 
             for (String iface : interfaces) {
+>>>>>>> BASE      (544df8 Merge changes from topic "serializablelambda" into main)
                 setInterfaceUpState(iface, enabled);
             }
             broadcastEthernetStateChange(mIsEthernetEnabled);
