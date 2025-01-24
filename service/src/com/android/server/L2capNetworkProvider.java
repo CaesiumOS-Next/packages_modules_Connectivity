@@ -66,9 +66,9 @@ public class L2capNetworkProvider {
     private final NetworkProvider mProvider;
     private final BlanketReservationOffer mBlanketOffer;
     private final Map<Integer, ReservedServerOffer> mReservedServerOffers = new ArrayMap<>();
-    // mBluetoothAdapter guaranteed non-null when read on handler thread after start() is called
+    // mBluetoothManager guaranteed non-null when read on handler thread after start() is called
     @Nullable
-    private BluetoothAdapter mBluetoothAdapter;
+    private BluetoothManager mBluetoothManager;
 
     /**
      * The blanket reservation offer is used to create an L2CAP server network, i.e. a network
@@ -176,9 +176,14 @@ public class L2capNetworkProvider {
             mUseHeaderCompression =
                     reservationSpec.getHeaderCompression() == HEADER_COMPRESSION_6LOWPAN;
 
-            // BluetoothAdapter is guaranteed to be non-null.
+            final BluetoothAdapter bluetoothAdapter = mBluetoothManager.getAdapter();
+            if (bluetoothAdapter == null) {
+                // TODO: move constructor functionality to static create function instead and return
+                // a nullable ReservedServerOffer.
+                throw new IOException("BluetoothAdapter is null");
+            }
             // Throws an IOException on error.
-            mServerSocket = mBluetoothAdapter.listenUsingInsecureL2capChannel();
+            mServerSocket = bluetoothAdapter.listenUsingInsecureL2capChannel();
 
             final L2capNetworkSpecifier reservedSpec = new L2capNetworkSpecifier.Builder()
                     .setRole(ROLE_SERVER)
@@ -262,14 +267,12 @@ public class L2capNetworkProvider {
             if (!pm.hasSystemFeature(FEATURE_BLUETOOTH_LE)) {
                 return;
             }
-            final BluetoothManager bluetoothManager =
-                    mContext.getSystemService(BluetoothManager.class);
-            if (bluetoothManager == null) {
+            mBluetoothManager = mContext.getSystemService(BluetoothManager.class);
+            if (mBluetoothManager == null) {
                 // Can this ever happen?
                 Log.wtf(TAG, "BluetoothManager not found");
                 return;
             }
-            mBluetoothAdapter = bluetoothManager.getAdapter();
             mContext.getSystemService(ConnectivityManager.class).registerNetworkProvider(mProvider);
             mProvider.registerNetworkOffer(BlanketReservationOffer.SCORE,
                     BlanketReservationOffer.CAPABILITIES, mHandler::post, mBlanketOffer);
