@@ -48,7 +48,9 @@ import static junit.framework.Assert.fail;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 import static org.mockito.AdditionalMatchers.aryEq;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -68,6 +70,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import android.compat.testing.PlatformCompatChangeRule;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -78,6 +81,7 @@ import android.database.ContentObserver;
 import android.net.INetd;
 import android.net.UidRange;
 import android.net.Uri;
+import android.net.connectivity.ConnectivityCompatChanges;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -102,9 +106,13 @@ import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
 
+import libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.mockito.AdditionalAnswers;
 import org.mockito.ArgumentCaptor;
@@ -112,15 +120,19 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 public class PermissionMonitorTest {
+    @Rule public TestRule compatChangeRule = new PlatformCompatChangeRule();
     private static final int MOCK_USER_ID1 = 0;
     private static final int MOCK_USER_ID2 = 1;
     private static final int MOCK_USER_ID3 = 2;
@@ -1696,6 +1708,27 @@ public class PermissionMonitorTest {
                 num++;
             }
         }
+    }
+
+    @Test
+    @EnableCompatChanges({ConnectivityCompatChanges.RESTRICT_LOCAL_NETWORK})
+    public void testSetsPermissionListener() {
+        assumeTrue(SdkLevel.isAtLeastB());
+        mPermissionMonitor.onPermissionsChanged(MOCK_UID12);
+        String dumpsys = getSharedLogString(
+                pw -> mPermissionMonitor.mPermissionUpdateLogs.dump(null, pw, null));
+        assertTrue(dumpsys.contains("Permissions state changed for uid=" + MOCK_UID12));
+    }
+
+    private static String getSharedLogString(Consumer<PrintWriter> functor) {
+        final ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+        final PrintWriter pw = new PrintWriter(ostream, true);
+        functor.accept(pw);
+
+        final String dumpOutput = ostream.toString();
+        assertNotNull(dumpOutput);
+        assertFalse("".equals(dumpOutput));
+        return dumpOutput;
     }
 
     private void verifyAppIdPermissionsAfterPackageRemoved(int appId, int expectedPerm,
