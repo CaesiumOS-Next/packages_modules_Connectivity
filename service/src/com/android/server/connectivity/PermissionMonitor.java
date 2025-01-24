@@ -159,7 +159,8 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
     private static final int SYSTEM_APPID = SYSTEM_UID;
 
     private static final int MAX_PERMISSION_UPDATE_LOGS = 40;
-    private final SharedLog mPermissionUpdateLogs = new SharedLog(MAX_PERMISSION_UPDATE_LOGS, TAG);
+    @VisibleForTesting
+    protected final SharedLog mPermissionUpdateLogs = new SharedLog(MAX_PERMISSION_UPDATE_LOGS, TAG);
 
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -291,6 +292,7 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
     @Override
     public void onPermissionsChanged(int uid) {
         if (CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid)) {
+            log("Compat change is enabled");
             mPermissionUpdateLogs.i("Permissions state changed for uid=" + uid);
             // TODO(b/388803658): Update network permissions
         }
