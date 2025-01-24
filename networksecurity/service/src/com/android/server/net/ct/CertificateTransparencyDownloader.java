@@ -257,7 +257,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             }
 
             if (failureReason != -1) {
-                mLogger.logCTLogListUpdateFailedEvent(
+                mLogger.logCTLogListUpdateStateChangedEvent(
                         failureReason,
                         mDataStore.getPropertyInt(
                                 Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0));
@@ -278,7 +278,7 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             mDataStore.store();
         } else {
             updateFailureCount();
-            mLogger.logCTLogListUpdateFailedEvent(
+            mLogger.logCTLogListUpdateStateChangedEvent(
                     CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_VERSION_ALREADY_EXISTS,
                     mDataStore.getPropertyInt(
                             Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0));
@@ -294,13 +294,13 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
                         Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0);
 
         if (status.isHttpError()) {
-            mLogger.logCTLogListUpdateFailedEvent(
+            mLogger.logCTLogListUpdateStateChangedEvent(
                     CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_HTTP_ERROR,
                     failureCount,
                     status.reason());
         } else {
             // TODO(b/384935059): handle blocked domain logging
-            mLogger.logCTLogListUpdateFailedEventWithDownloadStatus(
+            mLogger.logCTLogListUpdateStateChangedEventWithDownloadStatus(
                     status.reason(), failureCount);
         }
     }
