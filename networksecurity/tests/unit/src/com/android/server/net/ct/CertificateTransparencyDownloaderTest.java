@@ -25,6 +25,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -214,7 +215,8 @@ public class CertificateTransparencyDownloaderTest {
         verify(mLogger, times(1))
                 .logCTLogListUpdateStateChangedEventWithDownloadStatus(
                         DownloadManager.ERROR_INSUFFICIENT_SPACE,
-                        /* failureCount= */ 1);
+                        /* failureCount= */ 1,
+                        mSignatureVerifier.getLogListSignature().orElse(""));
     }
 
     @Test
@@ -263,7 +265,8 @@ public class CertificateTransparencyDownloaderTest {
         verify(mLogger, times(1))
                 .logCTLogListUpdateStateChangedEventWithDownloadStatus(
                         DownloadManager.ERROR_INSUFFICIENT_SPACE,
-                        /* failureCount= */ 1);
+                        /* failureCount= */ 1,
+                        mSignatureVerifier.getLogListSignature().orElse(""));
     }
 
     @Test
@@ -316,7 +319,8 @@ public class CertificateTransparencyDownloaderTest {
         verify(mLogger, times(1))
                 .logCTLogListUpdateStateChangedEventWithDownloadStatus(
                         DownloadManager.ERROR_INSUFFICIENT_SPACE,
-                        /* failureCount= */ 1);
+                        /* failureCount= */ 1,
+                        mSignatureVerifier.getLogListSignature().orElse(""));
     }
 
     @Test
@@ -338,7 +342,7 @@ public class CertificateTransparencyDownloaderTest {
 
     @Test
     public void
-            testDownloader_contentDownloadSuccess_noSignatureFound_logsSingleFailure()
+            testDownloader_contentDownloadSuccess_noPublicKeyFound_logsSingleFailure()
                     throws Exception {
         File logListFile = makeLogListFile("456");
         File metadataFile = sign(logListFile);
@@ -359,17 +363,58 @@ public class CertificateTransparencyDownloaderTest {
         verify(mLogger, times(1))
                 .logCTLogListUpdateStateChangedEvent(
                         CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_PUBLIC_KEY_NOT_FOUND,
-                        /* failureCount= */ 1);
+                        /* failureCount= */ 1,
+                        mSignatureVerifier.getLogListSignature().orElse(""));
         verify(mLogger, never())
                 .logCTLogListUpdateStateChangedEvent(
                         eq(
                                 CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_NOT_FOUND),
-                        anyInt());
+                        anyInt(),
+                        anyString());
         verify(mLogger, never())
                 .logCTLogListUpdateStateChangedEvent(
                         eq(
                                 CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_VERIFICATION),
-                        anyInt());
+                        anyInt(),
+                        anyString());
+    }
+
+    @Test
+    public void
+            testDownloader_contentDownloadSuccess_noSignatureFound_logsSingleFailure()
+                    throws Exception {
+        File logListFile = makeLogListFile("456");
+        // Deliberately don't sign the log list file to keep the signature empty
+        File metadataFile = File.createTempFile("log_list-metadata", "sig");
+        mSignatureVerifier.setPublicKey(mPublicKey);
+        mCertificateTransparencyDownloader.startMetadataDownload();
+
+        mCertificateTransparencyDownloader.onReceive(
+                mContext, makeMetadataDownloadCompleteIntent(mCompatVersion, metadataFile));
+        mCertificateTransparencyDownloader.onReceive(
+                mContext, makeContentDownloadCompleteIntent(mCompatVersion, logListFile));
+
+        assertThat(
+                        mDataStore.getPropertyInt(
+                                Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0))
+                .isEqualTo(1);
+        verify(mLogger, times(1))
+                .logCTLogListUpdateStateChangedEvent(
+                        CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_NOT_FOUND,
+                        /* failureCount= */ 1,
+                        /* logListSignature= */ "");
+        verify(mLogger, never())
+                .logCTLogListUpdateStateChangedEvent(
+                        eq(
+                                CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_PUBLIC_KEY_NOT_FOUND),
+                        anyInt(),
+                        anyString());
+        verify(mLogger, never())
+                .logCTLogListUpdateStateChangedEvent(
+                        eq(
+                                CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_VERIFICATION),
+                        anyInt(),
+                        anyString());
     }
 
     @Test
@@ -400,11 +445,13 @@ public class CertificateTransparencyDownloaderTest {
                 .logCTLogListUpdateStateChangedEvent(
                         eq(
                                 CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_NOT_FOUND),
-                        anyInt());
+                        anyInt(),
+                        anyString());
         verify(mLogger, times(1))
                 .logCTLogListUpdateStateChangedEvent(
                         CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_VERIFICATION,
-                        /* failureCount= */ 1);
+                        /* failureCount= */ 1,
+                        mSignatureVerifier.getLogListSignature().orElse(""));
     }
 
     @Test
@@ -435,16 +482,19 @@ public class CertificateTransparencyDownloaderTest {
                 .logCTLogListUpdateStateChangedEvent(
                         eq(
                                 CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_NOT_FOUND),
-                        anyInt());
+                        anyInt(),
+                        anyString());
         verify(mLogger, never())
                 .logCTLogListUpdateStateChangedEvent(
                         eq(
                                 CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_PUBLIC_KEY_NOT_FOUND),
-                        anyInt());
+                        anyInt(),
+                        anyString());
         verify(mLogger, times(1))
                 .logCTLogListUpdateStateChangedEvent(
                         CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_VERIFICATION,
-                        /* failureCount= */ 1);
+                        /* failureCount= */ 1,
+                        mSignatureVerifier.getLogListSignature().orElse(""));
     }
 
     @Test
@@ -468,7 +518,8 @@ public class CertificateTransparencyDownloaderTest {
         verify(mLogger, times(1))
                 .logCTLogListUpdateStateChangedEvent(
                         CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_VERSION_ALREADY_EXISTS,
-                        /* failureCount= */ 1);
+                        /* failureCount= */ 1,
+                        mSignatureVerifier.getLogListSignature().orElse(""));
     }
 
     @Test

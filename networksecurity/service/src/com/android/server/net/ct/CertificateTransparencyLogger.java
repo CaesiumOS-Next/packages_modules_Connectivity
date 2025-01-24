@@ -24,17 +24,20 @@ public interface CertificateTransparencyLogger {
      *
      * @param downloadStatus DownloadManager failure status why the log list wasn't updated
      * @param failureCount number of consecutive log list update failures
+     * @param logListSignature signature used during log list verification
      */
     void logCTLogListUpdateStateChangedEventWithDownloadStatus(
-            int downloadStatus, int failureCount);
+            int downloadStatus, int failureCount, String logListSignature);
 
     /**
      * Logs a CTLogListUpdateStateChanged event to statsd without a HTTP error status code.
      *
      * @param failureReason reason why the log list wasn't updated
      * @param failureCount number of consecutive log list update failures
+     * @param logListSignature signature used during log list verification
      */
-    void logCTLogListUpdateStateChangedEvent(int failureReason, int failureCount);
+    void logCTLogListUpdateStateChangedEvent(
+            int failureReason, int failureCount, String logListSignature);
 
     /**
      * Logs a CTLogListUpdateStateChanged event to statsd with an HTTP error status code.
@@ -42,8 +45,9 @@ public interface CertificateTransparencyLogger {
      * @param failureReason reason why the log list wasn't updated (e.g. DownloadManager failures)
      * @param failureCount number of consecutive log list update failures
      * @param httpErrorStatusCode if relevant, the HTTP error status code from DownloadManager
+     * @param logListSignature signature used during log list verification
      */
     void logCTLogListUpdateStateChangedEvent(
-            int failureReason, int failureCount, int httpErrorStatusCode);
+            int failureReason, int failureCount, int httpErrorStatusCode, String logListSignature);
 
 }

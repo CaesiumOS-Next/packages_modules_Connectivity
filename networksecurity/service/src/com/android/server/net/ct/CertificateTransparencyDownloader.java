@@ -18,6 +18,7 @@ package com.android.server.net.ct;
 
 import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_HTTP_ERROR;
 import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_PUBLIC_KEY_NOT_FOUND;
+import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_NOT_FOUND;
 import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_VERIFICATION;
 import static com.android.server.net.ct.CertificateTransparencyStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_VERSION_ALREADY_EXISTS;
 
@@ -256,14 +257,21 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             if (failureReason == -1) {
                 updateFailureCount();
                 failureReason =
-                        CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_VERIFICATION;
+                        mSignatureVerifier
+                                .getLogListSignature()
+                                .map(
+                                        s ->
+                                                CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_VERIFICATION)
+                                .orElse(
+                                        CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_SIGNATURE_NOT_FOUND);
             }
 
             if (failureReason != -1) {
                 mLogger.logCTLogListUpdateStateChangedEvent(
                         failureReason,
                         mDataStore.getPropertyInt(
-                                Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0));
+                                Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0),
+                        mSignatureVerifier.getLogListSignature().orElse(""));
             }
             return;
         }
@@ -284,7 +292,8 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             mLogger.logCTLogListUpdateStateChangedEvent(
                     CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_VERSION_ALREADY_EXISTS,
                     mDataStore.getPropertyInt(
-                            Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0));
+                            Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0),
+                    mSignatureVerifier.getLogListSignature().orElse(""));
             }
         }
 
@@ -295,16 +304,18 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
         int failureCount =
                 mDataStore.getPropertyInt(
                         Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* defaultValue= */ 0);
+        String logListSignature = mSignatureVerifier.getLogListSignature().orElse("");
 
         if (status.isHttpError()) {
             mLogger.logCTLogListUpdateStateChangedEvent(
                     CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED__UPDATE_STATUS__FAILURE_HTTP_ERROR,
                     failureCount,
-                    status.reason());
+                    status.reason(),
+                    logListSignature);
         } else {
             // TODO(b/384935059): handle blocked domain logging
             mLogger.logCTLogListUpdateStateChangedEventWithDownloadStatus(
-                    status.reason(), failureCount);
+                    status.reason(), failureCount, logListSignature);
         }
     }
 

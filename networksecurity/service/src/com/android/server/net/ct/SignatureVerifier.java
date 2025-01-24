@@ -27,6 +27,7 @@ import androidx.annotation.VisibleForTesting;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.PublicKey;
@@ -42,6 +43,7 @@ public class SignatureVerifier {
     private final Context mContext;
 
     @NonNull private Optional<PublicKey> mPublicKey = Optional.empty();
+    @NonNull private Optional<byte[]> mLogListSignature = Optional.empty();
 
     public SignatureVerifier(Context context) {
         mContext = context;
@@ -50,6 +52,10 @@ public class SignatureVerifier {
     @VisibleForTesting
     Optional<PublicKey> getPublicKey() {
         return mPublicKey;
+    }
+
+    Optional<String> getLogListSignature() {
+        return mLogListSignature.map(byteSig -> new String(byteSig, StandardCharsets.UTF_8));
     }
 
     void resetPublicKey() {
@@ -95,11 +101,18 @@ public class SignatureVerifier {
 
             byte[] signatureBytes = signatureStream.readAllBytes();
             try {
-                success = verifier.verify(Base64.getDecoder().decode(signatureBytes));
+                byte[] decodedSignatureBytes = Base64.getDecoder().decode(signatureBytes);
+                if (decodedSignatureBytes != null && decodedSignatureBytes.length != 0) {
+                    mLogListSignature = Optional.of(decodedSignatureBytes);
+                }
+                success = verifier.verify(decodedSignatureBytes);
             } catch (IllegalArgumentException e) {
                 Log.w("CertificateTransparencyDownloader", "Invalid signature base64 encoding", e);
                 // TODO: remove the fallback once the signature base64 is published
                 Log.i("CertificateTransparencyDownloader", "Signature verification as raw bytes");
+                if (signatureBytes != null && signatureBytes.length != 0) {
+                    mLogListSignature = Optional.of(signatureBytes);
+                }
                 success = verifier.verify(signatureBytes);
             }
         }

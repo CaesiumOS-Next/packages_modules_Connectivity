@@ -32,26 +32,30 @@ class CertificateTransparencyLoggerImpl implements CertificateTransparencyLogger
 
     @Override
     public void logCTLogListUpdateStateChangedEventWithDownloadStatus(
-            int downloadStatus, int failureCount) {
+            int downloadStatus, int failureCount, String signature) {
         logCTLogListUpdateStateChangedEvent(
-                downloadStatusToFailureReason(downloadStatus), failureCount);
-    }
-
-    @Override
-    public void logCTLogListUpdateStateChangedEvent(int failureReason, int failureCount) {
-        logCTLogListUpdateStateChangedEvent(
-                failureReason, failureCount, /* httpErrorStatusCode= */ 0);
+                downloadStatusToFailureReason(downloadStatus), failureCount, signature);
     }
 
     @Override
     public void logCTLogListUpdateStateChangedEvent(
-            int failureReason, int failureCount, int httpErrorStatusCode) {
+            int failureReason, int failureCount, String signature) {
+        logCTLogListUpdateStateChangedEvent(
+                failureReason,
+                failureCount,
+                /* httpErrorStatusCode= */ 0,
+                signature);
+    }
+
+    @Override
+    public void logCTLogListUpdateStateChangedEvent(
+            int failureReason, int failureCount, int httpErrorStatusCode, String signature) {
         CertificateTransparencyStatsLog.write(
                 CERTIFICATE_TRANSPARENCY_LOG_LIST_UPDATE_STATE_CHANGED,
                 failureReason,
                 failureCount,
                 httpErrorStatusCode,
-                /* signature= */ "",
+                signature,
                 /* logListTimestampMs= */ 0);
     }
 
