@@ -4723,6 +4723,7 @@ public class ConnectivityManager {
                 : NetworkCallback.DECLARED_METHODS_ALL;
         final NetworkRequest request;
         final String callingPackageName = mContext.getOpPackageName();
+	Log.d(TAG, Log.getStackTraceString(new Throwable()));
         try {
             synchronized(sCallbacks) {
                 if (callback.networkRequest != null
