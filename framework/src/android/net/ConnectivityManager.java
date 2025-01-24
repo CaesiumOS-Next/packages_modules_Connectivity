@@ -4723,6 +4723,18 @@ public class ConnectivityManager {
                 : NetworkCallback.DECLARED_METHODS_ALL;
         final NetworkRequest request;
         final String callingPackageName = mContext.getOpPackageName();
+	if ("android".equals(callingPackageName)) {
+            final StackTraceElement[] callStack = Thread.currentThread().getStackTrace();
+            final StringBuffer sb = new StringBuffer();
+            for (int i = 3; i < callStack.length; i++) {
+                final String stackTrace = callStack[i].toString();
+                if (stackTrace == null || stackTrace.contains("android.os")) {
+                    break;
+                }
+                sb.append(" [").append(stackTrace).append("]");
+            }
+            Log.e(TAG, "oplus_debug StackLog:" + sb.toString());
+        }
         try {
             synchronized(sCallbacks) {
                 if (callback.networkRequest != null

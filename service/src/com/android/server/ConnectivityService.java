@@ -440,7 +440,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private static final boolean DBG = true;
     private static final boolean DDBG = Log.isLoggable(TAG, Log.DEBUG);
-    private static final boolean VDBG = Log.isLoggable(TAG, Log.VERBOSE);
+    private static final boolean VDBG = true;/*Log.isLoggable(TAG, Log.VERBOSE);*/
 
     private static final boolean LOGD_BLOCKED_NETWORKINFO = true;
 
@@ -1028,7 +1028,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             NetworkProvider.FIRST_PROVIDER_ID);
 
     // NetworkRequest activity String log entries.
-    private static final int MAX_NETWORK_REQUEST_LOGS = 20;
+    private static final int MAX_NETWORK_REQUEST_LOGS = 100;
     private final LocalLog mNetworkRequestInfoLogs = new LocalLog(MAX_NETWORK_REQUEST_LOGS);
 
     // NetworkInfo blocked and unblocked String log entries
@@ -6150,6 +6150,35 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private void dumpNetworkRequests() {
+        Log.d(TAG, "error happened too many request dumpNetworkRequests begin+++++++++++++++++++++++++++++++++++++++++++++++++");
+        NetworkRequestInfo[] infos = null;
+        while (infos == null) {
+            try {
+                infos = requestsSortedById();
+            } catch (ConcurrentModificationException e) {
+                // mNetworkRequests should only be accessed from handler thread, except dump().
+                // As dump() is never called in normal usage, it would be needlessly expensive
+                // to lock the collection only for its benefit. Instead, retry getting the
+                // requests if ConcurrentModificationException is thrown during dump().
+            }
+        }
+        for (NetworkRequestInfo nri : infos) {
+            Log.d(TAG, "dumpNetworkRequests left request = " + nri.toString());
+        }
+        Log.d(TAG, "-------------------------------- dumpNetworkRequests end---------------------------------------------------");
+    }
+
+    //error handle too requestNetwork dump NetworkRequestInfos
+    private void checkNetworkRequestExceed(int uid) {
+        if ((mSystemNetworkRequestCounter.get(uid) >= MAX_NETWORK_REQUESTS_PER_SYSTEM_UID - 2)
+                || (mNetworkRequestCounter.get(uid) >= MAX_NETWORK_REQUESTS_PER_UID - 2)) {
+            Log.d(TAG, " checkNetworkRequestExceed uid = " + uid + "mSystemNetworkRequestCounter = " + mSystemNetworkRequestCounter.get(uid) + " mNetworkRequestCounter = " + mNetworkRequestCounter.get(uid));
+            dumpNetworkRequests();
+            dumpAllRequestInfoLogsToLogcat();
+        }
+    }
+
     private RequestInfoPerUidCounter getRequestCounter(NetworkRequestInfo nri) {
         return hasAnyPermissionOf(mContext,
                 nri.mPid, nri.mUid, NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK)
@@ -8399,6 +8428,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return true;
     }
 
+    private void dumpStack(NetworkRequest.Type reqType, int asUid , String callingPackageName, NetworkRequest networkRequest) {
+        if ("android".equals(callingPackageName)) {
+            final StackTraceElement[] callStack = Thread.currentThread().getStackTrace();
+            final StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < callStack.length; i++) {
+                final String stackTrace = callStack[i].toString();
+                if (stackTrace == null || stackTrace.contains("android.os")) {
+                    break;
+                }
+                sb.append(" [").append(stackTrace).append("]");
+            }
+            Log.e(TAG, "debug StackLog:" + "reqType = " + reqType + " NetworkRequest= " + networkRequest + sb.toString());
+        }
+    }
+
+
     @Override
     public NetworkRequest requestNetwork(int asUid, NetworkCapabilities networkCapabilities,
             int reqTypeInt, Messenger messenger, int timeoutMs, final IBinder binder,
@@ -8508,6 +8553,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         final NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, legacyType,
                 nextNetworkRequestId(), reqType);
+	dumpStack(reqType, asUid, callingPackageName, networkRequest);
         final NetworkRequestInfo nri = getNriToRegister(
                 asUid, networkRequest, messenger, binder, callbackFlags,
                 callingAttributionTag, declaredMethodsFlag);
@@ -8763,6 +8809,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + "request: " + nri);
             return;
         }
+	checkNetworkRequestExceed(nri.mUid);
         nri.mPerUidCounter.incrementCountOrThrow(nri.mUid);
 
         // If nri.mMessenger is null, this nri does not have NetworkCallback so ConnectivityService
@@ -13093,6 +13140,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // handleRegisterConnectivityDiagnosticsCallback(). nri will be cleaned up as part of the
         // callback's binder death.
         final NetworkRequestInfo nri = new NetworkRequestInfo(callingUid, requestWithId);
+	checkNetworkRequestExceed(nri.mUid);
         nri.mPerUidCounter.incrementCountOrThrow(nri.mUid);
         final ConnectivityDiagnosticsCallbackInfo cbInfo =
                 new ConnectivityDiagnosticsCallbackInfo(callback, nri, callingPackageName);
