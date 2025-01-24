@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1354582d_e78318a8",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4726,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-24T09:21:09Z",
+      "side": 1,
+      "message": "What is the purpose of this logging line? It seems you are trying to get the exception everytime someone call this `sendRequestForNetwork`?\n\nIf the only purpose is to investigating who calls the requestForNetwork very often, the infomration should be already in the `dumpsys connectivity`",
+      "range": {
+        "startLine": 4726,
+        "startChar": 1,
+        "endLine": 4726,
+        "endChar": 54
+      },
+      "revId": "ee61d8e167ef25635013f9e209a1f2ba03bab3c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
