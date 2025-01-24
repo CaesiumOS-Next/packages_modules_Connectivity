@@ -294,6 +294,7 @@ public class PermissionMonitor implements PackageManager.OnPermissionsChangedLis
     @Override
     public void onPermissionsChanged(int uid) {
         if (CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid)) {
+            log("Compat change is enabled");
             mPermissionUpdateLogs.i("Permissions state changed for uid=" + uid);
             // TODO(b/388803658): Update network permissions
         }
