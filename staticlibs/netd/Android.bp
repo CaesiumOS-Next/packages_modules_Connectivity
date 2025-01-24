@@ -22,7 +22,7 @@ java_library {
     sdk_version: "system_current",
     min_sdk_version: "30",
     static_libs: [
-        "netd_aidl_interface-V15-java",
+        "netd_aidl_interface-V16-java",
     ],
     apex_available: [
         "//apex_available:platform", // used from services.net
@@ -169,6 +169,10 @@ aidl_interface {
         },
         {
             version: "15",
+            imports: [],
+        },
+        {
+            version: "16",
             imports: [],
         },
 
