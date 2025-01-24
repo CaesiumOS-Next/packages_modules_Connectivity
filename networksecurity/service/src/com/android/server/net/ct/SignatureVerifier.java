@@ -21,7 +21,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.VisibleForTesting;
 
@@ -63,15 +62,10 @@ public class SignatureVerifier {
     }
 
     void setPublicKey(String publicKey) throws GeneralSecurityException {
-        byte[] decodedPublicKey = null;
-        try {
-            decodedPublicKey = Base64.getDecoder().decode(publicKey);
-        } catch (IllegalArgumentException e) {
-            throw new GeneralSecurityException("Invalid public key base64 encoding", e);
-        }
         setPublicKey(
                 KeyFactory.getInstance("RSA")
-                        .generatePublic(new X509EncodedKeySpec(decodedPublicKey)));
+                        .generatePublic(
+                                new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey))));
     }
 
     @VisibleForTesting
@@ -88,21 +82,10 @@ public class SignatureVerifier {
         verifier.initVerify(mPublicKey.get());
         ContentResolver contentResolver = mContext.getContentResolver();
 
-        boolean success = false;
         try (InputStream fileStream = contentResolver.openInputStream(file);
                 InputStream signatureStream = contentResolver.openInputStream(signature)) {
             verifier.update(fileStream.readAllBytes());
-
-            byte[] signatureBytes = signatureStream.readAllBytes();
-            try {
-                success = verifier.verify(Base64.getDecoder().decode(signatureBytes));
-            } catch (IllegalArgumentException e) {
-                Log.w("CertificateTransparencyDownloader", "Invalid signature base64 encoding", e);
-                // TODO: remove the fallback once the signature base64 is published
-                Log.i("CertificateTransparencyDownloader", "Signature verification as raw bytes");
-                success = verifier.verify(signatureBytes);
-            }
+            return verifier.verify(signatureStream.readAllBytes());
         }
-        return success;
     }
 }
