@@ -1460,6 +1460,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return SdkLevel.isAtLeastV();
         }
 
+        public boolean isAtLeastB() {
+            return SdkLevel.isAtLeastB();
+        }
+
         /**
          * Get system properties to use in ConnectivityService.
          */
@@ -1899,11 +1903,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 && mDeps.isFeatureEnabled(context, REQUEST_RESTRICTED_WIFI);
         mBackgroundFirewallChainEnabled = mDeps.isAtLeastV() && mDeps.isFeatureNotChickenedOut(
                 context, ConnectivityFlags.BACKGROUND_FIREWALL_CHAIN);
-        mUseDeclaredMethodsForCallbacksEnabled = mDeps.isFeatureEnabled(context,
-                ConnectivityFlags.USE_DECLARED_METHODS_FOR_CALLBACKS);
-        // registerUidFrozenStateChangedCallback is only available on U+
-        mQueueCallbacksForFrozenApps = mDeps.isAtLeastU()
-                && mDeps.isFeatureEnabled(context, QUEUE_CALLBACKS_FOR_FROZEN_APPS);
+        mUseDeclaredMethodsForCallbacksEnabled =
+                mDeps.isFeatureEnabled(
+                                context, ConnectivityFlags.USE_DECLARED_METHODS_FOR_CALLBACKS)
+                        || mDeps.isAtLeastB();
+        mQueueCallbacksForFrozenApps =
+                (mDeps.isAtLeastU() // registerUidFrozenStateChangedCallback is only available on U+
+                                && mDeps.isFeatureEnabled(context, QUEUE_CALLBACKS_FOR_FROZEN_APPS))
+                        || mDeps.isAtLeastB();
         mCarrierPrivilegeAuthenticator = mDeps.makeCarrierPrivilegeAuthenticator(
                 mContext, mTelephonyManager, mRequestRestrictedWifiEnabled,
                 this::handleUidCarrierPrivilegesLost, mHandler);
