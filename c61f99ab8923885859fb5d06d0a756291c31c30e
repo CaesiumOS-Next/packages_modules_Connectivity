@@ -466,6 +466,30 @@
       },
       "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13d65fd5_0ebdeae9",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-27T14:41:36Z",
+      "side": 1,
+      "message": "Acknowledged. The new code does not have this problem anymore.",
+      "parentUuid": "7f91d1f8_5f37a063",
+      "range": {
+        "startLine": 553,
+        "startChar": 47,
+        "endLine": 553,
+        "endChar": 58
+      },
+      "revId": "c61f99ab8923885859fb5d06d0a756291c31c30e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

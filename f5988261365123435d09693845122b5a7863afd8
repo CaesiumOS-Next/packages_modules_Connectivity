@@ -1,0 +1,75 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c98fbb7a_82948a14",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-01-27T14:41:36Z",
+      "side": 1,
+      "message": "This one needs the same bug fix as ag/3464791: `createGetLinkMessage()` does not set the ACK flag.\n\nI just noticed that everything in RtNetlinkLinkMessage is final, so this is not possible to set the ACK flag here without recreating a new msg object which is not great.",
+      "range": {
+        "startLine": 555,
+        "startChar": 16,
+        "endLine": 555,
+        "endChar": 57
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "08eff57d_d4ce2c69",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 36,
+                "startChar": 0,
+                "endLine": 36,
+                "endChar": 0
+              },
+              "replacement": "import static com.android.net.module.util.netlink.NetlinkConstants.RTM_NEWLINK;\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 555,
+                "startChar": 0,
+                "endLine": 556,
+                "endChar": 0
+              },
+              "replacement": "                RtNetlinkLinkMessage.createGetLinkMessage(interfaceName, /*seqNo*/ 0,\n                        /*ack*/ true);\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 567,
+                "startChar": 0,
+                "endLine": 568,
+                "endChar": 0
+              },
+              "replacement": "        if (hdr.nlmsg_type !\u003d RTM_NEWLINK) {\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/netlink/NetlinkUtils.java",
+              "range": {
+                "startLine": 570,
+                "startChar": 0,
+                "endLine": 571,
+                "endChar": 0
+              },
+              "replacement": "                    + RTM_NEWLINK);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "f5988261365123435d09693845122b5a7863afd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
