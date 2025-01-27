@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5aed465_ccd7d44b",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-27T21:34:49Z",
+      "side": 1,
+      "message": "I\u0027ve rebased. However, we\u0027d be okay enabling this for U+, so I don\u0027t think we need to gate on 25Q+. Would you be mainly concerned with older and lower end devices? Maybe we can gate this differently to target that?",
+      "parentUuid": "61514e20_1d8d5e56",
+      "range": {
+        "startLine": 427,
+        "startChar": 0,
+        "endLine": 427,
+        "endChar": 4
+      },
+      "revId": "42da9f47539b45eca92d68573f1b153750f10f1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8c426713_e9731040",
         "filename": "bpf/progs/netd.c",
         "patchSetId": 14
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-22T03:26:29Z",
       "side": 1,
       "message": "I wonder if it\u0027s safer to only return DROP here, and fall through to PASS below... in case we ever want to add more drop rules",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 76
+      },
+      "revId": "42da9f47539b45eca92d68573f1b153750f10f1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bf5d7b6_50fc13f2",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-27T21:34:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c426713_e9731040",
       "range": {
         "startLine": 432,
         "startChar": 0,
@@ -84,6 +132,30 @@
           ]
         }
       ],
+      "revId": "42da9f47539b45eca92d68573f1b153750f10f1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc7fcaa_e744c34f",
+        "filename": "bpf/progs/netd.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-27T21:34:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8059b315_2915cf34",
+      "range": {
+        "startLine": 281,
+        "startChar": 13,
+        "endLine": 281,
+        "endChar": 16
+      },
       "revId": "42da9f47539b45eca92d68573f1b153750f10f1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
