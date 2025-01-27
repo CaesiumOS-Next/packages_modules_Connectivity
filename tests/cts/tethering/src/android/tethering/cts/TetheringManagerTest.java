@@ -461,7 +461,17 @@ public class TetheringManagerTest {
         TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
         Executor executor = Runnable::run;
         TetheringManager.StopTetheringCallback callback =
-                new TetheringManager.StopTetheringCallback() {};
+                new TetheringManager.StopTetheringCallback() {
+                    @Override
+                    public void onStopTetheringSucceeded() {
+                        // No-op.
+                    }
+
+                    @Override
+                    public void onStopTetheringFailed(int error) {
+                        // No-op.
+                    }
+                };
         try {
             mTM.stopTethering(request, executor, callback);
             fail("stopTethering should throw UnsupportedOperationException");
