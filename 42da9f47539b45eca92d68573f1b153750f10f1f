@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ddd00d3e_5c95de25",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-28T22:32:23Z",
+      "side": 1,
+      "message": "So I\u0027m not against that, we can make the code U+ though that requires a little bit of prep work.  Is it safe to enable in U/V?",
+      "parentUuid": "139d281f_577252b2",
+      "range": {
+        "startLine": 427,
+        "startChar": 0,
+        "endLine": 427,
+        "endChar": 4
+      },
+      "revId": "42da9f47539b45eca92d68573f1b153750f10f1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8c426713_e9731040",
         "filename": "bpf/progs/netd.c",
         "patchSetId": 14
