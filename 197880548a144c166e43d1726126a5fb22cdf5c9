@@ -1,0 +1,277 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00956611_a0d28c05",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-01-28T08:08:09Z",
+      "side": 1,
+      "message": "This information is entirely contained within the request and in fact is only ever used in calls to enableIpServing. It looks like it should be removed or replaced with a static helper method called by enableIpServing on the passed request.\n\nIn l.1623 you already have a TODO to remove it, of sorts. But immediately you can get most of the benefits by the trivial change of passing the request to getRequestedState instead of the type.",
+      "range": {
+        "startLine": 1007,
+        "startChar": 20,
+        "endLine": 1007,
+        "endChar": 57
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c81aec_f58a1efb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-01-28T08:08:09Z",
+      "side": 1,
+      "message": "This is a change in behavior which will manifest itself depending on the shape of the listener. This code used to call the listener on the handler thread while now it calls it inline, potentially even reentering it.\n\nThe most obvious simple fix is to just throw this on the handler thread. It doesn\u0027t look very nice but accompanied with a comment it would probably do.",
+      "range": {
+        "startLine": 1110,
+        "startChar": 0,
+        "endLine": 1110,
+        "endChar": 62
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f865048f_f6183233",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1110,
+                "startChar": 0,
+                "endLine": 1111,
+                "endChar": 0
+              },
+              "replacement": "                mHandler.post(() -\u003e listener.onResult(TETHER_ERROR_UNKNOWN_IFACE));\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1196,
+                "startChar": 0,
+                "endLine": 1197,
+                "endChar": 0
+              },
+              "replacement": "                mHandler.post(() -\u003e listener.onResult(legacyUntetherInternal(iface)));\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1805,
+                "startChar": 0,
+                "endLine": 1806,
+                "endChar": 0
+              },
+              "replacement": "                mHandler.post(() -\u003e listener.onResult(setUsbTethering(enable)));\n"
+            }
+          ]
+        }
+      ],
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bfe76fd_912e403c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-01-28T08:08:09Z",
+      "side": 1,
+      "message": "\"current\" means something in the context of this patch but not too much for a developer reading the code later ? Maybe \"historical\" behavior, or better, explain why this was the behavior ?",
+      "range": {
+        "startLine": 1177,
+        "startChar": 79,
+        "endLine": 1177,
+        "endChar": 86
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "e4259466_8dbef092",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1177,
+                "startChar": 0,
+                "endLine": 1178,
+                "endChar": 0
+              },
+              "replacement": "        // BUG: the connectivity scope in the request is ignored. This matches historical behaviour\n        // where the connectivity scope was not passed to the IpServer.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b9136ce_385a9f02",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-01-28T08:08:09Z",
+      "side": 1,
+      "message": "When coming from legacyTether, this used to be null (in most cases at least I think ?) but now it\u0027s the request created in createLegacyTetheringRequest. This looks like a change for the better, but if this is meant to be a no-op it looks very difficult to predict the possible impact of this change",
+      "range": {
+        "startLine": 1182,
+        "startChar": 52,
+        "endLine": 1182,
+        "endChar": 59
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2844d2e6_f33dab31",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1686,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-01-28T08:08:09Z",
+      "side": 1,
+      "message": "If I\u0027m following this it means getActiveTetheringRequest for this type would always return null. If true then passing null to enableIpServing would be the safest way to have a no-op change, and maybe this change could be in a separate patch.\n\nNote that before this patch, createImplictLocalOnlyTetheringRequest has no use at all and could otherwise be removed (the same goes with createLegacyTetheringRequest)",
+      "range": {
+        "startLine": 1685,
+        "startChar": 0,
+        "endLine": 1686,
+        "endChar": 80
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f432018b_ad18029a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1685,
+                "startChar": 0,
+                "endLine": 1689,
+                "endChar": 0
+              },
+              "replacement": "        // There can never be explicit requests for TETHERING_WIFI_P2P because\n        // enableTetheringInternal ignores that type. So, passing null to enableIpServing\n        // would be the safest way to have a no-op change.\n        enableIpServing(null, type, ifname, IpServer.STATE_LOCAL_ONLY);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59e402ac_f2501bcc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-01-28T08:08:09Z",
+      "side": 1,
+      "message": "Advise just \"infer\". There is no case where this method doesn\u0027t actually infer",
+      "range": {
+        "startLine": 1698,
+        "startChar": 16,
+        "endLine": 1698,
+        "endChar": 26
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "65d78016_45ec7b00",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1698,
+                "startChar": 0,
+                "endLine": 1699,
+                "endChar": 0
+              },
+              "replacement": "    private int inferWifiTetheringType(String ifname) {\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1712,
+                "startChar": 0,
+                "endLine": 1713,
+                "endChar": 0
+              },
+              "replacement": "                type \u003d inferWifiTetheringType(ifname);\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1717,
+                "startChar": 0,
+                "endLine": 1718,
+                "endChar": 0
+              },
+              "replacement": "                type \u003d inferWifiTetheringType(ifname);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37841c9a_eab757f2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1706,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-01-28T08:08:09Z",
+      "side": 1,
+      "message": "You should be able to make this final.\n\nAlso is there a reason to call this in all cases of the switch rather than inline here ?",
+      "range": {
+        "startLine": 1706,
+        "startChar": 8,
+        "endLine": 1706,
+        "endChar": 24
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
