@@ -16,6 +16,24 @@
       "message": "Do we actually need this constant - or for that matter, any of these constants?\n\nINetd.aidl is essentially an interface between mainline code and platform code. But IIUC the maps that this constant is going to be used in are not (and cannot safely be) accessed by platform code. The current values (PERMISSION_INTERNET, PERMISSION_UPDATE_DEVICE_STATS, didn\u0027t check the others) don\u0027t seem to be used in netd code at all.\n\nWith that in mind, instead of adding this constant should we just @deprecate the existing ones and add comments saying that they should never be used and no new values should be added?",
       "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3723aa56_b3218d96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-28T23:44:54Z",
+      "side": 1,
+      "message": "That\u0027s a very good point.\nI\u0027m not sure if this stuff isn\u0027t passed to netd via binder on R/S though...",
+      "parentUuid": "923f983d_7a1e312b",
+      "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
