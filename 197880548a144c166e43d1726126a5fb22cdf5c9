@@ -360,6 +360,30 @@
       },
       "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c514234_2b4ed5e2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1706,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-28T09:06:48Z",
+      "side": 1,
+      "message": "The reason is ifaceNameToType will throw an NPE on null input.\n\nThere\u0027s unit tests that will mock a wifi broadcast with null iface and invalid IP mode. Before this change, this broadcast would silently fail on the default case and we wont pass null to ifaceNameToType. If we called ifaceNameToType inline here, it would throw an NPE on this test broadcast instead of failing silently on the invalid IP mode. Thus we need to check it after we know the IP mode is valid.",
+      "parentUuid": "37841c9a_eab757f2",
+      "range": {
+        "startLine": 1706,
+        "startChar": 8,
+        "endLine": 1706,
+        "endChar": 24
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
