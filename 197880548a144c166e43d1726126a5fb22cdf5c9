@@ -111,6 +111,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e943f773_c7c4c4c8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-28T08:57:29Z",
+      "side": 1,
+      "message": "Do we need to create legacy/implicit requests in this CL?\n\nIIUC, this CL should simply move the TetheringRequest argument up the stack from tetherInternal-\u003eenableIpServing, but still keeps the old behavior of allowing null requests, so creating the legacy request here (and for Wifi LOHS/P2P) is unnecessary.\n\nI think the next CL on top of this should deal with changing this argument to @NonNull, and then we can start creating the legacy/implicit/placeholder requests (And remove getRequestedState())",
+      "range": {
+        "startLine": 1114,
+        "startChar": 41,
+        "endLine": 1114,
+        "endChar": 69
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2bfe76fd_912e403c",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 4
