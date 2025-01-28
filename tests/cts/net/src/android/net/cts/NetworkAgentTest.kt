@@ -722,9 +722,9 @@ class NetworkAgentTest {
 
         val cv = ConditionVariable()
         val cpb = PrivilegeWaiterCallback(cv)
-        tryTest {
+        tryTest @JvmSerializableLambda {
             val slotIndex = SubscriptionManager.getSlotIndex(subId)!!
-            runAsShell(READ_PRIVILEGED_PHONE_STATE) {
+            runAsShell(READ_PRIVILEGED_PHONE_STATE) @JvmSerializableLambda {
                 tm.registerCarrierPrivilegesCallback(slotIndex, { it.run() }, cpb)
             }
             // Wait for the callback to be registered
@@ -747,7 +747,7 @@ class NetworkAgentTest {
                 carrierConfigRule.cleanUpNow()
             }
             assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't change carrier privilege")
-        } cleanup {
+        } cleanup @JvmSerializableLambda {
             runAsShell(READ_PRIVILEGED_PHONE_STATE) {
                 tm.unregisterCarrierPrivilegesCallback(cpb)
             }
@@ -762,9 +762,9 @@ class NetworkAgentTest {
 
         val cv = ConditionVariable()
         val cpb = CarrierServiceChangedWaiterCallback(cv)
-        tryTest {
+        tryTest @JvmSerializableLambda {
             val slotIndex = SubscriptionManager.getSlotIndex(subId)!!
-            runAsShell(READ_PRIVILEGED_PHONE_STATE) {
+            runAsShell(READ_PRIVILEGED_PHONE_STATE) @JvmSerializableLambda {
                 tm.registerCarrierPrivilegesCallback(slotIndex, { it.run() }, cpb)
             }
             // Wait for the callback to be registered
@@ -786,7 +786,7 @@ class NetworkAgentTest {
                 }
             }
             assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't modify carrier service package")
-        } cleanup {
+        } cleanup @JvmSerializableLambda {
             runAsShell(READ_PRIVILEGED_PHONE_STATE) {
                 tm.unregisterCarrierPrivilegesCallback(cpb)
             }
