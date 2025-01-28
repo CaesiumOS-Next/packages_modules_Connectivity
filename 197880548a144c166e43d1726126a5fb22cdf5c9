@@ -134,6 +134,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6cfc1785_eba09384",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-28T10:19:38Z",
+      "side": 1,
+      "message": "requestedState \u003d\u003d IpServer.STATE_LOCAL_ONLY ? CONNECTIVITY_SCOPE_LOCAL\n                            : CONNECTIVITY_SCOPE_GLOBAL",
+      "range": {
+        "startLine": 1114,
+        "startChar": 76,
+        "endLine": 1114,
+        "endChar": 90
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "958a7bfc_19255159",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 32,
+                "startChar": 0,
+                "endLine": 32,
+                "endChar": 0
+              },
+              "replacement": "import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1114,
+                "startChar": 0,
+                "endLine": 1115,
+                "endChar": 0
+              },
+              "replacement": "        final TetheringRequest request \u003d createLegacyTetheringRequest(type,\n                requestedState \u003d\u003d IpServer.STATE_LOCAL_ONLY ? CONNECTIVITY_SCOPE_LOCAL\n                        : CONNECTIVITY_SCOPE_GLOBAL);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2bfe76fd_912e403c",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 4
