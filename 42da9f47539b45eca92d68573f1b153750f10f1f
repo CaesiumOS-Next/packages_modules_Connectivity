@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "139d281f_577252b2",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-28T21:59:41Z",
+      "side": 1,
+      "message": "The sandbox exists back to U, so the benefit would be to consistently restrict localhost connection for the SdkSandbox in all its supporting platform versions",
+      "parentUuid": "2d92f44c_622c355c",
+      "range": {
+        "startLine": 427,
+        "startChar": 0,
+        "endLine": 427,
+        "endChar": 4
+      },
+      "revId": "42da9f47539b45eca92d68573f1b153750f10f1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8c426713_e9731040",
         "filename": "bpf/progs/netd.c",
         "patchSetId": 14
