@@ -52,6 +52,24 @@
       "parentUuid": "3723aa56_b3218d96",
       "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "522ca878_0199479e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-28T23:46:37Z",
+      "side": 1,
+      "message": "https://source.corp.google.com/h/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/connectivity/PermissionMonitor.java;drc\u003d41fdf389633af0684ac976df2294558f8ae26771;l\u003d567",
+      "parentUuid": "b935a2f2_1faaeecd",
+      "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
