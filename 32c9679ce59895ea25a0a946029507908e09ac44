@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "265e665d_b3c29d24",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-28T02:57:44Z",
+      "side": 1,
+      "message": "TH seems complain here:\n\n```\n...lin/CtsNetTestCasesMaxTargetSdk30.jar out/soong/.intermediates/packages/modules/Connectivity/tests/cts/net/CtsNetTestCasesMaxTargetSdk30/android_common/kotlin_headers/CtsNetTestCasesMaxTargetSdk30.jar\n...CtsNetTestCasesMaxTargetSdk30/android_common/kotlinc/classes\" \"out/soong/.intermediates/packages/modules/Connectivity/tests/cts/net/CtsNetTestCasesMaxTargetSdk30/android_common/kotlinc/header_classes\"\npackages/modules/Connectivity/tests/cts/net/src/android/net/cts/NetworkAgentTest.kt:744:23: error: unresolved reference: @tryTest\n                return@tryTest\n                      ^^^^^^^^\npackages/modules/Connectivity/tests/cts/net/src/android/net/cts/NetworkAgentTest.kt:786:23: error: unresolved reference: @tryTest\n                return@tryTest\n                      ^^^^^^^^\n```",
+      "range": {
+        "startLine": 744,
+        "startChar": 16,
+        "endLine": 744,
+        "endChar": 30
+      },
+      "revId": "32c9679ce59895ea25a0a946029507908e09ac44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
