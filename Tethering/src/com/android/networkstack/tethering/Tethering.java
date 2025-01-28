@@ -1695,6 +1695,9 @@ public class Tethering {
         disableWifiIpServingCommon(TETHERING_WIFI_P2P, ifname);
     }
 
+    // TODO: fold this in to enableWifiIpServing.  We cannot do this at the moment because there
+    // are tests that send wifi AP broadcasts with a null interface. But if this can't happen on
+    // real devices, we should fix those tests to always pass in an interface.
     private int maybeInferWifiTetheringType(String ifname) {
         return SdkLevel.isAtLeastT() ? TETHERING_WIFI : ifaceNameToType(ifname);
     }
