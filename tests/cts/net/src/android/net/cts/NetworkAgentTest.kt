@@ -725,7 +725,7 @@ class NetworkAgentTest {
         tryTest {
             val slotIndex = SubscriptionManager.getSlotIndex(subId)!!
             runAsShell(READ_PRIVILEGED_PHONE_STATE) {
-                tm.registerCarrierPrivilegesCallback(slotIndex, { it.run() }, cpb)
+                tm.registerCarrierPrivilegesCallback(slotIndex, { it.run() }, cpb.callback)
             }
             // Wait for the callback to be registered
             assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't register CarrierPrivilegesCallback")
@@ -749,7 +749,7 @@ class NetworkAgentTest {
             assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't change carrier privilege")
         } cleanup {
             runAsShell(READ_PRIVILEGED_PHONE_STATE) {
-                tm.unregisterCarrierPrivilegesCallback(cpb)
+                tm.unregisterCarrierPrivilegesCallback(cpb.callback)
             }
         }
     }
@@ -765,7 +765,7 @@ class NetworkAgentTest {
         tryTest {
             val slotIndex = SubscriptionManager.getSlotIndex(subId)!!
             runAsShell(READ_PRIVILEGED_PHONE_STATE) {
-                tm.registerCarrierPrivilegesCallback(slotIndex, { it.run() }, cpb)
+                tm.registerCarrierPrivilegesCallback(slotIndex, { it.run() }, cpb.callback)
             }
             // Wait for the callback to be registered
             assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't register CarrierPrivilegesCallback")
@@ -788,7 +788,7 @@ class NetworkAgentTest {
             assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't modify carrier service package")
         } cleanup {
             runAsShell(READ_PRIVILEGED_PHONE_STATE) {
-                tm.unregisterCarrierPrivilegesCallback(cpb)
+                tm.unregisterCarrierPrivilegesCallback(cpb.callback)
             }
         }
     }
@@ -1981,21 +1981,27 @@ class NetworkAgentTest {
 // Subclasses of CarrierPrivilegesCallback can't be inline, or they'll be compiled as
 // inner classes of the test class and will fail resolution on R as the test harness
 // uses reflection to list all methods and classes
-class PrivilegeWaiterCallback(private val cv: ConditionVariable) :
-        CarrierPrivilegesCallback {
+// Worse, they also can't be the type of a local variable, because with the advent of Java 7's
+// invokedynamic, lambdas using these variables will generate static methods with the type of
+// the locals as arguments. JUnit likes to enumerate all methods, including private ones (!?)
+// so this blows up as JUnit is trying to find tests methods.
+class PrivilegeWaiterCallback(private val cv: ConditionVariable) {
     var hasPrivilege = false
-    override fun onCarrierPrivilegesChanged(p: MutableSet<String>, uids: MutableSet<Int>) {
-        hasPrivilege = uids.contains(Process.myUid())
-        cv.open()
+    val callback = object : CarrierPrivilegesCallback {
+        override fun onCarrierPrivilegesChanged(p: MutableSet<String>, uids: MutableSet<Int>) {
+            hasPrivilege = uids.contains(Process.myUid())
+            cv.open()
+        }
     }
 }
 
-class CarrierServiceChangedWaiterCallback(private val cv: ConditionVariable) :
-        CarrierPrivilegesCallback {
+class CarrierServiceChangedWaiterCallback(private val cv: ConditionVariable) {
     var pkgName: String? = null
-    override fun onCarrierPrivilegesChanged(p: MutableSet<String>, u: MutableSet<Int>) {}
-    override fun onCarrierServiceChanged(pkgName: String?, uid: Int) {
-        this.pkgName = pkgName
-        cv.open()
+    val callback = object : CarrierPrivilegesCallback {
+        override fun onCarrierPrivilegesChanged(p: MutableSet<String>, u: MutableSet<Int>) {}
+        override fun onCarrierServiceChanged(pkgName: String?, uid: Int) {
+            this@CarrierServiceChangedWaiterCallback.pkgName = pkgName
+            cv.open()
+        }
     }
 }
