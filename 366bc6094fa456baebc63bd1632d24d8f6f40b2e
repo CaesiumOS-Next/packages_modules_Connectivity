@@ -46,6 +46,30 @@
       },
       "revId": "366bc6094fa456baebc63bd1632d24d8f6f40b2e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4542a9a1_121feb82",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-28T18:16:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10051102_94cf255b",
+      "range": {
+        "startLine": 952,
+        "startChar": 54,
+        "endLine": 952,
+        "endChar": 59
+      },
+      "revId": "366bc6094fa456baebc63bd1632d24d8f6f40b2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
