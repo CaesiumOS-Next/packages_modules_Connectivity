@@ -16,6 +16,23 @@
       "message": "Beautiful comments.",
       "revId": "1154268cf3e6a82f5a3903f02b729cdf6f9bfd6e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab7ce8b1_d2e03410",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-28T07:24:39Z",
+      "side": 1,
+      "message": "I think we preferred to go with solution in aosp/3465756",
+      "revId": "1154268cf3e6a82f5a3903f02b729cdf6f9bfd6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
