@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eaf8e23_c6615d0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-01-28T04:06:34Z",
+      "side": 1,
+      "message": "I do think this approach is better than other two, assume we can fix the build error.",
+      "revId": "6b7e0b3078e7511f358b6aa84af2bf76cd349151",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
