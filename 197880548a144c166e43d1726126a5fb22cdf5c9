@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed5aa191_e5aef3f9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-28T11:00:48Z",
+      "side": 1,
+      "message": "Added a TODO.",
+      "parentUuid": "00956611_a0d28c05",
+      "range": {
+        "startLine": 1007,
+        "startChar": 20,
+        "endLine": 1007,
+        "endChar": 57
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12c81aec_f58a1efb",
@@ -129,6 +153,30 @@
           ]
         }
       ],
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12697d5b_f31f5756",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-28T11:00:48Z",
+      "side": 1,
+      "message": "Ouch. I got confused by the nesting and the long inline lambda. Uploaded aosp/3465237 to move the contents of the lambda to a new method that runs on the handler thread, and hopefully fixed.",
+      "parentUuid": "12c81aec_f58a1efb",
+      "range": {
+        "startLine": 1110,
+        "startChar": 0,
+        "endLine": 1110,
+        "endChar": 62
+      },
       "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -248,6 +296,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e849793_684ffd24",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-28T11:00:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bfe76fd_912e403c",
+      "range": {
+        "startLine": 1177,
+        "startChar": 79,
+        "endLine": 1177,
+        "endChar": 86
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b9136ce_385a9f02",
@@ -261,6 +333,30 @@
       "writtenOn": "2025-01-28T08:08:09Z",
       "side": 1,
       "message": "When coming from legacyTether, this used to be null (in most cases at least I think ?) but now it\u0027s the request created in createLegacyTetheringRequest. This looks like a change for the better, but if this is meant to be a no-op it looks very difficult to predict the possible impact of this change",
+      "range": {
+        "startLine": 1182,
+        "startChar": 52,
+        "endLine": 1182,
+        "endChar": 59
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ee47984_b4a0230b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-28T11:00:48Z",
+      "side": 1,
+      "message": "Good catch.\n\nIn practice right now it\u0027s a no-op, because while we store the request in the IpServer, nothing uses it. While we might use the request in a future CL, I think we can cross that bridge when we come to it, and keep this CL as is.\n\nAlternatives:\n1. Check here if the request is a legacy request, and if so pass in null instead.\n2. When legacyTether is called, pass down a null request.\n\nAs you point out, because passing the request down as this CL currently does is an improvement over passing null. Since this is actually a no-op, I\u0027d prefer to keep the code as is. Thoughts?",
+      "parentUuid": "7b9136ce_385a9f02",
       "range": {
         "startLine": 1182,
         "startChar": 52,
