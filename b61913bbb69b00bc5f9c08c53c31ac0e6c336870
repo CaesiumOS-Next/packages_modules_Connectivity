@@ -104,6 +104,23 @@
       "message": "Looks one test is failing.",
       "revId": "b61913bbb69b00bc5f9c08c53c31ac0e6c336870",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eed36b44_9c6a58ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-01-28T00:56:49Z",
+      "side": 1,
+      "message": "Thanks for the fix!",
+      "revId": "b61913bbb69b00bc5f9c08c53c31ac0e6c336870",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
