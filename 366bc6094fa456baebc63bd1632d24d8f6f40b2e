@@ -22,6 +22,30 @@
       },
       "revId": "366bc6094fa456baebc63bd1632d24d8f6f40b2e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10051102_94cf255b",
+        "filename": "staticlibs/netd/binder/android/net/INetd.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-28T01:00:12Z",
+      "side": 1,
+      "message": "SDKRT \u003d SdkRuntime \u003d SdkSandbox, the name has been changed in some documentation. Changed back to SdkSandbox for consistency here. Sorry for the confusion!",
+      "parentUuid": "6325e6df_1828ee7a",
+      "range": {
+        "startLine": 952,
+        "startChar": 54,
+        "endLine": 952,
+        "endChar": 59
+      },
+      "revId": "366bc6094fa456baebc63bd1632d24d8f6f40b2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
