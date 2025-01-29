@@ -43,6 +43,7 @@ import static android.net.TetheringManager.TETHERING_VIRTUAL;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHERING_WIGIG;
+import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
@@ -247,6 +248,14 @@ public class Tethering {
     private final Set<TetheringRequest> mPendingTetheringRequests = new ArraySet<>();
     private final Map<TetheringRequest, IIntResultListener> mPendingStartTetheringCallbacks =
             new ArrayMap<>();
+    /**
+     * Currently serving TetheringRequests mapped by interface.
+     * These are added when IpServer#enable is called and removed when IpServer#stop or
+     * IpServer#unwanted are called.
+     * Note: Until the sync StateMachine refactor is complete, this may be out-of-sync with the
+     * actual state of the IpServers since the above methods are posted on a handler.
+     */
+    private final Map<String, TetheringRequest> mServingTetheringRequests = new ArrayMap<>();
 
     private final Context mContext;
     private final ArrayMap<String, TetherState> mTetherStates;
@@ -701,18 +710,55 @@ public class Tethering {
         processInterfaceStateChange(iface, false /* enabled */);
     }
 
+    /**
+     * Gets all the tracked TetheringRequests, both pending and serving.
+     */
+    @VisibleForTesting
+    Set<TetheringRequest> getAllTetheringRequests() {
+        Set<TetheringRequest> requests = new ArraySet<>();
+        requests.addAll(mPendingTetheringRequests.keySet());
+        requests.addAll(mServingTetheringRequests.values());
+        return requests;
+    }
+
+
+    private TetheringRequest findFuzzyMatchedRequest(@NonNull final TetheringRequest request) {
+        for (TetheringRequest existingRequest : getAllTetheringRequests()) {
+            if (existingRequest.fuzzyMatches(request)) return existingRequest;
+        }
+        return null;
+    }
+
     void startTethering(final TetheringRequest request, final String callerPkg,
             final IIntResultListener listener) {
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            final TetheringRequest unfinishedRequest = getPendingTetheringRequest(type);
-            // If tethering is already enabled with a different request,
-            // disable before re-enabling.
-            if (unfinishedRequest != null && !unfinishedRequest.equalsIgnoreUidPackage(request)) {
-                enableTetheringInternal(false /* disabled */, unfinishedRequest, null);
-                mEntitlementMgr.stopProvisioningIfNeeded(type);
+            if (isTetheringWithSoftApConfigEnabled()) {
+                TetheringRequest fuzzyMatched = findFuzzyMatchedRequest(request);
+                if (fuzzyMatched != null) {
+                    Log.i(TAG, "Rejecting startTethering request " + request + " due to fuzzy"
+                            + " matched request " + fuzzyMatched);
+                    if (listener != null) {
+                        try {
+                            listener.onResult(TETHER_ERROR_DUPLICATE_REQUEST);
+                        } catch (RemoteException e) {
+                            Log.e(TAG, e.getMessage(), e);
+                        }
+                    }
+                    return;
+                }
+            } else {
+                // Legacy code.
+                // If tethering is already enabled with a different request,
+                // disable before re-enabling.
+                final TetheringRequest unfinishedRequest = getPendingTetheringRequest(type);
+                if (unfinishedRequest != null
+                        && !unfinishedRequest.equalsIgnoreUidPackage(request)) {
+                    enableTetheringInternal(false /* enable */, unfinishedRequest, null);
+                    mEntitlementMgr.stopProvisioningIfNeeded(type);
+                }
+                mPendingTetheringRequests.remove(unfinishedRequest);
             }
-            mPendingTetheringRequests.remove(unfinishedRequest);
             mPendingTetheringRequests.add(request);
             mPendingStartTetheringCallbacks.put(request, listener);
 
@@ -1243,6 +1289,7 @@ public class Tethering {
         //
         // This code cannot race with untether() because they both run on the handler thread.
         mPendingTetheringRequests.remove(request);
+        mServingTetheringRequests.put(iface, request);
         tetherState.ipServer.enable(request);
         if (request.getRequestType() == REQUEST_TYPE_PLACEHOLDER) {
             TerribleErrorLog.logTerribleError(TetheringStatsLog::write,
@@ -1281,6 +1328,7 @@ public class Tethering {
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
         tetherState.ipServer.unwanted();
+        mServingTetheringRequests.remove(iface);
         return TETHER_ERROR_NO_ERROR;
     }
 
@@ -1360,8 +1408,10 @@ public class Tethering {
             final TetherState tetherState = mTetherStates.valueAt(i);
             final int type = tetherState.ipServer.interfaceType();
             final String iface = mTetherStates.keyAt(i);
-            final TetheringRequest request = tetherState.ipServer.getTetheringRequest();
-            final boolean includeSoftApConfig = request != null && cookie != null
+            final TetheringRequest request = mServingTetheringRequests.get(iface);
+            final boolean includeSoftApConfig = request != null
+                    && tetherState.lastState == IpServer.STATE_TETHERED
+                    && cookie != null
                     && (cookie.uid == request.getUid() || cookie.hasSystemPrivilege);
             final TetheringInterface tetheringIface = new TetheringInterface(type, iface,
                     includeSoftApConfig ? request.getSoftApConfiguration() : null);
@@ -1700,6 +1750,7 @@ public class Tethering {
     private void disableWifiIpServingCommon(int tetheringType, String ifname) {
         if (!TextUtils.isEmpty(ifname) && mTetherStates.containsKey(ifname)) {
             mTetherStates.get(ifname).ipServer.unwanted();
+            mServingTetheringRequests.remove(ifname);
             return;
         }
 
@@ -1717,6 +1768,7 @@ public class Tethering {
             final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
             if (ipServer.interfaceType() == tetheringType) {
                 ipServer.unwanted();
+                mServingTetheringRequests.remove(ipServer.interfaceName());
                 return;
             }
         }
@@ -3103,6 +3155,7 @@ public class Tethering {
         if (tetherState == null) return;
 
         tetherState.ipServer.stop();
+        mServingTetheringRequests.remove(iface);
         mLog.i("removing IpServer for: " + iface);
         mTetherStates.remove(iface);
     }
