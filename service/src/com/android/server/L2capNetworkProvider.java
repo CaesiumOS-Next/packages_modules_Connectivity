@@ -134,8 +134,7 @@ public class L2capNetworkProvider {
                 return;
             }
 
-            final NetworkCapabilities reservationCaps = request.networkCapabilities;
-            final ReservedServerOffer reservedOffer = createReservedServerOffer(reservationCaps);
+            final ReservedServerOffer reservedOffer = createReservedServerOffer(request);
             if (reservedOffer == null) {
                 // Something went wrong when creating the offer. Send onUnavailable() to the app.
                 Log.e(TAG, "Failed to create L2cap server offer");
@@ -163,12 +162,14 @@ public class L2capNetworkProvider {
     }
 
     private class ReservedServerOffer implements NetworkOfferCallback {
+        private final NetworkRequest mReservation;
         private final boolean mUseHeaderCompression;
         private final NetworkCapabilities mReservedCapabilities;
         private final BluetoothServerSocket mServerSocket;
 
-        public ReservedServerOffer(boolean useHeaderCompression,
+        public ReservedServerOffer(NetworkRequest reservation, boolean useHeaderCompression,
                 NetworkCapabilities reservedCapabilities, BluetoothServerSocket serverSocket) {
+            mReservation = reservation;
             mUseHeaderCompression = useHeaderCompression;
             mReservedCapabilities = reservedCapabilities;
             mServerSocket = serverSocket;
@@ -206,9 +207,10 @@ public class L2capNetworkProvider {
     }
 
     @Nullable
-    private ReservedServerOffer createReservedServerOffer(NetworkCapabilities reservationCaps) {
+    private ReservedServerOffer createReservedServerOffer(NetworkRequest reservation) {
+        final NetworkCapabilities reservationNc = reservation.networkCapabilities;
         final L2capNetworkSpecifier reservationSpec =
-                (L2capNetworkSpecifier) reservationCaps.getNetworkSpecifier();
+                (L2capNetworkSpecifier) reservationNc.getNetworkSpecifier();
         final boolean useHeaderCompression =
                 reservationSpec.getHeaderCompression() == HEADER_COMPRESSION_6LOWPAN;
 
@@ -231,10 +233,10 @@ public class L2capNetworkProvider {
                 .setPsm(serverSocket.getPsm())
                 .build();
         // TODO: should reserved capabilities be derived from request or blanket offer?
-        final NetworkCapabilities reservedCaps = new NetworkCapabilities.Builder(reservationCaps)
+        final NetworkCapabilities reservedNc = new NetworkCapabilities.Builder(reservationNc)
                 .setNetworkSpecifier(reservedSpec)
                 .build();
-        return new ReservedServerOffer(useHeaderCompression, reservedCaps, serverSocket);
+        return new ReservedServerOffer(reservation, useHeaderCompression, reservedNc, serverSocket);
     }
 
     @VisibleForTesting
