@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a2c3a66_af2503a8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-29T00:52:20Z",
+      "side": 1,
+      "message": "I think we should remove this and make the request arg @NonNull. It\u0027s only called from enableTetheringInternal which has a @NonNull request.",
+      "range": {
+        "startLine": 892,
+        "startChar": 16,
+        "endLine": 892,
+        "endChar": 31
+      },
+      "revId": "957990be97255a4eddccc0c76a4599b07347b656",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5000c192_08b2372c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-29T00:52:20Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this. For every other type (except bluetooth) we return the result to the listener immediately, since it\u0027s only returning whether the start command succeeded. Whether or not the interface actually comes up and gets tethered afterwards isn\u0027t the responsibility of the listener.",
+      "range": {
+        "startLine": 893,
+        "startChar": 61,
+        "endLine": 893,
+        "endChar": 69
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "45023d85_dddd89c2",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 49,
+                "startChar": 0,
+                "endLine": 49,
+                "endChar": 0
+              },
+              "replacement": "import static android.net.TetheringManager.TETHER_ERROR_NOT_ALLOWED;\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 263,
+                "startChar": 0,
+                "endLine": 264,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 844,
+                "startChar": 0,
+                "endLine": 845,
+                "endChar": 0
+              },
+              "replacement": "                result \u003d setP2pTethering(enable, request);\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 889,
+                "startChar": 0,
+                "endLine": 891,
+                "endChar": 0
+              },
+              "replacement": "    private int setP2pTethering(boolean enable, TetheringRequest request) {\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 893,
+                "startChar": 0,
+                "endLine": 894,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 898,
+                "startChar": 0,
+                "endLine": 903,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 906,
+                "startChar": 0,
+                "endLine": 907,
+                "endChar": 0
+              },
+              "replacement": "            ensureIpServerStopped(request.getInterfaceName());\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1144,
+                "startChar": 0,
+                "endLine": 1144,
+                "endChar": 0
+              },
+              "replacement": "            if (!isVirtualMachineTetheringAllowed()) {\n                return TETHER_ERROR_NOT_ALLOWED;\n            }\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1836,
+                "startChar": 0,
+                "endLine": 1836,
+                "endChar": 0
+              },
+              "replacement": "\n    private boolean isVirtualMachineTetheringAllowed() {\n        return mContext.checkCallingOrSelfPermission(android.Manifest.permission.TETHER_VIRTUAL)\n                \u003d\u003d PERMISSION_GRANTED;\n    }\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 2992,
+                "startChar": 0,
+                "endLine": 3002,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "957990be97255a4eddccc0c76a4599b07347b656",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df6451ec_1c0bb220",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 3001,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-29T00:52:20Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 2992,
+        "startChar": 0,
+        "endLine": 3001,
+        "endChar": 13
+      },
+      "revId": "957990be97255a4eddccc0c76a4599b07347b656",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
