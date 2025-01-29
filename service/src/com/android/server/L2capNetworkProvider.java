@@ -202,12 +202,12 @@ public class L2capNetworkProvider {
 
         @Override
         public void onNetworkNeeded(NetworkRequest request) {
-            // TODO: implement
+            // UNUSED: the lifetime of the reserved network is controlled by the blanket offer.
         }
 
         @Override
         public void onNetworkUnneeded(NetworkRequest request) {
-            // TODO: implement
+            // UNUSED: the lifetime of the reserved network is controlled by the blanket offer.
         }
 
         /**
