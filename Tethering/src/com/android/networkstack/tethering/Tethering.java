@@ -43,6 +43,7 @@ import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHERING_WIGIG;
 import static android.net.TetheringManager.TETHER_ERROR_BLUETOOTH_SERVICE_PENDING;
+import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
@@ -710,6 +711,17 @@ public class Tethering {
                         listener.onResult(TETHER_ERROR_SERVICE_UNAVAIL);
                     } catch (RemoteException e) { }
                 }
+            } else if (addResult
+                    == RequestTracker.AddResult.FAILURE_EXISTING_FUZZY_MATCHED_REQUEST) {
+                // If a fuzzy-matched request already exists, stop tethering before starting.
+                if (listener != null) {
+                    try {
+                        listener.onResult(TETHER_ERROR_DUPLICATE_REQUEST);
+                    } catch (RemoteException e) {
+                        Log.e(TAG, e.getMessage(), e);
+                    }
+                }
+                return;
             }
 
             if (request.isExemptFromEntitlementCheck()) {
@@ -1134,13 +1146,19 @@ public class Tethering {
             Log.e(TAG, "Tried to Tether an unavailable iface: " + iface + ", ignoring");
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
-        // There may be a bluetooth request which is still waiting for the PAN service to connect
-        // before sending the tether result. If legacyTether() is called before this happens, the
-        // request and it's listener will be removed in this method. To prevent the listener from
-        // being removed before the result is sent, make sure to pass a TETHER_ERROR_NO_ERROR to it
-        // when we remove it. This should be OK since the listener would have succeeded anyway when
-        // the PAN service connects.
-        mRequestTracker.removeAllPendingRequests(request.getTetheringType(), TETHER_ERROR_NO_ERROR);
+        if (isTetheringWithSoftApConfigEnabled()) {
+            mRequestTracker.removePendingRequest(request, TETHER_ERROR_NO_ERROR);
+        } else {
+            // There may be a bluetooth request which is still waiting for the PAN service to
+            // connect before sending the tether result. If legacyTether() is called before this
+            // happens, the request and it's listener will be removed in this method. To prevent the
+            // listener from being removed before the result is sent, make sure to pass a
+            // TETHER_ERROR_NO_ERROR to it when we remove it. This should be OK since the listener
+            // would have succeeded anyway when the PAN service connects.
+            mRequestTracker.removeAllPendingRequests(request.getTetheringType(),
+                    TETHER_ERROR_NO_ERROR);
+        }
+        mRequestTracker.setServingRequest(iface, request);
         // NOTE: If a CMD_TETHER_REQUESTED message is already in the IpServer's queue but not yet
         // processed, this will be a no-op and it will not return an error.
         //
@@ -1183,6 +1201,7 @@ public class Tethering {
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
         tetherState.ipServer.unwanted();
+        mRequestTracker.removeServingRequest(iface);
         return TETHER_ERROR_NO_ERROR;
     }
 
@@ -1262,8 +1281,9 @@ public class Tethering {
             final TetherState tetherState = mTetherStates.valueAt(i);
             final int type = tetherState.ipServer.interfaceType();
             final String iface = mTetherStates.keyAt(i);
-            final TetheringRequest request = tetherState.ipServer.getTetheringRequest();
-            final boolean includeSoftApConfig = request != null && cookie != null
+            final TetheringRequest request = mRequestTracker.getServingRequest(iface);
+            final boolean includeSoftApConfig = tetherState.isCurrentlyServing()
+                    && request != null && cookie != null
                     && (cookie.uid == request.getUid() || cookie.hasSystemPrivilege);
             final TetheringInterface tetheringIface = new TetheringInterface(type, iface,
                     includeSoftApConfig ? request.getSoftApConfiguration() : null);
@@ -1585,6 +1605,7 @@ public class Tethering {
     private void disableWifiIpServingCommon(int tetheringType, String ifname) {
         if (!TextUtils.isEmpty(ifname) && mTetherStates.containsKey(ifname)) {
             mTetherStates.get(ifname).ipServer.unwanted();
+            mRequestTracker.removeServingRequest(ifname);
             return;
         }
 
@@ -1602,6 +1623,7 @@ public class Tethering {
             final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
             if (ipServer.interfaceType() == tetheringType) {
                 ipServer.unwanted();
+                mRequestTracker.removeServingRequest(ifname);
                 return;
             }
         }
@@ -2988,6 +3010,7 @@ public class Tethering {
         if (tetherState == null) return;
 
         tetherState.ipServer.stop();
+        mRequestTracker.removeServingRequest(iface);
         mLog.i("removing IpServer for: " + iface);
         mTetherStates.remove(iface);
     }
