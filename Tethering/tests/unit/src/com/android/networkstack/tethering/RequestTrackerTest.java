@@ -37,7 +37,6 @@ import com.android.networkstack.tethering.RequestTracker.AddResult;
 import com.android.networkstack.tethering.TetheringTest.ResultListener;
 import com.android.networkstack.tethering.metrics.TetheringMetrics;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,11 +52,6 @@ public class RequestTrackerTest {
     @Mock TetheringMetrics mTetheringMetrics;
 
     private RequestTracker mRequestTracker;
-
-    @Before
-    public void setUp() {
-        mRequestTracker = new RequestTracker(mTetheringMetrics);
-    }
 
     @Test
     public void testNoRequestsAdded_noPendingRequests() {
