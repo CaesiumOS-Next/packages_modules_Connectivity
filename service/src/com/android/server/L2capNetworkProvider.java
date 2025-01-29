@@ -30,11 +30,14 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.RES_ID_MATCH_ALL_RESERVATIONS;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.content.pm.PackageManager.FEATURE_BLUETOOTH_LE;
+import static android.system.OsConstants.F_GETFL;
+import static android.system.OsConstants.F_SETFL;
 
 import android.annotation.Nullable;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -48,10 +51,13 @@ import android.net.NetworkSpecifier;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
+import android.os.ParcelFileDescriptor;
+import android.system.Os;
 import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.ServiceConnectivityJni;
 
 import java.io.IOException;
 import java.util.Set;
@@ -69,6 +75,10 @@ public class L2capNetworkProvider {
     // mBluetoothManager guaranteed non-null when read on handler thread after start() is called
     @Nullable
     private BluetoothManager mBluetoothManager;
+
+    // Note: IFNAMSIZ is 16.
+    private static final String TUN_IFNAME = "l2cap-tun";
+    private int mTunIndex = 0;
 
     /**
      * The blanket reservation offer is used to create an L2CAP server network, i.e. a network
@@ -168,6 +178,50 @@ public class L2capNetworkProvider {
             reservedOffer.tearDown();
             mProvider.unregisterNetworkOffer(reservedOffer);
         }
+    }
+
+    private class L2capNetwork {
+        private final String mIfname;
+        private final BluetoothSocket mSocket;
+        private final ParcelFileDescriptor mTunFd;
+
+        public L2capNetwork(String ifname, BluetoothSocket socket, ParcelFileDescriptor tunFd) {
+            mIfname = ifname;
+            mSocket = socket;
+            mTunFd = tunFd;
+        }
+    }
+
+    @Nullable
+    private static ParcelFileDescriptor createTunInterface(String ifname) {
+        final ParcelFileDescriptor fd;
+        try {
+            fd = ParcelFileDescriptor.adoptFd(
+                    ServiceConnectivityJni.createTunTap(
+                            true /*isTun*/, true /*hasCarrier*/, true /*setIffMulticast*/, ifname));
+            ServiceConnectivityJni.bringUpInterface(ifname);
+            // TODO: consider adding a parameter to createTunTap() (or the Builder that should
+            // be added) to make i/o blocking.
+            // L2capPacketForward uses two threads and blocking i/o.
+            final int flags = Os.fcntlInt(fd.getFileDescriptor(), F_GETFL, 0);
+            Os.fcntlInt(fd.getFileDescriptor(), F_SETFL, flags);
+        } catch (Exception e) {
+            // Note: createTunTap currently throws an IllegalStateException on failure.
+            // TODO: native functions should throw ErrnoException.
+            Log.e(TAG, "Failed to create tun interface", e);
+            return null;
+        }
+        return fd;
+    }
+
+    private L2capNetwork createL2capNetwork(BluetoothSocket socket) {
+        final String ifname = TUN_IFNAME + String.valueOf(mTunIndex++);
+        final ParcelFileDescriptor tunFd = createTunInterface(ifname);
+        if (tunFd == null) {
+            return null;
+        }
+
+        return new L2capNetwork(ifname, socket, tunFd);
     }
 
     private class ReservedServerOffer implements NetworkOfferCallback {
