@@ -22,6 +22,30 @@
       },
       "revId": "3792241ffaf9320288674ed739c109d1642e13fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15b66986_ba663ad5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-29T07:33:55Z",
+      "side": 1,
+      "message": "I don\u0027t think it matters much. Nobody will ever call this code except by mistake, since it won\u0027t do anything.",
+      "parentUuid": "ae51bdad_d9778765",
+      "range": {
+        "startLine": 1079,
+        "startChar": 0,
+        "endLine": 1085,
+        "endChar": 9
+      },
+      "revId": "3792241ffaf9320288674ed739c109d1642e13fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
