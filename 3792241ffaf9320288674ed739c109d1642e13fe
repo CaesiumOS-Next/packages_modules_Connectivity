@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae51bdad_d9778765",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-29T00:45:55Z",
+      "side": 1,
+      "message": "This part used to run on the binder thread, but now it\u0027s posted to the handler. Can we keep it in #legacyTether to save us from posting a no-op runnable?",
+      "range": {
+        "startLine": 1079,
+        "startChar": 0,
+        "endLine": 1085,
+        "endChar": 9
+      },
+      "revId": "3792241ffaf9320288674ed739c109d1642e13fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
