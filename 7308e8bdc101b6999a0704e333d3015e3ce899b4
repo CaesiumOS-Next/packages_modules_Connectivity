@@ -524,6 +524,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c41f5565_2f5f2a9c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-29T03:40:04Z",
+      "side": 1,
+      "message": "Tracking at aosp/3464545",
+      "parentUuid": "cecf6c20_6eb503c7",
+      "range": {
+        "startLine": 1122,
+        "startChar": 29,
+        "endLine": 1122,
+        "endChar": 30
+      },
+      "revId": "7308e8bdc101b6999a0704e333d3015e3ce899b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c04f317c_070ec655",

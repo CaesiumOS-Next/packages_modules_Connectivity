@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72ae13dd_351f3769",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 54
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-29T03:40:04Z",
+      "side": 1,
+      "message": "Per offline discussion, breaking up this CL to smaller no-op pieces that we can merge with higher confidence individually (aosp/3465237, aosp/3464874, aosp/3464382, aosp/3465235)",
+      "revId": "2deabce760b6da666b159385ccc8639af1fb164e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
