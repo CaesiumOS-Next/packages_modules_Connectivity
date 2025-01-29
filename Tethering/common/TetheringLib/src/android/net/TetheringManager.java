@@ -37,6 +37,7 @@ import android.os.Parcelable;
 import android.os.Process;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
+import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
@@ -1252,6 +1253,43 @@ public class TetheringManager {
             return sj.toString();
         }
 
+
+        private static boolean supportsInterfaceName(int tetheringType) {
+            // TODO: Check the interface name for TETHERING_WIFI and TETHERING_WIFI_P2P once
+            //       they're actually used.
+            return tetheringType == TETHERING_VIRTUAL;
+        }
+
+        private static boolean supportsConcurrentConnectivityScopes(int tetheringType) {
+            // Currently, only WIFI supports simultaneous local and global connectivity.
+            return tetheringType == TETHERING_WIFI;
+        }
+
+        /**
+         * Returns true if the other TetheringRequest "fuzzy" matches this one. This is used
+         * internally to match tracked requests with external requests from API calls, and to reject
+         * additional requests that the link layer has no capacity for.
+         * @hide
+         */
+        public boolean fuzzyMatches(final TetheringRequest other) {
+            if (other == null) return false;
+            final int type = getTetheringType();
+            if (type != other.getTetheringType()) return false;
+            if (supportsInterfaceName(type)
+                    && !TextUtils.equals(getInterfaceName(), other.getInterfaceName())) {
+                return false;
+            }
+            if (supportsConcurrentConnectivityScopes(type)
+                    && getConnectivityScope() != other.getConnectivityScope()) {
+                return false;
+            }
+            if (type == TETHERING_WIFI && getConnectivityScope() == CONNECTIVITY_SCOPE_GLOBAL
+                    && !Objects.equals(getSoftApConfiguration(), other.getSoftApConfiguration())) {
+                return false;
+            }
+            return true;
+        }
+
         /**
          * @hide
          */
@@ -1273,6 +1311,8 @@ public class TetheringManager {
         public boolean equalsIgnoreUidPackage(TetheringRequest otherRequest) {
             TetheringRequestParcel parcel = getParcel();
             TetheringRequestParcel otherParcel = otherRequest.getParcel();
+            // Note: Changes here should also be reflected in fuzzyMatches(TetheringRequest) when
+            //       appropriate.
             return parcel.requestType == otherParcel.requestType
                     && parcel.tetheringType == otherParcel.tetheringType
                     && Objects.equals(parcel.localIPv4Address, otherParcel.localIPv4Address)
