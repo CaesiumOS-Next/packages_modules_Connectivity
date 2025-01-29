@@ -135,12 +135,10 @@ public class L2capNetworkProvider {
             }
 
             final NetworkCapabilities reservationCaps = request.networkCapabilities;
-            final ReservedServerOffer reservedOffer;
-            try {
-                reservedOffer = new ReservedServerOffer(reservationCaps);
-            } catch (IOException e) {
+            final ReservedServerOffer reservedOffer = createReservedServerOffer(reservationCaps);
+            if (reservedOffer == null) {
                 // Something went wrong when creating the offer. Send onUnavailable() to the app.
-                Log.e(TAG, "Failed to create L2cap server offer", e);
+                Log.e(TAG, "Failed to create L2cap server offer");
                 mProvider.declareNetworkRequestUnfulfillable(request);
                 return;
             }
@@ -169,31 +167,11 @@ public class L2capNetworkProvider {
         private final NetworkCapabilities mReservedCapabilities;
         private final BluetoothServerSocket mServerSocket;
 
-        public ReservedServerOffer(NetworkCapabilities reservationCaps) throws IOException {
-            // getNetworkSpecifier() is guaranteed to return a non-null L2capNetworkSpecifier.
-            final L2capNetworkSpecifier reservationSpec =
-                    (L2capNetworkSpecifier) reservationCaps.getNetworkSpecifier();
-            mUseHeaderCompression =
-                    reservationSpec.getHeaderCompression() == HEADER_COMPRESSION_6LOWPAN;
-
-            final BluetoothAdapter bluetoothAdapter = mBluetoothManager.getAdapter();
-            if (bluetoothAdapter == null) {
-                // TODO: move constructor functionality to static create function instead and return
-                // a nullable ReservedServerOffer.
-                throw new IOException("BluetoothAdapter is null");
-            }
-            // Throws an IOException on error.
-            mServerSocket = bluetoothAdapter.listenUsingInsecureL2capChannel();
-
-            final L2capNetworkSpecifier reservedSpec = new L2capNetworkSpecifier.Builder()
-                    .setRole(ROLE_SERVER)
-                    .setHeaderCompression(reservationSpec.getHeaderCompression())
-                    .setPsm(mServerSocket.getPsm())
-                    .build();
-            // TODO: should reserved capabilities be derived from request or blanket offer?
-            mReservedCapabilities = new NetworkCapabilities.Builder(reservationCaps)
-                    .setNetworkSpecifier(reservedSpec)
-                    .build();
+        public ReservedServerOffer(boolean useHeaderCompression,
+                NetworkCapabilities reservedCapabilities, BluetoothServerSocket serverSocket) {
+            mUseHeaderCompression = useHeaderCompression;
+            mReservedCapabilities = reservedCapabilities;
+            mServerSocket = serverSocket;
         }
 
         public NetworkCapabilities getReservedCapabilities() {
@@ -225,6 +203,38 @@ public class L2capNetworkProvider {
                 Log.w(TAG, "Failed to close BluetoothServerSocket", e);
             }
         }
+    }
+
+    @Nullable
+    private ReservedServerOffer createReservedServerOffer(NetworkCapabilities reservationCaps) {
+        final L2capNetworkSpecifier reservationSpec =
+                (L2capNetworkSpecifier) reservationCaps.getNetworkSpecifier();
+        final boolean useHeaderCompression =
+                reservationSpec.getHeaderCompression() == HEADER_COMPRESSION_6LOWPAN;
+
+        final BluetoothAdapter bluetoothAdapter = mBluetoothManager.getAdapter();
+        if (bluetoothAdapter == null) {
+            Log.w(TAG, "Failed to get BluetoothAdapter");
+            return null;
+        }
+        final BluetoothServerSocket serverSocket;
+        try {
+            serverSocket = bluetoothAdapter.listenUsingInsecureL2capChannel();
+        } catch (IOException e) {
+            Log.w(TAG, "Failed to open BluetoothServerSocket");
+            return null;
+        }
+
+        final L2capNetworkSpecifier reservedSpec = new L2capNetworkSpecifier.Builder()
+                .setRole(ROLE_SERVER)
+                .setHeaderCompression(reservationSpec.getHeaderCompression())
+                .setPsm(serverSocket.getPsm())
+                .build();
+        // TODO: should reserved capabilities be derived from request or blanket offer?
+        final NetworkCapabilities reservedCaps = new NetworkCapabilities.Builder(reservationCaps)
+                .setNetworkSpecifier(reservedSpec)
+                .build();
+        return new ReservedServerOffer(useHeaderCompression, reservedCaps, serverSocket);
     }
 
     @VisibleForTesting
