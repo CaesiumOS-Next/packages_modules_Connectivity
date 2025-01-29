@@ -88,6 +88,24 @@
       "parentUuid": "522ca878_0199479e",
       "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4d6f84f_ff90e68c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-29T01:24:10Z",
+      "side": 1,
+      "message": "Looks like the network permissions are used in netd, but not the traffic perms. We can keep the existing values in aidl and wrap around it in the module code to introduce the new one (and possible future bits).",
+      "parentUuid": "f305926c_f7b7b75d",
+      "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
