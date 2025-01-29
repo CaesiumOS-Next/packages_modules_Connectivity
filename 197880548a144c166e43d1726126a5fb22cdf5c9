@@ -255,6 +255,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62b52dc2_d6de12aa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-29T08:08:57Z",
+      "side": 1,
+      "message": "Removed from this CL.",
+      "parentUuid": "6cfc1785_eba09384",
+      "range": {
+        "startLine": 1114,
+        "startChar": 76,
+        "endLine": 1114,
+        "endChar": 90
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1066ae5b_d60fb615",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-29T08:08:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e943f773_c7c4c4c8",
+      "range": {
+        "startLine": 1114,
+        "startChar": 41,
+        "endLine": 1114,
+        "endChar": 69
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bfe76fd_912e403c",
@@ -408,6 +456,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47eaf064_52c2959e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1619,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-29T08:08:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95527790_42942151",
+      "range": {
+        "startLine": 1619,
+        "startChar": 0,
+        "endLine": 1619,
+        "endChar": 82
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2844d2e6_f33dab31",
@@ -445,6 +517,30 @@
           ]
         }
       ],
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f8a8615_96a63c2e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1686,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-29T08:08:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2844d2e6_f33dab31",
+      "range": {
+        "startLine": 1685,
+        "startChar": 0,
+        "endLine": 1686,
+        "endChar": 80
+      },
       "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -510,6 +606,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0f570c8_4e384582",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-29T08:08:57Z",
+      "side": 1,
+      "message": "The idea is that pre-T it has to infer, whereas on T+ it knows for sure.",
+      "parentUuid": "59e402ac_f2501bcc",
+      "range": {
+        "startLine": 1698,
+        "startChar": 16,
+        "endLine": 1698,
+        "endChar": 26
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37841c9a_eab757f2",
@@ -547,6 +667,30 @@
       "side": 1,
       "message": "The reason is ifaceNameToType will throw an NPE on null input.\n\nThere\u0027s unit tests that will mock a wifi broadcast with null iface and invalid IP mode. Before this change, this broadcast would silently fail on the default case and we wont pass null to ifaceNameToType. If we called ifaceNameToType inline here, it would throw an NPE on this test broadcast instead of failing silently on the invalid IP mode. Thus we need to check it after we know the IP mode is valid.",
       "parentUuid": "37841c9a_eab757f2",
+      "range": {
+        "startLine": 1706,
+        "startChar": 8,
+        "endLine": 1706,
+        "endChar": 24
+      },
+      "revId": "197880548a144c166e43d1726126a5fb22cdf5c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a67a19c_484ea7fa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1706,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-29T08:08:57Z",
+      "side": 1,
+      "message": "Right. That is documented by the comment above maybeInferWifiTetheringType.",
+      "parentUuid": "2c514234_2b4ed5e2",
       "range": {
         "startLine": 1706,
         "startChar": 8,
