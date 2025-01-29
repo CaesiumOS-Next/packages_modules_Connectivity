@@ -16,34 +16,8 @@
 
 package com.android.networkstack.tethering;
 
-import static android.Manifest.permission.NETWORK_SETTINGS;
-import static android.Manifest.permission.NETWORK_STACK;
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import static android.hardware.usb.UsbManager.USB_CONFIGURED;
-import static android.hardware.usb.UsbManager.USB_CONNECTED;
-import static android.hardware.usb.UsbManager.USB_FUNCTION_NCM;
-import static android.hardware.usb.UsbManager.USB_FUNCTION_RNDIS;
-import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
-import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
-import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
-import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
-import static android.net.TetheringManager.ACTION_TETHER_STATE_CHANGED;
-import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
-import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
-import static android.net.TetheringManager.EXTRA_ACTIVE_LOCAL_ONLY;
-import static android.net.TetheringManager.EXTRA_ACTIVE_TETHER;
-import static android.net.TetheringManager.EXTRA_AVAILABLE_TETHER;
-import static android.net.TetheringManager.EXTRA_ERRORED_TETHER;
-import static android.net.TetheringManager.TETHERING_BLUETOOTH;
-import static android.net.TetheringManager.TETHERING_ETHERNET;
-import static android.net.TetheringManager.TETHERING_INVALID;
-import static android.net.TetheringManager.TETHERING_NCM;
-import static android.net.TetheringManager.TETHERING_USB;
-import static android.net.TetheringManager.TETHERING_VIRTUAL;
-import static android.net.TetheringManager.TETHERING_WIFI;
-import static android.net.TetheringManager.TETHERING_WIFI_P2P;
-import static android.net.TetheringManager.TETHERING_WIGIG;
 import static android.net.TetheringManager.TETHER_ERROR_BLUETOOTH_SERVICE_PENDING;
+import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
@@ -248,6 +222,14 @@ public class Tethering {
     private final Set<TetheringRequest> mPendingTetheringRequests = new ArraySet<>();
     private final Map<TetheringRequest, IIntResultListener> mPendingStartTetheringCallbacks =
             new ArrayMap<>();
+    /**
+     * Currently serving TetheringRequests mapped by interface.
+     * These are added when IpServer#enable is called and removed when IpServer#stop or
+     * IpServer#unwanted are called.
+     * Note: Until the sync StateMachine refactor is complete, this may be out-of-sync with the
+     * actual state of the IpServers since the above methods are posted on a handler.
+     */
+    private final Map<String, TetheringRequest> mServingTetheringRequests = new ArrayMap<>();
 
     private final Context mContext;
     private final ArrayMap<String, TetherState> mTetherStates;
@@ -702,18 +684,55 @@ public class Tethering {
         processInterfaceStateChange(iface, false /* enabled */);
     }
 
+    /**
+     * Gets all the tracked TetheringRequests, both pending and serving.
+     */
+    @VisibleForTesting
+    Set<TetheringRequest> getAllTetheringRequests() {
+        Set<TetheringRequest> requests = new ArraySet<>();
+        requests.addAll(mPendingTetheringRequests.keySet());
+        requests.addAll(mServingTetheringRequests.values());
+        return requests;
+    }
+
+
+    private TetheringRequest findFuzzyMatchedRequest(@NonNull final TetheringRequest request) {
+        for (TetheringRequest existingRequest : getAllTetheringRequests()) {
+            if (existingRequest.fuzzyMatches(request)) return existingRequest;
+        }
+        return null;
+    }
+
     void startTethering(final TetheringRequest request, final String callerPkg,
             final IIntResultListener listener) {
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            final TetheringRequest unfinishedRequest = getPendingTetheringRequest(type);
-            // If tethering is already enabled with a different request,
-            // disable before re-enabling.
-            if (unfinishedRequest != null && !unfinishedRequest.equalsIgnoreUidPackage(request)) {
-                enableTetheringInternal(false /* disabled */, unfinishedRequest, null);
-                mEntitlementMgr.stopProvisioningIfNeeded(type);
+            if (isTetheringWithSoftApConfigEnabled()) {
+                TetheringRequest fuzzyMatched = findFuzzyMatchedRequest(request);
+                if (fuzzyMatched != null) {
+                    Log.i(TAG, "Rejecting startTethering request " + request + " due to fuzzy"
+                            + " matched request " + fuzzyMatched);
+                    if (listener != null) {
+                        try {
+                            listener.onResult(TETHER_ERROR_DUPLICATE_REQUEST);
+                        } catch (RemoteException e) {
+                            Log.e(TAG, e.getMessage(), e);
+                        }
+                    }
+                    return;
+                }
+            } else {
+                // Legacy code.
+                // If tethering is already enabled with a different request,
+                // disable before re-enabling.
+                final TetheringRequest unfinishedRequest = getPendingTetheringRequest(type);
+                if (unfinishedRequest != null
+                        && !unfinishedRequest.equalsIgnoreUidPackage(request)) {
+                    enableTetheringInternal(false /* enable */, unfinishedRequest, null);
+                    mEntitlementMgr.stopProvisioningIfNeeded(type);
+                }
+                mPendingTetheringRequests.remove(unfinishedRequest);
             }
-            mPendingTetheringRequests.remove(unfinishedRequest);
             mPendingTetheringRequests.add(request);
             mPendingStartTetheringCallbacks.put(request, listener);
 
@@ -1250,7 +1269,20 @@ public class Tethering {
         //
         // This code cannot race with untether() because they both run on the handler thread.
         // Remove all pending tethering requests of the same type.
-        mPendingTetheringRequests.removeIf(r -> r.getTetheringType() == request.getTetheringType());
+        // Note: Legacy code would remove the request based on type alone, but now we remove only
+        //       the pending request that we are tethering with. This means we may get into a state
+        //       where tetherInternal is called but the request doesn't match what's in the pending
+        //       list, and we'll be left with a hanging request that fuzzy-blocks any future request
+        //       until stopTethering is called. Luckily this shouldn't matter, since the only cases
+        //       where the request isn't matched to the pending request are
+        //       1) Legacy tether, which isn't supported starting in B (and thus doesn't overlap
+        //          with fuzzy-matching).
+        //       2) Wifi P2P, which cannot be put into the pending list at all
+        //       3) LOHS, which will fail to remove any pending tethered SoftAP requests, but these
+        //          requests will already be removed once we get the WIFI_AP_STATE_CHANGED for the
+        //          tethered SoftAP.
+        mPendingTetheringRequests.remove(request);
+        mServingTetheringRequests.put(iface, request);
         tetherState.ipServer.enable(request);
         if (request.getRequestType() == REQUEST_TYPE_PLACEHOLDER) {
             TerribleErrorLog.logTerribleError(TetheringStatsLog::write,
@@ -1289,6 +1321,7 @@ public class Tethering {
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
         tetherState.ipServer.unwanted();
+        mServingTetheringRequests.remove(iface);
         return TETHER_ERROR_NO_ERROR;
     }
 
@@ -1368,8 +1401,10 @@ public class Tethering {
             final TetherState tetherState = mTetherStates.valueAt(i);
             final int type = tetherState.ipServer.interfaceType();
             final String iface = mTetherStates.keyAt(i);
-            final TetheringRequest request = tetherState.ipServer.getTetheringRequest();
-            final boolean includeSoftApConfig = request != null && cookie != null
+            final TetheringRequest request = mServingTetheringRequests.get(iface);
+            final boolean includeSoftApConfig = request != null
+                    && tetherState.lastState == IpServer.STATE_TETHERED
+                    && cookie != null
                     && (cookie.uid == request.getUid() || cookie.hasSystemPrivilege);
             final TetheringInterface tetheringIface = new TetheringInterface(type, iface,
                     includeSoftApConfig ? request.getSoftApConfiguration() : null);
@@ -1708,6 +1743,7 @@ public class Tethering {
     private void disableWifiIpServingCommon(int tetheringType, String ifname) {
         if (!TextUtils.isEmpty(ifname) && mTetherStates.containsKey(ifname)) {
             mTetherStates.get(ifname).ipServer.unwanted();
+            mServingTetheringRequests.remove(ifname);
             return;
         }
 
@@ -1725,6 +1761,7 @@ public class Tethering {
             final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
             if (ipServer.interfaceType() == tetheringType) {
                 ipServer.unwanted();
+                mServingTetheringRequests.remove(ipServer.interfaceName());
                 return;
             }
         }
@@ -3111,6 +3148,7 @@ public class Tethering {
         if (tetherState == null) return;
 
         tetherState.ipServer.stop();
+        mServingTetheringRequests.remove(iface);
         mLog.i("removing IpServer for: " + iface);
         mTetherStates.remove(iface);
     }
