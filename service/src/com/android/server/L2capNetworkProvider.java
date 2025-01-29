@@ -48,13 +48,13 @@ import android.net.NetworkSpecifier;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
-import android.util.ArrayMap;
+import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.Set;
 
 
 public class L2capNetworkProvider {
@@ -65,7 +65,7 @@ public class L2capNetworkProvider {
     private final Handler mHandler;
     private final NetworkProvider mProvider;
     private final BlanketReservationOffer mBlanketOffer;
-    private final Map<Integer, ReservedServerOffer> mReservedServerOffers = new ArrayMap<>();
+    private final Set<ReservedServerOffer> mReservedServerOffers = new ArraySet<>();
     // mBluetoothManager guaranteed non-null when read on handler thread after start() is called
     @Nullable
     private BluetoothManager mBluetoothManager;
@@ -144,16 +144,25 @@ public class L2capNetworkProvider {
 
             final NetworkCapabilities reservedCaps = reservedOffer.getReservedCapabilities();
             mProvider.registerNetworkOffer(SCORE, reservedCaps, mHandler::post, reservedOffer);
-            mReservedServerOffers.put(request.requestId, reservedOffer);
+            mReservedServerOffers.add(reservedOffer);
+        }
+
+        @Nullable
+        private ReservedServerOffer getReservedOfferForRequest(NetworkRequest request) {
+            final int rId = request.networkCapabilities.getReservationId();
+            for (ReservedServerOffer offer : mReservedServerOffers) {
+                // TODO: it might be safe to use canBeSatisfiedBy() instead of comparing
+                // reservationIds.
+                if (offer.getReservation().networkCapabilities.getReservationId() != rId) continue;
+                return offer;
+            }
+            return null;
         }
 
         @Override
         public void onNetworkUnneeded(NetworkRequest request) {
-            if (!mReservedServerOffers.containsKey(request.requestId)) {
-                return;
-            }
-
-            final ReservedServerOffer reservedOffer = mReservedServerOffers.get(request.requestId);
+            final ReservedServerOffer reservedOffer = getReservedOfferForRequest(request);
+            if (reservedOffer == null) return;
             // Note that the reserved offer gets torn down when the reservation goes away, even if
             // there are lingering requests.
             reservedOffer.tearDown();
@@ -177,6 +186,10 @@ public class L2capNetworkProvider {
 
         public NetworkCapabilities getReservedCapabilities() {
             return mReservedCapabilities;
+        }
+
+        public NetworkRequest getReservation() {
+            return mReservation;
         }
 
         @Override
