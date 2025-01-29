@@ -3,6 +3,87 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25263835_bd763c1b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-29T00:56:35Z",
+      "side": 1,
+      "message": "Should this be a flagged check? Ideally we should have a feature flag for dual P2P and gate both the wifi changes and this changes to it.",
+      "range": {
+        "startLine": 509,
+        "startChar": 22,
+        "endLine": 509,
+        "endChar": 32
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b51845fb_0b01eda2",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 509,
+                "startChar": 0,
+                "endLine": 510,
+                "endChar": 0
+              },
+              "replacement": "        if (!SdkLevel.isAtLeastU()) {\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 642,
+                "startChar": 0,
+                "endLine": 643,
+                "endChar": 0
+              },
+              "replacement": "        // After U, disallow this legacy codepath from starting tethering of any type:\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 661,
+                "startChar": 0,
+                "endLine": 662,
+                "endChar": 0
+              },
+              "replacement": "        if (enabled \u0026\u0026 Build.VERSION.SDK_INT \u003e Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1221,
+                "startChar": 0,
+                "endLine": 1223,
+                "endChar": 0
+              },
+              "replacement": "        if (Build.VERSION.SDK_INT \u003e Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {\n            // After U, the TetheringManager and ConnectivityManager tether and untether methods\n"
+            },
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1297,
+                "startChar": 0,
+                "endLine": 1299,
+                "endChar": 0
+              },
+              "replacement": "        if (Build.VERSION.SDK_INT \u003e Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {\n            // After U, the TetheringManager and ConnectivityManager tether and untether methods\n"
+            }
+          ]
+        }
+      ],
+      "revId": "957990be97255a4eddccc0c76a4599b07347b656",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a2c3a66_af2503a8",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 23
