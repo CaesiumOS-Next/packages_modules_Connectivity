@@ -43,6 +43,7 @@ import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHERING_WIGIG;
 import static android.net.TetheringManager.TETHER_ERROR_BLUETOOTH_SERVICE_PENDING;
+import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
@@ -176,6 +177,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Executor;
@@ -420,13 +422,13 @@ public class Tethering {
      * 2) When the link event arrives, get the pending request via
      *    {@link #getOrCreatePendingRequest(int)} to enable IP serving with.
      * 3) Remove the pending requests via {@link #removePendingRequests(int, int)}.
-     * TODO: Add support for fuzzy-matched requests.
      */
     private class RequestTracker {
         private class PendingRequest {
             @NonNull private final TetheringRequest mTetheringRequest;
             @Nullable private final IIntResultListener mListener;
             private boolean mIsTetherResultAlreadySent;
+            @Nullable private String mServingIface;
 
             private PendingRequest(@NonNull TetheringRequest tetheringRequest,
                     @Nullable IIntResultListener listener) {
@@ -454,12 +456,26 @@ public class Tethering {
                     mTetheringMetrics.sendReport(type);
                 }
             }
+
+            private void setServingIface(@NonNull String iface) {
+                mServingIface = iface;
+            }
+
+            @Nullable
+            private String getServingIface() {
+                return mServingIface;
+            }
+
+            private boolean isPending() {
+                return mServingIface == null;
+            }
         }
 
         @Retention(RetentionPolicy.SOURCE)
         @IntDef(value = {
                 ADD_RESULT_SUCCESS,
                 ADD_RESULT_FAILURE_CONFLICTING_PENDING_REQUEST,
+                ADD_RESULT_FAILURE_EXISTING_FUZZY_MATCHED_REQUEST,
         })
         private @interface AddResult {
         }
@@ -473,7 +489,15 @@ public class Tethering {
          */
         private static final int ADD_RESULT_FAILURE_CONFLICTING_PENDING_REQUEST = 1;
 
+        /**
+         * Failure indicating that the request could not be added due to a fuzzy-matched request
+         * already pending or serving.
+         */
+        public static final int ADD_RESULT_FAILURE_EXISTING_FUZZY_MATCHED_REQUEST = 2;
+
         private final List<PendingRequest> mPendingRequests = new ArrayList<>();
+        // Serving IpServer interfaces mapped to their TetheringRequest.
+        private final Map<String, TetheringRequest> mServingRequests = new ArrayMap<>();
 
         @Nullable
         private List<TetheringRequest> getPendingTetheringRequests() {
@@ -494,28 +518,49 @@ public class Tethering {
         private int addPendingRequest(@NonNull final TetheringRequest newRequest,
                 @Nullable final IIntResultListener listener) {
             // Check the existing requests to see if it is OK to add the new request.
-            for (PendingRequest request : mPendingRequests) {
-                TetheringRequest existingRequest = request.getTetheringRequest();
-                if (existingRequest.getTetheringType() != newRequest.getTetheringType()) {
-                    continue;
+            if (isTetheringWithSoftApConfigEnabled()) {
+                // Can't add request if there's an existing request (pending or serving) that fuzzy
+                // matches the new request.
+                for (TetheringRequest servingRequest : mServingRequests.values()) {
+                    if (servingRequest.fuzzyMatches(newRequest)) {
+                        Log.i(TAG, "Cannot add pending request due to serving fuzzy-matched "
+                                + "request: " + servingRequest);
+                        return ADD_RESULT_FAILURE_EXISTING_FUZZY_MATCHED_REQUEST;
+                    }
                 }
+                for (PendingRequest request : mPendingRequests) {
+                    TetheringRequest pendingRequest = request.getTetheringRequest();
+                    if (pendingRequest.fuzzyMatches(newRequest)) {
+                        Log.i(TAG, "Cannot add pending request due to pending fuzzy-matched "
+                                + "request: " + pendingRequest);
+                        return ADD_RESULT_FAILURE_EXISTING_FUZZY_MATCHED_REQUEST;
+                    }
+                }
+            } else {
+                // Legacy behavior
+                for (PendingRequest request : mPendingRequests) {
+                    TetheringRequest existingRequest = request.getTetheringRequest();
+                    if (existingRequest.getTetheringType() != newRequest.getTetheringType()) {
+                        continue;
+                    }
 
-                // Can't add request if there's a request of the same type with different
-                // parameters.
-                if (!existingRequest.equalsIgnoreUidPackage(newRequest)) {
-                    return ADD_RESULT_FAILURE_CONFLICTING_PENDING_REQUEST;
+                    // Can't add request if there's a request of the same type with different
+                    // parameters.
+                    if (!existingRequest.equalsIgnoreUidPackage(newRequest)) {
+                        return ADD_RESULT_FAILURE_CONFLICTING_PENDING_REQUEST;
+                    }
+                }
+                // Remove the existing pending request of the same time. We already filter out for
+                // conflicting parameters above, so these would have been equivalent anyway (except
+                // for UID).
+                // The only exception is bluetooth, which may have multiple pending listeners
+                // waiting for the PAN service to connect.
+                final int type = newRequest.getTetheringType();
+                if (type != TETHERING_BLUETOOTH) {
+                    removePendingRequests(type, TETHER_ERROR_SERVICE_UNAVAIL);
                 }
             }
 
-            // Remove the existing pending request of the same time. We already filter out for
-            // conflicting parameters above, so these would have been equivalent anyway (except for
-            // UID).
-            // The only exception is bluetooth, which may have multiple pending listeners waiting
-            // for the PAN service to connect.
-            final int type = newRequest.getTetheringType();
-            if (type != TETHERING_BLUETOOTH) {
-                removePendingRequests(type, TETHER_ERROR_SERVICE_UNAVAIL);
-            }
             mPendingRequests.add(new PendingRequest(newRequest, listener));
             return ADD_RESULT_SUCCESS;
         }
@@ -562,9 +607,10 @@ public class Tethering {
          * <p>
          * Note: This method may be called multiple times for the same request, but only the first
          *       result will be sent.
-         * Note: There may be multiple duplicate pending requests with the exact same parameters
-         *       (ignoring UID). Since these requests are considered equal, we will also remove the
-         *       duplicates upon failure.
+         * Note: For legacy code before the tethering_with_soft_ap_config feature, there may be
+         *       multiple duplicate pending requests with the exact same parameters (ignoring UID).
+         *       Since these requests are considered equal, we will also remove the duplicates upon
+         *       failure.
          */
         private void sendLinkLayerPokeResult(
                 @NonNull final TetheringRequest tetheringRequest, final int result) {
@@ -573,7 +619,8 @@ public class Tethering {
 
             mPendingRequests.removeIf(request -> {
                 TetheringRequest pendingRequest = request.getTetheringRequest();
-                if (pendingRequest.getTetheringType() != tetheringRequest.getTetheringType()) {
+                if (!request.isPending() || pendingRequest.getTetheringType()
+                        != tetheringRequest.getTetheringType()) {
                     return false;
                 }
 
@@ -602,6 +649,29 @@ public class Tethering {
                 r.sendPendingTetherResult(result);
                 return true;
             });
+        }
+
+        private void removePendingRequest(@NonNull final TetheringRequest request,
+                final int result) {
+            mPendingRequests.removeIf(r -> {
+                if (!r.getTetheringRequest().fuzzyMatches(request)) return false;
+                r.sendPendingTetherResult(result);
+                return true;
+            });
+        }
+
+        private void setServingRequest(@NonNull String iface,
+                @NonNull final TetheringRequest tetheringRequest) {
+            mServingRequests.put(iface, tetheringRequest);
+        }
+
+        @Nullable
+        private TetheringRequest getServingRequest(@NonNull final String iface) {
+            return mServingRequests.get(iface);
+        }
+
+        private void removeServingRequest(@NonNull String iface) {
+            mServingRequests.remove(iface);
         }
     }
 
@@ -895,11 +965,22 @@ public class Tethering {
         mHandler.post(() -> {
             final int type = request.getTetheringType();
             int addResult = mRequestTracker.addPendingRequest(request, listener);
-            // If tethering is already pending with a conflicting request, stop tethering before
-            // starting.
             if (addResult == RequestTracker.ADD_RESULT_FAILURE_CONFLICTING_PENDING_REQUEST) {
+                // If tethering is already pending with a conflicting pending request, stop
+                // tethering before starting.
                 stopTetheringInternal(type);
                 mRequestTracker.addPendingRequest(request, listener);
+            } else if (addResult
+                    == RequestTracker.ADD_RESULT_FAILURE_EXISTING_FUZZY_MATCHED_REQUEST) {
+                // If a fuzzy-matched request already exists, stop tethering before starting.
+                if (listener != null) {
+                    try {
+                        listener.onResult(TETHER_ERROR_DUPLICATE_REQUEST);
+                    } catch (RemoteException e) {
+                        Log.e(TAG, e.getMessage(), e);
+                    }
+                }
+                return;
             }
 
             if (request.isExemptFromEntitlementCheck()) {
@@ -1328,7 +1409,13 @@ public class Tethering {
         // passed into this method and removed from the pending list, but the listener will not have
         // been called yet. Since the listener would have been silently successful once the PAN
         // service connects, send TETHER_ERROR_NO_ERROR here.
-        mRequestTracker.removePendingRequests(request.getTetheringType(), TETHER_ERROR_NO_ERROR);
+        if (isTetheringWithSoftApConfigEnabled()) {
+            mRequestTracker.removePendingRequest(request, TETHER_ERROR_NO_ERROR);
+        } else {
+            mRequestTracker.removePendingRequests(request.getTetheringType(),
+                    TETHER_ERROR_NO_ERROR);
+        }
+        mRequestTracker.setServingRequest(iface, request);
         // NOTE: If a CMD_TETHER_REQUESTED message is already in the IpServer's queue but not yet
         // processed, this will be a no-op and it will not return an error.
         // This code cannot race with untether() because they both run on the handler thread.
@@ -1370,6 +1457,7 @@ public class Tethering {
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
         tetherState.ipServer.unwanted();
+        mRequestTracker.removeServingRequest(iface);
         return TETHER_ERROR_NO_ERROR;
     }
 
@@ -1449,8 +1537,9 @@ public class Tethering {
             final TetherState tetherState = mTetherStates.valueAt(i);
             final int type = tetherState.ipServer.interfaceType();
             final String iface = mTetherStates.keyAt(i);
-            final TetheringRequest request = tetherState.ipServer.getTetheringRequest();
-            final boolean includeSoftApConfig = request != null && cookie != null
+            final TetheringRequest request = mRequestTracker.getServingRequest(iface);
+            final boolean includeSoftApConfig = tetherState.isCurrentlyServing()
+                    && request != null && cookie != null
                     && (cookie.uid == request.getUid() || cookie.hasSystemPrivilege);
             final TetheringInterface tetheringIface = new TetheringInterface(type, iface,
                     includeSoftApConfig ? request.getSoftApConfiguration() : null);
@@ -1772,6 +1861,7 @@ public class Tethering {
     private void disableWifiIpServingCommon(int tetheringType, String ifname) {
         if (!TextUtils.isEmpty(ifname) && mTetherStates.containsKey(ifname)) {
             mTetherStates.get(ifname).ipServer.unwanted();
+            mRequestTracker.removeServingRequest(ifname);
             return;
         }
 
@@ -1789,6 +1879,7 @@ public class Tethering {
             final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
             if (ipServer.interfaceType() == tetheringType) {
                 ipServer.unwanted();
+                mRequestTracker.removeServingRequest(ifname);
                 return;
             }
         }
@@ -3180,6 +3271,7 @@ public class Tethering {
         if (tetherState == null) return;
 
         tetherState.ipServer.stop();
+        mRequestTracker.removeServingRequest(iface);
         mLog.i("removing IpServer for: " + iface);
         mTetherStates.remove(iface);
     }
