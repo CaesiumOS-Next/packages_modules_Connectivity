@@ -102,6 +102,7 @@ static const set<string> MAINLINE_FOR_T_PLUS = {
     NETD "map_netd_iface_index_name_map",
     NETD "map_netd_iface_stats_map",
     NETD "map_netd_ingress_discard_map",
+    NETD "map_netd_root_netns_cookie_map",
     NETD "map_netd_stats_map_A",
     NETD "map_netd_stats_map_B",
     NETD "map_netd_uid_counterset_map",
@@ -132,6 +133,7 @@ static const set<string> MAINLINE_FOR_T_4_19_PLUS = {
 
 // Provided by *current* mainline module for T+ devices with 5.10+ kernels
 static const set<string> MAINLINE_FOR_T_5_10_PLUS = {
+    NETD "prog_netd_cgroupsock_init_root_netns",
     NETD "prog_netd_cgroupsockrelease_inet_release",
 };
 

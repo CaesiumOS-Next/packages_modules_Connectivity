@@ -118,6 +118,46 @@ static Status initPrograms(const char* cg2_path) {
     RETURN_IF_NOT_OK(attachProgramToCgroup(BPF_EGRESS_PROG_PATH, cg_fd, BPF_CGROUP_INET_EGRESS));
     RETURN_IF_NOT_OK(attachProgramToCgroup(BPF_INGRESS_PROG_PATH, cg_fd, BPF_CGROUP_INET_INGRESS));
 
+    if (bpf::isAtLeastKernelVersion(4, 14, 0)) {
+        // During first netd startup (post kernel boot) this is guaranteed to be a no-op,
+        // as nothing will have yet been attached.
+        // However in case of system server / netd crash, netd will restart,
+        // and thus the hook may have already been attached, so detach it first.
+        (void)bpf::detachProgram(BPF_CGROUP_INET_SOCK_CREATE, cg_fd);
+    }
+
+    {
+        // Since CGROUP_INET_SOCK_CREATE hook is not attached, this theoretically cannot fail,
+        // unless there's some sepolicy/uid/gid/capability mixup.  Make sure of this.
+        unique_fd fd(socket(AF_INET6, SOCK_RAW | SOCK_CLOEXEC, IPPROTO_ICMP));
+        if (!fd.ok()) return statusFromErrno(errno, "socket(INET6, RAW, ICMP) failed");
+    }
+
+    if (bpf::isAtLeastKernelVersion(5, 10, 0)) {
+        // Attach our root netns cookie initialization program/trigger.
+        // Since it is attached to CGROUP_INET_SOCK_CREATE this eBPF program
+        // will run on any socket() system call.
+        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_INIT_ROOT_NETNS_PROG_PATH,
+                                    cg_fd, BPF_CGROUP_INET_SOCK_CREATE));
+
+        // Trigger storage of our (ie. root) netns cookie in bpf internal map.
+        // First time through here the netns cookie map goes from 0 to initialized.
+        // On netd restart this will be a no-op (though it will still fail).
+        unique_fd fd1(socket(AF_INET6, SOCK_RAW | SOCK_CLOEXEC, IPPROTO_ICMP));
+
+        // Failure to create socket means successful storage of netns cookie,
+        // or that the stored cookie was already correct,
+        // while successful creation means eBPF program did not run or is not happy.
+        if (fd1.ok()) return Status("1st socket creation succeeded (but should not)");
+
+        // Try again *just* to make sure we can restart netd - this should be a no-op,
+        // ie. trigger will just validate the current netns cookie matches that in the map.
+        unique_fd fd2(socket(AF_INET6, SOCK_RAW | SOCK_CLOEXEC, IPPROTO_ICMP));
+        if (fd2.ok()) return Status("2nd socket creation succeeded (but should not)");
+
+        // Don't need to detach: we'll attach a new program replacing this one in a moment.
+    }
+
     // For the devices that support cgroup socket filter, the socket filter
     // should be loaded successfully by bpfloader. So we attach the filter to
     // cgroup if the program is pinned properly.
