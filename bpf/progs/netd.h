@@ -155,6 +155,7 @@ ASSERT_STRING_EQUAL(XT_BPF_EGRESS_PROG_PATH,    BPF_NETD_PATH "prog_netd_skfilte
 ASSERT_STRING_EQUAL(XT_BPF_ALLOWLIST_PROG_PATH, BPF_NETD_PATH "prog_netd_skfilter_allowlist_xtbpf");
 ASSERT_STRING_EQUAL(XT_BPF_DENYLIST_PROG_PATH,  BPF_NETD_PATH "prog_netd_skfilter_denylist_xtbpf");
 
+#define CGROUP_INIT_ROOT_NETNS_PROG_PATH BPF_NETD_PATH "prog_netd_cgroupsock_init_root_netns"
 #define CGROUP_INET_CREATE_PROG_PATH BPF_NETD_PATH "prog_netd_cgroupsock_inet_create"
 #define CGROUP_INET_RELEASE_PROG_PATH BPF_NETD_PATH "prog_netd_cgroupsockrelease_inet_release"
 #define CGROUP_BIND4_PROG_PATH BPF_NETD_PATH "prog_netd_bind4_inet4_bind"
