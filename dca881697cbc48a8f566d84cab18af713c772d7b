@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8ca8d8a_274a058e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-30T00:18:07Z",
+      "side": 1,
+      "message": "+2ing so that if you need to re-upload this CL in order to rebase yours on top of it, you won\u0027t need to block on having another +2.",
+      "revId": "dca881697cbc48a8f566d84cab18af713c772d7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
