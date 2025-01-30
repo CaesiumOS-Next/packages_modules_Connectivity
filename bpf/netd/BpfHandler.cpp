@@ -118,6 +118,35 @@ static Status initPrograms(const char* cg2_path) {
     RETURN_IF_NOT_OK(attachProgramToCgroup(BPF_EGRESS_PROG_PATH, cg_fd, BPF_CGROUP_INET_EGRESS));
     RETURN_IF_NOT_OK(attachProgramToCgroup(BPF_INGRESS_PROG_PATH, cg_fd, BPF_CGROUP_INET_INGRESS));
 
+
+    if (bpf::isAtLeastKernelVersion(4, 14, 0)) {
+        // on first netd startup this is a no-op, but in case we're run a second time
+        (void)bpf::detachProgram(BPF_CGROUP_INET_SOCK_CREATE, cg_fd);
+    }
+
+    {
+        // Make sure we have appropriate privs.
+        unique_fd fd(socket(AF_INET6, SOCK_RAW | SOCK_CLOEXEC, IPPROTO_ICMP));
+        if (!fd.ok()) return statusFromErrno(errno, "socket(INET6, RAW, ICMP) failed");
+    }
+
+    if (bpf::isAtLeastKernelVersion(5, 10, 0)) {
+        RETURN_IF_NOT_OK(attachProgramToCgroup(CGROUP_INIT_ROOT_NETNS_PROG_PATH,
+                                    cg_fd, BPF_CGROUP_INET_SOCK_CREATE));
+        // trigger root netns cookie storage in bpf internal map
+        unique_fd fd1(socket(AF_INET6, SOCK_RAW | SOCK_CLOEXEC, IPPROTO_ICMP));
+
+        // failure to create socket means successful storage of netns cookie,
+        // while successful creation mean ebpf program is not happy
+        if (fd1.ok()) return Status("1st socket creation succeeded (but should not)");
+
+        // try again to make sure we can restart netd - this should be a no-op
+        unique_fd fd2(socket(AF_INET6, SOCK_RAW | SOCK_CLOEXEC, IPPROTO_ICMP));
+        if (fd2.ok()) return Status("2nd socket creation succeeded (but should not)");
+
+        // don't need to detach since we'll attach a new program replacing this one in a moment
+    }
+
     // For the devices that support cgroup socket filter, the socket filter
     // should be loaded successfully by bpfloader. So we attach the filter to
     // cgroup if the program is pinned properly.
