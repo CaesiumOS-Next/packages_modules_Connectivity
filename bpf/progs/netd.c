@@ -597,6 +597,9 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
 //    V |     |      |  x   |  x  |  x   |  x   |  x  |  x  |      |
 //    U |     |  x   |  x   |  x  |  x   |  x   |  x  |     |      |
 //    T |  x  |  x   |  x   |  x  |  x   |  x   |     |     |      |
+//
+// Not relevant for eBPF, but mainline is still pushed to R+, so:
+// S also runs on 4.4, and I believe R on 3.18/4.4
 
 // ----- cgroupskb/ingress/stats -----
 
