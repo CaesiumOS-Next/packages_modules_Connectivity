@@ -59,6 +59,7 @@ import android.util.Log;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.ServiceConnectivityJni;
 
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.Set;
 
@@ -190,6 +191,19 @@ public class L2capNetworkProvider {
             mSocket = socket;
             mTunFd = tunFd;
         }
+
+        public void tearDown() {
+            try {
+                mTunFd.close();
+            } catch (IOException e) {
+                Log.w(TAG, "Failed to close tun fd", e);
+            }
+            try {
+                mSocket.close();
+            } catch (IOException e) {
+                Log.w(TAG, "Failed to close BluetoothSocket", e);
+            }
+        }
     }
 
     @Nullable
@@ -228,14 +242,89 @@ public class L2capNetworkProvider {
         private final NetworkRequest mReservation;
         private final boolean mUseHeaderCompression;
         private final NetworkCapabilities mReservedCapabilities;
-        private final BluetoothServerSocket mServerSocket;
+        private final AcceptThread mAcceptThread;
+        // This set should almost always contain at most one network. This is because all L2CAP server
+        // networks created by the same reserved offer are indistinguishable from each other, so
+        // that ConnectivityService will tear down all but the first. However, temporarily, there
+        // can be more than one network.
+        private final Set<L2capNetwork> mL2capNetworks = new ArraySet<>();
+
+        private class AcceptThread extends Thread {
+            private static final int TIMEOUT_MS = 500;
+            private final BluetoothServerSocket mServerSocket;
+            private volatile boolean mIsRunning = true;
+
+            public AcceptThread(BluetoothServerSocket serverSocket) {
+                mServerSocket = serverSocket;
+            }
+
+            private static void closeBluetoothSocket(BluetoothSocket socket) {
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    Log.w(TAG, "Failed to close BluetoothSocket", e);
+                }
+            }
+
+            public void run() {
+                while (mIsRunning) {
+                    final BluetoothSocket connectedSocket;
+                    try {
+                        connectedSocket = mServerSocket.accept();
+                    } catch (IOException e) {
+                        // TODO: tear down reservation.
+                        return;
+                    }
+                    mHandler.post(() -> {
+                        final boolean success = handleCreateNetwork(connectedSocket);
+                        if (!success) closeBluetoothSocket(connectedSocket);
+                    });
+                }
+            }
+
+            public void tearDown() {
+                mIsRunning = false;
+                try {
+                    // BluetoothServerSocket.close() is thread-safe.
+                    mServerSocket.close();
+                } catch (IOException e) {
+                    Log.w(TAG, "Failed to close BluetoothServerSocket", e);
+                }
+                try {
+                    join();
+                } catch (InterruptedException e) {
+                    // join() interrupted during tearDown(). Do nothing.
+                }
+            }
+        }
+
+        private boolean handleCreateNetwork(BluetoothSocket socket) {
+            // It is possible the offer went away.
+            if (!mReservedServerOffers.contains(this)) return false;
+
+            if (!socket.isConnected()) {
+                Log.wtf(TAG, "BluetoothSocket must be connected");
+                return false;
+            }
+
+            final L2capNetwork network = createL2capNetwork(socket);
+            if (network == null) {
+                Log.e(TAG, "Failed to create L2capNetwork");
+                return false;
+            }
+
+            // TODO: add tearDown paths (specifically: offer and network-initiated teardown).
+            mL2capNetworks.add(network);
+            return true;
+        }
 
         public ReservedServerOffer(NetworkRequest reservation, boolean useHeaderCompression,
                 NetworkCapabilities reservedCapabilities, BluetoothServerSocket serverSocket) {
             mReservation = reservation;
             mUseHeaderCompression = useHeaderCompression;
             mReservedCapabilities = reservedCapabilities;
-            mServerSocket = serverSocket;
+            mAcceptThread = new AcceptThread(serverSocket);
+            mAcceptThread.start();
         }
 
         public NetworkCapabilities getReservedCapabilities() {
@@ -260,15 +349,12 @@ public class L2capNetworkProvider {
          * Called when the reservation goes away and the reserved offer must be torn down.
          *
          * This method can be called multiple times.
+         * TODO: can it? Let the caller verify the offer still exists before calling this method.
          */
         public void tearDown() {
-            // This method can be called multiple times.
-            try {
-                // BluetoothServerSocket#close() does not close any accepted BluetoothSockets and is
-                // safe to be called multiple times.
-                mServerSocket.close();
-            } catch (IOException e) {
-                Log.w(TAG, "Failed to close BluetoothServerSocket", e);
+            mAcceptThread.tearDown();
+            for (L2capNetwork network : mL2capNetworks) {
+                network.tearDown();
             }
         }
     }
