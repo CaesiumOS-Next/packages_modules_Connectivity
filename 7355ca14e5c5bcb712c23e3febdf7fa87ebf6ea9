@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2df00a38_ecac9af6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-30T04:18:49Z",
+      "side": 1,
+      "message": "Works:\n[384/1013] android.net.cts.DnsTest#testDnsWorks: ASSUMPTION_FAILED (0ms)",
+      "revId": "7355ca14e5c5bcb712c23e3febdf7fa87ebf6ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
