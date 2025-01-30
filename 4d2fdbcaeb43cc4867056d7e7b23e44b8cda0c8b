@@ -16,6 +16,24 @@
       "message": "+1 on the metrics part.",
       "revId": "4d2fdbcaeb43cc4867056d7e7b23e44b8cda0c8b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d9d6ed3_56c8460c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-30T08:43:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d112f208_7b70faa1",
+      "revId": "4d2fdbcaeb43cc4867056d7e7b23e44b8cda0c8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
