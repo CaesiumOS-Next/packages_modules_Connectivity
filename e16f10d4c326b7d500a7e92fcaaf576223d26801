@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "013e32e7_9996e051",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1686,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-30T04:22:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0436adae_cb4505ab",
+      "range": {
+        "startLine": 1686,
+        "startChar": 16,
+        "endLine": 1686,
+        "endChar": 23
+      },
+      "revId": "e16f10d4c326b7d500a7e92fcaaf576223d26801",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba70f23d_29881cce",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-01-30T00:32:31Z",
       "side": 1,
       "message": "Remove \"still\" and instead say something like, \"this matches historical behaviour\".",
+      "range": {
+        "startLine": 1697,
+        "startChar": 36,
+        "endLine": 1697,
+        "endChar": 41
+      },
+      "revId": "e16f10d4c326b7d500a7e92fcaaf576223d26801",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "776c34b6_bb50ae29",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-30T04:22:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba70f23d_29881cce",
       "range": {
         "startLine": 1697,
         "startChar": 36,
