@@ -56,6 +56,8 @@ static const int DROP_UNLESS_DNS = 2;  // internal to our program
     DEFINE_BPF_MAP_UGM(the_map, TYPE, TypeOfKey, TypeOfValue, num_entries, \
                        AID_ROOT, AID_NET_BW_ACCT, 0660)
 
+DEFINE_BPF_MAP_KERNEL_INTERNAL(root_netns_cookie_map, ARRAY, uint32_t, uint64_t, 1)
+
 // Bpf map arrays on creation are preinitialized to 0 and do not support deletion of a key,
 // see: kernel/bpf/arraymap.c array_map_delete_elem() returns -EINVAL (from both syscall and ebpf)
 // Additionally on newer kernels the bpf jit can optimize out the lookups.
@@ -768,6 +770,30 @@ static __always_inline inline uint8_t get_app_permissions() {
     uint8_t* permissions = bpf_uid_permission_map_lookup_elem(&appId);
     // if UID not in map, then default to just INTERNET permission.
     return permissions ? *permissions : BPF_PERMISSION_INTERNET;
+}
+
+// This program is attached to the CGROUP_INET_CREATE hook by netd_updatable's init code
+// for a fraction of a moment during netd startup.
+// Its purpose is to initialize the root_netns_cookie_map single element array with the
+// netns cookie of the root netns.
+// It triggers on socket(AF_INET6, SOCK_RAW, IPPROTO_ICMP) which is an otherwise
+// non-sensical combination (IPv6/ICMPv4).
+// It *disallows* the socket's creation if the cookie tag map is (or already was)
+// correctly initialized.
+DEFINE_NETD_BPF_PROG_KVER("cgroupsock/init_root_netns", init_root_netns, KVER_5_10)
+(struct bpf_sock* sk) {
+    if (sk->family == AF_INET6 && sk->type == SOCK_RAW && sk->protocol == IPPROTO_ICMP) {
+        uint32_t key = 0;  // single element array
+        uint64_t* cookie = bpf_root_netns_cookie_map_lookup_elem(&key);
+        if (!cookie) return BPF_ALLOW;  // impossible, it's a 1 element array
+        uint64_t netns = bpf_get_netns_cookie(sk);
+        if (*cookie == netns) return BPF_DISALLOW;  // match, no need to init -> 'success'
+        // non-zero means we're already initialized, to a *different* netns
+        if (*cookie) return BPF_ALLOW;  // meaning failure!
+        *cookie = netns;
+        return BPF_DISALLOW;  // fail socket creation to prove initialization succeeded
+    }
+    return BPF_ALLOW;
 }
 
 DEFINE_NETD_BPF_PROG_KVER("cgroupsock/inet_create", inet_socket_create, KVER_4_14)
