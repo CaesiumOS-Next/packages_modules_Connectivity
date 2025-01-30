@@ -226,6 +226,8 @@ public final class ConnectivityServiceInitializer extends SystemService {
     /** Return ConnectivityServiceInitializerB instance if enable, otherwise null. */
     @Nullable
     private SystemService createConnectivityServiceInitializerB(Context context) {
+        android.util.Log.i(TAG, "VcnLocation.IS_VCN_IN_MAINLINE " + VcnLocation.IS_VCN_IN_MAINLINE);
+        android.util.Log.i(TAG, "SdkLevel.isAtLeastB() " + SdkLevel.isAtLeastB());
         if (!VcnLocation.IS_VCN_IN_MAINLINE || !SdkLevel.isAtLeastB()) {
             return null;
         }
