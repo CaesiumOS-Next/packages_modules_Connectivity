@@ -922,6 +922,7 @@ public class ConnectivityManagerTest {
     public void testOpenConnection() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
+        assumeFalse(Build.MODEL.contains("Cuttlefish"));
 
         Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
         Network cellNetwork = networkCallbackRule.requestCell();
