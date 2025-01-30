@@ -188,6 +188,24 @@
       "message": "Hi @qal@google.com Can you please help to review the patch? Still these failures we are seeing for android15.",
       "revId": "eeed24cd544ab205988a26dcc1a21d479945833b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ea7a2c7_3ad6bacb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-30T00:36:15Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "774d067e_cc802d95",
+      "revId": "eeed24cd544ab205988a26dcc1a21d479945833b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
