@@ -106,6 +106,24 @@
       "parentUuid": "f305926c_f7b7b75d",
       "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48b29b2b_4f3ab064",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-30T01:52:29Z",
+      "side": 1,
+      "message": "Are they actually used in the sense that they are called by mainline code \non *current* releases (presumably that would be in PermissionMonitor.java)? If they are in use, then I agree we should have these constants. But if they are not - for example, if they are only used before Android T - then we should deprecate these constants, delete the implementation of the IPCs and replace them with:\n\n    DEPRECATED;\n\nlike we did, for exapmle, for bandwidthAddNaughtyApp.",
+      "parentUuid": "f4d6f84f_ff90e68c",
+      "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
