@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcd53719_45fec3ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-30T03:56:45Z",
+      "side": 1,
+      "message": "Still LGTM. Comment optional, feel free to address in a follow-up.",
+      "revId": "7c14bf20c2bcd87e9afac37cdef25a595318e8e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ea616a8_912db61b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1686,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-30T03:56:45Z",
+      "side": 1,
+      "message": "if the regexps are misconfigured)",
+      "range": {
+        "startLine": 1686,
+        "startChar": 78,
+        "endLine": 1686,
+        "endChar": 79
+      },
+      "revId": "7c14bf20c2bcd87e9afac37cdef25a595318e8e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
