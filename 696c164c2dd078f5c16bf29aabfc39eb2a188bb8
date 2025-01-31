@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a54e617f_338636e4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-31T08:44:49Z",
+      "side": 1,
+      "message": "Added in aosp/3471270",
+      "parentUuid": "719b8d29_6524fa81",
+      "range": {
+        "startLine": 737,
+        "startChar": 22,
+        "endLine": 737,
+        "endChar": 40
+      },
+      "revId": "696c164c2dd078f5c16bf29aabfc39eb2a188bb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b83fbb8d_07628100",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef817e56_c36600b2",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-31T08:44:49Z",
+      "side": 1,
+      "message": "Added in aosp/3471270",
+      "parentUuid": "b83fbb8d_07628100",
+      "range": {
+        "startLine": 468,
+        "startChar": 63,
+        "endLine": 468,
+        "endChar": 72
+      },
+      "revId": "696c164c2dd078f5c16bf29aabfc39eb2a188bb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1657a9e3_b971d619",
@@ -77,6 +125,30 @@
       "writtenOn": "2025-01-31T08:38:48Z",
       "side": 1,
       "message": "expectSuccess",
+      "range": {
+        "startLine": 474,
+        "startChar": 62,
+        "endLine": 474,
+        "endChar": 71
+      },
+      "revId": "696c164c2dd078f5c16bf29aabfc39eb2a188bb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77f4ca54_842c305b",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-31T08:44:49Z",
+      "side": 1,
+      "message": "Added in aosp/3471270",
+      "parentUuid": "1657a9e3_b971d619",
       "range": {
         "startLine": 474,
         "startChar": 62,
