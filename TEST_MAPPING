@@ -257,6 +257,14 @@
     // TODO: Move to presumit after meet SLO requirement.
     {
       "name": "NetworkStaticLibHostPythonTests"
+    },
+    {
+      "name": "CtsTetheringTestLatestSdk",
+      "options": [
+        {
+          "exclude-annotation": "com.android.testutils.NetworkStackModuleTest"
+        }
+      ]
     }
   ],
   "mainline-presubmit": [
