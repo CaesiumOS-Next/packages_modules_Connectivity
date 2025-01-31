@@ -24,16 +24,16 @@ import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.PackageInfo.REQUESTED_PERMISSION_GRANTED;
 import static android.content.pm.PackageManager.GET_PERMISSIONS;
 import static android.net.ConnectivitySettingsManager.UIDS_ALLOWED_ON_RESTRICTED_NETWORKS;
-import static android.net.INetd.PERMISSION_INTERNET;
-import static android.net.INetd.PERMISSION_NETWORK;
-import static android.net.INetd.PERMISSION_NONE;
-import static android.net.INetd.PERMISSION_SYSTEM;
-import static android.net.INetd.PERMISSION_UNINSTALLED;
-import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.SYSTEM_UID;
 
+import static com.android.server.connectivity.NetworkTrafficPerms.PERMISSION_INTERNET;
+import static com.android.server.connectivity.NetworkTrafficPerms.PERMISSION_NETWORK;
+import static com.android.server.connectivity.NetworkTrafficPerms.PERMISSION_NONE;
+import static com.android.server.connectivity.NetworkTrafficPerms.PERMISSION_SYSTEM;
+import static com.android.server.connectivity.NetworkTrafficPerms.PERMISSION_UNINSTALLED;
+import static com.android.server.connectivity.NetworkTrafficPerms.PERMISSION_UPDATE_DEVICE_STATS;
 import static com.android.net.module.util.CollectionUtils.toIntArray;
 
 import android.annotation.NonNull;
