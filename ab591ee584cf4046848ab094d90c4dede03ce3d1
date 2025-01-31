@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "542ec899_95548174",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 51
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-01-31T09:49:19Z",
+      "side": 1,
+      "message": "Initial review as it\u0027s the end of the day and I\u0027m afraid I\u0027m not left with enough brain juice to give you a confident one (I\u0027ll continue on Monday). But the comment in l.293 is likely actionnable immediately",
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3480275_71d4f85b",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-01-31T09:49:19Z",
+      "side": 1,
+      "message": "TBR: reminv@\n\nIntuitively this looks wrong to me and I can\u0027t find any other use of this class in our code, but it does look like we own the android.net.http.internal namespace (to my surprise) and this might just be a new thing that I\u0027m not aware of.",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 60
+      },
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1a2f9de_be83423b",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-01-31T09:49:19Z",
+      "side": 1,
+      "message": "Because this is a top-level class with a number of references I suggest making the listener an inner class instead to clarify a bit who can see the listener (i.e. this class only, not ConnectivityService).\n\nHowever –– that decision would depend on how the code looks downstream of this patch and I haven\u0027t looked at it yet, so feel free to push back if you know better considering your later code.",
+      "range": {
+        "startLine": 95,
+        "startChar": 31,
+        "endLine": 95,
+        "endChar": 41
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "72e7806d_425ae938",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 56,
+                "startChar": 0,
+                "endLine": 57,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 77,
+                "startChar": 0,
+                "endLine": 77,
+                "endChar": 0
+              },
+              "replacement": "import com.android.net.flags.Flags;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a898698_672a117d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-01-31T09:49:19Z",
+      "side": 1,
+      "message": "Can this change at runtime and do you want it to reflect the new state ?\n- If it can\u0027t change at runtime, I suggest checking this in l.286 instead to save some performance\n- If it can change at runtime and you want it to take effect immediately, what is a strategy to reload the permissions when it changes ?",
+      "range": {
+        "startLine": 293,
+        "startChar": 42,
+        "endLine": 293,
+        "endChar": 64
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "0d712af7_cc9bc56d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 286,
+                "startChar": 0,
+                "endLine": 287,
+                "endChar": 0
+              },
+              "replacement": "        if (Flags.restrictLocalNetwork() \u0026\u0026 CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, 0)) {\n"
+            },
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 293,
+                "startChar": 0,
+                "endLine": 297,
+                "endChar": 0
+              },
+              "replacement": "        mPermissionUpdateLogs.i(\"Permissions state changed for uid\u003d\" + uid);\n        // TODO(b/388803658): Update network permissions\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
