@@ -13932,10 +13932,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return nris;
         }
 
-        final Set<UidRange> ranges = new ArraySet<>();
-        for (final int uid : uids) {
-            ranges.add(new UidRange(uid, uid));
-        }
+        final ArraySet<UidRange> ranges = UidRangeUtils.convertListToUidRange(
+                new ArrayList<Integer>(uids));
         setNetworkRequestUids(requests, ranges);
         nris.add(new NetworkRequestInfo(Process.myUid(), requests, preferenceOrder));
         return nris;
