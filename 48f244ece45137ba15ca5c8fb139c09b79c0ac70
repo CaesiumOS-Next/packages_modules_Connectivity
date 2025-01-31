@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec097349_984c395e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-01-31T00:00:19Z",
+      "side": 1,
+      "message": "Note to self: I developed this with \u003e\u003d V (35) check.\n\nWith the change to \u003e V this is currently a no-op on aosp/main (but not in goog/main) as aosp/main is still \u0027just\u0027 35/Baklava and not 36/Baklava or 36/REL.",
+      "revId": "48f244ece45137ba15ca5c8fb139c09b79c0ac70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
