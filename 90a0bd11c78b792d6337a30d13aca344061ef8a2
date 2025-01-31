@@ -124,6 +124,24 @@
       "parentUuid": "f4d6f84f_ff90e68c",
       "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5095ab0_d5dbdd79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-31T04:24:42Z",
+      "side": 1,
+      "message": "Yes, all the permissions are used in mainline code. But I do agree this particular permission doesn\u0027t need to be added to the aidl. I created aosp/3470371 to add the localhost perm in a place that makes sense and that groups the other permissions.",
+      "parentUuid": "f4d6f84f_ff90e68c",
+      "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
