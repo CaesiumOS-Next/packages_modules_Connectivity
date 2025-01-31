@@ -142,6 +142,24 @@
       "parentUuid": "f4d6f84f_ff90e68c",
       "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1dec3df_47d112a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T05:58:52Z",
+      "side": 1,
+      "message": "To avoid the confusion, can you change this CL to @deprecate the AIDL constants that are no longer used? IIUC that\u0027s PERMISSION_INTERNET, PERMISSION_UPDATE_DEVICE_STATS, PERMISSION_UNINSTALLED, and NO_PERMISSIONS.",
+      "parentUuid": "c5095ab0_d5dbdd79",
+      "revId": "90a0bd11c78b792d6337a30d13aca344061ef8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
