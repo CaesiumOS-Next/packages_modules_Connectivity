@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d978cee_14ed636f",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-31T07:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51037d51_ebbdca07",
+      "range": {
+        "startLine": 1418,
+        "startChar": 31,
+        "endLine": 1418,
+        "endChar": 38
+      },
+      "revId": "3683df0a9adbe306698b18f54bfc9dfd5c61f044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5880b479_c9e8afed",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-31T05:44:45Z",
       "side": 1,
       "message": "Put request.toString() here?",
+      "range": {
+        "startLine": 1421,
+        "startChar": 34,
+        "endLine": 1421,
+        "endChar": 50
+      },
+      "revId": "3683df0a9adbe306698b18f54bfc9dfd5c61f044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b52cff45_fae97c55",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1421,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-31T07:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5880b479_c9e8afed",
       "range": {
         "startLine": 1421,
         "startChar": 34,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a52b2293_1f6e6166",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-31T07:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b5fad1d_4ded574b",
+      "range": {
+        "startLine": 742,
+        "startChar": 91,
+        "endLine": 742,
+        "endChar": 92
+      },
+      "revId": "3683df0a9adbe306698b18f54bfc9dfd5c61f044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac59ea13_a637e9ec",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61cfb77b_328d6866",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-31T07:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac59ea13_a637e9ec",
+      "range": {
+        "startLine": 745,
+        "startChar": 55,
+        "endLine": 745,
+        "endChar": 56
+      },
+      "revId": "3683df0a9adbe306698b18f54bfc9dfd5c61f044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7f66d72_e4b92acf",
@@ -106,6 +202,30 @@
       "writtenOn": "2025-01-31T05:44:45Z",
       "side": 1,
       "message": "expectSuccess",
+      "range": {
+        "startLine": 643,
+        "startChar": 70,
+        "endLine": 643,
+        "endChar": 79
+      },
+      "revId": "3683df0a9adbe306698b18f54bfc9dfd5c61f044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71e7eab6_e320316a",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-01-31T07:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7f66d72_e4b92acf",
       "range": {
         "startLine": 643,
         "startChar": 70,
