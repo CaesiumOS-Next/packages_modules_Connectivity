@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51037d51_ebbdca07",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T05:44:45Z",
+      "side": 1,
+      "message": "This should throw NPE if the request is null, and the service code should ignore the call if the request is null (to ensure that even if apps make raw binder calls, the system does not crash).",
+      "range": {
+        "startLine": 1418,
+        "startChar": 31,
+        "endLine": 1418,
+        "endChar": 38
+      },
+      "revId": "3683df0a9adbe306698b18f54bfc9dfd5c61f044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5880b479_c9e8afed",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1421,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T05:44:45Z",
+      "side": 1,
+      "message": "Put request.toString() here?",
+      "range": {
+        "startLine": 1421,
+        "startChar": 34,
+        "endLine": 1421,
+        "endChar": 50
+      },
+      "revId": "3683df0a9adbe306698b18f54bfc9dfd5c61f044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b5fad1d_4ded574b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T05:44:45Z",
+      "side": 1,
+      "message": "We should ensure that this does not do anything on V or below.",
+      "range": {
+        "startLine": 742,
+        "startChar": 91,
+        "endLine": 742,
+        "endChar": 92
+      },
+      "revId": "3683df0a9adbe306698b18f54bfc9dfd5c61f044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac59ea13_a637e9ec",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T05:44:45Z",
+      "side": 1,
+      "message": "Can we at least attempt to stop tethering here? Maybe call stopTetheringInternal(type)?",
+      "range": {
+        "startLine": 745,
+        "startChar": 55,
+        "endLine": 745,
+        "endChar": 56
+      },
+      "revId": "3683df0a9adbe306698b18f54bfc9dfd5c61f044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7f66d72_e4b92acf",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T05:44:45Z",
+      "side": 1,
+      "message": "expectSuccess",
+      "range": {
+        "startLine": 643,
+        "startChar": 70,
+        "endLine": 643,
+        "endChar": 79
+      },
+      "revId": "3683df0a9adbe306698b18f54bfc9dfd5c61f044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a95f264f_3e14ad16",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T05:44:45Z",
+      "side": 1,
+      "message": "How does this pass? The stop is actually unimplemented and doesn\u0027t do anything, so at this point tethering should still be running.",
+      "range": {
+        "startLine": 475,
+        "startChar": 32,
+        "endLine": 475,
+        "endChar": 55
+      },
+      "revId": "3683df0a9adbe306698b18f54bfc9dfd5c61f044",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
