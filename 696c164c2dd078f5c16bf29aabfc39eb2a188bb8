@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a18e13ad_f6dd1103",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T08:38:48Z",
+      "side": 1,
+      "message": "LGTM, feel free to address comments in a follow-up.",
+      "revId": "696c164c2dd078f5c16bf29aabfc39eb2a188bb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "719b8d29_6524fa81",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T08:38:48Z",
+      "side": 1,
+      "message": "// TODO: isCurrentlyServing only starts returning true once the IpServer has\n// processed the CMD_TETHER_REQUEST. Ensure that we consider the request to be\n// serving even when that has not happened yet.",
+      "range": {
+        "startLine": 737,
+        "startChar": 22,
+        "endLine": 737,
+        "endChar": 40
+      },
+      "revId": "696c164c2dd078f5c16bf29aabfc39eb2a188bb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b83fbb8d_07628100",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T08:38:48Z",
+      "side": 1,
+      "message": "expectSuccess",
+      "range": {
+        "startLine": 468,
+        "startChar": 63,
+        "endLine": 468,
+        "endChar": 72
+      },
+      "revId": "696c164c2dd078f5c16bf29aabfc39eb2a188bb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1657a9e3_b971d619",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T08:38:48Z",
+      "side": 1,
+      "message": "expectSuccess",
+      "range": {
+        "startLine": 474,
+        "startChar": 62,
+        "endLine": 474,
+        "endChar": 71
+      },
+      "revId": "696c164c2dd078f5c16bf29aabfc39eb2a188bb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
