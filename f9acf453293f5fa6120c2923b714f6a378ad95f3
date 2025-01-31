@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a40c495_a8855e02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-01-31T04:24:33Z",
+      "side": 1,
+      "message": "As an alternative for the discussion in aosp/3463221. PTAL, but other suggestions appreciated.",
+      "revId": "f9acf453293f5fa6120c2923b714f6a378ad95f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
