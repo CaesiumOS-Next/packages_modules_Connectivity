@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12158713_3337dc47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T08:42:28Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "9bda6be2f5965848d0e77f57f62757052a3d0caa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed4c7386_bb1fc6c4",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T08:42:28Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this. I think this annotation is used to ensure that tests that require networkstack to be installed don\u0027t run on mainline-presubmit runs that don\u0027t install networkstack. But because regular (non-mainline) presubmit builds from source it always runs all modules, so I don\u0027t think the annotation is needed.",
+      "range": {
+        "startLine": 265,
+        "startChar": 33,
+        "endLine": 265,
+        "endChar": 77
+      },
+      "revId": "9bda6be2f5965848d0e77f57f62757052a3d0caa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
