@@ -16,6 +16,23 @@
       "message": "As an alternative for the discussion in aosp/3463221. PTAL, but other suggestions appreciated.",
       "revId": "f9acf453293f5fa6120c2923b714f6a378ad95f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22113775_76287809",
+        "filename": "service/src/com/android/server/connectivity/NetworkTrafficPerms.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-01-31T06:00:55Z",
+      "side": 1,
+      "message": "Maybe call these TRAFFIC_PERMISSION_xxx, to distinguish them from the ones above?",
+      "revId": "f9acf453293f5fa6120c2923b714f6a378ad95f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
