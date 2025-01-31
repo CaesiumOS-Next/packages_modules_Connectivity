@@ -176,8 +176,7 @@ public class L2capNetworkProvider {
             if (reservedOffer == null) return;
             // Note that the reserved offer gets torn down when the reservation goes away, even if
             // there are lingering requests.
-            reservedOffer.tearDown();
-            mProvider.unregisterNetworkOffer(reservedOffer);
+            handleDestroyReservedServerOffer(reservedOffer);
         }
     }
 
@@ -258,6 +257,12 @@ public class L2capNetworkProvider {
                 mServerSocket = serverSocket;
             }
 
+            private void destroyReservedServerOffer() {
+                mHandler.post(() -> {
+                    handleDestroyReservedServerOffer(ReservedServerOffer.this);
+                });
+            }
+
             private static void closeBluetoothSocket(BluetoothSocket socket) {
                 try {
                     socket.close();
@@ -266,19 +271,28 @@ public class L2capNetworkProvider {
                 }
             }
 
+            private void createNetwork(BluetoothSocket connectedSocket) {
+                mHandler.post(() -> {
+                    final boolean success = handleCreateNetwork(connectedSocket);
+                    if (!success) closeBluetoothSocket(connectedSocket);
+                });
+            }
+
             public void run() {
                 while (mIsRunning) {
                     final BluetoothSocket connectedSocket;
                     try {
                         connectedSocket = mServerSocket.accept();
                     } catch (IOException e) {
-                        // TODO: tear down reservation.
-                        return;
+                        // BluetoothServerSocket was closed().
+                        if (!mIsRunning) return;
+
+                        // Else, BluetoothServerSocket encountered exception.
+                        Log.e(TAG, "BluetoothServerSocket#accept failed", e);
+                        destroyReservedServerOffer();
+                        return; // stop running immediately on error
                     }
-                    mHandler.post(() -> {
-                        final boolean success = handleCreateNetwork(connectedSocket);
-                        if (!success) closeBluetoothSocket(connectedSocket);
-                    });
+                    createNetwork(connectedSocket);
                 }
             }
 
@@ -390,6 +404,16 @@ public class L2capNetworkProvider {
                 .setNetworkSpecifier(reservedSpec)
                 .build();
         return new ReservedServerOffer(reservation, useHeaderCompression, reservedNc, serverSocket);
+    }
+
+    private void handleDestroyReservedServerOffer(ReservedServerOffer offer) {
+        if (!mReservedServerOffers.contains(offer)) return;
+        mReservedServerOffers.remove(offer);
+
+        offer.tearDown();
+        // TODO: registerNetworkOffer is part of BlanketReservationOffer#onNetworkNeeded(). Should
+        // it be added to createReservedServerOffer for symmetry?
+        mProvider.unregisterNetworkOffer(offer);
     }
 
     @VisibleForTesting
