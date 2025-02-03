@@ -22,6 +22,30 @@
       },
       "revId": "61b37eabc8e5b3a336ef95daabb45e3a442af45a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86420cc2_cae8f2c4",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-03T19:32:00Z",
+      "side": 1,
+      "message": "Agree, I\u0027m going to abandon this chnage actually since I was able to resolve the app compat issues that I was isolating in this change. I have more robust tests in aosp/3466284 as well",
+      "parentUuid": "0644fa6d_68e6392a",
+      "range": {
+        "startLine": 165,
+        "startChar": 16,
+        "endLine": 165,
+        "endChar": 25
+      },
+      "revId": "61b37eabc8e5b3a336ef95daabb45e3a442af45a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
