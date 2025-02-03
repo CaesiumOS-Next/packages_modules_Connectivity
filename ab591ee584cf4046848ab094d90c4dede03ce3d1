@@ -43,6 +43,71 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a462ce64_778b4e26",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-03T04:32:55Z",
+      "side": 1,
+      "message": "Okay pretty sure the right import is\n\ncom.android.net.flags.Flags",
+      "parentUuid": "b3480275_71d4f85b",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 60
+      },
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79543d51_a7e6dcd3",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-03T04:32:55Z",
+      "side": 1,
+      "message": "Unused as of this patch, but see comment below",
+      "range": {
+        "startLine": 66,
+        "startChar": 26,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "034cab76_28053675",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 66,
+                "startChar": 0,
+                "endLine": 67,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e1a2f9de_be83423b",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 51
@@ -94,6 +159,118 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14deff62_6b7a4549",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-03T04:32:55Z",
+      "side": 1,
+      "message": "As I understand, this API will not call the callback immediately with the current state of permissions. How do you intend to make sure there isn\u0027t a race condition where PermissionMonitor gets a permission state, then there is a change but the listener isn\u0027t registered yet ?\nIf you\u0027ve already made sure of that, please add a comment here so that future readers understand how it\u0027s guaranteed.",
+      "range": {
+        "startLine": 287,
+        "startChar": 28,
+        "endLine": 287,
+        "endChar": 58
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ba4b589e_b8ef31f4",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 34,
+                "startChar": 0,
+                "endLine": 35,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 42,
+                "startChar": 0,
+                "endLine": 43,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 76,
+                "startChar": 0,
+                "endLine": 76,
+                "endChar": 0
+              },
+              "replacement": "import com.android.modules.utils.build.CompatChanges;\n"
+            },
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 293,
+                "startChar": 0,
+                "endLine": 294,
+                "endChar": 0
+              },
+              "replacement": "        if (CompatChanges.isRestrictLocalNetworkEnabled(uid)) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8107a5fb_8d8495e5",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-03T04:32:55Z",
+      "side": 1,
+      "message": "I think this is deprecated (see ag/13177312) and you should use PermissionManager nowadays",
+      "range": {
+        "startLine": 287,
+        "startChar": 28,
+        "endLine": 287,
+        "endChar": 58
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "84bec319_483b7800",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 287,
+                "startChar": 0,
+                "endLine": 287,
+                "endChar": 0
+              },
+              "replacement": "            // TODO(b/388803658): Remove this listener when the flag is removed.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a898698_672a117d",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 51
@@ -135,6 +312,88 @@
                 "endChar": 0
               },
               "replacement": "        mPermissionUpdateLogs.i(\"Permissions state changed for uid\u003d\" + uid);\n        // TODO(b/388803658): Update network permissions\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4effb63_a3d1e8c5",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-03T04:32:55Z",
+      "side": 1,
+      "message": "Can you please add a short comment above this and/or in l.286 explaining the difference between the flag and the compat change ? In particular the difference in which they are used – the point being that a developer coming in later adding some behavior should understand whether they should guard it behind the flag or behind the compat change.",
+      "range": {
+        "startLine": 293,
+        "startChar": 42,
+        "endLine": 293,
+        "endChar": 64
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "fded7b45_e9e84e0b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 293,
+                "startChar": 0,
+                "endLine": 293,
+                "endChar": 0
+              },
+              "replacement": "        // RESTRICT_LOCAL_NETWORK is a compat change that is enabled when the app\u0027s targetSdkVersion\n        // is at least Q. This means that the app is subject to the new restrictions on local network\n        // usage.\n        // The RESTRICT_LOCAL_NETWORK compat change is used here instead of the\n        // Flags.restrictLocalNetwork() flag because the flag is only enabled when the device is\n        // running on a T+ device. This is because the new restrictions on local network usage are\n        // only enforced on T+ devices.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3a6564a_129e544e",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-03T04:32:55Z",
+      "side": 1,
+      "message": "Fine as of this patch, but I think that eventually we need to log the relevant details of the permission change rather than this broad log. This will\n- log for any irrelevant change, cluttering logs (quick testing shows 4 logs for one permission change)\n- not log what specifically changed for this UID, meaning this is not very useful\n\nSuggest adding a TODO at this patch and addressing later when the code is written.",
+      "range": {
+        "startLine": 294,
+        "startChar": 12,
+        "endLine": 294,
+        "endChar": 33
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "7bb43281_0a3d271c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 294,
+                "startChar": 0,
+                "endLine": 295,
+                "endChar": 0
+              },
+              "replacement": "            mPermissionUpdateLogs.i(\"Permissions state changed for uid\u003d\" + uid\n                    + \", package\u003d\" + mPackageManager.getNameForUid(uid));\n"
             }
           ]
         }
