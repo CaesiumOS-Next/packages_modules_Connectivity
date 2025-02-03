@@ -504,6 +504,11 @@ public class TetheringManagerTest {
         }
     }
 
+    @Test
+    public void testFail() throws Exception {
+        fail("Failed");
+    }
+
     private class EntitlementResultListener implements OnTetheringEntitlementResultListener {
         private final CompletableFuture<Integer> future = new CompletableFuture<>();
 
