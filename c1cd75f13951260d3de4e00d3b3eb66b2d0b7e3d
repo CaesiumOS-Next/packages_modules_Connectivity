@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef0d5173_858c3ea9",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-03T23:49:41Z",
+      "side": 1,
+      "message": "This is always false on a released device. Is there a way we can be more accurate ?",
+      "range": {
+        "startLine": 276,
+        "startChar": 37,
+        "endLine": 276,
+        "endChar": 52
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "da85f272_96205a49",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 276,
+                "startChar": 0,
+                "endLine": 277,
+                "endChar": 0
+              },
+              "replacement": "    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)\n"
+            },
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 286,
+                "startChar": 0,
+                "endLine": 287,
+                "endChar": 0
+              },
+              "replacement": "    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)\n"
+            },
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 899,
+                "startChar": 0,
+                "endLine": 900,
+                "endChar": 0
+              },
+              "replacement": "    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)\n"
+            },
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 918,
+                "startChar": 0,
+                "endLine": 919,
+                "endChar": 0
+              },
+              "replacement": "    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)\n"
+            },
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 932,
+                "startChar": 0,
+                "endLine": 933,
+                "endChar": 0
+              },
+              "replacement": "    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)\n"
+            },
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 948,
+                "startChar": 0,
+                "endLine": 949,
+                "endChar": 0
+              },
+              "replacement": "    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac93cd15_1bd2ede3",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-03T23:49:41Z",
+      "side": 1,
+      "message": "Can you use NetworkStackUtils.isAtLeast25Q2 instead ?",
+      "range": {
+        "startLine": 463,
+        "startChar": 27,
+        "endLine": 463,
+        "endChar": 40
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e9be631_c98c0aff",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-03T23:49:41Z",
+      "side": 1,
+      "message": "These tests only test the positive case – can you also add a small test to make sure that data that wasn\u0027t added is indeed not present ?",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 5
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
