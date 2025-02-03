@@ -169,6 +169,14 @@
         }
       ]
     },
+    {
+      "name": "CtsTetheringTestLatestSdk",
+      "options": [
+        {
+          "exclude-annotation": "com.android.testutils.NetworkStackModuleTest"
+        }
+      ]
+    },
     // CTS tests that target older SDKs.
     {
       "name": "CtsNetTestCasesMaxTargetSdk30",
