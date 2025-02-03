@@ -2266,12 +2266,24 @@ public class ConnectivityManagerTest {
 
             // Verify that turning airplane mode off takes effect as expected.
             // connectToCell only registers a request, it cannot / does not need to be called twice
+<<<<<<< HEAD   (fd46c4 Merge "Remove tests not applicable to Android 15 CTS from an)
             mCtsNetUtils.ensureWifiConnected();
             if (verifyWifi) waitForAvailable(wifiCb);
             if (supportTelephony) {
                 telephonyCb.eventuallyExpect(
                         CallbackEntry.AVAILABLE, CELL_DATA_AVAILABLE_TIMEOUT_MS);
             }
+||||||| BASE
+            mCtsNetUtils.ensureWifiConnected();
+            if (verifyWifi) waitForAvailable(wifiCb);
+            if (supportTelephony) waitForAvailable(telephonyCb);
+=======
+            if (verifyWifi) {
+                mCtsNetUtils.ensureWifiConnected();
+                waitForAvailable(wifiCb);
+            }
+            if (supportTelephony) waitForAvailable(telephonyCb);
+>>>>>>> BRANCH (12dde9 Skip WiFi test in CtsWifiTestCases  and CtsNetTestCases modu)
         } finally {
             // Restore the previous state of airplane mode and permissions:
             runShellCommand("cmd connectivity airplane-mode "
