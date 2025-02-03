@@ -42,12 +42,21 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.L2capNetworkSpecifier;
+import android.net.LinkProperties;
+import android.net.NetworkAgent;
+import android.net.NetworkAgentConfig;
 import android.net.NetworkCapabilities;
 import android.net.NetworkProvider;
 import android.net.NetworkProvider.NetworkOfferCallback;
 import android.net.NetworkRequest;
 import android.net.NetworkScore;
 import android.net.NetworkSpecifier;
+import android.net.ip.IIpClient;
+import android.net.ip.IpClientCallbacks;
+import android.net.ip.IpClientManager;
+import android.net.ip.IpClientUtil;
+import android.net.shared.ProvisioningConfiguration;
+import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -58,6 +67,7 @@ import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.ServiceConnectivityJni;
+import com.android.server.net.L2capPacketForwarder;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -182,26 +192,59 @@ public class L2capNetworkProvider {
 
     private class L2capNetwork {
         private final String mIfname;
-        private final BluetoothSocket mSocket;
-        private final ParcelFileDescriptor mTunFd;
+        private final L2capPacketForwarder mForwarder;
+        private final L2capIpClient mIpClient;
+
+        /** IpClient wrapper to handle IPv6 link-local provisioning for L2CAP tun.
+         *
+         * Note that the IpClient does not need to be stopped.
+         */
+        private static class L2capIpClient extends IpClientCallbacks {
+            private final ConditionVariable mOnIpClientCreatedCv = new ConditionVariable(false);
+            private final ConditionVariable mOnProvisioningSuccessCv = new ConditionVariable(false);
+            @Nullable
+            private IpClientManager mIpClient;
+
+            public L2capIpClient(Context context, String ifname) {
+                IpClientUtil.makeIpClient(context, ifname, this);
+            }
+
+            @Override
+            public void onIpClientCreated(IIpClient ipClient) {
+                mIpClient = new IpClientManager(ipClient, TAG);
+                mOnIpClientCreatedCv.open();
+            }
+
+            @Override
+            public void onProvisioningSuccess(LinkProperties lp) {
+                Log.d(TAG, "Successfully provisionined l2cap tun: " + lp);
+                mOnProvisioningSuccessCv.open();
+            }
+
+            public void start() {
+                mOnIpClientCreatedCv.block();
+                // mIpClient guaranteed non-null.
+                final ProvisioningConfiguration config = new ProvisioningConfiguration.Builder()
+                        .withoutIPv4()
+                        .withIpv6LinkLocalOnly()
+                        .withRandomMacAddress() // addr_gen_mode EUI64 -> random on tun.
+                        .build();
+                mIpClient.startProvisioning(config);
+                // "Provisioning" is guaranteed to succeed as link-local only mode does not actually
+                // require any provisioning.
+                mOnProvisioningSuccessCv.block();
+            }
+        }
 
         public L2capNetwork(String ifname, BluetoothSocket socket, ParcelFileDescriptor tunFd) {
             mIfname = ifname;
-            mSocket = socket;
-            mTunFd = tunFd;
+            mForwarder = new L2capPacketForwarder(tunFd, socket);
+            mIpClient = new L2capIpClient(mContext, ifname);
+            mIpClient.start();
         }
 
         public void tearDown() {
-            try {
-                mTunFd.close();
-            } catch (IOException e) {
-                Log.w(TAG, "Failed to close tun fd", e);
-            }
-            try {
-                mSocket.close();
-            } catch (IOException e) {
-                Log.w(TAG, "Failed to close BluetoothSocket", e);
-            }
+            mForwarder.tearDown();
         }
     }
 
