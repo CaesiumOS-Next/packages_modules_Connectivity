@@ -619,29 +619,6 @@ public class Tethering {
         // Cannot happen: on S+, tetherableWigigRegexps is always empty.
         if (type == TETHERING_WIGIG && SdkLevel.isAtLeastS()) return;
 
-        // After V, disallow this legacy codepath from starting tethering of any type:
-        // everything must call ensureIpServerStarted directly.
-        //
-        // Don't touch the teardown path for now. It's more complicated because:
-        // - ensureIpServerStarted and ensureIpServerStopped act on different
-        //   tethering types.
-        // - Depending on the type, ensureIpServerStopped is either called twice (once
-        //   on interface down and once on interface removed) or just once (on
-        //   interface removed).
-        //
-        // Note that this only affects WIFI and WIFI_P2P. The other types are either
-        // ignored above, or ignored by ensureIpServerStarted. Note that even for WIFI
-        // and WIFI_P2P, this code should not ever run in normal use, because the
-        // hotspot and p2p code do not call tether(). It's possible that this could
-        // happen in the field due to unforeseen OEM modifications. If it does happen,
-        // a terrible error is logged in tether().
-        // TODO: fix the teardown path to stop depending on interface state notifications.
-        // These are not necessary since most/all link layers have their own teardown
-        // notifications, and can race with those notifications.
-        if (enabled && Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-            return;
-        }
-
         if (enabled) {
             ensureIpServerStartedForInterface(iface);
         } else {
