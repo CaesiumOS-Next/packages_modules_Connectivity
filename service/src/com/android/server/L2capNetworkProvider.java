@@ -191,9 +191,11 @@ public class L2capNetworkProvider {
     }
 
     private class L2capNetwork {
+        private static final NetworkScore NETWORK_SCORE = new NetworkScore.Builder().build();
         private final String mIfname;
         private final L2capPacketForwarder mForwarder;
         private final L2capIpClient mIpClient;
+        private final NetworkAgent mNetworkAgent;
 
         /** IpClient wrapper to handle IPv6 link-local provisioning for L2CAP tun.
          *
@@ -204,6 +206,8 @@ public class L2capNetworkProvider {
             private final ConditionVariable mOnProvisioningSuccessCv = new ConditionVariable(false);
             @Nullable
             private IpClientManager mIpClient;
+            @Nullable
+            private LinkProperties mLinkProperties;
 
             public L2capIpClient(Context context, String ifname) {
                 IpClientUtil.makeIpClient(context, ifname, this);
@@ -218,10 +222,11 @@ public class L2capNetworkProvider {
             @Override
             public void onProvisioningSuccess(LinkProperties lp) {
                 Log.d(TAG, "Successfully provisionined l2cap tun: " + lp);
+                mLinkProperties = lp;
                 mOnProvisioningSuccessCv.open();
             }
 
-            public void start() {
+            public LinkProperties start() {
                 mOnIpClientCreatedCv.block();
                 // mIpClient guaranteed non-null.
                 final ProvisioningConfiguration config = new ProvisioningConfiguration.Builder()
@@ -233,17 +238,33 @@ public class L2capNetworkProvider {
                 // "Provisioning" is guaranteed to succeed as link-local only mode does not actually
                 // require any provisioning.
                 mOnProvisioningSuccessCv.block();
+                return mLinkProperties;
             }
         }
 
-        public L2capNetwork(String ifname, BluetoothSocket socket, ParcelFileDescriptor tunFd) {
+        public L2capNetwork(String ifname, BluetoothSocket socket, ParcelFileDescriptor tunFd,
+                NetworkCapabilities networkCapabilities) {
             mIfname = ifname;
             mForwarder = new L2capPacketForwarder(tunFd, socket);
             mIpClient = new L2capIpClient(mContext, ifname);
-            mIpClient.start();
+            final LinkProperties linkProperties = mIpClient.start();
+
+
+            final NetworkAgentConfig config = new NetworkAgentConfig.Builder().build();
+            mNetworkAgent = new NetworkAgent(mContext, mHandler.getLooper(), TAG,
+                    networkCapabilities, linkProperties, NETWORK_SCORE, config, mProvider) {
+                @Override
+                public void onNetworkUnwanted() {
+                    // TODO: implement
+                    Log.i(TAG, mIfname + ": Network is unwanted");
+                }
+            };
+            mNetworkAgent.register();
+            mNetworkAgent.markConnected();
         }
 
         public void tearDown() {
+            mNetworkAgent.unregister();
             mForwarder.tearDown();
         }
     }
@@ -270,14 +291,14 @@ public class L2capNetworkProvider {
         return fd;
     }
 
-    private L2capNetwork createL2capNetwork(BluetoothSocket socket) {
+    private L2capNetwork createL2capNetwork(BluetoothSocket socket, NetworkCapabilities caps) {
         final String ifname = TUN_IFNAME + String.valueOf(mTunIndex++);
         final ParcelFileDescriptor tunFd = createTunInterface(ifname);
         if (tunFd == null) {
             return null;
         }
 
-        return new L2capNetwork(ifname, socket, tunFd);
+        return new L2capNetwork(ifname, socket, tunFd, caps);
     }
 
     private class ReservedServerOffer implements NetworkOfferCallback {
@@ -364,7 +385,7 @@ public class L2capNetworkProvider {
                 return false;
             }
 
-            final L2capNetwork network = createL2capNetwork(socket);
+            final L2capNetwork network = createL2capNetwork(socket, mReservedCapabilities);
             if (network == null) {
                 Log.e(TAG, "Failed to create L2capNetwork");
                 return false;
