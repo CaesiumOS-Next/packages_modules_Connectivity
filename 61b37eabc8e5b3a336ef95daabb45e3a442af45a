@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0644fa6d_68e6392a",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-03T04:33:08Z",
+      "side": 1,
+      "message": "I don\u0027t think exposing the logs is a very robust way of testing, because it means the strings need to be in sync between the code and the test. Formally, it means the test is checking behavior that is not observable from the outside.\n\nIt\u0027s fine if you move this patch further down the chain when there is observable behavior.",
+      "range": {
+        "startLine": 165,
+        "startChar": 16,
+        "endLine": 165,
+        "endChar": 25
+      },
+      "revId": "61b37eabc8e5b3a336ef95daabb45e3a442af45a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
