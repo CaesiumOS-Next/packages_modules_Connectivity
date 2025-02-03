@@ -45,7 +45,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
@@ -388,21 +387,18 @@ public class TetheringManagerTest {
 
             mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
 
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-                try {
-                    final int ret = runAsShell(TETHER_PRIVILEGED,
-                            () -> mTM.tether(wifiTetheringIface));
-                    // There is no guarantee that the wifi interface will be available after
-                    // disabling the hotspot, so don't fail the test if the call to tether() fails.
-                    if (ret == TETHER_ERROR_NO_ERROR) {
-                        // If calling #tether successful, there is a callback to tell the result of
-                        // tethering setup.
-                        tetherEventCallback.expectErrorOrTethered(
-                                new TetheringInterface(TETHERING_WIFI, wifiTetheringIface));
-                    }
-                } finally {
-                    runAsShell(TETHER_PRIVILEGED, () -> mTM.untether(wifiTetheringIface));
+            try {
+                final int ret = runAsShell(TETHER_PRIVILEGED, () -> mTM.tether(wifiTetheringIface));
+                // There is no guarantee that the wifi interface will be available after disabling
+                // the hotspot, so don't fail the test if the call to tether() fails.
+                if (ret == TETHER_ERROR_NO_ERROR) {
+                    // If calling #tether successful, there is a callback to tell the result of
+                    // tethering setup.
+                    tetherEventCallback.expectErrorOrTethered(
+                            new TetheringInterface(TETHERING_WIFI, wifiTetheringIface));
                 }
+            } finally {
+                runAsShell(TETHER_PRIVILEGED, () -> mTM.untether(wifiTetheringIface));
             }
         } finally {
             mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
@@ -626,12 +622,5 @@ public class TetheringManagerTest {
                 mCtsNetUtils.connectToWifi();
             }
         }
-    }
-
-    @Test
-    public void testLegacyTetherApisThrowUnsupportedOperationExceptionAfterV() {
-        assumeTrue(Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM);
-        assertThrows(UnsupportedOperationException.class, () -> mTM.tether("iface"));
-        assertThrows(UnsupportedOperationException.class, () -> mTM.untether("iface"));
     }
 }
