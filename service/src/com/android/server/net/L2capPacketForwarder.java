@@ -17,6 +17,7 @@
 package com.android.server.net;
 
 import android.bluetooth.BluetoothSocket;
+import android.os.ParcelFileDescriptor;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.system.OsConstants;
@@ -65,7 +66,7 @@ public class L2capPacketForwarder {
         private final InputStream mInputStream;
         private final OutputStream mOutputStream;
 
-        public BluetoothSocketWrapper(BluetoothSocket socket) throws IOException {
+        public BluetoothSocketWrapper(BluetoothSocket socket) {
             // TODO: assert that MTU can fit within SDU.
             mSocket = socket;
             try {
@@ -74,7 +75,8 @@ public class L2capPacketForwarder {
             } catch (IOException e) {
                 // Per the API docs, this should not actually be possible.
                 Log.wtf(TAG, "Failed to get Input/OutputStream", e);
-                throw e;
+                // Fail hard.
+                throw new IllegalStateException("Failed to get Input/OutputStream");
             }
         }
 
@@ -252,6 +254,11 @@ public class L2capPacketForwarder {
                 // join() interrupted in tearDown path, do nothing.
             }
         }
+    }
+
+    public L2capPacketForwarder(ParcelFileDescriptor tunFd, BluetoothSocket socket) {
+        // TODO: just store ParcelFd in here.
+        this(new FdWrapper(tunFd.getFileDescriptor()), new BluetoothSocketWrapper(socket));
     }
 
     @VisibleForTesting
