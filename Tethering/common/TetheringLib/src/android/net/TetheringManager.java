@@ -43,6 +43,7 @@ import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.net.flags.Flags;
+import com.android.networkstack.tethering.TetheringDependencies;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -659,7 +660,7 @@ public class TetheringManager {
     }
 
     private void unsupportedAfterV() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (TetheringDependencies.isAtLeastB()) {
             throw new UnsupportedOperationException("Not supported after SDK version "
                     + Build.VERSION_CODES.VANILLA_ICE_CREAM);
         }
