@@ -23,6 +23,7 @@ import android.bluetooth.BluetoothPan;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.INetd;
+import android.net.TetheringManager;
 import android.net.connectivity.ConnectivityInternalApiUtil;
 import android.net.ip.IpServer;
 import android.os.Binder;
@@ -214,7 +215,6 @@ public abstract class TetheringDependencies {
      * Wrapper for tethering_with_soft_ap_config feature flag.
      */
     public boolean isTetheringWithSoftApConfigEnabled() {
-        return Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM
-                && Flags.tetheringWithSoftApConfig();
+        return TetheringManager.isAtLeastBBeta() && Flags.tetheringWithSoftApConfig();
     }
 }

@@ -66,7 +66,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.net.ConnectivityManager.NetworkCallback;
-import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Handler;
@@ -674,7 +673,7 @@ public class ConnectivityManagerTest {
 
     @Test
     public void testLegacyTetherApisThrowUnsupportedOperationExceptionAfterV() {
-        assumeTrue(Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM);
+        assumeTrue(TetheringManager.isAtLeastBBeta());
         final ConnectivityManager manager = new ConnectivityManager(mCtx, mService);
         assertThrows(UnsupportedOperationException.class, () -> manager.tether("iface"));
         assertThrows(UnsupportedOperationException.class, () -> manager.untether("iface"));
