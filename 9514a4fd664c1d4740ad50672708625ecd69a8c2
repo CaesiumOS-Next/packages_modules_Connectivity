@@ -39,6 +39,30 @@
       },
       "revId": "9514a4fd664c1d4740ad50672708625ecd69a8c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41038782_2ea999e5",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 52
+      },
+      "lineNbr": 1321,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T21:54:22Z",
+      "side": 1,
+      "message": "Wait the next patch is using the reference in a reasonable way. Please ignore this.",
+      "parentUuid": "9f982583_d9cff8cd",
+      "range": {
+        "startLine": 1321,
+        "startChar": 0,
+        "endLine": 1321,
+        "endChar": 99
+      },
+      "revId": "9514a4fd664c1d4740ad50672708625ecd69a8c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
