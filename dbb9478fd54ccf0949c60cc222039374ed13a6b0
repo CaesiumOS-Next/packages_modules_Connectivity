@@ -332,6 +332,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4afac498_c02f13bc",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T22:07:38Z",
+      "side": 1,
+      "message": "Ah I had missed that. Thanks for clarifying. At the light of your comment, I think this change is an improvement.",
+      "parentUuid": "6674fbee_d13cca7b",
+      "range": {
+        "startLine": 383,
+        "startChar": 8,
+        "endLine": 383,
+        "endChar": 24
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8648c00_b92b3249",
@@ -683,6 +707,30 @@
       "side": 1,
       "message": "I can\u0027t find any docs on this explicilty -- CC\u0027ing @zhanghai@google.com if you want to chime in here.\n\nBased on the code I would guess that the [@PermissionResult annotation](https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/permission/PermissionManager.java;l\u003d312-314;drc\u003d29c8fa62479d5321e0d7fb27490238b6e1ab604b?q\u003dpermissionmanager.checkpermissionforpreflight\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain) denotes the permission source of truth such that the listener would always reflect any changes to this same state. I think the foreground / background note in the [docs](https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/permission/PermissionManager.java;l\u003d290-298;drc\u003d29c8fa62479d5321e0d7fb27490238b6e1ab604b?q\u003dpermissionmanager.checkpermissionforpreflight\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain) is specifically for the given example of forgeround location.\n\nIn my manual testing I could verify that every time I (as a user, in the app or in Settings) would manipulate a permission state, checkPermissionForDataDelivery would always return the updated value in the listener. But, manual testing isn\u0027t the most robust so I intend to add CTS tests for this specific case.\n\nThat said, the previous change that pulls the listener into an inner class makes this test case more convoluted now (since we can\u0027t call onPermissionChanged directly). This test was also modeling the other tests that use onUserAdded, onPackageAdded, etc. though these work bc the class is listening directly to the broadcasts. I think it would also make sense to omit this test case and use CTS tests instead. WDYT? (leaving the test here, but commenting out the assertions so we can run presubmits for now)",
       "parentUuid": "778dc0de_7af50302",
+      "range": {
+        "startLine": 1710,
+        "startChar": 27,
+        "endLine": 1710,
+        "endChar": 47
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1281755d_4fb5019e",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1710,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T22:07:38Z",
+      "side": 1,
+      "message": "Unless they really test the exact same thing I think there is value in keeping this test, especially during development of the feature. As for the inner listener you make a good point, but maybe it can simply be dealt with with a test-only method in PermissionManager for simplicity. Usually we do the full thing and have an argument captor, but it\u0027s true it makes the test a bit more complex in this case.\n\nJust to check if I understood your reply correctly : I\u0027m less concerned about `checkPermissionDataForDelivery` returning the wrong value, and more about the callback `onPermissionsChanged` not being called every time it changes. This is operative since your code is caching the result. Did I misunderstand your reply ?",
+      "parentUuid": "c50f8b0c_288bbfcf",
       "range": {
         "startLine": 1710,
         "startChar": 27,
