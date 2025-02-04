@@ -92,6 +92,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.lang.ref.WeakReference;
+import java.util.Objects;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
@@ -674,7 +675,8 @@ public class ConnectivityManagerTest {
 
     @Test
     public void testLegacyTetherApisThrowUnsupportedOperationExceptionAfterV() {
-        assumeTrue(Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM);
+        assumeTrue(Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM
+                || Objects.equals(Build.VERSION.CODENAME, "Baklava"));
         final ConnectivityManager manager = new ConnectivityManager(mCtx, mService);
         assertThrows(UnsupportedOperationException.class, () -> manager.tether("iface"));
         assertThrows(UnsupportedOperationException.class, () -> manager.untether("iface"));

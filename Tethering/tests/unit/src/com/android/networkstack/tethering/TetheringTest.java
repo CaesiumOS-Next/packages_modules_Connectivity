@@ -918,6 +918,12 @@ public class TetheringTest {
         mIntents.remove(bcast);
     }
 
+    // Wrapper for SdkLevel#isAtLeastB that includes a check for the codename in case we're running
+    // on a B beta build that hasn't updated the SDK level yet.
+    private boolean isAtLeastB() {
+        return SdkLevel.isAtLeastB() || Objects.equals(Build.VERSION.CODENAME, "Baklava");
+    }
+
     public void failingLocalOnlyHotspotLegacyApBroadcast(
             boolean emulateInterfaceStatusChanged) throws Exception {
         initTetheringOnTestThread();
@@ -933,7 +939,7 @@ public class TetheringTest {
         // it creates a IpServer and sends out a broadcast indicating that the
         // interface is "available".
         if (emulateInterfaceStatusChanged) {
-            if (!SdkLevel.isAtLeastB()) {
+            if (!isAtLeastB()) {
                 // There is 1 IpServer state change event: STATE_AVAILABLE
                 verify(mNotificationUpdater, times(1)).onDownstreamChanged(DOWNSTREAM_NONE);
                 verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
@@ -1961,7 +1967,7 @@ public class TetheringTest {
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED);
         mLooper.dispatchAll();
 
-        if (!SdkLevel.isAtLeastB()) {
+        if (!isAtLeastB()) {
             // There is 1 IpServer state change event: STATE_AVAILABLE from interfaceStatusChanged
             verify(mNotificationUpdater, times(1)).onDownstreamChanged(DOWNSTREAM_NONE);
             verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
@@ -2380,7 +2386,7 @@ public class TetheringTest {
                 null);
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
         mLooper.dispatchAll();
-        if (SdkLevel.isAtLeastB()) {
+        if (isAtLeastB()) {
             // Starting in B, ignore the interfaceStatusChanged
             callback.assertNoStateChangeCallback();
         }
@@ -2484,7 +2490,7 @@ public class TetheringTest {
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, null);
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
         mLooper.dispatchAll();
-        if (SdkLevel.isAtLeastB()) {
+        if (isAtLeastB()) {
             // Starting in B, ignore the interfaceStatusChanged
             callback.assertNoStateChangeCallback();
         }
