@@ -19,6 +19,7 @@ package com.android.server;
 import static android.net.L2capNetworkSpecifier.HEADER_COMPRESSION_6LOWPAN;
 import static android.net.L2capNetworkSpecifier.HEADER_COMPRESSION_ANY;
 import static android.net.L2capNetworkSpecifier.PSM_ANY;
+import static android.net.L2capNetworkSpecifier.ROLE_CLIENT;
 import static android.net.L2capNetworkSpecifier.ROLE_SERVER;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED;
@@ -36,6 +37,7 @@ import static android.system.OsConstants.O_NONBLOCK;
 
 import android.annotation.Nullable;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
@@ -54,6 +56,7 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.system.Os;
+import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
 
@@ -63,7 +66,9 @@ import com.android.server.net.L2capNetwork;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class L2capNetworkProvider {
@@ -88,6 +93,7 @@ public class L2capNetworkProvider {
     private final Handler mHandler;
     private final NetworkProvider mProvider;
     private final BlanketReservationOffer mBlanketOffer;
+    private final ClientOffer mClientOffer;
     private final Set<ReservedServerOffer> mReservedServerOffers = new ArraySet<>();
     // mBluetoothManager guaranteed non-null when read on handler thread after start() is called
     @Nullable
@@ -405,6 +411,240 @@ public class L2capNetworkProvider {
         }
     }
 
+    private class ClientOffer implements NetworkOfferCallback {
+        public static final NetworkScore SCORE = new NetworkScore.Builder().build();
+        public static final NetworkCapabilities CAPABILITIES;
+        static {
+            final L2capNetworkSpecifier l2capNetworkSpecifier = new L2capNetworkSpecifier.Builder()
+                    .setRole(ROLE_CLIENT)
+                    .build();
+            CAPABILITIES = NetworkCapabilities.Builder.withoutDefaultCapabilities()
+                    .addTransportType(TRANSPORT_BLUETOOTH)
+                    // TODO: consider removing NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED.
+                    .addCapability(NET_CAPABILITY_NOT_BANDWIDTH_CONSTRAINED)
+                    .addCapability(NET_CAPABILITY_NOT_CONGESTED)
+                    .addCapability(NET_CAPABILITY_NOT_METERED)
+                    .addCapability(NET_CAPABILITY_NOT_ROAMING)
+                    .addCapability(NET_CAPABILITY_NOT_SUSPENDED)
+                    .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
+                    .addCapability(NET_CAPABILITY_NOT_VPN)
+                    .setNetworkSpecifier(l2capNetworkSpecifier)
+                    .build();
+        }
+        // Maps L2capNetworkSpecifier from NetworkRequst to a refcount counting the number of active
+        // requests.
+        private final Map<L2capNetworkSpecifier, AtomicInteger> mClientNetworkRequests =
+                new ArrayMap<>();
+        // Keeps track of active ConnectThreads, so they can be aborted when the request goes away.
+        private final Map<L2capNetworkSpecifier, ConnectThread> mConnectThreads = new ArrayMap<>();
+        // Keeps track of active Networks.
+        private final Map<L2capNetworkSpecifier, L2capNetwork> mClientNetworks = new ArrayMap<>();
+
+        private void handleCreateClientNetwork(NetworkRequest request, BluetoothSocket socket) {
+            // Check whether the request still exists.
+            final L2capNetworkSpecifier specifier =
+                    (L2capNetworkSpecifier) request.getNetworkSpecifier();
+            if (!mClientNetworkRequests.containsKey(specifier)) return;
+
+            // Just to be safe -- shouldn't happen.
+            if (mClientNetworks.containsKey(specifier)) {
+                // This is a bug, fail hard.
+                throw new IllegalStateException(
+                        "mClientNetworks already contains an entry for this specifier");
+            }
+
+            final ConnectThread connectThread = mConnectThreads.remove(specifier);
+            if (connectThread != null) {
+                // connectThread should have finished execution.
+                try {
+                    connectThread.join();
+                } catch (InterruptedException e) {
+                    // do nothing.
+                }
+            } else {
+                // This is a bug, fail hard.
+                throw new IllegalStateException("mConnectThreads entry does not exist");
+            }
+
+            final L2capNetwork network = createL2capNetwork(socket, request.networkCapabilities);
+            if (network == null) {
+                Log.e(TAG, "Failed to create L2CAP network");
+                // TODO: should this trigger some retry logic instead?
+                // Let onNetworkUnneeded handle tearDown.
+                mProvider.declareNetworkRequestUnfulfillable(request);
+                return;
+            }
+            mClientNetworks.put(specifier, network);
+        }
+
+        // Consider factoring out both AcceptThread and ConnectThread to separate files and
+        // providing callback objects to both.
+        private class ConnectThread extends Thread {
+            private final NetworkRequest mRequest;
+            private final BluetoothSocket mSocket;
+            private volatile boolean mIsSuccessful = false;
+
+            public ConnectThread(NetworkRequest request, BluetoothSocket socket) {
+                mRequest = request;
+                mSocket = socket;
+            }
+
+            private void createClientNetwork(NetworkRequest request, BluetoothSocket socket) {
+                mHandler.post(() -> {
+                    handleCreateClientNetwork(request, socket);
+                });
+            }
+
+            public void run() {
+                try {
+                    mSocket.connect();
+                    mIsSuccessful = true;
+                    createClientNetwork(mRequest, mSocket);
+                } catch (IOException e) {
+                    Log.e(TAG, "Failed to connect", e);
+                }
+            }
+
+            /**
+             * Indicates whether the operation was successful.
+             *
+             * This might return false if the operation has not yet completed. Do not treat a
+             * incomplete result differently from an unsuccessful one.
+             */
+            public boolean isSuccessful() {
+                return mIsSuccessful;
+            }
+
+            public void abort() {
+                try {
+                    // BluetoothSocket#close() is thread-safe.
+                    mSocket.close();
+                } catch (IOException e) {
+                    Log.w(TAG, "Failed to close BluetoothSocket", e);
+                }
+                try {
+                    join();
+                } catch (InterruptedException e) {
+                    // join() interrupted during abort(). Do nothing.
+                }
+            }
+        }
+
+        private boolean isValidL2capSpecifier(@Nullable NetworkSpecifier spec) {
+            if (spec == null) return false;
+
+            // If not null, guaranteed to be L2capNetworkSepcifier.
+            final L2capNetworkSpecifier l2capSpec = (L2capNetworkSpecifier) spec;
+
+            // The ROLE_CLIENT offer can be satisfied by a ROLE_ANY request.
+            if (l2capSpec.getRole() != ROLE_CLIENT) return false;
+
+            // HEADER_COMPRESSION_ANY is never valid in a request.
+            if (l2capSpec.getHeaderCompression() == HEADER_COMPRESSION_ANY) return false;
+
+            // remoteAddr must not be null for ROLE_CLIENT requests.
+            if (l2capSpec.getRemoteAddress() == null) return false;
+
+            // Client network requests require a PSM to be specified.
+            // Ensure the PSM is within the valid range of dynamic BLE L2CAP values.
+            if (l2capSpec.getPsm() < 0x80) return false;
+            if (l2capSpec.getPsm() > 0xFF) return false;
+
+            return true;
+        }
+
+        @Override
+        public void onNetworkNeeded(NetworkRequest request) {
+            Log.d(TAG, "New client network request: " + request);
+            if (!isValidL2capSpecifier(request.getNetworkSpecifier())) {
+                Log.w(TAG, "Ignoring invalid client request: " + request);
+                return;
+            }
+
+            final L2capNetworkSpecifier requestSpecifier =
+                    (L2capNetworkSpecifier) request.getNetworkSpecifier();
+
+            // Check whether this exact request is already being tracked.
+            final AtomicInteger refCount = mClientNetworkRequests.get(requestSpecifier);
+            if (refCount != null) {
+                Log.d(TAG, "The request is already being tracked. NetworkRequest: " + request);
+                refCount.getAndIncrement();
+                return;
+            }
+
+            // Check whether a fuzzy match shows a mismatch in header compression by calling
+            // canBeSatisfiedBy().
+            // TODO: Add a copy constructor to L2capNetworkSpecifier.Builder.
+            final L2capNetworkSpecifier matchAnyHeaderCompressionSpecifier =
+                    new L2capNetworkSpecifier.Builder()
+                            .setRole(requestSpecifier.getRole())
+                            .setRemoteAddress(requestSpecifier.getRemoteAddress())
+                            .setPsm(requestSpecifier.getPsm())
+                            .setHeaderCompression(HEADER_COMPRESSION_ANY)
+                            .build();
+            for (L2capNetworkSpecifier existingSpecifier : mClientNetworkRequests.keySet()) {
+                if (existingSpecifier.canBeSatisfiedBy(matchAnyHeaderCompressionSpecifier)) {
+                    // This requeset can never be serviced as this network already exists with a
+                    // different header compression mechanism.
+                    mProvider.declareNetworkRequestUnfulfillable(request);
+                    return;
+                }
+            }
+
+            // If the code reaches here, this is a new request.
+            mClientNetworkRequests.put(requestSpecifier, new AtomicInteger(1));
+
+            // TODO: move the following code to a function and let the code retry when it encounters
+            // BluetoothSocket errors for as long as the request exists (with incremental backoff).
+            final BluetoothAdapter bluetoothAdapter = mBluetoothManager.getAdapter();
+            if (bluetoothAdapter == null) {
+                Log.w(TAG, "Failed to get BluetoothAdapter");
+                // TODO: should this retry instead?
+                // tearDown is handled by onNetworkUnneeded()
+                mProvider.declareNetworkRequestUnfulfillable(request);
+            }
+
+            final byte[] macAddress = requestSpecifier.getRemoteAddress().toByteArray();
+            final BluetoothDevice device = bluetoothAdapter.getRemoteDevice(macAddress);
+            final BluetoothSocket socket;
+            try {
+                socket = device.createInsecureL2capChannel(requestSpecifier.getPsm());
+            } catch (IOException e) {
+                Log.w(TAG, "Failed to createInsecureL2capChannel");
+                // TODO: should this retry instead?
+                // tearDown is handled by onNetworkUnneeded()
+                mProvider.declareNetworkRequestUnfulfillable(request);
+                return;
+            }
+
+            final ConnectThread connectThread = new ConnectThread(request, socket);
+            connectThread.start();
+            mConnectThreads.put(requestSpecifier, connectThread);
+        }
+
+        @Override
+        public void onNetworkUnneeded(NetworkRequest request) {
+            final L2capNetworkSpecifier specifier =
+                    (L2capNetworkSpecifier) request.getNetworkSpecifier();
+            if (specifier == null) return;
+            if (!mClientNetworkRequests.containsKey(specifier)) return;
+
+            int refCount = mClientNetworkRequests.get(specifier).decrementAndGet();
+            if (refCount > 0) return;
+
+            mClientNetworkRequests.remove(specifier);
+            final ConnectThread connectThread = mConnectThreads.remove(specifier);
+            if (connectThread != null) {
+                connectThread.abort();
+            }
+
+            final L2capNetwork l2capNetwork = mClientNetworks.remove(specifier);
+            if (l2capNetwork != null) {
+                l2capNetwork.tearDown();
+            }
+        }
+    }
+
     @VisibleForTesting
     public static class Dependencies {
         /** Get NetworkProvider */
@@ -432,6 +672,7 @@ public class L2capNetworkProvider {
         mHandler = new Handler(mHandlerThread.getLooper());
         mProvider = mDeps.getNetworkProvider(context, mHandlerThread.getLooper());
         mBlanketOffer = new BlanketReservationOffer();
+        mClientOffer = new ClientOffer();
     }
 
     /**
@@ -454,6 +695,8 @@ public class L2capNetworkProvider {
             mContext.getSystemService(ConnectivityManager.class).registerNetworkProvider(mProvider);
             mProvider.registerNetworkOffer(BlanketReservationOffer.SCORE,
                     BlanketReservationOffer.CAPABILITIES, mHandler::post, mBlanketOffer);
+            mProvider.registerNetworkOffer(ClientOffer.SCORE,
+                    ClientOffer.CAPABILITIES, mHandler::post, mClientOffer);
         });
     }
 }
