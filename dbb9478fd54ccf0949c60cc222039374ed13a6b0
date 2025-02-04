@@ -198,6 +198,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0b81fb4_0b2ab73d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T21:56:41Z",
+      "side": 1,
+      "message": "So if the sandboxed UIDs should never have this permission, IIUC they need to be added to the map ? Since UIDs are blocked if they are present in the map, omitting them would always give them permission. Or am I missing something ?",
+      "parentUuid": "f820e188_50490fe5",
+      "range": {
+        "startLine": 376,
+        "startChar": 20,
+        "endLine": 376,
+        "endChar": 23
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c90b46c_0863cc40",
         "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
         "patchSetId": 15
