@@ -22,18 +22,5 @@ from mobly import suite_runner
 
 
 if __name__ == "__main__":
-  # For MoblyBinaryHostTest, this entry point will be called twice:
-  # 1. List tests.
-  #   <mobly-par-file-name> -- --list_tests
-  # 2. Run tests.
-  #   <mobly-par-file-name> -- --config=<yaml-path> \
-  #      --device_serial=<device-serial> --log_path=<log-path>
-  # Strip the "--" since suite runner doesn't recognize it.
-  # While the parameters before "--" is for the infrastructure,
-  # ignore them if any. Also, do not alter parameters if there
-  # is no "--", in case the binary is invoked manually.
-  if "--" in sys.argv:
-    index = sys.argv.index("--")
-    sys.argv = sys.argv[:1] + sys.argv[index + 1 :]
   # TODO: make the tests can be executed without manually list classes.
   suite_runner.run_suite([ConnectivityMultiDevicesTest, ApfV4Test, ApfV6Test], sys.argv)
