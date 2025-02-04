@@ -1,0 +1,432 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3a9603a_56dab146",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T00:35:58Z",
+      "side": 1,
+      "message": "Can you please make these final (also all the locals) ? You can see that all arguments are final in this file.",
+      "range": {
+        "startLine": 301,
+        "startChar": 44,
+        "endLine": 301,
+        "endChar": 47
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ced64e70_a37c6936",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 301,
+                "startChar": 0,
+                "endLine": 302,
+                "endChar": 0
+              },
+              "replacement": "    private void setLocalNetworkPermissions(final int uid, @Nullable final String packageName) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7abb9870_2998f480",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T00:35:58Z",
+      "side": 1,
+      "message": "The doc for checkPermissionForDataDelivery explicitly states :\n\n```\n     * \u003cstrong\u003eNOTE:\u003c/strong\u003e Use this method only for permission checks at the\n     * point where you will deliver the permission protected data to clients.\n```\n\nand later clarifies it\u0027s not the right call to check before data is delivered, because it will change often.\n\nAlso see the related comment I wrote in the test",
+      "range": {
+        "startLine": 308,
+        "startChar": 53,
+        "endLine": 308,
+        "endChar": 83
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4b7ced82_e5ca5dac",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 308,
+                "startChar": 0,
+                "endLine": 308,
+                "endChar": 0
+              },
+              "replacement": "            // This method is used to check if the app has the permission to access the data\n            // delivered to the app.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4be3874d_fcb61a0f",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T00:35:58Z",
+      "side": 1,
+      "message": "IIUC this construction means the code will only set local permissions for the sandbox UID. Is this actually correct ? ISTM that both UIDs need to be accounted for (see how we have both l.372 and l.375) because both UIDs are associated with the same application.\nIn this case, UUIC you\u0027ll need to set the local permissions for both the normal UID (granted if the UID has the correct permission) and for the sandboxed UID (always false, maybe ?)",
+      "range": {
+        "startLine": 376,
+        "startChar": 20,
+        "endLine": 376,
+        "endChar": 23
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9ad80de3_2fe1907f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 376,
+                "startChar": 0,
+                "endLine": 377,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c90b46c_0863cc40",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T00:35:58Z",
+      "side": 1,
+      "message": "Can you please use the platform-sanctioned @EnableCompatChanges and @DisableCompatChanges annotations instead ?",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 90
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85d624e3_d2e91232",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T00:35:58Z",
+      "side": 1,
+      "message": "Why did you need to remove the processOnHandlerThread() call ? It seems dangerous to remove it ; it was here for a reason and would increase testing realism. See aosp/2160460",
+      "range": {
+        "startLine": 383,
+        "startChar": 8,
+        "endLine": 383,
+        "endChar": 24
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "bdbc53a8_e617978e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 383,
+                "startChar": 0,
+                "endLine": 384,
+                "endChar": 0
+              },
+              "replacement": "        processOnHandlerThread(() -\u003e mPermissionMonitor.onPackageRemoved(packageName, uid));\n"
+            }
+          ]
+        }
+      ],
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8648c00_b92b3249",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T00:35:58Z",
+      "side": 1,
+      "message": "This is just a set, could you use ArraySet instead, or possibly SparseArray if you prefer ?",
+      "range": {
+        "startLine": 635,
+        "startChar": 39,
+        "endLine": 635,
+        "endChar": 46
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "44f1cd90_c0ba0bdf",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 98,
+                "startChar": 0,
+                "endLine": 98,
+                "endChar": 0
+              },
+              "replacement": "import android.util.ArraySet;\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 127,
+                "startChar": 0,
+                "endLine": 128,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 635,
+                "startChar": 0,
+                "endLine": 636,
+                "endChar": 0
+              },
+              "replacement": "        private final ArraySet\u003cInteger\u003e mLocalNetBlockedUids \u003d new ArraySet\u003c\u003e();\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 651,
+                "startChar": 0,
+                "endLine": 652,
+                "endChar": 0
+              },
+              "replacement": "                mLocalNetBlockedUids.add(uid);\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 657,
+                "startChar": 0,
+                "endLine": 658,
+                "endChar": 0
+              },
+              "replacement": "                mLocalNetBlockedUids.delete(uid);\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 686,
+                "startChar": 0,
+                "endLine": 687,
+                "endChar": 0
+              },
+              "replacement": "            return !mLocalNetBlockedUids.contains(uid);\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 690,
+                "startChar": 0,
+                "endLine": 691,
+                "endChar": 0
+              },
+              "replacement": "            return mLocalNetBlockedUids.contains(uid);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89a07371_82e3119b",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T00:35:58Z",
+      "side": 1,
+      "message": "final (here and on other locals)",
+      "range": {
+        "startLine": 867,
+        "startChar": 8,
+        "endLine": 867,
+        "endChar": 19
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "0992c9d6_3c6847c4",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 867,
+                "startChar": 0,
+                "endLine": 868,
+                "endChar": 0
+              },
+              "replacement": "        final PackageInfo packageInfo \u003d buildAndMockPackageInfoWithPermissions(\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 875,
+                "startChar": 0,
+                "endLine": 876,
+                "endChar": 0
+              },
+              "replacement": "        final int uid \u003d MOCK_UID11;\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 885,
+                "startChar": 0,
+                "endLine": 886,
+                "endChar": 0
+              },
+              "replacement": "        final PackageInfo packageInfo \u003d buildAndMockPackageInfoWithPermissions(\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 892,
+                "startChar": 0,
+                "endLine": 893,
+                "endChar": 0
+              },
+              "replacement": "        final int uid \u003d MOCK_UID11;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "390b27ee_1df97b1b",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T00:35:58Z",
+      "side": 1,
+      "message": "blank final here please",
+      "range": {
+        "startLine": 875,
+        "startChar": 8,
+        "endLine": 875,
+        "endChar": 11
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed7909b5_b8717b1e",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1301,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T00:35:58Z",
+      "side": 1,
+      "message": "It\u0027s pretty unclear why this permission is used here ; an unaware reader would probably assume that apps with this permission should be automatically granted local network permission. This will become a problem if we forget to change this in the future.\n\nSuggestion : make a constant with the planned name for the actual permission in this file with a comment on why it\u0027s done this way, e.g.\n```\nThe LOCAL_NETWORK_ACCESS is not available yet. For the time being, use\nNEARBY_WIFI_DEVICES as a means to develop, for expediency. TODO : remove\nthis constant when the LOCAL_NETWORK_ACCESS permission is defined.\nprivate static final int LOCAL_NETWORK_ACCESS \u003d NEARBY_WIFI_DEVICES;\n````\n...and then use the constant throughout.",
+      "range": {
+        "startLine": 1301,
+        "startChar": 46,
+        "endLine": 1301,
+        "endChar": 65
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "778dc0de_7af50302",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1710,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T00:35:58Z",
+      "side": 1,
+      "message": "Question : is this actually necessary ? Or more to the point : is this actually called every time checkPermissionForDataDelivery can change ? I haven\u0027t tested, but ISTM that the result of checkPermissionForDataDelivery can change very often (every time the app goes to the foreground/background or so) and onPermissionsChanged offering only a UID only gives you a pretty heavy way to check. What that seems to imply is that it would not be called every time.\n\nCan you please check ? Either test it directly or point to comments making it explicit.",
+      "range": {
+        "startLine": 1710,
+        "startChar": 27,
+        "endLine": 1710,
+        "endChar": 47
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
