@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78fc146e_7b1cc051",
+        "filename": "framework/src/android/net/CaptivePortal.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-04T09:25:15Z",
+      "side": 1,
+      "message": "Did you test this working ? I\u0027m surprised this would work, since the implementation for ICaptivePortal#setDelegateUid which is called here still checks for PERMISSION_MAINLINE_NETWORK_STACK only:\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;drc\u003d1a76b01c080d3fab53147f8b902e3df2d15afa70;l\u003d6440",
+      "revId": "27e6413d35167f5b7a66ded1bdd8c6684f7b771f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
