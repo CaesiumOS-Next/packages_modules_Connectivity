@@ -86,6 +86,24 @@
       "parentUuid": "59495164_68285a2e",
       "revId": "da6c4fd93a4b4ccfc24eaa8bf572f37d63ef99c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6578baf_de9b942c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2051900
+      },
+      "writtenOn": "2025-02-04T07:56:28Z",
+      "side": 1,
+      "message": "Reason for the change:\nWhen a setup having disabled Wifi feature and enabled the ethernet, below tests are failed. in this case adb has been conencted through ethernet.\n\nassumeNoInterfaceForTetheringAvailable API is not covered the use case when adb connection through ethernet. Its causes the test cases crash and adb connection lost. Added assumeFalse(isAdbOverEthernet()) API as precondition to aviod teh crash and adb connection lost.\n\nTests:\ntestCallbacks_forServerModeInterfaces testEnableDisableInterface_withMissingInterface\ntestCallbacks\ntestRemoveInterface_whileInServerMode",
+      "parentUuid": "9598c0e3_1a43beb3",
+      "revId": "da6c4fd93a4b4ccfc24eaa8bf572f37d63ef99c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
