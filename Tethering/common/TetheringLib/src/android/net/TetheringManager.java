@@ -658,8 +658,19 @@ public class TetheringManager {
         }
     }
 
+    /**
+     * Returns true if we're running on B SDK or a B beta that has Baklava codename but an older SDK
+     * level.
+     *
+     * @hide
+     */
+    public static boolean isAtLeastBBeta() {
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM
+                || Objects.equals(Build.VERSION.CODENAME, "Baklava");
+    }
+
     private void unsupportedAfterV() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (isAtLeastBBeta()) {
             throw new UnsupportedOperationException("Not supported after SDK version "
                     + Build.VERSION_CODES.VANILLA_ICE_CREAM);
         }

@@ -169,6 +169,7 @@ import android.net.SocketKeepalive;
 import android.net.TelephonyNetworkSpecifier;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
+import android.net.TetheringManager;
 import android.net.Uri;
 import android.net.cts.util.CtsNetUtils;
 import android.net.cts.util.CtsTetheringUtils;
@@ -4090,7 +4091,7 @@ public class ConnectivityManagerTest {
 
     @Test
     public void testLegacyTetherApisThrowUnsupportedOperationExceptionAfterV() {
-        assumeTrue(Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM);
+        assumeTrue(TetheringManager.isAtLeastBBeta());
         assertThrows(UnsupportedOperationException.class, () -> mCm.tether("iface"));
         assertThrows(UnsupportedOperationException.class, () -> mCm.untether("iface"));
     }
