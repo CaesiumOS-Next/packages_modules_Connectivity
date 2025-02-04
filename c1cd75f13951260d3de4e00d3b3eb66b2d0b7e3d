@@ -142,6 +142,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff24d3a5_90ef3632",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-04T18:57:45Z",
+      "side": 1,
+      "message": "I see people using integer, i could not find any references to baklava in aosp. There are some reference in internal but Build.VERSION_CODES.Baklava exist in internal and sdk level in internal is 36 while in aosp its 35 with codename Baklava",
+      "parentUuid": "6c61d9e4_a9e06bf0",
+      "range": {
+        "startLine": 276,
+        "startChar": 37,
+        "endLine": 276,
+        "endChar": 52
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac93cd15_1bd2ede3",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 7
@@ -247,6 +271,30 @@
       "writtenOn": "2025-02-03T23:49:41Z",
       "side": 1,
       "message": "These tests only test the positive case – can you also add a small test to make sure that data that wasn\u0027t added is indeed not present ?",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 5
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88f8e584_d3e5c403",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-04T18:57:45Z",
+      "side": 1,
+      "message": "I have added asserts in test to make sure the maps are empty as well as negative checks.",
+      "parentUuid": "8e9be631_c98c0aff",
       "range": {
         "startLine": 260,
         "startChar": 4,
