@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dff9577_6bf85170",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 9557,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T02:39:11Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure link properties can be updated by telephony or maybe other agents before the network is set to connected. Will this still work ?\n\nOr, in a completely different way of formulating it : why are we doing all this work and adding API to support this hack instead of doing the early agent creation work first ?",
+      "range": {
+        "startLine": 9555,
+        "startChar": 8,
+        "endLine": 9557,
+        "endChar": 9
+      },
+      "revId": "7703c37962aa470c92d99472e93845afe54af521",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
