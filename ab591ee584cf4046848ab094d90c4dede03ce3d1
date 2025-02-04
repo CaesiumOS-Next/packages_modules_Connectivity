@@ -391,6 +391,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "244b01f5_5bde1627",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T21:51:28Z",
+      "side": 1,
+      "message": "Okay I see how that makes sense. However it *requires* that PermissionManager is offering the callbacks and answering the synchronous queries on the same thread, or otherwise has synchronization between them (otherwise you have cross-thread visibility problems). This is not a common pattern in Android : did you check that this is the case in PermissionManager ? To give you an example, this would not be correct in the case of NetworkCallbacks because there is no such synchronization.",
+      "parentUuid": "55aebac7_ac4a6b5c",
+      "range": {
+        "startLine": 287,
+        "startChar": 28,
+        "endLine": 287,
+        "endChar": 58
+      },
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b14c699f_efba431c",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T21:51:28Z",
+      "side": 1,
+      "message": "Hah, it seems the PermissionManager method was slated to become SystemApi in 2020 (according to blame of that file) but the @SystemApi tag has never been uncommented. This also solves the question I had in the back of my mind where PackageManager.addOnPermissionChangeListener is @Deprecated... but it\u0027s commented out. I think all of this was planned and never executed.\n\nSo operatively, your current code seems best, and the method is not actually deprecated after all. Resolving this comment.",
+      "parentUuid": "983facfa_05c0eb51",
+      "range": {
+        "startLine": 287,
+        "startChar": 28,
+        "endLine": 287,
+        "endChar": 58
+      },
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a898698_672a117d",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 51
@@ -519,6 +567,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "e4effb63_a3d1e8c5",
+      "range": {
+        "startLine": 293,
+        "startChar": 42,
+        "endLine": 293,
+        "endChar": 64
+      },
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2a0db57_6235e9c1",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T21:51:28Z",
+      "side": 1,
+      "message": "I see. Do you have a way to track this work item, e.g. a buganizer ticket ? ISTM this needs to be a blocker for the full release.",
+      "parentUuid": "ed91d643_4dfb4ab8",
       "range": {
         "startLine": 293,
         "startChar": 42,
