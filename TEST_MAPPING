@@ -77,7 +77,7 @@
       "name": "libnetworkstats_test"
     },
     {
-      "name": "CtsTetheringTestLatestSdk",
+      "name": "CtsTetheringTest",
       "options": [
         {
           "exclude-annotation": "com.android.testutils.NetworkStackModuleTest"
@@ -259,7 +259,7 @@
       "name": "NetworkStaticLibHostPythonTests"
     },
     {
-      "name": "CtsTetheringTestLatestSdk"
+      "name": "CtsTetheringTest"
     }
   ],
   "mainline-presubmit": [
@@ -394,7 +394,7 @@
       "name": "libnetworkstats_test[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
     },
     {
-      "name": "CtsTetheringTestLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]",
+      "name": "CtsTetheringTest[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]",
       "options": [
         {
           "exclude-annotation": "com.android.testutils.NetworkStackModuleTest"
@@ -409,7 +409,7 @@
       "keywords": ["sim"]
     },
     {
-      "name": "CtsTetheringTestLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]",
+      "name": "CtsTetheringTest[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]",
       "keywords": ["sim"],
       "options": [
         {
