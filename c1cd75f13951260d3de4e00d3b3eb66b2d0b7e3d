@@ -166,6 +166,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d957825_d3f0298f",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T22:12:49Z",
+      "side": 1,
+      "message": "Maybe use 36 then. At least if we forget to change it it will very likely be correct",
+      "parentUuid": "ff24d3a5_90ef3632",
+      "range": {
+        "startLine": 276,
+        "startChar": 37,
+        "endLine": 276,
+        "endChar": 52
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac93cd15_1bd2ede3",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 7
@@ -201,6 +225,30 @@
       "side": 1,
       "message": "Intentionally did not do that as the NetworkStackUtils is in different mainline module, we would need to add dependency on it. As this is not going to be long lived function (would remove this once isAtLeastB is fixed in aosp).",
       "parentUuid": "ac93cd15_1bd2ede3",
+      "range": {
+        "startLine": 463,
+        "startChar": 27,
+        "endLine": 463,
+        "endChar": 40
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68094d58_eb82f94d",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T22:12:49Z",
+      "side": 1,
+      "message": "Ah good point, I had missed that. The real solution to this should be to move it to our static lib but this seems more trouble than it\u0027s worth, so let\u0027s keep your current version. Maybe if you could add a small comment here to remove when isAtLeastB is available in AOSP, or when NetworkStackUtils.isAtLeast25Q2 is moved to a static lib.",
+      "parentUuid": "bb6e8dac_d1689588",
       "range": {
         "startLine": 463,
         "startChar": 27,
@@ -295,6 +343,30 @@
       "side": 1,
       "message": "I have added asserts in test to make sure the maps are empty as well as negative checks.",
       "parentUuid": "8e9be631_c98c0aff",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 5
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06ff9411_56db36d7",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T22:12:49Z",
+      "side": 1,
+      "message": "I don\u0027t see them in patchset 9 – did you forget to update this file ? Or am I missing them ?",
+      "parentUuid": "88f8e584_d3e5c403",
       "range": {
         "startLine": 260,
         "startChar": 4,
