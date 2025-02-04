@@ -46,6 +46,30 @@
       },
       "revId": "eb7de53d01b01605dfddb7dd52f3e1bdb81958fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8f7feb4_bfc16a8f",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-02-04T10:54:59Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "80304e75_62d09354",
+      "range": {
+        "startLine": 233,
+        "startChar": 22,
+        "endLine": 233,
+        "endChar": 73
+      },
+      "revId": "eb7de53d01b01605dfddb7dd52f3e1bdb81958fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
