@@ -94,6 +94,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b5aaf1a_72705329",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-04T01:31:29Z",
+      "side": 1,
+      "message": "Unfortunately Baklava version code is not available in aosp so i had to user cur_development. Should i use VANILLA_ICE_CREAM ?",
+      "parentUuid": "ef0d5173_858c3ea9",
+      "range": {
+        "startLine": 276,
+        "startChar": 37,
+        "endLine": 276,
+        "endChar": 52
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac93cd15_1bd2ede3",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 7
@@ -128,6 +152,30 @@
       "writtenOn": "2025-02-04T01:08:04Z",
       "side": 1,
       "message": "this log doesn\u0027t seem useful.  also this looks at contains but not at value, why not do both in one function?\n\nIn general these helper functions don\u0027t seem to provide any value...\nthey\u0027re one liners...",
+      "range": {
+        "startLine": 938,
+        "startChar": 0,
+        "endLine": 938,
+        "endChar": 53
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0243b1e4_4ab77fbc",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-04T01:31:29Z",
+      "side": 1,
+      "message": "Can do both, the reason for adding these helper function is wrapper so that any function using these do not need directly handle BPF map. This is similar pattern for other maps.",
+      "parentUuid": "70f4d45f_ec42d62c",
       "range": {
         "startLine": 938,
         "startChar": 0,
