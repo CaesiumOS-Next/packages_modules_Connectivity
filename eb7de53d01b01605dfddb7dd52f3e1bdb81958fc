@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0951475a_77ab8e0f",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-02-04T10:41:35Z",
+      "side": 1,
+      "message": "would it make sense to make this method return the update status directly, instead of a boolean?\nPossibly we could do the same with the `compatVersion.install` method below.",
+      "range": {
+        "startLine": 233,
+        "startChar": 22,
+        "endLine": 233,
+        "endChar": 73
+      },
+      "revId": "eb7de53d01b01605dfddb7dd52f3e1bdb81958fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
