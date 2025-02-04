@@ -2424,7 +2424,7 @@ public class TetheringTest {
     }
 
     private boolean isAtLeastB() {
-        return SdkLevel.isAtLeastB();
+        return SdkLevel.isAtLeastB() || Objects.equals(Build.VERSION.CODENAME, "Baklava");
     }
 
     @Test
