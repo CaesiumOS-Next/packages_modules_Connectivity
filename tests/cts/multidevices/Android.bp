@@ -48,3 +48,37 @@ python_test_host {
         },
     },
 }
+
+// Modules for CTS-Verifier (cts-v-host)
+python_test_host {
+    name: "CtsConnectivityMultiDeviceTests",
+    main: "run_tests.py",
+    srcs: [
+        "apfv4_test.py",
+        "apfv6_test.py",
+        "connectivity_multi_devices_test.py",
+        "run_tests.py",
+    ],
+    libs: [
+        "absl-py",
+        "mobly",
+        "net-tests-utils-host-python-common",
+    ],
+    test_suites: [
+        "cts-v-host",
+    ],
+    test_config: "AndroidTestV2.xml",
+    test_options: {
+        runner: "mobly",
+        unit_test: false,
+    },
+    device_common_data: [
+        // Package the snippet with the mobly test
+        ":connectivity_multi_devices_snippet",
+    ],
+    version: {
+        py3: {
+            embedded_launcher: true,
+        },
+    },
+}
