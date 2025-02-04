@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11108524_552ffe3c",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-04T09:22:43Z",
+      "side": 1,
+      "message": "It looks like the dependency on bouncycastle is only for this, and the implementation seems fairly simple. Before merging this can you check what the BloatBuster analyzer says (when running treehugger) ? I\u0027m worried it may pull a lot of code even after R8 removes unused parts.",
+      "range": {
+        "startLine": 83,
+        "startChar": 66,
+        "endLine": 83,
+        "endChar": 79
+      },
+      "revId": "a0d11f37482b73f2efc855598b0cbae005300dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
