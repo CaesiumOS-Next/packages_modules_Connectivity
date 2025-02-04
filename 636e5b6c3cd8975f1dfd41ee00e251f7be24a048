@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74c38fc6_f158866a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-04T02:42:50Z",
+      "side": 1,
+      "message": "Not super happy with this – as I see it we should do the early creation work first and not do this at all. Let me check with Lorenzo why we decided to do this considering it requires us to make system API that we don\u0027t actually want to support long term",
+      "revId": "636e5b6c3cd8975f1dfd41ee00e251f7be24a048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
