@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48c9636d_af74b8f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-02-04T03:15:20Z",
+      "side": 1,
+      "message": "Moved the deprecation to a new CL. PTAL",
+      "revId": "0d08a89d86e0d6ec6954218e7687403a8783269d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
