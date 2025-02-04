@@ -659,7 +659,8 @@ public class TetheringManager {
     }
 
     private void unsupportedAfterV() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM
+                || Objects.equals(Build.VERSION.CODENAME, "Baklava")) {
             throw new UnsupportedOperationException("Not supported after SDK version "
                     + Build.VERSION_CODES.VANILLA_ICE_CREAM);
         }

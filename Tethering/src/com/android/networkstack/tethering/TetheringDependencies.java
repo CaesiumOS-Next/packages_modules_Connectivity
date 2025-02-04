@@ -47,6 +47,7 @@ import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.networkstack.tethering.wear.WearableConnectionManager;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
@@ -214,7 +215,8 @@ public abstract class TetheringDependencies {
      * Wrapper for tethering_with_soft_ap_config feature flag.
      */
     public boolean isTetheringWithSoftApConfigEnabled() {
-        return Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM
+        return (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM
+                || Objects.equals(Build.VERSION.CODENAME, "Baklava"))
                 && Flags.tetheringWithSoftApConfig();
     }
 }
