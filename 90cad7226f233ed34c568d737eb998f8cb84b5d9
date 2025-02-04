@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73dd6625_4f434788",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-02-04T17:19:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c132e85_633f1d6a",
+      "range": {
+        "startLine": 234,
+        "startChar": 8,
+        "endLine": 235,
+        "endChar": 31
+      },
+      "revId": "90cad7226f233ed34c568d737eb998f8cb84b5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80d43965_5e39389a",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-24T16:55:59Z",
       "side": 1,
       "message": "I am not very convinced by this method, the Signature is supposed to be a transient object, this method makes it stay around longer than necessary.\n\nFrom what I can see it looks like having a boolean as the return value of the `verify` method is not enough. Maybe it is time to change the signature of the method to return a status object, similar to the `DownloadStatus` from the `DownloadHelper`. \n\nI think this might also help clarify the logic in the `handleContentDownloadCompleted`, by combining the failureReason and success variables into a single status object. WDYT?",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "90cad7226f233ed34c568d737eb998f8cb84b5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f25085e8_660102f9",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-02-04T17:19:39Z",
+      "side": 1,
+      "message": "Done, thank you for the suggestion. I think this improves the readability a lot as well!\n\nI\u0027m a bit torn on whether it\u0027s worth folding CompatVersion.install\u0027s result into this new status object as well, but this would only cover the VERSION_ALREADY_EXISTS case so maybe not needed. My eventual thinking with this is we could then pass in the LogListUpdateStatus into CTLogger, but maybe this isn\u0027t worth doing... WDYT?",
+      "parentUuid": "80d43965_5e39389a",
       "range": {
         "startLine": 57,
         "startChar": 4,
