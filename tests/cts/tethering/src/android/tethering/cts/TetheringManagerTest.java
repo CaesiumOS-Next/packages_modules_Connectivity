@@ -100,6 +100,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -636,7 +637,8 @@ public class TetheringManagerTest {
 
     @Test
     public void testLegacyTetherApisThrowUnsupportedOperationExceptionAfterV() {
-        assumeTrue(Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM);
+        assumeTrue(Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM
+                || Objects.equals(Build.VERSION.CODENAME, "Baklava"));
         assertThrows(UnsupportedOperationException.class, () -> mTM.tether("iface"));
         assertThrows(UnsupportedOperationException.class, () -> mTM.untether("iface"));
     }

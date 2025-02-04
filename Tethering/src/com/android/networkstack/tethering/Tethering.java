@@ -605,6 +605,12 @@ public class Tethering {
         }
     }
 
+    // Wrapper for SdkLevel#isAtLeastB that includes a check for the codename in case we're running
+    // on a B beta build that hasn't updated the SDK level yet.
+    private boolean isAtLeastB() {
+        return SdkLevel.isAtLeastB() || Objects.equals(Build.VERSION.CODENAME, "Baklava");
+    }
+
     // This method needs to exist because TETHERING_BLUETOOTH before Android T and TETHERING_WIGIG
     // can't use enableIpServing.
     private void processInterfaceStateChange(final String iface, boolean enabled) {
@@ -638,7 +644,7 @@ public class Tethering {
         // TODO: fix the teardown path to stop depending on interface state notifications.
         // These are not necessary since most/all link layers have their own teardown
         // notifications, and can race with those notifications.
-        if (enabled && Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (enabled && isAtLeastB()) {
             return;
         }
 
