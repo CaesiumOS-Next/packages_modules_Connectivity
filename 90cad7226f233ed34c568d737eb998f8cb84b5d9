@@ -93,6 +93,30 @@
       },
       "revId": "90cad7226f233ed34c568d737eb998f8cb84b5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "787407f1_fb40b44c",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-02-05T10:32:46Z",
+      "side": 1,
+      "message": "I agree that passing the `LogListUpdateStatus` to the CTLogger might improve readability even further (see also my other comment).\n\nMaybe for now it makes sense to submit this CL as is and figure out the CTLogger change in a follow-up CL?",
+      "parentUuid": "f25085e8_660102f9",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "90cad7226f233ed34c568d737eb998f8cb84b5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

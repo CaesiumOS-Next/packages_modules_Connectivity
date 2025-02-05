@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d62995eb_5718c316",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-02-05T10:32:46Z",
+      "side": 1,
+      "message": "nit: The `logCTLogListUpdateStateChangedEvent` method could accept the whole `LogListUpdateStatus` as parameter, and extract the signature and the state in its implementation, as well as handling the `DataStore` updates.\n\nFeel free to ignore this comment, though, I think the current implementation is good as is.",
+      "range": {
+        "startLine": 235,
+        "startChar": 20,
+        "endLine": 239,
+        "endChar": 46
+      },
+      "revId": "a0c6b166a1ac31b4efc80d1d0511dacf676f2c9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
