@@ -59,6 +59,7 @@ class L2capPacketForwarderTest {
     private lateinit var l2capInputStream: BluetoothL2capInputStream
     private lateinit var l2capOutputStream: BluetoothL2capOutputStream
     @Mock private lateinit var bluetoothSocket: BluetoothSocket
+    @Mock private lateinit var callback: L2capPacketForwarder.ICallback
 
     /** Imitates the behavior of an L2CAP BluetoothSocket */
     private class BluetoothL2capInputStream(
@@ -171,7 +172,8 @@ class L2capPacketForwarderTest {
 
         forwarder = L2capPacketForwarder(
                 FdWrapper(tunFds[0]),
-                BluetoothSocketWrapper(bluetoothSocket)
+                BluetoothSocketWrapper(bluetoothSocket),
+                callback
         )
     }
 

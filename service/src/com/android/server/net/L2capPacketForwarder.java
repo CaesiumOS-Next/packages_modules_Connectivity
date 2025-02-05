@@ -36,9 +36,9 @@ import java.io.OutputStream;
 public class L2capPacketForwarder {
     private static final String TAG = "L2capPacketForwarder";
 
-    // rfc7668 recommends 1280
+    // DCT specifies an MTU of 1500.
     // TODO: Set /proc/sys/net/ipv6/conf/${iface}/mtu to 1280 and the link MTU to 1528 to accept
-    // slightly larger packets on ingress.
+    // slightly larger packets on ingress (i.e. packets passing through a NAT64 gateway).
     // MTU determines the value of the read buffers, so use the larger of the two.
     @VisibleForTesting
     public static final int MTU = 1528;
@@ -46,6 +46,12 @@ public class L2capPacketForwarder {
     private final IReadWriteFd mL2capFd;
     private final L2capThread mIngressThread;
     private final L2capThread mEgressThread;
+    private final ICallback mCallback;
+
+    public interface ICallback {
+        /** Called when an error is encountered; should tear down forwarding. */
+        public void onError();
+    }
 
     private interface IReadWriteFd {
         /** Read from fd */
@@ -87,23 +93,9 @@ public class L2capPacketForwarder {
         public int read(byte[] bytes, int off, int len) throws IOException {
             int bytesRead = mInputStream.read(bytes, off, len);
             if (bytesRead > MTU) {
-                // b/391623333: BluetoothSockets of type L2CAP use an intermediate read buffer of
-                // size = LE L2CAP SDU (64KB for devices without hardware offload support) and do
-                // not properly expose SocketInputStream / SOCK_SEQPACKET semantics. This means that
-                // a partial read does not drop the entire packet.  So if a packet exceeds MTU
-                // (which is smaller than SDU / the BluetoothSocket's intermediate buffer), read
-                // from the InputStream until the read fits within MTU.  Ignore all bytes including
-                // the last read. This has the unfortunate side effect that if a packet is exactly
-                // the size of the read buffer (MTU + 1), the next packet will be dropped as well
-                // (if it fits within MTU).
-                //
-                // b/391623333: Note that mInputStream.available() is broken for L2CAP sockets and
-                // cannot be used here. TODO: consider using ParcelFileDescriptor directly to fix
-                // this.
-                do {
-                    bytesRead = mInputStream.read(bytes, off, len);
-                } while (bytesRead > MTU);
-                return -1;
+                // Don't try to recover, just trigger network teardown. This might indicate a bug in
+                // the Bluetooth stack.
+                throw new IOException("Packet exceeds MTU");
             }
             return bytesRead;
         }
@@ -231,13 +223,18 @@ public class L2capPacketForwarder {
                     // No bytes to write, continue.
                     if (readBytes <= 0) continue;
 
-                    // If the packet exceeds MTU, drop it. IReadWriteFd#read() implements
-                    // SOCK_SEQPACKET semantics.
+                    // If the packet exceeds MTU, drop it.
+                    // Note that a large read on BluetoothSocket throws an IOException to tear down
+                    // the network.
                     if (readBytes > MTU) continue;
 
                     mWriteFd.write(mBuffer, 0 /*off*/, readBytes);
                 } catch (IOException e) {
                     Log.e(mLogTag, "L2capThread exception", e);
+                    // Tear down the network on any error.
+                    mIsRunning = false;
+                    // Notify provider that forwarding has stopped.
+                    mCallback.onError();
                 }
             }
         }
@@ -256,15 +253,16 @@ public class L2capPacketForwarder {
         }
     }
 
-    public L2capPacketForwarder(ParcelFileDescriptor tunFd, BluetoothSocket socket) {
+    public L2capPacketForwarder(ParcelFileDescriptor tunFd, BluetoothSocket socket, ICallback cb) {
         // TODO: just store ParcelFd in here.
-        this(new FdWrapper(tunFd.getFileDescriptor()), new BluetoothSocketWrapper(socket));
+        this(new FdWrapper(tunFd.getFileDescriptor()), new BluetoothSocketWrapper(socket), cb);
     }
 
     @VisibleForTesting
-    L2capPacketForwarder(IReadWriteFd tunFd, IReadWriteFd l2capFd) {
+    L2capPacketForwarder(IReadWriteFd tunFd, IReadWriteFd l2capFd, ICallback cb) {
         mTunFd = tunFd;
         mL2capFd = l2capFd;
+        mCallback = cb;
 
         mIngressThread = new L2capThread("L2capThread-Ingress", l2capFd, tunFd);
         mEgressThread = new L2capThread("L2capThread-Egress", tunFd, l2capFd);

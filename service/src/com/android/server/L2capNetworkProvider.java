@@ -252,7 +252,9 @@ public class L2capNetworkProvider {
         public L2capNetwork(String ifname, BluetoothSocket socket, ParcelFileDescriptor tunFd,
                 NetworkCapabilities networkCapabilities) {
             mIfname = ifname;
-            mForwarder = new L2capPacketForwarder(tunFd, socket);
+            mForwarder = new L2capPacketForwarder(tunFd, socket, () -> {
+                // onError
+            });
             mNetworkCapabilities = networkCapabilities;
             mIpClient = new L2capIpClient(mContext, ifname);
             final LinkProperties linkProperties = mIpClient.start();
