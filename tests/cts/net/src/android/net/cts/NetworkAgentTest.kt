@@ -689,7 +689,6 @@ class NetworkAgentTest {
                 }
                 return@tryTest
             }
-            cv.close()
             if (hold) {
                 carrierConfigRule.addConfigOverrides(subId, PersistableBundle().also {
                     it.putStringArray(CarrierConfigManager.KEY_CARRIER_CERTIFICATE_STRING_ARRAY,
@@ -698,9 +697,18 @@ class NetworkAgentTest {
             } else {
                 carrierConfigRule.cleanUpNow()
             }
+<<<<<<< HEAD   (42abab6285d15926d1ea09e8d75d7f4614803f8f Revert^2 "Fix flakes due to tests resetting CarrierConfig")
             assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't change carrier privilege")
         } cleanup {
             runAsShell(READ_PRIVILEGED_PHONE_STATE) {
+||||||| BASE   (15285c29ef79a1d6c30fbefe26b2eaa2c38b2145 Merge "Use CtsTetheringTest in TEST_MAPPING" into main)
+            assertTrue(cv.block(DEFAULT_TIMEOUT_MS), "Can't change carrier privilege")
+        } cleanup @JvmSerializableLambda {
+            runAsShell(READ_PRIVILEGED_PHONE_STATE) @JvmSerializableLambda {
+=======
+        } cleanup @JvmSerializableLambda {
+            runAsShell(READ_PRIVILEGED_PHONE_STATE) @JvmSerializableLambda {
+>>>>>>> CHANGE (b9ac4c8fe270002a3362d361ef7748b88013d89e Wait for carrier config to apply in tests)
                 tm.unregisterCarrierPrivilegesCallback(cpb)
             }
         }
