@@ -439,6 +439,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a09b22b0_8ba5697a",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-05T19:20:45Z",
+      "side": 1,
+      "message": "IIUC the question is if we can guarantee synchronization between listener registration and callback execution, is that correct? I reached out to @theianchen@google.com for any more info while Hai is OOO as I\u0027m not sure of the full technical details. That said, by nature of LNP using runtime permissions, this listener should not be doing any work anyways during device boot / service initialization: it would need some user interaction to occur for the permission state to chagne in a way that this listener needs to take action on. Is this a sufficient safeguard for the 25Q2 opt in? We are aware that for 26q2 we need a more robust solution, and have chatted with Permissions team about possible directions to take.",
+      "parentUuid": "244b01f5_5bde1627",
+      "range": {
+        "startLine": 287,
+        "startChar": 28,
+        "endLine": 287,
+        "endChar": 58
+      },
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a898698_672a117d",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 51
@@ -591,6 +615,30 @@
       "side": 1,
       "message": "I see. Do you have a way to track this work item, e.g. a buganizer ticket ? ISTM this needs to be a blocker for the full release.",
       "parentUuid": "ed91d643_4dfb4ab8",
+      "range": {
+        "startLine": 293,
+        "startChar": 42,
+        "endLine": 293,
+        "endChar": 64
+      },
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b32ef82a_9748904d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-05T19:20:45Z",
+      "side": 1,
+      "message": "Added b/394567896 as a TODO",
+      "parentUuid": "e2a0db57_6235e9c1",
       "range": {
         "startLine": 293,
         "startChar": 42,
