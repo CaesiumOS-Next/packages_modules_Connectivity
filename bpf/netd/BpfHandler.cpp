@@ -243,7 +243,7 @@ Status BpfHandler::init(const char* cg2_path) {
     // in the rc file.
     //
     // TODO: should be: if (!modules::sdklevel::IsAtLeastW())
-    if (android_get_device_api_level() <= __ANDROID_API_V__) waitForBpf();
+    waitForBpf();
 
     RETURN_IF_NOT_OK(initPrograms(cg2_path));
     RETURN_IF_NOT_OK(initMaps());
