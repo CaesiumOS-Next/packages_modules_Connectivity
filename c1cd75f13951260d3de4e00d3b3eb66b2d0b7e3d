@@ -188,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7fb5981_61c3ab50",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-05T18:29:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d957825_d3f0298f",
+      "range": {
+        "startLine": 276,
+        "startChar": 37,
+        "endLine": 276,
+        "endChar": 52
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac93cd15_1bd2ede3",
@@ -259,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d998559_2c506002",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-05T18:29:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68094d58_eb82f94d",
+      "range": {
+        "startLine": 463,
+        "startChar": 27,
+        "endLine": 463,
+        "endChar": 40
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70f4d45f_ec42d62c",
@@ -296,6 +344,30 @@
       "side": 1,
       "message": "Can do both, the reason for adding these helper function is wrapper so that any function using these do not need directly handle BPF map. This is similar pattern for other maps.",
       "parentUuid": "70f4d45f_ec42d62c",
+      "range": {
+        "startLine": 938,
+        "startChar": 0,
+        "endLine": 938,
+        "endChar": 53
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e465d794_0850e486",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-05T18:29:37Z",
+      "side": 1,
+      "message": "Combined them.",
+      "parentUuid": "0243b1e4_4ab77fbc",
       "range": {
         "startLine": 938,
         "startChar": 0,
@@ -367,6 +439,30 @@
       "side": 1,
       "message": "I don\u0027t see them in patchset 9 – did you forget to update this file ? Or am I missing them ?",
       "parentUuid": "88f8e584_d3e5c403",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 5
+      },
+      "revId": "c1cd75f13951260d3de4e00d3b3eb66b2d0b7e3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e450ea7c_7ca79f08",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-05T18:29:37Z",
+      "side": 1,
+      "message": "it was in patch 8 but looks like chains of CLs and patches overwritten those changes. I have added now.",
+      "parentUuid": "06ff9411_56db36d7",
       "range": {
         "startLine": 260,
         "startChar": 4,
