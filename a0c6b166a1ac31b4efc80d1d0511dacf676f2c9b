@@ -22,6 +22,30 @@
       },
       "revId": "a0c6b166a1ac31b4efc80d1d0511dacf676f2c9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11d7bcc4_60c27d25",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-02-05T10:43:39Z",
+      "side": 1,
+      "message": "Ack, will do this in a follow-up CL as agreed.",
+      "parentUuid": "d62995eb_5718c316",
+      "range": {
+        "startLine": 235,
+        "startChar": 20,
+        "endLine": 239,
+        "endChar": 46
+      },
+      "revId": "a0c6b166a1ac31b4efc80d1d0511dacf676f2c9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

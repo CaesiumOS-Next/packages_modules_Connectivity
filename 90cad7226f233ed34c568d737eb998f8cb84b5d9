@@ -117,6 +117,30 @@
       },
       "revId": "90cad7226f233ed34c568d737eb998f8cb84b5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4317a06_57dcf1b9",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-02-05T10:43:39Z",
+      "side": 1,
+      "message": "SGTM, I think it would make more sense to do this in a follow-up CL just to keep this one focused purely on adding the log list signature logging.",
+      "parentUuid": "787407f1_fb40b44c",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "90cad7226f233ed34c568d737eb998f8cb84b5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
