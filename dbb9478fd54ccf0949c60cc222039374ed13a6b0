@@ -133,6 +133,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06fe3162_1a791263",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2025-02-05T01:00:51Z",
+      "side": 1,
+      "message": "Mostly the difference between the two methods is whether it end up being a `noteOp()` call, which evaluates if the action is allowed right now, and leaves a history inside app ops if it is allowed (which we show in Privacy dashboard if it\u0027s a runtime permission); or end up being a `checkOp()` call, which evaluates if the action may be allowed (i.e. it\u0027s not denied, but may be foreground-only and the app might become foreground later), and doesn\u0027t leave a history.\n\n(Technical detail: the actual difference in code is in [PermissionCheckerService.performOpTransaction()](https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:frameworks/base/services/core/java/com/android/server/pm/permission/PermissionManagerService.java;l\u003d1535;drc\u003d6f656a529ed6cf722b11d6658299e7b5f7e77395), where the `forDataDelivery` parameter will be different. (And `startDataDelivery` will be `false` unless you call the start delivery method.))\n\nSo given that you don\u0027t have a foreground-only state here, I think it\u0027s more important to get right when you are logging the permission as being accessed by the app (which is when you call `checkPermissionForDataDelivery`), because that will be appearing on the user facing Privacy dashboard. I\u0027m not sure if this is the right place to do that though.",
+      "parentUuid": "f81750d4_29345ae3",
+      "range": {
+        "startLine": 308,
+        "startChar": 53,
+        "endLine": 308,
+        "endChar": 83
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4be3874d_fcb61a0f",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 15
