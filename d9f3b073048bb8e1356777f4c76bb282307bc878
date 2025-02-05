@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5381ad66_482a6d44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-05T03:55:14Z",
+      "side": 1,
+      "message": "Can you check that the presubmit run on this CL runs the module in mainline-presubmit and in normal presubmit, before submitting ?",
+      "revId": "d9f3b073048bb8e1356777f4c76bb282307bc878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
