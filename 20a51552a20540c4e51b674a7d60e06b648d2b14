@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97bbffcb_d62bd37f",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-06T03:28:09Z",
+      "side": 1,
+      "message": "maybe this shouldn\u0027t even be here... hopopts doesn\u0027t *have* to be 8 bytes long does it?",
+      "parentUuid": "d44dc2bf_c5f16745",
+      "range": {
+        "startLine": 174,
+        "startChar": 5,
+        "endLine": 174,
+        "endChar": 6
+      },
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48fe92e7_72b2170a",
         "filename": "bpf/headers/include/bpf/BpfClassic.h",
         "patchSetId": 3
