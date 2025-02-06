@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fce2f7a_bfe77a85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T00:43:24Z",
+      "side": 1,
+      "message": "Prevent calling requestTetheredInterface when using adb over ethernet",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 61
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a46defa4_fc27b69b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T00:43:24Z",
+      "side": 1,
+      "message": "Otherwise, if adb over ethernet is used, assumeNoInterfaceForTetheringAvailable() tears down the adb\nconnection because the call to requestTetheredInterface() tears\ndown IpClient.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 37
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38bf0b20_d27a8c92",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T00:43:24Z",
+      "side": 1,
+      "message": "add:\n```\n// Requesting a tethered interface will stop IpClient. Prevent it from doing so\n// if adb is connected over ethernet.\nassumeFalse(isAdbOverEthernet())\n```",
+      "range": {
+        "startLine": 621,
+        "startChar": 8,
+        "endLine": 621,
+        "endChar": 11
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f681f688_8a72ebfc",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T00:43:24Z",
+      "side": 1,
+      "message": "I think this is the bug you are trying to fix. This call will stop IpClient on the interface, and if adb is connected over ethernet, the adb socket will be closed.",
+      "range": {
+        "startLine": 625,
+        "startChar": 12,
+        "endLine": 625,
+        "endChar": 36
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bdbe38e_699f7d88",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T00:43:24Z",
+      "side": 1,
+      "message": "remove these here.",
+      "range": {
+        "startLine": 640,
+        "startChar": 8,
+        "endLine": 640,
+        "endChar": 40
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11d4b3ab_9f331ecc",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T00:43:24Z",
+      "side": 1,
+      "message": "this one will fail too.",
+      "range": {
+        "startLine": 666,
+        "startChar": 8,
+        "endLine": 666,
+        "endChar": 46
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
