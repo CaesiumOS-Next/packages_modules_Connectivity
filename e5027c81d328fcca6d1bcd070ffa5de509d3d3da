@@ -1,0 +1,198 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ff5e671_214850f9",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-06T23:19:39Z",
+      "side": 1,
+      "message": "Suggest having an @return doc, in particular because it\u0027s not necessarily clear what this will return if the network is not a local network (IIUC, this returns true)",
+      "range": {
+        "startLine": 933,
+        "startChar": 5,
+        "endLine": 933,
+        "endChar": 7
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "8df5728b_d60f3b67",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 933,
+                "startChar": 0,
+                "endLine": 933,
+                "endChar": 0
+              },
+              "replacement": "     * @return True if the configuration is allowed. Otherwise, false.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e5027c81d328fcca6d1bcd070ffa5de509d3d3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ab3f74a_d5f9ca2a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-06T23:19:39Z",
+      "side": 1,
+      "message": "nit : please make your locals final, like all the surrounding code",
+      "range": {
+        "startLine": 944,
+        "startChar": 8,
+        "endLine": 944,
+        "endChar": 25
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "36fb4441_78b3efa7",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 914,
+                "startChar": 0,
+                "endLine": 915,
+                "endChar": 0
+              },
+              "replacement": "        final LocalNetAccessKey localNetAccessKey \u003d new LocalNetAccessKey(lpmBitlen, ifIndex,\n"
+            },
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 944,
+                "startChar": 0,
+                "endLine": 945,
+                "endChar": 0
+              },
+              "replacement": "        final LocalNetAccessKey localNetAccessKey \u003d new LocalNetAccessKey(lpmBitlen, ifIndex,\n"
+            },
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 947,
+                "startChar": 0,
+                "endLine": 948,
+                "endChar": 0
+              },
+              "replacement": "            final Bool value \u003d sLocalNetAccessMap.getValue(localNetAccessKey);\n"
+            },
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 978,
+                "startChar": 0,
+                "endLine": 979,
+                "endChar": 0
+              },
+              "replacement": "            final Bool value \u003d sLocalNetBlockedUidMap.getValue(new U32(uid));\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e5027c81d328fcca6d1bcd070ffa5de509d3d3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "483cadeb_ada962ed",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-06T23:19:39Z",
+      "side": 1,
+      "message": "Naming : suggest making this a predicate, e.g. `isUidBlockedFromUsingLocalNetwork` or shorter if possible",
+      "range": {
+        "startLine": 975,
+        "startChar": 19,
+        "endLine": 975,
+        "endChar": 50
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "16250ce6_6ab1a434",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 975,
+                "startChar": 0,
+                "endLine": 977,
+                "endChar": 0
+              },
+              "replacement": "    public boolean isUidBlockedFromUsingLocalNetwork(final int uid) {\n        throwIfPre25Q2(\"isUidBlockedFromUsingLocalNetwork is not available on pre-B devices\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e5027c81d328fcca6d1bcd070ffa5de509d3d3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca0b16d1_15743bd4",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-06T23:19:39Z",
+      "side": 1,
+      "message": "Maybe add a comment to explain why the map is still empty after this",
+      "range": {
+        "startLine": 272,
+        "startChar": 44,
+        "endLine": 272,
+        "endChar": 49
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "2d4033e6_dd099d8d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+              "range": {
+                "startLine": 272,
+                "startChar": 0,
+                "endLine": 272,
+                "endChar": 0
+              },
+              "replacement": "        // Add local net access rule with incorrect interface name.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e5027c81d328fcca6d1bcd070ffa5de509d3d3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
