@@ -90,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68b215d9_27420378",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-02-06T08:33:33Z",
+      "side": 1,
+      "message": "Yes, hopopts doesn\u0027t have to be 8 bytes. \nFor MLD packet case, it\u0027s 8 bytes. \n\nIt looks like the following.\n```\n###[ Ethernet ]###\n  dst       \u003d 33:33:33:00:00:01\n  src       \u003d 02:03:04:05:06:07\n  type      \u003d IPv6\n###[ IPv6 ]###\n     version   \u003d 6\n     tc        \u003d 0\n     fl        \u003d 0\n     plen      \u003d None\n     nh        \u003d Hop-by-Hop Option Header\n     hlim      \u003d 1\n     src       \u003d fe80::fc01:83ff:fea6:378b\n     dst       \u003d ff02::1\n###[ IPv6 Extension Header - Hop-by-Hop Options Header ]###\n        nh        \u003d ICMPv6\n        len       \u003d None\n        autopad   \u003d On\n        \\options   \\\n         |###[ Router Alert ]###\n         |  otype     \u003d Router Alert [00: skip, 0: Don\u0027t change en-route]\n         |  optlen    \u003d 2\n         |  value     \u003d None\n###[ MLDv2 - Multicast Listener Query ]###\n           type      \u003d MLD Query\n           code      \u003d 0\n           cksum     \u003d None\n           mrd       \u003d 10000\n           reserved  \u003d 0\n           mladdr    \u003d ::\n           Resv      \u003d 0\n           S         \u003d 0\n           QRV       \u003d 0\n           QQIC      \u003d 0\n           sources_number\u003d None\n           sources   \u003d [  ]\n\n```",
+      "parentUuid": "97bbffcb_d62bd37f",
+      "range": {
+        "startLine": 174,
+        "startChar": 5,
+        "endLine": 174,
+        "endChar": 6
+      },
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48fe92e7_72b2170a",
         "filename": "bpf/headers/include/bpf/BpfClassic.h",
         "patchSetId": 3
@@ -101,6 +125,30 @@
       "writtenOn": "2025-02-06T03:25:15Z",
       "side": 1,
       "message": "But it seems like this is wrong, and should be (0),\nSince we should increase X+\u003d8 as part of processing the HOPOPTS header",
+      "range": {
+        "startLine": 175,
+        "startChar": 69,
+        "endLine": 175,
+        "endChar": 70
+      },
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f2c31be_b076854a",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-02-06T08:33:33Z",
+      "side": 1,
+      "message": "The related WIP CL is aosp/3473380. \nIs that something like the following to add BPF_LOAD_XXXXXX in between, and then check the MLD type? \n\n```\n...\n        // IPv6 ...\n        // Check if skb-\u003eprotocol is ETH_P_IPV6\n        BPF2_REJECT_IF_NOT_EQUAL(ETH_P_IPV6),\n\n        BPF_LOADX_CONSTANT_IPV6_HLEN,\n\n        // Check IPv6 Next Header is HOPOPTS\n        BPF_LOAD_IPV6_U8(nexthdr),\n        BPF2_REJECT_IF_NOT_EQUAL(IPPROTO_HOPOPTS),\n\n        // Check if HOPOPTS is ICMPv6\n        BPF_LOAD_NETX_RELATIVE_V6EXTHDR_NEXTHDR,\n        BPF2_REJECT_IF_NOT_EQUAL(IPPROTO_ICMPV6),\n\n        // increase 8 bytes for HOPOPTS header\n        BPF_LOAD_XXXXXX,\n\n        // Check if MLDv1/MLDv2 report message\n        BPF_LOAD_NETX_RELATIVE_MLD_TYPE,\n        BPF2_ACCEPT_IF_EQUAL(MLD_LISTENER_REPORT),\n        BPF2_ACCEPT_IF_EQUAL(MLD_LISTENER_DONE),\n        BPF2_ACCEPT_IF_EQUAL(MLDV2_LISTENER_REPORT),\n        BPF_REJECT\n```",
+      "parentUuid": "48fe92e7_72b2170a",
       "range": {
         "startLine": 175,
         "startChar": 69,
