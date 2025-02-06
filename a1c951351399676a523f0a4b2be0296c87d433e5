@@ -45,6 +45,30 @@
       },
       "revId": "a1c951351399676a523f0a4b2be0296c87d433e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8067ce07_39772029",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T22:06:31Z",
+      "side": 1,
+      "message": "Actually no, because it would have also been removed from mClientNetworkRequests. Still, I am not sure how much sense it makes to check this here.",
+      "parentUuid": "e0432593_e34bea8b",
+      "range": {
+        "startLine": 546,
+        "startChar": 16,
+        "endLine": 547,
+        "endChar": 88
+      },
+      "revId": "a1c951351399676a523f0a4b2be0296c87d433e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
