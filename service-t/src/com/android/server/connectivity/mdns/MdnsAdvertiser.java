@@ -1007,6 +1007,13 @@ public class MdnsAdvertiser {
         });
     }
 
+    private List<String> getOffloadSubtype(@NonNull NsdServiceInfo nsdServiceInfo) {
+        if (nsdServiceInfo.getServiceType().equals("_googlecast._tcp")) {
+            return Collections.emptyList();
+        }
+        return new ArrayList<>(nsdServiceInfo.getSubtypes());
+    }
+
     private OffloadServiceInfoWrapper createOffloadService(int serviceId,
             @NonNull Registration registration, byte[] rawOffloadPacket) {
         final NsdServiceInfo nsdServiceInfo = registration.getServiceInfo();
@@ -1017,7 +1024,7 @@ public class MdnsAdvertiser {
         final OffloadServiceInfo offloadServiceInfo = new OffloadServiceInfo(
                 new OffloadServiceInfo.Key(nsdServiceInfo.getServiceName(),
                         nsdServiceInfo.getServiceType()),
-                new ArrayList<>(nsdServiceInfo.getSubtypes()),
+                getOffloadSubtype(nsdServiceInfo),
                 String.join(".", mDeviceHostName),
                 rawOffloadPacket,
                 priority,
