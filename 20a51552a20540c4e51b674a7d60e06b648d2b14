@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "601e119c_6ba5f3c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-06T03:25:15Z",
+      "side": 1,
+      "message": "Can I please see this along with the patch using this - ie. 2nd patch on top of this.",
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a1355ba_30044651",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-06T03:25:15Z",
+      "side": 1,
+      "message": "IPv6 MLD starts",
+      "range": {
+        "startLine": 173,
+        "startChar": 3,
+        "endLine": 173,
+        "endChar": 6
+      },
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d44dc2bf_c5f16745",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-06T03:25:15Z",
+      "side": 1,
+      "message": "It is located ...\n\nBut should this be in () ?",
+      "range": {
+        "startLine": 174,
+        "startChar": 5,
+        "endLine": 174,
+        "endChar": 6
+      },
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48fe92e7_72b2170a",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-06T03:25:15Z",
+      "side": 1,
+      "message": "But it seems like this is wrong, and should be (0),\nSince we should increase X+\u003d8 as part of processing the HOPOPTS header",
+      "range": {
+        "startLine": 175,
+        "startChar": 69,
+        "endLine": 175,
+        "endChar": 70
+      },
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
