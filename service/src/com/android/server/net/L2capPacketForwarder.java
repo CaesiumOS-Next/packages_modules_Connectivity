@@ -17,6 +17,7 @@
 package com.android.server.net;
 
 import android.bluetooth.BluetoothSocket;
+import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -42,6 +43,7 @@ public class L2capPacketForwarder {
     // MTU determines the value of the read buffers, so use the larger of the two.
     @VisibleForTesting
     public static final int MTU = 1528;
+    private final Handler mHandler;
     private final IReadWriteFd mTunFd;
     private final IReadWriteFd mL2capFd;
     private final L2capThread mIngressThread;
@@ -215,6 +217,13 @@ public class L2capPacketForwarder {
             mWriteFd = writeFd;
         }
 
+        private void postOnError() {
+            mHandler.post(() -> {
+                // All callbacks must be called on handler thread.
+                mCallback.onError();
+            });
+        }
+
         @Override
         public void run() {
             while (mIsRunning) {
@@ -234,7 +243,7 @@ public class L2capPacketForwarder {
                     // Tear down the network on any error.
                     mIsRunning = false;
                     // Notify provider that forwarding has stopped.
-                    mCallback.onError();
+                    postOnError();
                 }
             }
         }
@@ -253,13 +262,16 @@ public class L2capPacketForwarder {
         }
     }
 
-    public L2capPacketForwarder(ParcelFileDescriptor tunFd, BluetoothSocket socket, ICallback cb) {
+    public L2capPacketForwarder(Handler handler, ParcelFileDescriptor tunFd, BluetoothSocket socket,
+            ICallback cb) {
         // TODO: just store ParcelFd in here.
-        this(new FdWrapper(tunFd.getFileDescriptor()), new BluetoothSocketWrapper(socket), cb);
+        this(handler, new FdWrapper(tunFd.getFileDescriptor()), new BluetoothSocketWrapper(socket),
+                cb);
     }
 
     @VisibleForTesting
-    L2capPacketForwarder(IReadWriteFd tunFd, IReadWriteFd l2capFd, ICallback cb) {
+    L2capPacketForwarder(Handler handler, IReadWriteFd tunFd, IReadWriteFd l2capFd, ICallback cb) {
+        mHandler = handler;
         mTunFd = tunFd;
         mL2capFd = l2capFd;
         mCallback = cb;

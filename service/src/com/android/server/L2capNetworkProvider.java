@@ -219,7 +219,13 @@ public class L2capNetworkProvider {
             return null;
         }
 
-        return new L2capNetwork(mHandler, mContext, mProvider, ifname, socket, tunFd, caps);
+        return new L2capNetwork(mHandler, mContext, mProvider, ifname, socket, tunFd, caps, new L2capNetwork.ICallback() {
+            // TODO: implement
+            @Override
+            public void onError() {}
+            @Override
+            public void onNetworkUnwanted() {}
+        });
     }
 
     private class ReservedServerOffer implements NetworkOfferCallback {
