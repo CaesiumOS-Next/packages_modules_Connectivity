@@ -44,21 +44,12 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.L2capNetworkSpecifier;
-import android.net.LinkProperties;
-import android.net.NetworkAgent;
-import android.net.NetworkAgentConfig;
 import android.net.NetworkCapabilities;
 import android.net.NetworkProvider;
 import android.net.NetworkProvider.NetworkOfferCallback;
 import android.net.NetworkRequest;
 import android.net.NetworkScore;
 import android.net.NetworkSpecifier;
-import android.net.ip.IIpClient;
-import android.net.ip.IpClientCallbacks;
-import android.net.ip.IpClientManager;
-import android.net.ip.IpClientUtil;
-import android.net.shared.ProvisioningConfiguration;
-import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -70,6 +61,7 @@ import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.ServiceConnectivityJni;
+import com.android.server.net.L2capNetwork;
 import com.android.server.net.L2capPacketForwarder;
 
 import java.io.FileDescriptor;
@@ -198,93 +190,6 @@ public class L2capNetworkProvider {
         }
     }
 
-    private class L2capNetwork {
-        private static final NetworkScore NETWORK_SCORE = new NetworkScore.Builder().build();
-        private final String mIfname;
-        private final L2capPacketForwarder mForwarder;
-        private final NetworkCapabilities mNetworkCapabilities;
-        private final L2capIpClient mIpClient;
-        private final NetworkAgent mNetworkAgent;
-
-        /** IpClient wrapper to handle IPv6 link-local provisioning for L2CAP tun.
-         *
-         * Note that the IpClient does not need to be stopped.
-         */
-        private static class L2capIpClient extends IpClientCallbacks {
-            private final ConditionVariable mOnIpClientCreatedCv = new ConditionVariable(false);
-            private final ConditionVariable mOnProvisioningSuccessCv = new ConditionVariable(false);
-            @Nullable
-            private IpClientManager mIpClient;
-            @Nullable
-            private LinkProperties mLinkProperties;
-
-            public L2capIpClient(Context context, String ifname) {
-                IpClientUtil.makeIpClient(context, ifname, this);
-            }
-
-            @Override
-            public void onIpClientCreated(IIpClient ipClient) {
-                mIpClient = new IpClientManager(ipClient, TAG);
-                mOnIpClientCreatedCv.open();
-            }
-
-            @Override
-            public void onProvisioningSuccess(LinkProperties lp) {
-                Log.d(TAG, "Successfully provisionined l2cap tun: " + lp);
-                mLinkProperties = lp;
-                mOnProvisioningSuccessCv.open();
-            }
-
-            public LinkProperties start() {
-                mOnIpClientCreatedCv.block();
-                // mIpClient guaranteed non-null.
-                final ProvisioningConfiguration config = new ProvisioningConfiguration.Builder()
-                        .withoutIPv4()
-                        .withIpv6LinkLocalOnly()
-                        .withRandomMacAddress() // addr_gen_mode EUI64 -> random on tun.
-                        .build();
-                mIpClient.startProvisioning(config);
-                // "Provisioning" is guaranteed to succeed as link-local only mode does not actually
-                // require any provisioning.
-                mOnProvisioningSuccessCv.block();
-                return mLinkProperties;
-            }
-        }
-
-        public L2capNetwork(String ifname, BluetoothSocket socket, ParcelFileDescriptor tunFd,
-                NetworkCapabilities networkCapabilities) {
-            mIfname = ifname;
-            mForwarder = new L2capPacketForwarder(tunFd, socket, () -> {
-                // onError
-            });
-            mNetworkCapabilities = networkCapabilities;
-            mIpClient = new L2capIpClient(mContext, ifname);
-            final LinkProperties linkProperties = mIpClient.start();
-
-
-            final NetworkAgentConfig config = new NetworkAgentConfig.Builder().build();
-            mNetworkAgent = new NetworkAgent(mContext, mHandler.getLooper(), TAG,
-                    networkCapabilities, linkProperties, NETWORK_SCORE, config, mProvider) {
-                @Override
-                public void onNetworkUnwanted() {
-                    // TODO: implement
-                    Log.i(TAG, mIfname + ": Network is unwanted");
-                }
-            };
-            mNetworkAgent.register();
-            mNetworkAgent.markConnected();
-        }
-
-        public NetworkCapabilities getNetworkCapabilities() {
-            return mNetworkCapabilities;
-        }
-
-        public void tearDown() {
-            mNetworkAgent.unregister();
-            mForwarder.tearDown();
-        }
-    }
-
     @Nullable
     private static ParcelFileDescriptor createTunInterface(String ifname) {
         final ParcelFileDescriptor fd;
@@ -314,7 +219,7 @@ public class L2capNetworkProvider {
             return null;
         }
 
-        return new L2capNetwork(ifname, socket, tunFd, caps);
+        return new L2capNetwork(mHandler, mContext, mProvider, ifname, socket, tunFd, caps);
     }
 
     private class ReservedServerOffer implements NetworkOfferCallback {
