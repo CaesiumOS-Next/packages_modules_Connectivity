@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0c8ee25_54929011",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T19:54:44Z",
+      "side": 0,
+      "message": "Given the amount of threads here, this would also benefit from some protection to make sure everything outside of the threads is called on the handler thread.",
+      "revId": "8557269f5fb2ed5a369d8f9799457f69a870ea77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
