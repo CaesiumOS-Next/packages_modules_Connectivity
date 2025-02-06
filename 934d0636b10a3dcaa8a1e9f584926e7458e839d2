@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "981f5785_0a73c81e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2051900
+      },
+      "writtenOn": "2025-02-06T06:17:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fce2f7a_bfe77a85",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 61
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a46defa4_fc27b69b",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-02-06T00:43:24Z",
       "side": 1,
       "message": "Otherwise, if adb over ethernet is used, assumeNoInterfaceForTetheringAvailable() tears down the adb\nconnection because the call to requestTetheredInterface() tears\ndown IpClient.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 37
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "130b6c49_28f7e38a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2051900
+      },
+      "writtenOn": "2025-02-06T06:17:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a46defa4_fc27b69b",
       "range": {
         "startLine": 10,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f8461b8_630f786f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 2051900
+      },
+      "writtenOn": "2025-02-06T06:17:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38bf0b20_d27a8c92",
+      "range": {
+        "startLine": 621,
+        "startChar": 8,
+        "endLine": 621,
+        "endChar": 11
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f681f688_8a72ebfc",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-02-06T00:43:24Z",
       "side": 1,
       "message": "I think this is the bug you are trying to fix. This call will stop IpClient on the interface, and if adb is connected over ethernet, the adb socket will be closed.",
+      "range": {
+        "startLine": 625,
+        "startChar": 12,
+        "endLine": 625,
+        "endChar": 36
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6d45389_58260d8c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 2051900
+      },
+      "writtenOn": "2025-02-06T06:17:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f681f688_8a72ebfc",
       "range": {
         "startLine": 625,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7183d30_45493cb4",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 2051900
+      },
+      "writtenOn": "2025-02-06T06:17:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bdbe38e_699f7d88",
+      "range": {
+        "startLine": 640,
+        "startChar": 8,
+        "endLine": 640,
+        "endChar": 40
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11d4b3ab_9f331ecc",
@@ -129,6 +249,30 @@
       "writtenOn": "2025-02-06T00:43:24Z",
       "side": 1,
       "message": "this one will fail too.",
+      "range": {
+        "startLine": 666,
+        "startChar": 8,
+        "endLine": 666,
+        "endChar": 46
+      },
+      "revId": "934d0636b10a3dcaa8a1e9f584926e7458e839d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0006dbfb_f4b2817c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 2051900
+      },
+      "writtenOn": "2025-02-06T06:17:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11d4b3ab_9f331ecc",
       "range": {
         "startLine": 666,
         "startChar": 8,
