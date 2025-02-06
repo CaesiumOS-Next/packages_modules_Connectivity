@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56d92857_e19dd42c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-02-06T13:33:52Z",
+      "side": 1,
+      "message": "It should be possible to workaround the Mockito limitations in some cases. I wrote some [tests](https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/services/tests/selinux/src/com/android/server/selinux/SelinuxAuditLogsCollectorTest.java;l\u003d83;drc\u003ddb828d14a890556785574e0744d7982fbbfbc5b1) with mocking of static classes in the past, maybe that trick could work here as well.\n\nFeel free to submit the CL as is, though. The CTLoggerImpl class is still reasonably small and straightforward, if it ever gets bigger we can add the tests then.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 13
+      },
+      "revId": "782fad0c3ae063d876a69343719baa23b3f48fbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
