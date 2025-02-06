@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf5ede2d_315878b8",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-02-06T12:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1355ba_30044651",
+      "range": {
+        "startLine": 173,
+        "startChar": 3,
+        "endLine": 173,
+        "endChar": 6
+      },
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d44dc2bf_c5f16745",
@@ -112,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10605faf_1df39a97",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-02-06T12:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68b215d9_27420378",
+      "range": {
+        "startLine": 174,
+        "startChar": 5,
+        "endLine": 174,
+        "endChar": 6
+      },
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48fe92e7_72b2170a",
@@ -159,6 +207,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "961e5075_06f151c8",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-02-06T12:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f2c31be_b076854a",
+      "range": {
+        "startLine": 175,
+        "startChar": 69,
+        "endLine": 175,
+        "endChar": 70
+      },
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b38c8af_e3098cb3",
@@ -176,6 +248,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21376136_1ef08c01",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-02-06T12:02:16Z",
+      "side": 1,
+      "message": "Acked.",
+      "parentUuid": "7b38c8af_e3098cb3",
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a96459cc_b652c543",
@@ -189,6 +279,30 @@
       "writtenOn": "2025-02-06T03:46:44Z",
       "side": 1,
       "message": "basically you should use these two to skip past the hopopts and then it\u0027s offset 0 not offset 8",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 35
+      },
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5b981b9_5054b7cf",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-02-06T12:02:16Z",
+      "side": 1,
+      "message": "I see, then the program will be sth. like \n```\n..\n        // IPv6 ...\n        // Check if skb-\u003eprotocol is ETH_P_IPV6\n        BPF2_REJECT_IF_NOT_EQUAL(ETH_P_IPV6),\n\n        BPF_LOADX_CONSTANT_IPV6_HLEN,\n\n        // Check IPv6 Next Header is HOPOPTS\n        BPF_LOAD_IPV6_U8(nexthdr),\n        BPF2_REJECT_IF_NOT_EQUAL(IPPROTO_HOPOPTS),\n\n        // Check if HOPOPTS is ICMPv6\n        BPF_LOAD_NETX_RELATIVE_V6EXTHDR_NEXTHDR,\n        BPF2_REJECT_IF_NOT_EQUAL(IPPROTO_ICMPV6),\n\n        // Skip the IPv6 extension header\n        BPF3_LOAD_NETX_RELATIVE_V6EXTHDR_LEN,\n        BPF2_ADD_A_TO_X,\n\n        // Check if MLDv1/MLDv2 report message\n        BPF_LOAD_NETX_RELATIVE_MLD_TYPE,\n        BPF2_ACCEPT_IF_EQUAL(MLD_LISTENER_REPORT),\n        BPF2_ACCEPT_IF_EQUAL(MLD_LISTENER_DONE),\n        BPF2_ACCEPT_IF_EQUAL(MLDV2_LISTENER_REPORT),\n        BPF_REJECT\n```\n\nThis works with aosp/3473380 tests.",
+      "parentUuid": "a96459cc_b652c543",
       "range": {
         "startLine": 181,
         "startChar": 0,
