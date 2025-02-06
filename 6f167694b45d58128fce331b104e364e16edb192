@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "782e4fd8_7afe4941",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T22:00:07Z",
+      "side": 1,
+      "message": "Note that currently, the ReservedServerOffer\u0027s capabilities are based on the request capabilities. This is wrong.",
+      "range": {
+        "startLine": 164,
+        "startChar": 80,
+        "endLine": 164,
+        "endChar": 87
+      },
+      "revId": "6f167694b45d58128fce331b104e364e16edb192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "261738cd_53e7c794",
         "filename": "service/src/com/android/server/L2capNetworkProvider.java",
         "patchSetId": 1
