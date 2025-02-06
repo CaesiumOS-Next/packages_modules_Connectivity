@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52535cc7_64aabf1b",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1375,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-06T23:32:15Z",
+      "side": 1,
+      "message": "nit : \"is used\" x2",
+      "range": {
+        "startLine": 1375,
+        "startChar": 44,
+        "endLine": 1375,
+        "endChar": 52
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a625d8ab_55a708ef",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 305,
+                "startChar": 0,
+                "endLine": 306,
+                "endChar": 0
+              },
+              "replacement": "        // Flags.restrictLocalNetwork() to offer the feature to devices, but it will\n"
+            },
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 1375,
+                "startChar": 0,
+                "endLine": 1376,
+                "endChar": 0
+              },
+              "replacement": "            // Flags.restrictLocalNetwork() to offer the feature to devices, but it will\n"
+            }
+          ]
+        }
+      ],
+      "revId": "493f65cc949c9d8aa09ce10dd2e9ef44c1fd452f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5875965_0465022f",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-06T23:32:15Z",
+      "side": 1,
+      "message": "developers",
+      "range": {
+        "startLine": 1376,
+        "startChar": 37,
+        "endLine": 1376,
+        "endChar": 47
+      },
+      "revId": "493f65cc949c9d8aa09ce10dd2e9ef44c1fd452f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee35245_c1942d01",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-06T23:32:15Z",
+      "side": 1,
+      "message": "This is probably fine considering your code, but I\u0027m thinking that if there is a bug in the code that sets the sdk sandbox UID then this method stops doing what it says\n\nAs per offline discussion, we might want to separate the method getting it for the UID and the one getting it for the sandboxed UID and call both",
+      "range": {
+        "startLine": 694,
+        "startChar": 0,
+        "endLine": 698,
+        "endChar": 13
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9f918319_738f83fe",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 47,
+                "startChar": 0,
+                "endLine": 49,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 51,
+                "startChar": 0,
+                "endLine": 52,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 53,
+                "startChar": 0,
+                "endLine": 54,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 57,
+                "startChar": 0,
+                "endLine": 58,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 70,
+                "startChar": 0,
+                "endLine": 71,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 101,
+                "startChar": 0,
+                "endLine": 102,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 106,
+                "startChar": 0,
+                "endLine": 107,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 115,
+                "startChar": 0,
+                "endLine": 116,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 117,
+                "startChar": 0,
+                "endLine": 118,
+                "endChar": 0
+              },
+              "replacement": "import java.lang.reflect.Array;\nimport java.util.Arrays;\nimport java.util.List;\nimport java.util.Set;\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 128,
+                "startChar": 0,
+                "endLine": 129,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 131,
+                "startChar": 0,
+                "endLine": 136,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 694,
+                "startChar": 0,
+                "endLine": 699,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 703,
+                "startChar": 0,
+                "endLine": 708,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "493f65cc949c9d8aa09ce10dd2e9ef44c1fd452f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
