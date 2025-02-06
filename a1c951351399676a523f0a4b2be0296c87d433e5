@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23d8dc1e_afe7cce5",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T22:05:21Z",
+      "side": 1,
+      "message": "If this fails, the socket must be closed. Similar to handleCreateServerNetwork.",
+      "range": {
+        "startLine": 524,
+        "startChar": 87,
+        "endLine": 524,
+        "endChar": 93
+      },
+      "revId": "a1c951351399676a523f0a4b2be0296c87d433e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0432593_e34bea8b",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T22:05:21Z",
+      "side": 1,
+      "message": "I don\u0027t actually think this is a bug, because this can race with onNetworkUnneeded().",
+      "range": {
+        "startLine": 546,
+        "startChar": 16,
+        "endLine": 547,
+        "endChar": 88
+      },
+      "revId": "a1c951351399676a523f0a4b2be0296c87d433e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
