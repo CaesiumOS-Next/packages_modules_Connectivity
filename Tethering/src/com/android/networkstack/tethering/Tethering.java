@@ -299,6 +299,11 @@ public class Tethering {
     // read from binder thread which called TetheringService directly.
     private volatile long mSupportedTypeBitmap;
 
+    // Timestamp of the last time we enabled/disabled Wi-Fi tethering, measured by
+    // System#currentTimeMillis.
+    private long mLastWifiToggleTimeMs;
+    private final Object mLock = new Object();
+
     public Tethering(TetheringDependencies deps) {
         mLog.mark("Tethering.constructed");
         mDeps = deps;
@@ -413,7 +418,7 @@ public class Tethering {
         } else {
             mWearableConnectionManager = null;
         }
-
+        mLastWifiToggleTimeMs = 0;
         startStateMachineUpdaters();
     }
 
@@ -833,10 +838,33 @@ public class Tethering {
                 mLog.e("setWifiTethering: failed to get WifiManager!");
                 return TETHER_ERROR_SERVICE_UNAVAIL;
             }
-            if ((enable && mgr.startTetheredHotspot(null /* use existing softap config */))
-                    || (!enable && mgr.stopSoftAp())) {
+
+            if (Build.VERSION.SDK_INT == 33) {
+                // Wait 3 seconds between turning on/off Wi-Fi hotspot. On certain T firmwares,
+                // hostapd may be stuck in an error state if Wi-Fi hotspot is toggled too fast,
+                // causing the Wi-Fi thread to hang indefinitely.
+                synchronized (mLock) {
+                    long now = System.currentTimeMillis();
+                    final long targetTimeMs = mLastWifiToggleTimeMs + 3_000;
+                    while (targetTimeMs > now) {
+                        mLock.wait(targetTimeMs - now);
+                        now = System.currentTimeMillis();
+                    }
+                }
+            }
+
+            final boolean success;
+            if (enable) {
+                success = mgr.startTetheredHotspot(null /* use existing softap config */);
+            } else {
+                success = mgr.stopSoftAp();
+            }
+            mLastWifiToggleTimeMs = System.currentTimeMillis();
+            if (success) {
                 return TETHER_ERROR_NO_ERROR;
             }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         } finally {
             Binder.restoreCallingIdentity(ident);
         }
