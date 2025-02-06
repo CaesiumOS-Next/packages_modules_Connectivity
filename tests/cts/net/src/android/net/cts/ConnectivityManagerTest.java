@@ -2270,10 +2270,15 @@ public class ConnectivityManagerTest {
                 mCtsNetUtils.ensureWifiConnected();
                 waitForAvailable(wifiCb);
             }
+<<<<<<< HEAD   (1cf4f6 Skip WiFi test in CtsWifiTestCases  and CtsNetTestCases modu)
             if (supportTelephony) {
                 telephonyCb.eventuallyExpect(
                         CallbackEntry.AVAILABLE, CELL_DATA_AVAILABLE_TIMEOUT_MS);
             }
+||||||| BASE
+=======
+            if (supportTelephony) waitForAvailable(telephonyCb);
+>>>>>>> BRANCH (12dde9 Skip WiFi test in CtsWifiTestCases  and CtsNetTestCases modu)
         } finally {
             // Restore the previous state of airplane mode and permissions:
             runShellCommand("cmd connectivity airplane-mode "
