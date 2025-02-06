@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83b89a4d_fca5fc9d",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T19:41:43Z",
+      "side": 1,
+      "message": "So I think I have concluded on what to do here:\n\n2 tearDown paths:\n- internal, an error occured. This could also lead to a restart.\n- external, the request(s) went away.\n\n1) The respective offers should handle internal tear down, as the code is not shared between the two. This means, the L2capNetwork can\u0027t just post a common Message on the handler. It should receive a callback object that includes an onError() and onNetworkUnwanted() callback. It\u0027s possible that the two are handled the same, which remains to be seen.\n\n2) to clean up this file, L2capNetwork should be moved out. This code should only concern itself with bringing up and keeping track of those networks, not the networks themselves.\n\n3) Similarly, L2capPacketForwarder will take a onError callback object. That will just forward to L2capNetwork\u0027s onError callback.",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "6f167694b45d58128fce331b104e364e16edb192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "261738cd_53e7c794",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T19:41:43Z",
+      "side": 1,
+      "message": "consider moving all of this inside createReservedServerOffer for consistency. Also, createReservedServerOffer should really live in this file.",
+      "range": {
+        "startLine": 164,
+        "startChar": 11,
+        "endLine": 174,
+        "endChar": 53
+      },
+      "revId": "6f167694b45d58128fce331b104e364e16edb192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "110ce52a_1dd026c3",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T19:41:43Z",
+      "side": 1,
+      "message": "It doesn\u0027t happen yet, but L2capNetwork can\u0027t call this on error, because a ReservedServerOffer might have created multiple networks (even if intermittently) and the offer shouldn\u0027t be torn down if any of them are still active.",
+      "range": {
+        "startLine": 195,
+        "startChar": 12,
+        "endLine": 195,
+        "endChar": 44
+      },
+      "revId": "6f167694b45d58128fce331b104e364e16edb192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c9df70c_7bdf166c",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T19:41:43Z",
+      "side": 1,
+      "message": "this should be static.",
+      "range": {
+        "startLine": 306,
+        "startChar": 11,
+        "endLine": 306,
+        "endChar": 13
+      },
+      "revId": "6f167694b45d58128fce331b104e364e16edb192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69d17e7a_679ad657",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T19:41:43Z",
+      "side": 1,
+      "message": "this should be static.",
+      "range": {
+        "startLine": 307,
+        "startChar": 58,
+        "endLine": 307,
+        "endChar": 67
+      },
+      "revId": "6f167694b45d58128fce331b104e364e16edb192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56680d42_c9666475",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T19:41:43Z",
+      "side": 1,
+      "message": "Consider introducing using Message to send to the handler and making this private static (and passing only handler object around).",
+      "range": {
+        "startLine": 495,
+        "startChar": 4,
+        "endLine": 495,
+        "endChar": 17
+      },
+      "revId": "6f167694b45d58128fce331b104e364e16edb192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d34ca4a7_c94ece81",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T19:41:43Z",
+      "side": 1,
+      "message": "The NetworkRequest shouldn\u0027t be passed here, or to the ConnectThread. Calling declareNetworkRequestUnfulfillable from within this context is broken as there might already be another request present (that will then never be fulfilled). The only context declareNetworkRequestUnfulfillable can be called from is directly from within onNetworkNeeded().\n\nI think this also means that declareNetworkRequestUnfulfillable() cannot be called when any of the Bluetooth APIs fail, because those will be called again on restart. Otherwise, we must track all requests for a given network and send onUnavailable to all of them.\n\nInstead, retrying with exponential backoff might be the better option.",
+      "range": {
+        "startLine": 524,
+        "startChar": 47,
+        "endLine": 524,
+        "endChar": 61
+      },
+      "revId": "6f167694b45d58128fce331b104e364e16edb192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da4f8d89_e27a33b9",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T19:41:43Z",
+      "side": 1,
+      "message": "Similarly here, this must invoke some restart function that\u0027s posted (delayed) on the handler thread.",
+      "range": {
+        "startLine": 553,
+        "startChar": 13,
+        "endLine": 555,
+        "endChar": 70
+      },
+      "revId": "6f167694b45d58128fce331b104e364e16edb192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "575a8f6d_7a2be0f0",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T19:41:43Z",
+      "side": 1,
+      "message": "This code should be refactored into a handleCreateBluetoothSocket() function. If it fails, it cannot call declareNetworkRequestUnfulfillable, it must post delayed on the handler (that\u0027s not great because time doesn\u0027t count when the device is asleep, the timeout used here shouldn\u0027t be more than a few seconds (5 or 10 maybe)). It\u0027s probably best for the client to create the network request with a timeout, to figure out whether the network was actually created. The most likely failure path here is bluetooth being turned off, or the other device not being reachable.",
+      "range": {
+        "startLine": 678,
+        "startChar": 10,
+        "endLine": 701,
+        "endChar": 94
+      },
+      "revId": "6f167694b45d58128fce331b104e364e16edb192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bbf05b8_5294a554",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-06T19:41:43Z",
+      "side": 1,
+      "message": "Mocking this is actually rather annoying. I think a better approach would be to reuse CSTest, so none of the ConnectivityService interactions have to be mocked. The one thing that does have to be mocked are the Bluetooth APIs, which should provide some sort of loopback functionality.",
+      "range": {
+        "startLine": 730,
+        "startChar": 7,
+        "endLine": 733,
+        "endChar": 0
+      },
+      "revId": "6f167694b45d58128fce331b104e364e16edb192",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
