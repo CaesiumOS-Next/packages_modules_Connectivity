@@ -1,1 +1,0 @@
-This is where the RemoteAuth AIDL files will go
