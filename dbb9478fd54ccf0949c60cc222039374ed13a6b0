@@ -157,6 +157,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8421a570_e40ee603",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-06T22:20:33Z",
+      "side": 1,
+      "message": "I agree, this would not be the correct time to note the appop, updated to use `checkPermissionForStartDataDelivery` -- especially as a developer opt-in I think it would be better to not note the op (knowing that it\u0027s a feature in development) rather than incorrectly surfacing the nearby wifi devices appop in the privacy dashboard. Also filed a tracking bug to reevaluate for 2026. WDYT?",
+      "parentUuid": "06fe3162_1a791263",
+      "range": {
+        "startLine": 308,
+        "startChar": 53,
+        "endLine": 308,
+        "endChar": 83
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4be3874d_fcb61a0f",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 15
@@ -234,6 +258,30 @@
       "side": 1,
       "message": "So if the sandboxed UIDs should never have this permission, IIUC they need to be added to the map ? Since UIDs are blocked if they are present in the map, omitting them would always give them permission. Or am I missing something ?",
       "parentUuid": "f820e188_50490fe5",
+      "range": {
+        "startLine": 376,
+        "startChar": 20,
+        "endLine": 376,
+        "endChar": 23
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "609dc54c_503a087f",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-06T22:20:33Z",
+      "side": 1,
+      "message": "Ah you\u0027re right -- I was thinking about how SDKs would not be able to hold or use the required permission but we should still be blocking any SDKs that still might be trying to access the local network. Added logic to add sandbox uids to the map.",
+      "parentUuid": "e0b81fb4_0b2ab73d",
       "range": {
         "startLine": 376,
         "startChar": 20,
@@ -755,6 +803,30 @@
       "side": 1,
       "message": "Unless they really test the exact same thing I think there is value in keeping this test, especially during development of the feature. As for the inner listener you make a good point, but maybe it can simply be dealt with with a test-only method in PermissionManager for simplicity. Usually we do the full thing and have an argument captor, but it\u0027s true it makes the test a bit more complex in this case.\n\nJust to check if I understood your reply correctly : I\u0027m less concerned about `checkPermissionDataForDelivery` returning the wrong value, and more about the callback `onPermissionsChanged` not being called every time it changes. This is operative since your code is caching the result. Did I misunderstand your reply ?",
       "parentUuid": "c50f8b0c_288bbfcf",
+      "range": {
+        "startLine": 1710,
+        "startChar": 27,
+        "endLine": 1710,
+        "endChar": 47
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5fd6761_3221acc4",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1710,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-06T22:20:33Z",
+      "side": 1,
+      "message": "I think your response makes sense -- I was making a general connection that because the permission service holds the source of truth for permission changes that all the APIs accessing and checking these values should align. Hai\u0027s response re: the appops above also supports this in that the permission state itself will not differ, only noting the appop will. I\u0027ve reached out to theianchen@ as well for confirmation of this as well.\n\nIn the meantime, I\u0027ve updated this test to directly use `setLocalNetworkPermissions()` instead as this is the actual behavior we want to test. LMK what you think.",
+      "parentUuid": "1281755d_4fb5019e",
       "range": {
         "startLine": 1710,
         "startChar": 27,
