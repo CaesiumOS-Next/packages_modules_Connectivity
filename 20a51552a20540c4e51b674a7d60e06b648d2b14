@@ -85,6 +85,23 @@
       },
       "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b38c8af_e3098cb3",
+        "filename": "bpf/headers/include/bpf/BpfClassic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-06T03:26:55Z",
+      "side": 1,
+      "message": "Basically BPF_LOAD_NET_RELATIVE_... for things at constant offsets relative to start of ip header.\n\nvs LOAD_NETX relative for things past the variable length ipv4 header and/or ipv6 header incl. extension headers.",
+      "revId": "20a51552a20540c4e51b674a7d60e06b648d2b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
