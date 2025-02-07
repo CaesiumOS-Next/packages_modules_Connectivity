@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "631704e0_82f07090",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-07T18:44:53Z",
+      "side": 1,
+      "message": "bytes[] or bytes array",
+      "range": {
+        "startLine": 61,
+        "startChar": 11,
+        "endLine": 61,
+        "endChar": 16
+      },
+      "revId": "89f548b14b4005faff0d2d8c0a4bd986238d73e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "269d2dda_8630998a",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-07T18:44:53Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 67,
+        "startChar": 11,
+        "endLine": 67,
+        "endChar": 16
+      },
+      "revId": "89f548b14b4005faff0d2d8c0a4bd986238d73e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b44d09ce_9b9e121b",
         "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
         "patchSetId": 7
@@ -88,6 +134,29 @@
         "startChar": 21,
         "endLine": 116,
         "endChar": 26
+      },
+      "revId": "89f548b14b4005faff0d2d8c0a4bd986238d73e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8a4e8fe_ab6db651",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-07T18:44:53Z",
+      "side": 1,
+      "message": "might be useful to add a comment somewhere (top of file?) that there are no ethernet headers, thus mtu is L3 Mtu is L2 mtu and we don\u0027t need to +14...",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 20
       },
       "revId": "89f548b14b4005faff0d2d8c0a4bd986238d73e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
