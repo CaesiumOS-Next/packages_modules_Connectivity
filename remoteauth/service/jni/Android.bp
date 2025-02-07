@@ -24,9 +24,6 @@ rust_defaults {
         "libasync_trait",
     ],
     prefer_rlib: true,
-    apex_available: [
-        "com.android.tethering",
-    ],
     host_supported: true,
 }
 
@@ -34,6 +31,9 @@ rust_ffi_shared {
     name: "libremoteauth_jni_rust",
     defaults: ["libremoteauth_jni_rust_defaults"],
     rustlibs: [],
+    apex_available: [
+        "com.android.tethering",
+    ],
 }
 
 rust_test {
