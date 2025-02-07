@@ -209,42 +209,30 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
             return;
         }
 
-        boolean success = false;
-
         try (InputStream inputStream = mContext.getContentResolver().openInputStream(contentUri)) {
-            success = compatVersion.install(inputStream);
+            updateStatus = compatVersion.install(inputStream, updateStatus);
         } catch (IOException e) {
             Log.e(TAG, "Could not install new content", e);
             return;
         }
 
-        if (success) {
-            // Reset the number of consecutive log list failure updates back to zero.
-            mDataStore.setPropertyInt(Config.LOG_LIST_UPDATE_FAILURE_COUNT, /* value= */ 0);
-            mDataStore.store();
-        } else {
-            mLogger.logCTLogListUpdateStateChangedEvent(
-                    updateStatus
-                            .toBuilder()
-                            .setState(CTLogListUpdateState.VERSION_ALREADY_EXISTS)
-                            .build());
-            }
-        }
+        mLogger.logCTLogListUpdateStateChangedEvent(updateStatus);
+    }
 
     private void handleDownloadFailed(DownloadStatus status) {
         Log.e(TAG, "Download failed with " + status);
 
-        LogListUpdateStatus.Builder updateStatus = LogListUpdateStatus.builder();
+        LogListUpdateStatus.Builder updateStatusBuilder = LogListUpdateStatus.builder();
         if (status.isHttpError()) {
-            updateStatus
+            updateStatusBuilder
                     .setState(CTLogListUpdateState.HTTP_ERROR)
                     .setHttpErrorStatusCode(status.reason());
         } else {
             // TODO(b/384935059): handle blocked domain logging
-            updateStatus.setDownloadStatus(Optional.of(status.reason()));
+            updateStatusBuilder.setDownloadStatus(Optional.of(status.reason()));
         }
 
-        mLogger.logCTLogListUpdateStateChangedEvent(updateStatus.build());
+        mLogger.logCTLogListUpdateStateChangedEvent(updateStatusBuilder.build());
     }
 
     private long download(String url) {
