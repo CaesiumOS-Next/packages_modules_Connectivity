@@ -1931,6 +1931,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 Context.POWER_SERVICE);
         mNetTransitionWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
         mPendingIntentWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+        // The pending intent wake lock is only ever used between sending an intent and the
+        // intent finished sending. Unfortunately, the send() API makes no guarantee about
+        // whether the onSendFinished notification will be sent ; in fact, when send()
+        // throws a CancellationException, depending on the internal cause it may or may not
+        // call onSendFinished. The only way to deal with this, then, is to remember whether
+        // release() was called... or equivalently to tell the wakelock to ignore additional
+        // release() calls, which setReferenceCounted(false) does.
+        mPendingIntentWakeLock.setReferenceCounted(false);
 
         mLegacyTypeTracker.loadSupportedTypes(mContext, mTelephonyManager);
         mProtectedNetworks = new ArrayList<>();

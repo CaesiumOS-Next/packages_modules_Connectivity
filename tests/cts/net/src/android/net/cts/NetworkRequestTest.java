@@ -34,6 +34,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
 import static com.android.testutils.ParcelUtils.assertParcelingIsLossless;
+
 import static com.google.common.truth.Truth.assertThat;
 
 import static junit.framework.Assert.fail;
@@ -48,6 +49,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
 import android.annotation.NonNull;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.MacAddress;
 import android.net.MatchAllNetworkSpecifier;
 import android.net.NetworkCapabilities;
@@ -55,11 +62,13 @@ import android.net.NetworkRequest;
 import android.net.NetworkSpecifier;
 import android.net.wifi.WifiNetworkSpecifier;
 import android.os.Build;
+import android.os.ConditionVariable;
 import android.os.PatternMatcher;
 import android.os.Process;
 import android.util.ArraySet;
 import android.util.Range;
 
+import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.modules.utils.build.SdkLevel;
@@ -84,6 +93,8 @@ public class NetworkRequestTest {
     @Rule
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
 
+    private static final long SHORT_TIMEOUT_MS = 500;
+    private static final long LONG_TIMEOUT_MS = 30_000;
     private static final String TEST_SSID = "TestSSID";
     private static final String OTHER_SSID = "OtherSSID";
     private static final int TEST_UID = 2097;
@@ -605,5 +616,55 @@ public class NetworkRequestTest {
         assertThrows(IllegalArgumentException.class, () -> {
             new NetworkRequest(capsWithResId, TYPE_NONE, 42 /* rId */, NetworkRequest.Type.REQUEST);
         });
+    }
+
+    @Test
+    public void testNetworkRequest_pendingIntent() {
+        final String action = "com.android.server.PendingIntentTest";
+        final Context context = InstrumentationRegistry.getContext();
+        final ConnectivityManager cm = context.getSystemService(ConnectivityManager.class);
+
+        final ConditionVariable received = new ConditionVariable();
+
+        // Register a callback with intent and a request for any Internet-providing network,
+        // which should match the currently connected network.
+        final BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(final Context context, final Intent intent) {
+                received.open();
+            }
+        };
+        context.registerReceiver(receiver, new IntentFilter(action), Context.RECEIVER_NOT_EXPORTED);
+
+        final Intent intent = new Intent(action);
+        intent.setPackage("android.net.cts");
+        final PendingIntent pi = PendingIntent.getBroadcast(context, /* requestCode */ 1,
+                intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        final NetworkRequest nr = new NetworkRequest.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .build();
+        cm.registerNetworkCallback(nr, pi);
+        assertTrue("Intent was never called", received.block(LONG_TIMEOUT_MS));
+    }
+
+    // Up to R ConnectivityService can't be updated through mainline, and there was a bug
+    // where registering a callback with a canceled pending intent would crash the system.
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testNetworkRequest_pendingIntentClassNotFound() {
+        final Context context = InstrumentationRegistry.getContext();
+        final ConnectivityManager cm = context.getSystemService(ConnectivityManager.class);
+
+        final Intent intent = new Intent()
+                .setClassName("android.net.cts", "NonExistent");
+        final PendingIntent pi = PendingIntent.getActivity(context, /* requestCode */ 1,
+                intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        final NetworkRequest nr = new NetworkRequest.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .build();
+        // Before the fix delivered through Mainline, this used to crash the system
+        cm.registerNetworkCallback(nr, pi);
     }
 }
