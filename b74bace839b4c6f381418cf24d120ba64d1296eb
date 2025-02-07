@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46cca00c_f7e1d481",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-07T02:47:58Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary anymore as it was done in aosp/3475490",
+      "revId": "b74bace839b4c6f381418cf24d120ba64d1296eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
