@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0405871_bc2b02b0",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Will do as soon as the TODO above is addressed. For now, I\u0027ll use 1500 for both in and egress.",
+      "parentUuid": "1c85c4c7_c13fe77e",
+      "range": {
+        "startLine": 43,
+        "startChar": 28,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4b94a02_1c548fb1",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-22T23:48:45Z",
       "side": 1,
       "message": "read up to len bytes into bytes[off] and return bytes actually read",
+      "range": {
+        "startLine": 50,
+        "startChar": 24,
+        "endLine": 50,
+        "endChar": 25
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0bf16b5_8df1b3be",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4b94a02_1c548fb1",
       "range": {
         "startLine": 50,
         "startChar": 24,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65fd0d92_048c0c1a",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b782962a_17eb7ea5",
+      "range": {
+        "startLine": 54,
+        "startChar": 21,
+        "endLine": 54,
+        "endChar": 29
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65bafd36_1c0f7e28",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-01-22T23:48:45Z",
       "side": 1,
       "message": "does this mean we implement (or should) /extend AutoCloseable ?",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 24
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a909157_1aa81bf7",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "I am not sure whether that would actually be useful here.",
+      "parentUuid": "65bafd36_1c0f7e28",
       "range": {
         "startLine": 58,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d33e0690_c865ef6c",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5b00ed5_90047ca1",
+      "range": {
+        "startLine": 69,
+        "startChar": 52,
+        "endLine": 69,
+        "endChar": 55
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38796816_ea4dba9f",
@@ -133,6 +253,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2be09e24_861b0e7b",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38796816_ea4dba9f",
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bd33ecf_b02cfb3f",
@@ -146,6 +284,30 @@
       "writtenOn": "2025-01-22T23:48:45Z",
       "side": 1,
       "message": "the",
+      "range": {
+        "startLine": 84,
+        "startChar": 21,
+        "endLine": 84,
+        "endChar": 36
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65d79ee0_8eb4dff0",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bd33ecf_b02cfb3f",
       "range": {
         "startLine": 84,
         "startChar": 21,
@@ -179,6 +341,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e367157_15a8be06",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff6654b2_e1956fa1",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 8
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "528f83d7_9544eef5",
@@ -192,6 +378,30 @@
       "writtenOn": "2025-01-22T23:48:45Z",
       "side": 1,
       "message": "is this comment helpful? it\u0027ll be dropped both ways...  add \u0027even\u0027 ?",
+      "range": {
+        "startLine": 98,
+        "startChar": 20,
+        "endLine": 98,
+        "endChar": 42
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b31a696_90e44203",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "528f83d7_9544eef5",
       "range": {
         "startLine": 98,
         "startChar": 20,
@@ -225,6 +435,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "325274c8_84954ef8",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "decided to tear everything down when I encounter an exception on the Bluetooth side (given the amount of Bluetooth bugs).",
+      "parentUuid": "065960dd_6e049f01",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 26
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ce3946f_4c45b25c",
@@ -238,6 +472,30 @@
       "writtenOn": "2025-01-22T23:48:45Z",
       "side": 1,
       "message": "would it make sense to just throw ErrnoException and at least simplify these ?",
+      "range": {
+        "startLine": 163,
+        "startChar": 63,
+        "endLine": 163,
+        "endChar": 74
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91ba9604_251eb72d",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Possibly in a follow up.",
+      "parentUuid": "7ce3946f_4c45b25c",
       "range": {
         "startLine": 163,
         "startChar": 63,
@@ -271,6 +529,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04bce88a_078ea19e",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abf2f7b1_812bc40f",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 28
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b37dd687_44694117",
@@ -284,6 +566,30 @@
       "writtenOn": "2025-01-22T23:48:45Z",
       "side": 1,
       "message": "log?",
+      "range": {
+        "startLine": 236,
+        "startChar": 41,
+        "endLine": 236,
+        "endChar": 49
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c44580e_62ccc212",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b37dd687_44694117",
       "range": {
         "startLine": 236,
         "startChar": 41,
@@ -317,6 +623,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "143a62a1_2b26f353",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8a320a99_86bbcbe8",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 20
+      },
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb735c06_81a22712",
@@ -330,6 +660,24 @@
       "writtenOn": "2025-01-22T23:48:45Z",
       "side": 1,
       "message": "maybe should to {in,e}gressThread.tearDown() and only then {in,e}gressThread.join()",
+      "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11879ff9_0716c7fc",
+        "filename": "service/src/com/android/server/net/L2capPacketForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T18:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb735c06_81a22712",
       "revId": "52210c794e60177ce4490ded3ee24c6857f648ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
