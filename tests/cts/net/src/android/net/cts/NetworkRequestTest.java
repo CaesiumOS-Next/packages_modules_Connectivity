@@ -34,6 +34,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
 import static com.android.testutils.ParcelUtils.assertParcelingIsLossless;
+
 import static com.google.common.truth.Truth.assertThat;
 
 import static junit.framework.Assert.fail;
@@ -84,6 +85,7 @@ public class NetworkRequestTest {
     @Rule
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
 
+    private static final long LONG_TIMEOUT_MS = 30_000;
     private static final String TEST_SSID = "TestSSID";
     private static final String OTHER_SSID = "OtherSSID";
     private static final int TEST_UID = 2097;
