@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ef7bafe_890c8dec",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-07T20:32:29Z",
+      "side": 1,
+      "message": "I will address this in follow-up CL as this CL needs to be merged for the chained CLs",
+      "parentUuid": "8ff5e671_214850f9",
+      "range": {
+        "startLine": 933,
+        "startChar": 5,
+        "endLine": 933,
+        "endChar": 7
+      },
+      "revId": "e5027c81d328fcca6d1bcd070ffa5de509d3d3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ab3f74a_d5f9ca2a",
@@ -113,6 +137,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71e47134_b3de0e49",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-07T20:32:29Z",
+      "side": 1,
+      "message": "I will address this in follow-up CL as this CL needs to be merged for the chained CLs",
+      "parentUuid": "8ab3f74a_d5f9ca2a",
+      "range": {
+        "startLine": 944,
+        "startChar": 8,
+        "endLine": 944,
+        "endChar": 25
+      },
+      "revId": "e5027c81d328fcca6d1bcd070ffa5de509d3d3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "483cadeb_ada962ed",
@@ -154,6 +202,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ecff694_5ca2c275",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-07T20:32:29Z",
+      "side": 1,
+      "message": "I will address this in follow-up CL as this CL needs to be merged for the chained CLs",
+      "parentUuid": "483cadeb_ada962ed",
+      "range": {
+        "startLine": 975,
+        "startChar": 19,
+        "endLine": 975,
+        "endChar": 50
+      },
+      "revId": "e5027c81d328fcca6d1bcd070ffa5de509d3d3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca0b16d1_15743bd4",
@@ -191,6 +263,30 @@
           ]
         }
       ],
+      "revId": "e5027c81d328fcca6d1bcd070ffa5de509d3d3da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca8dc67e_05b655b3",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-07T20:32:29Z",
+      "side": 1,
+      "message": "I will address this in follow-up CL as this CL needs to be merged for the chained CLs",
+      "parentUuid": "ca0b16d1_15743bd4",
+      "range": {
+        "startLine": 272,
+        "startChar": 44,
+        "endLine": 272,
+        "endChar": 49
+      },
       "revId": "e5027c81d328fcca6d1bcd070ffa5de509d3d3da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
