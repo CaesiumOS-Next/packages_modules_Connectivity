@@ -588,6 +588,9 @@ public final class CtsTetheringUtils {
 
             final TetheringInterface iface =
                     callback.expectTetheredInterfacesChanged(wifiRegexs, TETHERING_WIFI);
+            assertEquals(softApConfiguration, iface.getSoftApConfiguration());
+            assertEquals(new TetheringInterface(
+                    TETHERING_WIFI, iface.getInterface(), softApConfiguration), iface);
 
             callback.expectOneOfOffloadStatusChanged(
                     TETHER_HARDWARE_OFFLOAD_STARTED,
