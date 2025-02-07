@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adab9e08_8ea1c4b3",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T21:03:57Z",
+      "side": 1,
+      "message": "ugly, but will be addressed in the next cl.",
+      "range": {
+        "startLine": 248,
+        "startChar": 9,
+        "endLine": 248,
+        "endChar": 51
+      },
+      "revId": "195e65db5d38e3a1662ce471193f51326fc04545",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
