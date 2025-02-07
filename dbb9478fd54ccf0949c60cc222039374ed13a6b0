@@ -179,6 +179,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dd9f8a9_c0a0aab9",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-07T20:28:10Z",
+      "side": 1,
+      "message": "Closing this out since Jean and I chatted about this in a call and checkPermissionForPreflight seems to be the correct API here",
+      "parentUuid": "8421a570_e40ee603",
+      "range": {
+        "startLine": 308,
+        "startChar": 53,
+        "endLine": 308,
+        "endChar": 83
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4be3874d_fcb61a0f",
@@ -827,6 +851,30 @@
       "side": 1,
       "message": "I think your response makes sense -- I was making a general connection that because the permission service holds the source of truth for permission changes that all the APIs accessing and checking these values should align. Hai\u0027s response re: the appops above also supports this in that the permission state itself will not differ, only noting the appop will. I\u0027ve reached out to theianchen@ as well for confirmation of this as well.\n\nIn the meantime, I\u0027ve updated this test to directly use `setLocalNetworkPermissions()` instead as this is the actual behavior we want to test. LMK what you think.",
       "parentUuid": "1281755d_4fb5019e",
+      "range": {
+        "startLine": 1710,
+        "startChar": 27,
+        "endLine": 1710,
+        "endChar": 47
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed647d38_a1d18499",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1710,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-07T20:28:10Z",
+      "side": 1,
+      "message": "Closing this out since Jean and I chatted and there were no additional AIs here. theianchen@ also clarified that this listener will additionally fire due to side effect changes to the permission (e.g. flags) that I presume are in the same category as the above mentioned fg / bg state checks. So it seems this callback is firing more often than we are care about for our puposes of LNP (since we only care about the major version state of grant / denial, at laest for 25q2).",
+      "parentUuid": "b5fd6761_3221acc4",
       "range": {
         "startLine": 1710,
         "startChar": 27,

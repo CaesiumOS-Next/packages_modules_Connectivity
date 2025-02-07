@@ -52,6 +52,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e869317d_bd2adbf0",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1375,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-07T20:28:10Z",
+      "side": 1,
+      "message": "Done, reworded a bit for clarity",
+      "parentUuid": "52535cc7_64aabf1b",
+      "range": {
+        "startLine": 1375,
+        "startChar": 44,
+        "endLine": 1375,
+        "endChar": 52
+      },
+      "revId": "493f65cc949c9d8aa09ce10dd2e9ef44c1fd452f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5875965_0465022f",
@@ -65,6 +89,30 @@
       "writtenOn": "2025-02-06T23:32:15Z",
       "side": 1,
       "message": "developers",
+      "range": {
+        "startLine": 1376,
+        "startChar": 37,
+        "endLine": 1376,
+        "endChar": 47
+      },
+      "revId": "493f65cc949c9d8aa09ce10dd2e9ef44c1fd452f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e39bfd9_8279a4d0",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-07T20:28:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5875965_0465022f",
       "range": {
         "startLine": 1376,
         "startChar": 37,
@@ -232,6 +280,30 @@
           ]
         }
       ],
+      "revId": "493f65cc949c9d8aa09ce10dd2e9ef44c1fd452f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7870b8f0_c67dc1f4",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-07T20:28:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ee35245_c1942d01",
+      "range": {
+        "startLine": 694,
+        "startChar": 0,
+        "endLine": 698,
+        "endChar": 13
+      },
       "revId": "493f65cc949c9d8aa09ce10dd2e9ef44c1fd452f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
