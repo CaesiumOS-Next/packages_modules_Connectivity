@@ -277,6 +277,53 @@ public final class BpfNetMapsTest {
 
     @Test
     @IgnoreAfter(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    public void testRemoveLocalNetAccessBeforeV() {
+        assertThrows(UnsupportedOperationException.class, () ->
+                mBpfNetMaps.removeLocalNetAccess(0, TEST_IF_NAME, Inet6Address.ANY, 0, 0));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    public void testRemoveLocalNetAccessAfterV() throws Exception {
+        assertTrue(mLocalNetAccessMap.isEmpty());
+
+        mBpfNetMaps.addLocalNetAccess(160, TEST_IF_NAME,
+                Inet4Address.getByName("196.68.0.0"), 0, 0, true);
+
+        assertNotNull(mLocalNetAccessMap.getValue(new LocalNetAccessKey(160, TEST_IF_INDEX,
+                Inet4Address.getByName("196.68.0.0"), 0, 0)));
+        assertNull(mLocalNetAccessMap.getValue(new LocalNetAccessKey(160, TEST_IF_INDEX,
+                Inet4Address.getByName("100.68.0.0"), 0, 0)));
+
+        mBpfNetMaps.removeLocalNetAccess(160, TEST_IF_NAME,
+                Inet4Address.getByName("196.68.0.0"), 0, 0);
+        assertNull(mLocalNetAccessMap.getValue(new LocalNetAccessKey(160, TEST_IF_INDEX,
+                Inet4Address.getByName("196.68.0.0"), 0, 0)));
+        assertNull(mLocalNetAccessMap.getValue(new LocalNetAccessKey(160, TEST_IF_INDEX,
+                Inet4Address.getByName("100.68.0.0"), 0, 0)));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    public void testRemoveLocalNetAccessAfterVWithIncorrectInterface() throws Exception {
+        assertTrue(mLocalNetAccessMap.isEmpty());
+
+        mBpfNetMaps.addLocalNetAccess(160, TEST_IF_NAME,
+                Inet4Address.getByName("196.68.0.0"), 0, 0, true);
+
+        assertNotNull(mLocalNetAccessMap.getValue(new LocalNetAccessKey(160, TEST_IF_INDEX,
+                Inet4Address.getByName("196.68.0.0"), 0, 0)));
+        assertNull(mLocalNetAccessMap.getValue(new LocalNetAccessKey(160, TEST_IF_INDEX,
+                Inet4Address.getByName("100.68.0.0"), 0, 0)));
+
+        mBpfNetMaps.removeLocalNetAccess(160, "wlan2",
+                Inet4Address.getByName("196.68.0.0"), 0, 0);
+        assertNotNull(mLocalNetAccessMap.getValue(new LocalNetAccessKey(160, TEST_IF_INDEX,
+                Inet4Address.getByName("196.68.0.0"), 0, 0)));
+    }
+
+    @Test
+    @IgnoreAfter(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     public void testGetLocalNetAccessBeforeV() {
         assertThrows(UnsupportedOperationException.class, () ->
                 mBpfNetMaps.getLocalNetAccess(0, TEST_IF_NAME, Inet6Address.ANY, 0, 0));
