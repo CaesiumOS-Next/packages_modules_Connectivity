@@ -16,6 +16,24 @@
       "message": "Maybe rename this to NetworkPermissions.java?",
       "revId": "6bbe256bb7a0dd6606a75e9675b08c80ab60217e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c8edcb4_727e08aa",
+        "filename": "service/src/com/android/server/connectivity/NetworkTrafficPerms.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-02-07T01:25:08Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "0c6b275e_9b45d07c",
+      "revId": "6bbe256bb7a0dd6606a75e9675b08c80ab60217e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

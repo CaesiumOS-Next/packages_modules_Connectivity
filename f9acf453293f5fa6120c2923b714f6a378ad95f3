@@ -33,6 +33,24 @@
       "message": "Maybe call these TRAFFIC_PERMISSION_xxx, to distinguish them from the ones above?",
       "revId": "f9acf453293f5fa6120c2923b714f6a378ad95f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6e28b9e_d8666db3",
+        "filename": "service/src/com/android/server/connectivity/NetworkTrafficPerms.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-02-07T01:25:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22113775_76287809",
+      "revId": "f9acf453293f5fa6120c2923b714f6a378ad95f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
