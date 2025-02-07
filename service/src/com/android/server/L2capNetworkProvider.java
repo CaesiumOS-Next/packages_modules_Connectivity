@@ -206,11 +206,17 @@ public class L2capNetworkProvider {
         public void onNetworkUnneeded(NetworkRequest request) {
             final ReservedServerOffer reservedOffer = getReservedOfferForRequest(request);
             if (reservedOffer == null) return;
-
-            mReservedServerOffers.remove(reservedOffer);
-            reservedOffer.tearDown();
-            mProvider.unregisterNetworkOffer(reservedOffer);
+            destroyAndUnregisterReservedOffer(reservedOffer);
         }
+    }
+
+    private void destroyAndUnregisterReservedOffer(ReservedServerOffer reservedOffer) {
+        // Ensure the offer still exists if this was posted on the handler.
+        if (!mReservedServerOffers.contains(reservedOffer)) return;
+        mReservedServerOffers.remove(reservedOffer);
+
+        reservedOffer.tearDown();
+        mProvider.unregisterNetworkOffer(reservedOffer);
     }
 
     private class ReservedServerOffer implements NetworkOfferCallback {
