@@ -22,6 +22,30 @@
       },
       "revId": "ec43bd386a4ac8cd44483ba334c96ac5088b88c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb8d0dfc_c840690e",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-07T23:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "692cb944_4a9f909e",
+      "range": {
+        "startLine": 248,
+        "startChar": 21,
+        "endLine": 248,
+        "endChar": 22
+      },
+      "revId": "ec43bd386a4ac8cd44483ba334c96ac5088b88c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
