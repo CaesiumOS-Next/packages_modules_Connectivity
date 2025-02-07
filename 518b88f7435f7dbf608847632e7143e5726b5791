@@ -1,0 +1,39 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01ad99b2_f2d0ebba",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10737,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-07T07:24:14Z",
+      "side": 1,
+      "message": "Meh. I am just noticing now that it is possible, though very unlikely, that another pending intent is just being fired at the same time. Because it\u0027s the same wakelock, the second call to release() for an intent for which both were called might release a lock that was acquired by another intent, leading to the device going to sleep at the wrong time.\n\n...really there is no way out of refcounting or using different wakelocks it seems \u003e.\u003e",
+      "fixSuggestions": [
+        {
+          "fixId": "d4e978fa_2a3b60c0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 10737,
+                "startChar": 0,
+                "endLine": 10738,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "518b88f7435f7dbf608847632e7143e5726b5791",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
