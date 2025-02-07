@@ -16,6 +16,23 @@
       "message": "LGTM assuming we discuss the race with Yi-an",
       "revId": "6b6d1a61662ffd1a6930e66d3cea348bc9138c9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0debc19_3b0f520c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 59
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-07T20:06:32Z",
+      "side": 1,
+      "message": "Thanks everyone!",
+      "revId": "6b6d1a61662ffd1a6930e66d3cea348bc9138c9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

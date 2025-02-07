@@ -461,6 +461,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e18b6d7b_c6601944",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-07T20:06:32Z",
+      "side": 1,
+      "message": "Met with Yi-an today -- we\u0027re not sure if the calls are synchronized, and there are instances where permissions will be set during system boot, but not for any runtime permissions. Runtime permissions should be waiting until system boot finishes and the user takes action for them to change, so the callback should not be racy in any cases that we are interested in. Closing this out",
+      "parentUuid": "a09b22b0_8ba5697a",
+      "range": {
+        "startLine": 287,
+        "startChar": 28,
+        "endLine": 287,
+        "endChar": 58
+      },
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a898698_672a117d",
