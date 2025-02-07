@@ -464,7 +464,7 @@ public class BpfNetMaps {
      ToDo : Remove this method when SdkLevel.isAtLeastB() is fixed, aosp is at sdk level 36 or use
      NetworkStackUtils.isAtLeast25Q2 when it is moved to a static lib.
      */
-    private static boolean isAtLeast25Q2() {
+    public static boolean isAtLeast25Q2() {
         return SdkLevel.isAtLeastB()  || (SdkLevel.isAtLeastV()
                 && "Baklava".equals(Build.VERSION.CODENAME));
     }
@@ -919,6 +919,35 @@ public class BpfNetMaps {
         } catch (ErrnoException e) {
             Log.e(TAG, "Failed to add local network access for localNetAccessKey : "
                     + localNetAccessKey + ", isAllowed : " + isAllowed);
+        }
+    }
+
+    /**
+     * Remove configuration to local_net_access trie map.
+     * @param lpmBitlen prefix length that will be used for longest matching
+     * @param iface interface name
+     * @param address remote address. ipv4 addresses would be mapped to v6
+     * @param protocol required for longest match in special cases
+     * @param remotePort src/dst port for ingress/egress
+     */
+    @RequiresApi(Build.VERSION_CODES.CUR_DEVELOPMENT)
+    public void removeLocalNetAccess(final int lpmBitlen, final String iface,
+            final InetAddress address, final int protocol, final int remotePort) {
+        throwIfPre25Q2("removeLocalNetAccess is not available on pre-B devices");
+        final int ifIndex = mDeps.getIfIndex(iface);
+        if (ifIndex == 0) {
+            Log.e(TAG, "Failed to get if index, skip removeLocalNetAccess for " + address
+                    + "(" + iface + ")");
+            return;
+        }
+        LocalNetAccessKey localNetAccessKey = new LocalNetAccessKey(lpmBitlen, ifIndex,
+                address, protocol, remotePort);
+
+        try {
+            sLocalNetAccessMap.deleteEntry(localNetAccessKey);
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to remove local network access for localNetAccessKey : "
+                    + localNetAccessKey);
         }
     }
 
