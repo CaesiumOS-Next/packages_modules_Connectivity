@@ -109,8 +109,8 @@ import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_5;
 import static android.net.NetworkCapabilities.REDACT_FOR_ACCESS_FINE_LOCATION;
 import static android.net.NetworkCapabilities.REDACT_FOR_LOCAL_MAC_ADDRESS;
 import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
-import static android.net.NetworkCapabilities.RES_ID_UNSET;
 import static android.net.NetworkCapabilities.RES_ID_MATCH_ALL_RESERVATIONS;
+import static android.net.NetworkCapabilities.RES_ID_UNSET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
@@ -337,6 +337,7 @@ import com.android.net.module.util.BpfUtils;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.HandlerUtils;
+import com.android.net.module.util.InetAddressUtils;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.LinkPropertiesUtils.CompareOrUpdateResult;
 import com.android.net.module.util.LinkPropertiesUtils.CompareResult;
@@ -486,6 +487,38 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     // The maximum value for the blocking validation result, in milliseconds.
     public static final int MAX_VALIDATION_IGNORE_AFTER_ROAM_TIME_MS = 10000;
+
+    private static final List<IpPrefix> IPV4_LOCAL_PREFIXES = new ArrayList<>();
+    static {
+        //Link Local
+        IPV4_LOCAL_PREFIXES.add(
+                new IpPrefix(InetAddressUtils.getByAddressNoCheck("169.254.0.0"), 16));
+        //CGNAT
+        IPV4_LOCAL_PREFIXES.add(
+                new IpPrefix(InetAddressUtils.getByAddressNoCheck("100.64.0.0"), 10));
+        //RFC1918
+        IPV4_LOCAL_PREFIXES.add(
+                new IpPrefix(InetAddressUtils.getByAddressNoCheck("10.0.0.0"), 8));
+        //RFC1918
+        IPV4_LOCAL_PREFIXES.add(
+                new IpPrefix(InetAddressUtils.getByAddressNoCheck("172.16.0.0"), 12));
+        //RFC1918
+        IPV4_LOCAL_PREFIXES.add(
+                new IpPrefix(InetAddressUtils.getByAddressNoCheck("192.168.0.0"), 16));
+    }
+
+    private static final List<IpPrefix> MULTICAST_AND_BROADCAST_PREFIXES = new ArrayList<>();
+    static {
+        //Multicast
+        MULTICAST_AND_BROADCAST_PREFIXES.add(
+                new IpPrefix(InetAddressUtils.getByAddressNoCheck("224.0.0.0"), 4));
+        //Multicast
+        MULTICAST_AND_BROADCAST_PREFIXES.add(
+                new IpPrefix(InetAddressUtils.getByAddressNoCheck("ff00::"), 8));
+        //Broadcast
+        MULTICAST_AND_BROADCAST_PREFIXES.add(
+                new IpPrefix(InetAddressUtils.getByAddressNoCheck("255.255.255.255"), 32));
+    }
 
     // The maximum number of network request allowed per uid before an exception is thrown.
     @VisibleForTesting
@@ -5683,6 +5716,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // destroyed pending replacement they will be sent when it is disconnected.
         maybeDisableForwardRulesForDisconnectingNai(nai, false /* sendCallbacks */);
         updateIngressToVpnAddressFiltering(null, nai.linkProperties, nai);
+        updateLocalNetworkAddresses(null, nai.linkProperties);
         try {
             mNetd.networkDestroy(nai.network.getNetId());
         } catch (RemoteException | ServiceSpecificException e) {
@@ -9583,6 +9617,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         updateIngressToVpnAddressFiltering(newLp, oldLp, networkAgent);
 
+        updateLocalNetworkAddresses(newLp, oldLp);
+
         updateMtu(newLp, oldLp);
         // TODO - figure out what to do for clat
 //        for (LinkProperties lp : newLp.getStackedLinks()) {
@@ -9758,6 +9794,65 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } catch (Exception e) {
                 loge("Exception removing interface: " + e);
             }
+        }
+    }
+
+    /**
+     * Update Local Network Addresses to LocalNetAccess BPF map.
+     * @param newLp new link properties
+     * @param oldLp old link properties
+     */
+    private void updateLocalNetworkAddresses(@Nullable final LinkProperties newLp,
+            @NonNull final LinkProperties oldLp) {
+
+        // The maps are available only after 25Q2 release
+        if (!BpfNetMaps.isAtLeast25Q2()) {
+            return;
+        }
+
+        final CompareResult<String> interfaceDiff = new CompareResult<>(
+                oldLp != null ? oldLp.getAllInterfaceNames() : null,
+                newLp != null ? newLp.getAllInterfaceNames() : null);
+
+        for (final String iface : interfaceDiff.added) {
+            addLocalAddressesToBpfMap(iface, IPV4_LOCAL_PREFIXES);
+            addLocalAddressesToBpfMap(iface, MULTICAST_AND_BROADCAST_PREFIXES);
+        }
+        for (final String iface : interfaceDiff.removed) {
+            removeLocalAddressesFromBpfMap(iface, IPV4_LOCAL_PREFIXES);
+            removeLocalAddressesFromBpfMap(iface, MULTICAST_AND_BROADCAST_PREFIXES);
+        }
+    }
+
+    /**
+     * Adds list of prefixes(addresses) to local network access map.
+     * @param iface interface name
+     * @param prefixes list of prefixes/addresses
+     */
+    private void addLocalAddressesToBpfMap(final String iface, final List<IpPrefix> prefixes) {
+        if (!BpfNetMaps.isAtLeast25Q2()) return;
+        for (IpPrefix prefix : prefixes) {
+            final int prefixLengthConstant = (prefix.getAddress() instanceof Inet4Address)
+                    ? (32 + 96) : 32;
+            mBpfNetMaps.addLocalNetAccess(prefixLengthConstant + prefix.getPrefixLength(),
+                    iface, prefix.getAddress(), 0, 0, false);
+
+        }
+
+    }
+
+    /**
+     * Removes list of prefixes(addresses) from local network access map.
+     * @param iface interface name
+     * @param prefixes list of prefixes/addresses
+     */
+    private void removeLocalAddressesFromBpfMap(final String iface, final List<IpPrefix> prefixes) {
+        if (!BpfNetMaps.isAtLeast25Q2()) return;
+        for (IpPrefix prefix : prefixes) {
+            final int prefixLengthConstant = (prefix.getAddress() instanceof Inet4Address)
+                    ? (32 + 96) : 32;
+            mBpfNetMaps.removeLocalNetAccess(prefixLengthConstant
+                    + prefix.getPrefixLength(), iface, prefix.getAddress(), 0, 0);
         }
     }
 
