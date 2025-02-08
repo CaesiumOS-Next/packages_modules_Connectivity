@@ -249,6 +249,9 @@ public class Tethering {
     // to be used after the interface comes up asynchronously.
     private final SparseArray<TetheringRequest> mPendingTetheringRequests =
             new SparseArray<>();
+    // Map of IIntResultListeners for startTethering calls that are awaiting the link layer event.
+    private final Map<TetheringRequest, IIntResultListener> mPendingStartTetheringCallbacks =
+            new ArrayMap<>();
     /**
      * Currently serving TetheringRequests mapped by interface.
      * These are added when IpServer#enable is called and removed when IpServer#stop or
@@ -750,6 +753,7 @@ public class Tethering {
                     }
                     return;
                 }
+                mPendingStartTetheringCallbacks.put(request, listener);
             } else {
                 // Legacy code.
                 // If tethering is already enabled with a different request,
@@ -815,6 +819,14 @@ public class Tethering {
     }
 
     void stopTetheringInternal(int type) {
+        final TetheringRequest pendingRequest = mPendingTetheringRequests.get(type);
+        if (pendingRequest != null) {
+            // Remove any pending requests and notify their StartTetheringCallbacks of failure.
+            IIntResultListener pendingListener =
+                    mPendingStartTetheringCallbacks.get(pendingRequest);
+            sendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL, type);
+            mPendingStartTetheringCallbacks.remove(pendingRequest);
+        }
         mPendingTetheringRequests.remove(type);
 
         enableTetheringInternal(type, false /* disabled */, null, null);
@@ -1265,6 +1277,12 @@ public class Tethering {
         //
         // This code cannot race with untether() because they both run on the handler thread.
         mPendingTetheringRequests.remove(request.getTetheringType());
+        IIntResultListener listener = mPendingStartTetheringCallbacks.remove(request);
+        if (listener != null) {
+            try {
+                listener.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) { }
+        }
         mServingTetheringRequests.put(iface, request);
         tetherState.ipServer.enable(request);
         if (request.getRequestType() == REQUEST_TYPE_PLACEHOLDER) {
@@ -1704,6 +1722,16 @@ public class Tethering {
     }
 
     private void enableIpServing(@NonNull TetheringRequest request, String ifname, boolean isNcm) {
+        if (isTetheringWithSoftApConfigEnabled()
+                && request.getRequestType() == REQUEST_TYPE_PLACEHOLDER
+                && request.getTetheringType() != TETHERING_WIFI) {
+            // TODO: WIFI is exempted since "adb shell cmd wifi start-softap" still relies on
+            //       starting tethering without an explicit TetheringRequest. Remove this exemption
+            //       once the wifi shell command starts passing a TetheringRequest.
+            Log.i(TAG, "Ignoring link layer event for type " + request.getTetheringType() + " since"
+                    + " there was no pending TetheringRequest.");
+            return;
+        }
         ensureIpServerStartedForType(ifname, request.getTetheringType(), isNcm);
         if (tetherInternal(request, ifname) != TETHER_ERROR_NO_ERROR) {
             Log.e(TAG, "unable start tethering on iface " + ifname);
