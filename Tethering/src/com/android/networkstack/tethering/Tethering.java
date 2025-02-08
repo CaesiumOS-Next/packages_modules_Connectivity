@@ -248,6 +248,9 @@ public class Tethering {
     // to be used after the interface comes up asynchronously.
     private final SparseArray<TetheringRequest> mPendingTetheringRequests =
             new SparseArray<>();
+    // Map of IIntResultListeners for startTethering calls that are awaiting the link layer event.
+    private final Map<TetheringRequest, IIntResultListener> mPendingStartTetheringCallbacks =
+            new ArrayMap<>();
     /**
      * Currently serving TetheringRequests mapped by interface.
      * These are added when IpServer#enable is called and removed when IpServer#stop or
@@ -762,6 +765,9 @@ public class Tethering {
                 }
             }
             mPendingTetheringRequests.put(type, request);
+            if (isTetheringWithSoftApConfigEnabled()) {
+                mPendingStartTetheringCallbacks.put(request, listener);
+            }
 
             if (request.isExemptFromEntitlementCheck()) {
                 mEntitlementMgr.setExemptedDownstreamType(type);
@@ -814,6 +820,11 @@ public class Tethering {
     }
 
     void stopTetheringInternal(int type) {
+        IIntResultListener pendingListener =
+                mPendingStartTetheringCallbacks.get(mPendingTetheringRequests.get(type));
+        if (pendingListener != null) {
+            sendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL, type);
+        }
         mPendingTetheringRequests.remove(type);
 
         enableTetheringInternal(type, false /* disabled */, null, null);
@@ -1259,6 +1270,12 @@ public class Tethering {
         //
         // This code cannot race with untether() because they both run on the handler thread.
         mPendingTetheringRequests.remove(request.getTetheringType());
+        IIntResultListener listener = mPendingStartTetheringCallbacks.remove(request);
+        if (listener != null) {
+            try {
+                listener.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) { }
+        }
         mServingTetheringRequests.put(iface, request);
         tetherState.ipServer.enable(request);
         if (request.getRequestType() == REQUEST_TYPE_PLACEHOLDER) {
