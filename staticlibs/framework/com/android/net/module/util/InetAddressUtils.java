@@ -119,5 +119,19 @@ public class InetAddressUtils {
         }
     }
 
+    /**
+     * Convert ip address from string to InetAddress
+     * @param address ip address in string form
+     * @return ip address in InetAddress form
+     * @throws RuntimeException if ip address is malformed.
+     */
+    public static final InetAddress getByAddressNoCheck(String address) {
+        try {
+            return InetAddress.getByName(address);
+        } catch (UnknownHostException unknownHostException) {
+            throw new RuntimeException(unknownHostException);
+        }
+    }
+
     private InetAddressUtils() {}
 }
