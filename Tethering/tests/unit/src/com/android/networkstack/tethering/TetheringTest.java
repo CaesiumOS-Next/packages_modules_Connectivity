@@ -2568,7 +2568,7 @@ public class TetheringTest {
         when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener);
         mLooper.dispatchAll();
-        successListener.assertHasResult();
+        successListener.assertDoesNotHaveResult();
 
         // Try starting wifi tethering with various fuzzy-matching requests and verify we get
         // TETHER_ERROR_DUPLICATE_REQUEST.
@@ -2602,6 +2602,7 @@ public class TetheringTest {
         // TETHER_ERROR_DUPLICATE_REQUEST even though the request is no longer pending and is
         // already serving.
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        successListener.assertHasResult();
         assertArrayEquals(new TetheringInterface[] {wifiIfaceWithoutConfig},
                 callback.pollTetherStatesChanged().availableList);
         assertArrayEquals(new TetheringInterface[] {wifiIfaceWithConfig},
@@ -2915,7 +2916,9 @@ public class TetheringTest {
         mTethering.startTethering(createTetheringRequest(TETHERING_USB), TEST_CALLER_PKG,
                 firstResult);
         mLooper.dispatchAll();
-        firstResult.assertHasResult();
+        if (!isTetheringWithSoftApConfigEnabled()) {
+            firstResult.assertHasResult();
+        }
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_RNDIS);
         verifyNoMoreInteractions(mUsbManager);
 
@@ -3534,11 +3537,16 @@ public class TetheringTest {
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, result);
         mLooper.dispatchAll();
         verifySetBluetoothTethering(true /* enable */, true /* bindToPanService */);
-        result.assertHasResult();
+        if (!isTetheringWithSoftApConfigEnabled()) {
+            result.assertHasResult();
+        }
 
         mTetheredInterfaceCallbackShim.onAvailable(TEST_BT_IFNAME);
         mLooper.dispatchAll();
         verifyNetdCommandForBtSetup();
+        if (isTetheringWithSoftApConfigEnabled()) {
+            result.assertHasResult();
+        }
 
         // If PAN disconnect, tethering should also be stopped.
         mTetheredInterfaceCallbackShim.onUnavailable();
@@ -3619,7 +3627,9 @@ public class TetheringTest {
         mLooper.dispatchAll();
         ServiceListener panListener = verifySetBluetoothTethering(true /* enable */,
                 true /* bindToPanService */);
-        result.assertHasResult();
+        if (!isTetheringWithSoftApConfigEnabled()) {
+            result.assertHasResult();
+        }
 
         mTethering.interfaceAdded(TEST_BT_IFNAME);
         mLooper.dispatchAll();
@@ -3627,6 +3637,9 @@ public class TetheringTest {
         if (isAtLeastT()) {
             mTetheredInterfaceCallbackShim.onAvailable(TEST_BT_IFNAME);
             mLooper.dispatchAll();
+            if (isTetheringWithSoftApConfigEnabled()) {
+                result.assertHasResult();
+            }
         } else {
             mTethering.interfaceStatusChanged(TEST_BT_IFNAME, false);
             mTethering.interfaceStatusChanged(TEST_BT_IFNAME, true);
@@ -3988,5 +4001,32 @@ public class TetheringTest {
         assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_VIRT_IFNAME);
         mTethering.stopTethering(TETHERING_VIRTUAL);
         mLooper.dispatchAll();
+    }
+
+    @Test
+    public void testStopTetheringRemovesPendingRequestAndNotifiesListener() throws Exception {
+        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        initTetheringOnTestThread();
+
+        // Enable USB tethering and check that Tethering starts USB.
+        final TetheringRequest request = createTetheringRequest(TETHERING_USB);
+        final ResultListener startListener = new ResultListener(TETHER_ERROR_SERVICE_UNAVAIL);
+        mTethering.startTethering(request, TEST_CALLER_PKG, startListener);
+        mLooper.dispatchAll();
+        startListener.assertDoesNotHaveResult();
+        verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_RNDIS);
+        verifyNoMoreInteractions(mUsbManager);
+
+        // Stop USB tethering before the link layer event. This should notify the start listener of
+        // a failure
+        mTethering.stopTethering(TETHERING_USB);
+        mLooper.dispatchAll();
+        startListener.assertHasResult();
+        verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
+
+        // When the link layer comes up from the start request, we shouldn't start tethering since
+        // the request was stopped.
+        sendUsbBroadcast(true, true, TETHER_USB_RNDIS_FUNCTION);
+        assertFalse(mTethering.getAllTetheringRequests().contains(request));
     }
 }

@@ -249,6 +249,9 @@ public class Tethering {
     // to be used after the interface comes up asynchronously.
     private final SparseArray<TetheringRequest> mPendingTetheringRequests =
             new SparseArray<>();
+    // Map of IIntResultListeners for startTethering calls that are awaiting the link layer event.
+    private final Map<TetheringRequest, IIntResultListener> mPendingStartTetheringCallbacks =
+            new ArrayMap<>();
     /**
      * Currently serving TetheringRequests mapped by interface.
      * These are added when IpServer#enable is called and removed when IpServer#stop or
@@ -750,6 +753,7 @@ public class Tethering {
                     }
                     return;
                 }
+                mPendingStartTetheringCallbacks.put(request, listener);
             } else {
                 // Legacy code.
                 // If tethering is already enabled with a different request,
@@ -815,6 +819,13 @@ public class Tethering {
     }
 
     void stopTetheringInternal(int type) {
+        final TetheringRequest pendingRequest = mPendingTetheringRequests.get(type);
+        if (pendingRequest != null) {
+            // Remove any pending requests and notify their StartTetheringCallbacks of failure.
+            IIntResultListener pendingListener =
+                    mPendingStartTetheringCallbacks.get(pendingRequest);
+            maybeSendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL, type);
+        }
         mPendingTetheringRequests.remove(type);
 
         enableTetheringInternal(type, false /* disabled */, null, null);
@@ -854,17 +865,21 @@ public class Tethering {
 
         // The result of Bluetooth tethering will be sent by #setBluetoothTethering.
         if (type != TETHERING_BLUETOOTH) {
-            sendTetherResult(listener, result, type);
+            maybeSendTetherResult(listener, result, type);
         }
     }
 
-    private void sendTetherResult(final IIntResultListener listener, final int result,
+    private void maybeSendTetherResult(final IIntResultListener listener, final int result,
             final int type) {
+        // If the tethering_with_soft_ap_config flag is enabled, only send the tether result before
+        // the link layer event if it's for a failure.
+        if (isTetheringWithSoftApConfigEnabled() && result == TETHER_ERROR_NO_ERROR) return;
         if (listener != null) {
             try {
                 listener.onResult(result);
             } catch (RemoteException e) { }
         }
+        mPendingStartTetheringCallbacks.remove(mPendingTetheringRequests.get(type));
 
         // If changing tethering fail, remove corresponding request
         // no matter who trigger the start/stop.
@@ -873,6 +888,16 @@ public class Tethering {
             mTetheringMetrics.updateErrorCode(type, result);
             mTetheringMetrics.sendReport(type);
         }
+    }
+
+    private void sendTetherResultSuccess(TetheringRequest request) {
+        IIntResultListener listener = mPendingStartTetheringCallbacks.get(request);
+        if (listener != null) {
+            try {
+                listener.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) { }
+        }
+        mPendingStartTetheringCallbacks.remove(request);
     }
 
     private int setWifiTethering(final boolean enable) {
@@ -899,7 +924,7 @@ public class Tethering {
         if (adapter == null || !adapter.isEnabled()) {
             Log.w(TAG, "Tried to enable bluetooth tethering with null or disabled adapter. null: "
                     + (adapter == null));
-            sendTetherResult(listener, TETHER_ERROR_SERVICE_UNAVAIL, TETHERING_BLUETOOTH);
+            maybeSendTetherResult(listener, TETHER_ERROR_SERVICE_UNAVAIL, TETHERING_BLUETOOTH);
             return;
         }
 
@@ -917,11 +942,11 @@ public class Tethering {
             // the service just to stop tethering since tethering is not started. Just remove
             // any pending requests to enable tethering, and notify them that they have failed.
             for (IIntResultListener pendingListener : mPendingPanRequestListeners) {
-                sendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL,
+                maybeSendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL,
                         TETHERING_BLUETOOTH);
             }
             mPendingPanRequestListeners.clear();
-            sendTetherResult(listener, TETHER_ERROR_NO_ERROR, TETHERING_BLUETOOTH);
+            maybeSendTetherResult(listener, TETHER_ERROR_NO_ERROR, TETHERING_BLUETOOTH);
             return;
         }
         mPendingPanRequestListeners.add(listener);
@@ -966,7 +991,7 @@ public class Tethering {
                 mIsConnected = false;
 
                 for (IIntResultListener pendingListener : mPendingPanRequestListeners) {
-                    sendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL,
+                    maybeSendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL,
                             TETHERING_BLUETOOTH);
                 }
                 mPendingPanRequestListeners.clear();
@@ -993,7 +1018,12 @@ public class Tethering {
         // result is not expected.
         final int result = bluetoothPan.isTetheringOn() == enable
                 ? TETHER_ERROR_NO_ERROR : TETHER_ERROR_INTERNAL_ERROR;
-        sendTetherResult(listener, result, TETHERING_BLUETOOTH);
+        // When the tethering_with_soft_ap_config flag is enabled, we only send the tether result
+        // for success once the link layer event comes.
+        if (isTetheringWithSoftApConfigEnabled() && enable && result == TETHER_ERROR_NO_ERROR) {
+            return;
+        }
+        maybeSendTetherResult(listener, result, TETHERING_BLUETOOTH);
     }
 
     private void changeBluetoothTetheringSettingsPreT(@NonNull final BluetoothPan bluetoothPan,
@@ -1267,6 +1297,7 @@ public class Tethering {
         mPendingTetheringRequests.remove(request.getTetheringType());
         mServingTetheringRequests.put(iface, request);
         tetherState.ipServer.enable(request);
+        sendTetherResultSuccess(request);
         if (request.getRequestType() == REQUEST_TYPE_PLACEHOLDER) {
             TerribleErrorLog.logTerribleError(TetheringStatsLog::write,
                     "Started tethering with placeholder request: " + request,
@@ -1704,6 +1735,16 @@ public class Tethering {
     }
 
     private void enableIpServing(@NonNull TetheringRequest request, String ifname, boolean isNcm) {
+        if (isTetheringWithSoftApConfigEnabled()
+                && request.getRequestType() == REQUEST_TYPE_PLACEHOLDER
+                && request.getTetheringType() != TETHERING_WIFI) {
+            // TODO: WIFI is exempted since "adb shell cmd wifi start-softap" still relies on
+            //       starting tethering without an explicit TetheringRequest. Remove this exemption
+            //       once the wifi shell command starts passing a TetheringRequest.
+            Log.i(TAG, "Ignoring link layer event for type " + request.getTetheringType() + " since"
+                    + " there was no pending TetheringRequest.");
+            return;
+        }
         ensureIpServerStartedForType(ifname, request.getTetheringType(), isNcm);
         if (tetherInternal(request, ifname) != TETHER_ERROR_NO_ERROR) {
             Log.e(TAG, "unable start tethering on iface " + ifname);
