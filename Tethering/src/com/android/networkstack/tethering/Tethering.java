@@ -312,6 +312,8 @@ public class Tethering {
         // This is intended to ensrure that if something calls startTethering(bluetooth) just after
         // bluetooth is enabled. Before onServiceConnected is called, store the calls into this
         // list and handle them as soon as onServiceConnected is called.
+        // Note: these will never contain a mix of enable and disable requests since we clear the
+        //       disable requests when adding an enable request and vice versa.
         mPendingPanRequests = new ArrayList<>();
 
         mTetherStates = new ArrayMap<>();
@@ -862,11 +864,20 @@ public class Tethering {
             return;
         }
 
-        // The reference of IIntResultListener should only exist when application want to start
-        // tethering but tethering is not bound to pan service yet. Even if the calling process
-        // dies, the referenice of IIntResultListener would still keep in mPendingPanRequests. Once
-        // tethering bound to pan service (onServiceConnected) or bluetooth just crash
-        // (onServiceDisconnected), all the references from mPendingPanRequests would be cleared.
+        // Pending pan requests should only exist when the application wants to start tethering but
+        // PanService isn't connected yet. Once we bind to PanService (onServiceConnected) or
+        // bluetooth crashes (onServiceDisconnected), all pending pan requests will be cleared.
+        mPendingPanRequests.removeIf((pair) -> {
+            if (pair.first == enable) return false;
+
+            // If we have any pending requests that do the opposite of this request (i.e. it wants
+            // to disable bluetooth, but we want to enable it), remove and fail these requests
+            // pre-emptively
+            try {
+                pair.second.onResult(TETHER_ERROR_SERVICE_UNAVAIL);
+            } catch (RemoteException e) { }
+            return true;
+        });
         mPendingPanRequests.add(new Pair(enable, listener));
 
         // Bluetooth tethering is not a popular feature. To avoid bind to bluetooth pan service all
