@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8a4824f_16744cbd",
+        "filename": "tests/unit/java/com/android/server/L2capNetworkProviderTest.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-08T00:09:43Z",
+      "side": 1,
+      "message": "this should really throw an exception when close() is called...",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 40
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
