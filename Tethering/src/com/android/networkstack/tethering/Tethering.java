@@ -114,7 +114,6 @@ import android.net.wifi.p2p.WifiP2pGroup;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -638,7 +637,7 @@ public class Tethering {
         // TODO: fix the teardown path to stop depending on interface state notifications.
         // These are not necessary since most/all link layers have their own teardown
         // notifications, and can race with those notifications.
-        if (enabled && Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (enabled) {
             return;
         }
 
@@ -1115,7 +1114,7 @@ public class Tethering {
     }
 
     private void handleLegacyTether(String iface, final IIntResultListener listener) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (true /* SdkLevel.isAtLeastB() */) {
             // After V, the TetheringManager and ConnectivityManager tether and untether methods
             // throw UnsupportedOperationException, so this cannot happen in normal use. Ensure
             // that this code cannot run even if callers use raw binder calls or other
@@ -1213,7 +1212,7 @@ public class Tethering {
     }
 
     void legacyUntether(String iface, final IIntResultListener listener) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (true /* SdkLevel.isAtLeastB() */) {
             // After V, the TetheringManager and ConnectivityManager tether and untether methods
             // throw UnsupportedOperationException, so this cannot happen in normal use. Ensure
             // that this code cannot run even if callers use raw binder calls or other
