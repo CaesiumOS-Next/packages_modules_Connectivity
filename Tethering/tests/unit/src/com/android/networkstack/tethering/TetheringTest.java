@@ -933,18 +933,10 @@ public class TetheringTest {
         // it creates a IpServer and sends out a broadcast indicating that the
         // interface is "available".
         if (emulateInterfaceStatusChanged) {
-            if (!SdkLevel.isAtLeastB()) {
-                // There is 1 IpServer state change event: STATE_AVAILABLE
-                verify(mNotificationUpdater, times(1)).onDownstreamChanged(DOWNSTREAM_NONE);
-                verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
-                verify(mWifiManager).updateInterfaceIpState(
-                        TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
-            } else {
-                // Starting in B, ignore the interfaceStatusChanged
-                verify(mNotificationUpdater, never()).onDownstreamChanged(DOWNSTREAM_NONE);
-                verify(mWifiManager, never()).updateInterfaceIpState(
-                        TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
-            }
+            // Starting in B, ignore the interfaceStatusChanged
+            verify(mNotificationUpdater, never()).onDownstreamChanged(DOWNSTREAM_NONE);
+            verify(mWifiManager, never()).updateInterfaceIpState(
+                    TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
         }
         verifyNoMoreInteractions(mNetd);
         verifyNoMoreInteractions(mWifiManager);
@@ -1961,18 +1953,11 @@ public class TetheringTest {
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED);
         mLooper.dispatchAll();
 
-        if (!SdkLevel.isAtLeastB()) {
-            // There is 1 IpServer state change event: STATE_AVAILABLE from interfaceStatusChanged
-            verify(mNotificationUpdater, times(1)).onDownstreamChanged(DOWNSTREAM_NONE);
-            verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
-            verify(mWifiManager).updateInterfaceIpState(
-                    TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
-        } else {
-            // Starting in B, ignore the interfaceStatusChanged
-            verify(mNotificationUpdater, never()).onDownstreamChanged(DOWNSTREAM_NONE);
-            verify(mWifiManager, never()).updateInterfaceIpState(
-                    TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
-        }
+        // There is 1 IpServer state change event: STATE_AVAILABLE from interfaceStatusChanged
+        verify(mNotificationUpdater, times(1)).onDownstreamChanged(DOWNSTREAM_NONE);
+        verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
+        verify(mWifiManager).updateInterfaceIpState(
+                TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
         verifyNoMoreInteractions(mNetd);
         verifyNoMoreInteractions(mWifiManager);
     }
@@ -2380,10 +2365,8 @@ public class TetheringTest {
                 null);
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
         mLooper.dispatchAll();
-        if (SdkLevel.isAtLeastB()) {
-            // Starting in B, ignore the interfaceStatusChanged
-            callback.assertNoStateChangeCallback();
-        }
+        // Starting in B, ignore the interfaceStatusChanged
+        callback.assertNoStateChangeCallback();
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
         mLooper.dispatchAll();
         tetherState = callback.pollTetherStatesChanged();
@@ -2484,10 +2467,8 @@ public class TetheringTest {
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, null);
         mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
         mLooper.dispatchAll();
-        if (SdkLevel.isAtLeastB()) {
-            // Starting in B, ignore the interfaceStatusChanged
-            callback.assertNoStateChangeCallback();
-        }
+        // Starting in B, ignore the interfaceStatusChanged
+        callback.assertNoStateChangeCallback();
         sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
         mLooper.dispatchAll();
         // Verify we see  Available -> Tethered states

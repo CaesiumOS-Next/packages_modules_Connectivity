@@ -71,10 +71,6 @@ import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_F
 import static com.android.networkstack.tethering.TetheringNotificationUpdater.DOWNSTREAM_NONE;
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellular;
 import static com.android.networkstack.tethering.metrics.TetheringStatsLog.CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED;
-import static com.android.networkstack.tethering.metrics.TetheringStatsLog.CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_LEGACY_TETHER_WITH_TYPE_WIFI;
-import static com.android.networkstack.tethering.metrics.TetheringStatsLog.CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_LEGACY_TETHER_WITH_TYPE_WIFI_P2P;
-import static com.android.networkstack.tethering.metrics.TetheringStatsLog.CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_LEGACY_TETHER_WITH_TYPE_WIFI_P2P_SUCCESS;
-import static com.android.networkstack.tethering.metrics.TetheringStatsLog.CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_LEGACY_TETHER_WITH_TYPE_WIFI_SUCCESS;
 import static com.android.networkstack.tethering.metrics.TetheringStatsLog.CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_TETHER_WITH_PLACEHOLDER_REQUEST;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_MAIN_SM;
 
@@ -114,7 +110,6 @@ import android.net.wifi.p2p.WifiP2pGroup;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -638,7 +633,7 @@ public class Tethering {
         // TODO: fix the teardown path to stop depending on interface state notifications.
         // These are not necessary since most/all link layers have their own teardown
         // notifications, and can race with those notifications.
-        if (enabled && Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (enabled) {
             return;
         }
 
@@ -1115,56 +1110,11 @@ public class Tethering {
     }
 
     private void handleLegacyTether(String iface, final IIntResultListener listener) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-            // After V, the TetheringManager and ConnectivityManager tether and untether methods
-            // throw UnsupportedOperationException, so this cannot happen in normal use. Ensure
-            // that this code cannot run even if callers use raw binder calls or other
-            // unsupported methods.
-            return;
-        }
-
-        final int type = ifaceNameToType(iface);
-        if (type == TETHERING_INVALID) {
-            Log.e(TAG, "Ignoring call to legacy tether for unknown iface " + iface);
-            try {
-                listener.onResult(TETHER_ERROR_UNKNOWN_IFACE);
-            } catch (RemoteException e) { }
-        }
-
-        final TetheringRequest request = createLegacyGlobalScopeTetheringRequest(type);
-        int result = tetherInternal(request, iface);
-        switch (type) {
-            case TETHERING_WIFI:
-                TerribleErrorLog.logTerribleError(TetheringStatsLog::write,
-                        "Legacy tether API called on Wifi iface " + iface,
-                        CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED,
-                        CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_LEGACY_TETHER_WITH_TYPE_WIFI);
-                if (result == TETHER_ERROR_NO_ERROR) {
-                    TerribleErrorLog.logTerribleError(TetheringStatsLog::write,
-                            "Legacy tether API succeeded on Wifi iface " + iface,
-                            CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED,
-                            CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_LEGACY_TETHER_WITH_TYPE_WIFI_SUCCESS);
-                }
-                break;
-            case TETHERING_WIFI_P2P:
-                TerribleErrorLog.logTerribleError(TetheringStatsLog::write,
-                        "Legacy tether API called on Wifi P2P iface " + iface,
-                        CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED,
-                        CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_LEGACY_TETHER_WITH_TYPE_WIFI_P2P);
-                if (result == TETHER_ERROR_NO_ERROR) {
-                    TerribleErrorLog.logTerribleError(TetheringStatsLog::write,
-                            "Legacy tether API succeeded on Wifi P2P iface " + iface,
-                            CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED,
-                            CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_LEGACY_TETHER_WITH_TYPE_WIFI_P2P_SUCCESS);
-                }
-                break;
-            default:
-                // Do nothing
-                break;
-        }
-        try {
-            listener.onResult(result);
-        } catch (RemoteException e) { }
+        // After V, the TetheringManager and ConnectivityManager tether and untether methods
+        // throw UnsupportedOperationException, so this cannot happen in normal use. Ensure
+        // that this code cannot run even if callers use raw binder calls or other
+        // unsupported methods.
+        return;
     }
 
     /**
@@ -1213,19 +1163,11 @@ public class Tethering {
     }
 
     void legacyUntether(String iface, final IIntResultListener listener) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-            // After V, the TetheringManager and ConnectivityManager tether and untether methods
-            // throw UnsupportedOperationException, so this cannot happen in normal use. Ensure
-            // that this code cannot run even if callers use raw binder calls or other
-            // unsupported methods.
-            return;
-        }
-        mHandler.post(() -> {
-            try {
-                listener.onResult(legacyUntetherInternal(iface));
-            } catch (RemoteException e) {
-            }
-        });
+        // After V, the TetheringManager and ConnectivityManager tether and untether methods
+        // throw UnsupportedOperationException, so this cannot happen in normal use. Ensure
+        // that this code cannot run even if callers use raw binder calls or other
+        // unsupported methods.
+        return;
     }
 
     int legacyUntetherInternal(String iface) {

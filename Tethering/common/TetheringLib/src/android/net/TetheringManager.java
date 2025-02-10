@@ -659,10 +659,8 @@ public class TetheringManager {
     }
 
     private void unsupportedAfterV() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-            throw new UnsupportedOperationException("Not supported after SDK version "
-                    + Build.VERSION_CODES.VANILLA_ICE_CREAM);
-        }
+        throw new UnsupportedOperationException("Not supported after SDK version "
+                + Build.VERSION_CODES.VANILLA_ICE_CREAM);
     }
 
     /**
