@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40c791ef_91a6aa93",
+        "filename": "remoteauth/service/jni/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T05:53:36Z",
+      "side": 0,
+      "message": "If this list doesn\u0027t contain \"com.android.tethering\", then that means that the code isn\u0027t available to com.android.tethering. But this CL will make it available, potentially introducing a dependency.\n\nInstead of adding com.android.tethering to this list, should we instead change this to an empty list, or remove it?",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "725078a6bdee745ebebcda9dee669fb67bed698e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
