@@ -22,6 +22,30 @@
       },
       "revId": "725078a6bdee745ebebcda9dee669fb67bed698e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "412c2c2f_02caa474",
+        "filename": "remoteauth/service/jni/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002751
+      },
+      "writtenOn": "2025-02-10T16:31:15Z",
+      "side": 0,
+      "message": "I\u0027ve updated aosp/3484314 to remove it, although it\u0027s not clear what the intention was here.  [`service-remoteauth-pre-jarjar`](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/remoteauth/service/Android.bp;l\u003d27;drc\u003d8401b6a9f09257b7fd9cc800115dd6d9807ae5e0), which is [included in `service-connectivity`](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/Android.bp;l\u003d254;drc\u003d65dc1295dc3e3b1c5f872c34299fbf343b122206) and thus `com.android.tethering`, has [`required: [\"libremoteauth_jni_rust\"]`](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/remoteauth/service/Android.bp;l\u003d29;drc\u003d8401b6a9f09257b7fd9cc800115dd6d9807ae5e0) as if it intends `libremoteauth_jni_rust` to be installed alongside it, but `required` doesn\u0027t do anything on a non-installable module like a static java library.",
+      "parentUuid": "40c791ef_91a6aa93",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "725078a6bdee745ebebcda9dee669fb67bed698e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
