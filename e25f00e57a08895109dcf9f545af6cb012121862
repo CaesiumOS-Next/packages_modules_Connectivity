@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7267fed1_b964ca5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T06:24:23Z",
+      "side": 1,
+      "message": "I don\u0027t think we do this elsewhere (e.g., for NetworkCallbac). I commented on b/385014495 asking what to do, since elsewhere it says that the coverage infrastructure issue is fixed. Let\u0027s see where that discussion ends up.",
+      "revId": "e25f00e57a08895109dcf9f545af6cb012121862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
