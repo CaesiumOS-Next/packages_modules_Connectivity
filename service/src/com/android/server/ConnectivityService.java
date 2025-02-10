@@ -536,6 +536,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @VisibleForTesting
     static final int MAX_NETWORK_REQUESTS_PER_SYSTEM_UID = 250;
 
+    private static final int PORT_53 = 53;
+    private static final int PORT_AND_PROTOCOL_LENGTH = 32;  //16 for port + 16 for protocol;
+
     @VisibleForTesting
     protected int mLingerDelayMs;  // Can't be final, or test subclass constructors can't change it.
     @VisibleForTesting
@@ -9823,12 +9826,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 newLp != null ? newLp.getAllInterfaceNames() : null);
 
         for (final String iface : interfaceDiff.added) {
-            addLocalAddressesToBpfMap(iface, IPV4_LOCAL_PREFIXES);
-            addLocalAddressesToBpfMap(iface, MULTICAST_AND_BROADCAST_PREFIXES);
+            addLocalAddressesToBpfMap(iface, IPV4_LOCAL_PREFIXES, newLp);
+            addLocalAddressesToBpfMap(iface, MULTICAST_AND_BROADCAST_PREFIXES, newLp);
         }
         for (final String iface : interfaceDiff.removed) {
-            removeLocalAddressesFromBpfMap(iface, IPV4_LOCAL_PREFIXES);
-            removeLocalAddressesFromBpfMap(iface, MULTICAST_AND_BROADCAST_PREFIXES);
+            removeLocalAddressesFromBpfMap(iface, IPV4_LOCAL_PREFIXES, oldLp);
+            removeLocalAddressesFromBpfMap(iface, MULTICAST_AND_BROADCAST_PREFIXES, oldLp);
         }
     }
 
@@ -9837,16 +9840,41 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * @param iface interface name
      * @param prefixes list of prefixes/addresses
      */
-    private void addLocalAddressesToBpfMap(final String iface, final List<IpPrefix> prefixes) {
+    private void addLocalAddressesToBpfMap(final String iface, final List<IpPrefix> prefixes,
+                                           @Nullable final LinkProperties lp) {
         if (BpfNetMaps.isAtLeast25Q2()) {
             for (IpPrefix prefix : prefixes) {
                 final int prefixLengthConstant = (prefix.getAddress() instanceof Inet4Address)
                         ? (32 + 96) : 32;
                 mBpfNetMaps.addLocalNetAccess(prefixLengthConstant + prefix.getPrefixLength(),
                         iface, prefix.getAddress(), 0, 0, false);
-
+                addDnsExclusionToBpfMap(iface, prefix, lp);
             }
         }
+    }
+
+    /**
+     * Adds the dns server address, included in the prefix range, to local network access map.
+     * @param iface interface name
+     * @param prefix IpPrefix
+     */
+    private void addDnsExclusionToBpfMap(final String iface, final IpPrefix prefix,
+                                         @Nullable final LinkProperties lp){
+         //BpfNetMaps is only available after 25Q2
+       if (!BpfNetMaps.isAtLeast25Q2()) {
+           return;
+       }
+       List<InetAddress> localDnses = getDnsServersInPrefix(prefix, lp);
+       if(localDnses.isEmpty())
+           return;
+       for (InetAddress dns : localDnses) {
+           mBpfNetMaps.addLocalNetAccess(
+                    dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,
+                    iface, dns, IPPROTO_TCP, PORT_53, true);
+           mBpfNetMaps.addLocalNetAccess(
+                    dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,
+                    iface, dns, IPPROTO_UDP, PORT_53, true);
+       }
     }
 
     /**
@@ -9854,15 +9882,52 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * @param iface interface name
      * @param prefixes list of prefixes/addresses
      */
-    private void removeLocalAddressesFromBpfMap(final String iface, final List<IpPrefix> prefixes) {
+    private void removeLocalAddressesFromBpfMap(final String iface, final List<IpPrefix> prefixes,
+                                                @Nullable final LinkProperties lp) {
         if (BpfNetMaps.isAtLeast25Q2()) {
             for (IpPrefix prefix : prefixes) {
                 final int prefixLengthConstant = (prefix.getAddress() instanceof Inet4Address)
                         ? (32 + 96) : 32;
                 mBpfNetMaps.removeLocalNetAccess(prefixLengthConstant
                         + prefix.getPrefixLength(), iface, prefix.getAddress(), 0, 0);
+                removeDnsExclusionFromBpfMap(iface, prefix, lp);
             }
         }
+    }
+
+    /**
+     * Removes the DNS server address,if included in the prefix range, from local network access map
+     * @param iface interface name
+     * @param prefix IpPrefix
+     */
+    private void removeDnsExclusionFromBpfMap(final String iface, final IpPrefix prefix,
+                                              @Nullable final LinkProperties lp) {
+      // BpfNetMaps is only available after 25Q2
+        if (!BpfNetMaps.isAtLeast25Q2()) {
+            return;
+        }
+        List<InetAddress> localDnses = getDnsServersInPrefix(prefix, lp);
+        if(localDnses.isEmpty())
+            return;
+        for (InetAddress dns : localDnses) {
+            mBpfNetMaps.removeLocalNetAccess(
+                    dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,
+                    iface, dns, IPPROTO_TCP, PORT_53);
+            mBpfNetMaps.removeLocalNetAccess(
+                    dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,
+                    iface, dns, IPPROTO_UDP, PORT_53);
+        }
+    }
+
+    private List<InetAddress> getDnsServersInPrefix(final IpPrefix prefix, 
+                                                    @Nullable final LinkProperties lp) {
+        List<InetAddress> localDns = new ArrayList<>();
+        for (InetAddress dnsServer : lp.getDnsServers()) {
+            if (prefix.contains(dnsServer)) {
+                localDns.add(dnsServer);
+            }
+        }
+        return localDns;
     }
 
     /**
