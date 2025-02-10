@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec61207_8b218168",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1265,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T08:38:35Z",
+      "side": 1,
+      "message": "Currently, two requests with TETHERING_WIFI with different interfaces, or one with an interface and one without, won\u0027t fuzzy-match each other. But when we then pass those requests to the wifi code, wifi won\u0027t distinguish the two requests from each other, and will fail the second request. This seems like a problem - if wifi thinks two requests are the same, then this code should think they are the same as well.\n\nShould we instead do something like:\n\n    private static boolean supportsInterfaceName(int tetheringType) {\n        return tetheringType \u003d\u003d TETHERING_VIRTUAL;\n    }\n\nand here:\n\n    if (supportsInterfaceName(request.type) \u0026\u0026\n            !TextUtils.equals(getInterfaceName(), ...)) {\n\n\nAlternatively, should we just fail any call to enableTethering that takes an interface unless the type is TETHERING_VIRTUAL or TETHERING_WIFI_P2P, or the type is TETHERING_WIFI with SCOPE_LOCAL? These are the only cases in which we exepct to use the interface name, right?",
+      "range": {
+        "startLine": 1265,
+        "startChar": 60,
+        "endLine": 1265,
+        "endChar": 76
+      },
+      "revId": "b5a41ca3933306fb1506d3a2fe8f0c9f554e4b02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37d7bbc3_c990789a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T08:38:35Z",
+      "side": 1,
+      "message": "Can you factor this out to a method? findFuzzyMatchingRequest?",
+      "range": {
+        "startLine": 731,
+        "startChar": 16,
+        "endLine": 731,
+        "endChar": 19
+      },
+      "revId": "b5a41ca3933306fb1506d3a2fe8f0c9f554e4b02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

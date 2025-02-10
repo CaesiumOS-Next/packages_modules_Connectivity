@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0955748d_7a4e22fc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T08:38:35Z",
+      "side": 1,
+      "message": "Per discussion - this code runs when starting tethering, but when calling stopTethering(TetheringRequest, ...) we\u0027ll need to run similar but not identical code.\n\nInstead of doing this, if we went back to the \"fuzzyMatches\" code you had in patchset 4, we could use the same code both in startTethering and in stopTethering.\n\nAs you point out, the version of fuzzyMatches in patchset 4 will incorrectly match local-only USB (or NCM or Ethernet) with global tethering of the same type. But we could fix this with:\n\n           // Currently, only WIFI supports simultaneous local and global connectivity.\n           if (getTetheringType() !\u003d TETHERING_WIFI \u0026\u0026\n                   getConnectivityScope() !\u003d other.getConnectivityScope()) {\n               return false;\n           }",
+      "range": {
+        "startLine": 729,
+        "startChar": 20,
+        "endLine": 729,
+        "endChar": 39
+      },
+      "revId": "a663331a473ce2bd0b43bf38f6ac0258874565cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8429dfb_4621a9f6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T08:38:35Z",
+      "side": 1,
+      "message": "If this is for new code, we should use DUPLICATE_REQUEST.",
+      "range": {
+        "startLine": 765,
+        "startChar": 46,
+        "endLine": 765,
+        "endChar": 72
+      },
+      "revId": "a663331a473ce2bd0b43bf38f6ac0258874565cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
