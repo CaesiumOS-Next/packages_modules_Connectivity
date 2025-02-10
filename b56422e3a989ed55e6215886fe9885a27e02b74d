@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e0d6621_25795b84",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T09:46:04Z",
+      "side": 1,
+      "message": "Not for this CL, and mostly for discussion only, but... could we unify the code by doing something like:\n\n        public boolean fuzzyMatches(final TetheringRequest other) {\n            if (!isTetheringWithSoftApEnabled()) {\n                return other.getTetheringType() \u003d\u003d getTetheringType();\n            }\n            // ... the current code\n\nThe idea is that on V and below, a pending request",
+      "range": {
+        "startLine": 1261,
+        "startChar": 23,
+        "endLine": 1261,
+        "endChar": 35
+      },
+      "revId": "b56422e3a989ed55e6215886fe9885a27e02b74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49f41c98_faa14406",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T09:46:04Z",
+      "side": 1,
+      "message": "See https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3465217/comment/0955748d_7a4e22fc/ .",
+      "range": {
+        "startLine": 1264,
+        "startChar": 16,
+        "endLine": 1264,
+        "endChar": 36
+      },
+      "revId": "b56422e3a989ed55e6215886fe9885a27e02b74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3a9e2d7_4c8fd350",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T09:46:04Z",
+      "side": 1,
+      "message": "Not for this CL, but... now that we have fuzzy-matching, it\u0027s not really correct for this to be indexed by the int tethering type any more. With fuzzy-matching, the invariant should be this can be a Set, and requests can be admitted to the Set only if they do not fuzzy-match an existing request in the set.\n\nSo maybe we can somewhat unify the old and the new codepaths by making this a Set, and making the fuzzy-matching, on previous releases, only check the type.\n\nThen when a caller wants to start tethering, we would check if a fuzzy-matching request is already in the Set, and if it is, on new releases send DUPLICATE_REQUEST, and on older releases run the legacy \"stop the existing request and start the new request\" code.",
+      "range": {
+        "startLine": 250,
+        "startChar": 18,
+        "endLine": 250,
+        "endChar": 29
+      },
+      "revId": "b56422e3a989ed55e6215886fe9885a27e02b74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3986166b_92c6ca6e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2565,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T09:46:04Z",
+      "side": 1,
+      "message": "Move this to after the comment that says \"Start wifi tethering\"? Around line 2576?",
+      "range": {
+        "startLine": 2565,
+        "startChar": 8,
+        "endLine": 2565,
+        "endChar": 12
+      },
+      "revId": "b56422e3a989ed55e6215886fe9885a27e02b74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70f78118_6a849506",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2566,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T09:46:04Z",
+      "side": 1,
+      "message": "Add a comment explaining what this is doing? IIUC:\n\n    // If a wifi interface happens to come up, check that it\u0027s in the available list.\n\nOr maybe just remove it?",
+      "range": {
+        "startLine": 2566,
+        "startChar": 19,
+        "endLine": 2566,
+        "endChar": 41
+      },
+      "revId": "b56422e3a989ed55e6215886fe9885a27e02b74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fa186ff_b7e259a2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2582,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T09:46:04Z",
+      "side": 1,
+      "message": "various",
+      "range": {
+        "startLine": 2582,
+        "startChar": 44,
+        "endLine": 2582,
+        "endChar": 49
+      },
+      "revId": "b56422e3a989ed55e6215886fe9885a27e02b74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "487bf90e_a1de5fc2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2584,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T09:46:04Z",
+      "side": 1,
+      "message": "// Different SoftApConfig.",
+      "range": {
+        "startLine": 2584,
+        "startChar": 8,
+        "endLine": 2584,
+        "endChar": 13
+      },
+      "revId": "b56422e3a989ed55e6215886fe9885a27e02b74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05a08daa_52af5157",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2590,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T09:46:04Z",
+      "side": 1,
+      "message": "// Different UID.",
+      "range": {
+        "startLine": 2590,
+        "startChar": 8,
+        "endLine": 2590,
+        "endChar": 13
+      },
+      "revId": "b56422e3a989ed55e6215886fe9885a27e02b74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6b47a61_58400f31",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2601,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T09:46:04Z",
+      "side": 1,
+      "message": "even though the request is no longer pending and is already serving.",
+      "range": {
+        "startLine": 2601,
+        "startChar": 41,
+        "endLine": 2601,
+        "endChar": 42
+      },
+      "revId": "b56422e3a989ed55e6215886fe9885a27e02b74d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
