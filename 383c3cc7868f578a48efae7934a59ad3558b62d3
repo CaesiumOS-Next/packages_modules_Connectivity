@@ -16,6 +16,283 @@
       "message": "PTAL",
       "revId": "383c3cc7868f578a48efae7934a59ad3558b62d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31d2e2e2_1dbefbdc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9851,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-10T04:21:37Z",
+      "side": 1,
+      "message": "We are calling this method for each prefix and then looking up the dns server will increases the complexity. should we iterate through the dns list after we populate the map and in that case we can directly do lookup in bpf map instead of doing loop-within-loop (n*m) ?",
+      "fixSuggestions": [
+        {
+          "fixId": "a57f44e0_b79733db",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9828,
+                "startChar": 0,
+                "endLine": 9828,
+                "endChar": 0
+              },
+              "replacement": "        List\u003cInetAddress\u003e localDnses \u003d new ArrayList\u003c\u003e();\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9831,
+                "startChar": 0,
+                "endLine": 9831,
+                "endChar": 0
+              },
+              "replacement": "            localDnses.addAll(getDnsServersInPrefix(newLp));\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9835,
+                "startChar": 0,
+                "endLine": 9835,
+                "endChar": 0
+              },
+              "replacement": "            localDnses.addAll(getDnsServersInPrefix(oldLp));\n        }\n        for (InetAddress dns : localDnses) {\n            addDnsExclusionToBpfMap(dns, newLp);\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9851,
+                "startChar": 0,
+                "endLine": 9852,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9857,
+                "startChar": 0,
+                "endLine": 9860,
+                "endChar": 0
+              },
+              "replacement": "     * Adds the dns server address to local network access map.\n     * @param dns dns server address\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9861,
+                "startChar": 0,
+                "endLine": 9863,
+                "endChar": 0
+              },
+              "replacement": "    private void addDnsExclusionToBpfMap(final InetAddress dns,\n                                         @Nullable final LinkProperties lp) {\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9867,
+                "startChar": 0,
+                "endLine": 9878,
+                "endChar": 0
+              },
+              "replacement": "       mBpfNetMaps.addLocalNetAccess(\n                dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,\n                lp.getInterfaceName(), dns, IPPROTO_TCP, PORT_53, true);\n       mBpfNetMaps.addLocalNetAccess(\n                dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,\n                lp.getInterfaceName(), dns, IPPROTO_UDP, PORT_53, true);\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9893,
+                "startChar": 0,
+                "endLine": 9894,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9899,
+                "startChar": 0,
+                "endLine": 9902,
+                "endChar": 0
+              },
+              "replacement": "     * Removes the DNS server address from local network access map\n     * @param dns dns server address\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9903,
+                "startChar": 0,
+                "endLine": 9904,
+                "endChar": 0
+              },
+              "replacement": "    private void removeDnsExclusionFromBpfMap(final InetAddress dns,\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9908,
+                "startChar": 0,
+                "endLine": 9919,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9920,
+                "startChar": 0,
+                "endLine": 9920,
+                "endChar": 0
+              },
+              "replacement": "        mBpfNetMaps.removeLocalNetAccess(\n                dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,\n                lp.getInterfaceName(), dns, IPPROTO_TCP, PORT_53);\n        mBpfNetMaps.removeLocalNetAccess(\n                dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,\n                lp.getInterfaceName(), dns, IPPROTO_UDP, PORT_53);\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9922,
+                "startChar": 0,
+                "endLine": 9924,
+                "endChar": 0
+              },
+              "replacement": "    private List\u003cInetAddress\u003e getDnsServersInPrefix(@Nullable final LinkProperties lp) {\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9925,
+                "startChar": 0,
+                "endLine": 9925,
+                "endChar": 0
+              },
+              "replacement": "        if (lp \u003d\u003d null) {\n            return localDnses;\n        }\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9926,
+                "startChar": 0,
+                "endLine": 9929,
+                "endChar": 0
+              },
+              "replacement": "            localDnses.add(dnsServer);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "383c3cc7868f578a48efae7934a59ad3558b62d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40c92140_f90c4ebd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9875,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-10T04:21:37Z",
+      "side": 1,
+      "message": "The prefix length should be 32(interface index which is 32 bits) + 128 (size of ipv6 address, i suggest to not use inetaddress length as it could be ipv4) + 16 (protocol) + 16(port)",
+      "fixSuggestions": [
+        {
+          "fixId": "81e7fb33_ce06ee10",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9868,
+                "startChar": 0,
+                "endLine": 9869,
+                "endChar": 0
+              },
+              "replacement": "       if (localDnses.isEmpty())\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9872,
+                "startChar": 0,
+                "endLine": 9873,
+                "endChar": 0
+              },
+              "replacement": "                    32 + 128 + 16,\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9875,
+                "startChar": 0,
+                "endLine": 9876,
+                "endChar": 0
+              },
+              "replacement": "                    32 + 128 + 16,\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9910,
+                "startChar": 0,
+                "endLine": 9911,
+                "endChar": 0
+              },
+              "replacement": "        if (localDnses.isEmpty())\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9914,
+                "startChar": 0,
+                "endLine": 9915,
+                "endChar": 0
+              },
+              "replacement": "                    32 + 128 + 16,\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9917,
+                "startChar": 0,
+                "endLine": 9918,
+                "endChar": 0
+              },
+              "replacement": "                    32 + 128 + 16,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "383c3cc7868f578a48efae7934a59ad3558b62d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03a0feda_28908c99",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9893,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-10T04:21:37Z",
+      "side": 1,
+      "message": "For removal, we would first remove dns rows and then local network addresses.",
+      "revId": "383c3cc7868f578a48efae7934a59ad3558b62d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
