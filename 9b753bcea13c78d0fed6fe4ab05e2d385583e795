@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa22100a_5578eaa4",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CompatibilityVersion.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-02-10T13:06:27Z",
+      "side": 1,
+      "message": "nit: make this parameter a `LogListUpdateStatus.Builder`, so that it is clear that the object will be modified.\n\nEven better might be to remove this parameter and make the `install` method return a `LogListUpdateStatus` from scratch, although that seems difficult considering there is some lingering status from the verifier.",
+      "range": {
+        "startLine": 79,
+        "startChar": 35,
+        "endLine": 79,
+        "endChar": 68
+      },
+      "revId": "9b753bcea13c78d0fed6fe4ab05e2d385583e795",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
