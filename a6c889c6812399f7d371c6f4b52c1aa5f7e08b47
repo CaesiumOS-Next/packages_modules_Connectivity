@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c634fcc_54cdd977",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T09:16:32Z",
+      "side": 1,
+      "message": "Given that we\u0027re changing the behaviour... if we get here and |enable| is false, it means that bluetooth is not running, and someone requested a stop. In that case, can we just avoid adding the stop to mPendingPanRequests and immediately call sendTetherResult? So, something like:\n\n    // The service is not connected. If disabling tethering, there\u0027s no point starting\n    // the service just to stop tethering since tethering is not started. Just remove\n    // any pending requests to enable tethering, and notify them that they have failed.\n    for (Pair p : mPendingPanRequests) {\n        p.second.onResult(TETHER_ERROR_SERVICE_UNAVAIL);\n    }\n    mPendingPanRequests.clear();\n    listener.onResult(TETHER_ERROR_NO_ERROR);\n    return;\n\nIf we do this, there\u0027s no need even for a Pair, we could list make it a list of IIntResultListener.\n\nThis assumes that when bluetooth crashes and restarts, tethering won\u0027t start again. I think it won\u0027t, because the state is maintained in PanService#mTetherOn, and I think that code runs in the bluetooth process and mTetherOn will be lost if the process crashes. Maybe you can test this by enabling tethering and then killing the bluetooth process?",
+      "range": {
+        "startLine": 881,
+        "startChar": 28,
+        "endLine": 881,
+        "endChar": 31
+      },
+      "revId": "a6c889c6812399f7d371c6f4b52c1aa5f7e08b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
