@@ -1,0 +1,282 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1f215c8_52a98bdb",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:35:01Z",
+      "side": 1,
+      "message": "i ?",
+      "range": {
+        "startLine": 955,
+        "startChar": 31,
+        "endLine": 955,
+        "endChar": 33
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dc35a89_2c11d85d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:35:01Z",
+      "side": 1,
+      "message": "Could this move to NetworkConstants.java ?",
+      "range": {
+        "startLine": 491,
+        "startChar": 40,
+        "endLine": 491,
+        "endChar": 59
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ec3e0a8_1ab200de",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:35:01Z",
+      "side": 1,
+      "message": "What you have is likely fine, but at your option you may write it a little bit terser by defining in InetAddressUtils :\n\n```\nclass InetAddressUtils {\n...\n  public static final Inet4Address getByAddressNoCheck(byte[]) {\n    try {\n      Inet4Address.getByAddress()\n    } catch (UHE) {\n      throw RuntimeE\n    }\n  }\n...\n}\n\nprivate static final List\u003cIpPrefix\u003e IPV4_LOCAL_PREFIXES \u003d List.of(\n  new IpPrefix(getByAddressNoCheck(new byte[] {169, 254, 0, 0}))),\n  new IpPrefix(...\n```",
+      "range": {
+        "startLine": 492,
+        "startChar": 4,
+        "endLine": 492,
+        "endChar": 10
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4427d37_dd4e120f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9628,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:35:01Z",
+      "side": 1,
+      "message": "Addresses ?",
+      "range": {
+        "startLine": 9628,
+        "startChar": 26,
+        "endLine": 9628,
+        "endChar": 33
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f224fe2_0d9aa503",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9832,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:35:01Z",
+      "side": 1,
+      "message": "So here you\u0027ve handled the case where a network gained or lost an interface, but not the case where it gained or lost addresses",
+      "range": {
+        "startLine": 9832,
+        "startChar": 8,
+        "endLine": 9832,
+        "endChar": 9
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afce06ac_c5bc0920",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9841,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:35:01Z",
+      "side": 1,
+      "message": "Prefer return-early like you did in l.9817",
+      "range": {
+        "startLine": 9841,
+        "startChar": 40,
+        "endLine": 9841,
+        "endChar": 41
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "db3a0f6c_78a481c6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9841,
+                "startChar": 0,
+                "endLine": 9847,
+                "endChar": 0
+              },
+              "replacement": "        if (!BpfNetMaps.isAtLeast25Q2()) return;\n        for (IpPrefix prefix : prefixes) {\n            final int prefixLengthConstant \u003d (prefix.getAddress() instanceof Inet4Address)\n                    ? (32 + 96) : 32;\n            mBpfNetMaps.addLocalNetAccess(prefixLengthConstant + prefix.getPrefixLength(),\n                    iface, prefix.getAddress(), 0, 0, false);\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9848,
+                "startChar": 0,
+                "endLine": 9849,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9858,
+                "startChar": 0,
+                "endLine": 9865,
+                "endChar": 0
+              },
+              "replacement": "        if (!BpfNetMaps.isAtLeast25Q2()) return;\n        for (IpPrefix prefix : prefixes) {\n            final int prefixLengthConstant \u003d (prefix.getAddress() instanceof Inet4Address)\n                    ? (32 + 96) : 32;\n            mBpfNetMaps.removeLocalNetAccess(prefixLengthConstant\n                    + prefix.getPrefixLength(), iface, prefix.getAddress(), 0, 0);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "971436a9_e851b55e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9844,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:35:01Z",
+      "side": 1,
+      "message": "Not sure why it\u0027s expressed like this ? IIUC this is the max length for the prefix and the value is correct for v6, but not sure why 32+96 instead of plain 128.",
+      "range": {
+        "startLine": 9844,
+        "startChar": 26,
+        "endLine": 9844,
+        "endChar": 35
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "8d9c72ee_84bc5f42",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9843,
+                "startChar": 0,
+                "endLine": 9846,
+                "endChar": 0
+              },
+              "replacement": "                final int prefixLength \u003d (prefix.getAddress() instanceof Inet4Address)\n                        ? (32 + 96) : 128;\n                mBpfNetMaps.addLocalNetAccess(prefixLength,\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9860,
+                "startChar": 0,
+                "endLine": 9864,
+                "endChar": 0
+              },
+              "replacement": "                final int prefixLength \u003d (prefix.getAddress() instanceof Inet4Address)\n                        ? (32 + 96) : 128;\n                mBpfNetMaps.removeLocalNetAccess(prefixLength, iface, prefix.getAddress(), 0, 0);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd84611b_cec5c304",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9844,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:35:01Z",
+      "side": 1,
+      "message": "Is this not reversed ? If v4 then 32 no ?",
+      "range": {
+        "startLine": 9844,
+        "startChar": 24,
+        "endLine": 9844,
+        "endChar": 25
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "af93a92b_288389fe",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9844,
+                "startChar": 0,
+                "endLine": 9845,
+                "endChar": 0
+              },
+              "replacement": "                        ? 32 : (32 + 96);\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9861,
+                "startChar": 0,
+                "endLine": 9862,
+                "endChar": 0
+              },
+              "replacement": "                        ? 32 : (32 + 96);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
