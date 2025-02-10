@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6866e204_17e221a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:47:42Z",
+      "side": 1,
+      "message": "Please write automated tests",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "d4d383b729c7cde1162b4fba0858b7cb68b8d997",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff475351_790b36ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:47:42Z",
+      "side": 1,
+      "message": "What about port 853 for DNS-over-TLS ? I understand it\u0027s not very common on local networks, but there is little reason to accept 53 and not 853.",
+      "revId": "d4d383b729c7cde1162b4fba0858b7cb68b8d997",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e106697c_f080c700",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:47:42Z",
+      "side": 1,
+      "message": "Please make sure the file respects the local style conventions : `final` on the locals, space before `(`, ifs() should either be all on one line or have `{}`...",
+      "revId": "d4d383b729c7cde1162b4fba0858b7cb68b8d997",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90fb9766_e9e376ca",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 9907,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-10T08:47:42Z",
+      "side": 1,
+      "message": "There is a bit of code duplication here ; please factorize. Either pass a boolean and divert or pass a lambda",
+      "range": {
+        "startLine": 9907,
+        "startChar": 17,
+        "endLine": 9907,
+        "endChar": 23
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3feaaed4_c1e48e2e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9829,
+                "startChar": 0,
+                "endLine": 9831,
+                "endChar": 0
+              },
+              "replacement": "            addLocalAddressesToBpfMap(iface, IPV4_LOCAL_PREFIXES, newLp, true);\n            addLocalAddressesToBpfMap(iface, MULTICAST_AND_BROADCAST_PREFIXES, newLp, true);\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9833,
+                "startChar": 0,
+                "endLine": 9835,
+                "endChar": 0
+              },
+              "replacement": "            removeLocalAddressesFromBpfMap(iface, IPV4_LOCAL_PREFIXES, oldLp, false);\n            removeLocalAddressesFromBpfMap(iface, MULTICAST_AND_BROADCAST_PREFIXES, oldLp, false);\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9843,
+                "startChar": 0,
+                "endLine": 9843,
+                "endChar": 0
+              },
+              "replacement": "     * @param add true if adding prefixes, false if removing prefixes\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9845,
+                "startChar": 0,
+                "endLine": 9846,
+                "endChar": 0
+              },
+              "replacement": "                                           @Nullable final LinkProperties lp, boolean add) {\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9850,
+                "startChar": 0,
+                "endLine": 9853,
+                "endChar": 0
+              },
+              "replacement": "                if (add) {\n                    mBpfNetMaps.addLocalNetAccess(prefixLengthConstant + prefix.getPrefixLength(),\n                            iface, prefix.getAddress(), 0, 0, false);\n                } else {\n                    mBpfNetMaps.removeLocalNetAccess(prefixLengthConstant\n                            + prefix.getPrefixLength(), iface, prefix.getAddress(), 0, 0);\n                }\n                addDnsExclusionToBpfMap(iface, prefix, lp, add);\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9862,
+                "startChar": 0,
+                "endLine": 9862,
+                "endChar": 0
+              },
+              "replacement": "     * @param add true if adding prefixes, false if removing prefixes\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9864,
+                "startChar": 0,
+                "endLine": 9865,
+                "endChar": 0
+              },
+              "replacement": "                                         @Nullable final LinkProperties lp, boolean add){\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9870,
+                "startChar": 0,
+                "endLine": 9871,
+                "endChar": 0
+              },
+              "replacement": "       if (localDnses.isEmpty()) {\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9872,
+                "startChar": 0,
+                "endLine": 9879,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9880,
+                "startChar": 0,
+                "endLine": 9923,
+                "endChar": 0
+              },
+              "replacement": "       for (InetAddress dns : localDnses) {\n           if (add) {\n               mBpfNetMaps.addLocalNetAccess(\n                       dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,\n                       iface, dns, IPPROTO_TCP, PORT_53, true);\n               mBpfNetMaps.addLocalNetAccess(\n                       dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,\n                       iface, dns, IPPROTO_UDP, PORT_53, true);\n           } else {\n               mBpfNetMaps.removeLocalNetAccess(\n                       dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,\n                       iface, dns, IPPROTO_TCP, PORT_53);\n               mBpfNetMaps.removeLocalNetAccess(\n                       dns.getAddress().length * 8 + PORT_AND_PROTOCOL_LENGTH,\n                       iface, dns, IPPROTO_UDP, PORT_53);\n           }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "d4d383b729c7cde1162b4fba0858b7cb68b8d997",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
