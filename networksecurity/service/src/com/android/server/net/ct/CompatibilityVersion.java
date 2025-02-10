@@ -80,6 +80,8 @@ class CompatibilityVersion {
         String content = new String(newContent.readAllBytes(), UTF_8);
         try {
             JSONObject contentJson = new JSONObject(content);
+            Log.e("BESSIEJ", contentJson.getString("version"));
+
             return install(
                     new ByteArrayInputStream(content.getBytes()),
                     contentJson.getString("version"),

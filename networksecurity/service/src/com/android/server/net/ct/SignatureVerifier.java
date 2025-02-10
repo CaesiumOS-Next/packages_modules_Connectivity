@@ -105,9 +105,9 @@ public class SignatureVerifier {
 
             byte[] signatureBytes = signatureStream.readAllBytes();
             statusBuilder.setSignature(new String(signatureBytes));
+            Log.e("BESSIEJ", "signature: " + new String(signatureBytes));
             try {
                 byte[] decodedSigBytes = Base64.getDecoder().decode(signatureBytes);
-
                 if (!verifier.verify(decodedSigBytes)) {
                     // Leave the UpdateState as UNKNOWN_STATE if successful as there are other
                     // potential failures past the signature verification step

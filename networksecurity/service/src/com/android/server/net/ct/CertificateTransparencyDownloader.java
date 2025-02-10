@@ -16,6 +16,8 @@
 
 package com.android.server.net.ct;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import android.annotation.RequiresApi;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -29,6 +31,9 @@ import androidx.annotation.VisibleForTesting;
 
 import com.android.server.net.ct.CertificateTransparencyLogger.CTLogListUpdateState;
 import com.android.server.net.ct.DownloadHelper.DownloadStatus;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -205,6 +210,19 @@ class CertificateTransparencyDownloader extends BroadcastReceiver {
 
             mLogger.logCTLogListUpdateStateChangedEvent(updateStatus);
 
+            // TODO: delete the below once the log list verification issues resolve
+            // This is only present for debugging purposes
+            try (InputStream stream = mContext.getContentResolver().openInputStream(contentUri)) {
+                JSONObject contentJson =
+                        new JSONObject(new String(stream.readAllBytes(), UTF_8));
+                Log.e("BESSIEJ", "log list version: " + contentJson.getString("version"));
+            } catch (IOException e) {
+                Log.e(TAG, "Could not fetch the version of the log list", e);
+                return;
+            } catch (JSONException e) {
+                Log.e(TAG, "Unable to parse JSON in CTDownloader");
+                return;
+            }
             return;
         }
 
