@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04c50e61_c6baa134",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-10T06:01:25Z",
+      "side": 1,
+      "message": "Generally it\u0027s not a good idea to call assumeXyz inside an initialization method. The method will throw and terminate whatever operation is being apptempted, but the surrounding test might not be prepared for this and could skip important cleanup steps that could cause future tests to fail.\n\nA better place to put this sort of check is in the test that actually uses this snippet. Is there a reason that test can\u0027t check that the device supports P2P, and if not, skip? There\u0027s an isP2pSupported method right before this one that the test could call...",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 18
+      },
+      "revId": "16c968d08549b19de853b5cf525c9cb11b7e97e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
