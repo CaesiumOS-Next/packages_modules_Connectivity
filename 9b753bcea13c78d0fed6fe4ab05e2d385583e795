@@ -22,6 +22,30 @@
       },
       "revId": "9b753bcea13c78d0fed6fe4ab05e2d385583e795",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91e056b1_b43173d4",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CompatibilityVersion.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-02-10T13:37:11Z",
+      "side": 1,
+      "message": "Done. Agreed that it\u0027d be nicer to have CompatVersion return the status from scratch as opposed to needing it passed in, but I\u0027m not able to do so because the verifier fetches and populates the signature field :/",
+      "parentUuid": "aa22100a_5578eaa4",
+      "range": {
+        "startLine": 79,
+        "startChar": 35,
+        "endLine": 79,
+        "endChar": 68
+      },
+      "revId": "9b753bcea13c78d0fed6fe4ab05e2d385583e795",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
