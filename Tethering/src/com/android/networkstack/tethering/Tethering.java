@@ -601,6 +601,17 @@ public class Tethering {
         }
 
         /**
+         * Utility to add pending requests while ignoring any existing pending/serving request. This
+         * should only be used when re-adding serving requests to the pending list for restart
+         * states (e.g. IP conflict, Bluetooth service disconnection, etc), which is necessary to
+         * prevent other requesters from adding a pending request while the restarting request is
+         * removed from the serving list.
+         */
+        private void forceAddPendingRequest(@NonNull final TetheringRequest newRequest) {
+            mPendingRequests.add(new PendingRequest(newRequest, null));
+        }
+
+        /**
          * Sends the tether result for the given tethering request (if it hasn't been sent yet) and
          * remove the request if the result is a failure. The result may come from poking the link
          * layer, or stopTethering removing the request before the result was sent.
@@ -668,6 +679,11 @@ public class Tethering {
         @Nullable
         private TetheringRequest getServingRequest(@NonNull final String iface) {
             return mServingRequests.get(iface);
+        }
+
+        @Nullable
+        private List<TetheringRequest> getServingTetheringRequests() {
+            return new ArrayList<>(mServingRequests.values());
         }
 
         private void removeServingRequest(@NonNull String iface) {
@@ -1220,6 +1236,8 @@ public class Tethering {
     // BluetoothCallback is only called after T. Before T, PanService would call tether/untether to
     // notify bluetooth interface status.
     private class BluetoothCallback implements TetheredInterfaceCallbackShim {
+        TetheringRequest mTetheringRequest;
+
         @Override
         public void onAvailable(String iface) {
             if (this != mBluetoothCallback) return;
@@ -1228,12 +1246,19 @@ public class Tethering {
                     mRequestTracker.getOrCreatePendingRequest(TETHERING_BLUETOOTH);
             enableIpServing(request, iface);
             mConfiguredBluetoothIface = iface;
+            mTetheringRequest = request;
         }
 
         @Override
         public void onUnavailable() {
             if (this != mBluetoothCallback) return;
 
+            if (isTetheringWithSoftApConfigEnabled()) {
+                // Store the tethering request until onAvailable is called again.
+                // We must use forceAddPendingRequest instead of addPendingRequest, which will fail
+                // since this request is still in the serving list at this point.
+                mRequestTracker.forceAddPendingRequest(mTetheringRequest);
+            }
             maybeDisableBluetoothIpServing();
         }
     }
@@ -1788,6 +1813,11 @@ public class Tethering {
     @VisibleForTesting
     List<TetheringRequest> getPendingTetheringRequests() {
         return mRequestTracker.getPendingTetheringRequests();
+    }
+
+    @VisibleForTesting
+    List<TetheringRequest> getServingTetheringRequests() {
+        return mRequestTracker.getServingTetheringRequests();
     }
 
     @VisibleForTesting
