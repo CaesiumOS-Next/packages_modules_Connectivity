@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76bedc47_8bd4be99",
+        "filename": "bpf/netd/BpfHandler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-11T22:45:16Z",
+      "side": 1,
+      "message": "this appears to fail on git_main on multiple targets but not on aosp/main.\n\nI NetBpfLoad: NetBpfLoad v0.47 (/apex/com.android.tethering/bin/netbpfload) api:36/10000 kver:60c000b (64-on-x86-64) uid:0 rc:01\n\nE NetdUpdatable: libnetd_updatable_init: Failed: (1) [Operation not permitted] : Failed to change RLIMIT_MEMLOCK to 2 GiB\n\n\nKernel code at //kernel/sys.c do_prlimit()\n\n\t\tif (new_rlim-\u003erlim_max \u003e rlim-\u003erlim_max \u0026\u0026\n\t\t\t\t!capable(CAP_SYS_RESOURCE))\n\t\t\tretval \u003d -EPERM;\n\t\t\t\nbut netd does not have CAP_SYS_RESOURCE (does have CAP_IPC_LOCK).\n\nNot sure what is going on...",
+      "range": {
+        "startLine": 291,
+        "startChar": 0,
+        "endLine": 291,
+        "endChar": 86
+      },
+      "revId": "ddcac8351496ff8364a2c56c6166e3df6d3e5928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
