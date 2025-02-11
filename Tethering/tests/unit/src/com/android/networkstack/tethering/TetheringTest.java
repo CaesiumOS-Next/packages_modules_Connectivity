@@ -3257,6 +3257,11 @@ public class TetheringTest {
         sendUsbBroadcast(true, true, TETHER_USB_RNDIS_FUNCTION);
         mLooper.dispatchAll();
         inOrder.verify(mNetd).tetherInterfaceAdd(TEST_RNDIS_IFNAME);
+        if (isTetheringWithSoftApConfigEnabled()) {
+            // verify that Tethering was restarted with the original request and not a placeholder.
+            assertTrue(mTethering.getServingTetheringRequests().contains(
+                    createTetheringRequest(TETHERING_USB)));
+        }
     }
 
     @Test

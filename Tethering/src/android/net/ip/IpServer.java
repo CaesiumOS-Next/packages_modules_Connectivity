@@ -174,10 +174,11 @@ public class IpServer extends StateMachineShim {
         /**
          * Request Tethering change.
          *
-         * @param tetheringType the downstream type of this IpServer.
+         * @param tetheringRequest TetheringRequest to start/stop tethering with.
          * @param enabled enable or disable tethering.
          */
-        public void requestEnableTethering(int tetheringType, boolean enabled) { }
+        public void requestEnableTethering(@NonNull final TetheringRequest tetheringRequest,
+                boolean enabled) { }
     }
 
     /** Capture IpServer dependencies, for injection. */
@@ -1186,7 +1187,7 @@ public class IpServer extends StateMachineShim {
                     break;
                 case CMD_NOTIFY_PREFIX_CONFLICT:
                     mLog.i("restart tethering: " + mInterfaceType);
-                    mCallback.requestEnableTethering(mInterfaceType, false /* enabled */);
+                    mCallback.requestEnableTethering(mTetheringRequest, false /* enabled */);
                     transitionTo(mWaitingForRestartState);
                     break;
                 case CMD_SERVICE_FAILED_TO_START:
@@ -1467,15 +1468,17 @@ public class IpServer extends StateMachineShim {
         public boolean processMessage(Message message) {
             maybeLogMessage(this, message.what);
             switch (message.what) {
+                // mTetheringRequest is guaranteed to be non-null here since we populate it in
+                // IpServer#enable before transitioning to TetheringState/LocalHotspotState.
                 case CMD_TETHER_UNREQUESTED:
                     transitionTo(mInitialState);
                     mLog.i("Untethered (unrequested) and restarting " + mIfaceName);
-                    mCallback.requestEnableTethering(mInterfaceType, true /* enabled */);
+                    mCallback.requestEnableTethering(mTetheringRequest, true /* enabled */);
                     break;
                 case CMD_INTERFACE_DOWN:
                     transitionTo(mUnavailableState);
                     mLog.i("Untethered (interface down) and restarting " + mIfaceName);
-                    mCallback.requestEnableTethering(mInterfaceType, true /* enabled */);
+                    mCallback.requestEnableTethering(mTetheringRequest, true /* enabled */);
                     break;
                 default:
                     return false;
