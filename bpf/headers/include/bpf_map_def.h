@@ -107,7 +107,9 @@ _Static_assert(_Alignof(unsigned int) == 4, "_Alignof unsigned int != 4");
 _Static_assert(sizeof(unsigned long long) == 8, "sizeof unsigned long long != 8");
 _Static_assert(__alignof__(unsigned long long) == 8, "__alignof__ unsigned long long != 8");
 // BPF wants 8, but 32-bit x86 wants 4
-//_Static_assert(_Alignof(unsigned long long) == 8, "_Alignof unsigned long long != 8");
+#ifndef __i386__
+_Static_assert(_Alignof(unsigned long long) == 8, "_Alignof unsigned long long != 8");
+#endif
 
 
 // for maps:
