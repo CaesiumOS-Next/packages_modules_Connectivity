@@ -780,28 +780,22 @@ public class Tethering {
         });
     }
 
-    private boolean isTetheringTypePendingOrServing(final int type) {
-        if (getPendingTetheringRequest(type) != null) return true;
-        for (TetherState state : mTetherStates.values()) {
-            // TODO: isCurrentlyServing only starts returning true once the IpServer has processed
-            // the CMD_TETHER_REQUESTED. Ensure that we consider the request to be serving even when
-            // that has not happened yet.
-            if (state.isCurrentlyServing() && state.ipServer.interfaceType() == type) return true;
-        }
-        return false;
-    }
-
     void stopTetheringRequest(@NonNull final TetheringRequest request,
             @NonNull final IIntResultListener listener) {
         if (!isTetheringWithSoftApConfigEnabled()) return;
+        final boolean hasNetworkSettings = hasCallingPermission(NETWORK_SETTINGS);
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            if (isTetheringTypePendingOrServing(type)) {
-                stopTetheringInternal(type);
-                try {
-                    listener.onResult(TETHER_ERROR_NO_ERROR);
-                } catch (RemoteException ignored) { }
-                return;
+            final TetheringRequest fuzzyMatched = findFuzzyMatchedRequest(request);
+            if (fuzzyMatched != null) {
+                // Only remove an existing request if the UID matches or if we're Settings.
+                if (request.getUid() == fuzzyMatched.getUid() || hasNetworkSettings) {
+                    stopTetheringInternal(type);
+                    try {
+                        listener.onResult(TETHER_ERROR_NO_ERROR);
+                    } catch (RemoteException ignored) { }
+                    return;
+                }
             }
 
             // Request doesn't match any active requests, ignore.
