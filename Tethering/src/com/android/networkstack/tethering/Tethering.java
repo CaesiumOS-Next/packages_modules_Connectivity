@@ -54,6 +54,7 @@ import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_FAILED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STOPPED;
+import static android.net.TetheringManager.TetheringRequest.REQUEST_TYPE_IMPLICIT;
 import static android.net.TetheringManager.TetheringRequest.REQUEST_TYPE_PLACEHOLDER;
 import static android.net.TetheringManager.toIfaces;
 import static android.net.wifi.WifiManager.EXTRA_WIFI_AP_INTERFACE_NAME;
@@ -2475,9 +2476,18 @@ public class Tethering {
                         break;
                     }
                     case EVENT_REQUEST_CHANGE_DOWNSTREAM: {
-                        final int tetheringType = message.arg1;
-                        final Boolean enabled = (Boolean) message.obj;
-                        enableTetheringInternal(tetheringType, enabled, null, null);
+                        final TetheringRequest request = (TetheringRequest) message.obj;
+                        final boolean enabled = message.arg1 == 1;
+                        if (isTetheringWithSoftApConfigEnabled() && !enabled
+                                && request.getRequestType() != REQUEST_TYPE_IMPLICIT) {
+                            // Add the TetheringRequest to the pending list upon disabled to make
+                            // sure we reject any incoming fuzzy-matched requests that come before
+                            // we enable the request again. There should be no other requests in
+                            // the pending list at this point since the request is still considered
+                            // serving.
+                            mPendingTetheringRequests.put(request.getTetheringType(), request);
+                        }
+                        enableTetheringInternal(request.getTetheringType(), enabled, null, null);
                         break;
                     }
                     default:
@@ -3055,9 +3065,10 @@ public class Tethering {
         }
 
         @Override
-        public void requestEnableTethering(int tetheringType, boolean enabled) {
+        public void requestEnableTethering(@NonNull final TetheringRequest tetheringRequest,
+                boolean enabled) {
             mTetherMainSM.sendMessage(TetherMainSM.EVENT_REQUEST_CHANGE_DOWNSTREAM,
-                    tetheringType, 0, enabled ? Boolean.TRUE : Boolean.FALSE);
+                    enabled ? 1 : 0, 0, tetheringRequest);
         }
     }
 
