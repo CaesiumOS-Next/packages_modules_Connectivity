@@ -3559,8 +3559,8 @@ public class TetheringTest {
 
         final ResultListener result = new ResultListener(TETHER_ERROR_NO_ERROR);
         mockBluetoothSettings(true /* bluetoothOn */, true /* tetheringOn */);
-        mTethering.startTethering(createTetheringRequest(TETHERING_BLUETOOTH),
-                TEST_CALLER_PKG, result);
+        TetheringRequest tetheringRequest = createTetheringRequest(TETHERING_BLUETOOTH);
+        mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, result);
         mLooper.dispatchAll();
         verifySetBluetoothTethering(true /* enable */, true /* bindToPanService */);
         result.assertHasResult();
@@ -3574,10 +3574,14 @@ public class TetheringTest {
         mLooper.dispatchAll();
         verifyNetdCommandForBtTearDown();
 
-        // Tethering could restart if PAN reconnect.
+        // Tethering could restart if PAN reconnect. Make sure we restart with the original request
+        // and not a placeholder.
         mTetheredInterfaceCallbackShim.onAvailable(TEST_BT_IFNAME);
         mLooper.dispatchAll();
         verifyNetdCommandForBtSetup();
+        if (isTetheringWithSoftApConfigEnabled()) {
+            assertTrue(mTethering.getServingTetheringRequests().contains(tetheringRequest));
+        }
 
         // Pretend that bluetooth tethering was disabled.
         mockBluetoothSettings(true /* bluetoothOn */, false /* tetheringOn */);
