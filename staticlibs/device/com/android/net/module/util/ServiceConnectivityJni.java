@@ -19,6 +19,10 @@ package com.android.net.module.util;
 import android.annotation.NonNull;
 import android.system.ErrnoException;
 
+import java.io.FileDescriptor;
+import java.nio.ByteBuffer;
+import java.nio.NioUtils;
+
 /**
  * Contains JNI functions for use in service-connectivity
  */
@@ -59,4 +63,53 @@ public class ServiceConnectivityJni {
 
     /** Bring up tun/tap interface */
     public static native void bringUpInterface(String iface);
+
+    /**
+     * Receives a message from a socket and writes it in a ByteBuffer. When a
+     * LinkLayerSocketAddress is provided, it is filled with the source address of the message.
+     *
+     * See <a href="http://man7.org/linux/man-pages/man2/recvfrom.2.html">recvfrom(2)</a>.
+     *
+     * @param fd The socket file descriptor.
+     * @param buffer The ByteBuffer where to put the data.
+     * @param flags The flags controlling the call.
+     * @param llSocketAddress The holder for the link layer address.
+     * @return the number of bytes received or a negative value on failure.
+     * @throws ErrnoException if recvfrom fails.
+     */
+    public static int recvfrom(FileDescriptor fd, ByteBuffer buffer, int flags,
+            LinkLayerSocketAddress llSocketAddress) throws ErrnoException {
+        final int bytesReceived;
+        final int position = buffer.position();
+
+        if (buffer.isDirect()) {
+            bytesReceived = recvfromBytes(fd.getInt$(), buffer.array(), position,
+                    buffer.remaining(), flags, llSocketAddress);
+        } else {
+            bytesReceived = recvfromBytes(fd.getInt$(), NioUtils.unsafeArray(buffer),
+                    NioUtils.unsafeArrayOffset(buffer) + position, buffer.remaining(),
+                    flags, llSocketAddress);
+        }
+
+        if (bytesReceived > 0) {
+            buffer.position(position + bytesReceived);
+        }
+        return bytesReceived;
+    }
+
+    /**
+     * Receive a message from a socket in a byte buffer and collect the link layer source address.
+     *
+     * @param fd The socket file descriptor.
+     * @param buffer The buffer to fill with the content received.
+     * @param byteOffset The offset to write in the buffer.
+     * @param byteCount The number of bytes available in the buffer.
+     * @param flags The flags controlling the call.
+     * @param llSocketAddress The holder for the link layer address.
+     * @return the number of bytes written in the buffer or a negative value on failure.
+     * @throws ErrnoException if recvfrom fails.
+     */
+    private static native int recvfromBytes(int fd, byte[] buffer, int byteOffset,
+            int byteCount, int flags, LinkLayerSocketAddress llSocketAddress)
+            throws ErrnoException;
 }

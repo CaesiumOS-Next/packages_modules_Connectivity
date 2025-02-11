@@ -19,6 +19,7 @@
 #include <fcntl.h>
 #include <jni.h>
 #include <linux/if.h>
+#include <linux/if_packet.h>
 #include <linux/if_tun.h>
 #include <linux/ipv6_route.h>
 #include <linux/route.h>
@@ -40,6 +41,7 @@
 #include <android-base/unique_fd.h>
 #include <bpf/KernelUtils.h>
 #include <nativehelper/JNIHelp.h>
+#include <nativehelper/ScopedPrimitiveArray.h>
 #include <nativehelper/scoped_utf_chars.h>
 
 #define MSEC_PER_SEC 1000
@@ -186,6 +188,69 @@ static void bringUpInterface(JNIEnv *env, jclass /* clazz */, jstring jIface) {
   bringUpInterfaceImpl(env, iface.c_str());
 }
 
+static void fillLinkLayerSocketAddress(JNIEnv *env, jobject llSocketAddress,
+                                       const struct sockaddr_ll *sl) {
+  if (llSocketAddress == NULL || sl == NULL) {
+    return;
+  }
+
+  jclass class_LinkLayerSocketAddress =
+      env->FindClass("android/net/connectivity/com/android/net/module/util/"
+                     "LinkLayerSocketAddress");
+  jfieldID protocolFid =
+      env->GetFieldID(class_LinkLayerSocketAddress, "sll_protocol", "I");
+  jfieldID ifindexFid =
+      env->GetFieldID(class_LinkLayerSocketAddress, "sll_ifindex", "I");
+  jfieldID hatypeFid =
+      env->GetFieldID(class_LinkLayerSocketAddress, "sll_hatype", "I");
+  jfieldID pkttypeFid =
+      env->GetFieldID(class_LinkLayerSocketAddress, "sll_pkttype", "I");
+  jfieldID addrFid =
+      env->GetFieldID(class_LinkLayerSocketAddress, "sll_addr", "[B");
+
+  env->SetIntField(llSocketAddress, protocolFid, sl->sll_protocol);
+  env->SetIntField(llSocketAddress, ifindexFid, sl->sll_ifindex);
+  env->SetIntField(llSocketAddress, hatypeFid, sl->sll_hatype);
+  env->SetIntField(llSocketAddress, pkttypeFid, sl->sll_pkttype);
+
+  if (sl->sll_halen > 0) {
+    jbyteArray addr = env->NewByteArray(sl->sll_halen);
+    env->SetByteArrayRegion(addr, 0, sl->sll_halen,
+                            (const jbyte *)&sl->sll_addr);
+    env->SetObjectField(llSocketAddress, addrFid, addr);
+  }
+}
+
+static jint recvfromBytes(JNIEnv *env, jobject, jint fd, jbyteArray javaBytes,
+                          jint byteOffset, jint byteCount, jint flags,
+                          jobject llSocketAddress) {
+  ScopedByteArrayRW bytes(env, javaBytes);
+  if (bytes.get() == NULL) {
+    return -1;
+  }
+
+  sockaddr_storage ss = {};
+  socklen_t sl = sizeof(ss);
+  sockaddr *from = (llSocketAddress != NULL)
+                       ? reinterpret_cast<struct sockaddr *>(&ss)
+                       : NULL;
+  socklen_t *fromLen = (llSocketAddress != NULL) ? &sl : 0;
+  ssize_t rc = TEMP_FAILURE_RETRY(
+      recvfrom(fd, bytes.get() + byteOffset, byteCount, flags, from, fromLen));
+  if (rc == -1) {
+    jniThrowErrnoException(env, "recvfrom", errno);
+    return rc;
+  }
+
+  if (rc >= 0) {
+    if (ss.ss_family == AF_PACKET) {
+      fillLinkLayerSocketAddress(env, llSocketAddress,
+                                 reinterpret_cast<struct sockaddr_ll *>(&ss));
+    }
+  }
+  return rc;
+}
+
 //------------------------------------------------------------------------------
 
 /*
@@ -199,6 +264,10 @@ static const JNINativeMethod gMethods[] = {
      (void *)setTunTapCarrierEnabled},
     {"createTunTap", "(ZZZLjava/lang/String;)I", (void *)createTunTap},
     {"bringUpInterface", "(Ljava/lang/String;)V", (void *)bringUpInterface},
+    {"recvfromBytes",
+     "(I[BIIILandroid/net/connectivity/com/android/net/module/util/"
+     "LinkLayerSocketAddress;)I",
+     (void *)recvfromBytes},
 };
 
 int register_com_android_net_module_util_ServiceConnectivityJni(
