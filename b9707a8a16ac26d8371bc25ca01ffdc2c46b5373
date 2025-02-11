@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "035ee871_a3bbcf91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-11T06:48:40Z",
+      "side": 1,
+      "message": "Failed to build:\n\ncf_gwear_x86-trunk_staging-userdebug:git_main\n[Build] cf_gwear_x86-trunk_staging-userdebug on git_main \n\ntest_suites_x86_64-trunk_staging:aosp-main\n[Build] test_suites_x86_64-trunk_staging on aosp-main \n\ntest_suites_x86_64-trunk_staging:aosp-main\n[Build] test_suites_x86_64-trunk_staging on aosp-main \n\ntest_suites_x86_64-trunk_staging:git_main\n[Build] test_suites_x86_64-trunk_staging on git_main \n\ntest_suites_x86_64-trunk_staging_coverage:aosp-main\n[Build] test_suites_x86_64-trunk_staging_coverage on aosp-main \n\ntest_suites_x86_64-trunk_staging_coverage:git_main\n[Build] test_suites_x86_64-trunk_staging_coverage on git_main",
+      "revId": "b9707a8a16ac26d8371bc25ca01ffdc2c46b5373",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
