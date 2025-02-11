@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21abe2bf_a194f84f",
+        "filename": "tests/cts/multidevices/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-02-11T05:18:11Z",
+      "side": 0,
+      "message": "I guess that was not we discussed. We know the test is flaky on ATP right now but we should still have the partner and tester to run the test as part of Cts verification.\n\nWe need to exclude it from ATP config but not here.",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "5683c68a3f4874539eacb31636fc04466762a84b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
