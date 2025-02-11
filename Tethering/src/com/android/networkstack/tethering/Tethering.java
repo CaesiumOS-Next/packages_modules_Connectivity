@@ -55,6 +55,7 @@ import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_FAILED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STOPPED;
+import static android.net.TetheringManager.TetheringRequest.REQUEST_TYPE_IMPLICIT;
 import static android.net.TetheringManager.TetheringRequest.REQUEST_TYPE_PLACEHOLDER;
 import static android.net.TetheringManager.toIfaces;
 import static android.net.wifi.WifiManager.EXTRA_WIFI_AP_INTERFACE_NAME;
@@ -2533,14 +2534,18 @@ public class Tethering {
                         break;
                     }
                     case EVENT_REQUEST_CHANGE_DOWNSTREAM: {
-                        final int type = message.arg1;
-                        final Boolean enabled = (Boolean) message.obj;
-                        // Using a placeholder here is ok since we just need to the type of
-                        // tethering to poke the link layer. When the link layer comes up, we won't
-                        // have a pending request to use, but this matches the historical behavior.
-                        // TODO: Get the TetheringRequest from IpServer and make sure to put it in
-                        //       the pending list too.
-                        enableTetheringInternal(enabled, createPlaceholderRequest(type), null);
+                        final TetheringRequest request = (TetheringRequest) message.obj;
+                        final boolean enabled = message.arg1 == 1;
+                        if (isTetheringWithSoftApConfigEnabled() && !enabled
+                                && request.getRequestType() != REQUEST_TYPE_IMPLICIT) {
+                            // Add the TetheringRequest to the pending list upon disabled to make
+                            // sure we reject any incoming fuzzy-matched requests that come before
+                            // we enable the request again. There should be no other requests in
+                            // the pending list at this point since the request is still considered
+                            // serving.
+                            mPendingTetheringRequests.add(request);
+                        }
+                        enableTetheringInternal(enabled, request, null);
                         break;
                     }
                     default:
@@ -3118,9 +3123,10 @@ public class Tethering {
         }
 
         @Override
-        public void requestEnableTethering(int tetheringType, boolean enabled) {
+        public void requestEnableTethering(@NonNull final TetheringRequest tetheringRequest,
+                boolean enabled) {
             mTetherMainSM.sendMessage(TetherMainSM.EVENT_REQUEST_CHANGE_DOWNSTREAM,
-                    tetheringType, 0, enabled ? Boolean.TRUE : Boolean.FALSE);
+                    enabled ? 1 : 0, 0, tetheringRequest);
         }
     }
 
