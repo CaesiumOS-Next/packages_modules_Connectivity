@@ -324,4 +324,21 @@ public class RequestTracker {
     public void removeServingRequest(@NonNull String iface) {
         mServingRequests.remove(iface);
     }
+
+    /**
+     * Returns an existing (pending or serving) request that fuzzy matches the given request.
+     * Optionally specify matchUid to only return requests with the same uid.
+     */
+    public TetheringRequest findFuzzyMatchedRequest(
+            @NonNull final TetheringRequest tetheringRequest, boolean matchUid) {
+        List<TetheringRequest> allRequests = new ArrayList<>();
+        allRequests.addAll(getPendingTetheringRequests());
+        allRequests.addAll(getServingTetheringRequests());
+        for (TetheringRequest request : allRequests) {
+            if (!request.fuzzyMatches(tetheringRequest)) continue;
+            if (matchUid && tetheringRequest.getUid() != request.getUid()) continue;
+            return request;
+        }
+        return null;
+    }
 }
