@@ -190,6 +190,17 @@ public class RequestTracker {
     }
 
     /**
+     * Utility to add pending requests while ignoring any existing pending/serving request. This
+     * should only be used when re-adding serving requests to the pending list for restart
+     * states (e.g. IP conflict, Bluetooth service disconnection, etc), which is necessary to
+     * prevent other requesters from adding a pending request while the restarting request is
+     * removed from the serving list.
+     */
+    public void forceAddPendingRequest(@NonNull final TetheringRequest newRequest) {
+        mPendingRequests.add(new PendingRequest(newRequest, null));
+    }
+
+    /**
      * Gets the next pending TetheringRequest of a given type, or creates a placeholder request if
      * there are none. If there are multiple requests of the same type in the list, then the
      * first of these requests will be returned.
