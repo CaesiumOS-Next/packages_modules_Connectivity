@@ -1066,6 +1066,8 @@ public class Tethering {
     // BluetoothCallback is only called after T. Before T, PanService would call tether/untether to
     // notify bluetooth interface status.
     private class BluetoothCallback implements TetheredInterfaceCallbackShim {
+        TetheringRequest mTetheringRequest;
+
         @Override
         public void onAvailable(String iface) {
             if (this != mBluetoothCallback) return;
@@ -1074,12 +1076,15 @@ public class Tethering {
                     getOrCreatePendingTetheringRequest(TETHERING_BLUETOOTH);
             enableIpServing(request, iface);
             mConfiguredBluetoothIface = iface;
+            mTetheringRequest = request;
         }
 
         @Override
         public void onUnavailable() {
             if (this != mBluetoothCallback) return;
 
+            // Store the tethering request until onAvailable is called again.
+            mPendingTetheringRequests.put(TETHERING_BLUETOOTH, mTetheringRequest);
             maybeDisableBluetoothIpServing();
         }
     }
