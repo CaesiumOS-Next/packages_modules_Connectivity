@@ -32,7 +32,6 @@ python_test_host {
         "net-tests-utils-host-python-common",
     ],
     test_suites: [
-        "cts",
         "general-tests",
     ],
     test_options: {
