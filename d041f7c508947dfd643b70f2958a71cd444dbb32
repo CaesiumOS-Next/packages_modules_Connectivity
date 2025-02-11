@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53d80a2e_6d636fd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-02-11T05:58:24Z",
+      "side": 1,
+      "message": "After some discussion, the multi-devices test added to CTS should be added \nhttps://source.corp.google.com/h/android/platform/packages/modules/Connectivity/+/36e762640626ed59fb81aace9395a035bd1cbe8d\n\nIt should passed for a while.",
+      "revId": "d041f7c508947dfd643b70f2958a71cd444dbb32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
