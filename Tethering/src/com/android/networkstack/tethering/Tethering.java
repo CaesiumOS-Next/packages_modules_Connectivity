@@ -801,14 +801,19 @@ public class Tethering {
     void stopTetheringRequest(@NonNull final TetheringRequest request,
             @NonNull final IIntResultListener listener) {
         if (!isTetheringWithSoftApConfigEnabled()) return;
+        final boolean hasNetworkSettings = hasCallingPermission(NETWORK_SETTINGS);
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            if (isTetheringTypePendingOrServing(type)) {
-                stopTetheringInternal(type);
-                try {
-                    listener.onResult(TETHER_ERROR_NO_ERROR);
-                } catch (RemoteException ignored) { }
-                return;
+            final TetheringRequest fuzzyMatched = findFuzzyMatchedRequest(request);
+            if (fuzzyMatched != null) {
+                // Only remove an existing request if the UID matches or if we're Settings.
+                if (request.getUid() == fuzzyMatched.getUid() || hasNetworkSettings) {
+                    stopTetheringInternal(type);
+                    try {
+                        listener.onResult(TETHER_ERROR_NO_ERROR);
+                    } catch (RemoteException ignored) { }
+                    return;
+                }
             }
 
             // Request doesn't match any active requests, ignore.
