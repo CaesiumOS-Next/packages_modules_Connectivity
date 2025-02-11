@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "277d6455_968bbbb4",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-02-11T11:41:35Z",
+      "side": 1,
+      "message": "From an SdkSandbox perspective, yes, it\u0027s safe to enable. Can we leave this CL as currently is and do the prep work and the backporting in follow up changes?",
+      "parentUuid": "ddd00d3e_5c95de25",
+      "range": {
+        "startLine": 427,
+        "startChar": 0,
+        "endLine": 427,
+        "endChar": 4
+      },
+      "revId": "42da9f47539b45eca92d68573f1b153750f10f1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8c426713_e9731040",
         "filename": "bpf/progs/netd.c",
         "patchSetId": 14
