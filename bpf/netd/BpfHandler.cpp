@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#include "netdutils/Status.h"
 #define LOG_TAG "NetdUpdatable"
 
 #include "BpfHandler.h"
@@ -273,11 +274,28 @@ Status BpfHandler::init(const char* cg2_path) {
     RETURN_IF_NOT_OK(initMaps());
 
     if (android_get_device_api_level() > __ANDROID_API_V__) {
-        // make sure netd can create & write maps.  sepolicy is V+, but enough to enforce on 25Q2+
+        // Make sure netd can create & write maps.  sepolicy is V+, but enough to enforce on 25Q2+
         int key = 1;
         int value = 123;
+
+        // Non preallocated hash map should not require memlock limit increase.
+        unique_fd hmap(bpf::createMap(BPF_MAP_TYPE_HASH, sizeof(key), sizeof(value), 2, BPF_F_NO_PREALLOC));
+        if (!hmap.ok()) return statusFromErrno(errno, fmt::format("hash map create failed"));
+
+        // Older kernels do not honour CAP_IPC_LOCK during eBpf map create.
+        // Note that this affects the entire netd process, and we do not restore the original limit.
+        struct rlimit limit = {
+            .rlim_cur = 1 << 31,  // 2 GiB
+            .rlim_max = 1 << 31,  // 2 GiB
+        };
+        if (setrlimit(RLIMIT_MEMLOCK, &limit))
+            return statusFromErrno(errno, "Failed to change RLIMIT_MEMLOCK to 2 GiB");
+
+        // Arrays are preallocated, and they might require memlock limit increase on at least 5.10.
         unique_fd map(bpf::createMap(BPF_MAP_TYPE_ARRAY, sizeof(key), sizeof(value), 2, 0));
-        if (!map.ok()) return statusFromErrno(errno, fmt::format("map create failed"));
+        if (!map.ok()) return statusFromErrno(errno, fmt::format("array map create failed"));
+
+        // Write to the map to ensure it is working.
         int rv = bpf::writeToMapEntry(map, &key, &value, BPF_ANY);
         if (rv) return statusFromErrno(errno, fmt::format("map write failed (rv={})", rv));
     }
