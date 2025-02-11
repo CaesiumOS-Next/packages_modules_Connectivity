@@ -16,6 +16,24 @@
       "message": "Hmm, it seems there\u0027s still the issue of mixing local-only and global requests (only for USB, NCM, ETHERNET).\n\ni.e. if a local request comes after a global request, we are obligated to accept both requests, but we won\u0027t know which one to match to the link layer event.\n\nI think in this case we ought to reject the new request even if the connectivity scope is different.\n\nThe rationale for having the fuzzy matching is so that wifi with different SoftApConfiguration or P2P with different interface can exist at the same time and not be fuzzy matched. This doesn\u0027t make sense for the other types, which cannot have different connectivity scopes at the same time.",
       "revId": "a099f63ad1a0f651a7fecf3ed9d5a95edab1cfc2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91e88be1_fb7493e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-11T13:49:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df010aff_69fc29f9",
+      "revId": "a099f63ad1a0f651a7fecf3ed9d5a95edab1cfc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

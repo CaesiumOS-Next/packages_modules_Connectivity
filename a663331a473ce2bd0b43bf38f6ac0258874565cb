@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a59222a_f3fb3b9e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-11T13:49:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0955748d_7a4e22fc",
+      "range": {
+        "startLine": 729,
+        "startChar": 20,
+        "endLine": 729,
+        "endChar": 39
+      },
+      "revId": "a663331a473ce2bd0b43bf38f6ac0258874565cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8429dfb_4621a9f6",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-02-10T08:38:35Z",
       "side": 1,
       "message": "If this is for new code, we should use DUPLICATE_REQUEST.",
+      "range": {
+        "startLine": 765,
+        "startChar": 46,
+        "endLine": 765,
+        "endChar": 72
+      },
+      "revId": "a663331a473ce2bd0b43bf38f6ac0258874565cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "402d5c9c_fe1e4074",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-11T13:49:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8429dfb_4621a9f6",
       "range": {
         "startLine": 765,
         "startChar": 46,

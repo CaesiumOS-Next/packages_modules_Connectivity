@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acd3cbf6_c0292d99",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1265,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-11T13:49:15Z",
+      "side": 1,
+      "message": "Currently only VIRTUAL does anything with the interface name, so we can ignore it if it\u0027s not VIRTUAL",
+      "parentUuid": "8ec61207_8b218168",
+      "range": {
+        "startLine": 1265,
+        "startChar": 60,
+        "endLine": 1265,
+        "endChar": 76
+      },
+      "revId": "b5a41ca3933306fb1506d3a2fe8f0c9f554e4b02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37d7bbc3_c990789a",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-02-10T08:38:35Z",
       "side": 1,
       "message": "Can you factor this out to a method? findFuzzyMatchingRequest?",
+      "range": {
+        "startLine": 731,
+        "startChar": 16,
+        "endLine": 731,
+        "endChar": 19
+      },
+      "revId": "b5a41ca3933306fb1506d3a2fe8f0c9f554e4b02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e6d90e3_9ddc99b6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-11T13:49:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37d7bbc3_c990789a",
       "range": {
         "startLine": 731,
         "startChar": 16,
