@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e64bbd7_124ef6f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-11T18:53:48Z",
+      "side": 1,
+      "message": "Can only cause build failures, so test failure is irrelevant.",
+      "revId": "f6c1f7574d3c1b9dc7a293f014e827d28addc28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
