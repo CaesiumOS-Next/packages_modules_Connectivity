@@ -245,10 +245,16 @@ public class RequestTracker {
      *       Since these requests are considered equal, we will also remove the duplicates upon
      *       failure.
      */
-    public void sendLinkLayerResult(
+    public void sendLinkLayerResult(boolean enable,
             @NonNull final TetheringRequest tetheringRequest, final int result) {
         // The result of Bluetooth tethering will be sent after the pan service connects.
         if (result == TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) return;
+
+        // Don't send the result of a successful enable until we actually enable the IpServer
+        // in tetherInternal.
+        if (mIsTetheringWithSoftApConfigEnabled && enable && result == TETHER_ERROR_NO_ERROR) {
+            return;
+        }
 
         mPendingRequests.removeIf(request -> {
             TetheringRequest pendingRequest = request.getTetheringRequest();
