@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f070243_66fca01b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-12T18:26:00Z",
+      "side": 1,
+      "message": "Hey Jean, the feature flag should be used for enforcement in 2026 not during this opt-in phase -- I had been pre-emptively gating our 25Q2 changes with it. PTAL, thanks!",
+      "revId": "0c67f3579f81799c13b439070ec321ceb2e6f9a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
