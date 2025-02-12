@@ -119,6 +119,7 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IInterface;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
@@ -171,6 +172,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -249,6 +251,8 @@ public class Tethering {
     // to be used after the interface comes up asynchronously.
     private final SparseArray<TetheringRequest> mPendingTetheringRequests =
             new SparseArray<>();
+    private Map<TetheringRequest, IIntResultListener> mPendingStartTetheringCallbacks =
+            new HashMap<>();
     /**
      * Currently serving TetheringRequests mapped by interface.
      * These are added when IpServer#enable is called and removed when IpServer#stop or
@@ -762,6 +766,7 @@ public class Tethering {
                 }
             }
             mPendingTetheringRequests.put(type, request);
+            mPendingStartTetheringCallbacks.put(request, listener);
 
             if (request.isExemptFromEntitlementCheck()) {
                 mEntitlementMgr.setExemptedDownstreamType(type);
@@ -853,6 +858,10 @@ public class Tethering {
             return;
         }
 
+        if (isTetheringWithSoftApConfigEnabled() && enable && result == TETHER_ERROR_NO_ERROR) {
+            return;
+        }
+
         sendTetherResult(request, listener, result);
     }
 
@@ -863,6 +872,7 @@ public class Tethering {
                 listener.onResult(result);
             } catch (RemoteException e) { }
         }
+        mPendingStartTetheringCallbacks.remove(request);
 
         // If changing tethering fail, remove corresponding request
         // no matter who trigger the start/stop.
