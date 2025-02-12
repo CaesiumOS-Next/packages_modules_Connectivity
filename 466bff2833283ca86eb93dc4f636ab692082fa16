@@ -1,5 +1,93 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c86f5312_d4233eb7",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T04:15:13Z",
+      "side": 1,
+      "message": "nit : todo here too, since you\u0027ll have to either close it on the accept thread, or after joining that thread",
+      "range": {
+        "startLine": 240,
+        "startChar": 16,
+        "endLine": 240,
+        "endChar": 29
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f7d44895_7529ee6a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/L2capNetworkProvider.java",
+              "range": {
+                "startLine": 239,
+                "startChar": 0,
+                "endLine": 239,
+                "endChar": 0
+              },
+              "replacement": "            // TODO: close the server socket on the AcceptThread.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "466bff2833283ca86eb93dc4f636ab692082fa16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ed016eb_9f82cc7f",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T04:15:13Z",
+      "side": 1,
+      "message": "Docs imply it should never be, but historically Wear has been known to start returning null to some of these calls when the feature is not supported.\n\nRegardless, the existence of this code path violates the comment in l.83 ; we should either crash, change the comment, or handle this somehow. Considering you have a private final Context, my preferred way would likely be to initialize the member in the constructor and make it final, and not register the provider if null ; you could also pass it to the constructor of this provider and not make the provider at all if you can\u0027t get a manager.",
+      "range": {
+        "startLine": 289,
+        "startChar": 16,
+        "endLine": 289,
+        "endChar": 40
+      },
+      "revId": "466bff2833283ca86eb93dc4f636ab692082fa16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ead5623_534ae344",
+        "filename": "tests/unit/java/com/android/server/L2capNetworkProviderTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T04:15:13Z",
+      "side": 1,
+      "message": "Note that because lateinit is so confusing and leads to poor code, we\u0027ve had a rule in the team that every use of it should require a comment to justify why it\u0027s better than the alternatives in that particular case.\nPersonally I think you\u0027d be better off initalizing your mocks inline here, like\n\n```\n   private val context \u003d mock(Context::class)\n```\n\nIt\u0027s both clearer and safer.",
+      "range": {
+        "startLine": 81,
+        "startChar": 18,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "466bff2833283ca86eb93dc4f636ab692082fa16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
