@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede0c875_dcc8221b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T04:35:48Z",
+      "side": 1,
+      "message": "While it doesn\u0027t really matter for your value of N, both of these are the wrong tool ; the right tool is SparseArray whose job it is to map integer to objects with O(log(n)) lookup and none of the map overhead",
+      "range": {
+        "startLine": 13,
+        "startChar": 25,
+        "endLine": 13,
+        "endChar": 67
+      },
+      "revId": "53bdcd713d957f3cb1caa7cbb8f44c6bd02a24a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
