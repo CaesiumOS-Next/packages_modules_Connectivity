@@ -256,8 +256,14 @@ public class RequestTracker {
      * Handles the result of requesting the link layer to start/stop for the given TetheringRequest.
      * If the result is an error, the request will be removed from the pending list.
      */
-    public void handleLinkLayerResult(
+    public void handleLinkLayerResult(boolean enable,
             @NonNull final TetheringRequest tetheringRequest, final int result) {
+        // Don't send the result of a successful enable until we actually enable the IpServer
+        // in tetherInternal.
+        if (mUseFuzzyMatching && enable && result == TETHER_ERROR_NO_ERROR) {
+            return;
+        }
+
         // The result of Bluetooth tethering will be sent after the pan service connects.
         if (result == TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) return;
 
