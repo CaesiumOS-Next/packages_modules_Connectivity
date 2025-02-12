@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc183765_8fd1cefb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-12T10:37:28Z",
+      "side": 1,
+      "message": "Instead of just saying \"an issue\", can you explain what the issue is? Off the top of my head, I think the problem is that if an app calls startTethering with a specific request for wifi tethering, and then local-only hotspot comes up, then local-only hotspot will come up with some of the data from the app\u0027s request.",
+      "range": {
+        "startLine": 10,
+        "startChar": 48,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "c813e47346f1fea8b00ee847dae084ee77408556",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9a16a80_de074b3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-12T10:37:28Z",
+      "side": 1,
+      "message": "LGTM assuming commit message is fixed.\n\nPerhaps not for this CL, but could you also add a test that calls startTethering with a request with a static IP address, and then receives a broadcast, and checks that the static IP address is not used?\n\nIf possible, it would be even better to write and merge the test first (but check that the behaviour is incorrect), and then in this CL, make the behaviour correct. But a test written after the fact is fine too.",
+      "revId": "c813e47346f1fea8b00ee847dae084ee77408556",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
