@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a21e1603_24522897",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-12T09:24:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f30d5849_1c2bb64a",
+      "range": {
+        "startLine": 1264,
+        "startChar": 87,
+        "endLine": 1264,
+        "endChar": 88
+      },
+      "revId": "31a21f66c39abda42f2364c41f9376972bb5041b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0913010f_2a39c3e0",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-02-12T08:28:09Z",
       "side": 1,
       "message": "and in some cases,\n\n(not in all cases: for example, we know that wifi can\u0027t bring up two SoftAPs simultaneously, even if they have two different SoftApConfigurations, but those two requests don\u0027t fuzzy-match)",
+      "range": {
+        "startLine": 1270,
+        "startChar": 87,
+        "endLine": 1270,
+        "endChar": 90
+      },
+      "revId": "31a21f66c39abda42f2364c41f9376972bb5041b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "484eb460_2016bd42",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1270,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-12T09:24:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0913010f_2a39c3e0",
       "range": {
         "startLine": 1270,
         "startChar": 87,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fbe7ebb_eac7e7b2",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-12T09:24:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "112d1947_e6483d7a",
+      "range": {
+        "startLine": 1286,
+        "startChar": 12,
+        "endLine": 1286,
+        "endChar": 14
+      },
+      "revId": "31a21f66c39abda42f2364c41f9376972bb5041b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9c38c34_6cf38138",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-02-12T08:28:09Z",
       "side": 1,
       "message": "Per discussion: this would cause TETHER_ERROR_DUPLICATE_REQUEST if a caller stops tethering and then immediately restarts it before the link layer has stopped. It seems better instead to fail requests only if there is a duplicate *pending* request, and not fail them if there is a serving request that is stopping. In particular, we could:\n- Rename mPendingTetheringRequests to mTetheringRequests\n- Have startTethering only look at mTetheringRequests and not at mServingRequests\n- When a request starts serving, *not* remove it from mTetheringRequests\n- When stopTethering is called, remove the request from mTetheringRequests but not from mServingRequests\n- When a request stop serving, remove it from mServingRequests and from mTetheringRequests\n  - Removing it from the requested list is necessary to ensure that the request is\n    removed if tethering stops serving for other reasons, such as wifi interface\n    needed for something else, BT crashing, etc.\n\nIn order for this to work we must ensure that nothing goes into the serving list without also going into the requested list.\n\nThe IP conflict case could be dealt with by adding a third list (mPendingRestartRequests). IpServer.Callback#requestEnableTethering would add the request to mPendingRestartRequests, and then it would wait for the link layer to go down. When the link layer came up again, it could call back into Tethering again with the same request, and that would remove the request from the pending list. Any attempt to start tethering would also look at mPendingRestartRequests, and fail with TETHER_ERROR_DUPLICATE_REQUEST if it found a duplicate request there.\n\nWhen wifi restarts for internal reasons (e.g., changes country code), the callback would notify tethering that the interface went down and the request will be removed from mTetheringRequests. But then when wifi restarted, it would call the same callback again with the same TetheringRequest as before. In that case, tethering would have to trust what it got from wifi and put the request into mTetheringRequests.\n\nPer discussion it looks like the serving list may not be necessary any more if we do this.",
+      "range": {
+        "startLine": 745,
+        "startChar": 46,
+        "endLine": 745,
+        "endChar": 76
+      },
+      "revId": "31a21f66c39abda42f2364c41f9376972bb5041b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f006ec7_cd00f600",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-12T09:24:27Z",
+      "side": 1,
+      "message": "From discussion: This still won\u0027t work for the start/stop/start case. Any link layer event that happens after the 2nd start will affect the 2nd start request, even if it was meant for the first start/stop/\n\nCase 1) Already serving\n1) Stop -- remove request from list\n2) Start -- add request to list\n3) Link layer goes down -- remove request\n4) Link layer goes up -- no request anymore (bug)\n\nCase 2) No requests yet\n1) Start -- add request to list\n2) Stop -- remove request from list\n3) Start -- add request to list\n4) Link layer goes up -- start IP serving with request\n5) Link layer goes down -- stop IP serving --\u003e remove request\n6) Link layer goes up -- no request anymore (bug)",
+      "parentUuid": "f9c38c34_6cf38138",
       "range": {
         "startLine": 745,
         "startChar": 46,
