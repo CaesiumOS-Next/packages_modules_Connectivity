@@ -210,6 +210,27 @@ public final class NetworkStackConstants {
     public static final byte PIO_FLAG_DHCPV6_PD_PREFERRED = (byte) (1 << 4);
 
     /**
+     * IPv6 Router Alert Option constants.
+     *
+     * See also:
+     *     - https://tools.ietf.org/html/rfc2711
+     */
+    public static final int IPV6_RA_OPTION_TYPE = 5;
+    public static final int IPV6_RA_OPTION_LEN = 2;
+
+    /**
+     * IPv6 MLD constants.
+     *
+     * See also:
+     *     - https://tools.ietf.org/html/rfc2710
+     */
+    public static final int IPV6_MLD_MIN_SIZE = 24;
+    public static final int IPV6_MLD_TYPE_QUERY = 130;
+    public static final int IPV6_MLD_TYPE_V1_REPORT = 131;
+    public static final int IPV6_MLD_TYPE_V1_DONE = 132;
+    public static final int IPV6_MLD_TYPE_V2_REPORT = 143;
+
+    /**
      * TCP constants.
      *
      * See also:
