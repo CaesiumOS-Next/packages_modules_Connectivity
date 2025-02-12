@@ -10157,7 +10157,8 @@ public class ConnectivityService extends IConnectivityManager.Stub {
             final int vpnType = getVpnType(agent);
             if (!agent.isVPN() || agent.isDestroyed()
                     || vpnType == VpnManager.TYPE_VPN_LEGACY
-                    || vpnType == VpnManager.TYPE_VPN_OEM) {
+                    || vpnType == VpnManager.TYPE_VPN_OEM
+                    || vpnType == VpnManager.TYPE_VPN_OEM_LEGACY) {
                 continue;
             }
             final LinkProperties agentLp = (nai == agent) ? lp : agent.linkProperties;
