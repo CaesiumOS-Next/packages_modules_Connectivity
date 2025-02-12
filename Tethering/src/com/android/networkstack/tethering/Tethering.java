@@ -707,8 +707,7 @@ public class Tethering {
             // If tethering is already enabled with a different request,
             // disable before re-enabling.
             if (unfinishedRequest != null && !unfinishedRequest.equalsIgnoreUidPackage(request)) {
-                enableTetheringInternal(type, false /* disabled */,
-                        unfinishedRequest.getInterfaceName(), null);
+                enableTetheringInternal(false /* disabled */, unfinishedRequest, null);
                 mEntitlementMgr.stopProvisioningIfNeeded(type);
             }
             mPendingTetheringRequests.put(type, request);
@@ -719,7 +718,7 @@ public class Tethering {
                 mEntitlementMgr.startProvisioningIfNeeded(type,
                         request.getShouldShowEntitlementUi());
             }
-            enableTetheringInternal(type, true /* enabled */, request.getInterfaceName(), listener);
+            enableTetheringInternal(true /* enabled */, request, listener);
             mTetheringMetrics.createBuilder(type, callerPkg);
         });
     }
@@ -766,7 +765,12 @@ public class Tethering {
     void stopTetheringInternal(int type) {
         mPendingTetheringRequests.remove(type);
 
-        enableTetheringInternal(type, false /* disabled */, null, null);
+        // Using a placeholder here is ok since none of the disable APIs use the request for
+        // anything. We simply need the tethering type to know which link layer to poke for removal.
+        // TODO: Remove the placeholder here and loop through each pending/serving request.
+        TetheringRequest placeholder = new TetheringRequest.Builder(type).build();
+        placeholder.getParcel().requestType = REQUEST_TYPE_PLACEHOLDER;
+        enableTetheringInternal(false /* disabled */, placeholder, null);
         mEntitlementMgr.stopProvisioningIfNeeded(type);
     }
 
@@ -774,8 +778,9 @@ public class Tethering {
      * Enables or disables tethering for the given type. If provisioning is required, it will
      * schedule provisioning rechecks for the specified interface.
      */
-    private void enableTetheringInternal(int type, boolean enable,
-            String iface, final IIntResultListener listener) {
+    private void enableTetheringInternal(boolean enable, @NonNull final TetheringRequest request,
+            final IIntResultListener listener) {
+        final int type = request.getTetheringType();
         final int result;
         switch (type) {
             case TETHERING_WIFI:
@@ -794,7 +799,7 @@ public class Tethering {
                 result = setEthernetTethering(enable);
                 break;
             case TETHERING_VIRTUAL:
-                result = setVirtualMachineTethering(enable, iface);
+                result = setVirtualMachineTethering(enable, request);
                 break;
             default:
                 Log.w(TAG, "Invalid tether type.");
@@ -1065,14 +1070,14 @@ public class Tethering {
         }
     }
 
-    private int setVirtualMachineTethering(final boolean enable, String iface) {
+    private int setVirtualMachineTethering(final boolean enable, TetheringRequest request) {
+        final String iface = request.getInterfaceName();
         if (enable) {
             if (TextUtils.isEmpty(iface)) {
                 mConfiguredVirtualIface = "avf_tap_fixed";
             } else {
                 mConfiguredVirtualIface = iface;
             }
-            final TetheringRequest request = getOrCreatePendingTetheringRequest(TETHERING_VIRTUAL);
             enableIpServing(request, mConfiguredVirtualIface);
         } else if (mConfiguredVirtualIface != null) {
             ensureIpServerStopped(mConfiguredVirtualIface);
@@ -2418,9 +2423,16 @@ public class Tethering {
                         break;
                     }
                     case EVENT_REQUEST_CHANGE_DOWNSTREAM: {
-                        final int tetheringType = message.arg1;
+                        final int type = message.arg1;
                         final Boolean enabled = (Boolean) message.obj;
-                        enableTetheringInternal(tetheringType, enabled, null, null);
+                        // Using a placeholder here is ok since we just need to the type of
+                        // tethering to poke the link layer. When the link layer comes up, we won't
+                        // have a pending request to use, but this matches the historical behavior.
+                        // TODO: Get the TetheringRequest from IpServer and make sure to put it in
+                        //       the pending list too.
+                        TetheringRequest placeholder = new TetheringRequest.Builder(type).build();
+                        placeholder.getParcel().requestType = REQUEST_TYPE_PLACEHOLDER;
+                        enableTetheringInternal(enabled, placeholder, null);
                         break;
                     }
                     default:
