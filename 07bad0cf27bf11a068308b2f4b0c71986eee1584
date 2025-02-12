@@ -1,5 +1,46 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c4ff34f_c5bd6d1f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T04:49:02Z",
+      "side": 1,
+      "message": "But won\u0027t this mean instead that the reserved offer will get onNetworkUnneeded ?\n\nAnd to start with, offers don\u0027t get unneeded() just because there is another, better offer. They get unneeded() when there is a network for that request that they can\u0027t hope to beat.\n\nKeep in mind that because an offer is never a promise, the system can\u0027t assume one offer will result in a network and therefore will not reject an offer just because there is another, prospectively more attractive one – it doesn\u0027t know whether either of these offers will end up creating a network.\n\nIf you\u0027ve seen the offer being unneeded() later, it has to be because the network has a better score for that request than the offer prospective score. Reading the design doc I considered that carefully and thought it would never happen. Did you see it happen in practice ? If yes we should look at the score of the network at that time.",
+      "range": {
+        "startLine": 10,
+        "startChar": 32,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "07bad0cf27bf11a068308b2f4b0c71986eee1584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2191bdb2_ad618d35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T04:49:02Z",
+      "side": 1,
+      "message": "-1 from me if I could still vote",
+      "revId": "07bad0cf27bf11a068308b2f4b0c71986eee1584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
