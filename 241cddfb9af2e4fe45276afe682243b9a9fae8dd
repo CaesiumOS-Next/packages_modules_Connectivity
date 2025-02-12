@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "945106b8_18136d59",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-12T23:03:14Z",
+      "side": 1,
+      "message": "BluetoothServerSocket#accept() is not interruptible. It is blocking on a read() on a unix socket without SO_RCVTIMEO. The only way to interrupt is is by calling shutdown(SHUT_RD), which is what BluetoothServerSocket#close() does before it actually closes the underlying fd.\n\nre race: (I should really leave a comment along these lines): I agree that there is a race, though because all code paths always refer to the handler thread and (more importantly) always check that the offer still exists, this shouldn\u0027t be a problem. In fact, the check for !mIsRunning is mostly for preventing the log statement below. Calling postDestroyAndUnregisterReservedOffer() on the teardown path is totally fine, as it will just return early because the offer was removed from the set.",
+      "parentUuid": "4bf18579_848f3793",
+      "range": {
+        "startLine": 318,
+        "startChar": 29,
+        "endLine": 318,
+        "endChar": 39
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a38b074a_8edc6fa3",
         "filename": "service/src/com/android/server/L2capNetworkProvider.java",
         "patchSetId": 24
@@ -72,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29335427_9413dbdc",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-12T23:03:14Z",
+      "side": 1,
+      "message": "The callback semantics are that the caller posts them on the handler thread. The intention was to make that harder to mess up, but can change it -- I have no strong preference. There are TODOs in some places to add thread checks. Totally agreed that they are needed!",
+      "parentUuid": "a068059d_17e8e747",
+      "range": {
+        "startLine": 358,
+        "startChar": 20,
+        "endLine": 358,
+        "endChar": 53
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e15f7ea0_5edb4c7c",
         "filename": "service/src/com/android/server/L2capNetworkProvider.java",
         "patchSetId": 24
@@ -83,6 +131,30 @@
       "writtenOn": "2025-02-12T05:05:13Z",
       "side": 1,
       "message": "Pretty sure this is not running on the same thread as l.374 and ArraySet is not thread-safe",
+      "range": {
+        "startLine": 363,
+        "startChar": 65,
+        "endLine": 363,
+        "endChar": 71
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79084a58_da518d26",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-12T23:03:14Z",
+      "side": 1,
+      "message": "same as above, this runs on the handler thread.",
+      "parentUuid": "e15f7ea0_5edb4c7c",
       "range": {
         "startLine": 363,
         "startChar": 65,
