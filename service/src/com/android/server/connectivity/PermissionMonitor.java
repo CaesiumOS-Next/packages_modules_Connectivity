@@ -282,7 +282,8 @@ public class PermissionMonitor {
         mContext = context;
         mBpfNetMaps = bpfNetMaps;
         mThread = thread;
-        if (Flags.restrictLocalNetwork()) {
+        if (BpfNetMaps.isAtLeast25Q2()) {
+            // Local net restrictions is supported as a developer opt-in starting in Android B.
             // This listener should finish registration by the time the system has completed
             // boot setup such that any changes to runtime permissions for local network
             // restrictions can only occur after this registration has completed.
