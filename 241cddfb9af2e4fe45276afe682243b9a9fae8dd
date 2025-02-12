@@ -190,6 +190,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3697dab3_248e1c09",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-12T23:15:35Z",
+      "side": 1,
+      "message": "I think it\u0027s mostly an interpretation of reservation semantics.\n\nIf a reservation goes away, should the reservation continue to exist? I am not certain what the right answer is, or whether there is a right answer.",
+      "parentUuid": "4f7dad77_600f5561",
+      "range": {
+        "startLine": 396,
+        "startChar": 60,
+        "endLine": 396,
+        "endChar": 94
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8a4824f_16744cbd",
         "filename": "tests/unit/java/com/android/server/L2capNetworkProviderTest.kt",
         "patchSetId": 24
