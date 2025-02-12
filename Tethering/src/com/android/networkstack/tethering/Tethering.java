@@ -1114,7 +1114,7 @@ public class Tethering {
                 result = TETHER_ERROR_UNKNOWN_TYPE;
         }
 
-        mRequestTracker.handleLinkLayerResult(request, result);
+        mRequestTracker.handleLinkLayerResult(enable, request, result);
 
         // Send metrics if the result is an error.
         if (result != TETHER_ERROR_NO_ERROR && result != TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) {
@@ -1188,7 +1188,7 @@ public class Tethering {
                 if (pendingRequest != null) {
                     final int result = setBluetoothTetheringSettings(mBluetoothPan,
                             true /* enable */);
-                    mRequestTracker.handleLinkLayerResult(pendingRequest, result);
+                    mRequestTracker.handleLinkLayerResult(enable, pendingRequest, result);
                 }
             });
         }
@@ -1471,7 +1471,6 @@ public class Tethering {
         mRequestTracker.setServingRequest(iface, request);
         // NOTE: If a CMD_TETHER_REQUESTED message is already in the IpServer's queue but not yet
         // processed, this will be a no-op and it will not return an error.
-        //
         // This code cannot race with untether() because they both run on the handler thread.
         tetherState.ipServer.enable(request);
         if (request.getRequestType() == REQUEST_TYPE_PLACEHOLDER) {
@@ -1772,6 +1771,12 @@ public class Tethering {
                 case WifiManager.WIFI_AP_STATE_DISABLED:
                 case WifiManager.WIFI_AP_STATE_FAILED:
                 default:
+                    // Fail any pending tethered SoftAP requests since we might have failed before
+                    // we sent the start result.
+                    if (isTetheringWithSoftApConfigEnabled() && ipmode == IFACE_IP_MODE_TETHERED) {
+                        mRequestTracker.removePendingRequests(
+                                TETHERING_WIFI, TETHER_ERROR_NO_ERROR);
+                    }
                     disableWifiIpServing(ifname, curState);
                     break;
             }
@@ -1914,6 +1919,19 @@ public class Tethering {
     }
 
     private void enableIpServing(@NonNull TetheringRequest request, String ifname, boolean isNcm) {
+        // If tethering_with_soft_ap_config flag is enabled, then we should only start tethering
+        // if we have an explicit or implicit request. A placeholder request here indicates that
+        // we could not find a pending request, most likely because tethering was stopped while
+        // a request was pending.
+        // TODO: Wifi is allowed to have placeholder requests since adb shell cmd wifi start-softap
+        //       will bring up a SoftAP interface without going through startTethering. Remove this
+        //       exception once Wifi starts using the startTethering API instead.
+        if (isTetheringWithSoftApConfigEnabled()
+                && request.getRequestType() == REQUEST_TYPE_PLACEHOLDER
+                && request.getTetheringType() != TETHERING_WIFI) {
+            return;
+        }
+
         ensureIpServerStartedForType(ifname, request.getTetheringType(), isNcm);
         if (tetherInternal(request, ifname) != TETHER_ERROR_NO_ERROR) {
             Log.e(TAG, "unable start tethering on iface " + ifname);
