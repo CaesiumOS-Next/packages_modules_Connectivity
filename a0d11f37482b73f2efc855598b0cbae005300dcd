@@ -22,6 +22,30 @@
       },
       "revId": "a0d11f37482b73f2efc855598b0cbae005300dcd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87f52179_71a881f9",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-02-12T16:47:53Z",
+      "side": 1,
+      "message": "I don\u0027t know how to trigger BloatBuster explicitly from Treehugger. From the presubmit results I got these values\nscreen/64qvfmVbJSTxLEp\nscreen/qhrPaYFtQ4L7kmw\nscreen/5W28snuc7aCgXDn\n\nShould I try to execute the BloatBuster analyzer in a different way?",
+      "parentUuid": "11108524_552ffe3c",
+      "range": {
+        "startLine": 83,
+        "startChar": 66,
+        "endLine": 83,
+        "endChar": 79
+      },
+      "revId": "a0d11f37482b73f2efc855598b0cbae005300dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
