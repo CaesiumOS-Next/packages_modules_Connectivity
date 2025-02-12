@@ -1,5 +1,121 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2019372a_676c68e0",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T04:43:21Z",
+      "side": 1,
+      "message": "Because this must always run on the same thread lest you have two ifaces end up with the same name, you should have a check for that in this function or at the very least an annotation and a comment.\nOr if you expect this to be called on multiple threads you can also just use AtomicInt.",
+      "fixSuggestions": [
+        {
+          "fixId": "f8181d6f_d9df767f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/L2capNetworkProvider.java",
+              "range": {
+                "startLine": 52,
+                "startChar": 0,
+                "endLine": 52,
+                "endChar": 0
+              },
+              "replacement": "import android.os.Binder;\n"
+            },
+            {
+              "path": "service/src/com/android/server/L2capNetworkProvider.java",
+              "range": {
+                "startLine": 65,
+                "startChar": 0,
+                "endLine": 65,
+                "endChar": 0
+              },
+              "replacement": "import java.util.HashMap;\nimport java.util.Map;\n"
+            },
+            {
+              "path": "service/src/com/android/server/L2capNetworkProvider.java",
+              "range": {
+                "startLine": 91,
+                "startChar": 0,
+                "endLine": 91,
+                "endChar": 0
+              },
+              "replacement": "    private final Map\u003cInteger, L2capNetwork\u003e mL2capNetworks \u003d new HashMap\u003c\u003e();\n"
+            },
+            {
+              "path": "service/src/com/android/server/L2capNetworkProvider.java",
+              "range": {
+                "startLine": 97,
+                "startChar": 0,
+                "endLine": 98,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service/src/com/android/server/L2capNetworkProvider.java",
+              "range": {
+                "startLine": 258,
+                "startChar": 0,
+                "endLine": 258,
+                "endChar": 0
+              },
+              "replacement": "    /**\n     * Create an L2capNetwork.\n     *\n     * This method must be called on the handler thread.\n     */\n"
+            },
+            {
+              "path": "service/src/com/android/server/L2capNetworkProvider.java",
+              "range": {
+                "startLine": 261,
+                "startChar": 0,
+                "endLine": 262,
+                "endChar": 0
+              },
+              "replacement": "        final int uid \u003d Binder.getCallingUid();\n        final String ifname \u003d TUN_IFNAME + String.valueOf(uid);\n"
+            },
+            {
+              "path": "service/src/com/android/server/L2capNetworkProvider.java",
+              "range": {
+                "startLine": 267,
+                "startChar": 0,
+                "endLine": 268,
+                "endChar": 0
+              },
+              "replacement": "        final L2capNetwork network \u003d\n                new L2capNetwork(mHandler, mContext, mProvider, ifname, socket, tunFd, caps, cb);\n        mL2capNetworks.put(uid, network);\n        return network;\n"
+            },
+            {
+              "path": "service/src/com/android/server/L2capNetworkProvider.java",
+              "range": {
+                "startLine": 288,
+                "startChar": 0,
+                "endLine": 289,
+                "endChar": 0
+              },
+              "replacement": "            final int uid \u003d request.getRequestorUid();\n            final L2capNetwork network \u003d mL2capNetworks.get(uid);\n            if (network \u003d\u003d null) {\n                Log.w(TAG, \"No L2capNetwork found for uid \" + uid);\n                return;\n            }\n            network.onNetworkNeeded(request);\n"
+            },
+            {
+              "path": "service/src/com/android/server/L2capNetworkProvider.java",
+              "range": {
+                "startLine": 293,
+                "startChar": 0,
+                "endLine": 294,
+                "endChar": 0
+              },
+              "replacement": "            final int uid \u003d request.getRequestorUid();\n            final L2capNetwork network \u003d mL2capNetworks.get(uid);\n            if (network \u003d\u003d null) {\n                Log.w(TAG, \"No L2capNetwork found for uid \" + uid);\n                return;\n            }\n            network.onNetworkUnneeded(request);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c72191f62a01abd289b9b89ea4af8da8800732d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
