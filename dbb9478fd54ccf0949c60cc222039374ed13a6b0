@@ -203,6 +203,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8645da7d_e7a74c6c",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2025-02-12T00:54:22Z",
+      "side": 1,
+      "message": "`checkPermissionForStartDataDelivery` is not right because you\u0027ll need to properly end the deliver with a separate call. But I see the latest patchset is using `checkPermissionForPreflight`, which at least doesn\u0027t impact privacy dashboard so \"should\" be fine for now.",
+      "parentUuid": "8dd9f8a9_c0a0aab9",
+      "range": {
+        "startLine": 308,
+        "startChar": 53,
+        "endLine": 308,
+        "endChar": 83
+      },
+      "revId": "dbb9478fd54ccf0949c60cc222039374ed13a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4be3874d_fcb61a0f",
