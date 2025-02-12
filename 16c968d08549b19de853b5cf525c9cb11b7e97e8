@@ -22,6 +22,30 @@
       },
       "revId": "16c968d08549b19de853b5cf525c9cb11b7e97e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc448fac_f0ac3895",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1870251
+      },
+      "writtenOn": "2025-02-12T11:18:12Z",
+      "side": 1,
+      "message": "I understand\nIt makes more sense \nI realise that during the test it checks for precondition of wifi direct support and hence now I modified the definition of isP2pSupported to include packagemanger check",
+      "parentUuid": "04c50e61_c6baa134",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 18
+      },
+      "revId": "16c968d08549b19de853b5cf525c9cb11b7e97e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
