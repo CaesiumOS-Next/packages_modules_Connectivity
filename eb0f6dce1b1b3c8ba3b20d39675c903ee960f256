@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "84b7bcc9_5ae4bd6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-12T07:09:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f86e70a_a9551cd6",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 3
+      },
+      "revId": "eb0f6dce1b1b3c8ba3b20d39675c903ee960f256",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bb5f17ff_b2630f05",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2025-02-12T06:51:26Z",
       "side": 1,
       "message": "Is it really not available? SV2 was released a long time ago...",
+      "range": {
+        "startLine": 3525,
+        "startChar": 59,
+        "endLine": 3525,
+        "endChar": 88
+      },
+      "revId": "eb0f6dce1b1b3c8ba3b20d39675c903ee960f256",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb7a1acb_b228e0d8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3525,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-12T07:09:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f82b986_14321bba",
       "range": {
         "startLine": 3525,
         "startChar": 59,
