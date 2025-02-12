@@ -175,6 +175,10 @@ aidl_interface {
             version: "16",
             imports: [],
         },
+        {
+            version: "17",
+            imports: [],
+        },
 
     ],
     frozen: true,
