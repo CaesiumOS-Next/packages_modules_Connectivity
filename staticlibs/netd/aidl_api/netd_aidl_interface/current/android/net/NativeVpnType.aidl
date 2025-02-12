@@ -38,4 +38,5 @@ enum NativeVpnType {
   PLATFORM = 2,
   LEGACY = 3,
   OEM = 4,
+  OEM_ENTERPRISE = 5,
 }
