@@ -827,7 +827,7 @@ public class Tethering {
      */
     private void enableTetheringInternal(int type, boolean enable,
             String iface, final IIntResultListener listener) {
-        int result = TETHER_ERROR_NO_ERROR;
+        final int result;
         switch (type) {
             case TETHERING_WIFI:
                 result = setWifiTethering(enable);
@@ -836,7 +836,7 @@ public class Tethering {
                 result = setUsbTethering(enable);
                 break;
             case TETHERING_BLUETOOTH:
-                setBluetoothTethering(enable, listener);
+                result = setBluetoothTethering(enable, listener);
                 break;
             case TETHERING_NCM:
                 result = setNcmTethering(enable);
@@ -852,10 +852,12 @@ public class Tethering {
                 result = TETHER_ERROR_UNKNOWN_TYPE;
         }
 
-        // The result of Bluetooth tethering will be sent by #setBluetoothTethering.
-        if (type != TETHERING_BLUETOOTH) {
-            sendTetherResult(listener, result, type);
+        // The result of enable Bluetooth tethering will be sent after the pan service connects.
+        if (enable && type == TETHERING_BLUETOOTH && !isPanServiceConnected()) {
+            return;
         }
+
+        sendTetherResult(listener, result, type);
     }
 
     private void sendTetherResult(final IIntResultListener listener, final int result,
@@ -894,22 +896,24 @@ public class Tethering {
         return TETHER_ERROR_INTERNAL_ERROR;
     }
 
-    private void setBluetoothTethering(final boolean enable, final IIntResultListener listener) {
+    private boolean isPanServiceConnected() {
+        return mBluetoothPanListener != null && mBluetoothPanListener.isConnected();
+    }
+
+    private int setBluetoothTethering(final boolean enable, final IIntResultListener listener) {
         final BluetoothAdapter adapter = mDeps.getBluetoothAdapter();
         if (adapter == null || !adapter.isEnabled()) {
             Log.w(TAG, "Tried to enable bluetooth tethering with null or disabled adapter. null: "
                     + (adapter == null));
-            sendTetherResult(listener, TETHER_ERROR_SERVICE_UNAVAIL, TETHERING_BLUETOOTH);
-            return;
+            return TETHER_ERROR_SERVICE_UNAVAIL;
         }
 
-        if (mBluetoothPanListener != null && mBluetoothPanListener.isConnected()) {
+        if (isPanServiceConnected()) {
             // The PAN service is connected. Enable or disable bluetooth tethering.
             // When bluetooth tethering is enabled, any time a PAN client pairs with this
             // host, bluetooth will bring up a bt-pan interface and notify tethering to
             // enable IP serving.
-            setBluetoothTetheringSettings(mBluetoothPan, enable, listener);
-            return;
+            return setBluetoothTetheringSettings(mBluetoothPan, enable);
         }
 
         if (!enable) {
@@ -921,8 +925,7 @@ public class Tethering {
                         TETHERING_BLUETOOTH);
             }
             mPendingPanRequestListeners.clear();
-            sendTetherResult(listener, TETHER_ERROR_NO_ERROR, TETHERING_BLUETOOTH);
-            return;
+            return TETHER_ERROR_NO_ERROR;
         }
         mPendingPanRequestListeners.add(listener);
 
@@ -934,6 +937,7 @@ public class Tethering {
             mBluetoothPanListener = new PanServiceListener();
             adapter.getProfileProxy(mContext, mBluetoothPanListener, BluetoothProfile.PAN);
         }
+        return TETHER_ERROR_NO_ERROR;
     }
 
     private class PanServiceListener implements ServiceListener {
@@ -951,8 +955,9 @@ public class Tethering {
                 mIsConnected = true;
 
                 for (IIntResultListener pendingListener : mPendingPanRequestListeners) {
-                    setBluetoothTetheringSettings(mBluetoothPan, true /* enable */,
-                            pendingListener);
+                    final int result = setBluetoothTetheringSettings(mBluetoothPan,
+                            true /* enable */);
+                    sendTetherResult(pendingListener, result, TETHERING_BLUETOOTH);
                 }
                 mPendingPanRequestListeners.clear();
             });
@@ -981,8 +986,8 @@ public class Tethering {
         }
     }
 
-    private void setBluetoothTetheringSettings(@NonNull final BluetoothPan bluetoothPan,
-            final boolean enable, final IIntResultListener listener) {
+    private int setBluetoothTetheringSettings(@NonNull final BluetoothPan bluetoothPan,
+            final boolean enable) {
         if (SdkLevel.isAtLeastT()) {
             changeBluetoothTetheringSettings(bluetoothPan, enable);
         } else {
@@ -991,9 +996,8 @@ public class Tethering {
 
         // Enabling bluetooth tethering settings can silently fail. Send internal error if the
         // result is not expected.
-        final int result = bluetoothPan.isTetheringOn() == enable
+        return bluetoothPan.isTetheringOn() == enable
                 ? TETHER_ERROR_NO_ERROR : TETHER_ERROR_INTERNAL_ERROR;
-        sendTetherResult(listener, result, TETHERING_BLUETOOTH);
     }
 
     private void changeBluetoothTetheringSettingsPreT(@NonNull final BluetoothPan bluetoothPan,
