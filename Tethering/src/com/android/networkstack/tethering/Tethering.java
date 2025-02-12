@@ -171,6 +171,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -249,6 +250,8 @@ public class Tethering {
     // to be used after the interface comes up asynchronously.
     private final SparseArray<TetheringRequest> mPendingTetheringRequests =
             new SparseArray<>();
+    private Map<TetheringRequest, IIntResultListener> mPendingStartTetheringCallbacks =
+            new HashMap<>();
     /**
      * Currently serving TetheringRequests mapped by interface.
      * These are added when IpServer#enable is called and removed when IpServer#stop or
@@ -762,6 +765,7 @@ public class Tethering {
                 }
             }
             mPendingTetheringRequests.put(type, request);
+            mPendingStartTetheringCallbacks.put(request, listener);
 
             if (request.isExemptFromEntitlementCheck()) {
                 mEntitlementMgr.setExemptedDownstreamType(type);
@@ -850,6 +854,11 @@ public class Tethering {
 
         // The result of enable Bluetooth tethering will be sent after the pan service connects.
         if (enable && type == TETHERING_BLUETOOTH && !isPanServiceConnected()) {
+            return;
+        }
+
+        // Wait until we actually start tethering before sending the success result.
+        if (!isTetheringWithSoftApConfigEnabled() && enable && result == TETHER_ERROR_NO_ERROR) {
             return;
         }
 
@@ -1270,6 +1279,11 @@ public class Tethering {
         // This code cannot race with untether() because they both run on the handler thread.
         mPendingTetheringRequests.remove(request.getTetheringType());
         mServingTetheringRequests.put(iface, request);
+        if (isTetheringWithSoftApConfigEnabled()) {
+            sendTetherResult(request, mPendingStartTetheringCallbacks.get(request),
+                    TETHER_ERROR_NO_ERROR);
+            mPendingStartTetheringCallbacks.remove(request);
+        }
         tetherState.ipServer.enable(request);
         if (request.getRequestType() == REQUEST_TYPE_PLACEHOLDER) {
             TerribleErrorLog.logTerribleError(TetheringStatsLog::write,
