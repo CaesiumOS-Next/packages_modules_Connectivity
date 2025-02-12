@@ -633,10 +633,16 @@ public class Tethering {
          *       Since these requests are considered equal, we will also remove the duplicates upon
          *       failure.
          */
-        private void sendLinkLayerPokeResult(
+        private void sendLinkLayerPokeResult(boolean enable,
                 @NonNull final TetheringRequest tetheringRequest, final int result) {
             // The result of Bluetooth tethering will be sent after the pan service connects.
             if (result == TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) return;
+
+            // Don't send the result of a successful enable until we actually enable the IpServer
+            // in tetherInternal.
+            if (isTetheringWithSoftApConfigEnabled() && enable && result == TETHER_ERROR_NO_ERROR) {
+                return;
+            }
 
             mPendingRequests.removeIf(request -> {
                 TetheringRequest pendingRequest = request.getTetheringRequest();
@@ -1109,7 +1115,7 @@ public class Tethering {
                 result = TETHER_ERROR_UNKNOWN_TYPE;
         }
 
-        mRequestTracker.sendLinkLayerPokeResult(request, result);
+        mRequestTracker.sendLinkLayerPokeResult(enable, request, result);
     }
 
     private int setWifiTethering(final boolean enable) {
@@ -1177,7 +1183,8 @@ public class Tethering {
                 if (pendingRequest != null) {
                     final int result = setBluetoothTetheringSettings(mBluetoothPan,
                             true /* enable */);
-                    mRequestTracker.sendLinkLayerPokeResult(pendingRequest, result);
+                    mRequestTracker.sendLinkLayerPokeResult(true /* enable */, pendingRequest,
+                            result);
                 }
             });
         }
@@ -1447,12 +1454,13 @@ public class Tethering {
             Log.e(TAG, "Tried to Tether an unavailable iface: " + iface + ", ignoring");
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
-        // Usually the result has already been sent in enableTetheringInternal, but
-        // TETHERING_BLUETOOTH will defer this result until the PAN service connects. If
-        // legacyTether is called before the PAN service connects, the pending request will be
-        // passed into this method and removed from the pending list, but the listener will not have
-        // been called yet. Since the listener would have been silently successful once the PAN
-        // service connects, send TETHER_ERROR_NO_ERROR here.
+        // For legacy code paths (pre-tethering_with_soft_ap_config flag), usually the result has
+        // already been sent in enableTetheringInternal, but TETHERING_BLUETOOTH will defer this
+        // result until the PAN service connects. If legacyTether is called before the PAN service
+        // connects, the pending request will be passed into this method and removed from the
+        // pending list, but the listener will not have been called yet. Since the listener would
+        // have been silently successful once the PAN service connects, send TETHER_ERROR_NO_ERROR
+        // here.
         if (isTetheringWithSoftApConfigEnabled()) {
             mRequestTracker.removePendingRequest(request, TETHER_ERROR_NO_ERROR);
         } else {
@@ -1762,6 +1770,12 @@ public class Tethering {
                 case WifiManager.WIFI_AP_STATE_DISABLED:
                 case WifiManager.WIFI_AP_STATE_FAILED:
                 default:
+                    // Fail any pending tethered SoftAP requests since we might have failed before
+                    // we sent the start result.
+                    if (isTetheringWithSoftApConfigEnabled() && ipmode == IFACE_IP_MODE_TETHERED) {
+                        mRequestTracker.removePendingRequests(
+                                TETHERING_WIFI, TETHER_ERROR_NO_ERROR);
+                    }
                     disableWifiIpServing(ifname, curState);
                     break;
             }
@@ -1904,6 +1918,19 @@ public class Tethering {
     }
 
     private void enableIpServing(@NonNull TetheringRequest request, String ifname, boolean isNcm) {
+        // If tethering_with_soft_ap_config flag is enabled, then we should only start tethering
+        // if we have an explicit or implicit request. A placeholder request here indicates that
+        // we could not find a pending request, most likely because tethering was stopped while
+        // a request was pending.
+        // TODO: Wifi is allowed to have placeholder requests since adb shell cmd wifi start-softap
+        //       will bring up a SoftAP interface without going through startTethering. Remove this
+        //       exception once Wifi starts using the startTethering API instead.
+        if (isTetheringWithSoftApConfigEnabled()
+                && request.getRequestType() == REQUEST_TYPE_PLACEHOLDER
+                && request.getTetheringType() != TETHERING_WIFI) {
+            return;
+        }
+
         ensureIpServerStartedForType(ifname, request.getTetheringType(), isNcm);
         if (tetherInternal(request, ifname) != TETHER_ERROR_NO_ERROR) {
             Log.e(TAG, "unable start tethering on iface " + ifname);

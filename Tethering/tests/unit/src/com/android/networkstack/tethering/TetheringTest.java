@@ -2568,7 +2568,6 @@ public class TetheringTest {
         when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener);
         mLooper.dispatchAll();
-        successListener.assertHasResult();
 
         // Try starting wifi tethering with various fuzzy-matching requests and verify we get
         // TETHER_ERROR_DUPLICATE_REQUEST.
@@ -2608,6 +2607,8 @@ public class TetheringTest {
                 callback.pollTetherStatesChanged().tetheredList);
         callback.expectUpstreamChanged(upstreamState.network);
         callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STARTED);
+        successListener.assertHasResult();
+
         differentIpAddrListener = new ResultListener(TETHER_ERROR_DUPLICATE_REQUEST);
         differentUidListener = new ResultListener(TETHER_ERROR_DUPLICATE_REQUEST);
         mTethering.startTethering(differentIpAddr, TEST_CALLER_PKG, differentIpAddrListener);
@@ -2995,7 +2996,9 @@ public class TetheringTest {
         mTethering.startTethering(createTetheringRequest(TETHERING_USB), TEST_CALLER_PKG,
                 firstResult);
         mLooper.dispatchAll();
-        firstResult.assertHasResult();
+        if (!isTetheringWithSoftApConfigEnabled()) {
+            firstResult.assertHasResult();
+        }
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_RNDIS);
         verifyNoMoreInteractions(mUsbManager);
 
@@ -3645,7 +3648,9 @@ public class TetheringTest {
         mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, result);
         mLooper.dispatchAll();
         verifySetBluetoothTethering(true /* enable */, true /* bindToPanService */);
-        result.assertHasResult();
+        if (!isTetheringWithSoftApConfigEnabled()) {
+            result.assertHasResult();
+        }
 
         mTetheredInterfaceCallbackShim.onAvailable(TEST_BT_IFNAME);
         mLooper.dispatchAll();
@@ -3662,6 +3667,7 @@ public class TetheringTest {
         mLooper.dispatchAll();
         verifyNetdCommandForBtSetup();
         if (isTetheringWithSoftApConfigEnabled()) {
+            result.assertHasResult();
             assertTrue(mTethering.getServingTetheringRequests().contains(tetheringRequest));
         }
 
@@ -3731,7 +3737,9 @@ public class TetheringTest {
         mLooper.dispatchAll();
         ServiceListener panListener = verifySetBluetoothTethering(true /* enable */,
                 true /* bindToPanService */);
-        result.assertHasResult();
+        if (!isTetheringWithSoftApConfigEnabled()) {
+            result.assertHasResult();
+        }
 
         mTethering.interfaceAdded(TEST_BT_IFNAME);
         mLooper.dispatchAll();
@@ -3739,6 +3747,9 @@ public class TetheringTest {
         if (isAtLeastT()) {
             mTetheredInterfaceCallbackShim.onAvailable(TEST_BT_IFNAME);
             mLooper.dispatchAll();
+            if (isTetheringWithSoftApConfigEnabled()) {
+                result.assertHasResult();
+            }
         } else {
             mTethering.interfaceStatusChanged(TEST_BT_IFNAME, false);
             mTethering.interfaceStatusChanged(TEST_BT_IFNAME, true);
