@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0145ce5_4b8dd1ca",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 11645,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-12T16:50:04Z",
+      "side": 1,
+      "message": "I am not super happy with this wording, but no matter how I spun it, it always ends up sounding complicated.\n\nMaybe saying \"the offer is needed for the active request if a) ... or b) ...\" would make it clearer, because the sentence is quite long.",
+      "range": {
+        "startLine": 11645,
+        "startChar": 24,
+        "endLine": 11645,
+        "endChar": 95
+      },
+      "revId": "ce7ef2bd1a5a83e198e874de980830591d39151b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
