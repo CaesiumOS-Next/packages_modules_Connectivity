@@ -11641,8 +11641,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // Since the system will try to bring up a better network than is currently satisfying
         // the request, NetworkProviders need to be told the offers matching the requests *above*
         // the currently satisfied one are needed, that the ones *below* the satisfied one are
-        // not needed, and the offer is needed for the active request iff the offer can beat
-        // the satisfier.
+        // not needed, and the offer is needed for the active request if the offer can beat
+        // the satisfier or is owned by the same provider (and can satisfy the active request).
         // For non-multilayer requests, the logic above gracefully degenerates to only the
         // last case.
         // To achieve this, the loop below will proceed in three steps. In a first phase, inform
