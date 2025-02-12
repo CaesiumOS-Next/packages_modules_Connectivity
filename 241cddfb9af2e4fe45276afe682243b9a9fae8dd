@@ -3,6 +3,121 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4bf18579_848f3793",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T05:05:13Z",
+      "side": 1,
+      "message": "You may want to use interrupt()/interrupted() to avoid having to use your own boolean and to interrupt accept() automatically. That being said, in principle there is nothing wrong using your own boolean and I think close() will eject the control from accept() so this is fine.\nIn this case however I think you have a problem where there was an exception and at the same time tearDown() is called, where the control reaching here finds `mIsRunning` false but the socket isn\u0027t closed yet and the exception had some other cause. In that case, IIUC you should postDestroy but you won\u0027t.\n\nI think you may not have a way out of a lock for this, because you do need to synchronize multiple instructions.",
+      "range": {
+        "startLine": 318,
+        "startChar": 29,
+        "endLine": 318,
+        "endChar": 39
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a38b074a_8edc6fa3",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T05:05:13Z",
+      "side": 1,
+      "message": "The thread management for this member looks tricky ; suggest annotating with what thread it should be working on and adding guards to make sure all methods touching it are indeed running on that thread.",
+      "range": {
+        "startLine": 347,
+        "startChar": 17,
+        "endLine": 347,
+        "endChar": 38
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a068059d_17e8e747",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T05:05:13Z",
+      "side": 1,
+      "message": "Case in point, IIUC this is not running on the handler thread",
+      "range": {
+        "startLine": 358,
+        "startChar": 20,
+        "endLine": 358,
+        "endChar": 53
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e15f7ea0_5edb4c7c",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T05:05:13Z",
+      "side": 1,
+      "message": "Pretty sure this is not running on the same thread as l.374 and ArraySet is not thread-safe",
+      "range": {
+        "startLine": 363,
+        "startChar": 65,
+        "endLine": 363,
+        "endChar": 71
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f7dad77_600f5561",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T05:05:13Z",
+      "side": 1,
+      "message": "This is at least counter-intuitive, can you justify why this is the case ? The relationship between the blanket offer and the network is 1 to N while it\u0027s 1 to 1 for the reserved offers, so the latter sounds intuitively more attractive",
+      "range": {
+        "startLine": 396,
+        "startChar": 60,
+        "endLine": 396,
+        "endChar": 94
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8a4824f_16744cbd",
         "filename": "tests/unit/java/com/android/server/L2capNetworkProviderTest.kt",
         "patchSetId": 24
@@ -14,6 +129,30 @@
       "writtenOn": "2025-02-08T00:09:43Z",
       "side": 1,
       "message": "this should really throw an exception when close() is called...",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 40
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "947805d0_10bf4687",
+        "filename": "tests/unit/java/com/android/server/L2capNetworkProviderTest.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-12T05:05:13Z",
+      "side": 1,
+      "message": "You can do this easily with a CompletableFuture\u003cResult\u003cSocket\u003e\u003e or something, if you don\u0027t need to simulate accepting more than one socket. Otherwise you\u0027ll need more complex tools like a Semaphore",
+      "parentUuid": "d8a4824f_16744cbd",
       "range": {
         "startLine": 108,
         "startChar": 0,
