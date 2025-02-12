@@ -1,0 +1,65 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fccb205_67389590",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1882601
+      },
+      "writtenOn": "2025-02-12T17:17:58Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to call this API anymore.\n\nLet\u0027s just call PackageManager to get the value.",
+      "range": {
+        "startLine": 88,
+        "startChar": 27,
+        "endLine": 88,
+        "endChar": 55
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "447a6a1b_99682a87",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 27,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 48,
+                "startChar": 0,
+                "endLine": 52,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 88,
+                "startChar": 0,
+                "endLine": 90,
+                "endChar": 0
+              },
+              "replacement": "    fun isP2pSupported() \u003d context.packageManager.hasSystemFeature(FEATURE_WIFI_DIRECT)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "f898e8c54e63762738ee356becd0860c11437d86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
