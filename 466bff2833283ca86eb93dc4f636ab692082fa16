@@ -44,6 +44,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f23bef78_cc283188",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-12T22:41:34Z",
+      "side": 1,
+      "message": "Call this in the constructor and don\u0027t start the handler thread if this returns false.",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 286,
+        "endChar": 13
+      },
+      "revId": "466bff2833283ca86eb93dc4f636ab692082fa16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ed016eb_9f82cc7f",
         "filename": "service/src/com/android/server/L2capNetworkProvider.java",
         "patchSetId": 2
