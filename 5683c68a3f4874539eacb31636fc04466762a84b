@@ -22,6 +22,30 @@
       },
       "revId": "5683c68a3f4874539eacb31636fc04466762a84b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93ccba9f_dea2bcbb",
+        "filename": "tests/cts/multidevices/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-02-12T02:56:24Z",
+      "side": 0,
+      "message": "Yes, we found that there\u0027re issues reported before in the CTS, but it can successfully registered 2 devices.  \nIt might be some new test branch with wrong ATP config, it might need CTS team to fix that or exclude the multidevice tests.",
+      "parentUuid": "21abe2bf_a194f84f",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "5683c68a3f4874539eacb31636fc04466762a84b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
