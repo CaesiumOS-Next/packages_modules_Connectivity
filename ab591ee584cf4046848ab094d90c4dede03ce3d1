@@ -485,6 +485,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9767d62_12e43e47",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2025-02-12T01:12:33Z",
+      "side": 1,
+      "message": "\u003e However it requires that PermissionManager is offering the callbacks and answering the synchronous queries on the same thread, or otherwise has synchronization between them (otherwise you have cross-thread visibility problems).\n\nPermission state is safe for multi-threading (`synchronized` before V, a single volatile field + immutable tree structure of data after V), so it\u0027s fine for you to query the latest permission state from any thread after you receive a change callback.",
+      "parentUuid": "e18b6d7b_c6601944",
+      "range": {
+        "startLine": 287,
+        "startChar": 28,
+        "endLine": 287,
+        "endChar": 58
+      },
+      "revId": "ab591ee584cf4046848ab094d90c4dede03ce3d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a898698_672a117d",
