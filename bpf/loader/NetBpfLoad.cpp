@@ -61,6 +61,7 @@
 
 // The following matches bpf_helpers.h, which is only for inclusion in bpf code
 #define BPFLOADER_MAINLINE_VERSION 42u
+#define BPFLOADER_MAINLINE_25Q2_VERSION 47u
 
 using android::base::EndsWith;
 using android::base::GetIntProperty;
@@ -1102,11 +1103,33 @@ static int loadCodeSections(const char* elfPath, vector<codeSection>& cs, const 
             }
         }
 
-        int progId = bpfGetFdProgId(fd);
-        if (progId == -1) {
-            ALOGE("bpfGetFdProgId failed, ret: %d [%d]", progId, errno);
-        } else {
-            ALOGI("prog %s id %d", progPinLoc.c_str(), progId);
+        if (isAtLeastKernelVersion(4, 14, 0)) {
+            int progId = bpfGetFdProgId(fd);
+            if (progId == -1) {
+                const int err = errno;
+                ALOGE("bpfGetFdProgId failed, ret: %d", err);
+                return -err;
+            }
+
+            int jitProgLen = bpfGetFdJitProgLen(fd);
+            if (jitProgLen == -1) {
+                const int err = errno;
+                ALOGE("bpfGetFdJitProgLen failed, ret: %d", err);
+                return -err;
+            }
+
+            int xlatProgLen = bpfGetFdXlatProgLen(fd);
+            if (xlatProgLen == -1) {
+                const int err = errno;
+                ALOGE("bpfGetFdXlatProgLen failed, ret: %d", err);
+                return -err;
+            }
+            ALOGI("prog %s id %d jit_prog_len %d xlat_prog_len %d", progPinLoc.c_str(), progId, jitProgLen, xlatProgLen);
+
+            if (!jitProgLen && bpfloader_ver >= BPFLOADER_MAINLINE_25Q2_VERSION) {
+                ALOGE("Kernel eBPF JIT failure for %s", progPinLoc.c_str());
+                return -ENOTSUP;
+            }
         }
     }
 
