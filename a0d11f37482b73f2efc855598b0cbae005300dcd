@@ -46,6 +46,30 @@
       },
       "revId": "a0d11f37482b73f2efc855598b0cbae005300dcd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47b667fc_2c651bdc",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-02-13T16:29:15Z",
+      "side": 1,
+      "message": "Even if the size seems to be small, the `PemReader` implementation is indeed quite simple. I removed the dependency and wrote a parser for the PEM file.",
+      "parentUuid": "87f52179_71a881f9",
+      "range": {
+        "startLine": 83,
+        "startChar": 66,
+        "endLine": 83,
+        "endChar": 79
+      },
+      "revId": "a0d11f37482b73f2efc855598b0cbae005300dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
