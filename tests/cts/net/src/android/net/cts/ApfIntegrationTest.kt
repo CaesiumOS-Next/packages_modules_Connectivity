@@ -591,6 +591,14 @@ class ApfIntegrationTest {
 
         val program = gen.generate()
         assertThat(program.size).isLessThan(counterRegion)
+        val nopGenerator = ApfV4Generator(
+            caps.apfVersionSupported,
+            caps.maximumApfProgramSize,
+            caps.maximumApfProgramSize
+        )
+        repeat(counterRegion) { nopGenerator.addNop() }
+        val nopProgram = nopGenerator.generate()
+        installAndVerifyProgram(nopProgram)
         installAndVerifyProgram(program)
 
         // Trigger the program by sending a ping and waiting on the reply.
