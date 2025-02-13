@@ -16,6 +16,29 @@
       "message": "Patrick is not a huge fan of this, but I\u0027m ok with it.\nHowever, there should be some comment in the code as to *why* this is being done and point to the bug from the comment.",
       "revId": "b6aef66a6eafce0e5cabeb2fb242b9e5a12b64a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "571820f0_33f2b0f6",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-13T18:32:34Z",
+      "side": 1,
+      "message": "Why is this repeat counterRegion and not program.size - counterRegion?\n\nI think this should be:\n\n\"jmp R\u003d1 +0x0000\" \"pass\" + rest of bytes randomized\n\nThat\u0027s basically 4 well known hard coded bytes + randomized area.\n\nHard to do that with a v4generator, but a zero byte + rest randomized would work too.  Does this even have to use a generator object at all?",
+      "range": {
+        "startLine": 599,
+        "startChar": 0,
+        "endLine": 599,
+        "endChar": 55
+      },
+      "revId": "b6aef66a6eafce0e5cabeb2fb242b9e5a12b64a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
