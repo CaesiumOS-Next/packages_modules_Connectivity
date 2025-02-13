@@ -269,15 +269,17 @@ inline int bpfGetFd ## NAME(const borrowed_fd& fd) { \
     return info.FIELD; \
 }
 
-// All 7 of these fields are already present in Linux v4.14 (even ACK 4.14-P)
+// All 9 of these fields are already present in Linux v4.14 (even ACK 4.14-P)
 // while BPF_OBJ_GET_INFO_BY_FD is not implemented at all in v4.9 (even ACK 4.9-Q)
-DEFINE_BPF_GET_FD(map, MapType, type)            // int bpfGetFdMapType(const borrowed_fd& map_fd)
-DEFINE_BPF_GET_FD(map, MapId, id)                // int bpfGetFdMapId(const borrowed_fd& map_fd)
-DEFINE_BPF_GET_FD(map, KeySize, key_size)        // int bpfGetFdKeySize(const borrowed_fd& map_fd)
-DEFINE_BPF_GET_FD(map, ValueSize, value_size)    // int bpfGetFdValueSize(const borrowed_fd& map_fd)
-DEFINE_BPF_GET_FD(map, MaxEntries, max_entries)  // int bpfGetFdMaxEntries(const borrowed_fd& map_fd)
-DEFINE_BPF_GET_FD(map, MapFlags, map_flags)      // int bpfGetFdMapFlags(const borrowed_fd& map_fd)
-DEFINE_BPF_GET_FD(prog, ProgId, id)              // int bpfGetFdProgId(const borrowed_fd& prog_fd)
+DEFINE_BPF_GET_FD(map, MapType, type)                 // int bpfGetFdMapType(const borrowed_fd& map_fd)
+DEFINE_BPF_GET_FD(map, MapId, id)                     // int bpfGetFdMapId(const borrowed_fd& map_fd)
+DEFINE_BPF_GET_FD(map, KeySize, key_size)             // int bpfGetFdKeySize(const borrowed_fd& map_fd)
+DEFINE_BPF_GET_FD(map, ValueSize, value_size)         // int bpfGetFdValueSize(const borrowed_fd& map_fd)
+DEFINE_BPF_GET_FD(map, MaxEntries, max_entries)       // int bpfGetFdMaxEntries(const borrowed_fd& map_fd)
+DEFINE_BPF_GET_FD(map, MapFlags, map_flags)           // int bpfGetFdMapFlags(const borrowed_fd& map_fd)
+DEFINE_BPF_GET_FD(prog, ProgId, id)                   // int bpfGetFdProgId(const borrowed_fd& prog_fd)
+DEFINE_BPF_GET_FD(prog, JitProgLen, jited_prog_len)   // int bpfGetFdJitProgLen(const borrowed_fd& prog_fd)
+DEFINE_BPF_GET_FD(prog, XlatProgLen, xlated_prog_len) // int bpfGetFdXlatProgLen(const borrowed_fd& prog_fd)
 
 #undef DEFINE_BPF_GET_FD
 
