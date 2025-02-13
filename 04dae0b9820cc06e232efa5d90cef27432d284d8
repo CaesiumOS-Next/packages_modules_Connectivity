@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9350b090_f7cf86f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-13T23:29:03Z",
+      "side": 1,
+      "message": "Is \u0027TRAFFIC_\u0027 actually the right prefix?  Would \u0027BPF_\u0027 make more sense?",
+      "revId": "04dae0b9820cc06e232efa5d90cef27432d284d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c2d30c3_674e9856",
+        "filename": "service/src/com/android/server/connectivity/NetworkPermissions.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-13T23:29:03Z",
+      "side": 1,
+      "message": "do we want comments here with specific values?",
+      "revId": "04dae0b9820cc06e232efa5d90cef27432d284d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8041e81_6bfbce37",
+        "filename": "service/src/com/android/server/connectivity/NetworkPermissions.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-13T23:29:03Z",
+      "side": 1,
+      "message": "this comment seems to be at least partially wrong... UNINSTALLED never shows up in the bpf map right?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 58
+      },
+      "revId": "04dae0b9820cc06e232efa5d90cef27432d284d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ff69457_a0e0cecc",
+        "filename": "service/src/com/android/server/connectivity/NetworkPermissions.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-13T23:29:03Z",
+      "side": 1,
+      "message": "should this be \u003d 0x80 or whatever, and just have a test these are equal?\n\nOtherwise we\u0027re using a deprecated value???\n\n(ditto further down)",
+      "range": {
+        "startLine": 57,
+        "startChar": 61,
+        "endLine": 57,
+        "endChar": 90
+      },
+      "revId": "04dae0b9820cc06e232efa5d90cef27432d284d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
