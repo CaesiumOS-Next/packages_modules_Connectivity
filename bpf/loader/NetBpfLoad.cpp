@@ -61,6 +61,7 @@
 
 // The following matches bpf_helpers.h, which is only for inclusion in bpf code
 #define BPFLOADER_MAINLINE_VERSION 42u
+#define BPFLOADER_MAINLINE_25Q2_VERSION 47u
 
 using android::base::EndsWith;
 using android::base::GetIntProperty;
@@ -1106,10 +1107,38 @@ static int loadCodeSections(const char* elfPath, vector<codeSection>& cs, const 
             int progId = bpfGetFdProgId(fd);
             if (progId == -1) {
                 const int err = errno;
+<<<<<<< PATCH SET (852bb3 NetBpfLoad: enforce eBPF is jitted on 25Q2+)
+                ALOGE("bpfGetFdProgId failed, ret: %d", err);
+                return -err;
+            }
+
+            int jitLen = bpfGetFdJitProgLen(fd);
+            if (jitLen == -1) {
+                const int err = errno;
+                ALOGE("bpfGetFdJitProgLen failed, ret: %d", err);
+                return -err;
+            }
+
+            int xlatLen = bpfGetFdXlatProgLen(fd);
+            if (xlatLen == -1) {
+                const int err = errno;
+                ALOGE("bpfGetFdXlatProgLen failed, ret: %d", err);
+                return -err;
+            }
+            ALOGI("prog %s id %d len jit:%d xlat:%d", progPinLoc.c_str(), progId, jitLen, xlatLen);
+
+            if (!jitLen && bpfloader_ver >= BPFLOADER_MAINLINE_25Q2_VERSION) {
+                ALOGE("Kernel eBPF JIT failure for %s", progPinLoc.c_str());
+                return -ENOTSUP;
+            }
+||||||| BASE
+            ALOGI("prog %s id %d", progPinLoc.c_str(), progId);
+=======
                 ALOGE("bpfGetFdProgId failed, errno: %d", errno);
                 return -err;
             }
             ALOGI("prog %s id %d", progPinLoc.c_str(), progId);
+>>>>>>> BASE      (a8dd6c NetBpfLoad: 4.14+ fail hard on bpfGetFdProgId() failure)
         }
     }
 
