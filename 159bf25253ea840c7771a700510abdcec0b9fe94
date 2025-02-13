@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22ab86ef_a692c3a3",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/DataStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-02-13T17:04:31Z",
+      "side": 1,
+      "message": "We probably need to add a `mPropertyFile.delete();` line here, otherwise this method will keep re-throwing the error all the time. Maybe that\u0027s what causing the issue in the bug?",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 9
+      },
+      "revId": "159bf25253ea840c7771a700510abdcec0b9fe94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
