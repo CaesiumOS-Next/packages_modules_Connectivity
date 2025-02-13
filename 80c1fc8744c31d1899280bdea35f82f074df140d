@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd1db01e_746dbbc1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-13T10:07:21Z",
+      "side": 1,
+      "message": "The old code would remove whatever request was in the set with the matching type, but the new code will attempt to remove the exact request passed in by the caller. The new code seems more correct, but it\u0027s not easy to understand the implications of this change.\n\nIf we want to keep this CL a no-op, then we can do something like:\n\n    // TODO: this should really only remove the request that was passed in.\n    // For now, maintain legacy behaviour.\n    mPendingTetheringRequests.removeIf((pending) -\u003e pending.type \u003d\u003d request.type);",
+      "range": {
+        "startLine": 1222,
+        "startChar": 41,
+        "endLine": 1222,
+        "endChar": 48
+      },
+      "revId": "80c1fc8744c31d1899280bdea35f82f074df140d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6333e471_157e15ed",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1652,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-13T10:07:21Z",
+      "side": 1,
+      "message": "there can only be one request per type in this set because the only code that adds requests into the set is startTethering, and that method will first remove any existing request with the same type.",
+      "range": {
+        "startLine": 1651,
+        "startChar": 76,
+        "endLine": 1652,
+        "endChar": 64
+      },
+      "revId": "80c1fc8744c31d1899280bdea35f82f074df140d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
