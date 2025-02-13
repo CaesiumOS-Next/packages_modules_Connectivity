@@ -2768,7 +2768,7 @@ public class TetheringTest {
         assertTrue(element + " not found in " + collection, collection.contains(element));
     }
 
-    private class ResultListener extends IIntResultListener.Stub {
+    public static class ResultListener extends IIntResultListener.Stub {
         private final int mExpectedResult;
         private boolean mHasResult = false;
         ResultListener(final int expectedResult) {

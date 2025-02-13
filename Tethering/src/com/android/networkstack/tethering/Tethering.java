@@ -306,7 +306,7 @@ public class Tethering {
         mLooper = mDeps.makeTetheringLooper();
         mNotificationUpdater = mDeps.makeNotificationUpdater(mContext, mLooper);
         mTetheringMetrics = mDeps.makeTetheringMetrics(mContext);
-        mRequestTracker = new RequestTracker();
+        mRequestTracker = new RequestTracker(mTetheringMetrics);
 
         // This is intended to ensrure that if something calls startTethering(bluetooth) just after
         // bluetooth is enabled. Before onServiceConnected is called, store the calls into this
@@ -703,12 +703,12 @@ public class Tethering {
             final IIntResultListener listener) {
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            RequestTracker.AddResult result = mRequestTracker.addPendingRequest(request);
+            RequestTracker.AddResult result = mRequestTracker.addPendingRequest(request, listener);
             // If tethering is already pending with a conflicting request, stop tethering before
             // starting.
             if (result == RequestTracker.AddResult.FAILURE_CONFLICTING_PENDING_REQUEST) {
                 stopTetheringInternal(type); // Also removes the request from the tracker.
-                mRequestTracker.addPendingRequest(request);
+                mRequestTracker.addPendingRequest(request, listener);
             }
 
             if (request.isExemptFromEntitlementCheck()) {
@@ -801,12 +801,18 @@ public class Tethering {
                 result = TETHER_ERROR_UNKNOWN_TYPE;
         }
 
-        // The result of Bluetooth tethering will be sent after the pan service connects.
-        if (result == TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) return;
+        mRequestTracker.handleLinkLayerResult(request, result);
 
-        sendTetherResult(listener, result, type);
+        // Send metrics if the result is an error.
+        if (result != TETHER_ERROR_NO_ERROR && result != TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) {
+            mTetheringMetrics.updateErrorCode(type, result);
+            mTetheringMetrics.sendReport(type);
+        }
     }
 
+    // TODO: This is currently only used by Bluetooth when there are multiple add requests before
+    //       the Pan service is connected. We should remove this and use RequestTracker to track
+    //       these listeners instead.
     private void sendTetherResult(final IIntResultListener listener, final int result,
             final int type) {
         if (listener != null) {
