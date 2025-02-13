@@ -52,8 +52,8 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.PowerManager
-import android.os.UserManager
 import android.os.SystemProperties
+import android.os.UserManager
 import android.platform.test.annotations.AppModeFull
 import android.provider.DeviceConfig
 import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
@@ -591,6 +591,12 @@ class ApfIntegrationTest {
 
         val program = gen.generate()
         assertThat(program.size).isLessThan(counterRegion)
+        val prefixProgram = ApfV4Generator(
+            caps.apfVersionSupported,
+            caps.maximumApfProgramSize,
+            caps.maximumApfProgramSize
+        ).addNop().addNop().addNop().generate()
+        installAndVerifyProgram(prefixProgram + program)
         installAndVerifyProgram(program)
 
         // Trigger the program by sending a ping and waiting on the reply.
