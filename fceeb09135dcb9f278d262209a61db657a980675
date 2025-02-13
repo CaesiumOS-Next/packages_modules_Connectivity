@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f429aec1_058156ef",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-13T09:27:36Z",
+      "side": 1,
+      "message": "It\u0027s not great that to behave correctly this method needs to know exactly how setBluetoothTethering behaves. In the future, someone changing that method might forget to update this one, and the code might then send duplicate callbacks or otherwise behave incorrectly.\n\nAlternatives:\n- setBluetoothTethering could return a Pair\u003cInteger, Boolean\u003e and the boolean would detemine whether the callback should be called or not.\n- We could add a TETHER_ERROR_BLUETOOTH_SERVICE_PENDING that would be used only between these two methods, and in this method would just suppress the callback.",
+      "range": {
+        "startLine": 804,
+        "startChar": 8,
+        "endLine": 804,
+        "endChar": 10
+      },
+      "revId": "fceeb09135dcb9f278d262209a61db657a980675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "412d61d5_f84fef21",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-13T09:27:36Z",
+      "side": 1,
+      "message": "If you address the comment above, this would become unnecessary.",
+      "range": {
+        "startLine": 848,
+        "startChar": 20,
+        "endLine": 848,
+        "endChar": 41
+      },
+      "revId": "fceeb09135dcb9f278d262209a61db657a980675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
