@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3aa9456_01e22d0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-13T09:47:46Z",
+      "side": 1,
+      "message": "Note that removing getOrCreatePendingTetheringRequest in setVirtualTethering is also a no-op:\n- If setVirtualTethering is called from startTethering, the request\n  that is now passed in as a parameter is the exact same one that\n  was just inserted into the pending list, and which the old code\n  would have obtained from getOrCreatePendingTetheringRequest.\n- If setVirtualTethering is called due to an IP conflict, both the\n  old and the new code use a placeholder request with no interface.\n  This codepath was already broken before this CL (and likely has\n  never worked).",
+      "range": {
+        "startLine": 12,
+        "startChar": 18,
+        "endLine": 12,
+        "endChar": 19
+      },
+      "revId": "8258d6e4cf1851cda717f050a2d20b96669795b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14b12645_23af6d20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-13T09:47:46Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "8258d6e4cf1851cda717f050a2d20b96669795b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5860551b_ed54be35",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-13T09:47:46Z",
+      "side": 1,
+      "message": "Annotating this as @NonNull would improve clarity.",
+      "range": {
+        "startLine": 1073,
+        "startChar": 65,
+        "endLine": 1073,
+        "endChar": 81
+      },
+      "revId": "8258d6e4cf1851cda717f050a2d20b96669795b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a2a249d_10d25d8d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2433,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-13T09:47:46Z",
+      "side": 1,
+      "message": "Nit: now that we do this in several places, it would be useful to move this code to a common createPlaceholderTetheringRequest method.",
+      "range": {
+        "startLine": 2433,
+        "startChar": 59,
+        "endLine": 2433,
+        "endChar": 75
+      },
+      "revId": "8258d6e4cf1851cda717f050a2d20b96669795b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
