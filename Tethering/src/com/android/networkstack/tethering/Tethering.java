@@ -421,13 +421,11 @@ public class Tethering {
     /**
      * Helper class to keep track of tethering requests.
      * The intended usage of this class is
-     * 1) Add pending request via {@link #addPendingRequest(TetheringRequest)} when startTethering
-     *    is called and the link layer is poked.
+     * 1) Add pending request via {@link #addPendingRequest(TetheringRequest, IIntResultListener)}
+     *    when startTethering is called and the link layer is poked.
      * 2) When the link event arrives, get the pending request via
      *    {@link #getOrCreatePendingRequest(int)} to enable IP serving with.
      * 3) Remove the pending requests via {@link #removePendingRequests(int)}.
-     * TODO: Add the pending IIntResultListeners at the same time as the pending requests, and
-     *       call them when we get the tether result.
      * TODO: Add support for multiple Bluetooth requests before the PAN service connects instead of
      *       using a separate mPendingPanRequestListeners.
      * TODO: Add support for fuzzy-matched requests.
@@ -435,14 +433,32 @@ public class Tethering {
     private class RequestTracker {
         private class PendingRequest {
             @NonNull private final TetheringRequest mTetheringRequest;
+            @Nullable private final IIntResultListener mListener;
 
-            private PendingRequest(@NonNull TetheringRequest tetheringRequest) {
+            private PendingRequest(@NonNull TetheringRequest tetheringRequest,
+                    @Nullable IIntResultListener listener) {
                 mTetheringRequest = tetheringRequest;
+                mListener = listener;
             }
 
             @NonNull
             TetheringRequest getTetheringRequest() {
                 return mTetheringRequest;
+            }
+
+            private void sendPendingTetherResult(final int result) {
+                if (mListener != null) {
+                    try {
+                        mListener.onResult(result);
+                    } catch (RemoteException e) {
+                        Log.e(TAG, e.getMessage(), e);
+                    }
+                }
+                if (result != TETHER_ERROR_NO_ERROR) {
+                    final int type = mTetheringRequest.getTetheringType();
+                    mTetheringMetrics.updateErrorCode(type, result);
+                    mTetheringMetrics.sendReport(type);
+                }
             }
         }
 
@@ -481,7 +497,8 @@ public class Tethering {
          * be returned as an AddResult code.
          */
         @AddResult
-        private int addPendingRequest(@NonNull final TetheringRequest newRequest) {
+        private int addPendingRequest(@NonNull final TetheringRequest newRequest,
+                @Nullable final IIntResultListener listener) {
             // Check the existing requests to see if it is OK to add the new request.
             for (PendingRequest request : mPendingRequests) {
                 TetheringRequest existingRequest = request.getTetheringRequest();
@@ -500,7 +517,7 @@ public class Tethering {
             // conflicting parameters above, so these would have been equivalent anyway (except for
             // UID).
             removePendingRequests(newRequest.getRequestType());
-            mPendingRequests.add(new PendingRequest(newRequest));
+            mPendingRequests.add(new PendingRequest(newRequest, listener));
             return ADD_RESULT_SUCCESS;
         }
 
@@ -536,6 +553,34 @@ public class Tethering {
                 if (tetheringRequest.getTetheringType() == type) return tetheringRequest;
             }
             return null;
+        }
+
+        /**
+         * Sends the tether result from poking the link layer for the given tethering request and
+         * remove the request if the result is a failure.
+         */
+        private void sendLinkLayerPokeResult(
+                @NonNull final TetheringRequest tetheringRequest, final int result) {
+            // The result of Bluetooth tethering will be sent after the pan service connects.
+            if (result == TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) return;
+
+            mPendingRequests.removeIf(request -> {
+                TetheringRequest pendingRequest = request.getTetheringRequest();
+                if (pendingRequest.getTetheringType() != tetheringRequest.getTetheringType()) {
+                    return false;
+                }
+
+                if (pendingRequest.equals(tetheringRequest)) {
+                    request.sendPendingTetherResult(result);
+                }
+                // Remove any other pending request of the same type to match historical behavior.
+                // This only applies to IPv4 prefix conflict handling; usually the only existing
+                // pending request should match exactly what we've passed into enableTetherInternal
+                // via startTethering. However, IPv4 prefix conflict restart will bypass
+                // startTethering and call enableTetherInternal with a placeholder request directly,
+                // so if this fails then we may end up removing any existing pending request.
+                return result != TETHER_ERROR_NO_ERROR;
+            });
         }
 
         /**
@@ -836,12 +881,12 @@ public class Tethering {
             final IIntResultListener listener) {
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            int addResult = mRequestTracker.addPendingRequest(request);
+            int addResult = mRequestTracker.addPendingRequest(request, listener);
             // If tethering is already pending with a conflicting request, stop tethering before
             // starting.
             if (addResult == RequestTracker.ADD_RESULT_FAILURE_CONFLICTING_PENDING_REQUEST) {
                 stopTetheringInternal(type);
-                mRequestTracker.addPendingRequest(request);
+                mRequestTracker.addPendingRequest(request, listener);
             }
 
             if (request.isExemptFromEntitlementCheck()) {
@@ -936,12 +981,12 @@ public class Tethering {
                 result = TETHER_ERROR_UNKNOWN_TYPE;
         }
 
-        // The result of Bluetooth tethering will be sent after the pan service connects.
-        if (result == TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) return;
-
-        sendTetherResult(listener, result, type);
+        mRequestTracker.sendLinkLayerPokeResult(request, result);
     }
 
+    // TODO: This is currently only used by Bluetooth when there are multiple add requests before
+    //       the Pan service is connected. We should remove this and use RequestTracker to track
+    //       these listeners instead.
     private void sendTetherResult(final IIntResultListener listener, final int result,
             final int type) {
         if (listener != null) {
