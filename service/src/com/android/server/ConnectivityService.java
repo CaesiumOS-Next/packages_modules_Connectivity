@@ -9804,11 +9804,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     private void updateLocalNetworkAddresses(@Nullable final LinkProperties newLp,
             @NonNull final LinkProperties oldLp) {
-
         // The maps are available only after 25Q2 release
-        if (!BpfNetMaps.isAtLeast25Q2()) {
-            return;
-        }
+        if (!BpfNetMaps.isAtLeast25Q2()) return;
 
         final CompareResult<String> interfaceDiff = new CompareResult<>(
                 oldLp != null ? oldLp.getAllInterfaceNames() : null,
@@ -9817,8 +9814,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (final String iface : interfaceDiff.added) {
             addLocalAddressesToBpfMap(iface, IPV4_LOCAL_PREFIXES);
             addLocalAddressesToBpfMap(iface, MULTICAST_AND_BROADCAST_PREFIXES);
+            updateLocalDnsesInBpfMap(iface, newLp, true);
         }
         for (final String iface : interfaceDiff.removed) {
+            updateLocalDnsesInBpfMap(iface, oldLp, false);
             removeLocalAddressesFromBpfMap(iface, IPV4_LOCAL_PREFIXES);
             removeLocalAddressesFromBpfMap(iface, MULTICAST_AND_BROADCAST_PREFIXES);
         }
@@ -9831,14 +9830,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     private void addLocalAddressesToBpfMap(final String iface, final List<IpPrefix> prefixes) {
         if (!BpfNetMaps.isAtLeast25Q2()) return;
+
         for (IpPrefix prefix : prefixes) {
-            final int prefixLengthConstant = (prefix.getAddress() instanceof Inet4Address)
-                    ? (32 + 96) : 32;
-            mBpfNetMaps.addLocalNetAccess(prefixLengthConstant + prefix.getPrefixLength(),
-                    iface, prefix.getAddress(), 0, 0, false);
-
+            mBpfNetMaps.addLocalNetAccess(getLpmBitlenForPrefix(prefix), iface, prefix.getAddress(),
+                                          0, 0, false);
         }
-
     }
 
     /**
@@ -9848,11 +9844,54 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     private void removeLocalAddressesFromBpfMap(final String iface, final List<IpPrefix> prefixes) {
         if (!BpfNetMaps.isAtLeast25Q2()) return;
+
         for (IpPrefix prefix : prefixes) {
-            final int prefixLengthConstant = (prefix.getAddress() instanceof Inet4Address)
-                    ? (32 + 96) : 32;
-            mBpfNetMaps.removeLocalNetAccess(prefixLengthConstant
-                    + prefix.getPrefixLength(), iface, prefix.getAddress(), 0, 0);
+            mBpfNetMaps.removeLocalNetAccess(getLpmBitlenForPrefix(prefix), iface,
+                                             prefix.getAddress(), 0, 0);
+        }
+    }
+
+    /**
+     * Returns the prefix length that will be used for longest matching.
+     * @param prefix IpPrefix
+     */
+    private int getLpmBitlenForPrefix(final IpPrefix prefix) {
+        final int prefixLengthConstant = (prefix.getAddress() instanceof Inet4Address)
+                ? (32 + 96) : 32;
+        return prefixLengthConstant + prefix.getPrefixLength();
+    }
+
+    /**
+     * Adds/Removes DNS servers to/from local network access map, if included in the interface
+     * prefixes
+     * @param iface interface name
+     * @param lp LinkProperties
+     * @param shouldAdd boolean
+     */
+    private void updateLocalDnsesInBpfMap(final String iface, @Nullable final LinkProperties lp,
+                                          boolean shouldAdd) {
+        if (!BpfNetMaps.isAtLeast25Q2() || lp == null) return;
+
+        final int ifaceLen = 32;
+        final int inetAddressLen = 32 + 96; // length of ipv4 mapped addresses
+        final int portProtocolLen = 32;  //16 for port + 16 for protocol;
+        final int totalBitLen = ifaceLen + inetAddressLen + portProtocolLen;
+        final int port53 = 53;
+        for (InetAddress dnsServer : lp.getDnsServers()) {
+            if (shouldAdd) {
+                if (mBpfNetMaps.getLocalNetAccess(totalBitLen, iface, dnsServer,
+                                          0, 0)) {
+                    mBpfNetMaps.addLocalNetAccess(totalBitLen, iface, dnsServer, IPPROTO_UDP,
+                            port53, true);
+                    mBpfNetMaps.addLocalNetAccess(totalBitLen, iface, dnsServer, IPPROTO_TCP,
+                            port53, true);
+                }
+            } else {
+                mBpfNetMaps.removeLocalNetAccess(totalBitLen, iface, dnsServer, IPPROTO_UDP,
+                                                 port53);
+                mBpfNetMaps.removeLocalNetAccess(totalBitLen, iface, dnsServer, IPPROTO_TCP,
+                        port53);
+            }
         }
     }
 
