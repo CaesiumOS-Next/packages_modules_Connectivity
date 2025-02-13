@@ -160,10 +160,7 @@ java_library {
 java_defaults {
     name: "CronetJavaDefaults",
     srcs: [":httpclient_api_sources"],
-    static_libs: [
-        "com.android.net.http.flags-aconfig-java",
-        "modules-utils-expresslog",
-    ],
+    static_libs: ["com.android.net.http.flags-aconfig-java"],
     libs: [
         "androidx.annotation_annotation",
     ],
