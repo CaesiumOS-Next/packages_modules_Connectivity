@@ -591,6 +591,9 @@ class ApfIntegrationTest {
 
         val program = gen.generate()
         assertThat(program.size).isLessThan(counterRegion)
+        val randomProgram = ByteArray(1) { 0 } +
+                ByteArray(counterRegion - 1).also { Random.nextBytes(it) }
+        installAndVerifyProgram(randomProgram)
         installAndVerifyProgram(program)
 
         // Trigger the program by sending a ping and waiting on the reply.
