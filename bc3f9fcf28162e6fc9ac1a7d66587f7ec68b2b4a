@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3060eba0_dd4521e3",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-13T09:49:49Z",
+      "side": 1,
+      "message": "never used outside Tethering.java.",
+      "range": {
+        "startLine": 336,
+        "startChar": 14,
+        "endLine": 336,
+        "endChar": 16
+      },
+      "revId": "bc3f9fcf28162e6fc9ac1a7d66587f7ec68b2b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
