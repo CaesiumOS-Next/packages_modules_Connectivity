@@ -8566,6 +8566,20 @@ public class ConnectivityServiceTest {
         assertEquals(1300, cbi.getLp().getMtu());
     }
 
+    @Test
+    private void testLocalDnsesUpdatedInBpfMap() throws Exception {
+        mCellAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        waitForIdle();
+        LinkProperties lp = new LinkProperties();
+        // Add a local dns server to the LinkProperties.
+        lp.addDnsServer(InetAddress.getByName("192.168.0.1"));
+        mCellAgent.sendLinkProperties(lp);
+        mCellAgent.connect(false);
+        waitForIdle();
+        verify(mBpfNetMaps).addLocalNetAccess(192, any(), lp.getDnsServers().get(0),
+                                               any(), 53, true);
+    }
+
     private void checkDirectlyConnectedRoutes(Object callbackObj,
             Collection<LinkAddress> linkAddresses, Collection<RouteInfo> otherRoutes) {
         assertTrue(callbackObj instanceof LinkProperties);
