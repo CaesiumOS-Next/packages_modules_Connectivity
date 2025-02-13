@@ -1,0 +1,271 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bafc252_adc8ac67",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T01:06:01Z",
+      "side": 1,
+      "message": "Nit : prefer return-early, since it is the local code style",
+      "range": {
+        "startLine": 309,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 45
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "e5d0abcd_e6d10405",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 309,
+                "startChar": 0,
+                "endLine": 318,
+                "endChar": 0
+              },
+              "replacement": "        if (!shouldEnforceLocalNetRestrictions(uid)) {\n            return;\n        }\n        final AttributionSource attributionSource \u003d\n                new AttributionSource.Builder(uid).setPackageName(packageName).build();\n        final int permissionState \u003d mPermissionManager.checkPermissionForPreflight(\n                NEARBY_WIFI_DEVICES, attributionSource);\n        if (permissionState \u003d\u003d PermissionManager.PERMISSION_GRANTED) {\n            mBpfNetMaps.removeUidFromLocalNetBlockMap(attributionSource.getUid());\n        } else {\n            mBpfNetMaps.addUidToLocalNetBlockMap(attributionSource.getUid());\n        }\n        if (hasSdkSandbox(uid)){\n            // SDKs in the SDK RT cannot hold runtime permissions\n            final int sdkSandboxUid \u003d sProcessShim.toSdkSandboxUid(uid);\n            if (!mBpfNetMaps.getUidValueFromLocalNetBlockMap(sdkSandboxUid)) {\n                mBpfNetMaps.addUidToLocalNetBlockMap(sdkSandboxUid);\n"
+            },
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 319,
+                "startChar": 0,
+                "endLine": 327,
+                "endChar": 0
+              },
+              "replacement": "        };\n"
+            }
+          ]
+        }
+      ],
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "287d91de_538350f1",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T01:06:01Z",
+      "side": 1,
+      "message": "This is likely fine considering removing a user almost never happens and is a pretty heavy process anyway, but you could just cache this instead of reevaluating it for every UID",
+      "range": {
+        "startLine": 674,
+        "startChar": 20,
+        "endLine": 674,
+        "endChar": 53
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "42b89410_7b0bc73d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 35,
+                "startChar": 0,
+                "endLine": 36,
+                "endChar": 0
+              },
+              "replacement": "import static android.net.connectivity.ConnectivityCompatChanges.RESTRICT_LOCAL_NETWORK_FOR_UID;\n"
+            },
+            {
+              "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+              "range": {
+                "startLine": 303,
+                "startChar": 0,
+                "endLine": 304,
+                "endChar": 0
+              },
+              "replacement": "        return CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK_FOR_UID, uid)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e35c5ad7_bac8acba",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T01:06:01Z",
+      "side": 1,
+      "message": "So the change can be enabled/disabled manually right ? Does that imply that it\u0027s possible to block a package, then turn off the change ID, and then this UID will stay in the map forever, thus staying blocked ?\n\nI mean, I get that it\u0027s not the end of the world – after all, it will be fixed by a reboot, and it only ever happens if an app is uninstalled, then a new is installed that reuses the same user ID which is maybe not even possible. Buf if removeUidFromLocalNetBlockMap is idempotent, then maybe all you have to do is to not check for the change here ?",
+      "range": {
+        "startLine": 919,
+        "startChar": 24,
+        "endLine": 919,
+        "endChar": 53
+      },
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9120d6c3_78541b1d",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T01:06:01Z",
+      "side": 1,
+      "message": "I think the local style mandates that ifs should either be exactly one line or should have `{}`s ?\n\nI mean, if checkstyle is happy with this I don\u0027t have an opinion",
+      "range": {
+        "startLine": 886,
+        "startChar": 8,
+        "endLine": 886,
+        "endChar": 10
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "78a0adb7_32d42a91",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 886,
+                "startChar": 0,
+                "endLine": 888,
+                "endChar": 0
+              },
+              "replacement": "        if (hasSdkSandbox(MOCK_UID11)) {\n            assertTrue(mBpfMapMonitor.hasBlockedLocalNetForSandboxUid(\n                    mProcessShim.toSdkSandboxUid(MOCK_UID11)));\n        }\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 1282,
+                "startChar": 0,
+                "endLine": 1284,
+                "endChar": 0
+              },
+              "replacement": "        if (hasSdkSandbox(MOCK_UID12)) {\n            assertTrue(mBpfMapMonitor.hasBlockedLocalNetForSandboxUid(\n                    mProcessShim.toSdkSandboxUid(MOCK_UID12)));\n        }\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 1342,
+                "startChar": 0,
+                "endLine": 1344,
+                "endChar": 0
+              },
+              "replacement": "        if (hasSdkSandbox(MOCK_UID12)) {\n            assertTrue(mBpfMapMonitor.hasBlockedLocalNetForSandboxUid(\n                    mProcessShim.toSdkSandboxUid(MOCK_UID11)));\n        }\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 1350,
+                "startChar": 0,
+                "endLine": 1352,
+                "endChar": 0
+              },
+              "replacement": "        if (hasSdkSandbox(MOCK_UID12)) {\n            assertTrue(mBpfMapMonitor.hasBlockedLocalNetForSandboxUid(\n                    mProcessShim.toSdkSandboxUid(MOCK_UID11)));\n        }\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 1742,
+                "startChar": 0,
+                "endLine": 1744,
+                "endChar": 0
+              },
+              "replacement": "        if (hasSdkSandbox(MOCK_UID12)) {\n            assertTrue(mBpfMapMonitor.hasBlockedLocalNetForSandboxUid(\n                    mProcessShim.toSdkSandboxUid(MOCK_UID11)));\n        }\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 1752,
+                "startChar": 0,
+                "endLine": 1754,
+                "endChar": 0
+              },
+              "replacement": "        if (hasSdkSandbox(MOCK_UID12)) {\n            assertTrue(mBpfMapMonitor.hasBlockedLocalNetForSandboxUid(\n                    mProcessShim.toSdkSandboxUid(MOCK_UID11)));\n        }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "635743bd_864ee44d",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T01:06:01Z",
+      "side": 1,
+      "message": "Forgot to uncomment ?",
+      "range": {
+        "startLine": 1312,
+        "startChar": 0,
+        "endLine": 1312,
+        "endChar": 2
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b80382e8_4e27ed27",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 1312,
+                "startChar": 0,
+                "endLine": 1313,
+                "endChar": 0
+              },
+              "replacement": "        assumeTrue(BpfNetMaps.isAtLeast25Q2());\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+              "range": {
+                "startLine": 1339,
+                "startChar": 0,
+                "endLine": 1340,
+                "endChar": 0
+              },
+              "replacement": "        assumeTrue(BpfNetMaps.isAtLeast25Q2());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
