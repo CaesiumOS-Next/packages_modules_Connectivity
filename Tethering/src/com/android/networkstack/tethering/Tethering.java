@@ -132,6 +132,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.ArrayMap;
+import android.util.ArraySet;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -241,11 +242,9 @@ public class Tethering {
     private final SharedLog mLog = new SharedLog(TAG);
     private final RemoteCallbackList<ITetheringEventCallback> mTetheringEventCallbacks =
             new RemoteCallbackList<>();
-    // Currently active tethering requests per tethering type. Only one of each type can be
-    // requested at a time. After a tethering type is requested, the map keeps tethering parameters
-    // to be used after the interface comes up asynchronously.
-    private final SparseArray<TetheringRequest> mPendingTetheringRequests =
-            new SparseArray<>();
+    // Currently active tethering requests. After a tethering type is requested, the map keeps
+    // tethering parameters to be used after the interface comes up asynchronously.
+    private final Set<TetheringRequest> mPendingTetheringRequests = new ArraySet<>();
 
     private final Context mContext;
     private final ArrayMap<String, TetherState> mTetherStates;
@@ -704,14 +703,15 @@ public class Tethering {
             final IIntResultListener listener) {
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            final TetheringRequest unfinishedRequest = mPendingTetheringRequests.get(type);
+            final TetheringRequest unfinishedRequest = getPendingTetheringRequest(type);
             // If tethering is already enabled with a different request,
             // disable before re-enabling.
             if (unfinishedRequest != null && !unfinishedRequest.equalsIgnoreUidPackage(request)) {
                 enableTetheringInternal(false /* disabled */, unfinishedRequest, null);
                 mEntitlementMgr.stopProvisioningIfNeeded(type);
             }
-            mPendingTetheringRequests.put(type, request);
+            mPendingTetheringRequests.remove(unfinishedRequest);
+            mPendingTetheringRequests.add(request);
 
             if (request.isExemptFromEntitlementCheck()) {
                 mEntitlementMgr.setExemptedDownstreamType(type);
@@ -731,9 +731,7 @@ public class Tethering {
     }
 
     private boolean isTetheringTypePendingOrServing(final int type) {
-        for (int i = 0; i < mPendingTetheringRequests.size(); i++) {
-            if (mPendingTetheringRequests.valueAt(i).getTetheringType() == type) return true;
-        }
+        if (getPendingTetheringRequest(type) != null) return true;
         for (TetherState state : mTetherStates.values()) {
             // TODO: isCurrentlyServing only starts returning true once the IpServer has processed
             // the CMD_TETHER_REQUESTED. Ensure that we consider the request to be serving even when
@@ -764,7 +762,7 @@ public class Tethering {
     }
 
     void stopTetheringInternal(int type) {
-        mPendingTetheringRequests.remove(type);
+        mPendingTetheringRequests.remove(getPendingTetheringRequest(type));
 
         // Using a placeholder here is ok since none of the disable APIs use the request for
         // anything. We simply need the tethering type to know which link layer to poke for removal.
@@ -822,7 +820,7 @@ public class Tethering {
         // If changing tethering fail, remove corresponding request
         // no matter who trigger the start/stop.
         if (result != TETHER_ERROR_NO_ERROR) {
-            mPendingTetheringRequests.remove(type);
+            mPendingTetheringRequests.remove(getPendingTetheringRequest(type));
             mTetheringMetrics.updateErrorCode(type, result);
             mTetheringMetrics.sendReport(type);
         }
@@ -1126,7 +1124,7 @@ public class Tethering {
      */
     @NonNull
     private TetheringRequest getOrCreatePendingTetheringRequest(int type) {
-        TetheringRequest pending = mPendingTetheringRequests.get(type);
+        TetheringRequest pending = getPendingTetheringRequest(type);
         if (pending != null) return pending;
 
         Log.w(TAG, "No pending TetheringRequest for type " + type + " found, creating a placeholder"
@@ -1221,7 +1219,7 @@ public class Tethering {
         // processed, this will be a no-op and it will not return an error.
         //
         // This code cannot race with untether() because they both run on the handler thread.
-        mPendingTetheringRequests.remove(request.getTetheringType());
+        mPendingTetheringRequests.remove(request);
         tetherState.ipServer.enable(request);
         if (request.getRequestType() == REQUEST_TYPE_PLACEHOLDER) {
             TerribleErrorLog.logTerribleError(TetheringStatsLog::write,
@@ -1587,7 +1585,7 @@ public class Tethering {
     }
 
     @VisibleForTesting
-    SparseArray<TetheringRequest> getPendingTetheringRequests() {
+    Set<TetheringRequest> getPendingTetheringRequests() {
         return mPendingTetheringRequests;
     }
 
@@ -1649,7 +1647,14 @@ public class Tethering {
     }
 
     final TetheringRequest getPendingTetheringRequest(int type) {
-        return mPendingTetheringRequests.get(type, null);
+        for (TetheringRequest request : mPendingTetheringRequests) {
+            // Pick the first request we see with the same type. Currently, we only expect one
+            // request per type in this Set so this should be ok.
+            if (request.getTetheringType() == type) {
+                return request;
+            }
+        }
+        return null;
     }
 
     private void enableIpServing(@NonNull TetheringRequest request, String ifname) {

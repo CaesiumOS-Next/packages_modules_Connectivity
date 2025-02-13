@@ -964,7 +964,7 @@ public class TetheringTest {
         mLooper.dispatchAll();
 
         assertEquals(1, mTethering.getPendingTetheringRequests().size());
-        assertEquals(request, mTethering.getPendingTetheringRequests().get(TETHERING_USB));
+        assertTrue(mTethering.getPendingTetheringRequests().contains(request));
 
         if (mTethering.getTetheringConfiguration().isUsingNcm()) {
             verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NCM);
