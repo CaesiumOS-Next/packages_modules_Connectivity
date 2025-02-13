@@ -16,15 +16,21 @@
 
 package com.android.networkstack.tethering;
 
+import static android.net.TetheringManager.TETHER_ERROR_BLUETOOTH_SERVICE_PENDING;
+import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
+
 import static com.android.networkstack.tethering.util.TetheringUtils.createPlaceholderRequest;
 
+import android.net.IIntResultListener;
 import android.net.TetheringManager.TetheringRequest;
+import android.os.RemoteException;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.networkstack.tethering.metrics.TetheringMetrics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +38,12 @@ import java.util.List;
 /**
  * Helper class to keep track of tethering requests.
  * The intended usage of this class is
- * 1) Add a pending request with {@link #addPendingRequest(TetheringRequest)} before asking the link
- *    layer to start.
+ * 1) Add a pending request with {@link #addPendingRequest(TetheringRequest, IIntResultListener)}
+ *    before asking the link layer to start.
  * 2) When the link layer is up, use {@link #getOrCreatePendingRequest(int)} to get a request to
  *    start IP serving with.
  * 3) Remove all pending requests with {@link #removeAllPendingRequests(int)}.
  * Note: This class is not thread-safe.
- * TODO: Add the pending IIntResultListeners at the same time as the pending requests, and
- *       call them when we get the tether result.
  * TODO: Add support for multiple Bluetooth requests before the PAN service connects instead of
  *       using a separate mPendingPanRequestListeners.
  * TODO: Add support for fuzzy-matched requests.
@@ -47,17 +51,39 @@ import java.util.List;
 public class RequestTracker {
     private static final String TAG = RequestTracker.class.getSimpleName();
 
+    private final TetheringMetrics mTetheringMetrics;
+
+    public RequestTracker(TetheringMetrics metrics) {
+        mTetheringMetrics = metrics;
+    }
+
     private class PendingRequest {
         @NonNull
         private final TetheringRequest mTetheringRequest;
+        @Nullable
+        private IIntResultListener mListener;
 
-        private PendingRequest(@NonNull TetheringRequest tetheringRequest) {
+
+        private PendingRequest(@NonNull TetheringRequest tetheringRequest,
+                @Nullable IIntResultListener listener) {
             mTetheringRequest = tetheringRequest;
+            mListener = listener;
         }
 
         @NonNull
         TetheringRequest getTetheringRequest() {
             return mTetheringRequest;
+        }
+
+        private void maybeSendPendingTetherResult(final int result) {
+            if (mListener == null) return;
+
+            try {
+                mListener.onResult(result);
+            } catch (RemoteException e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+            mListener = null;
         }
     }
 
@@ -75,8 +101,9 @@ public class RequestTracker {
     }
 
     /**
-     * List of pending requests added by {@link #addPendingRequest(TetheringRequest)}. There can be
-     * only one per type, since we remove every request of the same type when we add a request.
+     * List of pending requests added by {@link #addPendingRequest(TetheringRequest,
+     * IIntResultListener)}. There can be only one per type, since we remove every request of the
+     * same type when we add a request.
      */
     private final List<PendingRequest> mPendingRequests = new ArrayList<>();
 
@@ -94,7 +121,8 @@ public class RequestTracker {
      * to start, and should be retrieved with {@link #getNextPendingRequest(int)} once the link
      * layer comes up. The result of the add operation will be returned as an AddResult code.
      */
-    public AddResult addPendingRequest(@NonNull final TetheringRequest newRequest) {
+    public AddResult addPendingRequest(@NonNull final TetheringRequest newRequest,
+            @Nullable final IIntResultListener listener) {
         // Check the existing requests to see if it is OK to add the new request.
         for (PendingRequest request : mPendingRequests) {
             TetheringRequest existingRequest = request.getTetheringRequest();
@@ -113,7 +141,7 @@ public class RequestTracker {
         // conflicting parameters above, so these would have been equivalent anyway (except for
         // UID).
         removeAllPendingRequests(newRequest.getTetheringType());
-        mPendingRequests.add(new PendingRequest(newRequest));
+        mPendingRequests.add(new PendingRequest(newRequest, listener));
         return AddResult.SUCCESS;
     }
 
@@ -151,6 +179,29 @@ public class RequestTracker {
             if (tetheringRequest.getTetheringType() == type) return tetheringRequest;
         }
         return null;
+    }
+
+    /**
+     * Handles the result of requesting the link layer to start/stop for the given TetheringRequest.
+     * If the result is an error, the request will be removed from the pending list.
+     */
+    public void handleLinkLayerResult(
+            @NonNull final TetheringRequest tetheringRequest, final int result) {
+        // The result of Bluetooth tethering will be sent after the pan service connects.
+        if (result == TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) return;
+
+        // Send the result to the pending request that matches the given TetheringRequest.
+        for (PendingRequest pendingRequest : mPendingRequests) {
+            if (pendingRequest.getTetheringRequest().equals(tetheringRequest)) {
+                pendingRequest.maybeSendPendingTetherResult(result);
+                break;
+            }
+        }
+
+        // Remove the request if the result is an error.
+        if (result != TETHER_ERROR_NO_ERROR) {
+            removeAllPendingRequests(tetheringRequest.getTetheringType());
+        }
     }
 
     /**
