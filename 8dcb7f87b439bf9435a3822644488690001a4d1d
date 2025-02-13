@@ -16,6 +16,159 @@
       "message": "Unit tests not added since adding new unit tests is not allowed in its test file.\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/ConnectivityServiceTest.java;l\u003d19276",
       "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16bfc9a2_618eb400",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T05:45:31Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t say not to add tests for ConnectivityService. It says that new tests should be implemented as a subclass of CSTest. See all the existing tests in https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/connectivityservice/",
+      "parentUuid": "267b6fef_bcd4aa86",
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f57a273a_2fb7a782",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9869,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T05:45:31Z",
+      "side": 1,
+      "message": "Nit : I tend to find generally that it\u0027s easier to understand code where args are @NonNull and the caller has to explicitly not call if null, rather than code that silently returns when the arg is null.\nIf you disagree then you can leave as is",
+      "range": {
+        "startLine": 9869,
+        "startChar": 43,
+        "endLine": 9869,
+        "endChar": 52
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "0fa6a96c_4fb6c293",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9817,
+                "startChar": 0,
+                "endLine": 9818,
+                "endChar": 0
+              },
+              "replacement": "            if (newLp !\u003d null) {\n                updateLocalDnsesInBpfMap(iface, newLp, true);\n            }\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9820,
+                "startChar": 0,
+                "endLine": 9821,
+                "endChar": 0
+              },
+              "replacement": "            if (oldLp !\u003d null) {\n                updateLocalDnsesInBpfMap(iface, oldLp, false);\n            }\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9867,
+                "startChar": 0,
+                "endLine": 9868,
+                "endChar": 0
+              },
+              "replacement": "    private void updateLocalDnsesInBpfMap(final String iface, @NonNull final LinkProperties lp,\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9869,
+                "startChar": 0,
+                "endLine": 9870,
+                "endChar": 0
+              },
+              "replacement": "        if (!BpfNetMaps.isAtLeast25Q2()) return;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f40bdb05_226f51c0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9877,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T05:45:31Z",
+      "side": 1,
+      "message": "Do you need to call this ? IIRC both addLocalNetAccess and removeLocalNetAccess are idempotent, so it shouldn\u0027t matter whether they are already in there ?",
+      "range": {
+        "startLine": 9877,
+        "startChar": 28,
+        "endLine": 9877,
+        "endChar": 45
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9063b2c6_6a23b7e3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9877,
+                "startChar": 0,
+                "endLine": 9896,
+                "endChar": 0
+              },
+              "replacement": "            if (shouldAdd) {\n                mBpfNetMaps.addLocalNetAccess(totalBitLen, iface, dnsServer, IPPROTO_UDP,\n                        port53, true);\n                mBpfNetMaps.addLocalNetAccess(totalBitLen, iface, dnsServer, IPPROTO_TCP,\n                        port53, true);\n            } else {\n                mBpfNetMaps.removeLocalNetAccess(totalBitLen, iface, dnsServer, IPPROTO_UDP,\n                        port53);\n                mBpfNetMaps.removeLocalNetAccess(totalBitLen, iface, dnsServer, IPPROTO_TCP,\n                        port53);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3adda9fe_a2f29116",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9880,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T05:45:31Z",
+      "side": 1,
+      "message": "I might be missing something but this reads to me like the code will only add access if it\u0027s already allowed (test in l.9877) ?",
+      "range": {
+        "startLine": 9880,
+        "startChar": 32,
+        "endLine": 9880,
+        "endChar": 49
+      },
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
