@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abeccd7b_f6dca989",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-13T09:47:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f429aec1_058156ef",
+      "range": {
+        "startLine": 804,
+        "startChar": 8,
+        "endLine": 804,
+        "endChar": 10
+      },
+      "revId": "fceeb09135dcb9f278d262209a61db657a980675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "412d61d5_f84fef21",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-02-13T09:27:36Z",
       "side": 1,
       "message": "If you address the comment above, this would become unnecessary.",
+      "range": {
+        "startLine": 848,
+        "startChar": 20,
+        "endLine": 848,
+        "endChar": 41
+      },
+      "revId": "fceeb09135dcb9f278d262209a61db657a980675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca092ba6_6df5bc74",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-13T09:47:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "412d61d5_f84fef21",
       "range": {
         "startLine": 848,
         "startChar": 20,
