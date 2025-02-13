@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eaa5c90_1b9db245",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-13T23:22:43Z",
+      "side": 1,
+      "message": "Also about the port 853. As per Lorenzo, we only need to add for port 53\nhttps://docs.google.com/document/d/1RlUqOBm3Be0nm3DbLY48cNsmKd_V57-WEl4Ow649I68/edit?resourcekey\u003d0-Bl5G4_-VHxhfcaIJ98eZqg\u0026tab\u003dt.0#bookmark\u003did.nq4hqprzcc7c",
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

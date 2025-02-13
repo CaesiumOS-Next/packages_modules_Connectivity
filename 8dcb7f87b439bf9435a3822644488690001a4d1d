@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "29e0a56a_268e9794",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-13T23:22:43Z",
+      "side": 1,
+      "message": "Makes sense. Added tests in CSBpfNetMapsTest",
+      "parentUuid": "16bfc9a2_618eb400",
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f57a273a_2fb7a782",
@@ -150,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1f793e5_13a1e7f5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9877,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-13T23:22:43Z",
+      "side": 1,
+      "message": "both add and remove are idempotent. But here for add I need to check if the dns server is local or not. So need to call get for add. \nAlthough it is not needed for remove method so deleted check from there.",
+      "parentUuid": "f40bdb05_226f51c0",
+      "range": {
+        "startLine": 9877,
+        "startChar": 28,
+        "endLine": 9877,
+        "endChar": 45
+      },
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3adda9fe_a2f29116",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 5
@@ -161,6 +203,30 @@
       "writtenOn": "2025-02-13T05:45:31Z",
       "side": 1,
       "message": "I might be missing something but this reads to me like the code will only add access if it\u0027s already allowed (test in l.9877) ?",
+      "range": {
+        "startLine": 9880,
+        "startChar": 32,
+        "endLine": 9880,
+        "endChar": 49
+      },
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7d38c9a_8821bc9c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9880,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-13T23:22:43Z",
+      "side": 1,
+      "message": "I\u0027m checking if there is a local prefix already added that includes this address. Hope that clarifies.",
+      "parentUuid": "3adda9fe_a2f29116",
       "range": {
         "startLine": 9880,
         "startChar": 32,
