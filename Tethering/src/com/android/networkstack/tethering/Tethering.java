@@ -172,6 +172,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Executor;
@@ -245,6 +246,8 @@ public class Tethering {
     // Currently active tethering requests. After a tethering type is requested, the map keeps
     // tethering parameters to be used after the interface comes up asynchronously.
     private final Set<TetheringRequest> mPendingTetheringRequests = new ArraySet<>();
+    private final Map<TetheringRequest, IIntResultListener> mPendingStartTetheringCallbacks =
+            new ArrayMap<>();
 
     private final Context mContext;
     private final ArrayMap<String, TetherState> mTetherStates;
@@ -712,6 +715,7 @@ public class Tethering {
             }
             mPendingTetheringRequests.remove(unfinishedRequest);
             mPendingTetheringRequests.add(request);
+            mPendingStartTetheringCallbacks.put(request, listener);
 
             if (request.isExemptFromEntitlementCheck()) {
                 mEntitlementMgr.setExemptedDownstreamType(type);
@@ -806,7 +810,17 @@ public class Tethering {
         // The result of Bluetooth tethering will be sent after the pan service connects.
         if (result == TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) return;
 
-        sendTetherResult(listener, result, type);
+        // The result of enable Bluetooth tethering will be sent after the pan service connects.
+        if (type == TETHERING_BLUETOOTH && !isPanServiceConnected()) return;
+
+        sendTetherStartResult(request, result);
+    }
+
+    private void sendTetherStartResult(@NonNull final TetheringRequest request, final int result) {
+        sendTetherResult(mPendingStartTetheringCallbacks.get(request), result,
+                request.getTetheringType());
+        mPendingStartTetheringCallbacks.remove(request);
+        if (result != TETHER_ERROR_NO_ERROR) mPendingTetheringRequests.remove(request);
     }
 
     private void sendTetherResult(final IIntResultListener listener, final int result,
@@ -817,10 +831,7 @@ public class Tethering {
             } catch (RemoteException e) { }
         }
 
-        // If changing tethering fail, remove corresponding request
-        // no matter who trigger the start/stop.
         if (result != TETHER_ERROR_NO_ERROR) {
-            mPendingTetheringRequests.remove(getPendingTetheringRequest(type));
             mTetheringMetrics.updateErrorCode(type, result);
             mTetheringMetrics.sendReport(type);
         }
@@ -866,8 +877,13 @@ public class Tethering {
             // the service just to stop tethering since tethering is not started. Just remove
             // any pending requests to enable tethering, and notify them that they have failed.
             for (IIntResultListener pendingListener : mPendingPanRequestListeners) {
-                sendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL,
-                        TETHERING_BLUETOOTH);
+                TetheringRequest pendingRequest = getPendingTetheringRequest(TETHERING_BLUETOOTH);
+                if (pendingRequest != null) {
+                    sendTetherStartResult(pendingRequest, TETHER_ERROR_SERVICE_UNAVAIL);
+                } else {
+                    sendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL,
+                            TETHERING_BLUETOOTH);
+                }
             }
             mPendingPanRequestListeners.clear();
             return TETHER_ERROR_NO_ERROR;
@@ -902,7 +918,14 @@ public class Tethering {
                 for (IIntResultListener pendingListener : mPendingPanRequestListeners) {
                     final int result = setBluetoothTetheringSettings(mBluetoothPan,
                             true /* enable */);
-                    sendTetherResult(pendingListener, result, TETHERING_BLUETOOTH);
+                    TetheringRequest pendingRequest =
+                            getPendingTetheringRequest(TETHERING_BLUETOOTH);
+                    if (pendingRequest != null) {
+                        sendTetherStartResult(pendingRequest, result);
+                    } else {
+                        sendTetherResult(pendingListener, result,
+                                TETHERING_BLUETOOTH);
+                    }
                 }
                 mPendingPanRequestListeners.clear();
             });
@@ -916,8 +939,14 @@ public class Tethering {
                 mIsConnected = false;
 
                 for (IIntResultListener pendingListener : mPendingPanRequestListeners) {
-                    sendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL,
-                            TETHERING_BLUETOOTH);
+                    TetheringRequest pendingRequest =
+                            getPendingTetheringRequest(TETHERING_BLUETOOTH);
+                    if (pendingRequest != null) {
+                        sendTetherStartResult(pendingRequest, TETHER_ERROR_SERVICE_UNAVAIL);
+                    } else {
+                        sendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL,
+                                TETHERING_BLUETOOTH);
+                    }
                 }
                 mPendingPanRequestListeners.clear();
                 mBluetoothIfaceRequest = null;
@@ -1669,6 +1698,12 @@ public class Tethering {
             if (request.getTetheringType() == type) return request;
         }
         return null;
+    }
+
+    final TetheringRequest createPlaceholderRequest(int type) {
+        TetheringRequest placeholder = new TetheringRequest.Builder(type).build();
+        placeholder.getParcel().requestType = REQUEST_TYPE_PLACEHOLDER;
+        return placeholder;
     }
 
     private void enableIpServing(@NonNull TetheringRequest request, String ifname) {
