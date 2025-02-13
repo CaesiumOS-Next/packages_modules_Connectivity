@@ -60,6 +60,30 @@
       ],
       "revId": "f898e8c54e63762738ee356becd0860c11437d86",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33a7a63c_5177a12f",
+        "filename": "tests/cts/multidevices/snippet/Wifip2pMultiDevicesSnippet.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1870251
+      },
+      "writtenOn": "2025-02-13T09:05:49Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "7fccb205_67389590",
+      "range": {
+        "startLine": 88,
+        "startChar": 27,
+        "endLine": 88,
+        "endChar": 55
+      },
+      "revId": "f898e8c54e63762738ee356becd0860c11437d86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
