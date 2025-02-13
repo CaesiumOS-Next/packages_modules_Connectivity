@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "267b6fef_bcd4aa86",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-13T02:25:55Z",
+      "side": 1,
+      "message": "Unit tests not added since adding new unit tests is not allowed in its test file.\nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/unit/java/com/android/server/ConnectivityServiceTest.java;l\u003d19276",
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
