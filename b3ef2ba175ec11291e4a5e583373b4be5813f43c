@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d90d931d_1fdf9362",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-13T22:43:10Z",
+      "side": 1,
+      "message": "this needs to include the L2capNetworkSpecifier.",
+      "range": {
+        "startLine": 499,
+        "startChar": 68,
+        "endLine": 499,
+        "endChar": 80
+      },
+      "revId": "b3ef2ba175ec11291e4a5e583373b4be5813f43c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
