@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "963cbec0_d5ccb46d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T05:11:07Z",
+      "side": 1,
+      "message": "Aaaah good point and your comment made me find the correct file, which already has the utility I was searching for. It had moved across the tree since I had last seen it...\n\nAnyway the file you want is NetworkStackConstants. It\u0027s in the module directory, but it\u0027s built as a static lib for anyone to use.",
+      "parentUuid": "851ace1d_e9c4d312",
+      "range": {
+        "startLine": 491,
+        "startChar": 40,
+        "endLine": 491,
+        "endChar": 59
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ec3e0a8_1ab200de",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Make sense, I have updated it. I am using string instead of byte array as it makes easier for passing IPv6 values.",
       "parentUuid": "1ec3e0a8_1ab200de",
+      "range": {
+        "startLine": 492,
+        "startChar": 4,
+        "endLine": 492,
+        "endChar": 10
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fa3145d_1da8741b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T05:11:07Z",
+      "side": 1,
+      "message": "I think the main point was less about removing the catch() and more about using a declarative List.of instead of the imperative static{} block",
+      "parentUuid": "a7d46997_5fedeb5f",
       "range": {
         "startLine": 492,
         "startChar": 4,
@@ -226,6 +274,30 @@
       "side": 1,
       "message": "These are static values, so adding them at interface change helped. Do you think values should be changed on address changes ?",
       "parentUuid": "3f224fe2_0d9aa503",
+      "range": {
+        "startLine": 9832,
+        "startChar": 8,
+        "endLine": 9832,
+        "endChar": 9
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b992a2f_0b3749cb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9832,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T05:11:07Z",
+      "side": 1,
+      "message": "Well I think we wanted to do the intersection of those and the local prefix ? Also I think it\u0027s cleaner if we only have the addresses of the right family – if a network is v6-only I think it\u0027s better not to add V4 prefixes",
+      "parentUuid": "045335bc_88010d45",
       "range": {
         "startLine": 9832,
         "startChar": 8,
@@ -461,6 +533,54 @@
       "side": 1,
       "message": "This length is the length used by Trie for performing prefix matching. First 32 bits are for interface index matching (common for both ipv4 and v6). Then for v6 we are directly adding prefix length. For v4, we are storing v4 as v4-mapped-v6, for v4 we will have first 96 bits common ::ffff followed by ip address. So we are adding 96 (common length for v4-mapped-v6) + actual prefix length.",
       "parentUuid": "bd84611b_cec5c304",
+      "range": {
+        "startLine": 9844,
+        "startChar": 24,
+        "endLine": 9844,
+        "endChar": 25
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e120e8_2f422b6b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9844,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T05:11:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "12e32f26_70501d6c",
+      "range": {
+        "startLine": 9844,
+        "startChar": 26,
+        "endLine": 9844,
+        "endChar": 35
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b91aae6d_7fce6fb9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9844,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-13T05:11:07Z",
+      "side": 1,
+      "message": "Okay that makes things a lot clearer, can you please add a comment in the code for reference of the next reader ?",
+      "parentUuid": "f78ee141_373a8850",
       "range": {
         "startLine": 9844,
         "startChar": 24,
