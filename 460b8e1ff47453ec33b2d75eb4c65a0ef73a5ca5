@@ -1,0 +1,49 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "335f4241_443bfccc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9794,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-14T18:51:33Z",
+      "side": 1,
+      "message": "Maybe add some unit tests to verify this logic?",
+      "fixSuggestions": [
+        {
+          "fixId": "76f1b84d_4c73dedf",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9794,
+                "startChar": 0,
+                "endLine": 9794,
+                "endChar": 0
+              },
+              "replacement": "        // Finding the list of local network prefixes that needs to be added\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 9801,
+                "startChar": 0,
+                "endLine": 9802,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "460b8e1ff47453ec33b2d75eb4c65a0ef73a5ca5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
