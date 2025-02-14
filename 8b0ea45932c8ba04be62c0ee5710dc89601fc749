@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85b60948_d35e08e2",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T18:11:21Z",
+      "side": 1,
+      "message": "isValidClientL2CapSpecifier?",
+      "range": {
+        "startLine": 424,
+        "startChar": 24,
+        "endLine": 424,
+        "endChar": 45
+      },
+      "revId": "8b0ea45932c8ba04be62c0ee5710dc89601fc749",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
