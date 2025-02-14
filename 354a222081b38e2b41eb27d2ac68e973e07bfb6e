@@ -33,6 +33,24 @@
       "message": "Are you going to need owners approval regularly on these ? You could consider adding another res dir for your purposes here: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/ServiceConnectivityResources/Android.bp;drc\u003d558f56bd10ff932b59a83d4c224850f5a9a73c25;l\u003d28",
       "revId": "354a222081b38e2b41eb27d2ac68e973e07bfb6e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6012929c_90bbdb71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-14T06:38:23Z",
+      "side": 1,
+      "message": "Just saw your message on the CL. Unresolving to make visible since resolved comments are easy to miss.\n\nNo need to block on this for this CL though.",
+      "parentUuid": "d862c71c_0a0f9665",
+      "revId": "354a222081b38e2b41eb27d2ac68e973e07bfb6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
