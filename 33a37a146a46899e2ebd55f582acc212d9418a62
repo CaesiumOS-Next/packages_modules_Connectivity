@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99ef1f3d_a1f2b359",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-14T04:17:36Z",
+      "side": 1,
+      "message": "Note that this CL changes tetherInternal so it only removes the request it is currently bringing up, whereas before this CL, tetherInternal would remove any request of the same type. This is OK because all codepaths that can reach tetherInternal behave correctly:\n\ntetherInternal\n- enableIpServing\n  - BluetoothCallback#onAvailable\n    - getOrCreatePendingTetheringRequest\n      --\u003e OK\n  - EthernetCallback#onAvailable\n    - getOrCreatePendingTetheringRequest\n      --\u003e OK\n  - setVirtualMachineTethering\n    - enableTetheringInternal\n      - startTethering\n        --\u003e OK (request is passed in)\n      - EVENT_REQUEST_CHANGE_DOWNSTREAM\n        --\u003e OK (TETHERING_VIRTTUAL requests do not remain pending)\n  - enableWifiP2pIpServing\n    - createImplicitLocalOnlyTetheringRequest\n      --\u003e OK (requests with TETHERING_WIFI_P2P cannot exist)\n  - enableWifiIpServing\n    - IFACE_IP_MODE_TETHERED\n      - getOrCreatePendingTetheringRequest\n        --\u003e OK\n    - IFACE_IP_MODE_LOCAL_ONLY\n      - createImplicitLocalOnlyTetheringRequest\n        --\u003e OK (WIFI+LOCAL is different from WIFI+GLOBAL, and requests for WIFI+LOCAL cannot exist)\n  - enableUsbIpServing\n    - getOrCreatePendingTetheringRequest\n      --\u003e OK\n- handleLegacyTether\n  --\u003e OK (can\u0027t happen at the same time as fuzzy-matching)",
+      "revId": "33a37a146a46899e2ebd55f582acc212d9418a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf1f87c1_990da941",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-14T04:17:36Z",
+      "side": 1,
+      "message": "LGTM assuming we carefully document this. Suggestions inline.",
+      "revId": "33a37a146a46899e2ebd55f582acc212d9418a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f8abe23_dd143fda",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-14T04:17:36Z",
+      "side": 1,
+      "message": "It\u0027s often not useful to say what previous code did, since that code does not exist any more. Instead, we could say something like the following:\n\n    // Note that if |request| did not come from mPendingTetheringRequests, remove()\n    // will have no effect. Requests must not remain hanging in mPendingTetheringRequests,\n    // because if they did, fuzzy-matching would prevent enabling tethering until\n    // someone calls stopTethering or the device is rebooted. However, this cannot\n    // happen because requests can fail to match only in the following cases:\n    //\n    // 1. getOrCreatePendingTetheringRequest does not find a request with the given\n    //    type and returns a placeholder.\n    // 2. tetherInternal is being called from legacyTether.\n    // 3. P2P or LOHS connect\n    // 4. There\u0027s an IP conflict on TETHERING_VIRTUAL.\n    //\n    // #1 and #2 are not a problem: it\u0027s OK that remove() will not do anything, because\n    // there is nothing to remove.\n    // #3 and #4 are also OK: P2P, LOHS and virtual tethering don\u0027t keep requests in\n    // mPendingTetheringRequests, so there is nothing to remove.",
+      "range": {
+        "startLine": 1224,
+        "startChar": 17,
+        "endLine": 1224,
+        "endChar": 23
+      },
+      "revId": "33a37a146a46899e2ebd55f582acc212d9418a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
