@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1b3c172_80d07c05",
+        "filename": "service/src/com/android/server/connectivity/NetworkPermissions.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-02-14T22:10:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c2d30c3_674e9856",
+      "revId": "04dae0b9820cc06e232efa5d90cef27432d284d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8041e81_6bfbce37",
@@ -58,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0e0411e_46c07ad0",
+        "filename": "service/src/com/android/server/connectivity/NetworkPermissions.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-02-14T22:10:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8041e81_6bfbce37",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 58
+      },
+      "revId": "04dae0b9820cc06e232efa5d90cef27432d284d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ff69457_a0e0cecc",
@@ -71,6 +113,30 @@
       "writtenOn": "2025-02-13T23:29:03Z",
       "side": 1,
       "message": "should this be \u003d 0x80 or whatever, and just have a test these are equal?\n\nOtherwise we\u0027re using a deprecated value???\n\n(ditto further down)",
+      "range": {
+        "startLine": 57,
+        "startChar": 61,
+        "endLine": 57,
+        "endChar": 90
+      },
+      "revId": "04dae0b9820cc06e232efa5d90cef27432d284d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "233b7b83_61ccbf1d",
+        "filename": "service/src/com/android/server/connectivity/NetworkPermissions.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-02-14T22:10:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ff69457_a0e0cecc",
       "range": {
         "startLine": 57,
         "startChar": 61,
