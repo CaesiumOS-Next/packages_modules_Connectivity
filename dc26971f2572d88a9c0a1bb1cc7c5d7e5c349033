@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc8354e2_8f2f38c1",
+        "filename": "tests/unit/java/com/android/server/net/HeaderCompressionUtilsTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T18:33:54Z",
+      "side": 1,
+      "message": "\u0027f\u0027",
+      "range": {
+        "startLine": 55,
+        "startChar": 84,
+        "endLine": 55,
+        "endChar": 103
+      },
+      "revId": "dc26971f2572d88a9c0a1bb1cc7c5d7e5c349033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
