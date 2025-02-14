@@ -16,6 +16,220 @@
       "message": "Also about the port 853. As per Lorenzo, we only need to add for port 53\nhttps://docs.google.com/document/d/1RlUqOBm3Be0nm3DbLY48cNsmKd_V57-WEl4Ow649I68/edit?resourcekey\u003d0-Bl5G4_-VHxhfcaIJ98eZqg\u0026tab\u003dt.0#bookmark\u003did.nq4hqprzcc7c",
       "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbbf9da0_c2ee54b1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9817,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-14T00:23:48Z",
+      "side": 1,
+      "message": "So IIUC between l.9816 and l.9817 the local DNS server is actually blocked. Should we do it the other way around (allow port 53 on this subnet first, THEN block the rest) to avoid a race condition where a packet that should be allowed is blocked ?",
+      "range": {
+        "startLine": 9817,
+        "startChar": 12,
+        "endLine": 9817,
+        "endChar": 36
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7cb222b_e92d7044",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9858,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-14T00:23:48Z",
+      "side": 1,
+      "message": "This is a good change but ideally it should be in a separate patch since it\u0027s unrelated to the DNS work\n\nIn this case let\u0027s keep it in the interest of expediency",
+      "range": {
+        "startLine": 9858,
+        "startChar": 16,
+        "endLine": 9858,
+        "endChar": 37
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e650ee4_726bccc4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9890,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-14T00:23:48Z",
+      "side": 1,
+      "message": "Here maybe also have a comment ? I think the operative point to underline is that `removeLocalNetAccess` will only remove a block rule, and not actually remove access to the local network. Maybe we should even rename it in fact 🤔",
+      "range": {
+        "startLine": 9890,
+        "startChar": 28,
+        "endLine": 9890,
+        "endChar": 48
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d2af004_8c915ed3",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-14T00:23:48Z",
+      "side": 1,
+      "message": "private ? Also locals should generally start with lower case",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 3
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c968846c_96e7c5fa",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+              "range": {
+                "startLine": 59,
+                "startChar": 0,
+                "endLine": 60,
+                "endChar": 0
+              },
+              "replacement": "private val lpWithLocalDns \u003d LinkProperties().apply {\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+              "range": {
+                "startLine": 64,
+                "startChar": 0,
+                "endLine": 65,
+                "endChar": 0
+              },
+              "replacement": "private val lpWithNonLocalDns \u003d LinkProperties().apply {\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+              "range": {
+                "startLine": 105,
+                "startChar": 0,
+                "endLine": 106,
+                "endChar": 0
+              },
+              "replacement": "        val wifiAgent \u003d Agent(nc \u003d wifiNc, lp \u003d lpWithNonLocalDns)\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+              "range": {
+                "startLine": 118,
+                "startChar": 0,
+                "endLine": 119,
+                "endChar": 0
+              },
+              "replacement": "        val wifiAgent \u003d Agent(nc \u003d wifiNc, lp \u003d lpWithLocalDns)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b74ad9e_1661453d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-14T00:23:48Z",
+      "side": 1,
+      "message": "Not sure what the purpose of this is – any method can throw Exception anyway, and you can see no other method in this file (or directory) specify this",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 29
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d41572fe_7fc7542a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+              "range": {
+                "startLine": 102,
+                "startChar": 0,
+                "endLine": 103,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+              "range": {
+                "startLine": 114,
+                "startChar": 0,
+                "endLine": 115,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eef2cb06_2857e57f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-14T00:23:48Z",
+      "side": 1,
+      "message": "I think it would be useful to beef up the tests a little bit, and also to make them more realistic. In particular, here you don\u0027t test at all for removing the blocking rule, nor do you test the arguments, so this test doesn\u0027t really help build much confidence that the correct addresses and ports are blocked and unblocked.\n\nSome things to consider doing :\n• Try with varied LinkProperties to make sure that the correct addresses, ports and protocols are indeed blocked\n• Connect, update the LP with some new addresses, make sure that the new subnet has the correct carveouts\n• Make sure that no other port has been allowed\n• Make sure that the allow rule is removed upon disconnection and upon removal of the IP address",
+      "range": {
+        "startLine": 123,
+        "startChar": 4,
+        "endLine": 123,
+        "endChar": 5
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

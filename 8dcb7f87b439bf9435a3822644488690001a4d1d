@@ -56,6 +56,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f7c43174_de9a8923",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-14T00:23:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "29e0a56a_268e9794",
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f57a273a_2fb7a782",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 5
@@ -190,6 +208,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0325a8a0_9a999b8d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9877,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-14T00:23:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f1f793e5_13a1e7f5",
+      "range": {
+        "startLine": 9877,
+        "startChar": 28,
+        "endLine": 9877,
+        "endChar": 45
+      },
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3adda9fe_a2f29116",
@@ -227,6 +269,30 @@
       "side": 1,
       "message": "I\u0027m checking if there is a local prefix already added that includes this address. Hope that clarifies.",
       "parentUuid": "3adda9fe_a2f29116",
+      "range": {
+        "startLine": 9880,
+        "startChar": 32,
+        "endLine": 9880,
+        "endChar": 49
+      },
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9ec6acc_c6d93824",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9880,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-14T00:23:48Z",
+      "side": 1,
+      "message": "Ah yes, thanks for clarifying.\n\nI think this might deserve a small comment in l.9882.",
+      "parentUuid": "e7d38c9a_8821bc9c",
       "range": {
         "startLine": 9880,
         "startChar": 32,
