@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8496c6b1_a0c646a3",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:14:25Z",
+      "side": 1,
+      "message": "reopen",
+      "parentUuid": "323651cd_9ccbeaf7",
+      "range": {
+        "startLine": 347,
+        "startChar": 17,
+        "endLine": 347,
+        "endChar": 38
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a068059d_17e8e747",
         "filename": "service/src/com/android/server/L2capNetworkProvider.java",
         "patchSetId": 24
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "29335427_9413dbdc",
+      "range": {
+        "startLine": 358,
+        "startChar": 20,
+        "endLine": 358,
+        "endChar": 53
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf4cc8c6_0c2d8058",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:14:25Z",
+      "side": 1,
+      "message": "reopen",
+      "parentUuid": "8c67ef98_eedcd37c",
       "range": {
         "startLine": 358,
         "startChar": 20,
@@ -298,6 +346,30 @@
       "side": 1,
       "message": "Closing, so I can merge. Let\u0027s discuss the semantics next week.",
       "parentUuid": "3697dab3_248e1c09",
+      "range": {
+        "startLine": 396,
+        "startChar": 60,
+        "endLine": 396,
+        "endChar": 94
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff1e48e8_91c48947",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:14:25Z",
+      "side": 1,
+      "message": "reopen",
+      "parentUuid": "86e17d02_4b04f8d6",
       "range": {
         "startLine": 396,
         "startChar": 60,
