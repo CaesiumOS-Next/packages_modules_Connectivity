@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4d59fac5_a501232a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-14T06:01:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99ef1f3d_a1f2b359",
+      "revId": "33a37a146a46899e2ebd55f582acc212d9418a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bf1f87c1_990da941",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -48,6 +66,30 @@
       "writtenOn": "2025-02-14T04:17:36Z",
       "side": 1,
       "message": "It\u0027s often not useful to say what previous code did, since that code does not exist any more. Instead, we could say something like the following:\n\n    // Note that if |request| did not come from mPendingTetheringRequests, remove()\n    // will have no effect. Requests must not remain hanging in mPendingTetheringRequests,\n    // because if they did, fuzzy-matching would prevent enabling tethering until\n    // someone calls stopTethering or the device is rebooted. However, this cannot\n    // happen because requests can fail to match only in the following cases:\n    //\n    // 1. getOrCreatePendingTetheringRequest does not find a request with the given\n    //    type and returns a placeholder.\n    // 2. tetherInternal is being called from legacyTether.\n    // 3. P2P or LOHS connect\n    // 4. There\u0027s an IP conflict on TETHERING_VIRTUAL.\n    //\n    // #1 and #2 are not a problem: it\u0027s OK that remove() will not do anything, because\n    // there is nothing to remove.\n    // #3 and #4 are also OK: P2P, LOHS and virtual tethering don\u0027t keep requests in\n    // mPendingTetheringRequests, so there is nothing to remove.",
+      "range": {
+        "startLine": 1224,
+        "startChar": 17,
+        "endLine": 1224,
+        "endChar": 23
+      },
+      "revId": "33a37a146a46899e2ebd55f582acc212d9418a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46174c3b_21b52e96",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-14T06:01:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f8abe23_dd143fda",
       "range": {
         "startLine": 1224,
         "startChar": 17,
