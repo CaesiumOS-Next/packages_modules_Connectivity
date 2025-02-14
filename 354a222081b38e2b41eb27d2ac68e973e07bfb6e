@@ -51,6 +51,24 @@
       "parentUuid": "d862c71c_0a0f9665",
       "revId": "354a222081b38e2b41eb27d2ac68e973e07bfb6e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a3c4cfe_fc21576b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-14T06:40:43Z",
+      "side": 1,
+      "message": "Alternatively and probably simpler: you could have a per-file owners clause for just this file",
+      "parentUuid": "6012929c_90bbdb71",
+      "revId": "354a222081b38e2b41eb27d2ac68e973e07bfb6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
