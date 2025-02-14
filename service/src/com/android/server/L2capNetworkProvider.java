@@ -95,9 +95,8 @@ public class L2capNetworkProvider {
     private final BlanketReservationOffer mBlanketOffer;
     private final Set<ReservedServerOffer> mReservedServerOffers = new ArraySet<>();
     private final ClientOffer mClientOffer;
-    // mBluetoothManager guaranteed non-null when read on handler thread after start() is called
-    @Nullable
-    private BluetoothManager mBluetoothManager;
+    private final BluetoothManager mBluetoothManager;
+    private final boolean mIsSupported;
 
     // Note: IFNAMSIZ is 16.
     private static final String TUN_IFNAME = "l2cap-tun";
@@ -663,7 +662,6 @@ public class L2capNetworkProvider {
         /** Get the HandlerThread for L2capNetworkProvider to run on */
         public HandlerThread getHandlerThread() {
             final HandlerThread thread = new HandlerThread("L2capNetworkProviderThread");
-            thread.start();
             return thread;
         }
     }
@@ -681,6 +679,8 @@ public class L2capNetworkProvider {
         mProvider = mDeps.getNetworkProvider(context, mHandlerThread.getLooper());
         mBlanketOffer = new BlanketReservationOffer();
         mClientOffer = new ClientOffer();
+        mBluetoothManager = context.getSystemService(BluetoothManager.class);
+        mIsSupported = mContext.getPackageManager().hasSystemFeature(FEATURE_BLUETOOTH_LE);
     }
 
     /**
@@ -689,17 +689,10 @@ public class L2capNetworkProvider {
      * Called on CS Handler thread.
      */
     public void start() {
+        if (!mIsSupported) return;
+
+        mHandlerThread.start();
         mHandler.post(() -> {
-            final PackageManager pm = mContext.getPackageManager();
-            if (!pm.hasSystemFeature(FEATURE_BLUETOOTH_LE)) {
-                return;
-            }
-            mBluetoothManager = mContext.getSystemService(BluetoothManager.class);
-            if (mBluetoothManager == null) {
-                // Can this ever happen?
-                Log.wtf(TAG, "BluetoothManager not found");
-                return;
-            }
             mContext.getSystemService(ConnectivityManager.class).registerNetworkProvider(mProvider);
             mProvider.registerNetworkOffer(BlanketReservationOffer.SCORE,
                     BlanketReservationOffer.CAPABILITIES, mHandler::post, mBlanketOffer);
