@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a57b7dfd_9af0dd05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:08:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "722c6295_c0fb5847",
+      "range": {
+        "startLine": 17,
+        "startChar": 48,
+        "endLine": 17,
+        "endChar": 51
+      },
+      "revId": "2b1a64f0e1f26137f52457d45a6c49d2bb034a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d67b9b21_09245c9b",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-02-14T18:17:19Z",
       "side": 1,
       "message": "should the cast actually be done here?",
+      "range": {
+        "startLine": 468,
+        "startChar": 0,
+        "endLine": 468,
+        "endChar": 12
+      },
+      "revId": "2b1a64f0e1f26137f52457d45a6c49d2bb034a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c457a6e8_81692d88",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:08:20Z",
+      "side": 1,
+      "message": "will follow up.",
+      "parentUuid": "d67b9b21_09245c9b",
       "range": {
         "startLine": 468,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb662b0_d3eab997",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:08:20Z",
+      "side": 1,
+      "message": "will follow up.",
+      "parentUuid": "bb92a190_f9870c0b",
+      "range": {
+        "startLine": 469,
+        "startChar": 17,
+        "endLine": 469,
+        "endChar": 38
+      },
+      "revId": "2b1a64f0e1f26137f52457d45a6c49d2bb034a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb6b6f83_5339af48",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8a11a3e_b75349d4",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:08:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bb6b6f83_5339af48",
+      "range": {
+        "startLine": 496,
+        "startChar": 28,
+        "endLine": 496,
+        "endChar": 36
+      },
+      "revId": "2b1a64f0e1f26137f52457d45a6c49d2bb034a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fb27642_02183c35",
@@ -106,6 +202,30 @@
       "writtenOn": "2025-02-14T18:17:19Z",
       "side": 1,
       "message": "seems should Log.d",
+      "range": {
+        "startLine": 499,
+        "startChar": 0,
+        "endLine": 499,
+        "endChar": 20
+      },
+      "revId": "2b1a64f0e1f26137f52457d45a6c49d2bb034a4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4707a3fb_e4016b12",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:08:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1fb27642_02183c35",
       "range": {
         "startLine": 499,
         "startChar": 0,
