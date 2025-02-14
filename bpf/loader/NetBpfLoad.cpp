@@ -1006,7 +1006,7 @@ static int loadCodeSections(const char* elfPath, vector<codeSection>& cs, const 
         if (access(progPinLoc.c_str(), F_OK) == 0) {
             fd.reset(retrieveProgram(progPinLoc.c_str()));
             ALOGD("New bpf prog load reusing prog %s, ret: %d (%s)", progPinLoc.c_str(), fd.get(),
-                  (!fd.ok() ? std::strerror(errno) : "no error"));
+                  (!fd.ok() ? std::strerror(errno) : "ok"));
             reuse = true;
         } else {
             static char log_buf[1 << 20];  // 1 MiB logging buffer
