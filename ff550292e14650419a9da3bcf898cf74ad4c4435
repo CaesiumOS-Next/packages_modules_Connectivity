@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a045d2f_7a55bc4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-02-14T08:08:47Z",
+      "side": 1,
+      "message": "Refactoring this into a separate class instead of a set",
+      "revId": "ff550292e14650419a9da3bcf898cf74ad4c4435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
