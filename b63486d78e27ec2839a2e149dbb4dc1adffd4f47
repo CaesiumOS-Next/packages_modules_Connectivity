@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e7d5f68_2ce3e861",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-14T17:34:39Z",
+      "side": 1,
+      "message": "moved it to NetworkStackConstants",
+      "parentUuid": "963cbec0_d5ccb46d",
+      "range": {
+        "startLine": 491,
+        "startChar": 40,
+        "endLine": 491,
+        "endChar": 59
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ec3e0a8_1ab200de",
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "I think the main point was less about removing the catch() and more about using a declarative List.of instead of the imperative static{} block",
       "parentUuid": "a7d46997_5fedeb5f",
+      "range": {
+        "startLine": 492,
+        "startChar": 4,
+        "endLine": 492,
+        "endChar": 10
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40f87699_98e0e365",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-14T17:34:39Z",
+      "side": 1,
+      "message": "I found constructor for IpPrefix which does the conversion so that we do not need to handle it. Removed the method I had added and directly using constructor for this coversion.",
+      "parentUuid": "8fa3145d_1da8741b",
       "range": {
         "startLine": 492,
         "startChar": 4,
@@ -298,6 +346,30 @@
       "side": 1,
       "message": "Well I think we wanted to do the intersection of those and the local prefix ? Also I think it\u0027s cleaner if we only have the addresses of the right family – if a network is v6-only I think it\u0027s better not to add V4 prefixes",
       "parentUuid": "045335bc_88010d45",
+      "range": {
+        "startLine": 9832,
+        "startChar": 8,
+        "endLine": 9832,
+        "endChar": 9
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71cec60e_e68232cd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9832,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-14T17:34:39Z",
+      "side": 1,
+      "message": "Based on the discussion, we are going to add the ip prefixes as local network prefix if \n1. For ipv6 link address have prefix length greater than zero\n2. For ipv4, we will check if link address is part of any static ipv4 local prefixes (link local, CGNAT, RFC1918)\n\nThis is consistent with route controller in netd. \nWe will always add multicast and broadcast address into local network prefixes. \n\nThe implication of this logic is we will only consider address as local if the route consider it local. If there is an address, for example in RFC1918 range that route does not consider local, we would not block it even if the application do not have required permission. \n\nfyi : @reubent@google.com",
+      "parentUuid": "2b992a2f_0b3749cb",
       "range": {
         "startLine": 9832,
         "startChar": 8,
@@ -581,6 +653,30 @@
       "side": 1,
       "message": "Okay that makes things a lot clearer, can you please add a comment in the code for reference of the next reader ?",
       "parentUuid": "f78ee141_373a8850",
+      "range": {
+        "startLine": 9844,
+        "startChar": 24,
+        "endLine": 9844,
+        "endChar": 25
+      },
+      "revId": "b63486d78e27ec2839a2e149dbb4dc1adffd4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a03686e6_a32b9e34",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9844,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-14T17:34:39Z",
+      "side": 1,
+      "message": "Added a comment, thanks for the suggestion.",
+      "parentUuid": "b91aae6d_7fce6fb9",
       "range": {
         "startLine": 9844,
         "startChar": 24,
