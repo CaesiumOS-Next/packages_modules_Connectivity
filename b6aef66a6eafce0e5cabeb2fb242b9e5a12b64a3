@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3adce8c3_edd17d38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-02-14T00:55:32Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "2851e5a1_6d0454c0",
+      "revId": "b6aef66a6eafce0e5cabeb2fb242b9e5a12b64a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "571820f0_33f2b0f6",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-02-13T18:32:34Z",
       "side": 1,
       "message": "Why is this repeat counterRegion and not program.size - counterRegion?\n\nI think this should be:\n\n\"jmp R\u003d1 +0x0000\" \"pass\" + rest of bytes randomized\n\nThat\u0027s basically 4 well known hard coded bytes + randomized area.\n\nHard to do that with a v4generator, but a zero byte + rest randomized would work too.  Does this even have to use a generator object at all?",
+      "range": {
+        "startLine": 599,
+        "startChar": 0,
+        "endLine": 599,
+        "endChar": 55
+      },
+      "revId": "b6aef66a6eafce0e5cabeb2fb242b9e5a12b64a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e06c6ce7_d9188ce7",
+        "filename": "tests/cts/net/src/android/net/cts/ApfIntegrationTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-02-14T00:55:32Z",
+      "side": 1,
+      "message": "In this program, the counter region is start from 500.\n\n```\n        // Store all prefilled memory slots in counter region [500, 520)\n```\n\nAnd we have the following check\n\n```\n        assertThat(program.size).isLessThan(counterRegion)\n```        \n\n\nI think use 0 ~ 499 for program and 500~ for counter is more correct in this context.\n\n\u003eHard to do that with a v4generator, but a zero byte + rest randomized would work too. Does this even have to use a generator object at all?\n\nUpdate with a zero byte + random garbge",
+      "parentUuid": "571820f0_33f2b0f6",
       "range": {
         "startLine": 599,
         "startChar": 0,
