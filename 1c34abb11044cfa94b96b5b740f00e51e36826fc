@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4893e04a_f335194b",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T18:22:31Z",
+      "side": 1,
+      "message": "success var seems spurious",
+      "range": {
+        "startLine": 463,
+        "startChar": 38,
+        "endLine": 464,
+        "endChar": 36
+      },
+      "revId": "1c34abb11044cfa94b96b5b740f00e51e36826fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de69e11b_b7170d29",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T18:22:31Z",
+      "side": 1,
+      "message": "should this return if already aborted?",
+      "range": {
+        "startLine": 478,
+        "startChar": 0,
+        "endLine": 478,
+        "endChar": 16
+      },
+      "revId": "1c34abb11044cfa94b96b5b740f00e51e36826fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
