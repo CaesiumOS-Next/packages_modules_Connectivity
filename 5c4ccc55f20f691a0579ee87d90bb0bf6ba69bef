@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87eff839_9d715bc0",
+        "filename": "service/src/com/android/server/net/HeaderCompressionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T00:37:06Z",
+      "side": 1,
+      "message": "(isMulticast ? 0b100 : 0) | mode",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 20
+      },
+      "revId": "5c4ccc55f20f691a0579ee87d90bb0bf6ba69bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "521e40e8_3c7a760d",
+        "filename": "service/src/com/android/server/net/HeaderCompressionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T00:37:06Z",
+      "side": 1,
+      "message": "in",
+      "range": {
+        "startLine": 80,
+        "startChar": 27,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "5c4ccc55f20f691a0579ee87d90bb0bf6ba69bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34cd7e09_63ff1e4b",
+        "filename": "service/src/com/android/server/net/HeaderCompressionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T00:37:06Z",
+      "side": 1,
+      "message": "capacity?",
+      "range": {
+        "startLine": 80,
+        "startChar": 52,
+        "endLine": 80,
+        "endChar": 56
+      },
+      "revId": "5c4ccc55f20f691a0579ee87d90bb0bf6ba69bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31fc42b9_b7f164a3",
+        "filename": "service/src/com/android/server/net/HeaderCompressionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T00:37:06Z",
+      "side": 1,
+      "message": "delete empty // line",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 10
+      },
+      "revId": "5c4ccc55f20f691a0579ee87d90bb0bf6ba69bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42049566_63c9fa21",
+        "filename": "service/src/com/android/server/net/HeaderCompressionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T00:37:06Z",
+      "side": 1,
+      "message": "feels like this should take ByteByffer as I/O and maybe ret void?",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 28
+      },
+      "revId": "5c4ccc55f20f691a0579ee87d90bb0bf6ba69bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb089d01_28c3a58d",
+        "filename": "service/src/com/android/server/net/HeaderCompressionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T00:37:06Z",
+      "side": 1,
+      "message": "I would not use hex for 0x03 here and below",
+      "range": {
+        "startLine": 108,
+        "startChar": 38,
+        "endLine": 108,
+        "endChar": 42
+      },
+      "revId": "5c4ccc55f20f691a0579ee87d90bb0bf6ba69bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d47a36dd_a9438d23",
+        "filename": "service/src/com/android/server/net/HeaderCompressionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T00:37:06Z",
+      "side": 1,
+      "message": "should this check the 4-bit pad is 0?",
+      "revId": "5c4ccc55f20f691a0579ee87d90bb0bf6ba69bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e074ce3e_d015d0f8",
+        "filename": "service/src/com/android/server/net/HeaderCompressionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T00:37:06Z",
+      "side": 1,
+      "message": "this (\u0026 0xff) seems spurious",
+      "range": {
+        "startLine": 166,
+        "startChar": 42,
+        "endLine": 166,
+        "endChar": 49
+      },
+      "revId": "5c4ccc55f20f691a0579ee87d90bb0bf6ba69bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc7218e9_0a261392",
+        "filename": "service/src/com/android/server/net/HeaderCompressionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T00:37:06Z",
+      "side": 1,
+      "message": "similarly this ( \u0026 0xFFFFF)",
+      "range": {
+        "startLine": 166,
+        "startChar": 60,
+        "endLine": 166,
+        "endChar": 82
+      },
+      "revId": "5c4ccc55f20f691a0579ee87d90bb0bf6ba69bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1f3cc04_f359dd41",
+        "filename": "service/src/com/android/server/net/HeaderCompressionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T00:37:06Z",
+      "side": 1,
+      "message": "buffer size?  you don\u0027t really know it is mtu sized",
+      "range": {
+        "startLine": 221,
+        "startChar": 63,
+        "endLine": 221,
+        "endChar": 66
+      },
+      "revId": "5c4ccc55f20f691a0579ee87d90bb0bf6ba69bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
