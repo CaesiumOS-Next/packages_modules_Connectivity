@@ -859,12 +859,15 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
             }
         }
 
-        int mapId = bpfGetFdMapId(fd);
-        if (mapId == -1) {
-            if (isAtLeastKernelVersion(4, 14, 0))
-                ALOGE("bpfGetFdMapId failed, ret: %d [%d]", mapId, errno);
-        } else {
-            ALOGI("map %s id %d", mapPinLoc.c_str(), mapId);
+        if (isAtLeastKernelVersion(4, 14, 0)) {
+            int mapId = bpfGetFdMapId(fd);
+            if (mapId == -1) {
+                const int err = errno;
+                ALOGE("bpfGetFdMapId failed, ret: %d", err);
+                return -err;
+            } else {
+                ALOGI("map %s id %d", mapPinLoc.c_str(), mapId);
+            }
         }
 
         mapFds.push_back(std::move(fd));
