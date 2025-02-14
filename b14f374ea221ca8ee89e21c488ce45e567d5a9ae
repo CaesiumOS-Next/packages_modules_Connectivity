@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "490f0ecd_53ab4a20",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSL2capProviderTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-14T18:35:30Z",
+      "side": 1,
+      "message": "val",
+      "range": {
+        "startLine": 73,
+        "startChar": 12,
+        "endLine": 73,
+        "endChar": 15
+      },
+      "revId": "b14f374ea221ca8ee89e21c488ce45e567d5a9ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
