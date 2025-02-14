@@ -212,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60e32151_b09dff1d",
+        "filename": "service/src/com/android/server/net/HeaderCompressionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T18:50:52Z",
+      "side": 1,
+      "message": "Maybe? Will think about it some and address in a follow up.",
+      "parentUuid": "42049566_63c9fa21",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 28
+      },
+      "revId": "5c4ccc55f20f691a0579ee87d90bb0bf6ba69bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb089d01_28c3a58d",
