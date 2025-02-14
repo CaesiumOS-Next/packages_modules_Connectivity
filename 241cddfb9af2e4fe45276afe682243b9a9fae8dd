@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "509482ce_8c4e598a",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "945106b8_18136d59",
+      "range": {
+        "startLine": 318,
+        "startChar": 29,
+        "endLine": 318,
+        "endChar": 39
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a38b074a_8edc6fa3",
@@ -61,6 +85,30 @@
       "writtenOn": "2025-02-12T05:05:13Z",
       "side": 1,
       "message": "The thread management for this member looks tricky ; suggest annotating with what thread it should be working on and adding guards to make sure all methods touching it are indeed running on that thread.",
+      "range": {
+        "startLine": 347,
+        "startChar": 17,
+        "endLine": 347,
+        "endChar": 38
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "323651cd_9ccbeaf7",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:06:07Z",
+      "side": 1,
+      "message": "Agreed, will follow up!",
+      "parentUuid": "a38b074a_8edc6fa3",
       "range": {
         "startLine": 347,
         "startChar": 17,
@@ -108,6 +156,30 @@
       "side": 1,
       "message": "The callback semantics are that the caller posts them on the handler thread. The intention was to make that harder to mess up, but can change it -- I have no strong preference. There are TODOs in some places to add thread checks. Totally agreed that they are needed!",
       "parentUuid": "a068059d_17e8e747",
+      "range": {
+        "startLine": 358,
+        "startChar": 20,
+        "endLine": 358,
+        "endChar": 53
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c67ef98_eedcd37c",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:06:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "29335427_9413dbdc",
       "range": {
         "startLine": 358,
         "startChar": 20,
@@ -212,6 +284,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86e17d02_4b04f8d6",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:06:07Z",
+      "side": 1,
+      "message": "Closing, so I can merge. Let\u0027s discuss the semantics next week.",
+      "parentUuid": "3697dab3_248e1c09",
+      "range": {
+        "startLine": 396,
+        "startChar": 60,
+        "endLine": 396,
+        "endChar": 94
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8a4824f_16744cbd",
@@ -249,6 +345,30 @@
       "side": 1,
       "message": "You can do this easily with a CompletableFuture\u003cResult\u003cSocket\u003e\u003e or something, if you don\u0027t need to simulate accepting more than one socket. Otherwise you\u0027ll need more complex tools like a Semaphore",
       "parentUuid": "d8a4824f_16744cbd",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 40
+      },
+      "revId": "241cddfb9af2e4fe45276afe682243b9a9fae8dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a20f365c_97bf4846",
+        "filename": "tests/unit/java/com/android/server/L2capNetworkProviderTest.kt",
+        "patchSetId": 24
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-14T23:06:07Z",
+      "side": 1,
+      "message": "I ended up deleting these and moved them to CSL2capNetworkTest in a later CL. That incarnation uses a BlockingList\u003cBluetoothSocket\u003e and throws IOException on null.",
+      "parentUuid": "947805d0_10bf4687",
       "range": {
         "startLine": 108,
         "startChar": 0,
