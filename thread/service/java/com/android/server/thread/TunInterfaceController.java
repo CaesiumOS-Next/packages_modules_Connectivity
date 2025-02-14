@@ -46,6 +46,7 @@ import com.android.net.module.util.netlink.NetlinkUtils;
 import com.android.net.module.util.netlink.StructIfinfoMsg;
 import com.android.net.module.util.netlink.StructNlAttr;
 import com.android.net.module.util.netlink.StructNlMsgHdr;
+import com.android.net.thread.flags.Flags;
 import com.android.server.thread.openthread.Ipv6AddressInfo;
 import com.android.server.thread.openthread.OnMeshPrefixConfig;
 
@@ -239,7 +240,7 @@ public class TunInterfaceController {
             InetAddress address = addressInfoToInetAddress(addressInfo);
             if (address.isMulticastAddress()) {
                 newMulticastAddresses.add(address);
-            } else {
+            } else if (!Flags.meshLocalAddrsDisabled() || !addressInfo.isMeshLocal) {
                 newLinkAddresses.add(newLinkAddress(addressInfo, hasActiveOmrAddress));
             }
         }

@@ -53,3 +53,12 @@ flag {
     description: "Controls whether Thread support for mobile devices is enabled"
     bug: "368867060"
 }
+
+flag {
+    name: "mesh_local_addrs_disabled"
+    is_exported: true
+    is_fixed_read_only: true
+    namespace: "thread_network"
+    description: "Controls whether to disable mapping Thread Mesh-Local Addresses to Android network interface"
+    bug: "396019291"
+}
