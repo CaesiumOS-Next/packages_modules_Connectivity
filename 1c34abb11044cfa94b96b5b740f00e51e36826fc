@@ -45,6 +45,30 @@
       },
       "revId": "1c34abb11044cfa94b96b5b740f00e51e36826fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2334b102_77c3d075",
+        "filename": "service/src/com/android/server/L2capNetworkProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-15T19:14:27Z",
+      "side": 1,
+      "message": "I don\u0027t think so. I think I should remove mIsAborted altogether though. Closing to unblock submission.",
+      "parentUuid": "de69e11b_b7170d29",
+      "range": {
+        "startLine": 478,
+        "startChar": 0,
+        "endLine": 478,
+        "endChar": 16
+      },
+      "revId": "1c34abb11044cfa94b96b5b740f00e51e36826fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
