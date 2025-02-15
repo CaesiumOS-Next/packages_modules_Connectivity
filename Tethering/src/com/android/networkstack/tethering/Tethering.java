@@ -290,7 +290,6 @@ public class Tethering {
     private SettingsObserver mSettingsObserver;
     private BluetoothPan mBluetoothPan;
     private PanServiceListener mBluetoothPanListener;
-    private final ArrayList<IIntResultListener> mPendingPanRequestListeners;
     // AIDL doesn't support Set<Integer>. Maintain a int bitmap here. When the bitmap is passed to
     // TetheringManager, TetheringManager would convert it to a set of Integer types.
     // mSupportedTypeBitmap should always be updated inside tethering internal thread but it may be
@@ -306,11 +305,6 @@ public class Tethering {
         mLooper = mDeps.makeTetheringLooper();
         mNotificationUpdater = mDeps.makeNotificationUpdater(mContext, mLooper);
         mTetheringMetrics = mDeps.makeTetheringMetrics(mContext);
-
-        // This is intended to ensrure that if something calls startTethering(bluetooth) just after
-        // bluetooth is enabled. Before onServiceConnected is called, store the calls into this
-        // list and handle them as soon as onServiceConnected is called.
-        mPendingPanRequestListeners = new ArrayList<>();
 
         mTetherStates = new ArrayMap<>();
         mConnectedClientsTracker = new ConnectedClientsTracker();
@@ -721,7 +715,7 @@ public class Tethering {
                 mEntitlementMgr.startProvisioningIfNeeded(type,
                         request.getShouldShowEntitlementUi());
             }
-            enableTetheringInternal(true /* enabled */, request, listener);
+            enableTetheringInternal(true /* enabled */, request);
             mTetheringMetrics.createBuilder(type, callerPkg);
         });
     }
@@ -764,12 +758,16 @@ public class Tethering {
     }
 
     void stopTetheringInternal(int type) {
+<<<<<<< HEAD
         mRequestTracker.removeAllPendingRequests(type);
+=======
+        mRequestTracker.removePendingRequests(type, TETHER_ERROR_SERVICE_UNAVAIL);
+>>>>>>> c589db7332 (no-op: Use RequestTracker to track pending pan requests)
 
         // Using a placeholder here is ok since none of the disable APIs use the request for
         // anything. We simply need the tethering type to know which link layer to poke for removal.
         // TODO: Remove the placeholder here and loop through each pending/serving request.
-        enableTetheringInternal(false /* disabled */, createPlaceholderRequest(type), null);
+        enableTetheringInternal(false /* disabled */, createPlaceholderRequest(type));
         mEntitlementMgr.stopProvisioningIfNeeded(type);
     }
 
@@ -777,8 +775,7 @@ public class Tethering {
      * Enables or disables tethering for the given type. If provisioning is required, it will
      * schedule provisioning rechecks for the specified interface.
      */
-    private void enableTetheringInternal(boolean enable, @NonNull final TetheringRequest request,
-            final IIntResultListener listener) {
+    private void enableTetheringInternal(boolean enable, @NonNull final TetheringRequest request) {
         final int type = request.getTetheringType();
         final int result;
         switch (type) {
@@ -789,7 +786,7 @@ public class Tethering {
                 result = setUsbTethering(enable);
                 break;
             case TETHERING_BLUETOOTH:
-                result = setBluetoothTethering(enable, listener);
+                result = setBluetoothTethering(enable);
                 break;
             case TETHERING_NCM:
                 result = setNcmTethering(enable);
@@ -808,6 +805,7 @@ public class Tethering {
         mRequestTracker.sendLinkLayerResult(request, result);
     }
 
+<<<<<<< HEAD
     // TODO: This is currently only used by Bluetooth when there are multiple add requests before
     //       the Pan service is connected. We should remove this and use RequestTracker to track
     //       these listeners instead.
@@ -828,6 +826,8 @@ public class Tethering {
         }
     }
 
+=======
+>>>>>>> f8dfced1c9 (no-op: Use RequestTracker to track pending pan requests)
     private int setWifiTethering(final boolean enable) {
         final long ident = Binder.clearCallingIdentity();
         try {
@@ -847,7 +847,7 @@ public class Tethering {
         return TETHER_ERROR_INTERNAL_ERROR;
     }
 
-    private int setBluetoothTethering(final boolean enable, final IIntResultListener listener) {
+    private int setBluetoothTethering(final boolean enable) {
         final BluetoothAdapter adapter = mDeps.getBluetoothAdapter();
         if (adapter == null || !adapter.isEnabled()) {
             Log.w(TAG, "Tried to enable bluetooth tethering with null or disabled adapter. null: "
@@ -862,19 +862,6 @@ public class Tethering {
             // enable IP serving.
             return setBluetoothTetheringSettings(mBluetoothPan, enable);
         }
-
-        if (!enable) {
-            // The service is not connected. If disabling tethering, there's no point starting
-            // the service just to stop tethering since tethering is not started. Just remove
-            // any pending requests to enable tethering, and notify them that they have failed.
-            for (IIntResultListener pendingListener : mPendingPanRequestListeners) {
-                sendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL,
-                        TETHERING_BLUETOOTH);
-            }
-            mPendingPanRequestListeners.clear();
-            return TETHER_ERROR_NO_ERROR;
-        }
-        mPendingPanRequestListeners.add(listener);
 
         // Bluetooth tethering is not a popular feature. To avoid bind to bluetooth pan service all
         // the time but user never use bluetooth tethering. mBluetoothPanListener is created first
@@ -901,12 +888,13 @@ public class Tethering {
                 mBluetoothPan = (BluetoothPan) proxy;
                 mIsConnected = true;
 
-                for (IIntResultListener pendingListener : mPendingPanRequestListeners) {
+                TetheringRequest pendingRequest =
+                        mRequestTracker.getPendingRequest(TETHERING_BLUETOOTH);
+                if (pendingRequest != null) {
                     final int result = setBluetoothTetheringSettings(mBluetoothPan,
                             true /* enable */);
-                    sendTetherResult(pendingListener, result, TETHERING_BLUETOOTH);
+                    mRequestTracker.sendLinkLayerPokeResult(pendingRequest, result);
                 }
-                mPendingPanRequestListeners.clear();
             });
         }
 
@@ -917,11 +905,8 @@ public class Tethering {
                 // reachable before next onServiceConnected.
                 mIsConnected = false;
 
-                for (IIntResultListener pendingListener : mPendingPanRequestListeners) {
-                    sendTetherResult(pendingListener, TETHER_ERROR_SERVICE_UNAVAIL,
-                            TETHERING_BLUETOOTH);
-                }
-                mPendingPanRequestListeners.clear();
+                mRequestTracker.removePendingRequests(TETHERING_BLUETOOTH,
+                        TETHER_ERROR_SERVICE_UNAVAIL);
                 mBluetoothIfaceRequest = null;
                 mBluetoothCallback = null;
                 maybeDisableBluetoothIpServing();
@@ -1167,11 +1152,20 @@ public class Tethering {
             Log.e(TAG, "Tried to Tether an unavailable iface: " + iface + ", ignoring");
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
+        // Usually the result has already been sent in enableTetheringInternal, but
+        // TETHERING_BLUETOOTH will defer this result until the PAN service connects. If
+        // legacyTether is called before the PAN service connects, the pending request will be
+        // passed into this method and removed from the pending list, but the listener will not have
+        // been called yet. Since the listener would have been silently successful once the PAN
+        // service connects, send TETHER_ERROR_NO_ERROR here.
+        mRequestTracker.removePendingRequests(request.getTetheringType(), TETHER_ERROR_NO_ERROR);
         // NOTE: If a CMD_TETHER_REQUESTED message is already in the IpServer's queue but not yet
         // processed, this will be a no-op and it will not return an error.
-        //
         // This code cannot race with untether() because they both run on the handler thread.
+<<<<<<< HEAD
         mRequestTracker.removeAllPendingRequests(request.getTetheringType());
+=======
+>>>>>>> c589db7332 (no-op: Use RequestTracker to track pending pan requests)
         tetherState.ipServer.enable(request);
         if (request.getRequestType() == REQUEST_TYPE_PLACEHOLDER) {
             TerribleErrorLog.logTerribleError(TetheringStatsLog::write,
@@ -2380,7 +2374,7 @@ public class Tethering {
                         // have a pending request to use, but this matches the historical behavior.
                         // TODO: Get the TetheringRequest from IpServer and make sure to put it in
                         //       the pending list too.
-                        enableTetheringInternal(enabled, createPlaceholderRequest(type), null);
+                        enableTetheringInternal(enabled, createPlaceholderRequest(type));
                         break;
                     }
                     default:
