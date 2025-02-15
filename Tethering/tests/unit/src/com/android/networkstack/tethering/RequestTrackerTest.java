@@ -66,7 +66,7 @@ public class RequestTrackerTest {
     }
 
     @Test
-    public void testAddRequest_successResultAndBecomesNextPending() {
+    public void testAddRequest_successAndBecomesNextPending() {
         final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
 
         final int result = mRequestTracker.addPendingRequest(request, null);
@@ -77,7 +77,7 @@ public class RequestTrackerTest {
     }
 
     @Test
-    public void testAddRequest_equalRequestExists_successResultAndBecomesNextPending() {
+    public void testAddRequest_equalRequestExists_successButDoesNotBecomeNextPending() {
         final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
         final TetheringRequest equalRequest = new TetheringRequest.Builder(TETHERING_WIFI).build();
         mRequestTracker.addPendingRequest(request, null);
@@ -90,21 +90,21 @@ public class RequestTrackerTest {
     }
 
     @Test
-    public void testAddRequest_equalButDifferentUidRequest_successResultAndBecomesNextPending() {
-        final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
-        request.setUid(1000);
-        request.setPackageName("package");
-        final TetheringRequest differentUid = new TetheringRequest.Builder(TETHERING_WIFI).build();
-        differentUid.setUid(2000);
-        differentUid.setPackageName("package2");
-        mRequestTracker.addPendingRequest(request, null);
+    public void testAddRequest_equalButDifferentUidRequest_successButDoesNotBecomeNextPending() {
+        final TetheringRequest firstRequest = new TetheringRequest.Builder(TETHERING_WIFI).build();
+        firstRequest.setUid(1000);
+        firstRequest.setPackageName("package");
+        final TetheringRequest secondRequest = new TetheringRequest.Builder(TETHERING_WIFI).build();
+        secondRequest.setUid(2000);
+        secondRequest.setPackageName("package2");
+        mRequestTracker.addPendingRequest(firstRequest, null);
 
-        final int result = mRequestTracker.addPendingRequest(differentUid, null);
+        final int result = mRequestTracker.addPendingRequest(secondRequest, null);
 
         assertThat(result).isEqualTo(RequestTracker.ADD_RESULT_SUCCESS);
-        assertThat(mRequestTracker.getNextPendingRequest(TETHERING_WIFI)).isEqualTo(differentUid);
+        assertThat(mRequestTracker.getNextPendingRequest(TETHERING_WIFI)).isEqualTo(firstRequest);
         assertThat(mRequestTracker.getOrCreatePendingRequest(TETHERING_WIFI))
-                .isEqualTo(differentUid);
+                .isEqualTo(firstRequest);
     }
 
     @Test
@@ -132,7 +132,7 @@ public class RequestTrackerTest {
         secondRequest.setPackageName("package2");
         mRequestTracker.addPendingRequest(secondRequest, null);
 
-        mRequestTracker.removeAllPendingRequests(TETHERING_WIFI);
+        mRequestTracker.removeAllPendingRequests(TETHERING_WIFI, TETHER_ERROR_NO_ERROR);
 
         assertThat(mRequestTracker.getNextPendingRequest(TETHERING_WIFI)).isNull();
         assertThat(mRequestTracker.getOrCreatePendingRequest(TETHERING_WIFI))
@@ -144,7 +144,7 @@ public class RequestTrackerTest {
         final TetheringRequest differentType = new TetheringRequest.Builder(TETHERING_USB).build();
         mRequestTracker.addPendingRequest(differentType, null);
 
-        mRequestTracker.removeAllPendingRequests(TETHERING_WIFI);
+        mRequestTracker.removeAllPendingRequests(TETHERING_WIFI, TETHER_ERROR_NO_ERROR);
 
         assertThat(mRequestTracker.getNextPendingRequest(TETHERING_USB)).isEqualTo(differentType);
         assertThat(mRequestTracker.getOrCreatePendingRequest(TETHERING_USB))
@@ -207,5 +207,49 @@ public class RequestTrackerTest {
         assertThat(mRequestTracker.getNextPendingRequest(TETHERING_BLUETOOTH)).isEqualTo(request);
         assertThat(mRequestTracker.getOrCreatePendingRequest(TETHERING_BLUETOOTH))
                 .isEqualTo(request);
+    }
+
+    @Test
+    public void testSendLinkLayerResult_multipleRequestsSameTypeSuccess_allListenersNotified() {
+        final TetheringRequest request1 = new TetheringRequest.Builder(TETHERING_BLUETOOTH).build();
+        ResultListener listener1 = new ResultListener(TETHER_ERROR_NO_ERROR);
+        mRequestTracker.addPendingRequest(request1, listener1);
+        final TetheringRequest request2 = new TetheringRequest.Builder(TETHERING_BLUETOOTH).build();
+        ResultListener listener2 = new ResultListener(TETHER_ERROR_NO_ERROR);
+        mRequestTracker.addPendingRequest(request2, listener2);
+        final TetheringRequest request3 = new TetheringRequest.Builder(TETHERING_BLUETOOTH).build();
+        ResultListener listener3 = new ResultListener(TETHER_ERROR_NO_ERROR);
+        mRequestTracker.addPendingRequest(request3, listener3);
+
+        mRequestTracker.sendLinkLayerResult(request1, TETHER_ERROR_NO_ERROR);
+
+        listener1.assertHasResult();
+        listener2.assertHasResult();
+        listener3.assertHasResult();
+        assertThat(mRequestTracker.getNextPendingRequest(TETHERING_BLUETOOTH)).isEqualTo(request1);
+        assertThat(mRequestTracker.getOrCreatePendingRequest(TETHERING_BLUETOOTH))
+                .isEqualTo(request1);
+    }
+
+    @Test
+    public void testSendLinkLayerResult_multipleRequestsSameTypeFailure_allRequestsRemoved() {
+        final TetheringRequest request1 = new TetheringRequest.Builder(TETHERING_BLUETOOTH).build();
+        ResultListener listener1 = new ResultListener(TETHER_ERROR_INTERNAL_ERROR);
+        mRequestTracker.addPendingRequest(request1, listener1);
+        final TetheringRequest request2 = new TetheringRequest.Builder(TETHERING_BLUETOOTH).build();
+        ResultListener listener2 = new ResultListener(TETHER_ERROR_INTERNAL_ERROR);
+        mRequestTracker.addPendingRequest(request2, listener2);
+        final TetheringRequest request3 = new TetheringRequest.Builder(TETHERING_BLUETOOTH).build();
+        ResultListener listener3 = new ResultListener(TETHER_ERROR_INTERNAL_ERROR);
+        mRequestTracker.addPendingRequest(request3, listener3);
+
+        mRequestTracker.sendLinkLayerResult(request1, TETHER_ERROR_INTERNAL_ERROR);
+
+        listener1.assertHasResult();
+        listener2.assertHasResult();
+        listener3.assertHasResult();
+        assertThat(mRequestTracker.getNextPendingRequest(TETHERING_BLUETOOTH)).isEqualTo(null);
+        assertThat(mRequestTracker.getOrCreatePendingRequest(TETHERING_BLUETOOTH))
+                .isEqualTo(createPlaceholderRequest(TETHERING_BLUETOOTH));
     }
 }
