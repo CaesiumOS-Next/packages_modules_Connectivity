@@ -17,6 +17,7 @@
 package com.android.networkstack.tethering;
 
 import static android.net.TetheringManager.TETHER_ERROR_BLUETOOTH_SERVICE_PENDING;
+import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 
 import static com.android.networkstack.tethering.util.TetheringUtils.createPlaceholderRequest;
@@ -41,10 +42,8 @@ import java.util.List;
  *    before asking the link layer to start.
  * 2) When the link layer is up, use {@link #getOrCreatePendingRequest(int)} to get a request to
  *    start IP serving with.
- * 3) Remove all pending requests with {@link #removeAllPendingRequests(int)}.
+ * 3) Remove all pending requests with {@link #removeAllPendingRequests(int, int)}.
  * Note: This class is not thread-safe.
- * TODO: Add support for multiple Bluetooth requests before the PAN service connects instead of
- *       using a separate mPendingPanRequestListeners.
  * TODO: Add support for fuzzy-matched requests.
  */
 public class RequestTracker {
@@ -90,7 +89,12 @@ public class RequestTracker {
          * with conflicting parameters already pending. If so, we must stop tethering for the
          * pending request before trying to add the result again.
          */
-        FAILURE_CONFLICTING_PENDING_REQUEST
+        FAILURE_CONFLICTING_PENDING_REQUEST,
+        /**
+         * Failure indicating that the request could not be added due to an existing request with
+         * a pending listener.
+         */
+        FAILURE_EXISTING_REQUEST_WITH_PENDING_LISTENER
     }
 
     /**
@@ -128,19 +132,33 @@ public class RequestTracker {
             if (!existingRequest.equalsIgnoreUidPackage(newRequest)) {
                 return AddResult.FAILURE_CONFLICTING_PENDING_REQUEST;
             }
+
+            // Check if the pending request has already been sent it's tethering result. If not,
+            // we must reject the new request to avoid removing the existing listener without
+            // sending its result.
+            // Note: This only applies to Bluetooth which doesn't send the result until after the
+            //       PAN service connects
+            // TODO: Should we fail the existing listener and keep the new one instead? This would
+            //       functionally be the same as start/stop/start.
+            if (request.mListener != null) {
+                return AddResult.FAILURE_EXISTING_REQUEST_WITH_PENDING_LISTENER;
+            }
         }
 
         // Remove the existing pending request of the same type. We already filter out for
         // conflicting parameters above, so these would have been equivalent anyway (except for
         // UID).
-        removeAllPendingRequests(newRequest.getTetheringType());
+        // Note: We already reject the new request if the existing request has a pending listener,
+        // so the TETHER_ERROR_INTERNAL_ERROR passed into here is ignored.
+        removeAllPendingRequests(newRequest.getTetheringType(), TETHER_ERROR_INTERNAL_ERROR);
         mPendingRequests.add(new PendingRequest(newRequest, listener));
         return AddResult.SUCCESS;
     }
 
     /**
      * Gets the next pending TetheringRequest of a given type, or creates a placeholder request if
-     * there are none.
+     * there are none. If there are multiple requests of the same type in the list, then the
+     * first of these requests will be returned.
      * Note: There are edge cases where the pending request is absent and we must temporarily
      * synthesize a placeholder request, such as if stopTethering was called before link
      * layer went up, or if the link layer goes up without us poking it (e.g. adb shell
@@ -193,16 +211,21 @@ public class RequestTracker {
 
         // Remove the request if the result is an error.
         if (result != TETHER_ERROR_NO_ERROR) {
-            removeAllPendingRequests(tetheringRequest.getTetheringType());
+            removeAllPendingRequests(tetheringRequest.getTetheringType(), result);
         }
     }
 
     /**
-     * Removes all pending requests of the given tethering type.
+     * Removes all pending requests of the given tethering type and sends a result if we haven't
+     * sent a result to the listener yet.
      *
      * @param type Tethering type
      */
-    public void removeAllPendingRequests(int type) {
-        mPendingRequests.removeIf(r -> r.getTetheringRequest().getTetheringType() == type);
+    public void removeAllPendingRequests(int type, final int result) {
+        mPendingRequests.removeIf(r -> {
+            if (r.getTetheringRequest().getTetheringType() != type) return false;
+            r.maybeSendPendingTetherResult(result);
+            return true;
+        });
     }
 }
