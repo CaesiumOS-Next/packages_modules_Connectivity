@@ -143,6 +143,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0614d5ef_9ed6b5b2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9869,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-15T23:01:54Z",
+      "side": 1,
+      "message": "Imo, its safer to keep the null check at method entry point. \nFor cases if any other caller calls the method with a null value, the method wont throw null pointer exception.",
+      "parentUuid": "f57a273a_2fb7a782",
+      "range": {
+        "startLine": 9869,
+        "startChar": 43,
+        "endLine": 9869,
+        "endChar": 52
+      },
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f40bdb05_226f51c0",
@@ -293,6 +317,30 @@
       "side": 1,
       "message": "Ah yes, thanks for clarifying.\n\nI think this might deserve a small comment in l.9882.",
       "parentUuid": "e7d38c9a_8821bc9c",
+      "range": {
+        "startLine": 9880,
+        "startChar": 32,
+        "endLine": 9880,
+        "endChar": 49
+      },
+      "revId": "8dcb7f87b439bf9435a3822644488690001a4d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f99e8f68_513b69f7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 9880,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-15T23:01:54Z",
+      "side": 1,
+      "message": "Sure, Added comment for better readability.  Thanks for pointing.",
+      "parentUuid": "b9ec6acc_c6d93824",
       "range": {
         "startLine": 9880,
         "startChar": 32,

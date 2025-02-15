@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "483e3464_cc6a2330",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9817,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-15T23:01:54Z",
+      "side": 1,
+      "message": "Good catch. But the problem with reversing l.9817 and l.9816 is that we can\u0027t check if the dns server is local or not. \nThe current order is \n1. Populate the LocalNetAccessMap with all prefixes.\n2. for all dns servers (let n), check if any dns matches with any existing prefixes in the map to know whether it is local. [TC \u003d O(1)*n because of trie map]\n3. If found in any existing prefix, then add allow rule for it.\n\nOne solution to this can be updating dns on every prefix addition. Just before adding the prefix to LocalNetAccessMap, check if the prefix contains a dns and add dns allow rule first and then prefix block rule. Same with removing.\nThis will make the time complexity m*n. \n\nAs discussed offline, I\u0027m going with this approach.",
+      "parentUuid": "cbbf9da0_c2ee54b1",
+      "range": {
+        "startLine": 9817,
+        "startChar": 12,
+        "endLine": 9817,
+        "endChar": 36
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d7cb222b_e92d7044",
@@ -77,6 +101,30 @@
       "writtenOn": "2025-02-14T00:23:48Z",
       "side": 1,
       "message": "Here maybe also have a comment ? I think the operative point to underline is that `removeLocalNetAccess` will only remove a block rule, and not actually remove access to the local network. Maybe we should even rename it in fact 🤔",
+      "range": {
+        "startLine": 9890,
+        "startChar": 28,
+        "endLine": 9890,
+        "endChar": 48
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a72461d_5df4f722",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9890,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-15T23:01:54Z",
+      "side": 1,
+      "message": "This method `removeLocalNetAccess` just removes the entry from the map irrespective of whether it is a allow rule or block rule. Hence the name. \nAdded comment here for better clarity.\nHowever I agree the name could be more clear like \u0027removeLocalNetAccessEntry\u0027. Does this name work? \nAnd is it fine to change the name in separate CL?",
+      "parentUuid": "9e650ee4_726bccc4",
       "range": {
         "startLine": 9890,
         "startChar": 28,
@@ -160,6 +208,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15ee4ca8_b7058ec8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-15T23:01:54Z",
+      "side": 1,
+      "message": "Changed",
+      "parentUuid": "4d2af004_8c915ed3",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 3
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b74ad9e_1661453d",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
         "patchSetId": 8
@@ -211,6 +283,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93378048_0577bd7a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-15T23:01:54Z",
+      "side": 1,
+      "message": "Thanks for pointing. Removed",
+      "parentUuid": "0b74ad9e_1661453d",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 29
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eef2cb06_2857e57f",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
         "patchSetId": 8
@@ -222,6 +318,30 @@
       "writtenOn": "2025-02-14T00:23:48Z",
       "side": 1,
       "message": "I think it would be useful to beef up the tests a little bit, and also to make them more realistic. In particular, here you don\u0027t test at all for removing the blocking rule, nor do you test the arguments, so this test doesn\u0027t really help build much confidence that the correct addresses and ports are blocked and unblocked.\n\nSome things to consider doing :\n• Try with varied LinkProperties to make sure that the correct addresses, ports and protocols are indeed blocked\n• Connect, update the LP with some new addresses, make sure that the new subnet has the correct carveouts\n• Make sure that no other port has been allowed\n• Make sure that the allow rule is removed upon disconnection and upon removal of the IP address",
+      "range": {
+        "startLine": 123,
+        "startChar": 4,
+        "endLine": 123,
+        "endChar": 5
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1c388d9_283c1c19",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-15T23:01:54Z",
+      "side": 1,
+      "message": "Added more test cases verifying below cases -\n1. With multiple Link properties, Verified dns is added if local and not added if not local\n2. Verified the dns is also removed if it was added and no remove is called if no dns was added\n3. Verified dns allow rule is removed if network changes\n4. Verified dns is added only at port 53 and for both TC and UDP protocol\n5. Verified no allow rule is added for any other port or protocol or other address which is not local dns.",
+      "parentUuid": "eef2cb06_2857e57f",
       "range": {
         "startLine": 123,
         "startChar": 4,
