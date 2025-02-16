@@ -54,6 +54,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95301c2a_b3f40b82",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-16T04:45:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bafc252_adc8ac67",
+      "range": {
+        "startLine": 309,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 45
+      },
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "287d91de_538350f1",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 28
@@ -105,6 +129,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b17496d6_38e4e4b1",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-16T04:45:57Z",
+      "side": 1,
+      "message": "This method takes the value from CompatChanges which in turn is querying a cache and not recomputing everytime. \nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:frameworks/base/core/java/android/app/compat/CompatChanges.java;l\u003d101\nSo I guess caching here is not required. wdyt?",
+      "parentUuid": "287d91de_538350f1",
+      "range": {
+        "startLine": 674,
+        "startChar": 20,
+        "endLine": 674,
+        "endChar": 53
+      },
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e35c5ad7_bac8acba",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 28
@@ -116,6 +164,30 @@
       "writtenOn": "2025-02-13T01:06:01Z",
       "side": 1,
       "message": "So the change can be enabled/disabled manually right ? Does that imply that it\u0027s possible to block a package, then turn off the change ID, and then this UID will stay in the map forever, thus staying blocked ?\n\nI mean, I get that it\u0027s not the end of the world – after all, it will be fixed by a reboot, and it only ever happens if an app is uninstalled, then a new is installed that reuses the same user ID which is maybe not even possible. Buf if removeUidFromLocalNetBlockMap is idempotent, then maybe all you have to do is to not check for the change here ?",
+      "range": {
+        "startLine": 919,
+        "startChar": 24,
+        "endLine": 919,
+        "endChar": 53
+      },
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67c30ae1_87eac042",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-16T04:45:57Z",
+      "side": 1,
+      "message": "Makes sense. Removed the check.",
+      "parentUuid": "e35c5ad7_bac8acba",
       "range": {
         "startLine": 919,
         "startChar": 24,
@@ -219,6 +291,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "125b0dfe_22579fda",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-16T04:45:57Z",
+      "side": 1,
+      "message": "changed",
+      "parentUuid": "9120d6c3_78541b1d",
+      "range": {
+        "startLine": 886,
+        "startChar": 8,
+        "endLine": 886,
+        "endChar": 10
+      },
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "635743bd_864ee44d",
         "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
         "patchSetId": 28
@@ -264,6 +360,30 @@
           ]
         }
       ],
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d64fbe93_c92dea6f",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-16T04:45:57Z",
+      "side": 1,
+      "message": "Seems like it was missed. Thanks for catching.",
+      "parentUuid": "635743bd_864ee44d",
+      "range": {
+        "startLine": 1312,
+        "startChar": 0,
+        "endLine": 1312,
+        "endChar": 2
+      },
       "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
