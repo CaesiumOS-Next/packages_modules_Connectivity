@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47c8a1be_719e8174",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-16T10:17:00Z",
+      "side": 1,
+      "message": "packages/modules/Connectivity/tests/cts/net/src/android/net/cts/IpSecManagerTest.java\n\n    // TODO: b/319532485 Figure out whether to support x86_32\n    private static boolean isRequestTransformStateSupportedByKernel() {\n        return NetworkUtils.isKernel64Bit() || !NetworkUtils.isKernelX86();\n    }\n\n    // Package private for use in IpSecManagerTunnelTest\n    static boolean isRequestTransformStateSupported() {\n        return SdkLevel.isAtLeastV() \u0026\u0026 isRequestTransformStateSupportedByKernel();\n    }\n\n    // Package private for use in IpSecManagerTunnelTest\n    static void assumeRequestIpSecTransformStateSupported() {\n        assumeTrue(\"Not supported before V\", SdkLevel.isAtLeastV());\n        assumeTrue(\"Not supported by kernel\", isRequestTransformStateSupportedByKernel());\n    }",
+      "revId": "3f5161a64bdaca3639cb6d20bfb752deedeb0871",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
