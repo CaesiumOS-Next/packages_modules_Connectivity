@@ -255,10 +255,6 @@ static jboolean android_net_utils_isKernel64Bit(JNIEnv *env, jclass clazz) {
     return bpf::isKernel64Bit();
 }
 
-static jboolean android_net_utils_isKernelX86(JNIEnv *env, jclass clazz) {
-    return bpf::isX86();
-}
-
 // ----------------------------------------------------------------------------
 
 /*
@@ -282,7 +278,6 @@ static const JNINativeMethod gNetworkUtilMethods[] = {
     { "setsockoptBytes", "(Ljava/io/FileDescriptor;II[B)V",
     (void*) android_net_utils_setsockoptBytes},
     { "isKernel64Bit", "()Z", (void*) android_net_utils_isKernel64Bit },
-    { "isKernelX86", "()Z", (void*) android_net_utils_isKernelX86 },
 };
 // clang-format on
 
