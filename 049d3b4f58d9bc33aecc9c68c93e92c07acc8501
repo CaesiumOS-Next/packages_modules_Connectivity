@@ -135,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bff6a9ba_1633f682",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9890,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T23:16:15Z",
+      "side": 1,
+      "message": "Sure, I find the name clearer and it\u0027s fine to do it in another patch.",
+      "parentUuid": "6a72461d_5df4f722",
+      "range": {
+        "startLine": 9890,
+        "startChar": 28,
+        "endLine": 9890,
+        "endChar": 48
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d2af004_8c915ed3",
@@ -230,6 +254,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0c5ff67_47bb8d85",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T23:16:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "15ee4ca8_b7058ec8",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 3
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b74ad9e_1661453d",
@@ -305,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "418b02b5_003cdf2c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T23:16:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "93378048_0577bd7a",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 29
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eef2cb06_2857e57f",
@@ -342,6 +414,30 @@
       "side": 1,
       "message": "Added more test cases verifying below cases -\n1. With multiple Link properties, Verified dns is added if local and not added if not local\n2. Verified the dns is also removed if it was added and no remove is called if no dns was added\n3. Verified dns allow rule is removed if network changes\n4. Verified dns is added only at port 53 and for both TC and UDP protocol\n5. Verified no allow rule is added for any other port or protocol or other address which is not local dns.",
       "parentUuid": "eef2cb06_2857e57f",
+      "range": {
+        "startLine": 123,
+        "startChar": 4,
+        "endLine": 123,
+        "endChar": 5
+      },
+      "revId": "049d3b4f58d9bc33aecc9c68c93e92c07acc8501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2f14574_0f88b3ef",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSBpfNetMapsTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T23:16:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d1c388d9_283c1c19",
       "range": {
         "startLine": 123,
         "startChar": 4,
