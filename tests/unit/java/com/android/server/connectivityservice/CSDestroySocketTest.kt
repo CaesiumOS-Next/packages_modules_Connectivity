@@ -31,9 +31,12 @@ import com.android.net.module.util.BaseNetdUnsolicitedEventListener
 import com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import org.junit.Assume
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito.any
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.inOrder
