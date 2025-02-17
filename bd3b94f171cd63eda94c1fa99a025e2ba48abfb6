@@ -1,0 +1,479 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b227a83_70c687d7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9798,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "HashSet has good complexity but poor overhead. It\u0027s good when you have a large number of items. Here ArraySet will be both faster and more economical. Considering you need to convert it to an ArrayList later, I\u0027d even wager ArrayList will be even faster and even more economical, even if it means you may be configuring the same prefix multiple times.",
+      "range": {
+        "startLine": 9798,
+        "startChar": 58,
+        "endLine": 9798,
+        "endChar": 65
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd8c62fc_ea095553",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9814,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "Considering the list of prefixes will be empty in this case anyway, suggest not testing again.",
+      "range": {
+        "startLine": 9814,
+        "startChar": 8,
+        "endLine": 9814,
+        "endChar": 28
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be81ec22_bd67961c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9815,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "This won\u0027t work when you have multiple interfaces in the same network, because this code will block all addresses of the network on only one interface and block nothing on another. I\u0027m afraid you probably have to use LinkProperties#getStackedLinks and block the right IP prefix per interface.",
+      "range": {
+        "startLine": 9815,
+        "startChar": 44,
+        "endLine": 9815,
+        "endChar": 60
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38f4e269_3e2a057f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9820,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "I am confused by this ; wasn\u0027t computing this the whole point of making a CompareResult in l.9794 ?",
+      "range": {
+        "startLine": 9819,
+        "startChar": 12,
+        "endLine": 9820,
+        "endChar": 33
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a9d5bde_59635567",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9868,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "represents",
+      "range": {
+        "startLine": 9868,
+        "startChar": 41,
+        "endLine": 9868,
+        "endChar": 50
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1455e28c_f8079fb8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9869,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "go/avoidwe",
+      "range": {
+        "startLine": 9869,
+        "startChar": 12,
+        "endLine": 9869,
+        "endChar": 14
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e1828f2_daa7bba9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "Great test : good coverage, easy to read, tests behavior and not implementation details. Thanks ! 👍",
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30d4dfc9_ede0d500",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "ADDRESS\nAlso indentation",
+      "range": {
+        "startLine": 81,
+        "startChar": 22,
+        "endLine": 81,
+        "endChar": 24
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92afb8b8_b3ab56e6",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "Why not just say `IpPrefix(\"10.0.0.184/24\")` ?",
+      "range": {
+        "startLine": 85,
+        "startChar": 40,
+        "endLine": 85,
+        "endChar": 87
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5132165d_1ed3606d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "Should you expect available callbacks here, lest this be subject to a race condition ?",
+      "range": {
+        "startLine": 135,
+        "startChar": 18,
+        "endLine": 135,
+        "endChar": 25
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "e83ad0f9_d534a2ee",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 135,
+                "startChar": 0,
+                "endLine": 135,
+                "endChar": 0
+              },
+              "replacement": "        val cb \u003d TestableNetworkCallback()\n        cm.requestNetwork(nr(TRANSPORT_WIFI), cb)\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 136,
+                "startChar": 0,
+                "endLine": 136,
+                "endChar": 0
+              },
+              "replacement": "        cb.expectAvailableCallbacks(wifiAgent.network, validated \u003d false)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d33355f2_6ae159cc",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "Style : check indentation",
+      "range": {
+        "startLine": 144,
+        "startChar": 16,
+        "endLine": 144,
+        "endChar": 18
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04fd78b9_297562f5",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "Suggest importing this",
+      "range": {
+        "startLine": 180,
+        "startChar": 49,
+        "endLine": 180,
+        "endChar": 70
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a07c241e_1bc4cb21",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "Better : use cb.expectCallback\u003cLost\u003e which uses callbacks instead of polling and is less sensitive to changes to the ConnectivityService implementation\n\nLikewise in l.325",
+      "range": {
+        "startLine": 370,
+        "startChar": 8,
+        "endLine": 370,
+        "endChar": 19
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58a928b1_2308694c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "ons\n\nAlso this is always exactly 1, so you may want to remove it ; I imagine you needed this during dev but ended up without a need for it",
+      "range": {
+        "startLine": 390,
+        "startChar": 24,
+        "endLine": 390,
+        "endChar": 26
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "49d9de11_280948f0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 269,
+                "startChar": 0,
+                "endLine": 270,
+                "endChar": 0
+              },
+              "replacement": "        verifyPopulationOfMulticastAndBroadcastAddress(WIFI_IFNAME_2)\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 328,
+                "startChar": 0,
+                "endLine": 329,
+                "endChar": 0
+              },
+              "replacement": "        verifyPopulationOfMulticastAndBroadcastAddress(WIFI_IFNAME_2)\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 390,
+                "startChar": 0,
+                "endLine": 392,
+                "endChar": 0
+              },
+              "replacement": "        interfaceName: String \u003d WIFI_IFNAME\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 393,
+                "startChar": 0,
+                "endLine": 394,
+                "endChar": 0
+              },
+              "replacement": "        verify(bpfNetMaps).addLocalNetAccess(\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 401,
+                "startChar": 0,
+                "endLine": 402,
+                "endChar": 0
+              },
+              "replacement": "        verify(bpfNetMaps).addLocalNetAccess(\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 409,
+                "startChar": 0,
+                "endLine": 410,
+                "endChar": 0
+              },
+              "replacement": "        verify(bpfNetMaps).addLocalNetAccess(\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 421,
+                "startChar": 0,
+                "endLine": 423,
+                "endChar": 0
+              },
+              "replacement": "        interfaceName: String \u003d WIFI_IFNAME\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 424,
+                "startChar": 0,
+                "endLine": 425,
+                "endChar": 0
+              },
+              "replacement": "        verify(bpfNetMaps).removeLocalNetAccess(\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 431,
+                "startChar": 0,
+                "endLine": 432,
+                "endChar": 0
+              },
+              "replacement": "        verify(bpfNetMaps).removeLocalNetAccess(\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+              "range": {
+                "startLine": 438,
+                "startChar": 0,
+                "endLine": 439,
+                "endChar": 0
+              },
+              "replacement": "        verify(bpfNetMaps).removeLocalNetAccess(\n"
+            }
+          ]
+        }
+      ],
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0e74fd0_430cf882",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T05:15:25Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 421,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 36
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
