@@ -17,6 +17,7 @@
 package com.android.server.net.integrationtests
 
 import android.Manifest.permission
+import android.app.compat.CompatChanges
 import android.app.usage.NetworkStatsManager
 import android.content.ComponentName
 import android.content.Context
@@ -51,6 +52,7 @@ import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.compatibility.common.util.SystemUtil
 import com.android.connectivity.resources.R
+import com.android.dx.mockito.inline.extended.ExtendedMockito
 import com.android.net.module.util.BpfUtils
 import com.android.networkstack.apishim.TelephonyManagerShimImpl
 import com.android.server.BpfNetMaps
@@ -82,6 +84,7 @@ import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.AdditionalAnswers
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito.any
@@ -91,6 +94,7 @@ import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.eq
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
+import org.mockito.MockitoSession
 import org.mockito.Spy
 
 const val SERVICE_BIND_TIMEOUT_MS = 5_000L
@@ -127,6 +131,7 @@ class ConnectivityServiceIntegrationTest {
     private lateinit var networkStackClient: TestNetworkStackClient
     private lateinit var service: ConnectivityService
     private lateinit var cm: ConnectivityManager
+    private lateinit var mMockingSession: MockitoSession
 
     private val handlerThreads = mutableListOf<HandlerThread>()
 
@@ -176,6 +181,13 @@ class ConnectivityServiceIntegrationTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+        mMockingSession = ExtendedMockito.mockitoSession()
+            .initMocks(this)
+            .mockStatic(CompatChanges::class.java)
+            .startMocking()
+        ExtendedMockito.doReturn(false).`when` {
+            CompatChanges.isChangeEnabled(anyLong(), anyInt())
+        }
         val asUserCtx = mock(Context::class.java, AdditionalAnswers.delegatesTo<Context>(context))
         doReturn(UserHandle.ALL).`when`(asUserCtx).user
         doReturn(asUserCtx).`when`(context).createContextAsUser(eq(UserHandle.ALL), anyInt())
@@ -283,6 +295,7 @@ class ConnectivityServiceIntegrationTest {
             it.join()
         }
         handlerThreads.clear()
+        mMockingSession.finishMocking()
     }
 
     @Test

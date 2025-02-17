@@ -18,6 +18,7 @@ package com.android.server
 
 import android.app.AlarmManager
 import android.app.AppOpsManager
+import android.app.compat.CompatChanges
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -58,6 +59,7 @@ import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
 import android.testing.TestableContext
 import androidx.test.platform.app.InstrumentationRegistry
+import com.android.dx.mockito.inline.extended.ExtendedMockito
 import com.android.internal.app.IBatteryStats
 import com.android.internal.util.test.BroadcastInterceptingContext
 import com.android.modules.utils.build.SdkLevel
@@ -91,9 +93,13 @@ import org.junit.Rule
 import org.junit.rules.TestName
 import org.mockito.AdditionalAnswers.delegatesTo
 import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyLong
+import org.mockito.Mockito
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
+import org.mockito.MockitoAnnotations
+import org.mockito.MockitoSession
 
 internal const val HANDLER_TIMEOUT_MS = 2_000L
 internal const val BROADCAST_TIMEOUT_MS = 3_000L
@@ -222,6 +228,7 @@ open class CSTest {
     lateinit var service: ConnectivityService
     lateinit var cm: ConnectivityManager
     lateinit var csHandler: Handler
+    lateinit var mMockingSession: MockitoSession
 
     // Tests can use this annotation to set flag values before constructing ConnectivityService
     // e.g. @FeatureFlags([Flag(flagName1, true/false), Flag(flagName2, true/false)])
@@ -256,6 +263,15 @@ open class CSTest {
         // csHandler initialization must be after makeConnectivityService since ConnectivityService
         // constructor starts csHandlerThread
         csHandler = Handler(csHandlerThread.looper)
+
+        MockitoAnnotations.initMocks(this)
+        mMockingSession = ExtendedMockito.mockitoSession()
+            .initMocks(this)
+            .mockStatic(CompatChanges::class.java)
+            .startMocking()
+        ExtendedMockito.doReturn(false).`when` {
+            CompatChanges.isChangeEnabled(anyLong(), Mockito.anyInt())
+        }
     }
 
     @After
@@ -264,6 +280,7 @@ open class CSTest {
         csHandlerThread.join()
         alarmHandlerThread.quitSafely()
         alarmHandlerThread.join()
+        mMockingSession.finishMocking()
     }
 
     // Class to be mocked and used to verify destroy sockets methods call
