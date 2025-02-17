@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc335eec_fa57d2e9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9814,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T23:42:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4a6b8576_8b0c005b",
+      "range": {
+        "startLine": 9814,
+        "startChar": 8,
+        "endLine": 9814,
+        "endChar": 28
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be81ec22_bd67961c",
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "This is to ensure if 10.0.10.0/24 was added and 10.0.11.0/24 was removed both will still populate the same prefix of 10.0.0.0/8, which mean we should not remove the prefix because of removal of 10.0.11.0/24",
       "parentUuid": "38f4e269_3e2a057f",
+      "range": {
+        "startLine": 9819,
+        "startChar": 12,
+        "endLine": 9820,
+        "endChar": 33
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d0361e4_ea8d27f1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9820,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T23:42:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "69e4ba6c_7f00b345",
       "range": {
         "startLine": 9819,
         "startChar": 12,
