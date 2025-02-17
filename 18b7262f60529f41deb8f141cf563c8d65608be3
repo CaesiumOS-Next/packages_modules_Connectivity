@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f06f5fb_391e5900",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-17T23:43:53Z",
+      "side": 1,
+      "message": "+2 for now with the caveat that this will not work as expected on networks with stacked links. Let\u0027s unblock the work by merging this now, and address this in another patch",
+      "revId": "18b7262f60529f41deb8f141cf563c8d65608be3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
