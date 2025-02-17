@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb4ebc29_758dfc6b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9798,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "Make sense for the usecase, thank you so much for pointing it out.",
+      "parentUuid": "5b227a83_70c687d7",
+      "range": {
+        "startLine": 9798,
+        "startChar": 58,
+        "endLine": 9798,
+        "endChar": 65
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd8c62fc_ea095553",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-02-17T05:15:25Z",
       "side": 1,
       "message": "Considering the list of prefixes will be empty in this case anyway, suggest not testing again.",
+      "range": {
+        "startLine": 9814,
+        "startChar": 8,
+        "endLine": 9814,
+        "endChar": 28
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a6b8576_8b0c005b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9814,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "This is to ensure the interface name call does not lead to null pointer.",
+      "parentUuid": "fd8c62fc_ea095553",
       "range": {
         "startLine": 9814,
         "startChar": 8,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ac41dab_6730bdbf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9815,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "Based on our discussion to try getStackedLinks, I tried the logic locally the StackedList is empty even when link addresses are added to the link properties. Am i missing something ?",
+      "parentUuid": "be81ec22_bd67961c",
+      "range": {
+        "startLine": 9815,
+        "startChar": 44,
+        "endLine": 9815,
+        "endChar": 60
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38f4e269_3e2a057f",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 8
@@ -83,6 +155,30 @@
       "writtenOn": "2025-02-17T05:15:25Z",
       "side": 1,
       "message": "I am confused by this ; wasn\u0027t computing this the whole point of making a CompareResult in l.9794 ?",
+      "range": {
+        "startLine": 9819,
+        "startChar": 12,
+        "endLine": 9820,
+        "endChar": 33
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69e4ba6c_7f00b345",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9820,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "This is to ensure if 10.0.10.0/24 was added and 10.0.11.0/24 was removed both will still populate the same prefix of 10.0.0.0/8, which mean we should not remove the prefix because of removal of 10.0.11.0/24",
+      "parentUuid": "38f4e269_3e2a057f",
       "range": {
         "startLine": 9819,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92d62744_96bbd885",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9868,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a9d5bde_59635567",
+      "range": {
+        "startLine": 9868,
+        "startChar": 41,
+        "endLine": 9868,
+        "endChar": 50
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1455e28c_f8079fb8",
@@ -129,6 +249,30 @@
       "writtenOn": "2025-02-17T05:15:25Z",
       "side": 1,
       "message": "go/avoidwe",
+      "range": {
+        "startLine": 9869,
+        "startChar": 12,
+        "endLine": 9869,
+        "endChar": 14
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5529b62c_48ea7aa7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 9869,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1455e28c_f8079fb8",
       "range": {
         "startLine": 9869,
         "startChar": 12,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d161bc8d_8b753de1",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30d4dfc9_ede0d500",
+      "range": {
+        "startLine": 81,
+        "startChar": 22,
+        "endLine": 81,
+        "endChar": 24
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92afb8b8_b3ab56e6",
@@ -192,6 +360,30 @@
       "writtenOn": "2025-02-17T05:15:25Z",
       "side": 1,
       "message": "Why not just say `IpPrefix(\"10.0.0.184/24\")` ?",
+      "range": {
+        "startLine": 85,
+        "startChar": 40,
+        "endLine": 85,
+        "endChar": 87
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d8766d3_1f9aa5f7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92afb8b8_b3ab56e6",
       "range": {
         "startLine": 85,
         "startChar": 40,
@@ -253,6 +445,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9849fc6a_0855dd1f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "I missed this, added it now.",
+      "parentUuid": "5132165d_1ed3606d",
+      "range": {
+        "startLine": 135,
+        "startChar": 18,
+        "endLine": 135,
+        "endChar": 25
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d33355f2_6ae159cc",
@@ -266,6 +482,30 @@
       "writtenOn": "2025-02-17T05:15:25Z",
       "side": 1,
       "message": "Style : check indentation",
+      "range": {
+        "startLine": 144,
+        "startChar": 16,
+        "endLine": 144,
+        "endChar": 18
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6075a42_2103a7a7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d33355f2_6ae159cc",
       "range": {
         "startLine": 144,
         "startChar": 16,
@@ -299,6 +539,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2f5f7f8_4045f46d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04fd78b9_297562f5",
+      "range": {
+        "startLine": 180,
+        "startChar": 49,
+        "endLine": 180,
+        "endChar": 70
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a07c241e_1bc4cb21",
@@ -312,6 +576,30 @@
       "writtenOn": "2025-02-17T05:15:25Z",
       "side": 1,
       "message": "Better : use cb.expectCallback\u003cLost\u003e which uses callbacks instead of polling and is less sensitive to changes to the ConnectivityService implementation\n\nLikewise in l.325",
+      "range": {
+        "startLine": 370,
+        "startChar": 8,
+        "endLine": 370,
+        "endChar": 19
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d11429fd_f422219c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "sure, thanks for the pointer.",
+      "parentUuid": "a07c241e_1bc4cb21",
       "range": {
         "startLine": 370,
         "startChar": 8,
@@ -453,6 +741,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "659d7ba2_49426a74",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "Yes this was added for some local testing, removed it now.",
+      "parentUuid": "58a928b1_2308694c",
+      "range": {
+        "startLine": 390,
+        "startChar": 24,
+        "endLine": 390,
+        "endChar": 26
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0e74fd0_430cf882",
@@ -466,6 +778,30 @@
       "writtenOn": "2025-02-17T05:15:25Z",
       "side": 1,
       "message": "Likewise",
+      "range": {
+        "startLine": 421,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 36
+      },
+      "revId": "bd3b94f171cd63eda94c1fa99a025e2ba48abfb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db9b896e_2c02a2b7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-17T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0e74fd0_430cf882",
       "range": {
         "startLine": 421,
         "startChar": 8,
