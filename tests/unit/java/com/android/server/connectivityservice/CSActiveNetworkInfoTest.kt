@@ -16,6 +16,7 @@
 
 package com.android.server
 
+import android.app.compat.CompatChanges
 import android.net.INetd.PERMISSION_INTERNET
 import android.net.INetd.PERMISSION_NONE
 import android.net.NetworkCapabilities
@@ -29,12 +30,14 @@ import android.os.Build
 import androidx.test.filters.SmallTest
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
+import org.junit.Assume
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyBoolean
 import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito.doReturn
 
 private fun nc() = NetworkCapabilities.Builder()
@@ -73,6 +76,7 @@ class CSActiveNetworkInfoTest : CSTest() {
     @Test
     fun testGetActiveNetworkInfo() {
         doReturn(true).`when`(bpfNetMaps).isUidNetworkingBlocked(anyInt(), anyBoolean())
+        Assume.assumeTrue(CompatChanges.isChangeEnabled(anyLong(), anyInt()))
         doTestGetActiveNetworkInfo(
                 changeEnabled = true,
                 permissions = PERMISSION_NONE,

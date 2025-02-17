@@ -1,5 +1,6 @@
 package com.android.metrics
 
+import android.app.compat.CompatChanges
 import android.net.ConnectivityThread
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.CONNECTIVITY_MANAGED_CAPABILITIES
@@ -44,8 +45,11 @@ import java.util.concurrent.CompletableFuture
 import kotlin.test.assertEquals
 import kotlin.test.fail
 import org.junit.Assert.assertTrue
+import org.junit.Assume
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyLong
 
 private fun <T> Handler.onHandler(f: () -> T): T {
     val future = CompletableFuture<T>()
@@ -91,6 +95,7 @@ private val NetworkCapabilities.validatedState get() = when {
 class ConnectivitySampleMetricsTest : CSTest() {
     @Test
     fun testSampleConnectivityState_Network() {
+        Assume.assumeTrue(CompatChanges.isChangeEnabled(anyLong(), anyInt()))
         val wifi1Caps = NetworkCapabilities.Builder()
                 .addTransportType(TRANSPORT_WIFI)
                 .addCapability(NET_CAPABILITY_NOT_METERED)
@@ -218,6 +223,7 @@ class ConnectivitySampleMetricsTest : CSTest() {
 
     @Test
     fun testSampleConnectivityState_NetworkRequest() {
+        Assume.assumeTrue(CompatChanges.isChangeEnabled(anyLong(), anyInt()))
         val requestCount = 5
         fileNetworkRequest(RT_APP, requestCount);
         fileNetworkRequest(RT_SYSTEM, requestCount, SYSTEM_UID);

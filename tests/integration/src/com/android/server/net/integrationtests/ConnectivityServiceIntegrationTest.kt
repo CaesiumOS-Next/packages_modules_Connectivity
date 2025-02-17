@@ -17,6 +17,7 @@
 package com.android.server.net.integrationtests
 
 import android.Manifest.permission
+import android.app.compat.CompatChanges
 import android.app.usage.NetworkStatsManager
 import android.content.ComponentName
 import android.content.Context
@@ -82,6 +83,7 @@ import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.AdditionalAnswers
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito.any
@@ -287,6 +289,7 @@ class ConnectivityServiceIntegrationTest {
 
     @Test
     fun testValidation() {
+        Assume.assumeTrue(CompatChanges.isChangeEnabled(anyLong(), anyInt()))
         val request = NetworkRequest.Builder()
                 .clearCapabilities()
                 .addCapability(NET_CAPABILITY_INTERNET)
@@ -384,6 +387,7 @@ class ConnectivityServiceIntegrationTest {
     @Test
     fun testBpfProgramAttachStatus() {
         Assume.assumeTrue(isBpfGetCgroupProgramIdSupportedByKernel())
+        Assume.assumeTrue(CompatChanges.isChangeEnabled(anyLong(), anyInt()))
 
         listOf(
                 BpfUtils.BPF_CGROUP_INET_INGRESS,

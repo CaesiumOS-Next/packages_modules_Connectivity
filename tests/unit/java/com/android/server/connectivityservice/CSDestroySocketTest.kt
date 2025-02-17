@@ -19,6 +19,7 @@ package com.android.server
 import android.app.ActivityManager.UidFrozenStateChangedCallback
 import android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_FROZEN
 import android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_UNFROZEN
+import android.app.compat.CompatChanges
 import android.net.ConnectivityManager.BLOCKED_REASON_APP_BACKGROUND
 import android.net.ConnectivityManager.BLOCKED_REASON_NONE
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
@@ -31,9 +32,12 @@ import com.android.net.module.util.BaseNetdUnsolicitedEventListener
 import com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import org.junit.Assume
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito.any
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.inOrder
@@ -77,6 +81,7 @@ class CSDestroySocketTest : CSTest() {
     ) {
         val netdEventListener = getRegisteredNetdUnsolicitedEventListener()
         val inOrder = inOrder(destroySocketsWrapper)
+        Assume.assumeTrue(CompatChanges.isChangeEnabled(anyLong(), anyInt()))
 
         val cellAgent = Agent(nc = cellNc(), lp = cellLp())
         cellAgent.connect()
