@@ -450,6 +450,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.mockito.AdditionalAnswers;
 import org.mockito.ArgumentCaptor;
@@ -519,7 +520,7 @@ public class ConnectivityServiceTest {
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
 
     @Rule
-    public final PlatformCompatChangeRule compatChangeRule = new PlatformCompatChangeRule();
+    public final TestRule compatChangeRule = new PlatformCompatChangeRule();
 
     private static final int TIMEOUT_MS = 2_000;
     // Broadcasts can take a long time to be delivered. The test will not wait for that long unless
