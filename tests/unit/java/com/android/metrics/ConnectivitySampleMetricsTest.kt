@@ -92,8 +92,8 @@ private val NetworkCapabilities.validatedState get() = when {
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class ConnectivitySampleMetricsTest : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+    @get:Rule
+    val compatChangeRule: PlatformCompatChangeRule = PlatformCompatChangeRule()
 
     @Test
     fun testSampleConnectivityState_Network() {
