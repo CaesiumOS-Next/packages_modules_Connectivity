@@ -62,8 +62,8 @@ private fun cellLp() = LinkProperties().also{
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 class CSDestroySocketTest : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+    @get:Rule
+    val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     private fun getRegisteredNetdUnsolicitedEventListener(): BaseNetdUnsolicitedEventListener {
         val captor = ArgumentCaptor.forClass(BaseNetdUnsolicitedEventListener::class.java)

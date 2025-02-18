@@ -50,8 +50,8 @@ private fun nc() = NetworkCapabilities.Builder()
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 class CSActiveNetworkInfoTest : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+    @get:Rule
+    val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     fun doTestGetActiveNetworkInfo(
             changeEnabled: Boolean,
