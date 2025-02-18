@@ -45,7 +45,7 @@ import org.mockito.Mockito.verify
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.S_V2) // Bpf only supports in T+.
 class CSBpfNetMapsTest : CSTest() {
-    @JvmField @field:Rule
+    @field:Rule
     public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     @get:Rule

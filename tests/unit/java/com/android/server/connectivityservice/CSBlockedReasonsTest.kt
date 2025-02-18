@@ -75,7 +75,7 @@ private fun wifiRequest() = NetworkRequest.Builder()
 @RunWith(DevSdkIgnoreRunner::class)
 @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 class CSBlockedReasonsTest : CSTest() {
-    @JvmField @field:Rule
+    @field:Rule
     public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     inner class DetailedBlockedStatusCallback : TestableNetworkCallback() {

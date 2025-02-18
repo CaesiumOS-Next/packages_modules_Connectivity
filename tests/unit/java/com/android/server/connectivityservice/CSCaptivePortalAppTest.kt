@@ -84,7 +84,7 @@ private fun lp(iface: String) = LinkProperties().apply {
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.R)
 class CSCaptivePortalAppTest : CSTest() {
-    @JvmField @field:Rule
+    @field:Rule
     public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     private val WIFI_IFACE = "wifi0"
