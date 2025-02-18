@@ -93,8 +93,8 @@ private fun lp(iface: String, vararg linkAddresses: LinkAddress) = LinkPropertie
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class CSIngressDiscardRuleTests : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+    @get:Rule
+    val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     private val IPV6_ADDRESS = InetAddresses.parseNumericAddress("2001:db8:1::1")
     private val IPV6_LINK_ADDRESS = LinkAddress(IPV6_ADDRESS, 64)

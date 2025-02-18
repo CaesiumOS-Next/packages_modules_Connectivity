@@ -106,8 +106,8 @@ const val TEST_TIMEOUT_MS = 10_000L
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRunner.MonitorThreadLeak
 class ConnectivityServiceIntegrationTest {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+    @get:Rule
+    val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     // lateinit used here for mocks as they need to be reinitialized between each test and the test
     // should crash if they are used before being initialized.
