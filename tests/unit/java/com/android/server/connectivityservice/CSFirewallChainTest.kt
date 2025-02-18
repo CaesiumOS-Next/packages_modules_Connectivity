@@ -48,7 +48,7 @@ import org.mockito.Mockito.verify
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class CSFirewallChainTest : CSTest() {
-    @JvmField @field:Rule
+    @get:Rule
     public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     @get:Rule

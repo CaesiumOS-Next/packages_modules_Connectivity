@@ -83,7 +83,7 @@ private const val TEST_UID = 42
 @DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner::class)
 class CSQueuedCallbacksTest(freezingBehavior: FreezingBehavior) : CSTest() {
-    @JvmField @field:Rule
+    @get:Rule
     public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     companion object {

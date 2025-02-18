@@ -37,7 +37,7 @@ import org.mockito.Mockito.verify
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 class CSNetworkRequestStateStatsMetricsTests : CSTest() {
-    @JvmField @field:Rule
+    @get:Rule
     public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     private val CELL_INTERNET_NOT_METERED_NC = NetworkCapabilities.Builder()
