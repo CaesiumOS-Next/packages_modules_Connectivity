@@ -59,7 +59,7 @@ private fun defaultLnc() = FromS(LocalNetworkConfig.Builder().build())
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.R)
 class CSLocalAgentCreationTests : CSTest() {
-    @JvmField @field:Rule
+    @get:Rule
     public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     @Parameterized.Parameter(0) lateinit var params: TestParams

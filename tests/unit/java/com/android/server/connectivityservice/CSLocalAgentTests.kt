@@ -93,7 +93,7 @@ private fun keepScore() = FromS(
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSLocalAgentTests : CSTest() {
-    @JvmField @field:Rule
+    @get:Rule
     public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     val multicastRoutingConfigMinScope =

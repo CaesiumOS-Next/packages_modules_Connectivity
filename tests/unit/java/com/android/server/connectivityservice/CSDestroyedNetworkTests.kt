@@ -55,7 +55,7 @@ private val REQUEST = NetworkRequest.Builder()
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 class CSDestroyedNetworkTests : CSTest() {
-    @JvmField @field:Rule
+    @get:Rule
     public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     @Test

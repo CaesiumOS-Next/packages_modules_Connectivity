@@ -75,6 +75,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.compat.testing.PlatformCompatChangeRule;
+import android.content.AttributionSource;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -204,8 +205,6 @@ public class PermissionMonitorTest {
         when(mContext.getSystemService(eq(Context.USER_SERVICE))).thenReturn(mUserManager);
         doReturn(List.of(MOCK_USER1)).when(mUserManager).getUserHandles(eq(true));
         when(mContext.getSystemService(PermissionManager.class)).thenReturn(mPermissionManager);
-        when(mPermissionManager.checkPermissionForPreflight(anyString(), any()))
-                .thenReturn(PERMISSION_DENIED);
         when(mContext.getSystemServiceName(SystemConfigManager.class))
                 .thenReturn(Context.SYSTEM_CONFIG_SERVICE);
         when(mContext.getSystemService(Context.SYSTEM_CONFIG_SERVICE))
@@ -324,10 +323,13 @@ public class PermissionMonitorTest {
         // This will return the wrong UID for the package when queried with other users.
         doReturn(packageInfo).when(mPackageManager)
                 .getPackageInfo(eq(packageName), anyInt() /* flag */);
-        for (String permission : permissions) {
-            doReturn(PERMISSION_GRANTED).when(mPermissionManager).checkPermissionForPreflight(
-                    eq(permission),
-                    argThat(attributionSource -> attributionSource.getUid() == uid));
+
+        if(BpfNetMaps.isAtLeast25Q2()){
+            for (String permission : permissions) {
+                doReturn(PERMISSION_GRANTED).when(mPermissionManager).checkPermissionForPreflight(
+                        eq(permission),
+                        argThat(attributionSource -> attributionSource.getUid() == uid));
+            }
         }
         final String[] oldPackages = mPackageManager.getPackagesForUid(uid);
         // If it's duplicated package, no need to set it again.
@@ -383,8 +385,10 @@ public class PermissionMonitorTest {
         final String[] newPackages = Arrays.stream(oldPackages).filter(e -> !e.equals(packageName))
                 .toArray(String[]::new);
         doReturn(newPackages).when(mPackageManager).getPackagesForUid(eq(uid));
-        doReturn(PERMISSION_DENIED).when(mPermissionManager).checkPermissionForPreflight(
-                anyString(), argThat(as -> as.getUid() == uid));
+        if(BpfNetMaps.isAtLeast25Q2()){
+            doReturn(PERMISSION_DENIED).when(mPermissionManager).checkPermissionForPreflight(
+                    anyString(), argThat(as -> as.getUid() == uid));
+        }
         onPackageRemoved(packageName, uid);
     }
 
@@ -882,6 +886,8 @@ public class PermissionMonitorTest {
         // Set package for all users on devices
         doReturn(List.of(packageInfo)).when(mPackageManager)
                 .getInstalledPackagesAsUser(anyInt(), eq(MOCK_USER1.getIdentifier()));
+        when(mPermissionManager.checkPermissionForPreflight(anyString(), any(AttributionSource.class)))
+                .thenReturn(PERMISSION_DENIED);
         onUserAdded(MOCK_USER1);
 
         assertFalse(mBpfMapMonitor.hasLocalNetPermissions(MOCK_UID11));
@@ -901,6 +907,8 @@ public class PermissionMonitorTest {
         // Set package for all users on devices
         doReturn(List.of(packageInfo)).when(mPackageManager)
                 .getInstalledPackagesAsUser(anyInt(), eq(MOCK_USER1.getIdentifier()));
+        when(mPermissionManager.checkPermissionForPreflight(anyString(), any(AttributionSource.class)))
+                .thenReturn(PERMISSION_DENIED);
         onUserAdded(MOCK_USER1);
         assertFalse(mBpfMapMonitor.hasLocalNetPermissions(MOCK_UID11));
 
@@ -1280,6 +1288,8 @@ public class PermissionMonitorTest {
     @EnableCompatChanges(RESTRICT_LOCAL_NETWORK)
     public void testLocalNetRestrictions_onPackageInstall() throws Exception {
         assumeTrue(BpfNetMaps.isAtLeast25Q2());
+        when(mPermissionManager.checkPermissionForPreflight(anyString(), any(AttributionSource.class)))
+                .thenReturn(PERMISSION_DENIED);
         addPackage(MOCK_PACKAGE1, MOCK_UID11, INTERNET);
         assertFalse(mBpfMapMonitor.hasLocalNetPermissions(MOCK_UID11));
 
@@ -1317,6 +1327,8 @@ public class PermissionMonitorTest {
     @EnableCompatChanges(RESTRICT_LOCAL_NETWORK)
     public void testLocalNetRestrictions_onPackageUninstall() throws Exception {
         assumeTrue(BpfNetMaps.isAtLeast25Q2());
+        when(mPermissionManager.checkPermissionForPreflight(anyString(), any(AttributionSource.class)))
+                .thenReturn(PERMISSION_DENIED);
         addPackage(MOCK_PACKAGE1, MOCK_UID11, ACCESS_LOCAL_NETWORK);
         assertTrue(mBpfMapMonitor.hasLocalNetPermissions(MOCK_UID11));
 
@@ -1344,6 +1356,8 @@ public class PermissionMonitorTest {
     @EnableCompatChanges(RESTRICT_LOCAL_NETWORK)
     public void testLocalNetRestrictions_onPackageRemoveThenAdd() throws Exception {
         assumeTrue(BpfNetMaps.isAtLeast25Q2());
+        when(mPermissionManager.checkPermissionForPreflight(anyString(), any(AttributionSource.class)))
+                .thenReturn(PERMISSION_DENIED);
         addPackage(MOCK_PACKAGE1, MOCK_UID11, ACCESS_LOCAL_NETWORK);
         assertTrue(mBpfMapMonitor.hasLocalNetPermissions(MOCK_UID11));
         if (hasSdkSandbox(MOCK_UID12)) assertTrue(mBpfMapMonitor.hasBlockedLocalNetForSandboxUid(
