@@ -56,8 +56,8 @@ import org.mockito.Mockito.spy
 @DevSdkIgnoreRunner.MonitorThreadLeak
 @RunWith(DevSdkIgnoreRunner::class)
 class CSDeclaredMethodsForCallbacksTest : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+    @get:Rule
+    val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     private val mockedCallbackFlags = AtomicInteger(DECLARED_METHODS_ALL)
     private lateinit var wrappedService: ConnectivityService
