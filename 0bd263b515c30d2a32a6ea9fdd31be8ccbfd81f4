@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bd77f51_5f565d78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-02-18T01:57:54Z",
+      "side": 1,
+      "message": "I think we need further offline discussion to reach consensus.",
+      "revId": "0bd263b515c30d2a32a6ea9fdd31be8ccbfd81f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c89f098_062983f3",
+        "filename": "common/thread_flags.aconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-02-18T01:57:54Z",
+      "side": 1,
+      "message": "Since it\u0027s for experiment purpose, I think it should be a read-write flag instead of a build flag.",
+      "revId": "0bd263b515c30d2a32a6ea9fdd31be8ccbfd81f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
