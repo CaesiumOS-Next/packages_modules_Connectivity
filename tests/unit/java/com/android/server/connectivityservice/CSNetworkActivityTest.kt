@@ -74,8 +74,8 @@ private const val TIMEOUT_MS = 250L
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 class CSNetworkActivityTest : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
+    @get:Rule
+    val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     private fun setMobileDataActivityTimeout(timeoutSeconds: Int) {
         ConnectivitySettingsManager.setMobileDataActivityTimeout(
