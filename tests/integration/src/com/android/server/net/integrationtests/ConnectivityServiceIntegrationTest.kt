@@ -17,6 +17,7 @@
 package com.android.server.net.integrationtests
 
 import android.Manifest.permission
+import android.app.compat.CompatChanges
 import android.app.usage.NetworkStatsManager
 import android.compat.testing.PlatformCompatChangeRule
 import android.content.ComponentName
@@ -52,6 +53,7 @@ import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.compatibility.common.util.SystemUtil
 import com.android.connectivity.resources.R
+import com.android.dx.mockito.inline.extended.ExtendedMockito
 import com.android.net.module.util.BpfUtils
 import com.android.networkstack.apishim.TelephonyManagerShimImpl
 import com.android.server.BpfNetMaps
@@ -85,6 +87,7 @@ import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.AdditionalAnswers
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito.any
@@ -94,6 +97,7 @@ import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.eq
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
+import org.mockito.MockitoSession
 import org.mockito.Spy
 
 const val SERVICE_BIND_TIMEOUT_MS = 5_000L
@@ -127,6 +131,10 @@ class ConnectivityServiceIntegrationTest {
     private lateinit var resourcesContext: Context
     @Spy
     private var context = TestableContext(realContext)
+    private val mMockingSession: MockitoSession = ExtendedMockito.mockitoSession()
+        .initMocks(this)
+        .mockStatic(CompatChanges::class.java)
+        .startMocking()
 
     // lateinit for these three classes under test, as they should be reset to a different instance
     // for every test but should always be initialized before use (or the test should crash).
@@ -210,6 +218,10 @@ class ConnectivityServiceIntegrationTest {
         doReturn(R.array.config_networkSupportedKeepaliveCount).`when`(resources)
                 .getIdentifier(eq("config_networkSupportedKeepaliveCount"), eq("array"), any())
 
+        ExtendedMockito.doReturn(false).`when` {
+            CompatChanges.isChangeEnabled(anyLong(), anyInt())
+        }
+
         doReturn(resources).`when`(resourcesContext).getResources()
         ConnectivityResources.setResourcesContextForTest(resourcesContext)
 
@@ -289,6 +301,7 @@ class ConnectivityServiceIntegrationTest {
             it.join()
         }
         handlerThreads.clear()
+        mMockingSession.finishMocking()
     }
 
     @Test
