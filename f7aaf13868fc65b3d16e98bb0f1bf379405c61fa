@@ -76,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b25b632e_74e2ebe2",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-18T04:47:10Z",
+      "side": 1,
+      "message": "resolving",
+      "parentUuid": "95301c2a_b3f40b82",
+      "range": {
+        "startLine": 309,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 45
+      },
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "287d91de_538350f1",
@@ -141,6 +165,30 @@
       "side": 1,
       "message": "This method takes the value from CompatChanges which in turn is querying a cache and not recomputing everytime. \nhttps://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:frameworks/base/core/java/android/app/compat/CompatChanges.java;l\u003d101\nSo I guess caching here is not required. wdyt?",
       "parentUuid": "287d91de_538350f1",
+      "range": {
+        "startLine": 674,
+        "startChar": 20,
+        "endLine": 674,
+        "endChar": 53
+      },
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "891b6f3f_9701412d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-18T04:47:10Z",
+      "side": 1,
+      "message": "dicussed offline",
+      "parentUuid": "b17496d6_38e4e4b1",
       "range": {
         "startLine": 674,
         "startChar": 20,
@@ -337,6 +385,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a02bd7b1_070e9bac",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-18T04:47:10Z",
+      "side": 1,
+      "message": "resolving",
+      "parentUuid": "125b0dfe_22579fda",
+      "range": {
+        "startLine": 886,
+        "startChar": 8,
+        "endLine": 886,
+        "endChar": 10
+      },
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "635743bd_864ee44d",
@@ -402,6 +474,30 @@
       "side": 1,
       "message": "Seems like it was missed. Thanks for catching.",
       "parentUuid": "635743bd_864ee44d",
+      "range": {
+        "startLine": 1312,
+        "startChar": 0,
+        "endLine": 1312,
+        "endChar": 2
+      },
+      "revId": "f7aaf13868fc65b3d16e98bb0f1bf379405c61fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3dd2018_50d65395",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-18T04:47:10Z",
+      "side": 1,
+      "message": "resolving",
+      "parentUuid": "d64fbe93_c92dea6f",
       "range": {
         "startLine": 1312,
         "startChar": 0,
