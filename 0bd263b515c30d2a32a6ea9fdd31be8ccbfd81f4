@@ -33,6 +33,24 @@
       "message": "Since it\u0027s for experiment purpose, I think it should be a read-write flag instead of a build flag.",
       "revId": "0bd263b515c30d2a32a6ea9fdd31be8ccbfd81f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd67fb8_6a1f337b",
+        "filename": "common/thread_flags.aconfig",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1501262
+      },
+      "writtenOn": "2025-02-18T02:03:59Z",
+      "side": 1,
+      "message": "I was on the fence whether this should be a read-write flag. I didn\u0027t make it a read-write flag because I didn\u0027t think the mesh-local addresses have been used by the host stack. Do you see any potential risk removing these addresses?",
+      "parentUuid": "9c89f098_062983f3",
+      "revId": "0bd263b515c30d2a32a6ea9fdd31be8ccbfd81f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
