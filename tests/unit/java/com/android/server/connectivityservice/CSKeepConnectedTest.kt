@@ -41,7 +41,7 @@ import org.junit.runner.RunWith
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSKeepConnectedTest : CSTest() {
-    @JvmField @field:Rule
+    @get:Rule
     public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     @Test
