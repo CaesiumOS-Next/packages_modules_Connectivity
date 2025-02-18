@@ -36,7 +36,7 @@ import org.junit.runner.RunWith
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.R)
 class CSBasicMethodsTest : CSTest() {
-    @JvmField @field:Rule
+    @get:Rule
     public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     @Test
