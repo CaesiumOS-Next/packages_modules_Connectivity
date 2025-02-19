@@ -69,6 +69,24 @@
       "parentUuid": "6012929c_90bbdb71",
       "revId": "354a222081b38e2b41eb27d2ac68e973e07bfb6e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61baf29e_f7ce958a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-02-19T11:13:21Z",
+      "side": 1,
+      "message": "I haven\u0027t figured out yet the various ways in which the automatic CL generation from Copybara can be tuned. A per-file owner clause for the ct_public_keys.pem sounds reasonable, though, I uploaded aosp/3500510.",
+      "parentUuid": "0a3c4cfe_fc21576b",
+      "revId": "354a222081b38e2b41eb27d2ac68e973e07bfb6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
