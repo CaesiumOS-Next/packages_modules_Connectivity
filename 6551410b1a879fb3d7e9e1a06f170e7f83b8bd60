@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c29597dc_ecae410a",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-02-19T14:25:35Z",
+      "side": 1,
+      "message": "Yes ideally we should set them only in the constructor. We can have separate mutable ones in the Builder class.",
+      "parentUuid": "b75ecd4b_4d888b90",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e31ce12_08c620ff",
         "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
         "patchSetId": 1
@@ -318,6 +342,30 @@
       "side": 1,
       "message": "Thats right. After seeing your comment, I thought about this again and I am thinking that maybe instead of exposing the whole object we could only expose some methods about net cap, like:\n```\nboolean checkCapability(int capability) {\n        return mNetworkCapabilities.hasCapability(capability);\n    }\n```\nWDYT?",
       "parentUuid": "6f371e57_ac24002b",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ed85cc0_5935c212",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-02-19T14:25:35Z",
+      "side": 1,
+      "message": "I am not sure TBH, I think we need to brainstorm this a bit with @prohr@google.com",
+      "parentUuid": "11d458e7_4525c574",
       "range": {
         "startLine": 62,
         "startChar": 0,
