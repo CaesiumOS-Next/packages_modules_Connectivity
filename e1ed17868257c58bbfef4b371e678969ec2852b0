@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ca13d89_a07071af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-19T16:35:36Z",
+      "side": 1,
+      "message": "Hey folks, could you PTAL at this change? Since LNP is a dev opt-in right now this will ensure that it\u0027s not introduced in tests that target cur_development",
+      "revId": "e1ed17868257c58bbfef4b371e678969ec2852b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
