@@ -61,6 +61,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "81a3f623_ae314f6e",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 47
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-19T16:59:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ac1155c_6225ce27",
+      "range": {
+        "startLine": 279,
+        "startChar": 66,
+        "endLine": 279,
+        "endChar": 73
+      },
+      "revId": "679e250c8bd70694c9730123a7b73c88e6d407b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0c691630_20699b7a",
         "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
         "patchSetId": 47
@@ -105,6 +129,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "029d954f_d1d44741",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-19T16:59:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff430d34_789b8eb6",
+      "range": {
+        "startLine": 388,
+        "startChar": 9,
+        "endLine": 388,
+        "endChar": 11
+      },
+      "revId": "679e250c8bd70694c9730123a7b73c88e6d407b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbbc635d_d7cc51f6",
@@ -118,6 +166,30 @@
       "writtenOn": "2025-02-19T10:58:36Z",
       "side": 1,
       "message": "\u003d false",
+      "range": {
+        "startLine": 403,
+        "startChar": 64,
+        "endLine": 405,
+        "endChar": 9
+      },
+      "revId": "679e250c8bd70694c9730123a7b73c88e6d407b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ab7283e_7a8bed24",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 47
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-19T16:59:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbbc635d_d7cc51f6",
       "range": {
         "startLine": 403,
         "startChar": 64,
