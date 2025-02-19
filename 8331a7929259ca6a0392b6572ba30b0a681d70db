@@ -33,6 +33,59 @@
       "message": "Also I don\u0027t have access to the linked bug",
       "revId": "8331a7929259ca6a0392b6572ba30b0a681d70db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56c196f7_9d68362e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-19T19:09:08Z",
+      "side": 1,
+      "message": "aosp/3466284 has a [failing CTS test](https://android-build.corp.google.com/test_investigate/invocation/I15400010367590586/test/TR30429632883222412/?blocking\u003dblocking\u0026status\u003dnone) from our LNP changes since the CTS is using a test app that is targetting test_current. rather than making changes to the tests we can update this annotation such that this change will not be default enabled for those tests. This is the quickest workaround to help unblock changes for LNP, while being a no-op for the 25q2 phase and the rest of connectivity service since it still requires developers to manually opt-in",
+      "parentUuid": "1499287c_2ab376ab",
+      "revId": "8331a7929259ca6a0392b6572ba30b0a681d70db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87c652af_6b0887cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-19T19:09:08Z",
+      "side": 1,
+      "message": "Added to CC",
+      "parentUuid": "ba1b93ee_6177b005",
+      "revId": "8331a7929259ca6a0392b6572ba30b0a681d70db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38510fd8_1639839e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-02-19T19:09:08Z",
+      "side": 1,
+      "message": "Thank you Maze!!",
+      "revId": "8331a7929259ca6a0392b6572ba30b0a681d70db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
