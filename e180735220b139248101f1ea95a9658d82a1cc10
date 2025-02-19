@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aab107a6_55cee7a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-19T16:53:44Z",
+      "side": 1,
+      "message": "In what way is this different from EthernetNetworkUpdateRequest? What\u0027s the plan for EthernetNetworkUpdateRequest? What will this be used for?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "e180735220b139248101f1ea95a9658d82a1cc10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33632704_73b0742d",
         "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
         "patchSetId": 2
