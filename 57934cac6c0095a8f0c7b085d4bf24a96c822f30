@@ -144,6 +144,30 @@
       },
       "revId": "57934cac6c0095a8f0c7b085d4bf24a96c822f30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92d3189e_f423bb4a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-02-19T02:47:58Z",
+      "side": 1,
+      "message": "The PlatformCompatChangeRule didn\u0027t work. Tried with various changes (aosp/3497905) -\n1. with @JVM @field:Rule\n2. with @field: Rule\n3. with @Rule\n4. Granting compat permissions to manifest\nBut was always getting access denied error.\nSo now mocking the compatchanges check via dependencies. This fixed the Access Denied error.",
+      "parentUuid": "f9f61ebe_81736dfb",
+      "range": {
+        "startLine": 223,
+        "startChar": 42,
+        "endLine": 223,
+        "endChar": 57
+      },
+      "revId": "57934cac6c0095a8f0c7b085d4bf24a96c822f30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
