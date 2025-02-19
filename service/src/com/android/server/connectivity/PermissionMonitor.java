@@ -235,6 +235,12 @@ public class PermissionMonitor {
             context.getContentResolver().registerContentObserver(
                     uri, notifyForDescendants, observer);
         }
+
+        public boolean shouldEnforceLocalNetRestrictions(int uid) {
+            // TODO(b/394567896): Update compat change checks for enforcement
+            return BpfNetMaps.isAtLeast25Q2() &&
+                    CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid);
+        }
     }
 
     private static class MultiSet<T> {
@@ -275,7 +281,7 @@ public class PermissionMonitor {
     }
 
     @VisibleForTesting
-    PermissionMonitor(@NonNull final Context context, @NonNull final INetd netd,
+    public PermissionMonitor(@NonNull final Context context, @NonNull final INetd netd,
             @NonNull final BpfNetMaps bpfNetMaps,
             @NonNull final Dependencies deps,
             @NonNull final HandlerThread thread) {
@@ -298,15 +304,9 @@ public class PermissionMonitor {
         }
     }
 
-    private boolean shouldEnforceLocalNetRestrictions(int uid) {
-        // TODO(b/394567896): Update compat change checks for enforcement
-        return BpfNetMaps.isAtLeast25Q2() &&
-                 CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid);
-    }
-
     @VisibleForTesting
     void setLocalNetworkPermissions(final int uid, @Nullable final String packageName) {
-        if (!shouldEnforceLocalNetRestrictions(uid)) return;
+        if (!mDeps.shouldEnforceLocalNetRestrictions(uid)) return;
 
         final AttributionSource attributionSource =
                 new AttributionSource.Builder(uid).setPackageName(packageName).build();
@@ -671,7 +671,7 @@ public class PermissionMonitor {
             final int uid = allUids.keyAt(i);
             if (user.equals(UserHandle.getUserHandleForUid(uid))) {
                 mUidToNetworkPerm.delete(uid);
-                if (shouldEnforceLocalNetRestrictions(uid)) {
+                if (mDeps.shouldEnforceLocalNetRestrictions(uid)) {
                     mBpfNetMaps.removeUidFromLocalNetBlockMap(uid);
                     if (hasSdkSandbox(uid)) mBpfNetMaps.removeUidFromLocalNetBlockMap(
                             sProcessShim.toSdkSandboxUid(uid));

@@ -16,7 +16,6 @@
 
 package com.android.server
 
-import android.compat.testing.PlatformCompatChangeRule
 import android.net.IpPrefix
 import android.net.LinkAddress
 import android.net.LinkProperties
@@ -46,10 +45,8 @@ import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.LocalInfoChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
-import org.junit.Rule
 import kotlin.test.assertFailsWith
 import org.junit.Test
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.clearInvocations
@@ -57,9 +54,7 @@ import org.mockito.Mockito.eq
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.never
 import org.mockito.Mockito.timeout
-import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoMoreInteractions
 
 private const val TIMEOUT_MS = 200L
 private const val MEDIUM_TIMEOUT_MS = 1_000L
@@ -93,8 +88,6 @@ private fun keepScore() = FromS(
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class CSLocalAgentTests : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     val multicastRoutingConfigMinScope =
                 MulticastRoutingConfig.Builder(MulticastRoutingConfig.FORWARD_WITH_MIN_SCOPE, 4)

@@ -16,7 +16,6 @@
 
 package com.android.server
 
-import android.compat.testing.PlatformCompatChangeRule
 import android.net.InetAddresses
 import android.net.LinkAddress
 import android.net.LinkProperties
@@ -38,9 +37,7 @@ import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
 import com.android.testutils.TestableNetworkCallback
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.InOrder
 import org.mockito.Mockito.inOrder
@@ -93,8 +90,6 @@ private fun lp(iface: String, vararg linkAddresses: LinkAddress) = LinkPropertie
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class CSIngressDiscardRuleTests : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     private val IPV6_ADDRESS = InetAddresses.parseNumericAddress("2001:db8:1::1")
     private val IPV6_LINK_ADDRESS = LinkAddress(IPV6_ADDRESS, 64)

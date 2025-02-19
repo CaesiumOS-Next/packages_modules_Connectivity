@@ -24,11 +24,9 @@ import android.os.Build
 import androidx.test.filters.SmallTest
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
-import org.junit.Rule
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import org.junit.Test
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 
 @DevSdkIgnoreRunner.MonitorThreadLeak
@@ -36,8 +34,6 @@ import org.junit.runner.RunWith
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.R)
 class CSBasicMethodsTest : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     @Test
     fun testNetworkTypes() {

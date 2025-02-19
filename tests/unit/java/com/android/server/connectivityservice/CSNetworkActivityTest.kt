@@ -16,7 +16,6 @@
 
 package com.android.server
 
-import android.compat.testing.PlatformCompatChangeRule
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.ACTION_DATA_ACTIVITY_CHANGE
 import android.net.ConnectivityManager.EXTRA_DEVICE_TYPE
@@ -47,9 +46,7 @@ import java.time.Duration
 import kotlin.test.assertNotNull
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.anyString
@@ -74,8 +71,6 @@ private const val TIMEOUT_MS = 250L
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 class CSNetworkActivityTest : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     private fun setMobileDataActivityTimeout(timeoutSeconds: Int) {
         ConnectivitySettingsManager.setMobileDataActivityTimeout(

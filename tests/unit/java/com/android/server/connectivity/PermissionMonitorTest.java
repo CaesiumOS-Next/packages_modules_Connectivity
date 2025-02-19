@@ -882,6 +882,7 @@ public class PermissionMonitorTest {
     @EnableCompatChanges(RESTRICT_LOCAL_NETWORK)
     public void testLocalNetRestrictions_onUserAdded() throws Exception {
         assumeTrue(BpfNetMaps.isAtLeast25Q2());
+        doReturn(true).when(mDeps).shouldEnforceLocalNetRestrictions(anyInt());
         when(mPermissionManager.checkPermissionForPreflight(
                 anyString(), any(AttributionSource.class))).thenReturn(PERMISSION_DENIED);
         final PackageInfo packageInfo = buildAndMockPackageInfoWithPermissions(
@@ -903,6 +904,7 @@ public class PermissionMonitorTest {
     @EnableCompatChanges(RESTRICT_LOCAL_NETWORK)
     public void testLocalNetRestrictions_onUserRemoved() throws Exception {
         assumeTrue(BpfNetMaps.isAtLeast25Q2());
+        doReturn(true).when(mDeps).shouldEnforceLocalNetRestrictions(anyInt());
         when(mPermissionManager.checkPermissionForPreflight(
                 anyString(), any(AttributionSource.class))).thenReturn(PERMISSION_DENIED);
         final PackageInfo packageInfo = buildAndMockPackageInfoWithPermissions(
@@ -1289,6 +1291,7 @@ public class PermissionMonitorTest {
     @EnableCompatChanges(RESTRICT_LOCAL_NETWORK)
     public void testLocalNetRestrictions_onPackageInstall() throws Exception {
         assumeTrue(BpfNetMaps.isAtLeast25Q2());
+        doReturn(true).when(mDeps).shouldEnforceLocalNetRestrictions(anyInt());
         when(mPermissionManager.checkPermissionForPreflight(
                 anyString(), any(AttributionSource.class))).thenReturn(PERMISSION_DENIED);
         addPackage(MOCK_PACKAGE1, MOCK_UID11, INTERNET);
@@ -1328,6 +1331,7 @@ public class PermissionMonitorTest {
     @EnableCompatChanges(RESTRICT_LOCAL_NETWORK)
     public void testLocalNetRestrictions_onPackageUninstall() throws Exception {
         assumeTrue(BpfNetMaps.isAtLeast25Q2());
+        doReturn(true).when(mDeps).shouldEnforceLocalNetRestrictions(anyInt());
         when(mPermissionManager.checkPermissionForPreflight(
                 anyString(), any(AttributionSource.class))).thenReturn(PERMISSION_DENIED);
         addPackage(MOCK_PACKAGE1, MOCK_UID11, ACCESS_LOCAL_NETWORK);
@@ -1357,6 +1361,7 @@ public class PermissionMonitorTest {
     @EnableCompatChanges(RESTRICT_LOCAL_NETWORK)
     public void testLocalNetRestrictions_onPackageRemoveThenAdd() throws Exception {
         assumeTrue(BpfNetMaps.isAtLeast25Q2());
+        doReturn(true).when(mDeps).shouldEnforceLocalNetRestrictions(anyInt());
         when(mPermissionManager.checkPermissionForPreflight(
                 anyString(), any(AttributionSource.class))).thenReturn(PERMISSION_DENIED);
         addPackage(MOCK_PACKAGE1, MOCK_UID11, ACCESS_LOCAL_NETWORK);
@@ -1752,6 +1757,7 @@ public class PermissionMonitorTest {
     @EnableCompatChanges(RESTRICT_LOCAL_NETWORK)
     public void testLocalNetRestrictions_setPermChanges() throws Exception {
         assumeTrue(BpfNetMaps.isAtLeast25Q2());
+        doReturn(true).when(mDeps).shouldEnforceLocalNetRestrictions(anyInt());
         when(mPermissionManager.checkPermissionForPreflight(
                 anyString(), any(AttributionSource.class))).thenReturn(PERMISSION_DENIED);
         addPackage(MOCK_PACKAGE1, MOCK_UID11, INTERNET);

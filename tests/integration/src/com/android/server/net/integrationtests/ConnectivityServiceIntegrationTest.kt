@@ -18,7 +18,6 @@ package com.android.server.net.integrationtests
 
 import android.Manifest.permission
 import android.app.usage.NetworkStatsManager
-import android.compat.testing.PlatformCompatChangeRule
 import android.content.ComponentName
 import android.content.Context
 import android.content.Context.BIND_AUTO_CREATE
@@ -80,9 +79,7 @@ import org.junit.After
 import org.junit.Assume
 import org.junit.Before
 import org.junit.BeforeClass
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.AdditionalAnswers
 import org.mockito.ArgumentMatchers.anyString
@@ -106,8 +103,6 @@ const val TEST_TIMEOUT_MS = 10_000L
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRunner.MonitorThreadLeak
 class ConnectivityServiceIntegrationTest {
-    @get:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     // lateinit used here for mocks as they need to be reinitialized between each test and the test
     // should crash if they are used before being initialized.
