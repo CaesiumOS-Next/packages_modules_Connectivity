@@ -1,0 +1,517 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff707ff7_05b9042b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-02-19T06:28:55Z",
+      "side": 1,
+      "message": "Can these be final ?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e31ce12_08c620ff",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-02-19T06:28:55Z",
+      "side": 1,
+      "message": "Here we end up with null objects for mIpConfiguration and mNetworkCapabilities. We should fallback on the 0 arity constructor instead",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 9
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "82930150_893a5944",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 45,
+                "startChar": 0,
+                "endLine": 48,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f371e57_ac24002b",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-02-19T06:28:55Z",
+      "side": 1,
+      "message": "Should we expose the full NetworkCapabilities ? Or only the \"static\" pieces of it ? For instance NET_CAPABILITY_CAPTIVE_PORTAL or NET_CAPABILITY_VALIDATED are not relevant unless we also want to show the dynamic state of a connected network.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "0b045c78_0fbeb39f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 23,
+                "startChar": 0,
+                "endLine": 24,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 37,
+                "startChar": 0,
+                "endLine": 38,
+                "endChar": 0
+              },
+              "replacement": "    private boolean mCaptivePortal;\n\n    private boolean mValidated;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 41,
+                "startChar": 0,
+                "endLine": 42,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 49,
+                "startChar": 0,
+                "endLine": 50,
+                "endChar": 0
+              },
+              "replacement": "        mCaptivePortal \u003d source.mCaptivePortal;\n        mValidated \u003d source.mValidated;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 63,
+                "startChar": 0,
+                "endLine": 64,
+                "endChar": 0
+              },
+              "replacement": "     * Get the captive portal flag associated with this EthernetConfiguration.\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 66,
+                "startChar": 0,
+                "endLine": 67,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 68,
+                "startChar": 0,
+                "endLine": 70,
+                "endChar": 0
+              },
+              "replacement": "    public boolean getCaptivePortal() {\n        return mCaptivePortal;\n    }\n\n    /**\n     * Get the validated flag associated with this EthernetConfiguration.\n     * @hide\n     */\n    @SystemApi\n    public boolean getValidated() {\n        return mValidated;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 84,
+                "startChar": 0,
+                "endLine": 85,
+                "endChar": 0
+              },
+              "replacement": "     * Set the captive portal flag for this network.\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 86,
+                "startChar": 0,
+                "endLine": 88,
+                "endChar": 0
+              },
+              "replacement": "     * @param captivePortal the captive portal flag to use for this ethernet configuration.\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 89,
+                "startChar": 0,
+                "endLine": 92,
+                "endChar": 0
+              },
+              "replacement": "    public void setCaptivePortal(boolean captivePortal) {\n        mCaptivePortal \u003d captivePortal;\n    }\n\n    /**\n     * Set the validated flag for this network.\n     *\n     * @param validated the validated flag to use for this ethernet configuration.\n     */\n    public void setValidated(boolean validated) {\n        mValidated \u003d validated;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 101,
+                "startChar": 0,
+                "endLine": 103,
+                "endChar": 0
+              },
+              "replacement": "        sbuf.append(\"Captive portal: \");\n        sbuf.append(mCaptivePortal);\n\n        sbuf.append(\"Validated: \");\n        sbuf.append(mValidated);\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 118,
+                "startChar": 0,
+                "endLine": 119,
+                "endChar": 0
+              },
+              "replacement": "                \u0026\u0026 this.mCaptivePortal \u003d\u003d other.mCaptivePortal\n                \u0026\u0026 this.mValidated \u003d\u003d other.mValidated;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 125,
+                "startChar": 0,
+                "endLine": 126,
+                "endChar": 0
+              },
+              "replacement": "        dest.writeInt(mCaptivePortal ? 1 : 0);\n        dest.writeInt(mValidated ? 1 : 0);\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 135,
+                "startChar": 0,
+                "endLine": 137,
+                "endChar": 0
+              },
+              "replacement": "                    config.mCaptivePortal \u003d in.readInt() \u003d\u003d 1;\n                    config.mValidated \u003d in.readInt() \u003d\u003d 1;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 162,
+                "startChar": 0,
+                "endLine": 163,
+                "endChar": 0
+              },
+              "replacement": "        /** Set captive portal flag for current ethernet configuration */\n        @NonNull\n        public Builder setCaptivePortal(boolean captivePortal) {\n            mEthernetConfiguration.setCaptivePortal(captivePortal);\n            return this;\n        }\n\n        /** Set validated flag for current ethernet configuration */\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 164,
+                "startChar": 0,
+                "endLine": 166,
+                "endChar": 0
+              },
+              "replacement": "        public Builder setValidated(boolean validated) {\n            mEthernetConfiguration.setValidated(validated);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "315058ca_d5a53d10",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-02-19T06:28:55Z",
+      "side": 1,
+      "message": "I would suggest to keep this method private and hidden, and instead having a separate Builder class for setting the IpConfiguration. The Builder pattern is more common for API classes and also this would allow mIpConfiguration to become final.\n\nedit: actually I just noticed the Builder class, so you can just remove this method and keep a separate mutable IpConfiguration variable inside the Builder.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e762c3b7_cfd5ac51",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-02-19T06:28:55Z",
+      "side": 1,
+      "message": "You should add a separator like maybe `\", \"`",
+      "range": {
+        "startLine": 101,
+        "startChar": 20,
+        "endLine": 101,
+        "endChar": 21
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "25fae40e_7efd2869",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 101,
+                "startChar": 0,
+                "endLine": 102,
+                "endChar": 0
+              },
+              "replacement": "        sbuf.append(\", Network capacbilities:\\n\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecd5ff83_1884de78",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-02-19T06:28:55Z",
+      "side": 1,
+      "message": "Could we try using the constructor directly instead of making an \"invalid\" temporary object ?",
+      "range": {
+        "startLine": 132,
+        "startChar": 20,
+        "endLine": 132,
+        "endChar": 79
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d23ecec2_d4351578",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-02-19T06:28:55Z",
+      "side": 1,
+      "message": "We should maybe add some validation here to check there are no incorrect capabilities. @prohr@google.com wdyt ?\n\nActually does it make sense to expose this method as SystemApi ? It looks like something that would be used exclusively by the Connectivity module.",
+      "range": {
+        "startLine": 165,
+        "startChar": 12,
+        "endLine": 165,
+        "endChar": 72
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a486c6d7_d94db782",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 22,
+                "startChar": 0,
+                "endLine": 22,
+                "endChar": 0
+              },
+              "replacement": "import android.net.ConnectivityManager;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 39,
+                "startChar": 0,
+                "endLine": 39,
+                "endChar": 0
+              },
+              "replacement": "    private boolean mIsDefault;\n\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 42,
+                "startChar": 0,
+                "endLine": 42,
+                "endChar": 0
+              },
+              "replacement": "        mIsDefault \u003d true;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 50,
+                "startChar": 0,
+                "endLine": 50,
+                "endChar": 0
+              },
+              "replacement": "        mIsDefault \u003d source.mIsDefault;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 71,
+                "startChar": 0,
+                "endLine": 71,
+                "endChar": 0
+              },
+              "replacement": "\n    /**\n     * Get whether this configuration is the default configuration.\n     * @hide\n     */\n    @SystemApi\n    public boolean isDefault() {\n        return mIsDefault;\n    }\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 93,
+                "startChar": 0,
+                "endLine": 93,
+                "endChar": 0
+              },
+              "replacement": "\n    /**\n     * Set whether this configuration is the default configuration.\n     *\n     * @param isDefault whether this configuration is the default configuration.\n     */\n    public void setIsDefault(boolean isDefault) {\n        mIsDefault \u003d isDefault;\n    }\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 103,
+                "startChar": 0,
+                "endLine": 103,
+                "endChar": 0
+              },
+              "replacement": "\n        sbuf.append(\"Is default: \");\n        sbuf.append(mIsDefault);\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 118,
+                "startChar": 0,
+                "endLine": 119,
+                "endChar": 0
+              },
+              "replacement": "                \u0026\u0026 Objects.equals(this.mNetworkCapabilities, other.mNetworkCapabilities)\n                \u0026\u0026 this.mIsDefault \u003d\u003d other.mIsDefault;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 126,
+                "startChar": 0,
+                "endLine": 126,
+                "endChar": 0
+              },
+              "replacement": "        dest.writeInt(mIsDefault ? 1 : 0);\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 137,
+                "startChar": 0,
+                "endLine": 137,
+                "endChar": 0
+              },
+              "replacement": "                    config.mIsDefault \u003d in.readInt() \u003d\u003d 1;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 155,
+                "startChar": 0,
+                "endLine": 156,
+                "endChar": 0
+              },
+              "replacement": "        /**\n         * Set IP configuration for current ethernet configuration.\n         *\n         * @param ipConfiguration a {@link IpConfiguration} to use for this ethernet configuration, or\n         *                        {@code null} to use the default configuration.\n         */\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 162,
+                "startChar": 0,
+                "endLine": 163,
+                "endChar": 0
+              },
+              "replacement": "        /**\n         * Set network capabilities for current ethernet configuration.\n         *\n         * @param capabilities a {@link NetworkCapabilities} to use for this ethernet configuration, or\n         *                        {@code null} to use the default network capabilities.\n         */\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 169,
+                "startChar": 0,
+                "endLine": 170,
+                "endChar": 0
+              },
+              "replacement": "        /**\n         * Set whether this configuration is the default configuration.\n         *\n         * @param isDefault whether this configuration is the default configuration.\n         */\n        @NonNull\n        public Builder setIsDefault(boolean isDefault) {\n            mEthernetConfiguration.setIsDefault(isDefault);\n            return this;\n        }\n\n        /**\n         * Build an EthernrtConfiguration object.\n         *\n         * @return an {@link EthernetConfiguration} object.\n         */\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+              "range": {
+                "startLine": 172,
+                "startChar": 0,
+                "endLine": 172,
+                "endChar": 0
+              },
+              "replacement": "            // Validate the network capabilities.\n            if (mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                    NetworkCapabilities.NET_CAPABILITY_INTERNET)) {\n                if (!mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                        NetworkCapabilities.NET_CAPABILITY_NOT_VPN)\n                        || !mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                                NetworkCapabilities.NET_CAPABILITY_TRUSTED)) {\n                    throw new IllegalArgumentException(\"NET_CAPABILITY_INTERNET requires \"\n                            + \"NET_CAPABILITY_NOT_VPN and NET_CAPABILITY_TRUSTED\");\n                }\n            }\n            if (mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                    NetworkCapabilities.NET_CAPABILITY_NOT_VPN)) {\n                if (!mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                        NetworkCapabilities.NET_CAPABILITY_TRUSTED)) {\n                    throw new IllegalArgumentException(\"NET_CAPABILITY_NOT_VPN requires \"\n                            + \"NET_CAPABILITY_TRUSTED\");\n                }\n            }\n            if (mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                    NetworkCapabilities.NET_CAPABILITY_TRUSTED)) {\n                if (!mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                        NetworkCapabilities.NET_CAPABILITY_NOT_VPN)) {\n                    throw new IllegalArgumentException(\"NET_CAPABILITY_TRUSTED requires \"\n                            + \"NET_CAPABILITY_NOT_VPN\");\n                }\n            }\n            if (mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                    NetworkCapabilities.NET_CAPABILITY_NOT_VPN)\n                    \u0026\u0026 mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                            NetworkCapabilities.NET_CAPABILITY_TRUSTED)) {\n                if (!mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                        NetworkCapabilities.NET_CAPABILITY_INTERNET)) {\n                    throw new IllegalArgumentException(\"NET_CAPABILITY_NOT_VPN and \"\n                            + \"NET_CAPABILITY_TRUSTED requires NET_CAPABILITY_INTERNET\");\n                }\n            }\n            if (mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                    NetworkCapabilities.NET_CAPABILITY_TRUSTED)\n                    \u0026\u0026 mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                            NetworkCapabilities.NET_CAPABILITY_NOT_VPN)) {\n                if (!mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                        NetworkCapabilities.NET_CAPABILITY_INTERNET)) {\n                    throw new IllegalArgumentException(\"NET_CAPABILITY_TRUSTED and \"\n                            + \"NET_CAPABILITY_NOT_VPN requires NET_CAPABILITY_INTERNET\");\n                }\n            }\n            if (mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                    NetworkCapabilities.NET_CAPABILITY_TRUSTED)\n                    \u0026\u0026 mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                            NetworkCapabilities.NET_CAPABILITY_INTERNET)) {\n                if (!mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                        NetworkCapabilities.NET_CAPABILITY_NOT_VPN)) {\n                    throw new IllegalArgumentException(\"NET_CAPABILITY_TRUSTED and \"\n                            + \"NET_CAPABILITY_INTERNET requires NET_CAPABILITY_NOT_VPN\");\n                }\n            }\n            if (mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                    NetworkCapabilities.NET_CAPABILITY_NOT_VPN)\n                    \u0026\u0026 mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                            NetworkCapabilities.NET_CAPABILITY_INTERNET)) {\n                if (!mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                        NetworkCapabilities.NET_CAPABILITY_TRUSTED)) {\n                    throw new IllegalArgumentException(\"NET_CAPABILITY_NOT_VPN and \"\n                            + \"NET_CAPABILITY_INTERNET requires NET_CAPABILITY_TRUSTED\");\n                }\n            }\n            if (mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                    NetworkCapabilities.NET_CAPABILITY_NOT_VPN)\n                    \u0026\u0026 mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                            NetworkCapabilities.NET_CAPABILITY_TRUSTED)) {\n                if (!mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                        NetworkCapabilities.NET_CAPABILITY_INTERNET)) {\n                    throw new IllegalArgumentException(\"NET_CAPABILITY_NOT_VPN and \"\n                            + \"NET_CAPABILITY_TRUSTED requires NET_CAPABILITY_INTERNET\");\n                }\n            }\n            if (mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                    NetworkCapabilities.NET_CAPABILITY_TRUSTED)\n                    \u0026\u0026 mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                            NetworkCapabilities.NET_CAPABILITY_NOT_VPN)\n                    \u0026\u0026 mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                            NetworkCapabilities.NET_CAPABILITY_INTERNET)) {\n                if (!mEthernetConfiguration.mNetworkCapabilities.hasCapability(\n                        NetworkCapabilities.NET_CAPABILITY_TRUSTED)) {\n                    throw new IllegalArgumentException(\"NET_CAPABILITY_TRUSTED, \"\n                            + \"NET_CAPABILITY_NOT_VPN and NET_CAPABILITY_INTERNET requires \"\n                            + \"NET_CAPABILITY_TRUSTED\");\n                }\n            }\n\n"
+            }
+          ]
+        }
+      ],
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
