@@ -61,6 +61,7 @@ import static com.android.networkstack.tethering.BpfCoordinator.toIpv4MappedAddr
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
+import static com.android.networkstack.tethering.TetheringConfiguration.MIN_TETHER_OFFLOAD_POLL_INTERVAL_MS;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_ACTIVE_SESSIONS_METRICS;
 import static com.android.testutils.MiscAsserts.assertSameElements;
 
@@ -1712,15 +1713,15 @@ public class BpfCoordinatorTest {
 
         final BpfCoordinator coordinator = makeBpfCoordinator();
 
-        // [1] The default polling interval.
-        assertEquals(DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS, coordinator.getPollingInterval());
+        // [1] The minimum polling interval.
+        assertEquals(MIN_TETHER_OFFLOAD_POLL_INTERVAL_MS, coordinator.getPollingInterval());
 
         // [2] Expect the invalid polling interval isn't applied. The valid range of interval is
-        // DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS..max_long.
+        // MIN_TETHER_OFFLOAD_POLL_INTERVAL_MS..max_long.
         for (final int interval
-                : new int[] {0, 100, DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS - 1}) {
+                : new int[] {0, 100, MIN_TETHER_OFFLOAD_POLL_INTERVAL_MS - 1}) {
             when(mTetherConfig.getOffloadPollInterval()).thenReturn(interval);
-            assertEquals(DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS, coordinator.getPollingInterval());
+            assertEquals(MIN_TETHER_OFFLOAD_POLL_INTERVAL_MS, coordinator.getPollingInterval());
         }
 
         // [3] Set a specific polling interval which is larger than default value.

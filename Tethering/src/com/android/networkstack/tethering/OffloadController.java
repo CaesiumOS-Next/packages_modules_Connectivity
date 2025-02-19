@@ -29,7 +29,7 @@ import static android.provider.Settings.Global.TETHER_OFFLOAD_DISABLED;
 import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOAD_HAL_VERSION_HIDL_1_0;
 import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOAD_HAL_VERSION_HIDL_1_1;
 import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOAD_HAL_VERSION_NONE;
-import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
+import static com.android.networkstack.tethering.TetheringConfiguration.MIN_TETHER_OFFLOAD_POLL_INTERVAL_MS;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -513,7 +513,7 @@ public class OffloadController {
                 && !TextUtils.isEmpty(currentUpstreamInterface())
                 && mDeps.getTetherConfig() != null
                 && mDeps.getTetherConfig().getOffloadPollInterval()
-                >= DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
+                >= MIN_TETHER_OFFLOAD_POLL_INTERVAL_MS;
     }
 
     private boolean useStatsPolling() {

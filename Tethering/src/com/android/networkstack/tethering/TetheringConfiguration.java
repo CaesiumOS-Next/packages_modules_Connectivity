@@ -138,6 +138,12 @@ public class TetheringConfiguration {
      */
     public static final int DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS = 5000;
 
+    /**
+     * Minimum value that used to periodic polls tether offload stats from tethering offload HAL
+     * to make the data warnings work.
+     */
+    public static final int MIN_TETHER_OFFLOAD_POLL_INTERVAL_MS = 1000;
+
     /** A flag for using synchronous or asynchronous state machine. */
     public static boolean USE_SYNC_SM = true;
 

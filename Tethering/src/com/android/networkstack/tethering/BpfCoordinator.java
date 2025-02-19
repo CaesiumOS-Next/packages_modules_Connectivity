@@ -33,7 +33,7 @@ import static com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_LEN;
 import static com.android.net.module.util.ip.ConntrackMonitor.ConntrackEvent;
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
-import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
+import static com.android.networkstack.tethering.TetheringConfiguration.MIN_TETHER_OFFLOAD_POLL_INTERVAL_MS;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_ACTIVE_SESSIONS_METRICS;
 import static com.android.networkstack.tethering.UpstreamNetworkState.isVcnInterface;
 import static com.android.networkstack.tethering.util.TetheringUtils.getTetheringJniLibraryName;
@@ -2456,13 +2456,12 @@ public class BpfCoordinator {
 
     @VisibleForTesting
     int getPollingInterval() {
-        // The valid range of interval is DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS..max_long.
+        // The valid range of interval is MIN_TETHER_OFFLOAD_POLL_INTERVAL_MS..max_long.
         // Ignore the config value is less than the minimum polling interval. Note that the
         // minimum interval definition is invoked as OffloadController#isPollingStatsNeeded does.
-        // TODO: Perhaps define a minimum polling interval constant.
         final TetheringConfiguration config = mDeps.getTetherConfig();
         final int configInterval = (config != null) ? config.getOffloadPollInterval() : 0;
-        return Math.max(DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS, configInterval);
+        return Math.max(MIN_TETHER_OFFLOAD_POLL_INTERVAL_MS, configInterval);
     }
 
     @Nullable
