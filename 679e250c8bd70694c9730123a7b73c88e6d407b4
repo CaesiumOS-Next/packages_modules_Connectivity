@@ -1,0 +1,131 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa78702_21858156",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-19T10:58:36Z",
+      "side": 1,
+      "message": "It would be nice if we could figure out what\u0027s happening with the annotations, because unfortunately this dependencies passed to CS is a bit invasive. Can we investigate a bit more after this is in ?",
+      "revId": "679e250c8bd70694c9730123a7b73c88e6d407b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ac1155c_6225ce27",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 47
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-19T10:58:36Z",
+      "side": 1,
+      "message": "nit : you could just say\n\n```\noverride fun shouldEnforceLocalNetworkRestrictions(uid: Int) \u003d false\n```",
+      "range": {
+        "startLine": 279,
+        "startChar": 66,
+        "endLine": 279,
+        "endChar": 73
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "79ed628f_ceb08473",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+              "range": {
+                "startLine": 279,
+                "startChar": 0,
+                "endLine": 282,
+                "endChar": 0
+              },
+              "replacement": "        override fun shouldEnforceLocalNetRestrictions(uid: Int) \u003d false\n"
+            }
+          ]
+        }
+      ],
+      "revId": "679e250c8bd70694c9730123a7b73c88e6d407b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c691630_20699b7a",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-19T10:58:36Z",
+      "side": 1,
+      "message": "I don\u0027t think there is anything wrong doing the mocking even before 25Q2, but it doesn\u0027t really matter much",
+      "range": {
+        "startLine": 326,
+        "startChar": 8,
+        "endLine": 326,
+        "endChar": 41
+      },
+      "revId": "679e250c8bd70694c9730123a7b73c88e6d407b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff430d34_789b8eb6",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-19T10:58:36Z",
+      "side": 1,
+      "message": "Respect local style please",
+      "range": {
+        "startLine": 388,
+        "startChar": 9,
+        "endLine": 388,
+        "endChar": 11
+      },
+      "revId": "679e250c8bd70694c9730123a7b73c88e6d407b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbbc635d_d7cc51f6",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 47
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-19T10:58:36Z",
+      "side": 1,
+      "message": "\u003d false",
+      "range": {
+        "startLine": 403,
+        "startChar": 64,
+        "endLine": 405,
+        "endChar": 9
+      },
+      "revId": "679e250c8bd70694c9730123a7b73c88e6d407b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
