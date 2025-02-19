@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46d48592_6f5dfd79",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkReservationTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-19T00:15:37Z",
+      "side": 1,
+      "message": "This should check for FEATURE_BLE, and also whether Bluetooth is turned on. Will be done in a follow up.",
+      "range": {
+        "startLine": 152,
+        "startChar": 8,
+        "endLine": 152,
+        "endChar": 31
+      },
+      "revId": "6b6a0447cf049d5fa091df5f9bc172acb9ba7c0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
