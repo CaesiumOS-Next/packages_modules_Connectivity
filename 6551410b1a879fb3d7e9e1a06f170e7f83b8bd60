@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b75ecd4b_4d888b90",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-02-19T07:41:05Z",
+      "side": 1,
+      "message": "Are these 2 fields always set at the same time? If so then sounds good to make this final",
+      "parentUuid": "ff707ff7_05b9042b",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e31ce12_08c620ff",
         "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
         "patchSetId": 1
@@ -61,6 +85,30 @@
           ]
         }
       ],
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "308aaadd_67259fd6",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-02-19T07:41:05Z",
+      "side": 1,
+      "message": "Thats right, thanks for the suggestion. Added default ctor call here.",
+      "parentUuid": "1e31ce12_08c620ff",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 9
+      },
       "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -258,6 +306,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "11d458e7_4525c574",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-02-19T07:41:05Z",
+      "side": 1,
+      "message": "Thats right. After seeing your comment, I thought about this again and I am thinking that maybe instead of exposing the whole object we could only expose some methods about net cap, like:\n```\nboolean checkCapability(int capability) {\n        return mNetworkCapabilities.hasCapability(capability);\n    }\n```\nWDYT?",
+      "parentUuid": "6f371e57_ac24002b",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "315058ca_d5a53d10",
         "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
         "patchSetId": 1
@@ -269,6 +341,30 @@
       "writtenOn": "2025-02-19T06:28:55Z",
       "side": 1,
       "message": "I would suggest to keep this method private and hidden, and instead having a separate Builder class for setting the IpConfiguration. The Builder pattern is more common for API classes and also this would allow mIpConfiguration to become final.\n\nedit: actually I just noticed the Builder class, so you can just remove this method and keep a separate mutable IpConfiguration variable inside the Builder.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3813cd89_782a2597",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-02-19T07:41:05Z",
+      "side": 1,
+      "message": "I kept them this way because I thought it might be the situation that IP configuration and net capabilities are not available at the same time, for example we construct the object with IP config only but later add net cap, or vice versa.\nCould this happen? If no then only builder class + final sounds good.",
+      "parentUuid": "315058ca_d5a53d10",
       "range": {
         "startLine": 72,
         "startChar": 0,
@@ -320,6 +416,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0698fa39_6c342536",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-02-19T07:41:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e762c3b7_cfd5ac51",
+      "range": {
+        "startLine": 101,
+        "startChar": 20,
+        "endLine": 101,
+        "endChar": 21
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecd5ff83_1884de78",
@@ -333,6 +453,30 @@
       "writtenOn": "2025-02-19T06:28:55Z",
       "side": 1,
       "message": "Could we try using the constructor directly instead of making an \"invalid\" temporary object ?",
+      "range": {
+        "startLine": 132,
+        "startChar": 20,
+        "endLine": 132,
+        "endChar": 79
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "244925bf_2ecacb11",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-02-19T07:41:05Z",
+      "side": 1,
+      "message": "Changed to use ctor",
+      "parentUuid": "ecd5ff83_1884de78",
       "range": {
         "startLine": 132,
         "startChar": 20,
