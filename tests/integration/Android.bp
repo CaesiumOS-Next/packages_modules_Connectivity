@@ -55,7 +55,6 @@ android_test {
         "service-connectivity-tiramisu-pre-jarjar",
         "services.net",
         "testables",
-        "platform-compat-test-rules",
     ],
     test_suites: ["device-tests"],
     use_embedded_native_libs: true,

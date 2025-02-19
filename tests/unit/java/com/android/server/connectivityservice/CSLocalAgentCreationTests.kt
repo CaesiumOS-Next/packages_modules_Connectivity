@@ -16,7 +16,6 @@
 
 package com.android.server
 
-import android.compat.testing.PlatformCompatChangeRule
 import android.content.pm.PackageManager.FEATURE_LEANBACK
 import android.net.INetd
 import android.net.LocalNetworkConfig
@@ -36,9 +35,7 @@ import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.TestableNetworkCallback
 import kotlin.test.assertFailsWith
 import org.junit.Assert.assertEquals
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import org.mockito.Mockito.doReturn
@@ -59,8 +56,6 @@ private fun defaultLnc() = FromS(LocalNetworkConfig.Builder().build())
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.R)
 class CSLocalAgentCreationTests : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     @Parameterized.Parameter(0) lateinit var params: TestParams
 

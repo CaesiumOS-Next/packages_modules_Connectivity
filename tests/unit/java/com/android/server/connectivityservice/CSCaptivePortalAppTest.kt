@@ -17,7 +17,6 @@
 package com.android.server
 
 import android.Manifest.permission.NETWORK_STACK
-import android.compat.testing.PlatformCompatChangeRule
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_DENIED
 import android.content.pm.PackageManager.PERMISSION_GRANTED
@@ -46,10 +45,8 @@ import androidx.test.filters.SmallTest
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.TestableNetworkCallback
-import org.junit.Rule
 import kotlin.test.assertEquals
 import org.junit.Test
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mockito.never
@@ -84,8 +81,6 @@ private fun lp(iface: String) = LinkProperties().apply {
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.R)
 class CSCaptivePortalAppTest : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     private val WIFI_IFACE = "wifi0"
     private val TEST_REDIRECT_URL = "http://example.com/firstPath"

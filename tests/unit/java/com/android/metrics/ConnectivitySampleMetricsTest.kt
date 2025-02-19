@@ -1,6 +1,5 @@
 package com.android.metrics
 
-import android.compat.testing.PlatformCompatChangeRule
 import android.net.ConnectivityThread
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.CONNECTIVITY_MANAGED_CAPABILITIES
@@ -45,9 +44,7 @@ import java.util.concurrent.CompletableFuture
 import kotlin.test.assertEquals
 import kotlin.test.fail
 import org.junit.Assert.assertTrue
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 
 private fun <T> Handler.onHandler(f: () -> T): T {
@@ -92,8 +89,6 @@ private val NetworkCapabilities.validatedState get() = when {
 @SmallTest
 @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
 class ConnectivitySampleMetricsTest : CSTest() {
-    @JvmField @field:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     @Test
     fun testSampleConnectivityState_Network() {

@@ -18,7 +18,6 @@ package com.android.server.net.integrationtests
 
 import android.Manifest.permission
 import android.app.usage.NetworkStatsManager
-import android.compat.testing.PlatformCompatChangeRule
 import android.content.ComponentName
 import android.content.Context
 import android.content.Context.BIND_AUTO_CREATE
@@ -62,6 +61,7 @@ import com.android.server.connectivity.CarrierPrivilegeAuthenticator
 import com.android.server.connectivity.ConnectivityResources
 import com.android.server.connectivity.MockableSystemProperties
 import com.android.server.connectivity.MultinetworkPolicyTracker
+import com.android.server.connectivity.PermissionMonitor
 import com.android.server.connectivity.ProxyTracker
 import com.android.server.connectivity.SatelliteAccessController
 import com.android.testutils.DevSdkIgnoreRunner
@@ -80,9 +80,7 @@ import org.junit.After
 import org.junit.Assume
 import org.junit.Before
 import org.junit.BeforeClass
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.AdditionalAnswers
 import org.mockito.ArgumentMatchers.anyString
@@ -106,8 +104,6 @@ const val TEST_TIMEOUT_MS = 10_000L
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRunner.MonitorThreadLeak
 class ConnectivityServiceIntegrationTest {
-    @get:Rule
-    public val compatChangeRule: TestRule = PlatformCompatChangeRule()
 
     // lateinit used here for mocks as they need to be reinitialized between each test and the test
     // should crash if they are used before being initialized.
@@ -227,7 +223,7 @@ class ConnectivityServiceIntegrationTest {
     }
 
     private inner class TestConnectivityService(deps: Dependencies) : ConnectivityService(
-            context, dnsResolver, log, netd, deps)
+            context, dnsResolver, log, netd, deps, PermissionMonitorDependencies())
 
     private inner class TestDependencies : ConnectivityService.Dependencies() {
         override fun getNetworkStack() = networkStackClient
@@ -278,6 +274,12 @@ class ConnectivityServiceIntegrationTest {
             connectivityServiceInternalHandler: Handler
         ): SatelliteAccessController? = mock(
             SatelliteAccessController::class.java)
+    }
+
+    private inner class PermissionMonitorDependencies : PermissionMonitor.Dependencies() {
+        override fun shouldEnforceLocalNetRestrictions(uid: Int): Boolean {
+            return false
+        }
     }
 
     @After
