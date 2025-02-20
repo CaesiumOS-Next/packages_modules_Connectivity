@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5487730f_3b4b7c5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-20T02:19:23Z",
+      "side": 1,
+      "message": "Maybe also describe why this is needed?",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "d5b85d964675b37d75540a71af16853ee345df93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f536376b_e1e38f3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-20T02:19:23Z",
+      "side": 1,
+      "message": "Is this a no-op refactor? If so maybe say it?",
+      "revId": "d5b85d964675b37d75540a71af16853ee345df93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89776103_7a186e8b",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-20T02:19:23Z",
+      "side": 1,
+      "message": "nit: Maybe also add nullable annotation?",
+      "range": {
+        "startLine": 49,
+        "startChar": 78,
+        "endLine": 49,
+        "endChar": 85
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b7f8be2c_4775ecbe",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/net/SkDestroyListener.java",
+              "range": {
+                "startLine": 22,
+                "startChar": 0,
+                "endLine": 22,
+                "endChar": 0
+              },
+              "replacement": "import android.support.annotation.Nullable;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/net/SkDestroyListener.java",
+              "range": {
+                "startLine": 49,
+                "startChar": 0,
+                "endLine": 50,
+                "endChar": 0
+              },
+              "replacement": "    SkDestroyListener(final Consumer\u003cInetDiagMessage\u003e consumer, @Nullable final Handler handler,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "d5b85d964675b37d75540a71af16853ee345df93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f01d3dc4_2d2ce955",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-20T02:19:23Z",
+      "side": 1,
+      "message": "@Nullable?\nIt is unlikely because l.66.\nBut it is null in the unit test?",
+      "range": {
+        "startLine": 49,
+        "startChar": 54,
+        "endLine": 49,
+        "endChar": 62
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "28dffd4a_ce095d38",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/net/SkDestroyListener.java",
+              "range": {
+                "startLine": 22,
+                "startChar": 0,
+                "endLine": 22,
+                "endChar": 0
+              },
+              "replacement": "import android.support.annotation.Nullable;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/net/SkDestroyListener.java",
+              "range": {
+                "startLine": 49,
+                "startChar": 0,
+                "endLine": 50,
+                "endChar": 0
+              },
+              "replacement": "    SkDestroyListener(@Nullable final Consumer\u003cInetDiagMessage\u003e consumer, final Handler handler,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "d5b85d964675b37d75540a71af16853ee345df93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
