@@ -24,6 +24,7 @@
 #include <string.h>
 
 #include <bpf/BpfClassic.h>
+#include <bpf/BpfUtils.h>
 #include <bpf/KernelUtils.h>
 #include <DnsProxydProtocol.h> // NETID_USE_LOCAL_NAMESERVERS
 #include <nativehelper/JNIPlatformHelp.h>
@@ -259,6 +260,28 @@ static jboolean android_net_utils_isKernelX86(JNIEnv *env, jclass clazz) {
     return bpf::isX86();
 }
 
+static jlong android_net_utils_getSocketCookie(JNIEnv* env, jclass clazz, jobject javaFd) {
+    int sock = AFileDescriptor_getFd(env, javaFd);
+
+    return static_cast<jlong>(bpf::getSocketCookie(sock));
+}
+
+constexpr
+
+static jint android_net_utils_getSocketNetId(JNIEnv* env, jclass clazz, jobject javaFd) {
+    int sock = AFileDescriptor_getFd(env, javaFd);
+
+    uint32_t mark;
+    socklen_t mark_len = sizeof(mark);
+
+    if (getsockopt(sock, SOL_SOCKET, SO_MARK, &mark, &mark_len)) {
+        jniThrowErrnoException(env, "getSocketNetId", errno);
+    }
+
+    // See FWMARK_NET_ID_MASK in Fwmark.h
+    return static_cast<jint>(mark & 0xffff);
+}
+
 // ----------------------------------------------------------------------------
 
 /*
@@ -283,6 +306,8 @@ static const JNINativeMethod gNetworkUtilMethods[] = {
     (void*) android_net_utils_setsockoptBytes},
     { "isKernel64Bit", "()Z", (void*) android_net_utils_isKernel64Bit },
     { "isKernelX86", "()Z", (void*) android_net_utils_isKernelX86 },
+    {"getSocketCookie", "(Ljava/io/FileDescriptor;)J", (void*) android_net_utils_getSocketCookie },
+    {"getSocketNetId", "(Ljava/io/FileDescriptor;)I", (void*) android_net_utils_getSocketNetId },
 };
 // clang-format on
 
