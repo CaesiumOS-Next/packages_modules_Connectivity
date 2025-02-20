@@ -38,4 +38,9 @@
         </activity>
     </application>
 
+    <overlay android:targetPackage="com.android.connectivity.resources"
+             android:targetName="ServiceConnectivityResourcesConfig"
+             android:isStatic="true"
+             android:priority="0" />
+
 </manifest>

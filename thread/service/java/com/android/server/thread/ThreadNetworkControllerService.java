@@ -383,6 +383,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             }
         }
 
+        LOG.e("wgtdkp: model name is " + modelName);
+
         if (!vendorName.isEmpty()) {
             if (vendorName.getBytes(UTF_8).length > MAX_VENDOR_NAME_UTF8_BYTES) {
                 throw new IllegalStateException(
