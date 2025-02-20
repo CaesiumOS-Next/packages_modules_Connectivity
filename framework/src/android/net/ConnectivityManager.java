@@ -6830,4 +6830,46 @@ public class ConnectivityManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    /**
+     * Register QUIC UDP socket and UDP payload that can close QUIC connection.
+     * When the caller uid loses network access due to freezer or firewall chain,
+     * ConnectivityService destroys registered UDP socket by sending SOCK_DESTROY netlink message
+     * and sends registered UDP payload to the server. This prevents unnecessary modem wakeups.
+     * ConnectivityService also sends registered payload when it receives socket destroy diag
+     * message for registered socket so that ConnectivityService can close connection when app crash
+     * or app is killed.
+     * If QUIC stacks call this method, they must call
+     * {@link #unregisterQuicConnectionClosePayload} before closing QUIC connection and socket.
+     * Otherwise, registered payload will be send to the server when the socket is closed.
+     *
+     * @param pfd The {@link ParcelFileDescriptor} for UDP socket. UDP socket must be bound to
+     *            source address and destination address. Registered payload will be sent with
+     *            this source address and destination address.
+     * @param payload UDPpayload that closes QUIC connection.
+     *
+     * @hide
+     */
+    public void registerQuicConnectionClosePayload(final ParcelFileDescriptor pfd,
+            final byte[] payload) {
+        try {
+            mService.registerQuicConnectionClosePayload(pfd, payload);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Unregister QUIC socket that is registered by {@link #registerQuicConnectionClosePayload}
+     * This method is no-op if this is called with UDP socket that is registered.
+     *
+     * @hide
+     */
+    public void unregisterQuicConnectionClosePayload(final ParcelFileDescriptor pfd) {
+        try {
+            mService.unregisterQuicConnectionClosePayload(pfd);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }
