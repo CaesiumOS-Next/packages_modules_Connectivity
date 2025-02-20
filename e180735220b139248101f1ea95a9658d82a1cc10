@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09f291a9_fe358466",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-02-20T06:06:16Z",
+      "side": 1,
+      "message": "We could formally differentiate the request object from the state object that we want to introduce in callbacks. Since some data is not requestable (link speeds for instance) it makes sense to separate them.\n\nActually I would be in favor of doing this, which can simplify EthernetConfiguration quite a bit:\n  - we can keep the ctor hidden,\n  - no need for a builder class\n  - we just show the getters for IpConfiguration, NetCaps, and future other fields like for instance EapConfig if any.",
+      "parentUuid": "14db474e_0b8dd58a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "e180735220b139248101f1ea95a9658d82a1cc10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33632704_73b0742d",
         "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
         "patchSetId": 2
