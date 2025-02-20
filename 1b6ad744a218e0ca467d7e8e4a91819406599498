@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d23382a_8964732a",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-20T07:43:25Z",
+      "side": 1,
+      "message": "The name is kind of generic and does not reflect its usage.\nMaybe name it more specific or add comment about how we are going to use this?",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "1b6ad744a218e0ca467d7e8e4a91819406599498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
