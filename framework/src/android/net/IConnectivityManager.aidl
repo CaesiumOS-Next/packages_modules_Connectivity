@@ -264,4 +264,10 @@ interface IConnectivityManager
     long getEnabledConnectivityManagerFeatures();
 
     boolean isConnectivityServiceFeatureEnabledForTesting(String featureFlag);
+
+   // Use oneway call so that cronet process is not blocked
+   // TODO remove ping
+   oneway void registerQuicConnectionClosePayload(in ParcelFileDescriptor pfd,
+           in byte[] payload, in byte[] ping0, in byte[] ping1);
+   oneway void unregisterQuicConnectionClosePayload(in ParcelFileDescriptor pfd);
 }
