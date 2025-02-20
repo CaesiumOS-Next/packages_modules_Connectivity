@@ -62,6 +62,8 @@ public final class ConnectivityFlags {
     public static final String QUEUE_CALLBACKS_FOR_FROZEN_APPS =
             "queue_callbacks_for_frozen_apps";
 
+    public static final String CLOSE_QUIC_CONNECTION = "close_quic_connection";
+
     private boolean mNoRematchAllRequestsOnRegister;
 
     /**
