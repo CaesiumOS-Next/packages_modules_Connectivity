@@ -6830,4 +6830,55 @@ public class ConnectivityManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    /**
+     * Register QUIC UDP socket and its associated UDP payload that can close QUIC connection.
+     *
+     * When the app's uid loses network access (e.g. due to freezer or firewall chain),
+     * ConnectivityService 1) destroys the registered UDP socket by sending a SOCK_DESTROY netlink
+     * message and 2) sends the registered UDP payload to the server.
+     * This prevents unnecessary modem wakeups caused by packets from the server after the app
+     * loses network access.
+     *
+     * Additionally, to close QUIC connection for apps that crash or are killed, ConnectivityService
+     * sends the registered connection close payload when it receives a socket destroy diag message
+     * for the registered socket.
+     *
+     * If this method is called, {@link #unregisterQuicConnectionClosePayload} must be called before
+     * the QUIC connection and the socket is closed.
+     * Otherwise, registered payload will be send to the server when the socket is closed.
+     *
+     * @param pfd The {@link ParcelFileDescriptor} for the connected UDP socket.
+     *            The registered payload will be sent using the source and destination addresses and
+     *            ports of this connected UDP socket.
+     * @param payload The UDP payload that closes QUIC connection.
+     *
+     * @hide
+     */
+    public void registerQuicConnectionClosePayload(final ParcelFileDescriptor pfd,
+            final byte[] payload) {
+        try {
+            mService.registerQuicConnectionClosePayload(pfd, payload);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Unregister a QUIC socket previously registered with
+     * {@link #registerQuicConnectionClosePayload}
+     *
+     * This method is a no-op if the provided UDP socket is not registered.
+     *
+     * @param pfd The {@link ParcelFileDescriptor} for UDP socket.
+     *
+     * @hide
+     */
+    public void unregisterQuicConnectionClosePayload(final ParcelFileDescriptor pfd) {
+        try {
+            mService.unregisterQuicConnectionClosePayload(pfd);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }
