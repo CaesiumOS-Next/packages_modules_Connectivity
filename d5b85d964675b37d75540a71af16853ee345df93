@@ -327,6 +327,30 @@
       },
       "revId": "d5b85d964675b37d75540a71af16853ee345df93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49a59d4c_00c545e7",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-20T10:09:46Z",
+      "side": 1,
+      "message": "nit: I think it is common that we only add annotation only for what we knew and leaving other unannotated.\nI think it is better than write nothing, because for other people the default could be nullable from different perspective.\nBut still feel free to ignore.",
+      "parentUuid": "bf10d5f7_823f4161",
+      "range": {
+        "startLine": 49,
+        "startChar": 54,
+        "endLine": 49,
+        "endChar": 62
+      },
+      "revId": "d5b85d964675b37d75540a71af16853ee345df93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

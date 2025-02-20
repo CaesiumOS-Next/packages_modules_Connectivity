@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4b835b7_9b2b378e",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-20T10:09:46Z",
+      "side": 1,
+      "message": "Still not very clear to me, since the consumer won\u0027t be executed for any inet diag message, right?\nIs this a caller defined task which will be executed only when the listener receives a socket destroy event? If so, maybe add comment or/and rename the variable more specific, such as mSocketDestroy[Callback|Consumer] ?",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 68
+      },
+      "revId": "033d461f23932940620cbbfa66155890dac61956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
