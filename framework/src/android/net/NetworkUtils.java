@@ -443,4 +443,12 @@ public class NetworkUtils {
 
     /** Returns whether the Linux Kernel is x86 */
     public static native boolean isKernelX86();
+
+    /**
+     * Returns socket cookie.
+     *
+     * @param fd The socket file descriptor
+     * @return socket cookie if there is no error. {@code 0} otherwise.
+     */
+    public static native long getSocketCookie(FileDescriptor fd);
 }
