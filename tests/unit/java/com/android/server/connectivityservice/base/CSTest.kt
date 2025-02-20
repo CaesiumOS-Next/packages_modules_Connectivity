@@ -32,6 +32,7 @@ import android.net.INetd.PERMISSION_INTERNET
 import android.net.InetAddresses
 import android.net.LinkProperties
 import android.net.LocalNetworkConfig
+import android.net.Network
 import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED
@@ -63,6 +64,8 @@ import com.android.internal.app.IBatteryStats
 import com.android.internal.util.test.BroadcastInterceptingContext
 import com.android.modules.utils.build.SdkLevel
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.SkDestroyListener
+import com.android.net.module.util.netlink.InetDiagMessage
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException
 import com.android.server.connectivity.AutomaticOnOffKeepaliveTracker
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator
@@ -77,6 +80,8 @@ import com.android.server.connectivity.ProxyTracker
 import com.android.server.connectivity.SatelliteAccessController
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
+import java.io.FileDescriptor
+import java.net.InetSocketAddress
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
@@ -84,10 +89,12 @@ import java.util.function.BiConsumer
 import java.util.function.Consumer
 import kotlin.annotation.AnnotationRetention.RUNTIME
 import kotlin.annotation.AnnotationTarget.FUNCTION
+import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.fail
 import org.junit.After
+import org.junit.Assert.assertArrayEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.TestName
@@ -168,6 +175,7 @@ open class CSTest {
         it[ConnectivityFlags.DELAY_DESTROY_SOCKETS] = true
         it[ConnectivityFlags.USE_DECLARED_METHODS_FOR_CALLBACKS] = true
         it[ConnectivityFlags.QUEUE_CALLBACKS_FOR_FROZEN_APPS] = true
+        it[ConnectivityFlags.CLOSE_QUIC_CONNECTION] = true
     }
     fun setFeatureEnabled(flag: String, enabled: Boolean) = enabledFeatures.set(flag, enabled)
 
@@ -216,6 +224,7 @@ open class CSTest {
     val multicastRoutingCoordinatorService = mock<MulticastRoutingCoordinatorService>()
     val satelliteAccessController = mock<SatelliteAccessController>()
     val destroySocketsWrapper = mock<DestroySocketsWrapper>()
+    val skDestroyListener = mock<SkDestroyListener>()
 
     val deps = CSDeps()
     val permDeps = PermDeps()
@@ -277,6 +286,18 @@ open class CSTest {
         open fun destroyLiveTcpSocketsByOwnerUids(ownerUids: Set<Int>) {}
     }
 
+    private data class SendQuicConnectionCloseEvent(
+            val network: Network,
+            val src: InetSocketAddress,
+            val dst: InetSocketAddress,
+            val payload: ByteArray
+    )
+    private data class DestroyUdpSocketEvent(
+        val src: InetSocketAddress,
+        val dst: InetSocketAddress,
+        val ifindex: Int,
+        val cookie: Long
+    )
     inner class CSDeps : ConnectivityService.Dependencies() {
         override fun getResources(ctx: Context) = connResources
         override fun getBpfNetMaps(context: Context, netd: INetd) = this@CSTest.bpfNetMaps
@@ -401,6 +422,79 @@ open class CSTest {
         }
 
         override fun makeL2capNetworkProvider(context: Context) = null
+
+        var skDestroyListenerCallback: Consumer<InetDiagMessage>? = null
+        override fun makeSkDestroyListener(
+            consumer: Consumer<InetDiagMessage>,
+            handler: Handler
+        ): SkDestroyListener? {
+            skDestroyListenerCallback = consumer
+            return skDestroyListener
+        }
+
+        private var socketNetId = 0
+        fun setSocketNetId(netId: Int) {this.socketNetId = netId}
+        override fun getsockoptInt(fd: FileDescriptor, level: Int, option: Int) = socketNetId
+
+        private var socketCookie = 0L
+        fun setSocketCookie(cookie: Long) {this.socketCookie = cookie}
+        override fun getSocketCookie(fd: FileDescriptor) = socketCookie
+
+        private var sockName = InetSocketAddress()
+        fun setSockName(sa: InetSocketAddress) {this.sockName = sa}
+        override fun getSockName(fd: FileDescriptor) = sockName
+
+        private var peerName = InetSocketAddress()
+        fun setPeerName(sa: InetSocketAddress) {this.peerName = sa}
+        override fun getPeerName(fd: FileDescriptor) = peerName
+
+        private var ifindex = 0
+        fun setifindex(ifindex: Int) {this.ifindex = ifindex}
+        override fun ifNameToIndex(ifname: String) = ifindex
+
+        private val sendQuicConnectionCloseHistory =
+                ArrayTrackRecord<SendQuicConnectionCloseEvent>().newReadHead()
+        override fun sendQuicConnectionClose(
+            network: Network,
+            src: InetSocketAddress,
+            dst: InetSocketAddress,
+            payload: ByteArray
+        ) {
+            sendQuicConnectionCloseHistory.add(
+                SendQuicConnectionCloseEvent(network, src, dst, payload)
+            )
+        }
+
+        fun expectSendQuicConnectionClose(
+            network: Network,
+            src: InetSocketAddress,
+            dst: InetSocketAddress,
+            payload: ByteArray,
+            timeoutMs: Long
+        ) {
+            val event = sendQuicConnectionCloseHistory.poll(timeoutMs)
+            assertNotNull(event)
+            assertEquals(network, event.network)
+            assertEquals(src, event.src)
+            assertEquals(dst, event.dst)
+            assertArrayEquals(payload, event.payload)
+        }
+
+        fun assertNoSendQuicConnectionClose(timeoutMs: Long) {
+            val event = sendQuicConnectionCloseHistory.poll(timeoutMs)
+            assertNull(event, "Expected no SendQuicConnectionCloseEvent")
+        }
+
+        private val destroyUdpSocketHistory =
+                ArrayTrackRecord<DestroyUdpSocketEvent>().newReadHead()
+        override fun destroyUdpSocket(
+            src: InetSocketAddress,
+            dst: InetSocketAddress,
+            ifindex: Int,
+            cookie: Long
+        ) {
+            destroyUdpSocketHistory.add(DestroyUdpSocketEvent(src, dst, ifindex, cookie))
+        }
     }
 
     inner class PermDeps : PermissionMonitor.Dependencies() {
