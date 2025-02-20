@@ -264,4 +264,10 @@ interface IConnectivityManager
     long getEnabledConnectivityManagerFeatures();
 
     boolean isConnectivityServiceFeatureEnabledForTesting(String featureFlag);
+
+   // This must be oneway not to block cronet process since this method is called everytime
+   // cronet establish QUIC connection
+   oneway void registerQuicConnectionClosePayload(in ParcelFileDescriptor pfd,
+           in byte[] payload);
+   oneway void unregisterQuicConnectionClosePayload(in ParcelFileDescriptor pfd);
 }
