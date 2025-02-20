@@ -197,6 +197,7 @@ java_library {
         "PlatformProperties",
         "service-connectivity-protos",
         "service-connectivity-stats-protos",
+        "NetworkStackMinusLibs",
     ],
     apex_available: [
         "com.android.tethering",

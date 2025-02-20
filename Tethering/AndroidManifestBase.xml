@@ -16,11 +16,15 @@
  * limitations under the License.
  */
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
           package="com.android.networkstack.tethering"
           android:versionCode="1"
           android:versionName="R-initial">
+    <!-- TODO: don't use "Tethering" as label for NetworkStack notifications -->
     <application
+        tools:replace="android:label"
         android:label="Tethering"
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true"

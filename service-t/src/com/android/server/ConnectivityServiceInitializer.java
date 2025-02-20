@@ -20,6 +20,7 @@ import android.annotation.Nullable;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.thread.ThreadNetworkManager;
+import android.os.IInterface;
 import android.util.Log;
 
 import com.android.modules.utils.build.SdkLevel;
@@ -31,12 +32,18 @@ import com.android.server.nearby.NearbyService;
 import com.android.server.net.ct.CertificateTransparencyService;
 import com.android.server.thread.ThreadNetworkService;
 
+import dalvik.system.PathClassLoader;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
  * a new instance of connectivity services.
  */
 public final class ConnectivityServiceInitializer extends SystemService {
     private static final String TAG = ConnectivityServiceInitializer.class.getSimpleName();
+    private final Context mContext;
     private final ConnectivityNativeService mConnectivityNative;
     private final ConnectivityService mConnectivity;
     private final IpSecService mIpSecService;
@@ -50,6 +57,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
         super(context);
         // Load JNI libraries used by ConnectivityService and its dependencies
         System.loadLibrary("service-connectivity");
+        mContext = context;
         mEthernetServiceImpl = createEthernetService(context);
         mConnectivity = new ConnectivityService(context);
         mIpSecService = createIpSecService(context);
@@ -118,6 +126,25 @@ public final class ConnectivityServiceInitializer extends SystemService {
         if (SdkLevel.isAtLeastV() && mCertificateTransparencyService != null) {
             mCertificateTransparencyService.onBootPhase(phase);
         }
+
+//        if (phase == SystemService.PHASE_THIRD_PARTY_APPS_CAN_START) {
+//            final PathClassLoader pathClassLoader = new PathClassLoader(
+//                    "/apex/com.android.tethering/javalib/service-networkstack.jar",
+//                    // TODO: more generic library search path
+//                    /*librarySearchPath=*/"/apex/com.android.tethering/lib64",
+//                    getClass().getClassLoader());
+//            Log.i(TAG, "Registering NetworkStackConnector");
+//            try {
+//                final Class<?> nsService = Class.forName(
+//                        "com.android.server.NetworkStackService", true, pathClassLoader);
+//                final IInterface connector = (IInterface) nsService.getDeclaredMethod(
+//                        "makeConnector", Context.class).invoke(null, mContext);
+//                publishBinderService("network_stack", connector.asBinder(), /* allowIsolated= */ false);
+//            } catch (ReflectiveOperationException e) {
+//                Log.wtf(TAG, "Could not create the NetworkStackConnector", e);
+//                // Fall through
+//            }
+//        }
     }
 
     /**

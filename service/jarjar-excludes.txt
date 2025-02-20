@@ -2,3 +2,7 @@
 com\.android\.server\.ConnectivityServiceInitializer(\$.+)?
 com\.android\.server\.ConnectivityServiceInitializerB(\$.+)?
 com\.android\.server\.NetworkStatsServiceInitializer(\$.+)?
+
+# A single JNI library is used to load NetworkStackUtils in tethering and NetworkStack so it can't
+# have different names.
+com\.android\.networkstack\.util\.NetworkStackUtils(\$.+)?
