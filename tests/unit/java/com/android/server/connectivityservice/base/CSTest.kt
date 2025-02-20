@@ -55,6 +55,7 @@ import android.os.Process
 import android.os.UserHandle
 import android.os.UserManager
 import android.permission.PermissionManager.PermissionResult
+import android.system.OsConstants.SOL_SOCKET
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
 import android.testing.TestableContext
@@ -63,6 +64,8 @@ import com.android.internal.app.IBatteryStats
 import com.android.internal.util.test.BroadcastInterceptingContext
 import com.android.modules.utils.build.SdkLevel
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.SkDestroyListener
+import com.android.net.module.util.netlink.InetDiagMessage
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException
 import com.android.server.connectivity.AutomaticOnOffKeepaliveTracker
 import com.android.server.connectivity.CarrierPrivilegeAuthenticator
@@ -74,12 +77,18 @@ import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies
 import com.android.server.connectivity.NetworkRequestStateStatsMetrics
 import com.android.server.connectivity.PermissionMonitor
 import com.android.server.connectivity.ProxyTracker
+import com.android.server.connectivity.QuicConnectionCloser
 import com.android.server.connectivity.SatelliteAccessController
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
+import java.io.FileDescriptor
+import java.net.InetSocketAddress
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.atomic.AtomicReference
 import java.util.function.BiConsumer
 import java.util.function.Consumer
 import kotlin.annotation.AnnotationRetention.RUNTIME
@@ -114,6 +123,9 @@ internal const val VERSION_V = 5
 internal const val VERSION_MAX = VERSION_V
 
 internal const val CALLING_UID_UNMOCKED = Process.INVALID_UID
+
+// TODO: Use OsConstants.SO_MARK once this API is available
+internal const val SO_MARK = 36
 
 private fun NetworkCapabilities.getLegacyType() =
         when (transportTypes.getOrElse(0) { TRANSPORT_WIFI }) {
@@ -168,6 +180,7 @@ open class CSTest {
         it[ConnectivityFlags.DELAY_DESTROY_SOCKETS] = true
         it[ConnectivityFlags.USE_DECLARED_METHODS_FOR_CALLBACKS] = true
         it[ConnectivityFlags.QUEUE_CALLBACKS_FOR_FROZEN_APPS] = true
+        it[ConnectivityFlags.CLOSE_QUIC_CONNECTION] = true
     }
     fun setFeatureEnabled(flag: String, enabled: Boolean) = enabledFeatures.set(flag, enabled)
 
@@ -215,7 +228,9 @@ open class CSTest {
 
     val multicastRoutingCoordinatorService = mock<MulticastRoutingCoordinatorService>()
     val satelliteAccessController = mock<SatelliteAccessController>()
+    val quicConnectionCloser = mock<QuicConnectionCloser>()
     val destroySocketsWrapper = mock<DestroySocketsWrapper>()
+    val skDestroyListener = mock<SkDestroyListener>()
 
     val deps = CSDeps()
     val permDeps = PermDeps()
@@ -304,6 +319,10 @@ open class CSTest {
         ): SatelliteAccessController? {
             satelliteNetworkFallbackUidUpdate = updateSatelliteNetworkFallackUid
             return satelliteAccessController
+        }
+
+        override fun makeQuicConnectionCloser(): QuicConnectionCloser {
+            return quicConnectionCloser
         }
 
         private inner class AOOKTDeps(c: Context) : AutomaticOnOffKeepaliveTracker.Dependencies(c) {
@@ -401,6 +420,45 @@ open class CSTest {
         }
 
         override fun makeL2capNetworkProvider(context: Context) = null
+
+        var skDestroyListenerCallback: Consumer<InetDiagMessage>? = null
+
+        override fun makeSkDestroyListener(
+            consumer: Consumer<InetDiagMessage>,
+            handler: Handler
+        ): SkDestroyListener {
+            skDestroyListenerCallback = consumer
+            return skDestroyListener
+        }
+
+        private var socketNetId = AtomicInteger(0)
+
+        fun setSocketNetId(netId: Int) {this.socketNetId.set(netId)}
+
+        override fun getSockOptInt(fd: FileDescriptor, level: Int, option: Int): Int {
+            if (level == SOL_SOCKET && option == SO_MARK) {
+                return socketNetId.get()
+            }
+            fail("Unmocked getsockoptInt level=$level, option=$option")
+        }
+
+        private var socketCookie = AtomicLong(0)
+
+        fun setSocketCookie(cookie: Long) {this.socketCookie.set(cookie)}
+
+        override fun getSocketCookie(fd: FileDescriptor) = socketCookie.get()
+
+        private var sockName = AtomicReference(InetSocketAddress())
+
+        fun setSockName(sa: InetSocketAddress) {this.sockName.set(sa)}
+
+        override fun getSockName(fd: FileDescriptor) = sockName.get()
+
+        private var peerName = AtomicReference(InetSocketAddress())
+
+        fun setPeerName(sa: InetSocketAddress) {this.peerName.set(sa)}
+
+        override fun getPeerName(fd: FileDescriptor) = peerName.get()
     }
 
     inner class PermDeps : PermissionMonitor.Dependencies() {
