@@ -22,6 +22,30 @@
       },
       "revId": "32ed4686d3e4e1c516a3e76eb9e873368011a7fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e50541c8_c66ce0b4",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-20T08:25:08Z",
+      "side": 1,
+      "message": "I agree that Builder pattern is better if we need to support monitoring only v4 or v6.\nBut I\u0027m not sure if it\u0027s worth to make this change now without having usecase.\nPlease re-open if you think we should do this in this CL.",
+      "parentUuid": "1f495259_86bc3414",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 75
+      },
+      "revId": "32ed4686d3e4e1c516a3e76eb9e873368011a7fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
