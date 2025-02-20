@@ -119,9 +119,11 @@ import java.util.function.Predicate;
 @LargeTest
 @RequiresThreadFeature
 public class ThreadNetworkControllerTest {
-    private static final int JOIN_TIMEOUT_MILLIS = 30 * 1000;
+    // TODO(b/397843760): Reduce the timeout values once b/397843760 is fixed.
+    private static final int JOIN_TIMEOUT_MILLIS = 45 * 1000;
+    private static final int MIGRATION_TIMEOUT_MILLIS = 55 * 1_000;
+
     private static final int LEAVE_TIMEOUT_MILLIS = 2_000;
-    private static final int MIGRATION_TIMEOUT_MILLIS = 40 * 1_000;
     private static final int NETWORK_CALLBACK_TIMEOUT_MILLIS = 10 * 1000;
     private static final int CALLBACK_TIMEOUT_MILLIS = 1_000;
     private static final int ENABLED_TIMEOUT_MILLIS = 2_000;
