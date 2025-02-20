@@ -251,6 +251,7 @@ cc_library_shared {
         "jni/onload.cpp",
     ],
     shared_libs: [
+        "libbase",
         "libandroid",
         "liblog",
         "libnativehelper",
@@ -259,7 +260,6 @@ cc_library_shared {
         "bpf_headers",
         "dnsproxyd_protocol_headers",
     ],
-    stl: "none",
     apex_available: [
         "com.android.tethering",
     ],
