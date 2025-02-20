@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1051ba63_33d5f1c5",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-02-20T02:27:57Z",
+      "side": 1,
+      "message": "Thanks, then sounds good to make this final.",
+      "parentUuid": "c29597dc_ecae410a",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e31ce12_08c620ff",
@@ -413,6 +437,30 @@
       "side": 1,
       "message": "I kept them this way because I thought it might be the situation that IP configuration and net capabilities are not available at the same time, for example we construct the object with IP config only but later add net cap, or vice versa.\nCould this happen? If no then only builder class + final sounds good.",
       "parentUuid": "315058ca_d5a53d10",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "6551410b1a879fb3d7e9e1a06f170e7f83b8bd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d954f42_83329773",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-02-20T02:27:57Z",
+      "side": 1,
+      "message": "Changed to using final, resolve.",
+      "parentUuid": "3813cd89_782a2597",
       "range": {
         "startLine": 72,
         "startChar": 0,

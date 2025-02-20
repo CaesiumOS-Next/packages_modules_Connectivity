@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14db474e_0b8dd58a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-02-20T02:27:57Z",
+      "side": 1,
+      "message": "Looking at the javadoc of `EthernetNetworkUpdateRequest`\n```\n/**\n * Represents a request to update an existing Ethernet interface.\n *\n * @see EthernetManager#updateConfiguration\n *\n * @hide\n */\n```\n`EthernetNetworkUpdateRequest` is used for updating ethernet interface in `updateConfiguration`, but the proposed `EthernetConfiguration` will also be used internally as a unified class to store Ethernet related configurations.\n\nIn the new proposal (see go/android-eth-config-store)\nthe updateConfiguration will add a new method that uses EthernetCOnfiguration for updating.\n```\n    public void updateConfiguration(\n            @NonNull EthernetPort port,\n            @NonNull EthernetConfiguration config,\n            @Nullable @CallbackExecutor Executor executor,\n            @Nullable OutcomeReceiver\u003cString, EthernetNetworkManagementException\u003e callback)\n```",
+      "parentUuid": "aab107a6_55cee7a3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "e180735220b139248101f1ea95a9658d82a1cc10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33632704_73b0742d",
         "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
         "patchSetId": 2
@@ -101,6 +125,30 @@
           ]
         }
       ],
+      "revId": "e180735220b139248101f1ea95a9658d82a1cc10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72ba1af6_844bcd2f",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-02-20T02:27:57Z",
+      "side": 1,
+      "message": "Sounds good to do this, thanks.",
+      "parentUuid": "33632704_73b0742d",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 15
+      },
       "revId": "e180735220b139248101f1ea95a9658d82a1cc10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
