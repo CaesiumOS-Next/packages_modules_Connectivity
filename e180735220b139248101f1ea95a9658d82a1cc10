@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d52c436_af81ab8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-20T19:00:55Z",
+      "side": 1,
+      "message": "\u003e In what way is this different from EthernetNetworkUpdateRequest? What\u0027s the plan for EthernetNetworkUpdateRequest? What will this be used for?\n\nCan you also answer these questions in the commit message?\n\n\u003e We could formally differentiate the request object from the state object that we want to introduce in callbacks.\n\n+1. Though for some reason I have been thinking that we might have to deprecate EthernetNetworkUpdateRequest (I can\u0027t remember why). I also think we shouldn\u0027t try too hard to combine API and internal state objects. We can always wrap them / convert them internally if we wanted to. We have done that before with the OutcomeReceiver object that is passed in for some of the existing APIs.\n\nIn any case, the plan is a bit fuzzy in my head, so maybe this would be a good time to host a design review and agree on the path forward?",
+      "parentUuid": "09f291a9_fe358466",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "e180735220b139248101f1ea95a9658d82a1cc10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33632704_73b0742d",
         "filename": "service-t/src/com/android/server/ethernet/EthernetConfiguration.java",
         "patchSetId": 2
