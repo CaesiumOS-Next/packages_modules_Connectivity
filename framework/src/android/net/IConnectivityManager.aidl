@@ -264,4 +264,10 @@ interface IConnectivityManager
     long getEnabledConnectivityManagerFeatures();
 
     boolean isConnectivityServiceFeatureEnabledForTesting(String featureFlag);
+
+   // This method must be oneway to avoid blocking the app process.
+   // It's called on every QUIC connection establishment.
+   oneway void registerQuicConnectionClosePayload(in ParcelFileDescriptor pfd,
+           in byte[] payload);
+   oneway void unregisterQuicConnectionClosePayload(in ParcelFileDescriptor pfd);
 }
