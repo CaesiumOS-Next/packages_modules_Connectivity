@@ -24,17 +24,17 @@ import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.PackageInfo.REQUESTED_PERMISSION_GRANTED;
 import static android.content.pm.PackageManager.GET_PERMISSIONS;
 import static android.net.ConnectivitySettingsManager.UIDS_ALLOWED_ON_RESTRICTED_NETWORKS;
+import static android.net.INetd.PERMISSION_INTERNET;
+import static android.net.INetd.PERMISSION_NETWORK;
+import static android.net.INetd.PERMISSION_NONE;
+import static android.net.INetd.PERMISSION_SYSTEM;
+import static android.net.INetd.PERMISSION_UNINSTALLED;
+import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.connectivity.ConnectivityCompatChanges.RESTRICT_LOCAL_NETWORK;
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.SYSTEM_UID;
 
-import static com.android.server.connectivity.NetworkPermissions.PERMISSION_NETWORK;
-import static com.android.server.connectivity.NetworkPermissions.PERMISSION_NONE;
-import static com.android.server.connectivity.NetworkPermissions.PERMISSION_SYSTEM;
-import static com.android.server.connectivity.NetworkPermissions.TRAFFIC_PERMISSION_INTERNET;
-import static com.android.server.connectivity.NetworkPermissions.TRAFFIC_PERMISSION_UNINSTALLED;
-import static com.android.server.connectivity.NetworkPermissions.TRAFFIC_PERMISSION_UPDATE_DEVICE_STATS;
 import static com.android.net.module.util.CollectionUtils.toIntArray;
 
 import android.annotation.NonNull;
@@ -72,6 +72,7 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.flags.Flags;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.SharedLog;
 import com.android.networkstack.apishim.ProcessShimImpl;
@@ -404,7 +405,7 @@ public class PermissionMonitor {
         final SparseIntArray appIdsPerm = new SparseIntArray();
         for (final int uid : mSystemConfigManager.getSystemPermissionUids(INTERNET)) {
             final int appId = UserHandle.getAppId(uid);
-            final int permission = appIdsPerm.get(appId) | TRAFFIC_PERMISSION_INTERNET;
+            final int permission = appIdsPerm.get(appId) | PERMISSION_INTERNET;
             appIdsPerm.put(appId, permission);
             if (hasSdkSandbox(appId)) {
                 appIdsPerm.put(sProcessShim.toSdkSandboxUid(appId), permission);
@@ -412,7 +413,7 @@ public class PermissionMonitor {
         }
         for (final int uid : mSystemConfigManager.getSystemPermissionUids(UPDATE_DEVICE_STATS)) {
             final int appId = UserHandle.getAppId(uid);
-            final int permission = appIdsPerm.get(appId) | TRAFFIC_PERMISSION_UPDATE_DEVICE_STATS;
+            final int permission = appIdsPerm.get(appId) | PERMISSION_UPDATE_DEVICE_STATS;
             appIdsPerm.put(appId, permission);
             if (hasSdkSandbox(appId)) {
                 appIdsPerm.put(sProcessShim.toSdkSandboxUid(appId), permission);
@@ -655,7 +656,7 @@ public class PermissionMonitor {
             final int appId = removedUserAppIds.keyAt(i);
             // Need to clear permission if the removed appId is not found in the array.
             if (appIds.indexOfKey(appId) < 0) {
-                appIds.put(appId, TRAFFIC_PERMISSION_UNINSTALLED);
+                appIds.put(appId, PERMISSION_UNINSTALLED);
             }
         }
         sendAppIdsTrafficPermission(appIds);
@@ -707,7 +708,7 @@ public class PermissionMonitor {
             }
         } else {
             // The last package of this uid is removed from device. Clean the package up.
-            permission = TRAFFIC_PERMISSION_UNINSTALLED;
+            permission = PERMISSION_UNINSTALLED;
         }
         return permission;
     }
@@ -750,13 +751,13 @@ public class PermissionMonitor {
                 return "NETWORK";
             case PERMISSION_SYSTEM:
                 return "SYSTEM";
-            case TRAFFIC_PERMISSION_INTERNET:
+            case PERMISSION_INTERNET:
                 return "INTERNET";
-            case TRAFFIC_PERMISSION_UPDATE_DEVICE_STATS:
+            case PERMISSION_UPDATE_DEVICE_STATS:
                 return "UPDATE_DEVICE_STATS";
-            case (TRAFFIC_PERMISSION_INTERNET | TRAFFIC_PERMISSION_UPDATE_DEVICE_STATS):
+            case (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS):
                 return "ALL";
-            case TRAFFIC_PERMISSION_UNINSTALLED:
+            case PERMISSION_UNINSTALLED:
                 return "UNINSTALLED";
             default:
                 return "UNKNOWN";
@@ -775,7 +776,7 @@ public class PermissionMonitor {
         // (PERMISSION_UNINSTALLED), remove the appId from the array. Otherwise, update the latest
         // permission to the appId.
         final int appId = UserHandle.getAppId(uid);
-        if (uidTrafficPerm == TRAFFIC_PERMISSION_UNINSTALLED) {
+        if (uidTrafficPerm == PERMISSION_UNINSTALLED) {
             userTrafficPerms.delete(appId);
         } else {
             userTrafficPerms.put(appId, uidTrafficPerm);
@@ -793,7 +794,7 @@ public class PermissionMonitor {
                 installed = true;
             }
         }
-        return installed ? permission : TRAFFIC_PERMISSION_UNINSTALLED;
+        return installed ? permission : PERMISSION_UNINSTALLED;
     }
 
     /**
@@ -930,11 +931,11 @@ public class PermissionMonitor {
         for (int i = 0; i < requestedPermissions.length; i++) {
             if (requestedPermissions[i].equals(INTERNET)
                     && ((requestedPermissionsFlags[i] & REQUESTED_PERMISSION_GRANTED) != 0)) {
-                permissions |= TRAFFIC_PERMISSION_INTERNET;
+                permissions |= PERMISSION_INTERNET;
             }
             if (requestedPermissions[i].equals(UPDATE_DEVICE_STATS)
                     && ((requestedPermissionsFlags[i] & REQUESTED_PERMISSION_GRANTED) != 0)) {
-                permissions |= TRAFFIC_PERMISSION_UPDATE_DEVICE_STATS;
+                permissions |= PERMISSION_UPDATE_DEVICE_STATS;
             }
         }
         return permissions;
@@ -1173,19 +1174,19 @@ public class PermissionMonitor {
         for (int i = 0; i < netdPermissionsAppIds.size(); i++) {
             int permissions = netdPermissionsAppIds.valueAt(i);
             switch(permissions) {
-                case (TRAFFIC_PERMISSION_INTERNET | TRAFFIC_PERMISSION_UPDATE_DEVICE_STATS):
+                case (PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS):
                     allPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
                     break;
-                case TRAFFIC_PERMISSION_INTERNET:
+                case PERMISSION_INTERNET:
                     internetPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
                     break;
-                case TRAFFIC_PERMISSION_UPDATE_DEVICE_STATS:
+                case PERMISSION_UPDATE_DEVICE_STATS:
                     updateStatsPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
                     break;
                 case PERMISSION_NONE:
                     noPermissionAppIds.add(netdPermissionsAppIds.keyAt(i));
                     break;
-                case TRAFFIC_PERMISSION_UNINSTALLED:
+                case PERMISSION_UNINSTALLED:
                     uninstalledAppIds.add(netdPermissionsAppIds.keyAt(i));
                     break;
                 default:
@@ -1197,15 +1198,15 @@ public class PermissionMonitor {
             // TODO: add a lock inside netd to protect IPC trafficSetNetPermForUids()
             if (allPermissionAppIds.size() != 0) {
                 mBpfNetMaps.setNetPermForUids(
-                        TRAFFIC_PERMISSION_INTERNET | TRAFFIC_PERMISSION_UPDATE_DEVICE_STATS,
+                        PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
                         toIntArray(allPermissionAppIds));
             }
             if (internetPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(TRAFFIC_PERMISSION_INTERNET,
+                mBpfNetMaps.setNetPermForUids(PERMISSION_INTERNET,
                         toIntArray(internetPermissionAppIds));
             }
             if (updateStatsPermissionAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(TRAFFIC_PERMISSION_UPDATE_DEVICE_STATS,
+                mBpfNetMaps.setNetPermForUids(PERMISSION_UPDATE_DEVICE_STATS,
                         toIntArray(updateStatsPermissionAppIds));
             }
             if (noPermissionAppIds.size() != 0) {
@@ -1213,7 +1214,7 @@ public class PermissionMonitor {
                         toIntArray(noPermissionAppIds));
             }
             if (uninstalledAppIds.size() != 0) {
-                mBpfNetMaps.setNetPermForUids(TRAFFIC_PERMISSION_UNINSTALLED,
+                mBpfNetMaps.setNetPermForUids(PERMISSION_UNINSTALLED,
                         toIntArray(uninstalledAppIds));
             }
         } catch (RemoteException | ServiceSpecificException e) {
