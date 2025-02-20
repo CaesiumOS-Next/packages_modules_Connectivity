@@ -24,13 +24,21 @@ import android.net.ConnectivityManager.BLOCKED_REASON_NONE
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
 import android.net.ConnectivityManager.FIREWALL_RULE_ALLOW
 import android.net.ConnectivityManager.FIREWALL_RULE_DENY
+import android.net.InetAddresses
+import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.os.ParcelFileDescriptor
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener
+import com.android.net.module.util.netlink.InetDiagMessage
+import com.android.net.module.util.netlink.StructInetDiagSockId
+import com.android.net.module.util.netlink.StructNlMsgHdr
 import com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import java.net.DatagramSocket
+import java.net.InetSocketAddress
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
@@ -44,6 +52,20 @@ private const val TIMESTAMP = 1234L
 private const val TEST_UID = 1234
 private const val TEST_UID2 = 5678
 private const val TEST_CELL_IFACE = "test_rmnet"
+private const val TEST_WIFI_IFACE = "test_wlan"
+private const val TEST_IFINDEX = 12
+private const val TEST_SOCKET_COOKIE = 12321L
+private const val QUIC_CONNECTION_CLOSE_TIMEOUT_MS = 100L
+
+private val TEST_SRC_SOCKET_ADDRESS = InetSocketAddress(
+        InetAddresses.parseNumericAddress("2001:db8:1:2::2"),
+        1234
+)
+private val TEST_DST_SOCKET_ADDRESS = InetSocketAddress(
+        InetAddresses.parseNumericAddress("2001:db8:1:2::3"),
+        1234
+)
+private val TEST_PAYLOAD = byteArrayOf(0, 1, 2, 3, 4, 5)
 
 private fun cellNc() = NetworkCapabilities.Builder()
         .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
@@ -54,6 +76,18 @@ private fun cellNc() = NetworkCapabilities.Builder()
 
 private fun cellLp() = LinkProperties().also{
     it.interfaceName = TEST_CELL_IFACE
+}
+
+private fun wifiNc() = NetworkCapabilities.Builder()
+        .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+        .build()
+
+private fun wifiLp() = LinkProperties().also{
+    it.interfaceName = TEST_WIFI_IFACE
+    it.addLinkAddress(LinkAddress("2001:db8:1:2::2/64"))
 }
 
 @RunWith(DevSdkIgnoreRunner::class)
@@ -334,5 +368,190 @@ class CSDestroySocketTest : CSTest() {
                 enableBackgroundChain = false,
                 expectDestroySockets = false
         )
+    }
+
+    private fun setUpMockForRegistereQuicConnectionClosePayload(netId: Int) {
+        deps.callingUid = TEST_UID
+        deps.setSocketNetId(netId)
+        deps.setSocketCookie(TEST_SOCKET_COOKIE)
+        deps.setSockName(TEST_SRC_SOCKET_ADDRESS)
+        deps.setPeerName(TEST_DST_SOCKET_ADDRESS)
+        deps.setifindex(TEST_IFINDEX)
+    }
+
+    @Test
+    fun testRegistereQuicConnectionClosePayload_unregisterSocket() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegistereQuicConnectionClosePayload(wifiAgent.network.netId)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+        cm.unregisterQuicConnectionClosePayload(pfd)
+
+        val frozenStateCallback = getUidFrozenStateChangedCallback()
+        frozenStateCallback.onUidFrozenStateChanged(
+                intArrayOf(TEST_UID),
+                intArrayOf(UID_FROZEN_STATE_FROZEN)
+        )
+
+        // The UDP socket is not destroyed and the connection close packet is not sent since the
+        // socket is unregistered before the uid is frozen.
+        deps.assertNoDestroyUdpSocket(QUIC_CONNECTION_CLOSE_TIMEOUT_MS)
+        deps.assertNoSendQuicConnectionClosePayload(QUIC_CONNECTION_CLOSE_TIMEOUT_MS)
+    }
+
+    @Test
+    fun testRegistereQuicConnectionClosePayload_frozen() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegistereQuicConnectionClosePayload(wifiAgent.network.netId)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+
+        val frozenStateCallback = getUidFrozenStateChangedCallback()
+        frozenStateCallback.onUidFrozenStateChanged(
+                intArrayOf(TEST_UID),
+                intArrayOf(UID_FROZEN_STATE_FROZEN)
+        )
+
+        // The UDP socket is destroyed and the connection close packet is sent since the uid is
+        // frozen while the socket is registered.
+        deps.expectDestroyUdpSocket(
+                TEST_SRC_SOCKET_ADDRESS,
+                TEST_DST_SOCKET_ADDRESS,
+                TEST_IFINDEX,
+                TEST_SOCKET_COOKIE,
+                QUIC_CONNECTION_CLOSE_TIMEOUT_MS
+        )
+        deps.expectSendQuicConnectionClosePayload(
+                wifiAgent.network,
+                TEST_SRC_SOCKET_ADDRESS,
+                TEST_DST_SOCKET_ADDRESS,
+                TEST_PAYLOAD,
+                QUIC_CONNECTION_CLOSE_TIMEOUT_MS
+        )
+    }
+
+    @Test
+    fun testRegistereQuicConnectionClosePayload_appCrash() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegistereQuicConnectionClosePayload(wifiAgent.network.netId)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+
+        // When an app crashes or is killed, the socket is closed before
+        // unregisterQuicConnectionClosePayload is called.
+        // Send inetDiagMessage to simulate this socket close.
+        val inetDiagMessage = InetDiagMessage(StructNlMsgHdr())
+        inetDiagMessage.inetDiagMsg.id = StructInetDiagSockId(TEST_SRC_SOCKET_ADDRESS,
+                TEST_DST_SOCKET_ADDRESS, TEST_IFINDEX, TEST_SOCKET_COOKIE)
+        deps.skDestroyListenerCallback?.accept(inetDiagMessage)
+
+        // The UDP socket is not destroyed since the socket is already closed.
+        // Connection close packet is sent since the socket is closed while the socket is
+        // registered.
+        deps.assertNoDestroyUdpSocket(QUIC_CONNECTION_CLOSE_TIMEOUT_MS)
+        deps.expectSendQuicConnectionClosePayload(
+                wifiAgent.network,
+                TEST_SRC_SOCKET_ADDRESS,
+                TEST_DST_SOCKET_ADDRESS,
+                TEST_PAYLOAD,
+                QUIC_CONNECTION_CLOSE_TIMEOUT_MS
+        )
+    }
+
+    @Test
+    fun testRegistereQuicConnectionClosePayload_firewallBackgroundChain() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegistereQuicConnectionClosePayload(wifiAgent.network.netId)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+
+        val frozenStateCallback = getUidFrozenStateChangedCallback()
+        frozenStateCallback.onUidFrozenStateChanged(
+                intArrayOf(TEST_UID),
+                intArrayOf(UID_FROZEN_STATE_FROZEN)
+        )
+
+        // The UDP socket is destroyed and the connection close packet is sent since the network of
+        // the uid is blocked by background chain while the socket is registered.
+        deps.expectDestroyUdpSocket(
+                TEST_SRC_SOCKET_ADDRESS,
+                TEST_DST_SOCKET_ADDRESS,
+                TEST_IFINDEX,
+                TEST_SOCKET_COOKIE,
+                QUIC_CONNECTION_CLOSE_TIMEOUT_MS
+        )
+        deps.expectSendQuicConnectionClosePayload(
+                wifiAgent.network,
+                TEST_SRC_SOCKET_ADDRESS,
+                TEST_DST_SOCKET_ADDRESS,
+                TEST_PAYLOAD,
+                QUIC_CONNECTION_CLOSE_TIMEOUT_MS
+        )
+    }
+
+    @Test
+    fun testRegistereQuicConnectionClosePayload_unregisterNetwork() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegistereQuicConnectionClosePayload(wifiAgent.network.netId)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+
+        wifiAgent.disconnect()
+
+        val frozenStateCallback = getUidFrozenStateChangedCallback()
+        frozenStateCallback.onUidFrozenStateChanged(
+                intArrayOf(TEST_UID),
+                intArrayOf(UID_FROZEN_STATE_FROZEN)
+        )
+
+        // The UDP socket is not destroyed and the connection close packet is not sent since the
+        // Wi-Fi network is already disconnected when the uid is frozen.
+        deps.assertNoDestroyUdpSocket(QUIC_CONNECTION_CLOSE_TIMEOUT_MS)
+        deps.assertNoSendQuicConnectionClosePayload(QUIC_CONNECTION_CLOSE_TIMEOUT_MS)
+    }
+
+    @Test
+    fun testRegistereQuicConnectionClosePayload_InterfaceAddressChange() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegistereQuicConnectionClosePayload(wifiAgent.network.netId)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+
+        wifiAgent.sendLinkProperties(
+                LinkProperties().also{
+                    it.interfaceName = TEST_WIFI_IFACE
+                    it.addLinkAddress(LinkAddress("2001:db8:1:2::7/64"))
+                }
+        )
+
+        val frozenStateCallback = getUidFrozenStateChangedCallback()
+        frozenStateCallback.onUidFrozenStateChanged(
+                intArrayOf(TEST_UID),
+                intArrayOf(UID_FROZEN_STATE_FROZEN)
+        )
+
+        // The UDP socket is not destroyed and the connection close packet is not sent since the
+        // Wi-Fi interface does not use the source address of the registered socket when the uid is
+        // frozen.
+        deps.assertNoDestroyUdpSocket(QUIC_CONNECTION_CLOSE_TIMEOUT_MS)
+        deps.assertNoSendQuicConnectionClosePayload(QUIC_CONNECTION_CLOSE_TIMEOUT_MS)
     }
 }
