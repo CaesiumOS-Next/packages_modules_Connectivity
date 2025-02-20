@@ -303,6 +303,7 @@ import android.stats.connectivity.RequestType;
 import android.stats.connectivity.ValidatedState;
 import android.sysprop.NetworkProperties;
 import android.system.ErrnoException;
+import android.system.Os;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -347,6 +348,8 @@ import com.android.net.module.util.LocationPermissionChecker;
 import com.android.net.module.util.PerUidCounter;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.RoutingCoordinatorService;
+import com.android.net.module.util.SharedLog;
+import com.android.net.module.util.SkDestroyListener;
 import com.android.net.module.util.TcUtils;
 import com.android.net.module.util.netlink.InetDiagMessage;
 import com.android.networkstack.apishim.BroadcastOptionsShimImpl;
@@ -398,6 +401,7 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.net.DatagramSocket;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -1095,6 +1099,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     // Flag to drop packets to VPN addresses ingressing via non-VPN interfaces.
     private final boolean mIngressToVpnAddressFiltering;
+
+    // Flag to xxx
+    private final boolean mCloseQuicConnection;
+
+    // Map from socket cookie to registered quic connection close information
+    // This map must be accessed only from handler thread
+    private final Map<Long, QuicConnectionInfo> mRegisteredQuicConnectionCloseInfo = new ArrayMap<>();
+    private static final int MAX_REGISTERED_QUIC_CONNECTION_CLOSE_INFO = 5000;
 
     /**
      * Implements support for the legacy "one network per network type" model.
@@ -1804,6 +1816,48 @@ public class ConnectivityService extends IConnectivityManager.Stub
             handler.sendMessageDelayed(
                     handler.obtainMessage(EVENT_INITIAL_EVALUATION_TIMEOUT, network), delayMs);
         }
+
+        public SkDestroyListener makeSkDestroyListener(final Consumer<InetDiagMessage> consumer,
+            final Handler handler) {
+            return SkDestroyListener.makeSkDestroyListener(consumer, false /* monitorTcpSocket */, true /* monitorUdpSocket */,
+                    handler, new SharedLog(TAG));
+        }
+
+
+       public int getSocketNetId(final FileDescriptor fd) throws ErrnoException {
+           return NetworkUtils.getSocketNetId(fd);
+       }
+
+        public long getSocketCookie(final FileDescriptor fd) {
+            return NetworkUtils.getSocketCookie(fd);
+        }
+
+        public InetSocketAddress getSockName(final FileDescriptor fd) throws ErrnoException {
+            return (InetSocketAddress) Os.getsockname(fd);
+        }
+
+        public InetSocketAddress getPeerName(final FileDescriptor fd) throws ErrnoException {
+            return (InetSocketAddress) Os.getpeername(fd);
+        }
+
+        public int ifNameToIndex(final String ifname) {
+            return Os.if_nametoindex(ifname);
+        }
+
+        public void sendQuicConnectionClose(final Network network, final InetSocketAddress src,
+                final InetSocketAddress dst, final byte[] payload)
+                throws IOException, ErrnoException {
+            DatagramSocket socket = new DatagramSocket(src);
+            network.bindSocket(socket);
+            socket.connect(dst);
+            Os.write(socket.getFileDescriptor$(), payload, 0 /* byteOffset */, payload.length);
+        }
+
+        public void destroyUdpSocket(final InetSocketAddress src, final InetSocketAddress dst,
+                final int ifindex, final long cookie)
+                throws SocketException, InterruptedIOException, ErrnoException {
+            InetDiagMessage.destroyUdpSocket(src, dst, ifindex, cookie);
+        }
     }
 
     public ConnectivityService(Context context) {
@@ -2107,6 +2161,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 && mDeps.isFeatureNotChickenedOut(mContext, INGRESS_TO_VPN_ADDRESS_FILTERING);
 
         mL2capNetworkProvider = mDeps.makeL2capNetworkProvider(mContext);
+
+        // TODO Check flag
+        mCloseQuicConnection = mDeps.isFeatureEnabled(context,
+                        ConnectivityFlags.CLOSE_QUIC_CONNECTION);
+        if (mCloseQuicConnection) {
+            final SkDestroyListener udpSkDestroyListener = mDeps.makeSkDestroyListener(
+                    this::processUdpSocketDestroy, mHandler);
+            mHandler.post(udpSkDestroyListener::start);
+        }
     }
 
     /**
@@ -3656,6 +3719,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } catch (SocketException | InterruptedIOException | ErrnoException e) {
             loge("Failed to destroy sockets: " + e);
         }
+
+        // Destroy registered quic sockets
+        for (QuicConnectionInfo info: mRegisteredQuicConnectionCloseInfo.values()) {
+            if (uids.contains(info.uid)) {
+                destroySocketAndCloseQuicConnection(info);
+                // TODO Skip removeing if enoent
+                mRegisteredQuicConnectionCloseInfo.remove(info.cookie);
+            }
+        }
+
         mDestroySocketPendingUids.clear();
     }
 
@@ -4483,6 +4556,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         pw.println("Legacy network activity:");
         pw.increaseIndent();
         mNetworkActivityTracker.dump(pw);
+        pw.decreaseIndent();
+
+        pw.println();
+        pw.println("Registered quic connection close payload: "
+                + mRegisteredQuicConnectionCloseInfo.size() + " registration");
+        pw.increaseIndent();
+        for (QuicConnectionInfo info: mRegisteredQuicConnectionCloseInfo.values()) {
+            pw.println(info);
+        }
         pw.decreaseIndent();
 
         pw.println();
@@ -14985,6 +15067,195 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 return mIngressToVpnAddressFiltering;
             default:
                 throw new IllegalArgumentException("Unknown flag: " + featureFlag);
+        }
+    }
+
+    /**
+     * Class used for maintaining required information to close QUIC connection.
+     * See {@link #destroySocketAndCloseQuicConnection}.
+     */
+    private static class QuicConnectionInfo {
+        public final int uid;
+        public final int netId;
+        public final long cookie;
+        public final InetSocketAddress src;
+        public final InetSocketAddress dst;
+        public final byte[] payload;
+
+        QuicConnectionInfo(int uid, int netId, long cookie, InetSocketAddress src,
+                InetSocketAddress dst, byte[] payload) {
+            this.uid = uid;
+            this.netId = netId;
+            this.cookie = cookie;
+            this.src = src;
+            this.dst = dst;
+            this.payload = payload;
+        }
+
+        @Override
+        public String toString() {
+            return "uid: " + uid
+                    + ", netId: " + netId
+                    + ", cookie: " + cookie
+                    + ", src: " + src
+                    + ", dst: " + dst
+                    + ", payload length: " + payload.length;
+        }
+    }
+
+    private boolean skipSendQuicConnectionClose(
+            final NetworkAgentInfo nai, final QuicConnectionInfo info) {
+        if (nai == null) {
+            // Network is already disconnected
+            return true;
+        }
+        if (!nai.linkProperties.getAddresses().contains(info.src.getAddress())) {
+            // If interface does not have source address of registered socket, device should not
+            // send packet with unused source address
+            return true;
+        }
+        return false;
+    }
+
+    private void destroySocketAndCloseQuicConnection(QuicConnectionInfo info) {
+        ensureRunningOnConnectivityServiceThread();
+
+        final NetworkAgentInfo nai = getNetworkAgentInfoForNetId(info.netId);
+        if (skipSendQuicConnectionClose(nai, info)) {
+            return;
+        }
+        final String iface = nai.linkProperties.getInterfaceName();
+        final int ifindex = iface == null ? 0 : mDeps.ifNameToIndex(iface);
+        if (ifindex == 0) {
+            // Interface is unknown or already removed
+            return;
+        }
+
+        try {
+            mDeps.destroyUdpSocket(info.src, info.dst, ifindex, info.cookie);
+        } catch (ErrnoException | SocketException | InterruptedIOException e) {
+            if (e instanceof ErrnoException && ((ErrnoException) e).errno == ENOENT) {
+                // This can happen if the socket is already closed but unregister or skDestroy
+                // messages are not yet processed.
+                return;
+            }
+            Log.e(TAG, "Failed to destroy QUIC socket for " + info + ": " + e);
+            return;
+        }
+
+        try {
+            mDeps.sendQuicConnectionClose(nai.network, info.src, info.dst, info.payload);
+        } catch (ErrnoException | IOException e) {
+            Log.e(TAG, "Failed to send registered QUIC connection close payload for "
+                    + info + ": " + e);
+        }
+    }
+
+    private void processUdpSocketDestroy(InetDiagMessage inetDiagMessage) {
+        // To avoid race with register/unregisterQuicConnectionClosePayload, this method must post
+        // to handler thread.
+        // Otherwise, message posted by register/unregisterQuicConnectionClosePayload could be
+        // processed after the below code even if the quic process call unregister before close the
+        // socket.
+        // This issue can be solved by posting to handler thread here since
+        // register/unregisterQuicConnectionClosePayload hold dup-ed fd when they post message to
+        // handler thread and socket can not be closed from kernel while dup-ed fe is hold
+        mHandler.post(() -> {
+            final long cookie = inetDiagMessage.inetDiagMsg.id.cookie;
+            final QuicConnectionInfo info = mRegisteredQuicConnectionCloseInfo.remove(cookie);
+            if (info == null) {
+                // Destroyed socket is not registered or already unregistered.
+                return;
+            }
+
+            final NetworkAgentInfo nai = getNetworkAgentInfoForNetId(info.netId);
+            if (skipSendQuicConnectionClose(nai, info)) {
+                return;
+            }
+
+            // App register quic connection close payload for this socket but socket
+            // is closed without unregistration.
+            // This can happen if the app is killed or crash
+            try {
+                Log.d(TAG, "Send QUIC connection close payload for closed socket, " + info);
+                mDeps.sendQuicConnectionClose(nai.network, info.src, info.dst, info.payload);
+            } catch (IOException | ErrnoException e) {
+                Log.e(TAG, "Failed to send registered QUIC connection close payload for "
+                        + info + ": " + e);
+            }
+        });
+    }
+
+    @Override
+    public void registerQuicConnectionClosePayload(ParcelFileDescriptor pfd) {
+        try {
+            if (!mCloseQuicConnection) {
+                return;
+            }
+
+            final FileDescriptor fd = pfd.getFileDescriptor();
+            final QuicConnectionInfo info = new QuicConnectionInfo(
+                    mDeps.getCallingUid(),
+                    mDeps.getSocketNetId(fd),
+                    mDeps.getSocketCookie(fd),
+                    mDeps.getSockName(fd),
+                    mDeps.getPeerName(fd),
+                    payload
+            );
+            if (info.cookie == 0) {
+                Log.e(TAG, "Failed to get socket cookie for "
+                        + "registering QUIC connection close payload");
+                return;
+            }
+
+            mHandler.post(() -> {
+                if (mRegisteredQuicConnectionCloseInfo.size()
+                        > MAX_REGISTERED_QUIC_CONNECTION_CLOSE_INFO) {
+                    Log.e(TAG, "Failed to register QUIC connection close payload."
+                            + " number of registered payload exceeded "
+                            + MAX_REGISTERED_QUIC_CONNECTION_CLOSE_INFO);
+                    return;
+                }
+                mRegisteredQuicConnectionCloseInfo.put(info.cookie, info);
+            });
+        } catch (ErrnoException e) {
+            Log.e(TAG, "Failed to register QUIC connection close payload: " + e);
+        } finally {
+            // pfd must be closed after post message on handler thread to avoid threading issue with
+            // SkDestroyListener.
+            // While keeping fd, skDestroyListener does not receive socket destroy message and thus
+            // message posted by skDestroyListener will be processed after this method's message
+            // will be processed.
+            IoUtils.closeQuietly(pfd);
+        }
+    }
+
+    @Override
+    public void unregisterQuicConnectionClosePayload(ParcelFileDescriptor pfd) {
+        try {
+            if (!mCloseQuicConnection) {
+                return;
+            }
+
+            final FileDescriptor fd = pfd.getFileDescriptor();
+            final long cookie = mDeps.getSocketCookie(fd);
+            if (cookie == 0) {
+                Log.e(TAG, "Failed to get socket cookie for "
+                        + "unregistering QUIC connection close payload");
+                return;
+            }
+
+            mHandler.post(() -> {
+                mRegisteredQuicConnectionCloseInfo.remove(cookie);
+            });
+
+        } finally {
+            // Must close fd after post message on handler thread to avoid threading issue with
+            // SkDestroyListener.
+            // While keeping fd, skDestroyListener does not receive socket destroy message and thus
+            // message posted by skDestroyListener will be processed after this method's message
+            // will be processed.
+            IoUtils.closeQuietly(pfd);
         }
     }
 }

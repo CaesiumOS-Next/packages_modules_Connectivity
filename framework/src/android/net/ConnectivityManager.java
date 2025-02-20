@@ -6830,4 +6830,28 @@ public class ConnectivityManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    /**
+     *
+     * @hide
+     */
+    public void registerQuicConnectionClosePayload(final ParcelFileDescriptor pfd,
+            final byte[] payload) {
+        try {
+            mService.registerQuicConnectionClosePayload(pfd, payload);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * @hide
+     */
+    public void unregisterQuicConnectionClosePayload(final ParcelFileDescriptor pfd) {
+        try {
+            mService.unregisterQuicConnectionClosePayload(pfd);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }
