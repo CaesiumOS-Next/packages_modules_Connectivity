@@ -24,16 +24,27 @@ import android.net.ConnectivityManager.BLOCKED_REASON_NONE
 import android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND
 import android.net.ConnectivityManager.FIREWALL_RULE_ALLOW
 import android.net.ConnectivityManager.FIREWALL_RULE_DENY
+import android.net.InetAddresses
+import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.os.ParcelFileDescriptor
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener
+import com.android.net.module.util.netlink.InetDiagMessage
+import com.android.net.module.util.netlink.StructInetDiagSockId
+import com.android.net.module.util.netlink.StructNlMsgHdr
 import com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
+import java.net.DatagramSocket
+import java.net.InetSocketAddress
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
+import org.mockito.ArgumentMatchers.argThat
+import org.mockito.ArgumentMatchers.eq
+import org.mockito.InOrder
 import org.mockito.Mockito.any
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.inOrder
@@ -44,6 +55,18 @@ private const val TIMESTAMP = 1234L
 private const val TEST_UID = 1234
 private const val TEST_UID2 = 5678
 private const val TEST_CELL_IFACE = "test_rmnet"
+private const val TEST_IFINDEX = 12
+private const val TEST_SOCKET_COOKIE = 12321L
+
+private val TEST_SRC_SOCKET_ADDRESS = InetSocketAddress(
+        InetAddresses.parseNumericAddress("2001:db8:1:2::2"),
+        1234
+)
+private val TEST_DST_SOCKET_ADDRESS = InetSocketAddress(
+        InetAddresses.parseNumericAddress("2001:db8:1:2::3"),
+        1234
+)
+private val TEST_PAYLOAD = byteArrayOf(0, 1, 2, 3, 4, 5)
 
 private fun cellNc() = NetworkCapabilities.Builder()
         .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
@@ -54,6 +77,17 @@ private fun cellNc() = NetworkCapabilities.Builder()
 
 private fun cellLp() = LinkProperties().also{
     it.interfaceName = TEST_CELL_IFACE
+}
+
+private fun wifiNc() = NetworkCapabilities.Builder()
+        .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+        .build()
+
+private fun wifiLp() = LinkProperties().also{
+    it.addLinkAddress(LinkAddress("2001:db8:1:2::2/64"))
 }
 
 @RunWith(DevSdkIgnoreRunner::class)
@@ -334,5 +368,258 @@ class CSDestroySocketTest : CSTest() {
                 enableBackgroundChain = false,
                 expectDestroySockets = false
         )
+    }
+
+    private fun setUpMockForRegisterQuicConnectionClosePayload(netId: Int) {
+        deps.callingUid = TEST_UID
+        deps.setSocketNetId(netId)
+        deps.setSocketCookie(TEST_SOCKET_COOKIE)
+        deps.setSockName(TEST_SRC_SOCKET_ADDRESS)
+        deps.setPeerName(TEST_DST_SOCKET_ADDRESS)
+    }
+
+    private fun expectRegisterQuicConnectionCloseInfo(inOrder: InOrder, netId: Int) {
+        inOrder.verify(quicConnectionCloser).handleRegisterQuicConnectionCloseInfo(
+                argThat {
+                    it.uid == TEST_UID &&
+                            it.netId == netId &&
+                            it.cookie == TEST_SOCKET_COOKIE &&
+                            it.src == TEST_SRC_SOCKET_ADDRESS &&
+                            it.dst == TEST_DST_SOCKET_ADDRESS &&
+                            it.payload.contentEquals(TEST_PAYLOAD)
+                }
+        )
+    }
+
+    private fun expectUnregisterQuicConnectionCloseInfo(inOrder: InOrder) {
+        inOrder.verify(quicConnectionCloser).handleUnregisterQuicConnectionCloseInfo(
+                TEST_SOCKET_COOKIE
+        )
+    }
+
+    private fun assertNoUnregisterQuicConnectionCloseInfo(inOrder: InOrder) {
+        inOrder.verify(quicConnectionCloser, never()).handleUnregisterQuicConnectionCloseInfo(
+                TEST_SOCKET_COOKIE
+        )
+    }
+
+    private fun expectCloseQuicConnectionByUids(inOrder: InOrder, netId: Int) {
+        inOrder.verify(quicConnectionCloser).closeQuicConnectionByUids(
+            eq(setOf(TEST_UID)),
+                argThat {
+                    it.contains(netId)
+                }
+        )
+    }
+
+    @Test
+    fun testRegisterQuicConnectionClosePayload_unregisterSocket() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegisterQuicConnectionClosePayload(wifiAgent.network.netId)
+        val inOrder = inOrder(quicConnectionCloser)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+        cm.unregisterQuicConnectionClosePayload(pfd)
+
+        val frozenStateCallback = getUidFrozenStateChangedCallback()
+        frozenStateCallback.onUidFrozenStateChanged(
+                intArrayOf(TEST_UID),
+                intArrayOf(UID_FROZEN_STATE_FROZEN)
+        )
+
+        waitForIdle()
+        expectRegisterQuicConnectionCloseInfo(inOrder, wifiAgent.network.netId)
+        expectUnregisterQuicConnectionCloseInfo(inOrder)
+        expectCloseQuicConnectionByUids(inOrder, wifiAgent.network.netId)
+    }
+
+    @Test
+    fun testRegisterQuicConnectionClosePayload_frozen() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegisterQuicConnectionClosePayload(wifiAgent.network.netId)
+        val inOrder = inOrder(quicConnectionCloser)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+
+        val frozenStateCallback = getUidFrozenStateChangedCallback()
+        frozenStateCallback.onUidFrozenStateChanged(
+                intArrayOf(TEST_UID),
+                intArrayOf(UID_FROZEN_STATE_FROZEN)
+        )
+
+        waitForIdle()
+        expectRegisterQuicConnectionCloseInfo(inOrder, wifiAgent.network.netId)
+        assertNoUnregisterQuicConnectionCloseInfo(inOrder)
+        expectCloseQuicConnectionByUids(inOrder, wifiAgent.network.netId)
+    }
+
+    @Test
+    fun testRegisterQuicConnectionClosePayload_appCrash() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegisterQuicConnectionClosePayload(wifiAgent.network.netId)
+        val inOrder = inOrder(quicConnectionCloser)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+
+        // When an app crashes or is killed, the socket is closed before
+        // unregisterQuicConnectionClosePayload is called.
+        // Send inetDiagMessage to simulate this socket close.
+        val inetDiagMessage = InetDiagMessage(StructNlMsgHdr())
+        inetDiagMessage.inetDiagMsg.id = StructInetDiagSockId(TEST_SRC_SOCKET_ADDRESS,
+                TEST_DST_SOCKET_ADDRESS, TEST_IFINDEX, TEST_SOCKET_COOKIE)
+        deps.skDestroyListenerCallback?.accept(inetDiagMessage)
+
+        waitForIdle()
+        expectRegisterQuicConnectionCloseInfo(inOrder, wifiAgent.network.netId)
+        assertNoUnregisterQuicConnectionCloseInfo(inOrder)
+        inOrder.verify(quicConnectionCloser).handleUdpSocketDestroy(
+            eq(inetDiagMessage),
+                argThat {
+                    it.contains(wifiAgent.network.netId)
+                }
+        )
+    }
+
+    @Test
+    fun testRegisterQuicConnectionClosePayload_firewallBackgroundChain() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegisterQuicConnectionClosePayload(wifiAgent.network.netId)
+        val inOrder = inOrder(quicConnectionCloser)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+
+        doReturn(BLOCKED_REASON_APP_BACKGROUND)
+                .`when`(bpfNetMaps).getUidNetworkingBlockedReasons(TEST_UID)
+        cm.setUidFirewallRule(
+                FIREWALL_CHAIN_BACKGROUND,
+                TEST_UID,
+                FIREWALL_RULE_DENY
+        )
+
+        waitForIdle()
+        expectRegisterQuicConnectionCloseInfo(inOrder, wifiAgent.network.netId)
+        assertNoUnregisterQuicConnectionCloseInfo(inOrder)
+        expectCloseQuicConnectionByUids(inOrder, wifiAgent.network.netId)
+    }
+
+    @Test
+    fun testRegisterQuicConnectionClosePayload_unregisterNetwork() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegisterQuicConnectionClosePayload(wifiAgent.network.netId)
+        val inOrder = inOrder(quicConnectionCloser)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+
+        wifiAgent.disconnect()
+
+        val frozenStateCallback = getUidFrozenStateChangedCallback()
+        frozenStateCallback.onUidFrozenStateChanged(
+                intArrayOf(TEST_UID),
+                intArrayOf(UID_FROZEN_STATE_FROZEN)
+        )
+
+        waitForIdle()
+        expectRegisterQuicConnectionCloseInfo(inOrder, wifiAgent.network.netId)
+        assertNoUnregisterQuicConnectionCloseInfo(inOrder)
+        // Ensures closeQuicConnectionByUids is called without the wifiAgent information
+        inOrder.verify(quicConnectionCloser).closeQuicConnectionByUids(
+            eq(setOf(TEST_UID)),
+                argThat {
+                    !it.contains(wifiAgent.network.netId)
+                }
+        )
+    }
+
+    @Test
+    fun testRegisterQuicConnectionClosePayload_interfaceAddressChange() {
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+        setUpMockForRegisterQuicConnectionClosePayload(wifiAgent.network.netId)
+        val inOrder = inOrder(quicConnectionCloser)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+
+        // Update address to different address from TEST_SRC_SOCKET_ADDRESS
+        wifiAgent.sendLinkProperties(
+                LinkProperties().also{
+                    it.addLinkAddress(LinkAddress("2001:db8:1:2::7/64"))
+                }
+        )
+
+        val frozenStateCallback = getUidFrozenStateChangedCallback()
+        frozenStateCallback.onUidFrozenStateChanged(
+                intArrayOf(TEST_UID),
+                intArrayOf(UID_FROZEN_STATE_FROZEN)
+        )
+
+        waitForIdle()
+        expectRegisterQuicConnectionCloseInfo(inOrder, wifiAgent.network.netId)
+        assertNoUnregisterQuicConnectionCloseInfo(inOrder)
+        // Ensures closeQuicConnectionByUids is called with Wi-Fi NetworkAgentInfo which does not
+        // have TEST_SRC_SOCKET_ADDRESS.address
+        inOrder.verify(quicConnectionCloser).closeQuicConnectionByUids(
+            eq(setOf(TEST_UID)),
+                argThat {
+                    !it.get(wifiAgent.network.netId).linkProperties
+                            .addresses.contains(TEST_SRC_SOCKET_ADDRESS.address)
+                }
+        )
+    }
+
+    @Test
+    fun testRegisterQuicConnectionClosePayload_defaultNetworkChangeFromCellToWifi() {
+        val netdEventListener = getRegisteredNetdUnsolicitedEventListener()
+        val frozenStateCallback = getUidFrozenStateChangedCallback()
+
+        val cellAgent = Agent(nc = cellNc(), lp = cellLp())
+        cellAgent.connect()
+        setUpMockForRegisterQuicConnectionClosePayload(cellAgent.network.netId)
+
+        val inOrder = inOrder(quicConnectionCloser)
+
+        val socket = DatagramSocket()
+        val pfd = ParcelFileDescriptor.fromDatagramSocket(socket)
+        cm.registerQuicConnectionClosePayload(pfd, TEST_PAYLOAD)
+
+        // Make cell default network idle
+        netdEventListener.onInterfaceClassActivityChanged(
+                false, // isActive
+                cellAgent.network.netId,
+                TIMESTAMP,
+                TEST_UID
+        )
+
+        // Freeze TEST_UID
+        frozenStateCallback.onUidFrozenStateChanged(
+                intArrayOf(TEST_UID),
+                intArrayOf(UID_FROZEN_STATE_FROZEN)
+        )
+
+        waitForIdle()
+        expectRegisterQuicConnectionCloseInfo(inOrder, cellAgent.network.netId)
+        inOrder.verify(quicConnectionCloser, never()).closeQuicConnectionByUids(any(), any())
+
+        // Default network is switched to Wi-Fi network
+        val wifiAgent = Agent(nc = wifiNc(), lp = wifiLp())
+        wifiAgent.connect()
+
+        expectCloseQuicConnectionByUids(inOrder, cellAgent.network.netId)
     }
 }
