@@ -264,4 +264,10 @@ interface IConnectivityManager
     long getEnabledConnectivityManagerFeatures();
 
     boolean isConnectivityServiceFeatureEnabledForTesting(String featureFlag);
+
+   // These methods are intentionally oneway to prevent blocking the calling QUIC process.
+   // They are called on every QUIC connection establishment and teardown,
+   oneway void registerQuicConnectionClosePayload(in ParcelFileDescriptor pfd,
+           in byte[] payload);
+   oneway void unregisterQuicConnectionClosePayload(in ParcelFileDescriptor pfd);
 }

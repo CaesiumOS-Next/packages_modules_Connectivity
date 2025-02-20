@@ -6830,4 +6830,48 @@ public class ConnectivityManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    /**
+     * Register QUIC UDP socket and UDP payload that can close QUIC connection.
+     * When the caller uid loses network access (e.g. due to freezer or firewall chain),
+     * ConnectivityService destroys registered UDP socket by sending SOCK_DESTROY netlink message
+     * and sends registered UDP payload to the server. This prevents unnecessary modem wakeups
+     * caused by packets from server after apps lose network access.
+     * To close QUIC connection for apps that crash or are killed, ConnectivityService also closes
+     * QUIC connection when it receives socket destroy diag message for registered socket.
+     * If QUIC stacks call this method, they must call
+     * {@link #unregisterQuicConnectionClosePayload} before closing QUIC connection and socket.
+     * Otherwise, registered payload will be send to the server when the socket is closed.
+     *
+     * @param pfd The {@link ParcelFileDescriptor} for UDP socket. UDP socket must be connected.
+     *            Registered payload will be sent with source address and destination address of
+     *            this connected UDP socket.
+     * @param payload UDPpayload that closes QUIC connection.
+     *
+     * @hide
+     */
+    public void registerQuicConnectionClosePayload(final ParcelFileDescriptor pfd,
+            final byte[] payload) {
+        try {
+            mService.registerQuicConnectionClosePayload(pfd, payload);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Unregister QUIC socket that is registered by {@link #registerQuicConnectionClosePayload}
+     * This method is no-op if this is called with UDP socket that is not registered.
+     *
+     * @param pfd The {@link ParcelFileDescriptor} for UDP socket.
+     *
+     * @hide
+     */
+    public void unregisterQuicConnectionClosePayload(final ParcelFileDescriptor pfd) {
+        try {
+            mService.unregisterQuicConnectionClosePayload(pfd);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }
