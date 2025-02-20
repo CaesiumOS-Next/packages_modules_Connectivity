@@ -67,6 +67,9 @@ apex {
     bootclasspath_fragments: [
         "com.android.tethering-bootclasspath-fragment",
     ],
+    java_libs: [
+        "service-networkstack",
+    ],
     systemserverclasspath_fragments: [
         "com.android.tethering-systemserverclasspath-fragment",
     ],
@@ -76,6 +79,7 @@ apex {
                 "libservice-connectivity",
                 "libservice-thread-jni",
                 "libandroid_net_connectivity_com_android_net_module_util_jni",
+                "libnetworkstackutilsjni",
             ],
             native_shared_libs: [
                 "libcom.android.tethering.dns_helper",
@@ -126,6 +130,35 @@ apex {
     compat_configs: [
         "connectivity-platform-compat-config",
     ],
+}
+
+java_genrule {
+    name: "ServiceNetworkStackJarJarRules",
+    defaults: ["jarjar-rules-combine-defaults"],
+    srcs: [
+        // Would need connectivity jarjar rules if using static libs from there
+        // ":connectivity-jarjar-rules",
+        ":NetworkStackJarJarRules",
+    ],
+    out: ["service-networkstack-jarjar-rules.txt"],
+    visibility: ["//visibility:private"],
+}
+
+java_library {
+    name: "service-networkstack",
+    min_sdk_version: "30",
+    sdk_version: "module_current",
+    static_libs: ["NetworkStackMinusLibs"],
+    jarjar_rules: ":ServiceNetworkStackJarJarRules",
+    optimize: {
+        enabled: true,
+        shrink: true,
+        // optimize: true,
+        proguard_flags_files: ["networkstack-proguard.flags"],
+    },
+    compile_dex: true,
+    apex_available: ["com.android.tethering"],
+    visibility: ["//visibility:private"],
 }
 
 apex_key {

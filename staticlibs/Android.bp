@@ -467,6 +467,8 @@ java_library {
     ],
     visibility: [
         "//packages/modules/Connectivity/framework",
+        // For NetworkStackMinusLibs
+        "//packages/modules/NetworkStack",
     ],
     libs: [
         "androidx.annotation_annotation",
@@ -532,6 +534,8 @@ java_library {
     visibility: [
         "//packages/modules/Connectivity/service",
         "//packages/modules/Connectivity/staticlibs/tests/unit",
+        // For NetworkStackMinusLibs
+        "//packages/modules/NetworkStack",
     ],
 }
 
@@ -558,6 +562,7 @@ java_library {
     jarjar_rules: "jarjar-rules-shared.txt",
     visibility: [
         "//packages/modules/CaptivePortalLogin:__subpackages__",
+        "//packages/modules/NetworkStack:__subpackages__",
         "//packages/modules/Connectivity/Tethering",
     ],
 }
