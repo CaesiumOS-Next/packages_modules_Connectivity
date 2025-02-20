@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2cf4fd10_1880294a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-20T07:14:41Z",
+      "side": 1,
+      "message": "Nit: It is not still not clear to me why passing consumer is needed while I know it will be used to monitor quic socket close though. I does not know the relationship between the two.\nFeel free to ignore.",
+      "parentUuid": "f3fbadab_6e5f7976",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "d5b85d964675b37d75540a71af16853ee345df93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f536376b_e1e38f3d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -228,6 +252,30 @@
         "startChar": 78,
         "endLine": 49,
         "endChar": 85
+      },
+      "revId": "d5b85d964675b37d75540a71af16853ee345df93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0fbe5c6_ff18623c",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-20T07:14:41Z",
+      "side": 1,
+      "message": "Nit: maybe add @NonNull?\nFeel free to ignore.",
+      "parentUuid": "3fec0db1_b91c599a",
+      "range": {
+        "startLine": 49,
+        "startChar": 54,
+        "endLine": 49,
+        "endChar": 62
       },
       "revId": "d5b85d964675b37d75540a71af16853ee345df93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
