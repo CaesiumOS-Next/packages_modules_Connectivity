@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19ac13f5_903a9286",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-20T02:07:24Z",
+      "side": 1,
+      "message": "Failures unrelated to this stack, the failure cause has already been reverted.",
+      "revId": "cf0655c78a289c595427d593118a117f5c38c1cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
