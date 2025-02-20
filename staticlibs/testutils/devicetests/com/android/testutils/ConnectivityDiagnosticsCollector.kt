@@ -42,11 +42,14 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.modules.utils.build.SdkLevel.isAtLeastS
+import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
 import java.io.CharArrayWriter
 import java.io.File
 import java.io.FileOutputStream
 import java.io.FileReader
+import java.io.IOException
+import java.io.InputStreamReader
 import java.io.OutputStream
 import java.io.OutputStreamWriter
 import java.io.PrintWriter
@@ -79,6 +82,7 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
         private const val COLLECTOR_DIR = "run_listeners/connectivity_diagnostics"
         private const val FILENAME_SUFFIX = "_conndiag.txt"
         private const val MAX_DUMPS = 20
+        private const val TCPDUMP_WAIT_FOR_START_TIMEOUT_MS = 1000L
 
         private val TAG = ConnectivityDiagnosticsCollector::class.simpleName
         @JvmStatic
@@ -216,10 +220,11 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
         }
         // executeShellCommand won't tokenize quoted arguments containing spaces (like pcap filters)
         // properly, so pass in the command in stdin instead of using sh -c 'command'
-        val fds = instrumentation.uiAutomation.executeShellCommandRw("sh")
+        val fds = instrumentation.uiAutomation.executeShellCommandRwe("sh")
 
         val stdout = fds[0]
         val stdin = fds[1]
+        val stderr = fds[2]
         ParcelFileDescriptor.AutoCloseOutputStream(stdin).use { writer ->
             // Echo the current pid, and replace it (with exec) with the tcpdump process, so the
             // tcpdump pid is known.
@@ -232,6 +237,31 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
         val dumpThread = DumpThread(stdout, reader)
         dumpThread.start()
         tcpdumpRun = TcpdumpRun(tcpdumpPid, dumpThread)
+        waitForTcpdumpStart(stderr)
+    }
+
+    private fun waitForTcpdumpStart(stderr: ParcelFileDescriptor) {
+        // Wait for at least 1 char read from stderr, with a timeout.
+        // The input is the verbose message printed by tcpdump, such as "listening on ...".
+        // This is to wait for tcpdump runs before test starts.
+        val stderrReader = BufferedReader(InputStreamReader(
+                ParcelFileDescriptor.AutoCloseInputStream(stderr)
+        ))
+        try {
+            val startTime = System.nanoTime()
+            while (System.nanoTime() - startTime
+                    < TimeUnit.MILLISECONDS.toNanos(TCPDUMP_WAIT_FOR_START_TIMEOUT_MS)) {
+                if (stderrReader.ready()) {
+                    break // Return as soon as any data is available.
+                }
+                Thread.sleep(10) // Small delay to avoid busy-waiting
+            }
+            Log.w(TAG, "Timeout waiting for tcpdump stderr output.")
+        } catch (e: IOException) {
+            Log.e(TAG, "Error reading from stderr: $e")
+        } finally {
+            stderrReader.close()
+        }
     }
 
     private fun stopTcpdumpIfRunning(output: OutputStream?) {
