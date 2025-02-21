@@ -16,6 +16,24 @@
       "message": "Seems like there\u0027s some lint issues?",
       "revId": "a1d0988dafa2243571f767d779802054441104ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1085595d_e77f991d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-21T19:58:01Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "6b92966f_8939ccbc",
+      "revId": "a1d0988dafa2243571f767d779802054441104ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
