@@ -22,6 +22,30 @@
       },
       "revId": "033d461f23932940620cbbfa66155890dac61956",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2694d221_8dddc899",
+        "filename": "service-t/src/com/android/server/net/SkDestroyListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-21T00:28:49Z",
+      "side": 1,
+      "message": "SkDestroyListener only monitors socket destroy event since bindGroups are specified.\nSo the consumer will be executed for all inetDiagMessage SkDestroyListener receives.\nIf you mean this consumer is not executed for other bindGroups\u0027 inetDiagMessage, that\u0027s true. \nI have renamed to mSkDestroyCallback.",
+      "parentUuid": "b4b835b7_9b2b378e",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 68
+      },
+      "revId": "033d461f23932940620cbbfa66155890dac61956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
