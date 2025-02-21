@@ -46,6 +46,7 @@ java_defaults {
     ],
     jarjar_rules: "jarjar-rules-shared.txt",
     static_libs: [
+        "androidx.browser_browser",
         "ApfGeneratorLib",
         "bouncycastle-unbundled",
         "FrameworksNetCommonTests",

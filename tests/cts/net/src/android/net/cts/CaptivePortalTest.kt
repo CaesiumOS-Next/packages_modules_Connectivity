@@ -42,13 +42,17 @@ import android.provider.DeviceConfig
 import android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY
 import android.text.TextUtils
 import android.util.Log
+import androidx.browser.customtabs.CustomTabsClient
+import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.AndroidJUnit4
 import com.android.net.module.util.NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTPS_URL
 import com.android.net.module.util.NetworkStackConstants.TEST_CAPTIVE_PORTAL_HTTP_URL
 import com.android.testutils.AutoReleaseNetworkCallbackRule
+import com.android.testutils.com.android.testutils.SetFeatureFlagsRule
 import com.android.testutils.DeviceConfigRule
 import com.android.testutils.RecorderCallback.CallbackEntry.CapabilitiesChanged
+import com.android.testutils.RequestDismissKeyguardActivity
 import com.android.testutils.SkipMainlinePresubmit
 import com.android.testutils.TestHttpServer
 import com.android.testutils.TestHttpServer.Request
@@ -105,6 +109,24 @@ class CaptivePortalTest {
     val deviceConfigRule = DeviceConfigRule(retryCountBeforeSIfConfigChanged = 5)
 
     @get:Rule(order = 2)
+    val featureFlagsRule = SetFeatureFlagsRule(
+        setFlagsMethod = { name, enabled ->
+            val value = when (enabled) {
+                null -> null
+                true -> "1"
+                false -> "0"
+            }
+            Log.d(TAG, "name: " + name + " enabled ? " + enabled + " value: " + value)
+            deviceConfigRule.setConfig(DeviceConfig.NAMESPACE_CAPTIVEPORTALLOGIN, name, value)
+        },
+        getFlagsMethod = {
+            runAsShell(READ_DEVICE_CONFIG) {
+                DeviceConfig.getInt(DeviceConfig.NAMESPACE_CAPTIVEPORTALLOGIN, it, 0) == 1
+            }
+        }
+    )
+
+    @get:Rule(order = 3)
     val networkCallbackRule = AutoReleaseNetworkCallbackRule()
 
     companion object {
@@ -130,6 +152,9 @@ class CaptivePortalTest {
     @Before
     fun setUp() {
         server.start()
+        // Keep the screen on during the testing, otherwise, the navigation callback used for custom
+        // tabs won't be received when the screen is off.
+        ActivityScenario.launch(RequestDismissKeyguardActivity::class.java)
     }
 
     @After
@@ -140,12 +165,7 @@ class CaptivePortalTest {
         server.stop()
     }
 
-    @Test
-    @SkipMainlinePresubmit(reason = "Out of SLO flakiness")
-    fun testCaptivePortalIsNotDefaultNetwork() {
-        assumeTrue(pm.hasSystemFeature(FEATURE_TELEPHONY))
-        assumeTrue(pm.hasSystemFeature(FEATURE_WIFI))
-        assumeFalse(pm.hasSystemFeature(FEATURE_WATCH))
+    private fun runCaptivePortalIsNotDefaultNetworkTest() {
         utils.ensureWifiConnected()
         val cellNetwork = networkCallbackRule.requestCell()
 
@@ -214,6 +234,34 @@ class CaptivePortalTest {
             cm.unregisterNetworkCallback(wifiCb)
             server.stop()
         }
+    }
+
+    @SetFeatureFlagsRule.FeatureFlag("captive_portal_custom_tabs", false)
+    @Test
+    @SkipMainlinePresubmit(reason = "Out of SLO flakiness")
+    fun testCaptivePortalIsNotDefaultNetwork() {
+        assumeTrue(pm.hasSystemFeature(FEATURE_TELEPHONY))
+        assumeTrue(pm.hasSystemFeature(FEATURE_WIFI))
+        assumeFalse(pm.hasSystemFeature(FEATURE_WATCH))
+
+        runCaptivePortalIsNotDefaultNetworkTest()
+    }
+
+    private fun isCustomTabsSupported(): Boolean {
+        val defaultPackageName = CustomTabsClient.getPackageName(context, null /* packages */)
+        return defaultPackageName != null
+                && CustomTabsClient.isSetNetworkSupported(context, defaultPackageName)
+    }
+
+    @SetFeatureFlagsRule.FeatureFlag(name = "captive_portal_custom_tabs", enabled = true)
+    @Test
+    fun testCaptivePortalIsNotDefaultNetwork_runWithCustomTabs() {
+        assumeTrue(isCustomTabsSupported())
+        assumeTrue(pm.hasSystemFeature(FEATURE_TELEPHONY))
+        assumeTrue(pm.hasSystemFeature(FEATURE_WIFI))
+        assumeFalse(pm.hasSystemFeature(FEATURE_WATCH))
+
+        runCaptivePortalIsNotDefaultNetworkTest()
     }
 
     /**
