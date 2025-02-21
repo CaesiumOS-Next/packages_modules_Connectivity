@@ -16,6 +16,7 @@
 
 package android.net.cts;
 
+import android.net.InetAddresses;
 import android.net.NetworkStats;
 import android.net.TrafficStats;
 import android.os.Process;
@@ -29,6 +30,7 @@ import com.android.testutils.ConnectivityDiagnosticsCollector;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.CountDownLatch;
@@ -126,11 +128,12 @@ public class TrafficStatsTest extends AndroidTestCase {
 
         TrafficStats.startDataProfiling(null);
         final ServerSocket server = new ServerSocket(0);
-        new Thread("TrafficStatsTest.testTrafficStatsForLocalhost") {
+        final Thread serverThread = new Thread("TrafficStatsTest.testTrafficStatsForLocalhost") {
             @Override
             public void run() {
                 try {
-                    final Socket socket = new Socket("localhost", server.getLocalPort());
+                    final InetAddress localAddr = InetAddresses.parseNumericAddress("127.0.0.1");
+                    final Socket socket = new Socket(localAddr, server.getLocalPort());
                     // Make sure that each write()+flush() turns into a packet:
                     // disable Nagle.
                     socket.setTcpNoDelay(true);
@@ -154,7 +157,8 @@ public class TrafficStatsTest extends AndroidTestCase {
                     Log.i(LOG_TAG, "Badness during writes to socket: " + e);
                 }
             }
-        }.start();
+        };
+        serverThread.start();
 
         int read = 0;
         try {
@@ -171,6 +175,11 @@ public class TrafficStatsTest extends AndroidTestCase {
             }
         } finally {
             server.close();
+            try {
+                serverThread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         assertTrue("Not all data read back", read >= byteCount * packetCount);
 
