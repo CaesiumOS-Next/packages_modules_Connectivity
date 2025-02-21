@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84b4c99_d2982563",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-21T23:13:20Z",
+      "side": 1,
+      "message": "well, as it turns out, it\u0027s not so useful for my original intent as I can\u0027t actually run an IpClient, even on a test interface. Nevertheless, this will let me clean up the existing tests (eventually).",
+      "revId": "fe058c60b4e5eea048d94da920f576b22fd282d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
