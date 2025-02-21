@@ -16,6 +16,7 @@
 
 package android.net.cts;
 
+import android.net.InetAddresses;
 import android.net.NetworkStats;
 import android.net.TrafficStats;
 import android.os.Process;
@@ -29,6 +30,7 @@ import com.android.testutils.ConnectivityDiagnosticsCollector;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.CountDownLatch;
@@ -130,7 +132,8 @@ public class TrafficStatsTest extends AndroidTestCase {
             @Override
             public void run() {
                 try {
-                    final Socket socket = new Socket("localhost", server.getLocalPort());
+                    final InetAddress localAddr = InetAddresses.parseNumericAddress("127.0.0.1");
+                    final Socket socket = new Socket(localAddr, server.getLocalPort());
                     // Make sure that each write()+flush() turns into a packet:
                     // disable Nagle.
                     socket.setTcpNoDelay(true);
