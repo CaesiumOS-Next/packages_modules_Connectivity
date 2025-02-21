@@ -34,6 +34,24 @@
       "parentUuid": "ea67c309_c8073df3",
       "revId": "e636dcd9e3330758f107cf5097021e0be2ff65c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb115f9c_26343b1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-21T19:00:53Z",
+      "side": 1,
+      "message": "\u003e what does the kernel actually do when IFF_MULTICAST is set / not set?\n\nThis seems to be mostly up to the particular driver. Some drivers seem to enable / disable multicast filtering based on IFF_MULTICAST. The only other part where it is used is addrconf.c, where a node only joins the all routers multicast group if forwarding is on and IFF_MULTICAST is set.\n\nhttps://source.corp.google.com/h/prodkernel/kernel/upstream/torvalds/linux-2.6/+/master:net/ipv4/igmp.c;l\u003d1149\n\n\u003e what interfaces have IFF_POINTOPOINT set\n\nIt seems various forms of tunnels.\n\nAs an alternative, I could consider removing IFF_POINTOPOINT from the tun. Though this patch still seems correct to me. That being said, if you\u0027d prefer rolling this out behind a flag, we could exempt TRANSPORT_BLUETOOTH \u0026\u0026 IFF_MULTICAST or something.",
+      "parentUuid": "a31312c8_4280b216",
+      "revId": "e636dcd9e3330758f107cf5097021e0be2ff65c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
