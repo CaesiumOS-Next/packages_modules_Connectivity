@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a84e8b88_ba61c845",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-21T22:53:58Z",
+      "side": 1,
+      "message": "You could argue that this should exclude all VPN interfaces (though that\u0027s a separate change):\n\n```\nif (CollectionUtils.contains(transports, TRANSPORT_VPN)) return false;\nif (CollectionUtils.contains(transports, TRANSPORT_WIFI)) return true;\n```",
+      "range": {
+        "startLine": 571,
+        "startChar": 0,
+        "endLine": 576,
+        "endChar": 13
+      },
+      "revId": "5884120e05e008fefbfa5c6e1eaed3b1b12d15a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
