@@ -564,7 +564,7 @@ public class MdnsSocketProvider {
             // Never try mDNS on cellular, or on interfaces with incompatible flags
             if (CollectionUtils.contains(transports, TRANSPORT_CELLULAR)
                     || iface.isLoopback()
-                    || iface.isPointToPoint()
+                    || !iface.supportsMulticast()
                     || iface.isVirtual()
                     || !iface.isUp()) {
                 return false;
