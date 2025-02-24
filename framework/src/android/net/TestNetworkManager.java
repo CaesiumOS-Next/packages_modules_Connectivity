@@ -198,51 +198,6 @@ public class TestNetworkManager {
     }
 
     /**
-     * Create a tap interface with a given interface name for testing purposes
-     *
-     * @param bringUp whether to bring up the interface before returning it.
-     * @param iface interface name to be assigned, so far only interface name which starts with
-     *              "v4-testtap" or "v4-testtun" is allowed to be created. If it's null, then use
-     *              the default name(e.g. testtap or testtun).
-     *
-     * @return A ParcelFileDescriptor of the underlying TAP interface. Close this to tear down the
-     *     TAP interface.
-     * @hide
-     */
-    @RequiresPermission(Manifest.permission.MANAGE_TEST_NETWORKS)
-    @NonNull
-    public TestNetworkInterface createTapInterface(boolean bringUp, @NonNull String iface) {
-        try {
-            return mService.createInterface(TAP, CARRIER_UP, bringUp, USE_IPV6_PROV_DELAY,
-                    NO_ADDRS, iface);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
-    }
-
-    /**
-     * Create a tap interface for testing purposes.
-     *
-     * Note: setting carrierUp = false is not supported until kernel version 6.0.
-     *
-     * @param carrierUp whether the created interface has a carrier or not.
-     * @param bringUp whether to bring up the interface before returning it.
-     * @param disableIpv6ProvisioningDelay whether to disable DAD and RS delay.
-     * @hide
-     */
-    @RequiresPermission(Manifest.permission.MANAGE_TEST_NETWORKS)
-    @NonNull
-    public TestNetworkInterface createTapInterface(boolean carrierUp, boolean bringUp,
-            boolean disableIpv6ProvisioningDelay) {
-        try {
-            return mService.createInterface(TAP, carrierUp, bringUp, disableIpv6ProvisioningDelay,
-                    NO_ADDRS, null /* iface */);
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
-    }
-
-    /**
      * Enable / disable carrier on TestNetworkInterface
      *
      * Note: TUNSETCARRIER is not supported until kernel version 5.0.
