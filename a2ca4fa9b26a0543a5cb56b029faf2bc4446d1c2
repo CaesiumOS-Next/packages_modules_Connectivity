@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4308651_6063fe10",
+        "filename": "framework/jni/android_net_NetworkUtils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-24T09:58:17Z",
+      "side": 1,
+      "message": "1. Is it feasible to use NetdClient:getNetworkForSocket directly?\n2. Stupid question: why we don\u0027t need to get mark from fwmarkserver as the setNetworkForSocket needed?",
+      "range": {
+        "startLine": 277,
+        "startChar": 45,
+        "endLine": 277,
+        "endChar": 49
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "000a9b48_8dd49bf8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework/jni/android_net_NetworkUtils.cpp",
+              "range": {
+                "startLine": 269,
+                "startChar": 0,
+                "endLine": 284,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "framework/jni/android_net_NetworkUtils.cpp",
+              "range": {
+                "startLine": 310,
+                "startChar": 0,
+                "endLine": 311,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "a2ca4fa9b26a0543a5cb56b029faf2bc4446d1c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce0abdaa_08a5c72b",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-24T09:58:17Z",
+      "side": 1,
+      "message": "1. style: s/e/e./ ?\nalso for below.\n\n2. For people doesn\u0027t really know what it is, is there any short description we can provide or reference links for people to understand this \"cookie\" easily?\ne.g. Returns socket cookie, which is .....\nSee xxxx for detailed information.",
+      "range": {
+        "startLine": 448,
+        "startChar": 27,
+        "endLine": 448,
+        "endChar": 28
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b113a56c_55bb8adf",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/NetworkUtils.java",
+              "range": {
+                "startLine": 448,
+                "startChar": 0,
+                "endLine": 449,
+                "endChar": 0
+              },
+              "replacement": "     * Returns socket cookie.\n     *\n     * Socket cookie is a unique identifier for a socket. It is used by the kernel to track the\n     * socket and its associated network statistics.\n"
+            },
+            {
+              "path": "framework/src/android/net/NetworkUtils.java",
+              "range": {
+                "startLine": 456,
+                "startChar": 0,
+                "endLine": 457,
+                "endChar": 0
+              },
+              "replacement": "     * Returns network id the socket uses.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a2ca4fa9b26a0543a5cb56b029faf2bc4446d1c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f9daab0_7da3eb9d",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-24T09:58:17Z",
+      "side": 1,
+      "message": "It seems to me the naming style doesn\u0027t matche the local naming style.\nIs it better to name it getNetworkForSocket or something more suitable?",
+      "range": {
+        "startLine": 462,
+        "startChar": 38,
+        "endLine": 462,
+        "endChar": 43
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "8d2a7058_df66f672",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/NetworkUtils.java",
+              "range": {
+                "startLine": 462,
+                "startChar": 0,
+                "endLine": 463,
+                "endChar": 0
+              },
+              "replacement": "    public static native int getNetworkForSocket(FileDescriptor fd) throws ErrnoException;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a2ca4fa9b26a0543a5cb56b029faf2bc4446d1c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
