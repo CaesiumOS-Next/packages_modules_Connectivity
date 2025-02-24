@@ -16,6 +16,24 @@
       "message": "I hope... that this doesn\u0027t break CTS on older devices...",
       "revId": "61b68f81e97567caa4273ec9d5a39a1b4d15eef4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2ac6b4a_a9adeea5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-02-24T21:37:24Z",
+      "side": 1,
+      "message": "It really shouldn\u0027t be... This change is for CTS 16 or MCTS, in both case, LegacyApfFilter won\u0027t exist. But, will see....",
+      "parentUuid": "cfd75650_cbe1a902",
+      "revId": "61b68f81e97567caa4273ec9d5a39a1b4d15eef4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
