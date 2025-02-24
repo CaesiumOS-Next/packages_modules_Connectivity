@@ -266,6 +266,19 @@ public final class BpfNetMapsTest {
 
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    public void testAddLocalNetAccessWithNullInterfaceAfterV() throws Exception {
+        assertTrue(mLocalNetAccessMap.isEmpty());
+
+        // wlan2 is an incorrect interface
+        mBpfNetMaps.addLocalNetAccess(160, null,
+                Inet4Address.getByName("196.68.0.0"), 0, 0, true);
+
+        // As we tried to add incorrect interface, it would be skipped and map should be empty.
+        assertTrue(mLocalNetAccessMap.isEmpty());
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     public void testAddLocalNetAccessAfterVWithIncorrectInterface() throws Exception {
         assertTrue(mLocalNetAccessMap.isEmpty());
 
@@ -299,6 +312,13 @@ public final class BpfNetMapsTest {
         assertFalse(mBpfNetMaps.getLocalNetAccess(160, TEST_IF_NAME,
                 Inet4Address.getByName("196.68.0.0"), 0, 0));
         assertTrue(mBpfNetMaps.getLocalNetAccess(160, TEST_IF_NAME,
+                Inet4Address.getByName("100.68.0.0"), 0, 0));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    public void testGetLocalNetAccessWithNullInterfaceAfterV() throws Exception {
+        assertTrue(mBpfNetMaps.getLocalNetAccess(160, null,
                 Inet4Address.getByName("100.68.0.0"), 0, 0));
     }
 
@@ -344,6 +364,25 @@ public final class BpfNetMapsTest {
                 Inet4Address.getByName("100.68.0.0"), 0, 0)));
 
         mBpfNetMaps.removeLocalNetAccess(160, "wlan2",
+                Inet4Address.getByName("196.68.0.0"), 0, 0);
+        assertNotNull(mLocalNetAccessMap.getValue(new LocalNetAccessKey(160, TEST_IF_INDEX,
+                Inet4Address.getByName("196.68.0.0"), 0, 0)));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    public void testRemoveLocalNetAccessAfterVWithNullInterface() throws Exception {
+        assertTrue(mLocalNetAccessMap.isEmpty());
+
+        mBpfNetMaps.addLocalNetAccess(160, TEST_IF_NAME,
+                Inet4Address.getByName("196.68.0.0"), 0, 0, true);
+
+        assertNotNull(mLocalNetAccessMap.getValue(new LocalNetAccessKey(160, TEST_IF_INDEX,
+                Inet4Address.getByName("196.68.0.0"), 0, 0)));
+        assertNull(mLocalNetAccessMap.getValue(new LocalNetAccessKey(160, TEST_IF_INDEX,
+                Inet4Address.getByName("100.68.0.0"), 0, 0)));
+
+        mBpfNetMaps.removeLocalNetAccess(160, null,
                 Inet4Address.getByName("196.68.0.0"), 0, 0);
         assertNotNull(mLocalNetAccessMap.getValue(new LocalNetAccessKey(160, TEST_IF_INDEX,
                 Inet4Address.getByName("196.68.0.0"), 0, 0)));
