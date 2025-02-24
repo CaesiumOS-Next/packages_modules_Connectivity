@@ -300,6 +300,15 @@ java_library {
     name: "service-connectivity",
     defaults: ["service-connectivity-defaults"],
     installable: true,
+    dex_preopt: {
+        // The profile is updated monthly with the bootclasspath/system_server
+        // profiles based on the data from Dogfooders, and before mainline
+        // releases. go/boot-image-profiles.
+        profile: select(release_flag("RELEASE_SERVICE_CONNECTIVITY_SPEED_PROFILE_ART_COMPILATION"), {
+            true: "art-profile",
+            false: "",
+        }),
+    },
 }
 
 java_library_static {
