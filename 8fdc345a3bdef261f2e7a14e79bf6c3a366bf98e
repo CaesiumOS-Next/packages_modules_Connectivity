@@ -16,6 +16,23 @@
       "message": "So the flag has finished its rollout?",
       "revId": "8fdc345a3bdef261f2e7a14e79bf6c3a366bf98e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aa1630a_b41284b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-02-24T02:47:55Z",
+      "side": 1,
+      "message": "Could you confirm that this step is only effective in manual tests instead of any automated tests?",
+      "revId": "8fdc345a3bdef261f2e7a14e79bf6c3a366bf98e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
