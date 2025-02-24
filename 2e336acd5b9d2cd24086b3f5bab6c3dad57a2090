@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fdf0115_7d2071d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-24T21:11:11Z",
+      "side": 1,
+      "message": "it feels to me like there should be nonnull annotations and/or checks earlier in the functions that call this???",
+      "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
