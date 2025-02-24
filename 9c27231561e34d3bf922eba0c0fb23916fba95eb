@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "299869b4_b8640209",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-24T09:39:06Z",
+      "side": 1,
+      "message": "Stupid question: does this information uniquely identify the socket? If so, how?\nOr this method close all sockets who matches the information? If so, maybe describe it.",
+      "range": {
+        "startLine": 491,
+        "startChar": 47,
+        "endLine": 491,
+        "endChar": 58
+      },
+      "revId": "9c27231561e34d3bf922eba0c0fb23916fba95eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "534bc61c_b20d9d38",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-24T09:39:06Z",
+      "side": 1,
+      "message": "Is it better if we have a unit test for this and sendNetlinkDestroyRequest?\ne.g. verify the content of destroyMsg is expected?",
+      "range": {
+        "startLine": 493,
+        "startChar": 23,
+        "endLine": 493,
+        "endChar": 39
+      },
+      "revId": "9c27231561e34d3bf922eba0c0fb23916fba95eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
