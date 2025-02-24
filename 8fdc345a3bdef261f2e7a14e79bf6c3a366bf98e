@@ -33,6 +33,42 @@
       "message": "Could you confirm that this step is only effective in manual tests instead of any automated tests?",
       "revId": "8fdc345a3bdef261f2e7a14e79bf6c3a366bf98e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "654edb8a_17fc8ec8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2025-02-24T03:02:23Z",
+      "side": 1,
+      "message": "This step can\u0027t change the flag value in auto-tests since the flag is fixed. Even in manual test we need to manually change the flag to non-fixed.",
+      "parentUuid": "2aa1630a_b41284b1",
+      "revId": "8fdc345a3bdef261f2e7a14e79bf6c3a366bf98e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd5e53a1_231addce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2025-02-24T03:02:23Z",
+      "side": 1,
+      "message": "It was ramped to mainline for M25-02",
+      "parentUuid": "efe67921_66d59a73",
+      "revId": "8fdc345a3bdef261f2e7a14e79bf6c3a366bf98e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
