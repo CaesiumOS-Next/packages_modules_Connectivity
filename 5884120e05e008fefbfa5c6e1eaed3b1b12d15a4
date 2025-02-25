@@ -22,6 +22,30 @@
       },
       "revId": "5884120e05e008fefbfa5c6e1eaed3b1b12d15a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d61484e_839f9923",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-25T00:19:26Z",
+      "side": 1,
+      "message": "I think there\u0027s valid use-cases where you\u0027d create a VPN to your home and interact with your smart home devices via that VPN as if you were inside the home. That would work today if the VPN interface has broadcast or multicast flags (not sure if that\u0027s actually doable with the VPN API).",
+      "parentUuid": "a84e8b88_ba61c845",
+      "range": {
+        "startLine": 571,
+        "startChar": 0,
+        "endLine": 576,
+        "endChar": 13
+      },
+      "revId": "5884120e05e008fefbfa5c6e1eaed3b1b12d15a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
