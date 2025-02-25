@@ -194,7 +194,7 @@ public class NsdService extends INsdManager.Stub {
             ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
     private final int mRunningAppActiveImportanceCutoff;
 
-    public static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
+    public static final boolean DBG = true; // Log.isLoggable(TAG, Log.DEBUG);
     private static final long CLEANUP_DELAY_MS = 10000;
     private static final int IFACE_IDX_ANY = 0;
     private static final int MAX_SERVICES_COUNT_METRIC_PER_CLIENT = 100;
