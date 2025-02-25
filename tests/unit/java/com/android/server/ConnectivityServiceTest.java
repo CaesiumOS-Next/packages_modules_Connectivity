@@ -2188,7 +2188,9 @@ public class ConnectivityServiceTest {
                 case KEY_DESTROY_FROZEN_SOCKETS_VERSION:
                     return true;
                 default:
-                    return super.isFeatureEnabled(context, name);
+                    // This is a unit test and must never depend on actual device flag values.
+                    throw new UnsupportedOperationException("Unknown flag " + name
+                            + ", update this test");
             }
         }
 
@@ -2196,21 +2198,15 @@ public class ConnectivityServiceTest {
         public boolean isFeatureNotChickenedOut(Context context, String name) {
             switch (name) {
                 case ALLOW_SYSUI_CONNECTIVITY_REPORTS:
-                    return true;
                 case ALLOW_SATALLITE_NETWORK_FALLBACK:
-                    return true;
                 case INGRESS_TO_VPN_ADDRESS_FILTERING:
-                    return true;
                 case BACKGROUND_FIREWALL_CHAIN:
-                    return true;
                 case DELAY_DESTROY_SOCKETS:
-                    return true;
                 case ConnectivityFlags.USE_DECLARED_METHODS_FOR_CALLBACKS:
-                    return true;
                 case ConnectivityFlags.QUEUE_CALLBACKS_FOR_FROZEN_APPS:
-                    return true;
                 default:
-                    return super.isFeatureNotChickenedOut(context, name);
+                    throw new UnsupportedOperationException("Unknown flag " + name
+                            + ", update this test");
             }
         }
 
