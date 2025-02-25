@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48ca3944_0a6bfe51",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6835,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-25T06:20:43Z",
+      "side": 1,
+      "message": "I failed to understand what does this API mean.\nMaybe consider finishing the javadocs?",
+      "range": {
+        "startLine": 6834,
+        "startChar": 7,
+        "endLine": 6835,
+        "endChar": 6
+      },
+      "revId": "7fd6e5b1d7981dc73e93d9dc6f9566019dd7b17c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d7510ab_8e7f869a",
+        "filename": "framework/src/android/net/IConnectivityManager.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-25T06:20:43Z",
+      "side": 1,
+      "message": "Maybe rephrase? e.g.\n    // This method must be oneway to avoid blocking the Cronet process.\n    // It\u0027s called on every QUIC connection establishment.",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 38
+      },
+      "revId": "7fd6e5b1d7981dc73e93d9dc6f9566019dd7b17c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
