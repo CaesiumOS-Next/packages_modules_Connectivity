@@ -111,7 +111,6 @@ import org.junit.runner.RunWith
 
 private const val TAG = "ApfIntegrationTest"
 private const val TIMEOUT_MS = 2000L
-private const val POLLING_INTERVAL_MS: Int = 100
 private const val RCV_BUFFER_SIZE = 1480
 private const val PING_HEADER_LENGTH = 8
 
@@ -128,16 +127,6 @@ class ApfIntegrationTest {
         private val context = InstrumentationRegistry.getInstrumentation().context
         private val powerManager = context.getSystemService(PowerManager::class.java)!!
         private val wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG)
-
-        fun pollingCheck(condition: () -> Boolean, timeout_ms: Int): Boolean {
-            var polling_time = 0
-            do {
-                Thread.sleep(POLLING_INTERVAL_MS.toLong())
-                polling_time += POLLING_INTERVAL_MS
-                if (condition()) return true
-            } while (polling_time < timeout_ms)
-            return false
-        }
 
         fun turnScreenOff() {
             if (!wakeLock.isHeld()) wakeLock.acquire()
