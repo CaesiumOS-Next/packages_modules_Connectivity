@@ -1755,6 +1755,7 @@ public class ThreadNetworkControllerTest {
             String serviceType, int timeoutMilliseconds, Predicate<NsdServiceInfo> predicate)
             throws Exception {
         NsdServiceInfo discoveredServiceInfo = discoverService(serviceType);
+        List<NsdServiceInfo> resolvedServices = new ArrayList<>();
         CompletableFuture<NsdServiceInfo> future = new CompletableFuture<>();
         NsdManager.ServiceInfoCallback callback =
                 new DefaultServiceInfoCallback() {
@@ -1762,12 +1763,16 @@ public class ThreadNetworkControllerTest {
                     public void onServiceUpdated(@NonNull NsdServiceInfo serviceInfo) {
                         if (predicate.test(serviceInfo)) {
                             future.complete(serviceInfo);
+                        } else {
+                            resolvedServices.add(serviceInfo);
                         }
                     }
                 };
         mNsdManager.registerServiceInfoCallback(discoveredServiceInfo, mExecutor, callback);
         try {
             return future.get(timeoutMilliseconds, MILLISECONDS);
+        } catch (Throwable t) {
+            throw new AssertionError("Failed to resolve expected service, but got " + resolvedServices, t);
         } finally {
             mNsdManager.unregisterServiceInfoCallback(callback);
         }
