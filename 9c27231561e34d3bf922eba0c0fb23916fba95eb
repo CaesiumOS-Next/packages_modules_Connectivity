@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "284bbe51_57517a09",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-25T04:34:20Z",
+      "side": 1,
+      "message": "\u003e 1\n\ndone. thank you for the suggestion.\n\n\u003e 2\n\nI don\u0027t think we have a cheap way to look up other information from cookie.\nOne possible way is that we can send netlink dump message and get other information from inetDiagMessage.",
+      "parentUuid": "a1f3942f_88c255eb",
+      "range": {
+        "startLine": 491,
+        "startChar": 47,
+        "endLine": 491,
+        "endChar": 58
+      },
+      "revId": "9c27231561e34d3bf922eba0c0fb23916fba95eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "534bc61c_b20d9d38",
