@@ -16,6 +16,77 @@
       "message": "it feels to me like there should be nonnull annotations and/or checks earlier in the functions that call this???",
       "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "302734b5_fc6873ff",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-25T01:22:21Z",
+      "side": 1,
+      "message": "Please mark this @Nullable (and also in callers where that\u0027s the case)",
+      "range": {
+        "startLine": 905,
+        "startChar": 55,
+        "endLine": 905,
+        "endChar": 60
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b3dfd4e9_a083159b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 69,
+                "startChar": 0,
+                "endLine": 69,
+                "endChar": 0
+              },
+              "replacement": "import androidx.annotation.Nullable;\n"
+            },
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 905,
+                "startChar": 0,
+                "endLine": 906,
+                "endChar": 0
+              },
+              "replacement": "    public void addLocalNetAccess(final int lpmBitlen, @Nullable final String iface,\n"
+            },
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 940,
+                "startChar": 0,
+                "endLine": 941,
+                "endChar": 0
+              },
+              "replacement": "    public void removeLocalNetAccess(final int lpmBitlen, @Nullable final String iface,\n"
+            },
+            {
+              "path": "service/src/com/android/server/BpfNetMaps.java",
+              "range": {
+                "startLine": 976,
+                "startChar": 0,
+                "endLine": 977,
+                "endChar": 0
+              },
+              "replacement": "    public boolean getLocalNetAccess(final int lpmBitlen, @Nullable final String iface,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
