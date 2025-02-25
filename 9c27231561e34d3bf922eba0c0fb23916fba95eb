@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1f3942f_88c255eb",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-02-25T02:30:31Z",
+      "side": 1,
+      "message": "1. nit: If so, is it better we make the javadoc more clear?\ne.g. Close the udp socket which can be uniquely identified with the cookie and other information.\n\n2. Stupid Question: If cookie is the only thing needed to uniquely identify the socket, is it possible we derive other information within the function instead of passing via the arguments?",
+      "parentUuid": "76a1bad9_94e445ac",
+      "range": {
+        "startLine": 491,
+        "startChar": 47,
+        "endLine": 491,
+        "endChar": 58
+      },
+      "revId": "9c27231561e34d3bf922eba0c0fb23916fba95eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "534bc61c_b20d9d38",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
         "patchSetId": 7
