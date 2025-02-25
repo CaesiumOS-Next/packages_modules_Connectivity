@@ -131,6 +131,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf1a16af_07403d2b",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-25T07:05:27Z",
+      "side": 1,
+      "message": "I think a lot of this code is coming from a long time ago when non-nullability was not considered that important. I was surprised to find that essentially all of our code checks for null every time they use the interface name, including the code of LinkProperties itself (https://osscs.corp.google.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/framework/src/android/net/LinkProperties.java;l\u003d240?q\u003dLinkProperties.java), and the stack never seems to validate this at all. There is one requireNonNull() in RoutingCoordinator and I wonder if this may not crash the system. \n\nBecause it\u0027s never checked anywhere, I think this happens at least if the NetworkAgent does not set the interface name before sending the link properties to connectivity service. Telephony is populating the iface name from DataCallResponse which marks the interface name as @Nullable https://osscs.corp.google.com/android/platform/superproject/main/+/main:frameworks/base/telephony/java/android/telephony/data/DataCallResponse.java;l\u003d173;drc\u003d69e2b7c426ed5bef6be369b7e4d300e370dc39cd;bpv\u003d0;bpt\u003d1\nas far as I can tell this is ultimately coming from the modem. Wifi has also been known to send nulls to many of our APIs because of races, though hopefully most of them are closed now ?\n\nBut I couldn\u0027t find any place in the code setting the iface name to null explicitly.\n\nIn any case, I think we can\u0027t discount an OEM having a network agent sending a LP with null here unfortunately. We may want to start enforcing non-null iface name at CS entry with an SDK check.",
+      "parentUuid": "393f1928_74dfb8d5",
+      "range": {
+        "startLine": 910,
+        "startChar": 12,
+        "endLine": 910,
+        "endChar": 25
+      },
+      "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf7ff730_4dca4dd7",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 2
@@ -166,6 +190,30 @@
       "side": 1,
       "message": "How should we get the interface index in that case, as the key contains interface index and is required for find and removing the key,value ?",
       "parentUuid": "bf7ff730_4dca4dd7",
+      "range": {
+        "startLine": 947,
+        "startChar": 28,
+        "endLine": 947,
+        "endChar": 38
+      },
+      "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7171f761_5a18ff6c",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-25T07:05:27Z",
+      "side": 1,
+      "message": "MDnsSocketProvider maintains its own map to make sure it\u0027s not subject to this kind of issue. You can look at its solution to this problem here\n\nhttps://osscs.corp.google.com/android/platform/superproject/+/android15-qpr1-release:packages/modules/Connectivity/service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java;l\u003d99?q\u003dsetInterfaceName\u0026start\u003d71",
+      "parentUuid": "70fb1e24_47b74120",
       "range": {
         "startLine": 947,
         "startChar": 28,
