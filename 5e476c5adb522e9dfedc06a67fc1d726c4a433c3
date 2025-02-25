@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "502bf975_9495a9a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-25T02:51:21Z",
+      "side": 1,
+      "message": "Looks like the module rolled back or wasn\u0027t installed correctly (the versions are too old and the tests are complaining that classes that were introduced in a mainline update don\u0027t exist). It\u0027s possible that this is due to this CL, but trying again while I investigate.",
+      "revId": "5e476c5adb522e9dfedc06a67fc1d726c4a433c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
