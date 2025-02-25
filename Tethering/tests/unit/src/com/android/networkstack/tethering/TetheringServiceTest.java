@@ -530,6 +530,77 @@ public final class TetheringServiceTest {
         });
     }
 
+    private void verifyHasPermissionForStopTetheringRequest(TetheringRequest request,
+            final TestTetheringResult result) throws Exception {
+        mTetheringConnector.stopTetheringRequest(request, TEST_CALLER_PKG,
+                TEST_ATTRIBUTION_TAG, result);
+        verify(mTethering).stopTetheringRequest(any(), any());
+        verify(mTethering).isTetheringSupported();
+        verify(mTethering).isTetheringAllowed();
+        reset(mTethering);
+    }
+
+    private void verifyDoesNotHavePermissionForStopTetheringRequest(TetheringRequest request,
+            final TestTetheringResult result) throws Exception {
+        mTetheringConnector.stopTetheringRequest(request, TEST_CALLER_PKG,
+                TEST_ATTRIBUTION_TAG, result);
+        verify(mTethering, never()).stopTetheringRequest(any(), any());
+        result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+        reset(mTethering);
+    }
+
+    private void verifyStopTetheringRequestWithTetheringDisallowed(TetheringRequest request,
+            final TestTetheringResult result) throws Exception {
+        mTetheringConnector.stopTetheringRequest(request, TEST_CALLER_PKG,
+                TEST_ATTRIBUTION_TAG, result);
+        verify(mTethering, never()).stopTetheringRequest(any(), any());
+        result.assertResult(TETHER_ERROR_UNSUPPORTED);
+        reset(mTethering);
+    }
+
+    @Test
+    public void testStopTetheringRequest() throws Exception {
+        TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
+        TetheringRequest exemptRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setExemptFromEntitlementCheck(true).build();
+
+        runAsNoPermission((result) -> {
+            verifyDoesNotHavePermissionForStopTetheringRequest(request, result);
+        });
+
+        runAsTetherPrivileged((result) -> {
+            verifyHasPermissionForStopTetheringRequest(request, result);
+        });
+
+        runAsTetherPrivileged((result) -> {
+            verifyDoesNotHavePermissionForStopTetheringRequest(exemptRequest, result);
+        });
+
+        runAsWriteSettings((result) -> {
+            verifyDoesNotHavePermissionForStopTetheringRequest(request, result);
+        });
+
+        runAsWriteSettingsWhenWriteSettingsAllowed((result) -> {
+            verifyHasPermissionForStopTetheringRequest(request, result);
+        });
+
+        runAsWriteSettingsWhenWriteSettingsAllowed((result) -> {
+            verifyDoesNotHavePermissionForStopTetheringRequest(exemptRequest, result);
+        });
+
+        runAsTetheringDisallowed((result) -> {
+            verifyStopTetheringRequestWithTetheringDisallowed(request, result);
+        });
+
+        runAsNetworkSettings((result) -> {
+            verifyHasPermissionForStopTetheringRequest(request, result);
+        });
+
+        runAsNetworkSettings((result) -> {
+            verifyHasPermissionForStopTetheringRequest(exemptRequest, result);
+        });
+    }
+
     private void runRequestLatestTetheringEntitlementResult() throws Exception {
         final MyResultReceiver result = new MyResultReceiver(null);
         mTetheringConnector.requestLatestTetheringEntitlementResult(TETHERING_WIFI, result,
