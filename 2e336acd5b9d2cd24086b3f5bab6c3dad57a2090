@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "381dec19_7759ae99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-25T02:26:30Z",
+      "side": 1,
+      "message": "This might be OK for a quick fix but to know for sure that this is the right fix we should find out why the interface is null. In which codepath does this happen?",
+      "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "302734b5_fc6873ff",
@@ -85,6 +102,52 @@
           ]
         }
       ],
+      "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "393f1928_74dfb8d5",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-25T02:26:30Z",
+      "side": 1,
+      "message": "Can we find out when this actually happens? It should either be impossible or very rare. Is it during teardown? Or...?",
+      "range": {
+        "startLine": 910,
+        "startChar": 12,
+        "endLine": 910,
+        "endChar": 25
+      },
+      "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf7ff730_4dca4dd7",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-25T02:26:30Z",
+      "side": 1,
+      "message": "You can\u0027t rely on calling getIfIndex on remove like this because the interface might already have been removed and in that case the map would not be cleaned up.",
+      "range": {
+        "startLine": 947,
+        "startChar": 28,
+        "endLine": 947,
+        "endChar": 38
+      },
       "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
