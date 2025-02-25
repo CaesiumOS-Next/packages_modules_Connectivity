@@ -150,6 +150,30 @@
       },
       "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70fb1e24_47b74120",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-02-25T02:52:43Z",
+      "side": 1,
+      "message": "How should we get the interface index in that case, as the key contains interface index and is required for find and removing the key,value ?",
+      "parentUuid": "bf7ff730_4dca4dd7",
+      "range": {
+        "startLine": 947,
+        "startChar": 28,
+        "endLine": 947,
+        "endChar": 38
+      },
+      "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
