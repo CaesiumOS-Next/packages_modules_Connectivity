@@ -39,6 +39,7 @@ import android.util.ArrayMap;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.networkstack.util.NetworkStackUtils;
 
 import java.io.PrintWriter;
 import java.net.Inet4Address;
@@ -66,9 +67,6 @@ import java.util.function.Supplier;
 public class PrivateAddressCoordinator {
     // WARNING: Keep in sync with chooseDownstreamAddress
     public static final int PREFIX_LENGTH = 24;
-
-    public static final String TETHER_FORCE_RANDOM_PREFIX_BASE_SELECTION =
-            "tether_force_random_prefix_base_selection";
 
     // Upstream monitor would be stopped when tethering is down. When tethering restart, downstream
     // address may be requested before coordinator get current upstream notification. To ensure
@@ -259,7 +257,7 @@ public class PrivateAddressCoordinator {
     }
 
     private int getRandomPrefixIndex() {
-        if (!mDeps.isFeatureEnabled(TETHER_FORCE_RANDOM_PREFIX_BASE_SELECTION)) return 0;
+        if (!NetworkStackUtils.isAtLeast25Q2()) return 0;
 
         final int random = getRandomInt() & 0xffffff;
         // This is to select the starting prefix range (/8, /12, or /16) instead of the actual
