@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a6de6f4_4fab6859",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-26T06:34:38Z",
+      "side": 1,
+      "message": "Having the flag check as part of this method makes it harder to check on/off behavior, since the flag checking will be mocked. I think it would be better in the caller so that flag on/off can also be tested (checking that createRelatimeScheduler is never called when the flag is off for example)",
+      "range": {
+        "startLine": 270,
+        "startChar": 83,
+        "endLine": 270,
+        "endChar": 95
+      },
+      "revId": "b20f57dd57a6ebbb91d95c5cc91e8a40c2274bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef66ae5a_b6ff22c3",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-26T06:34:38Z",
+      "side": 1,
+      "message": "This might change at runtime for tests in particular; it would be better to just check for realtimeScheduler !\u003d null",
+      "revId": "b20f57dd57a6ebbb91d95c5cc91e8a40c2274bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32a64489_f76b9908",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-26T06:34:38Z",
+      "side": 1,
+      "message": "To be equivalent to the previous code, this should also removeDelayedMessage",
+      "revId": "b20f57dd57a6ebbb91d95c5cc91e8a40c2274bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
