@@ -35,6 +35,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e83d7b90_237fb0b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-26T03:54:50Z",
+      "side": 1,
+      "message": "LGTM to fix the crash as is, especially since we may need to cherry-pick this CL to beta 3 to avoid the crash.\n\nWe should still fix the code that gets the interface index in the remove path, but that shouldn\u0027t block this CL.",
+      "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "302734b5_fc6873ff",
