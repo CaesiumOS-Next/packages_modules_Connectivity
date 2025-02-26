@@ -233,7 +233,7 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
             // Echo the current pid, and replace it (with exec) with the tcpdump process, so the
             // tcpdump pid is known.
             writer.write(
-                "echo $$; exec su 0 tcpdump -n -i any -U -xx".encodeToByteArray()
+                "echo $$; exec su 0 tcpdump -n -i any -xx".encodeToByteArray()
             )
         }
         val reader = FileReader(stdout.fileDescriptor).buffered()
