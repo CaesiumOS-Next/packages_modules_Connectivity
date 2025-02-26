@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e33db003_6cafe576",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/AbstractRealtimeDelayCallback.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-26T06:50:13Z",
+      "side": 1,
+      "message": "How about just `interface Scheduler` ? The interface doesn\u0027t seem to mandate that it\u0027s \"realtime\".",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 46
+      },
+      "revId": "42574aeaec139f4a252a4958b94e4263aae366df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa26c42a_f4956383",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/RealtimeDelayCallback.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-26T06:50:13Z",
+      "side": 1,
+      "message": "How about MdnsRealtimeScheduler or something with \"RealtimeScheduler\" in the name ? This is just a subclass RealtimeScheduler that implements the interface",
+      "range": {
+        "startLine": 30,
+        "startChar": 13,
+        "endLine": 30,
+        "endChar": 34
+      },
+      "revId": "42574aeaec139f4a252a4958b94e4263aae366df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c79281f_86de717e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/RealtimeDelayCallback.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-26T06:50:13Z",
+      "side": 1,
+      "message": "Are those override necessary ? I think it would build even without them",
+      "revId": "42574aeaec139f4a252a4958b94e4263aae366df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
