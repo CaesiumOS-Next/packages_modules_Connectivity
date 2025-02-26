@@ -1141,6 +1141,10 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    @RequiresFlagsEnabled({
+        Flags.FLAG_CONFIGURATION_ENABLED,
+        Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED
+    })
     public void setConfiguration_null_throwsNullPointerException() throws Exception {
         CompletableFuture<Void> setConfigFuture = new CompletableFuture<>();
         assertThrows(
@@ -1151,6 +1155,10 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    @RequiresFlagsEnabled({
+        Flags.FLAG_CONFIGURATION_ENABLED,
+        Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED
+    })
     public void setConfiguration_noPermissions_throwsSecurityException() throws Exception {
         ThreadConfiguration configuration =
                 new ThreadConfiguration.Builder().setNat64Enabled(true).build();
@@ -1164,6 +1172,10 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    @RequiresFlagsEnabled({
+        Flags.FLAG_CONFIGURATION_ENABLED,
+        Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED
+    })
     public void registerConfigurationCallback_permissionsGranted_returnsCurrentStatus()
             throws Exception {
         CompletableFuture<ThreadConfiguration> getConfigFuture = new CompletableFuture<>();
@@ -1177,6 +1189,10 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    @RequiresFlagsEnabled({
+        Flags.FLAG_CONFIGURATION_ENABLED,
+        Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED
+    })
     public void registerConfigurationCallback_noPermissions_throwsSecurityException()
             throws Exception {
         dropAllPermissions();
@@ -1187,6 +1203,10 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    @RequiresFlagsEnabled({
+        Flags.FLAG_CONFIGURATION_ENABLED,
+        Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED
+    })
     public void registerConfigurationCallback_returnsUpdatedConfigurations() throws Exception {
         CompletableFuture<Void> setFuture1 = new CompletableFuture<>();
         CompletableFuture<Void> setFuture2 = new CompletableFuture<>();
@@ -1226,6 +1246,10 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    @RequiresFlagsEnabled({
+        Flags.FLAG_CONFIGURATION_ENABLED,
+        Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED
+    })
     public void registerConfigurationCallback_alreadyRegistered_throwsIllegalArgumentException()
             throws Exception {
         grantPermissions(THREAD_NETWORK_PRIVILEGED);
@@ -1239,6 +1263,10 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    @RequiresFlagsEnabled({
+        Flags.FLAG_CONFIGURATION_ENABLED,
+        Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED
+    })
     public void unregisterConfigurationCallback_noPermissions_throwsSecurityException()
             throws Exception {
         Consumer<ThreadConfiguration> callback = config -> {};
@@ -1252,6 +1280,10 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    @RequiresFlagsEnabled({
+        Flags.FLAG_CONFIGURATION_ENABLED,
+        Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED
+    })
     public void unregisterConfigurationCallback_callbackRegistered_success() throws Exception {
         Consumer<ThreadConfiguration> callback = config -> {};
         runAsShell(
@@ -1263,6 +1295,10 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    @RequiresFlagsEnabled({
+        Flags.FLAG_CONFIGURATION_ENABLED,
+        Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED
+    })
     public void
             unregisterConfigurationCallback_callbackNotRegistered_throwsIllegalArgumentException()
                     throws Exception {
@@ -1273,6 +1309,10 @@ public class ThreadNetworkControllerTest {
     }
 
     @Test
+    @RequiresFlagsEnabled({
+        Flags.FLAG_CONFIGURATION_ENABLED,
+        Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED
+    })
     public void unregisterConfigurationCallback_alreadyUnregistered_throwsIllegalArgumentException()
             throws Exception {
         grantPermissions(THREAD_NETWORK_PRIVILEGED);
@@ -1544,6 +1584,9 @@ public class ThreadNetworkControllerTest {
     private void setConfigurationAndWait(
             ThreadNetworkController controller, ThreadConfiguration configuration)
             throws Exception {
+        if (!Flags.configurationEnabled() || !Flags.setNat64ConfigurationEnabled()) {
+            return;
+        }
         CompletableFuture<Void> setFuture = new CompletableFuture<>();
         runAsShell(
                 THREAD_NETWORK_PRIVILEGED,
@@ -1555,6 +1598,9 @@ public class ThreadNetworkControllerTest {
 
     private void deactivateEphemeralKeyModeAndWait(ThreadNetworkController controller)
             throws Exception {
+        if (!Flags.epskcEnabled()) {
+            return;
+        }
         CompletableFuture<Void> clearFuture = new CompletableFuture<>();
         runAsShell(
                 THREAD_NETWORK_PRIVILEGED,
@@ -1566,6 +1612,9 @@ public class ThreadNetworkControllerTest {
 
     private void activateEphemeralKeyModeAndWait(ThreadNetworkController controller)
             throws Exception {
+        if (!Flags.epskcEnabled()) {
+            return;
+        }
         CompletableFuture<Void> startFuture = new CompletableFuture<>();
         runAsShell(
                 THREAD_NETWORK_PRIVILEGED,
