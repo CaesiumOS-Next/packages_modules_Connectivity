@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1458cfd_6cc09cab",
+        "filename": "staticlibs/device/com/android/net/module/util/PrivateAddressCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-26T21:57:07Z",
+      "side": 1,
+      "message": "Why V and not 25Q2? Is the justification that no OEM except Pixel has upgraded to V yet? Otherwise, shouldn\u0027t this be 25Q2, just to be safe?",
+      "range": {
+        "startLine": 260,
+        "startChar": 31,
+        "endLine": 260,
+        "endChar": 32
+      },
+      "revId": "cc67438866728b634e601d6465979962d26af350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
