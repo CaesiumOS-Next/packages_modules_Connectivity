@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e035590_3357a86c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-02-26T08:14:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a6de6f4_4fab6859",
+      "range": {
+        "startLine": 270,
+        "startChar": 83,
+        "endLine": 270,
+        "endChar": 95
+      },
+      "revId": "b20f57dd57a6ebbb91d95c5cc91e8a40c2274bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef66ae5a_b6ff22c3",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af3ead98_42b5bc3e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-02-26T08:14:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef66ae5a_b6ff22c3",
+      "revId": "b20f57dd57a6ebbb91d95c5cc91e8a40c2274bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32a64489_f76b9908",
@@ -54,6 +96,24 @@
       "writtenOn": "2025-02-26T06:34:38Z",
       "side": 1,
       "message": "To be equivalent to the previous code, this should also removeDelayedMessage",
+      "revId": "b20f57dd57a6ebbb91d95c5cc91e8a40c2274bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac3f71a0_d21a0a1a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-02-26T08:14:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32a64489_f76b9908",
       "revId": "b20f57dd57a6ebbb91d95c5cc91e8a40c2274bdf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
