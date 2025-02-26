@@ -24,7 +24,11 @@ import android.net.thread.ThreadConfiguration;
 import android.net.thread.utils.ThreadFeatureCheckerRule;
 import android.net.thread.utils.ThreadFeatureCheckerRule.RequiresThreadFeature;
 
+import android.platform.test.annotations.RequiresFlagsEnabled;
+
 import androidx.test.filters.SmallTest;
+
+import com.android.net.thread.flags.Flags;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,6 +41,10 @@ import java.util.Collection;
 /** Tests for {@link ThreadConfiguration}. */
 @SmallTest
 @RequiresThreadFeature
+@RequiresFlagsEnabled({
+    Flags.FLAG_CONFIGURATION_ENABLED,
+    Flags.FLAG_SET_NAT64_CONFIGURATION_ENABLED
+})
 @RunWith(Parameterized.class)
 public final class ThreadConfigurationTest {
     @Rule public final ThreadFeatureCheckerRule mThreadRule = new ThreadFeatureCheckerRule();
