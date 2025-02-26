@@ -123,6 +123,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbe2f66e_9b30e65a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-26T04:20:26Z",
+      "side": 1,
+      "message": "@sarup@google.com please address this in a follow-up.",
+      "parentUuid": "302734b5_fc6873ff",
+      "range": {
+        "startLine": 905,
+        "startChar": 55,
+        "endLine": 905,
+        "endChar": 60
+      },
+      "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "393f1928_74dfb8d5",
@@ -279,6 +303,30 @@
       "side": 1,
       "message": "MDnsSocketProvider maintains its own map to make sure it\u0027s not subject to this kind of issue. You can look at its solution to this problem here\n\nhttps://osscs.corp.google.com/android/platform/superproject/+/android15-qpr1-release:packages/modules/Connectivity/service-t/src/com/android/server/connectivity/mdns/MdnsSocketProvider.java;l\u003d99?q\u003dsetInterfaceName\u0026start\u003d71",
       "parentUuid": "70fb1e24_47b74120",
+      "range": {
+        "startLine": 947,
+        "startChar": 28,
+        "endLine": 947,
+        "endChar": 38
+      },
+      "revId": "2e336acd5b9d2cd24086b3f5bab6c3dad57a2090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85857e69_55fd868c",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-26T04:20:26Z",
+      "side": 1,
+      "message": "@sarup@google.com please address this in a follow-up.",
+      "parentUuid": "7171f761_5a18ff6c",
       "range": {
         "startLine": 947,
         "startChar": 28,
