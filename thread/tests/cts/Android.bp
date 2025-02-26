@@ -40,7 +40,7 @@ android_test {
     static_libs: [
         "androidx.test.ext.junit",
         "compatibility-device-util-axt",
-        "com.android.net.thread.flags-aconfig-java",
+        "com.android.net.thread.flags-aconfig-java-export",
         "ctstestrunner-axt",
         "guava",
         "guava-android-testlib",

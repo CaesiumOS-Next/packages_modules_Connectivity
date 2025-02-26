@@ -50,6 +50,7 @@ aconfig_declarations {
     container: "com.android.tethering",
     srcs: ["thread_flags.aconfig"],
     visibility: ["//packages/modules/Connectivity:__subpackages__"],
+    exportable: true,
 }
 
 java_aconfig_library {
@@ -60,6 +61,17 @@ java_aconfig_library {
     apex_available: [
         "com.android.tethering",
     ],
+}
+
+java_aconfig_library {
+    name: "com.android.net.thread.flags-aconfig-java-export",
+    aconfig_declarations: "com.android.net.thread.flags-aconfig",
+    defaults: ["framework-minus-apex-aconfig-java-defaults"],
+    min_sdk_version: "30",
+    apex_available: [
+        "com.android.tethering",
+    ],
+    mode: "exported",
 }
 
 aconfig_declarations {
