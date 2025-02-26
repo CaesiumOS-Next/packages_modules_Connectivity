@@ -5410,7 +5410,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         // detected late required this was flagged off.
         // TODO : enable this in a Mainline update or in V, and re-enable the test for this
         // in NetworkAgentTest.
-        return false;
+        return true;
     }
 
     private static boolean shouldCreateNativeNetwork(@NonNull NetworkAgentInfo nai,
