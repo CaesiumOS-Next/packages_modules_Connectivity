@@ -167,6 +167,7 @@ class InternetAccessTest {
         val ftd = ftds[0]
         joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET)
         dnsServer.start()
+        ftd.waitForSrpServer();
 
         val ipv4Addresses =
             ftd.resolveHost("google.com", TYPE_A).map { extractIpv4AddressFromMappedAddress(it) }
@@ -181,6 +182,7 @@ class InternetAccessTest {
         val ftd = ftds[0]
         joinNetworkAndWaitForOmr(ftd, DEFAULT_DATASET)
         dnsServer.start()
+        ftd.waitForSrpServer();
 
         assertThat(ftd.resolveHost("google.com", TYPE_A)).isEmpty()
         assertThat(ftd.resolveHost("google.com", TYPE_AAAA)).isEmpty()
