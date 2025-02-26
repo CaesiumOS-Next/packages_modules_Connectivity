@@ -184,6 +184,8 @@ public class MdnsResponseDecoder {
                         response = new MdnsResponse(now, pointerRecord.getPointer(), interfaceIndex,
                                 network);
                         responses.add(response);
+                    } else {
+                        response.updateLastUpdateTime(now);
                     }
                     if (response.addPointerRecord((MdnsPointerRecord) record)) {
                         modified.add(response);

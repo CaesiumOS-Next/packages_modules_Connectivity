@@ -430,6 +430,15 @@ public class MdnsResponse {
         return count;
     }
 
+    /**
+     * Update the last update time for this response
+     *
+     * @param now    The current time.
+     */
+    public synchronized void updateLastUpdateTime(long now) {
+        lastUpdateTime = now;
+    }
+
     @Override
     public String toString() {
         return "Name: " + TextUtils.join(".", serviceName)
