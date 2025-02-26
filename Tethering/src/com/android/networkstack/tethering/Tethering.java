@@ -1461,8 +1461,8 @@ public class Tethering {
             //       functions are ready to use.
             //
             // For more explanation, see b/62552150 .
-            boolean rndisEnabled = usbConfigured && usbRndis;
-            boolean ncmEnabled = usbConfigured && usbNcm;
+            boolean rndisEnabled = usbConfigured && usbRndis && mConfig.isUsingRndis();
+            boolean ncmEnabled = usbConfigured && usbNcm && mConfig.isUsingNcm();
             if (!usbConnected) {
                 // Don't stop provisioning if function is disabled but usb is still connected. The
                 // function may be disable/enable to handle ip conflict condition (disabling the
