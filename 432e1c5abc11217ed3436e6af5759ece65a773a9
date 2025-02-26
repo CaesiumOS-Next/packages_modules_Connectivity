@@ -16,6 +16,24 @@
       "message": "Don\u0027t merge until client confirm this test case catch the edge case.",
       "revId": "432e1c5abc11217ed3436e6af5759ece65a773a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f314d1db_8f9edd33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-02-26T03:37:33Z",
+      "side": 1,
+      "message": "It seems the partner needs time to verify this code. I will go ahead to merge this part anyway. In worst case, we can add a seaparte patch.",
+      "parentUuid": "3bb4b316_bb88b459",
+      "revId": "432e1c5abc11217ed3436e6af5759ece65a773a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
