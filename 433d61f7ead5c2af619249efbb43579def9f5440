@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "521a707d_e6a102a7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/RealtimeDiscoveryExecutor.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-26T06:42:46Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of having this in a separate class that overrides some of the functionality of the base class: it\u0027s not very readable when looking at the base class, as one has to figure out that some of the methods are overridden to do something different.\nAlso since eventually the flag should be retired so everything uses RealtimeDiscoveryExecutor, this code would need to be refactored into DiscoveryExecutor eventually anyway.\n\nI feel it would be simpler to create RealtimeScheduler in the DiscoveryExecutor constructor (just after creating the handler) if the flag is on, and have executeDelayed in DiscoveryExecutor use it directly when it\u0027s non-null.",
+      "revId": "433d61f7ead5c2af619249efbb43579def9f5440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
