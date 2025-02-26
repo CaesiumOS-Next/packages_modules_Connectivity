@@ -1410,6 +1410,40 @@ public final class NetworkStats implements Parcelable, Iterable<NetworkStats.Ent
         size = nextOutputEntry;
     }
 
+    /**
+     * Make a filtered copy of the network stats.
+     *
+     * @param limitUid UID to filter for, or {@link #UID_ALL}.
+     * @param limitIfaces Interfaces to filter for, or {@link #INTERFACES_ALL}.
+     * @param limitTag Tag to filter for, or {@link #TAG_ALL}.
+     * @hide
+     */
+    public NetworkStats filteredClone(int limitUid, String[] limitIfaces, int limitTag) {
+        NetworkStats.Entry e = null;
+        int filteredSize = 0;
+        for (int i = 0; i < size; i++) {
+            e = getValues(i, e);
+            if ((limitUid == UID_ALL || limitUid == e.uid)
+                    && (limitTag == TAG_ALL || limitTag == e.tag)
+                    && (limitIfaces == INTERFACES_ALL ||
+                        CollectionUtils.contains(limitIfaces, e.iface))) {
+                filteredSize++;
+            }
+        }
+
+        final NetworkStats clone = new NetworkStats(elapsedRealtime, filteredSize);
+        for (int i = 0; i < size; i++) {
+            e = getValues(i, e);
+            if ((limitUid == UID_ALL || limitUid == e.uid)
+                    && (limitTag == TAG_ALL || limitTag == e.tag)
+                    && (limitIfaces == INTERFACES_ALL ||
+                        CollectionUtils.contains(limitIfaces, e.iface))) {
+                clone.insertEntry(e);
+            }
+        }
+        return clone;
+    }
+
     /** @hide */
     public void dump(String prefix, PrintWriter pw) {
         pw.print(prefix);
