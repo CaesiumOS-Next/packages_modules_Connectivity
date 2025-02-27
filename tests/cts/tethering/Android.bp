@@ -53,6 +53,10 @@ java_defaults {
     platform_apis: true,
     min_sdk_version: "30",
     host_required: ["net-tests-utils-host-common"],
+    data: [
+        ":ConnectivityTestPreparer",
+        ":CtsCarrierServicePackage",
+    ],
 }
 
 // Tethering CTS tests for development and release. These tests always target the platform SDK
