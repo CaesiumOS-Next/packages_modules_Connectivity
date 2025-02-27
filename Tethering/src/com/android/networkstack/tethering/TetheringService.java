@@ -134,7 +134,7 @@ public class TetheringService extends Service {
             mTethering.setUsbTethering(enable, listener);
         }
 
-        private boolean isRequestAllowedForDeviceOwner(@NonNull TetheringRequest request) {
+        private boolean isRequestAllowedForDOOrCarrierApp(@NonNull TetheringRequest request) {
             return request.getTetheringType() == TETHERING_WIFI
                     && request.getSoftApConfiguration() != null;
         }
@@ -145,10 +145,10 @@ public class TetheringService extends Service {
             TetheringRequest request = new TetheringRequest(requestParcel);
             request.setUid(getBinderCallingUid());
             request.setPackageName(callerPkg);
-            boolean isDeviceOwnerAllowed = mTethering.isTetheringWithSoftApConfigEnabled()
-                    && isRequestAllowedForDeviceOwner(request);
+            boolean isDOOrCarrierAppAllowed = mTethering.isTetheringWithSoftApConfigEnabled()
+                    && isRequestAllowedForDOOrCarrierApp(request);
             if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, request, listener,
-                    isDeviceOwnerAllowed)) {
+                    isDOOrCarrierAppAllowed)) {
                 return;
             }
             mTethering.startTethering(request, callerPkg, listener);
@@ -173,10 +173,10 @@ public class TetheringService extends Service {
             if (listener == null) return;
             request.setUid(getBinderCallingUid());
             request.setPackageName(callerPkg);
-            boolean isDeviceOwnerAppAllowed = mTethering.isTetheringWithSoftApConfigEnabled()
-                    && isRequestAllowedForDeviceOwner(request);
+            boolean isDOOrCarrierAppAllowed = mTethering.isTetheringWithSoftApConfigEnabled()
+                    && isRequestAllowedForDOOrCarrierApp(request);
             if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, request, listener,
-                    isDeviceOwnerAppAllowed)) {
+                    isDOOrCarrierAppAllowed)) {
                 return;
             }
             mTethering.stopTetheringRequest(request, listener);
@@ -246,9 +246,9 @@ public class TetheringService extends Service {
         @Override
         public void isTetheringSupported(String callerPkg, String callingAttributionTag,
                 IIntResultListener listener) {
-            boolean isDeviceOwnerAppAllowed = mTethering.isTetheringWithSoftApConfigEnabled();
+            boolean isDOOrCarrierAppAllowed = mTethering.isTetheringWithSoftApConfigEnabled();
             if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, null /* request */,
-                    listener, isDeviceOwnerAppAllowed)) {
+                    listener, isDOOrCarrierAppAllowed)) {
                 return;
             }
             try {
@@ -282,7 +282,7 @@ public class TetheringService extends Service {
 
         private boolean checkAndNotifyCommonError(final String callerPkg,
                 final String callingAttributionTag, final TetheringRequest request,
-                final IIntResultListener listener, boolean isDeviceOwnerAppAllowed) {
+                final IIntResultListener listener, boolean isDOOrCarrierAppAllowed) {
             try {
                 if (!checkPackageNameMatchesUid(getBinderCallingUid(), callerPkg)) {
                     Log.e(TAG, "Package name " + callerPkg + " does not match UID "
@@ -291,7 +291,7 @@ public class TetheringService extends Service {
                     return true;
                 }
                 if (!hasTetherChangePermission(callerPkg, callingAttributionTag, request,
-                        isDeviceOwnerAppAllowed)) {
+                        isDOOrCarrierAppAllowed)) {
                     listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
                     return true;
                 }
@@ -325,7 +325,7 @@ public class TetheringService extends Service {
 
         private boolean hasTetherChangePermission(final String callerPkg,
                 final String callingAttributionTag, final TetheringRequest request,
-                boolean isDeviceOwnerAppAllowed) {
+                boolean isDOOrCarrierAppAllowed) {
             boolean onlyAllowPrivileged = request != null
                     && (request.isExemptFromEntitlementCheck()
                             || request.getInterfaceName() != null);
@@ -336,7 +336,9 @@ public class TetheringService extends Service {
 
             // Allow DO apps to change tethering even if they don't have TETHER_PRIVILEGED.
             int uid = getBinderCallingUid();
-            if (isDeviceOwnerAppAllowed && mService.isDeviceOwner(uid, callerPkg)) {
+            if (isDOOrCarrierAppAllowed
+                    && (mService.isDeviceOwner(uid, callerPkg)
+                            || mService.isCarrierPrivileged(callerPkg))) {
                 return true;
             }
 
@@ -415,6 +417,14 @@ public class TetheringService extends Service {
     @VisibleForTesting
     boolean isDeviceOwner(final int uid, final String callerPkg) {
         return mTetheringPermissionsUtils.isDeviceOwner(uid, callerPkg);
+    }
+
+    /**
+     * Wrapper for {@link TetheringPermissionsUtils#isCarrierPrivileged(String)}, used for mocks.
+     */
+    @VisibleForTesting
+    boolean isCarrierPrivileged(final String callerPkg) {
+        return mTetheringPermissionsUtils.isCarrierPrivileged(callerPkg);
     }
 
     /**
