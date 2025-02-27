@@ -206,6 +206,21 @@ public final class TetheringServiceTest {
         mMockConnector.removeDeviceOwnerPackage(TEST_CALLER_PKG);
     }
 
+    private void runAsCarrierPrivileged(final TestTetheringCall test) throws Exception {
+        mMockConnector.addCarrierPrivilegedPackage(TEST_CALLER_PKG);
+        runTetheringCall(test, true /* isTetheringAllowed */,
+                true /* isTetheringWithSoftApConfigEnabled */, new String[0]);
+        mMockConnector.removeCarrierPrivilegedPackage(TEST_CALLER_PKG);
+    }
+
+    private void runAsCarrierPrivilegedWhenDeviceOwnerBypassNotEnabled(
+            final TestTetheringCall test) throws Exception {
+        mMockConnector.addCarrierPrivilegedPackage(TEST_CALLER_PKG);
+        runTetheringCall(test, true /* isTetheringAllowed */,
+                false /* isTetheringWithSoftApConfigEnabled */, new String[0]);
+        mMockConnector.removeCarrierPrivilegedPackage(TEST_CALLER_PKG);
+    }
+
     private void runTetheringCall(final TestTetheringCall test, boolean isTetheringAllowed,
             boolean isTetheringWithSoftApConfigEnabled, String... permissions) throws Exception {
         // Allow the test to run even if ACCESS_NETWORK_STATE was granted at the APK level
@@ -451,6 +466,52 @@ public final class TetheringServiceTest {
             verifyNoMoreInteractionsForTethering();
         });
 
+        // Not a Wifi request - Fail
+        runAsCarrierPrivileged((result) -> {
+            final TetheringRequestParcel notWifi = new TetheringRequestParcel();
+            notWifi.tetheringType = TETHERING_USB;
+            mTetheringConnector.startTethering(notWifi, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG,
+                    result);
+            verify(mTethering, atLeastOnce()).isTetheringWithSoftApConfigEnabled();
+            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        // Request has no SoftApConfiguration - Fail
+        runAsCarrierPrivileged((result) -> {
+            final TetheringRequestParcel noConfig = new TetheringRequestParcel();
+            noConfig.tetheringType = TETHERING_WIFI;
+            mTetheringConnector.startTethering(noConfig, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG,
+                    result);
+            verify(mTethering, atLeastOnce()).isTetheringWithSoftApConfigEnabled();
+            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        // Wifi request with SoftApConfiguration - Succeed
+        runAsCarrierPrivileged((result) -> {
+            final TetheringRequestParcel withConfig = new TetheringRequestParcel();
+            withConfig.tetheringType = TETHERING_WIFI;
+            withConfig.softApConfig = new SoftApConfiguration.Builder().build();
+            mTetheringConnector.startTethering(withConfig, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG,
+                    result);
+            verify(mTethering, atLeastOnce()).isTetheringWithSoftApConfigEnabled();
+            verify(mTethering).isTetheringSupported();
+            verify(mTethering).isTetheringAllowed();
+            verify(mTethering).startTethering(any(), any(), any());
+            result.assertResult(-1); // No result
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        runAsCarrierPrivilegedWhenDeviceOwnerBypassNotEnabled((result) -> {
+            mTetheringConnector.startTethering(request, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG,
+                    result);
+            verify(mTethering, atLeastOnce()).isTetheringWithSoftApConfigEnabled();
+            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            verify(mTethering).isTetherProvisioningRequired();
+            verifyNoMoreInteractionsForTethering();
+        });
+
         runAsTetherPrivileged((result) -> {
             mTetheringConnector.startTethering(request, TEST_WRONG_PACKAGE,
                     TEST_ATTRIBUTION_TAG, result);
@@ -676,6 +737,27 @@ public final class TetheringServiceTest {
         });
 
         runAsDeviceOwnerWhenDeviceOwnerBypassNotEnabled((result) -> {
+            verifyDoesNotHavePermissionForStopTetheringRequest(withConfig, result);
+        });
+
+        // Not wifi -> fail
+        runAsCarrierPrivileged((result) -> {
+            TetheringRequest notWifi = new TetheringRequest.Builder(TETHERING_USB).build();
+            verifyDoesNotHavePermissionForStopTetheringRequest(notWifi, result);
+        });
+
+        // No config -> fail
+        runAsCarrierPrivileged((result) -> {
+            TetheringRequest noConfig = new TetheringRequest.Builder(TETHERING_WIFI).build();
+            verifyDoesNotHavePermissionForStopTetheringRequest(noConfig, result);
+        });
+
+        // With config -> success
+        runAsCarrierPrivileged((result) -> {
+            verifyHasPermissionForStopTetheringRequest(withConfig, result);
+        });
+
+        runAsCarrierPrivilegedWhenDeviceOwnerBypassNotEnabled((result) -> {
             verifyDoesNotHavePermissionForStopTetheringRequest(withConfig, result);
         });
     }
