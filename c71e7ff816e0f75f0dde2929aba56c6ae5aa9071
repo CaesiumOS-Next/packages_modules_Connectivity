@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17139262_fd6284db",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-27T02:45:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6623724b_736ac137",
+      "range": {
+        "startLine": 96,
+        "startChar": 52,
+        "endLine": 96,
+        "endChar": 53
+      },
+      "revId": "c71e7ff816e0f75f0dde2929aba56c6ae5aa9071",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d03771ad_39f20eec",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e74a37b_98a6aa1e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-27T02:45:30Z",
+      "side": 1,
+      "message": "Migrated to ConnectivityManagerTest, which already had this",
+      "parentUuid": "d03771ad_39f20eec",
+      "range": {
+        "startLine": 649,
+        "startChar": 4,
+        "endLine": 649,
+        "endChar": 5
+      },
+      "revId": "c71e7ff816e0f75f0dde2929aba56c6ae5aa9071",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb281a83_9405b294",
@@ -60,6 +108,24 @@
       "writtenOn": "2025-02-26T00:52:19Z",
       "side": 1,
       "message": "nits: there are exisiting tests for PendingIntent in [ConnectivityManagerTest.java](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java;l\u003d1227-1389?q\u003dConnectivityManagerTest\u0026ss\u003dandroid).\nIt looks testNetworkRequest_pendingIntent is pretty similar to [testRegisterNetworkCallback_withPendingIntent](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java;l\u003d1234?q\u003dConnectivityManagerTest\u0026ss\u003dandroid).\nCan we move to ConnectivityManagerTest?",
+      "revId": "c71e7ff816e0f75f0dde2929aba56c6ae5aa9071",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2ce9ecf_0c1bd2cc",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-02-27T02:45:30Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. My new test for PendingIntent had some places where it is better or more readable than the old test (e.g. not skipping devices without wifi or not depending on the details of some broadcast receiver in another file), so I merged them and took the best of both worlds.",
+      "parentUuid": "eb281a83_9405b294",
       "revId": "c71e7ff816e0f75f0dde2929aba56c6ae5aa9071",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
