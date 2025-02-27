@@ -100,6 +100,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ba2fdb3_f290865d",
+        "filename": "framework/jni/android_net_NetworkUtils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-27T07:24:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8f4afde8_91248a7a",
+      "range": {
+        "startLine": 277,
+        "startChar": 45,
+        "endLine": 277,
+        "endChar": 49
+      },
+      "revId": "a2ca4fa9b26a0543a5cb56b029faf2bc4446d1c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce0abdaa_08a5c72b",
@@ -151,6 +175,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "865e6838_3200ce95",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-27T07:24:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ce0abdaa_08a5c72b",
+      "range": {
+        "startLine": 448,
+        "startChar": 27,
+        "endLine": 448,
+        "endChar": 28
+      },
+      "revId": "a2ca4fa9b26a0543a5cb56b029faf2bc4446d1c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f9daab0_7da3eb9d",
@@ -188,6 +236,30 @@
           ]
         }
       ],
+      "revId": "a2ca4fa9b26a0543a5cb56b029faf2bc4446d1c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bdda6f5_ebcdbdaa",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-27T07:24:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5f9daab0_7da3eb9d",
+      "range": {
+        "startLine": 462,
+        "startChar": 38,
+        "endLine": 462,
+        "endChar": 43
+      },
       "revId": "a2ca4fa9b26a0543a5cb56b029faf2bc4446d1c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
