@@ -16,6 +16,24 @@
       "message": "I think there is native java support for getsockopt...\n\nhttps://source.corp.google.com/search?q\u003dgetsockoptint%20file:modules%2FConnectivity\u0026sq\u003drepo:android%2Fplatform%2Fsuperproject%2Fmain%20b:main\n\nwhy not use that instead of adding jni?",
       "revId": "bb7643c05e7a58caef291fb25d62c2c5a5eea1fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8ffe3a0_51b00d82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-27T05:51:56Z",
+      "side": 1,
+      "message": "I thought getsockoptInt does not work for SO_MARK and SO_COOKIE since the option is long.\nI can add getsocketoptLong to jni and use that for mark and cookie if that\u0027s better.",
+      "parentUuid": "687d5d04_c25a223b",
+      "revId": "bb7643c05e7a58caef291fb25d62c2c5a5eea1fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
