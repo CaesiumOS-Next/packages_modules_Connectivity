@@ -52,6 +52,29 @@
       "parentUuid": "b8ffe3a0_51b00d82",
       "revId": "bb7643c05e7a58caef291fb25d62c2c5a5eea1fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83f7eec1_63d1ebdf",
+        "filename": "framework/jni/android_net_NetworkUtils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-02-27T05:58:41Z",
+      "side": 1,
+      "message": "remember that we want to eliminate the use of bpf maps indexed by cookie...",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 1
+      },
+      "revId": "bb7643c05e7a58caef291fb25d62c2c5a5eea1fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
