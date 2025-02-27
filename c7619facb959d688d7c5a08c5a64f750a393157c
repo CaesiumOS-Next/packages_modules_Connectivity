@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47035457_c61dd069",
+        "filename": "common/FlaggedApi.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-02-27T06:28:32Z",
+      "side": 1,
+      "message": "IIUC this is only needed for tests so shouldn\u0027t have apex_available for tethering (since tethering should use the non-exported version above)",
+      "revId": "c7619facb959d688d7c5a08c5a64f750a393157c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
