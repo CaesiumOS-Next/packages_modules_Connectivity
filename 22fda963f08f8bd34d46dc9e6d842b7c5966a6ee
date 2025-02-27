@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f99caf93_75a798d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-02-27T01:24:57Z",
+      "side": 1,
+      "message": "Note that this will break Motomu\u0027s multi-device GTS test. So we\u0027ll have to a be a bit smarter in that test (or maybe we should just hold off before submitting this).",
+      "revId": "22fda963f08f8bd34d46dc9e6d842b7c5966a6ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
