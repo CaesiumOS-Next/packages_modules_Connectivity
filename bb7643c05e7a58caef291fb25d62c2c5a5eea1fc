@@ -54,6 +54,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71d575a7_48471827",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-27T06:01:29Z",
+      "side": 1,
+      "message": "You are right, I will remove method for mark.",
+      "parentUuid": "5733c616_01094ead",
+      "revId": "bb7643c05e7a58caef291fb25d62c2c5a5eea1fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83f7eec1_63d1ebdf",
