@@ -321,6 +321,16 @@ public class TetheringService extends Service {
                     && request.getSoftApConfiguration() != null;
         }
 
+        private boolean hasCarrierPrivilegePermission(final String callerPkg,
+                final TetheringRequest request) {
+            if (!mTethering.isTetheringWithSoftApConfigEnabled()) return false;
+            if (!mService.isCarrierPrivileged(callerPkg)) return false;
+
+            // Carrier apps can only change tethering for Wi-Fi with a non-null SoftApConfiguration.
+            return request != null && request.getTetheringType() == TETHERING_WIFI
+                    && request.getSoftApConfiguration() != null;
+        }
+
         private boolean hasTetherChangePermission(final String callerPkg,
                 final String callingAttributionTag, final TetheringRequest request) {
             boolean onlyAllowPrivileged = request != null
@@ -334,6 +344,7 @@ public class TetheringService extends Service {
             // Allow DO apps to change tethering even if they don't have TETHER_PRIVILEGED.
             int uid = getBinderCallingUid();
             if (hasDeviceOwnerPermission(uid, callerPkg, request)) return true;
+            if (hasCarrierPrivilegePermission(callerPkg, request)) return true;
 
             // After TetheringManager moves to public API, prevent third-party apps from being able
             // to change tethering with only WRITE_SETTINGS permission.
@@ -410,6 +421,14 @@ public class TetheringService extends Service {
     @VisibleForTesting
     boolean isDeviceOwner(final int uid, final String callerPkg) {
         return mTetheringPermissionsUtils.isDeviceOwner(uid, callerPkg);
+    }
+
+    /**
+     * Wrapper for {@link TetheringPermissionUtils#hasCarrierPrivileges(String)}, used for mocks.
+     */
+    @VisibleForTesting
+    boolean isCarrierPrivileged(final String callerPkg) {
+        return mTetheringPermissionsUtils.isCarrierPrivileged(callerPkg);
     }
 
     /**
