@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9402ca5_11786d91",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-27T04:26:18Z",
+      "side": 1,
+      "message": "I think we can remove this.\nThis internally use wifiManager. So If we will keep this, we need to keep `AppModeFull` annotation and `hasSystemFeature(FEATURE_WIFI)` check.",
+      "range": {
+        "startLine": 1262,
+        "startChar": 12,
+        "endLine": 1262,
+        "endChar": 47
+      },
+      "revId": "f34735ebdc780e5a17f7ecdf04900f4c91243558",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
