@@ -169,6 +169,13 @@ public final class TetheringServiceTest {
         mMockConnector.removeDeviceOwnerPackage(TEST_CALLER_PKG);
     }
 
+    private void runAsCarrierPrivileged(final TestTetheringCall test) throws Exception {
+        mMockConnector.addCarrierPrivilegedPackage(TEST_CALLER_PKG);
+        runTetheringCall(test, true /* isTetheringAllowed */, false /* isWriteSettingsAllowed */,
+                new String[0]);
+        mMockConnector.removeCarrierPrivilegedPackage(TEST_CALLER_PKG);
+    }
+
     private void runAsAccessNetworkState(final TestTetheringCall test) throws Exception {
         runTetheringCall(test, true /* isTetheringAllowed */, false /* isWriteSettingsAllowed */,
                 ACCESS_NETWORK_STATE);
@@ -394,6 +401,15 @@ public final class TetheringServiceTest {
         });
 
         runAsDeviceOwner((result) -> {
+            mTetheringConnector.startTethering(request, TEST_WRONG_PACKAGE,
+                    TEST_ATTRIBUTION_TAG, result);
+            verify(mTethering, never()).startTethering(
+                    eq(new TetheringRequest(request)), eq(TEST_WRONG_PACKAGE), eq(result));
+            result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+            verifyNoMoreInteractionsForTethering();
+        });
+
+        runAsCarrierPrivileged((result) -> {
             mTetheringConnector.startTethering(request, TEST_WRONG_PACKAGE,
                     TEST_ATTRIBUTION_TAG, result);
             verify(mTethering, never()).startTethering(
