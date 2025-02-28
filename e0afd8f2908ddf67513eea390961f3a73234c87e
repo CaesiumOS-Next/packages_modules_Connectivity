@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ff2f0f5_c56df0de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-02-28T00:27:06Z",
+      "side": 1,
+      "message": "LGTM, but if it\u0027s a real use case that we broke, can you add a test to prevent it from happening? Ideally you\u0027d add the test at the bottom of the stack (below this CL) checking for the currently-broken behaviour. Then in this CL you\u0027d modify the test so that it verifies the correct behaviour.",
+      "revId": "e0afd8f2908ddf67513eea390961f3a73234c87e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
