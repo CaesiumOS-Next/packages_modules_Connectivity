@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dd0dda8_48fe196e",
+        "filename": "framework/jni/android_net_NetworkUtils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-28T00:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87aba3b8_88df7c16",
+      "revId": "f14ab82867ff719b0d699464469928ad4165afa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb7e89cf_4ab62d40",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d86914f1_86130fa2",
+        "filename": "framework/jni/android_net_NetworkUtils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-28T00:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb7e89cf_4ab62d40",
+      "range": {
+        "startLine": 294,
+        "startChar": 5,
+        "endLine": 294,
+        "endChar": 6
+      },
+      "revId": "f14ab82867ff719b0d699464469928ad4165afa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3639c05f_9f981c30",
@@ -54,6 +96,30 @@
       "writtenOn": "2025-02-27T17:05:12Z",
       "side": 1,
       "message": "throws ErrnoException ?",
+      "range": {
+        "startLine": 453,
+        "startChar": 64,
+        "endLine": 453,
+        "endChar": 65
+      },
+      "revId": "f14ab82867ff719b0d699464469928ad4165afa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aab2910a_8a041be6",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-28T00:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3639c05f_9f981c30",
       "range": {
         "startLine": 453,
         "startChar": 64,
