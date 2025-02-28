@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "444dec3d_c57e6d6f",
+        "filename": "thread/tests/cts/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-02-28T01:48:53Z",
+      "side": 1,
+      "message": "nits: Do we need them?\naosp/2815930 added `framework-connectivity-module-api-stubs-including-flagged` but they were not here.\n\nI think `framework-connectivity-test-defaults` already allows CtsThreadNetworkTestCases to build against hidden apis?",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "f88828f14706b9bcfb634cd7d37aa15303477456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
