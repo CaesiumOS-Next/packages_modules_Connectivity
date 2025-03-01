@@ -143,7 +143,7 @@ public final class ConnectivityCompatChanges {
      * @hide
      */
     @ChangeId
-    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.CUR_DEVELOPMENT)
+    @EnabledSince(targetSdkVersion = Build.VERSION_CODES.CUR_DEVELOPMENT)
     public static final long RESTRICT_LOCAL_NETWORK = 365139289L;
 
     private ConnectivityCompatChanges() {
