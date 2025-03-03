@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50c76523_395698a3",
+        "filename": "staticlibs/device/com/android/net/module/util/PrivateAddressCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-03T16:43:34Z",
+      "side": 1,
+      "message": "Well, I tried: aosp/3520131. The mainline team for whatever reason doesn\u0027t like it. With aosp going away, we can just use SdkLevel.isAtLeastB().",
+      "range": {
+        "startLine": 260,
+        "startChar": 5,
+        "endLine": 262,
+        "endChar": 42
+      },
+      "revId": "44f2eb6e42f759f5247c919781f25e591e87c1c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
