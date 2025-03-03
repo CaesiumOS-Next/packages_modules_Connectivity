@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8918a22_360d1fe4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-03T06:22:15Z",
+      "side": 1,
+      "message": "ConnectivityCoverageTests?",
+      "range": {
+        "startLine": 14,
+        "startChar": 12,
+        "endLine": 14,
+        "endChar": 37
+      },
+      "revId": "b547e5fe867ff4160a1e3b3cd16f1fbd30f6192c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e8e66a3_aeeafcab",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1429,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-03T06:22:15Z",
+      "side": 1,
+      "message": "Can we refactor these checks with filter(int limitUid, String[] limitIfaces, int limitTag)\nso the code won\u0027t get duplicated?",
+      "range": {
+        "startLine": 1426,
+        "startChar": 17,
+        "endLine": 1429,
+        "endChar": 70
+      },
+      "revId": "b547e5fe867ff4160a1e3b3cd16f1fbd30f6192c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcdc3e52_b081ed0d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-03T06:22:15Z",
+      "side": 1,
+      "message": "Is this equivalent with the old code?\nIt seems to me the old code uses delta to apply the adjustment.\nBut now it uses the snapshot to apply the adjustment?\n\nIf not, did we pass NetworkStatsFactoryTest with wrong logic?\nMaybe this warrents a unit test?",
+      "range": {
+        "startLine": 221,
+        "startChar": 12,
+        "endLine": 221,
+        "endChar": 58
+      },
+      "revId": "b547e5fe867ff4160a1e3b3cd16f1fbd30f6192c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
