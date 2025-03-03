@@ -1,0 +1,1030 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5de55a83_c3f42b21",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 6835,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "It doesn\u0027t look to me like this is specific to QUIC in any way. If I have some custom UDP-based protocol that can make use of this, I should be able to use it no ?",
+      "range": {
+        "startLine": 6835,
+        "startChar": 16,
+        "endLine": 6835,
+        "endChar": 20
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4210bc35_ff6e28ec",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 6850,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Can you expand a little bit on why we can\u0027t avoid this ?",
+      "range": {
+        "startLine": 6849,
+        "startChar": 7,
+        "endLine": 6850,
+        "endChar": 26
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b46092c3_245240e2",
+        "filename": "framework/src/android/net/IConnectivityManager.aidl",
+        "patchSetId": 26
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "I\u0027m not sure this comment is useful. Not blocking is essentially the whole point of making an AIDL method oneway.",
+      "range": {
+        "startLine": 268,
+        "startChar": 24,
+        "endLine": 268,
+        "endChar": 64
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41002fbf_cd783924",
+        "filename": "framework/src/android/net/IConnectivityManager.aidl",
+        "patchSetId": 26
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Is there a \"QUIC process\" ? Is that not just any app using QUIC ?",
+      "range": {
+        "startLine": 268,
+        "startChar": 65,
+        "endLine": 268,
+        "endChar": 81
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dbb513c_02fc578f",
+        "filename": "framework/src/android/net/IConnectivityManager.aidl",
+        "patchSetId": 26
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Really ? What guarantees that ?",
+      "range": {
+        "startLine": 269,
+        "startChar": 11,
+        "endLine": 269,
+        "endChar": 21
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d5e92e_e8156c75",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "How difficult would it be to extract this logic to a satellite class of ConnectivityService ? This file is already 15k lines long, and this is adding a lot of dependencies ; generally I think the logic looks fine but it\u0027s pretty independent of the rest of the code and since it\u0027s greenfield it would be a good candidate for extraction.",
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d123efbb_50df9111",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "I think \"infos\" would be clearer",
+      "range": {
+        "startLine": 1112,
+        "startChar": 45,
+        "endLine": 1112,
+        "endChar": 46
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "29d92f07_b13e5f69",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 1112,
+                "startChar": 0,
+                "endLine": 1113,
+                "endChar": 0
+              },
+              "replacement": "            mRegisteredQuicConnectionCloseInfos \u003d new ArrayMap\u003c\u003e();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9815d95a_564dfa8f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "...concurrently",
+      "range": {
+        "startLine": 1113,
+        "startChar": 93,
+        "endLine": 1113,
+        "endChar": 94
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec242ced_a4e4373b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 1882,
+        "startChar": 12,
+        "endLine": 1882,
+        "endChar": 26
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f66f513a_75f9b059",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15148,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "When can this happen ? When the address has gone away ? Should we prune the list of connections when that happens ?",
+      "range": {
+        "startLine": 15148,
+        "startChar": 51,
+        "endLine": 15148,
+        "endChar": 80
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c2d0bee6_dc5661f1",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 15149,
+                "startChar": 0,
+                "endLine": 15149,
+                "endChar": 0
+              },
+              "replacement": "            // This can happen if the address has gone away or if the network is no longer connected.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaec587b_dd687d48",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15172,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "I think this can block if there are no remaining buffers in the NIC ? Should there be a timeout or something to avoid blocking the CS thread for too long ?",
+      "range": {
+        "startLine": 15172,
+        "startChar": 18,
+        "endLine": 15172,
+        "endChar": 48
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a610fabc_c0fdf220",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15189,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Please use a message number. Since this handler is used for many things, posting a custom runnable from a random place in the file makes it more difficult to audit what is happening on the handler, as well as to trace and diagnose blocking/timing issues. I think we already have too many custom runnables posted there",
+      "range": {
+        "startLine": 15189,
+        "startChar": 17,
+        "endLine": 15189,
+        "endChar": 21
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dfd4029_688a5bb6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15193,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be impossible ? If so, maybe log a wtf ?",
+      "range": {
+        "startLine": 15193,
+        "startChar": 16,
+        "endLine": 15193,
+        "endChar": 78
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd3f33ce_20140797",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15208,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Can you remove some of this code duplication ? I think a helper method with a boolean to tell whether the socket should be closed might help with maintenance.",
+      "range": {
+        "startLine": 15208,
+        "startChar": 22,
+        "endLine": 15208,
+        "endChar": 52
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a30e741_3d3f2f15",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15228,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Should this 0xffff constant move to some AIDL file like INetd.aidl ?",
+      "range": {
+        "startLine": 15228,
+        "startChar": 15,
+        "endLine": 15228,
+        "endChar": 49
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c4988fb0_0f6add4b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 15215,
+                "startChar": 0,
+                "endLine": 15218,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 15228,
+                "startChar": 0,
+                "endLine": 15230,
+                "endChar": 0
+              },
+              "replacement": "            final int netId \u003d mDeps.getSockOptInt(fd, SOL_SOCKET, SO_MARK_NET_ID);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e29d6bd3_bff77126",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15239,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 15239,
+        "startChar": 21,
+        "endLine": 15239,
+        "endChar": 25
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f746158_4afc99d3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15245,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "It looks like the app has no way to know if it worked. This is likely fine (there is not much it can do) but I think this should probably be documented in ConnectivityManager.java.",
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56690d50_9daadf61",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15250,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "s/: \" + e/\", e/",
+      "range": {
+        "startLine": 15250,
+        "startChar": 76,
+        "endLine": 15250,
+        "endChar": 83
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3ea1e27_d9805295",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15259,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Suggest some small rewording like\n\n|pdf| must be closed after posting the message to the handler thread\nto avoid the following threading issue with SkDestroyListener :\nIf the PFD was closed before posting the message, then SkDestroyListener might\nget a \"socket destroyed\" message from Netlink immediately and post to the\nhandler thread before this method posts its own message, resulting in a\nleak of the mRegisteredQuicConnectionCloseInfo entry.\nWhile the PFD is held, Netlink will not send the socket destroy message to\nSkDestroyListener, and thus the message posted by SkDestroyListener as\na reaction to it will be processed after the message posted by this method.",
+      "range": {
+        "startLine": 15252,
+        "startChar": 0,
+        "endLine": 15259,
+        "endChar": 55
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9db7b5d_9330f270",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15286,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Please remove duplication : helper method or have a reference to the other comment",
+      "range": {
+        "startLine": 15278,
+        "startChar": 0,
+        "endLine": 15286,
+        "endChar": 22
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "6eaae564_35bf9832",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 15252,
+                "startChar": 0,
+                "endLine": 15260,
+                "endChar": 0
+              },
+              "replacement": "            // See the comment in registerQuicConnectionClosePayload() for the reason why pfd must be\n            // closed after posting the message to the handler thread.\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 15278,
+                "startChar": 0,
+                "endLine": 15287,
+                "endChar": 0
+              },
+              "replacement": "            // See the comment in registerQuicConnectionClosePayload() for the reason why pfd must be\n            // closed after posting the message to the handler thread.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "435e69dc_f8149da1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4121,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "final",
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b8efc7b_4d269e7c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4138,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "There is a TODO to remove this method, please don\u0027t add new usages.\n\nYou can just change the return type of waitForAvailable to CallbackEntry.Available, which is already what the callee returns. Then you can use `.network` on that.",
+      "range": {
+        "startLine": 4138,
+        "startChar": 24,
+        "endLine": 4138,
+        "endChar": 47
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ad14af2_0ce46cb7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4192,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 4192,
+        "startChar": 16,
+        "endLine": 4192,
+        "endChar": 28
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "745d7085_e46fa17c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4204,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "This looks like there is a good chance it will be flaky. Should there be a way for tests to observe when the registration is done instead of just hoping a delay will be enough ?",
+      "range": {
+        "startLine": 4204,
+        "startChar": 72,
+        "endLine": 4204,
+        "endChar": 91
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47c111c2_a4e0cf58",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4217,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand this. Do you actually see packets flow that are not the payload in this test ? If so, what are these packets ? It doesn\u0027t seem to me like we ever should receive any data since we don\u0027t send any.",
+      "range": {
+        "startLine": 4217,
+        "startChar": 27,
+        "endLine": 4217,
+        "endChar": 41
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69848e01_5c9a9591",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4218,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "If there are less than payload.length bytes received this will crash from the buffer underflow. Should we account for the possibility of reading only part of the payload, maybe by appending to the received data so you can check the last payload.length bytes even if it was fragmented ?",
+      "range": {
+        "startLine": 4218,
+        "startChar": 34,
+        "endLine": 4218,
+        "endChar": 59
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b71b50a_bb50400c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4221,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "I think some comments here might help with readability. The control never comes here is case of a timeout, but it goes to l.4246. Maybe you want something like\n\n// If the control comes here then the payload was received, otherwise poll\n// would have returned 0 or the test above would have matched it and gone\n// to continue.",
+      "range": {
+        "startLine": 4221,
+        "startChar": 16,
+        "endLine": 4221,
+        "endChar": 18
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff106aa0_dd102cfc",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4267,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Should this be another cleanup clause ? The important question here is, should we execute this line if l.4260 fails. If yes, then it should be another cleanup. If no, this is fine",
+      "range": {
+        "startLine": 4261,
+        "startChar": 0,
+        "endLine": 4267,
+        "endChar": 17
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de4b3bef_96eef7db",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4315,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "\"tries to detect threading issues\" ? It\u0027s really difficult to \"ensure\" that there are no threading issues and I don\u0027t think this test does that, it just has a good chance of detecting some of the foreseeable issues.",
+      "range": {
+        "startLine": 4315,
+        "startChar": 17,
+        "endLine": 4315,
+        "endChar": 59
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01b0129b_bf310923",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4362,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Likewise, I\u0027m not sure why it\u0027s okay to receive data as long as it\u0027s more than payload.length but not the closing payload. If we do receive such data the test will pass. If we receive data but less than payload.length, it will crash from a buffer underflow (readSize - payload.length \u003c 0).",
+      "range": {
+        "startLine": 4362,
+        "startChar": 27,
+        "endLine": 4362,
+        "endChar": 41
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db37b925_97e5de06",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "extra e (also all the methods below)",
+      "range": {
+        "startLine": 373,
+        "startChar": 36,
+        "endLine": 373,
+        "endChar": 37
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0053ecb_da716e9e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "supernit : small i to stay consistent with other tests",
+      "range": {
+        "startLine": 529,
+        "startChar": 48,
+        "endLine": 529,
+        "endChar": 49
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a13a77fb_cff16ba5",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+              "range": {
+                "startLine": 529,
+                "startChar": 0,
+                "endLine": 530,
+                "endChar": 0
+              },
+              "replacement": "    fun testRegistereQuicConnectionClosePayload_interfaceAddressChange() {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e0c3c20_2dbc9bc7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Coverage is good already but you might have missed the most important one : when the sockets are closed because the default network has changed",
+      "range": {
+        "startLine": 556,
+        "startChar": 4,
+        "endLine": 556,
+        "endChar": 5
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eabb4c8_d632ce19",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "IIUC this should never be null ?",
+      "range": {
+        "startLine": 437,
+        "startChar": 28,
+        "endLine": 437,
+        "endChar": 29
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "8e992113_ede2365a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+              "range": {
+                "startLine": 437,
+                "startChar": 0,
+                "endLine": 438,
+                "endChar": 0
+              },
+              "replacement": "        ): SkDestroyListener {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1a97590_1ed12170",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "What is the threading story for all these mutable members ? I think the setters are generally called on the test thread but the getters are generally called on the connectivity service thread, so this is like to blow up. If you are sure it doesn\u0027t please add comments to explain the threading model.",
+      "range": {
+        "startLine": 453,
+        "startChar": 16,
+        "endLine": 453,
+        "endChar": 19
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f902300b_6a4c3229",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "I think this needs a little bit more namespacing. A user of this will simply call `deps.setifindex()` and I think it\u0027s not super clear that this is about overriding ifNameToIndex. Maybe it\u0027s enough to name it a bit more expansively, e.g. setReturnValueOfIfNameToIndex or something ?",
+      "range": {
+        "startLine": 473,
+        "startChar": 12,
+        "endLine": 473,
+        "endChar": 22
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb0654dd_a975334e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "Suggest offering a default timeout",
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c30a3b71_36224c1f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-03T06:28:23Z",
+      "side": 1,
+      "message": "I think this design is the right one, but maybe it doesn\u0027t belong in the dependencies ? If you follow my suggestion to move the logic in this patch to a satellite of CS then you\u0027ll have a natural place to put it. If you don\u0027t, maybe you want to just move the history and expect* methods to the CSTest parent class instead of the dependencies",
+      "range": {
+        "startLine": 523,
+        "startChar": 12,
+        "endLine": 523,
+        "endChar": 34
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "952f35ff_f99ad0ae",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+              "range": {
+                "startLine": 82,
+                "startChar": 0,
+                "endLine": 82,
+                "endChar": 0
+              },
+              "replacement": "import com.android.server.connectivity.SkDestroyListenerWrapper\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+              "range": {
+                "startLine": 231,
+                "startChar": 0,
+                "endLine": 232,
+                "endChar": 0
+              },
+              "replacement": "    val skDestroyListenerWrapper \u003d mock\u003cSkDestroyListenerWrapper\u003e()\n"
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+              "range": {
+                "startLine": 432,
+                "startChar": 0,
+                "endLine": 434,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+              "range": {
+                "startLine": 438,
+                "startChar": 0,
+                "endLine": 440,
+                "endChar": 0
+              },
+              "replacement": "            return skDestroyListenerWrapper\n"
+            }
+          ]
+        }
+      ],
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
