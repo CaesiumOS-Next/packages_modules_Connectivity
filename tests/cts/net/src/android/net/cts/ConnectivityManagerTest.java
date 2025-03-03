@@ -1273,6 +1273,7 @@ public class ConnectivityManagerTest {
     // Up to R ConnectivityService can't be updated through mainline, and there was a bug
     // where registering a callback with a canceled pending intent would crash the system.
     @Test
+    @ConnectivityModuleTest
     @IgnoreUpTo(Build.VERSION_CODES.R)
     public void testRegisterNetworkCallback_pendingIntent_classNotFound() {
         final Intent intent = new Intent()
