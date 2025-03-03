@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed35fe15_5d276642",
+        "filename": "framework/Android.bp",
+        "patchSetId": 12
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-03T23:45:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fca99d09_d9a49700",
+      "range": {
+        "startLine": 254,
+        "startChar": 9,
+        "endLine": 254,
+        "endChar": 16
+      },
+      "revId": "50c8df776db2484879c4e8f5811e2ca6eb0f716c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd6d24ac_c64823bb",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-03T22:02:22Z",
       "side": 1,
       "message": "remove, add @throws see line 436",
+      "range": {
+        "startLine": 451,
+        "startChar": 50,
+        "endLine": 451,
+        "endChar": 71
+      },
+      "revId": "50c8df776db2484879c4e8f5811e2ca6eb0f716c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78116fbe_84470bf3",
+        "filename": "framework/src/android/net/NetworkUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-03T23:45:52Z",
+      "side": 1,
+      "message": "Thanks, done",
+      "parentUuid": "cd6d24ac_c64823bb",
       "range": {
         "startLine": 451,
         "startChar": 50,
