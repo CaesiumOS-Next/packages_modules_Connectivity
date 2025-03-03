@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e656cdce_8db15885",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1057373
+      },
+      "writtenOn": "2025-03-03T22:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8918a22_360d1fe4",
+      "range": {
+        "startLine": 14,
+        "startChar": 12,
+        "endLine": 14,
+        "endChar": 37
+      },
+      "revId": "b547e5fe867ff4160a1e3b3cd16f1fbd30f6192c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e8e66a3_aeeafcab",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d338116_9d3adbe3",
+        "filename": "framework-t/src/android/net/NetworkStats.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1429,
+      "author": {
+        "id": 1057373
+      },
+      "writtenOn": "2025-03-03T22:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e8e66a3_aeeafcab",
+      "range": {
+        "startLine": 1426,
+        "startChar": 17,
+        "endLine": 1429,
+        "endChar": 70
+      },
+      "revId": "b547e5fe867ff4160a1e3b3cd16f1fbd30f6192c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcdc3e52_b081ed0d",
@@ -60,6 +108,30 @@
       "writtenOn": "2025-03-03T06:22:15Z",
       "side": 1,
       "message": "Is this equivalent with the old code?\nIt seems to me the old code uses delta to apply the adjustment.\nBut now it uses the snapshot to apply the adjustment?\n\nIf not, did we pass NetworkStatsFactoryTest with wrong logic?\nMaybe this warrents a unit test?",
+      "range": {
+        "startLine": 221,
+        "startChar": 12,
+        "endLine": 221,
+        "endChar": 58
+      },
+      "revId": "b547e5fe867ff4160a1e3b3cd16f1fbd30f6192c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dc926fa_4874ea76",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1057373
+      },
+      "writtenOn": "2025-03-03T22:43:41Z",
+      "side": 1,
+      "message": "I believe this is equivalent with the old code, because:\n\n```\n   delta \u003d subtract(mPersistantSnapshot + stats, mPersistantSnapshot.clone())\n         \u003d mPerstistantSnapshot + stats - mPersistantSnapshot\n         \u003d stats + (mPersistantSnapshot - mPersistantSnapshot)\n         \u003d stats\n```\n\nI tried running a device with go/ag/31940719 to double check behavior is the same. That change runs both with the new and old logic at the same time, and throws an assertion if the contents of the results differ (counting a 0 entry the same as no entry and ignoring order of entries). After fixing some bugs in the comparison logic, I did not see any assertions raised with that CL.\n\nWhen I deliberately introduced a bug (commenting out the stats.apply464... line), I saw test failures in:\n\nNetworkStatsFactoryTest#testDoubleClatAccountingSimple\nNetworkStatsFactoryTest#testVpnWithClat\nNetworkStatsFactoryTest#testDoubleClatAccounting\n\nWhich leads me to believe there is existing unit test coverage for this code.",
+      "parentUuid": "bcdc3e52_b081ed0d",
       "range": {
         "startLine": 221,
         "startChar": 12,
