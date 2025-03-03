@@ -1144,6 +1144,7 @@ public class ConnectivityManagerTest {
             mCtsNetUtils.restorePrivateDnsSetting();
             // Toggle networks to make sure they are re-validated
             mCtsNetUtils.reconnectWifiIfSupported();
+            ensureWifiIsValidatedIfSupported();
             mCtsNetUtils.reconnectCellIfSupported();
         }
     }
@@ -1362,7 +1363,7 @@ public class ConnectivityManagerTest {
             if (firstIntent != null) mCm.unregisterNetworkCallback(firstIntent);
             if (secondIntent != null) mCm.unregisterNetworkCallback(secondIntent);
             if (receiver != null) mContext.unregisterReceiver(receiver);
-            mCtsNetUtils.ensureWifiConnected();
+            ensureWifiIsValidatedIfSupported();
         }
     }
 
@@ -1452,6 +1453,7 @@ public class ConnectivityManagerTest {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
         mCtsNetUtils.reconnectWifiAndWaitForConnectivityAction();
+        ensureWifiIsValidatedIfSupported();
     }
 
     /** Verify restricted networks cannot be requested. */
@@ -2343,6 +2345,7 @@ public class ConnectivityManagerTest {
             // Restore the previous state of airplane mode and permissions:
             runShellCommand("cmd connectivity airplane-mode "
                     + (isAirplaneModeEnabled ? "enable" : "disable"));
+            ensureWifiIsValidatedIfSupported();
         }
     }
 
@@ -2772,7 +2775,7 @@ public class ConnectivityManagerTest {
             ConnectivitySettingsManager.setPrivateDnsMode(mContext, curPrivateDnsMode);
             tetherUtils.unregisterTetheringEventCallback(tetherEventCallback);
             tetherUtils.stopAllTethering();
-            mCtsNetUtils.ensureWifiConnected();
+            ensureWifiIsValidatedIfSupported();
         }
     }
 
@@ -3017,6 +3020,12 @@ public class ConnectivityManagerTest {
         }
     }
 
+    private void ensureWifiIsValidatedIfSupported() {
+        if (mPackageManager.hasSystemFeature(FEATURE_WIFI)) {
+            new ConnectUtil(mContext).ensureWifiValidated();
+        }
+    }
+
     @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
     @Test
     public void testAcceptPartialConnectivity_validatedNetwork() throws Exception {
@@ -3038,7 +3047,7 @@ public class ConnectivityManagerTest {
             expectNetworkHasCapability(network, NET_CAPABILITY_VALIDATED, WIFI_CONNECT_TIMEOUT_MS);
         } finally {
             mHttpServer.stop();
-            mTestValidationConfigRule.runAfterNextCleanup(this::reconnectWifi);
+            mTestValidationConfigRule.runAfterNextCleanup(this::reconnectWifiAndEnsureValidated);
         }
     }
 
@@ -3068,7 +3077,7 @@ public class ConnectivityManagerTest {
             // apply here. Thus, turn off wifi first and restart to restore.
             mTestValidationConfigRule.runAfterNextCleanup(() -> {
                 mCtsNetUtils.disableWifi();
-                mCtsNetUtils.ensureWifiConnected();
+                ensureWifiIsValidatedIfSupported();
             });
         }
     }
@@ -3114,7 +3123,7 @@ public class ConnectivityManagerTest {
             // apply here. Thus, turn off wifi first and restart to restore.
             mTestValidationConfigRule.runAfterNextCleanup(() -> {
                 mCtsNetUtils.disableWifi();
-                mCtsNetUtils.ensureWifiConnected();
+                ensureWifiIsValidatedIfSupported();
             });
         }
     }
@@ -3178,7 +3187,7 @@ public class ConnectivityManagerTest {
         } finally {
             resetAvoidBadWifi(previousAvoidBadWifi);
             mHttpServer.stop();
-            mTestValidationConfigRule.runAfterNextCleanup(this::reconnectWifi);
+            mTestValidationConfigRule.runAfterNextCleanup(this::reconnectWifiAndEnsureValidated);
         }
     }
 
@@ -3227,9 +3236,9 @@ public class ConnectivityManagerTest {
         mHttpServer.start();
     }
 
-    private Network reconnectWifi() {
+    private Network reconnectWifiAndEnsureValidated() {
         mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
-        return mCtsNetUtils.ensureWifiConnected();
+        return new ConnectUtil(mContext).ensureWifiValidated();
     }
 
     private Network prepareValidatedNetwork() throws Exception {
@@ -3243,10 +3252,7 @@ public class ConnectivityManagerTest {
         prepareHttpServer();
         configTestServer(Status.NO_CONTENT, Status.NO_CONTENT);
         // Disconnect wifi first then start wifi network with configuration.
-        final Network wifiNetwork = reconnectWifi();
-
-        return expectNetworkHasCapability(wifiNetwork, NET_CAPABILITY_VALIDATED,
-                WIFI_CONNECT_TIMEOUT_MS);
+        return reconnectWifiAndEnsureValidated();
     }
 
     private Network preparePartialConnectivity() throws Exception {
@@ -3323,7 +3329,7 @@ public class ConnectivityManagerTest {
         testAndCleanup(() -> {
             // New default network connected will trigger a network activity notification.
             if (supportWifi) {
-                mCtsNetUtils.ensureWifiConnected();
+                ensureWifiIsValidatedIfSupported();
             } else {
                 networkCallbackRule.requestCell();
             }
