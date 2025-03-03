@@ -147,6 +147,7 @@ java_library {
         "androidx.annotation_annotation",
         "framework-connectivity.stubs.module_lib",
         "net-utils-device-common-struct-base",
+        "framework-annotations-lib",
     ],
     apex_available: [
         "com.android.tethering",
