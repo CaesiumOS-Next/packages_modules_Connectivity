@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba846e75_65558660",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-03-03T16:00:04Z",
+      "side": 1,
+      "message": "Uber nit: I thought semi-colons were only necessary in a try-with-resources if declaring multiple variables. Can you delete it here to keep in convention with the codebase?",
+      "range": {
+        "startLine": 70,
+        "startChar": 95,
+        "endLine": 70,
+        "endChar": 96
+      },
+      "revId": "56d03f554645f47557c76bec6e093e902c44a7e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d945b307_609c8cac",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-03-03T16:00:04Z",
+      "side": 1,
+      "message": "Can you file a bug blocking b/378626065 and leave a TODO here with the new bug, so I remember to add logging for this failure scenario?",
+      "range": {
+        "startLine": 111,
+        "startChar": 12,
+        "endLine": 111,
+        "endChar": 78
+      },
+      "revId": "56d03f554645f47557c76bec6e093e902c44a7e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8a654b3_6abbb944",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-03-03T16:00:04Z",
+      "side": 1,
+      "message": "Uber nit: delete unnecessary newline?",
+      "range": {
+        "startLine": 167,
+        "startChar": 87,
+        "endLine": 169,
+        "endChar": 13
+      },
+      "revId": "56d03f554645f47557c76bec6e093e902c44a7e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "739e17b5_e5e093aa",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1724935
+      },
+      "writtenOn": "2025-03-03T16:00:04Z",
+      "side": 1,
+      "message": "It seems to me that this would actually make more sense in a separate class, e.g. named PemReader, rather than putting it all in SignatureVerifier. Then, it would also be easier to verify that the key parsing is working as expected, i.e. loadAllowedKeysFrom() could instead return a Set\u003cPublicKey\u003e that SignatureVerifier would use to populate its private mAllowedKeys variable, and that could then have unit tests.\n\nLooking at the comment history, it seems like you\u0027ve only had to include this parsing bc the BouncyCastle dependency added too much bloat, so feel free to disregard if you feel satisfied that the parsing code is likely behaving entirely as expected (e.g. if it\u0027s completely forked from BouncyCastle).",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 5
+      },
+      "revId": "56d03f554645f47557c76bec6e093e902c44a7e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
