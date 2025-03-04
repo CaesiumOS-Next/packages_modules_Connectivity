@@ -258,7 +258,7 @@ public class MulticastRoutingCoordinatorService {
             mDependencies.setsockoptMrt6DelMif(mMulticastRoutingFd, virtualIndex);
             Log.d(TAG, "Removed mifi " + virtualIndex + " from MIF");
         } catch (ErrnoException e) {
-            Log.e(TAG, "failed to remove multicast virtual interface" + virtualIndex, e);
+            Log.w(TAG, "failed to remove multicast virtual interface" + virtualIndex, e);
         }
     }
 
