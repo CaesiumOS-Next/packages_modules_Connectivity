@@ -1,0 +1,265 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b8281e_07c2cafc",
+        "filename": "staticlibs/device/com/android/net/module/util/LinkLayerSocketAddress.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-04T15:43:34Z",
+      "side": 1,
+      "message": "Maybe add something like \"using a signed int to represent an unsigned short\" ?",
+      "range": {
+        "startLine": 26,
+        "startChar": 29,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "14206d01_2f1f1b2f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/LinkLayerSocketAddress.java",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 27,
+                "endChar": 0
+              },
+              "replacement": "     * Ethernet protocol type using a signed int to represent an unsigned short.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b747175_fa823bf7",
+        "filename": "staticlibs/device/com/android/net/module/util/LinkLayerSocketAddress.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-04T15:43:34Z",
+      "side": 1,
+      "message": "We should avoid making this potentially null.\n\nWhat about `public final byte[] sll_addr \u003d new byte[8];` which ensures this is never null and always has the right size, and can still be mutated ?",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 27
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "015e9776_5d72df56",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/LinkLayerSocketAddress.java",
+              "range": {
+                "startLine": 48,
+                "startChar": 0,
+                "endLine": 49,
+                "endChar": 0
+              },
+              "replacement": "    public final byte[] sll_addr \u003d new byte[8];\n"
+            },
+            {
+              "path": "staticlibs/device/com/android/net/module/util/LinkLayerSocketAddress.java",
+              "range": {
+                "startLine": 58,
+                "startChar": 0,
+                "endLine": 59,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb6e5872_5ba3d09c",
+        "filename": "staticlibs/device/com/android/net/module/util/ServiceConnectivityJni.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-04T15:43:34Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 80,
+        "startChar": 61,
+        "endLine": 80,
+        "endChar": 67
+      },
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91df5537_bbba8251",
+        "filename": "staticlibs/device/com/android/net/module/util/ServiceConnectivityJni.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-04T15:43:34Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 80,
+        "startChar": 46,
+        "endLine": 80,
+        "endChar": 48
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "41cfea4b_dd4bc76c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/device/com/android/net/module/util/ServiceConnectivityJni.java",
+              "range": {
+                "startLine": 80,
+                "startChar": 0,
+                "endLine": 81,
+                "endChar": 0
+              },
+              "replacement": "    public static int recvfrom(@NonNull FileDescriptor fd, ByteBuffer buffer, int flags,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3434254_89fb65de",
+        "filename": "staticlibs/device/com/android/net/module/util/ServiceConnectivityJni.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-04T15:43:34Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 81,
+        "startChar": 35,
+        "endLine": 81,
+        "endChar": 50
+      },
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d571ee6e_7598e859",
+        "filename": "staticlibs/native/serviceconnectivityjni/com_android_net_module_util_ServiceConnectivityJni.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-04T15:43:34Z",
+      "side": 1,
+      "message": "Isn\u0027t there some implicit conversion of the last args here ? Should we do explicit expansion ?",
+      "range": {
+        "startLine": 211,
+        "startChar": 7,
+        "endLine": 211,
+        "endChar": 18
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "71d646c9_d5127b52",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/native/serviceconnectivityjni/com_android_net_module_util_ServiceConnectivityJni.cpp",
+              "range": {
+                "startLine": 211,
+                "startChar": 0,
+                "endLine": 215,
+                "endChar": 0
+              },
+              "replacement": "  env-\u003eSetIntField(llSocketAddress, protocolFid, (jint)sl-\u003esll_protocol);\n  env-\u003eSetIntField(llSocketAddress, ifindexFid, (jint)sl-\u003esll_ifindex);\n  env-\u003eSetIntField(llSocketAddress, hatypeFid, (jint)sl-\u003esll_hatype);\n  env-\u003eSetIntField(llSocketAddress, pkttypeFid, (jint)sl-\u003esll_pkttype);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6627baea_b8e4f702",
+        "filename": "staticlibs/native/serviceconnectivityjni/com_android_net_module_util_ServiceConnectivityJni.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-04T15:43:34Z",
+      "side": 1,
+      "message": "shouldn\u0027t we skip this if `llSocketAddress \u003d\u003d NULL` ?",
+      "range": {
+        "startLine": 247,
+        "startChar": 6,
+        "endLine": 247,
+        "endChar": 32
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "01451763_8fc4e530",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "staticlibs/native/serviceconnectivityjni/com_android_net_module_util_ServiceConnectivityJni.cpp",
+              "range": {
+                "startLine": 246,
+                "startChar": 0,
+                "endLine": 247,
+                "endChar": 0
+              },
+              "replacement": "    if (llSocketAddress !\u003d NULL \u0026\u0026 ss.ss_family \u003d\u003d AF_PACKET) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
