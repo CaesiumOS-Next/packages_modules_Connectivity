@@ -20,6 +20,7 @@ import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_PLATFORM_MDNS_BACKEND;
+import static android.net.connectivity.ConnectivityCompatChanges.RESTRICT_LOCAL_NETWORK;
 import static android.net.connectivity.ConnectivityCompatChanges.RUN_NATIVE_NSD_ONLY_IF_LEGACY_APPS_T_AND_LATER;
 
 import android.annotation.FlaggedApi;
@@ -38,6 +39,7 @@ import android.net.ConnectivityManager.NetworkCallback;
 import android.net.ConnectivityThread;
 import android.net.Network;
 import android.net.NetworkRequest;
+import android.net.connectivity.ConnectivityCompatChanges;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -712,13 +714,21 @@ public final class NsdManager {
      */
     public NsdManager(Context context, INsdManager service) {
         mContext = context;
+        Log.d(TAG, "context.getPackageName()=" + mContext.getPackageName());
+        Log.d(TAG, "compate change enabled?" + CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK));
+//        if (SdkLevel.isAtLeastB() && CompatChanges.isChangeEnabled(
+//                ConnectivityCompatChanges.RESTRICT_LOCAL_NETWORK, context.getUserId())) {
+//            Log.d(TAG, "checking for LNP");
+//        }
+
         // Use a common singleton thread ConnectivityThread to be shared among all nsd tasks.
         // Instead of launching separate threads to handle tasks from the various instances.
         mHandler = new ServiceHandler(ConnectivityThread.getInstanceLooper());
 
         try {
-            mService = service.connect(new NsdCallbackImpl(mHandler), CompatChanges.isChangeEnabled(
-                    ENABLE_PLATFORM_MDNS_BACKEND));
+            mService = service.connect(new NsdCallbackImpl(mHandler),
+                    CompatChanges.isChangeEnabled(ENABLE_PLATFORM_MDNS_BACKEND),
+                    CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK));
         } catch (RemoteException e) {
             throw new RuntimeException("Failed to connect to NsdService");
         }

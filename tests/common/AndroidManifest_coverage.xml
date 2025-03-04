@@ -17,6 +17,8 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.android.connectivity.tests.coverage">
 
+<!--    <uses-permission android:name="android.permission.LOG_COMPAT_CHANGE" />-->
+<!--    <uses-permission android:name="android.permission.READ_COMPAT_CHANGE_CONFIG" />-->
     <application tools:replace="android:label"
                  android:debuggable="true"
                  android:label="Connectivity coverage tests">
