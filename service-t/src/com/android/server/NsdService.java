@@ -41,10 +41,12 @@ import static com.android.server.connectivity.mdns.MdnsSearchOptions.AGGRESSIVE_
 import static com.android.server.connectivity.mdns.MdnsSearchOptions.PASSIVE_QUERY_MODE;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.Clock;
 
+import android.Manifest;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresApi;
 import android.app.ActivityManager;
+import android.app.compat.CompatChanges;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -52,6 +54,7 @@ import android.net.INetd;
 import android.net.InetAddresses;
 import android.net.LinkProperties;
 import android.net.Network;
+import android.net.connectivity.ConnectivityCompatChanges;
 import android.net.mdns.aidl.DiscoveryInfo;
 import android.net.mdns.aidl.GetAddressInfo;
 import android.net.mdns.aidl.IMDnsEventListener;
@@ -2306,9 +2309,15 @@ public class NsdService extends INsdManager.Stub {
     }
 
     @Override
-    public INsdServiceConnector connect(INsdManagerCallback cb, boolean useJavaBackend) {
+    public INsdServiceConnector connect(INsdManagerCallback cb, boolean useJavaBackend,
+            boolean restrictLocalNetwork) {
         mContext.enforceCallingOrSelfPermission(android.Manifest.permission.INTERNET, "NsdService");
         final int uid = mDeps.getCallingUid();
+        Log.d(TAG, "calling uid:" + uid);
+        if (BpfNetMaps.isAtLeast25Q2() && restrictLocalNetwork) {
+            Log.d(TAG, "enforcing LNP for uid:"+uid);
+            mContext.enforceCallingPermission(Manifest.permission.NEARBY_WIFI_DEVICES, "NsdService");
+        }
         if (cb == null) {
             throw new IllegalArgumentException("Unknown client callback from uid=" + uid);
         }

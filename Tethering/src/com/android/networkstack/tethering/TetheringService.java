@@ -133,17 +133,21 @@ public class TetheringService extends Service {
         @Override
         public void startTethering(TetheringRequestParcel request, String callerPkg,
                 String callingAttributionTag, IIntResultListener listener) {
+//            Log.e(TAG, "starting tethering");
             boolean onlyAllowPrivileged = request.exemptFromEntitlementCheck
                     || request.interfaceName != null;
+//            Log.d(TAG, "onlyAllowPrivileged = " + onlyAllowPrivileged);  // Is true, as expected (?)
             if (checkAndNotifyCommonError(callerPkg,
                     callingAttributionTag,
                     onlyAllowPrivileged,
-                    listener)) {
+                    listener)) {  // is false, incorrect
+//                Log.d(TAG, "startTethering: returning for package " + callerPkg);  // the test should be going through this
                 return;
             }
             TetheringRequest external = new TetheringRequest(request);
             external.setUid(getBinderCallingUid());
             external.setPackageName(callerPkg);
+//            Log.d(TAG, "startTethering: continuing with tethering for pkg " + callerPkg);
             mTethering.startTethering(external, callerPkg, listener);
         }
 
@@ -263,10 +267,13 @@ public class TetheringService extends Service {
                 }
                 if (!hasTetherChangePermission(callerPkg, callingAttributionTag,
                         onlyAllowPrivileged)) {
+                    // should enter this case, above check should be false
+//                    Log.d(TAG, "missing tethering permission");
                     listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
                     return true;
                 }
                 if (!mTethering.isTetheringSupported() || !mTethering.isTetheringAllowed()) {
+//                    Log.d(TAG, "tethering not supported or not allowed");
                     listener.onResult(TETHER_ERROR_UNSUPPORTED);
                     return true;
                 }
@@ -299,10 +306,13 @@ public class TetheringService extends Service {
         }
 
         private boolean hasNetworkSettingsPermission() {
+//            Log.d(TAG, "network settings perms:" + checkCallingOrSelfPermission(NETWORK_SETTINGS));
             return checkCallingOrSelfPermission(NETWORK_SETTINGS);
         }
 
         private boolean hasNetworkStackPermission() {
+//            Log.d(TAG, "network stack perms:" + (checkCallingOrSelfPermission(NETWORK_STACK))); // this is true when it shouldn't be
+//            Log.d(TAG, "mainline network stack perms:" + checkCallingOrSelfPermission(PERMISSION_MAINLINE_NETWORK_STACK));
             return checkCallingOrSelfPermission(NETWORK_STACK)
                     || checkCallingOrSelfPermission(PERMISSION_MAINLINE_NETWORK_STACK);
         }
@@ -318,15 +328,27 @@ public class TetheringService extends Service {
         private boolean hasTetherChangePermission(final String callerPkg,
                 final String callingAttributionTag, final boolean onlyAllowPrivileged) {
             if (onlyAllowPrivileged && !hasNetworkStackPermission()
-                    && !hasNetworkSettingsPermission()) return false;
+                    && !hasNetworkSettingsPermission()) {
+                // should enter this case
+//                Log.d(TAG, "hasTetheringChangePermission 1");
+                return false;
+            }
 
-            if (hasTetherPrivilegedPermission()) return true;
+            if (hasTetherPrivilegedPermission()) return true;  // not this one
 
             // After TetheringManager moves to public API, prevent third-party apps from being able
             // to change tethering with only WRITE_SETTINGS permission.
-            if (mTethering.isTetheringWithSoftApConfigEnabled()) return false;
+            if (mTethering.isTetheringWithSoftApConfigEnabled()) {
 
-            if (mTethering.isTetherProvisioningRequired()) return false;
+//                Log.d(TAG, "hasTetheringChangePermission 2");
+                return false;
+            }
+
+            if (mTethering.isTetherProvisioningRequired()) {
+
+//                Log.d(TAG, "hasTetheringChangePermission 3");
+                return false;
+            }
 
             int uid = getBinderCallingUid();
 
