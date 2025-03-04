@@ -306,6 +306,30 @@
       },
       "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97e55756_920b63f0",
+        "filename": "staticlibs/native/serviceconnectivityjni/com_android_net_module_util_ServiceConnectivityJni.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-04T16:35:26Z",
+      "side": 1,
+      "message": "I looked a bit more into this. It looks like [PacketSocketAddress already exists](https://source.corp.google.com/h/android/platform/superproject/main/+/main:libcore/luni/src/main/java/android/system/PacketSocketAddress.java), and most of the boiler plate exists from the [exisiting recvfrom / recvmsg implementations](https://source.corp.google.com/h/android/platform/superproject/main/+/main:libcore/luni/src/main/native/libcore_io_Linux.cpp;l\u003d644)\n\nMaybe it would just be easier to extend either recvfrom or recvmsg to support passing a PacketSocketAddress?",
+      "parentUuid": "60bcd5e5_2aef4ba5",
+      "range": {
+        "startLine": 268,
+        "startChar": 14,
+        "endLine": 268,
+        "endChar": 67
+      },
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
