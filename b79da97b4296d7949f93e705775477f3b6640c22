@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31c4d042_783390b8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-04T11:23:32Z",
+      "side": 1,
+      "message": "Can you make this case-insensitive ?",
+      "range": {
+        "startLine": 179,
+        "startChar": 48,
+        "endLine": 179,
+        "endChar": 56
+      },
+      "revId": "b79da97b4296d7949f93e705775477f3b6640c22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed290545_4dbfdeab",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-04T11:23:32Z",
+      "side": 1,
+      "message": "Can you add a comment to explain why this one is special ?",
+      "revId": "b79da97b4296d7949f93e705775477f3b6640c22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
