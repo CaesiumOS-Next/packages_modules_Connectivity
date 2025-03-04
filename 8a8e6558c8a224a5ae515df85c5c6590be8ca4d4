@@ -354,6 +354,30 @@
       },
       "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c97866c2_d8c99712",
+        "filename": "staticlibs/native/serviceconnectivityjni/com_android_net_module_util_ServiceConnectivityJni.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-04T17:04:36Z",
+      "side": 1,
+      "message": "It is a bit weird, but I think the same is the case for InetSocketAddress and UnixSocketAddress. My preference would be to extend libcore if possible.",
+      "parentUuid": "3dc26c16_b3505a42",
+      "range": {
+        "startLine": 268,
+        "startChar": 14,
+        "endLine": 268,
+        "endChar": 67
+      },
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
