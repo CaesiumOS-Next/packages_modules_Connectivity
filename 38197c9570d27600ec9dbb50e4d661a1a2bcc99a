@@ -1,0 +1,91 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1ec3c7a_8b82ddf4",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-04T07:06:53Z",
+      "side": 1,
+      "message": "Should this be placed after `setEnabledAndWait`?",
+      "revId": "38197c9570d27600ec9dbb50e4d661a1a2bcc99a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3a3666b_550d98dd",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-04T07:06:53Z",
+      "side": 1,
+      "message": "I think you can remove this TODO",
+      "fixSuggestions": [
+        {
+          "fixId": "a1da5615_f5545d04",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+              "range": {
+                "startLine": 136,
+                "startChar": 0,
+                "endLine": 137,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "38197c9570d27600ec9dbb50e4d661a1a2bcc99a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61cb1e6f_b4129363",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-04T07:06:53Z",
+      "side": 1,
+      "message": "Could you remove this TODO?",
+      "fixSuggestions": [
+        {
+          "fixId": "4763be51_db2c3f8c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt",
+              "range": {
+                "startLine": 609,
+                "startChar": 0,
+                "endLine": 610,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "38197c9570d27600ec9dbb50e4d661a1a2bcc99a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
