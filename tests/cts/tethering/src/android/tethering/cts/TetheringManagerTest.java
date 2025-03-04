@@ -87,6 +87,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.flags.Flags;
+import com.android.testutils.ConnectivityDiagnosticsCollector;
 import com.android.testutils.ParcelUtils;
 import com.android.testutils.com.android.testutils.CarrierConfigRule;
 
@@ -452,6 +453,12 @@ public class TetheringManagerTest {
             tetherEventCallback.expectNoTetheringActive();
         } finally {
             mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+            final ConnectivityDiagnosticsCollector collector =
+                    ConnectivityDiagnosticsCollector.getInstance();
+            if (collector != null) {
+                collector.collectHostapdCallstack();
+            }
+            fail();
         }
     }
 

@@ -447,6 +447,36 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
     }
 
     /**
+     * Add the hostapd callstack to the test data dump.
+     *
+     * <p>The dump will be collected immediately, and exported to a test artifact file when the
+     * test ends.
+     * @param dumpsysCmd The dumpsys command to run (for example "connectivity").
+     * @param exceptionContext An exception to write a stacktrace to the dump for context.
+     */
+    fun collectHostapdCallstack() {
+        Log.i(TAG, "Collecting hostapd callstack for test artifacts")
+        PrintWriter(buffer).let {
+            it.println("--- hostapd callstack at ${ZonedDateTime.now()} ---")
+            it.flush()
+        }
+        ParcelFileDescriptor.AutoCloseInputStream(
+            InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(
+                "getprop init.svc_debug_pid.hostapd"
+            )
+        ).use {
+            val pid = String(it.readAllBytes())
+            ParcelFileDescriptor.AutoCloseInputStream(
+                InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(
+                    "debuggerd -b $pid"
+                )
+            ).use {
+                it.copyTo(buffer)
+            }
+        }
+    }
+
+    /**
      * Add a key->value attribute to the failure data, to be written to the diagnostics file.
      *
      * <p>This is to be called by tests that know they will fail.
