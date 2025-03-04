@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2880e2e_c06635e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-04T00:01:31Z",
+      "side": 1,
+      "message": "Up to you...",
+      "revId": "1c0f7b08429873475ae8ef0b9e3746e5fafac626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86e4f569_9f0db28e",
+        "filename": "framework/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-04T00:01:31Z",
+      "side": 1,
+      "message": "I\u0027m worried this addition of libbase and removal of stl none isn\u0027t safe...\nand/or may cause apex bloat.",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 8
+      },
+      "revId": "1c0f7b08429873475ae8ef0b9e3746e5fafac626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7036cd8_9b6263d4",
+        "filename": "framework/jni/android_net_NetworkUtils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-04T00:01:31Z",
+      "side": 1,
+      "message": "It seems like it is only ~5 more lines without using bpf::getSocketCookie()\n\nint sock \u003d AFileDescriptor_getFd(env, javaFd);\nuint64_t cookie \u003d 0;\nsocklen_t cookie_len \u003d sizeof(sock_cookie);\nif (getsockopt(sockFd, SOL_SOCKET, SO_COOKIE, \u0026sock_cookie, \u0026cookie_len)) {\n    // Failure is almost certainly either EBADF or ENOTSOCK\n    jniThrowErrnoException(env, \"getSocketCookie\", errno);\n} else if (cookie_len !\u003d sizeof(sock_cookie)) {\n    // This probably cannot actually happen, but...\n    jniThrowErrnoException(env, \"getSocketCookie\", 523); // EBADCOOKIE\n}\nreturn static_cast\u003cjlong\u003e(cookie);",
+      "revId": "1c0f7b08429873475ae8ef0b9e3746e5fafac626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
