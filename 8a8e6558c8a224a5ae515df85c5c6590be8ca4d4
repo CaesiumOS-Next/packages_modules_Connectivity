@@ -402,6 +402,30 @@
       },
       "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ae781c6_d32d0f14",
+        "filename": "staticlibs/native/serviceconnectivityjni/com_android_net_module_util_ServiceConnectivityJni.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-04T17:19:47Z",
+      "side": 1,
+      "message": "libcore is mainlined back to R, so I think you should be okay from that perspective. Though I do believe we run some tests that are based on prebuilt and only update a single module which might be annoying to deal with (I am not sure why we do that TBH). @reminv@google.com might have more info.",
+      "parentUuid": "9516c127_f9e50fa7",
+      "range": {
+        "startLine": 268,
+        "startChar": 14,
+        "endLine": 268,
+        "endChar": 67
+      },
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
