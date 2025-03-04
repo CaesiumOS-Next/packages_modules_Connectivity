@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31d27c27_47533842",
+        "filename": "framework/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-04T01:13:49Z",
+      "side": 1,
+      "message": "I did not observe size increase of libframework-connectivity-jni.so by this change.\nSize did not change from 51k.\nBut I\u0027m not sure about other possible impacts by this change.\nSo let me add some lines of code and revert Android.bp change.",
+      "parentUuid": "86e4f569_9f0db28e",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 8
+      },
+      "revId": "1c0f7b08429873475ae8ef0b9e3746e5fafac626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7036cd8_9b6263d4",
@@ -54,6 +78,24 @@
       "writtenOn": "2025-03-04T00:01:31Z",
       "side": 1,
       "message": "It seems like it is only ~5 more lines without using bpf::getSocketCookie()\n\nint sock \u003d AFileDescriptor_getFd(env, javaFd);\nuint64_t cookie \u003d 0;\nsocklen_t cookie_len \u003d sizeof(sock_cookie);\nif (getsockopt(sockFd, SOL_SOCKET, SO_COOKIE, \u0026sock_cookie, \u0026cookie_len)) {\n    // Failure is almost certainly either EBADF or ENOTSOCK\n    jniThrowErrnoException(env, \"getSocketCookie\", errno);\n} else if (cookie_len !\u003d sizeof(sock_cookie)) {\n    // This probably cannot actually happen, but...\n    jniThrowErrnoException(env, \"getSocketCookie\", 523); // EBADCOOKIE\n}\nreturn static_cast\u003cjlong\u003e(cookie);",
+      "revId": "1c0f7b08429873475ae8ef0b9e3746e5fafac626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6291eb74_6251cfe0",
+        "filename": "framework/jni/android_net_NetworkUtils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-04T01:13:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7036cd8_9b6263d4",
       "revId": "1c0f7b08429873475ae8ef0b9e3746e5fafac626",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
