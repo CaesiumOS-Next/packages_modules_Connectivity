@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d1ecd4e_a32a59d3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2902,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-04T07:10:25Z",
+      "side": 1,
+      "message": ". This is happens, for example, in pre-T bluetooth tethering: Settings calls startTethering, and then the bluetooth code calls the tether() API.",
+      "range": {
+        "startLine": 2902,
+        "startChar": 46,
+        "endLine": 2902,
+        "endChar": 84
+      },
+      "revId": "21c519e8269ce1da030c004c74d5940b717bf811",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
