@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ff4faa7_0cc7e01e",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-04T07:15:16Z",
+      "side": 1,
+      "message": "Make sense, done",
+      "parentUuid": "c1ec3c7a_8b82ddf4",
+      "revId": "38197c9570d27600ec9dbb50e4d661a1a2bcc99a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3a3666b_550d98dd",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "This is duplicating the line 134 actually.",
       "parentUuid": "d3a3666b_550d98dd",
+      "revId": "38197c9570d27600ec9dbb50e4d661a1a2bcc99a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "890326e4_46bf9f83",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-04T07:15:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c35ec1_8c29883c",
       "revId": "38197c9570d27600ec9dbb50e4d661a1a2bcc99a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
