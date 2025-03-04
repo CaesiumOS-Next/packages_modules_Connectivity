@@ -33,6 +33,11 @@ namespace net {
   } while (0)
 
 base::Result<void> DnsBpfHelper::init() {
+  if (!android::modules::sdklevel::IsAtLeastS()) {
+    LOG(ERROR) << __func__ << ": Unsupported before Android S.";
+    return base::Error(EOPNOTSUPP);
+  }
+
   if (!android::modules::sdklevel::IsAtLeastT()) {
     LOG(ERROR) << __func__ << ": Unsupported before Android T.";
     return base::Error(EOPNOTSUPP);
