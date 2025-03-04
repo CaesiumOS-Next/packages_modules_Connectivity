@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f7d3d78_8d9f405f",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsTetheringUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-04T06:54:22Z",
+      "side": 1,
+      "message": "http://b/385014495 .",
+      "range": {
+        "startLine": 163,
+        "startChar": 73,
+        "endLine": 163,
+        "endChar": 74
+      },
+      "revId": "e38f7753716a5d490c44e765ff5cc48aa831f20a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
