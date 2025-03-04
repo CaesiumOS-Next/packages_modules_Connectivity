@@ -263,6 +263,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "609c47fb_acc6b8c5",
+        "filename": "staticlibs/native/serviceconnectivityjni/com_android_net_module_util_ServiceConnectivityJni.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-04T20:47:04Z",
+      "side": 1,
+      "message": "just pass a bunch of jlong/jints",
+      "range": {
+        "startLine": 226,
+        "startChar": 26,
+        "endLine": 226,
+        "endChar": 49
+      },
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6627baea_b8e4f702",
         "filename": "staticlibs/native/serviceconnectivityjni/com_android_net_module_util_ServiceConnectivityJni.cpp",
         "patchSetId": 1
