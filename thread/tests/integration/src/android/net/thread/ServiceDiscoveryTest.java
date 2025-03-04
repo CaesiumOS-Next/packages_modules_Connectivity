@@ -113,7 +113,7 @@ public class ServiceDiscoveryTest {
 
     @Before
     public void setUp() throws Exception {
-        mOtCtl.factoryReset();
+        mController.leaveAndWait();
         mController.setEnabledAndWait(true);
         mController.joinAndWait(DEFAULT_DATASET);
         mNsdManager = mContext.getSystemService(NsdManager.class);
