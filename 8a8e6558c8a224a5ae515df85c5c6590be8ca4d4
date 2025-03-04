@@ -330,6 +330,30 @@
       },
       "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dc26c16_b3505a42",
+        "filename": "staticlibs/native/serviceconnectivityjni/com_android_net_module_util_ServiceConnectivityJni.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1722387
+      },
+      "writtenOn": "2025-03-04T16:49:59Z",
+      "side": 1,
+      "message": "My first move was to use `PacketSocketAddress` but all its fields are final and, even if it works, it seemed weird to me to modify them from JNI. If it\u0027s acceptable I have no problem doing this.\n\nBy extending do you mean add a `PacketSocketAddress` version of `recvfrom` in `libcore.io.Linux` ? Or add a `recvfrom(..., PacketSocketAddress)` here in `ServiceConnectivityJni` ?",
+      "parentUuid": "97e55756_920b63f0",
+      "range": {
+        "startLine": 268,
+        "startChar": 14,
+        "endLine": 268,
+        "endChar": 67
+      },
+      "revId": "8a8e6558c8a224a5ae515df85c5c6590be8ca4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
