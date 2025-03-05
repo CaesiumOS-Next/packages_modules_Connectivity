@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afcf7e9e_4d24482c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-05T12:55:25Z",
+      "side": 1,
+      "message": "to fix:\n\nnetd_updatable_unit_test\nBpfHandlerTest\nTestTagSocketWithUnsupportedProtocol",
+      "revId": "a7ceec48fabf3f5180352ffb7ea0b9aec23b782f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
