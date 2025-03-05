@@ -205,7 +205,7 @@ BpfHandler::BpfHandler(uint32_t perUidLimit, uint32_t totalLimit)
     : mPerUidStatsEntriesLimit(perUidLimit), mTotalUidStatsEntriesLimit(totalLimit) {}
 
 static bool mainlineNetBpfLoadDone() {
-    return !access("/sys/fs/bpf/netd_shared/mainline_done", F_OK);
+    return !access("/sys/fs/bpf/tethering/mainline_done", F_OK);
 }
 
 // copied with minor changes from waitForProgsLoaded()
