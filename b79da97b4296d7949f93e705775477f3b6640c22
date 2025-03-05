@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20fd8cee_92826a6d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-05T01:31:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31c4d042_783390b8",
+      "range": {
+        "startLine": 179,
+        "startChar": 48,
+        "endLine": 179,
+        "endChar": 56
+      },
+      "revId": "b79da97b4296d7949f93e705775477f3b6640c22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed290545_4dbfdeab",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-03-04T11:23:32Z",
       "side": 1,
       "message": "Can you add a comment to explain why this one is special ?",
+      "revId": "b79da97b4296d7949f93e705775477f3b6640c22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ca55e74_9d5432dc",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-05T01:31:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed290545_4dbfdeab",
       "revId": "b79da97b4296d7949f93e705775477f3b6640c22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
