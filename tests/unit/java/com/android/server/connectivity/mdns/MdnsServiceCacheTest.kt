@@ -160,6 +160,31 @@ class MdnsServiceCacheTest {
             cacheKey: CacheKey
     ): Unit = runningOnHandlerAndReturn { serviceCache.removeServices(cacheKey) }
 
+    private fun getLastQueryTime(
+            serviceCache: MdnsServiceCache,
+            serviceName: String,
+            cacheKey: CacheKey
+    ): Long = runningOnHandlerAndReturn {
+        serviceCache.getLastQueryTime(serviceName, cacheKey)
+    }
+
+    private fun updateLastQueryTimeForCachedServices(
+            serviceCache: MdnsServiceCache,
+            cacheKey: CacheKey,
+            currentTime: Long
+    ): Unit = runningOnHandlerAndReturn {
+        serviceCache.updateLastQueryTimeForCachedServices(cacheKey, currentTime)
+    }
+
+    private fun updateLastQueryTimeForCachedService(
+            serviceCache: MdnsServiceCache,
+            serviceName: String,
+            cacheKey: CacheKey,
+            currentTime: Long
+    ): Unit = runningOnHandlerAndReturn {
+        serviceCache.updateLastQueryTimeForCachedService(serviceName, cacheKey, currentTime)
+    }
+
     @Test
     fun testAddAndRemoveService() {
         val serviceCache = MdnsServiceCache(thread.looper, makeFlags(), clock)
@@ -291,15 +316,18 @@ class MdnsServiceCacheTest {
     @Test
     fun testInsertResponseAndSortList() {
         val services = ArrayList<CachedService>()
+        val lastQueryTime = 12345L
         val service1 = CachedService(
-                createResponse(SERVICE_NAME_1, SERVICE_TYPE_1, 100L /* ttlTime */)
+                createResponse(SERVICE_NAME_1, SERVICE_TYPE_1, 100L /* ttlTime */),
+                lastQueryTime
         )
         MdnsServiceCache.insertServiceAndSortList(services, service1, TEST_ELAPSED_REALTIME_MS)
         assertEquals(1, services.size)
         assertEquals(service1, services[0])
 
         val service2 = CachedService(
-                createResponse(SERVICE_NAME_2, SERVICE_TYPE_1, 50L /* ttlTime */)
+                createResponse(SERVICE_NAME_2, SERVICE_TYPE_1, 50L /* ttlTime */),
+                lastQueryTime
         )
         MdnsServiceCache.insertServiceAndSortList(services, service2, TEST_ELAPSED_REALTIME_MS)
         assertEquals(2, services.size)
@@ -307,7 +335,8 @@ class MdnsServiceCacheTest {
         assertEquals(service1, services[1])
 
         val service3 = CachedService(
-                createResponse(SERVICE_NAME_3, SERVICE_TYPE_1, 75L /* ttlTime */)
+                createResponse(SERVICE_NAME_3, SERVICE_TYPE_1, 75L /* ttlTime */),
+                lastQueryTime
         )
         MdnsServiceCache.insertServiceAndSortList(services, service3, TEST_ELAPSED_REALTIME_MS)
         assertEquals(3, services.size)
@@ -316,7 +345,8 @@ class MdnsServiceCacheTest {
         assertEquals(service1, services[2])
 
         val service4 = CachedService(
-                createResponse("service-instance-4", SERVICE_TYPE_1, 125L /* ttlTime */)
+                createResponse("service-instance-4", SERVICE_TYPE_1, 125L /* ttlTime */),
+                lastQueryTime
         )
         MdnsServiceCache.insertServiceAndSortList(services, service4, TEST_ELAPSED_REALTIME_MS)
         assertEquals(4, services.size)
@@ -355,6 +385,45 @@ class MdnsServiceCacheTest {
         removeServices(serviceCache, cacheKey2)
         val responses5 = getServices(serviceCache, cacheKey2)
         assertEquals(0, responses5.size)
+    }
+
+    @Test
+    fun testUpdateLastQueryTime() {
+        val serviceCache = MdnsServiceCache(thread.looper, makeFlags(), clock)
+        val lastQueryTime = 12345L
+        doReturn(lastQueryTime).`when`(clock).elapsedRealtime()
+        addOrUpdateService(serviceCache, cacheKey1, createResponse(SERVICE_NAME_1, SERVICE_TYPE_1))
+        addOrUpdateService(serviceCache, cacheKey1, createResponse(SERVICE_NAME_2, SERVICE_TYPE_1))
+        // Verify the last query time
+        assertEquals(lastQueryTime, getLastQueryTime(serviceCache, SERVICE_NAME_1, cacheKey1))
+        assertEquals(lastQueryTime, getLastQueryTime(serviceCache, SERVICE_NAME_2, cacheKey1))
+
+        // Update the last query time for all services and verify the update.
+        updateLastQueryTimeForCachedServices(serviceCache, cacheKey1, lastQueryTime + 1000L)
+        assertEquals(
+            lastQueryTime + 1000L,
+            getLastQueryTime(serviceCache, SERVICE_NAME_1, cacheKey1)
+        )
+        assertEquals(
+            lastQueryTime + 1000L,
+            getLastQueryTime(serviceCache, SERVICE_NAME_2, cacheKey1)
+        )
+
+        // Update the last query time for service 1 only and verify the update.
+        updateLastQueryTimeForCachedService(
+                serviceCache,
+                SERVICE_NAME_1,
+                cacheKey1,
+                lastQueryTime + 2000L
+        )
+        assertEquals(
+            lastQueryTime + 2000L,
+            getLastQueryTime(serviceCache, SERVICE_NAME_1, cacheKey1)
+        )
+        assertEquals(
+            lastQueryTime + 1000L,
+            getLastQueryTime(serviceCache, SERVICE_NAME_2, cacheKey1)
+        )
     }
 
     private fun createResponse(

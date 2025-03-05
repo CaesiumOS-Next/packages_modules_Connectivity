@@ -202,6 +202,13 @@ public class MdnsServiceTypeClient {
                                 handler.obtainMessage(EVENT_START_QUERYTASK, args),
                                 timeToNextTaskMs);
                     }
+                    if (sentResult.sendDiscoveryQueries) {
+                        serviceCache.updateFirstQueryTimeForCachedServices(cacheKey, now);
+                    }
+                    for (MdnsResponse service : sentResult.servicesToResolve) {
+                        serviceCache.updateFirstQueryTimeForCachedService(
+                                service.getServiceInstanceName(), cacheKey, now);
+                    }
                     break;
                 }
                 default:
@@ -417,7 +424,8 @@ public class MdnsServiceTypeClient {
                         timeToNextTaskMs);
             }
         } else {
-            final List<MdnsResponse> servicesToResolve = makeResponsesForResolve(socketKey);
+            final List<MdnsResponse> servicesToResolve = makeResponsesForResolve(
+                    socketKey);
             final QueryTask queryTask = new QueryTask(
                     mdnsQueryScheduler.scheduleFirstRun(taskConfig, now,
                             minRemainingTtl, currentSessionId), servicesToResolve,
@@ -493,7 +501,8 @@ public class MdnsServiceTypeClient {
         // requests if there is no known response
         final List<MdnsResponse> cachedList = serviceCache.getCachedServices(cacheKey);
         final List<MdnsResponse> currentList = new ArrayList<>(cachedList);
-        List<MdnsResponse> additionalResponses = makeResponsesForResolve(socketKey);
+        List<MdnsResponse> additionalResponses = makeResponsesForResolve(
+                socketKey);
         for (MdnsResponse additionalResponse : additionalResponses) {
             if (findMatchedResponse(
                     cachedList, additionalResponse.getServiceInstanceName()) == null) {
@@ -595,8 +604,8 @@ public class MdnsServiceTypeClient {
 
     private void onResponseModified(@NonNull MdnsResponse response) {
         final String serviceInstanceName = response.getServiceInstanceName();
-        final MdnsResponse currentResponse =
-                serviceCache.getCachedService(serviceInstanceName, cacheKey);
+        final MdnsResponse currentResponse = serviceCache.getCachedService(serviceInstanceName,
+                cacheKey);
 
         final boolean newInCache = currentResponse == null;
         boolean serviceBecomesComplete = false;
@@ -675,8 +684,7 @@ public class MdnsServiceTypeClient {
                     r -> DnsUtils.equalsIgnoreDnsCase(resolveName, r.getServiceInstanceName()))) {
                 continue;
             }
-            MdnsResponse knownResponse =
-                    serviceCache.getCachedService(resolveName, cacheKey);
+            MdnsResponse knownResponse = serviceCache.getCachedService(resolveName, cacheKey);
             if (knownResponse == null) {
                 final ArrayList<String> instanceFullName = new ArrayList<>(
                         serviceTypeLabels.length + 1);
@@ -721,12 +729,18 @@ public class MdnsServiceTypeClient {
         private final int transactionId;
         private final List<String> subTypes = new ArrayList<>();
         private final ScheduledQueryTaskArgs taskArgs;
+        private final boolean sendDiscoveryQueries;
+        @NonNull
+        private final Collection<MdnsResponse> servicesToResolve;
 
         QuerySentArguments(int transactionId, @NonNull List<String> subTypes,
-                @NonNull ScheduledQueryTaskArgs taskArgs) {
+                @NonNull ScheduledQueryTaskArgs taskArgs, boolean sendDiscoveryQueries,
+                Collection<MdnsResponse> servicesToResolve) {
             this.transactionId = transactionId;
             this.subTypes.addAll(subTypes);
             this.taskArgs = taskArgs;
+            this.sendDiscoveryQueries = sendDiscoveryQueries;
+            this.servicesToResolve = new ArrayList<>(servicesToResolve);
         }
     }
 
@@ -781,8 +795,9 @@ public class MdnsServiceTypeClient {
                 result = Pair.create(INVALID_TRANSACTION_ID, new ArrayList<>());
             }
             dependencies.sendMessage(
-                    handler, handler.obtainMessage(EVENT_QUERY_RESULT,
-                            new QuerySentArguments(result.first, result.second, taskArgs)));
+                    handler, handler.obtainMessage(EVENT_QUERY_RESULT, new QuerySentArguments(
+                            result.first, result.second, taskArgs, sendDiscoveryQueries,
+                            servicesToResolve)));
         }
     }
 

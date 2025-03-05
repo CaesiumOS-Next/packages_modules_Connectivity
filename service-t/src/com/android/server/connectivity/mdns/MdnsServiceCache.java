@@ -49,6 +49,8 @@ import java.util.Objects;
  *  to their default value (0, false or null).
  */
 public class MdnsServiceCache {
+    private static final long NEVER_SENT_QUERY = -1L;
+
     public static class CacheKey {
         @NonNull final String mUpperCaseServiceType;
         @NonNull final SocketKey mSocketKey;
@@ -82,10 +84,13 @@ public class MdnsServiceCache {
     public static class CachedService {
         @NonNull final MdnsResponse mService;
         boolean mServiceExpired;
+        // The timestamp of the first query sent after its last receipt time (from the SRV record).
+        long mFirstQueryTimeAfterLastUpdate;
 
         CachedService(MdnsResponse service) {
             mService = service;
             mServiceExpired = false;
+            mFirstQueryTimeAfterLastUpdate = NEVER_SENT_QUERY;
         }
     }
 
@@ -187,8 +192,9 @@ public class MdnsServiceCache {
     @Nullable
     public MdnsResponse getCachedService(@NonNull String serviceName, @NonNull CacheKey cacheKey) {
         ensureRunningOnHandlerThread(mHandler);
+        final long now = mClock.elapsedRealtime();
         if (mMdnsFeatureFlags.mIsExpiredServicesRemovalEnabled) {
-            maybeRemoveExpiredServices(cacheKey, mClock.elapsedRealtime());
+            maybeRemoveExpiredServices(cacheKey, now);
         }
         final List<CachedService> cachedServices = mCachedServices.get(cacheKey);
         if (cachedServices == null) {
@@ -224,9 +230,9 @@ public class MdnsServiceCache {
                 response.getServiceInstanceName());
         cachedServices.remove(existing);
 
+        final long now = mClock.elapsedRealtime();
         final CachedService cachedService = new CachedService(response);
         if (mMdnsFeatureFlags.mIsExpiredServicesRemovalEnabled) {
-            final long now = mClock.elapsedRealtime();
             // Insert and sort service
             insertServiceAndSortList(cachedServices, cachedService, now);
             // Update the next expiration check time when a new service is added.
@@ -394,6 +400,62 @@ public class MdnsServiceCache {
     }
 
     /**
+     * Update the query time for the cached services
+     *
+     * @param cacheKey the target CacheKey.
+     * @param currentTime current time.
+     */
+    public void updateFirstQueryTimeForCachedServices(@NonNull CacheKey cacheKey,
+            long currentTime) {
+        ensureRunningOnHandlerThread(mHandler);
+        final List<CachedService> cachedServices = mCachedServices.get(cacheKey);
+        if (cachedServices == null) {
+            // No such services.
+            return;
+        }
+        for (CachedService cachedService : cachedServices) {
+            if (cachedService.mFirstQueryTimeAfterLastUpdate != NEVER_SENT_QUERY) continue;
+            cachedService.mFirstQueryTimeAfterLastUpdate = currentTime;
+        }
+    }
+
+    /**
+     * Update the query time for the cached service
+     *
+     * @param serviceName the target service name.
+     * @param cacheKey the target CacheKey.
+     * @param currentTime current time.
+     */
+    public void updateFirstQueryTimeForCachedService(@NonNull String serviceName,
+            @NonNull CacheKey cacheKey, long currentTime) {
+        ensureRunningOnHandlerThread(mHandler);
+        final List<CachedService> cachedServices = mCachedServices.get(cacheKey);
+        if (cachedServices == null) {
+            // No such services.
+            return;
+        }
+        final CachedService cachedService = findMatchedCachedService(cachedServices, serviceName);
+        if (cachedService == null) {
+            // No such service.
+            return;
+        }
+        if (cachedService.mFirstQueryTimeAfterLastUpdate == NEVER_SENT_QUERY) {
+            cachedService.mFirstQueryTimeAfterLastUpdate = currentTime;
+        }
+    }
+
+    long getFirstQueryTimeAfterLastUpdate(@NonNull String serviceName, @NonNull CacheKey cacheKey) {
+        ensureRunningOnHandlerThread(mHandler);
+        final List<CachedService> cachedServices = mCachedServices.get(cacheKey);
+        if (cachedServices == null) {
+            return -1L;
+        }
+        final CachedService cachedService = findMatchedCachedService(cachedServices, serviceName);
+        return cachedService != null
+                ? cachedService.mFirstQueryTimeAfterLastUpdate : NEVER_SENT_QUERY;
+    }
+
+    /**
      * Dump ServiceCache state.
      */
     public void dump(PrintWriter pw, String indent) {
@@ -404,7 +466,9 @@ public class MdnsServiceCache {
             pw.println(indent + key);
             for (CachedService cachedService : mCachedServices.valueAt(i)) {
                 pw.println(indent + "  Response{ " + cachedService.mService
-                        + " } Expired=" + cachedService.mServiceExpired);
+                        + " } Expired=" + cachedService.mServiceExpired
+                        + " FirstQueryTimeAfterLastUpdate="
+                        + cachedService.mFirstQueryTimeAfterLastUpdate);
             }
             pw.println();
         }
