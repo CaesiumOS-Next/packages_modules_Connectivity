@@ -435,6 +435,25 @@
       "name": "CtsNetTestCasesUpdateStatsPermission"
     }
   ],
+  "wear-presubmit": [
+    {
+      "name": "CtsNetTestCases",
+      "options": [
+          {
+              "exclude-filter": "android.net.cts.MultinetworkApiTest#testResNApiNXDomainPrivateDns"
+          },
+          {
+              "exclude-filter": "android.net.cts.NetworkValidationTest#testCapportApiCallbacks"
+          },
+          {
+              "exclude-annotation": "androidx.test.filters.FlakyTest"
+          }
+      ]
+    },
+    {
+      "name": "CtsNetTestCasesUpdateStatsPermission"
+    }
+  ],
   "imports": [
     {
       "path": "frameworks/base/core/java/android/net"
