@@ -39,6 +39,48 @@
       },
       "revId": "79bb666417cae23810c8e54953e4e4a46ba9c00d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dac756d3_e7bc0334",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2066782
+      },
+      "writtenOn": "2025-03-05T10:38:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d23eece1_7aaea3a1",
+      "revId": "79bb666417cae23810c8e54953e4e4a46ba9c00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b4f8b81_b3354b73",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2066782
+      },
+      "writtenOn": "2025-03-05T10:38:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b47d1a20_61bf9ba1",
+      "range": {
+        "startLine": 121,
+        "startChar": 37,
+        "endLine": 121,
+        "endChar": 72
+      },
+      "revId": "79bb666417cae23810c8e54953e4e4a46ba9c00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
