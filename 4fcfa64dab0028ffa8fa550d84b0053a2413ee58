@@ -64,6 +64,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51362255_a6af8456",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-05T22:26:34Z",
+      "side": 1,
+      "message": "We currently don\u0027t need it, and not sure we ever will... since it\u0027s mainline we can always change if needed.\n\nNote: technically speaking we don\u0027t even need this now, since all the .o files in these dirs are actually flagged T+ already, but this seemed safer...",
+      "parentUuid": "36c9c34d_a0d3874a",
+      "range": {
+        "startLine": 1222,
+        "startChar": 17,
+        "endLine": 1222,
+        "endChar": 23
+      },
+      "revId": "4fcfa64dab0028ffa8fa550d84b0053a2413ee58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a480cab3_5bffd537",
@@ -77,6 +101,30 @@
       "writtenOn": "2025-03-05T21:56:48Z",
       "side": 1,
       "message": "guaranteed true, could just be removed, but I guess you left it for better documentation? no strong opinion.",
+      "range": {
+        "startLine": 1459,
+        "startChar": 8,
+        "endLine": 1459,
+        "endChar": 18
+      },
+      "revId": "4fcfa64dab0028ffa8fa550d84b0053a2413ee58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b9989a0_f8a75e6e",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1459,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-05T22:26:34Z",
+      "side": 1,
+      "message": "yeah I guess I\u0027ll remove it, the comment already makes this clear.",
+      "parentUuid": "a480cab3_5bffd537",
       "range": {
         "startLine": 1459,
         "startChar": 8,
@@ -106,6 +154,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eafbf201_5c86f12b",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1629,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-05T22:26:34Z",
+      "side": 1,
+      "message": "we\u0027re only filtering in 2 spots, and it only costs one line in each...\nso that doesn\u0027t seem like a win?",
+      "parentUuid": "07e20cce_99c8471f",
+      "revId": "4fcfa64dab0028ffa8fa550d84b0053a2413ee58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3880990_5a0b4f19",
         "filename": "bpf/loader/NetBpfLoad.cpp",
         "patchSetId": 14
@@ -117,6 +183,30 @@
       "writtenOn": "2025-03-05T21:56:48Z",
       "side": 1,
       "message": "I guess I am confused because netd_shared is marked as t_plus",
+      "range": {
+        "startLine": 1666,
+        "startChar": 0,
+        "endLine": 1666,
+        "endChar": 69
+      },
+      "revId": "4fcfa64dab0028ffa8fa550d84b0053a2413ee58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ef6f7c6_cb2d2459",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-05T22:26:34Z",
+      "side": 1,
+      "message": "yeah, but we need to create the subdir for the flag in line 1669.\n\nWe cannot put the \u0027mainline_done\u0027 flag in \u0027tethering/\u0027 because netd lacks the privs to access that due to sepolicy/selinux genfscon rules.\n\nIt *could* simply go in /sys/fs/bpf/mainline_done instead of /sys/fs/bpf/netd_shared/mainline_done, but this seemed better (again from a sepolicy perspective)",
+      "parentUuid": "d3880990_5a0b4f19",
       "range": {
         "startLine": 1666,
         "startChar": 0,
