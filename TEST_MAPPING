@@ -435,6 +435,16 @@
       "name": "CtsNetTestCasesUpdateStatsPermission"
     }
   ],
+  "wear-presubmit": [
+    {
+      "name": "CtsNetTestCases",
+      "options": [
+          {
+              "include-filter": "android.net.nsd.NsdServiceInfoTest#testSubtypesValidSubtypesSuccess"
+          }
+      ]
+    }
+  ],
   "imports": [
     {
       "path": "frameworks/base/core/java/android/net"
