@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6206272f_5ea9fdf4",
+        "filename": "bpf/netd/BpfHandler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-05T21:08:49Z",
+      "side": 1,
+      "message": "Maybe update this comment too and mention inet_sock_release on 5.10+.",
+      "range": {
+        "startLine": 343,
+        "startChar": 62,
+        "endLine": 344,
+        "endChar": 17
+      },
+      "revId": "5a8c2aa56747c2b5c50e2df6c60ff7df366b7df4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
