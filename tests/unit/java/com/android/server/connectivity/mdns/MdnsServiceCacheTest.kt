@@ -22,6 +22,7 @@ import android.os.HandlerThread
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.server.connectivity.mdns.MdnsServiceCache.CacheKey
 import com.android.server.connectivity.mdns.MdnsServiceCache.CachedService
+import com.android.server.connectivity.mdns.MdnsServiceCache.NEVER_SENT_QUERY
 import com.android.server.connectivity.mdns.MdnsServiceCacheTest.ExpiredRecord.ExpiredEvent.ServiceRecordExpired
 import com.android.server.connectivity.mdns.util.MdnsUtils
 import com.android.testutils.DevSdkIgnoreRule
@@ -159,6 +160,38 @@ class MdnsServiceCacheTest {
             serviceCache: MdnsServiceCache,
             cacheKey: CacheKey
     ): Unit = runningOnHandlerAndReturn { serviceCache.removeServices(cacheKey) }
+
+    private fun getFirstQueryTimeAfterLastUpdate(
+            serviceCache: MdnsServiceCache,
+            serviceName: String,
+            cacheKey: CacheKey
+    ): Long = runningOnHandlerAndReturn {
+        serviceCache.getFirstQueryTimeAfterLastUpdate(serviceName, cacheKey)
+    }
+
+    private fun updateFirstQueryTimeForCachedServices(
+            serviceCache: MdnsServiceCache,
+            subtypes: List<String>,
+            cacheKey: CacheKey,
+            currentTime: Long
+    ): Unit = runningOnHandlerAndReturn {
+        serviceCache.updateFirstQueryTimeForCachedServices(subtypes, cacheKey, currentTime)
+    }
+
+    private fun updateFirstQueryTimeForCachedService(
+            serviceCache: MdnsServiceCache,
+            serviceName: String,
+            subtypes: List<String>,
+            cacheKey: CacheKey,
+            currentTime: Long
+    ): Unit = runningOnHandlerAndReturn {
+        serviceCache.updateFirstQueryTimeForCachedService(
+            serviceName,
+            subtypes,
+            cacheKey,
+            currentTime
+        )
+    }
 
     @Test
     fun testAddAndRemoveService() {
@@ -355,6 +388,71 @@ class MdnsServiceCacheTest {
         removeServices(serviceCache, cacheKey2)
         val responses5 = getServices(serviceCache, cacheKey2)
         assertEquals(0, responses5.size)
+    }
+
+    @Test
+    fun testFirstQueryTime_AddService() {
+        val serviceCache = MdnsServiceCache(thread.looper, makeFlags(), clock)
+        addOrUpdateService(serviceCache, cacheKey1, createResponse(SERVICE_NAME_1, SERVICE_TYPE_1))
+        addOrUpdateService(serviceCache, cacheKey1, createResponse(SERVICE_NAME_2, SERVICE_TYPE_1))
+
+        // Verify the first query time
+        assertEquals(
+                NEVER_SENT_QUERY,
+                getFirstQueryTimeAfterLastUpdate(serviceCache, SERVICE_NAME_1, cacheKey1)
+        )
+        assertEquals(
+                NEVER_SENT_QUERY,
+                getFirstQueryTimeAfterLastUpdate(serviceCache, SERVICE_NAME_2, cacheKey1)
+        )
+    }
+
+    @Test
+    fun testFirstQueryTime_UpdateServices() {
+        val serviceCache = MdnsServiceCache(thread.looper, makeFlags(), clock)
+        var currentTime = 12345L
+        addOrUpdateService(serviceCache, cacheKey1, createResponse(SERVICE_NAME_1, SERVICE_TYPE_1))
+        addOrUpdateService(serviceCache, cacheKey1, createResponse(SERVICE_NAME_2, SERVICE_TYPE_1))
+
+        // Update the first query time for all services and verify the update.
+        updateFirstQueryTimeForCachedServices(
+                serviceCache,
+                subtypes = emptyList(),
+                cacheKey1,
+                currentTime
+        )
+        assertEquals(
+                currentTime,
+                getFirstQueryTimeAfterLastUpdate(serviceCache, SERVICE_NAME_1, cacheKey1)
+        )
+        assertEquals(
+                currentTime,
+                getFirstQueryTimeAfterLastUpdate(serviceCache, SERVICE_NAME_2, cacheKey1)
+        )
+    }
+    @Test
+    fun testFirstQueryTime_UpdateSpecificService() {
+        val serviceCache = MdnsServiceCache(thread.looper, makeFlags(), clock)
+        var currentTime = 12345L
+        addOrUpdateService(serviceCache, cacheKey1, createResponse(SERVICE_NAME_1, SERVICE_TYPE_1))
+        addOrUpdateService(serviceCache, cacheKey1, createResponse(SERVICE_NAME_2, SERVICE_TYPE_1))
+
+        // Update the first query time for service 1 only and verify the update.
+        updateFirstQueryTimeForCachedService(
+                serviceCache,
+                SERVICE_NAME_1,
+                subtypes = emptyList(),
+                cacheKey1,
+                currentTime
+        )
+        assertEquals(
+                currentTime,
+                getFirstQueryTimeAfterLastUpdate(serviceCache, SERVICE_NAME_1, cacheKey1)
+        )
+        assertEquals(
+                NEVER_SENT_QUERY,
+                getFirstQueryTimeAfterLastUpdate(serviceCache, SERVICE_NAME_2, cacheKey1)
+        )
     }
 
     private fun createResponse(
