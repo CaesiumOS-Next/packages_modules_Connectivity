@@ -145,9 +145,15 @@ public class MdnsServiceTypeClient {
                     // advance). Because the result of "makeResponsesForResolve" depends on answers
                     // that were received before it is called, so to take into account all answers
                     // before sending the query, it needs to be called just before sending it.
-                    final List<MdnsResponse> servicesToResolve = makeResponsesForResolve(socketKey);
+                    final List<MdnsResponse> servicesToResolve = makeResponsesForResolve(
+                            socketKey, true /* resolveRetrieval */);
+                    final boolean needSendDiscoveryQueries = needSendDiscoveryQueries(listeners);
+                    if (needSendDiscoveryQueries) {
+                        serviceCache.updateLastQueryTimeForCachedServices(
+                                cacheKey, clock.elapsedRealtime());
+                    }
                     final QueryTask queryTask = new QueryTask(taskArgs, servicesToResolve,
-                            getAllDiscoverySubtypes(), needSendDiscoveryQueries(listeners),
+                            getAllDiscoverySubtypes(), needSendDiscoveryQueries,
                             getExistingServices(), searchOptions.onlyUseIpv6OnIpv6OnlyNetworks(),
                             socketKey);
                     executor.submit(queryTask);
@@ -382,11 +388,17 @@ public class MdnsServiceTypeClient {
                     handler.obtainMessage(EVENT_START_QUERYTASK, args),
                     timeToNextTaskMs);
         } else {
-            final List<MdnsResponse> servicesToResolve = makeResponsesForResolve(socketKey);
+            final List<MdnsResponse> servicesToResolve = makeResponsesForResolve(
+                    socketKey, true /* resolveRetrieval */);
+            final boolean needSendDiscoveryQueries = needSendDiscoveryQueries(listeners);
+            if (needSendDiscoveryQueries) {
+                serviceCache.updateLastQueryTimeForCachedServices(
+                        cacheKey, clock.elapsedRealtime());
+            }
             final QueryTask queryTask = new QueryTask(
                     mdnsQueryScheduler.scheduleFirstRun(taskConfig, now,
                             minRemainingTtl, currentSessionId), servicesToResolve,
-                    getAllDiscoverySubtypes(), needSendDiscoveryQueries(listeners),
+                    getAllDiscoverySubtypes(), needSendDiscoveryQueries,
                     getExistingServices(), searchOptions.onlyUseIpv6OnIpv6OnlyNetworks(),
                     socketKey);
             executor.submit(queryTask);
@@ -474,7 +486,8 @@ public class MdnsServiceTypeClient {
         // requests if there is no known response
         final List<MdnsResponse> cachedList = serviceCache.getCachedServices(cacheKey);
         final List<MdnsResponse> currentList = new ArrayList<>(cachedList);
-        List<MdnsResponse> additionalResponses = makeResponsesForResolve(socketKey);
+        List<MdnsResponse> additionalResponses = makeResponsesForResolve(
+                socketKey, false /* resolveRetrieval */);
         for (MdnsResponse additionalResponse : additionalResponses) {
             if (findMatchedResponse(
                     cachedList, additionalResponse.getServiceInstanceName()) == null) {
@@ -565,8 +578,8 @@ public class MdnsServiceTypeClient {
 
     private void onResponseModified(@NonNull MdnsResponse response) {
         final String serviceInstanceName = response.getServiceInstanceName();
-        final MdnsResponse currentResponse =
-                serviceCache.getCachedService(serviceInstanceName, cacheKey);
+        final MdnsResponse currentResponse = serviceCache.getCachedService(serviceInstanceName,
+                cacheKey);
 
         final boolean newInCache = currentResponse == null;
         boolean serviceBecomesComplete = false;
@@ -630,7 +643,8 @@ public class MdnsServiceTypeClient {
         return searchOptions != null && searchOptions.removeExpiredService();
     }
 
-    private List<MdnsResponse> makeResponsesForResolve(@NonNull SocketKey socketKey) {
+    private List<MdnsResponse> makeResponsesForResolve(@NonNull SocketKey socketKey,
+            boolean resolveRetrieval) {
         final List<MdnsResponse> resolveResponses = new ArrayList<>();
         for (int i = 0; i < listeners.size(); i++) {
             final String resolveName = listeners.valueAt(i).searchOptions.getResolveInstanceName();
@@ -641,8 +655,7 @@ public class MdnsServiceTypeClient {
                     r -> DnsUtils.equalsIgnoreDnsCase(resolveName, r.getServiceInstanceName()))) {
                 continue;
             }
-            MdnsResponse knownResponse =
-                    serviceCache.getCachedService(resolveName, cacheKey);
+            MdnsResponse knownResponse = serviceCache.getCachedService(resolveName, cacheKey);
             if (knownResponse == null) {
                 final ArrayList<String> instanceFullName = new ArrayList<>(
                         serviceTypeLabels.length + 1);
@@ -651,6 +664,9 @@ public class MdnsServiceTypeClient {
                 knownResponse = new MdnsResponse(
                         0L /* lastUpdateTime */, instanceFullName.toArray(new String[0]),
                         socketKey.getInterfaceIndex(), socketKey.getNetwork());
+            } else if (resolveRetrieval) {
+                serviceCache.updateLastQueryTimeForCachedService(
+                        resolveName, cacheKey, clock.elapsedRealtime());
             }
             resolveResponses.add(knownResponse);
         }
