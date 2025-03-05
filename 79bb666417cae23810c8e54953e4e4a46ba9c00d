@@ -16,6 +16,29 @@
       "message": "Could you file a bug and add TODO comment to update this later?",
       "revId": "79bb666417cae23810c8e54953e4e4a46ba9c00d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b47d1a20_61bf9ba1",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T06:12:29Z",
+      "side": 1,
+      "message": "Can you specify 36?\n```\n    @EnabledAfter(targetSdkVersion \u003d 36)\n```",
+      "range": {
+        "startLine": 121,
+        "startChar": 37,
+        "endLine": 121,
+        "endChar": 72
+      },
+      "revId": "79bb666417cae23810c8e54953e4e4a46ba9c00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
