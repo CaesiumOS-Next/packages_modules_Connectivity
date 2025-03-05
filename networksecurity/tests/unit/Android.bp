@@ -40,5 +40,6 @@ android_test {
         "truth",
     ],
 
-    sdk_version: "test_current",
+    sdk_version: "current",
+    min_sdk_version: "35",
 }
