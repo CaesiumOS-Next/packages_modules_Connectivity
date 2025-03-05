@@ -202,6 +202,15 @@ public class MdnsServiceTypeClient {
                                 handler.obtainMessage(EVENT_START_QUERYTASK, args),
                                 timeToNextTaskMs);
                     }
+                    if (sentResult.sendDiscoveryQueries) {
+                        serviceCache.updateFirstQueryTimeForCachedServices(
+                                sentResult.subTypes, cacheKey, now);
+                    }
+                    for (MdnsResponse service : sentResult.servicesToResolve) {
+                        serviceCache.updateFirstQueryTimeForCachedService(
+                                service.getServiceInstanceName(), sentResult.subTypes, cacheKey,
+                                now);
+                    }
                     break;
                 }
                 default:
@@ -721,12 +730,17 @@ public class MdnsServiceTypeClient {
         private final int transactionId;
         private final List<String> subTypes = new ArrayList<>();
         private final ScheduledQueryTaskArgs taskArgs;
+        private final boolean sendDiscoveryQueries;
+        private final Collection<MdnsResponse> servicesToResolve = new ArrayList<>();
 
         QuerySentArguments(int transactionId, @NonNull List<String> subTypes,
-                @NonNull ScheduledQueryTaskArgs taskArgs) {
+                @NonNull ScheduledQueryTaskArgs taskArgs, boolean sendDiscoveryQueries,
+                @NonNull Collection<MdnsResponse> servicesToResolve) {
             this.transactionId = transactionId;
             this.subTypes.addAll(subTypes);
             this.taskArgs = taskArgs;
+            this.sendDiscoveryQueries = sendDiscoveryQueries;
+            this.servicesToResolve.addAll(servicesToResolve);
         }
     }
 
@@ -781,8 +795,9 @@ public class MdnsServiceTypeClient {
                 result = Pair.create(INVALID_TRANSACTION_ID, new ArrayList<>());
             }
             dependencies.sendMessage(
-                    handler, handler.obtainMessage(EVENT_QUERY_RESULT,
-                            new QuerySentArguments(result.first, result.second, taskArgs)));
+                    handler, handler.obtainMessage(EVENT_QUERY_RESULT, new QuerySentArguments(
+                            result.first, result.second, taskArgs, sendDiscoveryQueries,
+                            servicesToResolve)));
         }
     }
 
