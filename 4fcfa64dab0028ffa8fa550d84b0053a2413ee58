@@ -16,6 +16,115 @@
       "message": "$ fetch() { adbz logcat -d -s *:* \u003e lc-both.only; }; lg() { egrep --color\u003dyes \u0027DnsBpfHelper|NetBpfLoad|mdnsd_netbpfload\u0027 \u003c lc-both.only; }; st() { infoz; lg | head -n 7; echo ...; lg | tail -n 5; }\n\n$ fetch\n\n$ st\nshell\ngoogle/oriole/oriole:12/SQ1D.220205.004.X2/8978748:userdebug/dev-keys\n20220822.154210\n5.10.43-android12-9-00007-g9771767708df-ab8009062\nro.boot.hardware.sku: GB7N6\nro.boot.product.hardware.sku: GB7N6\nro.oem.key1: GB7N6\n 20:39:16 up 1 min,  0 users,  load average: 8.02, 2.75, 0.97\n03-05 20:38:04.981   672   672 I DnsBpfHelper: performing Android S mainline NetBpfload magic!\n03-05 20:38:04.985   672   672 I DnsBpfHelper: Waiting for Networking BPF programs\n03-05 20:38:05.019     1     1 I init    : starting service \u0027mdnsd_netbpfload\u0027...\n03-05 20:38:05.021     1     1 I init    : Control message: Processed ctl.start for \u0027mdnsd_netbpfload\u0027 from pid: 672 (/system/bin/netd)\n03-05 20:38:04.997   801   801 I NetBpfLoad: NetBpfLoad v0.42 (/apex/com.android.tethering/bin/netbpfload) api:31/31 kver:50a002b (64-on-aarch64) uid:1000 rc:10\n03-05 20:38:04.998   801   801 I NetBpfLoad: Tethering APEX version 361099999\n03-05 20:38:05.001   801   801 D NetBpfLoad: Loading ELF object /apex/com.android.tethering/etc/bpf/tethering/test.o with license Apache 2.0\n...\n03-05 20:38:05.045   801   801 D NetBpfLoad: Loaded object: /apex/com.android.tethering/etc/bpf/tethering/offload.o\n03-05 20:38:05.045   801   801 I NetBpfLoad: mainline done, no need to transfer control to platform bpf loader.\n03-05 20:38:05.072   672   672 I DnsBpfHelper: Networking BPF programs are loaded\n03-05 20:38:05.108     1     1 I init    : Service \u0027mdnsd_netbpfload\u0027 (pid 801) exited with status 0 oneshot service took 0.087000 seconds in background\n03-05 20:38:05.108     1     1 I init    : Sending signal 9 to service \u0027mdnsd_netbpfload\u0027 (pid 801) process group...",
       "revId": "4fcfa64dab0028ffa8fa550d84b0053a2413ee58",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9377ece0_f9d56832",
+        "filename": "bpf/dns_helper/DnsBpfHelper.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-05T21:56:48Z",
+      "side": 1,
+      "message": "I guess this could be moved to some header file.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "4fcfa64dab0028ffa8fa550d84b0053a2413ee58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c9c34d_a0d3874a",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-05T21:56:48Z",
+      "side": 1,
+      "message": "nit: should this be more generic? min_api_level? That might be easier to understand.",
+      "range": {
+        "startLine": 1222,
+        "startChar": 17,
+        "endLine": 1222,
+        "endChar": 23
+      },
+      "revId": "4fcfa64dab0028ffa8fa550d84b0053a2413ee58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a480cab3_5bffd537",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1459,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-05T21:56:48Z",
+      "side": 1,
+      "message": "guaranteed true, could just be removed, but I guess you left it for better documentation? no strong opinion.",
+      "range": {
+        "startLine": 1459,
+        "startChar": 8,
+        "endLine": 1459,
+        "endChar": 18
+      },
+      "revId": "4fcfa64dab0028ffa8fa550d84b0053a2413ee58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07e20cce_99c8471f",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1629,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-05T21:56:48Z",
+      "side": 1,
+      "message": "Instead of doing this filtering everywhere, would it make more sense to filter locations at the top and add release-applicable locations to some std::vector\u003cLocation\u003e to be used by this function?",
+      "revId": "4fcfa64dab0028ffa8fa550d84b0053a2413ee58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3880990_5a0b4f19",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-05T21:56:48Z",
+      "side": 1,
+      "message": "I guess I am confused because netd_shared is marked as t_plus",
+      "range": {
+        "startLine": 1666,
+        "startChar": 0,
+        "endLine": 1666,
+        "endChar": 69
+      },
+      "revId": "4fcfa64dab0028ffa8fa550d84b0053a2413ee58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
