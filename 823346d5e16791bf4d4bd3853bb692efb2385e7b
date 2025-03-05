@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b3dff8_6f55c039",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-05T03:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "529919f4_d50830f7",
+      "range": {
+        "startLine": 435,
+        "startChar": 12,
+        "endLine": 435,
+        "endChar": 32
+      },
+      "revId": "823346d5e16791bf4d4bd3853bb692efb2385e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "852e3a06_b3f0ae4e",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-04T08:02:29Z",
       "side": 1,
       "message": "\"poke\" doesn\u0027t really say much about what actual operation is being requested. Maybe \"asking the link layer to start\"?",
+      "range": {
+        "startLine": 478,
+        "startChar": 82,
+        "endLine": 478,
+        "endChar": 88
+      },
+      "revId": "823346d5e16791bf4d4bd3853bb692efb2385e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8aa1a71_22574c8f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-05T03:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "852e3a06_b3f0ae4e",
       "range": {
         "startLine": 478,
         "startChar": 82,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb8bae0e_bfc5955f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-05T03:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce114e70_c4b14a83",
+      "range": {
+        "startLine": 499,
+        "startChar": 63,
+        "endLine": 499,
+        "endChar": 67
+      },
+      "revId": "823346d5e16791bf4d4bd3853bb692efb2385e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43281f42_160e80a6",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50e38a07_2ef6c804",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-05T03:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43281f42_160e80a6",
+      "range": {
+        "startLine": 533,
+        "startChar": 33,
+        "endLine": 533,
+        "endChar": 50
+      },
+      "revId": "823346d5e16791bf4d4bd3853bb692efb2385e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5675ad36_eb9e7369",
@@ -106,6 +202,30 @@
       "writtenOn": "2025-03-04T08:02:29Z",
       "side": 1,
       "message": "Suggest:\n\n    // Also removes the request from the tracker.",
+      "range": {
+        "startLine": 843,
+        "startChar": 43,
+        "endLine": 843,
+        "endChar": 44
+      },
+      "revId": "823346d5e16791bf4d4bd3853bb692efb2385e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "538b9f1d_c8cddc87",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-05T03:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5675ad36_eb9e7369",
       "range": {
         "startLine": 843,
         "startChar": 43,
