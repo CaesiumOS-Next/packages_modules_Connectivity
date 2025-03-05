@@ -61,6 +61,7 @@
 
 // The following matches bpf_helpers.h, which is only for inclusion in bpf code
 #define BPFLOADER_MAINLINE_S_VERSION 42u
+#define BPFLOADER_MAINLINE_T_VERSION 43u
 #define BPFLOADER_MAINLINE_25Q2_VERSION 47u
 
 using android::base::EndsWith;
@@ -122,6 +123,7 @@ static constexpr bool specified(domain d) {
 struct Location {
     const char* const dir = "";
     const char* const prefix = "";
+    const bool t_plus = true;
 };
 
 // Returns the build type string (from ro.build.type).
@@ -1216,8 +1218,9 @@ static bool exists(const char* const path) {
 const Location locations[] = {
         // S+ Tethering mainline module (network_stack): tether offload
         {
-                .dir = BPFROOT "/",
+                .dir = BPFROOT "/tethering/",
                 .prefix = "tethering/",
+                .t_plus = false,
         },
         // T+ Tethering mainline module (shared with netd & system server)
         // netutils_wrapper (for iptables xt_bpf) has access to programs
@@ -1412,6 +1415,13 @@ static bool isWear() {
 }
 
 static int doLoad(char** argv, char * const envp[]) {
+    if (!isAtLeastS) {
+        ALOGE("Impossible - not reachable on Android <S.");
+        // for safety, we don't fail, this is a just-in-case workaround
+        // for any possible busted 'optimized' start everything vendor init hacks on R
+        return 0;
+    }
+
     const bool runningAsRoot = !getuid();  // true iff U QPR3 or V+
 
     const int first_api_level = GetIntProperty("ro.board.first_api_level", api_level);
@@ -1446,13 +1456,8 @@ static int doLoad(char** argv, char * const envp[]) {
 
     logTetheringApexVersion();
 
-    if (!isAtLeastT) {
-        ALOGE("Impossible - not reachable on Android <T.");
-        return 1;
-    }
-
     // both S and T require kernel 4.9 (and eBpf support)
-    if (isAtLeastT && !isAtLeastKernelVersion(4, 9, 0)) {
+    if (isAtLeastS && !isAtLeastKernelVersion(4, 9, 0)) {
         ALOGE("Android T requires kernel 4.9.");
         return 1;
     }
@@ -1622,18 +1627,22 @@ static int doLoad(char** argv, char * const envp[]) {
     //  which could otherwise fail with ENOENT during object pinning or renaming,
     //  due to ordering issues)
     for (const auto& location : locations) {
+        if (isAtLeastT && location.t_plus) continue;
         if (createSysFsBpfSubDir(location.prefix)) return 1;
     }
 
-    // Note: there's no actual src dir for fs_bpf_loader .o's,
-    // so it is not listed in 'locations[].prefix'.
-    // This is because this is primarily meant for triggering genfscon rules,
-    // and as such this will likely always be the case.
-    // Thus we need to manually create the /sys/fs/bpf/loader subdirectory.
-    if (createSysFsBpfSubDir("loader")) return 1;
+    if (isAtLeastT) {
+        // Note: there's no actual src dir for fs_bpf_loader .o's,
+        // so it is not listed in 'locations[].prefix'.
+        // This is because this is primarily meant for triggering genfscon rules,
+        // and as such this will likely always be the case.
+        // Thus we need to manually create the /sys/fs/bpf/loader subdirectory.
+        if (createSysFsBpfSubDir("loader")) return 1;
+    }
 
     // Load all ELF objects, create programs and maps, and pin them
     for (const auto& location : locations) {
+        if (isAtLeastT && location.t_plus) continue;
         if (loadAllElfObjects(bpfloader_ver, location) != 0) {
             ALOGE("=== CRITICAL FAILURE LOADING BPF PROGRAMS FROM %s ===", location.dir);
             ALOGE("If this triggers reliably, you're probably missing kernel options or patches.");
@@ -1688,7 +1697,12 @@ static int doLoad(char** argv, char * const envp[]) {
 }  // namespace android
 
 int main(int argc, char** argv, char * const envp[]) {
-    InitLogging(argv, &KernelLogger);
+    if (android::bpf::isAtLeastT) {
+        InitLogging(argv, &KernelLogger);
+    } else {
+        // S lacks the sepolicy to make non-root uid KernelLogger viable
+        InitLogging(argv);
+    }
 
     if (argc == 2 && !strcmp(argv[1], "done")) {
         // we're being re-exec'ed from platform bpfloader to 'finalize' things
