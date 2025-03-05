@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9f79964_b0480e94",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1366,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-05T03:35:04Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary since ensureWifiValidated also ensures connected",
+      "revId": "e944ad6e774f66d2bccf76edad6289f3543ddbe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f0d728a_18edce57",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2779,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-05T03:35:04Z",
+      "side": 1,
+      "message": "Also here",
+      "revId": "e944ad6e774f66d2bccf76edad6289f3543ddbe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17a14415_15f40c3d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3053,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-05T03:35:04Z",
+      "side": 1,
+      "message": "reconnectWifi will end up calling ensureWifiConnected, and then ensureWifiValidated is called again which also ensures it\u0027s connected.\n\nWould it be OK to change reconnectWifi to always wait for validated (using ensureWifiIsValidated instead of ensureWifiConnected) ? It looks like every use-case is when cleaning up a test, or waits for validation anyway (prepareValidatedNetwork)",
+      "revId": "e944ad6e774f66d2bccf76edad6289f3543ddbe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "576d6007_03f593ff",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3085,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-05T03:35:04Z",
+      "side": 1,
+      "message": "Also here (and some other places)",
+      "revId": "e944ad6e774f66d2bccf76edad6289f3543ddbe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
