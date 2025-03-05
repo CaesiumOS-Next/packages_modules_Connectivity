@@ -93,6 +93,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccafea42_83803c9d",
+        "filename": "framework/src/android/net/IConnectivityManager.aidl",
+        "patchSetId": 26
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Acknowledged, Let me remove this comment.",
+      "parentUuid": "b46092c3_245240e2",
+      "range": {
+        "startLine": 268,
+        "startChar": 24,
+        "endLine": 268,
+        "endChar": 64
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "725cfddb_9e9a9036",
+        "filename": "framework/src/android/net/IConnectivityManager.aidl",
+        "patchSetId": 26
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "QUIC stack on app process.",
+      "parentUuid": "41002fbf_cd783924",
+      "range": {
+        "startLine": 268,
+        "startChar": 65,
+        "endLine": 268,
+        "endChar": 81
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dbb513c_02fc578f",
@@ -106,6 +154,30 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "Really ? What guarantees that ?",
+      "range": {
+        "startLine": 269,
+        "startChar": 11,
+        "endLine": 269,
+        "endChar": 21
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "389feaac_064d1dd4",
+        "filename": "framework/src/android/net/IConnectivityManager.aidl",
+        "patchSetId": 26
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "I will update upstream chromium to call these APIs.",
+      "parentUuid": "4dbb513c_02fc578f",
       "range": {
         "startLine": 269,
         "startChar": 11,
@@ -174,6 +246,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80b00fa1_e0e35a3b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d123efbb_50df9111",
+      "range": {
+        "startLine": 1112,
+        "startChar": 45,
+        "endLine": 1112,
+        "endChar": 46
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9815d95a_564dfa8f",
@@ -197,6 +293,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22b99a8e_7ee8cafe",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9815d95a_564dfa8f",
+      "range": {
+        "startLine": 1113,
+        "startChar": 93,
+        "endLine": 1113,
+        "endChar": 94
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec242ced_a4e4373b",
@@ -210,6 +330,30 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 1882,
+        "startChar": 12,
+        "endLine": 1882,
+        "endChar": 26
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "171c30f2_83cd23ac",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec242ced_a4e4373b",
       "range": {
         "startLine": 1882,
         "startChar": 12,
@@ -284,6 +428,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6528e70c_6d1d9ab0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15172,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Updated to set timeout before writing to socket\n```\n Os.setsockoptTimeval(socket.getFileDescriptor$(), SOL_SOCKET, SO_SNDTIMEO,\n          StructTimeval.fromMillis(SOCKET_WRITE_TIMEOUT_MS));\n```",
+      "parentUuid": "eaec587b_dd687d48",
+      "range": {
+        "startLine": 15172,
+        "startChar": 18,
+        "endLine": 15172,
+        "endChar": 48
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a610fabc_c0fdf220",
@@ -307,6 +475,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b8e9f55_8e2862cd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15189,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a610fabc_c0fdf220",
+      "range": {
+        "startLine": 15189,
+        "startChar": 17,
+        "endLine": 15189,
+        "endChar": 21
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35123653_193725b8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15189,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a610fabc_c0fdf220",
+      "range": {
+        "startLine": 15189,
+        "startChar": 17,
+        "endLine": 15189,
+        "endChar": 21
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dfd4029_688a5bb6",
@@ -320,6 +536,30 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "Shouldn\u0027t this be impossible ? If so, maybe log a wtf ?",
+      "range": {
+        "startLine": 15193,
+        "startChar": 16,
+        "endLine": 15193,
+        "endChar": 78
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09830f02_88d41dc6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15193,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "SkDestroyListener receives destroy message for all UDP sockets.\nSo it\u0027s possible that processUdpSocketDestroy is called for non QUIC UDP sockets.\n\nAlso, if the QUIC socket is unregistered by `unregisterQuicConnectionClosePayload` before the socket is closed, mRegisteredQuicConnectionCloseInfo should not have the entry for this socket.",
+      "parentUuid": "2dfd4029_688a5bb6",
       "range": {
         "startLine": 15193,
         "startChar": 16,
@@ -427,6 +667,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85fbcbfd_38ce634a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15239,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e29d6bd3_bff77126",
+      "range": {
+        "startLine": 15239,
+        "startChar": 21,
+        "endLine": 15239,
+        "endChar": 25
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e7662f_4f8f5bef",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15239,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e29d6bd3_bff77126",
+      "range": {
+        "startLine": 15239,
+        "startChar": 21,
+        "endLine": 15239,
+        "endChar": 25
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f746158_4afc99d3",
@@ -444,6 +732,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0057a35_0740014f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15245,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f746158_4afc99d3",
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56690d50_9daadf61",
@@ -457,6 +763,30 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "s/: \" + e/\", e/",
+      "range": {
+        "startLine": 15250,
+        "startChar": 76,
+        "endLine": 15250,
+        "endChar": 83
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51ebbab2_3afe9ff1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15250,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "I assumed this comment is specific for this error log since try block has many calls that could throw ErrnoException.\nIf I should update other error log as well, please let me know.",
+      "parentUuid": "56690d50_9daadf61",
       "range": {
         "startLine": 15250,
         "startChar": 76,
@@ -558,6 +888,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7a6d723_f88000f9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4121,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "435e69dc_f8149da1",
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b8efc7b_4d269e7c",
@@ -581,6 +929,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2b79c2c_7a368550",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4138,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b8efc7b_4d269e7c",
+      "range": {
+        "startLine": 4138,
+        "startChar": 24,
+        "endLine": 4138,
+        "endChar": 47
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ad14af2_0ce46cb7",
@@ -594,6 +966,30 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 4192,
+        "startChar": 16,
+        "endLine": 4192,
+        "endChar": 28
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e72c86aa_b507088e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4192,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad14af2_0ce46cb7",
       "range": {
         "startLine": 4192,
         "startChar": 16,
@@ -652,6 +1048,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d7dc256_6736720e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4217,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "There is a Router Solicitation packet.\nTest can parse packet and ignore Router Solicitation packet but I was not sure it worth to do and I decided to ignore packet which does not contain payload.\n\nI can update code to parse Router Solicitation packet or to ignore short packets if that\u0027s better.\n```\n if (readSize \u003c payload.length) {\n      // Ignore Router Solicitation packet\n      continue;\n }\n \n assertTrue(Arrays.equals(payload, 0, payload.length,\n               recvData, readSize - payload.length, readSize));\n```",
+      "parentUuid": "47c111c2_a4e0cf58",
+      "range": {
+        "startLine": 4217,
+        "startChar": 27,
+        "endLine": 4217,
+        "endChar": 41
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "69848e01_5c9a9591",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 26
@@ -663,6 +1083,30 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "If there are less than payload.length bytes received this will crash from the buffer underflow. Should we account for the possibility of reading only part of the payload, maybe by appending to the received data so you can check the last payload.length bytes even if it was fragmented ?",
+      "range": {
+        "startLine": 4218,
+        "startChar": 34,
+        "endLine": 4218,
+        "endChar": 59
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be51c5b4_8e2ee49b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4218,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "There is `readSize \u003c payload.length` check before `Arrays.equals`. \nSo I think we don\u0027t need to worry about readSize \u003c payload.length case.\nIs it possible that short UDP packet is fragmented on test Network?",
+      "parentUuid": "69848e01_5c9a9591",
       "range": {
         "startLine": 4218,
         "startChar": 34,
@@ -719,6 +1163,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc74c967_45c0d1f1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4267,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff106aa0_dd102cfc",
+      "range": {
+        "startLine": 4261,
+        "startChar": 0,
+        "endLine": 4267,
+        "endChar": 17
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de4b3bef_96eef7db",
@@ -732,6 +1200,30 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "\"tries to detect threading issues\" ? It\u0027s really difficult to \"ensure\" that there are no threading issues and I don\u0027t think this test does that, it just has a good chance of detecting some of the foreseeable issues.",
+      "range": {
+        "startLine": 4315,
+        "startChar": 17,
+        "endLine": 4315,
+        "endChar": 59
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3c59f6d_c5a544e8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4315,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de4b3bef_96eef7db",
       "range": {
         "startLine": 4315,
         "startChar": 17,
@@ -767,6 +1259,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d25f938d_14fb7689",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4362,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "There is a `readSize \u003c payload.length` check before Arrays.equals. So I don\u0027t think we need to worry about `readSize \u003c payload.length` case.\n\nSince recvData contains IP header and UDP header, I decided to only check the payload in the end.\n\nI can update test to parse packet or only ignore short packet if that\u0027s better.\n```\n if (readSize \u003c payload.length) {\n      // Ignore Router Solicitation packet\n      continue;\n }\n fail(\"Received the QUIC connection close packet.\");\n```",
+      "parentUuid": "01b0129b_bf310923",
+      "range": {
+        "startLine": 4362,
+        "startChar": 27,
+        "endLine": 4362,
+        "endChar": 41
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "db37b925_97e5de06",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
         "patchSetId": 26
@@ -778,6 +1294,30 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "extra e (also all the methods below)",
+      "range": {
+        "startLine": 373,
+        "startChar": 36,
+        "endLine": 373,
+        "endChar": 37
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f20511d9_b42be582",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db37b925_97e5de06",
       "range": {
         "startLine": 373,
         "startChar": 36,
@@ -825,6 +1365,30 @@
           ]
         }
       ],
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e24c0a3_f4ef1d1e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0053ecb_da716e9e",
+      "range": {
+        "startLine": 529,
+        "startChar": 48,
+        "endLine": 529,
+        "endChar": 49
+      },
       "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -893,6 +1457,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d737cbaa_5b44ea45",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5eabb4c8_d632ce19",
+      "range": {
+        "startLine": 437,
+        "startChar": 28,
+        "endLine": 437,
+        "endChar": 29
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1a97590_1ed12170",
@@ -939,6 +1527,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b29763e1_4ad57a02",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f902300b_6a4c3229",
+      "range": {
+        "startLine": 473,
+        "startChar": 12,
+        "endLine": 473,
+        "endChar": 22
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb0654dd_a975334e",
@@ -952,6 +1564,24 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "Suggest offering a default timeout",
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d4009c4_15683a9a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb0654dd_a975334e",
       "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
