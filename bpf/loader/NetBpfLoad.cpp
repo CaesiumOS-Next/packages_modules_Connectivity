@@ -1412,6 +1412,13 @@ static bool isWear() {
 }
 
 static int doLoad(char** argv, char * const envp[]) {
+    if (!isAtLeastS) {
+        ALOGE("Impossible - not reachable on Android <S.");
+        // for safety, we don't fail, this is a just-in-case workaround
+        // for any possible busted 'optimized' start everything vendor init hacks on R
+        return 0;
+    }
+
     const bool runningAsRoot = !getuid();  // true iff U QPR3 or V+
 
     const int first_api_level = GetIntProperty("ro.board.first_api_level", api_level);
@@ -1446,13 +1453,8 @@ static int doLoad(char** argv, char * const envp[]) {
 
     logTetheringApexVersion();
 
-    if (!isAtLeastT) {
-        ALOGE("Impossible - not reachable on Android <T.");
-        return 1;
-    }
-
     // both S and T require kernel 4.9 (and eBpf support)
-    if (isAtLeastT && !isAtLeastKernelVersion(4, 9, 0)) {
+    if (isAtLeastS && !isAtLeastKernelVersion(4, 9, 0)) {
         ALOGE("Android T requires kernel 4.9.");
         return 1;
     }
@@ -1688,7 +1690,12 @@ static int doLoad(char** argv, char * const envp[]) {
 }  // namespace android
 
 int main(int argc, char** argv, char * const envp[]) {
-    InitLogging(argv, &KernelLogger);
+    if (android::bpf::isAtLeastT) {
+        InitLogging(argv, &KernelLogger);
+    } else {
+        // S lacks the sepolicy to make non-root uid KernelLogger viable
+        InitLogging(argv);
+    }
 
     if (argc == 2 && !strcmp(argv[1], "done")) {
         // we're being re-exec'ed from platform bpfloader to 'finalize' things
