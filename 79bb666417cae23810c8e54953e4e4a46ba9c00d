@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d23eece1_7aaea3a1",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T05:59:43Z",
+      "side": 1,
+      "message": "Could you file a bug and add TODO comment to update this later?",
+      "revId": "79bb666417cae23810c8e54953e4e4a46ba9c00d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

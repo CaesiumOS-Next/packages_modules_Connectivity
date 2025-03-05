@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "369f9fcd_b4e63abb",
+        "filename": "framework/src/android/net/connectivity/ConnectivityCompatChanges.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T05:59:43Z",
+      "side": 0,
+      "message": "Sorry, I missed this part in the previous CL.\nBut this part should not be changed since [the compat flag will be enabled if the app is targeting 37 and running on V devices](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d2376-2384?q\u003dConnectivityService\u0026ss\u003dandroid).",
+      "range": {
+        "startLine": 103,
+        "startChar": 17,
+        "endLine": 103,
+        "endChar": 94
+      },
+      "revId": "a812717d2dd3c8067aefc60f2c8caa60188f6fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
