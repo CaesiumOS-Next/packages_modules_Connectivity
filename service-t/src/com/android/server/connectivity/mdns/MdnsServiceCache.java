@@ -82,10 +82,12 @@ public class MdnsServiceCache {
     public static class CachedService {
         @NonNull final MdnsResponse mService;
         boolean mServiceExpired;
+        long mLastQueryTime;
 
-        CachedService(MdnsResponse service) {
+        CachedService(MdnsResponse service, long lastQueryTime) {
             mService = service;
             mServiceExpired = false;
+            mLastQueryTime = lastQueryTime;
         }
     }
 
@@ -187,8 +189,9 @@ public class MdnsServiceCache {
     @Nullable
     public MdnsResponse getCachedService(@NonNull String serviceName, @NonNull CacheKey cacheKey) {
         ensureRunningOnHandlerThread(mHandler);
+        final long now = mClock.elapsedRealtime();
         if (mMdnsFeatureFlags.mIsExpiredServicesRemovalEnabled) {
-            maybeRemoveExpiredServices(cacheKey, mClock.elapsedRealtime());
+            maybeRemoveExpiredServices(cacheKey, now);
         }
         final List<CachedService> cachedServices = mCachedServices.get(cacheKey);
         if (cachedServices == null) {
@@ -224,9 +227,9 @@ public class MdnsServiceCache {
                 response.getServiceInstanceName());
         cachedServices.remove(existing);
 
-        final CachedService cachedService = new CachedService(response);
+        final long now = mClock.elapsedRealtime();
+        final CachedService cachedService = new CachedService(response, now);
         if (mMdnsFeatureFlags.mIsExpiredServicesRemovalEnabled) {
-            final long now = mClock.elapsedRealtime();
             // Insert and sort service
             insertServiceAndSortList(cachedServices, cachedService, now);
             // Update the next expiration check time when a new service is added.
@@ -394,6 +397,57 @@ public class MdnsServiceCache {
     }
 
     /**
+     * Update the last query time for the cached services
+     *
+     * @param cacheKey the target CacheKey.
+     * @param currentTime current time.
+     */
+    public void updateLastQueryTimeForCachedServices(@NonNull CacheKey cacheKey, long currentTime) {
+        ensureRunningOnHandlerThread(mHandler);
+        final List<CachedService> cachedServices = mCachedServices.get(cacheKey);
+        if (cachedServices == null) {
+            // No such services.
+            return;
+        }
+        for (CachedService cachedService : cachedServices) {
+            cachedService.mLastQueryTime = currentTime;
+        }
+    }
+
+    /**
+     * Update the last query time for the cached service
+     *
+     * @param serviceName the target service name.
+     * @param cacheKey the target CacheKey.
+     * @param currentTime current time.
+     */
+    public void updateLastQueryTimeForCachedService(@NonNull String serviceName,
+            @NonNull CacheKey cacheKey, long currentTime) {
+        ensureRunningOnHandlerThread(mHandler);
+        final List<CachedService> cachedServices = mCachedServices.get(cacheKey);
+        if (cachedServices == null) {
+            // No such services.
+            return;
+        }
+        final CachedService cachedService = findMatchedCachedService(cachedServices, serviceName);
+        if (cachedService == null) {
+            // No such service.
+            return;
+        }
+        cachedService.mLastQueryTime = currentTime;
+    }
+
+    long getLastQueryTime(@NonNull String serviceName, @NonNull CacheKey cacheKey) {
+        ensureRunningOnHandlerThread(mHandler);
+        final List<CachedService> cachedServices = mCachedServices.get(cacheKey);
+        if (cachedServices == null) {
+            return -1L;
+        }
+        final CachedService cachedService = findMatchedCachedService(cachedServices, serviceName);
+        return cachedService != null ? cachedService.mLastQueryTime : -1L;
+    }
+
+    /**
      * Dump ServiceCache state.
      */
     public void dump(PrintWriter pw, String indent) {
@@ -404,7 +458,8 @@ public class MdnsServiceCache {
             pw.println(indent + key);
             for (CachedService cachedService : mCachedServices.valueAt(i)) {
                 pw.println(indent + "  Response{ " + cachedService.mService
-                        + " } Expired=" + cachedService.mServiceExpired);
+                        + " } Expired=" + cachedService.mServiceExpired
+                        + " LastQueryTime=" + cachedService.mLastQueryTime);
             }
             pw.println();
         }
