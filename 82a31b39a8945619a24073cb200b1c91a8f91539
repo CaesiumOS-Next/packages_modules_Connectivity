@@ -405,6 +405,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bf81ce2_eb3493b7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15148,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:59:10Z",
+      "side": 1,
+      "message": "This can happen if the network is disconnected or the interface address changes.\nWe can remove entries when that happens.\nThat would clean up entries a bit eariler but I\u0027m not sure if that has much benefit.\nIf the socket source address is removed, QUIC stack re-establish new connection and the old connection should be torndown, which should call unregisterQuicConnectionClosePayload and remove entry anyway.\n\nPlease re-open if you think it\u0027s better to clean up entries when the network disconnect of the interface address changes.",
+      "parentUuid": "f66f513a_75f9b059",
+      "range": {
+        "startLine": 15148,
+        "startChar": 51,
+        "endLine": 15148,
+        "endChar": 80
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eaec587b_dd687d48",
@@ -664,6 +688,30 @@
           ]
         }
       ],
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16701ff5_73e71dd8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15228,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:59:10Z",
+      "side": 1,
+      "message": "I\u0027m not sure if I\u0027m following.\nDo you mean define FWMARK_NET_ID_MASK in [p/m/c/../Inetd.aidl](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/netd/binder/android/net/INetd.aidl) and refer this value from everywhere including this code and platform netd?\nOr define FWMARK_NET_ID_MASK in p/m/c/../Inetd.aidl and refer only from this code but keep Fwmark.h as it is?",
+      "parentUuid": "5a30e741_3d3f2f15",
+      "range": {
+        "startLine": 15228,
+        "startChar": 15,
+        "endLine": 15228,
+        "endChar": 49
+      },
       "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -1202,6 +1250,30 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "I think some comments here might help with readability. The control never comes here is case of a timeout, but it goes to l.4246. Maybe you want something like\n\n// If the control comes here then the payload was received, otherwise poll\n// would have returned 0 or the test above would have matched it and gone\n// to continue.",
+      "range": {
+        "startLine": 4221,
+        "startChar": 16,
+        "endLine": 4221,
+        "endChar": 18
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2baa2ed_b83b14fd",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4221,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-05T01:59:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b71b50a_bb50400c",
       "range": {
         "startLine": 4221,
         "startChar": 16,
