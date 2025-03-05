@@ -365,6 +365,7 @@ import com.android.server.connectivity.DnsManager;
 import com.android.server.connectivity.DnsManager.PrivateDnsValidationUpdate;
 import com.android.server.connectivity.DscpPolicyTracker;
 import com.android.server.connectivity.FullScore;
+import com.android.server.connectivity.InterfaceTracker;
 import com.android.server.connectivity.InvalidTagException;
 import com.android.server.connectivity.KeepaliveResourceUtil;
 import com.android.server.connectivity.KeepaliveTracker;
@@ -577,6 +578,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
     private final NetworkStatsManager mStatsManager;
     private final NetworkPolicyManager mPolicyManager;
     private final BpfNetMaps mBpfNetMaps;
+    private final InterfaceTracker mInterfaceTracker;
 
     /**
      * TestNetworkService (lazily) created upon first usage. Locked to prevent creation of multiple
@@ -1662,8 +1664,17 @@ public class ConnectivityService extends IConnectivityManager.Stub {
          * @param netd a netd binder
          * @return BpfNetMaps implementation.
          */
-        public BpfNetMaps getBpfNetMaps(Context context, INetd netd) {
-            return new BpfNetMaps(context, netd);
+        public BpfNetMaps getBpfNetMaps(Context context, INetd netd,
+                InterfaceTracker interfaceTracker) {
+            return new BpfNetMaps(context, netd, interfaceTracker);
+        }
+
+        /**
+         * Get the InterfaceTracker implementation to use in ConnectivityService.
+         * @return InterfaceTracker implementation.
+         */
+        public InterfaceTracker getInterfaceTracker(Context context) {
+            return new InterfaceTracker(context);
         }
 
         /**
@@ -1886,7 +1897,8 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         mWakeUpMask = mask;
 
         mNetd = netd;
-        mBpfNetMaps = mDeps.getBpfNetMaps(mContext, netd);
+        mInterfaceTracker = mDeps.getInterfaceTracker(mContext);
+        mBpfNetMaps = mDeps.getBpfNetMaps(mContext, netd, mInterfaceTracker);
         mHandlerThread = mDeps.makeHandlerThread("ConnectivityServiceThread");
         mPermissionMonitorDeps = mPermDeps;
         mPermissionMonitor =
@@ -9803,6 +9815,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
                 newLp != null ? newLp.getAllInterfaceNames() : null);
 
         for (final String iface : interfaceDiff.added) {
+            mInterfaceTracker.addInterface(iface);
             addLocalAddressesToBpfMap(iface, MULTICAST_AND_BROADCAST_PREFIXES, newLp);
         }
         for (final String iface : interfaceDiff.removed) {
@@ -9863,6 +9876,10 @@ public class ConnectivityService extends IConnectivityManager.Stub {
 
             removeLocalAddressesFromBpfMap(linkProperty.getInterfaceName(),
                     new ArrayList<>(unicastLocalPrefixesToBeRemoved), linkProperty);
+        }
+
+        for (final String iface : interfaceDiff.removed) {
+            mInterfaceTracker.removeInterface(iface);
         }
     }
 

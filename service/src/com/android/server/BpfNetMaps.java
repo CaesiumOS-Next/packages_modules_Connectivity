@@ -85,6 +85,7 @@ import com.android.net.module.util.bpf.CookieTagMapValue;
 import com.android.net.module.util.bpf.IngressDiscardKey;
 import com.android.net.module.util.bpf.IngressDiscardValue;
 import com.android.net.module.util.bpf.LocalNetAccessKey;
+import com.android.server.connectivity.InterfaceTracker;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -142,6 +143,7 @@ public class BpfNetMaps {
             Pair.create(TRAFFIC_PERMISSION_INTERNET, "PERMISSION_INTERNET"),
             Pair.create(TRAFFIC_PERMISSION_UPDATE_DEVICE_STATS, "PERMISSION_UPDATE_DEVICE_STATS")
     );
+    private final InterfaceTracker mInterfaceTracker;
 
     /**
      * Set configurationMap for test.
@@ -423,23 +425,25 @@ public class BpfNetMaps {
 
     /** Constructor used after T that doesn't need to use netd anymore. */
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    public BpfNetMaps(final Context context) {
-        this(context, null);
+    public BpfNetMaps(final Context context, InterfaceTracker interfaceTracker) {
+        this(context, null, interfaceTracker);
 
         if (!SdkLevel.isAtLeastT()) throw new IllegalArgumentException("BpfNetMaps need to use netd before T");
     }
 
-    public BpfNetMaps(final Context context, final INetd netd) {
-        this(context, netd, new Dependencies());
+    public BpfNetMaps(final Context context, final INetd netd, InterfaceTracker interfaceTracker) {
+        this(context, netd, new Dependencies(), interfaceTracker);
     }
 
     @VisibleForTesting
-    public BpfNetMaps(final Context context, final INetd netd, final Dependencies deps) {
+    public BpfNetMaps(final Context context, final INetd netd, final Dependencies deps, final
+            InterfaceTracker interfaceTracker) {
         if (SdkLevel.isAtLeastT()) {
             ensureInitialized(context);
         }
         mNetd = netd;
         mDeps = deps;
+        mInterfaceTracker = interfaceTracker;
     }
 
     private void maybeThrow(final int err, final String msg) {
@@ -910,7 +914,8 @@ public class BpfNetMaps {
         if (iface == null) {
             ifIndex = 0;
         } else {
-            ifIndex = mDeps.getIfIndex(iface);
+            ifIndex = mInterfaceTracker != null ? mInterfaceTracker.getInterfaceIndex(iface)
+                    : mDeps.getIfIndex(iface);
         }
         if (ifIndex == 0) {
             Log.e(TAG, "Failed to get if index, skip addLocalNetAccess for " + address
@@ -944,7 +949,8 @@ public class BpfNetMaps {
         if (iface == null) {
             ifIndex = 0;
         } else {
-            ifIndex = mDeps.getIfIndex(iface);
+            ifIndex = mInterfaceTracker != null ? mInterfaceTracker.getInterfaceIndex(iface)
+                    : mDeps.getIfIndex(iface);
         }
         if (ifIndex == 0) {
             Log.e(TAG, "Failed to get if index, skip removeLocalNetAccess for " + address
@@ -980,7 +986,8 @@ public class BpfNetMaps {
         if (iface == null) {
             ifIndex = 0;
         } else {
-            ifIndex = mDeps.getIfIndex(iface);
+            ifIndex = mInterfaceTracker != null ? mInterfaceTracker.getInterfaceIndex(iface)
+                    : mDeps.getIfIndex(iface);
         }
         if (ifIndex == 0) {
             Log.e(TAG, "Failed to get if index, returning default from getLocalNetAccess for "
