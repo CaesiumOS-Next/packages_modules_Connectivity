@@ -22,6 +22,30 @@
       },
       "revId": "289940267f13a779b4de65fd894dd68ae01bee47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fbd4861_9bd8b99e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5413,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-06T09:34:38Z",
+      "side": 1,
+      "message": "Done but failed to add CTS inside NetworkAgentTest for LOCAL_NETWORK.\nIt requires TestableNetworkAgent to see LocalNetworkConfig class, which is not available because TestableNetworkAgent is in staticlib which can only see public APIs.\n\nSee if this works for you.",
+      "parentUuid": "a76fc738_8d12b0f1",
+      "range": {
+        "startLine": 5413,
+        "startChar": 15,
+        "endLine": 5413,
+        "endChar": 19
+      },
+      "revId": "289940267f13a779b4de65fd894dd68ae01bee47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
