@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "954c542c_88f86d70",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsAdvertiser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T11:08:45Z",
+      "side": 1,
+      "message": "Nit: using the iterator on ArraySet is discouraged, see: https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/util/ArraySet.java;drc\u003de1841f84f41213879e1f1b45ad4300b96970e545;l\u003d929\n\nYou can use a regular for loop with valueAt instead",
+      "range": {
+        "startLine": 166,
+        "startChar": 39,
+        "endLine": 166,
+        "endChar": 42
+      },
+      "revId": "0a4a77bc51fb7e3e2133e372d449a46163c77904",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
