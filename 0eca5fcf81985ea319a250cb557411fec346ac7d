@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85f3298b_56909a9d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:21:34Z",
+      "side": 1,
+      "message": "See comment on aosp/3346506 about whether this is needed",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c222572f_4a2c22fb",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
         "patchSetId": 5
