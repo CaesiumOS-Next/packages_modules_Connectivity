@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ef7c600_0bb145a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-06T15:14:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fcf74154_dd057def",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85f3298b_56909a9d",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-06T09:21:34Z",
       "side": 1,
       "message": "See comment on aosp/3346506 about whether this is needed",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdc0cad4_b2dd5038",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsFeatureFlags.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-06T15:14:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "85f3298b_56909a9d",
       "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "758d7ea4_a285e207",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-06T15:14:38Z",
+      "side": 1,
+      "message": "Acknowledged. Make sense. Replace all possiable flag checks to `realtimeScheduler !\u003d null`.",
+      "parentUuid": "c222572f_4a2c22fb",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99b4ab96_9088043d",
@@ -69,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea2a55ca_70b9427e",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-06T15:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99b4ab96_9088043d",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "039458a8_835d9d12",
@@ -82,6 +154,24 @@
       "writtenOn": "2025-03-06T09:09:08Z",
       "side": 1,
       "message": "Also here",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9a743c8_109d4857",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-06T15:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "039458a8_835d9d12",
       "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -109,6 +199,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05deabca_656746d8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-06T15:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e2a81a1_06754a0c",
+      "range": {
+        "startLine": 544,
+        "startChar": 54,
+        "endLine": 544,
+        "endChar": 84
+      },
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "388163b7_8a7290e8",
@@ -122,6 +236,24 @@
       "writtenOn": "2025-03-06T09:09:08Z",
       "side": 1,
       "message": "Also here",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81eb6fc4_048b2919",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-06T15:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "388163b7_8a7290e8",
       "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -162,6 +294,54 @@
       "writtenOn": "2025-03-06T09:09:08Z",
       "side": 1,
       "message": "Nit: static",
+      "range": {
+        "startLine": 230,
+        "startChar": 11,
+        "endLine": 230,
+        "endChar": 12
+      },
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cb7787b_98bec673",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-06T15:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5409fae0_e1949639",
+      "range": {
+        "startLine": 230,
+        "startChar": 20,
+        "endLine": 230,
+        "endChar": 23
+      },
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73f1ae5c_79fb5ee8",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-06T15:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d97c5900_7d32cc3d",
       "range": {
         "startLine": 230,
         "startChar": 11,
