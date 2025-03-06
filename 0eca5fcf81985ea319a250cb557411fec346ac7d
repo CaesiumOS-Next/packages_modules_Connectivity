@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcf74154_dd057def",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:09:08Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c222572f_4a2c22fb",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:09:08Z",
+      "side": 1,
+      "message": "Similarly to previous comment, this should check for `realtimeScheduler !\u003d null` instead, otherwise you\u0027ll get an NPE if the flag is turned on for tests after the MdnsServiceTypeClient creation",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99b4ab96_9088043d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:09:08Z",
+      "side": 1,
+      "message": "Also here",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "039458a8_835d9d12",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:09:08Z",
+      "side": 1,
+      "message": "Also here",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e2a81a1_06754a0c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:09:08Z",
+      "side": 1,
+      "message": "Also here",
+      "range": {
+        "startLine": 544,
+        "startChar": 54,
+        "endLine": 544,
+        "endChar": 84
+      },
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "388163b7_8a7290e8",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:09:08Z",
+      "side": 1,
+      "message": "Also here",
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5409fae0_e1949639",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:09:08Z",
+      "side": 1,
+      "message": "Nit: `isMessageTask` ? The current naming sounds like it will iterate over stuff to search for a task.",
+      "range": {
+        "startLine": 230,
+        "startChar": 20,
+        "endLine": 230,
+        "endChar": 23
+      },
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d97c5900_7d32cc3d",
+        "filename": "staticlibs/device/com/android/net/module/util/RealtimeScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:09:08Z",
+      "side": 1,
+      "message": "Nit: static",
+      "range": {
+        "startLine": 230,
+        "startChar": 11,
+        "endLine": 230,
+        "endChar": 12
+      },
+      "revId": "0eca5fcf81985ea319a250cb557411fec346ac7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
