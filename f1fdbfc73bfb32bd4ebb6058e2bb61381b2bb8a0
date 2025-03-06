@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e8c898c_0cca513c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-06T23:38:45Z",
+      "side": 1,
+      "message": "Pleae also link to the bug",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 43
+      },
+      "revId": "f1fdbfc73bfb32bd4ebb6058e2bb61381b2bb8a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "260796a7_7cb5c5f1",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-06T23:38:45Z",
+      "side": 1,
+      "message": "why we changing regix here?",
+      "range": {
+        "startLine": 175,
+        "startChar": 50,
+        "endLine": 175,
+        "endChar": 67
+      },
+      "revId": "f1fdbfc73bfb32bd4ebb6058e2bb61381b2bb8a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
