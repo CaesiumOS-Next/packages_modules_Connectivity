@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a76fc738_8d12b0f1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5413,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-06T05:12:40Z",
+      "side": 1,
+      "message": "For testing this is fair but if you\u0027re going to finish this work before the early creation work is over then you\u0027ll need to do this only for local agents",
+      "range": {
+        "startLine": 5413,
+        "startChar": 15,
+        "endLine": 5413,
+        "endChar": 19
+      },
+      "revId": "289940267f13a779b4de65fd894dd68ae01bee47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
