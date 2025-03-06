@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e64c0f30_b2133f86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-06T03:05:48Z",
+      "side": 1,
+      "message": "LGTM. Feel free to address comments in a follow-up.",
+      "revId": "9f8af2b57e40fdad45a733f38010f25a90199cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7986d839_7597999f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-06T03:05:48Z",
+      "side": 1,
+      "message": "Might want to add that this class is not thread-safe.",
+      "range": {
+        "startLine": 43,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 2
+      },
+      "revId": "9f8af2b57e40fdad45a733f38010f25a90199cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38e500fe_f3ca15fe",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-06T03:05:48Z",
+      "side": 1,
+      "message": "FWIW, it\u0027s probably better to use enum here. Enums have a higher memory footprint than ints, but if there are only a few instances of the enum, then the memory impact is negligible and outweighed by the convenience (better type safety, automatic conversion to string, etc.).",
+      "range": {
+        "startLine": 74,
+        "startChar": 24,
+        "endLine": 74,
+        "endChar": 27
+      },
+      "revId": "9f8af2b57e40fdad45a733f38010f25a90199cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "290c74c3_c69926e7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-06T03:05:48Z",
+      "side": 1,
+      "message": "We probably want to add comments to explain what the semantics are here. Not sure what they are exactly. Perhaps \"there can only be one request for any given type, except for bluetooth\"?",
+      "range": {
+        "startLine": 83,
+        "startChar": 39,
+        "endLine": 83,
+        "endChar": 55
+      },
+      "revId": "9f8af2b57e40fdad45a733f38010f25a90199cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25578d82_52438589",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-06T03:05:48Z",
+      "side": 1,
+      "message": "type",
+      "range": {
+        "startLine": 115,
+        "startChar": 59,
+        "endLine": 115,
+        "endChar": 63
+      },
+      "revId": "9f8af2b57e40fdad45a733f38010f25a90199cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59a8004d_7ca16c25",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/RequestTrackerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-06T03:05:48Z",
+      "side": 1,
+      "message": "Per discussion, it seems better that the request that remains is the *first* one to be added. Otherwise, if the following happens:\n\n1. uid 1 starts wifi tethering\n2. uid 2 starts identical wifi tethering\n\nthen tethering will be started only once in, but when tethering comes up, the request will have uid 2 in it, even though the UID that started tethering was uid 1. In effect, this code will \"not remember who started tethering\".\n\nGiven that this CL is a no-op, might want to fix in another CL.",
+      "range": {
+        "startLine": 89,
+        "startChar": 84,
+        "endLine": 89,
+        "endChar": 96
+      },
+      "revId": "9f8af2b57e40fdad45a733f38010f25a90199cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
