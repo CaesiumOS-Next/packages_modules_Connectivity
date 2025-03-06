@@ -62,6 +62,7 @@ import android.net.QosSession;
 import android.net.TcpKeepalivePacketData;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.os.SystemClock;
@@ -73,6 +74,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
 
+import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.WakeupMessage;
@@ -703,6 +705,7 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     public void notifyRegistered() {
         try {
             networkAgent.asBinder().linkToDeath(mDeathMonitor, 0);
+            mRegistry.notifyAgentRegistered();
             networkAgent.onRegistered();
         } catch (RemoteException e) {
             Log.e(TAG, "Error registering NetworkAgent", e);
@@ -920,120 +923,185 @@ public class NetworkAgentInfo implements NetworkRanker.Scoreable {
     // TODO: consider moving out of NetworkAgentInfo into its own class
     private class NetworkAgentMessageHandler extends INetworkAgentRegistry.Stub {
         private final Handler mHandler;
+        @GuardedBy("mMessagesPendingConnection")
+        private final ArrayList<Message> mMessagesPendingConnection = new ArrayList<>();
+        // Note that this boolean is initialized off-thread, so it must be false to be
+        // correct (the handler thread may not see the init value, and see the default
+        // "false" value instead – this only works because this is initialized to the
+        // default value of boolean).
+        @GuardedBy("mMessagesPendingConnection")
+        private boolean mFinishedRegistering = false;
 
         private NetworkAgentMessageHandler(Handler handler) {
             mHandler = handler;
         }
 
+        public void notifyAgentRegistered() {
+            synchronized (mMessagesPendingConnection) {
+                mFinishedRegistering = true;
+                for (final Message queued : mMessagesPendingConnection) {
+                    queued.sendToTarget();
+                }
+                mMessagesPendingConnection.clear();
+            }
+        }
+
+        private void queueOrSendMessage(final Message msg) {
+            // Using everConnected() here looks simpler, but because setConnected() is
+            // only called by the message moving the NetworkInfo to CONNECTED as it
+            // is processed by ConnectivityService, a message could hit this method
+            // while the NetworkInfo message is in the pipes. That would enqueue the
+            // message in the queue and it would never be processed, or all messages
+            // would have to check the queue always. As such, use mFinishedRegistering
+            // instead which guarantees that the messages are enqueued as soon as the
+            // queue has been sent.
+            if (mFinishedRegistering) {
+                msg.sendToTarget();
+                return;
+            }
+            // This method can be called on multiple threads.
+            synchronized (mMessagesPendingConnection) {
+                if (mFinishedRegistering) {
+                    // Double-checked locking
+                    msg.sendToTarget();
+                    return;
+                }
+                // The agent was registered, but the corresponding NetworkMonitor hasn't
+                // been created yet. It will happen very shortly ; if it doesn't, the
+                // NetworkStack process is stopped or Binder is down or it's some other
+                // similarly catastrophic state. So this queue doesn't have time to grow
+                // to large states unless the system is already going down anyway.
+                // Hence no need to deduplicate or throw when there are too many messages.
+                mMessagesPendingConnection.add(msg);
+            }
+        }
+
+        private void queueOrSendMessage(final int what, final Object obj) {
+            queueOrSendMessage(mHandler.obtainMessage(what, obj));
+        }
+
+        private void queueOrSendMessage(final int what, final int arg1, final int arg2,
+                final Object obj) {
+            queueOrSendMessage(mHandler.obtainMessage(what, arg1, arg2, obj));
+        }
+
         @Override
         public void sendNetworkCapabilities(@NonNull NetworkCapabilities nc) {
             Objects.requireNonNull(nc);
-            mHandler.obtainMessage(NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED,
-                    new Pair<>(NetworkAgentInfo.this, nc)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED,
+                    new Pair<>(NetworkAgentInfo.this, nc));
         }
 
         @Override
         public void sendLinkProperties(@NonNull LinkProperties lp) {
             Objects.requireNonNull(lp);
-            mHandler.obtainMessage(NetworkAgent.EVENT_NETWORK_PROPERTIES_CHANGED,
-                    new Pair<>(NetworkAgentInfo.this, lp)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_NETWORK_PROPERTIES_CHANGED,
+                    new Pair<>(NetworkAgentInfo.this, lp));
         }
 
         @Override
         public void sendNetworkInfo(@NonNull NetworkInfo info) {
             Objects.requireNonNull(info);
-            mHandler.obtainMessage(NetworkAgent.EVENT_NETWORK_INFO_CHANGED,
-                    new Pair<>(NetworkAgentInfo.this, info)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_NETWORK_INFO_CHANGED,
+                    new Pair<>(NetworkAgentInfo.this, info));
         }
 
         @Override
         public void sendLocalNetworkConfig(@NonNull final LocalNetworkConfig config) {
-            mHandler.obtainMessage(NetworkAgent.EVENT_LOCAL_NETWORK_CONFIG_CHANGED,
-                    new Pair<>(NetworkAgentInfo.this, config)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_LOCAL_NETWORK_CONFIG_CHANGED,
+                    new Pair<>(NetworkAgentInfo.this, config));
         }
 
         @Override
         public void sendScore(@NonNull final NetworkScore score) {
-            mHandler.obtainMessage(NetworkAgent.EVENT_NETWORK_SCORE_CHANGED,
-                    new Pair<>(NetworkAgentInfo.this, score)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_NETWORK_SCORE_CHANGED,
+                    new Pair<>(NetworkAgentInfo.this, score));
         }
 
         @Override
         public void sendExplicitlySelected(boolean explicitlySelected, boolean acceptPartial) {
-            mHandler.obtainMessage(NetworkAgent.EVENT_SET_EXPLICITLY_SELECTED,
+            queueOrSendMessage(NetworkAgent.EVENT_SET_EXPLICITLY_SELECTED,
                     explicitlySelected ? 1 : 0, acceptPartial ? 1 : 0,
-                    new Pair<>(NetworkAgentInfo.this, null)).sendToTarget();
+                    new Pair<>(NetworkAgentInfo.this, null));
         }
 
         @Override
         public void sendSocketKeepaliveEvent(int slot, int reason) {
-            mHandler.obtainMessage(NetworkAgent.EVENT_SOCKET_KEEPALIVE,
-                    slot, reason, new Pair<>(NetworkAgentInfo.this, null)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_SOCKET_KEEPALIVE,
+                    slot, reason, new Pair<>(NetworkAgentInfo.this, null));
         }
 
         @Override
         public void sendUnderlyingNetworks(@Nullable List<Network> networks) {
-            mHandler.obtainMessage(NetworkAgent.EVENT_UNDERLYING_NETWORKS_CHANGED,
-                    new Pair<>(NetworkAgentInfo.this, networks)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_UNDERLYING_NETWORKS_CHANGED,
+                    new Pair<>(NetworkAgentInfo.this, networks));
         }
 
         @Override
         public void sendEpsQosSessionAvailable(final int qosCallbackId, final QosSession session,
                 final EpsBearerQosSessionAttributes attributes) {
+            // QOS callback tracker events don't have to be queued, because it is not possible
+            // to register a callback for this agent before it's connected.
             mQosCallbackTracker.sendEventEpsQosSessionAvailable(qosCallbackId, session, attributes);
         }
 
         @Override
         public void sendNrQosSessionAvailable(final int qosCallbackId, final QosSession session,
                 final NrQosSessionAttributes attributes) {
+            // QOS callback tracker events don't have to be queued, because it is not possible
+            // to register a callback for this agent before it's connected.
             mQosCallbackTracker.sendEventNrQosSessionAvailable(qosCallbackId, session, attributes);
         }
 
         @Override
         public void sendQosSessionLost(final int qosCallbackId, final QosSession session) {
+            // QOS callback tracker events don't have to be queued, because it is not possible
+            // to register a callback for this agent before it's connected.
             mQosCallbackTracker.sendEventQosSessionLost(qosCallbackId, session);
         }
 
         @Override
         public void sendQosCallbackError(final int qosCallbackId,
                 @QosCallbackException.ExceptionType final int exceptionType) {
+            // QOS callback tracker events don't have to be queued, because it is not possible
+            // to register a callback for this agent before it's connected.
             mQosCallbackTracker.sendEventQosCallbackError(qosCallbackId, exceptionType);
         }
 
         @Override
         public void sendTeardownDelayMs(int teardownDelayMs) {
-            mHandler.obtainMessage(NetworkAgent.EVENT_TEARDOWN_DELAY_CHANGED,
-                    teardownDelayMs, 0, new Pair<>(NetworkAgentInfo.this, null)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_TEARDOWN_DELAY_CHANGED,
+                    teardownDelayMs, 0, new Pair<>(NetworkAgentInfo.this, null));
         }
 
         @Override
         public void sendLingerDuration(final int durationMs) {
-            mHandler.obtainMessage(NetworkAgent.EVENT_LINGER_DURATION_CHANGED,
-                    new Pair<>(NetworkAgentInfo.this, durationMs)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_LINGER_DURATION_CHANGED,
+                    new Pair<>(NetworkAgentInfo.this, durationMs));
         }
 
         @Override
         public void sendAddDscpPolicy(final DscpPolicy policy) {
-            mHandler.obtainMessage(NetworkAgent.EVENT_ADD_DSCP_POLICY,
-                    new Pair<>(NetworkAgentInfo.this, policy)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_ADD_DSCP_POLICY,
+                    new Pair<>(NetworkAgentInfo.this, policy));
         }
 
         @Override
         public void sendRemoveDscpPolicy(final int policyId) {
-            mHandler.obtainMessage(NetworkAgent.EVENT_REMOVE_DSCP_POLICY,
-                    new Pair<>(NetworkAgentInfo.this, policyId)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_REMOVE_DSCP_POLICY,
+                    new Pair<>(NetworkAgentInfo.this, policyId));
         }
 
         @Override
         public void sendRemoveAllDscpPolicies() {
-            mHandler.obtainMessage(NetworkAgent.EVENT_REMOVE_ALL_DSCP_POLICIES,
-                    new Pair<>(NetworkAgentInfo.this, null)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_REMOVE_ALL_DSCP_POLICIES,
+                    new Pair<>(NetworkAgentInfo.this, null));
         }
 
         @Override
         public void sendUnregisterAfterReplacement(final int timeoutMillis) {
-            mHandler.obtainMessage(NetworkAgent.EVENT_UNREGISTER_AFTER_REPLACEMENT,
-                    new Pair<>(NetworkAgentInfo.this, timeoutMillis)).sendToTarget();
+            queueOrSendMessage(NetworkAgent.EVENT_UNREGISTER_AFTER_REPLACEMENT,
+                    new Pair<>(NetworkAgentInfo.this, timeoutMillis));
         }
     }
 
