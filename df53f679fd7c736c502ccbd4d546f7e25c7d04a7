@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7703d46_0fa789e1",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-06T09:26:46Z",
+      "side": 1,
+      "message": "Could this be simplified to the following?\n```\ntry {\n    mNetd.tetherInterfaceRemove(mIfaceName);\n} catch (RemoteException | ServiceSpecificException e) {\n    mLastError \u003d TETHER_ERROR_UNTETHER_IFACE_ERROR;\n    mLog.e(\"Failed to untether interface: \" + e);\n} finally {\n    mNetd.networkRemoveInterface(LOCAL_NET_ID, mIfaceName);\n}\n```",
+      "range": {
+        "startLine": 1160,
+        "startChar": 12,
+        "endLine": 1169,
+        "endChar": 13
+      },
+      "revId": "df53f679fd7c736c502ccbd4d546f7e25c7d04a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
