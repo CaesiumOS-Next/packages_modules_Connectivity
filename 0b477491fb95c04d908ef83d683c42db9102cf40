@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd40f46c_bc655f00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-06T00:28:31Z",
+      "side": 1,
+      "message": "Manually built dnsresolver (at current tip) and tethering apex (with this change) for R and S+ and verified that the following steps work on:\n\nBramble [03071FQCB00041] running R\n(google/bramble/bramble:11/RD1A.200810.020/6792687:userdebug/dev-keys)\n\nOriole [14151FDF60005L] running S (google/oriole/oriole:12/SQ1D.220205.004.X2/8978748:userdebug/dev-keys)\n\n- booted up with no installed resolver/apexes, see 30/31 apex versions as appropriate\n- installed resolver, rebooted, see apex 36\n- uninstalled resolver, rebooted, see apex 30/31\n- installed tethering, rebooted, see apex 36\n- installed resolver, rebooted, see both apex 36\n- uinstalled both, rebooted, see both apex 30/31\n\nran bpf_existence_test on the S oriole with tethering apex installed, both with and without the resolver apex.\n\non oriole S with tethering apex installed confirmed /sys/fs/bpf/tethering looks as expected (empty/full) without/with resolve apex\n\nAlso looked at logcat on the S...",
+      "revId": "0b477491fb95c04d908ef83d683c42db9102cf40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
