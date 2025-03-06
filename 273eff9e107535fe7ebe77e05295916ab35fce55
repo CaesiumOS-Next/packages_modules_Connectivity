@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "584af141_b90ea32d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/DiscoveryExecutor.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:30:20Z",
+      "side": 1,
+      "message": "Checking the flag on every task being posted may be a bit expensive, because of the \"enable for tests\" path.\n\nThe fact that this can change at runtime would only be useful for CTS/MTS tests, but I\u0027m not sure it\u0027s feasible to test this with CTS/MTS anyway. Are you planning to write such tests ?\n\nIf not, maybe you don\u0027t need the isAccurateDelayCallbackEnabled method and could just check mIsAccurateDelayCallbackEnabled ?",
+      "range": {
+        "startLine": 112,
+        "startChar": 38,
+        "endLine": 112,
+        "endChar": 68
+      },
+      "revId": "273eff9e107535fe7ebe77e05295916ab35fce55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba963be1_ddf653c1",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/DiscoveryExecutor.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:30:20Z",
+      "side": 1,
+      "message": "realtimeScheduler !\u003d null ? Since it could be null if the flag changed to true after it was verified on line 112 (since it can be changed at runtime for tests)",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 61
+      },
+      "revId": "273eff9e107535fe7ebe77e05295916ab35fce55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46cdf8a2_3ca7ae63",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:30:20Z",
+      "side": 1,
+      "message": "Why ? executeDelayed didn\u0027t have that restriction before (and shouldn\u0027t ?)\n\nMaybe DiscoveryExecutor should post calls to realtimeScheduler.postDelayed to the handler when not on the right thread ?",
+      "range": {
+        "startLine": 103,
+        "startChar": 12,
+        "endLine": 104,
+        "endChar": 24
+      },
+      "revId": "273eff9e107535fe7ebe77e05295916ab35fce55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d43c5f01_c4674e2b",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/DiscoveryExecutorTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:30:20Z",
+      "side": 1,
+      "message": "I\u0027m not sure this loop is needed: there\u0027s already a 500ms timeout on `future.get`, so waiting at most 50ms here doesn\u0027t change much.",
+      "revId": "273eff9e107535fe7ebe77e05295916ab35fce55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
