@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e522182b_7321344c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/MdnsRealtimeScheduler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-06T09:38:36Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be used ?",
+      "revId": "bee76679f53732ca7630d02a8f1b1bd97acc4795",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
