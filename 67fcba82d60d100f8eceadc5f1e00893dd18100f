@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "905c3312_90fb174f",
+        "filename": "service/src/com/android/server/connectivity/MulticastRoutingCoordinatorService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-06T02:17:33Z",
+      "side": 1,
+      "message": "Can not we write `if (e.errno \u003d\u003d EADDRNOTAVAIL)` directly?",
+      "range": {
+        "startLine": 262,
+        "startChar": 3,
+        "endLine": 269,
+        "endChar": 13
+      },
+      "revId": "67fcba82d60d100f8eceadc5f1e00893dd18100f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
