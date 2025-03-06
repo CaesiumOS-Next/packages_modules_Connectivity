@@ -137,15 +137,19 @@ class MdnsServiceCacheTest {
     private fun getService(
             serviceCache: MdnsServiceCache,
             serviceName: String,
-            cacheKey: CacheKey
+            cacheKey: CacheKey,
+            excludeExpiredService: Boolean = true,
     ): MdnsResponse? = runningOnHandlerAndReturn {
-        serviceCache.getCachedService(serviceName, cacheKey)
+        serviceCache.getCachedService(serviceName, cacheKey, excludeExpiredService)
     }
 
     private fun getServices(
             serviceCache: MdnsServiceCache,
-            cacheKey: CacheKey
-    ): List<MdnsResponse> = runningOnHandlerAndReturn { serviceCache.getCachedServices(cacheKey) }
+            cacheKey: CacheKey,
+            excludeExpiredService: Boolean = true,
+    ): List<MdnsResponse> = runningOnHandlerAndReturn {
+        serviceCache.getCachedServices(cacheKey, excludeExpiredService)
+    }
 
     private fun registerServiceExpiredCallback(
             serviceCache: MdnsServiceCache,
