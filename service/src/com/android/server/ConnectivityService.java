@@ -9418,10 +9418,11 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         if (DBG) log("registerNetworkAgent " + nai);
         mDeps.getNetworkStack().makeNetworkMonitor(
                 nai.network, name, new NetworkMonitorCallbacks(nai));
-        // NetworkAgentInfo registration will finish when the NetworkMonitor is created.
-        // If the network disconnects or sends any other event before that, messages are deferred by
-        // NetworkAgent until nai.connect(), which will be called when finalizing the
-        // registration. TODO : have NetworkAgentInfo defer them instead.
+        // NetworkAgentInfo registration is done, but CS will only accept messages when the
+        // NetworkMonitor is created. If the network disconnects or sends any other event
+        // before that, messages are deferred by the Tracker Handler until it is (by asking
+        // NetworkAgentInfo to do it). The window is very small unless the NetworkStack
+        // doesn't reply immediately, which would mean a broken system anyway.
         final NetworkAndAgentRegistryParcelable result = new NetworkAndAgentRegistryParcelable();
         result.network = nai.network;
         result.registry = nai.getRegistry();
@@ -15032,6 +15033,9 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         // ConnectivityManager and ConnectivityService.
         if (mUseDeclaredMethodsForCallbacksEnabled) {
             features |= ConnectivityManager.FEATURE_USE_DECLARED_METHODS_FOR_CALLBACKS;
+        }
+        if (mQueueNetworkAgentEventsInSystemServer) {
+            features |= ConnectivityManager.QUEUE_NETWORK_AGENT_EVENTS_IN_SYSTEM_SERVER;
         }
         return features;
     }
