@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c01a481_f70bdecb",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-07T06:05:56Z",
+      "side": 1,
+      "message": "It might be better to check `mTetheringAgent !\u003d null` to prevent a potential NullPointerException if mTetheringAgent is null.",
+      "range": {
+        "startLine": 1245,
+        "startChar": 16,
+        "endLine": 1245,
+        "endChar": 36
+      },
+      "revId": "6d9260d1126e1931c1acd039a8878aeb9abdc52f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
