@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6ba8f0e_bcf64f61",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-07T13:25:43Z",
+      "side": 1,
+      "message": "Moved the metrics handling to outside of the class",
+      "parentUuid": "65dd199a_253e9bca",
+      "range": {
+        "startLine": 78,
+        "startChar": 21,
+        "endLine": 78,
+        "endChar": 44
+      },
+      "revId": "425f90ec1b968b559614e0813eda10a87ce14925",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f235dbd_38218b07",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "700c5612_183c48d6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-07T13:25:43Z",
+      "side": 1,
+      "message": "We don\u0027t expect it to happen since the only times we send the metric is in response to the link layer poke result, which only happens if we\u0027ve already started tethering and called mTetheringMetrics.createBuilder(type, callerPkg);\n\nEven if it is called twice, the second call is always ignored in TetheringMetrics.",
+      "parentUuid": "9f235dbd_38218b07",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 90,
+        "endChar": 13
+      },
+      "revId": "425f90ec1b968b559614e0813eda10a87ce14925",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ee8325a_2f0ef683",
@@ -60,6 +108,30 @@
       "writtenOn": "2025-03-06T10:13:02Z",
       "side": 1,
       "message": "TetheringRequest objects aren\u0027t unique, an app can construct two identical ones and equals() will return true. Is this a case where \"\u003d\u003d\" would be correct? If not, maybe at least add a comment explaining why it cannot happen that there are ever two requests in the list for which equals() will return true?\n\nIn this CL we still have the invariant that there can never be more than one request for a given type, so we can write that in this comment, but future CLs are going to change that, and we\u0027ll need to update this comment accordingly (or use \"\u003d\u003d\" instead of equals()).\n\n    final TetheringRequest r \u003d new TetheringRequest.Builder(TETHERING_BLUETOOTH).build();\n     mTm.startTethering(r, () -\u003e {});\n     mTm.startTethering(r, () -\u003e {});\n\nUsing \"\u003d\u003d\" would avoid this problem, though \u003d\u003d is usually risky in other ways. Another option would be: every time we create a PendingRequest (or every time Tethering accepts a TetheringRequest from an app), it could assign the PendingRequest or the TetheringRequest an auto-incrementing ID, like we do for NetworkRequest.",
+      "range": {
+        "startLine": 202,
+        "startChar": 31,
+        "endLine": 202,
+        "endChar": 37
+      },
+      "revId": "425f90ec1b968b559614e0813eda10a87ce14925",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daa5354c_43f5e3c6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-07T13:25:43Z",
+      "side": 1,
+      "message": "Based on offline discussion, we don\u0027t have a need to allow multiple identical requests in this list anymore since we\u0027re getting rid of the ability to add multiple pending pan listeners.",
+      "parentUuid": "1ee8325a_2f0ef683",
       "range": {
         "startLine": 202,
         "startChar": 31,
