@@ -32,6 +32,7 @@ import com.android.testutils.ConnectivityModuleTest;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import com.android.testutils.ParcelUtils;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -199,5 +200,32 @@ public class NetworkTest {
         assertEquals(mNetwork.netId, copy.netId);
         assertNotEquals(copy.netId, copy.getNetIdForResolv());
         assertNotEquals(mNetwork.getNetIdForResolv(), copy.getNetIdForResolv());
+    }
+
+    @Test
+    @ConnectivityModuleTest
+    public void testGetNonPrivateDnsBypassingCopy() {
+        final Network bypass = mNetwork.getPrivateDnsBypassingCopy();
+        final Network nonBypass = bypass.getPrivateDnsNonBypassingCopy();
+        assertEquals(mNetwork.netId, nonBypass.netId);
+        assertEquals(nonBypass.netId, nonBypass.getNetIdForResolv());
+        assertEquals(mNetwork.getNetIdForResolv(), nonBypass.getNetIdForResolv());
+    }
+
+    @Test @IgnoreAfter(Build.VERSION_CODES.BAKLAVA)
+    public void testParcelingRoundTripBeforeB() {
+        // Before B, the netID for resolv is not parceled.
+        final Network bypass =
+                ParcelUtils.parcelingRoundTrip(mNetwork.getPrivateDnsBypassingCopy());
+        assertEquals(mNetwork.netId, bypass.netId);
+        assertEquals(mNetwork.getNetIdForResolv(), mNetwork.getNetIdForResolv());
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.BAKLAVA)
+    public void testParcelingRoundTripFromB() {
+        final Network bypass =
+                ParcelUtils.parcelingRoundTrip(mNetwork.getPrivateDnsBypassingCopy());
+        assertEquals(mNetwork.netId, bypass.netId);
+        assertNotEquals(mNetwork.getNetIdForResolv(), mNetwork.getNetIdForResolv());
     }
 }
