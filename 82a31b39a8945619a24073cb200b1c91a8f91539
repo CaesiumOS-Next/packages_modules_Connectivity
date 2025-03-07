@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e758715_bee1b6d6",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 6835,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-07T01:46:37Z",
+      "side": 1,
+      "message": "If we have UDP-based protocol that match the following condition, this API would be useful for power saving.\n- protocol establishes connection\n- protocol allows us to generate UDP payload that can be sent to the server later to close the connection.\n- server could keep sending packets to the client.\n\nOne logic that might be specific to QUIC is the device sends UDP payload with the same source address/port over the same network.\nIf protocol is ok to close connection even if the source address is different, we may need to skip checking the network address and send UDP packet with any source address.\n\nDo you suggest updating naming and comment not specific to QUIC (e.g. registerConnectionCloseUdpPayload)?\nSince we don\u0027t have any other usecase we want/need to support currently, I\u0027m not sure if I should make it look general.",
+      "parentUuid": "5de55a83_c3f42b21",
+      "range": {
+        "startLine": 6835,
+        "startChar": 16,
+        "endLine": 6835,
+        "endChar": 20
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4210bc35_ff6e28ec",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 26
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "Can you expand a little bit on why we can\u0027t avoid this ?",
+      "range": {
+        "startLine": 6849,
+        "startChar": 7,
+        "endLine": 6850,
+        "endChar": 26
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d20271c_164dda75",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 6850,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-07T01:46:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4210bc35_ff6e28ec",
       "range": {
         "startLine": 6849,
         "startChar": 7,
@@ -201,6 +249,24 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "How difficult would it be to extract this logic to a satellite class of ConnectivityService ? This file is already 15k lines long, and this is adding a lot of dependencies ; generally I think the logic looks fine but it\u0027s pretty independent of the rest of the code and since it\u0027s greenfield it would be a good candidate for extraction.",
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "077fa8d6_5e594a23",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-07T01:46:37Z",
+      "side": 1,
+      "message": "I have splitted to QuicConnectionCloser.\nI needed to pass copy of mNetworkForNetId, which I don\u0027t think great but I did not come up with better solution.\nPlease let me know if there is a better solution.",
+      "parentUuid": "66d5e92e_e8156c75",
       "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -1143,6 +1209,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4de524f0_e82c5e43",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4204,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-07T01:46:37Z",
+      "side": 1,
+      "message": "One possible solution is that call dump and check if the information is in the dump.\nI don\u0027t think depending on dump is a good idea but it should be fine especially with MCTS.\nAlso, adding`waitForQuicConnectionClosePayloadRegistration` would be cleaner than calling setUidFirewallRule multiple times.\nSo updated to check dump after register/unregister",
+      "parentUuid": "745d7085_e46fa17c",
+      "range": {
+        "startLine": 4204,
+        "startChar": 72,
+        "endLine": 4204,
+        "endChar": 91
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47c111c2_a4e0cf58",
@@ -1560,6 +1650,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "249b1609_d74db033",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-07T01:46:37Z",
+      "side": 1,
+      "message": "I assume you mean the case that default network is changed from cell to non-cell network while destroy socket is pending since cell network is not active.\nI have added this case.\nPlease re-open if this is not what you mean.",
+      "parentUuid": "5e0c3c20_2dbc9bc7",
+      "range": {
+        "startLine": 556,
+        "startChar": 4,
+        "endLine": 556,
+        "endChar": 5
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5eabb4c8_d632ce19",
@@ -1638,6 +1752,30 @@
       "writtenOn": "2025-03-03T06:28:23Z",
       "side": 1,
       "message": "What is the threading story for all these mutable members ? I think the setters are generally called on the test thread but the getters are generally called on the connectivity service thread, so this is like to blow up. If you are sure it doesn\u0027t please add comments to explain the threading model.",
+      "range": {
+        "startLine": 453,
+        "startChar": 16,
+        "endLine": 453,
+        "endChar": 19
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9f69ad9_ac437c75",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-07T01:46:37Z",
+      "side": 1,
+      "message": "For these methods, getters are called on test thread in the unit test.\nSo this assignment can be done on test thread.\n\nBut I feel it\u0027s a bit confusing that some setters need to be on test thread and some need to be on connectivity handler thread since we could change how we call these methods in future.\nAlso, it\u0027s possible that we call some getters on both test thread and connectivity handler thread.\n\nSo, I have updated to use Atomic libraries. Please re-open if this is not a good idea.",
+      "parentUuid": "d1a97590_1ed12170",
       "range": {
         "startLine": 453,
         "startChar": 16,
@@ -1797,6 +1935,30 @@
           ]
         }
       ],
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f272ec_7f70c5f9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-07T01:46:37Z",
+      "side": 1,
+      "message": "I have added QuicConnectionCloser which destroyUdpSocket. So removed sendQuicConnectionClosePayload and destroyUdpSocket mocking from CSTest.",
+      "parentUuid": "c30a3b71_36224c1f",
+      "range": {
+        "startLine": 523,
+        "startChar": 12,
+        "endLine": 523,
+        "endChar": 34
+      },
       "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
