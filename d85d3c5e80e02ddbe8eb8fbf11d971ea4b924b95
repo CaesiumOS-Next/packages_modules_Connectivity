@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6edd50d_cdc4bc9c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-07T06:43:13Z",
+      "side": 1,
+      "message": "Bypass lint since the error is not in this CL.",
+      "revId": "d85d3c5e80e02ddbe8eb8fbf11d971ea4b924b95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
