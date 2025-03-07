@@ -17,6 +17,7 @@
 #define LOG_TAG "NetBpfLoad"
 
 #include <arpa/inet.h>
+#include <bpf/btf.h>
 #include <bpf/libbpf.h>
 #include <dirent.h>
 #include <elf.h>
@@ -82,6 +83,137 @@ using std::vector;
 
 namespace android {
 namespace bpf {
+
+//-----
+// From https://android.googlesource.com/platform/external/libbpf/+/6abeb4203d0f1f8a5dd2bf09939ce2c55846acb3%5E%21/ 'libbpf: remove deprecated BTF APIs'
+// eliminated libbpf_err() calls, s/pr_warn/ALOGW/, s/pr_debug/ALOGD/
+int btf__get_map_kv_tids(const struct btf *btf, const char *map_name,
+			 __u32 expected_key_size, __u32 expected_value_size,
+			 __u32 *key_type_id, __u32 *value_type_id)
+{
+    const struct btf_type *container_type;
+    const struct btf_member *key, *value;
+    const size_t max_name = 256;
+    char container_name[max_name];
+    __s64 key_size, value_size;
+    __s32 container_id;
+
+    if (snprintf(container_name, max_name, "____btf_map_%s", map_name) == max_name) {
+	ALOGW("map:%s length of '____btf_map_%s' is too long\n", map_name, map_name);
+	return -EINVAL;
+    }
+
+    container_id = btf__find_by_name(btf, container_name);
+    if (container_id < 0) {
+	ALOGD("map:%s container_name:%s cannot be found in BTF. Missing BPF_ANNOTATE_KV_PAIR?\n", map_name, container_name);
+	return container_id;
+    }
+
+    container_type = btf__type_by_id(btf, container_id);
+    if (!container_type) {
+	ALOGW("map:%s cannot find BTF type for container_id:%u\n", map_name, container_id);
+	return -EINVAL;
+    }
+
+    if (!btf_is_struct(container_type) || btf_vlen(container_type) < 2) {
+	ALOGW("map:%s container_name:%s is an invalid container struct\n", map_name, container_name);
+	return -EINVAL;
+    }
+
+    key = btf_members(container_type);
+    value = key + 1;
+
+    key_size = btf__resolve_size(btf, key->type);
+    if (key_size < 0) {
+	ALOGW("map:%s invalid BTF key_type_size\n", map_name);
+	return key_size;
+    }
+
+    if (expected_key_size != key_size) {
+	ALOGW("map:%s btf_key_type_size:%u != map_def_key_size:%u\n", map_name, (__u32)key_size, expected_key_size);
+	return -EINVAL;
+    }
+
+    value_size = btf__resolve_size(btf, value->type);
+    if (value_size < 0) {
+	ALOGW("map:%s invalid BTF value_type_size\n", map_name);
+	return value_size;
+    }
+
+    if (expected_value_size != value_size) {
+	ALOGW("map:%s btf_value_type_size:%u != map_def_value_size:%u\n", map_name, (__u32)value_size, expected_value_size);
+	return -EINVAL;
+    }
+
+    *key_type_id = key->type;
+    *value_type_id = value->type;
+
+    return 0;
+}
+
+static int btf_print(enum libbpf_print_level lvl, const char * const formatStr, va_list argList) {
+    int32_t prio;
+    switch (lvl) {
+      case LIBBPF_WARN:  prio = ANDROID_LOG_WARN;  break;
+      case LIBBPF_INFO:  prio = ANDROID_LOG_INFO;  break;
+      case LIBBPF_DEBUG: prio = ANDROID_LOG_DEBUG; break;
+    }
+    char * s = strdup(formatStr ?: "(no format string)");
+    int len = strlen(s);
+    if (len && s[len - 1] == '\n') s[len - 1] = 0;
+    LOG_PRI_VA(prio, LOG_TAG "Btf", s, argList);
+    free(s);
+    return 0;
+}
+
+static std::optional<unique_fd> getMapBtfInfo(const char* elfPath, std::unordered_map<string, std::pair<uint32_t, uint32_t>> &btfTypeIds) {
+    int ret = libbpf_set_strict_mode(LIBBPF_STRICT_CLEAN_PTRS);
+    if (ret) { ALOGE("libbpf_set_strict_mode()"); return {}; };
+
+    libbpf_set_print(btf_print);
+
+    struct bpf_object_open_opts opts = {
+        .sz = sizeof(struct bpf_object_open_opts),
+        .relaxed_maps = true,
+    };
+    struct bpf_object *obj = bpf_object__open_file(elfPath, &opts);
+    if (!obj) { ALOGE("btf_object__open_file(%s)", elfPath); return {}; };
+
+    struct btf *btf = bpf_object__btf(obj);
+    if (!btf) { ALOGE("bpf_object__btf()"); return {}; };
+
+    ret = btf__load_into_kernel(btf);
+    if (ret) {
+        if (errno != EINVAL) { ALOGE("btf__load_into_kernel()"); return {}; };
+        // For BTF_KIND_FUNC, newer kernels can read the BTF_INFO_VLEN bits of
+        // struct btf_type to distinguish static vs. global vs. extern
+        // functions, but older kernels enforce that only the BTF_INFO_KIND bits
+        // can be set. Retry with non-BTF_INFO_KIND bits zeroed out to handle
+        // this case.
+        for (unsigned int i = 1; i < btf__type_cnt(btf); ++i) {
+            struct btf_type *bt = (struct btf_type *)btf__type_by_id(btf, i);
+            if (btf_is_func(bt)) {
+                bt->info = (BTF_INFO_KIND(bt->info)) << 24;
+            }
+        }
+        if (btf__load_into_kernel(btf)) { ALOGE("btf__load_into_kernel() compat"); return {}; };
+    }
+
+    unique_fd btfFd(btf__fd(btf));
+
+    struct bpf_map *m;
+    bpf_object__for_each_map(m, obj) {
+        auto mapName = bpf_map__name(m);
+        uint32_t kTid, vTid;
+        if (btf__get_map_kv_tids(btf, mapName, bpf_map__key_size(m),
+                                 bpf_map__value_size(m), &kTid, &vTid)) { ALOGE("btf__get_map_kv_tids()"); return {}; };
+        if (!kTid || !vTid) continue;
+        btfTypeIds[mapName] = std::make_pair(kTid, vTid);
+    }
+
+    return btfFd;
+}
+//-----
 
 // Bpf programs may specify per-program & per-map selinux_context and pin_subdir.
 //
@@ -652,9 +784,10 @@ static bool mapMatchesExpectations(const unique_fd& fd, const string& mapName,
 static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>& mapFds,
                       const char* prefix, const unsigned int bpfloader_ver) {
     int ret;
-    vector<char> mdData;
+    vector<char> mdData, btfData;
     vector<struct bpf_map_def> md;
     vector<string> mapNames;
+    std::unordered_map<string, std::pair<uint32_t, uint32_t>> btfTypeIdMap;
     string objName = pathToObjName(string(elfPath));
 
     ret = readSectionByName("maps", elfFile, mdData);
@@ -680,6 +813,12 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
     if (ret) return ret;
 
     unsigned kvers = kernelVersion();
+
+    std::optional<unique_fd> btfFd;
+    if (!readSectionByName(".BTF", elfFile, btfData)) {
+        btfFd = getMapBtfInfo(elfPath, btfTypeIdMap);
+        ALOGI("BTF read ok:%d, fd:%d", btfFd.has_value(), btfFd.has_value() ? btfFd->get() : -1);
+    }
 
     for (int i = 0; i < (int)mapNames.size(); i++) {
         if (md[i].zero != 0) abort();
@@ -804,6 +943,14 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
             };
             if (isAtLeastKernelVersion(4, 15, 0))
                 strlcpy(req.map_name, mapNames[i].c_str(), sizeof(req.map_name));
+            if (btfFd.has_value() && btfTypeIdMap.find(mapNames[i]) != btfTypeIdMap.end()) {
+                req.btf_fd = btfFd->get();
+                req.btf_key_type_id = btfTypeIdMap.at(mapNames[i]).first;
+                req.btf_value_type_id = btfTypeIdMap.at(mapNames[i]).second;
+                ALOGW("btf ok");
+            } else {
+                ALOGW("btf err");
+            }
             fd.reset(bpf(BPF_MAP_CREATE, req));
             saved_errno = errno;
             if (fd.ok()) {
