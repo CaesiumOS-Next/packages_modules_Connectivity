@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89754d68_f4bec52d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-07T06:43:44Z",
+      "side": 1,
+      "message": "Bypass lint since the error is for the subsequent CL.",
+      "revId": "eff5782b0a8402c02145866c3b43311448c87b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
