@@ -51,11 +51,10 @@ java_defaults {
         "src/**/*.kt",
     ],
     static_libs: [
+        "mockito-target-extended-minus-junit4",
         "TetheringCommonTests",
         "androidx.test.rules",
         "frameworks-base-testutils",
-        "mockito-target-extended-minus-junit4",
-        "net-tests-utils",
         "testables",
     ],
     // TODO(b/147200698) change sdk_version to module-current and
