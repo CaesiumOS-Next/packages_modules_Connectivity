@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2312a275_854c5478",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5422,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-07T08:43:37Z",
+      "side": 1,
+      "message": "Can you use getCapsNoCopy() ? It just returns the same member, but it\u0027s clearer and more future-proof",
+      "range": {
+        "startLine": 5422,
+        "startChar": 52,
+        "endLine": 5422,
+        "endChar": 71
+      },
+      "revId": "346650a817134b8af08f7b025db957a4c238f5ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
