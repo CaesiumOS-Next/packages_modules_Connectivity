@@ -16,6 +16,24 @@
       "message": "This doesn\u0027t seem to be used ?",
       "revId": "bee76679f53732ca7630d02a8f1b1bd97acc4795",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3edb7e7_438d9d0c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/internal/MdnsRealtimeScheduler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-07T09:08:02Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "e522182b_7321344c",
+      "revId": "bee76679f53732ca7630d02a8f1b1bd97acc4795",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
