@@ -1280,6 +1280,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a68309c_4e63c34b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4217,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-07T03:19:04Z",
+      "side": 1,
+      "message": "Please re-open if you think I should update this.",
+      "parentUuid": "5d7dc256_6736720e",
+      "range": {
+        "startLine": 4217,
+        "startChar": 27,
+        "endLine": 4217,
+        "endChar": 41
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69848e01_5c9a9591",
@@ -1317,6 +1341,30 @@
       "side": 1,
       "message": "There is `readSize \u003c payload.length` check before `Arrays.equals`. \nSo I think we don\u0027t need to worry about readSize \u003c payload.length case.\nIs it possible that short UDP packet is fragmented on test Network?",
       "parentUuid": "69848e01_5c9a9591",
+      "range": {
+        "startLine": 4218,
+        "startChar": 34,
+        "endLine": 4218,
+        "endChar": 59
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47a81669_67aac125",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4218,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-07T03:19:04Z",
+      "side": 1,
+      "message": "Please re-open if you think I should update this.",
+      "parentUuid": "be51c5b4_8e2ee49b",
       "range": {
         "startLine": 4218,
         "startChar": 34,
@@ -1505,6 +1553,30 @@
       "side": 1,
       "message": "There is a `readSize \u003c payload.length` check before Arrays.equals. So I don\u0027t think we need to worry about `readSize \u003c payload.length` case.\n\nSince recvData contains IP header and UDP header, I decided to only check the payload in the end.\n\nI can update test to parse packet or only ignore short packet if that\u0027s better.\n```\n if (readSize \u003c payload.length) {\n      // Ignore Router Solicitation packet\n      continue;\n }\n fail(\"Received the QUIC connection close packet.\");\n```",
       "parentUuid": "01b0129b_bf310923",
+      "range": {
+        "startLine": 4362,
+        "startChar": 27,
+        "endLine": 4362,
+        "endChar": 41
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed6eb85_326c15f4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 4362,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-07T03:19:04Z",
+      "side": 1,
+      "message": "Please re-open if I should update this.",
+      "parentUuid": "d25f938d_14fb7689",
       "range": {
         "startLine": 4362,
         "startChar": 27,
