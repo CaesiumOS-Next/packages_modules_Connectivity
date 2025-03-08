@@ -114,6 +114,8 @@ public class ServiceDiscoveryTest {
     @Before
     public void setUp() throws Exception {
         mController.setEnabledAndWait(true);
+        var config = new ThreadConfiguration.Builder().setBorderRouterEnabled(true).build();
+        mController.setConfigurationAndWait(config);
         mController.leaveAndWait();
         mController.joinAndWait(DEFAULT_DATASET);
         mNsdManager = mContext.getSystemService(NsdManager.class);
