@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa9a9752_eeedc964",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 6835,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-08T07:41:12Z",
+      "side": 1,
+      "message": "Yes that was my point – I think most UDP custom protocols look like you describe and could use this. Since nothing at all in the implementation is QUIC-specific, I thought naming it more specifically than what it does isn\u0027t great engineering practice.\n\nThat being said maybe we\u0027ll want to write some QUIC-specific code in the future ? Also it\u0027s @hide and we can rename it if/when we decide to make it @System or public, so since you disagree I\u0027m happy to let it slide.",
+      "parentUuid": "5e758715_bee1b6d6",
+      "range": {
+        "startLine": 6835,
+        "startChar": 16,
+        "endLine": 6835,
+        "endChar": 20
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4210bc35_ff6e28ec",
@@ -772,6 +796,30 @@
       "side": 1,
       "message": "I\u0027m not sure if I\u0027m following.\nDo you mean define FWMARK_NET_ID_MASK in [p/m/c/../Inetd.aidl](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/staticlibs/netd/binder/android/net/INetd.aidl) and refer this value from everywhere including this code and platform netd?\nOr define FWMARK_NET_ID_MASK in p/m/c/../Inetd.aidl and refer only from this code but keep Fwmark.h as it is?",
       "parentUuid": "5a30e741_3d3f2f15",
+      "range": {
+        "startLine": 15228,
+        "startChar": 15,
+        "endLine": 15228,
+        "endChar": 49
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5bec1eb_b669c03b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15228,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-08T07:41:12Z",
+      "side": 1,
+      "message": "Yes I meant defining it in Inetd.aidl and refer to this value from everywhere. It has many constants like this one, that we moved to that file to make sure they can\u0027t differ between the c code and the java code.\n\nI don\u0027t think it\u0027s super important though so if you don\u0027t have time leave it as is",
+      "parentUuid": "16701ff5_73e71dd8",
       "range": {
         "startLine": 15228,
         "startChar": 15,
@@ -1736,6 +1784,30 @@
       "side": 1,
       "message": "I assume you mean the case that default network is changed from cell to non-cell network while destroy socket is pending since cell network is not active.\nI have added this case.\nPlease re-open if this is not what you mean.",
       "parentUuid": "5e0c3c20_2dbc9bc7",
+      "range": {
+        "startLine": 556,
+        "startChar": 4,
+        "endLine": 556,
+        "endChar": 5
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9920b6a4_e9233310",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-08T07:41:12Z",
+      "side": 1,
+      "message": "That\u0027s a good test to have but I meant kill of the sockets at the end of the lingering period. Normally this also happens as the default moves from cell to wifi and cell is always-on. When the default network changes, cell lingers and at the end of the lingering period (this is triggered from CS#updateCapabilities \u003e #updateNetworkPermissions \u003e setPermissionsForNetwork \u003e destroySocketsLackingPermission)\n\nThat being said I think unit tests may not be the best place to test this, since it relies on netd. At the end of the day your new code should learn about this from the skdestroylistener so as far as unit tests are concerned you already have coverage.",
+      "parentUuid": "249b1609_d74db033",
       "range": {
         "startLine": 556,
         "startChar": 4,
