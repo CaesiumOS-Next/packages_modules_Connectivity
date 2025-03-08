@@ -613,6 +613,21 @@ object IntegrationTestUtils {
         controller.joinAndWait(dataset);
     }
 
+    /** Enables Border Router and joins the specified Thread network. */
+    @JvmStatic
+    fun enableBorderRouterAndJoinNetwork(dataset: ActiveOperationalDataset) {
+        val context: Context = requireNotNull(ApplicationProvider.getApplicationContext());
+        val controller = requireNotNull(ThreadNetworkControllerWrapper.newInstance(context));
+
+        // TODO: b/323301831 - This is a workaround to avoid unnecessary delay to re-form a network
+        controller.leaveAndWait();
+
+        controller.setEnabledAndWait(true);
+        val config = ThreadConfiguration.Builder().setBorderRouterEnabled(true).build();
+        controller.setConfigurationAndWait(config);
+        controller.joinAndWait(dataset);
+    }
+
     /** Leaves the Thread network and disables Thread. */
     @JvmStatic
     fun leaveNetworkAndDisableThread() {
