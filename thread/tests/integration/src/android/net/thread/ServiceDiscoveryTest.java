@@ -21,6 +21,7 @@ import static android.net.nsd.NsdManager.PROTOCOL_DNS_SD;
 import static android.net.thread.utils.IntegrationTestUtils.SERVICE_DISCOVERY_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.discoverForServiceLost;
 import static android.net.thread.utils.IntegrationTestUtils.discoverService;
+import static android.net.thread.utils.IntegrationTestUtils.joinNetworkAndWait;
 import static android.net.thread.utils.IntegrationTestUtils.joinNetworkAndWaitForOmr;
 import static android.net.thread.utils.IntegrationTestUtils.resolveService;
 import static android.net.thread.utils.IntegrationTestUtils.resolveServiceUntil;
@@ -115,6 +116,8 @@ public class ServiceDiscoveryTest {
     public void setUp() throws Exception {
         mController.setEnabledAndWait(true);
         mController.leaveAndWait();
+        var config = new ThreadConfiguration.Builder().setBorderRouterEnabled(true).build();
+        mController.setConfigurationAndWait(config);
         mController.joinAndWait(DEFAULT_DATASET);
         mNsdManager = mContext.getSystemService(NsdManager.class);
 
@@ -155,6 +158,49 @@ public class ServiceDiscoveryTest {
         }
         mController.setTestNetworkAsUpstreamAndWait(null);
         mController.leaveAndWait();
+    }
+
+    @Test
+    public void advertisingProxy_borderRouterDisabled_clientMleIdAddressIsAdvertised()
+            throws Exception {
+        /*
+         * <pre>
+         * Topology:
+         *                            Thread
+         *  SRP Server / AD Proxy -------------- SRP Client
+         *  (Cuttlefish)
+         *
+         * </pre>
+         */
+
+        // The Border Router / SRP Server mode can only be changed when Thread is disconnected
+        mController.leaveAndWait();
+        var config = new ThreadConfiguration.Builder().setBorderRouterEnabled(false).build();
+        mController.setConfigurationAndWait(config);
+        mController.joinAndWait(DEFAULT_DATASET);
+
+        FullThreadDevice srpClient = mFtds.getFirst();
+        joinNetworkAndWait(srpClient, DEFAULT_DATASET);
+        srpClient.setSrpHostname("thread-srp-client-host");
+        srpClient.setSrpHostAddresses(List.of(srpClient.getMlEid()));
+        srpClient.addSrpService(
+                "thread-srp-client-service",
+                "_matter._tcp",
+                List.of("_sub1", "_sub2"),
+                12345 /* port */,
+                Map.of("key1", bytes(1), "key2", bytes(2)));
+
+        NsdServiceInfo discoveredService = discoverService(mNsdManager, "_matter._tcp");
+        assertThat(discoveredService).isNotNull();
+        NsdServiceInfo resolvedService = resolveService(mNsdManager, discoveredService);
+        assertThat(resolvedService.getServiceName()).isEqualTo("thread-srp-client-service");
+        assertThat(resolvedService.getServiceType()).isEqualTo("_matter._tcp");
+        assertThat(resolvedService.getPort()).isEqualTo(12345);
+        assertThat(resolvedService.getAttributes())
+                .comparingValuesUsing(BYTE_ARRAY_EQUALITY)
+                .containsExactly("key1", bytes(1), "key2", bytes(2));
+        assertThat(resolvedService.getHostname()).isEqualTo("thread-srp-client-host");
+        assertThat(resolvedService.getHostAddresses()).containsExactly(srpClient.getMlEid());
     }
 
     @Test
