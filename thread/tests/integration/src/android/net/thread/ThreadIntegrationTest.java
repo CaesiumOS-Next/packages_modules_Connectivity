@@ -216,14 +216,16 @@ public class ThreadIntegrationTest {
 
     @Test
     public void otDaemonRestart_latestCountryCodeIsSetToOtDaemon() throws Exception {
-        runThreadCommand("force-country-code enabled CN");
+        if (isSupportCountryCode()) {
+            runThreadCommand("force-country-code enabled CN");
 
-        runShellCommand("stop ot-daemon");
-        // TODO(b/323331973): the sleep is needed to workaround the race conditions
-        SystemClock.sleep(200);
-        mController.waitForRole(DEVICE_ROLE_STOPPED, CALLBACK_TIMEOUT);
+            runShellCommand("stop ot-daemon");
+            // TODO(b/323331973): the sleep is needed to workaround the race conditions
+            SystemClock.sleep(200);
+            mController.waitForRole(DEVICE_ROLE_STOPPED, CALLBACK_TIMEOUT);
 
-        assertThat(mOtCtl.getCountryCode()).isEqualTo("CN");
+            assertThat(mOtCtl.getCountryCode()).isEqualTo("CN");
+        }
     }
 
     @Test
@@ -444,5 +446,11 @@ public class ThreadIntegrationTest {
 
     private void assertTunInterfaceMemberOfGroup(Inet6Address address) throws Exception {
         waitFor(() -> isInMulticastGroup(TUN_IF_NAME, address), TUN_ADDR_UPDATE_TIMEOUT);
+    }
+
+    private boolean isSupportCountryCode() {
+        final String result = runThreadCommand("ot-ctl region");
+
+        return !result.equals("Error 12: NotImplemented\r\n");
     }
 }

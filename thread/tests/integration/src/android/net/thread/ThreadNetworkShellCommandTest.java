@@ -61,7 +61,6 @@ public class ThreadNetworkShellCommandTest {
     private final Context mContext = ApplicationProvider.getApplicationContext();
     private final ThreadNetworkControllerWrapper mController =
             ThreadNetworkControllerWrapper.newInstance(mContext);
-    private final OtDaemonController mOtCtl = new OtDaemonController();
     private FullThreadDevice mFtd;
 
     @Before
@@ -143,10 +142,12 @@ public class ThreadNetworkShellCommandTest {
 
     @Test
     public void forceCountryCode_setCN_getCountryCodeReturnsCN() {
-        runThreadCommand("force-country-code enabled CN");
+        if (isSupportCountryCode()) {
+            runThreadCommand("force-country-code enabled CN");
 
-        final String result = runThreadCommand("get-country-code");
-        assertThat(result).contains("Thread country code = CN");
+            final String result = runThreadCommand("get-country-code");
+            assertThat(result).contains("Thread country code = CN");
+        }
     }
 
     @Test
@@ -204,5 +205,11 @@ public class ThreadNetworkShellCommandTest {
 
     private static String runThreadCommand(String cmd) {
         return runShellCommandOrThrow("cmd thread_network " + cmd);
+    }
+
+    private boolean isSupportCountryCode() {
+        final String result = runThreadCommand("ot-ctl region");
+
+        return !result.equals("Error 12: NotImplemented\r\n");
     }
 }
