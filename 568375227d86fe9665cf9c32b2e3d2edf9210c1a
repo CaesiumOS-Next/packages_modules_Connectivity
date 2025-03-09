@@ -1,0 +1,262 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78d00f79_78e4554b",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-09T08:04:06Z",
+      "side": 1,
+      "message": "use `assumeTrue`:",
+      "range": {
+        "startLine": 219,
+        "startChar": 8,
+        "endLine": 219,
+        "endChar": 37
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "418d3c68_2c4ea18e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+              "range": {
+                "startLine": 43,
+                "startChar": 0,
+                "endLine": 43,
+                "endChar": 0
+              },
+              "replacement": "import static org.junit.Assume.assumeTrue;\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+              "range": {
+                "startLine": 219,
+                "startChar": 0,
+                "endLine": 221,
+                "endChar": 0
+              },
+              "replacement": "        assumeTrue(isSupportCountryCode());\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+              "range": {
+                "startLine": 222,
+                "startChar": 0,
+                "endLine": 226,
+                "endChar": 0
+              },
+              "replacement": "        runThreadCommand(\"force-country-code enabled CN\");\n\n        runShellCommand(\"stop ot-daemon\");\n        // TODO(b/323331973): the sleep is needed to workaround the race conditions\n        SystemClock.sleep(200);\n        mController.waitForRole(DEVICE_ROLE_STOPPED, CALLBACK_TIMEOUT);\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+              "range": {
+                "startLine": 227,
+                "startChar": 0,
+                "endLine": 229,
+                "endChar": 0
+              },
+              "replacement": "        assertThat(mOtCtl.getCountryCode()).isEqualTo(\"CN\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "568375227d86fe9665cf9c32b2e3d2edf9210c1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "915c61c3_17ebc780",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-09T08:04:06Z",
+      "side": 1,
+      "message": "This has been defined twice, add this method as an API of the OtDaemonController.java class?",
+      "range": {
+        "startLine": 451,
+        "startChar": 20,
+        "endLine": 451,
+        "endChar": 40
+      },
+      "revId": "568375227d86fe9665cf9c32b2e3d2edf9210c1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d0de800_d9ad7e50",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-09T08:04:06Z",
+      "side": 1,
+      "message": "nit:\n```suggestion\n    private boolean isCountryCodeSupported() {\n```",
+      "range": {
+        "startLine": 451,
+        "startChar": 20,
+        "endLine": 451,
+        "endChar": 40
+      },
+      "revId": "568375227d86fe9665cf9c32b2e3d2edf9210c1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b3b086a_b5a4f804",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-09T08:04:06Z",
+      "side": 1,
+      "message": "Ditto: use `assumeTrue`",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 37
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "99875102_5ff1f37b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 24,
+                "startChar": 0,
+                "endLine": 25,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 27,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 28,
+                "startChar": 0,
+                "endLine": 29,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 31,
+                "startChar": 0,
+                "endLine": 31,
+                "endChar": 0
+              },
+              "replacement": "import static org.junit.Assume.assumeTrue;\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 34,
+                "startChar": 0,
+                "endLine": 35,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 38,
+                "startChar": 0,
+                "endLine": 39,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 42,
+                "startChar": 0,
+                "endLine": 43,
+                "endChar": 0
+              },
+              "replacement": "import java.net.Inet6Address;\nimport java.time.Duration;\nimport java.util.List;\nimport java.util.concurrent.ExecutionException;\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 49,
+                "startChar": 0,
+                "endLine": 54,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 68,
+                "startChar": 0,
+                "endLine": 74,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 145,
+                "startChar": 0,
+                "endLine": 147,
+                "endChar": 0
+              },
+              "replacement": "        assumeTrue(isSupportCountryCode());\n\n        runThreadCommand(\"force-country-code enabled CN\");\n"
+            },
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+              "range": {
+                "startLine": 148,
+                "startChar": 0,
+                "endLine": 151,
+                "endChar": 0
+              },
+              "replacement": "        final String result \u003d runThreadCommand(\"get-country-code\");\n        assertThat(result).contains(\"Thread country code \u003d CN\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "568375227d86fe9665cf9c32b2e3d2edf9210c1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
