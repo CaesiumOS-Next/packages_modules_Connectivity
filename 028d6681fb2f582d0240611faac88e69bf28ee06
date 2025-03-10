@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2da81b6d_e4520bfd",
+        "filename": "staticlibs/testutils/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T07:31:55Z",
+      "side": 0,
+      "message": "I saw `lib_mockito_extended` is used only here.\nShould we remove `lib_mockito_extended`? \nOr maybe we should use `lib_mockito_extended` in target that rely on mockito_extended.",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "028d6681fb2f582d0240611faac88e69bf28ee06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
