@@ -28,6 +28,7 @@ import static android.net.ConnectivityManager.BLOCKED_REASON_LOCKDOWN_VPN;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND;
 import static android.net.ConnectivityManager.TYPE_VPN;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.os.Process.INVALID_UID;
@@ -1024,7 +1025,11 @@ public class VpnTest {
         checkTrafficOnVpn();
 
         final Network vpnNetwork = mCM.getActiveNetwork();
-        myUidCallback.expectAvailableThenValidatedCallbacks(vpnNetwork, TIMEOUT_MS);
+        myUidCallback.eventuallyExpect(RecorderCallback.CallbackEntry.NETWORK_CAPS_UPDATED,
+                NETWORK_CALLBACK_TIMEOUT_MS,
+                entry -> entry.getNetwork().equals(vpnNetwork)
+                        && entry.getCaps().hasTransport(TRANSPORT_VPN)
+                        && entry.getCaps().hasCapability(NET_CAPABILITY_VALIDATED));
         assertEquals(vpnNetwork, mCM.getActiveNetwork());
         assertNotEqual(defaultNetwork, vpnNetwork);
         maybeExpectVpnTransportInfo(vpnNetwork);
