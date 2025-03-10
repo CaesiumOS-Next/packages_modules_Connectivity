@@ -747,9 +747,10 @@ public class Tethering {
     void stopTetheringRequest(@NonNull final TetheringRequest request,
             @NonNull final IIntResultListener listener) {
         if (!isTetheringWithSoftApConfigEnabled()) return;
+        final boolean hasNetworkSettings = hasCallingPermission(NETWORK_SETTINGS);
         mHandler.post(() -> {
-            final int type = request.getTetheringType();
-            if (isTetheringTypePendingOrServing(type)) {
+            if (mRequestTracker.findFuzzyMatchedRequest(request, !hasNetworkSettings) != null) {
+                final int type = request.getTetheringType();
                 stopTetheringInternal(type);
                 // TODO: We should send the success result after the waiting for tethering to
                 //       actually stop.
