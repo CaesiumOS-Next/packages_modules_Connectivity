@@ -4677,15 +4677,28 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         private void maybeHandleNetworkAgentMessage(Message msg) {
             final Pair<NetworkAgentInfo, Object> arg = (Pair<NetworkAgentInfo, Object>) msg.obj;
             final NetworkAgentInfo nai = arg.first;
+
+            // If the network has been destroyed, the only thing that it can do is disconnect.
+            if (nai.isDestroyed() && !isDisconnectRequest(msg)) {
+                return;
+            }
+
+            if (mDeps.isFeatureNotChickenedOut(mContext,
+                        ConnectivityFlags.QUEUE_NETWORK_AGENT_EVENTS_IN_SYSTEM_SERVER)
+                        && nai.maybeEnqueueMessage(msg)) {
+                // If the message is enqueued, the NAI will replay it immediately
+                // when registration is complete. It does this by sending all the
+                // messages in the order received immediately after the
+                // EVENT_AGENT_REGISTERED message.
+                return;
+            }
+
+            // If the nai has been registered (and doesn't enqueue), it should now be
+            // in the list of NAIs.
             if (!mNetworkAgentInfos.contains(nai)) {
                 if (VDBG) {
                     log(String.format("%s from unknown NetworkAgent", eventName(msg.what)));
                 }
-                return;
-            }
-
-            // If the network has been destroyed, the only thing that it can do is disconnect.
-            if (nai.isDestroyed() && !isDisconnectRequest(msg)) {
                 return;
             }
 
