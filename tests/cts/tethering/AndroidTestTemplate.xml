@@ -17,6 +17,7 @@
     <option name="test-suite-tag" value="cts" />
     <option name="config-descriptor:metadata" key="component" value="networking" />
     <option name="config-descriptor:metadata" key="token" value="SIM_CARD" />
+    <option name="config-descriptor:metadata" key="parameter" value="run_on_secondary_user" />
     <option name="config-descriptor:metadata" key="parameter" value="not_instant_app" />
     <option name="config-descriptor:metadata" key="parameter" value="not_multi_abi" />
     <option name="config-descriptor:metadata" key="parameter" value="secondary_user" />
@@ -30,6 +31,14 @@
     </target_preparer>
     <test class="com.android.tradefed.testtype.AndroidJUnitTest" >
         <option name="package" value="android.tethering.cts" />
+        <!-- Tests with these annotations should only be ran with their corresponding
+             configurations, e.g. Tests with the RequireRunOnWorkProfile annotation should be
+             ran with the run_on_work_profile configuration. Exclude these tests from running
+             with the normal configuration.
+             See go/bedstead-devicestate#androidtestxml
+        -->
+        <option name="exclude-annotation" value="com.android.bedstead.multiuser.annotations.RequireRunOnWorkProfile" />
+        <option name="exclude-annotation" value="com.android.bedstead.multiuser.annotations.RequireRunOnSecondaryUser" />
     </test>
 
     <object type="module_controller" class="com.android.tradefed.testtype.suite.module.MainlineTestModuleController">

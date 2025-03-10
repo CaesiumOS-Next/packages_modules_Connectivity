@@ -33,6 +33,7 @@ java_defaults {
     ],
 
     static_libs: [
+        "Harrier",
         "TetheringCommonTests",
         "com.android.net.flags-aconfig-java",
         "compatibility-device-util-axt",
