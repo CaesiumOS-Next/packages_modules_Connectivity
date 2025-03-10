@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "850eaf89_1c5ef0e7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T08:56:32Z",
+      "side": 1,
+      "message": "If we really need to do this, can you put it in a utility class somewhere instead of duplicating it in every file that needs it?",
+      "range": {
+        "startLine": 466,
+        "startChar": 20,
+        "endLine": 466,
+        "endChar": 32
+      },
+      "revId": "73e1bf7da5380d0fbbb71415eabbdef8d8bcd4ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
