@@ -15,9 +15,11 @@
  */
 package android.tethering.test;
 
+import static android.Manifest.permission.INTERACT_ACROSS_USERS;
 import static android.Manifest.permission.MODIFY_PHONE_STATE;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.Manifest.permission.WRITE_SETTINGS;
+import static android.app.ActivityManager.getCurrentUser;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
@@ -77,6 +79,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.os.ResultReceiver;
+import android.os.UserHandle;
 import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -639,5 +642,18 @@ public class TetheringManagerTest {
         assumeTrue(Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM);
         assertThrows(UnsupportedOperationException.class, () -> mTM.tether("iface"));
         assertThrows(UnsupportedOperationException.class, () -> mTM.untether("iface"));
+    }
+
+    // Verify the existence of the Tethering/NetworkStack package for the current user.
+    // This test will be executed on both SYSTEM and FULL users.
+    @Test
+    public void testCreatePackageContextAsUser() throws PackageManager.NameNotFoundException {
+        final List<String> packageNames = List.of("com.android.networkstack.tethering",
+                "com.android.networkstack");
+        final int currentUserId = runAsShell(INTERACT_ACROSS_USERS, () -> getCurrentUser());
+        final UserHandle currentUser = UserHandle.of(currentUserId);
+        for (String packageName : packageNames) {
+            mContext.createPackageContextAsUser(packageName, 0 /* flags */, currentUser);
+        }
     }
 }
