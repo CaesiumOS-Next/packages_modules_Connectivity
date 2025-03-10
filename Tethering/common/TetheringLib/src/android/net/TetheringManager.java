@@ -37,6 +37,7 @@ import android.os.Parcelable;
 import android.os.Process;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
+import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
@@ -1257,6 +1258,55 @@ public class TetheringManager {
             return sj.toString();
         }
 
+        @SuppressLint("UnflaggedApi")
+        private static boolean supportsInterfaceName(int tetheringType) {
+            // TODO: Check the interface name for TETHERING_WIFI and TETHERING_WIFI_P2P once
+            //       they're actually used.
+            // Suppress lint for TETHERING_VIRTUAL since this method is only used internally.
+            return tetheringType == TETHERING_VIRTUAL;
+        }
+
+        private static boolean supportsConcurrentConnectivityScopes(int tetheringType) {
+            // Currently, only WIFI supports simultaneous local and global connectivity.
+            // This can't happen for REQUEST_TYPE_EXPLICIT requests, because
+            // TetheringRequest.Builder will not allow building an explicit TetheringRequest
+            // with TETHERING_WIFI and CONNECTIVITY_SCOPE_LOCAL, but when local-only hotspot
+            // is running, there is a REQUEST_TYPE_IMPLICIT request in the serving request list.
+            return tetheringType == TETHERING_WIFI;
+        }
+
+        /**
+         * Returns true if the other TetheringRequest "fuzzy" matches this one. This is used
+         * internally to match tracked requests with external requests from API calls, and in
+         * some cases (except for different Wifi SoftApConfigurations) to reject additional requests
+         * that the link layer has no capacity for.
+         * Note: Two Wifi requests with different SoftApConfigurations will not fuzzy-match, but
+         *       that doesn't mean we have link layer capacity for it. Wifi will currently only
+         *       allow one tethered SoftAP at a time, and will reject the second request in
+         *       setWifiTethering with TETHER_ERROR_INTERNAL_ERROR.
+         * @hide
+         */
+        @SuppressLint("UnflaggedApi")
+        public boolean fuzzyMatches(final TetheringRequest other) {
+            if (other == null) return false;
+            final int type = getTetheringType();
+            if (type != other.getTetheringType()) return false;
+            if (supportsInterfaceName(type)
+                    && !TextUtils.equals(getInterfaceName(), other.getInterfaceName())) {
+                return false;
+            }
+            if (supportsConcurrentConnectivityScopes(type)
+                    && getConnectivityScope() != other.getConnectivityScope()) {
+                return false;
+            }
+            // Suppress lint for getSoftApConfiguration() since this method is only used internally.
+            if (type == TETHERING_WIFI && getConnectivityScope() == CONNECTIVITY_SCOPE_GLOBAL
+                    && !Objects.equals(getSoftApConfiguration(), other.getSoftApConfiguration())) {
+                return false;
+            }
+            return true;
+        }
+
         /**
          * @hide
          */
@@ -1278,6 +1328,8 @@ public class TetheringManager {
         public boolean equalsIgnoreUidPackage(TetheringRequest otherRequest) {
             TetheringRequestParcel parcel = getParcel();
             TetheringRequestParcel otherParcel = otherRequest.getParcel();
+            // Note: Changes here should also be reflected in fuzzyMatches(TetheringRequest) when
+            //       appropriate.
             return parcel.requestType == otherParcel.requestType
                     && parcel.tetheringType == otherParcel.tetheringType
                     && Objects.equals(parcel.localIPv4Address, otherParcel.localIPv4Address)

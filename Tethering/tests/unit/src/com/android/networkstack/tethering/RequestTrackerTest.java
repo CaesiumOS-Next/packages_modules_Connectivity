@@ -30,7 +30,6 @@ import androidx.test.filters.SmallTest;
 
 import com.android.networkstack.tethering.RequestTracker.AddResult;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -39,13 +38,10 @@ import org.junit.runner.RunWith;
 public class RequestTrackerTest {
     private RequestTracker mRequestTracker;
 
-    @Before
-    public void setUp() {
-        mRequestTracker = new RequestTracker();
-    }
-
     @Test
     public void testNoRequestsAdded_noPendingRequests() {
+        mRequestTracker = new RequestTracker(false);
+
         assertThat(mRequestTracker.getNextPendingRequest(TETHERING_WIFI)).isNull();
         assertThat(mRequestTracker.getOrCreatePendingRequest(TETHERING_WIFI))
                 .isEqualTo(createPlaceholderRequest(TETHERING_WIFI));
@@ -53,6 +49,7 @@ public class RequestTrackerTest {
 
     @Test
     public void testAddRequest_successResultAndBecomesNextPending() {
+        mRequestTracker = new RequestTracker(false);
         final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
 
         final AddResult result = mRequestTracker.addPendingRequest(request);
@@ -64,6 +61,7 @@ public class RequestTrackerTest {
 
     @Test
     public void testAddRequest_equalRequestExists_successResultAndBecomesNextPending() {
+        mRequestTracker = new RequestTracker(false);
         final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
         mRequestTracker.addPendingRequest(request);
 
@@ -77,6 +75,7 @@ public class RequestTrackerTest {
 
     @Test
     public void testAddRequest_equalButDifferentUidRequest_successResultAndBecomesNextPending() {
+        mRequestTracker = new RequestTracker(false);
         final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
         request.setUid(1000);
         request.setPackageName("package");
@@ -95,6 +94,7 @@ public class RequestTrackerTest {
 
     @Test
     public void testAddConflictingRequest_returnsFailureConflictingPendingRequest() {
+        mRequestTracker = new RequestTracker(false);
         final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
         final TetheringRequest conflictingRequest = new TetheringRequest.Builder(TETHERING_WIFI)
                 .setExemptFromEntitlementCheck(true).build();
@@ -109,6 +109,7 @@ public class RequestTrackerTest {
 
     @Test
     public void testRemoveAllPendingRequests_noPendingRequestsLeft() {
+        mRequestTracker = new RequestTracker(false);
         final TetheringRequest firstRequest = new TetheringRequest.Builder(TETHERING_WIFI).build();
         firstRequest.setUid(1000);
         firstRequest.setPackageName("package");
@@ -127,6 +128,7 @@ public class RequestTrackerTest {
 
     @Test
     public void testRemoveAllPendingRequests_differentTypeExists_doesNotRemoveDifferentType() {
+        mRequestTracker = new RequestTracker(false);
         final TetheringRequest differentType = new TetheringRequest.Builder(TETHERING_USB).build();
         mRequestTracker.addPendingRequest(differentType);
 
