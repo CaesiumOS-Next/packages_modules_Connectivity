@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9abeb62b_72cdc8f1",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-10T06:05:12Z",
+      "side": 1,
+      "message": "Not for this CL, maybe use AutoReleaseNetworkCallbackRule?",
+      "range": {
+        "startLine": 985,
+        "startChar": 16,
+        "endLine": 985,
+        "endChar": 52
+      },
+      "revId": "bd9f5c95bfb481b8eb4a821d034c7659a77ff949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5992b90a_34ca404f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-10T06:05:12Z",
+      "side": 1,
+      "message": "nit: Maybe remove this?",
+      "range": {
+        "startLine": 1032,
+        "startChar": 8,
+        "endLine": 1032,
+        "endChar": 57
+      },
+      "revId": "bd9f5c95bfb481b8eb4a821d034c7659a77ff949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
