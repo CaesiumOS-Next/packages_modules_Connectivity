@@ -30,6 +30,7 @@ java_defaults {
 
     srcs: [
         "src/**/*.java",
+        "src/**/*.kt",
     ],
 
     static_libs: [
@@ -64,6 +65,9 @@ android_test {
     defaults: ["CtsTetheringTestDefaults"],
 
     static_libs: [
+        "Nene",
+        "Harrier",
+        "TestApp",
         "TetheringIntegrationTestsLib",
     ],
 

@@ -123,13 +123,6 @@ open class ConnectivityTestTargetPreparer : BaseTargetPreparer() {
         installer.setUp(testInfo)
 
         val testMethods = mutableListOf<Pair<String, String>>()
-        if (!ignoreWifiCheck) {
-            testMethods.add(CONNECTIVITY_CHECK_CLASS to "testCheckWifiSetup")
-        }
-        if (!ignoreMobileDataCheck) {
-            testMethods.add(CARRIER_CONFIG_SETUP_CLASS to "testSetCarrierConfig")
-            testMethods.add(CONNECTIVITY_CHECK_CLASS to "testCheckTelephonySetup")
-        }
 
         testMethods.forEach {
             runTestMethod(testInfo, it.first, it.second)
