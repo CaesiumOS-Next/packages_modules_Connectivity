@@ -43,6 +43,7 @@ import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHERING_WIGIG;
 import static android.net.TetheringManager.TETHER_ERROR_BLUETOOTH_SERVICE_PENDING;
+import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
@@ -67,6 +68,8 @@ import static android.net.wifi.WifiManager.WIFI_AP_STATE_DISABLED;
 import static android.telephony.CarrierConfigManager.ACTION_CARRIER_CONFIG_CHANGED;
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
+import static com.android.networkstack.tethering.RequestTracker.AddResult.FAILURE_DUPLICATE_REQUEST_ERROR;
+import static com.android.networkstack.tethering.RequestTracker.AddResult.FAILURE_CONFLICTING_REQUEST_RESTART;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
 import static com.android.networkstack.tethering.TetheringNotificationUpdater.DOWNSTREAM_NONE;
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellular;
@@ -309,7 +312,7 @@ public class Tethering {
         mLooper = mDeps.makeTetheringLooper();
         mNotificationUpdater = mDeps.makeNotificationUpdater(mContext, mLooper);
         mTetheringMetrics = mDeps.makeTetheringMetrics(mContext);
-        mRequestTracker = new RequestTracker();
+        mRequestTracker = new RequestTracker(isTetheringWithSoftApConfigEnabled());
 
         mTetherStates = new ArrayMap<>();
         mConnectedClientsTracker = new ConnectedClientsTracker();
@@ -704,9 +707,13 @@ public class Tethering {
             RequestTracker.AddResult result = mRequestTracker.addPendingRequest(request);
             // If tethering is already pending with a conflicting request, stop tethering before
             // starting.
-            if (result == RequestTracker.AddResult.FAILURE_CONFLICTING_PENDING_REQUEST) {
+            if (result == FAILURE_CONFLICTING_REQUEST_RESTART) {
                 stopTetheringInternal(type); // Also removes the request from the tracker.
                 mRequestTracker.addPendingRequest(request);
+            } else if (result == FAILURE_DUPLICATE_REQUEST_ERROR) {
+                // Reject any fuzzy matched request.
+                sendTetherResult(listener, TETHER_ERROR_DUPLICATE_REQUEST);
+                return;
             }
 
             if (request.isExemptFromEntitlementCheck()) {
@@ -744,21 +751,20 @@ public class Tethering {
             final int type = request.getTetheringType();
             if (isTetheringTypePendingOrServing(type)) {
                 stopTetheringInternal(type);
-                try {
-                    listener.onResult(TETHER_ERROR_NO_ERROR);
-                } catch (RemoteException ignored) { }
+                // TODO: We should send the success result after the waiting for tethering to
+                //       actually stop.
+                sendTetherResult(listener, TETHER_ERROR_NO_ERROR);
                 return;
             }
 
             // Request doesn't match any active requests, ignore.
-            try {
-                listener.onResult(TETHER_ERROR_UNKNOWN_REQUEST);
-            } catch (RemoteException ignored) { }
+            sendTetherResult(listener, TETHER_ERROR_UNKNOWN_REQUEST);
         });
     }
 
     void stopTetheringInternal(int type) {
         mRequestTracker.removeAllPendingRequests(type);
+        mRequestTracker.removeAllServingRequests(type);
 
         // Using a placeholder here is ok since none of the disable APIs use the request for
         // anything. We simply need the tethering type to know which link layer to poke for removal.
@@ -802,21 +808,27 @@ public class Tethering {
         // The result of Bluetooth tethering will be sent after the pan service connects.
         if (result == TETHER_ERROR_BLUETOOTH_SERVICE_PENDING) return;
 
-        sendTetherResult(listener, result, type);
+        sendTetherResultAndRemoveOnError(request, listener, result);
     }
 
-    private void sendTetherResult(final IIntResultListener listener, final int result,
-            final int type) {
+    private void sendTetherResult(final IIntResultListener listener, final int result) {
         if (listener != null) {
             try {
                 listener.onResult(result);
-            } catch (RemoteException e) { }
+            } catch (RemoteException e) {
+            }
         }
+    }
+
+    private void sendTetherResultAndRemoveOnError(TetheringRequest request,
+            final IIntResultListener listener, final int result) {
+        sendTetherResult(listener, result);
 
         // If changing tethering fail, remove corresponding request
         // no matter who trigger the start/stop.
         if (result != TETHER_ERROR_NO_ERROR) {
-            mRequestTracker.removeAllPendingRequests(type);
+            mRequestTracker.removePendingRequest(request);
+            final int type = request.getTetheringType();
             mTetheringMetrics.updateErrorCode(type, result);
             mTetheringMetrics.sendReport(type);
         }
@@ -862,8 +874,7 @@ public class Tethering {
             // the service just to stop tethering since tethering is not started. Just remove
             // any pending request to enable tethering, and notify them that they have failed.
             if (mPendingPanRequestListener != null) {
-                sendTetherResult(mPendingPanRequestListener, TETHER_ERROR_SERVICE_UNAVAIL,
-                        TETHERING_BLUETOOTH);
+                sendTetherResult(mPendingPanRequestListener, TETHER_ERROR_SERVICE_UNAVAIL);
             }
             mPendingPanRequestListener = null;
             return TETHER_ERROR_NO_ERROR;
@@ -901,10 +912,12 @@ public class Tethering {
                 mBluetoothPan = (BluetoothPan) proxy;
                 mIsConnected = true;
 
-                if (mPendingPanRequestListener != null) {
+                TetheringRequest request =
+                        mRequestTracker.getNextPendingRequest(TETHERING_BLUETOOTH);
+                if (request != null) {
                     final int result = setBluetoothTetheringSettings(mBluetoothPan,
                             true /* enable */);
-                    sendTetherResult(mPendingPanRequestListener, result, TETHERING_BLUETOOTH);
+                    sendTetherResultAndRemoveOnError(request, mPendingPanRequestListener, result);
                 }
                 mPendingPanRequestListener = null;
             });
@@ -917,9 +930,11 @@ public class Tethering {
                 // reachable before next onServiceConnected.
                 mIsConnected = false;
 
-                if (mPendingPanRequestListener != null) {
-                    sendTetherResult(mPendingPanRequestListener, TETHER_ERROR_SERVICE_UNAVAIL,
-                            TETHERING_BLUETOOTH);
+                TetheringRequest request =
+                        mRequestTracker.getNextPendingRequest(TETHERING_BLUETOOTH);
+                if (request != null) {
+                    sendTetherResultAndRemoveOnError(request, mPendingPanRequestListener,
+                            TETHER_ERROR_SERVICE_UNAVAIL);
                 }
                 mPendingPanRequestListener = null;
                 mBluetoothIfaceRequest = null;
@@ -1093,9 +1108,7 @@ public class Tethering {
         final int type = ifaceNameToType(iface);
         if (type == TETHERING_INVALID) {
             Log.e(TAG, "Ignoring call to legacy tether for unknown iface " + iface);
-            try {
-                listener.onResult(TETHER_ERROR_UNKNOWN_IFACE);
-            } catch (RemoteException e) { }
+            sendTetherResult(listener, TETHER_ERROR_UNKNOWN_IFACE);
         }
 
         TetheringRequest request = mRequestTracker.getNextPendingRequest(type);
@@ -1132,9 +1145,7 @@ public class Tethering {
                 // Do nothing
                 break;
         }
-        try {
-            listener.onResult(result);
-        } catch (RemoteException e) { }
+        sendTetherResult(listener, result);
     }
 
     /**
@@ -1167,11 +1178,11 @@ public class Tethering {
             Log.e(TAG, "Tried to Tether an unavailable iface: " + iface + ", ignoring");
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
+        mRequestTracker.promoteRequestToServing(tetherState.ipServer, request);
         // NOTE: If a CMD_TETHER_REQUESTED message is already in the IpServer's queue but not yet
         // processed, this will be a no-op and it will not return an error.
         //
         // This code cannot race with untether() because they both run on the handler thread.
-        mRequestTracker.removeAllPendingRequests(request.getTetheringType());
         tetherState.ipServer.enable(request);
         if (request.getRequestType() == REQUEST_TYPE_PLACEHOLDER) {
             TerribleErrorLog.logTerribleError(TetheringStatsLog::write,
@@ -1191,10 +1202,7 @@ public class Tethering {
             return;
         }
         mHandler.post(() -> {
-            try {
-                listener.onResult(legacyUntetherInternal(iface));
-            } catch (RemoteException e) {
-            }
+            sendTetherResult(listener, legacyUntetherInternal(iface));
         });
     }
 
@@ -1209,7 +1217,7 @@ public class Tethering {
             Log.e(TAG, "Tried to untether an inactive iface :" + iface + ", ignoring");
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
-        tetherState.ipServer.unwanted();
+        ensureIpServerUnwanted(iface);
         return TETHER_ERROR_NO_ERROR;
     }
 
@@ -1289,7 +1297,13 @@ public class Tethering {
             final TetherState tetherState = mTetherStates.valueAt(i);
             final int type = tetherState.ipServer.interfaceType();
             final String iface = mTetherStates.keyAt(i);
-            final TetheringRequest request = tetherState.ipServer.getTetheringRequest();
+            // Note: If IpServer is using an async state machine (B-), we will have already added
+            // the service request when processing the IpServer.STATE_AVAILABLE state before the
+            // IpServer has actually started serving. However, B- also ignores serving requests, so
+            // this should be OK. The sync state machine should guarantee that we add the
+            // serving request after we've already processed IpServer.STATE_AVAILABLE.
+            final TetheringRequest request =
+                    mRequestTracker.getServingRequest(tetherState.ipServer);
             final boolean includeSoftApConfig = request != null && cookie != null
                     && (cookie.uid == request.getUid() || cookie.hasSystemPrivilege);
             final TetheringInterface tetheringIface = new TetheringInterface(type, iface,
@@ -1610,8 +1624,8 @@ public class Tethering {
     }
 
     private void disableWifiIpServingCommon(int tetheringType, String ifname) {
-        if (!TextUtils.isEmpty(ifname) && mTetherStates.containsKey(ifname)) {
-            mTetherStates.get(ifname).ipServer.unwanted();
+        if (!TextUtils.isEmpty(ifname)) {
+            ensureIpServerUnwanted(ifname);
             return;
         }
 
@@ -1628,7 +1642,7 @@ public class Tethering {
         for (int i = 0; i < mTetherStates.size(); i++) {
             final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
             if (ipServer.interfaceType() == tetheringType) {
-                ipServer.unwanted();
+                ensureIpServerUnwanted(ipServer.interfaceName());
                 return;
             }
         }
@@ -1775,9 +1789,7 @@ public class Tethering {
 
     void setUsbTethering(boolean enable, IIntResultListener listener) {
         mHandler.post(() -> {
-            try {
-                listener.onResult(setUsbTethering(enable));
-            } catch (RemoteException e) { }
+            sendTetherResult(listener, setUsbTethering(enable));
         });
     }
 
@@ -2904,6 +2916,11 @@ public class Tethering {
                 tetherState.lastState = state;
                 tetherState.lastError = lastError;
             } else {
+                // This IpServer will not be in mTetherStates if we've stopped it, since we remove
+                // it when calling IpServer.stop() before waiting for the IpServer.STATE_UNAVAILABLE
+                // transition here.
+                // Note: Even if an IpServer exists for this iface, it may be different from "who"
+                // if a new IpServer fills the gap before the IpServer.STATE_UNAVAILABLE transition.
                 if (DBG) Log.d(TAG, "got notification from stale iface " + iface);
             }
 
@@ -2918,7 +2935,15 @@ public class Tethering {
             int which;
             switch (state) {
                 case IpServer.STATE_UNAVAILABLE:
+                    which = TetherMainSM.EVENT_IFACE_SERVING_STATE_INACTIVE;
+                    break;
                 case IpServer.STATE_AVAILABLE:
+                    if (lastError != TETHER_ERROR_NO_ERROR) {
+                        // IpServer transitioned from an enabled state (STATE_TETHERED or
+                        // STATE_LOCAL_ONLY) back to STATE_AVAILABLE due to an error, so make sure
+                        // we remove the serving request from RequestTracker.
+                        mRequestTracker.removeServingRequest(who);
+                    }
                     which = TetherMainSM.EVENT_IFACE_SERVING_STATE_INACTIVE;
                     break;
                 case IpServer.STATE_TETHERED:
@@ -3014,9 +3039,19 @@ public class Tethering {
         final TetherState tetherState = mTetherStates.get(iface);
         if (tetherState == null) return;
 
-        tetherState.ipServer.stop();
         mLog.i("removing IpServer for: " + iface);
+        mRequestTracker.removeServingRequest(tetherState.ipServer);
         mTetherStates.remove(iface);
+        tetherState.ipServer.stop();
+    }
+
+    private void ensureIpServerUnwanted(final String iface) {
+        final TetherState tetherState = mTetherStates.get(iface);
+        if (tetherState == null) return;
+
+        mLog.i("unrequesting IpServer for: " + iface);
+        mRequestTracker.removeServingRequest(tetherState.ipServer);
+        tetherState.ipServer.unwanted();
     }
 
     private static String[] copy(String[] strarray) {
@@ -3026,9 +3061,7 @@ public class Tethering {
     void setPreferTestNetworks(final boolean prefer, IIntResultListener listener) {
         mHandler.post(() -> {
             mUpstreamNetworkMonitor.setPreferTestNetworks(prefer);
-            try {
-                listener.onResult(TETHER_ERROR_NO_ERROR);
-            } catch (RemoteException e) { }
+            sendTetherResult(listener, TETHER_ERROR_NO_ERROR);
         });
     }
 
