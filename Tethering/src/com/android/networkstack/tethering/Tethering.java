@@ -773,19 +773,23 @@ public class Tethering {
     void stopTetheringRequest(@NonNull final TetheringRequest request,
             @NonNull final IIntResultListener listener) {
         if (!isTetheringWithSoftApConfigEnabled()) return;
+        final boolean hasNetworkSettings = hasCallingPermission(NETWORK_SETTINGS);
         mHandler.post(() -> {
             final int type = request.getTetheringType();
-            if (isTetheringTypePendingOrServing(type)) {
-                stopTetheringInternal(type);
+            final TetheringRequest fuzzyMatched =
+                    mRequestTracker.findFuzzyMatchedRequest(request, !hasNetworkSettings);
+            if (fuzzyMatched == null) {
+                // Request doesn't match any active requests, ignore.
                 try {
-                    listener.onResult(TETHER_ERROR_NO_ERROR);
-                } catch (RemoteException ignored) { }
+                    listener.onResult(TETHER_ERROR_UNKNOWN_REQUEST);
+                } catch (RemoteException ignored) {
+                }
                 return;
             }
 
-            // Request doesn't match any active requests, ignore.
+            stopTetheringInternal(type);
             try {
-                listener.onResult(TETHER_ERROR_UNKNOWN_REQUEST);
+                listener.onResult(TETHER_ERROR_NO_ERROR);
             } catch (RemoteException ignored) { }
         });
     }
