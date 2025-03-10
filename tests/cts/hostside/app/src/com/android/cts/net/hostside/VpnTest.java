@@ -238,9 +238,6 @@ public class VpnTest {
     private String mOldPrivateDnsMode;
     private String mOldPrivateDnsSpecifier;
 
-    // The registered callbacks.
-    private List<NetworkCallback> mRegisteredCallbacks = new ArrayList<>();
-
     @Rule(order = 1)
     public final DevSdkIgnoreRule mDevSdkIgnoreRule = new DevSdkIgnoreRule();
 
@@ -288,35 +285,7 @@ public class VpnTest {
         mRemoteSocketFactoryClient.unbind();
         Log.i(TAG, "Stopping VPN");
         stopVpn();
-        unregisterRegisteredCallbacks();
         mActivity.finish();
-    }
-
-    private void registerNetworkCallback(NetworkRequest request, NetworkCallback callback) {
-        mCM.registerNetworkCallback(request, callback);
-        mRegisteredCallbacks.add(callback);
-    }
-
-    private void registerDefaultNetworkCallback(NetworkCallback callback) {
-        mCM.registerDefaultNetworkCallback(callback);
-        mRegisteredCallbacks.add(callback);
-    }
-
-    private void registerSystemDefaultNetworkCallback(NetworkCallback callback, Handler h) {
-        mCM.registerSystemDefaultNetworkCallback(callback, h);
-        mRegisteredCallbacks.add(callback);
-    }
-
-    private void registerDefaultNetworkCallbackForUid(int uid, NetworkCallback callback,
-            Handler h) {
-        mCM.registerDefaultNetworkCallbackForUid(uid, callback, h);
-        mRegisteredCallbacks.add(callback);
-    }
-
-    private void unregisterRegisteredCallbacks() {
-        for (NetworkCallback callback: mRegisteredCallbacks) {
-            mCM.unregisterNetworkCallback(callback);
-        }
     }
 
     private void prepareVpn() throws Exception {
@@ -443,7 +412,7 @@ public class VpnTest {
                 }
             }
         };
-        registerNetworkCallback(request, callback);
+        mNetworkCallbackRule.registerNetworkCallback(request, callback);
 
         // Start the service and wait up for TIMEOUT_MS ms for the VPN to come up.
         establishVpn(addresses, routes, excludedRoutes, allowedApplications, disallowedApplications,
@@ -479,7 +448,7 @@ public class VpnTest {
                 }
             }
        };
-        registerNetworkCallback(request, callback);
+        mNetworkCallbackRule.registerNetworkCallback(request, callback);
         // Simply calling mActivity.stopService() won't stop the service, because the system binds
         // to the service for the purpose of sending it a revoke command if another VPN comes up,
         // and stopping a bound service has no effect. Instead, "start" the service again with an
@@ -913,7 +882,7 @@ public class VpnTest {
                     false /* isAlwaysMetered */);
             // Acquire the NETWORK_SETTINGS permission for getting the underlying networks.
             runWithShellPermissionIdentity(() -> {
-                registerNetworkCallback(makeVpnNetworkRequest(), callback);
+                mNetworkCallbackRule.registerNetworkCallback(makeVpnNetworkRequest(), callback);
                 // Check that this VPN doesn't have any underlying networks.
                 expectUnderlyingNetworks(callback, new ArrayList<Network>());
 
@@ -982,9 +951,11 @@ public class VpnTest {
             final int otherUid = UserHandle.of(5 /* userId */).getUid(appId);
             final Handler h = new Handler(Looper.getMainLooper());
             runWithShellPermissionIdentity(() -> {
-                registerSystemDefaultNetworkCallback(systemDefaultCallback, h);
-                registerDefaultNetworkCallbackForUid(otherUid, otherUidCallback, h);
-                registerDefaultNetworkCallbackForUid(Process.myUid(), myUidCallback, h);
+                mNetworkCallbackRule.registerSystemDefaultNetworkCallback(systemDefaultCallback, h);
+                mNetworkCallbackRule.registerDefaultNetworkCallbackForUid(
+                        otherUid, otherUidCallback, h);
+                mNetworkCallbackRule.registerDefaultNetworkCallbackForUid(
+                        Process.myUid(), myUidCallback, h);
             }, NETWORK_SETTINGS);
             for (TestableNetworkCallback callback : List.of(systemDefaultCallback, myUidCallback)) {
                 callback.expectAvailableCallbacks(defaultNetwork, false /* suspended */,
@@ -1001,7 +972,7 @@ public class VpnTest {
         } else {
             // R does not have per-UID callback or system default callback APIs, and sends an
             // additional CAP_CHANGED callback.
-            registerDefaultNetworkCallback(myUidCallback);
+            mNetworkCallbackRule.registerDefaultNetworkCallback(myUidCallback);
             myUidCallback.expectAvailableCallbacks(defaultNetwork, false /* suspended */,
                     true /* validated */, false /* blocked */, TIMEOUT_MS);
             myUidCallback.expect(CallbackEntry.NETWORK_CAPS_UPDATED, defaultNetwork);
@@ -1176,7 +1147,7 @@ public class VpnTest {
         // Get default network first before starting VPN
         final Network defaultNetwork = mCM.getActiveNetwork();
         final TestableNetworkCallback cb = new TestableNetworkCallback();
-        registerDefaultNetworkCallback(cb);
+        mNetworkCallbackRule.registerDefaultNetworkCallback(cb);
         cb.expect(CallbackEntry.AVAILABLE, defaultNetwork);
         final NetworkCapabilities cap =
                 cb.expect(CallbackEntry.NETWORK_CAPS_UPDATED, defaultNetwork).getCaps();
@@ -1859,8 +1830,8 @@ public class VpnTest {
 
         testAndCleanup(() -> {
             runWithShellPermissionIdentity(() -> {
-                registerDefaultNetworkCallbackForUid(remoteUid, remoteUidCallback,
-                        new Handler(Looper.getMainLooper()));
+                mNetworkCallbackRule.registerDefaultNetworkCallbackForUid(
+                        remoteUid, remoteUidCallback, new Handler(Looper.getMainLooper()));
             }, NETWORK_SETTINGS);
             remoteUidCallback.expectAvailableCallbacksWithBlockedReasonNone(network);
 
@@ -1917,7 +1888,7 @@ public class VpnTest {
         final int myUid = Process.myUid();
 
         testAndCleanup(() -> {
-            registerDefaultNetworkCallback(defaultNetworkCallback);
+            mNetworkCallbackRule.registerDefaultNetworkCallback(defaultNetworkCallback);
             defaultNetworkCallback.expectAvailableCallbacks(defaultNetwork);
 
             final Range<Integer> myUidRange = new Range<>(myUid, myUid);
@@ -1971,8 +1942,7 @@ public class VpnTest {
                 .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
                 .addTransportType(TRANSPORT_TEST)
                 .build();
-        final CtsNetUtils.TestNetworkCallback callback = new CtsNetUtils.TestNetworkCallback();
-        mCM.requestNetwork(request, callback);
+        final TestableNetworkCallback callback = mNetworkCallbackRule.requestNetwork(request);
         final ParcelFileDescriptor srcTunFd = runWithShellPermissionIdentity(() -> {
             final TestNetworkManager tnm = mTestContext.getSystemService(TestNetworkManager.class);
             List<LinkAddress> linkAddresses = duplicatedAddress
@@ -1984,7 +1954,8 @@ public class VpnTest {
             tnm.setupTestNetwork(iface.getInterfaceName(), new Binder());
             return iface.getFileDescriptor();
         }, MANAGE_TEST_NETWORKS);
-        final Network testNetwork = callback.waitForAvailable();
+        callback.expect(CallbackEntry.AVAILABLE);
+        final Network testNetwork = callback.getLastAvailableNetwork();
         assertNotNull(testNetwork);
         final DatagramSocket dstSock = new DatagramSocket();
 
@@ -2015,8 +1986,6 @@ public class VpnTest {
                     mTestContext.getSystemService(TestNetworkManager.class)
                             .teardownTestNetwork(testNetwork);
                 }, MANAGE_TEST_NETWORKS);
-            }, /* cleanup */ () -> {
-                mCM.unregisterNetworkCallback(callback);
             });
     }
 
