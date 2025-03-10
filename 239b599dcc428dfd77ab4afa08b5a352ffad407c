@@ -16,6 +16,253 @@
       "message": "Need Lorenzo\u0027s review for CTS change.",
       "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5380c2b_f38ce8f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 46
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:17:23Z",
+      "side": 1,
+      "message": "Generally LGTM assuming comments addressed.\n\nOne concern here is latency. The Chromium code opens a lot of sockets and I\u0027d guess it uses nonblocking IO to ensure the thread is not blocked. Will the extra binder IPCs on the Chromium networking thread slow things down (even though it\u0027s oneway)? Have you measured how long it takes to do the IPC?",
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bc51bb6_76f719e2",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 6850,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:17:23Z",
+      "side": 1,
+      "message": "was already",
+      "range": {
+        "startLine": 6850,
+        "startChar": 7,
+        "endLine": 6850,
+        "endChar": 18
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3798aac_3437544d",
+        "filename": "framework/src/android/net/IConnectivityManager.aidl",
+        "patchSetId": 46
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:17:23Z",
+      "side": 1,
+      "message": "Indent 4 spaces like the rest of the file.",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 3
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "483ca41c_d2c869f2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 2189,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:17:23Z",
+      "side": 1,
+      "message": "Could this live in the QuicConnectionCloser instead? Seems better than having it in ConnectivityService. Or do you plan to use this for other things as well in the future?\n\nAlso perhaps you could try to see if it\u0027s possible to move other parts of the CS code in this CL to QuicConnectionCloser? This CL has a lot of code in ConnectivityService still.",
+      "range": {
+        "startLine": 2189,
+        "startChar": 36,
+        "endLine": 2189,
+        "endChar": 56
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "726e6e3e_7b78ac0e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 3754,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:17:23Z",
+      "side": 1,
+      "message": "Why not pass the original data structure here, instead of making a copy? The quic connection closer will of course have to grab the lock before touching the data structure, but that seems very straightforward.",
+      "range": {
+        "startLine": 3754,
+        "startChar": 66,
+        "endLine": 3754,
+        "endChar": 85
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a8fa303_de103170",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 7068,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:17:23Z",
+      "side": 1,
+      "message": "Consider using TerribleErrorLog instead.",
+      "range": {
+        "startLine": 7068,
+        "startChar": 28,
+        "endLine": 7068,
+        "endChar": 31
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d40e6e4d_d54b1e5e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 15166,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:17:23Z",
+      "side": 1,
+      "message": "This can technically change between the time that you read it here and the time that the EVENT_REGISTER_QUIC_CONNECTION_CLOSE_INFO message is processed. Does that matter? If it doesn\u0027t matter, maybe add a comment to explain why it doeesn\u0027t matter.",
+      "range": {
+        "startLine": 15166,
+        "startChar": 34,
+        "endLine": 15166,
+        "endChar": 45
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71f28fbd_56da449d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 15173,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:17:23Z",
+      "side": 1,
+      "message": "|pfd| must remain open until the message is posted to the handler thread, because doing so ensures that the socket is not closed even if the app calls close(). Keeping it open avoids the following...",
+      "range": {
+        "startLine": 15173,
+        "startChar": 26,
+        "endLine": 15173,
+        "endChar": 41
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30a3695a_f2574021",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 15173,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:17:23Z",
+      "side": 1,
+      "message": "pfd",
+      "range": {
+        "startLine": 15173,
+        "startChar": 16,
+        "endLine": 15173,
+        "endChar": 19
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a5d4b6f_64100d31",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 15201,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:17:23Z",
+      "side": 1,
+      "message": "pfd",
+      "range": {
+        "startLine": 15201,
+        "startChar": 16,
+        "endLine": 15201,
+        "endChar": 19
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f6849e_11186188",
+        "filename": "service/src/com/android/server/connectivity/QuicConnectionCloser.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:17:23Z",
+      "side": 1,
+      "message": "Do we actually need the interface here? IIRC the interface index in the sock_diag message is only set if the socket is bound to a particular interface.",
+      "range": {
+        "startLine": 175,
+        "startChar": 22,
+        "endLine": 175,
+        "endChar": 29
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
