@@ -65,6 +65,7 @@ java_defaults {
         "androidx.annotation_annotation",
         "connectivity-net-module-utils-bpf",
         "com.android.net.flags-aconfig-java",
+        "dnsresolver_aidl_interface-V16-java",
         "modules-utils-build",
         "modules-utils-statemachine",
         "networkstack-client",

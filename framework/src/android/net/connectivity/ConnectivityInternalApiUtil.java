@@ -18,6 +18,7 @@ package android.net.connectivity;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.DnsResolverServiceManager;
 import android.os.Build;
 import android.os.IBinder;
 
@@ -45,6 +46,15 @@ public class ConnectivityInternalApiUtil {
     public static IBinder getCompanionDeviceManagerProxyService(Context ctx) {
         final ConnectivityManager cm = ctx.getSystemService(ConnectivityManager.class);
         return cm.getCompanionDeviceManagerProxyService();
+    }
+
+    /**
+     * Obtain a {@link android.net.DnsResolverServiceManager} from a context.
+     */
+    @RequiresApi(Build.VERSION_CODES.S)
+    public static IBinder getDnsResolverServiceManager(Context ctx) {
+        final DnsResolverServiceManager dsm = ctx.getSystemService(DnsResolverServiceManager.class);
+        return dsm.getService();
     }
 
     /**

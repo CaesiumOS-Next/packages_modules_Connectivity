@@ -22,6 +22,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.IDnsResolver;
 import android.net.INetd;
 import android.net.connectivity.ConnectivityInternalApiUtil;
 import android.net.ip.IpServer;
@@ -129,6 +130,21 @@ public abstract class TetheringDependencies {
             log.wtf("INetd is null");
         }
         return netd;
+    }
+
+    /**
+     * Get a reference to IDnsResolver.
+     */
+    @RequiresApi(Build.VERSION_CODES.S)
+    @Nullable
+    public IDnsResolver getIDnsResolver(Context context, SharedLog log) {
+        IBinder binder = ConnectivityInternalApiUtil.getDnsResolverServiceManager(context);
+        if (binder == null) {
+            log.e("DEBUG: getSystemService returned null");
+            return null;
+        }
+        final IDnsResolver dnsResolver = IDnsResolver.Stub.asInterface(binder);
+        return dnsResolver;
     }
 
     /**

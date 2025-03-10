@@ -24,6 +24,7 @@ android\.net\.IConnectivityDiagnosticsCallback(\$.+)?
 # It's unlikely anybody else declares a hidden class with this name ?
 android\.net\.RoutingCoordinatorManager(\$.+)?
 android\.net\.LocalNetworkInfo(\$.+)?
+android\.net\.DnsResolverServiceManager(\$.+)?
 
 # KeepaliveUtils is used by ConnectivityManager CTS
 # TODO: move into service-connectivity so framework-connectivity stops using

@@ -44,6 +44,7 @@ import static com.android.networkstack.tethering.TetheringConfiguration.USE_SYNC
 import static com.android.networkstack.tethering.util.PrefixUtils.asIpPrefix;
 import static com.android.networkstack.tethering.util.TetheringMessageBase.BASE_IPSERVER;
 
+import android.net.IDnsResolver;
 import android.net.INetd;
 import android.net.INetworkStackStatusCallback;
 import android.net.IpPrefix;
@@ -60,10 +61,12 @@ import android.net.dhcp.DhcpServingParamsParcelExt;
 import android.net.dhcp.IDhcpEventCallbacks;
 import android.net.dhcp.IDhcpServer;
 import android.net.ip.RouterAdvertisementDaemon.RaParams;
+import android.net.resolv.aidl.DnsProxyParamsParcel;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
+import android.system.Os;
 import android.util.ArraySet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -243,6 +246,7 @@ public class IpServer extends StateMachineShim {
     private final State mWaitingForRestartState;
 
     private final SharedLog mLog;
+    private final IDnsResolver mDnsResolver;
     private final INetd mNetd;
     @NonNull
     private final BpfCoordinator mBpfCoordinator;
@@ -309,7 +313,7 @@ public class IpServer extends StateMachineShim {
     // object. It helps to reduce the arguments of the constructor.
     public IpServer(
             String ifaceName, Handler handler, int interfaceType, SharedLog log,
-            INetd netd, @NonNull BpfCoordinator bpfCoordinator,
+            INetd netd, IDnsResolver dnsResolver, @NonNull BpfCoordinator bpfCoordinator,
             RoutingCoordinatorManager routingCoordinatorManager, Callback callback,
             TetheringConfiguration config,
             TetheringMetrics tetheringMetrics, Dependencies deps) {
@@ -317,6 +321,7 @@ public class IpServer extends StateMachineShim {
         mHandler = handler;
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
+        mDnsResolver = dnsResolver;
         mBpfCoordinator = bpfCoordinator;
         mRoutingCoordinator = routingCoordinatorManager;
         mIpv4PrefixRequest = new IIpv4PrefixRequest.Stub() {
@@ -428,6 +433,20 @@ public class IpServer extends StateMachineShim {
      * the connectivity scope of the TetheringRequest. */
     public void enable(@NonNull final TetheringRequest request) {
         sendMessage(CMD_TETHER_REQUESTED, 0, 0, request);
+    }
+
+    /** Sets the DNS forwarder on IpServer */
+    public void setDnsForwarders(int dnsNetId) {
+        DnsProxyParamsParcel proxyParams = new DnsProxyParamsParcel();
+        proxyParams.dnsNetId = dnsNetId;
+        proxyParams.uid = mTetheringRequest.getUid();
+        proxyParams.ifIndex = Os.if_nametoindex(interfaceName());
+        proxyParams.ipAddrs = new String[]{getAddress().getAddress().getHostAddress()};
+        try {
+            mDnsResolver.setDnsProxy(proxyParams);
+        } catch (RemoteException e) {
+            mLog.e("setting DNS forwarders failed, " + e);
+        }
     }
 
     /** Stop this IpServer. After this is called this IpServer should not be used any more. */
@@ -867,6 +886,7 @@ public class IpServer extends StateMachineShim {
 
     private void addInterfaceForward(@NonNull final String fromIface, @NonNull final String toIface)
             throws ServiceSpecificException {
+        mLog.i("DEBUG: Add forwarding rule: from " + fromIface + " to " + toIface);
         mRoutingCoordinator.addInterfaceForward(fromIface, toIface);
     }
 
@@ -1046,6 +1066,7 @@ public class IpServer extends StateMachineShim {
             maybeLogMessage(this, message.what);
             switch (message.what) {
                 case CMD_TETHER_REQUESTED:
+                    mLog.i("DEBUG: Received CMD_TETHER_REQUESTED in " + this.getName());
                     mLastError = TETHER_ERROR_NO_ERROR;
                     mTetheringRequest = (TetheringRequest) message.obj;
                     switch (mTetheringRequest.getConnectivityScope()) {
@@ -1175,6 +1196,7 @@ public class IpServer extends StateMachineShim {
         public boolean processMessage(Message message) {
             switch (message.what) {
                 case CMD_TETHER_UNREQUESTED:
+                    mLog.i("DEBUG: Received CMD_TETHER_REQUESTED in " + this.getName());
                     transitionTo(mInitialState);
                     if (DBG) Log.d(TAG, "Untethered (unrequested)" + mIfaceName);
                     break;

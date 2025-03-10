@@ -99,6 +99,7 @@ import android.database.ContentObserver;
 import android.hardware.usb.UsbManager;
 import android.net.ConnectivityManager;
 import android.net.EthernetManager;
+import android.net.IDnsResolver;
 import android.net.IIntResultListener;
 import android.net.INetd;
 import android.net.ITetheringEventCallback;
@@ -157,10 +158,12 @@ import com.android.net.module.util.NetdUtils;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.net.module.util.SharedLog;
 import com.android.net.module.util.TerribleErrorLog;
+import com.android.networkstack.tethering.VmNetworkCoordinator;
 import com.android.networkstack.apishim.common.BluetoothPanShim;
 import com.android.networkstack.apishim.common.BluetoothPanShim.TetheredInterfaceCallbackShim;
 import com.android.networkstack.apishim.common.BluetoothPanShim.TetheredInterfaceRequestShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
+import com.android.networkstack.tethering.Tethering.TetherMainSM;
 import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.networkstack.tethering.metrics.TetheringStatsLog;
 import com.android.networkstack.tethering.util.InterfaceSet;
@@ -202,7 +205,7 @@ public class Tethering {
     private static final int DUMP_TIMEOUT_MS = 10_000;
 
     // Keep in sync with NETID_UNSET in system/netd/include/netid_client.h
-    private static final int NETID_UNSET = 0;
+    public static final int NETID_UNSET = 0;
 
     private static class TetherState {
         public final IpServer ipServer;
@@ -260,6 +263,7 @@ public class Tethering {
     private final TetheringDependencies mDeps;
     private final EntitlementManager mEntitlementMgr;
     private final Handler mHandler;
+    private final IDnsResolver mDnsResolver;
     private final INetd mNetd;
     private final NetdCallback mNetdCallback;
     private final RoutingCoordinatorManager mRoutingCoordinator;
@@ -289,6 +293,7 @@ public class Tethering {
     private String mConfiguredEthernetIface;
     private String mConfiguredBluetoothIface;
     private String mConfiguredVirtualIface;
+    private final VmNetworkCoordinator mVmNetworkCoordinator;
     private EthernetCallback mEthernetCallback;
     private TetheredInterfaceCallbackShim mBluetoothCallback;
     private SettingsObserver mSettingsObserver;
@@ -308,8 +313,14 @@ public class Tethering {
         mLog.mark("Tethering.constructed");
         mDeps = deps;
         mContext = mDeps.getContext();
+        if (SdkLevel.isAtLeastS()) {
+            mDnsResolver = mDeps.getIDnsResolver(mContext, mLog);
+        } else {
+            mDnsResolver = null;
+        }
         mNetd = mDeps.getINetd(mContext, mLog);
         mRoutingCoordinator = mDeps.getRoutingCoordinator(mContext, mLog);
+        mVmNetworkCoordinator = new VmNetworkCoordinator(mDnsResolver, mLog, mRoutingCoordinator);
         mLooper = mDeps.makeTetheringLooper();
         mNotificationUpdater = mDeps.makeNotificationUpdater(mContext, mLooper);
         mTetheringMetrics = mDeps.makeTetheringMetrics(mContext);
@@ -1104,6 +1115,14 @@ public class Tethering {
 
     private int setVirtualMachineTethering(final boolean enable,
             @NonNull final TetheringRequest request) {
+        mLog.i("DEBUG: VM tether request: " + request);
+        final ConnectivityManager connMgr = (ConnectivityManager) mContext.getSystemService(
+            Context.CONNECTIVITY_SERVICE);
+        if (connMgr == null) {
+            mLog.e("Failed to get ConnectivityManager");
+            return TETHER_ERROR_INTERNAL_ERROR;
+        }
+        int uid = request.getUid();
         final String iface = request.getInterfaceName();
         if (enable) {
             if (TextUtils.isEmpty(iface)) {
@@ -1111,8 +1130,34 @@ public class Tethering {
             } else {
                 mConfiguredVirtualIface = iface;
             }
+            VmNetworkCoordinator.VmUpstreamCallback upstreamCallback =
+            new VmNetworkCoordinator.VmUpstreamCallback(
+                        request,
+                        (callbackVariant, requestUid, obj) -> {
+                            mTetherMainSM.sendMessage(
+                                    TetherMainSM.EVENT_VM_UPSTREAM_CALLBACK,
+                                    callbackVariant,
+                                    requestUid,
+                                    obj);
+                        });
+            mVmNetworkCoordinator.addVmUpstreamCallback(upstreamCallback);
             enableIpServing(request, mConfiguredVirtualIface);
+            connMgr.registerDefaultNetworkCallbackForUid(
+                uid, upstreamCallback, mHandler);
         } else if (mConfiguredVirtualIface != null) {
+            IpServer ipServer = mVmNetworkCoordinator.getVmIpServer(uid);
+            if (ipServer == null) {
+                return TETHER_ERROR_INTERNAL_ERROR;
+            }
+            ipServer.sendMessage(IpServer.CMD_TETHER_CONNECTION_CHANGED, null);
+            mVmNetworkCoordinator.removeVmIpServer(ipServer);
+            VmNetworkCoordinator.VmUpstreamCallback callback =
+                    mVmNetworkCoordinator.getVmUpstreamCallback(uid);
+            if (callback == null) {
+                return TETHER_ERROR_INTERNAL_ERROR;
+            }
+            mVmNetworkCoordinator.removeVmUpstreamCallback(callback);
+            connMgr.unregisterNetworkCallback(callback);
             ensureIpServerStopped(mConfiguredVirtualIface);
             mConfiguredVirtualIface = null;
         }
@@ -1954,6 +1999,8 @@ public class Tethering {
         static final int EVENT_UPSTREAM_PERMISSION_CHANGED      = BASE_MAIN_SM + 8;
         // Internal request from IpServer to enable or disable downstream.
         static final int EVENT_REQUEST_CHANGE_DOWNSTREAM        = BASE_MAIN_SM + 9;
+        // Internal request from VmUpstreamCallback
+        static final int EVENT_VM_UPSTREAM_CALLBACK             = BASE_MAIN_SM + 10;
         private final State mInitialState;
         private final State mTetherModeAliveState;
 
@@ -2064,12 +2111,12 @@ public class Tethering {
             final String[] dhcpRanges = cfg.useLegacyDhcpServer()
                     ? cfg.legacyDhcpRanges : new String[0];
             try {
-                NetdUtils.tetherStart(mNetd, true /** usingLegacyDnsProxy */, dhcpRanges);
+                NetdUtils.tetherStart(mNetd, false /** usingLegacyDnsProxy */, dhcpRanges);
             } catch (RemoteException | ServiceSpecificException e) {
                 try {
                     // Stop and retry.
                     mNetd.tetherStop();
-                    NetdUtils.tetherStart(mNetd, true /** usingLegacyDnsProxy */, dhcpRanges);
+                    NetdUtils.tetherStart(mNetd, false /** usingLegacyDnsProxy */, dhcpRanges);
                 } catch (RemoteException | ServiceSpecificException ee) {
                     mLog.e(ee);
                     transitionTo(mStartTetheringErrorState);
@@ -2148,7 +2195,13 @@ public class Tethering {
             }
 
             if (ifaces != null) {
-                setDnsForwarders(ns.network, ns.linkProperties);
+                for (IpServer ipServer : mNotifyList) {
+                    if (ns != null) {
+                        ipServer.setDnsForwarders(ns.network.getNetId());
+                    } else {
+                        ipServer.setDnsForwarders(NETID_UNSET);
+                    }
+                }
             }
             notifyDownstreamsOfNewUpstreamIface(ifaces);
             if (ns != null && pertainsToCurrentUpstream(ns)) {
@@ -2202,6 +2255,10 @@ public class Tethering {
         }
 
         private void handleInterfaceServingStateActive(int mode, IpServer who) {
+            if (who.interfaceType() == TETHERING_VIRTUAL) {
+                mVmNetworkCoordinator.addVmIpServer(who);
+                return;
+            }
             if (mNotifyList.indexOf(who) < 0) {
                 mNotifyList.add(who);
                 mIPv6TetheringCoordinator.addActiveDownstream(who, mode);
@@ -2236,6 +2293,11 @@ public class Tethering {
         }
 
         private void handleInterfaceServingStateInactive(IpServer who) {
+            if (who.interfaceType() == TETHERING_VIRTUAL) {
+                mVmNetworkCoordinator.removeVmIpServer(who);
+                // TODO: IPv6 and offload.
+                return;
+            }
             mNotifyList.remove(who);
             mIPv6TetheringCoordinator.removeActiveDownstream(who);
             mOffload.excludeDownstreamInterface(who.interfaceName());
@@ -2358,6 +2420,10 @@ public class Tethering {
             public void exit() {
                 mOffload.stop();
                 mUpstreamNetworkMonitor.stop();
+                mVmNetworkCoordinator.reset();
+                for (IpServer ipServer : mNotifyList) {
+                    ipServer.setDnsForwarders(NETID_UNSET);
+                }
                 notifyDownstreamsOfNewUpstreamIface(null);
                 handleNewUpstreamNetworkState(null);
                 if (mTetherUpstream != null) {
@@ -2405,7 +2471,7 @@ public class Tethering {
                         if (VDBG) Log.d(TAG, "Tether Mode unrequested by " + who);
                         handleInterfaceServingStateInactive(who);
 
-                        if (mNotifyList.isEmpty()) {
+                        if (mNotifyList.isEmpty() && !mVmNetworkCoordinator.hasVmIpServer()) {
                             // This transitions us out of TetherModeAliveState,
                             // either to InitialState or an error state.
                             turnOffMainTetherSettings();
@@ -2457,6 +2523,13 @@ public class Tethering {
                         if (mUpstreamWanted) {
                             handleUpstreamNetworkMonitorCallback(message.arg1, message.obj);
                         }
+                        break;
+                    }
+                    case EVENT_VM_UPSTREAM_CALLBACK: {
+                        mVmNetworkCoordinator.handleVmUpstreamCallback(
+                                message.arg1 /* callbackVariant */,
+                                message.arg2 /* requestUid */,
+                                message.obj);
                         break;
                     }
                     case EVENT_REQUEST_CHANGE_DOWNSTREAM: {
@@ -3105,7 +3178,7 @@ public class Tethering {
 
         mLog.i("adding IpServer for: " + iface);
         final TetherState tetherState = new TetherState(
-                new IpServer(iface, mHandler, interfaceType, mLog, mNetd, mBpfCoordinator,
+                new IpServer(iface, mHandler, interfaceType, mLog, mNetd, mDnsResolver, mBpfCoordinator,
                         mRoutingCoordinator, new ControlCallback(), mConfig, mTetheringMetrics,
                         mDeps.makeIpServerDependencies()), isNcm);
         mTetherStates.put(iface, tetherState);

@@ -65,6 +65,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.app.usage.NetworkStatsManager;
+import android.net.IDnsResolver;
 import android.net.INetd;
 import android.net.InetAddresses;
 import android.net.InterfaceConfigurationParcel;
@@ -166,6 +167,7 @@ public class IpServerTest {
             new IpPrefix("2001:db8:0:1234::/64"), new IpPrefix("2001:db8:0:abcd::/64"));
 
     @Mock private INetd mNetd;
+    @Mock private IDnsResolver mDnsResolver;
     @Mock private IpServer.Callback mCallback;
     @Mock private SharedLog mSharedLog;
     @Mock private IDhcpServer mDhcpServer;
@@ -294,7 +296,7 @@ public class IpServerTest {
     private IpServer createIpServer(final int interfaceType) {
         mLooper = new TestLooper();
         mHandler = new Handler(mLooper.getLooper());
-        return new IpServer(IFACE_NAME, mHandler, interfaceType, mSharedLog, mNetd, mBpfCoordinator,
+        return new IpServer(IFACE_NAME, mHandler, interfaceType, mSharedLog, mNetd, mBpfCoordinator, mDnsResolver,
                 mRoutingCoordinatorManager, mCallback, mTetherConfig,
                 mTetheringMetrics, mDependencies);
 
