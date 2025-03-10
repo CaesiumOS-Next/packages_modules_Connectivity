@@ -391,7 +391,7 @@ public class TetheringManagerTest {
 
             mCtsTetheringUtils.stopWifiTethering(tetherEventCallback);
 
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            if (!isAtLeastB()) {
                 try {
                     final int ret = runAsShell(TETHER_PRIVILEGED,
                             () -> mTM.tether(wifiTetheringIface));
@@ -479,9 +479,13 @@ public class TetheringManagerTest {
         }
     }
 
-    private boolean isTetheringWithSoftApConfigEnabled() {
+    private boolean isAtLeastB() {
         return Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM
-                && Flags.tetheringWithSoftApConfig();
+                || "Baklava".equals(Build.VERSION.CODENAME);
+    }
+
+    private boolean isTetheringWithSoftApConfigEnabled() {
+        return isAtLeastB() && Flags.tetheringWithSoftApConfig();
     }
 
     @Test
@@ -636,7 +640,7 @@ public class TetheringManagerTest {
 
     @Test
     public void testLegacyTetherApisThrowUnsupportedOperationExceptionAfterV() {
-        assumeTrue(Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM);
+        assumeTrue(isAtLeastB());
         assertThrows(UnsupportedOperationException.class, () -> mTM.tether("iface"));
         assertThrows(UnsupportedOperationException.class, () -> mTM.untether("iface"));
     }

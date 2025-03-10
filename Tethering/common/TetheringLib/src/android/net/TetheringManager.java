@@ -663,8 +663,13 @@ public class TetheringManager {
         }
     }
 
+    private boolean isAtLeastB() {
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM
+                || "Baklava".equals(Build.VERSION.CODENAME);
+    }
+
     private void unsupportedAfterV() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (isAtLeastB()) {
             throw new UnsupportedOperationException("Not supported after SDK version "
                     + Build.VERSION_CODES.VANILLA_ICE_CREAM);
         }

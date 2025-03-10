@@ -146,6 +146,7 @@ import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.flags.Flags;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.HandlerUtils;
@@ -462,8 +463,12 @@ public class Tethering {
         return mSettingsObserver;
     }
 
+    private boolean isAtLeastB() {
+        return SdkLevel.isAtLeastB() || "Baklava".equals(Build.VERSION.CODENAME);
+    }
+
     boolean isTetheringWithSoftApConfigEnabled() {
-        return mDeps.isTetheringWithSoftApConfigEnabled();
+        return isAtLeastB() && Flags.tetheringWithSoftApConfig();
     }
 
     /**
@@ -637,7 +642,7 @@ public class Tethering {
         // TODO: fix the teardown path to stop depending on interface state notifications.
         // These are not necessary since most/all link layers have their own teardown
         // notifications, and can race with those notifications.
-        if (enabled && Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (enabled && isAtLeastB()) {
             return;
         }
 
@@ -1078,7 +1083,7 @@ public class Tethering {
     }
 
     private void handleLegacyTether(String iface, final IIntResultListener listener) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (isAtLeastB()) {
             // After V, the TetheringManager and ConnectivityManager tether and untether methods
             // throw UnsupportedOperationException, so this cannot happen in normal use. Ensure
             // that this code cannot run even if callers use raw binder calls or other
@@ -1179,7 +1184,7 @@ public class Tethering {
     }
 
     void legacyUntether(String iface, final IIntResultListener listener) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (isAtLeastB()) {
             // After V, the TetheringManager and ConnectivityManager tether and untether methods
             // throw UnsupportedOperationException, so this cannot happen in normal use. Ensure
             // that this code cannot run even if callers use raw binder calls or other
