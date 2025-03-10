@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3a36f86_31fa77bd",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkControllerService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-10T11:28:23Z",
+      "side": 0,
+      "message": "What\u0027s the consideration of changing this?",
+      "range": {
+        "startLine": 882,
+        "startChar": 7,
+        "endLine": 885,
+        "endChar": 9
+      },
+      "revId": "75551afe7a3ea1373dd4fd042c035bb098474065",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

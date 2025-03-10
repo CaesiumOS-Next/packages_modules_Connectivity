@@ -1,0 +1,108 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d5c7a52_847ee850",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-10T11:28:23Z",
+      "side": 1,
+      "message": "Should there be an assumption?",
+      "revId": "e43371faad177f93084791846e6d88dddea89fe5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddda6065_4d4351d7",
+        "filename": "thread/tests/cts/src/android/net/thread/cts/ThreadNetworkControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-10T11:28:23Z",
+      "side": 1,
+      "message": "Maybe rename it to `mDefaultConfig`?",
+      "range": {
+        "startLine": 1251,
+        "startChar": 41,
+        "endLine": 1251,
+        "endChar": 48
+      },
+      "revId": "e43371faad177f93084791846e6d88dddea89fe5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81831f8b_01063929",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-10T11:28:23Z",
+      "side": 1,
+      "message": "I don\u0027t see this being verified.",
+      "range": {
+        "startLine": 209,
+        "startChar": 54,
+        "endLine": 209,
+        "endChar": 95
+      },
+      "revId": "e43371faad177f93084791846e6d88dddea89fe5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b99da728_34b84d45",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-10T11:28:23Z",
+      "side": 1,
+      "message": "Should we remove this?",
+      "range": {
+        "startLine": 215,
+        "startChar": 59,
+        "endLine": 215,
+        "endChar": 76
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "17610b68_3a2e10c6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+              "range": {
+                "startLine": 215,
+                "startChar": 0,
+                "endLine": 216,
+                "endChar": 0
+              },
+              "replacement": "         *  SRP Server / AD Proxy -------------- SRP Client\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e43371faad177f93084791846e6d88dddea89fe5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
