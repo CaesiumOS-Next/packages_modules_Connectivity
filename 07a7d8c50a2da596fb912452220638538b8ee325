@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd477900_ea6a2c53",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 6855,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T01:31:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1d347ff_9f8fbcf0",
+      "range": {
+        "startLine": 6854,
+        "startChar": 7,
+        "endLine": 6855,
+        "endChar": 32
+      },
+      "revId": "07a7d8c50a2da596fb912452220638538b8ee325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb47bdef_9d206c10",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-03-08T07:41:12Z",
       "side": 1,
       "message": "The risk here is that nai.linkProperties would have changed between l.165 and here. But after a quick look, I think writes only happen on the handler thread, and this always runs on the handler thread, so this is fine.\n\nIt probably does deserve a comment though.",
+      "range": {
+        "startLine": 171,
+        "startChar": 37,
+        "endLine": 171,
+        "endChar": 51
+      },
+      "revId": "07a7d8c50a2da596fb912452220638538b8ee325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bba766c9_e8832e68",
+        "filename": "service/src/com/android/server/connectivity/QuicConnectionCloser.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T01:31:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb47bdef_9d206c10",
       "range": {
         "startLine": 171,
         "startChar": 37,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70ac4eb5_2d18447f",
+        "filename": "tests/unit/java/com/android/server/connectivity/QuicConnectionCloserTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T01:31:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd6d3df4_527affb5",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 16
+      },
+      "revId": "07a7d8c50a2da596fb912452220638538b8ee325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b8784e4_2a0fc41d",
@@ -100,6 +172,30 @@
       "writtenOn": "2025-03-08T07:41:12Z",
       "side": 1,
       "message": "So IIUC this will only fail if `destroyUdpSocket` has been called with these exact arguments, maybe we want to fail for any call of `destroyUdpSocket` ?\n\nI don\u0027t think it\u0027s super important because I think it\u0027s pretty unlikely that this somehow gets called with some other arguments, I don\u0027t see where it would have taken them. But maybe it would help with future development of this test.",
+      "range": {
+        "startLine": 95,
+        "startChar": 16,
+        "endLine": 95,
+        "endChar": 39
+      },
+      "revId": "07a7d8c50a2da596fb912452220638538b8ee325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "004b4ad6_3962f941",
+        "filename": "tests/unit/java/com/android/server/connectivity/QuicConnectionCloserTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T01:31:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b8784e4_2a0fc41d",
       "range": {
         "startLine": 95,
         "startChar": 16,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3bd5bc5_bba5dc07",
+        "filename": "tests/unit/java/com/android/server/connectivity/QuicConnectionCloserTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T01:31:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fa49ed1_be59aff4",
+      "range": {
+        "startLine": 146,
+        "startChar": 12,
+        "endLine": 146,
+        "endChar": 23
+      },
+      "revId": "07a7d8c50a2da596fb912452220638538b8ee325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3bb5d059_e2e1915a",
@@ -156,6 +276,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adf54740_babad5ec",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T01:31:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bb5d059_e2e1915a",
+      "range": {
+        "startLine": 394,
+        "startChar": 56,
+        "endLine": 394,
+        "endChar": 63
+      },
+      "revId": "07a7d8c50a2da596fb912452220638538b8ee325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43968d74_5335565a",
@@ -169,6 +313,30 @@
       "writtenOn": "2025-03-08T07:41:12Z",
       "side": 1,
       "message": "Style : we don\u0027t usually write `this.` and normally when it\u0027s one-line you put \u003d\nWould\n\n    fun setSocketCookie(cookie: Long) \u003d socketCookie.set(cookie)\n\nwork ? Or do I miss something ?",
+      "range": {
+        "startLine": 447,
+        "startChar": 42,
+        "endLine": 447,
+        "endChar": 47
+      },
+      "revId": "07a7d8c50a2da596fb912452220638538b8ee325",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "299b978d_922d56e7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T01:31:49Z",
+      "side": 1,
+      "message": "Yes, your suggestion works. Thanks!",
+      "parentUuid": "43968d74_5335565a",
       "range": {
         "startLine": 447,
         "startChar": 42,

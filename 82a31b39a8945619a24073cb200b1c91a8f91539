@@ -830,6 +830,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da8282c6_34bbda89",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 15228,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T01:31:49Z",
+      "side": 1,
+      "message": "Let me leave as it is since I need change various files.",
+      "parentUuid": "b5bec1eb_b669c03b",
+      "range": {
+        "startLine": 15228,
+        "startChar": 15,
+        "endLine": 15228,
+        "endChar": 49
+      },
+      "revId": "82a31b39a8945619a24073cb200b1c91a8f91539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e29d6bd3_bff77126",
