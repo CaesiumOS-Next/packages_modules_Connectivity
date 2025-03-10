@@ -22,6 +22,30 @@
       },
       "revId": "028d6681fb2f582d0240611faac88e69bf28ee06",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a576dc5f_371fe54a",
+        "filename": "staticlibs/testutils/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-10T09:00:19Z",
+      "side": 0,
+      "message": "Removed lib_mockito_extended",
+      "parentUuid": "2da81b6d_e4520bfd",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "028d6681fb2f582d0240611faac88e69bf28ee06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
