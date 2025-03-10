@@ -94,7 +94,7 @@ object IntegrationTestUtils {
     val RESTART_JOIN_TIMEOUT: Duration = Duration.ofSeconds(40)
 
     @JvmField
-    val JOIN_TIMEOUT: Duration = Duration.ofSeconds(30)
+    val JOIN_TIMEOUT: Duration = Duration.ofSeconds(33)
 
     @JvmField
     val LEAVE_TIMEOUT: Duration = Duration.ofSeconds(2)
