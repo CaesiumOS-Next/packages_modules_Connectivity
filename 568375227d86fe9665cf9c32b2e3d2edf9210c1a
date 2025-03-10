@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4508163_aede3c7f",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2025-03-10T02:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78d00f79_78e4554b",
+      "range": {
+        "startLine": 219,
+        "startChar": 8,
+        "endLine": 219,
+        "endChar": 37
+      },
+      "revId": "568375227d86fe9665cf9c32b2e3d2edf9210c1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "915c61c3_17ebc780",
@@ -108,6 +132,54 @@
       "writtenOn": "2025-03-09T08:04:06Z",
       "side": 1,
       "message": "nit:\n```suggestion\n    private boolean isCountryCodeSupported() {\n```",
+      "range": {
+        "startLine": 451,
+        "startChar": 20,
+        "endLine": 451,
+        "endChar": 40
+      },
+      "revId": "568375227d86fe9665cf9c32b2e3d2edf9210c1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79be5fdf_32ac078c",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2025-03-10T02:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "915c61c3_17ebc780",
+      "range": {
+        "startLine": 451,
+        "startChar": 20,
+        "endLine": 451,
+        "endChar": 40
+      },
+      "revId": "568375227d86fe9665cf9c32b2e3d2edf9210c1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b78dc87d_1e5ed5ea",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2025-03-10T02:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d0de800_d9ad7e50",
       "range": {
         "startLine": 451,
         "startChar": 20,
@@ -255,6 +327,30 @@
           ]
         }
       ],
+      "revId": "568375227d86fe9665cf9c32b2e3d2edf9210c1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54f4c0bb_7a3a0b14",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadNetworkShellCommandTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2025-03-10T02:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b3b086a_b5a4f804",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 37
+      },
       "revId": "568375227d86fe9665cf9c32b2e3d2edf9210c1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
