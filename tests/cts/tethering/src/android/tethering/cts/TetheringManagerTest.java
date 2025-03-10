@@ -15,9 +15,12 @@
  */
 package android.tethering.test;
 
+import static android.Manifest.permission.CREATE_USERS;
+import static android.Manifest.permission.INTERACT_ACROSS_USERS;
 import static android.Manifest.permission.MODIFY_PHONE_STATE;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.Manifest.permission.WRITE_SETTINGS;
+import static android.app.ActivityManager.getCurrentUser;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
@@ -53,6 +56,7 @@ import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -77,20 +81,24 @@ import android.net.wifi.WifiSsid;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.os.ResultReceiver;
+import android.os.UserHandle;
 import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
 import androidx.annotation.NonNull;
 import androidx.test.InstrumentationRegistry;
-import androidx.test.runner.AndroidJUnit4;
 
+import com.android.bedstead.harrier.BedsteadJUnit4;
+import com.android.bedstead.harrier.DeviceState;
+import com.android.bedstead.multiuser.annotations.RequireRunOnSecondaryUser;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.testutils.ParcelUtils;
 import com.android.testutils.com.android.testutils.CarrierConfigRule;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -104,10 +112,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(BedsteadJUnit4.class)
 public class TetheringManagerTest {
     @Rule
     public final CarrierConfigRule mCarrierConfigRule = new CarrierConfigRule();
+    @ClassRule
+    @Rule
+    public static final DeviceState sDeviceState = new DeviceState();
 
     private Context mContext;
 
@@ -121,6 +132,11 @@ public class TetheringManagerTest {
     private CtsTetheringUtils mCtsTetheringUtils;
 
     private static final int DEFAULT_TIMEOUT_MS = 60_000;
+    private static final String TETHERING_CONNECTOR_CLASS = "android.net.ITetheringConnector";
+    private static final String TETHERING_DEFAULT_PACKAGE_NAME =
+            "com.android.networkstack.tethering";
+    private static final String NETWORKSTACK_CONNECTOR_CLASS = "android.net.INetworkStackConnector";
+    private static final String NETWORKSTACK_DEFAULT_PACKAGE_NAME = "com.android.networkstack";
 
     @Before
     public void setUp() throws Exception {
@@ -713,5 +729,32 @@ public class TetheringManagerTest {
         assumeTrue(SdkLevel.isAtLeastB());
         assertThrows(UnsupportedOperationException.class, () -> mTM.tether("iface"));
         assertThrows(UnsupportedOperationException.class, () -> mTM.untether("iface"));
+    }
+
+    // Verify the existence of the Tethering/NetworkStack package for the current user.
+    // This test will be executed on both SYSTEM and FULL users.
+    @RequireRunOnSecondaryUser
+    @Test
+    public void testCreatePackageContextAsUser() throws PackageManager.NameNotFoundException {
+        final List<String> packageNames = List.of(
+                resolvePackageNameOrDefault(TETHERING_CONNECTOR_CLASS,
+                        TETHERING_DEFAULT_PACKAGE_NAME),
+                resolvePackageNameOrDefault(NETWORKSTACK_CONNECTOR_CLASS,
+                        NETWORKSTACK_DEFAULT_PACKAGE_NAME));
+        // Permission CREATE_USERS is required for Android R or below.
+        final int currentUserId = runAsShell(CREATE_USERS, INTERACT_ACROSS_USERS,
+                () -> getCurrentUser());
+        final UserHandle currentUser = UserHandle.of(currentUserId);
+        for (String packageName : packageNames) {
+            mContext.createPackageContextAsUser(packageName, 0 /* flags */, currentUser);
+        }
+    }
+
+    @NonNull
+    private String resolvePackageNameOrDefault(@NonNull String action,
+            @NonNull String defaultName) {
+        final Intent intent = new Intent(action);
+        final ComponentName component = intent.resolveActivity(mContext.getPackageManager());
+        return component != null ? component.getPackageName() : defaultName;
     }
 }
