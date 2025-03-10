@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c45ca8a5_5393427b",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T06:22:17Z",
+      "side": 1,
+      "message": "Based on this comment, should we have `!Process.isApplicationUid(Process.myUid())` check?",
+      "range": {
+        "startLine": 970,
+        "startChar": 25,
+        "endLine": 971,
+        "endChar": 41
+      },
+      "revId": "7463dded32babff861c7848e4a1b195db22e6c81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78caadf4_d3a034b2",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T06:22:17Z",
+      "side": 1,
+      "message": "Can we call `sendNetworkInfo(mNetworkInfo);` here?",
+      "range": {
+        "startLine": 1056,
+        "startChar": 12,
+        "endLine": 1057,
+        "endChar": 49
+      },
+      "revId": "7463dded32babff861c7848e4a1b195db22e6c81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

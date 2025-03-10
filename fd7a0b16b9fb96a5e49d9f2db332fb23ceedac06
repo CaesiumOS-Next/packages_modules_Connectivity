@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6f3d28d_796bfb21",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T06:22:17Z",
+      "side": 1,
+      "message": "Should we remove `EVENT_AGENT_CONNECTED`? and make `onRegistered` empty?",
+      "range": {
+        "startLine": 623,
+        "startChar": 21,
+        "endLine": 623,
+        "endChar": 42
+      },
+      "revId": "fd7a0b16b9fb96a5e49d9f2db332fb23ceedac06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec86d883_1ce8b0dd",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T06:22:17Z",
+      "side": 1,
+      "message": "We did not observe this metrics from production devices, correct?",
+      "range": {
+        "startLine": 975,
+        "startChar": 54,
+        "endLine": 975,
+        "endChar": 141
+      },
+      "revId": "fd7a0b16b9fb96a5e49d9f2db332fb23ceedac06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d87b9ab0_b70d5e50",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-10T06:22:17Z",
+      "side": 1,
+      "message": "Why do we need this check only in `unregister`?\nI think `send` will just ignore if mState is STATE_REGISTERED (mRegistry is null).",
+      "range": {
+        "startLine": 1056,
+        "startChar": 7,
+        "endLine": 1056,
+        "endChar": 32
+      },
+      "revId": "fd7a0b16b9fb96a5e49d9f2db332fb23ceedac06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
