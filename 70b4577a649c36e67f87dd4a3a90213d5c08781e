@@ -16,6 +16,24 @@
       "message": "The change LGTM, please make sure you test the change locally.",
       "revId": "70b4577a649c36e67f87dd4a3a90213d5c08781e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "150d5f92_8639c71e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-03-10T03:34:50Z",
+      "side": 1,
+      "message": "Sure, this already tested and passed on P9 devices.",
+      "parentUuid": "fd5a07f4_d37811eb",
+      "revId": "70b4577a649c36e67f87dd4a3a90213d5c08781e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
