@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b534e838_0343c743",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-10T12:40:55Z",
+      "side": 1,
+      "message": "It\u0027s used in the `ThreadNetworkControllerService` class",
+      "parentUuid": "48cc3b79_9e34157d",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 10
+      },
+      "revId": "236f414218e114f0b713d2eeeac08b949f0486cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21ea5b4f_37871830",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-10T11:07:26Z",
       "side": 1,
       "message": "Is it safe to do so in constructor instead of `initialize()`?",
+      "range": {
+        "startLine": 123,
+        "startChar": 5,
+        "endLine": 128,
+        "endChar": 97
+      },
+      "revId": "236f414218e114f0b713d2eeeac08b949f0486cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d813087e_aa429747",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-10T12:40:55Z",
+      "side": 1,
+      "message": "I had the same concern, but I believe the PackageManager is the base service which starts early than most other services.\n\nNote that\n1. the whole Thread system service and all it\u0027s classes are constructed at the Android boot stage of \"PHASE_SYSTEM_SERVICES_READY\". This makes it safe to use the PackageManager APIs:\n```\n    /**\n     * After receiving this boot phase, services can safely call into core system services\n     * such as the PowerManager or PackageManager.\n     */\n    public static final int PHASE_SYSTEM_SERVICES_READY \u003d 500;\n```\n\n2. ConnectivityService uses the resources in its constructor in a similar way",
+      "parentUuid": "21ea5b4f_37871830",
       "range": {
         "startLine": 123,
         "startChar": 5,
@@ -84,6 +132,30 @@
           ]
         }
       ],
+      "revId": "236f414218e114f0b713d2eeeac08b949f0486cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95a7e7f6_3f133fd4",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadPersistentSettingsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-10T12:40:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "244bdd7c_edabf882",
+      "range": {
+        "startLine": 108,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 88
+      },
       "revId": "236f414218e114f0b713d2eeeac08b949f0486cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
