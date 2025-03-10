@@ -1,0 +1,91 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48cc3b79_9e34157d",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-10T11:07:26Z",
+      "side": 1,
+      "message": "Should it be private as well?",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 10
+      },
+      "revId": "236f414218e114f0b713d2eeeac08b949f0486cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21ea5b4f_37871830",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-10T11:07:26Z",
+      "side": 1,
+      "message": "Is it safe to do so in constructor instead of `initialize()`?",
+      "range": {
+        "startLine": 123,
+        "startChar": 5,
+        "endLine": 128,
+        "endChar": 97
+      },
+      "revId": "236f414218e114f0b713d2eeeac08b949f0486cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "244bdd7c_edabf882",
+        "filename": "thread/tests/unit/src/com/android/server/thread/ThreadPersistentSettingsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-10T11:07:26Z",
+      "side": 1,
+      "message": "Could there be a case that Thread is by default enabled in resources?",
+      "range": {
+        "startLine": 108,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 88
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "e5514987_a7bb5fc5",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/tests/unit/src/com/android/server/thread/ThreadPersistentSettingsTest.java",
+              "range": {
+                "startLine": 106,
+                "startChar": 0,
+                "endLine": 106,
+                "endChar": 0
+              },
+              "replacement": "\n    @Test\n    public void initialize_ThreadEnabledInResources_returnsThreadEnabled() throws Exception {\n        when(mResources.getBoolean(eq(R.bool.config_thread_default_enabled))).thenReturn(true);\n        setupAtomicFileForRead(new byte[0]);\n        mThreadPersistentSettings \u003d\n                new ThreadPersistentSettings(mAtomicFile, mConnectivityResources);\n\n        mThreadPersistentSettings.initialize();\n\n        assertThat(mThreadPersistentSettings.get(KEY_THREAD_ENABLED)).isTrue();\n    }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "236f414218e114f0b713d2eeeac08b949f0486cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
