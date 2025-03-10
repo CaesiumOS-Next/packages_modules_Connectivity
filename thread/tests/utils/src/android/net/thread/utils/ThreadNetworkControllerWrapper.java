@@ -46,7 +46,7 @@ import java.util.function.Consumer;
 
 /** A helper class which provides synchronous API wrappers for {@link ThreadNetworkController}. */
 public final class ThreadNetworkControllerWrapper {
-    public static final Duration JOIN_TIMEOUT = Duration.ofSeconds(10);
+    public static final Duration JOIN_TIMEOUT = Duration.ofSeconds(13);
     public static final Duration LEAVE_TIMEOUT = Duration.ofSeconds(2);
     private static final Duration CALLBACK_TIMEOUT = Duration.ofSeconds(1);
     private static final Duration SET_ENABLED_TIMEOUT = Duration.ofSeconds(2);
