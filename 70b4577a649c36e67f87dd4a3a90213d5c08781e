@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd5a07f4_d37811eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-10T03:33:45Z",
+      "side": 1,
+      "message": "The change LGTM, please make sure you test the change locally.",
+      "revId": "70b4577a649c36e67f87dd4a3a90213d5c08781e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
