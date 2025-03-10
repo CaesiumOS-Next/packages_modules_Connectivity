@@ -18,7 +18,9 @@ package com.android.networkstack.tethering;
 
 import static com.android.networkstack.tethering.util.TetheringUtils.createPlaceholderRequest;
 
+import android.net.IIntResultListener;
 import android.net.TetheringManager.TetheringRequest;
+import android.util.ArrayMap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ import com.android.internal.annotations.VisibleForTesting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class to keep track of tethering requests.
@@ -38,14 +41,16 @@ import java.util.List;
  *    start IP serving with.
  * 3) Remove all pending requests with {@link #removeAllPendingRequests(int)}.
  * Note: This class is not thread-safe.
- * TODO: Add the pending IIntResultListeners at the same time as the pending requests, and
- *       call them when we get the tether result.
- * TODO: Add support for multiple Bluetooth requests before the PAN service connects instead of
- *       using a separate mPendingPanRequestListeners.
- * TODO: Add support for fuzzy-matched requests.
  */
 public class RequestTracker {
     private static final String TAG = RequestTracker.class.getSimpleName();
+
+    @NonNull
+    private final boolean mUseFuzzyMatching;
+
+    public RequestTracker(boolean useFuzzyMatching) {
+        mUseFuzzyMatching = useFuzzyMatching;
+    }
 
     private class PendingRequest {
         @NonNull
@@ -71,14 +76,27 @@ public class RequestTracker {
          * with conflicting parameters already pending. If so, we must stop tethering for the
          * pending request before trying to add the result again.
          */
-        FAILURE_CONFLICTING_PENDING_REQUEST
+        FAILURE_CONFLICTING_PENDING_REQUEST,
+        /**
+         * Failure indicating that the request could not be added due to a fuzzy-matched request
+         * already pending or serving.
+         */
+        FAILURE_EXISTING_FUZZY_MATCHED_REQUEST,
+        /**
+         * Failure indicating that the request could not be added due to the service not being
+         * available.
+         */
+        FAILURE_SERVICE_UNAVAILABLE
     }
 
     /**
-     * List of pending requests added by {@link #addPendingRequest(TetheringRequest)}. There can be
-     * only one per type, since we remove every request of the same type when we add a request.
+     * List of pending requests added by {@link #addPendingRequest(TetheringRequest,
+     * IIntResultListener)}. There can be only one per type, since we remove every request of the
+     * same type when we add a request.
      */
     private final List<PendingRequest> mPendingRequests = new ArrayList<>();
+    // Serving IpServer interfaces mapped to their TetheringRequest.
+    private final Map<String, TetheringRequest> mServingRequests = new ArrayMap<>();
 
     @VisibleForTesting
     List<TetheringRequest> getPendingTetheringRequests() {
@@ -90,11 +108,41 @@ public class RequestTracker {
     }
 
     /**
+     * Adds a pending request or fails with FAILURE_SERVICE_UNAVAILABLE if there is an existing
+     * request (either pending or serving) with the same type. If the existing request also
+     * fuzzy-matches the new request, then FAILURE_EXISTING_FUZZY_MATCHED_REQUEST is returned.
+     */
+    public AddResult addPendingRequestFuzzyMatched(@NonNull final TetheringRequest newRequest) {
+        final int type = newRequest.getTetheringType();
+        List<TetheringRequest> existingRequests = new ArrayList<>();
+        existingRequests.addAll(mServingRequests.values());
+        existingRequests.addAll(getPendingTetheringRequests());
+        for (TetheringRequest request : existingRequests) {
+            if (request.getTetheringType() != type) continue;
+
+            if (request.fuzzyMatches(newRequest)) {
+                Log.i(TAG, "Cannot add pending request due to existing fuzzy-matched "
+                        + "request: " + request);
+                return AddResult.FAILURE_EXISTING_FUZZY_MATCHED_REQUEST;
+            }
+
+            return AddResult.FAILURE_SERVICE_UNAVAILABLE;
+        }
+
+        mPendingRequests.add(new PendingRequest(newRequest));
+        return AddResult.SUCCESS;
+    }
+
+    /**
      * Add a pending request and listener. The request should be added before asking the link layer
      * to start, and should be retrieved with {@link #getNextPendingRequest(int)} once the link
      * layer comes up. The result of the add operation will be returned as an AddResult code.
      */
     public AddResult addPendingRequest(@NonNull final TetheringRequest newRequest) {
+        if (mUseFuzzyMatching) {
+            return addPendingRequestFuzzyMatched(newRequest);
+        }
+
         // Check the existing requests to see if it is OK to add the new request.
         for (PendingRequest request : mPendingRequests) {
             TetheringRequest existingRequest = request.getTetheringRequest();
@@ -160,5 +208,29 @@ public class RequestTracker {
      */
     public void removeAllPendingRequests(int type) {
         mPendingRequests.removeIf(r -> r.getTetheringRequest().getTetheringType() == type);
+    }
+
+    /**
+     * Adds a serving request for the specified iface.
+     */
+    public void setServingRequest(@NonNull String iface,
+            @NonNull final TetheringRequest tetheringRequest) {
+        mServingRequests.put(iface, tetheringRequest);
+    }
+
+    /**
+     * Gets the serving request for the specified iface if there is one, or {@code null} if there is
+     * none.
+     */
+    @Nullable
+    public TetheringRequest getServingRequest(@NonNull final String iface) {
+        return mServingRequests.get(iface);
+    }
+
+    /**
+     * Removes the serving request for the specified iface.
+     */
+    public void removeServingRequest(@NonNull String iface) {
+        mServingRequests.remove(iface);
     }
 }

@@ -43,6 +43,7 @@ import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHERING_WIGIG;
 import static android.net.TetheringManager.TETHER_ERROR_BLUETOOTH_SERVICE_PENDING;
+import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
@@ -307,7 +308,7 @@ public class Tethering {
         mLooper = mDeps.makeTetheringLooper();
         mNotificationUpdater = mDeps.makeNotificationUpdater(mContext, mLooper);
         mTetheringMetrics = mDeps.makeTetheringMetrics(mContext);
-        mRequestTracker = new RequestTracker();
+        mRequestTracker = new RequestTracker(isTetheringWithSoftApConfigEnabled());
 
         // This is intended to ensrure that if something calls startTethering(bluetooth) just after
         // bluetooth is enabled. Before onServiceConnected is called, store the calls into this
@@ -714,6 +715,31 @@ public class Tethering {
             if (result == RequestTracker.AddResult.FAILURE_CONFLICTING_PENDING_REQUEST) {
                 stopTetheringInternal(type); // Also removes the request from the tracker.
                 mRequestTracker.addPendingRequest(request);
+            } else if (result
+                    == RequestTracker.AddResult.FAILURE_EXISTING_FUZZY_MATCHED_REQUEST) {
+                // Reject any fuzzy matched request.
+                if (listener != null) {
+                    try {
+                        listener.onResult(TETHER_ERROR_DUPLICATE_REQUEST);
+                    } catch (RemoteException e) {
+                        Log.e(TAG, e.getMessage(), e);
+                    }
+                }
+                return;
+            } else if (result == RequestTracker.AddResult.FAILURE_SERVICE_UNAVAILABLE) {
+                // Note: Currently we determine the service to be unavailable if there are any
+                // existing requests of the same type (either pending or serving), since there are
+                // no downstream types that support multiple interfaces through startTethering. Once
+                // we add support for multiple interfaces per type (i.e. Dual P2P), then remove this
+                // result enum.
+                if (listener != null) {
+                    try {
+                        listener.onResult(TETHER_ERROR_SERVICE_UNAVAIL);
+                    } catch (RemoteException e) {
+                        Log.e(TAG, e.getMessage(), e);
+                    }
+                }
+                return;
             }
 
             if (request.isExemptFromEntitlementCheck()) {
@@ -1168,6 +1194,8 @@ public class Tethering {
             Log.e(TAG, "Tried to Tether an unavailable iface: " + iface + ", ignoring");
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
+        mRequestTracker.removeAllPendingRequests(request.getTetheringType());
+        mRequestTracker.setServingRequest(iface, request);
         // NOTE: If a CMD_TETHER_REQUESTED message is already in the IpServer's queue but not yet
         // processed, this will be a no-op and it will not return an error.
         //
@@ -1211,6 +1239,7 @@ public class Tethering {
             return TETHER_ERROR_UNAVAIL_IFACE;
         }
         tetherState.ipServer.unwanted();
+        mRequestTracker.removeServingRequest(iface);
         return TETHER_ERROR_NO_ERROR;
     }
 
@@ -1613,6 +1642,7 @@ public class Tethering {
     private void disableWifiIpServingCommon(int tetheringType, String ifname) {
         if (!TextUtils.isEmpty(ifname) && mTetherStates.containsKey(ifname)) {
             mTetherStates.get(ifname).ipServer.unwanted();
+            mRequestTracker.removeServingRequest(ifname);
             return;
         }
 
@@ -1630,6 +1660,7 @@ public class Tethering {
             final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
             if (ipServer.interfaceType() == tetheringType) {
                 ipServer.unwanted();
+                mRequestTracker.removeServingRequest(ifname);
                 return;
             }
         }
@@ -3016,6 +3047,7 @@ public class Tethering {
         if (tetherState == null) return;
 
         tetherState.ipServer.stop();
+        mRequestTracker.removeServingRequest(iface);
         mLog.i("removing IpServer for: " + iface);
         mTetherStates.remove(iface);
     }

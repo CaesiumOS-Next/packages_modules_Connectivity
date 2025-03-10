@@ -50,6 +50,7 @@ import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_VIRTUAL;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
+import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_IFACE_CFG_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_INTERNAL_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
@@ -93,6 +94,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.notNull;
@@ -196,6 +198,7 @@ import androidx.test.runner.AndroidJUnit4;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.flags.Flags;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.PrivateAddressCoordinator;
@@ -2532,6 +2535,108 @@ public class TetheringTest {
                 || "Baklava".equals(Build.VERSION.CODENAME);
     }
 
+    private boolean isTetheringWithSoftApConfigEnabled() {
+        return isAtLeastB() && Flags.tetheringWithSoftApConfig();
+    }
+
+    @Test
+    public void testSecondWifiRequestDoesNotRemoveExisting() throws Exception {
+        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        initTetheringOnTestThread();
+        TestTetheringEventCallback callback = new TestTetheringEventCallback();
+        SoftApConfiguration softApConfig = new SoftApConfiguration.Builder().setWifiSsid(
+                WifiSsid.fromBytes("SoftApConfig".getBytes(StandardCharsets.UTF_8))).build();
+        final TetheringInterface wifiIfaceWithoutConfig = new TetheringInterface(
+                TETHERING_WIFI, TEST_WLAN_IFNAME, null);
+        final TetheringInterface wifiIfaceWithConfig = new TetheringInterface(
+                TETHERING_WIFI, TEST_WLAN_IFNAME, softApConfig);
+
+        // Register callback before running any tethering.
+        mTethering.registerTetheringEventCallback(callback);
+        mLooper.dispatchAll();
+        callback.expectTetheredClientChanged(Collections.emptyList());
+        callback.expectUpstreamChanged(NULL_NETWORK);
+        callback.expectConfigurationChanged(
+                mTethering.getTetheringConfiguration().toStableParcelable());
+        assertTetherStatesNotNullButEmpty(callback.pollTetherStatesChanged());
+        callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STOPPED);
+        UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
+        initTetheringUpstream(upstreamState);
+
+        // Start wifi tethering but don't trigger the link layer event yet.
+        mBinderCallingUid = TEST_CALLER_UID;
+        final TetheringRequest tetheringRequest = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(softApConfig).build();
+        tetheringRequest.setUid(TEST_CALLER_UID);
+        ResultListener successListener = new ResultListener(TETHER_ERROR_NO_ERROR);
+        when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
+        mTethering.startTethering(tetheringRequest, TEST_CALLER_PKG, successListener);
+        mLooper.dispatchAll();
+        successListener.assertHasResult();
+
+        // Try starting wifi tethering with various fuzzy-matching requests and verify we get
+        // TETHER_ERROR_DUPLICATE_REQUEST.
+
+        // Different static IP addresses
+        final TetheringRequest differentIpAddr = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(softApConfig)
+                .setStaticIpv4Addresses(new LinkAddress("192.168.0.123/24"),
+                        new LinkAddress("192.168.0.42/24"))
+                .build();
+        differentIpAddr.setUid(TEST_CALLER_UID);
+        ResultListener differentIpAddrListener = new ResultListener(TETHER_ERROR_DUPLICATE_REQUEST);
+        mTethering.startTethering(differentIpAddr, TEST_CALLER_PKG, differentIpAddrListener);
+        mLooper.dispatchAll();
+        verify(mWifiManager, times(1)).startTetheredHotspot(any());
+        verify(mWifiManager, never()).stopSoftAp();
+        differentIpAddrListener.assertHasResult();
+
+        // Different UID
+        final TetheringRequest differentUid = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(softApConfig).build();
+        differentUid.setUid(TEST_CALLER_UID + 1);
+        ResultListener differentUidListener = new ResultListener(TETHER_ERROR_DUPLICATE_REQUEST);
+        mTethering.startTethering(differentUid, TEST_CALLER_PKG, differentUidListener);
+        mLooper.dispatchAll();
+        differentUidListener.assertHasResult();
+        verify(mWifiManager, times(1)).startTetheredHotspot(any());
+        verify(mWifiManager, never()).stopSoftAp();
+
+        // Mock the link layer event to start IP serving and verify we still get
+        // TETHER_ERROR_DUPLICATE_REQUEST even though the request is no longer pending and is
+        // already serving.
+        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        assertArrayEquals(new TetheringInterface[] {wifiIfaceWithoutConfig},
+                callback.pollTetherStatesChanged().availableList);
+        assertArrayEquals(new TetheringInterface[] {wifiIfaceWithConfig},
+                callback.pollTetherStatesChanged().tetheredList);
+        callback.expectUpstreamChanged(upstreamState.network);
+        callback.expectOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STARTED);
+        differentIpAddrListener = new ResultListener(TETHER_ERROR_DUPLICATE_REQUEST);
+        differentUidListener = new ResultListener(TETHER_ERROR_DUPLICATE_REQUEST);
+        mTethering.startTethering(differentIpAddr, TEST_CALLER_PKG, differentIpAddrListener);
+        mTethering.startTethering(differentUid, TEST_CALLER_PKG, differentUidListener);
+        mLooper.dispatchAll();
+        differentIpAddrListener.assertHasResult();
+        differentUidListener.assertHasResult();
+        verify(mWifiManager, times(1)).startTetheredHotspot(any());
+        verify(mWifiManager, never()).stopSoftAp();
+
+        // Starting tethering with a different SoftApConfig should pass the fuzzy-match check, but
+        // fail with TETHER_ERROR_SERVICE_UNAVAILABLE.
+        final TetheringRequest differentConfig = new TetheringRequest.Builder(TETHERING_WIFI)
+                .setSoftApConfiguration(new SoftApConfiguration.Builder().setWifiSsid(
+                        WifiSsid.fromBytes("differentConfig".getBytes(StandardCharsets.UTF_8)))
+                        .build())
+                .build();
+        ResultListener differentConfigListener = new ResultListener(TETHER_ERROR_SERVICE_UNAVAIL);
+        mTethering.startTethering(differentConfig, TEST_CALLER_PKG, differentConfigListener);
+        mLooper.dispatchAll();
+        differentConfigListener.assertHasResult();
+        verify(mWifiManager, times(1)).startTetheredHotspot(any());
+        verify(mWifiManager, never()).stopSoftAp();
+    }
+
     @Test
     public void testReportFailCallbackIfOffloadNotSupported() throws Exception {
         initTetheringOnTestThread();
@@ -2798,7 +2903,8 @@ public class TetheringTest {
     }
 
     @Test
-    public void testMultipleStartTethering() throws Exception {
+    public void testMultipleStartTetheringLegacy() throws Exception {
+        assumeFalse(isTetheringWithSoftApConfigEnabled());
         initTetheringOnTestThread();
         final LinkAddress serverLinkAddr = new LinkAddress("192.168.20.1/24");
         final LinkAddress clientLinkAddr = new LinkAddress("192.168.20.42/24");
