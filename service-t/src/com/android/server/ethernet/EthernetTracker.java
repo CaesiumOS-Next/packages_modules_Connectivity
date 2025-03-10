@@ -958,7 +958,7 @@ public class EthernetTracker {
                     new ArrayList<>(
                     List.of(mFactory.getAvailableInterfaces(/* includeRestricted */ true)));
 
-            if (mTetheringInterfaceMode == INTERFACE_MODE_SERVER && mTetheringInterface != null) {
+            if (mTetheringInterfaceMode == INTERFACE_MODE_SERVER) {
                 interfaces.add(mTetheringInterface);
             }
 
