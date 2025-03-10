@@ -263,6 +263,75 @@
       },
       "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e08283f_218956a8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 4299,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:23:04Z",
+      "side": 1,
+      "message": "Can you also check that the errno is ECONNABORTED?",
+      "range": {
+        "startLine": 4299,
+        "startChar": 29,
+        "endLine": 4299,
+        "endChar": 43
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f12674e_6d68728f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 4350,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:23:04Z",
+      "side": 1,
+      "message": "Is it the case that close packets are not sent if the network is blocked? If so, have you considered sending these packets through anyway? For TCP, we always allow the device to send RST packets even if the network is blocked. This is because sending RST packets will usually result in fewer modem wakeups (the server will stop sending keepalives).",
+      "range": {
+        "startLine": 4350,
+        "startChar": 11,
+        "endLine": 4350,
+        "endChar": 37
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab05f69f_968f57f7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 4433,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-10T07:23:04Z",
+      "side": 1,
+      "message": "Unexpectedly received",
+      "range": {
+        "startLine": 4433,
+        "startChar": 22,
+        "endLine": 4433,
+        "endChar": 34
+      },
+      "revId": "239b599dcc428dfd77ab4afa08b5a352ffad407c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
