@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5307fade_08344816",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-11T09:51:47Z",
+      "side": 1,
+      "message": "Does this also remove the serving request?",
+      "range": {
+        "startLine": 757,
+        "startChar": 16,
+        "endLine": 757,
+        "endChar": 37
+      },
+      "revId": "5f3f113bbff7f8426c49a721a0f06f79d59a5575",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
