@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e50131c_14f15a82",
+        "filename": "thread/service/java/com/android/server/thread/ThreadPersistentSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-11T05:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d813087e_aa429747",
+      "range": {
+        "startLine": 123,
+        "startChar": 5,
+        "endLine": 128,
+        "endChar": 97
+      },
+      "revId": "236f414218e114f0b713d2eeeac08b949f0486cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "244bdd7c_edabf882",
