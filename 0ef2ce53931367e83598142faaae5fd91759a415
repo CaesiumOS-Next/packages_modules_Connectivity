@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "337ff0e7_81c8f3fc",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-11T02:20:49Z",
+      "side": 1,
+      "message": "Samsung feedback:\nWhat about adding log for mUidTagSets when dumping form NetworkStatsService?\nIt could be helpful to do monitoring app tag usage.",
+      "range": {
+        "startLine": 81,
+        "startChar": 45,
+        "endLine": 81,
+        "endChar": 56
+      },
+      "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
