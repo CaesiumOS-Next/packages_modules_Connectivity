@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3efea58_72a13377",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2025-03-11T07:46:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d6e6430_fb827901",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 40
+      },
+      "revId": "f78fed5c8dc41b28c5957384249614d0806a4f4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f370914d_51432c81",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-11T07:39:25Z",
       "side": 1,
       "message": "The timeout value should be the duration between ot-daemon \u003c----\u003e Connectivity Service, it\u0027s not the Thread network data update timeout",
+      "range": {
+        "startLine": 456,
+        "startChar": 16,
+        "endLine": 456,
+        "endChar": 39
+      },
+      "revId": "f78fed5c8dc41b28c5957384249614d0806a4f4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c88b08f_aa04cff3",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 2024816
+      },
+      "writtenOn": "2025-03-11T07:46:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f370914d_51432c81",
       "range": {
         "startLine": 456,
         "startChar": 16,
