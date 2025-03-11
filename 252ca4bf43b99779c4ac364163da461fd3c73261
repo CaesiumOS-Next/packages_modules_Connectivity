@@ -141,6 +141,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec46489c_1e351d78",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-11T09:53:22Z",
+      "side": 1,
+      "message": "We need to remove serving requests here too so we can continue to support the start/stop/start case. Of course, Wifi will still fail immediately for the next start since SoftAp will still be up.",
+      "range": {
+        "startLine": 767,
+        "startChar": 0,
+        "endLine": 767,
+        "endChar": 48
+      },
+      "revId": "252ca4bf43b99779c4ac364163da461fd3c73261",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78a2600c_7b055128",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 4
