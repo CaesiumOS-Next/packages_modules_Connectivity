@@ -27,6 +27,8 @@ import android.net.NetworkStats;
 import android.net.UnderlyingNetworkInfo;
 import android.os.ServiceSpecificException;
 import android.os.SystemClock;
+import android.util.IndentingPrintWriter;
+import android.util.Pair;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
@@ -35,8 +37,12 @@ import com.android.server.BpfNetMaps;
 
 import java.io.IOException;
 import java.net.ProtocolException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -73,6 +79,7 @@ public class NetworkStatsFactory {
     static final String CONFIG_PER_UID_TAG_THROTTLING_THRESHOLD =
             "per_uid_tag_throttling_threshold";
     private static final int DEFAULT_TAGS_PER_UID_THRESHOLD = 1000;
+    private static final int DUMP_TAGS_PER_UID_COUNT = 20;
     private final boolean mSupportPerUidTagThrottling;
     private final int mPerUidTagThrottlingThreshold;
 
@@ -378,5 +385,31 @@ public class NetworkStatsFactory {
         ProtocolException pe = new ProtocolException(message);
         pe.initCause(cause);
         return pe;
+    }
+
+    /**
+     * Dump the contents of NetworkStatsFactory.
+     */
+    public void dump(IndentingPrintWriter pw) {
+        dumpUidTagSets(pw);
+    }
+
+    private void dumpUidTagSets(IndentingPrintWriter pw) {
+        pw.println("Top distinct tag counts in UidTagSets:");
+        pw.increaseIndent();
+        final List<Pair<Integer, Integer>> countForUidList = new ArrayList<>();
+        for (Map.Entry<Integer, Set<Integer>> record : mUidTagSets.entrySet()) {
+            Pair<Integer, Integer> countForUid =
+                    new Pair<>(record.getKey(), record.getValue().size());
+            countForUidList.add(countForUid);
+        }
+        Collections.sort(countForUidList, Comparator.comparingInt(entry -> entry.second));
+        final int num = countForUidList.size();
+        final int end = Math.max(0, num - DUMP_TAGS_PER_UID_COUNT);
+        for (int j = num - 1; j >= end; j--) {
+            final Pair<Integer, Integer> entry = countForUidList.get(j);
+            pw.print(entry.first); pw.print("="); pw.println(entry.second);
+        }
+        pw.decreaseIndent();
     }
 }
