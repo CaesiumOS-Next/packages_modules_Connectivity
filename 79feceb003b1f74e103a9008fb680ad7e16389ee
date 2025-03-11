@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57f931d1_459d616d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-11T08:45:53Z",
+      "side": 1,
+      "message": "No tests ?",
+      "revId": "79feceb003b1f74e103a9008fb680ad7e16389ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7764ad3d_40d97c51",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-11T08:45:53Z",
+      "side": 1,
+      "message": "Is this necessary ? I think all places calling this had no update to the LP.",
+      "range": {
+        "startLine": 1062,
+        "startChar": 8,
+        "endLine": 1062,
+        "endChar": 26
+      },
+      "revId": "79feceb003b1f74e103a9008fb680ad7e16389ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "481606af_07e8dffd",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-11T08:45:53Z",
+      "side": 1,
+      "message": "should it be explicitlySelected() ?",
+      "range": {
+        "startLine": 1175,
+        "startChar": 20,
+        "endLine": 1175,
+        "endChar": 35
+      },
+      "revId": "79feceb003b1f74e103a9008fb680ad7e16389ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70db1d03_288c96f4",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-11T08:45:53Z",
+      "side": 1,
+      "message": "Suggest either moving this call into `updateUpstreamIpv6LinkProperties`, or moving your sending of the LP in that method to here.",
+      "range": {
+        "startLine": 1271,
+        "startChar": 20,
+        "endLine": 1271,
+        "endChar": 38
+      },
+      "revId": "79feceb003b1f74e103a9008fb680ad7e16389ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d028904_c4ae1eff",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-11T08:45:53Z",
+      "side": 1,
+      "message": "Did you forget to send the properties here ? mLP was updated.",
+      "range": {
+        "startLine": 1346,
+        "startChar": 12,
+        "endLine": 1346,
+        "endChar": 30
+      },
+      "revId": "79feceb003b1f74e103a9008fb680ad7e16389ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
