@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd7ef840_11cbd64f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3015,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-11T09:47:21Z",
+      "side": 0,
+      "message": "Per discussion, this could be a bit risky. It could cause the WTF in b/368713124 to come back, and also it\u0027s difficult to foresee the implications of deferring the removal (especially on older Android releases where the legacy tethering API can be used). Is there a way to continue to remove it here?\n\nIf we just need to ensure that every time we call IpServer#stop or IpServer#unwanted we also remove the serving request, then that seems easy: just add requestIpServerStop and requestIpServerUnwanted methods, that call .stop or .unwanted and then remove the request.\n\nNote, if using the sync state machine, stop and unwanted will execute immediately (including calling back into ControllCallback#updateInterfaceState) before the call to stop returns. The current code doesn\u0027t seem to care about this too much - when sync state machine is disabled (most production devices) it first removes the ipserver then stops it, and when it\u0027s enabled, it first stops the ipserver then removes it.",
+      "range": {
+        "startLine": 3015,
+        "startChar": 22,
+        "endLine": 3015,
+        "endChar": 28
+      },
+      "revId": "96f8e1b787d548d113fa8be42d6a016f6871df1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
