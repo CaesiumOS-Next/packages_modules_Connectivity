@@ -22,6 +22,69 @@
       },
       "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98b7a19e_e43bfba1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-11T03:58:49Z",
+      "side": 1,
+      "message": "This could be slightly more efficient by using NetworkStats#getValues(index, entry) to recycle the Entry object",
+      "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9263da7a_25cc3211",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-11T03:58:49Z",
+      "side": 1,
+      "message": "Is HashSet the right choice here compared to ArraySet\u003cInteger\u003e or SparseBooleanArray ? Considering that at most this would have ~1000 items. Would this generally be small in non-extreme cases ?",
+      "range": {
+        "startLine": 281,
+        "startChar": 68,
+        "endLine": 281,
+        "endChar": 75
+      },
+      "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f520640a_415d937d",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-11T03:58:49Z",
+      "side": 1,
+      "message": "This will create a set even if there was actually a UID in the map, you could use getOrCompute or maybe more-lightweight, just get and create a set if null",
+      "range": {
+        "startLine": 281,
+        "startChar": 64,
+        "endLine": 281,
+        "endChar": 79
+      },
+      "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
