@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a443536_0b6ca314",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-11T08:47:51Z",
+      "side": 1,
+      "message": "Could this not be completely private to BaseServingState ? Then you can make it @NonNull.",
+      "revId": "b02d39a4f84f694983da6e170a9ea244f6febb9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
