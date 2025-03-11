@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bc11036_9f8de3ce",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-11T08:57:28Z",
+      "side": 1,
+      "message": "Now we can\u0027t because then it\u0027s flagged off we need to continue doing the old processing",
+      "parentUuid": "d6f3d28d_796bfb21",
+      "range": {
+        "startLine": 623,
+        "startChar": 21,
+        "endLine": 623,
+        "endChar": 42
+      },
+      "revId": "fd7a0b16b9fb96a5e49d9f2db332fb23ceedac06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec86d883_1ce8b0dd",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "025ecd42_7cf1589f",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-11T08:57:28Z",
+      "side": 1,
+      "message": "We observed exactly one occurrence in the week before last on the entire device fleet. No occurrence in the last week.\n\nExactly one occurrence is really pretty suspicious, the only realistic explanation I can see would be some individual developer writing code and having made a mistake that they only ran one and fixed. It\u0027s not impossible, but pretty unlikely. We\u0027re trying to figure out where this comes from. This week is zero anyway, so if the metrics are working it has to be something like the above.\n\nNote that the metrics unfortunately don\u0027t log when the agent is created from a non-system app. We don\u0027t know of any actual case, but in theory an OEM can make one.",
+      "parentUuid": "ec86d883_1ce8b0dd",
+      "range": {
+        "startLine": 975,
+        "startChar": 54,
+        "endLine": 975,
+        "endChar": 141
+      },
+      "revId": "fd7a0b16b9fb96a5e49d9f2db332fb23ceedac06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d87b9ab0_b70d5e50",
@@ -60,6 +108,30 @@
       "writtenOn": "2025-03-10T06:22:17Z",
       "side": 1,
       "message": "Why do we need this check only in `unregister`?\nI think `send` will just ignore if mState is STATE_REGISTERED (mRegistry is null).",
+      "range": {
+        "startLine": 1056,
+        "startChar": 7,
+        "endLine": 1056,
+        "endChar": 32
+      },
+      "revId": "fd7a0b16b9fb96a5e49d9f2db332fb23ceedac06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acd93e74_37e43978",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-11T08:57:28Z",
+      "side": 1,
+      "message": "Yeah sorry, I added the state when I noticed I needed this and thought it was very unclear. But after I added the state I forgot to remove this ^^;",
+      "parentUuid": "d87b9ab0_b70d5e50",
       "range": {
         "startLine": 1056,
         "startChar": 7,

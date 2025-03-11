@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef4c0473_77a6b3ad",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-11T08:57:28Z",
+      "side": 1,
+      "message": "Ouch yes, good catch. But really it is technically possible for OEMs to make an app that has the permissions required and creates a NetworkAgent. So instead of adding the test back, I fixed the test so it never does that.",
+      "parentUuid": "c45ca8a5_5393427b",
+      "range": {
+        "startLine": 970,
+        "startChar": 25,
+        "endLine": 971,
+        "endChar": 41
+      },
+      "revId": "7463dded32babff861c7848e4a1b195db22e6c81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78caadf4_d3a034b2",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-10T06:22:17Z",
       "side": 1,
       "message": "Can we call `sendNetworkInfo(mNetworkInfo);` here?",
+      "range": {
+        "startLine": 1056,
+        "startChar": 12,
+        "endLine": 1057,
+        "endChar": 49
+      },
+      "revId": "7463dded32babff861c7848e4a1b195db22e6c81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4175a86_f40f37c3",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-11T08:57:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78caadf4_d3a034b2",
       "range": {
         "startLine": 1056,
         "startChar": 12,
