@@ -22,6 +22,53 @@
       },
       "revId": "5f3f113bbff7f8426c49a721a0f06f79d59a5575",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "030a357b_35920ac0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-11T09:58:16Z",
+      "side": 1,
+      "message": "Actually this belongs in the previous CL.",
+      "parentUuid": "5307fade_08344816",
+      "range": {
+        "startLine": 757,
+        "startChar": 16,
+        "endLine": 757,
+        "endChar": 37
+      },
+      "revId": "5f3f113bbff7f8426c49a721a0f06f79d59a5575",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7313752c_9d5098e5",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2688,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-11T09:58:16Z",
+      "side": 1,
+      "message": "Nit: you don\u0027t really need this because you don\u0027t have a failure case in this test method. You could add one, but I think that\u0027s already covered by the test above? If so, you can probably just remove this line.",
+      "range": {
+        "startLine": 2688,
+        "startChar": 81,
+        "endLine": 2688,
+        "endChar": 98
+      },
+      "revId": "5f3f113bbff7f8426c49a721a0f06f79d59a5575",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
