@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c59b97b4_7d074017",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-12T23:40:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31475271_3fac99a5",
+      "range": {
+        "startLine": 1183,
+        "startChar": 0,
+        "endLine": 1184,
+        "endChar": 93
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f1aaedb_6445a578",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-03-12T10:59:17Z",
       "side": 1,
       "message": "Would simplify to:\n\n    // Note: serving requests are only populated on B+. B+ also uses the sync state\n    // machine by default. This ensures that the serving request is (correctly) populated\n    // after the IpServer enters the available state and before it enters the serving\n    // state.",
+      "range": {
+        "startLine": 1299,
+        "startChar": 0,
+        "endLine": 1303,
+        "endChar": 86
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50e2eade_2f7b2f23",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-12T23:40:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f1aaedb_6445a578",
       "range": {
         "startLine": 1299,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2a42e21_c83da066",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2918,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-12T23:40:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f17501c0_1c376d60",
+      "range": {
+        "startLine": 2918,
+        "startChar": 33,
+        "endLine": 2918,
+        "endChar": 81
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "780c2291_6362e381",
@@ -100,6 +172,30 @@
       "writtenOn": "2025-03-12T10:59:17Z",
       "side": 1,
       "message": "// TODO: remove this comment once the sync state machine is enabled everywhere.",
+      "range": {
+        "startLine": 2922,
+        "startChar": 99,
+        "endLine": 2922,
+        "endChar": 100
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61f518cd_dbe660ea",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2922,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-12T23:40:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "780c2291_6362e381",
       "range": {
         "startLine": 2922,
         "startChar": 99,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac039894_3a710e2a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2943,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-12T23:40:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef942792_e317fee7",
+      "range": {
+        "startLine": 2943,
+        "startChar": 76,
+        "endLine": 2943,
+        "endChar": 77
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4af7706e_fd695c92",
@@ -146,6 +266,30 @@
       "writtenOn": "2025-03-12T10:59:17Z",
       "side": 1,
       "message": "Per discussion, I wouldn\u0027t change the ordering here. Moving to the sync state machine here changes the ordering of events (with the old async state machine, the tetherstate is removed *before* the IpServer stops; with the sync state machine the IpServer is stopped while the tetherstate still exists) and may be causing flaky behaviour, but it seems better *not* to fix that in this CL and instead submit a separate CL to address that.",
+      "range": {
+        "startLine": 3044,
+        "startChar": 29,
+        "endLine": 3044,
+        "endChar": 33
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f42d3785_12421f23",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 3044,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-12T23:40:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4af7706e_fd695c92",
       "range": {
         "startLine": 3044,
         "startChar": 29,
