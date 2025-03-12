@@ -17,6 +17,7 @@ package com.android.server.net.ct;
 
 import android.annotation.RequiresApi;
 import android.app.AlarmManager;
+import android.app.AlarmManager.OnAlarmListener;
 import android.app.DownloadManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -25,16 +26,20 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.ConfigUpdate;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.util.Log;
 
 /** Implementation of the Certificate Transparency job */
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
-public class CertificateTransparencyJob extends BroadcastReceiver {
+public class CertificateTransparencyJob extends BroadcastReceiver implements OnAlarmListener {
 
     private static final String TAG = "CertificateTransparencyJob";
 
     private final Context mContext;
+    private final HandlerThread mHandlerThread;
+    private final Handler mHandler;
     private final DataStore mDataStore;
     private final CertificateTransparencyDownloader mCertificateTransparencyDownloader;
     private final CompatibilityVersion mCompatVersion;
@@ -58,6 +63,10 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
         mCompatVersion = compatVersion;
         mSignatureVerifier = signatureVerifier;
 
+        mHandlerThread = new HandlerThread(TAG);
+        mHandlerThread.start();
+        mHandler = new Handler(mHandlerThread.getLooper());
+
         mAlarmManager = context.getSystemService(AlarmManager.class);
         mPendingIntent =
                 PendingIntent.getBroadcast(
@@ -73,12 +82,21 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
                     this,
                     new IntentFilter(ConfigUpdate.ACTION_UPDATE_CT_LOGS),
                     Context.RECEIVER_EXPORTED);
-            mAlarmManager.setInexactRepeating(
-                    AlarmManager.ELAPSED_REALTIME,
-                    SystemClock
-                            .elapsedRealtime(), // schedule first job at earliest convenient time.
-                    AlarmManager.INTERVAL_DAY,
-                    mPendingIntent);
+
+            mAlarmManager.set(
+                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    SystemClock.elapsedRealtime(),
+                    TAG,
+                    this,
+                    mHandler);
+
+            // mAlarmManager.setInexactRepeating(
+            //         AlarmManager.ELAPSED_REALTIME,
+            //         SystemClock
+            //                 .elapsedRealtime(), // schedule first job at earliest convenient
+            // time.
+            //         AlarmManager.INTERVAL_DAY,
+            //         mPendingIntent);
         }
         mScheduled = true;
 
@@ -87,10 +105,25 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
         }
     }
 
+    @Override
+    public void onAlarm() {
+        execute();
+
+        // schedule next job instance.
+        mAlarmManager.set(
+                AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
+                TAG,
+                this,
+                mHandler);
+    }
+
     void cancel() {
         if (mScheduled) {
+            // mHandlerThread.quitSafely();
+            mAlarmManager.cancel(this);
             mContext.unregisterReceiver(this);
-            mAlarmManager.cancel(mPendingIntent);
+            // mAlarmManager.cancel(mPendingIntent);
         }
         mScheduled = false;
 
@@ -112,8 +145,13 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
             Log.w(TAG, "Received unexpected broadcast with action " + intent);
             return;
         }
+
+        execute();
+    }
+
+    private void execute() {
         if (Config.DEBUG) {
-            Log.d(TAG, "Starting CT daily job.");
+            Log.d(TAG, "Executing CT job.");
         }
         if (!mDependenciesReady) {
             startDependencies();
@@ -134,6 +172,8 @@ public class CertificateTransparencyJob extends BroadcastReceiver {
         mContext.registerReceiver(
                 mCertificateTransparencyDownloader,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
+                null,
+                mHandler,
                 Context.RECEIVER_EXPORTED);
 
         if (Config.DEBUG) {
