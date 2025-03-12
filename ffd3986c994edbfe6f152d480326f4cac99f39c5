@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b2eeeb7_d0ec7230",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-12T07:25:53Z",
+      "side": 1,
+      "message": "nit: I would suggest remove this support. This makes the utilities method complex and it\u0027s harder to predict the behavior. Simple throw a IllegalStateException() in this case is better to help us discover potential issues.",
+      "range": {
+        "startLine": 492,
+        "startChar": 7,
+        "endLine": 493,
+        "endChar": 17
+      },
+      "revId": "ffd3986c994edbfe6f152d480326f4cac99f39c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
