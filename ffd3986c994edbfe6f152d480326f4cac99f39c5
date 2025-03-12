@@ -46,6 +46,30 @@
       },
       "revId": "ffd3986c994edbfe6f152d480326f4cac99f39c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "462a6f43_3f108ba4",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-12T07:53:03Z",
+      "side": 1,
+      "message": "I got it. Then this is fine to me :)",
+      "parentUuid": "951019a3_4b2685b8",
+      "range": {
+        "startLine": 492,
+        "startChar": 7,
+        "endLine": 493,
+        "endChar": 17
+      },
+      "revId": "ffd3986c994edbfe6f152d480326f4cac99f39c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
