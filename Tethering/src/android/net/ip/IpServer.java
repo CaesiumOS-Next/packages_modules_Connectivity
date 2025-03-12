@@ -64,6 +64,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
+import android.os.SystemClock;
 import android.util.ArraySet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -709,6 +710,8 @@ public class IpServer extends StateMachineShim {
         } else {
             setIfaceUp = enabled;
         }
+        // Delay IPv4 address assignment by 1s
+        SystemClock.sleep(1000);
         if (!mInterfaceCtrl.setInterfaceConfiguration(mIpv4Address, setIfaceUp)) {
             mLog.e("Error configuring interface");
             if (!enabled) stopDhcp();
