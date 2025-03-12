@@ -21,6 +21,7 @@ import static android.net.nsd.NsdManager.PROTOCOL_DNS_SD;
 import static android.net.thread.utils.IntegrationTestUtils.SERVICE_DISCOVERY_TIMEOUT;
 import static android.net.thread.utils.IntegrationTestUtils.discoverForServiceLost;
 import static android.net.thread.utils.IntegrationTestUtils.discoverService;
+import static android.net.thread.utils.IntegrationTestUtils.discoverServiceUntil;
 import static android.net.thread.utils.IntegrationTestUtils.joinNetworkAndWaitForOmr;
 import static android.net.thread.utils.IntegrationTestUtils.resolveService;
 import static android.net.thread.utils.IntegrationTestUtils.resolveServiceUntil;
@@ -455,7 +456,14 @@ public class ServiceDiscoveryTest {
                 DeviceConfigUtils.getDeviceConfigPropertyBoolean(
                         "thread_network", "TrelFeature__enabled", false));
 
-        NsdServiceInfo discoveredService = discoverService(mNsdManager, "_trel._udp");
+        NsdServiceInfo discoveredService =
+                discoverServiceUntil(
+                        mNsdManager,
+                        "_trel._udp",
+                        s ->
+                                s.getServiceName() != null
+                                        && s.getServiceName()
+                                                .equalsIgnoreCase(mOtCtl.getExtendedAddr()));
         assertThat(discoveredService).isNotNull();
         // Resolve service with the current TREL port, otherwise it may return stale service from
         // a previous infra link setup.
@@ -478,7 +486,17 @@ public class ServiceDiscoveryTest {
                 DeviceConfigUtils.getDeviceConfigPropertyBoolean(
                         "thread_network", "TrelFeature__enabled", false));
 
-        assertThrows(TimeoutException.class, () -> discoverService(mNsdManager, "_trel._udp"));
+        assertThrows(
+                TimeoutException.class,
+                () ->
+                        discoverServiceUntil(
+                                mNsdManager,
+                                "_trel._udp",
+                                s ->
+                                        s.getServiceName() != null
+                                                && s.getServiceName()
+                                                        .equalsIgnoreCase(
+                                                                mOtCtl.getExtendedAddr())));
     }
 
     private void registerService(NsdServiceInfo serviceInfo, RegistrationListener listener)
