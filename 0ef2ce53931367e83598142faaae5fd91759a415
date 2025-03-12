@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e8d9d2c_364aa446",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-12T03:28:54Z",
+      "side": 1,
+      "message": "Done at https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/3538341\nPTAL.",
+      "parentUuid": "337ff0e7_81c8f3fc",
+      "range": {
+        "startLine": 81,
+        "startChar": 45,
+        "endLine": 81,
+        "endChar": 56
+      },
+      "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98b7a19e_e43bfba1",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-03-11T03:58:49Z",
       "side": 1,
       "message": "This could be slightly more efficient by using NetworkStats#getValues(index, entry) to recycle the Entry object",
+      "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c474717_accd191b",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-12T03:28:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98b7a19e_e43bfba1",
       "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -77,6 +119,54 @@
       "writtenOn": "2025-03-11T03:58:49Z",
       "side": 1,
       "message": "This will create a set even if there was actually a UID in the map, you could use getOrCompute or maybe more-lightweight, just get and create a set if null",
+      "range": {
+        "startLine": 281,
+        "startChar": 64,
+        "endLine": 281,
+        "endChar": 79
+      },
+      "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78730b95_3f2aa15c",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-12T03:28:54Z",
+      "side": 1,
+      "message": "Yes it is generally small.\nFor normal case it would be \u003c 100, and 200 for the extreme case for now.\nBy gemini recommendation HashSet is the best choice here.",
+      "parentUuid": "9263da7a_25cc3211",
+      "range": {
+        "startLine": 281,
+        "startChar": 68,
+        "endLine": 281,
+        "endChar": 75
+      },
+      "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11a29806_7f9112d1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-12T03:28:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f520640a_415d937d",
       "range": {
         "startLine": 281,
         "startChar": 64,
