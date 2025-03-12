@@ -22,6 +22,30 @@
       },
       "revId": "ffd3986c994edbfe6f152d480326f4cac99f39c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "951019a3_4b2685b8",
+        "filename": "thread/tests/integration/src/android/net/thread/utils/IntegrationTestUtils.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 2016993
+      },
+      "writtenOn": "2025-03-12T07:35:15Z",
+      "side": 1,
+      "message": "Is there a way to achieve so when using optional parameter?\n\nI think we\u0027re trying to support two use cases.\n- discoverService(nsdManager, serviceType)\n- discoverService(nsdManager, serviceType, serviceName) when the serviceName is non-null\n\nHowever, when using optional parameter, it seems to always allow another case \ndiscoverService(nsdManager, serviceType, null).\n\nI\u0027m curious if there\u0027s a way to achieve so without naming the methods differently.",
+      "parentUuid": "3b2eeeb7_d0ec7230",
+      "range": {
+        "startLine": 492,
+        "startChar": 7,
+        "endLine": 493,
+        "endChar": 17
+      },
+      "revId": "ffd3986c994edbfe6f152d480326f4cac99f39c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
