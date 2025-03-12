@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b53baf48_64894540",
+        "filename": "thread/tests/integration/src/android/net/thread/ServiceDiscoveryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-12T06:03:54Z",
+      "side": 1,
+      "message": "Maybe simply have a utils method `discoverService(String type, String name)`",
+      "range": {
+        "startLine": 600,
+        "startChar": 16,
+        "endLine": 600,
+        "endChar": 36
+      },
+      "revId": "6a9ff760d0c4fdf732fb546c83d2c5f71742f86a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
