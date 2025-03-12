@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eea125a4_02a87b77",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-12T09:33:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a56b704_d7e8b2b5",
+      "range": {
+        "startLine": 401,
+        "startChar": 0,
+        "endLine": 401,
+        "endChar": 80
+      },
+      "revId": "70cf7c4f9a3723a78fc4010602a00ac9f63c4295",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0ca99b0_fb2363cb",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-12T05:31:13Z",
       "side": 1,
       "message": "Use `countForUidList.sort((entry1, entry2) -\u003e Integer.compare(entry2.second, entry1.second))` to sort the list in descending order? Then, you won\u0027t need to calculate the end value.",
+      "range": {
+        "startLine": 406,
+        "startChar": 8,
+        "endLine": 406,
+        "endChar": 90
+      },
+      "revId": "70cf7c4f9a3723a78fc4010602a00ac9f63c4295",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9d7c144_99f7a6f5",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-12T09:33:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0ca99b0_fb2363cb",
       "range": {
         "startLine": 406,
         "startChar": 8,
@@ -84,6 +132,30 @@
           ]
         }
       ],
+      "revId": "70cf7c4f9a3723a78fc4010602a00ac9f63c4295",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e712d61d_741f2092",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-12T09:33:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ebd1ae0_35bf89f3",
+      "range": {
+        "startLine": 411,
+        "startChar": 35,
+        "endLine": 411,
+        "endChar": 75
+      },
       "revId": "70cf7c4f9a3723a78fc4010602a00ac9f63c4295",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
