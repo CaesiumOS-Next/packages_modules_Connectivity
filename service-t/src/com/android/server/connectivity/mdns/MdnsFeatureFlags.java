@@ -100,6 +100,12 @@ public class MdnsFeatureFlags {
      */
     public static final String NSD_ACCURATE_DELAY_CALLBACK = "nsd_accurate_delay_callback";
 
+    /**
+     * A feature flag to control whether the optimized expired service removal should be enabled.
+     */
+    public static final String NSD_OPTIMIZED_EXPIRED_SERVICE_REMOVAL =
+            "nsd_optimized_expired_service_removal";
+
     // Flag for offload feature
     public final boolean mIsMdnsOffloadFeatureEnabled;
 
@@ -138,6 +144,9 @@ public class MdnsFeatureFlags {
 
     // Flag to use shorter (16 characters + .local) hostnames
     public final boolean mIsShortHostnamesEnabled;
+
+    // Flag for optimized expired service removal
+    public final boolean mIsOptimizedExpiredServiceRemovalEnabled;
 
     @Nullable
     private final FlagOverrideProvider mOverrideProvider;
@@ -247,6 +256,15 @@ public class MdnsFeatureFlags {
     }
 
     /**
+     * Indicates whether {@link #NSD_OPTIMIZED_EXPIRED_SERVICE_REMOVAL} is enabled, including for
+     * testing.
+     */
+    public boolean isOptimizedExpiredServiceRemovalEnabled() {
+        return mIsOptimizedExpiredServiceRemovalEnabled
+                || isForceEnabledForTest(NSD_OPTIMIZED_EXPIRED_SERVICE_REMOVAL);
+    }
+
+    /**
      * The constructor for {@link MdnsFeatureFlags}.
      */
     public MdnsFeatureFlags(boolean isOffloadFeatureEnabled,
@@ -262,6 +280,7 @@ public class MdnsFeatureFlags {
             long cachedServicesRetentionTime,
             boolean isAccurateDelayCallbackEnabled,
             boolean isShortHostnamesEnabled,
+            boolean isOptimizedExpiredServiceRemovalEnabled,
             @Nullable FlagOverrideProvider overrideProvider) {
         mIsMdnsOffloadFeatureEnabled = isOffloadFeatureEnabled;
         mIncludeInetAddressRecordsInProbing = includeInetAddressRecordsInProbing;
@@ -276,6 +295,7 @@ public class MdnsFeatureFlags {
         mCachedServicesRetentionTime = cachedServicesRetentionTime;
         mIsAccurateDelayCallbackEnabled = isAccurateDelayCallbackEnabled;
         mIsShortHostnamesEnabled = isShortHostnamesEnabled;
+        mIsOptimizedExpiredServiceRemovalEnabled = isOptimizedExpiredServiceRemovalEnabled;
         mOverrideProvider = overrideProvider;
     }
 
@@ -301,6 +321,7 @@ public class MdnsFeatureFlags {
         private long mCachedServicesRetentionTime;
         private boolean mIsAccurateDelayCallbackEnabled;
         private boolean mIsShortHostnamesEnabled;
+        private boolean mIsOptimizedExpiredServiceRemovalEnabled;
         private FlagOverrideProvider mOverrideProvider;
 
         /**
@@ -320,6 +341,7 @@ public class MdnsFeatureFlags {
             mCachedServicesRetentionTime = DEFAULT_CACHED_SERVICES_RETENTION_TIME_MILLISECONDS;
             mIsAccurateDelayCallbackEnabled = false;
             mIsShortHostnamesEnabled = true; // Default enabled.
+            mIsOptimizedExpiredServiceRemovalEnabled = false;
             mOverrideProvider = null;
         }
 
@@ -466,6 +488,17 @@ public class MdnsFeatureFlags {
         }
 
         /**
+         * Set whether the optimized expired service removal is enabled.
+         *
+         * @see #NSD_OPTIMIZED_EXPIRED_SERVICE_REMOVAL
+         */
+        public Builder setIsOptimizedExpiredServiceRemovalEnabled(
+                boolean isOptimizedExpiredServiceRemovalEnabled) {
+            mIsOptimizedExpiredServiceRemovalEnabled = isOptimizedExpiredServiceRemovalEnabled;
+            return this;
+        }
+
+        /**
          * Builds a {@link MdnsFeatureFlags} with the arguments supplied to this builder.
          */
         public MdnsFeatureFlags build() {
@@ -482,6 +515,7 @@ public class MdnsFeatureFlags {
                     mCachedServicesRetentionTime,
                     mIsAccurateDelayCallbackEnabled,
                     mIsShortHostnamesEnabled,
+                    mIsOptimizedExpiredServiceRemovalEnabled,
                     mOverrideProvider);
         }
     }
