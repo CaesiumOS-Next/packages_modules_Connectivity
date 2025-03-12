@@ -204,6 +204,10 @@ interface INetd {
   void ipSecMigrate(in android.net.IpSecMigrateInfoParcel migrateInfo);
   void setNetworkAllowlist(in android.net.netd.aidl.NativeUidRangeConfig[] allowedNetworks);
   void networkAllowBypassVpnOnNetwork(boolean allow, int uid, int netId);
+  void networkAddLegacyRouteWithLocalRoute(int netId, in @utf8InCpp String ifName, in @utf8InCpp String destination, in @utf8InCpp String nextHop, int uid, boolean isLocalRoute);
+  void networkRemoveLegacyRouteWithLocalRoute(int netId, in @utf8InCpp String ifName, in @utf8InCpp String destination, in @utf8InCpp String nextHop, int uid, boolean isLocalRoute);
+  void networkAddRouteWithLocalRoute(int netId, in @utf8InCpp String ifName, in @utf8InCpp String destination, in @utf8InCpp String nextHop, boolean isLocalRoute);
+  void networkRemoveRouteWithLocalRoute(int netId, in @utf8InCpp String ifName, in @utf8InCpp String destination, in @utf8InCpp String nextHop, boolean isLocalRoute);
   const int IPV4 = 4;
   const int IPV6 = 6;
   const int CONF = 1;

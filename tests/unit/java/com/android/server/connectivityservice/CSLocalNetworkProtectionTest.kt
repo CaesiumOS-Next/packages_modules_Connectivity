@@ -16,7 +16,9 @@
 
 package com.android.server
 
+import android.net.INetd.LOCAL_NET_ID
 import android.net.InetAddresses
+import android.net.InetAddresses.parseNumericAddress
 import android.net.IpPrefix
 import android.net.LinkAddress
 import android.net.LinkProperties
@@ -27,6 +29,7 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN
 import android.net.NetworkCapabilities.TRANSPORT_VPN
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
+import android.net.RouteInfo
 import android.os.Build
 import androidx.test.filters.SmallTest
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -34,6 +37,9 @@ import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.LinkPropertiesChanged
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
+import java.net.Inet6Address
+import kotlin.test.assertTrue
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.eq
@@ -47,6 +53,7 @@ private const val PREFIX_LENGTH_IPV6 = 32
 private const val WIFI_IFNAME = "wlan0"
 private const val WIFI_IFNAME_2 = "wlan1"
 private const val WIFI_IFNAME_3 = "wlan2"
+private const val NON_LOCAL_NET_ID = 102
 
 private val wifiNc = NetworkCapabilities.Builder()
         .addTransportType(TRANSPORT_WIFI)
@@ -106,6 +113,15 @@ class CSLocalNetworkProtectionTest : CSTest() {
         LinkAddress(
             LOCAL_IPV4_IP_ADDRESS_PREFIX_2.getAddress(),
             LOCAL_IPV4_IP_ADDRESS_PREFIX_2.getPrefixLength()
+        )
+
+    private val TEST_IPV6_GATEWAY = parseNumericAddress("2001:db8::1") as Inet6Address
+
+    private val NON_LOCAL_IPV4_IP_ADDRESS_PREFIX_1 = IpPrefix("8.8.0.0/24")
+    private val NON_LOCAL_IPV4_LINK_ADDRRESS_1 =
+        LinkAddress(
+            NON_LOCAL_IPV4_IP_ADDRESS_PREFIX_1.getAddress(),
+            NON_LOCAL_IPV4_IP_ADDRESS_PREFIX_1.getPrefixLength()
         )
 
     @Test
@@ -586,5 +602,35 @@ class CSLocalNetworkProtectionTest : CSTest() {
             eq(0),
             eq(0)
         )
+    }
+
+    @Test
+    fun testIsLocalRouteForLocalIPv6_TrueForLocalRoute() {
+        val route = RouteInfo(LOCAL_IPV6_LINK_ADDRESS, null, WIFI_IFNAME)
+        Assert.assertTrue(ConnectivityService.isLocalRoute(route, NON_LOCAL_NET_ID))
+    }
+
+    @Test
+    fun testIsLocalRouteWithNextHopForLocalIPv6_FalseForLocalRoute() {
+        val route = RouteInfo(LOCAL_IPV6_LINK_ADDRESS, TEST_IPV6_GATEWAY, WIFI_IFNAME)
+        Assert.assertFalse(ConnectivityService.isLocalRoute(route, NON_LOCAL_NET_ID))
+    }
+
+    @Test
+    fun testIsLocalRouteWithLocalNetIdForLocalIPv6_FalseForLocalRoute() {
+        val route = RouteInfo(LOCAL_IPV6_LINK_ADDRESS, null, WIFI_IFNAME)
+        Assert.assertFalse(ConnectivityService.isLocalRoute(route, LOCAL_NET_ID))
+    }
+
+    @Test
+    fun testIsLocalRouteForLocalIPv4_TrueForLocalRoute() {
+        val route = RouteInfo(LOCAL_IPV4_LINK_ADDRRESS_1, null, WIFI_IFNAME)
+        Assert.assertTrue(ConnectivityService.isLocalRoute(route, NON_LOCAL_NET_ID))
+    }
+
+    @Test
+    fun testIsLocalRouteForNonLocalIPv4_FalseForLocalRoute() {
+        val route = RouteInfo(NON_LOCAL_IPV4_LINK_ADDRRESS_1, null, WIFI_IFNAME)
+        Assert.assertFalse(ConnectivityService.isLocalRoute(route, NON_LOCAL_NET_ID))
     }
 }

@@ -285,4 +285,16 @@ public class NetdUtils {
 
         return rip;
     }
+
+    /**
+     * Convert a RouteInfo into a RouteInfoParcel.
+     * @param route route information contains destination and other details.
+     * @param isLocalRoute true if route is local network route.
+     * @return RouteInfoParcel
+     */
+    public static RouteInfoParcel toRouteInfoParcel(RouteInfo route, boolean isLocalRoute) {
+        RouteInfoParcel routeInfoParcel = toRouteInfoParcel(route);
+        routeInfoParcel.isLocalRoute = isLocalRoute;
+        return routeInfoParcel;
+    }
 }
