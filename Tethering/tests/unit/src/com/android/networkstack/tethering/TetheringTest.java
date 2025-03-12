@@ -89,6 +89,7 @@ import static com.android.testutils.TestPermissionUtil.runAsShell;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -2880,7 +2881,7 @@ public class TetheringTest {
 
     @Test
     @IgnoreAfter(Build.VERSION_CODES.VANILLA_ICE_CREAM)
-    public void testRequestStaticIpLegacyTether() throws Exception {
+    public void testRequestStaticIpLegacyTetherFailure() throws Exception {
         initTetheringOnTestThread();
 
         // Call startTethering with static ip
@@ -2906,14 +2907,14 @@ public class TetheringTest {
         mLooper.dispatchAll();
         tetherResult.assertHasResult();
 
-        // Verify that the static ip set in startTethering is used
-        verify(mNetd).interfaceSetCfg(argThat(cfg -> serverAddr.equals(cfg.ipv4Addr)));
+        // Verify that the static ip set in startTethering is not used
+        verify(mNetd).interfaceSetCfg(argThat(cfg -> !serverAddr.equals(cfg.ipv4Addr)));
         verify(mIpServerDependencies, times(1)).makeDhcpServer(any(), dhcpParamsCaptor.capture(),
                 any());
         final DhcpServingParamsParcel params = dhcpParamsCaptor.getValue();
-        assertEquals(serverAddr, intToInet4AddressHTH(params.serverAddr).getHostAddress());
+        assertNotEquals(serverAddr, intToInet4AddressHTH(params.serverAddr).getHostAddress());
         assertEquals(24, params.serverAddrPrefixLength);
-        assertEquals(clientAddrParceled, params.singleClientAddr);
+        assertNotEquals(clientAddrParceled, params.singleClientAddr);
     }
 
     @Test
