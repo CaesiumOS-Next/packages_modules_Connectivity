@@ -708,7 +708,8 @@ public class Tethering {
             // If tethering is already enabled with a different request,
             // disable before re-enabling.
             if (unfinishedRequest != null && !unfinishedRequest.equalsIgnoreUidPackage(request)) {
-                stopTetheringInternal(type);
+                enableTetheringInternal(false /* disabled */, unfinishedRequest, null);
+                mEntitlementMgr.stopProvisioningIfNeeded(type);
             }
             mPendingTetheringRequests.put(type, request);
 
