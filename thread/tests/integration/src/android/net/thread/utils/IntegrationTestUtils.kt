@@ -483,11 +483,20 @@ object IntegrationTestUtils {
     @JvmStatic
     @Throws(Exception::class)
     fun discoverService(nsdManager: NsdManager, serviceType: String): NsdServiceInfo {
+        return discoverServiceUntil(nsdManager, serviceType) { true }
+    }
+
+    /** Returns the first discovered service that satisfies the `predicate`.  */
+    @JvmStatic
+    @Throws(Exception::class)
+    fun discoverServiceUntil(nsdManager: NsdManager, serviceType: String, predicate: Predicate<NsdServiceInfo>): NsdServiceInfo {
         val serviceInfoFuture = CompletableFuture<NsdServiceInfo>()
         val listener: NsdManager.DiscoveryListener = object : DefaultDiscoveryListener() {
             override fun onServiceFound(serviceInfo: NsdServiceInfo) {
                 Log.d(TAG, "onServiceFound: $serviceInfo")
-                serviceInfoFuture.complete(serviceInfo)
+                if (predicate.test(serviceInfo)) {
+                    serviceInfoFuture.complete(serviceInfo)
+                }
             }
         }
         nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, listener)
