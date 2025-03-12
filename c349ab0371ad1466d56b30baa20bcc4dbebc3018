@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfa65495_d34bc5c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-12T03:16:02Z",
+      "side": 1,
+      "message": "LGTM with nits.\nIt seems to me jchalard@ or reminv@ should take a look.",
+      "revId": "c349ab0371ad1466d56b30baa20bcc4dbebc3018",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bc058e9_3225a7f1",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-12T03:16:02Z",
+      "side": 1,
+      "message": "maybe name it delta or something else to reflect what it is?",
+      "range": {
+        "startLine": 210,
+        "startChar": 31,
+        "endLine": 210,
+        "endChar": 36
+      },
+      "revId": "c349ab0371ad1466d56b30baa20bcc4dbebc3018",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
