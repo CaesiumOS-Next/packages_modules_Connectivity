@@ -21,7 +21,6 @@ import static com.android.net.module.util.NetdUtils.toRouteInfoParcel;
 import android.annotation.NonNull;
 import android.content.Context;
 import android.net.INetd;
-
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
@@ -77,11 +76,12 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
      * @param route the route to add
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *         cause of the failure.
+     * @deprecated Use {@link #addRouteWithLocalRoute(int, RouteInfo, boolean)} instead.
      */
     @Override
     public void addRoute(final int netId, final RouteInfo route)
             throws ServiceSpecificException, RemoteException {
-        mNetd.networkAddRouteParcel(netId, toRouteInfoParcel(route));
+        mNetd.networkAddRouteParcel(netId, NetdUtils.toRouteInfoParcelLegacy(route));
     }
 
     /**
@@ -91,11 +91,12 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
      * @param route the route to remove
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *         cause of the failure.
+     * @deprecated Use {@link #removeRouteWithLocalRoute(int, RouteInfo, boolean)} instead.
      */
     @Override
     public void removeRoute(final int netId, final RouteInfo route)
             throws ServiceSpecificException, RemoteException {
-        mNetd.networkRemoveRouteParcel(netId, toRouteInfoParcel(route));
+        mNetd.networkRemoveRouteParcel(netId, NetdUtils.toRouteInfoParcelLegacy(route));
     }
 
     /**
@@ -105,11 +106,30 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
      * @param route parcelable with route information
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
      *         cause of the failure.
+     * @deprecated Use {@link #updateRouteWithLocalRoute(int, RouteInfo, boolean)} instead.
      */
     @Override
     public void updateRoute(final int netId, final RouteInfo route)
             throws ServiceSpecificException, RemoteException {
-        mNetd.networkUpdateRouteParcel(netId, toRouteInfoParcel(route));
+        mNetd.networkUpdateRouteParcel(netId, NetdUtils.toRouteInfoParcelLegacy(route));
+    }
+
+    @Override
+    public void addRouteWithLocalRoute(int netId, RouteInfo route, boolean isLocalRoute)
+            throws RemoteException {
+        mNetd.networkAddRouteParcel(netId, toRouteInfoParcel(route, isLocalRoute));
+    }
+
+    @Override
+    public void removeRouteWithLocalRoute(int netId, RouteInfo route, boolean isLocalRoute)
+            throws RemoteException {
+        mNetd.networkRemoveRouteParcel(netId, toRouteInfoParcel(route, isLocalRoute));
+    }
+
+    @Override
+    public void updateRouteWithLocalRoute(int netId, RouteInfo route, boolean isLocalRoute)
+            throws RemoteException {
+        mNetd.networkUpdateRouteParcel(netId, toRouteInfoParcel(route, isLocalRoute));
     }
 
     /**

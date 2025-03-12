@@ -1472,4 +1472,5 @@ interface INetd {
      *         cause of the failure.
      */
     void networkAllowBypassVpnOnNetwork(boolean allow, int uid, int netId);
+
 }
