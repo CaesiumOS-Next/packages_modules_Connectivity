@@ -65,7 +65,9 @@ public class MdnsServiceTypeClient {
     @VisibleForTesting
     static final int EVENT_START_QUERYTASK = 1;
     static final int EVENT_QUERY_RESULT = 2;
+    static final int EVENT_REMOVE_EXPIRED_SERVICES = 3;
     static final int INVALID_TRANSACTION_ID = -1;
+    static final long REMOVE_SERVICE_AFTER_QUERY_SENT_TIME = 2000L;
 
     private final String serviceType;
     private final String[] serviceTypeLabels;
@@ -184,7 +186,17 @@ public class MdnsServiceTypeClient {
                         }
                     }
 
-                    tryRemoveServiceAfterTtlExpires();
+                    if (featureFlags.mIsOptimizedExpiredServiceRemovalEnabled) {
+                        // A query is sent. Schedule a task with a delay to wait for responses, and
+                        // then remove expired services, and notify listeners.
+                        dependencies.sendMessageDelayed(
+                                handler,
+                                handler.obtainMessage(EVENT_REMOVE_EXPIRED_SERVICES),
+                                REMOVE_SERVICE_AFTER_QUERY_SENT_TIME);
+                    } else {
+                        tryRemoveServiceAfterTtlExpires();
+                    }
+
 
                     final long now = clock.elapsedRealtime();
                     lastSentTime = now;
@@ -212,6 +224,11 @@ public class MdnsServiceTypeClient {
                                 handler.obtainMessage(EVENT_START_QUERYTASK, args),
                                 timeToNextTaskMs);
                     }
+                    break;
+                }
+                case EVENT_REMOVE_EXPIRED_SERVICES: {
+                    serviceCache.doRemoveExpiredServiceAndNotifyListeners(
+                            cacheKey, clock.elapsedRealtime());
                     break;
                 }
                 default:
