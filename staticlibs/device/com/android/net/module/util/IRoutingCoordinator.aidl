@@ -61,6 +61,39 @@ interface IRoutingCoordinator {
     void updateRoute(int netId, in RouteInfo route);
 
     /**
+    * Add a route for specific network
+    *
+    * @param netId the network to add the route to
+    * @param route the route to add
+    * @param isLocalRoute true if route is local network route
+    * @throws ServiceSpecificException in case of failure, with an error code indicating the
+    *         cause of the failure.
+    */
+    void addRouteWithLocalRoute(int netId, in RouteInfo route, boolean isLocalRoute);
+
+   /**
+    * Remove a route for specific network
+    *
+    * @param netId the network to remove the route from
+    * @param route the route to remove
+    * @param isLocalRoute true if route is local network route
+    * @throws ServiceSpecificException in case of failure, with an error code indicating the
+    *         cause of the failure.
+    */
+    void removeRouteWithLocalRoute(int netId, in RouteInfo route, boolean isLocalRoute);
+
+    /**
+    * Update a route for specific network
+    *
+    * @param netId the network to update the route for
+    * @param route parcelable with route information
+    * @param isLocalRoute true if route is local network route
+    * @throws ServiceSpecificException in case of failure, with an error code indicating the
+    *         cause of the failure.
+    */
+    void updateRouteWithLocalRoute(int netId, in RouteInfo route, boolean isLocalRoute);
+
+    /**
      * Adds an interface to a network. The interface must not be assigned to any network, including
      * the specified network.
      *

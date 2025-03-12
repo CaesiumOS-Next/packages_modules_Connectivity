@@ -21,7 +21,6 @@ import static com.android.net.module.util.NetdUtils.toRouteInfoParcel;
 import android.annotation.NonNull;
 import android.content.Context;
 import android.net.INetd;
-
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
@@ -110,6 +109,24 @@ public class RoutingCoordinatorService extends IRoutingCoordinator.Stub {
     public void updateRoute(final int netId, final RouteInfo route)
             throws ServiceSpecificException, RemoteException {
         mNetd.networkUpdateRouteParcel(netId, toRouteInfoParcel(route));
+    }
+
+    @Override
+    public void addRouteWithLocalRoute(int netId, RouteInfo route, boolean isLocalRoute)
+            throws RemoteException {
+        mNetd.networkAddRouteParcel(netId, toRouteInfoParcel(route, isLocalRoute));
+    }
+
+    @Override
+    public void removeRouteWithLocalRoute(int netId, RouteInfo route, boolean isLocalRoute)
+            throws RemoteException {
+        mNetd.networkRemoveRouteParcel(netId, toRouteInfoParcel(route, isLocalRoute));
+    }
+
+    @Override
+    public void updateRouteWithLocalRoute(int netId, RouteInfo route, boolean isLocalRoute)
+            throws RemoteException {
+        mNetd.networkUpdateRouteParcel(netId, toRouteInfoParcel(route, isLocalRoute));
     }
 
     /**

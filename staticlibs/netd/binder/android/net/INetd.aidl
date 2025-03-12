@@ -1472,4 +1472,89 @@ interface INetd {
      *         cause of the failure.
      */
     void networkAllowBypassVpnOnNetwork(boolean allow, int uid, int netId);
+
+    /**
+    * Add a route to legacy routing table for specific network
+    *
+    * @param netId the network to add the route to
+    * @param ifName the name of interface of the route.
+    *               This interface should be assigned to the netID.
+    * @param destination the destination of the route
+    * @param nextHop The route's next hop address,
+    *                or it could be either NEXTHOP_NONE, NEXTHOP_UNREACHABLE, NEXTHOP_THROW.
+    * @param uid uid of the user
+    * @param isLocalRoute true if route is local network route
+    * @throws ServiceSpecificException in case of failure, with an error code indicating the
+    *         cause of the failure.
+    */
+    void networkAddLegacyRouteWithLocalRoute(
+            int netId,
+            in @utf8InCpp String ifName,
+            in @utf8InCpp String destination,
+            in @utf8InCpp String nextHop,
+            int uid,
+            boolean isLocalRoute);
+
+   /**
+    * Remove a route from legacy routing table for specific network
+    *
+    * @param netId the network to remove the route from
+    * @param ifName the name of interface of the route.
+    *               This interface should be assigned to the netID.
+    * @param destination the destination of the route
+    * @param nextHop The route's next hop address,
+    *                or it could be either NEXTHOP_NONE, NEXTHOP_UNREACHABLE, NEXTHOP_THROW.
+    * @param uid uid of the user
+    * @param isLocalRoute true if route is local network route
+    * @throws ServiceSpecificException in case of failure, with an error code indicating the
+    *         cause of the failure.
+    */
+    void networkRemoveLegacyRouteWithLocalRoute(
+            int netId,
+            in @utf8InCpp String ifName,
+            in @utf8InCpp String destination,
+            in @utf8InCpp String nextHop,
+            int uid,
+            boolean isLocalRoute);
+
+    /**
+    * Add a route for specific network
+    *
+    * @param netId the network to add the route to
+    * @param ifName the name of interface of the route.
+    *               This interface should be assigned to the netID.
+    * @param destination the destination of the route
+    * @param nextHop The route's next hop address,
+    *                or it could be either NEXTHOP_NONE, NEXTHOP_UNREACHABLE, NEXTHOP_THROW.
+    * @param isLocalRoute true if route is local network route
+    * @throws ServiceSpecificException in case of failure, with an error code indicating the
+    *         cause of the failure.
+    */
+    void networkAddRouteWithLocalRoute(
+            int netId,
+            in @utf8InCpp String ifName,
+            in @utf8InCpp String destination,
+            in @utf8InCpp String nextHop,
+            boolean isLocalRoute);
+
+   /**
+    * Remove a route for specific network
+    *
+    * @param netId the network to remove the route from
+    * @param ifName the name of interface of the route.
+    *               This interface should be assigned to the netID.
+    * @param destination the destination of the route
+    * @param nextHop The route's next hop address,
+    *                or it could be either NEXTHOP_NONE, NEXTHOP_UNREACHABLE, NEXTHOP_THROW.
+    * @param isLocalRoute true if route is local network route
+    * @throws ServiceSpecificException in case of failure, with an error code indicating the
+    *         cause of the failure.
+    */
+    void networkRemoveRouteWithLocalRoute(
+            int netId,
+            in @utf8InCpp String ifName,
+            in @utf8InCpp String destination,
+            in @utf8InCpp String nextHop,
+            boolean isLocalRoute);
+
 }
