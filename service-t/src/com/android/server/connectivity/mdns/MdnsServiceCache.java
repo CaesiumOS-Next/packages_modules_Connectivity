@@ -20,6 +20,7 @@ import static com.android.net.module.util.DnsUtils.equalsIgnoreDnsCase;
 import static com.android.net.module.util.DnsUtils.toDnsUpperCase;
 import static com.android.net.module.util.HandlerUtils.ensureRunningOnHandlerThread;
 import static com.android.server.connectivity.mdns.MdnsResponse.EXPIRATION_NEVER;
+import static com.android.server.connectivity.mdns.MdnsServiceTypeClient.REMOVE_SERVICE_AFTER_QUERY_SENT_TIME;
 import static com.android.server.connectivity.mdns.util.MdnsUtils.responseMatchesInstanceNameAndSubtypes;
 
 import static java.lang.Math.min;
@@ -94,6 +95,12 @@ public class MdnsServiceCache {
             mService = service;
             mServiceExpired = false;
             mFirstQueryTimeAfterLastUpdate = NEVER_SENT_QUERY;
+        }
+
+        boolean isServiceQueriedAfterLastUpdate(long now) {
+            return mFirstQueryTimeAfterLastUpdate != NEVER_SENT_QUERY
+                    && (now - mFirstQueryTimeAfterLastUpdate)
+                    >= REMOVE_SERVICE_AFTER_QUERY_SENT_TIME;
         }
     }
 
@@ -356,6 +363,23 @@ public class MdnsServiceCache {
         return removedServices;
     }
 
+    static List<CachedService> removeExpiredServicesIfQuerySent(
+            @NonNull List<CachedService> cachedServices, long now) {
+        final List<CachedService> removedServices = new ArrayList<>();
+        final Iterator<CachedService> iterator = cachedServices.iterator();
+        while (iterator.hasNext()) {
+            final CachedService cachedService = iterator.next();
+            if (!cachedService.mServiceExpired
+                    || !cachedService.isServiceQueriedAfterLastUpdate(now)) {
+                continue;
+            }
+            // Remove the ttl expired service.
+            iterator.remove();
+            removedServices.add(cachedService);
+        }
+        return removedServices;
+    }
+
     private long getNextExpirationTime(long now) {
         if (mCachedServices.isEmpty()) {
             return EXPIRATION_NEVER;
@@ -373,25 +397,27 @@ public class MdnsServiceCache {
     }
 
     /**
-     * Check whether the ttl time is expired on each service and notify to the listeners
+     * Check for expired services, remove them if they meet the removal criteria, and notify
+     * listeners.
+     *
+     * @param cacheKey the target CacheKey.
+     * @param now current time
+     * @return {@code true} if any expired service is removed, {@code false} otherwise.
      */
-    private void maybeRemoveExpiredServices(CacheKey cacheKey, long now) {
-        ensureRunningOnHandlerThread(mHandler);
-        if (now < mNextExpirationTime) {
-            // Skip the check if ttl time is not expired.
-            return;
-        }
-
+    public boolean removeExpiredServicesAndNotifyListeners(CacheKey cacheKey, long now) {
         final List<CachedService> cachedServices = mCachedServices.get(cacheKey);
         if (cachedServices == null) {
             // No such services.
-            return;
+            return false;
         }
 
-        final List<CachedService> removedServices = removeExpiredServices(cachedServices, now);
+        final List<CachedService> removedServices =
+                mMdnsFeatureFlags.mIsOptimizedExpiredServiceRemovalEnabled
+                        ? removeExpiredServicesIfQuerySent(cachedServices, now)
+                        : removeExpiredServices(cachedServices, now);
         if (removedServices.isEmpty()) {
             // No expired services.
-            return;
+            return false;
         }
 
         for (CachedService previousService : removedServices) {
@@ -401,6 +427,27 @@ public class MdnsServiceCache {
         // Remove the serviceType if no response.
         if (cachedServices.isEmpty()) {
             mCachedServices.remove(cacheKey);
+        }
+        return true;
+    }
+
+    /**
+     * Check whether the ttl time is expired on each service and notify to the listeners
+     */
+    private void maybeRemoveExpiredServices(CacheKey cacheKey, long now) {
+        ensureRunningOnHandlerThread(mHandler);
+        if (now < mNextExpirationTime) {
+            // Skip the check if ttl time is not expired.
+            return;
+        }
+
+        if (mMdnsFeatureFlags.mIsOptimizedExpiredServiceRemovalEnabled) {
+            if (markExpiredServices(cacheKey, now) == 0) {
+                // No expired services.
+                return;
+            }
+        } else if (!removeExpiredServicesAndNotifyListeners(cacheKey, now)) {
+            return;
         }
 
         // Update next expiration time.
