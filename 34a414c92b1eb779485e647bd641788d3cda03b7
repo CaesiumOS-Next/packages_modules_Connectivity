@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43afd411_230278b9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "DUPLICATE? This is sort of the same as the one below, except the semantics are a bit different between V- and B+.",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 27
+      },
+      "revId": "34a414c92b1eb779485e647bd641788d3cda03b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29d881b7_885c27fc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "Should this be a defensive copy? Or maybe you can call this getPendingTetheringRequestsNoCopy?",
+      "range": {
+        "startLine": 87,
+        "startChar": 15,
+        "endLine": 87,
+        "endChar": 31
+      },
+      "revId": "34a414c92b1eb779485e647bd641788d3cda03b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87af9835_1271472a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 92,
+        "startChar": 21,
+        "endLine": 92,
+        "endChar": 24
+      },
+      "revId": "34a414c92b1eb779485e647bd641788d3cda03b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57893c40_3c87156b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "V (see other comment).",
+      "range": {
+        "startLine": 187,
+        "startChar": 17,
+        "endLine": 187,
+        "endChar": 18
+      },
+      "revId": "34a414c92b1eb779485e647bd641788d3cda03b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20def6f1_d5d092d4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "This is not true: the method is not a no-op because it removes the pending request from the pending request list. Should it actually be a no-op?",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 30
+      },
+      "revId": "34a414c92b1eb779485e647bd641788d3cda03b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5663b73_53b02bd9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "Nit: this is not really necessary. If fuzzy matching is off, then the get below is guaranteed to return null anyway.",
+      "range": {
+        "startLine": 222,
+        "startChar": 8,
+        "endLine": 222,
+        "endChar": 44
+      },
+      "revId": "34a414c92b1eb779485e647bd641788d3cda03b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07e6b4e0_2c076c93",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "Is this check correct? Even if there\u0027s no pending request for some reason, shouldn\u0027t we always call the callback?",
+      "range": {
+        "startLine": 933,
+        "startChar": 16,
+        "endLine": 933,
+        "endChar": 38
+      },
+      "revId": "34a414c92b1eb779485e647bd641788d3cda03b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "983333cb_2b7f84ad",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "Convention in the rest of the code would be to say \"V-\" here (\"V or older\").",
+      "range": {
+        "startLine": 1298,
+        "startChar": 66,
+        "endLine": 1298,
+        "endChar": 67
+      },
+      "revId": "34a414c92b1eb779485e647bd641788d3cda03b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0d40b85_6504ba14",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1299,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "serving",
+      "range": {
+        "startLine": 1299,
+        "startChar": 19,
+        "endLine": 1299,
+        "endChar": 26
+      },
+      "revId": "34a414c92b1eb779485e647bd641788d3cda03b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10f8ed7b_8cacf6d6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "V",
+      "range": {
+        "startLine": 1300,
+        "startChar": 63,
+        "endLine": 1300,
+        "endChar": 64
+      },
+      "revId": "34a414c92b1eb779485e647bd641788d3cda03b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

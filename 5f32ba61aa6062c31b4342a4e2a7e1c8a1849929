@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe0f471f_1851b08a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "Code LGTM but still need to look at the tests.",
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31475271_3fac99a5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "Nit: might want to remove this, since all these methods run on the handler thread anyway. Separate CL is fine.",
+      "range": {
+        "startLine": 1183,
+        "startChar": 0,
+        "endLine": 1184,
+        "endChar": 93
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f1aaedb_6445a578",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "Would simplify to:\n\n    // Note: serving requests are only populated on B+. B+ also uses the sync state\n    // machine by default. This ensures that the serving request is (correctly) populated\n    // after the IpServer enters the available state and before it enters the serving\n    // state.",
+      "range": {
+        "startLine": 1299,
+        "startChar": 0,
+        "endLine": 1303,
+        "endChar": 86
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f17501c0_1c376d60",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2918,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "This depends on whether the sync state machine is on or not, right? Maybe remove this part of the comment?",
+      "range": {
+        "startLine": 2918,
+        "startChar": 33,
+        "endLine": 2918,
+        "endChar": 81
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "780c2291_6362e381",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2922,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "// TODO: remove this comment once the sync state machine is enabled everywhere.",
+      "range": {
+        "startLine": 2922,
+        "startChar": 99,
+        "endLine": 2922,
+        "endChar": 100
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef942792_e317fee7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2943,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "// TODO: don\u0027t continue to use IpServers after they have hit an error, and instead\n    // move them to STATE_UNAVAILABLE. This code can then unconditionally remove the\n    // serving request whenever the IpServer enters STATE_UNAVAILABLE.",
+      "range": {
+        "startLine": 2943,
+        "startChar": 76,
+        "endLine": 2943,
+        "endChar": 77
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4af7706e_fd695c92",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 3044,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-12T10:59:17Z",
+      "side": 1,
+      "message": "Per discussion, I wouldn\u0027t change the ordering here. Moving to the sync state machine here changes the ordering of events (with the old async state machine, the tetherstate is removed *before* the IpServer stops; with the sync state machine the IpServer is stopped while the tetherstate still exists) and may be causing flaky behaviour, but it seems better *not* to fix that in this CL and instead submit a separate CL to address that.",
+      "range": {
+        "startLine": 3044,
+        "startChar": 29,
+        "endLine": 3044,
+        "endChar": 33
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
