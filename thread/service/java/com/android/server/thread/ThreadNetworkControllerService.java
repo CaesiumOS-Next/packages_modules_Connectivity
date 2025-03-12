@@ -879,8 +879,10 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                         .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED);
         final var scoreBuilder = new NetworkScore.Builder();
 
-        netCapsBuilder.addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK);
-        scoreBuilder.setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK);
+        if (isBorderRouterMode()) {
+            netCapsBuilder.addCapability(NetworkCapabilities.NET_CAPABILITY_LOCAL_NETWORK);
+            scoreBuilder.setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_LOCAL_NETWORK);
+        }
 
         return new NetworkAgent(
                 mContext,
@@ -888,7 +890,7 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 LOG.getTag(),
                 netCapsBuilder.build(),
                 getTunIfLinkProperties(),
-                newLocalNetworkConfig(),
+                isBorderRouterMode() ? newLocalNetworkConfig() : null,
                 scoreBuilder.build(),
                 new NetworkAgentConfig.Builder().build(),
                 mNetworkProvider) {
@@ -897,8 +899,9 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
             @Override
             public void onNetworkUnwanted() {
                 LOG.i("Thread network is unwanted by ConnectivityService");
-                // TODO(b/374037595): leave() the current network when the new APIs for mobile
-                // is available
+                if (!isBorderRouterMode()) {
+                    leave(false /* eraseDataset */, new LoggingOperationReceiver("leave"));
+                }
             }
         };
     }
