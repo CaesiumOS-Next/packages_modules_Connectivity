@@ -132,9 +132,11 @@ public class MdnsServiceCache {
         mClock = clock;
     }
 
-    private List<MdnsResponse> cachedServicesToResponses(List<CachedService> cachedServices) {
+    private List<MdnsResponse> cachedServicesToResponses(List<CachedService> cachedServices,
+            boolean excludeExpiredServices) {
         final List<MdnsResponse> responses = new ArrayList<>();
         for (CachedService cachedService : cachedServices) {
+            if (excludeExpiredServices && cachedService.mServiceExpired) continue;
             responses.add(cachedService.mService);
         }
         return responses;
@@ -147,14 +149,16 @@ public class MdnsServiceCache {
      * @return the set of services which matches the given service type.
      */
     @NonNull
-    public List<MdnsResponse> getCachedServices(@NonNull CacheKey cacheKey) {
+    public List<MdnsResponse> getCachedServices(@NonNull CacheKey cacheKey,
+            boolean excludeExpiredServices) {
         ensureRunningOnHandlerThread(mHandler);
         if (mMdnsFeatureFlags.mIsExpiredServicesRemovalEnabled) {
             maybeRemoveExpiredServices(cacheKey, mClock.elapsedRealtime());
         }
         return mCachedServices.containsKey(cacheKey)
                 ? Collections.unmodifiableList(
-                        cachedServicesToResponses(mCachedServices.get(cacheKey)))
+                        cachedServicesToResponses(mCachedServices.get(cacheKey),
+                                excludeExpiredServices))
                 : Collections.emptyList();
     }
 
@@ -193,7 +197,8 @@ public class MdnsServiceCache {
      * @return the service which matches given conditions.
      */
     @Nullable
-    public MdnsResponse getCachedService(@NonNull String serviceName, @NonNull CacheKey cacheKey) {
+    public MdnsResponse getCachedService(@NonNull String serviceName, @NonNull CacheKey cacheKey,
+            boolean excludeExpiredServices) {
         ensureRunningOnHandlerThread(mHandler);
         if (mMdnsFeatureFlags.mIsExpiredServicesRemovalEnabled) {
             maybeRemoveExpiredServices(cacheKey, mClock.elapsedRealtime());
@@ -203,7 +208,8 @@ public class MdnsServiceCache {
             return null;
         }
         final CachedService cachedService = findMatchedCachedService(cachedServices, serviceName);
-        return cachedService != null ? new MdnsResponse(cachedService.mService) : null;
+        return cachedService != null && !(excludeExpiredServices && cachedService.mServiceExpired)
+                ? new MdnsResponse(cachedService.mService) : null;
     }
 
     static void insertServiceAndSortList(
@@ -461,6 +467,36 @@ public class MdnsServiceCache {
         final CachedService cachedService = findMatchedCachedService(cachedServices, serviceName);
         return cachedService != null
                 ? cachedService.mFirstQueryTimeAfterLastUpdate : NEVER_SENT_QUERY;
+    }
+
+    /**
+     * Check for expired services and mark them if their TTL has expired.
+     *
+     * @param cacheKey the target CacheKey.
+     * @param now      current time.
+     * @return the number of services marked as expired.
+     */
+    public int markExpiredServices(@NonNull CacheKey cacheKey, long now) {
+        ensureRunningOnHandlerThread(mHandler);
+        final List<CachedService> cachedServices = mCachedServices.get(cacheKey);
+        if (cachedServices == null) {
+            // No such services.
+            return 0;
+        }
+
+        int count = 0;
+        for (CachedService cachedService : cachedServices) {
+            if (cachedService.mServiceExpired) continue;
+            if (!cachedService.mService.hasServiceRecord()
+                    || cachedService.mService.getMinRemainingTtl(now) > 0) {
+                // The responses are sorted by the service record ttl time. Break out of loop
+                // early if service is not expired or no service record.
+                break;
+            }
+            cachedService.mServiceExpired = true;
+            count++;
+        }
+        return count;
     }
 
     /**
